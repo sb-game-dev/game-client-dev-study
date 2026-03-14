@@ -7,14 +7,21 @@ Release/
 x64/
 x86/
 
+# Compiled object files
+*.obj
+*.exe
+*.pdb
+*.idb
+*.iobj
+
 # IntelliSense
 ipch/
+*.sdf
+*.opensdf
 
 # User-specific files
 *.user
 *.suo
-
-# Visual Studio cache
 *.VC.db
 *.VC.opendb
 
