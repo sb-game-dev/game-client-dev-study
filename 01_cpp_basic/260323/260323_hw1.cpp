@@ -3,8 +3,7 @@
 using namespace std;
 int main()
 {
-	// 1. 가위 바위 보 게임 만들기
-
+// 1. 가위 바위 보 게임 만들기
 // - 난수 0 ~ 2까지 중 하나를 생성한다.(컴퓨터)
 // - 1.가위 2.바위 3.보 4.종료(사용자)
 // - 사용자가 낸 것과 컴퓨터가 낸 것을 비교 게임 결과를 매 라운드마다 출력
@@ -21,7 +20,7 @@ int main()
 		{
 			break;
 		}
-		if (iCom == 0 && iInput == 2 || iCom == 1 && iInput == 3 || iCom == 2 && iInput==1) 
+		if ((iCom + 2)%3==iInput) 
 		{
 			iWin++;
 		}

@@ -15,14 +15,18 @@ void ex2()
 {
 	int iDan = 2, iGob = 1;
 	cin >> iDan >> iGob;
-	for (int i = 2; i <= iDan + 1; i++)
+	for (int i = 2; i <= iDan; i++)
 	{
-		cout << "------------------------" << endl;
+		cout << "<" << i << "´Ü>" << endl;
 		for (int j = 1; j <= iGob; j++)
 		{
 			cout << i << " x " << j << " = " << i * j << endl;
 		}
 	}
+}
+void ex3()
+{
+	
 }
 int main()
 {
