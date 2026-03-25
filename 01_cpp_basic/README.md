@@ -1,6 +1,6 @@
 # C++ 기초 정리
 
-### 1일차 (260316)
+### 1일차 (260316) 
 <details>
   <summary>c++ 동작 순서</summary>
 
@@ -26,13 +26,187 @@
   - 디버그는 프로그램을실행하면서 중간중간 변수의 값이나 함수의 호출 등을 확인할 수 있는 모드
 </details>
 
-### 2일차 260317. 
-변수와 자료형(크기)
+### 2일차 (260317) 변수, 상수, 자료형
+<details>
+  <summary>자료형</summary>
+
+  - 정수형 자료형 : short(2byte), int(4byte), long(4byte), long long(8byte)
+  - 실수형 자료형 : float(4byte), double(8byte), long double(16byte)
+  - 문자열 자료형 : char(1byte), wchar_t(2byte)
+  - 논리형 자료형 : bool(1byte)  
+</details>
+<details>
+  <summary>변수 표기법</summary>
+
+  - 헝가리안 표기법: iData, fPi, cName, bIsTrue  
+  - 파스칼 표기법 : PlayerHp  
+  - 카멜 표기법: playerHp  
+  - 스네이크 표기법 : is_true  
+</details>
+<details>
+  <summary>bit와 byte</summary>
+
+  - bit: 연산의 최소 단위  
+  - byte: 저장의 최소 단위  
+  - 1byte = 8bit  
+</details>
+<details>
+  <summary>signed 와 unsigned</summary>
+
+  - signed: - 부호가 있음  
+  - unsigned: -부호가 없음  
+  - 1byte = 8bit  
+</details>
+<details>
+  <summary>고정 소수점과 부동 소수점</summary>
+
+  - 고정 소수점 방식: 소수점의 위치가 고정 되어있는 방식 주로 사용자가 직접 구현함  
+    (실제)1/3 + 1/3 + 1/3 = 1  
+    (컴터)0.33 + 0.33 + 0.33 = 0.99 로 계산할 수 있음(오차 발생하지만 예측 가능함)  
+    
+  - 부동 소수점의 방식: 소수점의 위치가 고정되어있지 않음, 실제 소수값으로 저장되지 않고 유사 값으로 저장.(컴퓨터는 이진수 연산하기 때문)  
+    (실제) 0.1 + 0.2 = 0.3  
+    (컴터) 0.1 + 0.2 = 0.30000000000000004  
+  
+</details>
 
 ### 3일차 260319. 연산자
+<details>
+  <summary>sizeof</summary>
 
-### 4일차 260320. 분기문
+  - sizeof 연산자: 자료형의 크기를 계산해주는 연산자  
+    ``cout<< sizeof(char)<<endl; //1``
+</details>
 
-### 5일차 260323. 반복문
+<details>
+  <summary>L-value와 R-value</summary>
 
-### 6일차 260324. 메모리 및 기본 함수
+  - R-Value : 대입 연산자(=)를 기준으로 오른쪽에만 위치할 수 있는 데이터 형식  
+    ```cpp
+    int iTest = 100; //100이 R-Value, 리터럴 상수들이 R-Value에 해당
+    ```  
+    
+  - L-Value: 대입 연산자(=)를 기준으로 왼쪽 오른쪽 모두 위치 가능한 데이터 형식  
+    ```cpp
+    int iSrc = iTest; //iSrc와 iTest 모두 L-Value에 해당
+    
+    const int iConst = 100;
+    iSrc = iConst; //const 변수도 L-Value에 해당
+    ```
+</details>
+
+<details>
+  <summary>비트 연산자</summary>
+
+  - 비트 연산자 : 2진수 형태에서 연산을 수행시켜주는 연산자. 정수만 사용 가능. 방향키 입력으로 캐릭터 이동시킬 때 사용
+  - &(and): 비교하는 두 비트의 값이 모두 1인 경우 1  
+  - |(or) : 비교하는 두 비트의 값중 하나가 1인 경우 1  
+  - ~(not) : 비트 값을 반대로  
+  - ^(XOR): 비교하는 두 비트의 값이 다른 경우 1
+  ```cpp
+  // LEFT			0001
+  // RIGHT		0010
+  // UP			  0100
+  // DOWN			1000
+  // 
+  // LEFT | UP   ->  0101
+  // 0101 & LEFT ->  0001
+  // LEFT ^ LEFT ->  0000
+  ```
+</details>
+
+<details>
+  <summary>삼항 연산자</summary>
+
+  > 삼항 연산자 : 연산의 항목이 세 개이며, 짧은 코드로 분기를 하고자 할 때 사용  
+   - 주로 최대, 최소 값을 표현하는 용도로 사용  
+   - 긴 코드를 작성하기 까다롭고, 가독성이 떨어진다.  
+   - 1항(조건식) ? 2항(조건이 참인 경우) : 3항(조건이 거짓인 경우)  
+
+  ```cpp
+  for(int i=0;i<n;i++)
+  {
+    iMax = (arr[i]>iMax) ? arr[i] : iMax;
+  }
+  ```  
+</details>
+
+### 4일차 (260320) 분기문, while
+<details>
+  <summary>goto</summary>
+  
+  - goto: 선언한 레이블을 기준으로 이전, 이후 코드로 분기하는 문법  
+  ```cpp
+  goto Jump;
+  int iTemp = 100;
+  cout << iTemp;
+
+  Jump;
+  cout<<2<<endl;
+  cout<<iTemp<<endl;
+  ```
+</details>
+<details>
+  <summary>switch</summary>
+  
+  - switch: 상수(조건)분기문, 조건식에 무조건 정수만 올 수 있음.
+  ```cpp
+switch(num)
+{
+case 1:
+  break;
+case 2:
+  break;
+case 3:
+  break;
+default:
+  break;
+}
+  ```
+</details>
+
+### 5일차 (260323) do-while, for
+<details>
+  <summary>do-while</summary>
+  
+  - do-while: 무조건 한 번은 실행하고 조건을 확인하여 반복을 결정
+```cpp
+do
+{
+  //코드 몸체;
+}while();
+```
+</details>
+
+### 6일차 (260324) 메모리 및 기본 함수
+<details>
+  <summary>메모리</summary>
+  
+  - 메모리 계층 구성요소: data(data,bss) // heap // stack    
+  - 메모리 계층을 넘나드는 것은 좋지 않음.  
+  - 변수 및 상수 사용시 가상 메모리 할당 후 사용 가능  
+  - 상수는 가상 메모리에 할당 후 다음 줄로 넘어가면 할당 해제  
+  - 변수는 가상 메모리에 할당 후 접근 범위를 벗어나면 할당 해제
+
+  |메모리 이름|변수|
+  |:----:|:----:|
+  |**data**|전역변수,static 변수 |
+  |**heap**|포인터 |
+  |**stack**|지역변수 |
+
+
+  |static|dynamic|
+  |:------:|:-------:|
+  |정적|동적|
+  |컴파일타임|런타임|
+  |data에 저장|stack에 저장|
+
+  | 구분 | 메모리 | 접근 범위 |
+  |:--------:|:----------:|:----------:|
+  |지역변수|stack|함수 내부|
+  |static 지역변수|data|함수 내부|
+  |전역변수|data|모든 파일|
+  |static 전역변수|data|현재 파일만|
+  
+  
+</details>
