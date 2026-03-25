@@ -68,6 +68,5 @@ int main()
 			res = arr[i][j] > res ? arr[i][j] : res;
 		}
 	}
-	//수정 되는지 확인
 	cout << res-1;
 }
