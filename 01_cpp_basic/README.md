@@ -210,3 +210,118 @@ do
   
   
 </details>
+
+### 7일차 (2600326) 함수 기본 문법 및 포인터
+
+<details>
+  <summary>함수 오버로딩</summary>
+  
+  - 이름이 같은 함수를 사용할 때 어떤 함수를 호출할 지 결정  
+  - 매개변수의 종류와 갯수가 같은 것들을 먼저 사용
+  - 반환값의 종류와는 상관 없음.
+```cpp
+void Render();
+void Render(int iA, int iB);
+int main()
+{
+  int iDst = 10, iSrc = 20;
+  Render(iDst,iSrc); // 30 출력됨
+}
+void Render()
+{
+  cout<< "hello world"<<endl;
+}
+void Render(int _iDst, int _Src)
+{
+  cout<<_iDst+_iSrc;
+}
+```
+</details>
+
+<details>
+  <summary>default 매개변수</summary>
+  
+  - 매개변수를 선언할 때 매개변수에 값을 할당하는 방법.  
+  - 매개변수가 거의 고정인 경우 사용.  
+  - 반드시 뒤에있는 매개변수부터 순차적으로 할당해야 함.  
+  - 함수 오버로딩과 혼용할 경우 모호해지는 경우가 있음.   
+```cpp
+void Render(int iA,int iB = 100);
+int main()
+{
+  Render(10);// 매개변수를 하나만 넣었지만 실행 가능.
+}
+void Render(int iA,int iB)
+{
+  cout<<iA+iB<<endl;
+}
+
+```
+</details>
+
+<details>
+  <summary>재귀함수</summary>
+
+  - 관습적으로 점점 줄어드는 재귀를 사용함.   
+  - 재귀함수를 사용할 때 매 번 스텍 프레임을 생성하기 때문에 메모리 효율이 좋지 못함.  
+  - 프로그램 완성 후 반복문으로 바꿀 수 있으면 바꾸는게 좋음.  
+  - 다만 retrun Fact(n-1) 과 같은 꼬리 재귀함수의 경우 스텍 프레임을 생성하지 않음.  
+```cpp
+//일반 재귀
+int sum(int n)
+{
+  if(n<=0) return 0;
+  return n+sum(n-1);
+}
+```
+```cpp
+//꼬리 재귀
+int sum(int n,int res)
+{
+  if(n<=0) return res;
+  return sum(n-1, res + n);
+}
+```
+</details>
+
+<details>
+  <summary>포인터</summary>
+
+  - 포인터는 주소값을 저장하는 변수  
+  - int* p;로 선언 또는 선언과 동시에 초기화도 가능  
+  - 포인터 변수는 64bit 기반 프로그램에서는 8byte 크기  
+  - 64bit 기반에서는 0x0 ~ 0xffff ffff ffff ffff까지 가능함(f -> 15 -> 1111, 즉 f 하나가 4비트이고 f는 총 16개, 그냥 1byte = 8bit라서 8로 나누면 됨)
+```cpp
+//포인터 변수 선언 및 초기화
+int main()
+{
+  int iA = 100;
+  int* p = &iA; //포인터 변수 p 선언과 동시에 초기화
+
+  cout<<iA<<endl; // iA의 변수값 출력  
+  cout<<*p<<endl; // 포인터 변수 p가 가르키는 iA의 주소에있는 값 출력 (=iA의 변수값)
+
+  cout<<&iA<<endl; // iA의 주소값 출력
+  cout<<p <<endl;  // 포인터 변수 p가 가르키는 iA의 주소 출력(=iA의 주소)
+
+  *p = 20; // 포인터 변수 p가 가르키는 iA의 주소에 있는 값을 20으로 변경(간접 참조)
+
+  cout<<iA<<endl; // 윗 줄의 간접 참조로 인해 iA값은20으로 변경됨. 
+}
+```
+```cpp
+//Swap함수 call by value를 보완하기 위해 call by reference 사용
+void Swap(int* pDst,int* pSrc)
+{
+  int iTemp = *pDst;
+  *pDst = *pSrc;
+  *pSrc = iTemp;
+}
+int main()
+{
+  int iA = 20, iB = 30;
+  Swap(iA,iB);
+  cout<<iA <<" "<< iB<<endl;
+}
+```
+</details>
