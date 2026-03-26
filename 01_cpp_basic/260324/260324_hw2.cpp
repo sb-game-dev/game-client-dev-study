@@ -4,7 +4,7 @@ using namespace std;
 int iMoney;
 bool bIsDoing = true;
 
-int MoneyInput();
+void MoneyInput();
 void PrintMoney();
 int ChoiceInput();
 void CheckPurchase(int choiceInput);
@@ -21,11 +21,10 @@ int main()
 	}
 	return 0;
 }
-int MoneyInput()
+void MoneyInput()
 {
 	cout << "소지금을 입력해주세요:";
 	cin >> iMoney;
-	return iMoney;
 }
 
 void PrintMoney()
