@@ -31,17 +31,17 @@ int main()
     // 4byte의 경우 0xffff ffff까지 표현 가능(f-> 15 -> 1111 -> 4bit)
     // 8byte의 경우 0xffff ffff ffff ffff까지 가능
     //
-    // int iA = 0;
-    // cout << &iA<<endl;
-    // cout << *&iA<<endl;
-    // 
-    // int* p = &iA; // 간접 참조
-    // *p = 30;
-    // cout << p << endl;
-    // cout << iA << endl;
-    int iDst = 30, iSrc = 20;
-    swap(&iDst, &iSrc);
-    cout << iDst << " " << iSrc << endl;
+    int iA = 0;
+    cout << &iA<<endl;
+    cout << *&iA<<endl;
+    
+    int* p = &iA; // 간접 참조
+    *p = 30;
+    cout << p << endl;
+    cout << iA << endl;
+    //int iDst = 30, iSrc = 20;
+    //swap(&iDst, &iSrc);
+    //cout << iDst << " " << iSrc << endl;
 }
 
 void swap(int* pDst, int* pSrc)
@@ -50,5 +50,6 @@ void swap(int* pDst, int* pSrc)
     *pDst = *pSrc;
     *pSrc = pTemp;
 }
+
 
 // 모든 과제를 포인터를 사용하는 함수로 바꿔보기(매개변수, 반환값을 포인터로)
