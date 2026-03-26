@@ -50,3 +50,5 @@ void swap(int* pDst, int* pSrc)
     *pDst = *pSrc;
     *pSrc = pTemp;
 }
+
+// 모든 과제를 포인터를 사용하는 함수로 바꿔보기(매개변수, 반환값을 포인터로)
