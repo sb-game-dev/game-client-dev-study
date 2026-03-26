@@ -18,5 +18,17 @@
     <ClCompile Include="260326.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="260326_hw1_학점 판별기.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="260326_hw2_자판기.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="260326_hw3_홀짝게임.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="260326_hw4_가위바위보게임.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
