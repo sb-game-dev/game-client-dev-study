@@ -211,7 +211,7 @@ do
   
 </details>
 
-### 7일차 (2600326) 함수 기본 문법 및 포인터
+### 7일차 (2600326) 함수 기본 문법 및 포인터 기초
 
 <details>
   <summary>함수 오버로딩</summary>
@@ -325,3 +325,64 @@ int main()
 }
 ```
 </details>
+
+### 8일차 (2600327) 포인터2, 배열
+
+<details>
+  <summary>const와 포인터</summary>
+
+  > 읽기 전용 포인터: 참조하는 대상의 변수값을 변경할 수 없음 읽기만 가능함. 
+```cpp
+int iData = 10;
+const int* p = &iData;
+```
+  > 상수 포인터: 참조하는 대상을 바꿀 수 없음. 주소를 바꿀수 없음. 다만 값은 변경 가능함. 배열이 여기에 해당.
+```cpp
+int iData = 10;
+int* const p = &iData;
+```
+  > 읽기 전용 상수 포인터: 참조하는 대상을 바꿀 수 없고 값도 변경 불가능함.
+```cpp
+int iData = 10;
+const int* const p = &iData;
+```
+</details>
+
+<details>
+  <summary>이중포인터</summary>
+
+  - 이중 포인터: 포인터의 주소를 참조하는 포인터  
+  - 이중 포인터도 크기는 8byte
+```cpp
+int iData = 10;
+int* p = &iData;
+int** pp = &p;
+```
+</details>
+
+<details>
+  <summary>포인터 연산</summary>
+
+  - 포인터 연산: 참조하는 대상의 자료형 크기만큼 메모리를 이동하여 참조의 대상을 변경하는 연산
+```cpp
+int iData = 10;
+int* p = &iData;
+++p; //iData 의 주소가 0x0001이었다면 ++p 이후 p를 출력했을 때는 0x0005가 됨.
+```
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
