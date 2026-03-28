@@ -3,6 +3,8 @@
 using namespace std;
 void CreateLottoNum(int pArr[], int iArrSize);
 void PrintLotto(int pArr[],int iCnt);
+void Swap(int* pLeft, int* pRight);
+void BubbleSort(int pArr[],int iArrSize);
 int main()
 {
 	srand(unsigned(time(NULL)));
@@ -16,8 +18,10 @@ int main()
 			CreateLottoNum(iArr, iArrSize);
 			iArrSize++;
 		}
+		BubbleSort(iArr,sizeof(iArr)/sizeof(int));
 		PrintLotto(iArr, iCnt);
 	}
+	
 }
 
 void CreateLottoNum(int pArr[], int iArrSize)
@@ -44,4 +48,25 @@ void PrintLotto(int pArr[], int iCnt)
 		cout << pArr[i] << "\t";
 	}
 	cout << endl;
+}
+
+
+void Swap(int* pLeft, int* pRight)
+{
+	int iTemp = *pLeft;
+	*pLeft = *pRight;
+	*pRight = iTemp;
+}
+void BubbleSort(int pArr[], int iArrSize)
+{
+	for (int i = iArrSize-1; i > 0; i--)
+	{
+		for (int j = 0; j < i; j++)
+		{
+			if (pArr[j] > pArr[j + 1])
+			{
+				Swap(&pArr[j], &pArr[j + 1]);
+			}
+		}
+	}
 }
