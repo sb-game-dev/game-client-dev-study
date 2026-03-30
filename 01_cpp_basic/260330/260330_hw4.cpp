@@ -11,9 +11,10 @@ int main()
 	{
 		for (int j = 0; j < 5; j++)
 		{
-			iArr[i][j] = i * 5 + j;
+			iArr[i][j] = i * 5 + j + 1;
 		}
 	}
+	iArr[4][4] = 0;
 	srand(unsigned(time(NULL)));
 	for (int i = 0; i < 500; i++)
 	{
@@ -39,14 +40,14 @@ int main()
 	}
 	while (true)
 	{
-		system("cls");
+		//system("cls");
 		
 		PrintArr(iArr);
-		//cout << iZeroRow << " " << iZeroCol << endl;
 		MoveZero(iArr,&iZeroRow,&iZeroCol);
-		system("pause");
+		//system("pause");
 		if (CheckEnd(iArr))break;
 	}
+	PrintArr(iArr);
 	cout << "승리!" << endl;
 }
 
@@ -62,18 +63,14 @@ void PrintArr(int(*pArr)[5])
 		cout << endl;
 	}
 }
-/*
- 8
-4  6
- 2
-*/
+
 
 void MoveZero(int(*pArr)[5], int* iZeroRow, int* iZeroCol)
 {
-	int iInput = 0;
-	cout << "2,4,6,8중 하나의 숫자를 입력해주세요: ";
+	char iInput = 0;
+	cout << "w,a,s,d중 하나의 숫자를 입력해주세요: ";
 	cin >> iInput;
-	if (iInput == 2)
+	if (iInput == 's')
 	{
 		if (*iZeroRow + 1 >= 5) cout << "다시 입력하세요" << endl;
 		else
@@ -82,7 +79,7 @@ void MoveZero(int(*pArr)[5], int* iZeroRow, int* iZeroCol)
 			*iZeroRow += 1;
 		}
 	}
-	if (iInput == 4)
+	if (iInput == 'a')
 	{
 		if (*iZeroCol - 1 < 0) cout << "다시 입력하세요" << endl;
 		else
@@ -92,7 +89,7 @@ void MoveZero(int(*pArr)[5], int* iZeroRow, int* iZeroCol)
 		}
 	}
 
-	if (iInput == 6)
+	if (iInput == 'd')
 	{
 		if (*iZeroCol + 1 >= 5) cout << "다시 입력하세요" << endl;
 		else
@@ -102,7 +99,7 @@ void MoveZero(int(*pArr)[5], int* iZeroRow, int* iZeroCol)
 		}
 	}
 
-	if (iInput == 8)
+	if (iInput == 'w')
 	{
 		if (*iZeroRow - 1 < 0) cout << "다시 입력하세요" << endl;
 		else
