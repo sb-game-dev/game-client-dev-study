@@ -146,6 +146,6 @@ int CheckWinner(int (*pArr)[5], int pCheckArr[])
 	if (bFlag) iCnt++;
 	
 	
-	if (iCnt == 5) return 1;
+	if (iCnt >= 5) return 1;
 	else return 0;
 }

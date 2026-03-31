@@ -40,11 +40,11 @@ int main()
 	}
 	while (true)
 	{
-		//system("cls");
+		system("cls");
 		
 		PrintArr(iArr);
 		MoveZero(iArr,&iZeroRow,&iZeroCol);
-		//system("pause");
+		
 		if (CheckEnd(iArr))break;
 	}
 	PrintArr(iArr);
