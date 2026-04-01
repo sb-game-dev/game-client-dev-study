@@ -371,14 +371,115 @@ int* p = &iData;
 ```
 </details>
 
+### 9일차 (2600330) 시간 복잡도, 2차원 배열
 
+<details>
+  <summary>시간 복잡도</summary>
 
+  > 빅오 표기법(Big-O) : 코드가 얼마나 느려질 수 있는지 확인(최악 기준)
 
+  - O(1) : 항상 일정함 (입력 크기와 상관 없음)  
+  - O(log n) : 이진 탐색(가장 이상적임)
+```cpp
+for(int i=0;i<n;i*=2)
+{
+  cout<<i;
+}
+```
+  - O(n) : 입력 크기만큼 증가  
+  - O(nlog n) : merge sort  
+  - O(n^2) : 이중 반복문  
+```cpp
+for(int i=0;i<n;i++)
+{
+  for(int j=0;j<n;j++)
+  {
+    cout<<i*n + j;
+  }
+}
+```
+  - O(2^n) : 완전 탐색  
+  - O(n!) : 순열, 완전 탐색  
 
+</details>
 
+<details>
+  <summary>2차원 배열</summary>
 
+  - 2차원 배열도 1차원 배열과 마찬가지로 연속된 메모리 공간에 저장됨.  
+  - 2차원 배열 포인터: 2차원 배열의 이름을 저장하는 포인터가 따로 존재함.
+```cpp
+void Render(int(*pArr)[3]);
+int main()
+{
+  int Arr[2][3] = {};
+  Render(Arr);
+}
+```
+</details>
 
+### 10일차 (2600330) 디버깅, 함수포인터, 문자배열, 문자열 포인터
 
+<details>
+  <summary>디버깅</summary>
+
+  - F5: 디버깅 시작 또는 중단점까지 계속 실행  
+  - Shift + F5 : 디버깅 중지  
+  - F9 : 현재 줄에 중단점(Breakpoint) 설정 / 해제  
+  - Ctrl + Shift + F9 : 모든 중단점 삭제  
+  - F10 : 프로시저 단위 실행(Step Over - 함수 내부로 들어가지 않음)  
+  - F11 : 한 단계씩 코드 실행(Step Into - 함수 내부로 진입)
+  - 조건식 화면에서 변수 또는 배열의 값과 주소 확인 가능
+  - 조건을 추가하여 반복문의 경우 특정 i값으로 중단점 조건을 설정하여 디버깅 시작 가능
+  - 디버깅 하는 도중 "직접 실행창"을 통해 변수의 값을 직접 할당하여 실행할 수 있음  
+</details>
+
+<details>
+  <summary>함수 포인터</summary>
+
+  - 함수 포인터: 함수의 이름을 저장하는 용도의 포인터  
+  - 코드의 가독성을 높이고 배열에 저장하여 인덱스 번호를 이용하여 함수를 호출 가능함(배열에 함수 저장)
+```cpp
+int		Plus(int dst, int src);
+int		Min(int dst, int src);
+int		Mul(int dst, int src);
+int		Div(int dst, int src);
+int main()
+{
+  int iDst(10), iSrc(20);
+  int iInput(0), iResult(0);
+  int (*pCalc[4])(int, int) = {Plus, Min, Mul, Div}; // 배열에 함수를 저장함
+
+  cout << "1. 덧셈 2. 뺄셈 3. 곱셈 4. 나눗셈 : ";
+  cin >> iInput;
+
+  cout << pCalc[iInput - 1](iDst, iSrc) << endl;
+}
+```
+</details>
+
+<details>
+  <summary>문자 배열과 문자열 포인터</summary>
+
+  - 문자 배열: 읽기와 쓰기를 모두 허용하는 저장 방식  
+  - 마지막에 NULL문자 포함해야 함.
+  - 크기는 넉넉하게 해야 함. 
+```cpp
+char sName[6] ="jusin";
+```
+  - 문자열 포인터: 읽기만 허용하는 저장 방식
+  - 문자열을 복사하지 않고 첫 문자의 주소를 전달하기 때문에 성능이 좋음  
+  - 수정을 할 수 없지만 성능이 중요한 경우 std::string대신 사용함.  
+```cpp
+const char* pName = "helloworld"; //pName은 'h'의 주소만 들고 있음 함수에 매개변수로 전달할 때 사용될 수 있음
+cout << pName << endl;
+```
+
+|방식|	전달되는 것|
+|:---:|:---:|
+|const char*|	주소 1개|
+|std::string|	문자열 전체|
+</details>
 
 
 
