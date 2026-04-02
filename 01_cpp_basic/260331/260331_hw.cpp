@@ -4,14 +4,11 @@ int StringLength(char string[]);
 void StringReverse(char string[]);
 int main()
 {
-	//char cString[64] = "";
-	//cin >> cString;
-	//cout << "입력한 문자열 " << cString << "의 길이는 " << StringLength(cString) << "입니다." << endl;
-	//
-	//StringReverse(cString);
-	const char* pName = "helloworldSDdADAsdasaASDFSAFSADFSADFdfasdfwafeacdfasdfsa";
-	//cin >> pName;
-	cout << pName << endl;
+	char cString[64] = "";
+	cin >> cString;
+	cout << "입력한 문자열 " << cString << "의 길이는 " << StringLength(cString) << "입니다." << endl;
+	
+	StringReverse(cString);
 }
 int StringLength(char string[])
 {
@@ -21,7 +18,6 @@ int StringLength(char string[])
 		iCnt++;
 	}
 	return iCnt;
-	
 }
 void StringReverse(char string[])
 {
