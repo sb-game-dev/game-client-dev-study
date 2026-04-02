@@ -481,6 +481,154 @@ cout << pName << endl;
 |std::string|	문자열 전체|
 </details>
 
+### 11일차 (2600402) 문자열함수, 사용자 정의 자료형, 구조체, 공용체
+<details>
+  <summary>문자열 함수</summary>
+
+  > 문자열 복사 함수: strcpy_s(복사 **받을** 메모리 공간의 주소, 복사 **받을** 메모리 공간의 크기, 복사할 문자열의 주소)
+```cpp
+char szName[32] = "hello";
+char szTemp[32] = "";
+
+cout<<szTemp<<endl;
+strcpy_s(szTemp,sizeof(szTemp),szName);
+coyt<<szTemp<<endl;
+```
+  > 문자열 결합 함수: strcat_s(결합할 결과물을 저장하는 배열의 주소, 결합한 결과물을 저장할 메모리 공간의 크기, 결합 문자열);
+```cpp
+char szName[32] = "hello";
+char szTemp[32] = "world";
+strcat_s(szName,sizeof(szName),szTemp);
+cout<<szName<<endl; // helloworld 출력
+strcat_s(szTemp,sizeof(szTemp),szName);
+cout<<szTemp<<endl; // worldhelloworld 출력
+```
+
+  > 문자열 길이 계산 함수: strlen(문자열)
+```cpp
+char szName[32] = "hello";
+int iLength = strlen(szName);
+cout<<iLength<<endl;
+```
+  > 문자열 비교 함수: strcmp(비교할 문자열1의 주소, 비교할 문자열2의 주소), 같으면 0 반환, 다르면 -1반환, !를 붙히고 사용
+```cpp
+char szName[32] = "hello";
+if(!strcmp(szName,"hello")) cout<<"두 문자열은 같습니다."<<endl;
+else cout<<"두 문자열은 다릅니다."<<endl;
+```
+</details>
+
+<details>
+  <summary>문자열 함수(string 버전)</summary>
+
+  > 문자열 복사
+```cpp
+string szName = "hello";
+string szTemp = szName;
+cout<< szTemp;
+```
+  > 문자열 결합
+```cpp
+string szName = "hello";
+string szTemp = "world";
+szName = szName+szTemp; // += 가능
+cout<<szName<<endl; // helloworld 출력
+szTemp = szTemp+szName;
+cout<<szTemp<<endl; // worldhelloworld 출력
+```
+
+  > 문자열 길이 계산: .size()
+```cpp
+string szName = "hello";
+int iLength = szName.size();
+cout<<iLength<<endl;
+```
+  > 문자열 비교: ==, !=
+```cpp
+string szName = "hello";
+if(szName!="hello") cout<<"두 문자열은 같습니다."<<endl;
+else cout<<"두 문자열은 다릅니다."<<endl;
+```
+</details>
+
+<details>
+  <summary>사용자 정의 자료형</summary>
+  
+  - 사용자 정의 자료형이란? : 프로그래머의 필요에 따라 직접 만들어서 사용하는 자료형  
+  - 반드시 용도에 따른 키워드를 삽입해야 함  
+  - struct(구조체): 다른 타입의 자료형을 하나의 자료형으로 묶어서 사용하기 위한 자료형  
+  - union(공용체): 여러 데이터들을 하나의 메모리를 공유하여 사용하게 하는 문법  
+  - enum(열거체): 상수를 여러 개 만드는 문법
+  - class도 추가
+</details>
+
+<details>
+  <summary>구조체</summary>
+
+  - 포인터사용이 가능하다
+```cpp
+tagSt st = {};
+tagSt* pst = st;
+
+cout<< *pst->iKor <<endl; // -> 이 키워드를 아래 문법 보다 더 많이 사용함
+cout<< *pst.iKor <<endl;
+```
+  - 구조체도 상속 가능하고 부모 자식 둘 다 가능, class와도 상속이 가능  
+  - 데이터 집합체(멤버 변수만 사용)로도 사용 가능하고 객체로도 사용 가능함.
+</details>
+
+<details>
+  <summary>구조체의 메모리 할당 정책 </summary>
+  
+  - 멤버변수 중 가장 큰 자료형의 크기만큼 메모리 블럭을 할당함.  
+  - 작은 크기의 자료형 먼저 선언해야 메모리를 절약할 수 있다.  
+  - 배열이 있더라도 배열의 크기가 아니라 배열의 자료형으로 계산.  
+  - 멤버 변수가 없다면 디폴트 1byte로 계산함.
+  - 멤버 함수는 데이터로 취급하지 않고 오로지 멤버 변수로만 크기를 계산함.(클래스도 동일)
+  - 가장 큰 자료형의 크기는 기본 자료형으로만 계산.
+```cpp
+struct tagInfo // 정렬 기준: 8(double 때문에)
+{
+	int		iKor;		// 4+4(padding)
+	double	dAver;		// 8
+};
+struct tagTemp // 정렬 기준: 8(tagInfo 때문에)
+{
+	tagInfo		tInfo;		// 16 
+
+	short		sName; //2
+	float		fPi;  //4+2(2는 padding)
+};
+
+int main()
+{
+  cout<<sizeof(tagTemp)<<endl; // 24
+}
+```
+</details>
+
+<details>
+  <summary>공용체</summary>
+
+  - 거의 안씀 c#에는 없음.  
+  - 다른 자료형을 사용한다면 정상적으로 저장이 안됨.
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
