@@ -21,6 +21,7 @@ int main()
 	// - 출력은 세 명 학생의 모든 성적 정보를 출력
 	// - 검색은 이름을 검색하여 일치하는 이름의 학생 성적 정보만 출력
 
+
 	tagStudentInfo Arr[3];
 	void (*pScoreCalc[3])(tagStudentInfo st[]) = { InputInfo,OutPutInfo,SearchInfo };
 	int iInput;
@@ -52,7 +53,7 @@ void InputInfo(tagStudentInfo st[])
 		cout << i + 1 << "번째 학생 영어점수: ";
 		cin >> st[i].iEng;
 		st[i].iTotal = st[i].iKor + st[i].iMath + st[i].iEng;
-		st[i].fAver = float(st[i].iTotal) / 3.0;
+		st[i].fAver = float(st[i].iTotal) / 3.f;
 	}
 }
 void OutPutInfo(tagStudentInfo st[])
