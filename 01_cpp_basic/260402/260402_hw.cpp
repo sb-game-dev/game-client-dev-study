@@ -56,6 +56,7 @@ void InputInfo(tagStudentInfo st[])
 		st[i].fAver = float(st[i].iTotal) / 3.f;
 	}
 }
+
 void OutPutInfo(tagStudentInfo st[])
 {
 	for (int i = 0; i < 3; i++)
@@ -66,7 +67,7 @@ void OutPutInfo(tagStudentInfo st[])
 		cout << i + 1 << "번째 학생 영어점수: " << st[i].iEng << endl;
 		cout << i + 1 << "번째 학생 총합: " << st[i].iTotal << endl;
 		cout << i + 1 << "번째 학생 평균 점수: " << st[i].fAver << endl;
-		return;
+		
 	}
 }
 
@@ -85,6 +86,7 @@ void SearchInfo(tagStudentInfo st[])
 			cout << "영어점수: " << st[i].iEng << endl;
 			cout << "총합: " << st[i].iTotal << endl;
 			cout << "평균 점수: " << st[i].fAver << endl;
+			return;
 		}
 	}
 }
