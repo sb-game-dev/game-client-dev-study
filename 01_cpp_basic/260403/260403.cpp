@@ -1,7 +1,41 @@
 ﻿#include <iostream>
 using namespace std;
+enum NUMBER			// 상수 값을 지정해주지 않으면 첫번째 원소가 자동 0초기화되고 그 이후로 원소마다 하나씩 증가한 값을 가지게 된다.
+{
+	ONE = 1,
+	TWO,
+	THREE,
+	FOUR = 4,
+	FIVE,
+	END
+};
+char* GetString()
+{
+	char szName[32] = "";		// 지역 변수(stack)
+
+	cin >> szName;
+
+	return szName;
+
+	// int iInput(0);
+	// 
+	// cout << "글자 수 입력 : ";
+	// cin >> iInput;
+	// 
+	// char* pHeap = (char*)malloc(sizeof(char) * iInput);
+	// 
+	// cin >> pHeap;
+	// 
+	// return pHeap;
+}
 int main()
 {
+	char* pName = GetString();	// 주소 이전
+
+	//cin >> pName;
+
+	cout << pName << endl;	
+	//cout << FOUR << endl;
 	// 열거체: 상수를 한 번에 여러 개 만드는 문법
 	// 
 	// 개수 상관없이 메모리 크기는 4byte
