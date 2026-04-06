@@ -16,7 +16,6 @@ int main()
 {
 	Player Player = {"",100,10};
 	ChoiceClass(&Player);
-	ChoiceHuntOrEnd(&Player);
 }
 
 void ChoiceClass(st* Obj)
@@ -46,6 +45,7 @@ void ChoiceClass(st* Obj)
 			break;
 		}
 	}
+	ChoiceHuntOrEnd(Obj);
 }
 void PrintStat(st Obj)
 {

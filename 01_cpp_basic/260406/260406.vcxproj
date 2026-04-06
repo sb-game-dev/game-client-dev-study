@@ -126,12 +126,14 @@
     <ClCompile Include="260406.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="260406_hw.cpp" />
-    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="260406_hw.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="objInfo.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="SelectClass.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

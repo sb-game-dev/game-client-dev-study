@@ -18,9 +18,6 @@
     <ClCompile Include="260406.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="pch.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="260406_hw.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -30,6 +27,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="objInfo.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectClass.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
