@@ -13,15 +13,16 @@ struct Monster
 	int iHp, iPower;
 };
 
-void PrintMonsterStat(Monster* );
-void PrintPlayerStat(Player* );
+void PrintMonsterStat(Monster* ); // -> 반환타입 구조체로 바꿔보기
+void PrintPlayerStat(Player* ); 
 void ChoiceClass(Player* );
 int ActionMenu(Player* );
-void Shop(Player*);
+//void Shop(Player*);
 void Field(Player*);
 int ChoiceMonsterLevel(Player* );
 Monster CreatMonster(int );
-void Battle(Player* , Monster* );
+void Battle(Player* , Monster* ); // 캐릭터가 죽으면  배틀 종류 후 캐릭터 체력 100 회복으로 바꾸기 (반환값 변경?)
+// 메모리누수 확인하는 코드 헤더파일에 추가 pch.h
 
 int main()
 {
@@ -42,7 +43,7 @@ int main()
 		}
 		else if (iActionMenu == 3)
 		{
-			Shop(player);
+			//Shop(player);
 		}
 		else
 		{
@@ -83,7 +84,7 @@ void ChoiceClass(Player* player)
 	}
 	
 }
-int ChoiceHuntOrExChangeOrEnd(Player* player)
+int ActionMenu(Player* player)
 {
 	int iInput;
 	while (true)
