@@ -21,7 +21,10 @@
     <ClCompile Include="pch.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="260407_hw.cpp">
+    <ClCompile Include="260407_hw2.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="260407_hw1.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

@@ -124,7 +124,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="260407.cpp" />
-    <ClCompile Include="260407_hw.cpp" />
+    <ClCompile Include="260407_hw2.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="260407_hw1.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="pch.cpp" />
   </ItemGroup>
   <ItemGroup>
