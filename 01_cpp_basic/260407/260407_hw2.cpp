@@ -1,12 +1,33 @@
 #include "pch.h"
-#include<string>
+#include<ctime>
+#include <windows.h>
+
 #define SAFE_DELETE(p) if(p){ delete p; p = nullptr;}
 #define SAFE_ARR_DELETE(p) if(p){delete[] p;p = nullptr;}
 using namespace std;
+//8:일반, 9:마법, 14:희귀, 12:전설, 13:고유
+//enum itemColor
+//{
+//	itemNormal = 8,
+//	itemMagic = 9,
+//	itemRare = 14,
+//	itemLegendary = 12,
+//	itemUnique = 13,
+//	END
+//};
+enum item
+{
+	Normal = 1,
+	Magic,
+	Rare,
+	Legendary,
+	Unique,
+	END
+};
 struct Player
 {
 	char szName[32];
-	int iHp, iPower;
+	int iHp, iPower,iGold = 0,iLevel = 1, iItemRarity = Normal;
 };
 
 struct Monster
@@ -15,6 +36,8 @@ struct Monster
 	int iHp, iPower;
 };
 char* IntToString(int);
+void PrintErroMessage(const char []);
+void setColor(unsigned short text);
 //=================================//
 void MainGame(Player* );
 
@@ -32,12 +55,15 @@ int ChoiceMonsterLevel(Player*);
 Monster CreatMonster(int);
 void Battle(Player*, Monster*);
 
-void Shop(Player*); //체력 회복
+void Shop(Player*); //체력 회복 // 무기 강화
+
+void ItemEnhancement(Player*);
 
 int main()
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
+	
 	Player* pPlayer = ChoiceClass();
 
 	if (!pPlayer) return -1;
@@ -58,13 +84,14 @@ void MainGame(Player* pPlayer)
 		{
 			pPlayer = ChoiceClass();
 		}
-		//else if (iActionMenu == 3)
-		//{
-		//	Shop(pPlayer);
-		//}
+		else if (iActionMenu == 3)
+		{
+			Shop(pPlayer);
+		}
 		else
 		{
 			SaveInfo(pPlayer);
+			PrintErroMessage("저장되었습니다.");
 			return ;
 		}
 	}
@@ -127,16 +154,32 @@ Player* ChoiceClass()
 					iTemp = iTemp * 10 + (c - '0');
 				}
 				pPlayer->iPower = iTemp;
+
+				iTemp = 0;
+				while ((c = fgetc(fRead)) != '\n')
+				{
+					iTemp = iTemp * 10 + (c - '0');
+				}
+				pPlayer->iGold = iTemp;
+
+				iTemp = 0;
+				while ((c = fgetc(fRead)) != '\n')
+				{
+					iTemp = iTemp * 10 + (c - '0');
+				}
+				pPlayer->iLevel = iTemp;
+
+				iTemp = 0;
+				while ((c = fgetc(fRead)) != '\n')
+				{
+					iTemp = iTemp * 10 + (c - '0');
+				}
+				pPlayer->iItemRarity = iTemp;
 				fclose(fRead);
 			}
 			return pPlayer;
 		}
-		else
-		{
-			cout << "잘못된 입력입니다. 다시 입력하세요" << endl;
-			system("pause");
-			
-		}
+		else PrintErroMessage("잘못된 입력입니다. 다시 입력해 주세요:");
 	}
 }
 void CreatPlayer(Player** pPlayer,const char pName[], int iHp, int iPower)
@@ -144,6 +187,9 @@ void CreatPlayer(Player** pPlayer,const char pName[], int iHp, int iPower)
 	strcpy_s((*pPlayer)->szName, sizeof((*pPlayer)->szName), pName);
 	(*pPlayer)->iHp = iHp;
 	(*pPlayer)->iPower = iPower;
+	//(*pPlayer)->iGold = 0;
+	//(*pPlayer)->iLevel = 1;
+	//(*pPlayer)->iItemRarity = 1;
 	SaveInfo(*pPlayer);
 }
 int ActionMenu(Player* pPlayer)
@@ -151,15 +197,10 @@ int ActionMenu(Player* pPlayer)
 	int iInput;
 	while (true)
 	{
-		system("cls");
 		PrintPlayerStat(pPlayer);
-		cout << "1. 사냥터 2. 직업 변경 3. 종료: ";
+		cout << "1. 사냥터 2. 직업 변경 3. 상점 4. 저장 후 종료: ";
 		cin >> iInput;
-		if (iInput < 1 || iInput>3)
-		{
-			cout << "잘못된 입력입니다. 다시 입력해 주세요:" << endl;
-			system("pause");
-		}
+		if (iInput < 1 || iInput>4) PrintErroMessage("잘못된 입력입니다. 다시 입력해 주세요:");
 		else break;
 	}
 	return iInput;
@@ -170,10 +211,10 @@ void Field(Player* pPlayer)
 	while (true)
 	{
 		int iMonsterChoice = ChoiceMonsterLevel(pPlayer);
-		if (iMonsterChoice == 4)
-		{
-			break;
-		}
+		if (iMonsterChoice < 1 || iMonsterChoice>4) PrintErroMessage("잘못된 입력입니다. 다시 입력해 주세요:");
+
+		else if (iMonsterChoice == 4) break;
+
 		else
 		{
 			Monster* monster = new Monster(CreatMonster(iMonsterChoice));
@@ -188,16 +229,12 @@ int ChoiceMonsterLevel(Player* player)
 	int iInput;
 	while (true)
 	{
-		system("cls");
 		PrintPlayerStat(player);
 
 		cout << "1.초급\t2.중급\t3.고급\t4.전 단계: ";
 		cin >> iInput;
-		if (iInput < 1 || iInput>4)
-		{
-			cout << "잘못된 입력입니다. 다시 입력해 주세요:" << endl;
-			system("pause");
-		}
+		if (iInput < 1 || iInput>4) PrintErroMessage("잘못된 입력입니다. 다시 입력해 주세요:");
+
 		else break;
 	}
 	return iInput;
@@ -220,52 +257,164 @@ Monster CreatMonster(int iInput)
 	return monster;
 }
 
-void Battle(Player* player, Monster* monster)
+void Battle(Player* pPlayer, Monster* pMonster)
 {
 	while (true)
 	{
-		system("cls");
-		PrintPlayerStat(player);
-		PrintMonsterStat(monster);
+		PrintPlayerStat(pPlayer);
+		PrintMonsterStat(pMonster);
 		cout << "1.공격\t2.도망: ";
 		int iInput;
 		cin >> iInput;
 		switch (iInput)
 		{
 		case 1:
-			player->iHp -= monster->iPower;
-			monster->iHp -= player->iPower;
-			if (monster->iHp <= 0)
+			pPlayer->iHp -= pMonster->iPower;
+			pMonster->iHp -= pPlayer->iPower;
+			if (pMonster->iHp <= 0)
 			{
-				cout << "승리" << endl;
+				pPlayer->iGold += pMonster->iPower;
+				cout << "승리" <<"\t"<< pMonster->iPower <<"골드 획득!" << endl;
 				system("pause");
 				return;
 			}
-			else if (player->iHp <= 0)
+			else if (pPlayer->iHp <= 0)
 			{
 				cout << "플레이어 사망" << endl;
 				system("pause");
-				player->iHp = 100;
+				pPlayer->iHp = 100;
 				return;
 			}
 			break;
 		case 2:
 			return;
 		default:
-			cout << "잘못된 입력입니다. 다시 입력해 주세요:" << endl;
-			system("pause");
+			PrintErroMessage("잘못된 입력입니다. 다시 입력해 주세요:");
+			break;
 		}
 	}
 }
-void Shop(Player*)
+void Shop(Player* pPlayer)
 {
-	
+	int iInput;
+	while (true)
+	{
+		PrintPlayerStat(pPlayer);
+		cout << "1. 체력 회복(5G) 2. 아이템 강화("<<pPlayer->iItemRarity*5 << "G) 3. 상점 나가기: ";
+		cin >> iInput;
+		if (iInput < 1 || iInput>3)
+		{
+			PrintErroMessage("잘못된 입력입니다. 다시 입력해 주세요:");
+		}
+		else if (iInput == 1)
+		{
+			if (pPlayer->iHp < 100)
+			{
+				pPlayer->iHp = 100;
+				pPlayer->iGold -= 5;
+			}
+			else PrintErroMessage("플레이어의 체력이 이미 100입니다.");
+		}
+		else if (iInput == 2)
+		{
+			ItemEnhancement(pPlayer);
+		}
+		else
+		{
+			return;
+		}
+	}
 }
-void PrintPlayerStat(Player* player)
+void ItemEnhancement(Player* pPlayer)
 {
+	if (pPlayer->iGold < pPlayer->iItemRarity * 5)
+	{
+		PrintErroMessage("골드가 부족합니다.");
+		return ;
+	}
+	
+	pPlayer->iGold -= pPlayer->iItemRarity * 5;
+	srand(unsigned(time(NULL)));
+
+	bool* pSuccess = new bool(false);
+
+	switch (pPlayer->iItemRarity)
+	{
+	case Normal: //90%,
+		if (rand() % 100 < 90) *pSuccess = true;
+		else PrintErroMessage("강화 실패!");
+		break;
+	case Magic: //60%
+		if (rand() % 100 < 60) *pSuccess = true;
+		else PrintErroMessage("강화 실패!");
+		break;
+	case Rare: //30%
+		if (rand() % 100 < 30) *pSuccess = true;
+		else PrintErroMessage("강화 실패!");
+		break;
+	case Legendary://10%
+		if (rand() % 100 < 10) *pSuccess = true;
+		else PrintErroMessage("강화 실패!");
+		break;
+	case Unique:
+		PrintErroMessage("장비가 최고 단계 상태입니다.");
+		break;
+	}
+
+	if (*pSuccess)
+	{
+		int* pItemColor = new int[6] {0, 8, 9, 14, 12, 13};
+		pPlayer->iPower += 10;
+		cout << "강화 성공!\t ";
+
+		setColor(pItemColor[pPlayer->iItemRarity]);
+		cout << pPlayer->iItemRarity;
+
+		setColor(15);
+		cout << " -> ";
+
+		pPlayer->iItemRarity += 1;
+
+		setColor(pItemColor[pPlayer->iItemRarity]);
+		cout << pPlayer->iItemRarity;
+
+		setColor(15);
+
+		SAFE_ARR_DELETE(pItemColor);
+		system("pause");
+	}
+}
+void PrintPlayerStat(Player* pPlayer)
+{
+	system("cls");
 	cout << "=====================================" << endl;
-	cout << "이름: " << player->szName << endl;
-	cout << "체력: " << player->iHp << "\t" << "공격력: " << player->iPower << endl;
+	cout << "레벨: " << pPlayer->iLevel << (pPlayer->iLevel > 9 ? "\t" : "\t\t") << "이름: " << pPlayer->szName << endl;
+	cout << "체력: " << pPlayer->iHp	<< (pPlayer->iHp > 9 ? "\t" : "\t\t") << "공격력 : " << pPlayer->iPower << endl;
+	cout << "골드: " << pPlayer->iGold	<< (pPlayer->iGold > 9 ? "\t" : "\t\t") << "아이템 희귀도 : ";
+	//8:일반, 9:마법, 14:희귀, 12:전설, 13:고유
+	int* pItemColor = new int[6]{0,8,9,14,12,13};
+	setColor(pItemColor[pPlayer->iItemRarity]);
+	switch (pPlayer->iItemRarity)
+	{
+	case Normal:
+		cout << "Normal" << "\t";
+		break;
+	case Magic:
+		cout << "Magic" << "\t";
+		break;
+	case Rare:
+		cout << "Rare" << "\t";
+		break;
+	case Legendary:
+		cout << "Legendary" << "\t";
+		break;
+	case Unique:
+		cout << "Unique" << "\t";
+		break;
+	}
+	cout<< endl;
+	setColor(15);
+	SAFE_ARR_DELETE(pItemColor);
 }
 
 void PrintMonsterStat(Monster* monster)
@@ -313,16 +462,37 @@ void SaveInfo(Player* pPlayer)
 		fputs(pTemp, fWrite);
 		fputc('\n', fWrite);
 		SAFE_ARR_DELETE(pTemp);
-		//delete[] pTemp;
-		//pTemp = nullptr;
 
 		pTemp = IntToString(pPlayer->iPower);
 		fputs(pTemp, fWrite);
 		fputc('\n', fWrite);
 		SAFE_ARR_DELETE(pTemp);
-		//delete[] pTemp;
-		//pTemp = nullptr;
+
+		pTemp = IntToString(pPlayer->iGold);
+		fputs(pTemp, fWrite);
+		fputc('\n', fWrite);
+		SAFE_ARR_DELETE(pTemp);
+
+		pTemp = IntToString(pPlayer->iLevel);
+		fputs(pTemp, fWrite);
+		fputc('\n', fWrite);
+		SAFE_ARR_DELETE(pTemp);
+
+		pTemp = IntToString(pPlayer->iItemRarity);
+		fputs(pTemp, fWrite);
+		fputc('\n', fWrite);
+		SAFE_ARR_DELETE(pTemp);
 
 		fclose(fWrite);
 	}
+}
+
+void PrintErroMessage(const char szMessage[])
+{
+	cout << szMessage << endl;
+	system("pause");
+}
+
+void setColor(unsigned short text) {
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), text);
 }
