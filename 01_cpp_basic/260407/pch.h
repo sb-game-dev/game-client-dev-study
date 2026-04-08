@@ -1,6 +1,9 @@
 #pragma once
 #include<iostream>
-using namespace std;
+
+
+#define SAFE_DELETE(p) if(p){ delete p; p = nullptr;}
+#define SAFE_ARR_DELETE(p) if(p){delete[] p;p = nullptr;}
 
 #ifdef _DEBUG
 
@@ -15,3 +18,6 @@ using namespace std;
 
 #endif
 #endif
+
+
+using namespace std;

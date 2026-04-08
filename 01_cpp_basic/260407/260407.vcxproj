@@ -123,17 +123,36 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="260407.cpp" />
+    <ClCompile Include="260407.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="260407_hw2.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="260407_hw1.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Battle.cpp" />
+    <ClCompile Include="Field.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Monster.cpp" />
     <ClCompile Include="pch.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Shop.cpp" />
+    <ClCompile Include="TextRPG.cpp" />
+    <ClCompile Include="Utility.cpp" />
+    <ClCompile Include="Item.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Battle.h" />
+    <ClInclude Include="Field.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="Monster.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Shop.h" />
+    <ClInclude Include="Utility.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
