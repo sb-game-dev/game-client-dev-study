@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{256a3531-c6b9-4f55-a265-73f72ed1da30}</ProjectGuid>
-    <RootNamespace>My260407</RootNamespace>
+    <ProjectGuid>{91c3a4c8-e70a-422e-b01f-63bfc30a9171}</ProjectGuid>
+    <RootNamespace>My260409</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -123,38 +123,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="260407.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="260407_hw2.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="260407_hw1.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="Battle.cpp" />
-    <ClCompile Include="Field.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Monster.cpp" />
-    <ClCompile Include="pch.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Shop.cpp" />
-    <ClCompile Include="TextRPG.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="Utility.cpp" />
-    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="260409.cpp" />
+    <ClCompile Include="CPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Battle.h" />
-    <ClInclude Include="Field.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="Item.h" />
-    <ClInclude Include="Monster.h" />
-    <ClInclude Include="pch.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="Shop.h" />
-    <ClInclude Include="Utility.h" />
+    <ClInclude Include="CPlayer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
