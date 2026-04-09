@@ -56,33 +56,35 @@ Player* SelectJob()
 
 				char c;
 				fseek(fRead, 0, SEEK_SET);
-				int iTemp = 0;
-				while ((c = fgetc(fRead)) != '\n')
-				{
-					
-					pPlayer->szName[iTemp++] = c;
-				}
-				pPlayer->szName[iTemp] = '\0';
+				fread(pPlayer, sizeof(Player), 1, fRead);
 
-				iTemp = 0;
-				while ((c = fgetc(fRead)) != '\n') iTemp = iTemp * 10 + (c - '0');
-				pPlayer->iHp = iTemp;
-
-				iTemp = 0;
-				while ((c = fgetc(fRead)) != '\n') iTemp = iTemp * 10 + (c - '0');
-				pPlayer->iPower = iTemp;
-
-				iTemp = 0;
-				while ((c = fgetc(fRead)) != '\n') iTemp = iTemp * 10 + (c - '0');
-				pPlayer->iLevel = iTemp;
-
-				iTemp = 0;
-				while ((c = fgetc(fRead)) != '\n') iTemp = iTemp * 10 + (c - '0');
-				pPlayer->iGold = iTemp;
-
-				iTemp = 0;
-				while ((c = fgetc(fRead)) != '\n') iTemp = iTemp * 10 + (c - '0');
-				pPlayer->iItemRarity = iTemp;
+				//int iTemp = 0;
+				//while ((c = fgetc(fRead)) != '\n')
+				//{
+				//	
+				//	pPlayer->szName[iTemp++] = c;
+				//}
+				//pPlayer->szName[iTemp] = '\0';
+				//
+				//iTemp = 0;
+				//while ((c = fgetc(fRead)) != '\n') iTemp = iTemp * 10 + (c - '0');
+				//pPlayer->iHp = iTemp;
+				//
+				//iTemp = 0;
+				//while ((c = fgetc(fRead)) != '\n') iTemp = iTemp * 10 + (c - '0');
+				//pPlayer->iPower = iTemp;
+				//
+				//iTemp = 0;
+				//while ((c = fgetc(fRead)) != '\n') iTemp = iTemp * 10 + (c - '0');
+				//pPlayer->iLevel = iTemp;
+				//
+				//iTemp = 0;
+				//while ((c = fgetc(fRead)) != '\n') iTemp = iTemp * 10 + (c - '0');
+				//pPlayer->iGold = iTemp;
+				//
+				//iTemp = 0;
+				//while ((c = fgetc(fRead)) != '\n') iTemp = iTemp * 10 + (c - '0');
+				//pPlayer->iItemRarity = iTemp;
 
 				fclose(fRead);
 			}
@@ -100,33 +102,35 @@ void SaveInfo(Player* pPlayer)
 	if (err == 0)
 	{
 		fseek(fWrite, 0, SEEK_SET);
-		fputs(pPlayer->szName, fWrite);
-		fputc('\n', fWrite);
+		fwrite(pPlayer, sizeof(pPlayer), 1, fWrite);
 
-		char* szTemp = IntToString(pPlayer->iHp);
-		fputs(szTemp, fWrite);
-		fputc('\n', fWrite);
-		SAFE_ARR_DELETE(szTemp);
-
-		szTemp = IntToString(pPlayer->iPower);
-		fputs(szTemp, fWrite);
-		fputc('\n', fWrite);
-		SAFE_ARR_DELETE(szTemp);
-
-		szTemp = IntToString(pPlayer->iLevel);
-		fputs(szTemp, fWrite);
-		fputc('\n', fWrite);
-		SAFE_ARR_DELETE(szTemp);
-
-		szTemp = IntToString(pPlayer->iGold);
-		fputs(szTemp, fWrite);
-		fputc('\n', fWrite);
-		SAFE_ARR_DELETE(szTemp);
-
-		szTemp = IntToString(pPlayer->iItemRarity);
-		fputs(szTemp, fWrite);
-		fputc('\n', fWrite);
-		SAFE_ARR_DELETE(szTemp);
+		//fputs(pPlayer->szName, fWrite);
+		//fputc('\n', fWrite);
+		//
+		//char* szTemp = IntToString(pPlayer->iHp);
+		//fputs(szTemp, fWrite);
+		//fputc('\n', fWrite);
+		//SAFE_ARR_DELETE(szTemp);
+		//
+		//szTemp = IntToString(pPlayer->iPower);
+		//fputs(szTemp, fWrite);
+		//fputc('\n', fWrite);
+		//SAFE_ARR_DELETE(szTemp);
+		//
+		//szTemp = IntToString(pPlayer->iLevel);
+		//fputs(szTemp, fWrite);
+		//fputc('\n', fWrite);
+		//SAFE_ARR_DELETE(szTemp);
+		//
+		//szTemp = IntToString(pPlayer->iGold);
+		//fputs(szTemp, fWrite);
+		//fputc('\n', fWrite);
+		//SAFE_ARR_DELETE(szTemp);
+		//
+		//szTemp = IntToString(pPlayer->iItemRarity);
+		//fputs(szTemp, fWrite);
+		//fputc('\n', fWrite);
+		//SAFE_ARR_DELETE(szTemp);
 
 		fclose(fWrite);
 	}
