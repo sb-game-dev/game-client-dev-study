@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{91c3a4c8-e70a-422e-b01f-63bfc30a9171}</ProjectGuid>
-    <RootNamespace>My260409</RootNamespace>
+    <ProjectGuid>{5481a45c-3303-463d-9ac3-2d64b6d18a6a}</ProjectGuid>
+    <RootNamespace>TextRPG</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -123,14 +123,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="260409.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="260409_hw.cpp" />
-    <ClCompile Include="CStudent.cpp" />
+    <ClCompile Include="Battle.cpp" />
+    <ClCompile Include="CMonster.cpp" />
+    <ClCompile Include="CPlayer.cpp" />
+    <ClCompile Include="Field.cpp" />
+    <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="TextRPG.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CStudent.h" />
+    <ClInclude Include="Battle.h" />
+    <ClInclude Include="CMonster.h" />
+    <ClInclude Include="CPlayer.h" />
+    <ClInclude Include="Field.h" />
+    <ClInclude Include="MainGame.h" />
+    <ClInclude Include="pch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
