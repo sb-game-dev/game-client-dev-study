@@ -1,8 +1,11 @@
 #pragma once
 #include "pch.h"
 #include "Cstudent.h"
-class GMainGame
+class CMainGame
 {
+public:
+	CMainGame();
+	~CMainGame();
 public:
 	void Initialize();
 	void Update();

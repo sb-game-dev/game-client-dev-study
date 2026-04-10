@@ -30,6 +30,9 @@
     <ClCompile Include="CStudent.cpp">
       <Filter>Student</Filter>
     </ClCompile>
+    <ClCompile Include="hw_StudentInfo.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CMainGame.h">
