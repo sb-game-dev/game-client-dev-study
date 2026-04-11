@@ -1,10 +1,16 @@
 #include "CMainGame.h"
 CMainGame::CMainGame()
 {
+
+	cout << "CMainGame 클래스 생성자 호출" << endl;
 	stu = new CStudent;
+	system("pause");
 }
 CMainGame::~CMainGame()
 {
+	stu->Release();
+	cout << "CMainGame 클래스 소멸자 호출" << endl;
+	system("pause");
 }
 
 void CMainGame::Initialize()

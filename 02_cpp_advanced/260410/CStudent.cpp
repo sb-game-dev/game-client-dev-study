@@ -4,11 +4,15 @@ CStudent::CStudent()
 {
 	m_iSize = 0;
 	m_Student = nullptr;
+	cout << "CStudent 클래스 생성자 호출"<<endl;
+	system("pause");
 }
 
 CStudent::~CStudent()
 {
+	cout << "CStudent 클래스 소멸자 호출" << endl;
 	Release();
+	system("pause");
 }
 
 void CStudent::Initialize()
