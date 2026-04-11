@@ -1,30 +1,58 @@
 #include "CMonster.h"
-#include "pch.h"
-
-void CMonster::SetName(const char cTemp[]) { strcpy_s(m_szName, sizeof(m_szName), cTemp); }
-char* CMonster::GetName() { return m_szName; }
-void CMonster::SetHp(int iNum) { m_iHp = iNum; }
-int CMonster::GetHp() { return m_iHp; }
-void CMonster::SetPower(int iNum) { m_iPower = iNum; }
-int CMonster::GetPower() { return m_iPower; }
-
-
-void CMonster::CreateMonster(const char szName[], int iHp, int iPower)
+#include "Define.h"
+CMonster::CMonster()
 {
-	//cout << "1.초급 2. 중급 3. 고급. 4. 전단계:";
-	SetName(szName);
-	SetHp(iHp);
-	SetPower(iPower);
+	Monster = nullptr;
+}
+CMonster::~CMonster()
+{
+	Release();
+}
+void CMonster::Initialize(int iLevel)
+{
+	Monster = new stMonster;
+	CreateMonster(iLevel);
+}
+void CMonster::Update()
+{
+
+}
+void CMonster::Release()
+{
+	SAFE_DELETE(Monster);
+}
+int CMonster::GetHp() { return Monster->iHp; }
+int CMonster::GetPower() { return Monster->iPower; }
+
+void CMonster::CreateMonster(int iLevel)
+{
+	switch (iLevel)
+	{
+	case 1:
+		Monster->SetStat("초급", iLevel * 30, iLevel * 3);
+		return;
+
+	case 2:
+		Monster->SetStat("중급", iLevel * 30, iLevel * 3);
+		return;
+
+	case 3:
+		Monster->SetStat("고급", iLevel * 30, iLevel * 3);
+		return;
+	default:
+		break;
+	}
 }
 
-void CMonster::PrintMonster()
+void CMonster::TakeDamage(int iEnemyDamage)
 {
-	cout << "==================================" << endl;
-	cout << "이름: " << m_szName << endl;
-	cout << "체력: " << m_iHp << ((m_iHp > 9) ? "\t" : "\t\t") << "공격력: " << m_iPower << endl;
+	if (Monster->iHp > 0)
+		Monster->iHp -= iEnemyDamage;
 }
 
-void CMonster::EnemyAttack(int iPower)
+void CMonster::PrintInfo()
 {
-	m_iHp -= iPower;
+	cout << "==========================" << endl;
+	cout << "이름:" << Monster->szName << endl;
+	cout << "체력: " << Monster->iHp << ((Monster->iHp > 9) ? "\t" : "\t\t") << "공격력:" << Monster->iPower << endl;
 }

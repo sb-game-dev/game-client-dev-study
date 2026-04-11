@@ -13,20 +13,23 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="CPlayer">
-      <UniqueIdentifier>{923efb3b-56ef-46a7-94e1-9ed22ceb91c1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="CMonster">
-      <UniqueIdentifier>{4ba81af7-c0ba-4046-b5fe-7fa3edb684ff}</UniqueIdentifier>
-    </Filter>
     <Filter Include="MainGame">
-      <UniqueIdentifier>{d247f32c-f80c-42b4-bfaa-e29c6dfdaacd}</UniqueIdentifier>
+      <UniqueIdentifier>{bd2f616f-c0f0-4a38-9b11-417ed8aa3593}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player">
+      <UniqueIdentifier>{48f95123-59e8-4d4f-93f8-4fd8bb1c7f75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Define">
+      <UniqueIdentifier>{318df02b-44be-4e8e-8755-fbd76b071554}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Monster">
+      <UniqueIdentifier>{e362b2e1-bfbe-40c9-b0a0-999f3457f3f8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Field">
-      <UniqueIdentifier>{b49ad757-5c8f-4057-887f-ea5c1b0f2cb0}</UniqueIdentifier>
+      <UniqueIdentifier>{812196cf-763f-4011-8ef3-60a1bf5daa95}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Battle">
-      <UniqueIdentifier>{111a84a8-a29d-41eb-832c-2400632f1cfb}</UniqueIdentifier>
+    <Filter Include="Shop">
+      <UniqueIdentifier>{99c06006-bb2f-4783-99f7-bfd9d45edfd6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -36,40 +39,46 @@
     <ClCompile Include="pch.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="CPlayer.cpp">
-      <Filter>CPlayer</Filter>
-    </ClCompile>
-    <ClCompile Include="CMonster.cpp">
-      <Filter>CMonster</Filter>
-    </ClCompile>
-    <ClCompile Include="MainGame.cpp">
+    <ClCompile Include="CMainGame.cpp">
       <Filter>MainGame</Filter>
     </ClCompile>
-    <ClCompile Include="Field.cpp">
+    <ClCompile Include="CPlayer.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Define.cpp">
+      <Filter>Define</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonster.cpp">
+      <Filter>Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CField.cpp">
       <Filter>Field</Filter>
     </ClCompile>
-    <ClCompile Include="Battle.cpp">
-      <Filter>Battle</Filter>
+    <ClCompile Include="CShop.cpp">
+      <Filter>Shop</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="CPlayer.h">
-      <Filter>CPlayer</Filter>
-    </ClInclude>
-    <ClInclude Include="CMonster.h">
-      <Filter>CMonster</Filter>
-    </ClInclude>
-    <ClInclude Include="MainGame.h">
+    <ClInclude Include="CMainGame.h">
       <Filter>MainGame</Filter>
     </ClInclude>
-    <ClInclude Include="Field.h">
+    <ClInclude Include="CPlayer.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Define.h">
+      <Filter>Define</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonster.h">
+      <Filter>Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="CField.h">
       <Filter>Field</Filter>
     </ClInclude>
-    <ClInclude Include="Battle.h">
-      <Filter>Battle</Filter>
+    <ClInclude Include="CShop.h">
+      <Filter>Shop</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

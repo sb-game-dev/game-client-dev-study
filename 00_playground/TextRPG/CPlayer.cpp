@@ -1,89 +1,109 @@
 #include "CPlayer.h"
 #include "pch.h"
+#include "CMonster.h"
 
-void CPlayer::SetName(const char cTemp[]) { strcpy_s(m_szName,sizeof(m_szName),cTemp); }
-char* CPlayer::GetName() {return m_szName;}
-void CPlayer::SetHp(int iNum) {m_iHp = iNum;}
-int CPlayer::GetHp() { return m_iHp; }
-void CPlayer::SetPower(int iNum) { m_iPower = iNum; }
-int CPlayer::GetPower() { return m_iPower; }
-void CPlayer::SetLevel(int iNum) { m_iLevel = iNum; }
-int CPlayer::GetLevel() { return m_iLevel; }
-void CPlayer::SetGold(int iNum) { m_iGold = iNum; }
-int CPlayer::GetGold() { return m_iGold; }
-void CPlayer::SetItem(int iNum) { m_iItem = iNum; }
-int CPlayer::GetItem() { return m_iItem; }
-
-void CPlayer::PrintPlayer()
+CPlayer::CPlayer()
 {
-	system("cls");
-	cout << "==================================" << endl;
-	cout << "레벨: " << m_iLevel	<< ((m_iLevel > 9) ? "\t" : "\t\t")	<< "직업: " << m_szName << endl;
-	cout << "체력: " << m_iHp		<< ((m_iHp > 9) ? "\t" : "\t\t")	<< "공격력: " << m_iPower<< endl;
-	cout << "골드: " << m_iGold		<< ((m_iGold > 9) ? "\t" : "\t\t")	<< "아이템: " << m_szName << endl;
-	//색 추가
+	Player = nullptr;
 }
-
-void CPlayer::SelectJob(CPlayer** ppPlayer)
+CPlayer::~CPlayer()
 {
-	int iInput = 0;
+	Release();
+}
+void CPlayer::Initialize()
+{
+	Player = new stPlayer;
+	SelectJob();
+}
+void CPlayer::Update()
+{
+
+}
+void CPlayer::Release()
+{
+	SAFE_DELETE(Player);
+}
+int CPlayer::GetHp() { return Player->iHp; }
+int CPlayer::GetGold() { return Player->iGold; }
+int CPlayer::GetItem() { return Player->iItem; }
+int CPlayer::GetLevel() { return Player->iLevel; }
+int CPlayer::GetPower() { return Player->iPower; }
+
+void CPlayer::SetName(const char sTemp[]) { strcpy_s(Player->szName,sizeof(Player->szName),sTemp); }
+void CPlayer::SetHp(int iTemp) { Player->iHp = iTemp; }
+void CPlayer::SetGold(int iTemp) { Player->iGold = iTemp; }
+void CPlayer::SetItem(int iTemp) { Player->iItem = iTemp; }
+void CPlayer::SetLevel(int iTemp) { Player->iLevel = iTemp; }
+void CPlayer::SetPower(int iTemp) { Player->iPower = iTemp; }
+
+void CPlayer::SelectJob()
+{
+	int iInput;
 	while (true)
 	{
-		cout << "직업을 선택하세요(1. 전사 2. 마법사 3. 도적 . 4. 불러오기): ";
+		system("cls");
+		cout << "직업을 선택하세요 1. 전사 2. 마법사 3. 도적 4. 불러오기: ";
 		cin >> iInput;
 		switch (iInput)
 		{
 		case Warrior:
-			CreatePlayer("전사",100,10);
-			SavePlayer();
+			Player->SetStat("전사", 100, 10,0,1,1);
 			return;
+
 		case Mage:
-			CreatePlayer("마법사", 100, 10);
-			SavePlayer();
+			Player->SetStat("마법사", 100, 10, 0, 1, 1);
 			return;
-		case Thief:
-			CreatePlayer("도적", 100, 10);
-			SavePlayer();
+
+		case Theif:
+			Player->SetStat("도적", 100, 10, 0, 1, 1);
 			return;
-		case LastJob:
-			LoadPlayer(*ppPlayer);
+
+		case LoadData:
+			LoadInfo();
 			return;
 		default:
+			SystemMessage("다시 입력해주세요");
+			
 			break;
 		}
 	}
 }
 
-void CPlayer::CreatePlayer(const char szName[], int iHp, int iPower)
+void CPlayer::TakeDamage(int iEnemyDamage)
 {
-	SetName(szName);
-	SetHp(iHp);
-	SetPower(iPower);
+	if(Player->iHp>0)
+		Player->iHp -= iEnemyDamage;
 }
 
-void CPlayer::LoadPlayer(CPlayer* ppPlayer)
+void CPlayer::PrintInfo()
 {
-	FILE* fRead = nullptr;
-	errno_t err = fopen_s(&fRead, "./Data/PlayerInfo.txt", "rb");
-	if (err == 0)
-	{
-		fread((ppPlayer), sizeof(CPlayer), 1, fRead);
-		fclose(fRead);
-	}
+	system("cls");
+	cout << "==========================" << endl;
+	cout << "레벨: " << Player->iLevel	<< (Player->iLevel > 9 || Player->iLevel < 0 ? "\t" : "\t\t")	<< "직업:"		<< Player->szName << endl;
+	cout << "체력: " << Player->iHp		<< (Player->iHp > 9 || Player->iHp < 0 ? "\t" : "\t\t")			<< "공격력:"	<< Player->iPower << endl;
+	cout << "골드: " << Player->iGold	<< (Player->iGold > 9 || Player->iGold < 0 ? "\t" : "\t\t")	<< "아이템:"	<< Player->iItem << endl;
+
 }
 
-void CPlayer::SavePlayer()
+void CPlayer::SaveData()
 {
 	FILE* fWrite = nullptr;
-	errno_t err = fopen_s(&fWrite, "./Data/PlayerInfo.txt", "wb");
+	errno_t err = fopen_s(&fWrite, "./Data/PlayerInfo.txt", "wt");
 	if (err == 0)
 	{
-		fwrite(this, sizeof(CPlayer), 1, fWrite);
-		fclose(fWrite);	
+		fwrite(Player, sizeof(stPlayer), 1, fWrite);
+
+		fclose(fWrite);
 	}
 }
 
-void CPlayer::EnemyAttack(int iPower)
+void CPlayer::LoadInfo()
 {
-	m_iHp -= iPower;
+	FILE* fRead = nullptr;
+	errno_t err = fopen_s(&fRead, "./Data/PlayerInfo.txt", "rt");
+	if (err == 0)
+	{
+		fread(Player, sizeof(stPlayer), 1, fRead);
+		fclose(fRead);
+	}
 }

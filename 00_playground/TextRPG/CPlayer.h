@@ -1,41 +1,45 @@
 #pragma once
+#include "Define.h"
 class CPlayer
 {
-private:
-	char m_szName[32];
-	int m_iHp;
-	int m_iPower;
-	int m_iLevel = 1;
-	int m_iGold = 0;
-	int m_iItem = 0;
 public:
-	void SetName(const char cTemp[]);
-	char* GetName();
-	void SetHp(int);
+	CPlayer();
+	~CPlayer();
+public:
+	void Initialize();
+	void Update();
+	void Release();
+public:
+
 	int GetHp();
-	void SetPower(int);
-	int GetPower();
-	void SetLevel(int);
-	int GetLevel();
-	void SetGold(int);
 	int GetGold();
-	void SetItem(int);
 	int GetItem();
+	int GetLevel();
+	int GetPower();
+
+	void SetName(const char sTemp[]);
+	void SetHp(int iTemp);
+	void SetGold(int iTemp);
+	void SetItem(int iTemp);
+	void SetLevel(int iTemp);
+	void SetPower(int iTemp);
+
+private:
+	stPlayer* Player;
 public:
-	void PrintPlayer();
-	void SelectJob(CPlayer** ppPlayer);
-	void CreatePlayer(const char szName[], int iHp, int iPower);
-	void SavePlayer();
-	void LoadPlayer(CPlayer* ppPlayer);
-	void EnemyAttack(int iPower);
+	void SelectJob();
+	void TakeDamage(int iEnemyDamage);
+	void PrintInfo();
+	void SaveData();
+	void LoadInfo();
 };
 
 enum Job
 {
 	Warrior = 1,
 	Mage,
-	Thief,
-	LastJob,
-	End
+	Theif,
+	LoadData,
+	END
 };
 

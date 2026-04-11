@@ -3,8 +3,7 @@
 #include <ctime>
 
 using namespace std;
-#define SAFE_DELETE(p) {delete p;p = nullptr;}
-#define SAFE_ARR_DELETE(p) {delete[] p;p = nullptr;}
+
 
 
 #ifdef _DEBUG

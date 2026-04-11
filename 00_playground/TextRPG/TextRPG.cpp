@@ -1,13 +1,9 @@
 ﻿#include "pch.h"
-#include "CPlayer.h"
-#include "MainGame.h"
-
+#include "CMainGame.h"
 int main()
 {
-	CPlayer* Player = new CPlayer;
-	
-	MainGame(Player);
-	
-	SAFE_DELETE(Player);
-	return 0;
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	CMainGame Game;
+	Game.Initialize();
+	Game.Update();
 }
