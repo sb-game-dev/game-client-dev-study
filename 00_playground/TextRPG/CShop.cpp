@@ -1,5 +1,6 @@
 #include "CShop.h"
 #include <ctime>
+#include "Define.h"
 CShop::CShop()
 {
 
@@ -35,56 +36,7 @@ void CShop::Update(CPlayer** ppPlayer)
 			(*ppPlayer)->SetHp(100);
 			break;
 		case 2:
-			//대장장이 코드
-			if ((*ppPlayer)->GetGold() < (*ppPlayer)->GetItem() * 5)
-			{
-				SystemMessage("골드가 부족합니다.");
-				break;
-			}
-			switch ((*ppPlayer)->GetItem())
-			{
-			case 1:
-				if (rand() % 100 < 90)
-				{
-					(*ppPlayer)->SetGold((*ppPlayer)->GetGold() - (*ppPlayer)->GetItem() * 5);
-					(*ppPlayer)->SetItem((*ppPlayer)->GetItem() + 1);
-					SystemMessage("강화 성공!");
-				}
-				else SystemMessage("강화 실패!");
-				break;
-			case 2:
-				if (rand() % 100 < 75)
-				{
-					(*ppPlayer)->SetGold((*ppPlayer)->GetGold() - (*ppPlayer)->GetItem() * 5);
-					(*ppPlayer)->SetItem((*ppPlayer)->GetItem() + 1);
-					SystemMessage("강화 성공!");
-				}
-				else SystemMessage("강화 실패!");
-				break;
-			case 3:
-				if (rand() % 100 < 60)
-				{
-					(*ppPlayer)->SetGold((*ppPlayer)->GetGold() - (*ppPlayer)->GetItem() * 5);
-					(*ppPlayer)->SetItem((*ppPlayer)->GetItem() + 1);
-					SystemMessage("강화 성공!");
-				}
-				else SystemMessage("강화 실패!");
-				break;
-			case 4:
-				if (rand() % 100 < 45)
-				{
-					(*ppPlayer)->SetGold((*ppPlayer)->GetGold() - (*ppPlayer)->GetItem() * 5);
-					(*ppPlayer)->SetItem((*ppPlayer)->GetItem() + 1);
-					SystemMessage("강화 성공!");
-				}
-				else SystemMessage("강화 실패!");
-				break;
-			
-			default:
-				SystemMessage("이미 최고 단계 아이템입니다.");
-				break;
-			}
-			//대장장이 코드
+			ItemEnhancement(ppPlayer, 90 - ((*ppPlayer)->GetItem() - 1) * 15);
 			break;
 		case 3:
 			return;
@@ -99,5 +51,39 @@ void CShop::Update(CPlayer** ppPlayer)
 void CShop::Release()
 {
 
+}
+
+void ItemEnhancement(CPlayer **ppPlayer,int iProbability)
+{
+	if ((*ppPlayer)->GetGold() < (*ppPlayer)->GetItem() * 5)
+	{
+		SystemMessage("골드가 부족합니다.");
+		return;
+	}
+	if ((*ppPlayer)->GetItem() >= 5)
+	{
+		SystemMessage("이미 최고 단계 아이템입니다.");
+		return;
+	}
+	(*ppPlayer)->SetGold((*ppPlayer)->GetGold() - (*ppPlayer)->GetItem() * 5);
+	if (rand() % 100 < iProbability)
+	{
+		cout << "강화 성공\t";
+		setColor(iItemColor[(*ppPlayer)->GetItem()]);
+		cout << szItemRarity[(*ppPlayer)->GetItem()];
+
+		setColor(15);
+		cout << " -> ";
+
+		(*ppPlayer)->SetItem((*ppPlayer)->GetItem() + 1);
+		(*ppPlayer)->SetPower((*ppPlayer)->GetItem() * 10);
+
+		setColor(iItemColor[(*ppPlayer)->GetItem()]);
+		cout << szItemRarity[(*ppPlayer)->GetItem()] << endl;
+
+		setColor(15);
+		system("pause");
+	}
+	else SystemMessage("강화 실패!");
 }
 

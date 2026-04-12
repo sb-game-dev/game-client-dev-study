@@ -16,3 +16,11 @@ void stMonster::SetStat(const char tempName[], int tempHp, int tempPower)
 	iHp = tempHp;
 	iPower = tempPower;
 }
+
+const int iItemColor[] = { 0,8,9,14,12,13 };
+const char* szItemRarity[] = { "","Normal","Magic","Rare","Legendary","Unique" };
+
+void setColor(unsigned short text)
+{
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), text);
+}

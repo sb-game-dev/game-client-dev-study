@@ -19,3 +19,5 @@ enum Item
 	Legendary,
 	Unique
 };
+
+void ItemEnhancement(CPlayer** ppPlayer, int iProbability);

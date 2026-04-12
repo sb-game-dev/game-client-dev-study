@@ -1,6 +1,7 @@
 #include "CPlayer.h"
 #include "pch.h"
 #include "CMonster.h"
+#include "Define.h"
 
 CPlayer::CPlayer()
 {
@@ -81,8 +82,11 @@ void CPlayer::PrintInfo()
 	cout << "==========================" << endl;
 	cout << "레벨: " << Player->iLevel	<< (Player->iLevel > 9 || Player->iLevel < 0 ? "\t" : "\t\t")	<< "직업:"		<< Player->szName << endl;
 	cout << "체력: " << Player->iHp		<< (Player->iHp > 9 || Player->iHp < 0 ? "\t" : "\t\t")			<< "공격력:"	<< Player->iPower << endl;
-	cout << "골드: " << Player->iGold	<< (Player->iGold > 9 || Player->iGold < 0 ? "\t" : "\t\t")	<< "아이템:"	<< Player->iItem << endl;
-
+	cout << "골드: " << Player->iGold << (Player->iGold > 9 || Player->iGold < 0 ? "\t" : "\t\t") << "아이템:";
+	
+	setColor(iItemColor[Player->iItem]);
+	cout << szItemRarity[Player->iItem] << endl;
+	setColor(15);
 }
 
 void CPlayer::SaveData()
