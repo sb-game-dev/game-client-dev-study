@@ -25,13 +25,9 @@ void CField::Update(CPlayer** ppPlayer)
 		switch (iInput)
 		{
 		case 1:
-			Monster->Initialize(iInput);
-			break;
 		case 2:
-			Monster->Initialize(2);
-			break;
 		case 3:
-			Monster->Initialize(3);
+			Monster->Initialize(iInput);
 			break;
 		case 4:
 			return;
@@ -66,19 +62,28 @@ void CField::Battle(CPlayer** ppPlayer)
 			(Monster)->TakeDamage((*ppPlayer)->GetPower());
 			if ((*ppPlayer)->GetHp() <= 0)
 			{
+				(*ppPlayer)->SetGold(0);
+				(*ppPlayer)->SetLevel(1);
+				(*ppPlayer)->SetItem(1);
 				(*ppPlayer)->PrintInfo();
+
+				(*ppPlayer)->SetHp(0);
 				Monster->PrintInfo();
-				cout << "ÇÃ·¹ÀÌ¾î »ç¸Á" << endl;
-				system("pause");
+
+				SystemMessage("ÇÃ·¹ÀÌ¾î »ç¸Á");
 				return;
 			}
 			if (Monster->GetHp() <= 0)
 			{
 				(*ppPlayer)->SetGold((*ppPlayer)->GetGold() + Monster->GetPower());
+				(*ppPlayer)->SetExp((*ppPlayer)->GetExp() + Monster->GetPower());
+				
 				(*ppPlayer)->PrintInfo();
 				Monster->PrintInfo();
-				cout << "½Â¸®!" << endl;
-				system("pause");
+
+				(*ppPlayer)->LevelUpCheck();
+
+				SystemMessage("½Â¸®!");
 				return;
 			}
 			break;

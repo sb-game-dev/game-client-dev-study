@@ -44,8 +44,7 @@ void CShop::Update(CPlayer** ppPlayer)
 			SystemMessage("다시 입력해주세요");
 			break;
 		}
-	}
-	
+	}	
 }
 
 void CShop::Release()

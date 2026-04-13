@@ -13,6 +13,7 @@ struct stPlayer
 	int iGold ;
 	int iLevel;
 	int iItem;
+	int iExp;
 	void SetStat(const char tempName[], int tempHp, int tempPower, int tempGold, int tempLevel, int tempItem);
 };
 

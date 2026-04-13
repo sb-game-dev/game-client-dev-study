@@ -29,6 +29,7 @@ int CPlayer::GetGold() { return Player->iGold; }
 int CPlayer::GetItem() { return Player->iItem; }
 int CPlayer::GetLevel() { return Player->iLevel; }
 int CPlayer::GetPower() { return Player->iPower; }
+int CPlayer::GetExp() { return Player->iExp; }
 
 void CPlayer::SetName(const char sTemp[]) { strcpy_s(Player->szName,sizeof(Player->szName),sTemp); }
 void CPlayer::SetHp(int iTemp) { Player->iHp = iTemp; }
@@ -36,6 +37,7 @@ void CPlayer::SetGold(int iTemp) { Player->iGold = iTemp; }
 void CPlayer::SetItem(int iTemp) { Player->iItem = iTemp; }
 void CPlayer::SetLevel(int iTemp) { Player->iLevel = iTemp; }
 void CPlayer::SetPower(int iTemp) { Player->iPower = iTemp; }
+void CPlayer::SetExp(int iTemp) { Player->iExp = iTemp; }
 
 void CPlayer::SelectJob()
 {
@@ -80,9 +82,10 @@ void CPlayer::PrintInfo()
 {
 	system("cls");
 	cout << "==========================" << endl;
-	cout << "레벨: " << Player->iLevel	<< (Player->iLevel > 9 || Player->iLevel < 0 ? "\t" : "\t\t")	<< "직업:"		<< Player->szName << endl;
-	cout << "체력: " << Player->iHp		<< (Player->iHp > 9 || Player->iHp < 0 ? "\t" : "\t\t")			<< "공격력:"	<< Player->iPower << endl;
-	cout << "골드: " << Player->iGold << (Player->iGold > 9 || Player->iGold < 0 ? "\t" : "\t\t") << "아이템:";
+	cout << "직업: " << Player->szName	<< endl;
+	cout << "레벨: " << Player->iLevel	<< (Player->iLevel > 9 || Player->iLevel < 0 ? "\t" : "\t\t")	<< "경험치: "	<< Player->iExp << endl;
+	cout << "체력: " << Player->iHp		<< (Player->iHp > 9 || Player->iHp < 0 ? "\t" : "\t\t")			<< "공격력: "	<< Player->iPower << endl;
+	cout << "골드: " << Player->iGold	<< (Player->iGold > 9 || Player->iGold < 0 ? "\t" : "\t\t") << "아이템: ";
 	
 	setColor(iItemColor[Player->iItem]);
 	cout << szItemRarity[Player->iItem] << endl;
@@ -109,5 +112,15 @@ void CPlayer::LoadInfo()
 	{
 		fread(Player, sizeof(stPlayer), 1, fRead);
 		fclose(fRead);
+	}
+}
+
+void CPlayer::LevelUpCheck()
+{
+	while (Player->iExp >= (Player->iLevel) * 5)
+	{
+		Player->iExp -= Player->iLevel * 5;
+		Player->iLevel++;
+		cout << "레벨 업! " << Player->iLevel - 1 << " -> " << Player->iLevel << endl;
 	}
 }

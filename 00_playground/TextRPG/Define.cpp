@@ -8,6 +8,7 @@ void stPlayer::SetStat(const char tempName[], int tempHp, int tempPower,int temp
 	iGold = tempGold;
 	iLevel = tempLevel;
 	iItem = tempItem;
+	iExp = 0;
 }
 
 void stMonster::SetStat(const char tempName[], int tempHp, int tempPower)

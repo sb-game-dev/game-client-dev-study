@@ -16,6 +16,7 @@ public:
 	int GetItem();
 	int GetLevel();
 	int GetPower();
+	int GetExp();
 
 	void SetName(const char sTemp[]);
 	void SetHp(int iTemp);
@@ -23,6 +24,7 @@ public:
 	void SetItem(int iTemp);
 	void SetLevel(int iTemp);
 	void SetPower(int iTemp);
+	void SetExp(int iTemp);
 
 private:
 	stPlayer* Player;
@@ -32,6 +34,7 @@ public:
 	void PrintInfo();
 	void SaveData();
 	void LoadInfo();
+	void LevelUpCheck();
 };
 
 enum Job
