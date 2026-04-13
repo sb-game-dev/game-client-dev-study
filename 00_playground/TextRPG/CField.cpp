@@ -11,6 +11,7 @@ CField::~CField()
 }
 void CField::Initialize(CPlayer* pPlayer)
 {
+
 }
 void CField::Update(CPlayer** ppPlayer)
 {
