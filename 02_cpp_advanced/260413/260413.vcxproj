@@ -124,6 +124,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="260413.cpp" />
+    <ClCompile Include="C_A.cpp" />
+    <ClCompile Include="C_B.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C_A.h" />
+    <ClInclude Include="C_B.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

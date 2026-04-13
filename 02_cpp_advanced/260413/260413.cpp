@@ -2,10 +2,13 @@
 //
 
 #include <iostream>
-
+#include "C_A.h"
 int main()
 {
-    std::cout << "Hello World!\n";
+    C_A CA(10);
+    CA.Initialize();
+    CA.Render_B();
+
 }
 // 
 // 

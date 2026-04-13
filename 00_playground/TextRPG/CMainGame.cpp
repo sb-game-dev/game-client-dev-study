@@ -32,10 +32,12 @@ void CMainGame::Update()
 		case 1:
 			Field = new CField;
 			Field->Update(&Player);
+			SAFE_DELETE(Field);
 			break;
 		case 2:
 			Shop = new CShop;
 			Shop->Update(&Player);
+			SAFE_DELETE(Shop);
 			break;
 		case 3:
 			Player->SaveData();
@@ -53,5 +55,3 @@ void CMainGame::Release()
 	SAFE_DELETE(Field);
 	SAFE_DELETE(Shop);
 }
-
-

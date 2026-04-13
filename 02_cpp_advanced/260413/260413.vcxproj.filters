@@ -13,10 +13,30 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="A">
+      <UniqueIdentifier>{896b6f90-6d91-4bd0-a683-2718c14e2b4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="B">
+      <UniqueIdentifier>{767df645-ebb0-424c-b3fb-b8064c2bb9aa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="260413.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="C_A.cpp">
+      <Filter>A</Filter>
+    </ClCompile>
+    <ClCompile Include="C_B.cpp">
+      <Filter>B</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C_A.h">
+      <Filter>A</Filter>
+    </ClInclude>
+    <ClInclude Include="C_B.h">
+      <Filter>B</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
