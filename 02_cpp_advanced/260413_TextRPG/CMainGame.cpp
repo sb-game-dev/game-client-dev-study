@@ -41,6 +41,7 @@ void CMainGame::Update()
 			m_pField->Update();
 			break;
 		case 2:
+			m_pPlayer->SaveData();
 			return;
 		default:
 			break;
