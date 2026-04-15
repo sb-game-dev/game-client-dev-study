@@ -1,30 +1,21 @@
 #pragma once
 #include "Define.h"
-class CPlayer
+class CMonster
 {
 private:
-	enum JOBINDEX
-	{
-		WARRIOR = 1,
-		MAGE,
-		THEIF,
-		LOADDATA
-	};
-private:
-	CPlayer();
-	~CPlayer();
+	CMonster(const char szName[], int iHp, int iAttack);
+	~CMonster();
+
 public:
 	void Initialize();
 	void Update();
 	void Release();
-	void Render() const;
+	void Render()const;
 	void TakeDamage(int iNum) { m_tInfo.iHp -= iNum; }
 	Info GetInfo() { return m_tInfo; }
-	void Heal(int iNum) { m_tInfo.iHp = iNum; }
 public:
-	static CPlayer* Create();
+	static CMonster* Create(const char szName[], int iHp, int iAttack);
 	void Destroy();
-
 private:
 	Info m_tInfo;
 };

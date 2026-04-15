@@ -22,6 +22,9 @@
     <Filter Include="02. Field">
       <UniqueIdentifier>{a37c391c-71f3-4513-93fa-4290d12f0dfd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03.Monster">
+      <UniqueIdentifier>{cff3d831-4477-4228-9067-4054a4e417bb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="260415_TextRPG.cpp">
@@ -35,6 +38,9 @@
     </ClCompile>
     <ClCompile Include="CField.cpp">
       <Filter>02. Field</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonster.cpp">
+      <Filter>03.Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +58,9 @@
     </ClInclude>
     <ClInclude Include="CField.h">
       <Filter>02. Field</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonster.h">
+      <Filter>03.Monster</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

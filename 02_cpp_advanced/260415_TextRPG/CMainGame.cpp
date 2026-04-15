@@ -33,6 +33,7 @@ void CMainGame::Update()
 		switch (iInput)
 		{
 		case 1:
+			m_pField->Update();
 			break;
 		case 2:
 			return;
@@ -45,6 +46,7 @@ void CMainGame::Update()
 void CMainGame::Release()
 {
 	m_pPlayer->Destroy();
+	m_pField->Destroy();
 }
 
 CMainGame* CMainGame::Create()

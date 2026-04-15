@@ -16,7 +16,7 @@ public:
 	void Destroy();// { delete this; }
 private:
 	CPlayer* m_pPlayer;
-	CField* m_CField;
+	CField* m_pField;
 
 };
 
