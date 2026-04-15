@@ -1,18 +1,23 @@
 ﻿#include "pch.h"
 class CObj
 {
-public:
+private:
 	CObj() {}
+	~CObj() {}
 public:
-public:
-	static int m_iA;
+	static CObj* Create()
+	{
+		CObj* pObj = new CObj;
+		return pObj;
+	}
+	void Destroy() { delete this; }
 };
 
-int CObj::m_iA = 100;//멤버변수를 클래스 밖에서 초기화 해야 함. 
 
 int main()
 {
-	cout << CObj::m_iA;
+	CObj* Obj = CObj::Create();
+	Obj->Destroy();
 	return 0;
 }
 
