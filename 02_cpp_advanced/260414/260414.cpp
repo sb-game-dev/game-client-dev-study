@@ -1,7 +1,18 @@
 ﻿#include "pch.h"
+class CObj
+{
+public:
+	CObj() {}
+public:
+public:
+	static int m_iA;
+};
+
+int CObj::m_iA = 100;//멤버변수를 클래스 밖에서 초기화 해야 함. 
+
 int main()
 {
-
+	cout << CObj::m_iA;
 	return 0;
 }
 
@@ -41,7 +52,6 @@ int main()
 // 
 // 2. 함수
 // 
-// => 읽기전용 함수안에서 만든 변수들은 쓰기 가능
 // -> data영역 쓰기 가능
 // -> heap영역 쓰기 가능
 // -> stack영역 쓰기 가능
