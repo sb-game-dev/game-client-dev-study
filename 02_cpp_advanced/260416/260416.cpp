@@ -1,5 +1,16 @@
 ﻿#include "pch.h"
+class CObj
+{
+public:
+	CObj(int iA) : m_iA(iA) {}
+	CObj(const CObj& rhs)
+	{
 
+	}
+
+private:
+	int m_iA;
+};
 int main()
 {
 
