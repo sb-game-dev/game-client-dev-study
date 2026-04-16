@@ -1,7 +1,47 @@
 ﻿#include "pch.h"
+
+//class CObj
+//{
+//public:
+//	CObj(int iA, int iB) : m_iA(iA), m_iB(iB), m_iSum(iA + iB)
+//	{
+//	}
+//
+//public:
+//	void Render() { cout << m_iA + m_iB << endl; }
+//	void Render() const { cout << "Hello World" << endl; }
+//
+//private:
+//	const int m_iA;
+//	const int m_iB;
+//	mutable int m_iSum;
+//};
+//
+//int main()
+//{
+//	CObj Obj(10, 20);
+//	Obj.Render();
+//
+//	const CObj Temp(10, 20);
+//	Temp.Render();
+//	return 0;
+//}
+class CObj
+{
+public:
+	CObj() {}
+
+public:
+	void Render() { cout << m_iA; }
+private:
+	static int m_iA;
+};
+int CObj::m_iA = 100;
 int main()
 {
-
+	//CObj Obj;
+	//Obj.Render();
+	cout << CObj::m_iA;
 	return 0;
 }
 
@@ -21,7 +61,7 @@ int main()
 // => 읽기전용 멤버 함수만 호출 가능
 // => 읽기전용 멤버함수가 아닌 경우 멤버변수를 가공할 수도 있다고 판단해서 호출을 못하게 함
 // 
-// => 읽기전용 함수에서 쓰기를 허가하는 함수 mutable
+// => 읽기전용 함수에서 쓰기를 허가하는 명령어 mutable
 // ex. mutable int a;
 // 
 // => const 유무에 따라 함수 오버로딩 가능
