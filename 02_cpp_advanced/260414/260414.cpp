@@ -1,47 +1,22 @@
 ﻿#include "pch.h"
-
-//class CObj
-//{
-//public:
-//	CObj(int iA, int iB) : m_iA(iA), m_iB(iB), m_iSum(iA + iB)
-//	{
-//	}
-//
-//public:
-//	void Render() { cout << m_iA + m_iB << endl; }
-//	void Render() const { cout << "Hello World" << endl; }
-//
-//private:
-//	const int m_iA;
-//	const int m_iB;
-//	mutable int m_iSum;
-//};
-//
-//int main()
-//{
-//	CObj Obj(10, 20);
-//	Obj.Render();
-//
-//	const CObj Temp(10, 20);
-//	Temp.Render();
-//	return 0;
-//}
 class CObj
 {
-public:
-	CObj() {}
-
-public:
-	void Render() { cout << m_iA; }
 private:
-	static int m_iA;
+	CObj() {}
+	~CObj() {}
+public:
+	static CObj* Create()
+	{
+		CObj* pObj = new CObj;
+		return pObj;
+	}
+	void Destroy() { delete this; }
 };
-int CObj::m_iA = 100;
+
+
 int main()
 {
-	//CObj Obj;
-	//Obj.Render();
-	cout << CObj::m_iA;
+
 	return 0;
 }
 
@@ -81,7 +56,6 @@ int main()
 // 
 // 2. 함수
 // 
-// => 읽기전용 함수안에서 만든 변수들은 쓰기 가능
 // -> data영역 쓰기 가능
 // -> heap영역 쓰기 가능
 // -> stack영역 쓰기 가능
