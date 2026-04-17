@@ -4,12 +4,14 @@ class CObj
 {
 public:
     CObj() {
-        m_iA = 100;
+        m_iA = new int(100);
     }
     ~CObj() {
+        delete m_iA;
+        m_iA = nullptr;
     }
 public:
-    int m_iA;
+    int* m_iA;
 };
 
 //#include "Obj.h" // 상속 관계에서 부모 클래스의 헤더를 자식 클래스에서는 반드시 포함해야 한다.
@@ -18,34 +20,41 @@ class CPlayer:public CObj
 {
 public:
     CPlayer() {
-        m_iA = 200;
+        m_iA = new int(200);
         //CObj::m_iA = 200;
     }
     ~CPlayer() {
+        delete m_iA;
+        m_iA = nullptr;
     }
 };
 class CMonster :public CObj
 {
 public:
     CMonster() {
-        m_iA = 300;
+        m_iA = new int(300);
     }
     ~CMonster() {
+        delete m_iA;
+        m_iA = nullptr;
     }
 };
 int main()
 {
-    //CObj Obj;
-    //CPlayer Player;
+    CObj* Obj = new CObj;
+    CObj* Player = new CPlayer;
     //CMonster Monster;
-    //
+    
+    
+    //cout << *(Obj.m_iA) << endl;
+    //cout << *(Player.m_iA) << endl;
+    //cout << *(Monster.m_iA) << endl;
     //
     //cout << Obj.m_iA << endl;
     //cout << Player.m_iA << endl;
     //cout << Monster.m_iA << endl;
-    //
-    //cout << Obj.m_iA << endl;
 
+    //
     //
     // 상속의 목적 -> 공통화
     // 
