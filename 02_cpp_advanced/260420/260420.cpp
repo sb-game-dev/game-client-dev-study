@@ -3,21 +3,22 @@ using namespace std;
 class CObj
 {
 public:
-    virtual void Render() {    }
+    virtual void Render() {  }
     virtual void Draw() {  }
 };
 
 class CPlayer :public CObj
 {
-    virtual void Render() {
-        cout << "CPlayer" << endl;
-    }
+    char sz;
+    int iA;
+    virtual void Render() { cout << "CPlayer" << endl; }
     virtual void Draw() { cout << "CPlayerDraw" << endl; }
 };
 
 int main()
 {
-    //cout << sizeof(CObj);
+    cout << sizeof(CObj) << endl;
+    cout << sizeof(CPlayer) << endl;
 }
 
 // <다형성>
