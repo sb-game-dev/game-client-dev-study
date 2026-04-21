@@ -68,3 +68,5 @@ void CMainGame::Release()
 	SAFEDELETE(m_pField);
 	SAFEDELETE(m_pStore);
 }
+
+

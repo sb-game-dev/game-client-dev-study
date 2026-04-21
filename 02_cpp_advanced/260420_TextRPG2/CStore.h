@@ -12,6 +12,7 @@ public:
 	void SetPlayer(CObj* pPlayer) { m_pCopyPlayer = pPlayer; }
 	void Update();
 	void Release();
+	void Test();
 private:
 	CObj* m_pCopyPlayer;
 	CObj* m_pItem[IT_END][IC_END];

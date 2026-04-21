@@ -58,6 +58,10 @@ void CStore::Release()
 	}
 }
 
+void CStore::Test()
+{
+}
+
 void CStore::Render(ItemClass ItClass)
 {
 	int iInput;
