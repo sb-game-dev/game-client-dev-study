@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="00.MainGame">
+      <UniqueIdentifier>{73c5d7b4-1e5d-4e7b-a3ca-d29026a9c1d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Obj">
+      <UniqueIdentifier>{c13778b1-b7e6-4cb7-8f11-2e4c4a279b6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Obj\01.Player">
+      <UniqueIdentifier>{f02cf420-59cc-4775-9caa-53e752c5524f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Obj\02.Monster">
+      <UniqueIdentifier>{fb69deb0-a3fd-41b7-bdf5-1c4fb030ce19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Obj\03.Item">
+      <UniqueIdentifier>{ba270ff5-2a57-43db-8e9b-3a43dfab0518}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Field">
+      <UniqueIdentifier>{2e7013cd-072f-4b63-9768-78f72927dd11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.Store">
+      <UniqueIdentifier>{54d0d81c-88b6-4390-b5c5-19c6396ed2a3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="260420_TextRPG2.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CMainGame.cpp">
+      <Filter>00.MainGame</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayer.cpp">
+      <Filter>01.Obj\01.Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CObj.cpp">
+      <Filter>01.Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonster.cpp">
+      <Filter>01.Obj\02.Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CItem.cpp">
+      <Filter>01.Obj\03.Item</Filter>
+    </ClCompile>
+    <ClCompile Include="CField.cpp">
+      <Filter>02.Field</Filter>
+    </ClCompile>
+    <ClCompile Include="CStore.cpp">
+      <Filter>03.Store</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CMainGame.h">
+      <Filter>00.MainGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Define.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayer.h">
+      <Filter>01.Obj\01.Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CObj.h">
+      <Filter>01.Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonster.h">
+      <Filter>01.Obj\02.Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="CItem.h">
+      <Filter>01.Obj\03.Item</Filter>
+    </ClInclude>
+    <ClInclude Include="CField.h">
+      <Filter>02.Field</Filter>
+    </ClInclude>
+    <ClInclude Include="CStore.h">
+      <Filter>03.Store</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

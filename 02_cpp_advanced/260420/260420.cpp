@@ -7,18 +7,23 @@ public:
     virtual void Draw() {  }
 };
 
-class CPlayer :public CObj
+class CPlayer1 :public CObj
+{
+    virtual void Render() {
+        cout << "CPlayer" << endl;
+    }
+    virtual void Draw() { cout << "CPlayerDraw" << endl; }
+};
+class CPlayer2 :public CObj
 {
     char sz;
     int iA;
     virtual void Render() { cout << "CPlayer" << endl; }
     virtual void Draw() { cout << "CPlayerDraw" << endl; }
 };
-
 int main()
 {
-    cout << sizeof(CObj) << endl;
-    cout << sizeof(CPlayer) << endl;
+    //cout << sizeof(CObj);
 }
 
 // <다형성>
