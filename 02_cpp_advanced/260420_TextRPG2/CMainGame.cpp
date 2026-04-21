@@ -52,6 +52,7 @@ void CMainGame::Update()
 			m_pField->Update();
 			break;
 		case 2:
+			m_pStore->Update();
 			break;
 		case 3:
 			return;

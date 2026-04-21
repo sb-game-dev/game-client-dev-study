@@ -10,8 +10,8 @@ CStore::CStore() :m_pCopyPlayer(nullptr)
 	m_pItem[IT_WEAPON][IC_RARE] = new CItem("고급 검", 0, 30, 3000);
 
 	m_pItem[IT_ARMOR][IC_NORMAL] = new CItem("초급 방어구", 10, 0, 1000);
-	m_pItem[IT_WEAPON][IC_MAGIC] = new CItem("중급 방어구", 20, 0, 2000);
-	m_pItem[IT_WEAPON][IC_RARE] = new CItem("고급 방어구", 30, 0, 3000);
+	m_pItem[IT_ARMOR][IC_MAGIC] = new CItem("중급 방어구", 20, 0, 2000);
+	m_pItem[IT_ARMOR][IC_RARE] = new CItem("고급 방어구", 30, 0, 3000);
 }
 
 CStore::~CStore()
@@ -75,6 +75,7 @@ void CStore::Render(ItemClass ItClass)
 			if (m_pCopyPlayer->GetInfo().iGold < m_pItem[0][ItClass]->GetInfo().iGold)
 			{
 				cout << "골드가 부족합니다."<<endl;
+				system("pause");
 				break;
 			}
 			break;
@@ -82,6 +83,7 @@ void CStore::Render(ItemClass ItClass)
 			if (m_pCopyPlayer->GetInfo().iGold < m_pItem[1][ItClass]->GetInfo().iGold)
 			{
 				cout << "골드가 부족합니다."<<endl;
+				system("pause");
 				break;
 			}
 			break;
