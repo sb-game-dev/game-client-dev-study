@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{0d68feb9-bdc7-4f45-a11a-cd0e625ac9cf}</ProjectGuid>
-    <RootNamespace>My260421</RootNamespace>
+    <ProjectGuid>{bb8a5ce5-2437-4aca-9323-7d0e28ef8763}</ProjectGuid>
+    <RootNamespace>My260421hw</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -123,18 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="260421.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="CList.cpp" />
-    <ClCompile Include="CQueue.cpp" />
-    <ClCompile Include="CStack.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="CList.h" />
-    <ClInclude Include="CQueue.h" />
-    <ClInclude Include="CStack.h" />
-    <ClInclude Include="pch.h" />
+    <ClCompile Include="260421_hw.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

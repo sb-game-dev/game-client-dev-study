@@ -13,15 +13,42 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="00.Stack">
+      <UniqueIdentifier>{33068d78-4f91-4c4b-896d-d197dbdcaf09}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Queue">
+      <UniqueIdentifier>{fe414006-5003-42c4-bd78-0fa59243b920}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.List">
+      <UniqueIdentifier>{1fed23e8-8402-43b7-937d-21a1b33ead35}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="260421.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="CStack.cpp">
+      <Filter>00.Stack</Filter>
+    </ClCompile>
+    <ClCompile Include="CQueue.cpp">
+      <Filter>01.Queue</Filter>
+    </ClCompile>
+    <ClCompile Include="CList.cpp">
+      <Filter>02.List</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CStack.h">
+      <Filter>00.Stack</Filter>
+    </ClInclude>
+    <ClInclude Include="CQueue.h">
+      <Filter>01.Queue</Filter>
+    </ClInclude>
+    <ClInclude Include="CList.h">
+      <Filter>02.List</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,6 +1,19 @@
 ﻿#include "pch.h"
+#include "CStack.h"
+#include "CQueue.h"
+#include "CList.h"
 int main()
 {
+	CStack<int> s;
+	CQueue<int> q;
+	CList<int> lst;
+
+	lst.push_back(10);
+
+	CList<int>::iterator it;
+
+	cout << *it;
+	
 
 }
 
