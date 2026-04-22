@@ -10,9 +10,9 @@ int main()
 
 	lst.push_back(10);
 
-	CList<int>::iterator it;
+	CList<int>::iterator it(lst.begin());
 
-	cout << *it;
+	cout << *it << endl;
 	
 
 }
