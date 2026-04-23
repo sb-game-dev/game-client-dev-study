@@ -124,6 +124,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="260423.cpp" />
+    <ClCompile Include="CString.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CString.h" />
+    <ClInclude Include="pch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
