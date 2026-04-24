@@ -1,8 +1,39 @@
 ﻿#include <iostream>
+using namespace std;
+class CSortRule
+{
+public:
+	virtual bool operator()(int dst, int src) = 0;
+};
 
+class CAsending :public CSortRule
+{
+public:
+	bool operator()(int dst, int src) override {return dst < src;}
+};
+
+class CDesending :public CSortRule
+{
+public:
+	bool operator()(int dst, int src) override {return dst > src;}
+};
+
+void BubbleSort(int pArr[], int iSize, CSortRule&& Funtor)
+{
+	for (int i = 0; i < iSize; i++)
+	{
+		for (int j = 0; j < iSize; j++)
+		{
+			if (Funtor(pArr[i],pArr[i+1]))
+			{
+				swap(pArr[i], pArr[i + 1]);
+			}
+		}
+	}
+}
 int main()
 {
-    std::cout << "Hello World!\n";
+
 }
 
 // && -> 이중 레퍼런스
