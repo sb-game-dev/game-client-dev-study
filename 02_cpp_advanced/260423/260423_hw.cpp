@@ -16,7 +16,6 @@ CString operator+(const char* temp, CString& Tmp)
 	Result.szName[len] = NULL;
 	return Result;
 }
-
 int main()
 {
 	//CString s = "Test";
@@ -41,4 +40,6 @@ int main()
 	//{
 	//	cout << "일치하지 않습니다" << endl;
 	//}
+
+	
 }

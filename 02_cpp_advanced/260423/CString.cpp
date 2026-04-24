@@ -8,8 +8,8 @@ CString::CString()
 CString::CString(const char* temp)
 {
 	const int len = strlen(temp);
-	szName = new char[len+1];
-	strcpy_s(szName, len+1, temp);
+	szName = new char[len + 1];
+	strcpy_s(szName, len + 1, temp);
 }
 
 CString::CString(const CString& Tmp)

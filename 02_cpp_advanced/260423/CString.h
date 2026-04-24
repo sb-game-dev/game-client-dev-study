@@ -12,7 +12,7 @@ public:
 	CString& operator= (CString& Tmp);
 	CString& operator= (const char*);
 
-	CString operator+(CString& Tmp);
+	CString operator+(CString& Tmp); 
 	CString operator+(const char*);
 
 	bool operator==(const char*);
