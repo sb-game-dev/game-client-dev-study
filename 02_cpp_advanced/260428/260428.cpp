@@ -1,4 +1,5 @@
 ﻿#include "pch.h"
+#include <vector>
 class CObj
 {
 public:
@@ -15,6 +16,9 @@ private:
 int main()
 {
     CObj Obj("hello");
+    vector<int> v;
+    v.push_back(10);
+    cout << v.size() << endl;
     Obj.Render();
 }
 
