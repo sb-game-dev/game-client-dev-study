@@ -39,8 +39,7 @@ int main()
 // 
 // 모드 전환 때문에 vector(오브젝트 풀링)로 처리하는게 좋을 수 있음
 // 
-// 
-// 
-// 
-// 
+// ** 트리
+// set, map -> red black트리
+// 중위 순회 -> Left, Root, Right
 // 
