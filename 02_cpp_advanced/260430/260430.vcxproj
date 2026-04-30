@@ -123,7 +123,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="260430.cpp" />
+    <ClCompile Include="260430.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="260430_hw.cpp" />
+    <ClCompile Include="CGradeCalc.cpp" />
+    <ClCompile Include="CMainGame.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CGradeCalc.h" />
+    <ClInclude Include="CMainGame.h" />
+    <ClInclude Include="Define.h" />
+    <ClInclude Include="pch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -13,10 +13,39 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="00.MainGame">
+      <UniqueIdentifier>{046a42d1-9560-4726-82d3-dfea597f86bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.GradeCalc">
+      <UniqueIdentifier>{af796181-9fc3-4253-9f14-9ff07eca685d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="260430.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="260430_hw.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CMainGame.cpp">
+      <Filter>00.MainGame</Filter>
+    </ClCompile>
+    <ClCompile Include="CGradeCalc.cpp">
+      <Filter>01.GradeCalc</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Define.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CMainGame.h">
+      <Filter>00.MainGame</Filter>
+    </ClInclude>
+    <ClInclude Include="CGradeCalc.h">
+      <Filter>01.GradeCalc</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
