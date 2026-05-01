@@ -1,0 +1,13 @@
+#pragma once
+#include "CObj.h"
+class CMonster:public CObj
+{
+public:
+	CMonster(const char* szName,int iHp, int iAttack);
+	~CMonster();
+public:
+	void Render();
+	Info GetInfo() { return m_tInfo; }
+	void TakeDamage(int iNum) { m_tInfo.iHp -= iNum; }
+};
+
