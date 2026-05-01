@@ -4,7 +4,7 @@
 #include "Define.h"
 #include "CItem.h"
 #include "CPlayer.h"
-CInventory::CInventory() : m_pPlayer(nullptr),m_pWeaponSlot(nullptr),m_pArmorSlot(nullptr)
+CInventory::CInventory() : m_pPlayer(nullptr),m_pWeaponSlot(nullptr),m_pArmorSlot(nullptr), m_iWeaponNum(5),m_iArmorNum(5)
 {
 	for (int i = 0; i < 5; i++)
 	{
@@ -61,18 +61,16 @@ void CInventory::Render()
 	else cout << "비어있음" << endl;
 
 	cout << "============<방어구 슬롯>============" << endl;
-	if (m_pWeaponSlot) m_pArmorSlot->Render();
+	if (m_pArmorSlot) m_pArmorSlot->Render();
 	else cout << "비어있음" << endl;
 
 	cout << "============<인벤토리>============" << endl;
 	for (int i = 0; i < 5; i++)
 	{
 		cout <<"<" << i + 1 << "번 칸>" << endl;
-		if (strcmp(m_vecInventoryP[i]->GetInfo().szName, m_pWeaponSlot->GetInfo().szName)
-			|| strcmp(m_vecInventoryP[i]->GetInfo().szName, m_pArmorSlot->GetInfo().szName))
-		{
-			cout << "(장착중)" << endl;
-		}
+
+		if(m_iArmorNum == i || m_iWeaponNum == i) cout << "(장착중)" << endl;
+
 		if (m_vecInventoryP[i])
 		{
 			m_vecInventoryP[i]->Render();
@@ -94,7 +92,6 @@ void CInventory::SetItem()
 		Render();
 		cout << "착용하실 아이템 번호를 입력하세요 ";
 		cin >> iInput;
-		//int delta = 0;
 		switch (iInput)
 		{
 		case 1:
@@ -106,11 +103,13 @@ void CInventory::SetItem()
 			{
 				if (m_vecInventoryP[iInput - 1]->GetInfo().iHp)
 				{
+					m_iArmorNum = iInput - 1;
 					m_pArmorSlot = m_vecInventoryP[iInput - 1];
 					((CPlayer*)m_pPlayer)->Heal(100 + m_vecInventoryP[iInput - 1]->GetInfo().iHp);
 				}
 				else
 				{
+					m_iWeaponNum = iInput - 1;
 					m_pWeaponSlot = m_vecInventoryP[iInput - 1];
 					((CPlayer*)m_pPlayer)->SetAttack(10 + m_vecInventoryP[iInput - 1]->GetInfo().iAttack);
 				}
@@ -145,49 +144,44 @@ bool CInventory::AddItem(CObj* pItem)
 
 void CInventory::SellItem(int iNum)
 {
-	int iInput;
-	while (true)
+	if (m_vecInventoryP[iNum - 1])
 	{
-		system("cls");
-		m_pPlayer->Render();
-		Render();
-		cout << "판매하실 아이템 번호를 입력하세요 ";
-		cin >> iInput;
-		switch (iInput)
+		((CPlayer*)m_pPlayer)->SetMoney(m_pPlayer->GetInfo().iMoney + m_vecInventoryP[iNum - 1]->GetInfo().iMoney);
+		
+		if (iNum - 1 == m_iArmorNum)
 		{
-		case 1:
-		case 2:
-		case 3:
-		case 4:
-		case 5:
-			if (m_vecInventoryP[iInput - 1])
-			{
-				((CPlayer*)m_pPlayer)->SetMoney(m_pPlayer->GetInfo().iMoney + m_vecInventoryP[iInput - 1]->GetInfo().iMoney);
-				if (m_vecInventoryP[iInput - 1]->GetInfo().iHp)
-				{
-					m_pArmorSlot = nullptr;
-					((CPlayer*)m_pPlayer)->Heal(100);
-				}
-				else
-				{
-					m_pWeaponSlot = m_vecInventoryP[iInput - 1];
-					((CPlayer*)m_pPlayer)->SetAttack(10);
-				}
-
-				SafeDelete(m_vecInventoryP[iInput - 1]);
-				m_vecInventoryP[iInput - 1] = nullptr;
-				cout << "판매 완료!";
-				system("pause");
-				return;
-			}
-			else
-			{
-				cout << "아이템이 없습니다." << endl;
-				system("pause");
-				return;
-			}
-		default:
-			break;
+			m_pArmorSlot = nullptr;
+			m_iArmorNum = 5;
+			((CPlayer*)m_pPlayer)->SetMaxHp(100);
+			if(m_pPlayer->GetInfo().iHp > m_pPlayer->GetInfo().iMaxHp) 
+				((CPlayer*)m_pPlayer)->Heal(m_pPlayer->GetInfo().iMaxHp);
+			if (iNum - 1 < m_iWeaponNum) m_iWeaponNum -= 1;
 		}
+		else if (iNum - 1 == m_iWeaponNum)
+		{
+			m_pWeaponSlot = nullptr;
+			m_iWeaponNum = 5;
+			((CPlayer*)m_pPlayer)->SetAttack(10);
+			if (iNum - 1 < m_iArmorNum) m_iArmorNum -= 1;
+		}
+		else
+		{
+			if (iNum - 1 < m_iArmorNum) m_iArmorNum -= 1;
+			if (iNum - 1 < m_iWeaponNum) m_iWeaponNum -= 1;
+		}
+		auto it = m_vecInventoryP.begin() + iNum - 1;
+		SafeDelete(*it);
+		m_vecInventoryP.erase(it);
+		m_vecInventoryP.push_back(nullptr);
+		cout << "판매 완료!";
+		system("pause");
+		return;
 	}
+	else
+	{
+		cout << "아이템이 없습니다." << endl;
+		system("pause");
+		return;
+	}
+	
 }

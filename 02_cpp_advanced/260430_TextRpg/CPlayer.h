@@ -14,6 +14,7 @@ public:
 	void SetMoney(int iNum) { m_tInfo.iMoney = iNum; }
 	void SetMaxHp(int iNum) { m_tInfo.iMaxHp = iNum; }
 	void SetAttack(int iNum) { m_tInfo.iAttack = iNum; }
+
 private:
 	enum JOBINDEX{WARRIOR=1,MAGE,THIEF,END_JOBINDEX};
 };

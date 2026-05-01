@@ -65,7 +65,7 @@ void CStore::Purchase()
 	{
 		system("cls");
 		m_pPlayer->Render();
-		cout << "1. 초급 2. 중급 3. 고급 4. 상점 나가기: ";
+		cout << "1. 초급 2. 중급 3. 고급 4. 전 단계: ";
 		cin >> iInput;
 		switch (iInput)
 		{
@@ -104,6 +104,7 @@ void CStore::Sell()
 		case 4:
 		case 5:
 			m_Inventory->SellItem(iInput);
+			return;
 		default:
 			break;
 		}

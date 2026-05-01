@@ -24,5 +24,7 @@ private:
 	vector<CObj*> m_vecInventoryP;
 	CObj* m_pWeaponSlot;
 	CObj* m_pArmorSlot;
+	int m_iWeaponNum;
+	int m_iArmorNum;
 };
 
