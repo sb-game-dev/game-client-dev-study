@@ -162,16 +162,20 @@ void CInventory::SellItem(int iNum)
 		case 5:
 			if (m_vecInventoryP[iInput - 1])
 			{
+				((CPlayer*)m_pPlayer)->SetMoney(m_pPlayer->GetInfo().iMoney + m_vecInventoryP[iInput - 1]->GetInfo().iMoney);
 				if (m_vecInventoryP[iInput - 1]->GetInfo().iHp)
 				{
-					m_pArmorSlot = m_vecInventoryP[iInput - 1];
-					((CPlayer*)m_pPlayer)->Heal(100 + m_vecInventoryP[iInput - 1]->GetInfo().iHp);
+					m_pArmorSlot = nullptr;
+					((CPlayer*)m_pPlayer)->Heal(100);
 				}
 				else
 				{
 					m_pWeaponSlot = m_vecInventoryP[iInput - 1];
-					((CPlayer*)m_pPlayer)->SetAttack(10 + m_vecInventoryP[iInput - 1]->GetInfo().iAttack);
+					((CPlayer*)m_pPlayer)->SetAttack(10);
 				}
+
+				SafeDelete(m_vecInventoryP[iInput - 1]);
+				m_vecInventoryP[iInput - 1] = nullptr;
 				cout << "판매 완료!";
 				system("pause");
 				return;
