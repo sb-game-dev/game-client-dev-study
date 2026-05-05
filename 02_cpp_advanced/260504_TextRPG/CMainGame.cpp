@@ -3,6 +3,7 @@
 #include "pch.h"
 #include "CPlayer.h"
 #include "CField.h"
+#include "CStore.h"
 CMainGame::CMainGame():m_pPlayer(nullptr),m_pField(nullptr),m_pStore(nullptr)
 {
 }
@@ -28,6 +29,12 @@ void CMainGame::Initialize()
 		m_pField = new CField;
 		m_pField->SetPlayer(m_pPlayer);
 	}
+	if (!m_pStore)
+	{
+		m_pStore = new CStore;
+		m_pStore->SetPlayer(m_pPlayer);
+		m_pStore->Initialize();
+	}
 }
 
 void CMainGame::Update()
@@ -45,8 +52,10 @@ void CMainGame::Update()
 			m_pField->Update();
 			break;
 		case STORE:
+			m_pStore->Update();
 			break;
 		case INVENTORY:
+			((CPlayer*)m_pPlayer)->InvUpdate();
 			break;
 		case END_GAMEMENU:
 			return;
