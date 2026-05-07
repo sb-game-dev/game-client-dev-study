@@ -15,6 +15,8 @@ public :
 	void SetAttack(int iNum) { m_tInfo.iAttack = iNum; }
 	void SetMaxHp(int iNum) { m_tInfo.iMaxHp = iNum; }
 	void SetHp(int iNum) { m_tInfo.iHp = iNum; }
+
+
 	void SetMoney(int iNum) { m_tInfo.iMoney = iNum; }
 	void TakeDamage(int iNum) { m_tInfo.iHp -= iNum; }
 
