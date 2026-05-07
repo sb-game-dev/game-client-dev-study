@@ -16,7 +16,7 @@ public:
 
 	void Render();
 
-	bool AddItem(CObj* pItem);
+	bool AddItem(CObj* pItem);  //isFullÇÔ¼ö
 	int DeleteItem(int iIndex);
 
 	void SetItem();
