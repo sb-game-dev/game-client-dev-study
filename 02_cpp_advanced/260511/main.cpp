@@ -1,10 +1,17 @@
 #include "pch.h"
-
+#include <map>
 int main()
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	map<int, int> mapInt{ {1,100},{2,200},{3,300} };
 
-
+	auto iter = mapInt.find(4);
+	if (iter != mapInt.end())
+	{
+		cout << iter->second << endl;
+	}
+	else
+		cout << "찾는 값이 없습니다." << endl;
 	return 0;
 }
 
