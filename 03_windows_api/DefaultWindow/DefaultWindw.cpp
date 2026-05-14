@@ -20,6 +20,7 @@ INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);      // 쓸 데 없음
 
 void RenderRobot(HDC hdc);
 void Shoot(HDC hdc, RECT ,RECT);
+
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,             // 창이 생성되면서 발생한 인스턴스 정보를 저장하는 곳
                      _In_opt_ HINSTANCE hPrevInstance,      // 이 프로그램이 시작되기 전에 이전 프로그램의 인스턴스를 받는 곳(없으면 NULL)
                      _In_ LPWSTR    lpCmdLine,              // LP(포인터), W(유니코드), STR(문자열)
