@@ -1,9 +1,34 @@
 #include "pch.h"
 
+class CObj
+{
+public:
+	CObj(int iSize) :m_iSize(iSize) { m_pArray = new int[iSize]; }
+	CObj(CObj&& Move)
+	{
+		m_pArray = Move.m_pArray;
+		m_iSize = Move.m_iSize;
+
+		Move.m_pArray = nullptr;
+	}
+	~CObj()
+	{
+		if (m_pArray)
+		{
+			delete[] m_pArray;
+			m_pArray = nullptr;
+		}
+	}
+private:
+	int m_iSize;
+	int* m_pArray;
+};
 int main()
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	CObj Obj(1000000);
 
+	CObj Temp(move(Obj));
 
 	return 0;
 }
