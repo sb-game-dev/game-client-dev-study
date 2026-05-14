@@ -13,15 +13,17 @@ WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
-ATOM                MyRegisterClass(HINSTANCE hInstance);
-BOOL                InitInstance(HINSTANCE, int);
-LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
-INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
+ATOM                MyRegisterClass(HINSTANCE hInstance);   //창 스타일 지정 옵션
+BOOL                InitInstance(HINSTANCE, int);           // 창 생성 관련 함수
+LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);    // 메세지 처리기
+INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);      // 쓸 데 없음
 
-int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
-                     _In_opt_ HINSTANCE hPrevInstance,
-                     _In_ LPWSTR    lpCmdLine,
-                     _In_ int       nCmdShow)
+void RenderRobot(HDC hdc);
+void Shoot(HDC hdc, RECT ,RECT);
+int APIENTRY wWinMain(_In_ HINSTANCE hInstance,             // 창이 생성되면서 발생한 인스턴스 정보를 저장하는 곳
+                     _In_opt_ HINSTANCE hPrevInstance,      // 이 프로그램이 시작되기 전에 이전 프로그램의 인스턴스를 받는 곳(없으면 NULL)
+                     _In_ LPWSTR    lpCmdLine,              // LP(포인터), W(유니코드), STR(문자열)
+                     _In_ int       nCmdShow)               // 창 생성 옵션
 {
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
@@ -99,7 +101,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+      CW_USEDEFAULT, 0, 800, 600, nullptr, nullptr, hInstance, nullptr);
 
    if (!hWnd)
    {
@@ -123,7 +125,10 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //  
 //
 
-RECT rc{ 100,100,200,200 };
+RECT rc{ 350,400,450,500 };
+//RECT bullet{(rc.left+rc.right)/2, rc.top+10,(rc.left + rc.right) / 2 + 10,rc.top};
+
+vector<RECT> vecBullts;
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -132,6 +137,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_CREATE:
         SetTimer(hWnd, 0, 0, 0);
         break;
+    
+    case WM_TIMER:
+        InvalidateRect(hWnd, NULL, true);
+
     case WM_KEYDOWN:
         switch (wParam)
         {
@@ -153,6 +162,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         case VK_DOWN:
             rc.top += 10;
             rc.bottom += 10;
+            break;
+
+        case VK_SPACE:
+            if(vecBullts.size()<3)
+                vecBullts.push_back({ (rc.left + rc.right) / 2, rc.top + 10,(rc.left + rc.right) / 2 + 10,rc.top });
             break;
         default:
             break;
@@ -180,19 +194,24 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
-            MoveToEx(hdc, 100, 100, nullptr);
+            
+            //과제 2
+            RenderRobot(hdc);
 
-            //LineTo(hdc, 200, 200);
-            //LineTo(hdc, 100, 200);
-            //LineTo(hdc, 200, 100);
-            //LineTo(hdc, 200, 200);
-            //LineTo(hdc, 100, 200);
-            //LineTo(hdc, 100, 100);
-            //LineTo(hdc,200, 100);
-
+            //과제 3
+            vecBullts.reserve(10);
             Rectangle(hdc, rc.left, rc.top, rc.right, rc.bottom);
-
-            // Ellipse(hdc, 300, 300, 400, 400);
+            for_each(vecBullts.begin(), vecBullts.end(),
+                [&hdc](RECT& bullet) {
+                    bullet.top -= 5;
+                    bullet.bottom -= 5;
+                    Rectangle(hdc, bullet.left, bullet.top, bullet.right, bullet.bottom);
+                    if (bullet.top <= 0)
+                    {
+                        auto iter = vecBullts.begin();
+                        vecBullts.erase(iter);
+                    }
+                });
             EndPaint(hWnd, &ps);
         }
         break;
@@ -203,7 +222,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         return DefWindowProc(hWnd, message, wParam, lParam);
     }
     return 0;
-}
+ }
 
 // 정보 대화 상자의 메시지 처리기입니다.
 INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
@@ -225,21 +244,52 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
     return (INT_PTR)FALSE;
 }
 
+void RenderRobot(HDC hdc)
+{
+    int i_xZero = 400;
+    int i_yZero = 300;
 
-// 
-// 1번 숙제 -> (시놀로지) 뇌자극 시스템 프로그래밍 (343페이지)
-// 
-// 
-// 프로그램 주기
-// start -> ready <-> run  -> block(일시 정지) //준비 실행 번갈아 반복 
-// 
-// 현재 실행중인 프로그램이 ready와 run을 점유, 아닌 프로그램은 block에서 대기
-// 
-// GetMessage 함수가 run or block을 반환해서 while에 사용
-// 
-// 2번 숙제 -> 각종 그리기 함수를 이용하여 무엇이든지 그려와라.
-// 
-// 
-// 
-// 
-// 
+    // 모자
+    Rectangle(hdc, i_xZero - 35, i_yZero - 200, i_xZero + 35, i_yZero - 130);
+
+    MoveToEx(hdc, i_xZero - 80, i_yZero - 130, nullptr);
+    LineTo(hdc, i_xZero + 80, i_yZero - 130);
+
+    MoveToEx(hdc, i_xZero, i_yZero - 130, nullptr);
+    LineTo(hdc, i_xZero, i_yZero - 120);
+
+    // 얼굴
+    Ellipse(hdc, i_xZero - 60, i_yZero - 120, i_xZero + 60, i_yZero); 
+
+    Ellipse(hdc, i_xZero - 35, i_yZero - 80, i_xZero - 15, i_yZero - 60);//왼쪽 눈
+    Ellipse(hdc, i_xZero + 15, i_yZero - 80, i_xZero + 35, i_yZero - 60);//오른쪽 눈
+
+    Rectangle(hdc, i_xZero - 15, i_yZero - 45, i_xZero + 15, i_yZero - 25);// 입
+
+    Rectangle(hdc, i_xZero - 60, i_yZero, i_xZero + 60, i_yZero + 120);// 몸
+
+    //왼팔
+    MoveToEx(hdc, i_xZero - 60, i_yZero, nullptr);
+    LineTo(hdc, i_xZero - 120, i_yZero - 60);
+    Ellipse(hdc, i_xZero - 140, i_yZero - 85, i_xZero - 110, i_yZero - 55);
+
+    //오른팔
+    MoveToEx(hdc, i_xZero + 60, i_yZero, nullptr);
+    LineTo(hdc, i_xZero + 120, i_yZero + 60);
+    Ellipse(hdc, i_xZero + 110, i_yZero + 55, i_xZero + 140, i_yZero + 85);
+
+    //왼발
+    MoveToEx(hdc, i_xZero - 30, i_yZero + 120, nullptr);
+    LineTo(hdc, i_xZero - 30, i_yZero + 160);
+    Rectangle(hdc, i_xZero - 60, i_yZero + 160, i_xZero - 20, i_yZero + 200);
+
+    //오른발
+    MoveToEx(hdc, i_xZero + 30, i_yZero + 120, nullptr);
+    LineTo(hdc, i_xZero + 30, i_yZero + 160);
+    Rectangle(hdc, i_xZero + 20, i_yZero + 160, i_xZero + 60, i_yZero + 200);
+}
+
+void Shoot(HDC hdc, RECT rObj, RECT rBullet)
+{
+
+}
