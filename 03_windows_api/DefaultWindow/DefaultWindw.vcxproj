@@ -131,7 +131,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CBullet.h" />
     <ClInclude Include="CMainGame.h" />
+    <ClInclude Include="CMonster.h" />
+    <ClInclude Include="CObj.h" />
+    <ClInclude Include="CPlayer.h" />
     <ClInclude Include="DefaultWindw.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="framework.h" />
@@ -140,7 +144,11 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CBullet.cpp" />
     <ClCompile Include="CMainGame.cpp" />
+    <ClCompile Include="CMonster.cpp" />
+    <ClCompile Include="CObj.cpp" />
+    <ClCompile Include="CPlayer.cpp" />
     <ClCompile Include="DefaultWindw.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

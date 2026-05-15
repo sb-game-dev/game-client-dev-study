@@ -4,14 +4,15 @@
 #include "pch.h"
 #include "framework.h"
 #include "DefaultWindw.h"
-
+#include "Define.h"
+#include "CMainGame.h"
 #define MAX_LOADSTRING 100
 
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
-
+HWND     g_hWnd;
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance);   //창 스타일 지정 옵션
 BOOL                InitInstance(HINSTANCE, int);           // 창 생성 관련 함수
@@ -19,13 +20,14 @@ LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);    // 메세지 처리�
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);      // 쓸 데 없음
 
 void RenderRobot(HDC hdc);
-void Shoot(HDC hdc, RECT ,RECT);
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,             // 창이 생성되면서 발생한 인스턴스 정보를 저장하는 곳
                      _In_opt_ HINSTANCE hPrevInstance,      // 이 프로그램이 시작되기 전에 이전 프로그램의 인스턴스를 받는 곳(없으면 NULL)
                      _In_ LPWSTR    lpCmdLine,              // LP(포인터), W(유니코드), STR(문자열)
                      _In_ int       nCmdShow)               // 창 생성 옵션
 {
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
@@ -45,15 +47,35 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,             // 창이 생성되�
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_DEFAULTWINDW));
 
     MSG msg;
+    msg.message = WM_NULL;
 
+    CMainGame MainGame;
+    MainGame.Initialize();
+    DWORD   dwTime = GetTickCount();    // 1000
     // 기본 메시지 루프입니다:
-    while (GetMessage(&msg, nullptr, 0, 0))
+    while (true)
     {
-        if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+        if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
+            if (msg.message == WM_QUIT)
+                break;
+            if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+            {
+                TranslateMessage(&msg);
+                DispatchMessage(&msg);
+            }
         }
+        else
+        {
+            if (dwTime + 10 < GetTickCount())
+            {
+                MainGame.Update();
+                MainGame.Render();
+
+                dwTime = GetTickCount();
+            }
+        }
+        
     }
 
     return (int) msg.wParam;
@@ -98,21 +120,29 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 //        주 프로그램 창을 만든 다음 표시합니다.
 //
 
-
-
-
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
-   HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, 800, 600, nullptr, nullptr, hInstance, nullptr);
+   RECT rcWindow{ 0,0, WINCX,WINCY };
+   AdjustWindowRect(&rcWindow, WS_OVERLAPPEDWINDOW, FALSE);
+
+   HWND hWnd = CreateWindowW(szWindowClass, 
+                            szTitle, 
+                            WS_OVERLAPPEDWINDOW,
+                            CW_USEDEFAULT, 0, 
+                            rcWindow.right - rcWindow.left , 
+                            rcWindow.bottom - rcWindow.top, 
+                            nullptr, 
+                            nullptr, 
+                            hInstance, 
+                            nullptr);
 
    if (!hWnd)
    {
       return FALSE;
    }
-
+   g_hWnd = hWnd;
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 
@@ -139,12 +169,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     switch (message)
     {
-    case WM_CREATE:
-        SetTimer(hWnd, 0, 0, 0);
-        break;
-    
-    case WM_TIMER:
-        InvalidateRect(hWnd, NULL, true);
+    //case WM_CREATE:
+    //    SetTimer(hWnd, 0, 0, 0);
+    //    break;
+    //
+    //case WM_TIMER:
+    //    InvalidateRect(hWnd, NULL, true);
 
     case WM_KEYDOWN:
         switch (wParam)
@@ -152,27 +182,27 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         case VK_ESCAPE:
             PostQuitMessage(0);
             break;
-        case VK_RIGHT:
-            rc.left += 10;
-            rc.right += 10;
-            break;
-        case VK_LEFT:
-            rc.left -= 10;
-            rc.right -= 10;
-            break;
-        case VK_UP:
-            rc.top -= 10;
-            rc.bottom -= 10;
-            break;
-        case VK_DOWN:
-            rc.top += 10;
-            rc.bottom += 10;
-            break;
-
-        case VK_SPACE:
-            if(vecBullts.size()<3)
-                vecBullts.push_back({ (rc.left + rc.right) / 2, rc.top + 10,(rc.left + rc.right) / 2 + 10,rc.top });
-            break;
+        //case VK_RIGHT:
+        //    rc.left += 10;
+        //    rc.right += 10;
+        //    break;
+        //case VK_LEFT:
+        //    rc.left -= 10;
+        //    rc.right -= 10;
+        //    break;
+        //case VK_UP:
+        //    rc.top -= 10;
+        //    rc.bottom -= 10;
+        //    break;
+        //case VK_DOWN:
+        //    rc.top += 10;
+        //    rc.bottom += 10;
+        //    break;
+        //
+        //case VK_SPACE:
+        //    //if(vecBullts.size()<3)
+        //    //    vecBullts.push_back({ (rc.left + rc.right) / 2, rc.top + 10,(rc.left + rc.right) / 2 + 10,rc.top });
+        //    break;
         default:
             break;
         }
@@ -194,32 +224,32 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             }
         }
         break;
-    case WM_PAINT:
-        {
-            PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hWnd, &ps);
-            // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
-            
-            //과제 2
-            RenderRobot(hdc);
-
-            //과제 3
-            vecBullts.reserve(10);
-            Rectangle(hdc, rc.left, rc.top, rc.right, rc.bottom);
-            for_each(vecBullts.begin(), vecBullts.end(),
-                [&hdc](RECT& bullet) {
-                    bullet.top -= 5;
-                    bullet.bottom -= 5;
-                    Rectangle(hdc, bullet.left, bullet.top, bullet.right, bullet.bottom);
-                    if (bullet.top <= 0)
-                    {
-                        auto iter = vecBullts.begin();
-                        vecBullts.erase(iter);
-                    }
-                });
-            EndPaint(hWnd, &ps);
-        }
-        break;
+    //case WM_PAINT:
+    //    {
+    //        PAINTSTRUCT ps;
+    //        HDC hdc = BeginPaint(hWnd, &ps);
+    //        // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
+    //        //Ellipse(hdc, 0, 0, 800, 600);
+    //        //과제 2
+    //        //RenderRobot(hdc);
+    //        //
+    //        ////과제 3
+    //        //vecBullts.reserve(10);
+    //        //Rectangle(hdc, rc.left, rc.top, rc.right, rc.bottom);
+    //        //for_each(vecBullts.begin(), vecBullts.end(),
+    //        //    [&hdc](RECT& bullet) {
+    //        //        bullet.top -= 5;
+    //        //        bullet.bottom -= 5;
+    //        //        Rectangle(hdc, bullet.left, bullet.top, bullet.right, bullet.bottom);
+    //        //        if (bullet.top <= 0)
+    //        //        {
+    //        //            auto iter = vecBullts.begin();
+    //        //            vecBullts.erase(iter);
+    //        //        }
+    //        //    });
+    //        EndPaint(hWnd, &ps);
+    //    }
+    //    break;
     case WM_DESTROY:
         PostQuitMessage(0);
         break;

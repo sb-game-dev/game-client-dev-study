@@ -6,6 +6,15 @@
 #define PI		3.141592f
 
 #define PURE	= 0
+
+extern HWND g_hWnd;
+
+typedef struct tagInfo
+{
+	float fX, fY;
+	float fCX, fCY;
+}INFO;
+
 template<typename T>
 void SafeDelete(T& p)
 {
@@ -15,8 +24,41 @@ void SafeDelete(T& p)
 		p = nullptr;
 	}
 }
-//
-// 픽메세지는 메세지 큐가 비어있으면 false임
-// 
-// 윈도우 핸들을 definde.h에서 exturn을 사용해서 전역으로 사용할 수 있도록 함
-//
+struct tagDelete
+{
+	template<typename T>
+	void operator()(T& p)
+	{
+		if (p)
+		{
+			delete p;
+			p = nullptr;
+		}
+	}
+};
+
+struct tagDeleteMap
+{
+	template<typename T>
+	void operator()(T& pair)
+	{
+		if (pair.second)
+		{
+			delete pair.second;
+			pair.second = nullptr;
+		}
+	}
+};
+
+struct tagFinder
+{
+	tagFinder(const TCHAR* pTag) : m_Tag(pTag) {}
+
+	template<typename T>
+	bool operator()(T& Pair)
+	{
+		return !lstrcmp(Pair.first, m_Tag);
+	}
+	const TCHAR* m_Tag;
+};
+
