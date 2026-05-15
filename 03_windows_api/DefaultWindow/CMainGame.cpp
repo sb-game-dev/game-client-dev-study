@@ -1,8 +1,9 @@
 #include "pch.h"
 #include "CMainGame.h"
 
-CMainGame::CMainGame() :m_pPlayer(nullptr)
+CMainGame::CMainGame() :m_pPlayer(nullptr),m_pMonster(nullptr)
 {
+	m_hDC = GetDC(g_hWnd);
 }
 
 CMainGame::~CMainGame()
@@ -12,8 +13,6 @@ CMainGame::~CMainGame()
 
 void CMainGame::Initialize()
 {
-	m_hDC = GetDC(g_hWnd);
-
 	if (!m_pPlayer)
 	{
 		m_pPlayer = new CPlayer;
@@ -41,7 +40,7 @@ void CMainGame::Update()
 		}
 		else
 		{
-			iter++;
+			++iter;
 		}
 	}
 }

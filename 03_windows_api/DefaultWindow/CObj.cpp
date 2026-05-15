@@ -10,6 +10,7 @@ CObj::CObj():m_fSpeed(0)
 CObj::~CObj()
 {
 }
+
 void CObj::UpdateRect()
 {
 	m_tRect.left	= LONG(m_tInfo.fX - (m_tInfo.fCX / 2.f));
