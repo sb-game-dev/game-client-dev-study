@@ -80,7 +80,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_DEFAULTWINDW));
     wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
-    wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_DEFAULTWINDW);
+    wcex.lpszMenuName   = NULL;
     wcex.lpszClassName  = szWindowClass;
     wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
@@ -97,6 +97,10 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 //        이 함수를 통해 인스턴스 핸들을 전역 변수에 저장하고
 //        주 프로그램 창을 만든 다음 표시합니다.
 //
+
+
+
+
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
@@ -290,7 +294,15 @@ void RenderRobot(HDC hdc)
     Rectangle(hdc, i_xZero + 20, i_yZero + 160, i_xZero + 60, i_yZero + 200);
 }
 
-void Shoot(HDC hdc, RECT rObj, RECT rBullet)
-{
 
-}
+// 함수호출 규약 : caller(호출자) callee(피호출자)
+// 
+// __cdecl      : c / c++ 언어의 기본 호출 규약, 호출자가 stack을 정리, 가변인자 printf 같은 경우
+// __stdcall    : winapi 기본 호출 규약, 피호출자가 stack을 정리, 고정인자 함수
+// 
+// __fasecall   : 함수 호출을 빠르게 처리하기위한 호출규약, 피호출자가 stack을 정리
+// __thiscall   : this 포인터로 매개 변수를 전달 받을 때 사용하는 규약, 피호출자가 stack을 정리
+// 
+// 
+//
+
