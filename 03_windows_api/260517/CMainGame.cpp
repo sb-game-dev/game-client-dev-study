@@ -1,7 +1,9 @@
 #include "pch.h"
 #include "CMainGame.h"
-CMainGame::CMainGame():m_pPlayer(nullptr), m_pMonster(nullptr)
+#include "CAbstractFactory.h"
+CMainGame::CMainGame():m_iFPS(0), m_dwTime(GetTickCount())
 {
+	ZeroMemory(m_szFPS, sizeof(m_szFPS));
 }
 
 CMainGame::~CMainGame()
@@ -13,57 +15,119 @@ CMainGame::~CMainGame()
 void CMainGame::Initialize()
 {
 	m_hDC = GetDC(g_Hwnd);
-	if (!m_pPlayer)
-	{
-		m_pPlayer = new CPlayer;
-		m_pPlayer->Initialize();
-	}
-	dynamic_cast<CPlayer*>(m_pPlayer)->SetBullet(&m_BulletList);
-	if (!m_pMonster)
-	{
-		m_pMonster = new CMonster;
-		m_pMonster->Initialize();
-	}
+	
+	m_ObjList[OBJ_PLAYER].push_back(CAbstractFactory<CPlayer>::Create());
+	dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->SetBullet(&m_ObjList[OBJ_BULLET]);
+
+	for (int i = 0; i < 5; i++)
+		m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(float(rand()%WINCX) , float(rand() % WINCY),100,10));
 }
 
 void CMainGame::Update()
 {
 	Rectangle(m_hDC, 0, 0, WINCX, WINCY);
-	Rectangle(m_hDC, 50, 50, WINCX - 50, WINCY - 50);
-	m_pPlayer->Update();
-	m_pMonster->Update();
-	for (auto iter = m_BulletList.begin(); iter != m_BulletList.end();)
+	
+	for (auto i = 0; i < OBJ_END; i++)
 	{
-		(*iter)->Update();
-		if (dynamic_cast<CBullet*>(*iter)->GetIsDead())
+		for (auto iter = m_ObjList[i].begin(); iter != m_ObjList[i].end();)
 		{
-			Safe_Delete((*iter));
-			iter = m_BulletList.erase(iter);
+			bool iResult = (*iter)->Update();
+			if(iResult)
+			{
+				Safe_Delete((*iter));
+				iter = m_ObjList[i].erase(iter);
+			}
+			else
+			{
+				++iter;
+			}
 		}
-		else
+	}
+}
+void CMainGame::LateUpdate()
+{
+	for (auto i = 0; i < OBJ_END; i++)
+	{
+		for (auto& Obj : m_ObjList[i])
 		{
-			++iter;
+			Obj->LateUpdate();
+		}
+	}
+	CollisionCheck(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_BULLET]);
+}
+
+void CMainGame::CollisionCheck(list<CObj*> listDst, list<CObj*> listSrc)
+{
+	if (!listDst.size() || !listSrc.size())
+		return;
+	// 1. IntersectRect 사용
+	//RECT rResult;
+	//
+	//for (auto ObjDst : listDst)
+	//{
+	//	for (auto ObjSrc : listSrc)
+	//	{
+	//		if (IntersectRect(&rResult, (ObjDst->GetRect()), (ObjSrc->GetRect())))
+	//		{
+	//			ObjDst->TakeDamage(ObjSrc->GetStat().fAttack);
+	//			ObjSrc->TakeDamage(ObjDst->GetStat().fAttack);
+	//		}
+	//	}
+	//}
+	// 2. 피타고라스 정리 사용
+	for (auto ObjDst : listDst)
+	{
+		for (auto ObjSrc : listSrc)
+		{
+			double fDistance = sqrt((ObjDst->GetInfo().fX - ObjSrc->GetInfo().fX) * (ObjDst->GetInfo().fX - ObjSrc->GetInfo().fX) 
+				+ (ObjDst->GetInfo().fY - ObjSrc->GetInfo().fY) * (ObjDst->GetInfo().fY - ObjSrc->GetInfo().fY));
+			double fSize = sqrt((ObjDst->GetInfo().fCX - ObjSrc->GetInfo().fCX) * (ObjDst->GetInfo().fCX - ObjSrc->GetInfo().fCX)
+				+ (ObjDst->GetInfo().fCY - ObjSrc->GetInfo().fCY) * (ObjDst->GetInfo().fCY - ObjSrc->GetInfo().fCY));
+			if (fDistance <= fSize)
+			{
+				ObjDst->TakeDamage(ObjSrc->GetStat().fAttack);
+				ObjSrc->TakeDamage(ObjDst->GetStat().fAttack);
+			}
 		}
 	}
 }
 
 void CMainGame::Render()
 {
-	m_pPlayer->Render(m_hDC);
-	m_pMonster->Render(m_hDC);
-	for (auto Bullet : m_BulletList)
+	m_iFPS++;
+
+	if (m_dwTime + 1000 < GetTickCount())
 	{
-		Bullet->Render(m_hDC);
+		swprintf_s(m_szFPS, L"FPS: %d", m_iFPS);
+
+		m_dwTime = GetTickCount();
+
+		m_iFPS = 0;
+
+		SetWindowText(g_Hwnd, m_szFPS);
 	}
+
+	for (auto i = 0; i < OBJ_END; i++)
+	{
+		for (auto& Obj : m_ObjList[i])
+			Obj->Render(m_hDC);
+	}
+
+	TCHAR szBuff[32] = L"";
+	swprintf_s(szBuff, L"Bullet : %d", m_ObjList[OBJ_BULLET].size());//
+	TextOut(m_hDC, 30, 30, szBuff, lstrlen(szBuff));
+	
 }
 
 void CMainGame::Release()
 {
-	Safe_Delete(m_pPlayer);
-	Safe_Delete(m_pMonster);
-	for (auto Bullet : m_BulletList)
-		Safe_Delete(Bullet);
-	m_BulletList.clear();
-
+	for (auto i = 0; i < OBJ_END; i++)
+	{
+		for (auto& Obj : m_ObjList[i])
+		{
+			Safe_Delete(Obj);
+		}
+		m_ObjList[i].clear();
+	}
 }
 

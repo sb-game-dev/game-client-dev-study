@@ -28,6 +28,9 @@
     <Filter Include="01.Obj\02.Monster">
       <UniqueIdentifier>{45e88b69-a923-48cb-b2b4-4bf2caf4a44e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.AbstractFactory">
+      <UniqueIdentifier>{1f6ec643-fda4-40e4-9dd9-5a589c052b20}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -62,6 +65,9 @@
     </ClInclude>
     <ClInclude Include="CMonster.h">
       <Filter>01.Obj\02.Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="CAbstractFactory.h">
+      <Filter>02.AbstractFactory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

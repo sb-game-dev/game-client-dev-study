@@ -1,26 +1,9 @@
 #include "pch.h"
 #include "CBullet.h"
 
-CBullet::CBullet(const char& key):m_fXSpeed(0),m_fYSpeed(0), isDead(false)
+CBullet::CBullet()
 {
-	if (key == 'W')
-		m_fYSpeed = -20.f;
-	if (key == 'A')
-		m_fXSpeed = -20.f;
-	if (key == 'S')
-		m_fYSpeed = 20.f;
-	if (key == 'D')
-		m_fXSpeed = 20.f;
-	if (key == 'Q')
-	{
-		m_fYSpeed = -20.f;
-		m_fXSpeed = -20.f;
-	}
-	if (key == 'E')
-	{
-		m_fYSpeed = -20.f;
-		m_fXSpeed = 20.f;
-	}
+	
 }
 
 CBullet::~CBullet()
@@ -32,15 +15,42 @@ void CBullet::Initialize()
 {
 	m_tInfo.fCX = 30.f;
 	m_tInfo.fCY = 30.f;
+	m_fSpeed = 20.f;
 }
 
-void CBullet::Update()
+bool CBullet::Update()
 {
-	m_tInfo.fX += m_fXSpeed;
-	m_tInfo.fY += m_fYSpeed;
-	if (m_tInfo.fX <= 50 || m_tInfo.fX >= WINCX - 50 || m_tInfo.fY <= 50 || m_tInfo.fY >= WINCY - 50)
-		isDead = true;
+	if (m_bDead)
+		return DEAD;
+	switch (m_eDIR)
+	{
+	case DIR_RIGHT:
+		m_tInfo.fX += m_fSpeed;
+		break;
+	case DIR_LEFT:
+		m_tInfo.fX -= m_fSpeed;
+		break;
+	case DIR_UP:
+		m_tInfo.fY -= m_fSpeed;
+		break;
+	case DIR_DOWN:
+		m_tInfo.fY += m_fSpeed;
+		break;
+	case DIR_RU:
+		m_tInfo.fX += m_fSpeed;
+		m_tInfo.fY -= m_fSpeed;
+		break;
+	case DIR_LU:
+		m_tInfo.fX -= m_fSpeed;
+		m_tInfo.fY -= m_fSpeed;
+		break;
+	case DIR_END:
+		break;
+	default:
+		break;
+	}
 	__super::UpdateRect();
+	return NONEVENT;
 }
 
 void CBullet::Render(HDC hDC)
@@ -54,4 +64,12 @@ void CBullet::Render(HDC hDC)
 
 void CBullet::Release()
 {
+}
+
+void CBullet::LateUpdate()
+{
+	if (m_tInfo.fX <= 0 || m_tInfo.fX >= WINCX  || m_tInfo.fY <= 0 || m_tInfo.fY >= WINCY)
+		m_bDead = DEAD;
+	if(m_tStat.fHp<=0.f)
+		m_bDead = DEAD;
 }

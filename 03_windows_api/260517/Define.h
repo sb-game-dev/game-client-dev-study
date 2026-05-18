@@ -3,14 +3,24 @@
 #define WINCY 600
 #define PURE =0
 #define PI 3.141592f
+#define NONEVENT 0
+#define DEAD 1
 
 extern HWND g_Hwnd;
+
+enum DIRECTION { DIR_RIGHT, DIR_LEFT, DIR_UP, DIR_DOWN, DIR_RU, DIR_LU, DIR_END };
+enum OBJID{OBJ_PLAYER,OBJ_BULLET,OBJ_MONSTER,OBJ_SHILED,OBJ_UI,OBJ_END};
 
 typedef struct tagInfo
 {
 	float fX, fY;
 	float fCX, fCY;
 }INFO;
+
+typedef struct tagStat
+{
+	float fHp, fAttack;
+}STAT;
 
 template<typename T>
 void Safe_Delete(T& p)

@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "CPlayer.h"
-
+#include "CAbstractFactory.h"
 CPlayer::CPlayer()
 {
 }
@@ -14,12 +14,17 @@ void CPlayer::Initialize()
 {
 	m_tInfo = { (WINCX >> 1) ,(WINCY >> 1) ,100,100};
 	m_fSpeed = 10.f;
+	m_tStat.fHp = 100;
+	m_tStat.fAttack = 10;
 }
 
-void CPlayer::Update()
+bool CPlayer::Update()
 {
+	if (m_bDead)
+		return DEAD;
 	KeyDown();
 	__super::UpdateRect();
+	return NONEVENT;
 }
 
 void CPlayer::Render(HDC hDC)
@@ -46,28 +51,25 @@ void CPlayer::KeyDown()
 	if (GetAsyncKeyState(VK_DOWN))
 		m_tInfo.fY += m_fSpeed;
 	if (GetAsyncKeyState('W'))
-		m_BulletListP->push_back(CreateBullet('W'));
+		m_BulletListP->push_back(CAbstractFactory<CBullet>::Create(m_tInfo.fX,m_tInfo.fY,1,m_tStat.fAttack, DIR_UP));
 	if (GetAsyncKeyState('A'))
-		m_BulletListP->push_back(CreateBullet('A'));
+		m_BulletListP->push_back(CAbstractFactory<CBullet>::Create(m_tInfo.fX, m_tInfo.fY, 1, m_tStat.fAttack, DIR_LEFT));
 	if (GetAsyncKeyState('S'))
-		m_BulletListP->push_back(CreateBullet('S'));
+		m_BulletListP->push_back(CAbstractFactory<CBullet>::Create(m_tInfo.fX, m_tInfo.fY, 1, m_tStat.fAttack, DIR_DOWN));
 	if (GetAsyncKeyState('D'))
-		m_BulletListP->push_back(CreateBullet('D'));
+		m_BulletListP->push_back(CAbstractFactory<CBullet>::Create(m_tInfo.fX, m_tInfo.fY, 1, m_tStat.fAttack, DIR_RIGHT));
 	if (GetAsyncKeyState(VK_SPACE))
 	{
-		m_BulletListP->push_back(CreateBullet('Q'));
-		m_BulletListP->push_back(CreateBullet('W'));
-		m_BulletListP->push_back(CreateBullet('E'));
+		m_BulletListP->push_back(CAbstractFactory<CBullet>::Create(m_tInfo.fX, m_tInfo.fY, 1, m_tStat.fAttack, DIR_UP));
+		m_BulletListP->push_back(CAbstractFactory<CBullet>::Create(m_tInfo.fX, m_tInfo.fY, 1, m_tStat.fAttack, DIR_LU));
+		m_BulletListP->push_back(CAbstractFactory<CBullet>::Create(m_tInfo.fX, m_tInfo.fY, 1, m_tStat.fAttack, DIR_RU));
 	}
 
 }
 
-CObj* CPlayer::CreateBullet(const char& key)
+
+void CPlayer::LateUpdate()
 {
-	CObj* pBullet = new CBullet(key);
-
-	pBullet->SetPos(m_tInfo.fX, m_tInfo.fY);
-	pBullet->Initialize();
-
-	return pBullet;
+	if (m_tStat.fHp <= 0.f)
+		m_bDead = DEAD;
 }

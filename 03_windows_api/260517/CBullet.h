@@ -3,20 +3,18 @@
 class CBullet:public CObj
 {
 public :
-	CBullet(const char& key);
+	CBullet();
 	~CBullet();
 
 public:
 	void Initialize()			override;
-	void Update()				override;
+	bool Update()				override;
 	void Render(HDC hDC)		override;
 	void Release()				override;
 
 public:
-	bool GetIsDead() { return isDead; }
-private:
-	float m_fXSpeed;
-	float m_fYSpeed;
-	bool isDead;
+
+	// CObj을(를) 통해 상속됨
+	void LateUpdate() override;
 };
 

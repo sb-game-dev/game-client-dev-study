@@ -14,12 +14,16 @@ public:
 	void Update();
 	void Render();
 	void Release();
+	void LateUpdate();
+
+private:
+	void CollisionCheck(list<CObj*> , list<CObj*>);
 
 private:
 	HDC m_hDC;
-
-	CObj* m_pPlayer;
-	CObj* m_pMonster;
-	list<CObj*> m_BulletList;
+	list<CObj*> m_ObjList[OBJ_END];
+	int m_iFPS;
+	DWORD m_dwTime;
+	TCHAR m_szFPS[32];
 };
 

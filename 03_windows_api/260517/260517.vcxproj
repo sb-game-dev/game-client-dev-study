@@ -132,6 +132,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="260517.h" />
+    <ClInclude Include="CAbstractFactory.h" />
     <ClInclude Include="CBullet.h" />
     <ClInclude Include="CMainGame.h" />
     <ClInclude Include="CMonster.h" />
