@@ -7,16 +7,10 @@ public:
 	~CMonster();
 
 public:
-
-
-	// CObj을(를) 통해 상속됨
-	void Initialize() override;
-
-	void Update() override;
-
-	void Render(HDC hDC) override;
-
-	void Release() override;
+	void Initialize()		override;
+	void Update()			override;
+	void Render(HDC hDC)	override;
+	void Release()			override;
 
 };
 
