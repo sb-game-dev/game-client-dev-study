@@ -12,7 +12,7 @@ CPlayer::~CPlayer()
 
 void CPlayer::Initialize()
 {
-	m_tInfo = { (WINCX >> 1) ,(WINCY >> 1) ,100,100};
+	m_tInfo = { (WINCX >> 1) ,(WINCY >> 1) ,100,100 };
 	m_fSpeed = 10.f;
 	m_tStat.fHp = 100;
 	m_tStat.fAttack = 10;
