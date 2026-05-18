@@ -14,25 +14,6 @@ public:
 
 	// CObj을(를) 통해 상속됨
 	void LateUpdate() override;
-	void Render(HDC hDC) override;
-
-	void Release() override;
-
-	void Render(HDC hDC) override;
-
-	void Release() override;
-
-	void Render(HDC hDC) override;
-
-	void Release() override;
-
-	void Render(HDC hDC) override;
-
-	void Release() override;
-
-	void Render(HDC hDC) override;
-
-	void Release() override;
 
 };
 

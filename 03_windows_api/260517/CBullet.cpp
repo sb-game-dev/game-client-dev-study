@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "CBullet.h"
 
-CBullet::CBullet()
+CBullet::CBullet() :dwTime(GetTickCount()), m_State(READY)
 {
 	
 }
@@ -22,33 +22,45 @@ bool CBullet::Update()
 {
 	if (m_bDead)
 		return DEAD;
-	switch (m_eDIR)
+	//switch (m_eDIR)
+	//{
+	//case DIR_RIGHT:
+	//	m_tInfo.fX += m_fSpeed;
+	//	break;
+	//case DIR_LEFT:
+	//	m_tInfo.fX -= m_fSpeed;
+	//	break;
+	//case DIR_UP:
+	//	m_tInfo.fY -= m_fSpeed;
+	//	break;
+	//case DIR_DOWN:
+	//	m_tInfo.fY += m_fSpeed;
+	//	break;
+	//case DIR_RU:
+	//	m_tInfo.fX += m_fSpeed;
+	//	m_tInfo.fY -= m_fSpeed;
+	//	break;
+	//case DIR_LU:
+	//	m_tInfo.fX -= m_fSpeed;
+	//	m_tInfo.fY -= m_fSpeed;
+	//	break;
+	//case DIR_END:
+	//	break;
+	//default:
+	//	break;
+	//}
+	if (m_State == READY && dwTime + 1500 <= GetTickCount())
 	{
-	case DIR_RIGHT:
-		m_tInfo.fX += m_fSpeed;
-		break;
-	case DIR_LEFT:
-		m_tInfo.fX -= m_fSpeed;
-		break;
-	case DIR_UP:
-		m_tInfo.fY -= m_fSpeed;
-		break;
-	case DIR_DOWN:
-		m_tInfo.fY += m_fSpeed;
-		break;
-	case DIR_RU:
-		m_tInfo.fX += m_fSpeed;
-		m_tInfo.fY -= m_fSpeed;
-		break;
-	case DIR_LU:
-		m_tInfo.fX -= m_fSpeed;
-		m_tInfo.fY -= m_fSpeed;
-		break;
-	case DIR_END:
-		break;
-	default:
-		break;
+		m_State = EXPLODE;
+		dwTime = GetTickCount();
 	}
+
+	if (m_State == EXPLODE_END && dwTime + 500 <= GetTickCount())
+	{
+		m_State = STATE_END;
+		dwTime = GetTickCount();
+	}
+
 	__super::UpdateRect();
 	return NONEVENT;
 }
@@ -72,4 +84,7 @@ void CBullet::LateUpdate()
 		m_bDead = DEAD;
 	if(m_tStat.fHp<=0.f)
 		m_bDead = DEAD;
+	if(m_State == STATE_END)
+		m_bDead = DEAD;
 }
+

@@ -25,8 +25,6 @@ void CMainGame::Initialize()
 
 void CMainGame::Update()
 {
-	Rectangle(m_hDC, 0, 0, WINCX, WINCY);
-	
 	for (auto i = 0; i < OBJ_END; i++)
 	{
 		for (auto iter = m_ObjList[i].begin(); iter != m_ObjList[i].end();)
@@ -54,42 +52,59 @@ void CMainGame::LateUpdate()
 		}
 	}
 	CollisionCheck(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_BULLET]);
+	CollisionCheck(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_BULLET]);
 }
 
-void CMainGame::CollisionCheck(list<CObj*> listDst, list<CObj*> listSrc)
+void CMainGame::CollisionCheck(list<CObj*> ObjList, list<CObj*> BulletList)
 {
-	if (!listDst.size() || !listSrc.size())
+	if (!ObjList.size() || !BulletList.size())
 		return;
 	// 1. IntersectRect 사용
 	//RECT rResult;
 	//
-	//for (auto ObjDst : listDst)
+	//for (auto Obj : ObjList)
 	//{
-	//	for (auto ObjSrc : listSrc)
+	//	for (auto Bullet : BulletList)
 	//	{
-	//		if (IntersectRect(&rResult, (ObjDst->GetRect()), (ObjSrc->GetRect())))
+	//		if (IntersectRect(&rResult, (Obj->GetRect()), (Bullet->GetRect())))
 	//		{
-	//			ObjDst->TakeDamage(ObjSrc->GetStat().fAttack);
-	//			ObjSrc->TakeDamage(ObjDst->GetStat().fAttack);
+	//			Obj->TakeDamage(Bullet->GetStat().fAttack);
+	//			Bullet->TakeDamage(Obj->GetStat().fAttack);
 	//		}
 	//	}
 	//}
 	// 2. 피타고라스 정리 사용
-	for (auto ObjDst : listDst)
+	//for (auto Obj : ObjList)
+	//{
+	//	for (auto Bullet : BulletList)
+	//	{
+	//		double fDistance = sqrt((Obj->GetInfo().fX - Bullet->GetInfo().fX) * (Obj->GetInfo().fX - Bullet->GetInfo().fX)
+	//			+ (Obj->GetInfo().fY - Bullet->GetInfo().fY) * (Obj->GetInfo().fY - Bullet->GetInfo().fY));
+	//		double fSize = sqrt((Obj->GetInfo().fCX - Bullet->GetInfo().fCX) * (Obj->GetInfo().fCX - Bullet->GetInfo().fCX)
+	//			+ (Obj->GetInfo().fCY - Bullet->GetInfo().fCY) * (Obj->GetInfo().fCY - Bullet->GetInfo().fCY));
+	//		if (fDistance <= fSize)
+	//		{
+	//			Obj->TakeDamage(Bullet->GetStat().fAttack);
+	//			Bullet->TakeDamage(Obj->GetStat().fAttack);
+	//		}
+	//	}
+	//}
+	//3. 물풍선 적용
+	RECT rResult;
+	
+	for (auto Obj : ObjList)
 	{
-		for (auto ObjSrc : listSrc)
+		for (auto Bullet : BulletList)
 		{
-			double fDistance = sqrt((ObjDst->GetInfo().fX - ObjSrc->GetInfo().fX) * (ObjDst->GetInfo().fX - ObjSrc->GetInfo().fX) 
-				+ (ObjDst->GetInfo().fY - ObjSrc->GetInfo().fY) * (ObjDst->GetInfo().fY - ObjSrc->GetInfo().fY));
-			double fSize = sqrt((ObjDst->GetInfo().fCX - ObjSrc->GetInfo().fCX) * (ObjDst->GetInfo().fCX - ObjSrc->GetInfo().fCX)
-				+ (ObjDst->GetInfo().fCY - ObjSrc->GetInfo().fCY) * (ObjDst->GetInfo().fCY - ObjSrc->GetInfo().fCY));
-			if (fDistance <= fSize)
+			if (dynamic_cast<CBullet*>(Bullet)->GetState() == EXPLODE_END &&
+				IntersectRect(&rResult, (Obj->GetRect()), (Bullet->GetRect())))
 			{
-				ObjDst->TakeDamage(ObjSrc->GetStat().fAttack);
-				ObjSrc->TakeDamage(ObjDst->GetStat().fAttack);
+				Obj->TakeDamage(Bullet->GetStat().fAttack);
+				//Bullet->TakeDamage(Obj->GetStat().fAttack);
 			}
 		}
 	}
+	
 }
 
 void CMainGame::Render()
@@ -107,6 +122,7 @@ void CMainGame::Render()
 		SetWindowText(g_Hwnd, m_szFPS);
 	}
 
+	Rectangle(m_hDC, 0, 0, WINCX, WINCY);
 	for (auto i = 0; i < OBJ_END; i++)
 	{
 		for (auto& Obj : m_ObjList[i])

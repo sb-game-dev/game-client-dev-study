@@ -21,10 +21,13 @@ public:
 
 private:
     void KeyDown();
-
+    void CreateBullet();
 private:
     list<CObj*>* m_BulletListP;
 
+    DWORD dwTime;
+    int m_iMaxBomb;
+    int m_iBombPower;
     // CObj을(를) 통해 상속됨
 };
 
