@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "CMainGame.h"
 #include "CAbstractFactory.h"
-CMainGame::CMainGame():m_iFPS(0), m_dwTime(GetTickCount())
+CMainGame::CMainGame():m_iFPS(0), m_dwTime(GetTickCount()), m_dwMonsterTime(GetTickCount())
 {
 	ZeroMemory(m_szFPS, sizeof(m_szFPS));
 }
@@ -50,6 +50,11 @@ void CMainGame::LateUpdate()
 		{
 			Obj->LateUpdate();
 		}
+	}
+	if (m_dwMonsterTime + 5000 < GetTickCount())
+	{
+		m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(float(rand() % WINCX), float(rand() % WINCY), 100, 10));
+		m_dwMonsterTime = GetTickCount();
 	}
 	CollisionCheck(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_BULLET]);
 	CollisionCheck(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_BULLET]);

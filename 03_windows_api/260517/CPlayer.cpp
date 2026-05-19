@@ -73,7 +73,6 @@ void CPlayer::CreateBullet()
 	CObj* pBullet = CAbstractFactory<CBullet>::Create(m_tInfo.fX, m_tInfo.fY, 1, m_tStat.fAttack, DIR_UP);
 	m_BulletListP->push_back(pBullet);
 
-	
 }
 
 
