@@ -137,7 +137,6 @@ void CMainGame::Render()
 	TCHAR szBuff[32] = L"";
 	swprintf_s(szBuff, L"Bullet : %d", m_ObjList[OBJ_BULLET].size());//
 	TextOut(m_hDC, 30, 30, szBuff, lstrlen(szBuff));
-	
 }
 
 void CMainGame::Release()
