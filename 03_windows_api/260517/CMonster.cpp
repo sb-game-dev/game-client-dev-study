@@ -21,8 +21,6 @@ bool CMonster::Update()
 	if (m_bDead)
 		return DEAD;
 	m_tInfo.fX += m_fSpeed;
-	if (m_tInfo.fX <= 0 || m_tInfo.fX >= WINCX)
-		m_fSpeed *= -1;
 	__super::UpdateRect();
 	return NONEVENT;
 }
@@ -42,6 +40,8 @@ void CMonster::Release()
 
 void CMonster::LateUpdate()
 {
+	if (m_tInfo.fX <= 0 || m_tInfo.fX >= WINCX)
+		m_fSpeed *= -1;
 	if (m_tStat.fHp <= 0.f)
 		m_bDead = DEAD;	
 }
