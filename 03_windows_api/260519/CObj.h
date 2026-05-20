@@ -21,9 +21,9 @@ public:
 	void SetDead(bool bDead)			{ m_bDead = bDead; }
 	void SetDir(DIRECTION eDir)			{ m_eDir = eDir; }
 
-	INFO GetInfo() { return m_tInfo; }
-	RECT* GetRect() { return &m_tRect; }
-	STAT GetStat() { return m_tStat; }
+	const INFO GetInfo()const { return m_tInfo; }
+	const RECT* GetRect()const { return &m_tRect; }
+	const STAT GetStat()const { return m_tStat; }
 
 
 protected:

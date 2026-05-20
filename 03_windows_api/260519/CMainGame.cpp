@@ -5,7 +5,7 @@
 #include "CPlayer.h"
 #include "CMonster.h"
 
-CMainGame::CMainGame()
+CMainGame::CMainGame():m_hDC(WM_NULL)
 {
 }
 
@@ -101,8 +101,7 @@ void CMainGame::CollisonCheck(list<CObj*> &ObjList_1, list<CObj*> &ObjList_2)
 		{
 			double fDistance = sqrt((Obj1->GetInfo().fX - Obj2->GetInfo().fX)* (Obj1->GetInfo().fX - Obj2->GetInfo().fX) 
 				+ (Obj1->GetInfo().fY - Obj2->GetInfo().fY) * (Obj1->GetInfo().fY - Obj2->GetInfo().fY));
-			double fSize = sqrt((Obj1->GetInfo().fCX - Obj2->GetInfo().fCX) * (Obj1->GetInfo().fCX - Obj2->GetInfo().fCX)
-				+ (Obj1->GetInfo().fCY - Obj2->GetInfo().fCY) * (Obj1->GetInfo().fCY - Obj2->GetInfo().fCY));
+			double fSize = (Obj1->GetInfo().fCX - Obj2->GetInfo().fCX) * 0.5f;
 			if (fDistance <= fSize)
 			{
 				Obj1->SetDead(DEAD);

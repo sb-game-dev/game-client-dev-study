@@ -31,6 +31,12 @@
     <Filter Include="01. Obj\02. Monster">
       <UniqueIdentifier>{2625d27d-b009-47fc-b9b9-15e641f0d37b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. AbstractFactory\01. CollisionMgr">
+      <UniqueIdentifier>{216748c5-90a5-4ae7-9059-00b0f5fbc722}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. AbstractFactory\00. AbstractFactory">
+      <UniqueIdentifier>{d8cf372d-cd2a-424e-84c0-7144c0a4295c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -57,9 +63,6 @@
     <ClInclude Include="CObj.h">
       <Filter>01. Obj</Filter>
     </ClInclude>
-    <ClInclude Include="CAbstractFactory.h">
-      <Filter>02. AbstractFactory</Filter>
-    </ClInclude>
     <ClInclude Include="CPlayer.h">
       <Filter>01. Obj\00. Player</Filter>
     </ClInclude>
@@ -67,7 +70,10 @@
       <Filter>01. Obj\01. Bullet</Filter>
     </ClInclude>
     <ClInclude Include="CMonster.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>01. Obj\02. Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="CAbstractFactory.h">
+      <Filter>02. AbstractFactory\00. AbstractFactory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -90,7 +96,7 @@
       <Filter>01. Obj\01. Bullet</Filter>
     </ClCompile>
     <ClCompile Include="CMonster.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>01. Obj\02. Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
