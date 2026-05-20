@@ -37,6 +37,12 @@
     <Filter Include="02. AbstractFactory\00. AbstractFactory">
       <UniqueIdentifier>{d8cf372d-cd2a-424e-84c0-7144c0a4295c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Obj\03. Mouse">
+      <UniqueIdentifier>{1e1c7460-ac31-43f2-abc9-84d11f38f155}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Obj\04. Barrel">
+      <UniqueIdentifier>{11f5c92f-d5e1-4e4e-8b4a-7734eb51ca7e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -75,6 +81,15 @@
     <ClInclude Include="CAbstractFactory.h">
       <Filter>02. AbstractFactory\00. AbstractFactory</Filter>
     </ClInclude>
+    <ClInclude Include="CCollisionMgr.h">
+      <Filter>02. AbstractFactory\01. CollisionMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CMouse.h">
+      <Filter>01. Obj\03. Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="CBarrel.h">
+      <Filter>01. Obj\04. Barrel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="260519.cpp">
@@ -97,6 +112,15 @@
     </ClCompile>
     <ClCompile Include="CMonster.cpp">
       <Filter>01. Obj\02. Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CCollisionMgr.cpp">
+      <Filter>02. AbstractFactory\01. CollisionMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CMouse.cpp">
+      <Filter>01. Obj\03. Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="CBarrel.cpp">
+      <Filter>01. Obj\04. Barrel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

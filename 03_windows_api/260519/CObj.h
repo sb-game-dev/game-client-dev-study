@@ -18,8 +18,8 @@ public:
 
 	void TakeDamage(int iNum)			{ m_tStat.fHp -= iNum; }
 	void SetPos(float fX, float fY)		{ m_tInfo.fX = fX; m_tInfo.fY = fY; }
-	void SetDead(bool bDead)			{ m_bDead = bDead; }
-	void SetDir(DIRECTION eDir)			{ m_eDir = eDir; }
+	void SetDead()			{ m_bDead = DEAD; }
+	void SetDir(float fRadian)			{ m_fRadian = fRadian; }
 
 	const INFO GetInfo()const { return m_tInfo; }
 	const RECT* GetRect()const { return &m_tRect; }
@@ -31,7 +31,7 @@ protected:
 	RECT m_tRect;
 	
 	STAT m_tStat;
-	DIRECTION m_eDir;
+	float m_fRadian;
 
 	float m_fSpeed;
 	bool m_bDead;

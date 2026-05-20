@@ -25,31 +25,9 @@ int CBullet::Update()
 {
     if (m_bDead == DEAD)
         return DEAD;
-    switch (m_eDir)
-    {
-    case DIR_LEFT:
-        m_tInfo.fX -= m_fSpeed;
-        break;
-    case DIR_TOP:
-        m_tInfo.fY -= m_fSpeed;
-        break;
-    case DIR_RIGHT:
-        m_tInfo.fX += m_fSpeed;
-        break;
-    case DIR_BOTTOM:
-        m_tInfo.fY += m_fSpeed;
-        break;
-    case DIR_LU:
-        m_tInfo.fY -= m_fSpeed;
-        m_tInfo.fX -= m_fSpeed;
-        break;
-    case DIR_RU:
-        m_tInfo.fY -= m_fSpeed;
-        m_tInfo.fX += m_fSpeed;
-        break;
-    default:
-        break;
-    }
+    m_tInfo.fX += m_fSpeed * cos(m_fRadian);
+    m_tInfo.fY -= m_fSpeed * sin(m_fRadian);
+
     __super::UpdateRect();
     return NONEVENT;
 }

@@ -4,7 +4,9 @@
 #include "CAbstractFactory.h"
 #include "CPlayer.h"
 #include "CMonster.h"
-
+#include "CCollisionMgr.h"
+#include "CMouse.h"
+#include "CBarrel.h"
 CMainGame::CMainGame():m_hDC(WM_NULL)
 {
 }
@@ -17,12 +19,17 @@ CMainGame::~CMainGame()
 void CMainGame::Initialize()
 {
 	m_hDC = GetDC(g_hWnd);
-	
-	m_ObjList[OBJ_PLAYER].push_back(CAbstractFactory<CPlayer>::Create());
-	dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->SetBullet(&m_ObjList[OBJ_BULLET]);
 
+	m_ObjList[OBJ_PLAYER].push_back(CAbstractFactory<CPlayer>::Create());
+	m_ObjList[OBJ_BARREL].push_back(CAbstractFactory<CBarrel>::Create());
+	m_ObjList[OBJ_MOUSE].push_back(CAbstractFactory<CMouse>::Create());
 	for (int i = 0; i < 5; i++)
 		m_ObjList[OBJ_MONSTER].push_back(CAbstractFactory<CMonster>::Create(rand() % WINCX, rand() % WINCY));
+
+	dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->SetBullet(&m_ObjList[OBJ_BULLET]);
+	dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->SetBarrel(m_ObjList[OBJ_BARREL].front());
+	dynamic_cast<CBarrel*>(m_ObjList[OBJ_BARREL].front())->SetPlayer(m_ObjList[OBJ_PLAYER].front());
+	dynamic_cast<CBarrel*>(m_ObjList[OBJ_BARREL].front())->SetMouse(m_ObjList[OBJ_MOUSE].front());
 }
 
 void CMainGame::Update()
@@ -52,7 +59,8 @@ void CMainGame::LateUpdate()
 		for (auto& Obj : m_ObjList[i])
 			Obj->LateUpdate();
 	}
-	CollisonCheck(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_BULLET]);
+	CCollisionMgr::CollisionCircle(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_BULLET]);
+	CCollisionMgr::CollisionRect(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_MOUSE]);
 }
 
 
@@ -76,37 +84,3 @@ void CMainGame::Release()
 	}
 }
 
-void CMainGame::CollisonCheck(list<CObj*> &ObjList_1, list<CObj*> &ObjList_2)
-{
-	if (!ObjList_1.size() || !ObjList_2.size())
-		return;
-	//// 1. IntersectRect 사용
-	//for (auto& Obj1 : ObjList_1)
-	//{
-	//	for (auto& Obj2 : ObjList_2)
-	//	{
-	//		RECT rc;
-	//		if (IntersectRect(&rc, (Obj1->GetRect()), (Obj2->GetRect())))
-	//		{
-	//			Obj1->SetDead(DEAD);
-	//			Obj2->SetDead(DEAD);
-	//		}
-	//	}
-	//}
-
-	//// 2. 피타고라스 사용
-	for (auto& Obj1 : ObjList_1)
-	{
-		for (auto& Obj2 : ObjList_2)
-		{
-			double fDistance = sqrt((Obj1->GetInfo().fX - Obj2->GetInfo().fX)* (Obj1->GetInfo().fX - Obj2->GetInfo().fX) 
-				+ (Obj1->GetInfo().fY - Obj2->GetInfo().fY) * (Obj1->GetInfo().fY - Obj2->GetInfo().fY));
-			double fSize = (Obj1->GetInfo().fCX - Obj2->GetInfo().fCX) * 0.5f;
-			if (fDistance <= fSize)
-			{
-				Obj1->SetDead(DEAD);
-				Obj2->SetDead(DEAD);
-			}
-		}
-	}
-}

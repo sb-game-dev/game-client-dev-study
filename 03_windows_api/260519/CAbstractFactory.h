@@ -17,13 +17,13 @@ public:
 		return pObj;
 	}
 
-	static CObj* Create(float fX,float fY,DIRECTION eDir = DIR_END)
+	static CObj* Create(float fX,float fY,float fRadian = 0)
 	{
 		CObj* pObj = new T;
 
 		pObj->Initialize();
 		pObj->SetPos(fX, fY);
-		pObj->SetDir(eDir);
+		pObj->SetDir(fRadian);
 		return pObj;
 	}
 };

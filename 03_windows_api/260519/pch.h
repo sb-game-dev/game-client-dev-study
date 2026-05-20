@@ -11,6 +11,7 @@
 #include "framework.h"
 #include <list>
 #include <algorithm>
+#include <cmath>
 using namespace std;
 // 메모리 누수 확인
 //-----헤더-----

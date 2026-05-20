@@ -2,7 +2,8 @@
 #include "CPlayer.h"
 #include "CAbstractFactory.h"
 #include "CBullet.h"
-CPlayer::CPlayer():m_BulletListp(nullptr)
+#include "CBarrel.h"
+CPlayer::CPlayer():m_BulletListp(nullptr), m_pBarrel(nullptr)
 {
 }
 
@@ -18,7 +19,7 @@ void CPlayer::Initialize()
 	m_tStat.fAttack = 10;
 	m_tStat.fHp = 10;
 
-	m_fSpeed = 10.f;
+	m_fSpeed = 1.f;
 }
 
 int CPlayer::Update()
@@ -51,27 +52,50 @@ void CPlayer::Release()
 
 void CPlayer::KeyDown()
 {
-	if (GetAsyncKeyState(VK_LEFT))
-		m_tInfo.fX -= m_fSpeed;
-	if (GetAsyncKeyState(VK_UP))
-		m_tInfo.fY -= m_fSpeed;
-	if (GetAsyncKeyState(VK_RIGHT))
-		m_tInfo.fX += m_fSpeed;
-	if (GetAsyncKeyState(VK_DOWN))
-		m_tInfo.fY += m_fSpeed;
+	//if (GetAsyncKeyState(VK_LEFT))
+	//{
+	//	if (GetAsyncKeyState(VK_UP))
+	//	{
+	//		m_tInfo.fX -= m_fSpeed;
+	//		m_tInfo.fY -= m_fSpeed;
+	//	}
+	//	else if (GetAsyncKeyState(VK_DOWN))
+	//	{
+	//		m_tInfo.fX -= m_fSpeed;
+	//		m_tInfo.fY += m_fSpeed;
+	//	}
+	//	else
+	//		m_tInfo.fX -= m_fSpeed;
+	//}
+	//else if (GetAsyncKeyState(VK_RIGHT))
+	//{
+	//	if (GetAsyncKeyState(VK_UP))
+	//	{
+	//		m_tInfo.fX += m_fSpeed;
+	//		m_tInfo.fY -= m_fSpeed;
+	//	}
+	//	else if (GetAsyncKeyState(VK_DOWN))
+	//	{
+	//		m_tInfo.fX += m_fSpeed;
+	//		m_tInfo.fY += m_fSpeed;
+	//	}
+	//	else
+	//		m_tInfo.fX += m_fSpeed;
+	//}
+	//else if (GetAsyncKeyState(VK_UP))
+	//{
+	//	m_tInfo.fY -= m_fSpeed;
+	//}
+	//else if (GetAsyncKeyState(VK_DOWN))
+	//{
+	//	m_tInfo.fY += m_fSpeed;
+	//}
 
-	if (GetAsyncKeyState('W'))
-		m_BulletListp->push_back(CAbstractFactory<CBullet>::Create(m_tInfo.fX, m_tInfo.fY, DIR_TOP));
-	if (GetAsyncKeyState('A'))
-		m_BulletListp->push_back(CAbstractFactory<CBullet>::Create(m_tInfo.fX, m_tInfo.fY, DIR_LEFT));
-	if (GetAsyncKeyState('S'))
-		m_BulletListp->push_back(CAbstractFactory<CBullet>::Create(m_tInfo.fX, m_tInfo.fY, DIR_BOTTOM));
-	if (GetAsyncKeyState('D'))
-		m_BulletListp->push_back(CAbstractFactory<CBullet>::Create(m_tInfo.fX, m_tInfo.fY, DIR_RIGHT));
+	
+	m_tInfo.fX += m_fSpeed * cos(dynamic_cast<CBarrel*>(m_pBarrel)->GetRadian());
+	m_tInfo.fY -= m_fSpeed * sin(dynamic_cast<CBarrel*>(m_pBarrel)->GetRadian());
 	if (GetAsyncKeyState(VK_SPACE))
 	{
-		m_BulletListp->push_back(CAbstractFactory<CBullet>::Create(m_tInfo.fX, m_tInfo.fY, DIR_TOP));
-		m_BulletListp->push_back(CAbstractFactory<CBullet>::Create(m_tInfo.fX, m_tInfo.fY, DIR_LU));
-		m_BulletListp->push_back(CAbstractFactory<CBullet>::Create(m_tInfo.fX, m_tInfo.fY, DIR_RU));
+		m_BulletListp->push_back(CAbstractFactory<CBullet>::Create(m_tInfo.fX, m_tInfo.fY, dynamic_cast<CBarrel*>(m_pBarrel)->GetRadian()));
 	}
 }
