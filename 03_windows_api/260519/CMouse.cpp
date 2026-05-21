@@ -27,8 +27,6 @@ int CMouse::Update()
 	m_tInfo.fX = (float)ptMouse.x;
 	m_tInfo.fY = (float)ptMouse.y;
 
-	__super::UpdateRect();
-
 	ShowCursor(FALSE);
 
 	return NONEVENT;

@@ -14,11 +14,13 @@ public:
 	void Release()			override;
 
 public:
-	void SetBullet(list<CObj*>* BulletListp) { m_BulletListp = BulletListp; }
-	void SetBarrel(CObj* pBarrel) { m_pBarrel = pBarrel; }
 	void KeyDown();
+	CObj* CreateBullet();
+
 private:
-	list<CObj*>* m_BulletListp;
-	CObj* m_pBarrel;
+	void MovePosin();
+	
+private:
+	POINT m_tPosin;
 };
 

@@ -18,6 +18,9 @@ public:
 
 	void TakeDamage(int iNum)			{ m_tStat.fHp -= iNum; }
 	void SetPos(float fX, float fY)		{ m_tInfo.fX = fX; m_tInfo.fY = fY; }
+	void SetPosX(float fNum) { m_tInfo.fX += fNum; }
+	void SetPosY(float fNum) { m_tInfo.fY += fNum; }
+
 	void SetDead()			{ m_bDead = DEAD; }
 	void SetDir(float fRadian)			{ m_fRadian = fRadian; }
 
@@ -32,8 +35,10 @@ protected:
 	
 	STAT m_tStat;
 	float m_fRadian;
+	float m_fDistance;
 
 	float m_fSpeed;
 	bool m_bDead;
+
 };
 

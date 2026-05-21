@@ -15,6 +15,5 @@ public:
 
 private:
 	HDC m_hDC;
-	list<CObj*> m_ObjList[OBJ_END];
 };
 

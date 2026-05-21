@@ -19,9 +19,6 @@
     <Filter Include="01. Obj">
       <UniqueIdentifier>{fc3fa204-034e-4946-9bbf-b7204ad0b6c2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. AbstractFactory">
-      <UniqueIdentifier>{6884d3ff-f450-47f0-bf18-793146856c9c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01. Obj\00. Player">
       <UniqueIdentifier>{75861ac7-1683-439a-a350-60dc9c1fc117}</UniqueIdentifier>
     </Filter>
@@ -31,17 +28,23 @@
     <Filter Include="01. Obj\02. Monster">
       <UniqueIdentifier>{2625d27d-b009-47fc-b9b9-15e641f0d37b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. AbstractFactory\01. CollisionMgr">
-      <UniqueIdentifier>{216748c5-90a5-4ae7-9059-00b0f5fbc722}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. AbstractFactory\00. AbstractFactory">
-      <UniqueIdentifier>{d8cf372d-cd2a-424e-84c0-7144c0a4295c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01. Obj\03. Mouse">
       <UniqueIdentifier>{1e1c7460-ac31-43f2-abc9-84d11f38f155}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Obj\04. Barrel">
-      <UniqueIdentifier>{11f5c92f-d5e1-4e4e-8b4a-7734eb51ca7e}</UniqueIdentifier>
+    <Filter Include="02. Design">
+      <UniqueIdentifier>{6884d3ff-f450-47f0-bf18-793146856c9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Design\01. CollisionMgr">
+      <UniqueIdentifier>{216748c5-90a5-4ae7-9059-00b0f5fbc722}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Design\00. AbstractFactory">
+      <UniqueIdentifier>{d8cf372d-cd2a-424e-84c0-7144c0a4295c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Design\02. ObjMgr">
+      <UniqueIdentifier>{88fd31b0-0930-400e-8875-798f622737f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Design\03. FollowMgr">
+      <UniqueIdentifier>{60c96398-1df6-4003-80a9-f18a595ecb9b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -79,16 +82,19 @@
       <Filter>01. Obj\02. Monster</Filter>
     </ClInclude>
     <ClInclude Include="CAbstractFactory.h">
-      <Filter>02. AbstractFactory\00. AbstractFactory</Filter>
+      <Filter>02. Design\00. AbstractFactory</Filter>
     </ClInclude>
     <ClInclude Include="CCollisionMgr.h">
-      <Filter>02. AbstractFactory\01. CollisionMgr</Filter>
+      <Filter>02. Design\01. CollisionMgr</Filter>
     </ClInclude>
     <ClInclude Include="CMouse.h">
       <Filter>01. Obj\03. Mouse</Filter>
     </ClInclude>
-    <ClInclude Include="CBarrel.h">
-      <Filter>01. Obj\04. Barrel</Filter>
+    <ClInclude Include="CObjMgr.h">
+      <Filter>02. Design\02. ObjMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CFollowMgr.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -114,13 +120,16 @@
       <Filter>01. Obj\02. Monster</Filter>
     </ClCompile>
     <ClCompile Include="CCollisionMgr.cpp">
-      <Filter>02. AbstractFactory\01. CollisionMgr</Filter>
+      <Filter>02. Design\01. CollisionMgr</Filter>
     </ClCompile>
     <ClCompile Include="CMouse.cpp">
       <Filter>01. Obj\03. Mouse</Filter>
     </ClCompile>
-    <ClCompile Include="CBarrel.cpp">
-      <Filter>01. Obj\04. Barrel</Filter>
+    <ClCompile Include="CObjMgr.cpp">
+      <Filter>02. Design\02. ObjMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CFollowMgr.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

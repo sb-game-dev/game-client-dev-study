@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CBullet.h"
-
+#include "CFollowMgr.h"
+#include "CObjMgr.h"
 CBullet::CBullet()
 {
 }
@@ -18,17 +19,31 @@ void CBullet::Initialize()
     m_tStat.fAttack = 1000;
     m_tStat.fHp = 1;
 
-    m_fSpeed = 20.f;
+    m_fSpeed = 5.f;
 }
 
 int CBullet::Update()
 {
     if (m_bDead == DEAD)
         return DEAD;
-    m_tInfo.fX += m_fSpeed * cos(m_fRadian);
-    m_tInfo.fY -= m_fSpeed * sin(m_fRadian);
+    CObj* pNearestObj = nullptr;
+    float fMinDistance = 1000.f;
+    for (auto& pObj : CObjMgr::GetInstance()->GetList(OBJ_MONSTER))
+    {
+        float fDeltaX = abs(pObj->GetInfo().fX - m_tInfo.fX);
+        float fDeltaY = abs(pObj->GetInfo().fY - m_tInfo.fY);
+        float fDistance = sqrtf(fDeltaX * fDeltaX + fDeltaY * fDeltaY);
+        if (fMinDistance >= fDistance)
+        {
+            fMinDistance = fDistance;
+            pNearestObj = pObj;
+        }
+    }
+    if(pNearestObj != nullptr)
+        CFollowMgr::Follow(pNearestObj->GetInfo(), m_tInfo, m_fSpeed);
+    else
+        return DEAD;
 
-    __super::UpdateRect();
     return NONEVENT;
 }
 

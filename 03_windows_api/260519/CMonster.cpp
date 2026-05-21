@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "CMonster.h"
-
+#include "CObjMgr.h"
+#include "CFollowMgr.h"
+#include "CCollisionMgr.h"
 CMonster::CMonster()
 {
 }
@@ -17,24 +19,26 @@ void CMonster::Initialize()
 
     m_tStat.fAttack = 10;
     m_tStat.fHp = 10;
-    m_fSpeed = 8.f;
+    m_fSpeed = 1.f;
 }
 
 int CMonster::Update()
 {
     if (m_bDead == DEAD)
         return DEAD;
-    m_tInfo.fX += m_fSpeed;
-    __super::UpdateRect();
+
+
     return NONEVENT;
 }
 
 void CMonster::LateUpdate()
 {
-    if (m_tInfo.fX <= 0 || m_tInfo.fX >= WINCX)
-        m_fSpeed *= -1;
+    //if (m_tInfo.fX <= 0 || m_tInfo.fX >= WINCX)
+    //    m_fSpeed *= -1;
     if (m_tStat.fHp <= 0)
         m_bDead = DEAD;
+    if (!CCollisionMgr::CheckCircle(CObjMgr::GetInstance()->GetList(OBJ_PLAYER).front(), this))
+        CFollowMgr::Follow(CObjMgr::GetInstance()->GetList(OBJ_PLAYER).front()->GetInfo(), m_tInfo, m_fSpeed);
 }
 
 void CMonster::Render(HDC hDC)
@@ -44,6 +48,7 @@ void CMonster::Render(HDC hDC)
         m_tRect.top,
         m_tRect.right,
         m_tRect.bottom);
+
 }
 
 void CMonster::Release()
