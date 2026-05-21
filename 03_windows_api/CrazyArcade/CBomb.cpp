@@ -12,8 +12,8 @@ CBomb::~CBomb()
 
 void CBomb::Initialize()
 {
-	m_tInfo.fCX = 30.f;
-	m_tInfo.fCY = 30.f;
+	m_tInfo.fCX = 40.f;
+	m_tInfo.fCY = 40.f;
 }
 
 int CBomb::Update()
@@ -29,7 +29,6 @@ int CBomb::Update()
 	{
 		m_eState = ST_END;
 	}
-	__super::UpdateRect();
 	return NONEVENT;
 }
 

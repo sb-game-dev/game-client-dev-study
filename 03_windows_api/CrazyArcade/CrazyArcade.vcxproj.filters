@@ -19,9 +19,6 @@
     <Filter Include="01. Obj">
       <UniqueIdentifier>{81a1723b-ad92-4746-aeaf-955d082c266e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. AbstractFactory">
-      <UniqueIdentifier>{26771bb0-27ef-43fe-a678-620b9aa26827}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01. Obj\00. Player">
       <UniqueIdentifier>{2799323d-9daa-4f8f-8fa8-34d793852e4c}</UniqueIdentifier>
     </Filter>
@@ -30,6 +27,21 @@
     </Filter>
     <Filter Include="01. Obj\01. Bomb">
       <UniqueIdentifier>{6d706f5b-ecba-4c20-98f9-1502dff6b322}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Design">
+      <UniqueIdentifier>{26771bb0-27ef-43fe-a678-620b9aa26827}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Design\00. AbstractFactory">
+      <UniqueIdentifier>{8470ac9e-a8c9-4272-8ecc-3864107430d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Design\01. CollisionMgr">
+      <UniqueIdentifier>{8ecf63fb-f4e6-43c0-9182-f902f27b956e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Design\02. ObjMgr">
+      <UniqueIdentifier>{c1d74850-6d5d-48b0-894d-a6b56055b4d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Obj\03. CBox">
+      <UniqueIdentifier>{5ca7ec75-6af6-4abd-b2bd-cc175b7264d9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -60,14 +72,20 @@
     <ClInclude Include="CPlayer.h">
       <Filter>01. Obj\00. Player</Filter>
     </ClInclude>
-    <ClInclude Include="CAbstractFactory.h">
-      <Filter>02. AbstractFactory</Filter>
-    </ClInclude>
     <ClInclude Include="CBomb.h">
       <Filter>01. Obj\01. Bomb</Filter>
     </ClInclude>
     <ClInclude Include="CMonster.h">
       <Filter>01. Obj\02. Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="CAbstractFactory.h">
+      <Filter>02. Design\00. AbstractFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="CCollisionMgr.h">
+      <Filter>02. Design\01. CollisionMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjMgr.h">
+      <Filter>02. Design\02. ObjMgr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +109,12 @@
     </ClCompile>
     <ClCompile Include="CMonster.cpp">
       <Filter>01. Obj\02. Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CCollisionMgr.cpp">
+      <Filter>02. Design\01. CollisionMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjMgr.cpp">
+      <Filter>02. Design\02. ObjMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

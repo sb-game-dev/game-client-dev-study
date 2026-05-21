@@ -16,12 +16,9 @@ public:
 
 private:
     void KeyDown();
-
-public:
-    void SetBomb(list<CObj*>* BombListp) { m_BombListp = BombListp; }
+    CObj* CreateBomb();
 
 private:
-    list<CObj*>* m_BombListp;
     int m_iBombPower;
     int m_iMaxBomb;
 };

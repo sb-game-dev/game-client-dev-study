@@ -1,23 +1,41 @@
 #include "pch.h"
 #include "CCollisionMgr.h"
+#include "CBomb.h"
 
-void CCollisionMgr::CollisionRect(list<CObj*> DstList, list<CObj*> SrcList)
+void CCollisionMgr::CollisionRect(list<CObj*>& DstList, list<CObj*>& SrcList)
 {
 	RECT rc;
-	for (auto& DstObj : DstList)
+	for (auto& Dst : DstList)
 	{
-		for (auto& SrcObj : SrcList)
+		for (auto& Src : SrcList)
 		{
-			if (IntersectRect(&rc, (DstObj->GetRect()), (SrcObj->GetRect())))
+			if (IntersectRect(&rc, Dst->GetRect(), Src->GetRect()))
 			{
-				DstObj->SetDead();
-				SrcObj->SetDead();
+				Dst->SetDead();
+				Src->SetDead();
 			}
 		}
 	}
 }
-
-void CCollisionMgr::CollisionRectEx(list<CObj*> DstList, list<CObj*> SrcList)
+void CCollisionMgr::CollisionRectBomb(list<CObj*>& DstList, list<CObj*>& SrcList)
+{
+	RECT rc;
+	for (auto& Dst : DstList)
+	{
+		for (auto& Src : SrcList)
+		{
+			if (IntersectRect(&rc, Dst->GetRect(), Src->GetRect()))
+			{
+				if (dynamic_cast<CBomb*>(Src)->GetState() == ST_EXPLODE_ING)
+				{
+					Dst->SetDead();
+					//Src->SetDead();
+				}
+			}
+		}
+	}
+}
+void CCollisionMgr::CollisionRectEX(list<CObj*>& DstList, list<CObj*>& SrcList)
 {
 	float fDeltaSizeX = 0.f, fDeltaSizeY = 0.f;
 
@@ -59,7 +77,6 @@ void CCollisionMgr::CollisionRectEx(list<CObj*> DstList, list<CObj*> SrcList)
 		}
 	}
 }
-
 bool CCollisionMgr::CheckRect(CObj* Dst, CObj* Src, float& fDeltaSizeX, float& fDeltaSizeY)
 {
 	float fSizeX = fabsf(Dst->GetInfo().fCX + Src->GetInfo().fCX) * 0.5f;
@@ -77,8 +94,7 @@ bool CCollisionMgr::CheckRect(CObj* Dst, CObj* Src, float& fDeltaSizeX, float& f
 	return false;
 }
 
-
-void CCollisionMgr::CollisionCircle(list<CObj*> DstList, list<CObj*> SrcList)
+void CCollisionMgr::CollisionCircle(list<CObj*>& DstList, list<CObj*>& SrcList)
 {
 	for (auto& DstObj : DstList)
 	{
@@ -103,5 +119,4 @@ bool CCollisionMgr::CheckCircle(CObj* pDst, CObj* pSrc)
 	float fDistance = sqrtf(fWidth * fWidth + fHeight * fHeight);
 
 	return fDistance <= fSize;
-
 }

@@ -13,9 +13,10 @@ public:
 	void Render();
 	void Release();
 private:
-	void CollisionCheck(list<CObj*> ObjList1, list<CObj*> ObjList2);
-private:
 	HDC m_hDC;
-	list<CObj*> m_ObjList[OBJ_END];
+
+	DWORD			m_dwTime;
+	int				m_iFPS;
+	TCHAR			m_szFPS[32];
 };
 

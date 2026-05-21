@@ -4,6 +4,7 @@
 #include "CPlayer.h"
 #include "CBomb.h"
 #include "CMonster.h"
+#include "CObjMgr.h"
 CMainGame::CMainGame():m_hDC(WM_NULL)
 {
 }
@@ -14,90 +15,57 @@ CMainGame::~CMainGame()
 }
 
 
-
 void CMainGame::Initialize()
 {
 	m_hDC = GetDC(g_hWnd);
-	m_ObjList[OBJ_PLAYER].push_back(CAbstractFactory<CPlayer>::Create());
-	dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->SetBomb(&m_ObjList[OBJ_BOMB]);
 
-	for (int i = 0; i < 5; i++)
+	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create());
+	
+
+	for (int i = 0; i < 20; i++)
 	{
-		m_ObjList[OBJ_PLAYER].push_back(CAbstractFactory<CMonster>::Create(rand() % WINCX, rand() % WINCY, 10, 10));
+		for (int j = 0; j < 12; ++j)
+		{
+			if(rand()%10 < 1)
+				CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create(float(i * 40 + 20), float(j * 40 + 20), 100, 100));
+			//else
+			//	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create(900+ 20, j * 700 + 20, 100, 100));
+		}
 	}
 }
 
 void CMainGame::Update()
 {
-	for (int i = 0; i < OBJ_END; ++i)
-	{
-		for (auto iter = m_ObjList[i].begin(); iter != m_ObjList[i].end();)
-		{
-			int iResult = (*iter)->Update();
-			if (iResult == DEAD)
-			{
-				Safe_Delete((*iter));
-				iter = m_ObjList[i].erase(iter);
-			}
-			else
-			{
-				++iter;
-			}
-		}
-	}
+	CObjMgr::GetInstance()->Update();
 }
 
 void CMainGame::LateUpdate()
 {
-	for (int i = 0; i < OBJ_END; ++i)
-	{
-		for (auto& Obj : m_ObjList[i])
-			Obj->LateUpdate();
-	}
-	CollisionCheck(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_PLAYER]);
-	CollisionCheck(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_MONSTER]);
+	CObjMgr::GetInstance()->LateUpdate();
 }
 
 void CMainGame::Render()
 {
+	m_iFPS++;
+
+	if (m_dwTime + 1000 < GetTickCount())
+	{
+		swprintf_s(m_szFPS, L"FPS : %d", m_iFPS);
+
+		m_iFPS = 0;
+
+		m_dwTime = GetTickCount();
+
+		SetWindowText(g_hWnd, m_szFPS);
+	}
+
 	Rectangle(m_hDC, 0, 0, WINCX, WINCY);
 
-	for (int i = 0; i < OBJ_END; ++i)
-	{
-		for (auto& Obj : m_ObjList[i])
-			Obj->Render(m_hDC);
-	}
-	TCHAR szBombCount[32] = L"";
-	wsprintf(szBombCount, L"Bomb: %d", m_ObjList[OBJ_BOMB].size());
-	TextOut(m_hDC, 50, 50, szBombCount,lstrlen(szBombCount));
+	CObjMgr::GetInstance()->Render(m_hDC);
 }
 
 void CMainGame::Release()
 {
-	for (int i = 0; i < OBJ_END; ++i)
-	{
-		for (auto& Obj : m_ObjList[i])
-			Safe_Delete(Obj);
-		m_ObjList[i].clear();
-	}
-}
-
-void CMainGame::CollisionCheck(list<CObj*> ObjList1, list<CObj*> ObjList2)
-{
-	if (!ObjList1.size() || !ObjList2.size())
-		return;
-	for (auto Obj1 : ObjList1)
-	{
-		for (auto Obj2 : ObjList2)
-		{
-			RECT rResult;
-			if (dynamic_cast<CBomb*>(Obj1)->GetState() == ST_EXPLODE_ING &&
-				IntersectRect(&rResult, (Obj1->GetRect()), (Obj2->GetRect())))
-			{
-				Obj2->TakeDamage(Obj1->GetStat().fAttack);
-				//Bullet->TakeDamage(Obj->GetStat().fAttack);
-			}
-		}
-	}
-
+	ReleaseDC(g_hWnd, m_hDC);
+	CObjMgr::DestroyInstance();
 }
