@@ -94,7 +94,7 @@
       <Filter>02. Design\02. ObjMgr</Filter>
     </ClInclude>
     <ClInclude Include="CFollowMgr.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>02. Design\03. FollowMgr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -129,7 +129,7 @@
       <Filter>02. Design\02. ObjMgr</Filter>
     </ClCompile>
     <ClCompile Include="CFollowMgr.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>02. Design\03. FollowMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
