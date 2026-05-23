@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CObjMgr.h"
 #include "CCollisionMgr.h"
+#include "CPlayer.h"
 CObjMgr* CObjMgr::m_pInstance = nullptr;
 CObjMgr::CObjMgr()
 {
@@ -46,6 +47,34 @@ void CObjMgr::LateUpdate()
 	}
 	CCollisionMgr::CollisionCircle(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_MONSER_BULLET]);
 	CCollisionMgr::CollisionCircle(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_PLAYER_BULLET]);
+
+	CCollisionMgr::CollisionCircle(m_ObjList[OBJ_WALL], m_ObjList[OBJ_MONSER_BULLET]);
+	CCollisionMgr::CollisionCircle(m_ObjList[OBJ_SANDWALL1], m_ObjList[OBJ_MONSER_BULLET]);
+	CCollisionMgr::CollisionCircle(m_ObjList[OBJ_SANDWALL2], m_ObjList[OBJ_MONSER_BULLET]);
+
+	CCollisionMgr::CollisionCircle(m_ObjList[OBJ_WALL], m_ObjList[OBJ_PLAYER_BULLET]);
+
+
+	CCollisionMgr::CollisionRectEx(m_ObjList[OBJ_WALL], m_ObjList[OBJ_PLAYER]);
+	CCollisionMgr::CollisionRectEx(m_ObjList[OBJ_SANDWALL1], m_ObjList[OBJ_PLAYER]);
+	CCollisionMgr::CollisionRectEx(m_ObjList[OBJ_SANDWALL2], m_ObjList[OBJ_PLAYER]);
+
+	CCollisionMgr::CollisionRectEx(m_ObjList[OBJ_WALL], m_ObjList[OBJ_MONSTER]);
+	CCollisionMgr::CollisionRectEx(m_ObjList[OBJ_SANDWALL1], m_ObjList[OBJ_MONSTER]);
+	CCollisionMgr::CollisionRectEx(m_ObjList[OBJ_SANDWALL2], m_ObjList[OBJ_MONSTER]);
+
+
+	if (dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->GetCoverL() == DETACHED)
+	{
+		CCollisionMgr::CollisionCircle(m_ObjList[OBJ_SANDWALL1], m_ObjList[OBJ_PLAYER_BULLET]);
+	}
+	if (dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->GetCoverR() == DETACHED)
+	{
+		CCollisionMgr::CollisionCircle(m_ObjList[OBJ_SANDWALL2], m_ObjList[OBJ_PLAYER_BULLET]);
+	}
+
+
+
 	for (int i = 0; i < OBJ_END; ++i)
 	{
 		for (auto& pObj : m_ObjList[i])

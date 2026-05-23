@@ -14,7 +14,7 @@ CMonster::~CMonster()
 
 void CMonster::Initialize()
 {
-	m_tInfo = {WINCX*0.5f, 100.f, 40.f,40.f };
+	m_tInfo = {WINCX*0.5f, 80.f, 40.f,40.f };
 	m_tAbility = { 100,5 };
 	m_fAngle = 90.f;
 	m_fSpeed = 200.f;
@@ -29,11 +29,11 @@ int CMonster::Update()
 	m_fAngle += m_fAngleSpeed;
 	m_tInfo.fX = WINCX * 0.5f + 200.f * cosf(m_fAngle * PI / 180.f);
 
-	if (m_dwTime + 1000 <= GetTickCount())
-	{
-		Shoot();
-		m_dwTime = GetTickCount();
-	}
+	//if (m_dwTime + 1000 <= GetTickCount())
+	//{
+	//	Shoot();
+	//	m_dwTime = GetTickCount();
+	//}
 
 	return NONEVENT;
 }
@@ -89,6 +89,6 @@ CObj* CMonster::CreateBullet()
 		fAngle *= -1;
 
 	CObj* pBullet = CAbstractFactory<CBullet>::Create(m_tInfo.fX, m_tInfo.fY, 1, m_tAbility.fAttack, fAngle);
-	pBullet->SetSpeed(20.f);
+	pBullet->SetSpeed(15.f);
 	return pBullet;
 }

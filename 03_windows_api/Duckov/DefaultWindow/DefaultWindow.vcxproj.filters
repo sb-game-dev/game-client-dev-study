@@ -43,6 +43,9 @@
     <Filter Include="02. Design\02. ObjMgr">
       <UniqueIdentifier>{cdeb60e9-7510-4401-8637-b01478d5b26c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Obj\04. Wall">
+      <UniqueIdentifier>{f4cb5d90-b6c8-4983-b73f-163af3b3f6fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -90,6 +93,9 @@
     <ClInclude Include="CCollisionMgr.h">
       <Filter>02. Design\01. CollisionMgr</Filter>
     </ClInclude>
+    <ClInclude Include="CWall.h">
+      <Filter>01. Obj\04. Wall</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefaultWindow.cpp">
@@ -121,6 +127,9 @@
     </ClCompile>
     <ClCompile Include="CCollisionMgr.cpp">
       <Filter>02. Design\01. CollisionMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CWall.cpp">
+      <Filter>01. Obj\04. Wall</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

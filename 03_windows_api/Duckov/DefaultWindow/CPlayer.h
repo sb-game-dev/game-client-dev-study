@@ -15,6 +15,9 @@ public:
     void Render(HDC hDC)    override;
     void Release()          override;
 
+    PLAYERCOVER GetCoverL() { return m_eCoverL; }
+    PLAYERCOVER GetCoverR() { return m_eCoverR; }
+
 private:
     void        KeyInput();
     void        Move();
@@ -41,5 +44,7 @@ private:
     RECT m_rcHeal;
     RECT m_rcSelect;
 
+    PLAYERCOVER m_eCoverL;
+    PLAYERCOVER m_eCoverR;
 };
 

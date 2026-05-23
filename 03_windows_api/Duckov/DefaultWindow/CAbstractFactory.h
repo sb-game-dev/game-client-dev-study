@@ -26,5 +26,17 @@ public:
 		pObj->SetAngle(fAngle);
 		return pObj;
 	}
+
+	static CObj* Create(float fX, float fY, float fCX, float fCY,float fHp, float fAttack, float fAngle = 0)
+	{
+		CObj* pObj = new T;
+
+		pObj->Initialize();
+		pObj->SetPos(fX, fY);
+		pObj->SetSize(fCX, fCY);
+		pObj->SetAbility(fHp, fAttack);
+		pObj->SetAngle(fAngle);
+		return pObj;
+	}
 };
 

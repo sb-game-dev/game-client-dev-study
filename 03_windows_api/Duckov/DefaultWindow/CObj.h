@@ -20,8 +20,9 @@ public:
 
 public :
 	void SetPos(float fX, float fY) { m_tInfo.fX = fX; m_tInfo.fY = fY; }
-	void SetPosX(float fX) { m_tInfo.fX = fX; }
-	void SetPosY(float fY) { m_tInfo.fY = fY; }
+	void SetPosX(float fX) { m_tInfo.fX += fX; }
+	void SetPosY(float fY) { m_tInfo.fY += fY; }
+	void SetSize(float fCX, float fCY) { m_tInfo.fCX = fCX; m_tInfo.fCY = fCY; }
 	void SetAngle(float fAngle) { m_fAngle = fAngle; }
 	void SetAbility(float fHp, float fAttack) { m_tAbility.fHp = fHp; m_tAbility.fAttack = fAttack; }
 	void SetDead() { m_bDead = DEAD; }

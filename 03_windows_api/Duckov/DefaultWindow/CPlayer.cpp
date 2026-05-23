@@ -4,7 +4,7 @@
 #include "CAbstractFactory.h"
 #include "CBullet.h"
 
-CPlayer::CPlayer() : m_eWEAPON(WEAPON_MAIN)
+CPlayer::CPlayer() : m_eWEAPON(WEAPON_MAIN), m_eCoverL(DETACHED), m_eCoverR(DETACHED)
 {
 	ZeroMemory(&m_rcMainWeapon, sizeof(RECT));
 	ZeroMemory(&m_rcSubWeapon, sizeof(RECT));
@@ -53,6 +53,17 @@ int CPlayer::Update()
 
 void CPlayer::LateUpdate()
 {
+	if (m_tInfo.fX >= 158.f && m_tInfo.fX <= 382.f && m_tInfo.fY >= 278.f && m_tInfo.fY <= 362.f)
+		m_eCoverL = ATTACHED;
+	else
+		m_eCoverL = DETACHED;
+
+	if (m_tInfo.fX >= 418.f && m_tInfo.fX <= 622.f && m_tInfo.fY >= 278.f && m_tInfo.fY <= 362.f)
+		m_eCoverR = ATTACHED;
+	else
+		m_eCoverR = DETACHED;
+	
+
 	if (m_tAbility.fHp <= 0)
 		m_bDead = DEAD;
 }
