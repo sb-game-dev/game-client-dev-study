@@ -225,7 +225,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
   //      // 2인자 : 윈도우 안에서 갱신할 범위를 지정(null인 경우 전체화면 모두)
   //      // 3인자 : true인경우 그려져있지 않는 부분도 갱신, false 인 경우 새로 그리는 부분만 갱신
   //      break;
-
+    case WM_ERASEBKGND:
+        return 1;
     case WM_KEYDOWN:
         switch (wParam)
         {

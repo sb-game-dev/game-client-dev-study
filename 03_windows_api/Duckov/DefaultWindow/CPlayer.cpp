@@ -4,7 +4,7 @@
 #include "CAbstractFactory.h"
 #include "CBullet.h"
 
-CPlayer::CPlayer() : m_eWEAPON(WEAPON_MAIN), m_eCoverL(DETACHED), m_eCoverR(DETACHED)
+CPlayer::CPlayer() : m_eWEAPON(WEAPON_MAIN), m_eCoverL(DETACHED), m_eCoverR(DETACHED), m_iCurMain(30),m_iReserveMain(240), m_iCurSub(13), m_iReserveSub(65), m_bReload(false), m_dwTime(GetTickCount())
 {
 	ZeroMemory(&m_rcMainWeapon, sizeof(RECT));
 	ZeroMemory(&m_rcSubWeapon, sizeof(RECT));
@@ -121,8 +121,17 @@ void CPlayer::Release()
 void CPlayer::KeyInput()
 {
 	Move();
-	ChangeWeapon();
-	Shoot();
+	if (m_bReload == false)
+	{
+		Shoot();
+		ChangeWeapon();
+	}
+	if (GetAsyncKeyState('R') && m_bReload == false)
+	{
+		m_bReload = true;
+		m_dwTime = GetTickCount();
+	}
+	Reload();
 	Heal();
 }
 
@@ -188,13 +197,42 @@ void CPlayer::Shoot()
 {
 	if (m_eWEAPON == WEAPON_MAIN)
 	{
-		if (GetAsyncKeyState(VK_SPACE))
+		if (GetAsyncKeyState(VK_SPACE) && m_iCurMain>0)
+		{
 			CObjMgr::GetInstance()->AddObject(OBJ_PLAYER_BULLET, CreateBullet());
+			m_iCurMain--;
+		}
 	}
 	else
 	{
-		if (GetAsyncKeyState(VK_SPACE) & 0x0001)
+		if ((GetAsyncKeyState(VK_SPACE) & 0x0001) && m_iCurSub > 0)
+		{
 			CObjMgr::GetInstance()->AddObject(OBJ_PLAYER_BULLET, CreateBullet());
+			m_iCurSub--;
+		}
+	}
+}
+
+void CPlayer::Reload()
+{
+	if (m_bReload == false)
+		return;
+	
+	if (m_eWEAPON == WEAPON_MAIN && m_iCurMain < 30 && m_dwTime + 3600 <= GetTickCount())
+	{
+		m_bReload = false;
+		m_dwTime = GetTickCount();
+		int iNum = min(m_iReserveMain, (30 - m_iCurMain));
+		m_iReserveMain -= min(m_iReserveMain, (30 - m_iCurMain));
+		m_iCurMain += iNum;
+	}
+	else if (m_eWEAPON == WEAPON_SUB && m_iCurSub < 13 && m_dwTime + 1800 <= GetTickCount())
+	{
+		m_bReload = false;
+		m_dwTime = GetTickCount();
+		int iNum = min(m_iReserveSub, (13 - m_iCurSub));
+		m_iReserveSub -= min(m_iReserveSub, (13 - m_iCurSub));
+		m_iCurSub += iNum;
 	}
 }
 
@@ -252,14 +290,13 @@ void CPlayer::RenderInven(HDC hDC)
 	TCHAR	szBuff[32] = L"Main";
 	RECT rc{
 		m_rcMainWeapon.left,
-		m_rcMainWeapon.top+20,
+		m_rcMainWeapon.top + 20,
 		m_rcMainWeapon.right,
-		m_rcMainWeapon.bottom+20
+		m_rcMainWeapon.bottom + 20
 	};
 	DrawText(hDC, szBuff, lstrlen(szBuff), &rc, DT_CENTER);
 
-
-
+	
 	TCHAR	szBuff2[32] = L"Sub";
 	RECT rc2{
 		m_rcSubWeapon.left,
@@ -268,6 +305,7 @@ void CPlayer::RenderInven(HDC hDC)
 		m_rcSubWeapon.bottom+20
 	};
 	DrawText(hDC, szBuff2, lstrlen(szBuff2), &rc2, DT_CENTER);
+
 	TCHAR	szBuff3[32] = L"Heal";
 	RECT rc3{
 		m_rcHeal.left,
@@ -276,7 +314,30 @@ void CPlayer::RenderInven(HDC hDC)
 		m_rcHeal.bottom + 20
 	};
 	DrawText(hDC, szBuff3, lstrlen(szBuff3), &rc3, DT_CENTER);
-
+	if (m_eWEAPON == WEAPON_MAIN)
+	{
+		TCHAR	szBuffMagazine[32] = L"";
+		RECT rcMagazine{
+			m_rcMainWeapon.left,
+			m_rcMainWeapon.top,
+			m_rcMainWeapon.right,
+			m_rcMainWeapon.bottom
+		};
+		swprintf_s(szBuffMagazine, L"%d / %d", m_iCurMain, m_iReserveMain);
+		DrawText(hDC, szBuffMagazine, lstrlen(szBuffMagazine), &rcMagazine, DT_CENTER);
+	}
+	else
+	{
+		TCHAR	szBuffMagazine[32] = L"";
+		RECT rcMagazine{
+			m_rcSubWeapon.left,
+			m_rcSubWeapon.top,
+			m_rcSubWeapon.right,
+			m_rcSubWeapon.bottom
+		};
+		swprintf_s(szBuffMagazine, L"%d / %d", m_iCurSub, m_iReserveSub);
+		DrawText(hDC, szBuffMagazine, lstrlen(szBuffMagazine), &rcMagazine, DT_CENTER);
+	}
 }
 
 void CPlayer::UpdateRect(RECT& m_WeaponRect, INFO& m_WeaponInfo)

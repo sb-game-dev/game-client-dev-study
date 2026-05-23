@@ -45,6 +45,9 @@ void CObjMgr::LateUpdate()
 		for (auto& pObj : m_ObjList[i])
 			pObj->LateUpdate();
 	}
+	//CCollisionMgr::CollisionRectEx(m_ObjList[OBJ_MONSER_BULLET], m_ObjList[OBJ_PLAYER]);
+	//CCollisionMgr::CollisionRectEx(m_ObjList[OBJ_PLAYER_BULLET], m_ObjList[OBJ_MONSTER]);
+
 	CCollisionMgr::CollisionCircle(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_MONSER_BULLET]);
 	CCollisionMgr::CollisionCircle(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_PLAYER_BULLET]);
 
@@ -72,8 +75,6 @@ void CObjMgr::LateUpdate()
 	{
 		CCollisionMgr::CollisionCircle(m_ObjList[OBJ_SANDWALL2], m_ObjList[OBJ_PLAYER_BULLET]);
 	}
-
-
 
 	for (int i = 0; i < OBJ_END; ++i)
 	{

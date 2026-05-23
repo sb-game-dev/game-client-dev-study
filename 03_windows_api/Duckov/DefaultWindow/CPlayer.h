@@ -18,11 +18,14 @@ public:
     PLAYERCOVER GetCoverL() { return m_eCoverL; }
     PLAYERCOVER GetCoverR() { return m_eCoverR; }
 
+    WEAPON      GetWeapon() { return m_eWEAPON; }
+    bool        GetReload() { return m_bReload; }
 private:
     void        KeyInput();
     void        Move();
     void        ChangeWeapon();
     void        Shoot();
+    void        Reload();
     void        Heal();
 private:
     void        RenderInven(HDC hDC);
@@ -48,5 +51,14 @@ private:
 
     PLAYERCOVER m_eCoverL;
     PLAYERCOVER m_eCoverR;
+
+    int m_iCurMain;
+    int m_iReserveMain;
+
+    int m_iCurSub;
+    int m_iReserveSub;
+
+    bool m_bReload;
+    DWORD m_dwTime;
 };
 
