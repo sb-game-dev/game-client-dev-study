@@ -107,6 +107,8 @@ void CPlayer::Render(HDC hDC)
 		m_tInfo.fY - 40.f
 	};
 	DrawText(hDC, szBuff, lstrlen(szBuff), &rc, DT_CENTER);
+
+
 	RenderInven(hDC);
 
 }
@@ -215,12 +217,15 @@ void CPlayer::RenderInven(HDC hDC)
 		m_InfoSelect.fY = m_InfoSubWeapon.fY;
 	}
 
+	Rectangle(hDC,250,470,550,600);
+
 	UpdateRect(m_rcSelect, m_InfoSelect);
 	Rectangle(hDC,
 		m_rcSelect.left,
 		m_rcSelect.top,
 		m_rcSelect.right,
 		m_rcSelect.bottom);
+	
 
 	TextOut(hDC, WINCX * 0.5f - 100, WINCY - 30, L"1", lstrlen(L"1"));
 	Rectangle(hDC,
