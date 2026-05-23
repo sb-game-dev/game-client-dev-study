@@ -218,7 +218,18 @@ void CPlayer::Reload()
 	if (m_bReload == false)
 		return;
 	
-	if (m_eWEAPON == WEAPON_MAIN && m_iCurMain < 30 && m_dwTime + 3600 <= GetTickCount())
+	if (m_eWEAPON == WEAPON_MAIN && m_iCurMain >= 30)
+	{
+		m_bReload = false;
+		return;
+	}
+	else if (m_eWEAPON == WEAPON_SUB && m_iCurSub >= 13)
+	{
+		m_bReload = false;
+		return;
+	}
+
+	if (m_eWEAPON == WEAPON_MAIN && m_dwTime + 3600 <= GetTickCount())
 	{
 		m_bReload = false;
 		m_dwTime = GetTickCount();
@@ -226,7 +237,7 @@ void CPlayer::Reload()
 		m_iReserveMain -= min(m_iReserveMain, (30 - m_iCurMain));
 		m_iCurMain += iNum;
 	}
-	else if (m_eWEAPON == WEAPON_SUB && m_iCurSub < 13 && m_dwTime + 1800 <= GetTickCount())
+	else if (m_eWEAPON == WEAPON_SUB && m_dwTime + 1800 <= GetTickCount())
 	{
 		m_bReload = false;
 		m_dwTime = GetTickCount();
