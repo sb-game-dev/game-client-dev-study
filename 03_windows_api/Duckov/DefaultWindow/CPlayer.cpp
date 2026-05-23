@@ -17,6 +17,9 @@ CPlayer::CPlayer() : m_eWEAPON(WEAPON_MAIN), m_eCoverL(DETACHED), m_eCoverR(DETA
 
 	ZeroMemory(&m_rcSelect, sizeof(RECT));
 	ZeroMemory(&m_InfoSelect, sizeof(INFO));
+
+	ZeroMemory(&m_rcHpBar, sizeof(RECT));
+	
 }
 
 CPlayer::~CPlayer()
@@ -41,6 +44,7 @@ void CPlayer::Initialize()
 	
 	m_InfoSelect = { 300.f,520.f ,80.f,80.f };
 	UpdateRect(m_rcHeal, m_InfoHeal);
+
 }
 
 int CPlayer::Update()
@@ -81,7 +85,30 @@ void CPlayer::Render(HDC hDC)
 		m_tRect.right,
 		m_tRect.bottom);
 
+	//최대 체력
+	//Rectangle(hDC,
+	//	m_tInfo.fX - 25.f,
+	//	m_tInfo.fY - 40.f,
+	//	m_tInfo.fX + 25.f,
+	//	m_tInfo.fY - 30.f
+	//);
+	//현재 체력
+	Rectangle(hDC,
+		m_tInfo.fX - 25.f,
+		m_tInfo.fY - 40.f,
+		m_tInfo.fX - 25.f + (m_tAbility.fHp)*0.5f,
+		m_tInfo.fY - 30.f
+	);
+	TCHAR	szBuff[32] = L"Player";
+	RECT rc{
+		m_tInfo.fX - 25.f,
+		m_tInfo.fY - 60.f,
+		m_tInfo.fX + 25.f,
+		m_tInfo.fY - 40.f
+	};
+	DrawText(hDC, szBuff, lstrlen(szBuff), &rc, DT_CENTER);
 	RenderInven(hDC);
+
 }
 
 void CPlayer::Release()
@@ -94,6 +121,7 @@ void CPlayer::KeyInput()
 	Move();
 	ChangeWeapon();
 	Shoot();
+	Heal();
 }
 
 void CPlayer::Move()
@@ -168,6 +196,12 @@ void CPlayer::Shoot()
 	}
 }
 
+void CPlayer::Heal()
+{
+	if (GetAsyncKeyState('3'))
+		m_tAbility.fHp = 100.f;
+}
+
 void CPlayer::RenderInven(HDC hDC)
 {
 	if (m_eWEAPON == WEAPON_MAIN)
@@ -208,6 +242,36 @@ void CPlayer::RenderInven(HDC hDC)
 		m_rcHeal.top,
 		m_rcHeal.right,
 		m_rcHeal.bottom);
+
+
+	TCHAR	szBuff[32] = L"Main";
+	RECT rc{
+		m_rcMainWeapon.left,
+		m_rcMainWeapon.top+20,
+		m_rcMainWeapon.right,
+		m_rcMainWeapon.bottom+20
+	};
+	DrawText(hDC, szBuff, lstrlen(szBuff), &rc, DT_CENTER);
+
+
+
+	TCHAR	szBuff2[32] = L"Sub";
+	RECT rc2{
+		m_rcSubWeapon.left,
+		m_rcSubWeapon.top+20,
+		m_rcSubWeapon.right,
+		m_rcSubWeapon.bottom+20
+	};
+	DrawText(hDC, szBuff2, lstrlen(szBuff2), &rc2, DT_CENTER);
+	TCHAR	szBuff3[32] = L"Heal";
+	RECT rc3{
+		m_rcHeal.left,
+		m_rcHeal.top+20,
+		m_rcHeal.right,
+		m_rcHeal.bottom + 20
+	};
+	DrawText(hDC, szBuff3, lstrlen(szBuff3), &rc3, DT_CENTER);
+
 }
 
 void CPlayer::UpdateRect(RECT& m_WeaponRect, INFO& m_WeaponInfo)

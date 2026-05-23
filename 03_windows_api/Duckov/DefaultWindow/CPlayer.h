@@ -23,7 +23,7 @@ private:
     void        Move();
     void        ChangeWeapon();
     void        Shoot();
-
+    void        Heal();
 private:
     void        RenderInven(HDC hDC);
     void        UpdateRect(RECT& m_WeaponRect, INFO& m_WeaponInfo);
@@ -43,6 +43,8 @@ private:
     RECT m_rcSubWeapon;
     RECT m_rcHeal;
     RECT m_rcSelect;
+
+    RECT m_rcHpBar;
 
     PLAYERCOVER m_eCoverL;
     PLAYERCOVER m_eCoverR;

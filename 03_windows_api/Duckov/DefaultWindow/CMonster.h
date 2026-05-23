@@ -21,5 +21,6 @@ private:
 private:
     float m_fAngleSpeed;
     DWORD m_dwTime;
+    CObj* m_pTarget;
 };
 

@@ -64,11 +64,11 @@ void CObjMgr::LateUpdate()
 	CCollisionMgr::CollisionRectEx(m_ObjList[OBJ_SANDWALL2], m_ObjList[OBJ_MONSTER]);
 
 
-	if (dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->GetCoverL() == DETACHED)
+	if (m_ObjList[OBJ_PLAYER].size()>=1 && dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->GetCoverL() == DETACHED)
 	{
 		CCollisionMgr::CollisionCircle(m_ObjList[OBJ_SANDWALL1], m_ObjList[OBJ_PLAYER_BULLET]);
 	}
-	if (dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->GetCoverR() == DETACHED)
+	if (m_ObjList[OBJ_PLAYER].size() >= 1 && dynamic_cast<CPlayer*>(m_ObjList[OBJ_PLAYER].front())->GetCoverR() == DETACHED)
 	{
 		CCollisionMgr::CollisionCircle(m_ObjList[OBJ_SANDWALL2], m_ObjList[OBJ_PLAYER_BULLET]);
 	}
