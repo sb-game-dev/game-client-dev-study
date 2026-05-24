@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "CMouse.h"
 #include "CObjMgr.h"
-#include "CPlayer.h"
 CMouse::CMouse():m_iSize(0)
 {
 	ZeroMemory(&m_tPoint, sizeof(POINT));
@@ -16,6 +15,8 @@ void CMouse::Initialize()
 {
 	m_iSize = 10;
 	m_fSpeed = 1.f;
+
+	m_pPlayer = dynamic_cast<CPlayer*> (CObjMgr::GetInstance()->GetList(OBJ_PLAYER).front());
 }
 
 int CMouse::Update()
@@ -28,8 +29,8 @@ int CMouse::Update()
 
 	m_tInfo.fX = (float)ptMouse.x;
 	m_tInfo.fY = (float)ptMouse.y;
-
-	ShowCursor(FALSE);
+	if(m_pPlayer)
+		ShowCursor(FALSE);
 
 	return NONEVENT;
 }
@@ -40,43 +41,43 @@ void CMouse::LateUpdate()
 
 void CMouse::Render(HDC hDC)
 {
-	if (CObjMgr::GetInstance()->GetList(OBJ_PLAYER).size() == 0)
+	if (!m_pPlayer)
 		return;
 	
-	if(dynamic_cast<CPlayer*> (CObjMgr::GetInstance()->GetList(OBJ_PLAYER).front())->GetWeapon() == WEAPON_SUB)
+	if(m_pPlayer->GetWeapon() == WEAPON_MAIN)
 	{
-		if (dynamic_cast<CPlayer*> (CObjMgr::GetInstance()->GetList(OBJ_PLAYER).front())->GetReload() == true)
+		if (m_pPlayer->GetReload() == true)
 		{
-			m_fAngle -= m_fSpeed * 4.f;
-			m_tPoint.x = m_tInfo.fX + m_iSize * 2 * cosf(m_fAngle * PI / 180.f);
-			m_tPoint.y = m_tInfo.fY - m_iSize * 2 * sinf(m_fAngle * PI / 180.f);
-			Ellipse(hDC,
-				int(m_tPoint.x - 10.f),
-				int(m_tPoint.y - 10.f),
-				int(m_tPoint.x + 10.f),
-				int(m_tPoint.y + 10.f));
+			m_fAngle = 90.f;
+			m_iCount++;
+			for (int i = 0; i < m_iCount ;++i)
+			{
+				m_fAngle -= 1.6f;
+				RenderReload(hDC);
+			}
 		}
 		else
 		{
-			RenderSub(hDC);
+			m_iCount = 0;
+			RenderMain(hDC);
 		}
 	}
 	else
 	{
-		if (dynamic_cast<CPlayer*> (CObjMgr::GetInstance()->GetList(OBJ_PLAYER).front())->GetReload() == true)
+		if (m_pPlayer->GetReload() == true)
 		{
-			m_fAngle -= m_fSpeed * 2.f;
-			m_tPoint.x = m_tInfo.fX + m_iSize * 2 * cosf(m_fAngle * PI / 180.f);
-			m_tPoint.y = m_tInfo.fY - m_iSize * 2 * sinf(m_fAngle * PI / 180.f);
-			Ellipse(hDC,
-				int(m_tPoint.x - 10.f),
-				int(m_tPoint.y - 10.f),
-				int(m_tPoint.x + 10.f),
-				int(m_tPoint.y + 10.f));
+			m_fAngle = 90.f;
+			m_iCount++;
+			for (int i = 0; i < m_iCount; ++i)
+			{
+				m_fAngle -= 3.2f;
+				RenderReload(hDC);
+			}
 		}
 		else
 		{
-			RenderMain(hDC);
+			m_iCount = 0;
+			RenderSub(hDC);
 		}
 	}
 	TCHAR	szBuff[32] = L"";
@@ -117,4 +118,11 @@ void CMouse::RenderSub(HDC hDC)
 
 void CMouse::RenderReload(HDC hDC)
 {
+	m_tPoint.x = m_tInfo.fX + m_iSize * cosf(m_fAngle * PI / 180.f);
+	m_tPoint.y = m_tInfo.fY - m_iSize * sinf(m_fAngle * PI / 180.f);
+	Ellipse(hDC,
+		int(m_tPoint.x - 5.f),
+		int(m_tPoint.y - 5.f),
+		int(m_tPoint.x + 5.f),
+		int(m_tPoint.y + 5.f));
 }

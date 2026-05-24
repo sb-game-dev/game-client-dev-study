@@ -29,6 +29,7 @@ public :
 	void SetSpeed(float fSpeed) { m_fSpeed = fSpeed;}
 
 	void TakeDamge(float fAttack) { m_tAbility.fHp -= fAttack; }
+	bool GetDead() { return m_bDead; }
 
 	const INFO GetInfo()		const 	{ return m_tInfo; }
 	const RECT* GetRect()		const 	{ return &m_tRect; }

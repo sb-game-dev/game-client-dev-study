@@ -218,12 +218,12 @@ void CPlayer::Reload()
 	if (m_bReload == false)
 		return;
 	
-	if (m_eWEAPON == WEAPON_MAIN && m_iCurMain >= 30)
+	if (m_eWEAPON == WEAPON_MAIN && (m_iCurMain >= 30 || m_iReserveMain == 0))
 	{
 		m_bReload = false;
 		return;
 	}
-	else if (m_eWEAPON == WEAPON_SUB && m_iCurSub >= 13)
+	else if (m_eWEAPON == WEAPON_SUB && (m_iCurSub >= 13 || m_iReserveSub == 0))
 	{
 		m_bReload = false;
 		return;

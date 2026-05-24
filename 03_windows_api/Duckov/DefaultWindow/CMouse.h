@@ -1,5 +1,6 @@
 #pragma once
 #include "CObj.h"
+#include "CPlayer.h"
 class CMouse :
     public CObj
 {
@@ -22,5 +23,7 @@ private:
 private:
     int m_iSize;
     POINT m_tPoint;
+    int m_iCount;
+    CPlayer* m_pPlayer;
 };
 
