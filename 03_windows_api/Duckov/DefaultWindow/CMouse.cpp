@@ -52,7 +52,7 @@ void CMouse::Render(HDC hDC)
 			m_iCount++;
 			for (int i = 0; i < m_iCount ;++i)
 			{
-				m_fAngle -= 1.6f;
+				m_fAngle -= 3.2f;
 				RenderReload(hDC);
 			}
 		}
@@ -70,7 +70,7 @@ void CMouse::Render(HDC hDC)
 			m_iCount++;
 			for (int i = 0; i < m_iCount; ++i)
 			{
-				m_fAngle -= 3.2f;
+				m_fAngle -= 6.4f;
 				RenderReload(hDC);
 			}
 		}

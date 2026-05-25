@@ -32,7 +32,7 @@ private:
     void        UpdateRect(RECT& m_WeaponRect, INFO& m_WeaponInfo);
 
 private:
-    CObj* CreateBullet();
+    CObj* CreateBullet(float fAngle = 0);
 
 private:
     WEAPON m_eWEAPON;

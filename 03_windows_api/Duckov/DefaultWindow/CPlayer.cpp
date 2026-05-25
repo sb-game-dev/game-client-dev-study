@@ -4,7 +4,7 @@
 #include "CAbstractFactory.h"
 #include "CBullet.h"
 
-CPlayer::CPlayer() : m_eWEAPON(WEAPON_MAIN), m_eCoverL(DETACHED), m_eCoverR(DETACHED), m_iCurMain(30),m_iReserveMain(240), m_iCurSub(13), m_iReserveSub(65), m_bReload(false), m_dwTime(GetTickCount())
+CPlayer::CPlayer() : m_eWEAPON(WEAPON_MAIN), m_eCoverL(DETACHED), m_eCoverR(DETACHED), m_iCurMain(30),m_iReserveMain(240), m_iCurSub(2), m_iReserveSub(16), m_bReload(false), m_dwTime(GetTickCount())
 {
 	ZeroMemory(&m_rcMainWeapon, sizeof(RECT));
 	ZeroMemory(&m_rcSubWeapon, sizeof(RECT));
@@ -207,7 +207,11 @@ void CPlayer::Shoot()
 	{
 		if ((GetAsyncKeyState(VK_SPACE) & 0x0001) && m_iCurSub > 0)
 		{
-			CObjMgr::GetInstance()->AddObject(OBJ_PLAYER_BULLET, CreateBullet());
+			CObjMgr::GetInstance()->AddObject(OBJ_PLAYER_BULLET, CreateBullet(PI / 180.f * -10 	));
+			CObjMgr::GetInstance()->AddObject(OBJ_PLAYER_BULLET, CreateBullet(PI / 180.f * -5	));
+			CObjMgr::GetInstance()->AddObject(OBJ_PLAYER_BULLET, CreateBullet(PI / 180.f * 0	));
+			CObjMgr::GetInstance()->AddObject(OBJ_PLAYER_BULLET, CreateBullet(PI / 180.f * 5	));
+			CObjMgr::GetInstance()->AddObject(OBJ_PLAYER_BULLET, CreateBullet(PI / 180.f * 10	));
 			m_iCurSub--;
 		}
 	}
@@ -223,13 +227,13 @@ void CPlayer::Reload()
 		m_bReload = false;
 		return;
 	}
-	else if (m_eWEAPON == WEAPON_SUB && (m_iCurSub >= 13 || m_iReserveSub == 0))
+	else if (m_eWEAPON == WEAPON_SUB && (m_iCurSub >= 2 || m_iReserveSub == 0))
 	{
 		m_bReload = false;
 		return;
 	}
 
-	if (m_eWEAPON == WEAPON_MAIN && m_dwTime + 3600 <= GetTickCount())
+	if (m_eWEAPON == WEAPON_MAIN && m_dwTime + 1800 <= GetTickCount())
 	{
 		m_bReload = false;
 		m_dwTime = GetTickCount();
@@ -237,12 +241,12 @@ void CPlayer::Reload()
 		m_iReserveMain -= min(m_iReserveMain, (30 - m_iCurMain));
 		m_iCurMain += iNum;
 	}
-	else if (m_eWEAPON == WEAPON_SUB && m_dwTime + 1800 <= GetTickCount())
+	else if (m_eWEAPON == WEAPON_SUB && m_dwTime + 900 <= GetTickCount())
 	{
 		m_bReload = false;
 		m_dwTime = GetTickCount();
-		int iNum = min(m_iReserveSub, (13 - m_iCurSub));
-		m_iReserveSub -= min(m_iReserveSub, (13 - m_iCurSub));
+		int iNum = min(m_iReserveSub, (2 - m_iCurSub));
+		m_iReserveSub -= min(m_iReserveSub, (2 - m_iCurSub));
 		m_iCurSub += iNum;
 	}
 }
@@ -359,14 +363,14 @@ void CPlayer::UpdateRect(RECT& m_WeaponRect, INFO& m_WeaponInfo)
 	m_WeaponRect.bottom	= LONG(m_WeaponInfo.fY + (m_WeaponInfo.fCY / 2.f));
 }
 
-CObj* CPlayer::CreateBullet()
+CObj* CPlayer::CreateBullet(float fAngle)
 {
 	CObj* pMouse	= CObjMgr::GetInstance()->GetList(OBJ_MOUSE).front();
 	float fDeltaX	= pMouse->GetInfo().fX - m_tInfo.fX;
 	float fDeltaY	= pMouse->GetInfo().fY - m_tInfo.fY;
 
 	float iSize		= sqrtf((fDeltaX) * (fDeltaX)+(fDeltaY) * (fDeltaY));
-	float fAngle	= acosf(fDeltaX / iSize);
+	fAngle	+= acosf(fDeltaX / iSize);
 
 	if (pMouse->GetInfo().fY > m_tInfo.fY)
 		fAngle *= -1;
