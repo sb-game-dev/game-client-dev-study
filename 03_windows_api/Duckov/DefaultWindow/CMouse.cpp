@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "CMouse.h"
 #include "CObjMgr.h"
-CMouse::CMouse():m_iSize(0)
+CMouse::CMouse():m_iSize(0),m_iCount(0),m_pPlayer(nullptr)
 {
 	ZeroMemory(&m_tPoint, sizeof(POINT));
 }

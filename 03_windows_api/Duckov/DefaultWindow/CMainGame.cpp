@@ -6,7 +6,7 @@
 #include "CMouse.h"
 #include "CMonster.h"
 #include "CWall.h"
-CMainGame::CMainGame() :m_iFPS(0), m_dwTime(GetTickCount())
+CMainGame::CMainGame() :m_iFPS(0), m_dwTime(GetTickCount()), m_pUI(nullptr)
 {
 }
 
@@ -41,15 +41,27 @@ void CMainGame::Initialize()
 		CObjMgr::GetInstance()->AddObject(OBJ_SANDWALL1, CAbstractFactory<CWall>::Create(180.f + i * 40.f, 320.f, 40.f, 40.f, 30, 2));
 		CObjMgr::GetInstance()->AddObject(OBJ_SANDWALL2, CAbstractFactory<CWall>::Create(620.f - i * 40.f, 320.f, 40.f, 40.f, 30, 2));
 	}
+
+	if (m_pUI == nullptr)
+	{
+		m_pUI = new CUI;
+		m_pUI->SetPlayer(dynamic_cast<CPlayer*> (CObjMgr::GetInstance()->GetList(OBJ_PLAYER).front()));
+		m_pUI->Initialize();
+	}
 }
 
 void CMainGame::Update()
 {
-	CObjMgr::GetInstance()->Update();
+	if (CObjMgr::GetInstance()->GetList(OBJ_PLAYER).size())
+	{
+		CObjMgr::GetInstance()->Update();
+		m_pUI->Update();
+	}
 }
 void CMainGame::LateUpdate()
 {
-	CObjMgr::GetInstance()->LateUpdate();
+	if (CObjMgr::GetInstance()->GetList(OBJ_PLAYER).size())
+		CObjMgr::GetInstance()->LateUpdate();
 }
 
 void CMainGame::Render()
@@ -68,11 +80,13 @@ void CMainGame::Render()
 	}
 	Rectangle(m_hDC, 0, 0, WINCX, WINCY);
 
-	CObjMgr::GetInstance()->Render(m_hDC);
+	CObjMgr::GetInstance()->Render(m_hDC); 
+	m_pUI->Render(m_hDC);
 }
 
 void CMainGame::Release()
 {
 	ReleaseDC(g_hWnd, m_hDC);
 	CObjMgr::GetInstance()->DestroyInstance();
+	Safe_Delete(m_pUI);
 }

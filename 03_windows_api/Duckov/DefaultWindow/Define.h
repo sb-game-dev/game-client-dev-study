@@ -15,6 +15,16 @@ enum OBJID { OBJ_WALL, OBJ_SANDWALL1, OBJ_SANDWALL2, OBJ_PLAYER, OBJ_MONSTER, OB
 enum WEAPON { WEAPON_MAIN, WEAPON_SUB, WEAPON_END };
 enum BULLETTAG { BULLET_PLAYER, BULLET_MONSTER, BULLET_END };
 enum PLAYERCOVER { DETACHED, ATTACHED };
+typedef struct tagAmmpInfo
+{
+	int iMaxCurMain;
+	int iCurMain;
+	int iReserveMain;
+
+	int iMaxCurSub;
+	int iCurSub;
+	int iReserveSub;
+}AMMOINFO;
 
 typedef struct tagInfo
 {

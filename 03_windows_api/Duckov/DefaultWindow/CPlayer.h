@@ -19,6 +19,7 @@ public:
     PLAYERCOVER GetCoverR() { return m_eCoverR; }
 
     WEAPON      GetWeapon() { return m_eWEAPON; }
+    AMMOINFO    GetAmmoInfo() { return m_tAmmoInfo; }
     bool        GetReload() { return m_bReload; }
 private:
     void        KeyInput();
@@ -37,26 +38,28 @@ private:
 private:
     WEAPON m_eWEAPON;
 
-    INFO m_InfoMainWeapon;
-    INFO m_InfoSubWeapon;
-    INFO m_InfoHeal;
-    INFO m_InfoSelect;
-
-    RECT m_rcMainWeapon;
-    RECT m_rcSubWeapon;
-    RECT m_rcHeal;
-    RECT m_rcSelect;
+    //INFO m_InfoMainWeapon;
+    //INFO m_InfoSubWeapon;
+    //INFO m_InfoHeal;
+    //INFO m_InfoSelect;
+    //
+    //RECT m_rcMainWeapon;
+    //RECT m_rcSubWeapon;
+    //RECT m_rcHeal;
+    //RECT m_rcSelect;
 
     RECT m_rcHpBar;
 
     PLAYERCOVER m_eCoverL;
     PLAYERCOVER m_eCoverR;
 
-    int m_iCurMain;
-    int m_iReserveMain;
+    //int m_iCurMain;
+    //int m_iReserveMain;
+    //
+    //int m_iCurSub;
+    //int m_iReserveSub;
 
-    int m_iCurSub;
-    int m_iReserveSub;
+    AMMOINFO m_tAmmoInfo;
 
     bool m_bReload;
     DWORD m_dwTime;
