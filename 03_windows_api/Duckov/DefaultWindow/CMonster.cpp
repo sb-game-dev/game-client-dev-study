@@ -3,7 +3,7 @@
 #include "CObjMgr.h"
 #include "CAbstractFactory.h"
 #include "CBullet.h"
-CMonster::CMonster() :m_fAngleSpeed(0.f), m_dwTime(GetTickCount())
+CMonster::CMonster() :m_fAngleSpeed(0.f), m_dwTime(GetTickCount()), m_pTarget(nullptr)
 {
 }
 
@@ -20,8 +20,6 @@ void CMonster::Initialize()
 	m_fSpeed = 2.f;
 	m_fAngleSpeed = 2.f;
 	m_pTarget = CObjMgr::GetInstance()->GetList(OBJ_PLAYER).front();
-
-
 }
 
 int CMonster::Update()
@@ -44,7 +42,8 @@ int CMonster::Update()
 	
 	if (fDistance <= 200.f)
 	{
-		
+		if (fDistance >= 40)
+		{
 			float fAngle = acosf(fDeltaX / fDistance) * 180.f / PI;
 
 			if (m_pTarget->GetInfo().fY > m_tInfo.fY)
@@ -52,7 +51,7 @@ int CMonster::Update()
 
 			m_tInfo.fX += m_fSpeed * cosf(fAngle * (PI / 180.f));
 			m_tInfo.fY -= m_fSpeed * sinf(fAngle * (PI / 180.f));
-
+		}
 	}
 	else
 	{
@@ -65,7 +64,6 @@ int CMonster::Update()
 			float fAngle = acosf(fDeltaX / fDistance) * 180.f / PI;
 			if (80.f > m_tInfo.fY)
 				fAngle *= -1.f;
-
 			m_tInfo.fX += m_fSpeed * 2 * cosf(fAngle * (PI / 180.f));
 			m_tInfo.fY -= m_fSpeed * 2 * sinf(fAngle * (PI / 180.f));
 		}
@@ -99,26 +97,20 @@ void CMonster::Render(HDC hDC)
 
 	MoveToEx(hDC, m_tRect.right, m_tRect.top, nullptr);
 	LineTo(hDC, m_tRect.left, m_tRect.bottom);
-	//최대 체력
-	//Rectangle(hDC,
-	//	m_tInfo.fX - 25.f,
-	//	m_tInfo.fY - 40.f,
-	//	m_tInfo.fX + 25.f,
-	//	m_tInfo.fY - 30.f
-	//);
+	
 	//현재 체력
 	Rectangle(hDC,
-		m_tInfo.fX - 25.f,
-		m_tInfo.fY - 40.f,
-		m_tInfo.fX - 25.f + (m_tAbility.fHp) * 0.5f,
-		m_tInfo.fY - 30.f
+		int(m_tInfo.fX - 25.f),
+		int(m_tInfo.fY - 40.f),
+		int(m_tInfo.fX - 25.f + (m_tAbility.fHp) * 0.5f),
+		int(m_tInfo.fY - 30.f)
 	);
 	TCHAR	szBuff[32] = L"Monster"; 
 	RECT rc{ 
-		m_tInfo.fX - 25.f,
-		m_tInfo.fY - 60.f,
-		m_tInfo.fX + 25.f,
-		m_tInfo.fY - 40.f
+		LONG(m_tInfo.fX - 25.f),
+		LONG(m_tInfo.fY - 60.f),
+		LONG(m_tInfo.fX + 25.f),
+		LONG(m_tInfo.fY - 40.f)
 	};
 	DrawText(hDC, szBuff, lstrlen(szBuff),&rc , DT_NOCLIP);
 }

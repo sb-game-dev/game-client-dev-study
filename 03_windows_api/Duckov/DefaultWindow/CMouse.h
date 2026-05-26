@@ -1,5 +1,6 @@
 #pragma once
 #include "CObj.h"
+#include "CPlayer.h"
 class CMouse :
     public CObj
 {
@@ -14,5 +15,15 @@ public:
     void Render(HDC hDC) override;
     void Release() override;
 
+private:
+    void RenderMain(HDC hDC);
+    void RenderSub(HDC hDC);
+    void RenderReload(HDC hDC);
+
+private:
+    int m_iSize;
+    POINT m_tPoint;
+    int m_iCount;
+    CPlayer* m_pPlayer;
 };
 

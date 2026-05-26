@@ -1,7 +1,8 @@
 #pragma once
 
 #include "Define.h"
-#include "CUI.h"
+#include "CPlayer.h"
+
 class CMainGame
 {
 public:
@@ -17,11 +18,5 @@ public:
 
 private:
 	HDC			m_hDC;
-
-	int m_iFPS;
-	TCHAR m_szFPS[32];
-	DWORD m_dwTime;
-
-	CUI* m_pUI;
 };
 

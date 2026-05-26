@@ -22,32 +22,17 @@
     <Filter Include="01. Obj\00. Player">
       <UniqueIdentifier>{ebfd781e-9046-4d72-b4e6-0652c8a57405}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Obj\01. Bullet">
-      <UniqueIdentifier>{97359f0e-a299-4dcd-887f-bcb2e7618e83}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Obj\02. Monster">
-      <UniqueIdentifier>{e5486eec-ba9f-41d2-ba1a-35a12c8eec59}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Obj\03. Mouse">
-      <UniqueIdentifier>{a62e8f6f-c0fc-4abc-a55a-0942e2ca20d0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. Design">
-      <UniqueIdentifier>{a2b4fe72-bb4e-493d-be50-10a9a82e64e2}</UniqueIdentifier>
+      <UniqueIdentifier>{b1254050-71d5-4eb5-aa8e-7c3565ecdf0a}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. Design\00. AbstractFactory">
-      <UniqueIdentifier>{c2655d91-6d0a-4152-83ad-a308208935df}</UniqueIdentifier>
+      <UniqueIdentifier>{2a7071b7-9180-48bf-a79a-6927ea7fb9d1}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. Design\01. CollisionMgr">
-      <UniqueIdentifier>{cbecda24-3671-4f54-8fc3-7122dad02921}</UniqueIdentifier>
+      <UniqueIdentifier>{97ccf3fe-3828-46fc-afc7-59a7d92f1833}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. Design\02. ObjMgr">
-      <UniqueIdentifier>{cdeb60e9-7510-4401-8637-b01478d5b26c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Obj\04. Wall">
-      <UniqueIdentifier>{f4cb5d90-b6c8-4983-b73f-163af3b3f6fe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03.UI">
-      <UniqueIdentifier>{1f23d988-4ba6-4eaa-83db-069179db3df7}</UniqueIdentifier>
+      <UniqueIdentifier>{18d47756-327e-446f-85d7-c06bb2196205}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -81,26 +66,8 @@
     <ClInclude Include="CObjMgr.h">
       <Filter>02. Design\02. ObjMgr</Filter>
     </ClInclude>
-    <ClInclude Include="CAbstractFactory.h">
+    <ClInclude Include="CAbstactFactory.h">
       <Filter>02. Design\00. AbstractFactory</Filter>
-    </ClInclude>
-    <ClInclude Include="CMouse.h">
-      <Filter>01. Obj\03. Mouse</Filter>
-    </ClInclude>
-    <ClInclude Include="CBullet.h">
-      <Filter>01. Obj\01. Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="CMonster.h">
-      <Filter>01. Obj\02. Monster</Filter>
-    </ClInclude>
-    <ClInclude Include="CCollisionMgr.h">
-      <Filter>02. Design\01. CollisionMgr</Filter>
-    </ClInclude>
-    <ClInclude Include="CWall.h">
-      <Filter>01. Obj\04. Wall</Filter>
-    </ClInclude>
-    <ClInclude Include="CUI.h">
-      <Filter>소스 파일</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -121,24 +88,6 @@
     </ClCompile>
     <ClCompile Include="CObjMgr.cpp">
       <Filter>02. Design\02. ObjMgr</Filter>
-    </ClCompile>
-    <ClCompile Include="CMouse.cpp">
-      <Filter>01. Obj\03. Mouse</Filter>
-    </ClCompile>
-    <ClCompile Include="CBullet.cpp">
-      <Filter>01. Obj\01. Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="CMonster.cpp">
-      <Filter>01. Obj\02. Monster</Filter>
-    </ClCompile>
-    <ClCompile Include="CCollisionMgr.cpp">
-      <Filter>02. Design\01. CollisionMgr</Filter>
-    </ClCompile>
-    <ClCompile Include="CWall.cpp">
-      <Filter>01. Obj\04. Wall</Filter>
-    </ClCompile>
-    <ClCompile Include="CUI.cpp">
-      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
