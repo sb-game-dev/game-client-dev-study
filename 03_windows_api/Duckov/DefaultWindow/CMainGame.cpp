@@ -19,28 +19,28 @@ void CMainGame::Initialize()
 {
 	m_hDC = GetDC(g_hWnd);
 
-	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create());
-	CObjMgr::GetInstance()->AddObject(OBJ_MOUSE, CAbstractFactory<CMouse>::Create());
-	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create());
-
-	for (int i = 0; i < 5; i++)
-	{
-		CObjMgr::GetInstance()->AddObject(OBJ_WALL, CAbstractFactory<CWall>::Create(150.f, i * 40.f + 20.f, 40.f, 40.f, INF, 2));
-		CObjMgr::GetInstance()->AddObject(OBJ_WALL, CAbstractFactory<CWall>::Create(650.f, i * 40.f + 20.f, 40.f, 40.f, INF, 2));
-	}
-
-	for (int i = 1; i <= 3; i++)
-	{
-		CObjMgr::GetInstance()->AddObject(OBJ_WALL, CAbstractFactory<CWall>::Create(150.f + i*40.f, 180.f, 40.f, 40.f, INF, 2));
-		CObjMgr::GetInstance()->AddObject(OBJ_WALL, CAbstractFactory<CWall>::Create(650.f - i*40.f, 180.f, 40.f, 40.f, INF, 2));
-	}
-	
-	//OBJ_SANDWALL
-	for (int i = 1; i <= 4; i++)
-	{
-		CObjMgr::GetInstance()->AddObject(OBJ_SANDWALL1, CAbstractFactory<CWall>::Create(180.f + i * 40.f, 320.f, 40.f, 40.f, 30, 2));
-		CObjMgr::GetInstance()->AddObject(OBJ_SANDWALL2, CAbstractFactory<CWall>::Create(620.f - i * 40.f, 320.f, 40.f, 40.f, 30, 2));
-	}
+	//CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create());
+	//CObjMgr::GetInstance()->AddObject(OBJ_MOUSE, CAbstractFactory<CMouse>::Create());
+	//CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create());
+	//
+	//for (int i = 0; i < 5; i++)
+	//{
+	//	CObjMgr::GetInstance()->AddObject(OBJ_WALL, CAbstractFactory<CWall>::Create(150.f, i * 40.f + 20.f, 40.f, 40.f, INF, 2));
+	//	CObjMgr::GetInstance()->AddObject(OBJ_WALL, CAbstractFactory<CWall>::Create(650.f, i * 40.f + 20.f, 40.f, 40.f, INF, 2));
+	//}
+	//
+	//for (int i = 1; i <= 3; i++)
+	//{
+	//	CObjMgr::GetInstance()->AddObject(OBJ_WALL, CAbstractFactory<CWall>::Create(150.f + i*40.f, 180.f, 40.f, 40.f, INF, 2));
+	//	CObjMgr::GetInstance()->AddObject(OBJ_WALL, CAbstractFactory<CWall>::Create(650.f - i*40.f, 180.f, 40.f, 40.f, INF, 2));
+	//}
+	//
+	////OBJ_SANDWALL
+	//for (int i = 1; i <= 4; i++)
+	//{
+	//	CObjMgr::GetInstance()->AddObject(OBJ_SANDWALL1, CAbstractFactory<CWall>::Create(180.f + i * 40.f, 320.f, 40.f, 40.f, 30, 2));
+	//	CObjMgr::GetInstance()->AddObject(OBJ_SANDWALL2, CAbstractFactory<CWall>::Create(620.f - i * 40.f, 320.f, 40.f, 40.f, 30, 2));
+	//}
 }
 
 void CMainGame::Update()
