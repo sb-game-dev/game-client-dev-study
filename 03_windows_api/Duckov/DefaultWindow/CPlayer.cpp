@@ -176,7 +176,7 @@ void CPlayer::Shoot()
 {
 	if (m_eWEAPON == WEAPON_MAIN)
 	{
-		if (GetAsyncKeyState(VK_SPACE) && m_tAmmoInfo.iCurMain >0)
+		if (GetAsyncKeyState(VK_LBUTTON) && m_tAmmoInfo.iCurMain >0)
 		{
 			CObjMgr::GetInstance()->AddObject(OBJ_PLAYER_BULLET, CreateBullet());
 			m_tAmmoInfo.iCurMain--;
@@ -184,7 +184,7 @@ void CPlayer::Shoot()
 	}
 	else
 	{
-		if ((GetAsyncKeyState(VK_SPACE) & 0x0001) && m_tAmmoInfo.iCurSub > 0)
+		if ((GetAsyncKeyState(VK_LBUTTON) & 0x0001) && m_tAmmoInfo.iCurSub > 0)
 		{
 			CObjMgr::GetInstance()->AddObject(OBJ_PLAYER_BULLET, CreateBullet(PI / 180.f * -10 	));
 			CObjMgr::GetInstance()->AddObject(OBJ_PLAYER_BULLET, CreateBullet(PI / 180.f * -5	));

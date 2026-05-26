@@ -34,6 +34,12 @@
     <Filter Include="02. Design\02. ObjMgr">
       <UniqueIdentifier>{18d47756-327e-446f-85d7-c06bb2196205}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Design\03. LineMgr">
+      <UniqueIdentifier>{2b39f822-4a1c-4174-8d23-bc5edc1b3a71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Design\03. LineMgr\Line">
+      <UniqueIdentifier>{dcb0b835-c704-45ff-8da8-871767e2c6af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -69,6 +75,12 @@
     <ClInclude Include="CAbstactFactory.h">
       <Filter>02. Design\00. AbstractFactory</Filter>
     </ClInclude>
+    <ClInclude Include="CLine.h">
+      <Filter>02. Design\03. LineMgr\Line</Filter>
+    </ClInclude>
+    <ClInclude Include="CLineMgr.h">
+      <Filter>02. Design\03. LineMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefaultWindow.cpp">
@@ -88,6 +100,12 @@
     </ClCompile>
     <ClCompile Include="CObjMgr.cpp">
       <Filter>02. Design\02. ObjMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CLine.cpp">
+      <Filter>02. Design\03. LineMgr\Line</Filter>
+    </ClCompile>
+    <ClCompile Include="CLineMgr.cpp">
+      <Filter>02. Design\03. LineMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

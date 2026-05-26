@@ -1,9 +1,21 @@
 #pragma once
 
 #include "CObj.h"
+class CLine;
 
 class CPlayer : public CObj
 {
+
+public:
+    enum MOVE_STATE {
+        MOVE_GROUND,
+        MOVE_JUMP,
+        MOVE_FALL,
+        MOVE_DOWNJUMP,
+        MOVE_WALL,
+        MOVE_ROPE,
+        MOVE_END
+    };
 public:
     CPlayer();
     virtual ~CPlayer();
@@ -17,8 +29,19 @@ public:
 
 private:
     void        KeyInput();
+    void        Jump();
+    void        Gravity();
+    void        DownJump();
+private:
+    float       m_time;
+    bool        m_bJump;
+    bool        m_bFalling;
 
-    POINT m_Point1;
-    POINT m_Point2;
+    MOVE_STATE  m_eMoveState;
+
+    float       m_fPrevX;
+    float       m_fPrevY;
+
+    CLine*      m_pCurLine;
 };
 
