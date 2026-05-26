@@ -33,9 +33,7 @@ void CMainGame::Render()
 	Rectangle(m_hDC, 0, 0, WINCX, WINCY);
 	MoveToEx(m_hDC, 0, 400, nullptr);
 	LineTo(m_hDC, 250, 400);
-	MoveToEx(m_hDC, 250, 400, nullptr);
 	LineTo(m_hDC, 550, 200);
-	MoveToEx(m_hDC, 550, 200, nullptr);
 	LineTo(m_hDC, 800, 200);
 
 	CObjMgr::GetInstance()->Render(m_hDC);
