@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "CObjMgr.h"
+#include "CCollisionMgr.h"
 CObjMgr* CObjMgr::m_pInstance = nullptr;
 
 CObjMgr::CObjMgr()
@@ -19,6 +20,7 @@ void CObjMgr::AddObject(OBJID eID, CObj* pObj)
 }
 void CObjMgr::Update()
 {
+	
 	for (int i = 0; i < OBJ_END; ++i)
 	{
 		for (auto iter = m_ObjList[i].begin(); iter != m_ObjList[i].end();)
@@ -37,11 +39,20 @@ void CObjMgr::Update()
 
 void CObjMgr::LateUpdate()
 {
+
 	for (int i = 0; i < OBJ_END; ++i)
 	{
 		for (auto& pObj : m_ObjList[i])
 		{
 			pObj->LateUpdate();
+		}
+	}
+	CCollisionMgr::CollisionCircle(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_OBSTACLE]);
+	for (int i = 0; i < OBJ_END; ++i)
+	{
+		for (auto& pObj : m_ObjList[i])
+		{
+			pObj->Update_Rect();
 		}
 	}
 }

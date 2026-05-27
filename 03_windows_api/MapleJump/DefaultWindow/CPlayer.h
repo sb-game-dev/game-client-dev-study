@@ -5,17 +5,6 @@ class CLine;
 
 class CPlayer : public CObj
 {
-
-public:
-    enum MOVE_STATE {
-        MOVE_GROUND,
-        MOVE_JUMP,
-        MOVE_FALL,
-        MOVE_DOWNJUMP,
-        MOVE_WALL,
-        MOVE_ROPE,
-        MOVE_END
-    };
 public:
     CPlayer();
     virtual ~CPlayer();
@@ -27,11 +16,15 @@ public:
     void Render(HDC hDC)    override;
     void Release()          override;
 
+public:
+    void SetState(MOVE_STATE eState) { m_eMoveState = eState; }
+
 private:
     void        KeyInput();
     void        Jump();
     void        Gravity();
     void        DownJump();
+    void        TakeDamage();
 private:
     float       m_time;
     float       m_fJumpPower;

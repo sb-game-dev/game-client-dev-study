@@ -20,7 +20,11 @@ public:
 
 public :
 	void SetPos(float fX, float fY) { m_tInfo.fX = fX; m_tInfo.fY = fY; }
+	void SetPosX(float fX){ m_tInfo.fX += fX; }
 	void SetDEAD() { m_bDead = DEAD; }
+
+	INFO&		GetInfo() { return m_tInfo; }
+	RECT*		GetRect() { return &m_tRect; }
 protected:
 	INFO		m_tInfo;		
 	RECT		m_tRect;		

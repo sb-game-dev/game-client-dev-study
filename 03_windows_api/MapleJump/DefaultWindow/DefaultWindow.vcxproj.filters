@@ -43,6 +43,9 @@
     <Filter Include="02. Design\04. ScrollMgr">
       <UniqueIdentifier>{39edb11d-a5f7-4bdb-837f-90bf112c8211}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Obj\01. Obstacle">
+      <UniqueIdentifier>{f843831c-55f2-46a3-ada4-a697cba7af38}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -87,6 +90,12 @@
     <ClInclude Include="CScrollMgr.h">
       <Filter>02. Design\04. ScrollMgr</Filter>
     </ClInclude>
+    <ClInclude Include="CCollisionMgr.h">
+      <Filter>02. Design\01. CollisionMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CObstacle.h">
+      <Filter>01. Obj\01. Obstacle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefaultWindow.cpp">
@@ -115,6 +124,12 @@
     </ClCompile>
     <ClCompile Include="CScrollMgr.cpp">
       <Filter>02. Design\04. ScrollMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CCollisionMgr.cpp">
+      <Filter>02. Design\01. CollisionMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CObstacle.cpp">
+      <Filter>01. Obj\01. Obstacle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

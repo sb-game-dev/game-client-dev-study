@@ -20,5 +20,12 @@ private:
 	void		Restart();
 private:
 	HDC			m_hDC;
+	DWORD		m_dwTime1;
+	DWORD		m_dwTime2;
+	DWORD		m_dwTime3;
+	DWORD		m_dwTime4;
+	DWORD		m_dwTime5;
+	DWORD		m_dwTime6;
+	DWORD		m_dwTime7;
 };
 

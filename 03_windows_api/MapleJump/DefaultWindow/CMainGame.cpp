@@ -4,7 +4,9 @@
 #include "CAbstactFactory.h"
 #include "CLineMgr.h"
 #include "CScrollMgr.h"
-CMainGame::CMainGame()
+#include "CObstacle.h"
+CMainGame::CMainGame() :m_dwTime1(GetTickCount()), m_dwTime2(GetTickCount()), m_dwTime3(GetTickCount()), m_dwTime4(GetTickCount()), m_dwTime5(GetTickCount()), m_dwTime6(GetTickCount()), m_dwTime7(GetTickCount())
+
 {
 	m_hDC = NULL;
 }
@@ -31,6 +33,41 @@ void CMainGame::Update()
 {
 	if (CObjMgr::GetInstance()->GetList(OBJ_PLAYER).empty())
 		Restart();
+	if (m_dwTime1 + 1300 <= GetTickCount())
+	{
+		CObjMgr::GetInstance()->AddObject(OBJ_OBSTACLE, CAbstactFactory<CObstacle>::Create(175.f + 300.f, 0.f));
+		m_dwTime1 = GetTickCount();
+	}
+	if (m_dwTime2 + 2250 <= GetTickCount())
+	{
+		CObjMgr::GetInstance()->AddObject(OBJ_OBSTACLE, CAbstactFactory<CObstacle>::Create(175.f + 400.f, 0.f));
+		m_dwTime2 = GetTickCount();
+	}
+	if (m_dwTime3 + 1000 <= GetTickCount())
+	{
+		CObjMgr::GetInstance()->AddObject(OBJ_OBSTACLE, CAbstactFactory<CObstacle>::Create(175.f + 700.f, 0.f));
+		m_dwTime3 = GetTickCount();
+	}
+	if (m_dwTime4 + 1300 <= GetTickCount())
+	{
+		CObjMgr::GetInstance()->AddObject(OBJ_OBSTACLE, CAbstactFactory<CObstacle>::Create(175.f + 1000.f, 0.f));
+		m_dwTime4 = GetTickCount();
+	}
+	if (m_dwTime5 + 1650 <= GetTickCount())
+	{
+		CObjMgr::GetInstance()->AddObject(OBJ_OBSTACLE, CAbstactFactory<CObstacle>::Create(175.f + 1100.f, 0.f));
+		m_dwTime5 = GetTickCount();
+	}
+	if (m_dwTime6 + 1000 <= GetTickCount())
+	{
+		CObjMgr::GetInstance()->AddObject(OBJ_OBSTACLE, CAbstactFactory<CObstacle>::Create(175.f + 1700.f, 0.f));
+		m_dwTime6 = GetTickCount();
+	}
+	if (m_dwTime7 + 1300 <= GetTickCount())
+	{
+		CObjMgr::GetInstance()->AddObject(OBJ_OBSTACLE, CAbstactFactory<CObstacle>::Create(175.f + 1800.f, 0.f));
+		m_dwTime7 = GetTickCount();
+	}
 	CObjMgr::GetInstance()->Update(); 
 	CLineMgr::GetInstance()->Update();
 }

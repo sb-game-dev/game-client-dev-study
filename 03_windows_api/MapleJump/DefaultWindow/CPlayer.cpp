@@ -52,16 +52,22 @@ void CPlayer::LateUpdate()
 {
 	switch (m_eMoveState)
 	{
-	case CPlayer::MOVE_GROUND:
+	case MOVE_GROUND:
 		break;
-	case CPlayer::MOVE_JUMP:
+	case MOVE_JUMP:
 		Jump();
 		break;
-	case CPlayer::MOVE_FALL:
+	case MOVE_FALL:
 		Gravity();
 		break;
-	case CPlayer::MOVE_DOWNJUMP:
+	case MOVE_DOWNJUMP:
 		DownJump();
+		break;
+	case MOVE_TAKEDAMAGER:
+		TakeDamage();
+		break;
+	case MOVE_TAKEDAMAGEL:
+		TakeDamage();
 		break;
 	default:
 		break;
@@ -215,6 +221,24 @@ void CPlayer::DownJump()
 	if (m_pCurLine != nullptr && CLineMgr::GetInstance()->CheckDownJumpLine(m_tInfo.fX, m_tInfo.fY, m_pCurLine))
 	{
 		m_eMoveState = MOVE_FALL;
+	}
+}
+
+void CPlayer::TakeDamage()
+{
+	m_time += 0.1f;
+	m_tInfo.fY += -m_fJumpPower * 0.5f * m_time + 0.5f * 9.8f * m_time * m_time;
+	if (m_time <= 1.5f)
+	{
+		if (m_eMoveState == MOVE_TAKEDAMAGEL)
+			m_tInfo.fX += m_time + 0.5f * 9.8f * m_time * m_time;
+		else
+			m_tInfo.fX -= m_time + 0.5f * 9.8f * m_time * m_time;
+	}
+	if (-m_fJumpPower * 0.5f * m_time + 0.5f * 9.8f * m_time * m_time >= 0
+		&& CLineMgr::GetInstance()->SetLine(m_tInfo.fX, m_tInfo.fY, m_fPrevX, m_fPrevY))
+	{
+		m_eMoveState = MOVE_GROUND;
 	}
 }
 
