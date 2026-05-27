@@ -18,8 +18,13 @@ void CMainGame::Initialize()
 {
 	m_hDC = GetDC(g_hWnd);
 
-	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, CAbstactFactory<CPlayer>::Create());
 	CLineMgr::GetInstance()->Initialize();
+	float fTemp = 0.f;
+	CScrollMgr::GetInstance()->SetScrollX(fTemp);
+	//CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, CAbstactFactory<CPlayer>::Create(fTemp, 0.f));
+	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, CAbstactFactory<CPlayer>::Create());
+
+	//CScrollMgr::GetInstance()->SetScrollY(0.f);
 }
 
 void CMainGame::Update()

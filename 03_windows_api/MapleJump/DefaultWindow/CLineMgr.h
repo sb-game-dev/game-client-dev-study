@@ -16,6 +16,7 @@ public:
 
 	bool	CheckDownJumpLine(float fX, float pY, CLine* pLine);
 	CLine*	FindCurrentLine(float fPlayerX, float fPlayerY);
+	CLine*	GetFirstLine() { return m_LineList.front(); }
 
 public:
 	void	Initialize();

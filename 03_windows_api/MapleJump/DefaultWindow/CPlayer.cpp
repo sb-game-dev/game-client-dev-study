@@ -5,7 +5,7 @@
 
 CPlayer::CPlayer() :m_time(0), m_eMoveState(MOVE_GROUND), m_bJump(false), m_bFalling(false), m_fPrevX(0.f), m_fPrevY(0.f), m_pCurLine(nullptr)
 {
-	m_fJumpPower = 12;
+	m_fJumpPower = 10;
 }
 
 CPlayer::~CPlayer()
@@ -15,8 +15,11 @@ CPlayer::~CPlayer()
 
 void CPlayer::Initialize()
 {
-	m_tInfo = { float(WINCX >> 1), float(WINCY >> 1), 40.f, 40.f };
-	m_fSpeed = 5.f;
+	CLine* pLine = CLineMgr::GetInstance()->GetFirstLine();
+	float x = (pLine->GetLine().tLeft.fX + pLine->GetLine().tRight.fX) * 0.5f;
+	float y = pLine->GetLine().tLeft.fY;
+	m_tInfo = { x, y, 40.f, 40.f };
+	m_fSpeed = 3.f;
 }
 
 int CPlayer::Update()
@@ -153,7 +156,7 @@ void CPlayer::KeyInput()
 		if (m_eMoveState == MOVE_ROPE && (GetAsyncKeyState(VK_RIGHT) || GetAsyncKeyState(VK_LEFT)))
 		{
 			m_time = 0.f;
-			m_eMoveState = MOVE_JUMP;
+			m_eMoveState = MOVE_FALL;
 		}
 	}
 	if (CLineMgr::GetInstance()->CheckRopeLine(m_tInfo.fX, m_tInfo.fY))
@@ -161,7 +164,8 @@ void CPlayer::KeyInput()
 		if (GetAsyncKeyState(VK_UP))
 		{
 			CLineMgr::GetInstance()->SetRopeLine(m_tInfo.fX, m_tInfo.fY);
-			m_tInfo.fY -= m_fSpeed;
+			if(m_tInfo.fY>=50.f)
+				m_tInfo.fY -= m_fSpeed;
 			m_eMoveState = MOVE_ROPE;
 
 			if (!CLineMgr::GetInstance()->CheckRopeLine(m_tInfo.fX, m_tInfo.fY))
