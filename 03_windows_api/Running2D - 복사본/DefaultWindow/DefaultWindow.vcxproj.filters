@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="00. MainGame">
+      <UniqueIdentifier>{9c24ad04-a2f4-4b96-8f30-60f852bf17e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Obj">
+      <UniqueIdentifier>{4f4e7d55-5328-4bcc-8446-8f7b1f6220a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Obj\00. Player">
+      <UniqueIdentifier>{ebfd781e-9046-4d72-b4e6-0652c8a57405}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Design">
+      <UniqueIdentifier>{b1254050-71d5-4eb5-aa8e-7c3565ecdf0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Design\00. AbstractFactory">
+      <UniqueIdentifier>{2a7071b7-9180-48bf-a79a-6927ea7fb9d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Design\01. CollisionMgr">
+      <UniqueIdentifier>{97ccf3fe-3828-46fc-afc7-59a7d92f1833}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Design\02. ObjMgr">
+      <UniqueIdentifier>{18d47756-327e-446f-85d7-c06bb2196205}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Design\03. LineMgr">
+      <UniqueIdentifier>{2b39f822-4a1c-4174-8d23-bc5edc1b3a71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Design\03. LineMgr\Line">
+      <UniqueIdentifier>{dcb0b835-c704-45ff-8da8-871767e2c6af}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultWindow.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CMainGame.h">
+      <Filter>00. MainGame</Filter>
+    </ClInclude>
+    <ClInclude Include="Define.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CObj.h">
+      <Filter>01. Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayer.h">
+      <Filter>01. Obj\00. Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjMgr.h">
+      <Filter>02. Design\02. ObjMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CAbstactFactory.h">
+      <Filter>02. Design\00. AbstractFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="CLine.h">
+      <Filter>02. Design\03. LineMgr\Line</Filter>
+    </ClInclude>
+    <ClInclude Include="CLineMgr.h">
+      <Filter>02. Design\03. LineMgr</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DefaultWindow.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CMainGame.cpp">
+      <Filter>00. MainGame</Filter>
+    </ClCompile>
+    <ClCompile Include="CObj.cpp">
+      <Filter>01. Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayer.cpp">
+      <Filter>01. Obj\00. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjMgr.cpp">
+      <Filter>02. Design\02. ObjMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CLine.cpp">
+      <Filter>02. Design\03. LineMgr\Line</Filter>
+    </ClCompile>
+    <ClCompile Include="CLineMgr.cpp">
+      <Filter>02. Design\03. LineMgr</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DefaultWindow.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="DefaultWindow.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
