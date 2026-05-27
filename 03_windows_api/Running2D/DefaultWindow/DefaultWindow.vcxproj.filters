@@ -40,6 +40,9 @@
     <Filter Include="02. Design\03. LineMgr\Line">
       <UniqueIdentifier>{dcb0b835-c704-45ff-8da8-871767e2c6af}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Design\04. ScrollMgr">
+      <UniqueIdentifier>{39edb11d-a5f7-4bdb-837f-90bf112c8211}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -81,6 +84,9 @@
     <ClInclude Include="CLineMgr.h">
       <Filter>02. Design\03. LineMgr</Filter>
     </ClInclude>
+    <ClInclude Include="CScrollMgr.h">
+      <Filter>02. Design\04. ScrollMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefaultWindow.cpp">
@@ -106,6 +112,9 @@
     </ClCompile>
     <ClCompile Include="CLineMgr.cpp">
       <Filter>02. Design\03. LineMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CScrollMgr.cpp">
+      <Filter>02. Design\04. ScrollMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

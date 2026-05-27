@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "CLineMgr.h"
-
+#include "CScrollMgr.h"
 CLineMgr* CLineMgr::m_pInstance = nullptr;
 
 CLineMgr::CLineMgr()
@@ -149,7 +149,9 @@ void CLineMgr::Initialize()
 	m_RopeList.push_back(new CLine(LINEPOINT{ 400.f,300.f }, LINEPOINT{ 400.f,400.f }));
 	m_RopeList.push_back(new CLine(LINEPOINT{ 600.f,100.f }, LINEPOINT{ 600.f,300.f }));
 }
-
+void CLineMgr::Update()
+{
+}
 void CLineMgr::Render(HDC hDC)
 {
 	for (auto& pLine : m_LineList)

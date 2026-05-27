@@ -19,6 +19,7 @@ public:
 
 public:
 	void	Initialize();
+	void	Update();
 	void	Render(HDC hDC);
 	void	Release();
 

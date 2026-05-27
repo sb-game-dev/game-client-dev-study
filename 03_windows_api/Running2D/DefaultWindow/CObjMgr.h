@@ -16,6 +16,7 @@ public:
 	void Render(HDC hDC);
 	void Release();
 
+	list<CObj*>		GetList(OBJID eID) {return m_ObjList[eID];}
 
 public :
 	static CObjMgr* GetInstance()

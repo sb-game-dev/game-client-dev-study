@@ -3,6 +3,7 @@
 #include "CObjMgr.h"
 #include "CAbstactFactory.h"
 #include "CLineMgr.h"
+#include "CScrollMgr.h"
 CMainGame::CMainGame()
 {
 	m_hDC = NULL;
@@ -23,7 +24,10 @@ void CMainGame::Initialize()
 
 void CMainGame::Update()
 {
-	CObjMgr::GetInstance()->Update();
+	if (CObjMgr::GetInstance()->GetList(OBJ_PLAYER).empty())
+		Restart();
+	CObjMgr::GetInstance()->Update(); 
+	CLineMgr::GetInstance()->Update();
 }
 
 void CMainGame::LateUpdate()
@@ -44,4 +48,12 @@ void CMainGame::Release()
 	ReleaseDC(g_hWnd, m_hDC);
 	CObjMgr::GetInstance()->DestroyInstance();
 	CLineMgr::GetInstance()->DestroyInstance();
+	CScrollMgr::GetInstance()->DestroyInstance();
+}
+
+void CMainGame::Restart()
+{
+	Release();
+	Initialize();
+	CScrollMgr::GetInstance()->SetScrollX(-CScrollMgr::GetInstance()->GetScrollX());
 }

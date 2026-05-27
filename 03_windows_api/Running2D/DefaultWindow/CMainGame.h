@@ -17,6 +17,8 @@ public:
 	void		Release();
 
 private:
+	void		Restart();
+private:
 	HDC			m_hDC;
 };
 
