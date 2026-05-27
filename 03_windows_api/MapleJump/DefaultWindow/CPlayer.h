@@ -34,6 +34,7 @@ private:
     void        DownJump();
 private:
     float       m_time;
+    float       m_fJumpPower;
     bool        m_bJump;
     bool        m_bFalling;
 
