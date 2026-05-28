@@ -5,6 +5,7 @@
 #include "CLineMgr.h"
 #include "CScrollMgr.h"
 #include "CObstacle.h"
+#include "CKeyMgr.h"
 CMainGame::CMainGame() :m_dwTime1(GetTickCount()), m_dwTime2(GetTickCount()), m_dwTime3(GetTickCount()), m_dwTime4(GetTickCount()), m_dwTime5(GetTickCount()), m_dwTime6(GetTickCount()), m_dwTime7(GetTickCount())
 
 {
@@ -33,6 +34,8 @@ void CMainGame::Update()
 {
 	if (CObjMgr::GetInstance()->GetList(OBJ_PLAYER).empty())
 		Restart();
+	CKeyMgr::GetInstance()->KeyUpdate();
+
 	if (m_dwTime1 + 1300 <= GetTickCount())
 	{
 		CObjMgr::GetInstance()->AddObject(OBJ_OBSTACLE, CAbstactFactory<CObstacle>::Create(175.f + 300.f, 0.f));

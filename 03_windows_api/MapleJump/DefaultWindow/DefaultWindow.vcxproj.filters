@@ -46,6 +46,9 @@
     <Filter Include="01. Obj\01. Obstacle">
       <UniqueIdentifier>{f843831c-55f2-46a3-ada4-a697cba7af38}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Design\05. KeyMgr">
+      <UniqueIdentifier>{e63e5775-abc5-4f59-bb7f-4cbf27e02c3d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -96,6 +99,9 @@
     <ClInclude Include="CObstacle.h">
       <Filter>01. Obj\01. Obstacle</Filter>
     </ClInclude>
+    <ClInclude Include="CKeyMgr.h">
+      <Filter>02. Design\05. KeyMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefaultWindow.cpp">
@@ -130,6 +136,9 @@
     </ClCompile>
     <ClCompile Include="CObstacle.cpp">
       <Filter>01. Obj\01. Obstacle</Filter>
+    </ClCompile>
+    <ClCompile Include="CKeyMgr.cpp">
+      <Filter>02. Design\05. KeyMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

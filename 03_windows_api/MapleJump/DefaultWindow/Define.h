@@ -9,6 +9,7 @@
 
 #define NONEVENT	0
 #define DEAD		1
+#define VK_MAX		0xff
 extern HWND g_hWnd;
 
 enum OBJID { OBJ_PLAYER, OBJ_OBSTACLE, OBJ_END };

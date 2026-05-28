@@ -2,7 +2,7 @@
 #include "CPlayer.h"
 #include "CLineMgr.h"
 #include "CScrollMgr.h"
-
+#include "CKeyMgr.h"
 CPlayer::CPlayer() :m_time(0), m_eMoveState(MOVE_GROUND), m_bJump(false), m_bFalling(false), m_fPrevX(0.f), m_fPrevY(0.f), m_pCurLine(nullptr)
 {
 	m_fJumpPower = 10;
@@ -124,7 +124,7 @@ void CPlayer::Release()
 
 void CPlayer::KeyInput()
 {
-	if (GetAsyncKeyState(VK_RIGHT))
+	if (CKeyMgr::GetInstance()->KeyPressing(VK_RIGHT))
 	{
 		if (m_eMoveState != MOVE_ROPE)
 		{
@@ -134,7 +134,7 @@ void CPlayer::KeyInput()
 		if (m_eMoveState == MOVE_GROUND)
 			CLineMgr::GetInstance()->SetLine(m_tInfo.fX, m_tInfo.fY, m_fPrevX, m_fPrevY);
 	}
-	if (GetAsyncKeyState(VK_LEFT))
+	if (CKeyMgr::GetInstance()->KeyPressing(VK_LEFT))
 	{
 		if (m_eMoveState != MOVE_ROPE)
 		{	
@@ -144,7 +144,7 @@ void CPlayer::KeyInput()
 		if (m_eMoveState == MOVE_GROUND)
 			CLineMgr::GetInstance()->SetLine(m_tInfo.fX, m_tInfo.fY, m_fPrevX, m_fPrevY);
 	}
-	if (GetAsyncKeyState(VK_DOWN)&& GetAsyncKeyState(VK_SPACE))
+	if (CKeyMgr::GetInstance()->KeyPressing(VK_DOWN)&& CKeyMgr::GetInstance()->KeyDown(VK_SPACE))
 	{
 		if (m_eMoveState == MOVE_GROUND)
 		{
@@ -152,14 +152,14 @@ void CPlayer::KeyInput()
 			m_eMoveState = MOVE_DOWNJUMP;
 		}
 	}
-	else if (GetAsyncKeyState(VK_SPACE))
+	else if (CKeyMgr::GetInstance()->KeyPressing(VK_SPACE))
 	{
 		if(m_eMoveState == MOVE_GROUND)
 		{
 			m_time = 0.f;
 			m_eMoveState = MOVE_JUMP;
 		}
-		if (m_eMoveState == MOVE_ROPE && (GetAsyncKeyState(VK_RIGHT) || GetAsyncKeyState(VK_LEFT)))
+		if (m_eMoveState == MOVE_ROPE && (CKeyMgr::GetInstance()->KeyPressing(VK_RIGHT) || CKeyMgr::GetInstance()->KeyPressing(VK_LEFT)))
 		{
 			m_time = 0.f;
 			m_eMoveState = MOVE_FALL;
@@ -167,7 +167,7 @@ void CPlayer::KeyInput()
 	}
 	if (CLineMgr::GetInstance()->CheckRopeLine(m_tInfo.fX, m_tInfo.fY))
 	{
-		if (GetAsyncKeyState(VK_UP))
+		if (CKeyMgr::GetInstance()->KeyPressing(VK_UP))
 		{
 			CLineMgr::GetInstance()->SetRopeLine(m_tInfo.fX, m_tInfo.fY);
 			if(m_tInfo.fY>=50.f)
@@ -179,7 +179,7 @@ void CPlayer::KeyInput()
 				m_eMoveState = MOVE_GROUND;
 			}
 		}
-		if (GetAsyncKeyState(VK_DOWN))
+		if (CKeyMgr::GetInstance()->KeyPressing(VK_DOWN))
 		{
 			CLineMgr::GetInstance()->SetRopeLine(m_tInfo.fX, m_tInfo.fY);
 			m_tInfo.fY += m_fSpeed;
