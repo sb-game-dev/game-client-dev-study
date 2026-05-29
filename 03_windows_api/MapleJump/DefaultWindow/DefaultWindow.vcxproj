@@ -136,10 +136,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CAbstactFactory.h" />
+    <ClInclude Include="CBmpMgr.h" />
     <ClInclude Include="CCollisionMgr.h" />
     <ClInclude Include="CLine.h" />
     <ClInclude Include="CLineMgr.h" />
     <ClInclude Include="CMainGame.h" />
+    <ClInclude Include="CMyBmp.h" />
     <ClInclude Include="CObj.h" />
     <ClInclude Include="CObjMgr.h" />
     <ClInclude Include="CObstacle.h" />
@@ -154,10 +156,12 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CBmpMgr.cpp" />
     <ClCompile Include="CCollisionMgr.cpp" />
     <ClCompile Include="CLine.cpp" />
     <ClCompile Include="CLineMgr.cpp" />
     <ClCompile Include="CMainGame.cpp" />
+    <ClCompile Include="CMyBmp.cpp" />
     <ClCompile Include="CObj.cpp" />
     <ClCompile Include="CObjMgr.cpp" />
     <ClCompile Include="CObstacle.cpp" />

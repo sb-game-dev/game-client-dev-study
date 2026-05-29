@@ -85,7 +85,7 @@ struct tagDelete
 struct tagDeleteMap
 {
 	template<typename T>
-	bool operator()(T& pair)
+	void operator()(T& pair)
 	{
 		if (pair.second)
 		{
