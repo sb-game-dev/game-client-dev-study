@@ -72,6 +72,7 @@ void CPlayer::LateUpdate()
 	default:
 		break;
 	}
+	Offset();
 	if (m_tInfo.fY > WINCY)
 		m_bDead = DEAD;
 }
@@ -128,7 +129,7 @@ void CPlayer::KeyInput()
 	{
 		if (m_eMoveState != MOVE_ROPE)
 		{
-			CScrollMgr::GetInstance()->SetScrollX(-m_fSpeed);
+			//CScrollMgr::GetInstance()->SetScrollX(-m_fSpeed);
 			m_tInfo.fX += m_fSpeed;
 		}
 		if (m_eMoveState == MOVE_GROUND)
@@ -138,7 +139,7 @@ void CPlayer::KeyInput()
 	{
 		if (m_eMoveState != MOVE_ROPE)
 		{	
-			CScrollMgr::GetInstance()->SetScrollX(m_fSpeed);
+			//CScrollMgr::GetInstance()->SetScrollX(m_fSpeed);
 			m_tInfo.fX -= m_fSpeed;
 		}
 		if (m_eMoveState == MOVE_GROUND)
@@ -239,6 +240,22 @@ void CPlayer::TakeDamage()
 		&& CLineMgr::GetInstance()->SetLine(m_tInfo.fX, m_tInfo.fY, m_fPrevX, m_fPrevY))
 	{
 		m_eMoveState = MOVE_GROUND;
+	}
+}
+
+void CPlayer::Offset()
+{
+	int iScroll =  CScrollMgr::GetInstance()->GetScrollX();
+
+	int iMinOffset = 200;
+	int iMaxOffset = WINCX - 200;
+	if (m_tInfo.fX + iScroll < iMinOffset)
+	{
+		CScrollMgr::GetInstance()->SetScrollX(m_fSpeed);
+	}
+	if (m_tInfo.fX + iScroll > iMaxOffset)
+	{
+		CScrollMgr::GetInstance()->SetScrollX(-m_fSpeed);
 	}
 }
 
