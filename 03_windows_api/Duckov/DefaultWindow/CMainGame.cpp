@@ -6,6 +6,8 @@
 #include "CMouse.h"
 #include "CMonster.h"
 #include "CWall.h"
+#include "CBmpMgr.h"
+
 CMainGame::CMainGame() :m_iFPS(0), m_dwTime(GetTickCount()), m_pUI(nullptr)
 {
 }
@@ -48,6 +50,16 @@ void CMainGame::Initialize()
 		m_pUI->SetPlayer(dynamic_cast<CPlayer*> (CObjMgr::GetInstance()->GetList(OBJ_PLAYER).front()));
 		m_pUI->Initialize();
 	}
+
+	m_hMemDC = CreateCompatibleDC(m_hDC);
+
+	m_hBitmap = CreateCompatibleBitmap(
+		m_hDC,
+		WINCX,
+		WINCY);
+
+	m_hOldBitmap =
+		(HBITMAP)SelectObject(m_hMemDC, m_hBitmap);
 }
 
 void CMainGame::Update()
@@ -78,10 +90,13 @@ void CMainGame::Render()
 
 		m_iFPS = 0;
 	}
-	Rectangle(m_hDC, 0, 0, WINCX, WINCY);
+	Rectangle(m_hMemDC, 0, 0, WINCX, WINCY);
 
-	CObjMgr::GetInstance()->Render(m_hDC); 
-	m_pUI->Render(m_hDC);
+	CObjMgr::GetInstance()->Render(m_hMemDC);
+	m_pUI->Render(m_hMemDC);
+
+	BitBlt(m_hDC, 0, 0, WINCX, WINCY, m_hMemDC, 0, 0, SRCCOPY);
+	
 }
 
 void CMainGame::Release()

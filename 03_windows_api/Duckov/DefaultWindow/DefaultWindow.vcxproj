@@ -136,6 +136,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\MapleJump\DefaultWindow\CBmpMgr.h" />
+    <ClInclude Include="..\..\MapleJump\DefaultWindow\CMyBmp.h" />
     <ClInclude Include="CAbstractFactory.h" />
     <ClInclude Include="CBullet.h" />
     <ClInclude Include="CCollisionMgr.h" />
@@ -155,6 +157,8 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\MapleJump\DefaultWindow\CBmpMgr.cpp" />
+    <ClCompile Include="..\..\MapleJump\DefaultWindow\CMyBmp.cpp" />
     <ClCompile Include="CBullet.cpp" />
     <ClCompile Include="CCollisionMgr.cpp" />
     <ClCompile Include="CMainGame.cpp" />

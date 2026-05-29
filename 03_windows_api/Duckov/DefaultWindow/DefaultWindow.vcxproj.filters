@@ -49,6 +49,12 @@
     <Filter Include="03.UI">
       <UniqueIdentifier>{1f23d988-4ba6-4eaa-83db-069179db3df7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Design\03. BmpMgr">
+      <UniqueIdentifier>{26ddb6ae-f515-4325-9111-bdaef1f98608}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Design\03. BmpMgr\MyBmp">
+      <UniqueIdentifier>{a8c55f92-e3f9-4fe8-8751-f5042d34e0f3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -102,6 +108,12 @@
     <ClInclude Include="CUI.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\MapleJump\DefaultWindow\CMyBmp.h">
+      <Filter>02. Design\03. BmpMgr\MyBmp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MapleJump\DefaultWindow\CBmpMgr.h">
+      <Filter>02. Design\03. BmpMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefaultWindow.cpp">
@@ -139,6 +151,12 @@
     </ClCompile>
     <ClCompile Include="CUI.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MapleJump\DefaultWindow\CMyBmp.cpp">
+      <Filter>02. Design\03. BmpMgr\MyBmp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MapleJump\DefaultWindow\CBmpMgr.cpp">
+      <Filter>02. Design\03. BmpMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
