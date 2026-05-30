@@ -22,6 +22,12 @@ typedef struct tagInfo
 
 }INFO;
 
+typedef struct tagRenderInfo
+{
+	int iFrameStart, iFrameEnd, dwFrameSpeed;
+	int iRectStartX, iRectStartY;
+}RENDERINFO;
+
 template<typename T>
 void Safe_Delete(T& p)
 {

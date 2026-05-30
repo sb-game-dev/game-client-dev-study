@@ -29,6 +29,7 @@ public:
 protected:
 	INFO m_tInfo;
 	RECT m_tRect;
+	RENDERINFO m_tRectInfo;
 
 	float m_fSpeed;
 	bool m_bDead;

@@ -3,6 +3,8 @@
 class CPlayer :
     public CObj
 {
+private:
+    enum MOVE_STATE { MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT, MOVE_UP, MOVE_END };
 public:
     CPlayer();
     ~CPlayer();
@@ -15,11 +17,15 @@ public:
     void Release() override;
 
 private:
-    void KeyDown();
+    bool KeyDown();
     CObj* CreateBomb();
 
 private:
-    int m_iBombRange;
-    int m_iBombMax;
+    int         m_iBombRange;
+    int         m_iBombMax;
+
+    int         m_iFrame;
+    DWORD       m_dwTime;
+    MOVE_STATE  m_tMoveState;
 };
 
