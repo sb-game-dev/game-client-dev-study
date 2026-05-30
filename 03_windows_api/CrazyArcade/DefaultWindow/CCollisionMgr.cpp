@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "CCollisionMgr.h"
 #include "CBomb.h"
-
+#include "CObjMgr.h"
 void CCollisionMgr::CollisionRect(list<CObj*>& DstList, list<CObj*>& SrcList)
 {
 	RECT rc;
@@ -11,26 +11,10 @@ void CCollisionMgr::CollisionRect(list<CObj*>& DstList, list<CObj*>& SrcList)
 		{
 			if (IntersectRect(&rc, Dst->GetRect(), Src->GetRect()))
 			{
+				CBomb* pTempBomb = dynamic_cast<CBomb*>(Dst);
+				if (pTempBomb)
+					CObjMgr::GetInstance()->AddObject(OBJ_WATER, pTempBomb->CreateWater());
 				Dst->SetDead();
-				Src->SetDead();
-			}
-		}
-	}
-}
-void CCollisionMgr::CollisionRectBomb(list<CObj*>& DstList, list<CObj*>& SrcList)
-{
-	RECT rc;
-	for (auto& Dst : DstList)
-	{
-		for (auto& Src : SrcList)
-		{
-			if (IntersectRect(&rc, Dst->GetRect(), Src->GetRect()))
-			{
-				//if (dynamic_cast<CBomb*>(Src)->GetState() == ST_EXPLODE_ING)
-				//{
-				//	Dst->SetDead();
-				//	//Src->SetDead();
-				//}
 			}
 		}
 	}
@@ -43,6 +27,10 @@ void CCollisionMgr::CollisionRectEX(list<CObj*>& DstList, list<CObj*>& SrcList)
 	{
 		for (auto& SrcObj : SrcList)
 		{
+			CBomb* pTempBomb = dynamic_cast<CBomb*>(DstObj);
+			if (pTempBomb && pTempBomb->GetPlayerCollision() == true)
+				return;
+
 			if (CheckRect(DstObj, SrcObj, fDeltaSizeX, fDeltaSizeY))
 			{
 				// ╩С го
@@ -85,7 +73,7 @@ bool CCollisionMgr::CheckRect(CObj* Dst, CObj* Src, float& fDeltaSizeX, float& f
 	float fDistanceX = fabsf(Dst->GetInfo().fX - Src->GetInfo().fX);
 	float fDistanceY = fabsf(Dst->GetInfo().fY - Src->GetInfo().fY);
 
-	if (fDistanceX <= fSizeX && fDistanceY <= fSizeY)
+	if (fDistanceX < fSizeX && fDistanceY < fSizeY)
 	{
 		fDeltaSizeX = fSizeX - fDistanceX;
 		fDeltaSizeY = fSizeY - fDistanceY;

@@ -6,7 +6,7 @@
 #include "CCollisionMgr.h"
 #include "CKeyMgr.h"
 #include "CBmpMgr.h"
-CPlayer::CPlayer() :m_iBombRange(2), m_iBombMax(2), m_iFrame(0),m_dwTime(GetTickCount()), m_tMoveState(MOVE_DOWN)
+CPlayer::CPlayer() :m_iBombRange(2), m_iBombMax(2), m_tMoveState(MOVE_DOWN)
 {
 }
 
@@ -18,7 +18,7 @@ CPlayer::~CPlayer()
 void CPlayer::Initialize()
 {
 	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Player/playermove.bmp", L"Player");
-	m_tInfo = { (WINCX >> 1),(WINCY >> 1),70.f,70.f };
+	m_tInfo = { (WINCX >> 1),(WINCY >> 1),40.f,40.f };
 	m_fSpeed = 3.f;
 }
 
@@ -32,27 +32,27 @@ int CPlayer::Update()
 		switch (m_tMoveState)
 		{
 		case CPlayer::MOVE_UP:
-			m_tRectInfo = { 0, 4, 100,0,0 };
+			m_tRenderInfo = { 0, 4, 100,0,0 };
 			break;
 		case CPlayer::MOVE_DOWN:
-			m_tRectInfo = { 0, 4, 100,0,70 };
+			m_tRenderInfo = { 0, 4, 100,0,70 };
 			break;
 		case CPlayer::MOVE_RIGHT:
-			m_tRectInfo = { 0, 3, 100,0,140 };
+			m_tRenderInfo = { 0, 3, 100,0,140 };
 			break;
 		case CPlayer::MOVE_LEFT:
-			m_tRectInfo = { 0, 3, 100,0,210 };
+			m_tRenderInfo = { 0, 3, 100,0,210 };
 			break;
 		case CPlayer::MOVE_END:
 			break;
 		default:
 			break;
 		}
-		if (m_dwTime + 100 <= GetTickCount())
+		if (m_dwAniTime + m_tRenderInfo.dwFrameSpeed <= GetTickCount())
 		{
-			m_dwTime = GetTickCount();
+			m_dwAniTime = GetTickCount();
 
-			m_iFrame = (m_iFrame + 1) % m_tRectInfo.iFrameEnd;
+			m_iFrame = (m_iFrame + 1) % m_tRenderInfo.iFrameEnd;
 		}
 	}
 	return NONEVENT;
@@ -62,20 +62,32 @@ void CPlayer::LateUpdate()
 {
 	
 }
+void CPlayer::Update_Rect()
+{
+	m_tRect.left	= LONG(m_tInfo.fX - (m_tInfo.fCX / 2.f));
+	m_tRect.top		= LONG(m_tInfo.fY - 5.f);					//(m_tInfo.fCY / 2.f)
+	m_tRect.right	= LONG(m_tInfo.fX + (m_tInfo.fCX / 2.f));
+	m_tRect.bottom	= LONG(m_tInfo.fY + 35.f);					//(m_tInfo.fCY / 2.f)
 
+}
 void CPlayer::Render(HDC hDC)
 {
 	HDC hMemDC = CBmpMgr::GetInstance()->FindImage(L"Player");
-	GdiTransparentBlt(hDC,
+	Rectangle(hDC,
 		m_tRect.left,
 		m_tRect.top,
-		(int)m_tInfo.fCX,
-		(int)m_tInfo.fCY,
+		m_tRect.right,
+		m_tRect.bottom);
+	GdiTransparentBlt(hDC,
+		m_tRect.left - 15.f,
+		m_tRect.top - 30.f,
+		70,//(int)m_tInfo.fCX
+		70,//(int)m_tInfo.fCY
 		hMemDC,
-		m_iFrame + m_tRectInfo.iRectStartX,
-		m_tRectInfo.iRectStartY,
-		(int)m_tInfo.fCX,
-		(int)m_tInfo.fCY,
+		m_tRenderInfo.iRectStartX + 70 * m_iFrame ,
+		m_tRenderInfo.iRectStartY,
+		70,//(int)m_tInfo.fCX
+		70,//(int)m_tInfo.fCY
 		RGB(0, 255, 0));
 }
 

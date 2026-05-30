@@ -4,6 +4,9 @@
 #include "CObjMgr.h"
 #include "CKeyMgr.h"
 #include "CBmpMgr.h"
+#include "CBlock.h"
+#include "CMouse.h"
+
 CMainGame::CMainGame() 
 {
 }
@@ -17,6 +20,15 @@ void CMainGame::Initialize()
 {
 	m_hDC = GetDC(g_hWnd);
 	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create());
+	CObjMgr::GetInstance()->AddObject(OBJ_MOUSE, CAbstractFactory<CMouse>::Create());
+	for (int i = 0; i < 15; i++)
+	{
+		for (int j = 0; j < 12; ++j)
+		{
+			if (rand() % 10 < 1)
+				CObjMgr::GetInstance()->AddObject(OBJ_BLOCK, CAbstractFactory<CBlock>::Create(float(i * 40 + 20), float(j * 40 + 60)));
+		}
+	}
 	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/BackBuffer.bmp", L"Back");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Stage1.bmp", L"Ground");
 }

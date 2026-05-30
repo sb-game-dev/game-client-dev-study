@@ -37,9 +37,6 @@
     <Filter Include="02. Design\02. ObjMgr">
       <UniqueIdentifier>{e370c26a-4fd5-4876-9547-ce8d5c2a0104}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Obj\02. CBlock">
-      <UniqueIdentifier>{f79c6562-bf44-41f7-ab94-ccec7ba8127e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. Design\03. KeyMgr">
       <UniqueIdentifier>{2f3e7ced-7bab-4676-bd17-2e7ac82b7db6}</UniqueIdentifier>
     </Filter>
@@ -49,8 +46,14 @@
     <Filter Include="02. Design\04. BmpMgr\MyBmp">
       <UniqueIdentifier>{27e76f15-56ec-468e-a94a-938d293378a3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Obj\03. CWater">
+    <Filter Include="01. Obj\04. Mouse">
+      <UniqueIdentifier>{266d9e9e-1ec7-4302-ba3f-9646fe04a68f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Obj\03. Water">
       <UniqueIdentifier>{bc1e633b-ca2b-45e4-b0da-b4c439238919}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Obj\02. Block">
+      <UniqueIdentifier>{f79c6562-bf44-41f7-ab94-ccec7ba8127e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -94,7 +97,7 @@
       <Filter>01. Obj\01. Bomb</Filter>
     </ClInclude>
     <ClInclude Include="CBlock.h">
-      <Filter>01. Obj\02. CBlock</Filter>
+      <Filter>01. Obj\02. Block</Filter>
     </ClInclude>
     <ClInclude Include="CKeyMgr.h">
       <Filter>02. Design\03. KeyMgr</Filter>
@@ -106,7 +109,10 @@
       <Filter>02. Design\04. BmpMgr\MyBmp</Filter>
     </ClInclude>
     <ClInclude Include="CWater.h">
-      <Filter>01. Obj\03. CWater</Filter>
+      <Filter>01. Obj\03. Water</Filter>
+    </ClInclude>
+    <ClInclude Include="CMouse.h">
+      <Filter>01. Obj\04. Mouse</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -135,7 +141,7 @@
       <Filter>01. Obj\01. Bomb</Filter>
     </ClCompile>
     <ClCompile Include="CBlock.cpp">
-      <Filter>01. Obj\02. CBlock</Filter>
+      <Filter>01. Obj\02. Block</Filter>
     </ClCompile>
     <ClCompile Include="CKeyMgr.cpp">
       <Filter>02. Design\03. KeyMgr</Filter>
@@ -147,7 +153,10 @@
       <Filter>02. Design\04. BmpMgr\MyBmp</Filter>
     </ClCompile>
     <ClCompile Include="CWater.cpp">
-      <Filter>01. Obj\03. CWater</Filter>
+      <Filter>01. Obj\03. Water</Filter>
+    </ClCompile>
+    <ClCompile Include="CMouse.cpp">
+      <Filter>01. Obj\04. Mouse</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

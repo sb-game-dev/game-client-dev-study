@@ -1,11 +1,11 @@
 #pragma once
 #include "CObj.h"
-class CBlock :
+class CMouse :
     public CObj
 {
 public:
-    CBlock();
-    ~CBlock();
+    CMouse();
+    ~CMouse();
 
 public:
     void Initialize() override;

@@ -15,12 +15,21 @@ public:
 		pObj->Initialize();
 		return pObj;
 	}
-	static CObj* Create(float fX, float fY)
+	//static CObj* Create(float fX, float fY)
+	//{
+	//	CObj* pObj = new T;
+	//
+	//	pObj->Initialize();
+	//	pObj->SetPos(fX, fY);
+	//	return pObj;
+	//}
+	static CObj* Create(float fX, float fY,DIRECTION eDir = DIR_END)
 	{
 		CObj* pObj = new T;
 
 		pObj->Initialize();
 		pObj->SetPos(fX, fY);
+		pObj->SetDir(eDir);
 		return pObj;
 	}
 };

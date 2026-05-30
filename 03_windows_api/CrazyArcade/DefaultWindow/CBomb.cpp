@@ -4,7 +4,8 @@
 #include "CAbstractFactory.h"
 #include "CObjMgr.h"
 #include "CBmpMgr.h"
-CBomb::CBomb() :m_dwTime(GetTickCount()), m_iBombRange(0)
+#include "CCollisionMgr.h"
+CBomb::CBomb() :m_dwTime(GetTickCount()), m_iBombRange(0), m_bPlayerCollision(true)
 {
 }
 
@@ -18,16 +19,31 @@ void CBomb::Initialize()
 	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Bullet/BlueBub.bmp", L"Bomb");
 	m_tInfo.fCX = 46.f;
 	m_tInfo.fCY = 46.f;
+	m_tRenderInfo = { 0, 3, 250,0,0 };
 }
 
 int CBomb::Update()
 {
 	if (m_bDead == DEAD)
 		return DEAD;
+	if (m_bPlayerCollision == true)
+	{
+		float fTemp1 = 0.f;
+		float fTemp2 = 0.f;
+		if (!CCollisionMgr::CheckRect(this, CObjMgr::GetInstance()->GetList(OBJ_PLAYER).front(), fTemp1, fTemp2))
+		{
+			m_bPlayerCollision = false;
+		}
+	}
 	if (m_dwTime + 1500 <= GetTickCount())
 	{
 		CObjMgr::GetInstance()->AddObject(OBJ_WATER, CreateWater());
 		m_bDead = DEAD;
+	}
+	if(m_dwAniTime + m_tRenderInfo.dwFrameSpeed <= GetTickCount())
+	{
+		m_dwAniTime = GetTickCount();
+		m_iFrame = (m_iFrame + 1) % m_tRenderInfo.iFrameEnd;
 	}
 	return NONEVENT;
 }
@@ -45,7 +61,7 @@ void CBomb::Render(HDC hDC)
 		(int)m_tInfo.fCX,
 		(int)m_tInfo.fCY,
 		hMemDC,
-		0,
+		m_iFrame * m_tInfo.fCX,
 		0,
 		(int)m_tInfo.fCX,
 		(int)m_tInfo.fCY,

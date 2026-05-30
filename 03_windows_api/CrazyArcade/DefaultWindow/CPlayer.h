@@ -15,7 +15,7 @@ public:
     void LateUpdate() override;
     void Render(HDC hDC) override;
     void Release() override;
-
+    void Update_Rect() ;
 private:
     bool KeyDown();
     CObj* CreateBomb();
@@ -24,8 +24,6 @@ private:
     int         m_iBombRange;
     int         m_iBombMax;
 
-    int         m_iFrame;
-    DWORD       m_dwTime;
     MOVE_STATE  m_tMoveState;
 };
 

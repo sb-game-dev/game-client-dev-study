@@ -44,12 +44,13 @@ void CObjMgr::LateUpdate()
 	for (int i = 0; i < OBJ_END; ++i)
 	{
 		for (auto& Obj : m_ObjList[i])
-			Obj->LateUpdate();
+			Obj->LateUpdate(); 
 	}
-	CCollisionMgr::CollisionRectEX(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_PLAYER]);
-	CCollisionMgr::CollisionRectBomb(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_BOMB]);
-	//CollisionCheck(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_PLAYER]);
-	//CollisionCheck(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_MONSTER]);
+	CCollisionMgr::CollisionRectEX(m_ObjList[OBJ_BLOCK], m_ObjList[OBJ_PLAYER]);
+	CCollisionMgr::CollisionRectEX(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_PLAYER]);
+
+	CCollisionMgr::CollisionRect(m_ObjList[OBJ_BLOCK], m_ObjList[OBJ_WATER]);
+	CCollisionMgr::CollisionRect(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_WATER]);
 	for (int i = 0; i < OBJ_END; ++i)
 	{
 		for (auto& Obj : m_ObjList[i])

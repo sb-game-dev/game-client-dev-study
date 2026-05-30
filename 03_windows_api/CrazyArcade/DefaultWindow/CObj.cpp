@@ -1,11 +1,11 @@
 #include "pch.h"
 #include "CObj.h"
 
-CObj::CObj() : m_fSpeed(0.f),m_bDead(NONEVENT)
+CObj::CObj() : m_fSpeed(0.f),m_bDead(NONEVENT), m_eDirection(DIR_END), m_dwAniTime(GetTickCount()), m_iFrame(0)
 {
 	ZeroMemory(&m_tInfo, sizeof(INFO));
 	ZeroMemory(&m_tRect, sizeof(RECT));
-	ZeroMemory(&m_tRectInfo, sizeof(m_tRectInfo));
+	ZeroMemory(&m_tRenderInfo, sizeof(m_tRenderInfo));
 }
 
 CObj::~CObj()
