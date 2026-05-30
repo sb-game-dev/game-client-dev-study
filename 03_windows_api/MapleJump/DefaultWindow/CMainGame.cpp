@@ -10,6 +10,7 @@ CMainGame::CMainGame() :m_dwTime1(GetTickCount()), m_dwTime2(GetTickCount()), m_
 
 {
 	m_hDC = NULL;
+	m_hMemDC = NULL;
 }
 
 CMainGame::~CMainGame()
@@ -24,10 +25,17 @@ void CMainGame::Initialize()
 	CLineMgr::GetInstance()->Initialize();
 	float fTemp = 0.f;
 	CScrollMgr::GetInstance()->SetScrollX(fTemp);
-	//CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, CAbstactFactory<CPlayer>::Create(fTemp, 0.f));
 	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, CAbstactFactory<CPlayer>::Create());
 
-	//CScrollMgr::GetInstance()->SetScrollY(0.f);
+	m_hMemDC = CreateCompatibleDC(m_hDC);
+
+	m_hBitmap = CreateCompatibleBitmap(
+		m_hDC,
+		WINCX,
+		WINCY);
+
+	m_hOldBitmap =
+		(HBITMAP)SelectObject(m_hMemDC, m_hBitmap);
 }
 
 void CMainGame::Update()
@@ -82,10 +90,14 @@ void CMainGame::LateUpdate()
 
 void CMainGame::Render()
 {
-	Rectangle(m_hDC, 0, 0, WINCX, WINCY);
+	Rectangle(m_hMemDC, 0, 0, WINCX, WINCY);
 
-	CLineMgr::GetInstance()->Render(m_hDC);
-	CObjMgr::GetInstance()->Render(m_hDC);
+	CLineMgr::GetInstance()->Render(m_hMemDC);
+	CObjMgr::GetInstance()->Render(m_hMemDC);
+
+
+	BitBlt(m_hDC, 0, 0, WINCX, WINCY, m_hMemDC, 0, 0, SRCCOPY);
+
 }
 
 void CMainGame::Release()
@@ -94,6 +106,7 @@ void CMainGame::Release()
 	CObjMgr::GetInstance()->DestroyInstance();
 	CLineMgr::GetInstance()->DestroyInstance();
 	CScrollMgr::GetInstance()->DestroyInstance();
+	CKeyMgr::GetInstance()->DestroyInstance();
 }
 
 void CMainGame::Restart()

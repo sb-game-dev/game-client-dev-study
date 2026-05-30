@@ -49,6 +49,12 @@
     <Filter Include="02. Design\05. KeyMgr">
       <UniqueIdentifier>{e63e5775-abc5-4f59-bb7f-4cbf27e02c3d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Design\06. BmpMgr">
+      <UniqueIdentifier>{0279abc3-72d1-490d-853e-023a64a2bf20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Design\06. BmpMgr\MyBmp">
+      <UniqueIdentifier>{157732e1-720b-48d2-9595-57c0c7d8c50a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -102,6 +108,12 @@
     <ClInclude Include="CKeyMgr.h">
       <Filter>02. Design\05. KeyMgr</Filter>
     </ClInclude>
+    <ClInclude Include="CBmpMgr.h">
+      <Filter>02. Design\06. BmpMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CMyBmp.h">
+      <Filter>02. Design\06. BmpMgr\MyBmp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefaultWindow.cpp">
@@ -139,6 +151,12 @@
     </ClCompile>
     <ClCompile Include="CKeyMgr.cpp">
       <Filter>02. Design\05. KeyMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CBmpMgr.cpp">
+      <Filter>02. Design\06. BmpMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CMyBmp.cpp">
+      <Filter>02. Design\06. BmpMgr\MyBmp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

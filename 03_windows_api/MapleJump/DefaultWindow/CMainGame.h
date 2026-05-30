@@ -20,6 +20,11 @@ private:
 	void		Restart();
 private:
 	HDC			m_hDC;
+
+	HDC			m_hMemDC;
+	HBITMAP		m_hBitmap;
+	HBITMAP		m_hOldBitmap;
+
 	DWORD		m_dwTime1;
 	DWORD		m_dwTime2;
 	DWORD		m_dwTime3;

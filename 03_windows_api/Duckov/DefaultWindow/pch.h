@@ -11,6 +11,8 @@
 #include "framework.h"
 
 #include <list>
+#include <map>
+#include <algorithm>
 using namespace std;
 
 #ifdef _DEBUG

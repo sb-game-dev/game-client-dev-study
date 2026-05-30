@@ -23,5 +23,9 @@ private:
 	DWORD m_dwTime;
 
 	CUI* m_pUI;
+
+	HDC			m_hMemDC;
+	HBITMAP		m_hBitmap;
+	HBITMAP		m_hOldBitmap;
 };
 

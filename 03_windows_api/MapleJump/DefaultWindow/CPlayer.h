@@ -25,6 +25,8 @@ private:
     void        Gravity();
     void        DownJump();
     void        TakeDamage();
+    void        Offset();
+
 private:
     float       m_time;
     float       m_fJumpPower;
