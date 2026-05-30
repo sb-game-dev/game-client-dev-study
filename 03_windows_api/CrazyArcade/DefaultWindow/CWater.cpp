@@ -20,6 +20,11 @@ void CWater::Initialize()
 	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Bullet/BoomUpEX.bmp", L"WaterUp");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Bullet/BoomRightEX.bmp", L"WaterRight");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Bullet/BoomDownEX.bmp", L"WaterDown");
+
+	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Bullet/BoomLeft.bmp", L"WaterLeftEnd");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Bullet/BoomUp.bmp", L"WaterUpEnd");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Bullet/BoomRight.bmp", L"WaterRightEnd");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Bullet/BoomDown.bmp", L"WaterDownEnd");
 }
 
 int CWater::Update()
@@ -66,6 +71,19 @@ void CWater::Render(HDC hDC)
 	case DIR_DOWN:
 		hMemDC = CBmpMgr::GetInstance()->FindImage(L"WaterDown");
 		break;
+
+	case DIR_LEFTEND:
+		hMemDC = CBmpMgr::GetInstance()->FindImage(L"WaterLeftEnd");
+		break;
+	case DIR_DOWNEND:
+		hMemDC = CBmpMgr::GetInstance()->FindImage(L"WaterDownEnd");
+		break;
+	case DIR_RIGHTEND:
+		hMemDC = CBmpMgr::GetInstance()->FindImage(L"WaterRightEnd");
+		break;
+	case DIR_UPEND:
+		hMemDC = CBmpMgr::GetInstance()->FindImage(L"WaterUpEnd");
+		break;
 	case DIR_END:
 		hMemDC = CBmpMgr::GetInstance()->FindImage(L"Water");
 		break;
@@ -97,7 +115,12 @@ void CWater::Spread(int iBombRange)
 	for (int i = 1; i <= iBombRange; ++i)
 	{
 		if (bRunning == false) break;
-		CObj* pWater = CAbstractFactory<CWater>::Create(m_tInfo.fX + m_tInfo.fCX * i, m_tInfo.fY,DIR_RIGHT);
+		CObj* pWater = nullptr;
+		if(i == iBombRange)
+			pWater = CAbstractFactory<CWater>::Create(m_tInfo.fX + m_tInfo.fCX * i, m_tInfo.fY,DIR_RIGHTEND);
+		else
+			pWater = CAbstractFactory<CWater>::Create(m_tInfo.fX + m_tInfo.fCX * i, m_tInfo.fY, DIR_RIGHT);
+
 		CObjMgr::GetInstance()->AddObject(OBJ_WATER, pWater);
 		if (i + 1 > iBombRange) break;
 		for (auto& pBlock : CObjMgr::GetInstance()->GetList(OBJ_BLOCK))
@@ -115,7 +138,13 @@ void CWater::Spread(int iBombRange)
 	for (int i = 1; i <= iBombRange; ++i)
 	{
 		if (bRunning == false) break;
-		CObj* pWater = CAbstractFactory<CWater>::Create(m_tInfo.fX - m_tInfo.fCX * i, m_tInfo.fY,DIR_LEFT);
+
+		CObj* pWater = nullptr;
+		if (i == iBombRange)
+			pWater = CAbstractFactory<CWater>::Create(m_tInfo.fX - m_tInfo.fCX * i, m_tInfo.fY, DIR_LEFTEND);
+		else
+			pWater = CAbstractFactory<CWater>::Create(m_tInfo.fX - m_tInfo.fCX * i, m_tInfo.fY, DIR_LEFT);
+
 		CObjMgr::GetInstance()->AddObject(OBJ_WATER, pWater);
 		if (i + 1 > iBombRange) break;
 		for (auto& pBlock : CObjMgr::GetInstance()->GetList(OBJ_BLOCK))
@@ -133,7 +162,12 @@ void CWater::Spread(int iBombRange)
 	for (int i = 1; i <= iBombRange; ++i)
 	{
 		if (bRunning == false) break;
-		CObj* pWater = CAbstractFactory<CWater>::Create(m_tInfo.fX, m_tInfo.fY - m_tInfo.fCY * i,DIR_UP);
+		CObj* pWater = nullptr;
+		if (i == iBombRange)
+			pWater = CAbstractFactory<CWater>::Create(m_tInfo.fX , m_tInfo.fY - m_tInfo.fCY * i, DIR_UPEND);
+		else
+			pWater = CAbstractFactory<CWater>::Create(m_tInfo.fX , m_tInfo.fY - m_tInfo.fCY * i, DIR_UP);
+
 		CObjMgr::GetInstance()->AddObject(OBJ_WATER, pWater);
 		if (i + 1 > iBombRange) break;
 		for (auto& pBlock : CObjMgr::GetInstance()->GetList(OBJ_BLOCK))
@@ -151,7 +185,11 @@ void CWater::Spread(int iBombRange)
 	for (int i = 1; i <= iBombRange; ++i)
 	{
 		if (bRunning == false) break;
-		CObj* pWater = CAbstractFactory<CWater>::Create(m_tInfo.fX, m_tInfo.fY + m_tInfo.fCY * i,DIR_DOWN);
+		CObj* pWater = nullptr;
+		if (i == iBombRange)
+			pWater = CAbstractFactory<CWater>::Create(m_tInfo.fX , m_tInfo.fY + m_tInfo.fCY * i, DIR_DOWNEND);
+		else
+			pWater = CAbstractFactory<CWater>::Create(m_tInfo.fX , m_tInfo.fY + m_tInfo.fCY * i, DIR_DOWN);
 		CObjMgr::GetInstance()->AddObject(OBJ_WATER, pWater);
 		if (i + 1 > iBombRange) break;
 		for (auto& pBlock : CObjMgr::GetInstance()->GetList(OBJ_BLOCK))

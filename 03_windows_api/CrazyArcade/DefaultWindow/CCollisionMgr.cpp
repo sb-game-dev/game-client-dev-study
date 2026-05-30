@@ -2,6 +2,7 @@
 #include "CCollisionMgr.h"
 #include "CBomb.h"
 #include "CObjMgr.h"
+#include "CPlayer.h"
 void CCollisionMgr::CollisionRect(list<CObj*>& DstList, list<CObj*>& SrcList)
 {
 	RECT rc;
@@ -12,9 +13,20 @@ void CCollisionMgr::CollisionRect(list<CObj*>& DstList, list<CObj*>& SrcList)
 			if (IntersectRect(&rc, Dst->GetRect(), Src->GetRect()))
 			{
 				CBomb* pTempBomb = dynamic_cast<CBomb*>(Dst);
+				CPlayer* pTempPlayer = dynamic_cast<CPlayer*>(Dst);
 				if (pTempBomb)
+				{
 					CObjMgr::GetInstance()->AddObject(OBJ_WATER, pTempBomb->CreateWater());
-				Dst->SetDead();
+					Dst->SetDead();
+				}
+				else if (pTempPlayer)
+				{
+					pTempPlayer->SetBubble();
+				}
+				else
+				{
+					Dst->SetDead();
+				}
 			}
 		}
 	}
@@ -91,7 +103,6 @@ void CCollisionMgr::CollisionCircle(list<CObj*>& DstList, list<CObj*>& SrcList)
 			if (CheckCircle(DstObj, SrcObj))
 			{
 				DstObj->SetDead();
-				SrcObj->SetDead();
 			}
 		}
 	}

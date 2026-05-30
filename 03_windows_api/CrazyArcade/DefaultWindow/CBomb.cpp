@@ -17,8 +17,8 @@ CBomb::~CBomb()
 void CBomb::Initialize()
 {
 	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Bullet/BlueBub.bmp", L"Bomb");
-	m_tInfo.fCX = 46.f;
-	m_tInfo.fCY = 46.f;
+	m_tInfo.fCX = 40.f;
+	m_tInfo.fCY = 40.f;
 	m_tRenderInfo = { 0, 3, 250,0,0 };
 }
 
@@ -58,13 +58,13 @@ void CBomb::Render(HDC hDC)
 	GdiTransparentBlt(hDC,
 		m_tRect.left,
 		m_tRect.top,
-		(int)m_tInfo.fCX,
-		(int)m_tInfo.fCY,
+		46,//(int)m_tInfo.fCX
+		46,//(int)m_tInfo.fCY
 		hMemDC,
-		m_iFrame * m_tInfo.fCX,
+		m_iFrame * 46,//m_tInfo.fCX
 		0,
-		(int)m_tInfo.fCX,
-		(int)m_tInfo.fCY,
+		46,//(int)m_tInfo.fCX
+		46,//(int)m_tInfo.fCY
 		RGB(0, 0, 0));
 }
 

@@ -6,7 +6,7 @@
 #include "CCollisionMgr.h"
 #include "CKeyMgr.h"
 #include "CBmpMgr.h"
-CPlayer::CPlayer() :m_iBombRange(2), m_iBombMax(2), m_tMoveState(MOVE_DOWN)
+CPlayer::CPlayer() :m_iBombRange(2), m_iBombMax(2), m_tMoveState(MOVE_DOWN), m_bBubble(false)
 {
 }
 
@@ -18,6 +18,7 @@ CPlayer::~CPlayer()
 void CPlayer::Initialize()
 {
 	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Player/playermove.bmp", L"Player");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Player/playerbubble.bmp", L"PlayerBubble");
 	m_tInfo = { (WINCX >> 1),(WINCY >> 1),40.f,40.f };
 	m_fSpeed = 3.f;
 }
@@ -26,8 +27,18 @@ int CPlayer::Update()
 {
 	if (m_bDead == DEAD)
 		return DEAD;
-	
-	if (KeyDown())
+
+	if (m_bBubble == true)
+	{
+		m_tRenderInfo = { 0, 4, 1000,0,0 };
+		m_fSpeed = 0.1f;
+	}
+	else
+	{
+		m_fSpeed = 3.f;
+	}
+
+	if (KeyDown() && m_bBubble == false)
 	{
 		switch (m_tMoveState)
 		{
@@ -48,12 +59,27 @@ int CPlayer::Update()
 		default:
 			break;
 		}
-		if (m_dwAniTime + m_tRenderInfo.dwFrameSpeed <= GetTickCount())
+		if (!m_bBubble && m_dwAniTime + m_tRenderInfo.dwFrameSpeed <= GetTickCount())
 		{
 			m_dwAniTime = GetTickCount();
 
 			m_iFrame = (m_iFrame + 1) % m_tRenderInfo.iFrameEnd;
 		}
+	}
+	else if(m_bBubble == true)
+	{
+		if (m_dwAniTime + m_tRenderInfo.dwFrameSpeed <= GetTickCount())
+		{
+			m_dwAniTime = GetTickCount();
+
+			m_iFrame++;
+			if (m_iFrame == m_tRenderInfo.iFrameEnd)
+				m_bDead = DEAD;
+		}
+	}
+	else
+	{
+		m_iFrame = 0;
 	}
 	return NONEVENT;
 }
@@ -72,12 +98,20 @@ void CPlayer::Update_Rect()
 }
 void CPlayer::Render(HDC hDC)
 {
-	HDC hMemDC = CBmpMgr::GetInstance()->FindImage(L"Player");
-	Rectangle(hDC,
-		m_tRect.left,
-		m_tRect.top,
-		m_tRect.right,
-		m_tRect.bottom);
+	HDC hMemDC = nullptr;
+	if (m_bBubble == true)
+	{
+		hMemDC = CBmpMgr::GetInstance()->FindImage(L"PlayerBubble");
+	}
+	else
+	{
+		hMemDC = CBmpMgr::GetInstance()->FindImage(L"Player");
+	}
+	//Rectangle(hDC,
+	//	m_tRect.left,
+	//	m_tRect.top,
+	//	m_tRect.right,
+	//	m_tRect.bottom);
 	GdiTransparentBlt(hDC,
 		m_tRect.left - 15.f,
 		m_tRect.top - 30.f,
@@ -127,7 +161,12 @@ bool CPlayer::KeyDown()
 	{
 		if (CObjMgr::GetInstance()->GetList(OBJ_BOMB).size() < m_iBombMax)
 		{
-			bReturn = true;
+			for (auto& pBomb : CObjMgr::GetInstance()->GetList(OBJ_BOMB))
+			{
+				if ((((int)m_tInfo.fX / 40) * 40.f + 20) == pBomb->GetInfo().fX &&
+					(((int)m_tInfo.fY / 40) * 40.f + 20) == pBomb->GetInfo().fY)
+					return false;
+			}
 			CObjMgr::GetInstance()->AddObject(OBJ_BOMB, CreateBomb());
 		}
 	}
