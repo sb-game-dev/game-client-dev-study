@@ -18,5 +18,8 @@ public:
 
 private:
 	HDC			m_hDC;
+	int			m_iFPS;
+	DWORD		m_dwTime;
+	TCHAR		m_szFPS[32];
 };
 

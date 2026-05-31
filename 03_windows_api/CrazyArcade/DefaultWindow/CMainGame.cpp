@@ -7,7 +7,7 @@
 #include "CBlock.h"
 #include "CMouse.h"
 
-CMainGame::CMainGame() 
+CMainGame::CMainGame() :m_iFPS(0), m_dwTime(GetTickCount())
 {
 }
 
@@ -56,6 +56,18 @@ void CMainGame::LateUpdate()
 
 void CMainGame::Render()
 {
+	m_iFPS++;
+
+	if (m_dwTime + 1000 < GetTickCount())
+	{
+		swprintf_s(m_szFPS, L"FPS : %d", m_iFPS);
+
+		m_dwTime = GetTickCount();
+
+		SetWindowText(g_hWnd, m_szFPS);
+
+		m_iFPS = 0;
+	}
 	HDC hBack = CBmpMgr::GetInstance()->FindImage(L"Back");
 	HDC	hGround = CBmpMgr::GetInstance()->FindImage(L"Ground");
 	BitBlt(hBack, 0, 0, WINCX, WINCY, hGround, 0, 0, SRCCOPY);
