@@ -55,6 +55,9 @@
     <Filter Include="01. Obj\02. Block">
       <UniqueIdentifier>{f79c6562-bf44-41f7-ab94-ccec7ba8127e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Obj\05. Item">
+      <UniqueIdentifier>{f6648c6c-9b6a-4876-9220-5c19b299b1aa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -114,6 +117,9 @@
     <ClInclude Include="CMouse.h">
       <Filter>01. Obj\04. Mouse</Filter>
     </ClInclude>
+    <ClInclude Include="CItem.h">
+      <Filter>01. Obj\05. Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefaultWindow.cpp">
@@ -157,6 +163,9 @@
     </ClCompile>
     <ClCompile Include="CMouse.cpp">
       <Filter>01. Obj\04. Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="CItem.cpp">
+      <Filter>01. Obj\05. Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

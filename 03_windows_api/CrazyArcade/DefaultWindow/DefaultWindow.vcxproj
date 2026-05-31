@@ -140,6 +140,7 @@
     <ClInclude Include="CBmpMgr.h" />
     <ClInclude Include="CBomb.h" />
     <ClInclude Include="CCollisionMgr.h" />
+    <ClInclude Include="CItem.h" />
     <ClInclude Include="CKeyMgr.h" />
     <ClInclude Include="CMainGame.h" />
     <ClInclude Include="CMouse.h" />
@@ -160,6 +161,7 @@
     <ClCompile Include="CBmpMgr.cpp" />
     <ClCompile Include="CBomb.cpp" />
     <ClCompile Include="CCollisionMgr.cpp" />
+    <ClCompile Include="CItem.cpp" />
     <ClCompile Include="CKeyMgr.cpp" />
     <ClCompile Include="CMainGame.cpp" />
     <ClCompile Include="CMouse.cpp" />

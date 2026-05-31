@@ -6,7 +6,8 @@
 #include "CCollisionMgr.h"
 #include "CKeyMgr.h"
 #include "CBmpMgr.h"
-CPlayer::CPlayer() :m_iBombRange(2), m_iBombMax(2), m_tMoveState(MOVE_DOWN), m_bBubble(false)
+#include "CBlock.h"
+CPlayer::CPlayer() :m_iBombRange(2), m_iBombMax(2), m_tMoveState(MOVE_DOWN), m_bBubble(false), m_fBlockMoveTime(0.f), m_ePrevKey(DIR_END),m_eCurKey(DIR_END)
 {
 }
 
@@ -27,11 +28,11 @@ int CPlayer::Update()
 {
 	if (m_bDead == DEAD)
 		return DEAD;
-
+	m_ePrevKey = m_eCurKey;
 	if (m_bBubble == true)
 	{
 		m_tRenderInfo = { 0, 4, 1000,0,0 };
-		m_fSpeed = 0.1f;
+		m_fSpeed = 0.5f;
 	}
 	else
 	{
@@ -79,6 +80,7 @@ int CPlayer::Update()
 	}
 	else
 	{
+		m_fBlockMoveTime = 0;
 		m_iFrame = 0;
 	}
 	return NONEVENT;
@@ -107,11 +109,11 @@ void CPlayer::Render(HDC hDC)
 	{
 		hMemDC = CBmpMgr::GetInstance()->FindImage(L"Player");
 	}
-	//Rectangle(hDC,
-	//	m_tRect.left,
-	//	m_tRect.top,
-	//	m_tRect.right,
-	//	m_tRect.bottom);
+	Rectangle(hDC,
+		m_tRect.left,
+		m_tRect.top,
+		m_tRect.right,
+		m_tRect.bottom);
 	GdiTransparentBlt(hDC,
 		m_tRect.left - 15.f,
 		m_tRect.top - 30.f,
@@ -123,13 +125,17 @@ void CPlayer::Render(HDC hDC)
 		70,//(int)m_tInfo.fCX
 		70,//(int)m_tInfo.fCY
 		RGB(0, 255, 0));
-	TCHAR	szBuff[32] = L"";
-	swprintf_s(szBuff, L"PlayerX : %.0f", m_tInfo.fX);
-	TextOut(hDC, 50, 50, szBuff, lstrlen(szBuff));
+	//TCHAR	szBuff[32] = L"";
+	//swprintf_s(szBuff, L"PlayerX : %.0f", m_tInfo.fX);
+	//TextOut(hDC, 50, 50, szBuff, lstrlen(szBuff));
+	//
+	//TCHAR	szBuff2[32] = L"";
+	//swprintf_s(szBuff2, L"PlayerY : %.0f", m_tInfo.fY);
+	//TextOut(hDC, 50, 75, szBuff2, lstrlen(szBuff2));
 
-	TCHAR	szBuff2[32] = L"";
-	swprintf_s(szBuff2, L"PlayerY : %.0f", m_tInfo.fY);
-	TextOut(hDC, 50, 75, szBuff2, lstrlen(szBuff2));
+	//TCHAR	szBuff2[32] = L"";
+	//swprintf_s(szBuff2, L"m_fBlockMoveTime : %.0f", m_fBlockMoveTime);
+	//TextOut(hDC, 50, 75, szBuff2, lstrlen(szBuff2));
 }
 
 void CPlayer::Release()
@@ -144,24 +150,36 @@ bool CPlayer::KeyDown()
 		bReturn = true;
 		m_tMoveState = MOVE_LEFT;
 		m_tInfo.fX -= m_fSpeed;
+		m_eCurKey = DIR_LEFT;
+		if (m_ePrevKey != m_eCurKey) m_fBlockMoveTime = 0.f;
+		CheckPushBlock(DIR_LEFT);
 	}
 	else if (CKeyMgr::GetInstance()->KeyPressing(VK_UP))
 	{
 		bReturn = true;
 		m_tMoveState = MOVE_UP;
 		m_tInfo.fY -= m_fSpeed;
+		m_eCurKey = DIR_UP;
+		if (m_ePrevKey != m_eCurKey) m_fBlockMoveTime = 0.f;
+		CheckPushBlock(DIR_UP);
 	}
 	else if (CKeyMgr::GetInstance()->KeyPressing(VK_RIGHT))
 	{
 		bReturn = true;
 		m_tMoveState = MOVE_RIGHT;
 		m_tInfo.fX += m_fSpeed;
+		m_eCurKey = DIR_RIGHT;
+		if (m_ePrevKey != m_eCurKey) m_fBlockMoveTime = 0.f;
+		CheckPushBlock(DIR_RIGHT);
 	}
 	else if (CKeyMgr::GetInstance()->KeyPressing(VK_DOWN))
 	{
 		bReturn = true;
 		m_tMoveState = MOVE_DOWN;
 		m_tInfo.fY += m_fSpeed;
+		m_eCurKey = DIR_DOWN;
+		if (m_ePrevKey != m_eCurKey) m_fBlockMoveTime = 0.f;
+		CheckPushBlock(DIR_DOWN);
 	}
 
 	if (m_bBubble == false && CKeyMgr::GetInstance()->KeyDown(VK_SPACE))
@@ -187,6 +205,46 @@ CObj* CPlayer::CreateBomb()
 	pBomb->AdjustPos(m_tInfo.fX, m_tInfo.fY);
 	dynamic_cast<CBomb*>(pBomb)->SetBombRange(m_iBombRange);
 	return pBomb;
+}
+
+void CPlayer::CheckPushBlock(DIRECTION eDIR)
+{
+	float fCheckX = m_tInfo.fX;
+	float fCheckY = m_tInfo.fY;
+	switch (eDIR)
+	{
+	case DIR_LEFT:
+		fCheckX -= 40.f;
+		break;
+	case DIR_UP:
+		fCheckY -= 40.f;
+		break;
+	case DIR_RIGHT:
+		fCheckX += 40.f;
+		break;
+	case DIR_DOWN:
+		fCheckY += 40.f;
+		break;
+	}
+
+	for (auto& pBlock : CObjMgr::GetInstance()->GetList(OBJ_BLOCK))
+	{
+		CBlock* pTempBlock = dynamic_cast<CBlock*>(pBlock);
+		if (pTempBlock && pTempBlock->GetBT() != BT_PUSH)
+			return;
+		if (fabsf(fCheckX - pBlock->GetInfo().fX) <= 20.f
+			&& fabsf(fCheckY - pBlock->GetInfo().fY) <= 20.f)
+		{
+			m_fBlockMoveTime += 1.f;
+
+			if (m_fBlockMoveTime >= 20.f)
+			{
+				m_fBlockMoveTime = 0;
+				dynamic_cast<CBlock*>(pBlock)->SetMove(eDIR);
+			}
+		}
+	}
+	
 }
 
 

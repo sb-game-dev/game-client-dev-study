@@ -10,19 +10,24 @@ public:
     ~CPlayer();
 
 public:
-    void Initialize() override;
-    int Update() override;
-    void LateUpdate() override;
-    void Render(HDC hDC) override;
-    void Release() override;
-    void Update_Rect() ;
+    void    Initialize()        override;
+    int     Update()            override;
+    void    LateUpdate()        override;
+    void    Render(HDC hDC)     override;
+    void    Release()           override;
+    void    Update_Rect() ;
 
 public:
-    void SetBubble() { m_bBubble = true; }
+    void    SetBubble() { m_bBubble = true; }
+
+    void    UpBomb()    { m_iBombMax += 1; }
+    void    UpSpeed()   { m_fSpeed += 1; }
+    void    UpPower()   { m_iBombRange += 1; }
 
 private:
-    bool KeyDown();
-    CObj* CreateBomb();
+    bool    KeyDown();
+    CObj*   CreateBomb();
+    void    CheckPushBlock(DIRECTION eDIR);
 
 private:
     int         m_iBombRange;
@@ -30,5 +35,9 @@ private:
 
     bool        m_bBubble;
     MOVE_STATE  m_tMoveState;
+
+    float       m_fBlockMoveTime;
+    DIRECTION   m_ePrevKey;
+    DIRECTION   m_eCurKey;
 };
 

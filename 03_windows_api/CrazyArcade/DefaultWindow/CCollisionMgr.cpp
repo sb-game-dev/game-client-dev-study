@@ -3,7 +3,9 @@
 #include "CBomb.h"
 #include "CObjMgr.h"
 #include "CPlayer.h"
-void CCollisionMgr::CollisionRect(list<CObj*>& DstList, list<CObj*>& SrcList)
+#include "CBlock.h"
+#include "CItem.h"
+void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 {
 	RECT rc;
 	for (auto& Dst : DstList)
@@ -12,16 +14,40 @@ void CCollisionMgr::CollisionRect(list<CObj*>& DstList, list<CObj*>& SrcList)
 		{
 			if (IntersectRect(&rc, Dst->GetRect(), Src->GetRect()))
 			{
-				CBomb* pTempBomb = dynamic_cast<CBomb*>(Dst);
-				CPlayer* pTempPlayer = dynamic_cast<CPlayer*>(Dst);
-				if (pTempBomb)
+				CBomb* pDstBomb = dynamic_cast<CBomb*>(Dst);
+				CPlayer* pDstPlayer = dynamic_cast<CPlayer*>(Dst);
+				CPlayer* pSrcPlayer = dynamic_cast<CPlayer*>(Src);
+				CItem* pDstItem = dynamic_cast<CItem*>(Dst);
+
+				if (pDstBomb)
 				{
-					CObjMgr::GetInstance()->AddObject(OBJ_WATER, pTempBomb->CreateWater());
+					CObjMgr::GetInstance()->AddObject(OBJ_WATER, pDstBomb->CreateWater());
 					Dst->SetDead();
 				}
-				else if (pTempPlayer)
+				else if (pDstPlayer)
 				{
-					pTempPlayer->SetBubble();
+					pDstPlayer->SetBubble();
+				}
+				else if (pDstItem && pSrcPlayer)
+				{
+					switch (pDstItem->GetType())
+					{
+					case IT_BOMB_UP:
+						pSrcPlayer->UpBomb();
+						break;
+					case IT_POWER_UP:
+						pSrcPlayer->UpPower();
+						break;
+					case IT_SPEED_UP:
+						pSrcPlayer->UpSpeed();
+						break;
+					case IT_NEEDLE:
+						break;
+
+					default:
+						break;
+					}
+					Dst->SetDead();
 				}
 				else
 				{
@@ -31,7 +57,7 @@ void CCollisionMgr::CollisionRect(list<CObj*>& DstList, list<CObj*>& SrcList)
 		}
 	}
 }
-void CCollisionMgr::CollisionRectEX(list<CObj*>& DstList, list<CObj*>& SrcList)
+void CCollisionMgr::CollisionBody(list<CObj*>& DstList, list<CObj*>& SrcList)
 {
 	float fDeltaSizeX = 0.f, fDeltaSizeY = 0.f;
 
@@ -39,10 +65,13 @@ void CCollisionMgr::CollisionRectEX(list<CObj*>& DstList, list<CObj*>& SrcList)
 	{
 		for (auto& SrcObj : SrcList)
 		{
+			if (DstObj == SrcObj)
+				continue;
 			CBomb* pTempBomb = dynamic_cast<CBomb*>(DstObj);
+			
 			if (pTempBomb && pTempBomb->GetPlayerCollision() == true)
 				return;
-
+			
 			if (CheckRect(DstObj, SrcObj, fDeltaSizeX, fDeltaSizeY))
 			{
 				// ╩С го

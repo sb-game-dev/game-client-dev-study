@@ -1,5 +1,6 @@
 #pragma once
 #include "CObj.h"
+#include "CBlock.h"
 template<typename T>
 class CAbstractFactory
 {
@@ -30,6 +31,17 @@ public:
 		pObj->Initialize();
 		pObj->SetPos(fX, fY);
 		pObj->SetDir(eDir);
+		return pObj;
+	}
+
+	static CObj* Create(float fX, float fY, BLOCK_TYPE eBT)
+	{
+		CObj* pObj = new T;
+
+		pObj->Initialize();
+		pObj->SetPos(fX, fY);
+		dynamic_cast<CBlock*> (pObj)->SetType(eBT);
+		//pObj->SetDir(eDir);
 		return pObj;
 	}
 };
