@@ -123,6 +123,13 @@ void CPlayer::Render(HDC hDC)
 		70,//(int)m_tInfo.fCX
 		70,//(int)m_tInfo.fCY
 		RGB(0, 255, 0));
+	TCHAR	szBuff[32] = L"";
+	swprintf_s(szBuff, L"PlayerX : %.0f", m_tInfo.fX);
+	TextOut(hDC, 50, 50, szBuff, lstrlen(szBuff));
+
+	TCHAR	szBuff2[32] = L"";
+	swprintf_s(szBuff2, L"PlayerY : %.0f", m_tInfo.fY);
+	TextOut(hDC, 50, 75, szBuff2, lstrlen(szBuff2));
 }
 
 void CPlayer::Release()
@@ -157,7 +164,7 @@ bool CPlayer::KeyDown()
 		m_tInfo.fY += m_fSpeed;
 	}
 
-	if (CKeyMgr::GetInstance()->KeyDown(VK_SPACE))
+	if (m_bBubble == false && CKeyMgr::GetInstance()->KeyDown(VK_SPACE))
 	{
 		if (CObjMgr::GetInstance()->GetList(OBJ_BOMB).size() < m_iBombMax)
 		{

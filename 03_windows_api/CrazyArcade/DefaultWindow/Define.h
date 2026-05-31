@@ -3,6 +3,10 @@
 #define WINCX	800
 #define WINCY	600
 //게임 칸의 크기는 가로 600, 세로 520
+// 가로(X) -> 35 ~ 600
+// 세로(Y) -> 75 ~ 550
+// 
+//
 #define PI		3.141592f
 
 #define PURE	= 0

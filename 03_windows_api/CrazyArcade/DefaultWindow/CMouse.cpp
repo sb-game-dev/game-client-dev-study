@@ -36,9 +36,7 @@ void CMouse::LateUpdate()
 
 void CMouse::Render(HDC hDC)
 {
-	TCHAR	szBuff[32] = L"";
-	swprintf_s(szBuff, L"MouseX : %.0f \n MouseY : %.0f", m_tInfo.fX,m_tInfo.fY);
-	TextOut(hDC, 50, 50, szBuff, lstrlen(szBuff));
+	
 }
 
 void CMouse::Release()
