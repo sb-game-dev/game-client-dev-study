@@ -7,7 +7,9 @@
 #include "CKeyMgr.h"
 #include "CBmpMgr.h"
 #include "CBlock.h"
-CPlayer::CPlayer() :m_iBombRange(2), m_iBombMax(2), m_tMoveState(MOVE_DOWN), m_bBubble(false), m_fBlockMoveTime(0.f), m_ePrevKey(DIR_END),m_eCurKey(DIR_END)
+CPlayer::CPlayer() :m_iBombRange(2), m_iBombMax(2), m_bBubble(false),
+m_fBlockMoveTime(0.f), m_ePreMoveState(MOVE_END), m_eCurMoveState(MOVE_END),
+m_fWalkSpeed(3.f),m_fBubbleSpeed(0.3f)
 {
 }
 
@@ -20,15 +22,15 @@ void CPlayer::Initialize()
 {
 	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Player/playermove.bmp", L"Player");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Player/playerbubble.bmp", L"PlayerBubble");
-	m_tInfo = { (WINCX >> 1),(WINCY >> 1),40.f,40.f };
-	m_fSpeed = 3.f;
+	m_tInfo = { (WINCX >> 1),(WINCY >> 1),35.f,35.f };
+	m_fSpeed = m_fWalkSpeed;
 }
 
 int CPlayer::Update()
 {
 	if (m_bDead == DEAD)
 		return DEAD;
-	m_ePrevKey = m_eCurKey;
+	m_ePreMoveState = m_eCurMoveState;
 	if (m_bBubble == true)
 	{
 		m_tRenderInfo = { 0, 4, 1000,0,0 };
@@ -41,7 +43,7 @@ int CPlayer::Update()
 
 	if (KeyDown() && m_bBubble == false)
 	{
-		switch (m_tMoveState)
+		switch (m_eCurMoveState)
 		{
 		case CPlayer::MOVE_UP:
 			m_tRenderInfo = { 0, 4, 100,0,0 };
@@ -67,7 +69,7 @@ int CPlayer::Update()
 			m_iFrame = (m_iFrame + 1) % m_tRenderInfo.iFrameEnd;
 		}
 	}
-	else if(m_bBubble == true)
+	else if (m_bBubble == true)
 	{
 		if (m_dwAniTime + m_tRenderInfo.dwFrameSpeed <= GetTickCount())
 		{
@@ -115,12 +117,12 @@ void CPlayer::Render(HDC hDC)
 		m_tRect.right,
 		m_tRect.bottom);
 	GdiTransparentBlt(hDC,
-		m_tRect.left - 15.f,
-		m_tRect.top - 30.f,
+		m_tRect.left - (PlayerImgX - m_tInfo.fCX) * 0.5f,
+		m_tRect.top - (PlayerImgY - m_tInfo.fCY),
 		70,//(int)m_tInfo.fCX
 		70,//(int)m_tInfo.fCY
 		hMemDC,
-		m_tRenderInfo.iRectStartX + 70 * m_iFrame ,
+		m_tRenderInfo.iRectStartX + 70 * m_iFrame,
 		m_tRenderInfo.iRectStartY,
 		70,//(int)m_tInfo.fCX
 		70,//(int)m_tInfo.fCY
@@ -133,10 +135,11 @@ void CPlayer::Render(HDC hDC)
 	//swprintf_s(szBuff2, L"PlayerY : %.0f", m_tInfo.fY);
 	//TextOut(hDC, 50, 75, szBuff2, lstrlen(szBuff2));
 
-	//TCHAR	szBuff2[32] = L"";
-	//swprintf_s(szBuff2, L"m_fBlockMoveTime : %.0f", m_fBlockMoveTime);
-	//TextOut(hDC, 50, 75, szBuff2, lstrlen(szBuff2));
+	TCHAR	szBuff2[32] = L"";
+	swprintf_s(szBuff2, L"m_fBlockMoveTime : %.0f", m_fBlockMoveTime);
+	TextOut(hDC, 50, 75, szBuff2, lstrlen(szBuff2));
 }
+
 
 void CPlayer::Release()
 {
@@ -144,44 +147,37 @@ void CPlayer::Release()
 
 bool CPlayer::KeyDown()
 {
+	m_ePreMoveState = m_eCurMoveState;
 	bool bReturn = false;
 	if (CKeyMgr::GetInstance()->KeyPressing(VK_LEFT))
 	{
 		bReturn = true;
-		m_tMoveState = MOVE_LEFT;
+		m_eCurMoveState = MOVE_LEFT;
 		m_tInfo.fX -= m_fSpeed;
-		m_eCurKey = DIR_LEFT;
-		if (m_ePrevKey != m_eCurKey) m_fBlockMoveTime = 0.f;
 		CheckPushBlock(DIR_LEFT);
 	}
 	else if (CKeyMgr::GetInstance()->KeyPressing(VK_UP))
 	{
 		bReturn = true;
-		m_tMoveState = MOVE_UP;
+		m_eCurMoveState = MOVE_UP;
 		m_tInfo.fY -= m_fSpeed;
-		m_eCurKey = DIR_UP;
-		if (m_ePrevKey != m_eCurKey) m_fBlockMoveTime = 0.f;
 		CheckPushBlock(DIR_UP);
 	}
 	else if (CKeyMgr::GetInstance()->KeyPressing(VK_RIGHT))
 	{
 		bReturn = true;
-		m_tMoveState = MOVE_RIGHT;
+		m_eCurMoveState = MOVE_RIGHT;
 		m_tInfo.fX += m_fSpeed;
-		m_eCurKey = DIR_RIGHT;
-		if (m_ePrevKey != m_eCurKey) m_fBlockMoveTime = 0.f;
 		CheckPushBlock(DIR_RIGHT);
 	}
 	else if (CKeyMgr::GetInstance()->KeyPressing(VK_DOWN))
 	{
 		bReturn = true;
-		m_tMoveState = MOVE_DOWN;
-		m_tInfo.fY += m_fSpeed;
-		m_eCurKey = DIR_DOWN;
-		if (m_ePrevKey != m_eCurKey) m_fBlockMoveTime = 0.f;
+		m_eCurMoveState = MOVE_DOWN;
+		m_tInfo.fY += m_fSpeed;		
 		CheckPushBlock(DIR_DOWN);
 	}
-
+	if (m_ePreMoveState != m_eCurMoveState) m_fBlockMoveTime = 0.f;
 	if (m_bBubble == false && CKeyMgr::GetInstance()->KeyDown(VK_SPACE))
 	{
 		if (CObjMgr::GetInstance()->GetList(OBJ_BOMB).size() < m_iBombMax)
@@ -230,21 +226,22 @@ void CPlayer::CheckPushBlock(DIRECTION eDIR)
 	for (auto& pBlock : CObjMgr::GetInstance()->GetList(OBJ_BLOCK))
 	{
 		CBlock* pTempBlock = dynamic_cast<CBlock*>(pBlock);
-		if (pTempBlock && pTempBlock->GetBT() != BT_PUSH)
-			return;
-		if (fabsf(fCheckX - pBlock->GetInfo().fX) <= 20.f
-			&& fabsf(fCheckY - pBlock->GetInfo().fY) <= 20.f)
-		{
-			m_fBlockMoveTime += 1.f;
 
-			if (m_fBlockMoveTime >= 20.f)
+		if (!lstrcmp(pTempBlock->GetFrameKey(),L"Push"))
+		{
+			if (fabsf(fCheckX - pBlock->GetInfo().fX) <= 15.f
+				&& fabsf(fCheckY - pBlock->GetInfo().fY) <= 15.f)
 			{
-				m_fBlockMoveTime = 0;
-				dynamic_cast<CBlock*>(pBlock)->SetMove(eDIR);
+				m_fBlockMoveTime += 1.f;
+
+				if (m_fBlockMoveTime >= 20.f)
+				{
+					m_fBlockMoveTime = 0;
+					dynamic_cast<CBlock*>(pBlock)->SetMove(eDIR);
+				}
 			}
 		}
+		
 	}
 	
 }
-
-

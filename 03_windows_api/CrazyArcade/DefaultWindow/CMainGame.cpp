@@ -6,7 +6,8 @@
 #include "CBmpMgr.h"
 #include "CBlock.h"
 #include "CMouse.h"
-
+#include "CScene.h"
+#include "CSceneMgr.h"
 CMainGame::CMainGame() :m_iFPS(0), m_dwTime(GetTickCount())
 {
 }
@@ -19,47 +20,22 @@ CMainGame::~CMainGame()
 void CMainGame::Initialize()
 {
 	m_hDC = GetDC(g_hWnd);
-	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create());
-	CObjMgr::GetInstance()->AddObject(OBJ_MOUSE, CAbstractFactory<CMouse>::Create());
-	//CObjMgr::GetInstance()->AddObject(OBJ_BLOCK, CAbstractFactory<CBlock>::Create(300.f, 200.f));
 	
-	for (int i = 0; i < 15; i++)
-	{
-		for (int j = 0; j < 12; ++j)
-		{
-			if (rand() % 10 < 1)
-				CObjMgr::GetInstance()->AddObject(OBJ_BLOCK, CAbstractFactory<CBlock>::Create(float(i * 40 + 20), float(j * 40 + 60), BT_PUSH));
-		}
-	}
-	for (int i = 0; i < 15; i++)
-	{
-		for (int j = 0; j < 12; ++j)
-		{
-			if (rand() % 10 < 1)
-				CObjMgr::GetInstance()->AddObject(OBJ_BLOCK, CAbstractFactory<CBlock>::Create(float(i * 40 + 20), float(j * 40 + 60), BT_BREAK));
-		}
-	}
-	for (int i = 0; i < 15; i++)
-	{
-		for (int j = 0; j < 12; ++j)
-		{
-			if (rand() % 10 < 1)
-				CObjMgr::GetInstance()->AddObject(OBJ_BLOCK, CAbstractFactory<CBlock>::Create(float(i * 40 + 20), float(j * 40 + 60), BT_WALL));
-		}
-	}
 	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/BackBuffer.bmp", L"Back");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Stage1.bmp", L"Ground");
+
+	CSceneMgr::GetInstance()->SceneChange(SC_LOGO);
+	
 }
 
 void CMainGame::Update()
 {
 	CKeyMgr::GetInstance()->KeyUpdate();
-	CObjMgr::GetInstance()->Update();
+	CSceneMgr::GetInstance()->Update();
 }
 
 void CMainGame::LateUpdate()
 {
-	CObjMgr::GetInstance()->LateUpdate();
+	CSceneMgr::GetInstance()->LateUpdate();
 }
 
 void CMainGame::Render()
@@ -77,16 +53,35 @@ void CMainGame::Render()
 		m_iFPS = 0;
 	}
 	HDC hBack = CBmpMgr::GetInstance()->FindImage(L"Back");
-	HDC	hGround = CBmpMgr::GetInstance()->FindImage(L"Ground");
-	BitBlt(hBack, 0, 0, WINCX, WINCY, hGround, 0, 0, SRCCOPY);
-	CObjMgr::GetInstance()->Render(hBack);
+
+	CSceneMgr::GetInstance()->Render(hBack);
+
+	//POINT		ptMouse;
+	//GetCursorPos(&ptMouse);
+	//ScreenToClient(g_hWnd, &ptMouse);
+	//TCHAR	szBuff[32] = L"";
+	//swprintf_s(szBuff, L"MouseX : %ld", ptMouse.x);
+	//TextOut(hBack, 50, 50, szBuff, lstrlen(szBuff));
+	//
+	//swprintf_s(szBuff, L"MouseX : %ld", ptMouse.y);
+	//TextOut(hBack, 50, 75, szBuff, lstrlen(szBuff));
+	
 	BitBlt(m_hDC, 0, 0, WINCX, WINCY, hBack, 0, 0, SRCCOPY);
 }
 
 void CMainGame::Release()
 {
 	ReleaseDC(g_hWnd, m_hDC);
-	CObjMgr::GetInstance()->DestroyInstance();
-	CKeyMgr::GetInstance()->DestroyInstance();
-	CBmpMgr::GetInstance()->DestroyInstance();
+
+
+	//CObjMgr::GetInstance()->DestroyInstance();
+	//CKeyMgr::GetInstance()->DestroyInstance();
+	//CSceneMgr::GetInstance()->DestroyInstance();
+	//CBmpMgr::GetInstance()->DestroyInstance();
+
+
+	CSceneMgr::DestroyInstance();
+	CBmpMgr::DestroyInstance();
+	CKeyMgr::DestroyInstance();
+	CObjMgr::DestroyInstance();
 }

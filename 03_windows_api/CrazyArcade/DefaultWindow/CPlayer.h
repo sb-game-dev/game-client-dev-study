@@ -1,5 +1,6 @@
 #pragma once
 #include "CObj.h"
+class CBlock;
 class CPlayer :
     public CObj
 {
@@ -21,20 +22,26 @@ public:
     void    SetBubble() { m_bBubble = true; }
 
     void    UpBomb()    { m_iBombMax += 1; }
-    void    UpSpeed()   { m_fSpeed += 1; }
+    void    UpSpeed()   { m_fWalkSpeed += 1; }
     void    UpPower()   { m_iBombRange += 1; }
 
 private:
     bool    KeyDown();
     CObj*   CreateBomb();
     void    CheckPushBlock(DIRECTION eDIR);
-
+    void    MotionChange();
 private:
     int         m_iBombRange;
     int         m_iBombMax;
 
+    float       m_fWalkSpeed;
+    float       m_fBubbleSpeed;
+
     bool        m_bBubble;
-    MOVE_STATE  m_tMoveState;
+    MOVE_STATE  m_ePreMoveState;
+    MOVE_STATE  m_eCurMoveState;
+
+
 
     float       m_fBlockMoveTime;
     DIRECTION   m_ePrevKey;

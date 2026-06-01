@@ -73,6 +73,12 @@
     <Filter Include="01. Scene\03. Stage">
       <UniqueIdentifier>{68f77e89-6b40-44a5-809f-2616c17a2417}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Design\05. SceneMgr">
+      <UniqueIdentifier>{832e64b6-4e2c-4da7-a99f-1bf3edc83b2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Obj\06. Button">
+      <UniqueIdentifier>{ea8503b0-7334-4fd4-897d-e5662a2c7d23}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -135,6 +141,24 @@
     <ClInclude Include="CItem.h">
       <Filter>02. Obj\05. Item</Filter>
     </ClInclude>
+    <ClInclude Include="CScene.h">
+      <Filter>01. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="CLogo.h">
+      <Filter>01. Scene\00. Logo</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneMgr.h">
+      <Filter>03. Design\05. SceneMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CButton.h">
+      <Filter>02. Obj\06. Button</Filter>
+    </ClInclude>
+    <ClInclude Include="CStage.h">
+      <Filter>01. Scene\03. Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="CEdit.h">
+      <Filter>01. Scene\02. Edit</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefaultWindow.cpp">
@@ -181,6 +205,24 @@
     </ClCompile>
     <ClCompile Include="CItem.cpp">
       <Filter>02. Obj\05. Item</Filter>
+    </ClCompile>
+    <ClCompile Include="CScene.cpp">
+      <Filter>01. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CLogo.cpp">
+      <Filter>01. Scene\00. Logo</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneMgr.cpp">
+      <Filter>03. Design\05. SceneMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CButton.cpp">
+      <Filter>02. Obj\06. Button</Filter>
+    </ClCompile>
+    <ClCompile Include="CStage.cpp">
+      <Filter>01. Scene\03. Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="CEdit.cpp">
+      <Filter>01. Scene\02. Edit</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

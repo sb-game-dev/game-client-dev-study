@@ -17,7 +17,9 @@ public:
 	void Release();
 
 public:
-	list<CObj*> GetList(OBJID eID) { return m_ObjList[eID]; }
+	list<CObj*>& GetList(OBJID eID) { return m_ObjList[eID]; }
+
+	void DeleteObj(OBJID eID);
 public:
 	static CObjMgr* GetInstance()
 	{

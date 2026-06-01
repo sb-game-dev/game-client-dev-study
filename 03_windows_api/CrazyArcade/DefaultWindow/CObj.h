@@ -24,20 +24,29 @@ public:
 	void SetDead() { m_bDead = DEAD; }
 	void SetPosX(float fNum) { m_tInfo.fX += fNum; }
 	void SetPosY(float fNum) { m_tInfo.fY += fNum; }
+	void SetFrameKey(const TCHAR* pFrameKey) { m_pFrameKey = pFrameKey; }
 
+	const TCHAR* GetFrameKey() { return m_pFrameKey; }
 
 	void Update_Rect();
-
+	void MoveFrame();
 protected:
 	INFO		m_tInfo;
 	RECT		m_tRect;
 	DIRECTION	m_eDirection;
 	RENDERINFO	m_tRenderInfo;
 
+	//
 	DWORD		m_dwAniTime;
 	int         m_iFrame;
+	//
+
+	FRAME		m_tFrame;
+
 
 	float		m_fSpeed;
 	bool		m_bDead;
+
+	const TCHAR* m_pFrameKey;
 };
 

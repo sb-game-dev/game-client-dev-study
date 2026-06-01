@@ -8,8 +8,11 @@
 // 
 //
 #define PI		3.141592f
-
+#define	INF		123456789
 #define PURE	= 0
+
+#define PlayerImgX 70.f
+#define PlayerImgY 70.f
 
 #define NONEVENT 0
 #define DEAD 1
@@ -17,10 +20,12 @@
 extern HWND g_hWnd;
 
 enum DIRECTION { DIR_LEFT, DIR_UP, DIR_RIGHT, DIR_DOWN, DIR_LEFTEND, DIR_UPEND, DIR_RIGHTEND, DIR_DOWNEND, DIR_END };
-enum OBJID { OBJ_BOMB, OBJ_WATER, OBJ_MONSTER, OBJ_BLOCK, OBJ_PLAYER, OBJ_MOUSE, OBJ_ITEM, OBJ_END };
+enum OBJID { OBJ_BOMB, OBJ_WATER, OBJ_MONSTER, OBJ_BLOCK, OBJ_PLAYER, OBJ_MOUSE, OBJ_ITEM, OBJ_UI, OBJ_END };
 enum STATE { ST_READY, ST_EXPLODE_READY, ST_EXPLODE_ING, ST_END };
-enum BLOCK_TYPE { BT_PUSH, BT_BREAK, BT_WALL, BT_END };
+
 enum ITEM_TYPE { IT_BOMB_UP, IT_POWER_UP, IT_SPEED_UP, IT_NEEDLE, IT_END };
+enum SCENEID { SC_LOGO, SC_MENU, SC_EDIT, SC_STAGE, SC_END };
+
 
 typedef struct tagInfo
 {
@@ -28,7 +33,14 @@ typedef struct tagInfo
 	float fCX, fCY;
 
 }INFO;
-
+typedef struct tagFrame
+{
+	int		iStart;
+	int		iEnd;
+	int		iMotion;
+	DWORD	dwSpeed;
+	DWORD	dwTime;
+}FRAME;
 typedef struct tagRenderInfo
 {
 	int iFrameStart, iFrameEnd, dwFrameSpeed;

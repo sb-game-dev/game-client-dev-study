@@ -53,7 +53,7 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 				}
 				else if(pDstBlock)
 				{
-					if(pDstBlock->GetBT() != BT_WALL)
+					if(lstrcmp(pDstBlock->GetFrameKey(),L"Wall"))
 						Dst->SetDead();
 				}
 				else

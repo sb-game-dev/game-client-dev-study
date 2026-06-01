@@ -43,11 +43,17 @@ void CObjMgr::LateUpdate()
 {
 	for (int i = 0; i < OBJ_END; ++i)
 	{
+		
 		for (auto& Obj : m_ObjList[i])
-			Obj->LateUpdate(); 
+		{
+			Obj->LateUpdate();
+			if (m_ObjList[i].empty())
+				return;
+		}
 	}
 	CCollisionMgr::CollisionBody(m_ObjList[OBJ_BLOCK], m_ObjList[OBJ_PLAYER]);
 	CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_PLAYER]);
+	CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_BLOCK]);
 
 
 	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_ITEM], m_ObjList[OBJ_PLAYER]);
@@ -55,7 +61,7 @@ void CObjMgr::LateUpdate()
 	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BLOCK], m_ObjList[OBJ_WATER]);
 	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_WATER]);
 	//CCollisionMgr::CollisionAttack(m_ObjList[OBJ_ITEM], m_ObjList[OBJ_WATER]);
-	//CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_WATER]);
+	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_WATER]);
 
 	for (int i = 0; i < OBJ_END; ++i)
 	{
@@ -84,4 +90,11 @@ void CObjMgr::Release()
 			Safe_Delete(Obj);
 		m_ObjList[i].clear();
 	}
+}
+
+void CObjMgr::DeleteObj(OBJID eID)
+{
+	for (auto& pObj : m_ObjList[eID])
+		Safe_Delete(pObj);
+	m_ObjList[eID].clear();
 }

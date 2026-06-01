@@ -5,7 +5,7 @@ class CBmpMgr
 private:
 	CBmpMgr();
 	CBmpMgr(const CBmpMgr& rhs) = delete;
-	CBmpMgr& operator = (CBmpMgr& rCLineMgr) = delete;
+	CBmpMgr& operator = (CBmpMgr& rCBmpMgr) = delete;
 	~CBmpMgr();
 public:
 	void	InsertBmp(const TCHAR* pFilePath, const TCHAR* pImgKey);

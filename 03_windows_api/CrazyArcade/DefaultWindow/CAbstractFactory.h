@@ -34,14 +34,13 @@ public:
 		return pObj;
 	}
 
-	static CObj* Create(float fX, float fY, BLOCK_TYPE eBT)
+	static CObj* Create(float fX, float fY, const TCHAR* pFrameKey)
 	{
 		CObj* pObj = new T;
 
 		pObj->Initialize();
 		pObj->SetPos(fX, fY);
-		dynamic_cast<CBlock*> (pObj)->SetType(eBT);
-		//pObj->SetDir(eDir);
+		pObj->SetFrameKey(pFrameKey);
 		return pObj;
 	}
 };

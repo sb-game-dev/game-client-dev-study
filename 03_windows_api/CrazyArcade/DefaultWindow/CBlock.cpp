@@ -4,7 +4,7 @@
 #include "CObjMgr.h"
 #include "CAbstractFactory.h"
 #include "CItem.h"
-CBlock::CBlock():m_bMove(false), m_fDstX(0.f), m_fDstY(0.f), m_eBT(BT_END)
+CBlock::CBlock():m_bMove(false), m_fDstX(0.f), m_fDstY(0.f)
 {
 }
 
@@ -43,18 +43,9 @@ void CBlock::Render(HDC hDC)
 {
 	HDC hMemDC = nullptr;
 
-	switch (m_eBT)
-	{
-	case BT_PUSH:
-		hMemDC = CBmpMgr::GetInstance()->FindImage(L"Push");
-		break;
-	case BT_BREAK:
-		hMemDC = CBmpMgr::GetInstance()->FindImage(L"Break");
-		break;
-	case BT_WALL:
-		hMemDC = CBmpMgr::GetInstance()->FindImage(L"Wall");
-		break;
-	}
+	
+	hMemDC = CBmpMgr::GetInstance()->FindImage(m_pFrameKey);
+	
 	BitBlt(hDC,							// 格利瘤 DC
 		m_tRect.left,					// 格利瘤 LEFT,RIGHT
 		m_tRect.top-7,
