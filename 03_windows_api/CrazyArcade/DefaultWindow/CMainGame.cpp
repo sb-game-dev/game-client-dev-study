@@ -36,7 +36,15 @@ void CMainGame::Initialize()
 		for (int j = 0; j < 12; ++j)
 		{
 			if (rand() % 10 < 1)
-				CObjMgr::GetInstance()->AddObject(OBJ_BLOCK, CAbstractFactory<CBlock>::Create(float(i * 40 + 20), float(j * 40 + 60),BT_BREAK));
+				CObjMgr::GetInstance()->AddObject(OBJ_BLOCK, CAbstractFactory<CBlock>::Create(float(i * 40 + 20), float(j * 40 + 60), BT_BREAK));
+		}
+	}
+	for (int i = 0; i < 15; i++)
+	{
+		for (int j = 0; j < 12; ++j)
+		{
+			if (rand() % 10 < 1)
+				CObjMgr::GetInstance()->AddObject(OBJ_BLOCK, CAbstractFactory<CBlock>::Create(float(i * 40 + 20), float(j * 40 + 60), BT_WALL));
 		}
 	}
 	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/BackBuffer.bmp", L"Back");

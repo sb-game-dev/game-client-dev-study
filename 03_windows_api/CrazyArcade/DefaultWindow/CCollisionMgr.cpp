@@ -15,9 +15,11 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 			if (IntersectRect(&rc, Dst->GetRect(), Src->GetRect()))
 			{
 				CBomb* pDstBomb = dynamic_cast<CBomb*>(Dst);
+				CBomb* pSrcBomb = dynamic_cast<CBomb*>(Src);
 				CPlayer* pDstPlayer = dynamic_cast<CPlayer*>(Dst);
 				CPlayer* pSrcPlayer = dynamic_cast<CPlayer*>(Src);
 				CItem* pDstItem = dynamic_cast<CItem*>(Dst);
+				CBlock* pDstBlock = dynamic_cast<CBlock*>(Dst);
 
 				if (pDstBomb)
 				{
@@ -48,6 +50,11 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 						break;
 					}
 					Dst->SetDead();
+				}
+				else if(pDstBlock)
+				{
+					if(pDstBlock->GetBT() != BT_WALL)
+						Dst->SetDead();
 				}
 				else
 				{
