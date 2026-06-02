@@ -25,6 +25,7 @@ public:
 	void SetPosX(float fNum) { m_tInfo.fX += fNum; }
 	void SetPosY(float fNum) { m_tInfo.fY += fNum; }
 	void SetFrameKey(const TCHAR* pFrameKey) { m_pFrameKey = pFrameKey; }
+	void SetSize(float fCX, float fCY) {m_tInfo.fCX = fCX; m_tInfo.fCY = fCY;}
 
 	const TCHAR* GetFrameKey() { return m_pFrameKey; }
 
