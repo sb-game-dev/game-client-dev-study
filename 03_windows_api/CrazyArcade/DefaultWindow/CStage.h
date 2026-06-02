@@ -21,5 +21,8 @@ public:
 
     void Release() override;
 
+private:
+    int m_iWallCnt;
+
 };
 

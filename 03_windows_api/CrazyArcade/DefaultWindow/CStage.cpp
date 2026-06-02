@@ -8,6 +8,7 @@
 #include "time.h"
 void CStage::Initialize()
 {
+	m_iWallCnt = 0;
 	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create());
 	//srand(unsigned((time)));
 	for (int i = 14; i >= 0; --i)
@@ -16,6 +17,7 @@ void CStage::Initialize()
 		{
 			if (rand() % 10 < 2)
 			{
+				m_iWallCnt++;
 				int iRandNum = rand() % 3;
 				switch (iRandNum)
 				{
@@ -53,6 +55,9 @@ void CStage::Render(HDC hDC)
 {
 	HDC	hGround = CBmpMgr::GetInstance()->FindImage(L"Ground");
 	BitBlt(hDC, 0, 0, WINCX, WINCY, hGround, 0, 0, SRCCOPY);
+	//TCHAR	szBuff[32] = L"";
+	//swprintf_s(szBuff, L"Bullet : %d", m_iWallCnt);
+	//TextOut(hDC, 50, 50, szBuff, lstrlen(szBuff));
 	CObjMgr::GetInstance()->Render(hDC);
 }
 

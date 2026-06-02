@@ -9,7 +9,7 @@
 #include "CBlock.h"
 CPlayer::CPlayer() :m_iBombRange(2), m_iBombMax(2), m_bBubble(false),
 m_fBlockMoveTime(0.f), m_ePreMoveState(MOVE_END), m_eCurMoveState(MOVE_END),
-m_fWalkSpeed(3.f),m_fBubbleSpeed(0.3f)
+m_fWalkSpeed(3.f), m_fBubbleSpeed(0.3f)
 {
 }
 
@@ -38,7 +38,7 @@ int CPlayer::Update()
 	}
 	else
 	{
-		m_fSpeed = 3.f;
+		m_fSpeed = m_fWalkSpeed;
 	}
 
 	if (KeyDown() && m_bBubble == false)
@@ -90,14 +90,14 @@ int CPlayer::Update()
 
 void CPlayer::LateUpdate()
 {
-	
+
 }
 void CPlayer::Update_Rect()
 {
-	m_tRect.left	= LONG(m_tInfo.fX - (m_tInfo.fCX / 2.f));
-	m_tRect.top		= LONG(m_tInfo.fY - 5.f);					//(m_tInfo.fCY / 2.f)
-	m_tRect.right	= LONG(m_tInfo.fX + (m_tInfo.fCX / 2.f));
-	m_tRect.bottom	= LONG(m_tInfo.fY + 35.f);					//(m_tInfo.fCY / 2.f)
+	m_tRect.left = LONG(m_tInfo.fX - (m_tInfo.fCX / 2.f));
+	m_tRect.top = LONG(m_tInfo.fY - 5.f);					//(m_tInfo.fCY / 2.f)
+	m_tRect.right = LONG(m_tInfo.fX + (m_tInfo.fCX / 2.f));
+	m_tRect.bottom = LONG(m_tInfo.fY + 35.f);					//(m_tInfo.fCY / 2.f)
 
 }
 void CPlayer::Render(HDC hDC)
@@ -135,9 +135,9 @@ void CPlayer::Render(HDC hDC)
 	//swprintf_s(szBuff2, L"PlayerY : %.0f", m_tInfo.fY);
 	//TextOut(hDC, 50, 75, szBuff2, lstrlen(szBuff2));
 
-	TCHAR	szBuff2[32] = L"";
-	swprintf_s(szBuff2, L"m_fBlockMoveTime : %.0f", m_fBlockMoveTime);
-	TextOut(hDC, 50, 75, szBuff2, lstrlen(szBuff2));
+	//TCHAR	szBuff2[32] = L"";
+	//swprintf_s(szBuff2, L"m_fBlockMoveTime : %.0f", m_fBlockMoveTime);
+	//TextOut(hDC, 50, 75, szBuff2, lstrlen(szBuff2));
 }
 
 
@@ -174,7 +174,7 @@ bool CPlayer::KeyDown()
 	{
 		bReturn = true;
 		m_eCurMoveState = MOVE_DOWN;
-		m_tInfo.fY += m_fSpeed;		
+		m_tInfo.fY += m_fSpeed;
 		CheckPushBlock(DIR_DOWN);
 	}
 	if (m_ePreMoveState != m_eCurMoveState) m_fBlockMoveTime = 0.f;
@@ -227,7 +227,7 @@ void CPlayer::CheckPushBlock(DIRECTION eDIR)
 	{
 		CBlock* pTempBlock = dynamic_cast<CBlock*>(pBlock);
 
-		if (!lstrcmp(pTempBlock->GetFrameKey(),L"Push"))
+		if (!lstrcmp(pTempBlock->GetFrameKey(), L"Push"))
 		{
 			if (fabsf(fCheckX - pBlock->GetInfo().fX) <= 15.f
 				&& fabsf(fCheckY - pBlock->GetInfo().fY) <= 15.f)
@@ -241,7 +241,7 @@ void CPlayer::CheckPushBlock(DIRECTION eDIR)
 				}
 			}
 		}
-		
+
 	}
-	
+
 }

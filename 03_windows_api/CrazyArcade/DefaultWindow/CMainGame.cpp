@@ -20,8 +20,10 @@ CMainGame::~CMainGame()
 void CMainGame::Initialize()
 {
 	m_hDC = GetDC(g_hWnd);
-	
+
+	//CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Player/Playermove_Up.bmp", L"Back");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/BackBuffer.bmp", L"Back");
+	
 
 	CSceneMgr::GetInstance()->SceneChange(SC_LOGO);
 	
