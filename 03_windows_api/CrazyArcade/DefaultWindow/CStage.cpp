@@ -11,9 +11,9 @@ void CStage::Initialize()
 	m_iWallCnt = 0;
 	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create());
 	//srand(unsigned((time)));
-	for (int i = 14; i >= 0; --i)
+	for (int i = 0; i < 15; ++i)
 	{
-		for (int j = 11; j >= 0; --j)
+		for (int j = 0; j < 12; ++j)
 		{
 			if (rand() % 10 < 2)
 			{

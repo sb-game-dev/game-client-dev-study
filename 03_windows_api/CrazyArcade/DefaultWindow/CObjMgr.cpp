@@ -61,7 +61,7 @@ void CObjMgr::LateUpdate()
 	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BLOCK], m_ObjList[OBJ_WATER]);
 	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_WATER]);
 	//CCollisionMgr::CollisionAttack(m_ObjList[OBJ_ITEM], m_ObjList[OBJ_WATER]);
-	//CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_WATER]);
+	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_WATER]);
 
 	for (int i = 0; i < OBJ_END; ++i)
 	{
