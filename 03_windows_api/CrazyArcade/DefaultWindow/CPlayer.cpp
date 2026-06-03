@@ -20,7 +20,10 @@ CPlayer::~CPlayer()
 
 void CPlayer::Initialize()
 {
+	// 32비트(알파값 추가)		-> Playermove_Up
+	// 24비트					-> playermove
 	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Player/playermove.bmp", L"Player");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Player/playermove.bmp", L"Alpha");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Player/playerbubble.bmp", L"PlayerBubble");
 	m_tInfo = { (WINCX >> 1),(WINCY >> 1),35.f,35.f };
 	m_fSpeed = m_fWalkSpeed;
@@ -102,31 +105,68 @@ void CPlayer::Update_Rect()
 }
 void CPlayer::Render(HDC hDC)
 {
-	HDC hMemDC = nullptr;
+	HDC hAlphaDC = CBmpMgr::GetInstance()->FindImage(L"Alpha");
+		
+	HDC hPlayerDC = nullptr;
 	if (m_bBubble == true)
 	{
-		hMemDC = CBmpMgr::GetInstance()->FindImage(L"PlayerBubble");
+		hPlayerDC = CBmpMgr::GetInstance()->FindImage(L"PlayerBubble");
 	}
 	else
 	{
-		hMemDC = CBmpMgr::GetInstance()->FindImage(L"Player");
+		hPlayerDC = CBmpMgr::GetInstance()->FindImage(L"Player");
 	}
 	Rectangle(hDC,
 		m_tRect.left,
 		m_tRect.top,
 		m_tRect.right,
 		m_tRect.bottom);
-	GdiTransparentBlt(hDC,
+
+	// 알파 DC에 배경 그리기
+	BitBlt(hAlphaDC,							    // 목적지 DC
+		0,0,
+		PlayerImgX,//(int)m_tInfo.fCX
+		PlayerImgY,//(int)m_tInfo.fCY
+		hDC,							// 원본 DC
 		m_tRect.left - (PlayerImgX - m_tInfo.fCX) * 0.5f,
 		m_tRect.top - (PlayerImgY - m_tInfo.fCY),
-		70,//(int)m_tInfo.fCX
-		70,//(int)m_tInfo.fCY
-		hMemDC,
+		SRCCOPY);						// 그대로 복사하여 출력
+
+	// 알파 DC에 플레이어 그리기
+	GdiTransparentBlt(hAlphaDC,
+		0,0,
+		PlayerImgX,//(int)m_tInfo.fCX
+		PlayerImgY,//(int)m_tInfo.fCY
+		hPlayerDC,
 		m_tRenderInfo.iRectStartX + 70 * m_iFrame,
 		m_tRenderInfo.iRectStartY,
 		70,//(int)m_tInfo.fCX
 		70,//(int)m_tInfo.fCY
 		RGB(0, 255, 0));
+
+	
+
+	
+	// 알파 블랜딩
+
+	BLENDFUNCTION bf = {};
+	bf.BlendOp = AC_SRC_OVER;
+	bf.BlendFlags = 0;
+	bf.AlphaFormat = 0;
+	bf.SourceConstantAlpha = 127;
+	
+	AlphaBlend(hDC,
+		m_tRect.left - (PlayerImgX - m_tInfo.fCX) * 0.5f,
+		m_tRect.top - (PlayerImgY - m_tInfo.fCY),
+		PlayerImgX,
+		PlayerImgY, 
+		hAlphaDC,
+		0,0,
+		PlayerImgX,
+		PlayerImgY,
+		bf);
+
+
 	//TCHAR	szBuff[32] = L"";
 	//swprintf_s(szBuff, L"PlayerX : %.0f", m_tInfo.fX);
 	//TextOut(hDC, 50, 50, szBuff, lstrlen(szBuff));

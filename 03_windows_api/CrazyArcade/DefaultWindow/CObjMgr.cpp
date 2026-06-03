@@ -75,7 +75,9 @@ void CObjMgr::Render(HDC hDC)
 	for (int i = 0; i < OBJ_END; ++i)
 	{
 		for (auto& Obj : m_ObjList[i])
+		{
 			Obj->Render(hDC);
+		}
 	}
 	//TCHAR szBombCount[32] = L"";
 	//wsprintf(szBombCount, L"Bomb: %d", m_ObjList[OBJ_BOMB].size());
