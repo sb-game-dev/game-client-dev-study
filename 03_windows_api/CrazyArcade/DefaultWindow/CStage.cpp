@@ -15,38 +15,6 @@ void CStage::Initialize()
 
 	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create());
 	
-	//CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Block/block_v2.bmp", L"Push");
-	//CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Block/block_v1.bmp", L"Break");
-	//CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Block/Wall_f1.bmp", L"Wall");
-	//CObjMgr::GetInstance()->AddObject(OBJ_BLOCK, CAbstractFactory<CBlock>::Create(float(600), float(550), L"Push"));
-
-	//srand(unsigned((time)));
-	//for (int i = 0; i < 15; ++i)
-	//{
-	//	for (int j = 0; j < 13; ++j)
-	//	{
-	//		if (1)//rand() % 10 < 2)
-	//		{
-	//			m_iWallCnt++;
-	//			int iRandNum = rand() % 3;
-	//			switch (iRandNum)
-	//			{
-	//			case 0:
-	//				CObjMgr::GetInstance()->AddObject(OBJ_BLOCK, CAbstractFactory<CBlock>::Create(float(i * 40 + 35), float(j * 40 + 60), L"Push"));
-	//				break;
-	//			case 1:
-	//				CObjMgr::GetInstance()->AddObject(OBJ_BLOCK, CAbstractFactory<CBlock>::Create(float(i * 40 + 35), float(j * 40 + 60), L"Break"));
-	//				break;
-	//			case 2:
-	//				CObjMgr::GetInstance()->AddObject(OBJ_BLOCK, CAbstractFactory<CBlock>::Create(float(i * 40 + 35), float(j * 40 + 60), L"Wall"));
-	//				break;
-	//			default:
-	//				break;
-	//			}
-	//			
-	//		}
-	//	}
-	//}
 	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Stage1.bmp", L"Ground");
 }
 
@@ -64,10 +32,16 @@ void CStage::LateUpdate()
 
 
 	//CCollisionMgr::CollisionBody(m_ObjList[OBJ_BLOCK], m_ObjList[OBJ_PLAYER]);
-
-
+	CCollisionMgr::CollisionBody(CObjMgr::GetInstance()->GetList(OBJ_BOMB), CObjMgr::GetInstance()->GetList(OBJ_PLAYER));
+	CCollisionMgr::CollisionBody(CObjMgr::GetInstance()->GetList(OBJ_BOMB), CObjMgr::GetInstance()->GetList(OBJ_BLOCK));
 	CCollisionMgr::CollisionBody(CTileMgr::GetInstance()->GetTile(), CObjMgr::GetInstance()->GetList(OBJ_PLAYER));
 
+
+	CCollisionMgr::CollisionAttack(CObjMgr::GetInstance()->GetList(OBJ_ITEM), CObjMgr::GetInstance()->GetList(OBJ_PLAYER));
+	CCollisionMgr::CollisionAttack(CObjMgr::GetInstance()->GetList(OBJ_BOMB), CObjMgr::GetInstance()->GetList(OBJ_WATER));
+	CCollisionMgr::CollisionAttack(CObjMgr::GetInstance()->GetList(OBJ_PLAYER), CObjMgr::GetInstance()->GetList(OBJ_WATER));
+	CCollisionMgr::CollisionAttack(CTileMgr::GetInstance()->GetTile(), CObjMgr::GetInstance()->GetList(OBJ_WATER));
+	//CCollisionMgr::CollisionAttack(m_ObjList[OBJ_ITEM], m_ObjList[OBJ_WATER]);
 
 	CObjMgr::GetInstance()->LateUpdate();
 }

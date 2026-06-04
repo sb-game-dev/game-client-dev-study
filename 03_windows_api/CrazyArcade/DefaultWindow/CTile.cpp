@@ -2,8 +2,9 @@
 #include "CTile.h"
 #include "CBmpMgr.h"
 #include "CKeyMgr.h"
+#include "CTileMgr.h"
 
-CTile::CTile():m_eDrawID(TILE_NORMAL),m_iOption(0)
+CTile::CTile():m_eDrawID(TILE_NORMAL),m_iOption(0), m_fDstX(0.f),m_fDstY(0.f),m_bMove(false)
 {
 }
 
@@ -72,7 +73,11 @@ void CTile::Initialize()
 
 int CTile::Update()
 {
-	return 0;
+	if (m_bDead == DEAD)
+		return DEAD;
+	if (m_bMove == true)
+		Move();
+	return NONEVENT;
 }
 
 void CTile::LateUpdate()
@@ -116,4 +121,50 @@ void CTile::Render(HDC hDC)
 void CTile::Release()
 {
 
+}
+
+
+void CTile::SetMove(DIRECTION eDIR)
+{
+	m_bMove = true;
+	m_eDirection = eDIR;
+	m_fDstX = m_tInfo.fX;
+	m_fDstY = m_tInfo.fY;
+
+	switch (m_eDirection)
+	{
+	case DIR_LEFT:
+		m_fDstX -= 40.f;
+		break;
+	case DIR_UP:
+		m_fDstY -= 40.f;
+		break;
+	case DIR_RIGHT:
+		m_fDstX += 40.f;
+		break;
+	case DIR_DOWN:
+		m_fDstY += 40.f;
+		break;
+	}
+}
+
+void CTile::Move()
+{
+	//뒤에 블록이 있으면 return + m_bMove = false; 설정하는 코드
+	for (auto& pTile : CTileMgr::GetInstance()->GetTile())
+	{
+		if (pTile == this) continue;
+		if (fabsf(m_fDstX - pTile->GetInfo()->fX) <= 20.f
+			&& fabsf(m_fDstY - pTile->GetInfo()->fY) <= 20.f)
+		{
+			m_bMove = false;
+			return;
+		}
+	}
+
+	if (m_tInfo.fX < m_fDstX) m_tInfo.fX += 2.0f;
+	else if (m_tInfo.fX > m_fDstX) m_tInfo.fX -= 2.0f;
+	else if (m_tInfo.fY < m_fDstY) m_tInfo.fY += 2.0f;
+	else if (m_tInfo.fY > m_fDstY)m_tInfo.fY -= 2.0f;
+	else m_bMove = false;
 }

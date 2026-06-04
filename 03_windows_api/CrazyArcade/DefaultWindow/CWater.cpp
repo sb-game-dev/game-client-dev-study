@@ -3,6 +3,7 @@
 #include "CObjMgr.h"
 #include "CAbstractFactory.h"
 #include "CBmpMgr.h"
+#include "CTileMgr.h"
 CWater::CWater():m_dwTime(GetTickCount())
 {
 }
@@ -123,7 +124,7 @@ void CWater::Spread(int iBombRange)
 
 		CObjMgr::GetInstance()->AddObject(OBJ_WATER, pWater);
 		if (i + 1 > iBombRange) break;
-		for (auto& pBlock : CObjMgr::GetInstance()->GetList(OBJ_BLOCK))
+		for (auto& pBlock : CTileMgr::GetInstance()->GetTile())
 		{
 			if (fabsf(pWater->GetInfo()->fX  - pBlock->GetInfo()->fX) <= 10.f &&
 				fabsf(pWater->GetInfo()->fY - pBlock->GetInfo()->fY) <= 10.f)
@@ -147,7 +148,7 @@ void CWater::Spread(int iBombRange)
 
 		CObjMgr::GetInstance()->AddObject(OBJ_WATER, pWater);
 		if (i + 1 > iBombRange) break;
-		for (auto& pBlock : CObjMgr::GetInstance()->GetList(OBJ_BLOCK))
+		for (auto& pBlock : CTileMgr::GetInstance()->GetTile())
 		{
 			if (fabsf(pWater->GetInfo()->fX - pBlock->GetInfo()->fX) <= 10.f &&
 				fabsf(pWater->GetInfo()->fY - pBlock->GetInfo()->fY) <= 10.f)
@@ -170,7 +171,7 @@ void CWater::Spread(int iBombRange)
 
 		CObjMgr::GetInstance()->AddObject(OBJ_WATER, pWater);
 		if (i + 1 > iBombRange) break;
-		for (auto& pBlock : CObjMgr::GetInstance()->GetList(OBJ_BLOCK))
+		for (auto& pBlock : CTileMgr::GetInstance()->GetTile())
 		{
 			if (fabsf(pWater->GetInfo()->fX - pBlock->GetInfo()->fX) <= 10.f &&
 				fabsf(pWater->GetInfo()->fY - pBlock->GetInfo()->fY) <= 10.f)
@@ -192,7 +193,7 @@ void CWater::Spread(int iBombRange)
 			pWater = CAbstractFactory<CWater>::Create(m_tInfo.fX , m_tInfo.fY + m_tInfo.fCY * i, DIR_DOWN);
 		CObjMgr::GetInstance()->AddObject(OBJ_WATER, pWater);
 		if (i + 1 > iBombRange) break;
-		for (auto& pBlock : CObjMgr::GetInstance()->GetList(OBJ_BLOCK))
+		for (auto& pBlock : CTileMgr::GetInstance()->GetTile())
 		{
 			if (fabsf(pWater->GetInfo()->fX - pBlock->GetInfo()->fX) <= 10.f &&
 				fabsf(pWater->GetInfo()->fY - pBlock->GetInfo()->fY) <= 10.f)

@@ -5,6 +5,7 @@
 #include "CPlayer.h"
 #include "CBlock.h"
 #include "CItem.h"
+#include "CTile.h"
 void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 {
 	RECT rc;
@@ -54,6 +55,30 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 				else if(pDstBlock)
 				{
 					if(lstrcmp(pDstBlock->GetFrameKey(),L"Wall"))
+						Dst->SetDead();
+				}
+				else
+				{
+					Dst->SetDead();
+				}
+			}
+		}
+	}
+}
+void CCollisionMgr::CollisionAttack(vector<CObj*> DstList, list<CObj*>& SrcList)
+{
+	RECT rc;
+	for (auto& Dst : DstList)
+	{
+		for (auto& Src : SrcList)
+		{
+			if (IntersectRect(&rc, Dst->GetRect(), Src->GetRect()))
+			{
+				CTile* pDstTile = dynamic_cast<CTile*>(Dst);
+
+				if (pDstTile)
+				{
+					if (pDstTile->GetDrawID() != TILE_WALL)
 						Dst->SetDead();
 				}
 				else

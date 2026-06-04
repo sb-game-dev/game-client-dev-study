@@ -46,6 +46,7 @@ typedef struct tagInfo
 	float fCX, fCY;
 
 }INFO;
+
 typedef struct tagFrame
 {
 	int		iStart;

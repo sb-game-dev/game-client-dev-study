@@ -26,5 +26,18 @@ public:
 private:
     TILEID      m_eDrawID;
     int         m_iOption;
+
+
+public:
+    void        SetMove(DIRECTION eDIR);
+    void        Move();
+
+
+private:
+    void        CreateItem();
+private:
+    bool        m_bMove;
+    float       m_fDstX;
+    float       m_fDstY;
 };
 

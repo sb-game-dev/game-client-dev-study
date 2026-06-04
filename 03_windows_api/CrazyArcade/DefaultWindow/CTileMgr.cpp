@@ -37,8 +37,19 @@ void CTileMgr::Initialize()
 
 int CTileMgr::Update()
 {
-	for (auto& pTile : m_vecTile)
-		pTile->Update();
+	for (auto iter = m_vecTile.begin();iter!=m_vecTile.end(); )
+	{
+		int iResult = (*iter)->Update();
+		if (iResult == DEAD)
+		{
+			Safe_Delete((*iter));
+			iter = m_vecTile.erase(iter);
+		}
+		else
+		{
+			++iter;
+		}
+	}
 	return NONEVENT;
 }
 

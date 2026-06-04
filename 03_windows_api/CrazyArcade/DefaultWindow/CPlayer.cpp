@@ -7,6 +7,8 @@
 #include "CKeyMgr.h"
 #include "CBmpMgr.h"
 #include "CBlock.h"
+#include "CTileMgr.h"
+#include "CTile.h"
 CPlayer::CPlayer() :m_iBombRange(2), m_iBombMax(2), m_bBubble(false),
 m_fBlockMoveTime(0.f), m_ePreMoveState(MOVE_END), m_eCurMoveState(MOVE_END),
 m_fWalkSpeed(3.f), m_fBubbleSpeed(0.3f)
@@ -175,9 +177,9 @@ void CPlayer::Render(HDC hDC)
 	//swprintf_s(szBuff2, L"PlayerY : %.0f", m_tInfo.fY);
 	//TextOut(hDC, 50, 75, szBuff2, lstrlen(szBuff2));
 
-	//TCHAR	szBuff2[32] = L"";
-	//swprintf_s(szBuff2, L"m_fBlockMoveTime : %.0f", m_fBlockMoveTime);
-	//TextOut(hDC, 50, 75, szBuff2, lstrlen(szBuff2));
+	TCHAR	szBuff2[32] = L"";
+	swprintf_s(szBuff2, L"m_fBlockMoveTime : %.0f", m_fBlockMoveTime);
+	TextOut(hDC, 50, 75, szBuff2, lstrlen(szBuff2));
 }
 
 
@@ -263,25 +265,23 @@ void CPlayer::CheckPushBlock(DIRECTION eDIR)
 		break;
 	}
 
-	for (auto& pBlock : CObjMgr::GetInstance()->GetList(OBJ_BLOCK))
+	for (auto& pTile : CTileMgr::GetInstance()->GetTile())
 	{
-		CBlock* pTempBlock = dynamic_cast<CBlock*>(pBlock);
-
-		if (!lstrcmp(pTempBlock->GetFrameKey(), L"Push"))
+		CTile* pTempTile = dynamic_cast<CTile*>(pTile);
+		if (pTempTile->GetDrawID() ==  TILE_PUSH)
 		{
-			if (fabsf(fCheckX - pBlock->GetInfo()->fX) <= 15.f
-				&& fabsf(fCheckY - pBlock->GetInfo()->fY) <= 15.f)
+			if (fabsf(fCheckX - pTempTile->GetInfo()->fX) <= 15.f
+				&& fabsf(fCheckY - pTempTile->GetInfo()->fY) <= 15.f)
 			{
 				m_fBlockMoveTime += 1.f;
 
 				if (m_fBlockMoveTime >= 20.f)
 				{
 					m_fBlockMoveTime = 0;
-					dynamic_cast<CBlock*>(pBlock)->SetMove(eDIR);
+					pTempTile->SetMove(eDIR);
 				}
 			}
 		}
-
 	}
 
 }
