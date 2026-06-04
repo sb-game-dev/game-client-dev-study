@@ -4,8 +4,8 @@ class CEdit :
     public CScene
 {
 public:
-    CEdit() {}
-    virtual~CEdit() {}
+    CEdit();
+    virtual~CEdit();
 
 public:
     void Initialize() override;

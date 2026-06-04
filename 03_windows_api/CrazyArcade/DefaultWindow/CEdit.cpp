@@ -1,6 +1,14 @@
 #include "pch.h"
 #include "CEdit.h"
 
+CEdit::CEdit()
+{
+}
+
+CEdit::~CEdit()
+{
+}
+
 void CEdit::Initialize()
 {
 }

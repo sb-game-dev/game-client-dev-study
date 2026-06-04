@@ -17,9 +17,6 @@ void CBlock::Initialize()
 {
 	m_tInfo.fCX = 40.f;
 	m_tInfo.fCY = 40.f;
-	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Block/block_v2.bmp", L"Push");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Block/block_v1.bmp", L"Break");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Block/Wall_f1.bmp", L"Wall");
 }
 
 int CBlock::Update()

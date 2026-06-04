@@ -9,13 +9,17 @@
 void CStage::Initialize()
 {
 	m_iWallCnt = 0;
-	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create());
+	//CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create());
+
+	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Block/block_v2.bmp", L"Push");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Block/block_v1.bmp", L"Break");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Block/Wall_f1.bmp", L"Wall");
 	//srand(unsigned((time)));
 	for (int i = 0; i < 15; ++i)
 	{
 		for (int j = 0; j < 12; ++j)
 		{
-			if (rand() % 10 < 2)
+			if (1)//rand() % 10 < 2)
 			{
 				m_iWallCnt++;
 				int iRandNum = rand() % 3;
