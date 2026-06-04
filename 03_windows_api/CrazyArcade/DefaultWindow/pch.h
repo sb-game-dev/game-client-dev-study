@@ -13,6 +13,7 @@
 #include <list>
 #include <algorithm>
 #include <map>
+#include <vector>
 using namespace std;
 
 #ifdef _DEBUG

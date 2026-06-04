@@ -14,7 +14,7 @@ public:
 	virtual void Release()		PURE;
 
 public:
-	INFO GetInfo() { return m_tInfo; }
+	INFO* GetInfo() { return &m_tInfo; }
 	RECT* GetRect() { return &m_tRect; }
 
 	void AdjustPos(float fX, float fY) { m_tInfo.fX = ((int)fX / 40) * 40.f + 20; m_tInfo.fY = ((int)fY / 40) * 40.f + 20; };

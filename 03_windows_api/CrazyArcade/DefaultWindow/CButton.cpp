@@ -34,7 +34,7 @@ void CButton::LateUpdate()
 		{
 			if (!lstrcmp(L"Start_Button", m_pFrameKey))
 				CSceneMgr::GetInstance()->SceneChange(SC_STAGE);
-			else if (!lstrcmp(L"Exit_Button", m_pFrameKey))
+			else if (!lstrcmp(L"Edit_Button", m_pFrameKey))
 				CSceneMgr::GetInstance()->SceneChange(SC_EDIT);
 			else if (!lstrcmp(L"Exit_Button", m_pFrameKey))
 				DestroyWindow(g_hWnd);

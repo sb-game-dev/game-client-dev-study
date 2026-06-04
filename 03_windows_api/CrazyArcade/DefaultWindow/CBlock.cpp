@@ -92,8 +92,8 @@ void CBlock::Move()
 	for (auto& pBlock : CObjMgr::GetInstance()->GetList(OBJ_BLOCK))
 	{
 		if (pBlock == this) continue;
-		if (fabsf(m_fDstX - pBlock->GetInfo().fX) <= 20.f
-			&& fabsf(m_fDstY - pBlock->GetInfo().fY) <= 20.f)
+		if (fabsf(m_fDstX - pBlock->GetInfo()->fX) <= 20.f
+			&& fabsf(m_fDstY - pBlock->GetInfo()->fY) <= 20.f)
 		{
 			m_bMove = false;
 			return;

@@ -13,6 +13,7 @@ public:
     void LateUpdate() override;
     void Render(HDC hDC) override;
     void Release() override;
-
+public:
+    void KeyInput();
 };
 

@@ -2,17 +2,29 @@
 
 #define WINCX	800
 #define WINCY	600
-//게임 칸의 크기는 가로 600, 세로 520
-// 가로(X) -> 35 ~ 600
-// 세로(Y) -> 75 ~ 550
-// 
-//
+
+//게임 칸의 크기는 가로 605, 세로 530
+//	가로(X) -> 15 ~ 620
+//	세로(Y) -> 40 ~	570
+
+#define TILECX 605
+#define TILECY 530
+
+#define TILE_CNT_X 15
+#define TILE_CNT_Y 13
+
+#define TILE_START_X 20
+#define TILE_START_Y 40
+
 #define PI		3.141592f
 #define	INF		123456789
 #define PURE	= 0
 
 #define PlayerImgX 70.f
 #define PlayerImgY 70.f
+
+#define TILECX 40
+#define TILECY 40
 
 #define NONEVENT 0
 #define DEAD 1
@@ -26,6 +38,7 @@ enum MOTIONSTATE { MOTION_IDLE, MOTION_WALK, MOTION_HIT, MOTION_DEATH, MOTION_EN
 enum ITEM_TYPE { IT_BOMB_UP, IT_POWER_UP, IT_SPEED_UP, IT_NEEDLE, IT_END };
 enum SCENEID { SC_LOGO, SC_MENU, SC_EDIT, SC_STAGE, SC_END };
 
+enum TILEID{ TILE_NORMAL, TILE_MOUSE, TILE_PUSH,TILE_BREAK,TILE_WALL,TILE_END};
 
 typedef struct tagInfo
 {
@@ -60,7 +73,7 @@ void Safe_Delete(T& p)
 struct tagDelete
 {
 	template<typename T>
-	bool operator()(T& p)
+	void operator()(T& p)
 	{
 		if (p)
 		{

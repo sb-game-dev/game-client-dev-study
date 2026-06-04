@@ -224,8 +224,8 @@ bool CPlayer::KeyDown()
 		{
 			for (auto& pBomb : CObjMgr::GetInstance()->GetList(OBJ_BOMB))
 			{
-				if ((((int)m_tInfo.fX / 40) * 40.f + 20) == pBomb->GetInfo().fX &&
-					(((int)m_tInfo.fY / 40) * 40.f + 20) == pBomb->GetInfo().fY)
+				if ((((int)m_tInfo.fX / 40) * 40.f + 20) == pBomb->GetInfo()->fX &&
+					(((int)m_tInfo.fY / 40) * 40.f + 20) == pBomb->GetInfo()->fY)
 					return false;
 			}
 			CObjMgr::GetInstance()->AddObject(OBJ_BOMB, CreateBomb());
@@ -269,8 +269,8 @@ void CPlayer::CheckPushBlock(DIRECTION eDIR)
 
 		if (!lstrcmp(pTempBlock->GetFrameKey(), L"Push"))
 		{
-			if (fabsf(fCheckX - pBlock->GetInfo().fX) <= 15.f
-				&& fabsf(fCheckY - pBlock->GetInfo().fY) <= 15.f)
+			if (fabsf(fCheckX - pBlock->GetInfo()->fX) <= 15.f
+				&& fabsf(fCheckY - pBlock->GetInfo()->fY) <= 15.f)
 			{
 				m_fBlockMoveTime += 1.f;
 

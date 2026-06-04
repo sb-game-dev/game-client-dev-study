@@ -8,6 +8,7 @@
 #include "CMouse.h"
 #include "CScene.h"
 #include "CSceneMgr.h"
+#include "CTileMgr.h"
 CMainGame::CMainGame() :m_iFPS(0), m_dwTime(GetTickCount())
 {
 }
@@ -82,6 +83,7 @@ void CMainGame::Release()
 	//CBmpMgr::GetInstance()->DestroyInstance();
 
 
+	CTileMgr::DestroyInstance();
 	CSceneMgr::DestroyInstance();
 	CBmpMgr::DestroyInstance();
 	CKeyMgr::DestroyInstance();

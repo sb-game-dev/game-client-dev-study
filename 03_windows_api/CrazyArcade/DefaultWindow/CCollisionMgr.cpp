@@ -85,7 +85,7 @@ void CCollisionMgr::CollisionBody(list<CObj*>& DstList, list<CObj*>& SrcList)
 				if (fDeltaSizeX > fDeltaSizeY)
 				{
 					// го
-					if (DstObj->GetInfo().fY < SrcObj->GetInfo().fY)
+					if (DstObj->GetInfo()->fY < SrcObj->GetInfo()->fY)
 					{
 						SrcObj->SetPosY(fDeltaSizeY);
 					}
@@ -99,7 +99,56 @@ void CCollisionMgr::CollisionBody(list<CObj*>& DstList, list<CObj*>& SrcList)
 				else
 				{
 					//©Л
-					if (DstObj->GetInfo().fX < SrcObj->GetInfo().fX)
+					if (DstObj->GetInfo()->fX < SrcObj->GetInfo()->fX)
+					{
+						SrcObj->SetPosX(fDeltaSizeX);
+					}
+					//аб
+					else
+					{
+						SrcObj->SetPosX(-fDeltaSizeX);
+					}
+				}
+			}
+		}
+	}
+}
+void CCollisionMgr::CollisionBody(vector<CObj*> DstList, list<CObj*>& SrcList)
+{
+	float fDeltaSizeX = 0.f, fDeltaSizeY = 0.f;
+
+	for (auto& DstObj : DstList)
+	{
+		for (auto& SrcObj : SrcList)
+		{
+			if (DstObj == SrcObj)
+				continue;
+			CBomb* pTempBomb = dynamic_cast<CBomb*>(DstObj);
+
+			if (pTempBomb && pTempBomb->GetPlayerCollision() == true)
+				return;
+
+			if (CheckRect(DstObj, SrcObj, fDeltaSizeX, fDeltaSizeY))
+			{
+				// ╩С го
+				if (fDeltaSizeX > fDeltaSizeY)
+				{
+					// го
+					if (DstObj->GetInfo()->fY < SrcObj->GetInfo()->fY)
+					{
+						SrcObj->SetPosY(fDeltaSizeY);
+					}
+					// ╩С
+					else
+					{
+						SrcObj->SetPosY(-fDeltaSizeY);
+					}
+				}
+				// аб ©Л
+				else
+				{
+					//©Л
+					if (DstObj->GetInfo()->fX < SrcObj->GetInfo()->fX)
 					{
 						SrcObj->SetPosX(fDeltaSizeX);
 					}
@@ -115,11 +164,11 @@ void CCollisionMgr::CollisionBody(list<CObj*>& DstList, list<CObj*>& SrcList)
 }
 bool CCollisionMgr::CheckRect(CObj* Dst, CObj* Src, float& fDeltaSizeX, float& fDeltaSizeY)
 {
-	float fSizeX = fabsf(Dst->GetInfo().fCX + Src->GetInfo().fCX) * 0.5f;
-	float fSizeY = fabsf(Dst->GetInfo().fCX + Src->GetInfo().fCX) * 0.5f;
+	float fSizeX = fabsf(Dst->GetInfo()->fCX + Src->GetInfo()->fCX) * 0.5f;
+	float fSizeY = fabsf(Dst->GetInfo()->fCX + Src->GetInfo()->fCX) * 0.5f;
 
-	float fDistanceX = fabsf(Dst->GetInfo().fX - Src->GetInfo().fX);
-	float fDistanceY = fabsf(Dst->GetInfo().fY - Src->GetInfo().fY);
+	float fDistanceX = fabsf(Dst->GetInfo()->fX - Src->GetInfo()->fX);
+	float fDistanceY = fabsf(Dst->GetInfo()->fY - Src->GetInfo()->fY);
 
 	if (fDistanceX < fSizeX && fDistanceY < fSizeY)
 	{
@@ -146,10 +195,10 @@ void CCollisionMgr::CollisionCircle(list<CObj*>& DstList, list<CObj*>& SrcList)
 
 bool CCollisionMgr::CheckCircle(CObj* pDst, CObj* pSrc)
 {
-	float fSize = (pDst->GetInfo().fCX + pSrc->GetInfo().fCX) * 0.5f;
+	float fSize = (pDst->GetInfo()->fCX + pSrc->GetInfo()->fCX) * 0.5f;
 
-	float fWidth = (pDst->GetInfo().fX - pSrc->GetInfo().fX);
-	float fHeight = (pDst->GetInfo().fY - pSrc->GetInfo().fY);
+	float fWidth = (pDst->GetInfo()->fX - pSrc->GetInfo()->fX);
+	float fHeight = (pDst->GetInfo()->fY - pSrc->GetInfo()->fY);
 
 	float fDistance = sqrtf(fWidth * fWidth + fHeight * fHeight);
 

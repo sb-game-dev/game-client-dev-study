@@ -125,8 +125,8 @@ void CWater::Spread(int iBombRange)
 		if (i + 1 > iBombRange) break;
 		for (auto& pBlock : CObjMgr::GetInstance()->GetList(OBJ_BLOCK))
 		{
-			if (fabsf(pWater->GetInfo().fX  - pBlock->GetInfo().fX) <= 10.f &&
-				fabsf(pWater->GetInfo().fY - pBlock->GetInfo().fY) <= 10.f)
+			if (fabsf(pWater->GetInfo()->fX  - pBlock->GetInfo()->fX) <= 10.f &&
+				fabsf(pWater->GetInfo()->fY - pBlock->GetInfo()->fY) <= 10.f)
 			{
 				bRunning = false;
 				break;
@@ -149,8 +149,8 @@ void CWater::Spread(int iBombRange)
 		if (i + 1 > iBombRange) break;
 		for (auto& pBlock : CObjMgr::GetInstance()->GetList(OBJ_BLOCK))
 		{
-			if (fabsf(pWater->GetInfo().fX - pBlock->GetInfo().fX) <= 10.f &&
-				fabsf(pWater->GetInfo().fY - pBlock->GetInfo().fY) <= 10.f)
+			if (fabsf(pWater->GetInfo()->fX - pBlock->GetInfo()->fX) <= 10.f &&
+				fabsf(pWater->GetInfo()->fY - pBlock->GetInfo()->fY) <= 10.f)
 			{
 				bRunning = false;
 				break;
@@ -172,8 +172,8 @@ void CWater::Spread(int iBombRange)
 		if (i + 1 > iBombRange) break;
 		for (auto& pBlock : CObjMgr::GetInstance()->GetList(OBJ_BLOCK))
 		{
-			if (fabsf(pWater->GetInfo().fX - pBlock->GetInfo().fX) <= 10.f &&
-				fabsf(pWater->GetInfo().fY - pBlock->GetInfo().fY) <= 10.f)
+			if (fabsf(pWater->GetInfo()->fX - pBlock->GetInfo()->fX) <= 10.f &&
+				fabsf(pWater->GetInfo()->fY - pBlock->GetInfo()->fY) <= 10.f)
 			{
 				bRunning = false;
 				break;
@@ -194,8 +194,8 @@ void CWater::Spread(int iBombRange)
 		if (i + 1 > iBombRange) break;
 		for (auto& pBlock : CObjMgr::GetInstance()->GetList(OBJ_BLOCK))
 		{
-			if (fabsf(pWater->GetInfo().fX - pBlock->GetInfo().fX) <= 10.f &&
-				fabsf(pWater->GetInfo().fY - pBlock->GetInfo().fY) <= 10.f)
+			if (fabsf(pWater->GetInfo()->fX - pBlock->GetInfo()->fX) <= 10.f &&
+				fabsf(pWater->GetInfo()->fY - pBlock->GetInfo()->fY) <= 10.f)
 			{
 				bRunning = false;
 				break;

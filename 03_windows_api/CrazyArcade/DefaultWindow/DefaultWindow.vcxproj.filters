@@ -79,6 +79,12 @@
     <Filter Include="02. Obj\06. Button">
       <UniqueIdentifier>{ea8503b0-7334-4fd4-897d-e5662a2c7d23}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Obj\07. Tile">
+      <UniqueIdentifier>{836706a4-fe92-460c-9493-1887c46ae99f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Design\06. TileMgr">
+      <UniqueIdentifier>{8b4199fb-0348-4f7d-8fe8-7e612bcef0e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -159,6 +165,12 @@
     <ClInclude Include="CEdit.h">
       <Filter>01. Scene\02. Edit</Filter>
     </ClInclude>
+    <ClInclude Include="CTile.h">
+      <Filter>02. Obj\07. Tile</Filter>
+    </ClInclude>
+    <ClInclude Include="CTileMgr.h">
+      <Filter>03. Design\06. TileMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefaultWindow.cpp">
@@ -223,6 +235,12 @@
     </ClCompile>
     <ClCompile Include="CEdit.cpp">
       <Filter>01. Scene\02. Edit</Filter>
+    </ClCompile>
+    <ClCompile Include="CTile.cpp">
+      <Filter>02. Obj\07. Tile</Filter>
+    </ClCompile>
+    <ClCompile Include="CTileMgr.cpp">
+      <Filter>03. Design\06. TileMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
