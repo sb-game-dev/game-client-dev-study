@@ -80,6 +80,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,         // 창이 생성되면�
             if (dwTime + 10 < GetTickCount())
             {
                 MainGame.Update();
+                MainGame.LateUpdate();
                 MainGame.Render();
 
                 dwTime = GetTickCount();

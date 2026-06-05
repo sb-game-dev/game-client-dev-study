@@ -9,8 +9,11 @@
 
 // 여기에 미리 컴파일하려는 헤더 추가
 #include "framework.h"
-
+#pragma comment(lib, "msimg32.lib")
 #include <list>
+#include <algorithm>
+#include <map>
+#include <vector>
 using namespace std;
 
 #ifdef _DEBUG
