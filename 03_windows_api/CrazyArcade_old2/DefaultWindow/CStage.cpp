@@ -14,8 +14,9 @@ void CStage::Initialize()
 	CTileMgr::GetInstance()->LoadStage();
 
 	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create());
-	
-	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Stage1.bmp", L"Ground");
+
+	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/stage_background.bmp", L"BackGround");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/ICEMap.bmp", L"Ground");
 }
 
 int CStage::Update()
@@ -48,8 +49,21 @@ void CStage::LateUpdate()
 
 void CStage::Render(HDC hDC)
 {
+	HDC	hBackGround = CBmpMgr::GetInstance()->FindImage(L"BackGround");
 	HDC	hGround = CBmpMgr::GetInstance()->FindImage(L"Ground");
-	BitBlt(hDC, 0, 0, WINCX, WINCY, hGround, 0, 0, SRCCOPY);
+	//GdiTransparentBlt(hDC,					// 목적지 DC
+	//	0,	// 목적지 LEFT, TOP
+	//	0,
+	//	WINCX,			// 목적지 공간의 가로, 세로 사이즈
+	//	WINCY,
+	//	hBackGround,						// 원본 이미지 DC
+	//	0,							// 원본 이미지 LEFT, TOP
+	//	0,
+	//	WINCX,			// 원본 이미지 가로, 세로 사이즈
+	//	WINCY,
+	//	RGB(255, 0, 255));		// 제거할 픽셀 색상
+	BitBlt(hDC, 0, 0, WINCX, WINCY, hBackGround, 0, 0, SRCCOPY);
+	//BitBlt(hDC, 19, 39, 600, 520, hGround, 0, 0, SRCCOPY);
 	//TCHAR	szBuff[32] = L"";
 	//swprintf_s(szBuff, L"Bullet : %d", m_iWallCnt);
 	//TextOut(hDC, 50, 50, szBuff, lstrlen(szBuff));

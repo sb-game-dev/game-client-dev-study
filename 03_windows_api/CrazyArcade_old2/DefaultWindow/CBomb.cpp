@@ -16,7 +16,7 @@ CBomb::~CBomb()
 
 void CBomb::Initialize()
 {
-	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Bullet/BlueBub.bmp", L"Bomb");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Bullet/BlueBubble.bmp", L"Bomb");
 	m_tInfo.fCX = 40.f;
 	m_tInfo.fCY = 40.f;
 	m_tRenderInfo = { 0, 3, 250,0,0 };
@@ -55,7 +55,7 @@ void CBomb::LateUpdate()
 void CBomb::Render(HDC hDC)
 {
 	HDC hMemDC = CBmpMgr::GetInstance()->FindImage(L"Bomb");
-	GdiTransparentBlt(hDC,
+	TransparentBlt(hDC,
 		m_tRect.left,
 		m_tRect.top,
 		46,//(int)m_tInfo.fCX
@@ -65,7 +65,7 @@ void CBomb::Render(HDC hDC)
 		0,
 		46,//(int)m_tInfo.fCX
 		46,//(int)m_tInfo.fCY
-		RGB(0, 0, 0));
+		RGB(255, 0, 255));
 }
 
 void CBomb::Release()
