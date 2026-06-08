@@ -27,6 +27,17 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,         // 창이 생성되면�
 {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
+
+#pragma region GDI+ Initialize
+    Gdiplus::GdiplusStartupInput gdiplusStartupInput;
+    ULONG_PTR           gdiplusToken;
+
+    // Initialize GDI+.
+    GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
+
+#pragma endregion
+
+
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
@@ -80,6 +91,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,         // 창이 생성되면�
             if (dwTime + 10 < GetTickCount())
             {
                 MainGame.Update();
+                MainGame.LateUpdate();
                 MainGame.Render();
 
                 dwTime = GetTickCount();

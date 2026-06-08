@@ -11,7 +11,15 @@
 #include "framework.h"
 
 #include <list>
+#include <map>
+#include <algorithm>
 using namespace std;
+
+#include <ole2.h>
+#include <objidl.h>
+#include <gdiplus.h>
+using namespace Gdiplus;
+#pragma comment (lib,"Gdiplus.lib")
 
 #ifdef _DEBUG
 

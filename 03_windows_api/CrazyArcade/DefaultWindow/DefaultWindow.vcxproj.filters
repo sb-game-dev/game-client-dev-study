@@ -16,29 +16,41 @@
     <Filter Include="00. MainGame">
       <UniqueIdentifier>{9c24ad04-a2f4-4b96-8f30-60f852bf17e0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Obj">
+    <Filter Include="01. Scene">
+      <UniqueIdentifier>{47e12f3e-653a-490a-9c7e-ad48e94b755b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Obj">
       <UniqueIdentifier>{4f4e7d55-5328-4bcc-8446-8f7b1f6220a3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Obj\00. Player">
+    <Filter Include="02. Obj\00. Player">
       <UniqueIdentifier>{ebfd781e-9046-4d72-b4e6-0652c8a57405}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Design">
+    <Filter Include="03. Design">
       <UniqueIdentifier>{f9bf4f58-134f-49e8-8654-cc6c0bb47df8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Design\00. AbstractFactory">
+    <Filter Include="03. Design\00. AbstractFactory">
       <UniqueIdentifier>{26b52742-b195-45cd-9b8a-c122d82b03f5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Design\01. ObjMgr">
+    <Filter Include="03. Design\01. ObjMgr">
       <UniqueIdentifier>{eb5410cf-e93b-48d3-ae85-634cb4d0bc28}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Design\02. KeyMgr">
+    <Filter Include="03. Design\02. KeyMgr">
       <UniqueIdentifier>{619dd2f4-8191-4402-bdce-3f2145e1269c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Design\03. SceneMgr">
+    <Filter Include="03. Design\03. SceneMgr">
       <UniqueIdentifier>{dce3bcf9-f491-4a30-8e61-ead712f7db54}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Design\04. ImgMgr">
+    <Filter Include="03. Design\04. ImgMgr">
       <UniqueIdentifier>{61201fb2-4a4a-4940-b335-008a4ff9e2c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\00. Logo">
+      <UniqueIdentifier>{f179319e-c8ef-4f73-9b1c-d18f7a9a3052}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\01. Edit">
+      <UniqueIdentifier>{16b4f217-24ff-4cbf-bbf2-b7b596243dfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\02. Stage3">
+      <UniqueIdentifier>{a1ff1725-c2cc-4187-9e4f-b8b8e9c8d086}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -64,10 +76,31 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="CObj.h">
-      <Filter>01. Obj</Filter>
+      <Filter>02. Obj</Filter>
     </ClInclude>
     <ClInclude Include="CPlayer.h">
-      <Filter>01. Obj\00. Player</Filter>
+      <Filter>02. Obj\00. Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CSceneMgr.h">
+      <Filter>03. Design\03. SceneMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CStage3.h">
+      <Filter>01. Scene\02. Stage3</Filter>
+    </ClInclude>
+    <ClInclude Include="CScene.h">
+      <Filter>01. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="CAbstractFactory.h">
+      <Filter>03. Design\00. AbstractFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjMgr.h">
+      <Filter>03. Design\01. ObjMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CKeyMgr.h">
+      <Filter>03. Design\02. KeyMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CImgMgr.h">
+      <Filter>03. Design\04. ImgMgr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -81,10 +114,28 @@
       <Filter>00. MainGame</Filter>
     </ClCompile>
     <ClCompile Include="CObj.cpp">
-      <Filter>01. Obj</Filter>
+      <Filter>02. Obj</Filter>
     </ClCompile>
     <ClCompile Include="CPlayer.cpp">
-      <Filter>01. Obj\00. Player</Filter>
+      <Filter>02. Obj\00. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CSceneMgr.cpp">
+      <Filter>03. Design\03. SceneMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CStage3.cpp">
+      <Filter>01. Scene\02. Stage3</Filter>
+    </ClCompile>
+    <ClCompile Include="CScene.cpp">
+      <Filter>01. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjMgr.cpp">
+      <Filter>03. Design\01. ObjMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CKeyMgr.cpp">
+      <Filter>03. Design\02. KeyMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CImgMgr.cpp">
+      <Filter>03. Design\04. ImgMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

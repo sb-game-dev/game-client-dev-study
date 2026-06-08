@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CPlayer.h"
-
+#include "CKeyMgr.h"
+#include "CImgMgr.h"
 CPlayer::CPlayer()
 {
 }
@@ -12,27 +13,32 @@ CPlayer::~CPlayer()
 
 void CPlayer::Initialize()
 {
-	m_tInfo = { float(WINCX >> 1), float(WINCY >> 1), 100.f, 100.f };
+	CImgMgr::GetInstance()->InsertImg(L"../Resource/Player/player_down.png", L"player_down");
+	CImgMgr::GetInstance()->InsertImg(L"../Resource/Player/player_up.png", L"player_up");
+	CImgMgr::GetInstance()->InsertImg(L"../Resource/Player/player_left.png", L"player_left");
+	CImgMgr::GetInstance()->InsertImg(L"../Resource/Player/player_right.png", L"player_right");
+	m_tInfo = { float(WINCX >> 1), float(WINCY >> 1), 40.f, 40.f };
 	m_fSpeed = 10.f;
 }
 
-void CPlayer::Update()
+int CPlayer::Update()
 {
-	//CObj::Update_Rect();
+	if (m_bDead == DEAD)
+		return DEAD;
 
 	KeyInput();
 
-	__super::Update_Rect();		// 상속 관계에서 최상위 클래스를 지칭하는 지시자
-	
+	return NOEVENT;
 }
 
-void CPlayer::Render(HDC hDC)
+
+void CPlayer::LateUpdate()
 {
-	Rectangle(hDC,
-		m_tRect.left,
-		m_tRect.top,
-		m_tRect.right,
-		m_tRect.bottom);
+}
+
+void CPlayer::Render(Graphics* _pGraphics)
+{
+	
 }
 
 void CPlayer::Release()
@@ -41,16 +47,17 @@ void CPlayer::Release()
 
 void CPlayer::KeyInput()
 {
-	if (GetAsyncKeyState(VK_RIGHT))
+	if (CKeyMgr::GetInstance()->KeyPressing(VK_RIGHT))
 		m_tInfo.fX += m_fSpeed;
 
-	if (GetAsyncKeyState(VK_LEFT))
+	if (CKeyMgr::GetInstance()->KeyPressing(VK_LEFT))
 		m_tInfo.fX -= m_fSpeed;
 
-	if (GetAsyncKeyState(VK_UP))
+	if (CKeyMgr::GetInstance()->KeyPressing(VK_UP))
 		m_tInfo.fY -= m_fSpeed;
 
-	if (GetAsyncKeyState(VK_DOWN))
+	if (CKeyMgr::GetInstance()->KeyPressing(VK_DOWN))
 		m_tInfo.fY += m_fSpeed;
 
 }
+
