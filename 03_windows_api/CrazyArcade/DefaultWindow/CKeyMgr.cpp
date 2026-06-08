@@ -18,12 +18,12 @@ bool CKeyMgr::KeyPressing(int iKey)
 
 bool CKeyMgr::KeyUp(int iKey)
 {
-	return false;
+	return m_bPreState[iKey] && !m_bCurState[iKey];
 }
 
 bool CKeyMgr::KeyDown(int iKey)
 {
-	return false;
+	return !m_bPreState[iKey] && m_bCurState[iKey];
 }
 
 void CKeyMgr::KeyUpdate()

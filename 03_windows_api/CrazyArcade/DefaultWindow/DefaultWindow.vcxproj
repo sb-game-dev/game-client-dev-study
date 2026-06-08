@@ -138,6 +138,7 @@
     <ClInclude Include="CAbstractFactory.h" />
     <ClInclude Include="CImgMgr.h" />
     <ClInclude Include="CKeyMgr.h" />
+    <ClInclude Include="CLogo.h" />
     <ClInclude Include="CMainGame.h" />
     <ClInclude Include="CObj.h" />
     <ClInclude Include="CObjMgr.h" />
@@ -155,6 +156,7 @@
   <ItemGroup>
     <ClCompile Include="CImgMgr.cpp" />
     <ClCompile Include="CKeyMgr.cpp" />
+    <ClCompile Include="CLogo.cpp" />
     <ClCompile Include="CMainGame.cpp" />
     <ClCompile Include="CObj.cpp" />
     <ClCompile Include="CObjMgr.cpp" />

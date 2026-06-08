@@ -23,7 +23,7 @@ void CMainGame::Initialize()
 	m_pGraphics = Graphics::FromHDC(m_memDC);
 
 
-	CSceneMgr::GetInstance()->ChangeScene(SC_STAGE3);
+	CSceneMgr::GetInstance()->ChangeScene(SC_LOGO);
 }
 
 void CMainGame::Update()
@@ -35,6 +35,7 @@ void CMainGame::Update()
 void CMainGame::LateUpdate()
 {
 	CSceneMgr::GetInstance()->LateUpdate();
+	CSceneMgr::GetInstance()->SceneProcess();
 }
 
 void CMainGame::Render()

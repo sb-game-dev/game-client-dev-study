@@ -102,6 +102,9 @@
     <ClInclude Include="CImgMgr.h">
       <Filter>03. Design\04. ImgMgr</Filter>
     </ClInclude>
+    <ClInclude Include="CLogo.h">
+      <Filter>01. Scene\00. Logo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefaultWindow.cpp">
@@ -136,6 +139,9 @@
     </ClCompile>
     <ClCompile Include="CImgMgr.cpp">
       <Filter>03. Design\04. ImgMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CLogo.cpp">
+      <Filter>01. Scene\00. Logo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

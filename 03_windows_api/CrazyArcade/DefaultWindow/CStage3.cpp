@@ -16,7 +16,7 @@ void CStage3::Initialize()
 {
 	CImgMgr::GetInstance()->InsertImg(L"../Resource/BackGround/stage_background.png", L"stage_background");
 	CImgMgr::GetInstance()->InsertImg(L"../Resource/BackGround/iceMap.png", L"iceMap");
-	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create(WINCX * 0.5f, WINCY * 0.5f));
+	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create(WINCX * 0.5f, WINCY * 0.5f, L"player_start"));
 }
 
 int CStage3::Update()

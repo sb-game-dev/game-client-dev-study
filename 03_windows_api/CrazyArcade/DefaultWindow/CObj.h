@@ -16,14 +16,15 @@ public:
 	virtual void Release()						PURE;
 
 public:
-	void		Update_Rect();
-	WCHAR*		GetFrameKey() { return m_pFrameKey; }
+	void				Update_Rect();
+	const WCHAR*		GetFrameKey() { return m_pFrameKey; }
 
-	void		SetPos(float fX, float fY) { m_tInfo.fX = fX; m_tInfo.fY = fY; }
-	void		SetPosX(float fX) { m_tInfo.fX = fX; }
-	void		SetPosY(float fY) { m_tInfo.fY = fY; }
+	void				SetPos(float fX, float fY) { m_tInfo.fX = fX; m_tInfo.fY = fY; }
+	void				SetPosX(float fX) { m_tInfo.fX = fX; }
+	void				SetPosY(float fY) { m_tInfo.fY = fY; }
 
-	void		SetFrameKey(WCHAR* pFrameKey) { m_pFrameKey = pFrameKey; }
+	void				SetFrameKey(const WCHAR* pFrameKey) { m_pFrameKey = pFrameKey; }
+	void				MoveFrame();
 protected:
 	INFO		m_tInfo;		
 	RECT		m_tRect;	
@@ -31,7 +32,7 @@ protected:
 
 	float		m_fSpeed;
 	
-	WCHAR*		m_pFrameKey;
-	FRAME		m_pFrame;
+	const WCHAR*		m_pFrameKey;
+	FRAME		m_tFrame;
 };
 

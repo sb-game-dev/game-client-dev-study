@@ -17,7 +17,7 @@ public:
 		return pObj;
 	}
 
-	static CObj* Create(float fX, float fY, WCHAR* pFrameKey)
+	static CObj* Create(float fX, float fY, const WCHAR* pFrameKey)
 	{
 		CObj* pObj = new T;
 
