@@ -22,6 +22,24 @@
     <Filter Include="01. Obj\00. Player">
       <UniqueIdentifier>{ebfd781e-9046-4d72-b4e6-0652c8a57405}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Design">
+      <UniqueIdentifier>{f9bf4f58-134f-49e8-8654-cc6c0bb47df8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Design\00. AbstractFactory">
+      <UniqueIdentifier>{26b52742-b195-45cd-9b8a-c122d82b03f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Design\01. ObjMgr">
+      <UniqueIdentifier>{eb5410cf-e93b-48d3-ae85-634cb4d0bc28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Design\02. KeyMgr">
+      <UniqueIdentifier>{619dd2f4-8191-4402-bdce-3f2145e1269c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Design\03. SceneMgr">
+      <UniqueIdentifier>{dce3bcf9-f491-4a30-8e61-ead712f7db54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Design\04. ImgMgr">
+      <UniqueIdentifier>{61201fb2-4a4a-4940-b335-008a4ff9e2c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
