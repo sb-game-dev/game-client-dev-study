@@ -1,19 +1,36 @@
 #pragma once
 
-#define WINCX	800
-#define WINCY	600
+#define WINCX		800
+#define WINCY		600
 
-#define PI		3.141592f
+#define PI			3.141592f
 
-#define PURE	= 0
-#define NOEVENT 0
-#define DEAD 1
-#define VK_MAX 0xff
+#define PURE		= 0
+#define NOEVENT		0
+#define DEAD		1
+#define VK_MAX		0xff
+
+#define PLAYER_CX	50
+#define PLAYER_CY	59
+
+#define MAP_LEFT	20
+#define MAP_RIGHT	620
+
+#define MAP_TOP		40
+#define MAP_BOTTOM	560
+
+#define MAP_CX		600
+#define MAP_CY		520
+
+#define TILECX		40
+#define TILECY		56
 extern HWND g_hWnd;
 
+enum TILEID { TILE1, TILE2, PUSH, BREAK, WALL1, WALL2, WALL3, WALL4, WALL5, WALL6, WALL7, TILE_END };
 enum SCENEID { SC_LOGO, SC_EDIT, SC_STAGE1, SC_STAGE2, SC_STAGE3, SC_END };
 enum OBJID { OBJ_PLAYER, OBJ_MONSTER, OBJ_BOMB, OBJ_WAVE, OBJ_MOUSE, OBJ_SHEID, OBJ_BUTTON, OBJ_END };
-enum DIRECTION{DIR_UP,DIR_DOWN,DIR_LEFT,DIR_RIGHT};
+enum DIRECTION { DIR_UP, DIR_DOWN, DIR_LEFT, DIR_RIGHT };
+enum MOTION { START, IDLE, LEFT, RIGHT, UP, DOWN, HIT, DEATH, REVIVAL, MOTION_END };
 
 typedef struct tagFrame
 {

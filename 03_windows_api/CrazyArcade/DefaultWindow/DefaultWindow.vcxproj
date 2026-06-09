@@ -136,6 +136,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CAbstractFactory.h" />
+    <ClInclude Include="CButton.h" />
     <ClInclude Include="CEdit.h" />
     <ClInclude Include="CImgMgr.h" />
     <ClInclude Include="CKeyMgr.h" />
@@ -156,6 +157,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CButton.cpp" />
     <ClCompile Include="CEdit.cpp" />
     <ClCompile Include="CImgMgr.cpp" />
     <ClCompile Include="CKeyMgr.cpp" />

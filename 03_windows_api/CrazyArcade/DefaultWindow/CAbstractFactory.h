@@ -1,5 +1,6 @@
 #pragma once
 #include "CObj.h"
+#include "CTile.h"
 template<typename T>
 class CAbstractFactory
 {
@@ -24,6 +25,16 @@ public:
 		pObj->Initialize();
 		pObj->SetPos(fX, fY);
 		pObj->SetFrameKey(pFrameKey);
+		return pObj;
+	}
+	
+	static CObj* Create(float fX, float fY, TILEID eID)
+	{
+		CObj* pObj = new T;
+
+		pObj->Initialize();
+		pObj->SetPos(fX, fY);
+		pObj->SetStartFrame(eID);
 		return pObj;
 	}
 };

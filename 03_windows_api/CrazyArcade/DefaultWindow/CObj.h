@@ -25,6 +25,9 @@ public:
 
 	void				SetFrameKey(const WCHAR* pFrameKey) { m_pFrameKey = pFrameKey; }
 	void				MoveFrame();
+	void				SetStartFrame(int eID) { m_tFrame.iStart = eID; }
+	FRAME				GetFrame() { return m_tFrame; }
+
 protected:
 	INFO		m_tInfo;		
 	RECT		m_tRect;	

@@ -16,6 +16,12 @@ void CObjMgr::AddObject(OBJID eID, CObj* pObj)
 		return;
 	m_ObjList[eID].push_back(pObj);
 }
+void CObjMgr::AddTile(TILEID eID, CObj* pTile)
+{
+	if (eID >= TILE_END || pTile == nullptr)
+		return;
+	m_ObjList[eID].push_back(pTile);
+}
 void CObjMgr::Initialize() 
 {
 	for (int i=0;i<OBJ_END;++i)
@@ -57,7 +63,6 @@ void CObjMgr::LateUpdate()
 	{
 		for (auto& pObj : m_ObjList[i])
 		{
-			//MessageBox(g_hWnd, _T("Save ¿Ï·á"), L"Success", MB_OKCANCEL);
 			pObj->Update_Rect();
 		}
 	}

@@ -3,9 +3,7 @@
 #include "CObj.h"
 
 class CPlayer : public CObj
-{
-private:
-    enum MOTION { START, IDLE, LEFT, RIGHT, UP, DOWN, HIT, DEATH, REVIVAL, MOTION_END };
+{   
 public:
     CPlayer();
     virtual ~CPlayer();

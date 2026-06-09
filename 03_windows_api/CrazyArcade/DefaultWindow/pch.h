@@ -13,6 +13,7 @@
 #include <list>
 #include <map>
 #include <algorithm>
+#include <vector>
 using namespace std;
 
 #include <ole2.h>

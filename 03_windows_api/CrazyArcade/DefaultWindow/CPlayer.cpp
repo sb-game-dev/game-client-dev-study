@@ -2,8 +2,6 @@
 #include "CPlayer.h"
 #include "CKeyMgr.h"
 #include "CImgMgr.h"
-#define PlayerICX 50
-#define PlayerICY 59
 CPlayer::CPlayer():m_ePreMotion(MOTION_END), m_eCurMotion(START), m_fWalkSpeed(3.f), m_fBubbleSpeed(0.5f), m_dwFrameCount(GetTickCount64())
 {
 }
@@ -34,7 +32,7 @@ void CPlayer::Initialize()
 	m_tFrame.iEnd = 18;
 	m_tFrame.iMotion = 0;
 	m_tFrame.bLoop = false;
-	m_tFrame.iCX = PlayerICX;
+	m_tFrame.iCX = PLAYER_CX;
 	m_tFrame.iCY = 67;
 	m_tFrame.dwSpeed = 50.f;
 	m_tFrame.dwTime = GetTickCount64();
@@ -152,66 +150,66 @@ void CPlayer::ChangeMotion()
 		return;
 	switch (m_eCurMotion)
 	{
-	case CPlayer::IDLE:
+	case IDLE:
 		m_fSpeed = m_fWalkSpeed;
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 1;
 		m_tFrame.iMotion = 0;
 		m_tFrame.bLoop = false;
-		m_tFrame.iCX = PlayerICX;
-		m_tFrame.iCY = PlayerICY;
+		m_tFrame.iCX = PLAYER_CX;
+		m_tFrame.iCY = PLAYER_CY;
 		m_tFrame.dwSpeed = 100.f;
 		m_tFrame.dwTime = GetTickCount64();
 		break;
-	case CPlayer::LEFT:
+	case LEFT:
 		m_fSpeed = m_fWalkSpeed;
 		m_pFrameKey = L"player_left";
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 6;
 		m_tFrame.iMotion = 0;
 		m_tFrame.bLoop = true;
-		m_tFrame.iCX = PlayerICX;
-		m_tFrame.iCY = PlayerICY;
+		m_tFrame.iCX = PLAYER_CX;
+		m_tFrame.iCY = PLAYER_CY;
 		m_tFrame.dwSpeed = 100.f;
 		m_tFrame.dwTime = GetTickCount64();
 		break;
-	case CPlayer::RIGHT:
+	case RIGHT:
 		m_fSpeed = m_fWalkSpeed;
 		m_pFrameKey = L"player_right";
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 6;
 		m_tFrame.iMotion = 0;
 		m_tFrame.bLoop = true;
-		m_tFrame.iCX = PlayerICX;
-		m_tFrame.iCY = PlayerICY;
+		m_tFrame.iCX = PLAYER_CX;
+		m_tFrame.iCY = PLAYER_CY;
 		m_tFrame.dwSpeed = 100.f;
 		m_tFrame.dwTime = GetTickCount64();
 		break;
-	case CPlayer::UP:
+	case UP:
 		m_fSpeed = m_fWalkSpeed;
 		m_pFrameKey = L"player_up";
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 8;
 		m_tFrame.iMotion = 0;
 		m_tFrame.bLoop = true;
-		m_tFrame.iCX = PlayerICX;
-		m_tFrame.iCY = PlayerICY;
+		m_tFrame.iCX = PLAYER_CX;
+		m_tFrame.iCY = PLAYER_CY;
 		m_tFrame.dwSpeed = 100.f;
 		m_tFrame.dwTime = GetTickCount64();
 		break;
-	case CPlayer::DOWN:
+	case DOWN:
 		m_fSpeed = m_fWalkSpeed;
 		m_pFrameKey = L"player_down";
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 8;
 		m_tFrame.iMotion = 0;
 		m_tFrame.bLoop = true;
-		m_tFrame.iCX = PlayerICX;
-		m_tFrame.iCY = PlayerICY;
+		m_tFrame.iCX = PLAYER_CX;
+		m_tFrame.iCY = PLAYER_CY;
 		m_tFrame.dwSpeed = 100.f;
 		m_tFrame.dwTime = GetTickCount64();
 		break;
-	case CPlayer::HIT:
+	case HIT:
 		m_fSpeed = m_fBubbleSpeed;
 		m_pFrameKey = L"player_hit";
 		m_tFrame.iStart = 0;
@@ -224,7 +222,7 @@ void CPlayer::ChangeMotion()
 		m_tFrame.dwTime = GetTickCount64();
 		m_dwFrameCount = GetTickCount64();
 		break;
-	case CPlayer::DEATH:
+	case DEATH:
 		m_fSpeed = 0;
 		m_pFrameKey = L"player_death";
 		m_tFrame.iStart = 0;
@@ -237,7 +235,7 @@ void CPlayer::ChangeMotion()
 		m_tFrame.dwTime = GetTickCount64();
 		m_dwFrameCount = GetTickCount64();
 		break;
-	case CPlayer::REVIVAL:
+	case REVIVAL:
 		m_fSpeed = 0;
 		m_pFrameKey = L"player_live";
 		m_tFrame.iStart = 0;
@@ -250,7 +248,7 @@ void CPlayer::ChangeMotion()
 		m_tFrame.dwTime = GetTickCount64();
 		m_dwFrameCount = GetTickCount64();
 		break;
-	case CPlayer::MOTION_END:
+	case MOTION_END:
 		break;
 	default:
 		break;
