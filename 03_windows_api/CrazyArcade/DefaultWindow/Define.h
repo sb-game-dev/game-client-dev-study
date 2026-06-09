@@ -21,15 +21,16 @@
 
 #define MAP_CX		600
 #define MAP_CY		520
-
+#define MAP_CNT_X	15
+#define MAP_CNT_Y	13
 #define TILECX		40
 #define TILECY		56
 extern HWND g_hWnd;
 
 enum TILEID { TILE1, TILE2, PUSH, BREAK, WALL1, WALL2, WALL3, WALL4, WALL5, WALL6, WALL7, TILE_END };
 enum SCENEID { SC_LOGO, SC_EDIT, SC_STAGE1, SC_STAGE2, SC_STAGE3, SC_END };
-enum OBJID { OBJ_TILE, OBJ_PLAYER, OBJ_MONSTER, OBJ_BOMB, OBJ_WAVE, OBJ_MOUSE, OBJ_SHEID, OBJ_BUTTON, OBJ_END };
-enum DIRECTION { DIR_UP, DIR_DOWN, DIR_LEFT, DIR_RIGHT };
+enum OBJID { OBJ_PLAYER, OBJ_MONSTER, OBJ_BOMB, OBJ_WAVE,  OBJ_SHEID, OBJ_BUTTON, OBJ_MOUSE, OBJ_END };
+enum DIRECTION { DIR_UP, DIR_DOWN, DIR_LEFT, DIR_RIGHT, DIR_END };
 enum MOTION { START, IDLE, LEFT, RIGHT, UP, DOWN, HIT, DEATH, REVIVAL, MOTION_END };
 
 typedef struct tagFrame
@@ -75,7 +76,7 @@ struct tagDelete
 struct tagDeleteMap
 {
 	template<typename T>
-	bool operator()(T& pair)
+	void operator()(T& pair)
 	{
 		if (pair.second)
 		{
@@ -108,6 +109,16 @@ inline void MakeAlphaAttr(ImageAttributes& attr, float alpha)
 		0,0,0,alpha,0,
 		0,0,0,0,1
 	};
-
 	attr.SetColorMatrix(&matrix);
 }
+
+inline int AdjustPosX(float fX) 
+{ 
+	return (int)(fX - 20) / 40 * 40 + 40;
+}
+
+inline int	AdjustPosY(float fY)
+{ 
+	return (int)(fY - 40) / 40 * 40 + 60;
+}
+

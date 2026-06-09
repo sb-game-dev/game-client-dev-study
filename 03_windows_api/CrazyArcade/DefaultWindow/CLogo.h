@@ -10,7 +10,7 @@ public:
     void Initialize()                   override;
     int Update()                        override;
     void LateUpdate()                   override;
-    void Render(Graphics* _pGraphics)   override;
+    void Render(HDC hDC)                override;
     void Release()                      override;
 private:
     float       m_fAlpha;

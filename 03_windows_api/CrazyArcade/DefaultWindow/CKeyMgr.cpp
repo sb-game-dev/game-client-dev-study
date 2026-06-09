@@ -31,7 +31,6 @@ void CKeyMgr::KeyUpdate()
 	for (int i = 0; i < VK_MAX; ++i)
 	{
 		m_bPreState[i] = m_bCurState[i];
-
 		m_bCurState[i] = GetAsyncKeyState(i) & 0x8000;
 	}
 }

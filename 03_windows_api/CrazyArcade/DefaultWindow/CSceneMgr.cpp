@@ -51,10 +51,10 @@ void CSceneMgr::LateUpdate()
 	if (m_pScene)
 		m_pScene->LateUpdate();
 }
-void CSceneMgr::Render(Graphics* _pGraphics)
+void CSceneMgr::Render(HDC hDC)
 {
 	if (m_pScene)
-		m_pScene->Render(_pGraphics);
+		m_pScene->Render(hDC);
 }
 void CSceneMgr::Release()
 {

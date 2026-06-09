@@ -24,7 +24,7 @@ void CPlayer::Initialize()
 {
 	// 32비트(알파값 추가)		-> Playermove_Up
 	// 24비트					-> playermove
-	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Player/playermove.bmp", L"Player");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Player/tile.bmp", L"Player");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Player/playermove.bmp", L"Alpha");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Image/크레이지 아케이드 리소스/Resource/Player/playerbubble.bmp", L"PlayerBubble");
 	m_tInfo = { (WINCX >> 1),(WINCY >> 1),35.f,35.f };

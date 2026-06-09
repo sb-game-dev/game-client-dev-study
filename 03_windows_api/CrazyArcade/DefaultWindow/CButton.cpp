@@ -11,6 +11,7 @@ CButton::CButton() :m_iDrawID(0)
 
 CButton::~CButton()
 {
+	Release();
 }
 
 void CButton::Initialize()
@@ -56,8 +57,10 @@ void CButton::LateUpdate()
 {
 }
 
-void CButton::Render(Graphics* _pGraphics)
+void CButton::Render(HDC hDC)
 {
+	Graphics* _pGraphics = Graphics::FromHDC(hDC);
+
 	Gdiplus::Image* pImg = CImgMgr::GetInstance()->FindImg(m_pFrameKey);
 
 	Rect rect = { m_tRect.left,m_tRect.top, (int)m_tInfo.fCX,(int)m_tInfo.fCY };

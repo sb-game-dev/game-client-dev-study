@@ -2,7 +2,12 @@
 #include "CPlayer.h"
 #include "CKeyMgr.h"
 #include "CImgMgr.h"
-CPlayer::CPlayer():m_ePreMotion(MOTION_END), m_eCurMotion(START), m_fWalkSpeed(3.f), m_fBubbleSpeed(0.5f), m_dwFrameCount(GetTickCount64())
+#include "CObjMgr.h"
+#include "CTile.h"
+#include "CAbstractFactory.h"
+#include "CBomb.h"
+CPlayer::CPlayer():m_ePreMotion(MOTION_END), m_eCurMotion(START), m_fWalkSpeed(3.f), m_fBubbleSpeed(0.5f), m_dwFrameCount(GetTickCount64()),
+m_fBlockMoveTime(0.f), m_iBombRange(2), m_iBombMax(2)
 {
 }
 
@@ -25,7 +30,7 @@ void CPlayer::Initialize()
 	CImgMgr::GetInstance()->InsertImg(L"../Resource/Player/player_death.png", L"player_death");
 	CImgMgr::GetInstance()->InsertImg(L"../Resource/Player/player_live2.png", L"player_live");
 
-	m_tInfo = { float(WINCX >> 1), float(WINCY >> 1), 40.f, 40.f };
+	m_tInfo = { float(WINCX >> 1), float(WINCY >> 1), 30.f, 30.f };
 
 	m_fSpeed = 0;
 	m_tFrame.iStart = 0;
@@ -55,19 +60,29 @@ int CPlayer::Update()
 
 void CPlayer::LateUpdate()
 {
-	
 }
 
-void CPlayer::Render(Graphics* _pGraphics)
+void CPlayer::Render(HDC hDC)
 {
-	Font myFont(L"Arial", 16, FontStyleRegular, UnitPixel);
-	
-	SolidBrush redBrush(Color(255, 255, 255, 255));
-	_pGraphics->DrawString(m_pFrameKey, -1, &myFont, PointF(10.0f, 20.0f), &redBrush);
+	Graphics* _pGraphics = Graphics::FromHDC(hDC);
 
-	Pen BlackPen(Color(255, 0, 0, 0), 1.0f);
-	Rect playerRect = { m_tRect.left,m_tRect.top,int(m_tInfo.fCX),(int)m_tInfo.fCY};
-	_pGraphics->DrawRectangle(&BlackPen, playerRect); //(&BlackPen, 0, 0, 60, 30);
+	//int x = (AdjustPosX(m_tInfo.fX) - MAP_LEFT) / TILECX;
+	//int y = (AdjustPosY(m_tInfo.fY) - MAP_TOP) / TILECX;
+	//
+	//int Index = y * MAP_CNT_X + x;
+	//
+	//TCHAR	szBuff[32] = L"";
+	//swprintf_s(szBuff, L"X : %d", x);
+	//TextOut(hDC, 50, 50, szBuff, lstrlen(szBuff));
+	//TCHAR	szBuff2[32] = L"";
+	//swprintf_s(szBuff2, L"Y : %d", y);
+	//TextOut(hDC, 50, 75, szBuff2, lstrlen(szBuff2));
+
+	Rectangle(hDC,
+		m_tRect.left,
+		m_tRect.top,
+		m_tRect.right,
+		m_tRect.bottom);
 
 	Gdiplus::Image* pImg = CImgMgr::GetInstance()->FindImg(m_pFrameKey);
 
@@ -100,46 +115,63 @@ void CPlayer::KeyInput()
 	{
 		if(m_eCurMotion != HIT)
 			m_eCurMotion = RIGHT;
+
+		if (m_eCurMotion != m_ePreMotion)
+			m_fBlockMoveTime = 0.f;
 		ChangeMotion();
+		CheckPushBlock(DIR_RIGHT);
 		m_tInfo.fX += m_fSpeed;
 	}
 	else if (CKeyMgr::GetInstance()->KeyPressing(VK_LEFT) && m_tRect.left > 20)
 	{
 		if (m_eCurMotion != HIT)
 			m_eCurMotion = LEFT;
+		if (m_eCurMotion != m_ePreMotion)
+			m_fBlockMoveTime = 0.f;
 		ChangeMotion();
+		CheckPushBlock(DIR_LEFT);
 		m_tInfo.fX -= m_fSpeed;
 	}
 	else if (CKeyMgr::GetInstance()->KeyPressing(VK_UP) && m_tRect.top > 40)
 	{
 		if (m_eCurMotion != HIT)
 			m_eCurMotion = UP;
+		if (m_eCurMotion != m_ePreMotion)
+			m_fBlockMoveTime = 0.f;
 		ChangeMotion();
+		CheckPushBlock(DIR_UP);
 		m_tInfo.fY -= m_fSpeed;
 	}
 	else if (CKeyMgr::GetInstance()->KeyPressing(VK_DOWN) && m_tRect.bottom < 560)
 	{
 		if (m_eCurMotion != HIT)
 			m_eCurMotion = DOWN;
+		if (m_eCurMotion != m_ePreMotion)
+			m_fBlockMoveTime = 0.f;
 		ChangeMotion();
+		CheckPushBlock(DIR_DOWN);
 		m_tInfo.fY += m_fSpeed;
-	}
-	// Test
-	else if (CKeyMgr::GetInstance()->KeyDown(VK_SPACE))
-	{
-		if (m_eCurMotion != HIT)
-			m_eCurMotion = HIT;
-		else if(m_eCurMotion == HIT)
-			m_eCurMotion = REVIVAL;
-		ChangeMotion();
 	}
 	else
 	{
+		m_fBlockMoveTime = 0.f;
 		if (m_eCurMotion != HIT && m_eCurMotion != REVIVAL)
 			m_eCurMotion = IDLE;
 		ChangeMotion();
 	}
-	
+	if (CKeyMgr::GetInstance()->KeyDown(VK_SPACE))
+	{
+		if (CObjMgr::GetInstance()->GetList(OBJ_BOMB).size() < m_iBombMax)
+		{
+			for (auto& pBomb : CObjMgr::GetInstance()->GetList(OBJ_BOMB))
+			{
+				if (AdjustPosX(m_tInfo.fX) == pBomb->GetInfo()->fX 
+					&& AdjustPosY(m_tInfo.fY) == pBomb->GetInfo()->fY)
+					return;
+			}
+			CreateBomb();
+		}
+	}
 
 	
 }
@@ -282,4 +314,55 @@ void CPlayer::CheckFrame()
 		m_pFrameKey = L"player_down";
 		ChangeMotion();
 	}
+}
+
+void CPlayer::CheckPushBlock(DIRECTION eDIR)
+{
+	float fCheckX = m_tInfo.fX;
+	float fCheckY = m_tInfo.fY;
+	switch (eDIR)
+	{
+	case DIR_LEFT:
+		fCheckX -= 40.f;
+		break;
+	case DIR_UP:
+		fCheckY -= 40.f;
+		break;
+	case DIR_RIGHT:
+		fCheckX += 40.f;
+		break;
+	case DIR_DOWN:
+		fCheckY += 40.f;
+		break;
+	}
+
+	for (auto& pTile : CObjMgr::GetInstance()->GetTile())
+	{
+		CTile* pTempTile = dynamic_cast<CTile*>(pTile);
+		if (pTempTile->GetFrame().iStart == 2)
+		{
+			if (fabsf(fCheckX - pTempTile->GetInfo()->fX) <= 15.f
+				&& fabsf(fCheckY - pTempTile->GetInfo()->fY) <= 15.f)
+			{
+				m_fBlockMoveTime += 1.f;
+
+				if (m_fBlockMoveTime >= 20.f)
+				{
+					m_fBlockMoveTime = 0;
+					pTempTile->SetMove(eDIR);
+				}
+			}
+		}
+	}
+
+}
+
+void CPlayer::CreateBomb()
+{
+	float fX = AdjustPosX(m_tInfo.fX);
+	float fY = AdjustPosY(m_tInfo.fY);
+	CObj* pBomb = CAbstractFactory<CBomb>::Create(fX, fY, L"BlueBubble");
+
+	dynamic_cast<CBomb*>(pBomb)->SetBombRange(m_iBombRange);
+	CObjMgr::GetInstance()->AddObject(OBJ_BOMB, pBomb);
 }

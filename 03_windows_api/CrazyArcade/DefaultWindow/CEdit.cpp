@@ -4,6 +4,7 @@
 #include "CObjMgr.h"
 #include "CButton.h"
 #include "CAbstractFactory.h"
+#include "CKeyMgr.h"
 
 CEdit::CEdit()
 {
@@ -11,11 +12,13 @@ CEdit::CEdit()
 
 CEdit::~CEdit()
 {
+	Release();
 }
 
 void CEdit::Initialize()
 {
-    CImgMgr::GetInstance()->InsertImg(L"../Resource/BackGround/edit_background.png", L"edit_background");
+	CImgMgr::GetInstance()->InsertImg(L"../Resource/BackGround/edit_background.png", L"edit_background");
+
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(657, 277, L"button_edit", PUSH));
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(693, 277, L"button_edit", BREAK));
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(731, 277, L"button_edit", WALL1));
@@ -28,6 +31,13 @@ void CEdit::Initialize()
 	
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(657, 348, L"button_edit", WALL7));
 
+	for (int i = 0; i < 15; ++i)
+	{
+		for (int j = 0; j < 13; ++j)
+		{
+			CObjMgr::GetInstance()->AddTile(CAbstractFactory<CTile>::Create((i*40)+40, (j*40)+60, L"tile", TILE1));
+		}
+	}
 }
 
 int CEdit::Update()
@@ -39,28 +49,24 @@ int CEdit::Update()
 void CEdit::LateUpdate()
 {
 	CObjMgr::GetInstance()->LateUpdate();
+	if (CKeyMgr::GetInstance()->KeyDown('S'))
+		CObjMgr::GetInstance()->SaveTile();
+	if (CKeyMgr::GetInstance()->KeyDown('L'))
+		CObjMgr::GetInstance()->LoadTile();
 }
 
-void CEdit::Render(Graphics* _pGraphics)
+void CEdit::Render(HDC hDC)
 {
+	Graphics* _pGraphics = Graphics::FromHDC(hDC);
+
 	Gdiplus::Image* pBackGround = CImgMgr::GetInstance()->FindImg(L"edit_background");
-
-	Rect rect = { 0,0,
-				WINCX,
-				WINCY};
-
-	//ImageAttributes attr;
-	//attr.SetColorKey(
-	//	Color(255, 0, 255),
-	//	Color(255, 0, 255));
-
+	Rect rect = { 0,0,WINCX,WINCY};
 	_pGraphics->DrawImage(pBackGround, rect,
 		0,0,
 		WINCX, WINCY,
 		UnitPixel);
 
-
-	CObjMgr::GetInstance()->Render(_pGraphics);
+	CObjMgr::GetInstance()->Render(hDC);
 }
 
 void CEdit::Release()

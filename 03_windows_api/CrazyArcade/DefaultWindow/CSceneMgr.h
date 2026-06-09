@@ -13,7 +13,7 @@ public:
 	void ChangeScene(SCENEID eID);
 	int	 Update();
 	void LateUpdate();
-	void Render(Graphics* _pGraphics);
+	void Render(HDC hDC);
 	void Release();
 
 

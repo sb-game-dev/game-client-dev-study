@@ -102,14 +102,14 @@ MonsterDown.bmp
 =============================================
 ## 4일차 <에디터 구현 + 타일 충돌 구현>
 
-[] Tile클래스 생성
-	[] ObjMgr의 멤버로 vector<CObj*> 생성하여 타일 관리 + AddTile(CObj* )함수 추가
-	[] m_FrameKey로 세 종류의 벽 구현 (밀 수 있는 블록, 부술 수 있는 블록, 벽)
-	[] ObjMgr의 멤버로 Save(),Load(),LoadStage() 생성(m_tInfo, m_pFrameKey 저장)
+[O] Tile클래스 생성
+	[O] ObjMgr의 멤버로 vector<CObj*> 생성하여 타일 관리 + AddTile(CObj* )함수 추가
+	[O] m_FrameKey로 세 종류의 벽 구현 (밀 수 있는 블록, 부술 수 있는 블록, 벽)
+	[O] ObjMgr의 멤버로 Save(),Load(),LoadStage() 생성(m_tInfo, m_pFrameKey 저장)
 
-[] 마우스로 오른쪽에 있는 타일 버튼 클릭하여 타일 종류 선택 후 바닥 타일을 클릭하여 타일 설치
+[O] 마우스로 오른쪽에 있는 타일 버튼 클릭하여 타일 종류 선택 후 바닥 타일을 클릭하여 타일 설치
 
-[] 마우스를 따라다니는 타일 객체 추가(CObj)
+[O] 마우스를 따라다니는 타일 객체 추가(CObj)
 	- 타일 버튼 선택시 마우스에 타일 반투명하게 보이기(알파 블랜딩 사용)
 	- 마우스가 맵 안에 있을 때만 보임
 
@@ -119,23 +119,20 @@ MonsterDown.bmp
 	밀기 X, 부수기 O 타일(눈 모양)
 	밀기 X, 부수기 X 타일(3가지 종류)
 
-[] 타일 저장 및 불러오기 구현
+[O] 타일 저장 및 불러오기 구현
 	- m_tInfo, m_pFrameKey 순으로 저장 및 불러오기
 
-[] CollisionMgr 생성
+[O] CollisionMgr 생성
 	- Rect충돌만 구현(DstList vs SrcList , DstVector vs SrcList 함수 오버로딩)
 
-[] Player vs Tile충돌 구현 -> CollisionMgr
+[O] Player vs Tile충돌 구현 -> CollisionMgr
 	- DstVector vs SrcList 함수 오버로딩
 	- 반복문 사용 + m_pFrameKey가 tile_base가 아닌 경우만 충돌
 
-[] 벽 밀기 구현 -> CollisionMgr
+[O] 벽 밀기 구현 -> CollisionMgr
 	- m_pFramekey가 Push인 경우 밀기 가능
 	- 뒤쪽에 벽이 있거나 화면 밖으로 나가는 경우 continue
 	- 충돌한지 일정 시간이 지나면 Tile->Move() 함수 호출하여 타일 이동
-
-
-	
 
 =============================================
 ## 5일차 <물풍선, 물줄기 생성 및 충돌 구현>

@@ -9,14 +9,15 @@ public:
     virtual~CMouse();
 public:
     void        Initialize()                   override;
-    int         Update()                        override;
+    int         Update()                       override;
     void        LateUpdate()                   override;
-    void        Render(Graphics* _pGraphics)   override;
+    void        Render(HDC hDC)                 override;
     void        Release()                      override;
 
 public:
-    void        SetChoiceTile(TILEID eID) { m_eChoiceTile = eID; }
-    POINT       GetPoint();
+    void        SetChoiceTile(int eID);
+    TILEID      GetChoiceTile() { return m_eChoiceTile; }
+
 private:
     TILEID      m_eChoiceTile;
 };

@@ -11,19 +11,25 @@ public :
 
 public:
 	void		AddObject(OBJID eID, CObj* pObj);
-
+	void		AddTile(CObj* pObj);
 	list<CObj*>	GetList(OBJID eID) {return m_ObjList[eID];	}
+	vector<CObj*>GetTile() { return m_TileVec; }
 
 public :
 	void	Initialize();
 	int		Update();
 	void	LateUpdate();
-	void	Render(Graphics* _pGraphics);
+	void	Render(HDC hDC);
 	void	Release();
 
 public:
 	void	ChoiceButton();
+	void	PutTile();
 
+	void	SaveTile();
+	void	LoadTile();
+	void	DeleteObj(OBJID eID);
+	void	DeleteTile();
 public:
 	static CObjMgr* GetInstance()
 	{
@@ -38,5 +44,6 @@ public:
 private:
 	static CObjMgr* m_pInstance;
 	list<CObj*>		m_ObjList[OBJ_END];
+	vector<CObj*>	m_TileVec;
 };
 

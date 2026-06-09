@@ -1,6 +1,10 @@
 #include "pch.h"
 #include "CObjMgr.h"
 #include "CKeyMgr.h"
+#include "CMouse.h"
+#include "CTile.h"
+#include "CAbstractFactory.h"
+#include "CCollisionMgr.h"
 CObjMgr* CObjMgr::m_pInstance = nullptr;
 CObjMgr::CObjMgr()
 {
@@ -16,6 +20,13 @@ void CObjMgr::AddObject(OBJID eID, CObj* pObj)
 	if (eID >= OBJ_END || pObj == nullptr)
 		return;
 	m_ObjList[eID].push_back(pObj);
+}
+
+void CObjMgr::AddTile(CObj* pObj)
+{
+	if (pObj == nullptr)
+		return;
+	m_TileVec.push_back(pObj);
 }
 
 void CObjMgr::Initialize() 
@@ -45,6 +56,20 @@ int  CObjMgr::Update()
 			}
 		}
 	}
+
+	for (auto iter = m_TileVec.begin(); iter != m_TileVec.end();)
+	{
+		int iResult = (*iter)->Update();
+		if (iResult == DEAD)
+		{
+			Safe_Delete((*iter));
+			iter = m_TileVec.erase(iter);
+		}
+		else
+		{
+			++iter;
+		}
+	}
 	return 0;
 }
 void CObjMgr::LateUpdate() 
@@ -54,6 +79,16 @@ void CObjMgr::LateUpdate()
 		for (auto& pObj : m_ObjList[i])
 			pObj->LateUpdate();
 	}
+	for (auto& pObj : m_TileVec)
+		pObj->Update_Rect();
+
+	if(!m_ObjList[OBJ_BUTTON].empty())
+		ChoiceButton();
+
+	if (dynamic_cast<CMouse*>(m_ObjList[OBJ_MOUSE].front())->GetChoiceTile() != TILE_END)
+		PutTile();
+
+	//CCollisionMgr::CollisionBody(m_TileVec, m_ObjList[OBJ_PLAYER]);
 
 	for (int i = 0; i < OBJ_END; ++i)
 	{
@@ -62,15 +97,22 @@ void CObjMgr::LateUpdate()
 			pObj->Update_Rect();
 		}
 	}
+	for (auto& pObj : m_TileVec)
+		pObj->Update_Rect();
 }
-void CObjMgr::Render(Graphics* _pGraphics)
+void CObjMgr::Render(HDC hDC)
 {
+	for (auto& pObj : m_TileVec)
+		pObj->Render(hDC);
+
 	for (int i = 0; i < OBJ_END; ++i)
 	{
 		for (auto& pObj : m_ObjList[i])
-			pObj->Render(_pGraphics);
+			pObj->Render(hDC);
 	}
+
 }
+
 void CObjMgr::Release() 
 {
 	for (int i = 0; i < OBJ_END; ++i)
@@ -81,6 +123,12 @@ void CObjMgr::Release()
 		}
 		m_ObjList[i].clear();
 	}
+
+	for (auto& pObj : m_TileVec)
+	{
+		Safe_Delete(pObj);
+	}
+	m_TileVec.clear();
 }
 
 void CObjMgr::ChoiceButton()
@@ -89,20 +137,123 @@ void CObjMgr::ChoiceButton()
 	GetCursorPos(&ptMouse);
 	ScreenToClient(g_hWnd, &ptMouse);
 
-	/*for (auto& pButton : m_ObjList[OBJ_BUTTON])
-	{
-		if (PtInRect(pButton->GetRect(), ptMouse) && CKeyMgr::GetInstance()->KeyDown(VK_LBUTTON))
-		{
-			
-		}
-	}*/
-
 	for (auto& pButton : m_ObjList[OBJ_BUTTON])
 	{
-		if (PtInRect(pButton->GetRect(), m_ObjList[OBJ_MOUSE].front().GetPoint()
+		if (lstrcmp(pButton->GetFrameKey(), L"button_edit"))
+			continue;
+		if (PtInRect(pButton->GetRect(), ptMouse)
 			&& CKeyMgr::GetInstance()->KeyDown(VK_LBUTTON))
 		{
-
+			dynamic_cast<CMouse*> (m_ObjList[OBJ_MOUSE].front())->SetChoiceTile(pButton->GetFrame().iStart);
 		}
 	}
+}
+
+void CObjMgr::PutTile()
+{
+	if (m_ObjList[OBJ_MOUSE].front()->GetInfo()->fX > MAP_RIGHT)
+		return;
+
+	POINT		ptMouse{};
+	GetCursorPos(&ptMouse);
+	ScreenToClient(g_hWnd, &ptMouse);
+	for (auto& pTile : m_TileVec)
+	{
+		if (PtInRect(pTile->GetRect(), ptMouse))
+		{
+			if (CKeyMgr::GetInstance()->KeyPressing(VK_LBUTTON))
+			{
+				TILEID eID = dynamic_cast<CMouse*> (m_ObjList[OBJ_MOUSE].front())->GetChoiceTile();
+
+				pTile->SetStartFrame(eID);
+			}
+			else if (CKeyMgr::GetInstance()->KeyPressing(VK_RBUTTON))
+			{
+				pTile->SetStartFrame(0);
+			}
+		}	
+	}
+}
+
+void CObjMgr::SaveTile()
+{
+	HANDLE	hFile = CreateFile(L"../Data/Tile.dat",		// 파일의 경로
+		GENERIC_WRITE,			// 파일 접근 모드 / GENERIC_READ(읽기 전용)
+		NULL,					// 공유 방식
+		NULL,					// 보안 모드 설정
+		CREATE_ALWAYS,			// 쓰기 전용일 때 파일이 없는 경우 파일 생성하여 저장, // OPEN_EXISTING : 파일이 있을 경우에만 불러오기
+		FILE_ATTRIBUTE_NORMAL,	// 파일 속성(아무런 속성이 없는 일반 파일)
+		NULL);					// 생성될 파일의 속성을 제공할 템플릿 파일(안쓰기 때문에 NULL)
+
+	if (INVALID_HANDLE_VALUE == hFile)
+	{
+		MessageBox(g_hWnd, _T("Save File"), L"Fail", MB_OKCANCEL);
+		return;
+	}
+	int			iStartFrame(0);
+	DWORD		dwByte(0);		// eof 역할하는 변수
+
+	for (auto& pTile : m_TileVec)
+	{
+		iStartFrame = pTile->GetFrame().iStart;
+		WriteFile(hFile, pTile->GetInfo(), sizeof(INFO), &dwByte, nullptr);
+		WriteFile(hFile, &iStartFrame, sizeof(TILEID), &dwByte, nullptr);
+	}
+
+	CloseHandle(hFile);
+
+	MessageBox(g_hWnd, _T("Save 완료"), L"Success", MB_OKCANCEL);
+}
+void CObjMgr::LoadTile()
+{
+	HANDLE	hFile = CreateFile(L"../Data/Tile.dat",		// 파일의 경로
+		GENERIC_READ,			// 파일 접근 모드 / GENERIC_READ(읽기 전용)
+		NULL,					// 공유 방식
+		NULL,					// 보안 모드 설정
+		OPEN_EXISTING,			// 쓰기 전용일 때 파일이 없는 경우 파일 생성하여 저장, // OPEN_EXISTING : 파일이 있을 경우에만 불러오기
+		FILE_ATTRIBUTE_NORMAL,	// 파일 속성(아무런 속성이 없는 일반 파일)
+		NULL);					// 생성될 파일의 속성을 제공할 템플릿 파일(안쓰기 때문에 NULL)
+
+	if (INVALID_HANDLE_VALUE == hFile)
+	{
+		MessageBox(g_hWnd, _T("Load File"), L"Fail", MB_OKCANCEL);
+		return;
+	}
+
+	DeleteTile();
+
+	int			iStartFrame(0);
+	INFO		tTile{};
+	DWORD		dwByte(0);		// eof 역할하는 변수
+
+	while (true)
+	{
+		ReadFile(hFile, &tTile, sizeof(INFO), &dwByte, nullptr);
+		ReadFile(hFile, &iStartFrame, sizeof(TILEID), &dwByte, nullptr);
+
+		if (0 == dwByte)
+			break;
+
+		CObj* pTile = CAbstractFactory<CTile>::Create(tTile.fX, tTile.fY);
+		pTile->SetStartFrame(iStartFrame);
+		pTile->SetFrameKey(L"tile");
+		m_TileVec.push_back(pTile);
+	}
+
+	CloseHandle(hFile);
+}
+
+void CObjMgr::DeleteObj(OBJID eID)
+{
+	for (auto& pObj : m_ObjList[eID])
+		Safe_Delete(pObj);
+	m_ObjList[eID].clear();
+	DeleteTile();
+}
+
+void CObjMgr::DeleteTile()
+{
+	for (auto& pObj : m_TileVec)
+		Safe_Delete(pObj);
+	m_TileVec.clear();
 }

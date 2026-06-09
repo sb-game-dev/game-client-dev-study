@@ -9,6 +9,7 @@ CLogo::CLogo():m_fAlpha(1.f), m_dwTime(GetTickCount64())
 
 CLogo::~CLogo()
 {
+	Release();
 }
 
 void CLogo::Initialize()
@@ -35,8 +36,9 @@ void CLogo::LateUpdate()
 {
 }
 
-void CLogo::Render(Graphics* _pGraphics)
+void CLogo::Render(HDC hDC)
 {
+	Graphics* _pGraphics = Graphics::FromHDC(hDC);
 	Gdiplus::Image* pBlackImg = CImgMgr::GetInstance()->FindImg(L"black_bg");
 	Gdiplus::Image* pImg = CImgMgr::GetInstance()->FindImg(L"Logo");
 
