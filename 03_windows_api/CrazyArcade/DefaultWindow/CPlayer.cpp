@@ -4,7 +4,7 @@
 #include "CImgMgr.h"
 #define PlayerICX 50
 #define PlayerICY 59
-CPlayer::CPlayer():m_ePreMotion(MOTION_END), m_eCurMotion(START), m_fWalkSpeed(3.f), m_fBubbleSpeed(0.3f), m_dwFrameCount(GetTickCount64())
+CPlayer::CPlayer():m_ePreMotion(MOTION_END), m_eCurMotion(START), m_fWalkSpeed(3.f), m_fBubbleSpeed(0.5f), m_dwFrameCount(GetTickCount64())
 {
 }
 
