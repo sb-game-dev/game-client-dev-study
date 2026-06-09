@@ -52,6 +52,9 @@
     <Filter Include="01. Scene\02. Stage3">
       <UniqueIdentifier>{a1ff1725-c2cc-4187-9e4f-b8b8e9c8d086}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Obj\01. CTile">
+      <UniqueIdentifier>{8e127f05-7ce0-4688-bcb0-5b7ac2647dce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -105,6 +108,12 @@
     <ClInclude Include="CLogo.h">
       <Filter>01. Scene\00. Logo</Filter>
     </ClInclude>
+    <ClInclude Include="CEdit.h">
+      <Filter>01. Scene\01. Edit</Filter>
+    </ClInclude>
+    <ClInclude Include="CTile.h">
+      <Filter>02. Obj\01. CTile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefaultWindow.cpp">
@@ -142,6 +151,12 @@
     </ClCompile>
     <ClCompile Include="CLogo.cpp">
       <Filter>01. Scene\00. Logo</Filter>
+    </ClCompile>
+    <ClCompile Include="CEdit.cpp">
+      <Filter>01. Scene\01. Edit</Filter>
+    </ClCompile>
+    <ClCompile Include="CTile.cpp">
+      <Filter>02. Obj\01. CTile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

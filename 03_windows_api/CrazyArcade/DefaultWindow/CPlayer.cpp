@@ -25,10 +25,9 @@ void CPlayer::Initialize()
 
 	CImgMgr::GetInstance()->InsertImg(L"../Resource/Player/player_hit.png", L"player_hit");
 	CImgMgr::GetInstance()->InsertImg(L"../Resource/Player/player_death.png", L"player_death");
-	CImgMgr::GetInstance()->InsertImg(L"../Resource/Player/player_live.png", L"player_live");
+	CImgMgr::GetInstance()->InsertImg(L"../Resource/Player/player_live2.png", L"player_live");
 
 	m_tInfo = { float(WINCX >> 1), float(WINCY >> 1), 40.f, 40.f };
-	m_fSpeed = 10.f;
 
 	m_fSpeed = 0;
 	m_tFrame.iStart = 0;
@@ -49,7 +48,7 @@ int CPlayer::Update()
 
 	if (m_eCurMotion != DEATH && m_eCurMotion != START)
 		KeyInput();
-	CheckDead();
+	CheckFrame();
 	MoveFrame();
 
 	return NOEVENT;
@@ -89,7 +88,6 @@ void CPlayer::Render(Graphics* _pGraphics)
 		m_tFrame.iCX, m_tFrame.iCY,
 		UnitPixel,
 		&attr);
-	
 }
 
 void CPlayer::Release()
@@ -102,31 +100,31 @@ void CPlayer::KeyInput()
 {
 	if (CKeyMgr::GetInstance()->KeyPressing(VK_RIGHT) && m_tRect.right < 620)
 	{
-		m_tInfo.fX += m_fSpeed;
 		if(m_eCurMotion != HIT)
 			m_eCurMotion = RIGHT;
 		ChangeMotion();
+		m_tInfo.fX += m_fSpeed;
 	}
 	else if (CKeyMgr::GetInstance()->KeyPressing(VK_LEFT) && m_tRect.left > 20)
 	{
-		m_tInfo.fX -= m_fSpeed;
 		if (m_eCurMotion != HIT)
 			m_eCurMotion = LEFT;
 		ChangeMotion();
+		m_tInfo.fX -= m_fSpeed;
 	}
 	else if (CKeyMgr::GetInstance()->KeyPressing(VK_UP) && m_tRect.top > 40)
 	{
-		m_tInfo.fY -= m_fSpeed;
 		if (m_eCurMotion != HIT)
 			m_eCurMotion = UP;
 		ChangeMotion();
+		m_tInfo.fY -= m_fSpeed;
 	}
 	else if (CKeyMgr::GetInstance()->KeyPressing(VK_DOWN) && m_tRect.bottom < 560)
 	{
-		m_tInfo.fY += m_fSpeed;
 		if (m_eCurMotion != HIT)
 			m_eCurMotion = DOWN;
 		ChangeMotion();
+		m_tInfo.fY += m_fSpeed;
 	}
 	// Test
 	else if (CKeyMgr::GetInstance()->KeyDown(VK_SPACE))
@@ -139,7 +137,7 @@ void CPlayer::KeyInput()
 	}
 	else
 	{
-		if (m_eCurMotion != HIT)
+		if (m_eCurMotion != HIT && m_eCurMotion != REVIVAL)
 			m_eCurMotion = IDLE;
 		ChangeMotion();
 	}
@@ -247,7 +245,7 @@ void CPlayer::ChangeMotion()
 		m_tFrame.iMotion = 0;
 		m_tFrame.bLoop = false;
 		m_tFrame.iCX = 88;
-		m_tFrame.iCY = 144;
+		m_tFrame.iCY = 116;
 		m_tFrame.dwSpeed = 100.f;
 		m_tFrame.dwTime = GetTickCount64();
 		m_dwFrameCount = GetTickCount64();
@@ -260,7 +258,7 @@ void CPlayer::ChangeMotion()
 	m_ePreMotion = m_eCurMotion;
 }
 
-void CPlayer::CheckDead()
+void CPlayer::CheckFrame()
 {
 	if (m_eCurMotion == START
 		&& m_dwFrameCount + m_tFrame.dwSpeed * m_tFrame.iEnd <= GetTickCount64())
@@ -280,9 +278,8 @@ void CPlayer::CheckDead()
 		m_bDead = DEAD;
 	}
 	if (m_eCurMotion == REVIVAL
-		&& m_tFrame.iStart - 1 >= m_tFrame.iEnd) //m_dwFrameCount + m_tFrame.dwSpeed * m_tFrame.iEnd <= GetTickCount64()
+		&& m_dwFrameCount + m_tFrame.dwSpeed * m_tFrame.iEnd <= GetTickCount64()) //m_tFrame.iStart - 1 >= m_tFrame.iEnd
 	{
-		MessageBox(g_hWnd, _T("Load File"), L"Fail", MB_OKCANCEL);
 		m_eCurMotion = DOWN;
 		m_pFrameKey = L"player_down";
 		ChangeMotion();

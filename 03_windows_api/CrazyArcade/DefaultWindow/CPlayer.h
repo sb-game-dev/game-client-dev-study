@@ -20,7 +20,7 @@ public:
 private:
     void        KeyInput();
     void        ChangeMotion();
-    void        CheckDead();
+    void        CheckFrame();
 private:
     MOTION      m_ePreMotion;
     MOTION      m_eCurMotion;
