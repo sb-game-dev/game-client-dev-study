@@ -28,6 +28,10 @@ public:
 	void				SetStartFrame(int eID) { m_tFrame.iStart = eID; }
 	FRAME				GetFrame() { return m_tFrame; }
 
+
+	RECT*				GetRect() { return &m_tRect; }
+	INFO*				GetInfo() { return &m_tInfo; }
+
 protected:
 	INFO		m_tInfo;		
 	RECT		m_tRect;	

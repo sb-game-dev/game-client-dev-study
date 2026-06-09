@@ -10,15 +10,19 @@ public :
 	~CObjMgr();
 
 public:
-	void AddObject(OBJID eID, CObj* pObj);
-	void AddTile(TILEID eID, CObj* pTile);
+	void		AddObject(OBJID eID, CObj* pObj);
+
+	list<CObj*>	GetList(OBJID eID) {return m_ObjList[eID];	}
 
 public :
-	void Initialize();
-	int  Update();
-	void LateUpdate();
-	void Render(Graphics* _pGraphics);
-	void Release();
+	void	Initialize();
+	int		Update();
+	void	LateUpdate();
+	void	Render(Graphics* _pGraphics);
+	void	Release();
+
+public:
+	void	ChoiceButton();
 
 public:
 	static CObjMgr* GetInstance()
@@ -34,6 +38,5 @@ public:
 private:
 	static CObjMgr* m_pInstance;
 	list<CObj*>		m_ObjList[OBJ_END];
-	vector<CObj*>	m_TileVector;
 };
 

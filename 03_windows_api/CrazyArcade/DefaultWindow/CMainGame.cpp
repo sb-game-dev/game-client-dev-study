@@ -23,7 +23,7 @@ void CMainGame::Initialize()
 	m_pGraphics = Graphics::FromHDC(m_memDC);
 
 
-	CSceneMgr::GetInstance()->ChangeScene(SC_LOGO);
+	CSceneMgr::GetInstance()->ChangeScene(SC_EDIT);
 }
 
 void CMainGame::Update()

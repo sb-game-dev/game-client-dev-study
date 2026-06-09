@@ -58,6 +58,9 @@
     <Filter Include="02. Obj\01. Tile">
       <UniqueIdentifier>{8e127f05-7ce0-4688-bcb0-5b7ac2647dce}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Obj\03. Mouse">
+      <UniqueIdentifier>{e57fc1de-493d-402f-aeed-e38fa1ad10cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -120,6 +123,9 @@
     <ClInclude Include="CButton.h">
       <Filter>02. Obj\02. Button</Filter>
     </ClInclude>
+    <ClInclude Include="CMouse.h">
+      <Filter>02. Obj\03. Mouse</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefaultWindow.cpp">
@@ -166,6 +172,9 @@
     </ClCompile>
     <ClCompile Include="CButton.cpp">
       <Filter>02. Obj\02. Button</Filter>
+    </ClCompile>
+    <ClCompile Include="CMouse.cpp">
+      <Filter>02. Obj\03. Mouse</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,11 +1,12 @@
 #pragma once
 #include "CObj.h"
-class CButton :
+class CMouse :
     public CObj
 {
+
 public:
-    CButton();
-    virtual ~CButton();
+    CMouse();
+    virtual~CMouse();
 public:
     void        Initialize()                   override;
     int         Update()                        override;
@@ -13,7 +14,10 @@ public:
     void        Render(Graphics* _pGraphics)   override;
     void        Release()                      override;
 
+public:
+    void        SetChoiceTile(TILEID eID) { m_eChoiceTile = eID; }
+    POINT       GetPoint();
 private:
-    int         m_iDrawID;
+    TILEID      m_eChoiceTile;
 };
 

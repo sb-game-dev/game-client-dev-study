@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "CObjMgr.h"
+#include "CKeyMgr.h"
 CObjMgr* CObjMgr::m_pInstance = nullptr;
 CObjMgr::CObjMgr()
 {
@@ -16,12 +17,7 @@ void CObjMgr::AddObject(OBJID eID, CObj* pObj)
 		return;
 	m_ObjList[eID].push_back(pObj);
 }
-void CObjMgr::AddTile(TILEID eID, CObj* pTile)
-{
-	if (eID >= TILE_END || pTile == nullptr)
-		return;
-	m_ObjList[eID].push_back(pTile);
-}
+
 void CObjMgr::Initialize() 
 {
 	for (int i=0;i<OBJ_END;++i)
@@ -84,5 +80,29 @@ void CObjMgr::Release()
 			Safe_Delete(pObj);
 		}
 		m_ObjList[i].clear();
+	}
+}
+
+void CObjMgr::ChoiceButton()
+{
+	POINT		ptMouse{};
+	GetCursorPos(&ptMouse);
+	ScreenToClient(g_hWnd, &ptMouse);
+
+	/*for (auto& pButton : m_ObjList[OBJ_BUTTON])
+	{
+		if (PtInRect(pButton->GetRect(), ptMouse) && CKeyMgr::GetInstance()->KeyDown(VK_LBUTTON))
+		{
+			
+		}
+	}*/
+
+	for (auto& pButton : m_ObjList[OBJ_BUTTON])
+	{
+		if (PtInRect(pButton->GetRect(), m_ObjList[OBJ_MOUSE].front().GetPoint()
+			&& CKeyMgr::GetInstance()->KeyDown(VK_LBUTTON))
+		{
+
+		}
 	}
 }

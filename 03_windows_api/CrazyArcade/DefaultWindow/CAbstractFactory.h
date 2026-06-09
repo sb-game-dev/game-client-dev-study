@@ -22,9 +22,9 @@ public:
 	{
 		CObj* pObj = new T;
 
-		pObj->Initialize();
 		pObj->SetPos(fX, fY);
 		pObj->SetFrameKey(pFrameKey);
+		pObj->Initialize();
 		return pObj;
 	}
 	
@@ -32,9 +32,20 @@ public:
 	{
 		CObj* pObj = new T;
 
-		pObj->Initialize();
 		pObj->SetPos(fX, fY);
 		pObj->SetStartFrame(eID);
+		pObj->Initialize();
+		return pObj;
+	}
+
+	static CObj* Create(float fX, float fY, const WCHAR* pFrameKey, TILEID eID)
+	{
+		CObj* pObj = new T;
+
+		pObj->SetPos(fX, fY);
+		pObj->SetFrameKey(pFrameKey);
+		pObj->SetStartFrame(eID);
+		pObj->Initialize();
 		return pObj;
 	}
 };
