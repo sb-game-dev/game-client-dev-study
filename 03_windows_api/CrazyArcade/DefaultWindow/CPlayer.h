@@ -24,7 +24,7 @@ private:
 
 public:
     void        SetHit() { m_eCurMotion = HIT; ChangeMotion(); }
-
+    void        SetBossHit(){ m_eCurMotion = DEATH; ChangeMotion(); }
 private:
     MOTION      m_ePreMotion;
     MOTION      m_eCurMotion;

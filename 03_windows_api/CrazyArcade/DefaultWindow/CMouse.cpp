@@ -13,7 +13,7 @@ CMouse::~CMouse()
 
 void CMouse::Initialize()
 {
-	//CImgMgr::GetInstance()->InsertImg(L"../Resource/Mouse/mouse.png", L"mouse");
+	CImgMgr::GetInstance()->InsertImg(L"../Resource/Mouse/mouse.png", L"mouse");
 	CImgMgr::GetInstance()->InsertImg(L"../Resource/Tile/tile.png", L"tile");
 
 	m_pFrameKey = L"mouse";
@@ -33,7 +33,7 @@ int CMouse::Update()
 	m_tInfo.fX = (float)ptMouse.x;
 	m_tInfo.fY = (float)ptMouse.y;
 
-	//ShowCursor(FALSE);
+	ShowCursor(FALSE);
 
 	return NOEVENT;
 }

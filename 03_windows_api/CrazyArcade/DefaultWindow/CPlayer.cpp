@@ -154,12 +154,6 @@ void CPlayer::KeyInput()
 		CheckPushBlock(DIR_DOWN);
 		m_tInfo.fY += m_fSpeed;
 	}
-	else if (CKeyMgr::GetInstance()->KeyDown('P'))
-	{
-		//if (m_eCurMotion != HIT)
-		m_eCurMotion = HIT;
-		ChangeMotion();
-	}
 	else
 	{
 		m_fBlockMoveTime = 0.f;

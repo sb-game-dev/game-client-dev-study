@@ -33,7 +33,7 @@ public:
 	INFO*			GetInfo() { return &m_tInfo; }
 
 	void			SetDead() { m_bDead = DEAD; }
-	void			SetHit() { m_bHit = true; }
+	virtual void	SetHit() { m_bHit = true; }
 
 protected:
 	INFO			m_tInfo;		

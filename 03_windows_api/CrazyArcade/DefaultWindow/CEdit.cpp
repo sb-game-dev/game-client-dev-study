@@ -49,7 +49,7 @@ int CEdit::Update()
 void CEdit::LateUpdate()
 {
 	CObjMgr::GetInstance()->LateUpdate();
-	if (CKeyMgr::GetInstance()->KeyDown('0'))
+	if (CKeyMgr::GetInstance()->KeyDown('S'))
 		CObjMgr::GetInstance()->SaveTile(0);
 
 	else if (CKeyMgr::GetInstance()->KeyDown('1'))

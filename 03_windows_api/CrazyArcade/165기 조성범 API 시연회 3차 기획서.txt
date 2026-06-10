@@ -168,7 +168,7 @@ MonsterDown.bmp
 	- dynamic_cast를 사용하여 DstObj가 CBomb*로 캐스팅 가능하면 
 		CreateWave() + DstObj->SetDead()
 
-[] Tile vs Wave 충돌 구현 -> CollisionMgr
+[O] Tile vs Wave 충돌 구현 -> CollisionMgr
 	- dynamic_cast를 사용하여 DstObj가 CTile*로 캐스팅 가능하고 m_eDrawID != TILE_WALL
 		DstObj->SetHit()
 =============================================
@@ -176,7 +176,8 @@ MonsterDown.bmp
 
 [] 좌 우로 움직이다가 아래방향으로 한 칸씩 물풍선 발사(총 5개)
 [] 체력 25%가 되면 이동속도 빨라짐
-[] 플레이어와 닿으면 바로 플레이어 사망(SetDead)
+[O] 플레이어와 닿으면 바로 플레이어 사망(SetDead)
+[O] 플레이어가 보스 공격
 =============================================
 ## 7일차 <효과음 및 배경음악>
 

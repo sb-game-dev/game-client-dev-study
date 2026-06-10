@@ -63,7 +63,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,         // 창이 생성되면�
     CMainGame       MainGame;
     MainGame.Initialize();
 
-    DWORD   dwTime = GetTickCount();    // 1000
+    ULONGLONG   dwTime = GetTickCount64();    // 1000
 
 
     // 기본 메시지 루프입니다:
@@ -88,13 +88,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,         // 창이 생성되면�
 
         else
         {
-            if (dwTime + 10 < GetTickCount())
+            if (dwTime + 10 < GetTickCount64())
             {
                 MainGame.Update();
                 MainGame.LateUpdate();
                 MainGame.Render();
 
-                dwTime = GetTickCount();
+                dwTime = GetTickCount64();
             }            
         }
     }

@@ -41,6 +41,20 @@ void CObjMgr::Initialize()
 
 int  CObjMgr::Update() 
 {
+	for (auto iter = m_TileVec.begin(); iter != m_TileVec.end();)
+	{
+		int iResult = (*iter)->Update();
+		if (iResult == DEAD)
+		{
+			Safe_Delete((*iter));
+			iter = m_TileVec.erase(iter);
+		}
+		else
+		{
+			++iter;
+		}
+	}
+
 	for (int i = 0; i < OBJ_END; ++i)
 	{
 		for (auto iter = m_ObjList[i].begin();iter != m_ObjList[i].end();)
@@ -58,19 +72,7 @@ int  CObjMgr::Update()
 		}
 	}
 
-	for (auto iter = m_TileVec.begin(); iter != m_TileVec.end();)
-	{
-		int iResult = (*iter)->Update();
-		if (iResult == DEAD)
-		{
-			Safe_Delete((*iter));
-			iter = m_TileVec.erase(iter);
-		}
-		else
-		{
-			++iter;
-		}
-	}
+	
 	return 0;
 }
 void CObjMgr::LateUpdate() 
@@ -94,7 +96,9 @@ void CObjMgr::LateUpdate()
 
 	CCollisionMgr::CollisionAttack(m_TileVec, m_ObjList[OBJ_WAVE]);
 	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_WAVE]);
-	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_WAVE]);
+	//CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_WAVE]);
+	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_BOSS]);
+	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOSS], m_ObjList[OBJ_WAVE]);
 
 	for (auto& pBomb : m_ObjList[OBJ_BOMB])
 	{

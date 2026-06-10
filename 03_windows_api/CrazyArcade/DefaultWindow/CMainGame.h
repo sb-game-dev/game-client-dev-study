@@ -26,7 +26,7 @@ private:
 	Graphics* m_pGraphics;
 
 
-	DWORD			m_dwTime;
+	ULONGLONG		m_dwTime;
 	int				m_iFPS;
 	TCHAR			m_szFPS[32];
 };

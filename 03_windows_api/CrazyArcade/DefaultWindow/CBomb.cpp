@@ -28,7 +28,7 @@ void CBomb::Initialize()
         m_tFrame.bLoop = true;
         m_tFrame.iCX = 46;
         m_tFrame.iCY = 46;
-        m_tFrame.dwSpeed = 150.f;
+        m_tFrame.dwSpeed = (ULONGLONG)150.f;
         m_tFrame.dwTime = GetTickCount64();
     }
     else
@@ -39,7 +39,7 @@ void CBomb::Initialize()
         m_tFrame.bLoop = true;
         m_tFrame.iCX = 56;
         m_tFrame.iCY = 54;
-        m_tFrame.dwSpeed = 150.f;
+        m_tFrame.dwSpeed = (ULONGLONG)150.f;
         m_tFrame.dwTime = GetTickCount64();
     }
 }
@@ -55,7 +55,7 @@ int CBomb::Update()
 
 void CBomb::LateUpdate()
 {
-    if (m_dwBombTime + 2500 <= GetTickCount())
+    if (m_dwBombTime + 2500 <= GetTickCount64())
     {
         CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CreateWave());
         m_bDead = DEAD;

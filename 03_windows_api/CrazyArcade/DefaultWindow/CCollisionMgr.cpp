@@ -5,6 +5,7 @@
 #include "CBomb.h"
 #include "CWave.h"
 #include "CObjMgr.h"
+#include "CBoss.h"
 
 void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 {
@@ -17,7 +18,9 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 			{
 				CWave* pSrcWave = dynamic_cast<CWave*>(Src);
 				CBomb* pDstBomb = dynamic_cast<CBomb*>(Dst);
+				CBoss* pSrcBoss = dynamic_cast<CBoss*>(Src);
 				CPlayer* pDstPlayer = dynamic_cast<CPlayer*>(Dst);
+
 				//CPlayer* pSrcPlayer = dynamic_cast<CPlayer*>(Src);
 				//CItem* pDstItem = dynamic_cast<CItem*>(Dst);
 
@@ -26,9 +29,12 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 					CObjMgr::GetInstance()->AddObject(OBJ_WAVE, pDstBomb->CreateWave());
 					pDstBomb->SetDead();
 				}
-				else if (pDstPlayer)
+				else if (pSrcBoss && pDstPlayer)
 				{
-					pDstPlayer->SetHit();
+					if (pSrcBoss->GetCurMotion() == BUBBLE || pSrcBoss->GetCurMotion() == DEATH)
+						pSrcBoss->SetDeath();
+					else
+						pDstPlayer->SetBossHit();
 				}
 				//else if (pDstItem && pSrcPlayer)
 				//{
