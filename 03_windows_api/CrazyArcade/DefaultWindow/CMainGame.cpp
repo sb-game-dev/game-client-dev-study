@@ -24,7 +24,7 @@ void CMainGame::Initialize()
 	m_Bit = CreateCompatibleBitmap(m_hDC, WINCX, WINCY);
 	m_Old = (HBITMAP)SelectObject(m_memDC, m_Bit);
 
-	CSceneMgr::GetInstance()->ChangeScene(SC_STAGE3);
+	CSceneMgr::GetInstance()->ChangeScene(SC_LOGO);
 	CObjMgr::GetInstance()->AddObject(OBJ_MOUSE, CAbstractFactory<CMouse>::Create(0.f, 0.f));
 }
 

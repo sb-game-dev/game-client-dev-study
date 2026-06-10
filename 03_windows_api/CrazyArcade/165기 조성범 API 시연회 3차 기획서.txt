@@ -137,21 +137,21 @@ MonsterDown.bmp
 =============================================
 ## 5일차 <물풍선, 물줄기 생성 및 충돌 구현>
 
-[] Bomb(물풍선)클래스 및 Wave(물줄기)클래스 생성
+[O] Bomb(물풍선)클래스 및 Wave(물줄기)클래스 생성
 	- fCX = 40.f, fCY = 40.f
 
-[] Player::CreateBomb() 함수 생성
+[O] Player::CreateBomb() 함수 생성
 	[] 플레이어 위치에 물풍선 생성(격자 칸 보정)
 	
-[] Bomb::CreateWave() 함수 생성
-	[] m_dwBoomTimer 생성하여 일정 시간 지나면 CreateWave() 함수 호출 후 m_bDead = DEAD
-	[] Spread(int iBombRange)함수 구현하여 네 방향 범위 확인하여 Wave객체 추가
+[O] Bomb::CreateWave() 함수 생성
+	[O] m_dwBoomTimer 생성하여 일정 시간 지나면 CreateWave() 함수 호출 후 m_bDead = DEAD
+	[O] Spread(int iBombRange)함수 구현하여 네 방향 범위 확인하여 Wave객체 추가
 		- 물풍선의 x,y좌표로 타일의 인덱스번호 계산
 		- 타일의 m_pFrameKey가 L"Push"와 L"Break"인 경우에는 물줄기 생성후 반복문 종료
 		- 타일의 m_pFrameKey가 L"Wall"이라면 물줄기 생성하지 않고 반복문 종료
-	[] 멤버변수 m_KeyFrame 사용하여 Render()함수 구현시 방향마다 다른 이미지 사용
+	[O] 멤버변수 m_KeyFrame 사용하여 Render()함수 구현시 방향마다 다른 이미지 사용
 
-[] Player vs Bomb 충돌 구현 -> CollisionMgr
+[O] Player vs Bomb 충돌 구현 -> CollisionMgr
 	- Player, Bomb 캐스팅
 	- Bomb클래스 멤버변수로 m_bPlayerCollision 변수 생성(false 초기화)
 	- Player 클래스 멤버변수로 m_bCreateBomb 변수 생성(true 초기화)
@@ -160,11 +160,11 @@ MonsterDown.bmp
 	- 플레이어가 물풍선을 벗어난 뒤 부터 물풍선 생성 가능하게 설정(m_bCreateBomb = true)
 	- 플레이어가 물풍선을 생성하는 순간 m_bCreateBomb = false
 
-[] Player vs Wave 충돌 구현 -> CollisionMgr
+[O] Player vs Wave 충돌 구현 -> CollisionMgr
 	- dynamic_cast를 사용하여 DstObj가 CPlayer*로 캐스팅 가능하면 
 		DstObj->SetHit()
 
-[] Bomb vs Wave 충돌 구현
+[O] Bomb vs Wave 충돌 구현
 	- dynamic_cast를 사용하여 DstObj가 CBomb*로 캐스팅 가능하면 
 		CreateWave() + DstObj->SetDead()
 

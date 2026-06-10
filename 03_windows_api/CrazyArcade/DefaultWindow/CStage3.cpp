@@ -16,8 +16,8 @@ CStage3::~CStage3()
 void CStage3::Initialize()
 {
 	CImgMgr::GetInstance()->InsertImg(L"../Resource/BackGround/stage_background.png", L"stage_background");
-	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create(WINCX * 0.5f, WINCY * 0.5f, L"player_start"));
-	CObjMgr::GetInstance()->LoadTile();
+	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create((13 * 40) + 40, (11 * 40) + 60, L"player_start"));
+	CObjMgr::GetInstance()->LoadStage3();
 	
 	//for (int i = 0; i < 13; ++i)
 	//{

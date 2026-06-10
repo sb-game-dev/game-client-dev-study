@@ -26,8 +26,11 @@ public:
 	void	ChoiceButton();
 	void	PutTile();
 
-	void	SaveTile();
+	void	SaveTile(int iOption);
 	void	LoadTile();
+	void	LoadStage1();
+	void	LoadStage2();
+	void	LoadStage3();
 	void	DeleteObj(OBJID eID);
 	void	DeleteTile();
 	void	TileSwap(int iLeftIndex, int iRightIndex);

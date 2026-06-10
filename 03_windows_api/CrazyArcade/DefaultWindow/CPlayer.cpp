@@ -30,7 +30,8 @@ void CPlayer::Initialize()
 	CImgMgr::GetInstance()->InsertImg(L"../Resource/Player/player_death.png", L"player_death");
 	CImgMgr::GetInstance()->InsertImg(L"../Resource/Player/player_live2.png", L"player_live");
 
-	m_tInfo = { float(WINCX >> 1), float(WINCY >> 1), 30.f, 30.f };
+	m_tInfo.fCX = 30.f;
+	m_tInfo.fCY = 30.f;
 
 	m_fSpeed = 0;
 	m_tFrame.iStart = 0;
@@ -66,7 +67,6 @@ void CPlayer::Render(HDC hDC)
 {
 	Graphics* _pGraphics = Graphics::FromHDC(hDC);
 
-	
 
 	Rectangle(hDC,
 		m_tRect.left,
@@ -153,6 +153,12 @@ void CPlayer::KeyInput()
 		ChangeMotion();
 		CheckPushBlock(DIR_DOWN);
 		m_tInfo.fY += m_fSpeed;
+	}
+	else if (CKeyMgr::GetInstance()->KeyDown('P'))
+	{
+		//if (m_eCurMotion != HIT)
+		m_eCurMotion = HIT;
+		ChangeMotion();
 	}
 	else
 	{

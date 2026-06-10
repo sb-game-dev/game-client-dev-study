@@ -27,7 +27,7 @@ int CLogo::Update()
 	}
 	else
 	{
-		CSceneMgr::GetInstance()->SceneChangeReserve(SC_EDIT);
+		CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE3);
 	}
     return 0;
 }

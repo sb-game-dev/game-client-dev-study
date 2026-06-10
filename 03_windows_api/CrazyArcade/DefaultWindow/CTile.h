@@ -23,7 +23,6 @@ public :
 private :
     MOTION      m_ePreMotion;
     MOTION      m_eCurMotion;
-    bool        m_bHit;
     ULONGLONG   m_dwFrameCount;
 
     Image*      m_pImg;

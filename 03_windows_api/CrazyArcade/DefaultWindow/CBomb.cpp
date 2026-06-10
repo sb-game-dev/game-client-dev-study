@@ -4,7 +4,7 @@
 #include "CBmpMgr.h"
 #include "CWave.h"
 #include "CAbstractFactory.h"
-CBomb::CBomb():m_dwBombTime(GetTickCount64())
+CBomb::CBomb():m_dwBombTime(GetTickCount64()), m_bPlayerCollision(false),m_iBombRange(0)
 {
 }
 
@@ -78,12 +78,12 @@ void CBomb::Render(HDC hDC)
         m_tFrame.iCX,			// 원본 이미지 가로, 세로 사이즈
         m_tFrame.iCY,
         RGB(255, 0, 255));		// 제거할 픽셀 색상
-    TCHAR	szBuff[32] = L"";
-    swprintf_s(szBuff, L"BombX : %.0f", m_tInfo.fX);
-    TextOut(hDC, 50, 100, szBuff, lstrlen(szBuff));
-    TCHAR	szBuff2[32] = L"";
-    swprintf_s(szBuff2, L"BombY : %.0f", m_tInfo.fY);
-    TextOut(hDC, 50, 125, szBuff2, lstrlen(szBuff2));
+    //TCHAR	szBuff[32] = L"";
+    //swprintf_s(szBuff, L"BombX : %.0f", m_tInfo.fX);
+    //TextOut(hDC, 50, 100, szBuff, lstrlen(szBuff));
+    //TCHAR	szBuff2[32] = L"";
+    //swprintf_s(szBuff2, L"BombY : %.0f", m_tInfo.fY);
+    //TextOut(hDC, 50, 125, szBuff2, lstrlen(szBuff2));
 }
 
 void CBomb::Release()

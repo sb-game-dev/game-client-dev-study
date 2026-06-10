@@ -2,6 +2,9 @@
 #include "CCollisionMgr.h"
 #include "CPlayer.h"
 #include "CTile.h"
+#include "CBomb.h"
+#include "CWave.h"
+#include "CObjMgr.h"
 
 void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 {
@@ -12,22 +15,21 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 		{
 			if (IntersectRect(&rc, Dst->GetRect(), Src->GetRect()))
 			{
-				//CBomb* pDstBomb = dynamic_cast<CBomb*>(Dst);
-				//CBomb* pSrcBomb = dynamic_cast<CBomb*>(Src);
-				//CPlayer* pDstPlayer = dynamic_cast<CPlayer*>(Dst);
+				CWave* pSrcWave = dynamic_cast<CWave*>(Src);
+				CBomb* pDstBomb = dynamic_cast<CBomb*>(Dst);
+				CPlayer* pDstPlayer = dynamic_cast<CPlayer*>(Dst);
 				//CPlayer* pSrcPlayer = dynamic_cast<CPlayer*>(Src);
 				//CItem* pDstItem = dynamic_cast<CItem*>(Dst);
-				//CBlock* pDstBlock = dynamic_cast<CBlock*>(Dst);
 
-				//if (pDstBomb)
-				//{
-				//	CObjMgr::GetInstance()->AddObject(OBJ_WATER, pDstBomb->CreateWater());
-				//	Dst->SetDead();
-				//}
-				//else if (pDstPlayer)
-				//{
-				//	pDstPlayer->SetBubble();
-				//}
+				if (pDstBomb)
+				{
+					CObjMgr::GetInstance()->AddObject(OBJ_WAVE, pDstBomb->CreateWave());
+					pDstBomb->SetDead();
+				}
+				else if (pDstPlayer)
+				{
+					pDstPlayer->SetHit();
+				}
 				//else if (pDstItem && pSrcPlayer)
 				//{
 				//	switch (pDstItem->GetType())
@@ -49,15 +51,10 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 				//	}
 				//	Dst->SetDead();
 				//}
-				//else if (pDstBlock)
-				//{
-				//	if (lstrcmp(pDstBlock->GetFrameKey(), L"Wall"))
-				//		Dst->SetDead();
-				//}
-				//else
-				//{
-				//	Dst->SetDead();
-				//}
+				else
+				{
+					Dst->SetHit();
+				}
 			}
 		}
 	}
@@ -73,14 +70,12 @@ void CCollisionMgr::CollisionBody(list<CObj*>& DstList, list<CObj*>& SrcList)
 		{
 			if (DstObj == SrcObj)
 				continue;
-			CTile* pTempTile = dynamic_cast<CTile*> (DstObj);
-			if (pTempTile->GetFrame().iStart <= 1)
-				continue;
+			
 
-			//CBomb* pTempBomb = dynamic_cast<CBomb*>(DstObj);
+			CBomb* pTempBomb = dynamic_cast<CBomb*>(DstObj);
 
-			//if (pTempBomb && pTempBomb->GetPlayerCollision() == true)
-			//	return;
+			if (pTempBomb && pTempBomb->GetPlayerCollision() == false)
+				return;
 
 			if (CheckRect(DstObj, SrcObj, fDeltaSizeX, fDeltaSizeY))
 			{
@@ -99,6 +94,31 @@ void CCollisionMgr::CollisionBody(list<CObj*>& DstList, list<CObj*>& SrcList)
 						SrcObj->SetPosX(-fDeltaSizeX);
 				}
 				
+			}
+		}
+	}
+}
+
+void CCollisionMgr::CollisionAttack(vector<CObj*>& DstList, list<CObj*>& SrcList)
+{
+	RECT rc;
+	for (auto& Dst : DstList)
+	{
+		for (auto& Src : SrcList)
+		{
+			if (IntersectRect(&rc, Dst->GetRect(), Src->GetRect()))
+			{
+				CWave* pSrWave = dynamic_cast<CWave*>(Src);
+				CTile* pDstTile = dynamic_cast<CTile*>(Dst);
+
+				if (pDstTile && pSrWave)
+				{
+					if (pDstTile->GetFrame().iStart == PUSH || pDstTile->GetFrame().iStart == BREAK)
+					{
+						pSrWave->SetDead();
+						pDstTile->SetHit();
+					}
+				}
 			}
 		}
 	}

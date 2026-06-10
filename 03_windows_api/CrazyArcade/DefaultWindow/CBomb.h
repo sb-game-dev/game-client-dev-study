@@ -15,10 +15,13 @@ public:
 
 public:
 	void		SetBombRange(int iBombRange) { m_iBombRange = iBombRange; }
-private:
+	void		SetPlayerCollision() { m_bPlayerCollision = true; }
+	bool		GetPlayerCollision() { return m_bPlayerCollision; }
 	CObj*		CreateWave();
+
 private:
 	ULONGLONG		m_dwBombTime;
 	int				m_iBombRange;
+	bool			m_bPlayerCollision;
 };
 

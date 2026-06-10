@@ -5,6 +5,7 @@
 #include "CTile.h"
 #include "CAbstractFactory.h"
 #include "CCollisionMgr.h"
+#include "CBomb.h"
 CObjMgr* CObjMgr::m_pInstance = nullptr;
 CObjMgr::CObjMgr()
 {
@@ -91,6 +92,26 @@ void CObjMgr::LateUpdate()
 	CCollisionMgr::CollisionBody(m_TileVec, m_ObjList[OBJ_PLAYER]);
 	CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOMB], m_TileVec);
 
+	CCollisionMgr::CollisionAttack(m_TileVec, m_ObjList[OBJ_WAVE]);
+	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_WAVE]);
+	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_WAVE]);
+
+	for (auto& pBomb : m_ObjList[OBJ_BOMB])
+	{
+		CBomb* pTempBomb = dynamic_cast<CBomb*>(pBomb);
+		if (pTempBomb->GetPlayerCollision() == false)
+		{
+			float fTemp1 = 0.f;
+			float fTemp2 = 0.f;
+			if (!CCollisionMgr::CheckRect(pTempBomb, m_ObjList[OBJ_PLAYER].front(), fTemp1, fTemp2))
+			{
+				pTempBomb->SetPlayerCollision();
+			}
+		}
+	}
+
+	CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_PLAYER]);
+
 	for (auto& pObj : m_TileVec)
 			pObj->Update_Rect();
 	for (int i = 0; i < OBJ_END; ++i)
@@ -176,9 +197,27 @@ void CObjMgr::PutTile()
 	}
 }
 
-void CObjMgr::SaveTile()
+void CObjMgr::SaveTile(int iOption)
 {
-	HANDLE	hFile = CreateFile(L"../Data/Tile.dat",		// 파일의 경로
+	const WCHAR* pFilePath = L"";
+	switch (iOption)
+	{
+	case 0:
+		pFilePath = L"../Data/Tile.dat";
+		break;
+	case 1:
+		pFilePath = L"../Data/Tile1.dat";
+		break;
+	case 2:
+		pFilePath = L"../Data/Tile2.dat";
+		break;
+	case 3:
+		pFilePath = L"../Data/Tile3.dat";
+		break;
+	default:
+		break;
+	}
+	HANDLE	hFile = CreateFile(pFilePath,		// 파일의 경로
 		GENERIC_WRITE,			// 파일 접근 모드 / GENERIC_READ(읽기 전용)
 		NULL,					// 공유 방식
 		NULL,					// 보안 모드 설정
@@ -208,6 +247,123 @@ void CObjMgr::SaveTile()
 void CObjMgr::LoadTile()
 {
 	HANDLE	hFile = CreateFile(L"../Data/Tile.dat",		// 파일의 경로
+		GENERIC_READ,			// 파일 접근 모드 / GENERIC_READ(읽기 전용)
+		NULL,					// 공유 방식
+		NULL,					// 보안 모드 설정
+		OPEN_EXISTING,			// 쓰기 전용일 때 파일이 없는 경우 파일 생성하여 저장, // OPEN_EXISTING : 파일이 있을 경우에만 불러오기
+		FILE_ATTRIBUTE_NORMAL,	// 파일 속성(아무런 속성이 없는 일반 파일)
+		NULL);					// 생성될 파일의 속성을 제공할 템플릿 파일(안쓰기 때문에 NULL)
+
+	if (INVALID_HANDLE_VALUE == hFile)
+	{
+		MessageBox(g_hWnd, _T("Load File"), L"Fail", MB_OKCANCEL);
+		return;
+	}
+
+	DeleteTile();
+
+	int			iStartFrame(0);
+	INFO		tTile{};
+	DWORD		dwByte(0);		// eof 역할하는 변수
+
+	while (true)
+	{
+		ReadFile(hFile, &tTile, sizeof(INFO), &dwByte, nullptr);
+		ReadFile(hFile, &iStartFrame, sizeof(TILEID), &dwByte, nullptr);
+
+		if (0 == dwByte)
+			break;
+
+		CObj* pTile = CAbstractFactory<CTile>::Create(tTile.fX, tTile.fY);
+		pTile->SetStartFrame(iStartFrame);
+		pTile->SetFrameKey(L"tile");
+		m_TileVec.push_back(pTile);
+	}
+
+	CloseHandle(hFile);
+}
+
+void CObjMgr::LoadStage1()
+{
+	HANDLE	hFile = CreateFile(L"../Data/Tile1.dat",		// 파일의 경로
+		GENERIC_READ,			// 파일 접근 모드 / GENERIC_READ(읽기 전용)
+		NULL,					// 공유 방식
+		NULL,					// 보안 모드 설정
+		OPEN_EXISTING,			// 쓰기 전용일 때 파일이 없는 경우 파일 생성하여 저장, // OPEN_EXISTING : 파일이 있을 경우에만 불러오기
+		FILE_ATTRIBUTE_NORMAL,	// 파일 속성(아무런 속성이 없는 일반 파일)
+		NULL);					// 생성될 파일의 속성을 제공할 템플릿 파일(안쓰기 때문에 NULL)
+
+	if (INVALID_HANDLE_VALUE == hFile)
+	{
+		MessageBox(g_hWnd, _T("Load File"), L"Fail", MB_OKCANCEL);
+		return;
+	}
+
+	DeleteTile();
+
+	int			iStartFrame(0);
+	INFO		tTile{};
+	DWORD		dwByte(0);		// eof 역할하는 변수
+
+	while (true)
+	{
+		ReadFile(hFile, &tTile, sizeof(INFO), &dwByte, nullptr);
+		ReadFile(hFile, &iStartFrame, sizeof(TILEID), &dwByte, nullptr);
+
+		if (0 == dwByte)
+			break;
+
+		CObj* pTile = CAbstractFactory<CTile>::Create(tTile.fX, tTile.fY);
+		pTile->SetStartFrame(iStartFrame);
+		pTile->SetFrameKey(L"tile");
+		m_TileVec.push_back(pTile);
+	}
+
+	CloseHandle(hFile);
+}
+
+void CObjMgr::LoadStage2()
+{
+	HANDLE	hFile = CreateFile(L"../Data/Tile2.dat",		// 파일의 경로
+		GENERIC_READ,			// 파일 접근 모드 / GENERIC_READ(읽기 전용)
+		NULL,					// 공유 방식
+		NULL,					// 보안 모드 설정
+		OPEN_EXISTING,			// 쓰기 전용일 때 파일이 없는 경우 파일 생성하여 저장, // OPEN_EXISTING : 파일이 있을 경우에만 불러오기
+		FILE_ATTRIBUTE_NORMAL,	// 파일 속성(아무런 속성이 없는 일반 파일)
+		NULL);					// 생성될 파일의 속성을 제공할 템플릿 파일(안쓰기 때문에 NULL)
+
+	if (INVALID_HANDLE_VALUE == hFile)
+	{
+		MessageBox(g_hWnd, _T("Load File"), L"Fail", MB_OKCANCEL);
+		return;
+	}
+
+	DeleteTile();
+
+	int			iStartFrame(0);
+	INFO		tTile{};
+	DWORD		dwByte(0);		// eof 역할하는 변수
+
+	while (true)
+	{
+		ReadFile(hFile, &tTile, sizeof(INFO), &dwByte, nullptr);
+		ReadFile(hFile, &iStartFrame, sizeof(TILEID), &dwByte, nullptr);
+
+		if (0 == dwByte)
+			break;
+
+		CObj* pTile = CAbstractFactory<CTile>::Create(tTile.fX, tTile.fY);
+		pTile->SetStartFrame(iStartFrame);
+		pTile->SetFrameKey(L"tile");
+		m_TileVec.push_back(pTile);
+	}
+
+	CloseHandle(hFile);
+}
+
+void CObjMgr::LoadStage3()
+{
+	HANDLE	hFile = CreateFile(L"../Data/Tile3.dat",		// 파일의 경로
 		GENERIC_READ,			// 파일 접근 모드 / GENERIC_READ(읽기 전용)
 		NULL,					// 공유 방식
 		NULL,					// 보안 모드 설정

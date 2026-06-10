@@ -49,9 +49,19 @@ int CEdit::Update()
 void CEdit::LateUpdate()
 {
 	CObjMgr::GetInstance()->LateUpdate();
-	if (CKeyMgr::GetInstance()->KeyDown('S'))
-		CObjMgr::GetInstance()->SaveTile();
-	if (CKeyMgr::GetInstance()->KeyDown('L'))
+	if (CKeyMgr::GetInstance()->KeyDown('0'))
+		CObjMgr::GetInstance()->SaveTile(0);
+
+	else if (CKeyMgr::GetInstance()->KeyDown('1'))
+		CObjMgr::GetInstance()->SaveTile(1);
+
+	else if (CKeyMgr::GetInstance()->KeyDown('2'))
+		CObjMgr::GetInstance()->SaveTile(2);
+
+	else if (CKeyMgr::GetInstance()->KeyDown('3'))
+		CObjMgr::GetInstance()->SaveTile(3);
+
+	else if (CKeyMgr::GetInstance()->KeyDown('L'))
 		CObjMgr::GetInstance()->LoadTile();
 }
 

@@ -116,6 +116,8 @@ void CWave::Spread(int iBombRange)
 	for (int i = 1; i <= iBombRange; ++i)
 	{
 		int RightIndex = y * MAP_CNT_X + x + i;
+		if (RightIndex/ MAP_CNT_X != (RightIndex-1) / MAP_CNT_X)
+			break;
 		if (tempTileVec[RightIndex]->GetFrame().iStart <= 1)
 		{
 			if (i == iBombRange)
@@ -139,6 +141,8 @@ void CWave::Spread(int iBombRange)
 	for (int i = 1; i <= iBombRange; ++i)
 	{
 		int LeftIndex = y * MAP_CNT_X + x - i;
+		if (LeftIndex<0 ||LeftIndex / MAP_CNT_X != (LeftIndex + 1) / MAP_CNT_X)
+			break;
 		if (tempTileVec[LeftIndex]->GetFrame().iStart <= 1)
 		{
 			if (i == iBombRange)
@@ -162,6 +166,8 @@ void CWave::Spread(int iBombRange)
 	for (int i = 1; i <= iBombRange; ++i)
 	{
 		int TopIndex = (y - i) * MAP_CNT_X + x;
+		if (TopIndex < 0)
+			break;
 		if (tempTileVec[TopIndex]->GetFrame().iStart <= 1)
 		{
 			if (i == iBombRange)
@@ -185,6 +191,8 @@ void CWave::Spread(int iBombRange)
 	for (int i = 1; i <= iBombRange; ++i)
 	{
 		int BottomIndex = (y + i) * MAP_CNT_X + x;
+		if (BottomIndex > 194)
+			return;
 		if (tempTileVec[BottomIndex]->GetFrame().iStart <= 1)
 		{
 			if (i == iBombRange)

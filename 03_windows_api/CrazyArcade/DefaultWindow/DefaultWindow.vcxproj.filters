@@ -76,6 +76,9 @@
     <Filter Include="02. Obj\05. Wave">
       <UniqueIdentifier>{8242219b-0dbb-4034-96cd-1f6f0aba41a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Obj\06. Boss">
+      <UniqueIdentifier>{e93f7500-9436-42cf-876f-c052d47d238f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -156,6 +159,9 @@
     <ClInclude Include="CWave.h">
       <Filter>02. Obj\05. Wave</Filter>
     </ClInclude>
+    <ClInclude Include="CBoss.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefaultWindow.cpp">
@@ -220,6 +226,9 @@
     </ClCompile>
     <ClCompile Include="CWave.cpp">
       <Filter>02. Obj\05. Wave</Filter>
+    </ClCompile>
+    <ClCompile Include="CBoss.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

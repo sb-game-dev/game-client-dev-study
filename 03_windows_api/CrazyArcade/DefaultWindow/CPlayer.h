@@ -21,6 +21,10 @@ private:
     void        CheckFrame();
     void        CheckPushBlock(DIRECTION eDIR);
     void        CreateBomb();
+
+public:
+    void        SetHit() { m_eCurMotion = HIT; ChangeMotion(); }
+
 private:
     MOTION      m_ePreMotion;
     MOTION      m_eCurMotion;
