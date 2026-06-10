@@ -23,6 +23,7 @@
 #define MAP_CY		520
 #define MAP_CNT_X	15
 #define MAP_CNT_Y	13
+
 #define TILECX		40
 #define TILECY		56
 extern HWND g_hWnd;

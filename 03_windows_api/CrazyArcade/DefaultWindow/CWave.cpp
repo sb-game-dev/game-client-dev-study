@@ -70,17 +70,30 @@ void CWave::Render(HDC hDC)
 		m_tFrame.iCY,
 		RGB(255, 0, 255));		// 제거할 픽셀 색상
 
-	int x = (m_tInfo.fX - MAP_LEFT) / TILECX;
-	int y = (m_tInfo.fY - MAP_TOP) / TILECX;
+	//if (!lstrcmp(m_pFrameKey, L"WaveCenter"))
+	//{
+	//	vector<CObj*> tempTileVec = CObjMgr::GetInstance()->GetTile();
+	//	int x = (m_tInfo.fX - MAP_LEFT) / TILECX;
+	//	int y = (m_tInfo.fY - MAP_TOP) / TILECX;
+	//
+	//	int Index = y * MAP_CNT_X + x;
+	//
+	//	int RightIndex = y * MAP_CNT_X + x + 1;
+	//
+	//	TCHAR	szBuff[32] = L"";
+	//	swprintf_s(szBuff, L"TileID : %d", tempTileVec[RightIndex]->GetFrame().iStart);// dynamic_cast<CTile*>(tempTileVec[RightIndex])->GetTileID());
+	//	TextOut(hDC, 50, 150, szBuff, lstrlen(szBuff));
+	//}
 
-	int Index = y * MAP_CNT_X + x;
-
-	//TCHAR	szBuff[32] = L"";
-	//swprintf_s(szBuff, L"X : %.0f", m_tInfo.fX);
-	//TextOut(hDC, 50, 50, szBuff, lstrlen(szBuff));
-	//TCHAR	szBuff2[32] = L"";
-	//swprintf_s(szBuff2, L"Y : %.0f", m_tInfo.fY);
-	//TextOut(hDC, 50, 75, szBuff2, lstrlen(szBuff2));
+	//if (!lstrcmp(m_pFrameKey, L"right"))
+	//{
+	//	TCHAR	szBuff[32] = L"";
+	//	swprintf_s(szBuff, L"X : %.0f", m_tInfo.fX);
+	//	TextOut(hDC, 50, 150, szBuff, lstrlen(szBuff));
+	//	TCHAR	szBuff2[32] = L"";
+	//	swprintf_s(szBuff2, L"Y : %.0f", m_tInfo.fY);
+	//	TextOut(hDC, 50, 175, szBuff2, lstrlen(szBuff2));
+	//}
 }
 
 void CWave::Release()
@@ -98,25 +111,101 @@ void CWave::CheckFrame()
 void CWave::Spread(int iBombRange)
 {
 	vector<CObj*> tempTileVec = CObjMgr::GetInstance()->GetTile();
+	int x = (m_tInfo.fX - MAP_LEFT) / TILECX;
+	int y = (m_tInfo.fY - MAP_TOP) / TILECX;
 	for (int i = 1; i <= iBombRange; ++i)
 	{
-		int x = (AdjustPosX(m_tInfo.fX) - MAP_LEFT) / TILECX;
-		int y = (AdjustPosY(m_tInfo.fY) - MAP_TOP) / TILECX;
-
-		int Index = y * MAP_CNT_X + x;
-
-		int LeftIndex = y * MAP_CNT_X + x - i;
-		int TopIndex = (y - i) * MAP_CNT_X + x;
 		int RightIndex = y * MAP_CNT_X + x + i;
-		int BottomIndex = (y + i) * MAP_CNT_X + x;
-		if (tempTileVec[RightIndex]->GetFrame().iStart <= 3)
+		if (tempTileVec[RightIndex]->GetFrame().iStart <= 1)
 		{
 			if (i == iBombRange)
 				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(m_tInfo.fX + m_tInfo.fCX * i, m_tInfo.fY, L"right_end"));
+
 			else
 				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(m_tInfo.fX + m_tInfo.fCX * i, m_tInfo.fY, L"right"));
 		}
+		else if (tempTileVec[RightIndex]->GetFrame().iStart <= 3)
+		{
+			if (i == iBombRange)
+				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(m_tInfo.fX + m_tInfo.fCX * i, m_tInfo.fY, L"right_end"));
+
+			else
+				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(m_tInfo.fX + m_tInfo.fCX * i, m_tInfo.fY, L"right"));
+			break;
+		}
+		else
+			break;
 	}
+	for (int i = 1; i <= iBombRange; ++i)
+	{
+		int LeftIndex = y * MAP_CNT_X + x - i;
+		if (tempTileVec[LeftIndex]->GetFrame().iStart <= 1)
+		{
+			if (i == iBombRange)
+				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(m_tInfo.fX - m_tInfo.fCX * i, m_tInfo.fY , L"left_end"));
+
+			else
+				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(m_tInfo.fX - m_tInfo.fCX * i, m_tInfo.fY , L"left"));
+		}
+		else if (tempTileVec[LeftIndex]->GetFrame().iStart <= 3)
+		{
+			if (i == iBombRange)
+				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(m_tInfo.fX - m_tInfo.fCX * i, m_tInfo.fY , L"left_end"));
+
+			else
+				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(m_tInfo.fX - m_tInfo.fCX * i, m_tInfo.fY , L"left"));
+			break;
+		}
+		else
+			break;
+	}
+	for (int i = 1; i <= iBombRange; ++i)
+	{
+		int TopIndex = (y - i) * MAP_CNT_X + x;
+		if (tempTileVec[TopIndex]->GetFrame().iStart <= 1)
+		{
+			if (i == iBombRange)
+				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(m_tInfo.fX, m_tInfo.fY - m_tInfo.fCY * i, L"up_end"));
+
+			else
+				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(m_tInfo.fX, m_tInfo.fY - m_tInfo.fCY * i, L"up"));
+		}
+		else if (tempTileVec[TopIndex]->GetFrame().iStart <= 3)
+		{
+			if (i == iBombRange)
+				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(m_tInfo.fX, m_tInfo.fY - m_tInfo.fCY * i, L"up_end"));
+
+			else
+				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(m_tInfo.fX, m_tInfo.fY - m_tInfo.fCY * i, L"up"));
+			break;
+		}
+		else
+			break;
+	}
+	for (int i = 1; i <= iBombRange; ++i)
+	{
+		int BottomIndex = (y + i) * MAP_CNT_X + x;
+		if (tempTileVec[BottomIndex]->GetFrame().iStart <= 1)
+		{
+			if (i == iBombRange)
+				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(m_tInfo.fX, m_tInfo.fY + m_tInfo.fCY * i, L"down_end"));
+
+			else
+				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(m_tInfo.fX, m_tInfo.fY + m_tInfo.fCY * i, L"down"));
+		}																										   
+		else if (tempTileVec[BottomIndex]->GetFrame().iStart <= 3)													   
+		{																										   
+			if (i == iBombRange)																				   
+				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(m_tInfo.fX, m_tInfo.fY + m_tInfo.fCY * i, L"down_end"));
+																												   
+			else																								   
+				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(m_tInfo.fX, m_tInfo.fY + m_tInfo.fCY * i, L"down"));
+			break;
+		}
+		else
+			break;
+	}
+	//
 	////right
 	//bool bRunning = true;
 	//for (int i = 1; i <= iBombRange; ++i)

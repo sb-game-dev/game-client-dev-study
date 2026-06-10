@@ -3,7 +3,8 @@
 #include "CImgMgr.h"
 #include "CBmpMgr.h"
 #include "CObjMgr.h"
-CTile::CTile():m_bHit(false), m_dwFrameCount(GetTickCount64()), m_pImg(nullptr), m_eDirection(DIR_END), m_eCurMotion(IDLE),m_ePreMotion(MOTION_END)
+CTile::CTile():m_bHit(false), m_dwFrameCount(GetTickCount64()), m_pImg(nullptr), m_eDirection(DIR_END), m_eCurMotion(IDLE),m_ePreMotion(MOTION_END),
+m_eTileID(TILE_END), m_iCurIndex(0),m_iDstIndex(0)
 {
 
 }
@@ -30,7 +31,7 @@ void CTile::Initialize()
 	m_tFrame.bLoop = false;
 	m_tFrame.iCX = TILECX;
 	m_tFrame.iCY = TILECY;
-	m_tFrame.dwSpeed = 123456789.f;
+	m_tFrame.dwSpeed = 123.f;
 	m_tFrame.dwTime = GetTickCount64();
 }
 
@@ -72,6 +73,14 @@ void CTile::Render(HDC hDC)
 		m_tFrame.iCX,			// 원본 이미지 가로, 세로 사이즈
 		m_tFrame.iCY,
 		RGB(255, 0, 255));		// 제거할 픽셀 색상
+
+	//int iX = (m_tInfo.fX - MAP_LEFT) / TILECX;
+	//int iY = (m_tInfo.fY - MAP_TOP) / TILECX;
+	//
+	//int Index = iY * MAP_CNT_X + iX;
+	//TCHAR	szBuff[32] = L"";
+	//swprintf_s(szBuff, L"%.d", Index);
+	//TextOut(hDC, m_tInfo.fX, m_tInfo.fY, szBuff, lstrlen(szBuff));
 }
 
 void CTile::Release()
@@ -102,6 +111,11 @@ void CTile::ChangeMotion()
 }
 void CTile::Move()
 {
+	if (!lstrcmp(m_pFrameKey, L"tile_hit"))
+	{
+		m_bMove = false;
+		return;
+	}
 	for (auto& pTile : CObjMgr::GetInstance()->GetTile())
 	{
 		if (pTile == this) continue;
@@ -119,7 +133,11 @@ void CTile::Move()
 	else if (m_tInfo.fX > m_fDstX) m_tInfo.fX -= 2.0f;
 	else if (m_tInfo.fY < m_fDstY) m_tInfo.fY += 2.0f;
 	else if (m_tInfo.fY > m_fDstY)m_tInfo.fY -= 2.0f;
-	else m_bMove = false;
+	else
+	{
+		CObjMgr::GetInstance()->TileSwap(m_iCurIndex, m_iDstIndex);
+		m_bMove = false;
+	}
 }
 void CTile::SetMove(DIRECTION eDIR)
 {
@@ -143,6 +161,15 @@ void CTile::SetMove(DIRECTION eDIR)
 		m_fDstY += 40.f;
 		break;
 	}
+	int iX = (m_tInfo.fX - MAP_LEFT) / TILECX;
+	int iY = (m_tInfo.fY - MAP_TOP) / TILECX;
+	
+	m_iCurIndex = iY * MAP_CNT_X + iX;
+	
+	int iRightX = (m_fDstX - MAP_LEFT) / TILECX;
+	int iRihgtY = (m_fDstY - MAP_TOP) / TILECX;
+	
+	m_iDstIndex = iRihgtY * MAP_CNT_X + iRightX;
 }
 void CTile::CheckFrame()
 {

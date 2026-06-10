@@ -31,11 +31,11 @@ void CEdit::Initialize()
 	
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(657, 348, L"button_edit", WALL7));
 
-	for (int i = 0; i < 15; ++i)
+	for (int i = 0; i < 13; ++i)
 	{
-		for (int j = 0; j < 13; ++j)
+		for (int j = 0; j < 15; ++j)
 		{
-			CObjMgr::GetInstance()->AddTile(CAbstractFactory<CTile>::Create((i*40)+40, (j*40)+60, L"tile", TILE1));
+			CObjMgr::GetInstance()->AddTile(CAbstractFactory<CTile>::Create((j * 40) + 40, (i * 40) + 60, L"tile", TILE1));
 		}
 	}
 }

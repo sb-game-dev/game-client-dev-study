@@ -30,6 +30,7 @@ public:
 	void	LoadTile();
 	void	DeleteObj(OBJID eID);
 	void	DeleteTile();
+	void	TileSwap(int iLeftIndex, int iRightIndex);
 public:
 	static CObjMgr* GetInstance()
 	{

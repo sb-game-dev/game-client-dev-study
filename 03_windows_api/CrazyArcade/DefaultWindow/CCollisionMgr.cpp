@@ -140,6 +140,42 @@ void CCollisionMgr::CollisionBody(vector<CObj*>& DstList, list<CObj*>& SrcList)
 	}
 }
 
+void CCollisionMgr::CollisionBody(list<CObj*>& DstList, vector<CObj*>& SrcList)
+{
+	float fDeltaSizeX = 0.f, fDeltaSizeY = 0.f;
+
+	for (auto& DstObj : DstList)
+	{
+		for (auto& SrcObj : SrcList)
+		{
+			if (DstObj == SrcObj)
+				continue;
+			CTile* pTempTile = dynamic_cast<CTile*> (SrcObj);
+			if (pTempTile->GetFrame().iStart <= 1)
+				continue;
+
+			if (CheckRect(DstObj, SrcObj, fDeltaSizeX, fDeltaSizeY))
+			{
+				if (fDeltaSizeX > fDeltaSizeY)
+				{
+					if (DstObj->GetInfo()->fY < SrcObj->GetInfo()->fY)
+						SrcObj->SetPosY(fDeltaSizeY);
+					else
+						SrcObj->SetPosY(-fDeltaSizeY);
+				}
+				else
+				{
+					if (DstObj->GetInfo()->fX < SrcObj->GetInfo()->fX)
+						SrcObj->SetPosX(fDeltaSizeX);
+					else
+						SrcObj->SetPosX(-fDeltaSizeX);
+				}
+
+			}
+		}
+	}
+}
+
 bool CCollisionMgr::CheckRect(CObj* Dst, CObj* Src, float& fDeltaSizeX, float& fDeltaSizeY)
 {
 	float fSizeX = fabsf(Dst->GetInfo()->fCX + Src->GetInfo()->fCX) * 0.5f;

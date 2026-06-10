@@ -9,6 +9,7 @@ public:
 
 	static void CollisionAttack(vector<CObj*>& DstList, list<CObj*>& SrcList);
 	static void CollisionBody(vector<CObj*>& DstList, list<CObj*>& SrcList);
+	static void CollisionBody(list<CObj*>& DstList, vector<CObj*>& SrcList);
 
 	static bool CheckRect(CObj* Dst, CObj* Src, float& fDeltaSizeX, float& fDeltaSizeY);
 };

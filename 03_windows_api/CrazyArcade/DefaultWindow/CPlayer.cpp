@@ -66,17 +66,7 @@ void CPlayer::Render(HDC hDC)
 {
 	Graphics* _pGraphics = Graphics::FromHDC(hDC);
 
-	//int x = (AdjustPosX(m_tInfo.fX) - MAP_LEFT) / TILECX;
-	//int y = (AdjustPosY(m_tInfo.fY) - MAP_TOP) / TILECX;
-	//
-	//int Index = y * MAP_CNT_X + x;
-	//
-	//TCHAR	szBuff[32] = L"";
-	//swprintf_s(szBuff, L"X : %d", x);
-	//TextOut(hDC, 50, 50, szBuff, lstrlen(szBuff));
-	//TCHAR	szBuff2[32] = L"";
-	//swprintf_s(szBuff2, L"Y : %d", y);
-	//TextOut(hDC, 50, 75, szBuff2, lstrlen(szBuff2));
+	
 
 	Rectangle(hDC,
 		m_tRect.left,
@@ -101,6 +91,18 @@ void CPlayer::Render(HDC hDC)
 		m_tFrame.iCX, m_tFrame.iCY,
 		UnitPixel,
 		&attr);
+
+	//int x = (AdjustPosX(m_tInfo.fX) - MAP_LEFT) / TILECX;
+	//int y = (AdjustPosY(m_tInfo.fY) - MAP_TOP) / TILECX;
+	//
+	//int Index = y * MAP_CNT_X + x;
+	//
+	//TCHAR	szBuff[32] = L"";
+	//swprintf_s(szBuff, L"PlayerX : %.0f", m_tInfo.fX);
+	//TextOut(hDC, 50, 50, szBuff, lstrlen(szBuff));
+	//TCHAR	szBuff2[32] = L"";
+	//swprintf_s(szBuff2, L"PlayerY : %.0f", m_tInfo.fY);
+	//TextOut(hDC, 50, 75, szBuff2, lstrlen(szBuff2));
 }
 
 void CPlayer::Release()

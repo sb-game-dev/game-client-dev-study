@@ -61,6 +61,21 @@
     <Filter Include="02. Obj\03. Mouse">
       <UniqueIdentifier>{e57fc1de-493d-402f-aeed-e38fa1ad10cd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Design\05. BmpMgr">
+      <UniqueIdentifier>{5cf5bed7-46d5-4ad6-b783-dee30bd84c45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Design\05. BmpMgr\MyBmp">
+      <UniqueIdentifier>{ddb5462d-c4ef-4700-bf11-2becf294fb8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Design\06. CollisionMgr">
+      <UniqueIdentifier>{d62f87ef-bdba-434e-97b2-c6a57a24d258}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Obj\04. Bomb">
+      <UniqueIdentifier>{29d902c1-d323-4f73-a012-fccdfaaadb8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Obj\05. Wave">
+      <UniqueIdentifier>{8242219b-0dbb-4034-96cd-1f6f0aba41a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -126,6 +141,21 @@
     <ClInclude Include="CMouse.h">
       <Filter>02. Obj\03. Mouse</Filter>
     </ClInclude>
+    <ClInclude Include="CBmpMgr.h">
+      <Filter>03. Design\05. BmpMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CMyBmp.h">
+      <Filter>03. Design\05. BmpMgr\MyBmp</Filter>
+    </ClInclude>
+    <ClInclude Include="CCollisionMgr.h">
+      <Filter>03. Design\06. CollisionMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CBomb.h">
+      <Filter>02. Obj\04. Bomb</Filter>
+    </ClInclude>
+    <ClInclude Include="CWave.h">
+      <Filter>02. Obj\05. Wave</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefaultWindow.cpp">
@@ -175,6 +205,21 @@
     </ClCompile>
     <ClCompile Include="CMouse.cpp">
       <Filter>02. Obj\03. Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="CBmpMgr.cpp">
+      <Filter>03. Design\05. BmpMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CMyBmp.cpp">
+      <Filter>03. Design\05. BmpMgr\MyBmp</Filter>
+    </ClCompile>
+    <ClCompile Include="CCollisionMgr.cpp">
+      <Filter>03. Design\06. CollisionMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CBomb.cpp">
+      <Filter>02. Obj\04. Bomb</Filter>
+    </ClCompile>
+    <ClCompile Include="CWave.cpp">
+      <Filter>02. Obj\05. Wave</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

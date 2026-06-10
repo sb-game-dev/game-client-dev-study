@@ -74,13 +74,13 @@ int  CObjMgr::Update()
 }
 void CObjMgr::LateUpdate() 
 {
+	for (auto& pObj : m_TileVec)
+		pObj->Update_Rect();
 	for (int i = 0; i < OBJ_END; ++i)
 	{
 		for (auto& pObj : m_ObjList[i])
 			pObj->LateUpdate();
 	}
-	for (auto& pObj : m_TileVec)
-		pObj->Update_Rect();
 
 	if(!m_ObjList[OBJ_BUTTON].empty())
 		ChoiceButton();
@@ -88,8 +88,11 @@ void CObjMgr::LateUpdate()
 	if (dynamic_cast<CMouse*>(m_ObjList[OBJ_MOUSE].front())->GetChoiceTile() != TILE_END)
 		PutTile();
 
-	//CCollisionMgr::CollisionBody(m_TileVec, m_ObjList[OBJ_PLAYER]);
+	CCollisionMgr::CollisionBody(m_TileVec, m_ObjList[OBJ_PLAYER]);
+	CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOMB], m_TileVec);
 
+	for (auto& pObj : m_TileVec)
+			pObj->Update_Rect();
 	for (int i = 0; i < OBJ_END; ++i)
 	{
 		for (auto& pObj : m_ObjList[i])
@@ -97,8 +100,6 @@ void CObjMgr::LateUpdate()
 			pObj->Update_Rect();
 		}
 	}
-	for (auto& pObj : m_TileVec)
-		pObj->Update_Rect();
 }
 void CObjMgr::Render(HDC hDC)
 {
@@ -256,4 +257,12 @@ void CObjMgr::DeleteTile()
 	for (auto& pObj : m_TileVec)
 		Safe_Delete(pObj);
 	m_TileVec.clear();
+}
+
+void CObjMgr::TileSwap(int iLeftIndex, int iRightIndex)
+{
+	int temp = m_TileVec[iLeftIndex]->GetFrame().iStart;
+	m_TileVec[iLeftIndex]->SetStartFrame( m_TileVec[iRightIndex]->GetFrame().iStart);
+	m_TileVec[iRightIndex]->SetStartFrame(temp);
+	//swap(m_TileVec[iLeftIndex], m_TileVec[iRightIndex]);
 }

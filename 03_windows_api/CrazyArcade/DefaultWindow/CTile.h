@@ -19,6 +19,7 @@ public :
     void        ChangeMotion();
     void        Move();
     void        SetMove(DIRECTION eDIR);
+
 private :
     MOTION      m_ePreMotion;
     MOTION      m_eCurMotion;
@@ -27,9 +28,12 @@ private :
 
     Image*      m_pImg;
 
+    TILEID      m_eTileID;
     DIRECTION   m_eDirection;
     bool        m_bMove;
     float       m_fDstX;
     float       m_fDstY;
+    int         m_iCurIndex;
+    int         m_iDstIndex;
 };
 
