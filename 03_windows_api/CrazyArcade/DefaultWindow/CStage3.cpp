@@ -5,6 +5,7 @@
 #include "CPlayer.h"
 #include "CImgMgr.h"
 #include "CBoss.h"
+#include "CBmpMgr.h"
 CStage3::CStage3()
 {
 }
@@ -16,7 +17,7 @@ CStage3::~CStage3()
 
 void CStage3::Initialize()
 {
-	CImgMgr::GetInstance()->InsertImg(L"../Resource/BackGround/stage_background.png", L"stage_background");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/BackGround/stage_background.bmp", L"stage_background");
 	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create((13 * 40) + 40, (11 * 40) + 60, L"player_start"));
 	CObjMgr::GetInstance()->AddObject(OBJ_BOSS, CAbstractFactory<CBoss>::Create((3 * 40) + 40, (10 * 40) + 60, L"Boss_down"));
 	CObjMgr::GetInstance()->LoadStage3();
@@ -43,11 +44,15 @@ void CStage3::LateUpdate()
 
 void CStage3::Render(HDC hDC)
 {
-	Graphics* _pGraphics = Graphics::FromHDC(hDC);
+	HDC hBackGround = CBmpMgr::GetInstance()->FindImage(L"stage_background");
 
-	Gdiplus::Image* pGround = CImgMgr::GetInstance()->FindImg(L"stage_background");
-	Rect rect = { 0,0,WINCX,WINCY };
-	_pGraphics->DrawImage(pGround, rect, 0, 0, WINCX, WINCY, UnitPixel);
+	BitBlt(hDC,							    // 목적지 DC
+		0,0,
+		WINCX,WINCY,
+		hBackGround,							// 원본 DC
+		0,								// 원본 이미지에서 가져오기 시작할 좌표의 LEFT, TOP
+		0,
+		SRCCOPY);						// 그대로 복사하여 출력
 
 	CObjMgr::GetInstance()->Render(hDC);
 }

@@ -15,6 +15,8 @@ CBomb::~CBomb()
 
 void CBomb::Initialize()
 {
+    m_eRenderID = GAMEOBJECT;
+
     CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Bomb/BlueBubble.bmp", L"BlueBubble");
     CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Bomb/RainbowBubble.bmp", L"RainbowBubble");
     m_tInfo.fCX = 40.f;

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CMouse.h"
 #include "CImgMgr.h"
+#include "CBmpMgr.h"
 
 CMouse::CMouse():m_eChoiceTile(TILE_END)
 {
@@ -13,12 +14,14 @@ CMouse::~CMouse()
 
 void CMouse::Initialize()
 {
-	CImgMgr::GetInstance()->InsertImg(L"../Resource/Mouse/mouse.png", L"mouse");
+	m_eRenderID = MOUSE;
+
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Mouse/mouse.bmp", L"mouse");
 	CImgMgr::GetInstance()->InsertImg(L"../Resource/Tile/tile.png", L"tile");
 
 	m_pFrameKey = L"mouse";
-	m_tInfo.fCX = 27.f;
-	m_tInfo.fCY = 30.f;
+	m_tInfo.fCX = 37.f;
+	m_tInfo.fCY = 39.f;
 }
 
 int CMouse::Update()
@@ -44,7 +47,7 @@ void CMouse::LateUpdate()
 
 void CMouse::Render(HDC hDC)
 {
-	Graphics* _pGraphics = Graphics::FromHDC(hDC);
+	
 
 	if (m_tInfo.fX < MAP_RIGHT
 		&& m_tInfo.fX > MAP_LEFT
@@ -52,6 +55,7 @@ void CMouse::Render(HDC hDC)
 		&& m_tInfo.fY > MAP_TOP
 		&& m_eChoiceTile != TILE_END)
 	{
+		Graphics* _pGraphics = Graphics::FromHDC(hDC);
 		Gdiplus::Image* pImg = CImgMgr::GetInstance()->FindImg(L"tile");
 		Rect rect = { AdjustPosX(m_tInfo.fX) - 20,
 					AdjustPosY(m_tInfo.fY) - 36,
@@ -64,15 +68,28 @@ void CMouse::Render(HDC hDC)
 			UnitPixel,
 			&attr);
 	}
+	HDC hMouse = CBmpMgr::GetInstance()->FindImage(L"mouse");
+	GdiTransparentBlt(hDC,					// 목적지 DC
+		m_tInfo.fX,	// 목적지 LEFT, TOP
+		m_tInfo.fY,
+		(int)m_tInfo.fCX,			// 목적지 공간의 가로, 세로 사이즈
+		(int)m_tInfo.fCY,
+		hMouse,						// 원본 이미지 DC
+		0,							// 원본 이미지 LEFT, TOP
+		0,
+		(int)m_tInfo.fCX,			// 원본 이미지 가로, 세로 사이즈
+		(int)m_tInfo.fCY,
+		RGB(255, 0, 255));		// 제거할 픽셀 색상
 
-	Gdiplus::Image* pImg = CImgMgr::GetInstance()->FindImg(m_pFrameKey);
-	
-	Rect rect = { (int)m_tInfo.fX,(int)m_tInfo.fY,(int)m_tInfo.fCX,(int)m_tInfo.fCY };
-	
-	_pGraphics->DrawImage(pImg, rect,
-		0,0,
-		m_tInfo.fCX, m_tInfo.fCY,
-		UnitPixel);
+
+	//Gdiplus::Image* pImg = CImgMgr::GetInstance()->FindImg(m_pFrameKey);
+	//
+	//Rect rect = { (int)m_tInfo.fX,(int)m_tInfo.fY,(int)m_tInfo.fCX,(int)m_tInfo.fCY };
+	//
+	//_pGraphics->DrawImage(pImg, rect,
+	//	0,0,
+	//	m_tInfo.fCX, m_tInfo.fCY,
+	//	UnitPixel);
 }
 
 void CMouse::Release()

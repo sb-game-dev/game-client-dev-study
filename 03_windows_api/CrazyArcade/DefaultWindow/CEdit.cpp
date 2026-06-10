@@ -5,6 +5,7 @@
 #include "CButton.h"
 #include "CAbstractFactory.h"
 #include "CKeyMgr.h"
+#include "CBmpMgr.h"
 
 CEdit::CEdit()
 {
@@ -17,7 +18,8 @@ CEdit::~CEdit()
 
 void CEdit::Initialize()
 {
-	CImgMgr::GetInstance()->InsertImg(L"../Resource/BackGround/edit_background.png", L"edit_background");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/BackGround/edit_background.bmp", L"edit_background");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_edit.bmp", L"button_edit");
 
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(657, 277, L"button_edit", PUSH));
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(693, 277, L"button_edit", BREAK));
@@ -67,14 +69,15 @@ void CEdit::LateUpdate()
 
 void CEdit::Render(HDC hDC)
 {
-	Graphics* _pGraphics = Graphics::FromHDC(hDC);
+	HDC hBackGround = CBmpMgr::GetInstance()->FindImage(L"edit_background");
 
-	Gdiplus::Image* pBackGround = CImgMgr::GetInstance()->FindImg(L"edit_background");
-	Rect rect = { 0,0,WINCX,WINCY};
-	_pGraphics->DrawImage(pBackGround, rect,
-		0,0,
+	BitBlt(hDC,							    // 목적지 DC
+		0, 0,
 		WINCX, WINCY,
-		UnitPixel);
+		hBackGround,							// 원본 DC
+		0,								// 원본 이미지에서 가져오기 시작할 좌표의 LEFT, TOP
+		0,
+		SRCCOPY);						// 그대로 복사하여 출력
 
 	CObjMgr::GetInstance()->Render(hDC);
 }

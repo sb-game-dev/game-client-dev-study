@@ -6,6 +6,7 @@
 #include "CTile.h"
 #include "CAbstractFactory.h"
 #include "CBomb.h"
+#include "CBmpMgr.h"
 CPlayer::CPlayer():m_ePreMotion(MOTION_END), m_eCurMotion(START), m_fWalkSpeed(3.f), m_fBubbleSpeed(0.5f), m_dwFrameCount(GetTickCount64()),
 m_fBlockMoveTime(0.f), m_iBombRange(2), m_iBombMax(2)
 {
@@ -18,18 +19,17 @@ CPlayer::~CPlayer()
 
 void CPlayer::Initialize()
 {
-	CImgMgr::GetInstance()->InsertImg(L"../Resource/Player/player_start2.png", L"player_start");
-
-	CImgMgr::GetInstance()->InsertImg(L"../Resource/Player/player_down.png", L"player_down");
-	CImgMgr::GetInstance()->InsertImg(L"../Resource/Player/player_up.png", L"player_up");
-	CImgMgr::GetInstance()->InsertImg(L"../Resource/Player/player_left.png", L"player_left");
-	CImgMgr::GetInstance()->InsertImg(L"../Resource/Player/player_right.png", L"player_right");
-
-
-	CImgMgr::GetInstance()->InsertImg(L"../Resource/Player/player_hit.png", L"player_hit");
-	CImgMgr::GetInstance()->InsertImg(L"../Resource/Player/player_death.png", L"player_death");
-	CImgMgr::GetInstance()->InsertImg(L"../Resource/Player/player_live2.png", L"player_live");
-
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_start.bmp", L"player_start");
+	
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_down.bmp", L"player_down");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_up.bmp", L"player_up");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_left.bmp", L"player_left");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_right.bmp", L"player_right");
+	
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_hit.bmp", L"player_hit");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_death.bmp", L"player_death");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_live2.bmp", L"player_live");
+	
 	m_tInfo.fCX = 30.f;
 	m_tInfo.fCY = 30.f;
 
@@ -43,6 +43,7 @@ void CPlayer::Initialize()
 	m_tFrame.dwSpeed = 50.f;
 	m_tFrame.dwTime = GetTickCount64();
 
+	m_eRenderID = GAMEOBJECT;
 }
 
 int CPlayer::Update()
@@ -65,32 +66,44 @@ void CPlayer::LateUpdate()
 
 void CPlayer::Render(HDC hDC)
 {
-	Graphics* _pGraphics = Graphics::FromHDC(hDC);
-
-
 	Rectangle(hDC,
 		m_tRect.left,
 		m_tRect.top,
 		m_tRect.right,
 		m_tRect.bottom);
 
-	Gdiplus::Image* pImg = CImgMgr::GetInstance()->FindImg(m_pFrameKey);
+	HDC hPlayer = CBmpMgr::GetInstance()->FindImage(m_pFrameKey);
 
-	Rect rect = {int(m_tInfo.fX - (m_tFrame.iCX/2)),
-				int(m_tInfo.fY - (m_tFrame.iCY - m_tInfo.fCY*0.5)),
-				m_tFrame.iCX,
-				m_tFrame.iCY };
+	GdiTransparentBlt(hDC,					// 목적지 DC
+		int(m_tInfo.fX - (m_tFrame.iCX / 2)),	// 목적지 LEFT, TOP
+		int(m_tInfo.fY - (m_tFrame.iCY - m_tInfo.fCY * 0.5)),
+		m_tFrame.iCX,			// 목적지 공간의 가로, 세로 사이즈
+		m_tFrame.iCY,
+		hPlayer,						// 원본 이미지 DC
+		m_tFrame.iCX * m_tFrame.iStart,	// 원본 이미지 LEFT, TOP
+		0,
+		m_tFrame.iCX,			// 원본 이미지 가로, 세로 사이즈
+		m_tFrame.iCY,
+		RGB(255, 0, 255));		// 제거할 픽셀 색상
 
-	ImageAttributes attr;
-	attr.SetColorKey(
-		Color(255,0, 255),
-		Color(255,0, 255));
-
-	_pGraphics->DrawImage(pImg, rect,
-		m_tFrame.iCX * m_tFrame.iStart, m_tFrame.iCY * m_tFrame.iMotion,
-		m_tFrame.iCX, m_tFrame.iCY,
-		UnitPixel,
-		&attr);
+	//Graphics* _pGraphics = Graphics::FromHDC(hDC);
+	//Gdiplus::Image* pImg = CImgMgr::GetInstance()->FindImg(m_pFrameKey);
+	//
+	//Rect rect = {int(m_tInfo.fX - (m_tFrame.iCX/2)),
+	//			int(m_tInfo.fY - (m_tFrame.iCY - m_tInfo.fCY*0.5)),
+	//			m_tFrame.iCX,
+	//			m_tFrame.iCY };
+	//
+	//ImageAttributes attr;
+	//attr.SetColorKey(
+	//	Color(255,0, 255),
+	//	Color(255,0, 255));
+	//
+	//_pGraphics->DrawImage(pImg, rect,
+	//	m_tFrame.iCX * m_tFrame.iStart, m_tFrame.iCY * m_tFrame.iMotion,
+	//	m_tFrame.iCX, m_tFrame.iCY,
+	//	UnitPixel,
+	//	&attr);
 
 	//int x = (AdjustPosX(m_tInfo.fX) - MAP_LEFT) / TILECX;
 	//int y = (AdjustPosY(m_tInfo.fY) - MAP_TOP) / TILECX;
@@ -174,8 +187,6 @@ void CPlayer::KeyInput()
 			CreateBomb();
 		}
 	}
-
-	
 }
 
 void CPlayer::ChangeMotion()
@@ -250,8 +261,8 @@ void CPlayer::ChangeMotion()
 		m_tFrame.iEnd = 13;
 		m_tFrame.iMotion = 0;
 		m_tFrame.bLoop = false;
-		m_tFrame.iCX = 88;
-		m_tFrame.iCY = 114;
+		m_tFrame.iCX = 70;
+		m_tFrame.iCY = 89;
 		m_tFrame.dwSpeed = 150.f;
 		m_tFrame.dwTime = GetTickCount64();
 		m_dwFrameCount = GetTickCount64();
@@ -263,8 +274,8 @@ void CPlayer::ChangeMotion()
 		m_tFrame.iEnd = 15;
 		m_tFrame.iMotion = 0;
 		m_tFrame.bLoop = false;
-		m_tFrame.iCX = 88;
-		m_tFrame.iCY = 144;
+		m_tFrame.iCX = 70;
+		m_tFrame.iCY = 115;
 		m_tFrame.dwSpeed = 100.f;
 		m_tFrame.dwTime = GetTickCount64();
 		m_dwFrameCount = GetTickCount64();
@@ -276,8 +287,8 @@ void CPlayer::ChangeMotion()
 		m_tFrame.iEnd = 5;
 		m_tFrame.iMotion = 0;
 		m_tFrame.bLoop = false;
-		m_tFrame.iCX = 88;
-		m_tFrame.iCY = 116;
+		m_tFrame.iCX = 70;
+		m_tFrame.iCY = 91;
 		m_tFrame.dwSpeed = 100.f;
 		m_tFrame.dwTime = GetTickCount64();
 		m_dwFrameCount = GetTickCount64();

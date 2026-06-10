@@ -82,7 +82,13 @@ void CObjMgr::LateUpdate()
 	for (int i = 0; i < OBJ_END; ++i)
 	{
 		for (auto& pObj : m_ObjList[i])
+		{
 			pObj->LateUpdate();
+
+			RENDERID eID = pObj->GetRenderID();
+
+			m_RenderList[eID].push_back(pObj);
+		}
 	}
 
 	if(!m_ObjList[OBJ_BUTTON].empty())
@@ -96,25 +102,13 @@ void CObjMgr::LateUpdate()
 
 	CCollisionMgr::CollisionAttack(m_TileVec, m_ObjList[OBJ_WAVE]);
 	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_WAVE]);
-	//CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_WAVE]);
+	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_WAVE]);
 	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_BOSS]);
 	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOSS], m_ObjList[OBJ_WAVE]);
 
-	for (auto& pBomb : m_ObjList[OBJ_BOMB])
-	{
-		CBomb* pTempBomb = dynamic_cast<CBomb*>(pBomb);
-		if (pTempBomb->GetPlayerCollision() == false)
-		{
-			float fTemp1 = 0.f;
-			float fTemp2 = 0.f;
-			if (!CCollisionMgr::CheckRect(pTempBomb, m_ObjList[OBJ_PLAYER].front(), fTemp1, fTemp2))
-			{
-				pTempBomb->SetPlayerCollision();
-			}
-		}
-	}
-
 	CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_PLAYER]);
+
+	PlayerBombCollision();
 
 	for (auto& pObj : m_TileVec)
 			pObj->Update_Rect();
@@ -130,13 +124,25 @@ void CObjMgr::Render(HDC hDC)
 {
 	for (auto& pObj : m_TileVec)
 		pObj->Render(hDC);
-
 	for (int i = 0; i < OBJ_END; ++i)
 	{
 		for (auto& pObj : m_ObjList[i])
+		{
 			pObj->Render(hDC);
+		}
 	}
-
+	//for (size_t i = 0; i < RENDER_END; ++i)
+	//{
+	//	m_RenderList[i].sort([](CObj* pDst, CObj* pSrc)->bool
+	//		{
+	//			return pDst->GetInfo()->fY < pSrc->GetInfo()->fY;
+	//		});
+	//
+	//	for (auto& pObj : m_RenderList[i])
+	//		pObj->Render(hDC);
+	//
+	//	m_RenderList[i].clear();
+	//}
 }
 
 void CObjMgr::Release() 
@@ -425,4 +431,21 @@ void CObjMgr::TileSwap(int iLeftIndex, int iRightIndex)
 	m_TileVec[iLeftIndex]->SetStartFrame( m_TileVec[iRightIndex]->GetFrame().iStart);
 	m_TileVec[iRightIndex]->SetStartFrame(temp);
 	//swap(m_TileVec[iLeftIndex], m_TileVec[iRightIndex]);
+}
+
+void CObjMgr::PlayerBombCollision()
+{
+	for (auto& pBomb : m_ObjList[OBJ_BOMB])
+	{
+		CBomb* pTempBomb = dynamic_cast<CBomb*>(pBomb);
+		if (pTempBomb->GetPlayerCollision() == false)
+		{
+			float fTemp1 = 0.f;
+			float fTemp2 = 0.f;
+			if (!CCollisionMgr::CheckRect(pTempBomb, m_ObjList[OBJ_PLAYER].front(), fTemp1, fTemp2))
+			{
+				pTempBomb->SetPlayerCollision();
+			}
+		}
+	}
 }

@@ -23,17 +23,21 @@ public:
 	void			SetPosX(float fNum) { m_tInfo.fX += fNum; }
 	void			SetPosY(float fNum) { m_tInfo.fY += fNum; }
 
-	void			SetFrameKey(const WCHAR* pFrameKey) { m_pFrameKey = pFrameKey; }
-	void			MoveFrame();
-	void			SetStartFrame(int eID) { m_tFrame.iStart = eID; }
-	FRAME			GetFrame() { return m_tFrame; }
-
-
-	RECT*			GetRect() { return &m_tRect; }
-	INFO*			GetInfo() { return &m_tInfo; }
+	void			SetRenderID(RENDERID eID) { m_eRenderID = eID; }
 
 	void			SetDead() { m_bDead = DEAD; }
 	virtual void	SetHit() { m_bHit = true; }
+
+	void			SetFrameKey(const WCHAR* pFrameKey) { m_pFrameKey = pFrameKey; }
+	void			SetStartFrame(int eID) { m_tFrame.iStart = eID; }
+	
+
+	FRAME			GetFrame() { return m_tFrame; }
+	RECT*			GetRect() { return &m_tRect; }
+	INFO*			GetInfo() { return &m_tInfo; }
+	const RENDERID& GetRenderID() const { return m_eRenderID; }
+
+	void			MoveFrame();
 
 protected:
 	INFO			m_tInfo;		
@@ -45,5 +49,7 @@ protected:
 	
 	const WCHAR*	m_pFrameKey;
 	FRAME			m_tFrame;
+
+	RENDERID	m_eRenderID;
 };
 

@@ -34,6 +34,8 @@ public:
 	void	DeleteObj(OBJID eID);
 	void	DeleteTile();
 	void	TileSwap(int iLeftIndex, int iRightIndex);
+
+	void	PlayerBombCollision();
 public:
 	static CObjMgr* GetInstance()
 	{
@@ -48,6 +50,7 @@ public:
 private:
 	static CObjMgr* m_pInstance;
 	list<CObj*>		m_ObjList[OBJ_END];
+	list<CObj*>		m_RenderList[RENDER_END];
 	vector<CObj*>	m_TileVec;
 };
 

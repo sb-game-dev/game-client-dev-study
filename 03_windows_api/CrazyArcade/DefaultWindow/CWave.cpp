@@ -15,6 +15,7 @@ CWave::~CWave()
 
 void CWave::Initialize()
 {
+	m_eRenderID = GAMEOBJECT;
 	m_tInfo.fCX = 35.f;
 	m_tInfo.fCY = 35.f;
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Wave/WaveCenter.bmp", L"WaveCenter");
