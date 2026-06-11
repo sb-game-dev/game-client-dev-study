@@ -21,6 +21,9 @@ private:
 	void        ChangeMotion();
 	void        CheckFrame();
 
+	void		BossAttackAround(int iRange);
+	void		BoosMove();
+
 private:
 	MOTION      m_ePreMotion;
 	MOTION      m_eCurMotion;
@@ -33,5 +36,8 @@ private:
 	int         m_iBombRange;
 	int         m_iBombMax;
 	int			m_iHP;
+
+
+	ULONGLONG	m_dwMotionTime;
 };
 

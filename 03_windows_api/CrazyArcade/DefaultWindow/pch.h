@@ -15,7 +15,8 @@
 #include <algorithm>
 #include <vector>
 using namespace std;
-
+#include <io.h>
+#include <iostream>
 #include <ole2.h>
 #include <objidl.h>
 #include <gdiplus.h>

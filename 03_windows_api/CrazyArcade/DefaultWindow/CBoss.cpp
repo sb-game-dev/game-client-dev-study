@@ -2,8 +2,11 @@
 #include "CBoss.h"
 #include "CImgMgr.h"
 #include "CBmpMgr.h"
+#include "CObjMgr.h"
+#include "CAbstractFactory.h"
+#include "CWave.h"
 
-CBoss::CBoss():m_eCurMotion(IDLE), m_iHP(20)
+CBoss::CBoss():m_eCurMotion(IDLE), m_iHP(20), m_dwMotionTime(GetTickCount64())
 {
 }
 
@@ -75,6 +78,14 @@ int CBoss::Update()
 {
 	if (m_bDead == DEAD)
 		return DEAD;
+
+	if (m_eCurMotion != BUBBLE && m_eCurMotion != DEATH
+		&&m_dwMotionTime + 2000 <= GetTickCount64())
+	{
+		BossAttackAround(3);
+		m_dwMotionTime = GetTickCount64();
+	}
+
 	MoveFrame();
 	CheckFrame();
 	ChangeMotion();
@@ -88,7 +99,7 @@ void CBoss::LateUpdate()
 
 void CBoss::Render(HDC hDC)
 {
-	Graphics* _pGraphics = Graphics::FromHDC(hDC);
+	//Graphics* _pGraphics = Graphics::FromHDC(hDC);
 
 	Rectangle(hDC,
 		m_tRect.left,
@@ -168,6 +179,7 @@ void CBoss::Render(HDC hDC)
 
 void CBoss::Release()
 {
+
 }
 void CBoss::SetHit()
 {
@@ -306,3 +318,36 @@ void CBoss::CheckFrame()
 		m_bDead = DEAD;
 	}
 }
+
+void CBoss::BossAttackAround(int iRange)
+{
+	int iBossX = AdjustPosX(m_tInfo.fX);
+	int iBossY = AdjustPosY(m_tInfo.fY);
+#ifdef _DEBUG
+
+	cout << "보스 : " << iBossX  << "\t" << iBossY << endl;
+
+#endif // _DEBUG
+	for (int j = iBossY - iRange*40; j <= iBossY + iRange * 40; j+=40)
+	{
+		if (j == iBossY - iRange * 40 || j == iBossY + iRange * 40)
+		{
+			for (int i = iBossX - iRange * 40; i <= iBossX + iRange * 40; i+=40)
+			{
+				cout << "물줄기 위치 : " << i << "\t" << j << endl;
+				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(i, j, L"WaveCenter"));
+			}
+		}
+		else
+		{
+			CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(iBossX - iRange * 40, j, L"WaveCenter"));
+			CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(iBossX + iRange * 40, j, L"WaveCenter"));
+		}
+	}
+
+}
+
+void CBoss::BoosMove()
+{
+}
+
