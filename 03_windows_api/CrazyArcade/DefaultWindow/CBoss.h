@@ -37,7 +37,8 @@ private:
 	int         m_iBombMax;
 	int			m_iHP;
 
-
-	ULONGLONG	m_dwMotionTime;
+	int			m_iAttackRange;
+	int			m_iAttackRangeDelta;
+	ULONGLONG	m_dwAttackTime;
 };
 

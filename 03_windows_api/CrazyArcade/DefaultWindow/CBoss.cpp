@@ -6,7 +6,8 @@
 #include "CAbstractFactory.h"
 #include "CWave.h"
 
-CBoss::CBoss():m_eCurMotion(IDLE), m_iHP(20), m_dwMotionTime(GetTickCount64())
+CBoss::CBoss():m_eCurMotion(IDLE), m_iHP(20), m_dwAttackTime(GetTickCount64()),
+m_iAttackRange(4), m_iAttackRangeDelta(1)
 {
 }
 
@@ -80,12 +81,17 @@ int CBoss::Update()
 		return DEAD;
 
 	if (m_eCurMotion != BUBBLE && m_eCurMotion != DEATH
-		&&m_dwMotionTime + 2000 <= GetTickCount64())
+		&&m_dwAttackTime + 2000 <= GetTickCount64())
 	{
-		BossAttackAround(3);
-		m_dwMotionTime = GetTickCount64();
-	}
+		m_dwAttackTime = GetTickCount64();
+		BossAttackAround(m_iAttackRange);
 
+		if (m_iAttackRange <= 3|| m_iAttackRange >= 6)
+			m_iAttackRangeDelta *= -1;
+		m_iAttackRange += m_iAttackRangeDelta;
+		m_eCurMotion = ATTACK;
+		ChangeMotion();
+	}
 	MoveFrame();
 	CheckFrame();
 	ChangeMotion();
@@ -266,6 +272,18 @@ void CBoss::ChangeMotion()
 		m_tFrame.dwTime = GetTickCount64();
 		m_dwFrameCount = GetTickCount64();
 		break;
+	case ATTACK:
+		m_pFrameKey = L"Boss_AttackDown";
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 5;
+		m_tFrame.iMotion = 0;
+		m_tFrame.bLoop = false;
+		m_tFrame.iCX = 132;
+		m_tFrame.iCY = 175;
+		m_tFrame.dwSpeed = 150.f;
+		m_tFrame.dwTime = GetTickCount64();
+		m_dwFrameCount = GetTickCount64();
+		break;
 	case BUBBLE:
 		m_pFrameKey = L"Boss_Bubble";
 		m_tFrame.iStart = 0;
@@ -300,6 +318,12 @@ void CBoss::ChangeMotion()
 
 void CBoss::CheckFrame()
 {
+	if (m_eCurMotion == ATTACK
+		&& m_dwFrameCount + m_tFrame.dwSpeed * m_tFrame.iEnd <= GetTickCount64())
+	{
+		m_eCurMotion = IDLE;
+		ChangeMotion();
+	}
 	if (m_eCurMotion == HIT
 		&& m_dwFrameCount + m_tFrame.dwSpeed * m_tFrame.iEnd <= GetTickCount64())
 	{
@@ -315,7 +339,7 @@ void CBoss::CheckFrame()
 	if (m_eCurMotion == DEATH
 		&& m_dwFrameCount + m_tFrame.dwSpeed * m_tFrame.iEnd <= GetTickCount64())
 	{
-		m_bDead = DEAD;
+		m_bDead = DEAD;	
 	}
 }
 
@@ -323,18 +347,13 @@ void CBoss::BossAttackAround(int iRange)
 {
 	int iBossX = AdjustPosX(m_tInfo.fX);
 	int iBossY = AdjustPosY(m_tInfo.fY);
-#ifdef _DEBUG
 
-	cout << "보스 : " << iBossX  << "\t" << iBossY << endl;
-
-#endif // _DEBUG
 	for (int j = iBossY - iRange*40; j <= iBossY + iRange * 40; j+=40)
 	{
 		if (j == iBossY - iRange * 40 || j == iBossY + iRange * 40)
 		{
 			for (int i = iBossX - iRange * 40; i <= iBossX + iRange * 40; i+=40)
 			{
-				cout << "물줄기 위치 : " << i << "\t" << j << endl;
 				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(i, j, L"WaveCenter"));
 			}
 		}
