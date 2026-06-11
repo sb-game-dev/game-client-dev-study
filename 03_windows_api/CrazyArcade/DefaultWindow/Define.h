@@ -130,3 +130,9 @@ inline int	AdjustPosY(float fY)
 	return (int)(fY - 40) / 40 * 40 + 60;
 }
 
+inline bool CheckInMap(float fX, float fY)
+{
+	if (fX < MAP_RIGHT && fX>MAP_LEFT && fY >MAP_TOP && fY <MAP_BOTTOM)
+		return true;
+	return false;
+}

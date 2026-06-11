@@ -375,7 +375,7 @@ void CPlayer::CreateBomb()
 	float fX = AdjustPosX(m_tInfo.fX);
 	float fY = AdjustPosY(m_tInfo.fY);
 	CObj* pBomb = CAbstractFactory<CBomb>::Create(fX, fY, L"BlueBubble");
-
+	pBomb->SetCanMove(false);
 	dynamic_cast<CBomb*>(pBomb)->SetBombRange(m_iBombRange);
 	CObjMgr::GetInstance()->AddObject(OBJ_BOMB, pBomb);
 }

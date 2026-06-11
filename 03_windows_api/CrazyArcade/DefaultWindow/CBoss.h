@@ -22,11 +22,18 @@ private:
 	void        CheckFrame();
 
 	void		BossAttackAround(int iRange);
-	void		BoosMove();
+	void		CreateDst();
 
+	void		BossPattern();
+	void		AttackPattern1();
+	void		AttackPattern2();
+	void		Move();
+
+	void		CreateBomb(float fX, float fY, DIRECTION eDir);
 private:
 	MOTION      m_ePreMotion;
 	MOTION      m_eCurMotion;
+	MOTION		m_eReturnMotion;
 	float       m_fWalkSpeed;
 	float       m_fBubbleSpeed;
 
@@ -39,6 +46,14 @@ private:
 
 	int			m_iAttackRange;
 	int			m_iAttackRangeDelta;
+
+	bool		m_bMoveAttack;
 	ULONGLONG	m_dwAttackTime;
+
+	float		m_fDstX;
+	float		m_fDstY;
+	int			m_iShootCnt;
+	bool		m_bCheckRemainTile;
+	int			m_iRemainTile;
 };
 

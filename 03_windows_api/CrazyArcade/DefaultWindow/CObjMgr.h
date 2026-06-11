@@ -36,6 +36,8 @@ public:
 	void	TileSwap(int iLeftIndex, int iRightIndex);
 
 	void	PlayerBombCollision();
+
+	int		GetRemainTile();
 public:
 	static CObjMgr* GetInstance()
 	{

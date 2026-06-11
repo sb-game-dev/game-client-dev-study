@@ -45,8 +45,6 @@ int CWave::Update()
 {
 	if (m_bDead == DEAD)
 		return DEAD;
-	if (m_tInfo.fX <= MAP_LEFT || m_tInfo.fX >= MAP_RIGHT || m_tInfo.fY <= MAP_TOP || m_tInfo.fY >= MAP_BOTTOM)
-		return DEAD;
 	MoveFrame();
 	CheckFrame();
 	return 0;

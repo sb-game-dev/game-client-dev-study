@@ -44,13 +44,15 @@ void CBomb::Initialize()
         m_tFrame.dwSpeed = (ULONGLONG)150.f;
         m_tFrame.dwTime = GetTickCount64();
     }
+    m_fSpeed = 10.f;
 }
 
 int CBomb::Update()
 {
     if (m_bDead == DEAD)
         return DEAD;
-   
+    if (m_bCanMove == true)
+        MoveBomb();
     MoveFrame();
     return 0;
 }
@@ -99,4 +101,30 @@ CObj* CBomb::CreateWave()
 
     dynamic_cast<CWave*>(pWave)->Spread(m_iBombRange);
     return pWave;
+}
+
+void CBomb::MoveBomb()
+{
+    if (m_tInfo.fX<=40 || m_tInfo.fX>=600 || m_tInfo.fY <=60 || m_tInfo.fY >= 540)
+    {
+        m_bCanMove = false;
+        return;
+    }
+    switch (m_eDIR)
+    {
+    case DIR_UP:
+        m_tInfo.fY -= m_fSpeed;
+        break;
+    case DIR_DOWN:
+        m_tInfo.fY += m_fSpeed;
+        break;
+    case DIR_LEFT:
+        m_tInfo.fX -= m_fSpeed;
+        break;
+    case DIR_RIGHT:
+        m_tInfo.fX += m_fSpeed;
+        break;
+    default:
+        break;
+    }
 }

@@ -98,6 +98,7 @@ void CObjMgr::LateUpdate()
 		PutTile();
 
 	CCollisionMgr::CollisionBody(m_TileVec, m_ObjList[OBJ_PLAYER]);
+	CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_BOMB]);
 	CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOMB], m_TileVec);
 
 	CCollisionMgr::CollisionAttack(m_TileVec, m_ObjList[OBJ_WAVE]);
@@ -452,4 +453,15 @@ void CObjMgr::PlayerBombCollision()
 			}
 		}
 	}
+}
+
+int CObjMgr::GetRemainTile()
+{
+	int iCnt = 0;
+	for (auto& pTile : m_TileVec)
+	{
+		if (pTile->GetFrame().iStart == 2 || pTile->GetFrame().iStart == 3)
+			++iCnt;
+	}
+	return iCnt;
 }

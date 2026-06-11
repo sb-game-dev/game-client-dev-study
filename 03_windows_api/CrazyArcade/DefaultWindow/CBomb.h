@@ -20,6 +20,8 @@ public:
 	CObj*		CreateWave();
 
 private:
+	void		MoveBomb();
+private:
 	ULONGLONG		m_dwBombTime;
 	int				m_iBombRange;
 	bool			m_bPlayerCollision;

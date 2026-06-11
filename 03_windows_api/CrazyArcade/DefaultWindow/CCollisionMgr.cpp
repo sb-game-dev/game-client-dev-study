@@ -77,14 +77,19 @@ void CCollisionMgr::CollisionBody(list<CObj*>& DstList, list<CObj*>& SrcList)
 			if (DstObj == SrcObj)
 				continue;
 			
+			CBomb* pDstBomb = dynamic_cast<CBomb*> (DstObj);
+			CBomb* pSrcBomb = dynamic_cast<CBomb*> (SrcObj);
 
-			CBomb* pTempBomb = dynamic_cast<CBomb*>(DstObj);
-
-			if (pTempBomb && pTempBomb->GetPlayerCollision() == false)
+			if (pDstBomb && pDstBomb->GetPlayerCollision() == false)
 				return;
 
 			if (CheckRect(DstObj, SrcObj, fDeltaSizeX, fDeltaSizeY))
 			{
+				if (pDstBomb && pSrcBomb && pSrcBomb->GetCanMove() == true)
+				{
+					pSrcBomb->SetCanMove(false);
+					return;
+				}
 				if (fDeltaSizeX > fDeltaSizeY)
 				{
 					if (DstObj->GetInfo()->fY < SrcObj->GetInfo()->fY)
@@ -141,6 +146,8 @@ void CCollisionMgr::CollisionBody(vector<CObj*>& DstList, list<CObj*>& SrcList)
 			if (DstObj == SrcObj)
 				continue;
 			CTile* pTempTile = dynamic_cast<CTile*> (DstObj);
+			CBomb* pSrcBomb = dynamic_cast<CBomb*> (SrcObj);
+
 			if (pTempTile->GetFrame().iStart <= 1)
 				continue;
 
@@ -182,6 +189,7 @@ void CCollisionMgr::CollisionBody(list<CObj*>& DstList, vector<CObj*>& SrcList)
 
 			if (CheckRect(DstObj, SrcObj, fDeltaSizeX, fDeltaSizeY))
 			{
+				
 				if (fDeltaSizeX > fDeltaSizeY)
 				{
 					if (DstObj->GetInfo()->fY < SrcObj->GetInfo()->fY)
