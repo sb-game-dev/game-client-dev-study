@@ -185,6 +185,12 @@ void CBoss::SetHit()
 {
 	if (m_eCurMotion != HIT)
 	{
+
+#ifdef _DEBUG
+		m_iHP -= 5;
+#elif NDEBUG
+		m_iHP -= 1;
+#endif // _DEBUG
 		m_iHP-=1;
 		if (m_iHP <= 0)
 			m_eCurMotion = BUBBLE;
@@ -255,7 +261,6 @@ void CBoss::ChangeMotion()
 		m_tFrame.dwTime = GetTickCount64();
 		break;
 	case HIT:
-		//m_pFrameKey = L"Boss_HitDown";
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 4;
 		m_tFrame.iMotion = 170;
@@ -267,7 +272,6 @@ void CBoss::ChangeMotion()
 		m_dwFrameCount = GetTickCount64();
 		break;
 	case ATTACK:
-		//m_pFrameKey = L"Boss_down";
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 5;
 		m_tFrame.iMotion = 340;
@@ -313,12 +317,6 @@ void CBoss::ChangeMotion()
 
 void CBoss::CheckFrame()
 {
-	//if (m_eCurMotion == ATTACK
-	//	&& m_dwFrameCount + m_tFrame.dwSpeed * m_tFrame.iEnd <= GetTickCount64())
-	//{
-	//	m_eCurMotion = IDLE;
-	//	ChangeMotion();
-	//}
 	if (m_eCurMotion == HIT
 		&& m_dwFrameCount + m_tFrame.dwSpeed * m_tFrame.iEnd <= GetTickCount64())
 	{
