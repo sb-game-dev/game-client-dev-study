@@ -82,6 +82,9 @@
     <Filter Include="02. Obj\07. Item">
       <UniqueIdentifier>{75a3a937-f417-4ab4-9ec6-2914075a06e7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Obj\08. Dart">
+      <UniqueIdentifier>{45d23252-6e23-4ae3-a2fa-99be94e19c54}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -168,6 +171,9 @@
     <ClInclude Include="CItem.h">
       <Filter>02. Obj\07. Item</Filter>
     </ClInclude>
+    <ClInclude Include="CDart.h">
+      <Filter>02. Obj\08. Dart</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefaultWindow.cpp">
@@ -238,6 +244,9 @@
     </ClCompile>
     <ClCompile Include="CItem.cpp">
       <Filter>02. Obj\07. Item</Filter>
+    </ClCompile>
+    <ClCompile Include="CDart.cpp">
+      <Filter>02. Obj\08. Dart</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -101,6 +101,10 @@ void CObjMgr::LateUpdate()
 	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_WAVE]);
 	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOSS], m_ObjList[OBJ_WAVE]);
 
+	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_DART]);
+	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_MONSTER_BOMB], m_ObjList[OBJ_DART]);
+	CCollisionMgr::CollisionAttack(m_TileVec, m_ObjList[OBJ_DART]);
+
 	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_ITEM], m_ObjList[OBJ_PLAYER]);
 	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_BOSS]);
 	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_ITEM], m_ObjList[OBJ_WAVE]);

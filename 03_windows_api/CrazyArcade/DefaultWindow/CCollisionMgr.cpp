@@ -7,6 +7,7 @@
 #include "CObjMgr.h"
 #include "CBoss.h"
 #include "CItem.h"
+#include "CDart.h"
 
 void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 {
@@ -26,26 +27,30 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 
 				CPlayer* pSrcPlayer = dynamic_cast<CPlayer*>(Src);
 				CItem* pDstItem = dynamic_cast<CItem*>(Dst);
-
+				CDart* pSrcDart = dynamic_cast<CDart*>(Src);
 				if (pDstBomb)
 				{
 					CObjMgr::GetInstance()->AddObject(OBJ_WAVE, pDstBomb->CreateWave());
 					pDstBomb->SetDead();
+					if (pSrcDart)
+					{
+						pSrcDart->SetDead();
+					}
 				}
-				else if (pSrcBoss && pDstPlayer)
+				else if (pDstPlayer)
 				{
-					if (pSrcBoss->GetCurMotion() == BUBBLE)
+					if (pDstPlayer->GetShield() == true || pDstPlayer->GetCurMotion() == HIT || pDstPlayer->GetCurMotion() == DEATH)
+						return;
+					if (pSrcBoss && pSrcBoss->GetCurMotion() == BUBBLE)
 						pSrcBoss->SetDeath();
 #ifdef NDEBUG
-					else
+					else if(pSrcBoss)
 						pDstPlayer->SetBossHit();
+					else if(pSrcWave)
+						pDstPlayer->SetHit();
 #endif // NDEBUG
 
 				}
-				//else if (pDstItem && pSrcWave)
-				//{
-				//	pDstItem->SetDead();
-				//}
 				else if (pSrcPlayer)//pDstItem && 
 				{
 					pSrcPlayer->PickUpItem(pDstItem->GetFrameKey());
@@ -119,7 +124,7 @@ void CCollisionMgr::CollisionAttack(vector<CObj*>& DstList, list<CObj*>& SrcList
 			{
 				CWave* pSrWave = dynamic_cast<CWave*>(Src);
 				CTile* pDstTile = dynamic_cast<CTile*>(Dst);
-
+				CDart* pSrcDart = dynamic_cast<CDart*>(Src);
 				if (pDstTile && pSrWave)
 				{
 					if (pDstTile->GetFrame().iStart == PUSH || pDstTile->GetFrame().iStart == BREAK)
@@ -127,6 +132,11 @@ void CCollisionMgr::CollisionAttack(vector<CObj*>& DstList, list<CObj*>& SrcList
 						pSrWave->SetDead();
 						pDstTile->SetHit();
 					}
+				}
+				else if (pDstTile && pSrcDart)
+				{
+					if (pDstTile->GetFrame().iStart != TILE1)
+						pSrcDart->SetDead();
 				}
 			}
 		}

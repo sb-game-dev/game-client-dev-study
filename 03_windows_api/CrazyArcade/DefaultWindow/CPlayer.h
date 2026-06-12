@@ -23,11 +23,17 @@ private:
     void        CheckFrame();
     void        CheckPushBlock(DIRECTION eDIR);
     void        CreateBomb();
+    void        CreateDart();
     void        ShowItemGainEffect(HDC hDC);
+    void        ShowCtrlSlot(HDC hDC);
+    void        ShowShield(HDC hDC);
 public:
     void        SetHit() { m_eCurMotion = HIT; ChangeMotion(); }
     void        SetBossHit(){ m_eCurMotion = DEATH; ChangeMotion(); }
     void        SetReduceBombCnt() { --m_iBombCnt; }
+
+    MOTION      GetCurMotion() { return m_eCurMotion; }
+    bool        GetShield() { return m_bShowShieldEffect; }
 
     void        PickUpItem(const WCHAR* pItemFrameKey);
 private:
@@ -38,12 +44,19 @@ private:
 
     ULONGLONG   m_dwFrameCount;
     ULONGLONG   m_dwItemEffectFrameCount;
+    ULONGLONG   m_dwShieldEffectFrameCount;
 
     float       m_fBlockMoveTime;
     int         m_iBombRange;
     int         m_iBombCnt;
     int         m_iBombMax;
     bool        m_bShowItemGainEffect;
-    ITEMTYPE    m_pItemFrameKey;
+    bool        m_bShowShieldEffect;
+    int         m_iShieldFrame;
+
+    ITEMTYPE    m_eItemFrameKey;
+
+    ITEMTYPE    m_eCtrlSlot;
+    int         m_iCtrlSlotCnt;
 };
 
