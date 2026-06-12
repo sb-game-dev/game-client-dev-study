@@ -9,7 +9,7 @@
 
 CBoss::CBoss():m_eCurMotion(IDLE), m_iHP(20), m_dwAttackTime(GetTickCount64()),
 m_iAttackRange(3), m_iAttackRangeDelta(1), m_bMoveAttack(false), m_iShootCnt(0),
-m_bCheckRemainTile(true), m_iRemainTile(195)
+m_bCheckRemainTile(true), m_iRemainTile(195), m_fAngrySpeed(3.f),m_fWalkSpeed(1.f)
 {
 	m_ePreMotion = MOTION_END;
 	m_eCurMotion = IDLE;
@@ -23,46 +23,10 @@ CBoss::~CBoss()
 
 void CBoss::Initialize()
 {
-	//CImgMgr::GetInstance()->InsertImg(L"../Resource/Boss/Boss_down.png", L"Boss_down");
-	//CImgMgr::GetInstance()->InsertImg(L"../Resource/Boss/Boss_up.png", L"Boss_up");
-	//CImgMgr::GetInstance()->InsertImg(L"../Resource/Boss/Boss_left.png", L"Boss_left");
-	//CImgMgr::GetInstance()->InsertImg(L"../Resource/Boss/Boss_right.png", L"Boss_right");
-
-	//CImgMgr::GetInstance()->InsertImg(L"../Resource/Boss/Boss_AttackDown.png", L"Boss_AttackDown");
-	//CImgMgr::GetInstance()->InsertImg(L"../Resource/Boss/Boss_AttackUp.png", L"Boss_AttackUp");
-	////CImgMgr::GetInstance()->InsertImg(L"../Resource/Boss/Boss_AttackLeft.png", L"Boss_AttackLeft");
-	//CImgMgr::GetInstance()->InsertImg(L"../Resource/Boss/Boss_AttackRight.png", L"Boss_right");
-
-	//CImgMgr::GetInstance()->InsertImg(L"../Resource/Boss/Boss_HitDown.png", L"Boss_HitDown");
-	//CImgMgr::GetInstance()->InsertImg(L"../Resource/Boss/Boss_HitLeft.png", L"Boss_HitLeft");
-	//CImgMgr::GetInstance()->InsertImg(L"../Resource/Boss/Boss_HitRight.png", L"Boss_HitRight");
-	//CImgMgr::GetInstance()->InsertImg(L"../Resource/Boss/Boss_HitUp.png", L"Boss_HitUp");
-
-	//CImgMgr::GetInstance()->InsertImg(L"../Resource/Boss/Boss_Bubble.png", L"Boss_Bubble");
-	//CImgMgr::GetInstance()->InsertImg(L"../Resource/Boss/Boss_Dead.png", L"Boss_Dead");
-
-
-	//CImgMgr::GetInstance()->InsertImg(L"../Resource/UI/HP_Bar.png", L"HP_Bar");
-	//CImgMgr::GetInstance()->InsertImg(L"../Resource/UI/HP_Bar_Blue.png", L"HP_Bar_Blue");
-	//CImgMgr::GetInstance()->InsertImg(L"../Resource/UI/HP_Bar_Red.png", L"HP_Bar_Red");
-
-	
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Boss/Boss_down2.bmp", L"Boss_down");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Boss/Boss_up2.bmp", L"Boss_up");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Boss/Boss_left2.bmp", L"Boss_left");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Boss/Boss_right2.bmp", L"Boss_right");
-
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Boss/Boss_Bubble.bmp", L"Boss_Bubble");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Boss/Boss_Dead.bmp", L"Boss_Dead");
-
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/HP_Bar.bmp", L"HP_Bar");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/HP_Bar_Blue.bmp", L"HP_Bar_Blue");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/HP_Bar_Red.bmp", L"HP_Bar_Red");
-
 	m_tInfo.fCX = 120.f;
 	m_tInfo.fCY = 120.f;
 
-	m_fSpeed = 1.f;
+	m_fSpeed = m_fWalkSpeed;
 
 	m_eCurMotion = IDLE;
 
@@ -103,12 +67,14 @@ void CBoss::LateUpdate()
 void CBoss::Render(HDC hDC)
 {
 	//Graphics* _pGraphics = Graphics::FromHDC(hDC);
-
+#ifdef _DEBUG
 	Rectangle(hDC,
 		m_tRect.left,
 		m_tRect.top,
 		m_tRect.right,
 		m_tRect.bottom);
+#endif // _DEBUG
+
 
 	HDC hBoss = CBmpMgr::GetInstance()->FindImage(m_pFrameKey);
 	GdiTransparentBlt(hDC,					// 목적지 DC
@@ -145,12 +111,19 @@ void CBoss::Render(HDC hDC)
 		//	0, 0,
 		//	86, 11,
 		//	UnitPixel);
-		HDC hHpBarBlue = CBmpMgr::GetInstance()->FindImage(L"HP_Bar_Blue");
+		HDC hHpBarColor = NULL;
+		if (m_iHP > 5)
+			hHpBarColor = CBmpMgr::GetInstance()->FindImage(L"HP_Bar_Blue");
+		else
+		{
+			m_fSpeed = m_fAngrySpeed;
+			hHpBarColor = CBmpMgr::GetInstance()->FindImage(L"HP_Bar_Red");
+		}
 		GdiTransparentBlt(hDC,					// 목적지 DC
 			int(m_tInfo.fX - (41)),
 			int(m_tInfo.fY - (m_tFrame.iCY - m_tInfo.fCY * 0.5)) - 6,
 			int(82 * m_iHP / 20), 7,
-			hHpBarBlue,						// 원본 이미지 DC
+			hHpBarColor,						// 원본 이미지 DC
 			0, 0,
 			int(82 * m_iHP / 20), 7,
 			RGB(255, 0, 255));		// 제거할 픽셀 색상
@@ -187,11 +160,10 @@ void CBoss::SetHit()
 	{
 
 #ifdef _DEBUG
-		m_iHP -= 5;
+		m_iHP -= 4;
 #elif NDEBUG
 		m_iHP -= 1;
 #endif // _DEBUG
-		m_iHP-=1;
 		if (m_iHP <= 0)
 			m_eCurMotion = BUBBLE;
 		else
@@ -508,9 +480,10 @@ void CBoss::AttackPattern2()
 
 void CBoss::CreateBomb(float fX, float fY,DIRECTION eDir)
 {
-	CObj* pBomb = CAbstractFactory<CBomb>::Create(fX, fY, L"BlueBubble");
+	CObj* pBomb = CAbstractFactory<CBomb>::Create(fX, fY, L"RainbowBubble");
 	pBomb->SetCanMove(true);
 	pBomb->SetDirection(eDir);
+	dynamic_cast<CBomb*>(pBomb)->SetPlayerCollision();
 	dynamic_cast<CBomb*>(pBomb)->SetBombRange(3);
-	CObjMgr::GetInstance()->AddObject(OBJ_BOMB, pBomb);
+	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER_BOMB, pBomb);
 }

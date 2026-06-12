@@ -4,6 +4,7 @@
 #include "CBmpMgr.h"
 #include "CWave.h"
 #include "CAbstractFactory.h"
+#include "CPlayer.h"
 CBomb::CBomb():m_dwBombTime(GetTickCount64()), m_bPlayerCollision(false),m_iBombRange(0)
 {
 }
@@ -17,11 +18,8 @@ void CBomb::Initialize()
 {
     m_eRenderID = GAMEOBJECT;
 
-    CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Bomb/BlueBubble.bmp", L"BlueBubble");
-    CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Bomb/RainbowBubble.bmp", L"RainbowBubble");
     m_tInfo.fCX = 40.f;
     m_tInfo.fCY = 40.f;
-    //MessageBox(g_hWnd, _T("Save ¿Ï·á"), L"Success", MB_OKCANCEL);
     if (!lstrcmp(m_pFrameKey, L"BlueBubble"))
     {
         m_tFrame.iStart = 0;
@@ -62,6 +60,7 @@ void CBomb::LateUpdate()
     if (m_dwBombTime + 2500 <= GetTickCount64())
     {
         CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CreateWave());
+        dynamic_cast<CPlayer*>(CObjMgr::GetInstance()->GetList(OBJ_PLAYER).front())->SetReduceBombCnt();
         m_bDead = DEAD;
     }
 }

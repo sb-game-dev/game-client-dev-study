@@ -3,6 +3,8 @@
 #include "CImgMgr.h"
 #include "CBmpMgr.h"
 #include "CObjMgr.h"
+#include "CItem.h"
+#include "CAbstractFactory.h"
 CTile::CTile(): m_dwFrameCount(GetTickCount64()), m_pImg(nullptr), m_eDirection(DIR_END), m_eCurMotion(IDLE),m_ePreMotion(MOTION_END),
 m_eTileID(TILE_END), m_iCurIndex(0),m_iDstIndex(0),m_bMove(false),m_fDstX(0.f),m_fDstY(0.f)
 {
@@ -15,14 +17,7 @@ CTile::~CTile()
 }
 
 void CTile::Initialize()
-{
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile.bmp", L"tile");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile_hit.bmp", L"tile_hit");
-
-	
-	//CImgMgr::GetInstance()->InsertImg(L"../Resource/Tile/tile_hit.png", L"tile_hit");
-	m_pImg = CImgMgr::GetInstance()->FindImg(L"tile");
-
+{	
 	m_tInfo.fCX = 40.f;
 	m_tInfo.fCY = 40.f;
 	m_pFrameKey = L"tile";
@@ -172,19 +167,36 @@ void CTile::SetMove(DIRECTION eDIR)
 	
 	m_iDstIndex = iRihgtY * MAP_CNT_X + iRightX;
 }
+
 void CTile::CheckFrame()
 {
 	if (m_dwFrameCount + m_tFrame.dwSpeed * m_tFrame.iEnd <= GetTickCount64())
 	{
+		m_eCurMotion = DEATH;
 		m_pFrameKey = L"tile";
 		m_fSpeed = 0;
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 1;
 		m_tFrame.iMotion = 0;
 		m_tFrame.bLoop = false;
+
+
+		if(rand()%10 < 4)
+			CreateItem();
+
 		//m_tFrame.iCX = TILECX;
 		//m_tFrame.iCY = TILECY;
 		//m_tFrame.dwSpeed = 1.f;
 		//m_tFrame.dwTime = GetTickCount64();
 	}
+}
+
+void CTile::CreateItem()
+{
+	const WCHAR* pItemType[8] = { 
+		L"bubble" ,L"roller",L"fluid" ,L"needle" ,
+		L"dart" ,L"shield" ,L"shoe" ,L"trampoline"
+	};
+	
+	CObjMgr::GetInstance()->AddObject(OBJ_ITEM ,CAbstractFactory<CItem>::Create(m_tInfo.fX, m_tInfo.fY, pItemType[rand() % 8]));
 }

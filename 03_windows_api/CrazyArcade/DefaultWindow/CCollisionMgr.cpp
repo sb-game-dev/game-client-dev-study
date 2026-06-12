@@ -6,9 +6,12 @@
 #include "CWave.h"
 #include "CObjMgr.h"
 #include "CBoss.h"
+#include "CItem.h"
 
 void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 {
+	if (DstList.empty() || SrcList.empty())
+		return;
 	RECT rc;
 	for (auto& Dst : DstList)
 	{
@@ -21,8 +24,8 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 				CBoss* pSrcBoss = dynamic_cast<CBoss*>(Src);
 				CPlayer* pDstPlayer = dynamic_cast<CPlayer*>(Dst);
 
-				//CPlayer* pSrcPlayer = dynamic_cast<CPlayer*>(Src);
-				//CItem* pDstItem = dynamic_cast<CItem*>(Dst);
+				CPlayer* pSrcPlayer = dynamic_cast<CPlayer*>(Src);
+				CItem* pDstItem = dynamic_cast<CItem*>(Dst);
 
 				if (pDstBomb)
 				{
@@ -31,32 +34,23 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 				}
 				else if (pSrcBoss && pDstPlayer)
 				{
-					if (pSrcBoss->GetCurMotion() == BUBBLE || pSrcBoss->GetCurMotion() == DEATH)
+					if (pSrcBoss->GetCurMotion() == BUBBLE)
 						pSrcBoss->SetDeath();
+#ifdef NDEBUG
 					else
 						pDstPlayer->SetBossHit();
+#endif // NDEBUG
+
 				}
-				//else if (pDstItem && pSrcPlayer)
+				//else if (pDstItem && pSrcWave)
 				//{
-				//	switch (pDstItem->GetType())
-				//	{
-				//	case IT_BOMB_UP:
-				//		pSrcPlayer->UpBomb();
-				//		break;
-				//	case IT_POWER_UP:
-				//		pSrcPlayer->UpPower();
-				//		break;
-				//	case IT_SPEED_UP:
-				//		pSrcPlayer->UpSpeed();
-				//		break;
-				//	case IT_NEEDLE:
-				//		break;
-				//
-				//	default:
-				//		break;
-				//	}
-				//	Dst->SetDead();
+				//	pDstItem->SetDead();
 				//}
+				else if (pSrcPlayer)//pDstItem && 
+				{
+					pSrcPlayer->PickUpItem(pDstItem->GetFrameKey());
+					pDstItem->SetDead();
+				}
 				else
 				{
 					Dst->SetHit();
@@ -68,6 +62,8 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 
 void CCollisionMgr::CollisionBody(list<CObj*>& DstList, list<CObj*>& SrcList)
 {
+	if (DstList.empty() || SrcList.empty())
+		return;
 	float fDeltaSizeX = 0.f, fDeltaSizeY = 0.f;
 
 	for (auto& DstObj : DstList)
@@ -112,6 +108,8 @@ void CCollisionMgr::CollisionBody(list<CObj*>& DstList, list<CObj*>& SrcList)
 
 void CCollisionMgr::CollisionAttack(vector<CObj*>& DstList, list<CObj*>& SrcList)
 {
+	if (DstList.empty() || SrcList.empty())
+		return;
 	RECT rc;
 	for (auto& Dst : DstList)
 	{
@@ -137,6 +135,8 @@ void CCollisionMgr::CollisionAttack(vector<CObj*>& DstList, list<CObj*>& SrcList
 
 void CCollisionMgr::CollisionBody(vector<CObj*>& DstList, list<CObj*>& SrcList)
 {
+	if (DstList.empty() || SrcList.empty())
+		return;
 	float fDeltaSizeX = 0.f, fDeltaSizeY = 0.f;
 
 	for (auto& DstObj : DstList)
@@ -175,6 +175,8 @@ void CCollisionMgr::CollisionBody(vector<CObj*>& DstList, list<CObj*>& SrcList)
 
 void CCollisionMgr::CollisionBody(list<CObj*>& DstList, vector<CObj*>& SrcList)
 {
+	if (DstList.empty() || SrcList.empty())
+		return;
 	float fDeltaSizeX = 0.f, fDeltaSizeY = 0.f;
 
 	for (auto& DstObj : DstList)

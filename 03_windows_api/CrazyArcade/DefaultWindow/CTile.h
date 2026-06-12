@@ -20,6 +20,9 @@ public :
     void        Move();
     void        SetMove(DIRECTION eDIR);
 
+private:
+    void        CreateItem();
+
 private :
     MOTION      m_ePreMotion;
     MOTION      m_eCurMotion;

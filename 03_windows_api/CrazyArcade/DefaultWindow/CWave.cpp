@@ -18,17 +18,6 @@ void CWave::Initialize()
 	m_eRenderID = GAMEOBJECT;
 	m_tInfo.fCX = 35.f;
 	m_tInfo.fCY = 35.f;
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Wave/WaveCenter.bmp", L"WaveCenter");
-
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Wave/down.bmp", L"down");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Wave/left.bmp", L"left");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Wave/right.bmp", L"right");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Wave/up.bmp", L"up");
-
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Wave/down_end.bmp", L"down_end");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Wave/left_end.bmp", L"left_end");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Wave/right_end.bmp", L"right_end");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Wave/up_end.bmp", L"up_end");
 
 	m_fSpeed = 0;
 	m_tFrame.iStart = 0;

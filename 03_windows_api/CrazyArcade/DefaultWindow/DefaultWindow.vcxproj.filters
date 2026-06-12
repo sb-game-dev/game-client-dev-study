@@ -79,6 +79,9 @@
     <Filter Include="02. Obj\06. Boss">
       <UniqueIdentifier>{e93f7500-9436-42cf-876f-c052d47d238f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Obj\07. Item">
+      <UniqueIdentifier>{75a3a937-f417-4ab4-9ec6-2914075a06e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -162,6 +165,9 @@
     <ClInclude Include="CBoss.h">
       <Filter>02. Obj\06. Boss</Filter>
     </ClInclude>
+    <ClInclude Include="CItem.h">
+      <Filter>02. Obj\07. Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefaultWindow.cpp">
@@ -229,6 +235,9 @@
     </ClCompile>
     <ClCompile Include="CBoss.cpp">
       <Filter>02. Obj\06. Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="CItem.cpp">
+      <Filter>02. Obj\07. Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

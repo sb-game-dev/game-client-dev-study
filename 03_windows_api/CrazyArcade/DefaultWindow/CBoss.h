@@ -35,6 +35,7 @@ private:
 	MOTION      m_eCurMotion;
 	MOTION		m_eReturnMotion;
 	float       m_fWalkSpeed;
+	float       m_fAngrySpeed;
 	float       m_fBubbleSpeed;
 
 	ULONGLONG   m_dwFrameCount;

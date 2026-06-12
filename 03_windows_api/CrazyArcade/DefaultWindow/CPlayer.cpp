@@ -8,7 +8,8 @@
 #include "CBomb.h"
 #include "CBmpMgr.h"
 CPlayer::CPlayer():m_ePreMotion(MOTION_END), m_eCurMotion(START), m_fWalkSpeed(3.f), m_fBubbleSpeed(0.5f), m_dwFrameCount(GetTickCount64()),
-m_fBlockMoveTime(0.f), m_iBombRange(2), m_iBombMax(2)
+m_fBlockMoveTime(0.f), m_iBombRange(1), m_iBombMax(1), m_iBombCnt(0), m_bShowItemGainEffect(false), m_pItemFrameKey(ITEMTYPE_END),
+m_dwItemEffectFrameCount(GetTickCount64())
 {
 }
 
@@ -18,18 +19,7 @@ CPlayer::~CPlayer()
 }
 
 void CPlayer::Initialize()
-{
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_start.bmp", L"player_start");
-	
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_down.bmp", L"player_down");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_up.bmp", L"player_up");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_left.bmp", L"player_left");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_right.bmp", L"player_right");
-	
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_hit.bmp", L"player_hit");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_death.bmp", L"player_death");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_live2.bmp", L"player_live");
-	
+{	
 	m_tInfo.fCX = 30.f;
 	m_tInfo.fCY = 30.f;
 
@@ -66,11 +56,14 @@ void CPlayer::LateUpdate()
 
 void CPlayer::Render(HDC hDC)
 {
+#ifdef _DEBUG
 	Rectangle(hDC,
 		m_tRect.left,
 		m_tRect.top,
 		m_tRect.right,
 		m_tRect.bottom);
+#endif // _DEBUG
+
 
 	HDC hPlayer = CBmpMgr::GetInstance()->FindImage(m_pFrameKey);
 
@@ -85,7 +78,10 @@ void CPlayer::Render(HDC hDC)
 		m_tFrame.iCX,			// 원본 이미지 가로, 세로 사이즈
 		m_tFrame.iCY,
 		RGB(255, 0, 255));		// 제거할 픽셀 색상
-
+	if (m_bShowItemGainEffect == true)
+	{
+		ShowItemGainEffect(hDC);
+	}
 	//Graphics* _pGraphics = Graphics::FromHDC(hDC);
 	//Gdiplus::Image* pImg = CImgMgr::GetInstance()->FindImg(m_pFrameKey);
 	//
@@ -309,23 +305,30 @@ void CPlayer::CheckFrame()
 		m_eCurMotion = DOWN;
 		ChangeMotion();
 	}
-	if (m_eCurMotion == HIT 
+	else if (m_eCurMotion == HIT 
 		&& m_dwFrameCount + m_tFrame.dwSpeed * m_tFrame.iEnd <= GetTickCount64())
 	{
 		m_eCurMotion = DEATH;
 		ChangeMotion();
 	}
-	if (m_eCurMotion == DEATH 
+	else if (m_eCurMotion == DEATH
 		&& m_dwFrameCount + m_tFrame.dwSpeed * m_tFrame.iEnd <= GetTickCount64())
 	{
 		m_bDead = DEAD;
 	}
-	if (m_eCurMotion == REVIVAL
+	else if (m_eCurMotion == REVIVAL
 		&& m_dwFrameCount + m_tFrame.dwSpeed * m_tFrame.iEnd <= GetTickCount64()) //m_tFrame.iStart - 1 >= m_tFrame.iEnd
 	{
 		m_eCurMotion = DOWN;
 		m_pFrameKey = L"player_down";
 		ChangeMotion();
+	}
+
+	if (m_bShowItemGainEffect == true
+		&& m_dwItemEffectFrameCount + 800 <= GetTickCount64())
+	{
+		m_bShowItemGainEffect = false;
+		m_pItemFrameKey = ITEMTYPE_END;
 	}
 }
 
@@ -367,7 +370,6 @@ void CPlayer::CheckPushBlock(DIRECTION eDIR)
 			}
 		}
 	}
-
 }
 
 void CPlayer::CreateBomb()
@@ -378,4 +380,119 @@ void CPlayer::CreateBomb()
 	pBomb->SetCanMove(false);
 	dynamic_cast<CBomb*>(pBomb)->SetBombRange(m_iBombRange);
 	CObjMgr::GetInstance()->AddObject(OBJ_BOMB, pBomb);
+}
+
+void CPlayer::ShowItemGainEffect(HDC hDC)
+{
+	HDC hItem_Effect = nullptr;
+	int iItemStat = 0;
+
+	if (m_pItemFrameKey == BUBBLE)
+	{
+		if (m_iBombMax > 6)
+		{
+			m_bShowItemGainEffect = false;
+			m_iBombMax = 6;
+			return;
+		}
+		else
+		{
+			hItem_Effect = CBmpMgr::GetInstance()->FindImage(L"UI_Bomb");
+			iItemStat = m_iBombMax - 2;
+		}
+	}
+	else if (m_pItemFrameKey == FLUID)
+	{
+		if (m_iBombRange > 7)
+		{
+			m_bShowItemGainEffect = false;
+			m_iBombRange = 7;
+			return;
+		}
+		else
+		{
+			hItem_Effect = CBmpMgr::GetInstance()->FindImage(L"UI_Liquid2");
+			iItemStat = m_iBombRange - 2;
+		}
+	}
+	else if (m_pItemFrameKey == ROLLER)
+	{
+		if (m_fWalkSpeed > 7)
+		{
+			m_bShowItemGainEffect = false;
+			m_fWalkSpeed = 7;
+			return;
+		}
+		else
+		{
+			hItem_Effect = CBmpMgr::GetInstance()->FindImage(L"UI_Skate");
+			iItemStat = m_fWalkSpeed - 4;
+		}
+	}
+	else {
+		return;
+	}
+	GdiTransparentBlt(hDC,					// 목적지 DC
+		int(m_tInfo.fX - 55),				// 목적지 LEFT, TOP
+		int(m_tInfo.fY - (m_tFrame.iCY - m_tInfo.fCY * 0.5) - 31),
+		111,								// 목적지 공간의 가로, 세로 사이즈
+		30,
+		hItem_Effect,						// 원본 이미지 DC
+		iItemStat * 111,					// 원본 이미지 LEFT, TOP
+		0,
+		111,								// 원본 이미지 가로, 세로 사이즈
+		30,
+		RGB(255, 0, 255));					// 제거할 픽셀 색상
+}
+
+void CPlayer::PickUpItem(const WCHAR* pItemFrameKey)
+{
+	
+	if (!lstrcmp(pItemFrameKey, L"bubble"))
+	{
+		m_pItemFrameKey = BUBBLE;
+		m_bShowItemGainEffect = true;
+		m_dwItemEffectFrameCount = GetTickCount64();
+		m_iBombMax++;
+		//if (m_iBombMax > 6)
+		//	m_iBombMax = 6;
+	}
+	else if (!lstrcmp(pItemFrameKey, L"dart"))
+	{
+
+	}
+	else if (!lstrcmp(pItemFrameKey, L"fluid"))
+	{
+		m_pItemFrameKey = FLUID;
+		m_bShowItemGainEffect = true;
+		m_dwItemEffectFrameCount = GetTickCount64();
+		m_iBombRange++;
+		//if (m_iBombRange > 7)
+		//	m_iBombRange = 7;
+	}
+	else if (!lstrcmp(pItemFrameKey, L"needle"))
+	{
+
+	}
+	else if (!lstrcmp(pItemFrameKey, L"roller"))
+	{
+		m_pItemFrameKey = ROLLER;
+		m_bShowItemGainEffect = true;
+		m_dwItemEffectFrameCount = GetTickCount64();
+		m_fWalkSpeed++;
+		//if (m_fWalkSpeed > 7)
+		//	m_fWalkSpeed = 7;
+	}
+	else if (!lstrcmp(pItemFrameKey, L"shield"))
+	{
+
+	}
+	else if (!lstrcmp(pItemFrameKey, L"shoe"))
+	{
+
+	}
+	else if (!lstrcmp(pItemFrameKey, L"trampoline"))
+	{
+
+	}
 }
