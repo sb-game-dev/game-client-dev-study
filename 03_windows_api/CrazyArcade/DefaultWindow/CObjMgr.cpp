@@ -93,18 +93,18 @@ void CObjMgr::LateUpdate()
 	if (dynamic_cast<CMouse*>(m_ObjList[OBJ_MOUSE].front())->GetChoiceTile() != TILE_END)
 		PutTile();
 
-	CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_PLAYER]);
-
-	CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_BOMB]);
-
-	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_WAVE]);
-
-	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_DART]);
-	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOSS_BOMB], m_ObjList[OBJ_DART]);
-
-	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_ITEM], m_ObjList[OBJ_PLAYER]);
-	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_ITEM], m_ObjList[OBJ_WAVE]);
-
+	if (!m_ObjList[OBJ_BOMB].empty())
+	{
+		CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_PLAYER]);
+		CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_BOMB]);
+		CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_WAVE]);
+		CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_DART]);
+	}
+	if (!m_ObjList[OBJ_ITEM].empty())
+	{
+		CCollisionMgr::CollisionAttack(m_ObjList[OBJ_ITEM], m_ObjList[OBJ_PLAYER]);
+		CCollisionMgr::CollisionAttack(m_ObjList[OBJ_ITEM], m_ObjList[OBJ_WAVE]);
+	}
 	if (!m_ObjList[OBJ_MONSTER].empty())
 	{
 		CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_MONSTER]);
