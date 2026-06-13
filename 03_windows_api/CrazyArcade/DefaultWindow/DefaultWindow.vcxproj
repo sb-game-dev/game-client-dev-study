@@ -149,6 +149,7 @@
     <ClInclude Include="CLogo.h" />
     <ClInclude Include="CMainGame.h" />
     <ClInclude Include="CMenu.h" />
+    <ClInclude Include="CMonster.h" />
     <ClInclude Include="CMouse.h" />
     <ClInclude Include="CMyBmp.h" />
     <ClInclude Include="CObj.h" />
@@ -182,6 +183,7 @@
     <ClCompile Include="CLogo.cpp" />
     <ClCompile Include="CMainGame.cpp" />
     <ClCompile Include="CMenu.cpp" />
+    <ClCompile Include="CMonster.cpp" />
     <ClCompile Include="CMouse.cpp" />
     <ClCompile Include="CMyBmp.cpp" />
     <ClCompile Include="CObj.cpp" />

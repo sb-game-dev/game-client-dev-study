@@ -8,8 +8,8 @@
 #include "CBomb.h"
 
 CBoss::CBoss():m_eCurMotion(IDLE), m_iHP(20), m_dwAttackTime(GetTickCount64()),
-m_iAttackRange(3), m_iAttackRangeDelta(1), m_bMoveAttack(false), m_iShootCnt(0),
-m_bCheckRemainTile(true), m_iRemainTile(195), m_fAngrySpeed(3.f),m_fWalkSpeed(1.f)
+m_iAttackRange(2), m_iAttackRangeDelta(1), m_bMoveAttack(false), m_iShootCnt(0),
+m_bCheckRemainTile(true), m_iRemainTile(195), m_fAngrySpeed(4.f),m_fWalkSpeed(1.f)
 {
 	m_ePreMotion = MOTION_END;
 	m_eCurMotion = IDLE;
@@ -404,10 +404,10 @@ void CBoss::AttackPattern1()
 		m_dwAttackTime = GetTickCount64();
 		++m_iAttackRange;
 		BossAttackAround(m_iAttackRange);
-		if (m_iAttackRange > 7)
+		if (m_iAttackRange > 5)
 		{
 			CreateDst();
-			m_iAttackRange = 3;
+			m_iAttackRange = 2;
 			m_bMoveAttack = false;
 		}
 	}
@@ -480,5 +480,5 @@ void CBoss::CreateBomb(float fX, float fY,DIRECTION eDir)
 	pBomb->SetDirection(eDir);
 	dynamic_cast<CBomb*>(pBomb)->SetPlayerCollision();
 	dynamic_cast<CBomb*>(pBomb)->SetBombRange(3);
-	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER_BOMB, pBomb);
+	CObjMgr::GetInstance()->AddObject(OBJ_BOSS_BOMB, pBomb);
 }

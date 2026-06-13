@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "CSceneMgr.h"
+#include "CStage1.h"
 #include "CStage3.h"
 #include "CLogo.h"
 #include "CEdit.h"
@@ -30,7 +31,7 @@ void CSceneMgr::ChangeScene(SCENEID eID)
 		m_pScene = new CEdit;
 		break;
 	case SC_STAGE1:
-		//m_pScene = new CLogo;
+		m_pScene = new CStage1;
 		break;
 	case SC_STAGE2:
 		//m_pScene = new CLogo;

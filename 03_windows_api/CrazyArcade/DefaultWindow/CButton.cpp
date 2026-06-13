@@ -91,7 +91,7 @@ int CButton::Update()
 			}
 			if (!lstrcmp(L"button_fastStart", m_pFrameKey))
 			{
-				CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE3);
+				CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE1);
 			}
 		}
 	}

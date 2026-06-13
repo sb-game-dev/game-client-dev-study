@@ -7,6 +7,7 @@
 #include "CBoss.h"
 #include "CBmpMgr.h"
 #include "CItem.h"
+#include "CSceneMgr.h"
 CStage3::CStage3()
 {
 }
@@ -37,6 +38,8 @@ void CStage3::Initialize()
 
 int CStage3::Update()
 {
+	if (CObjMgr::GetInstance()->GetRemainBoss() == false)
+		CSceneMgr::GetInstance()->SceneChangeReserve(SC_MENU);
 	CObjMgr::GetInstance()->Update();
 	return 0;
 }

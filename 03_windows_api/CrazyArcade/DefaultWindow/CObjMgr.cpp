@@ -100,10 +100,16 @@ void CObjMgr::LateUpdate()
 	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_WAVE]);
 
 	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_DART]);
-	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_MONSTER_BOMB], m_ObjList[OBJ_DART]);
+	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOSS_BOMB], m_ObjList[OBJ_DART]);
 
 	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_ITEM], m_ObjList[OBJ_PLAYER]);
 	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_ITEM], m_ObjList[OBJ_WAVE]);
+
+	if (!m_ObjList[OBJ_MONSTER].empty())
+	{
+		CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_MONSTER]);
+		CCollisionMgr::CollisionAttack(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_WAVE]);
+	}
 
 	if (!m_ObjList[OBJ_BOSS].empty())
 	{
@@ -112,10 +118,10 @@ void CObjMgr::LateUpdate()
 		CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_BOSS]);
 		if (GetRemainTile() == 0)
 		{
-			CCollisionMgr::CollisionBody(m_ObjList[OBJ_MONSTER_BOMB], m_ObjList[OBJ_PLAYER]);
-			CCollisionMgr::CollisionBody(m_ObjList[OBJ_MONSTER_BOMB], m_ObjList[OBJ_MONSTER_BOMB]);
-			CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_MONSTER_BOMB]);
-			CCollisionMgr::CollisionAttack(m_ObjList[OBJ_MONSTER_BOMB], m_ObjList[OBJ_WAVE]);
+			CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOSS_BOMB], m_ObjList[OBJ_PLAYER]);
+			CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOSS_BOMB], m_ObjList[OBJ_BOSS_BOMB]);
+			CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_BOSS_BOMB]);
+			CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOSS_BOMB], m_ObjList[OBJ_WAVE]);
 		}
 	}
 	if(GetRemainTile() > 0)
@@ -130,7 +136,7 @@ void CObjMgr::LateUpdate()
 #ifdef NDEBUG
 
 	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_ITEM], m_ObjList[OBJ_BOMB]);
-	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_ITEM], m_ObjList[OBJ_MONSTER_BOMB]);
+	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_ITEM], m_ObjList[OBJ_BOSS_BOMB]);
 	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_WAVE]);
 	
 #endif // _DEBUG

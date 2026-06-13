@@ -100,6 +100,9 @@
     <Filter Include="01. Scene\04. Shop">
       <UniqueIdentifier>{7d57a1e3-97eb-4043-a27f-bc15680f9c0a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Obj\09. Monster">
+      <UniqueIdentifier>{e8712c77-491b-403c-ad74-774ea588e9ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -198,6 +201,9 @@
     <ClInclude Include="CStage2.h">
       <Filter>01. Scene\03. Stage3\01. Stage2</Filter>
     </ClInclude>
+    <ClInclude Include="CMonster.h">
+      <Filter>02. Obj\09. Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefaultWindow.cpp">
@@ -280,6 +286,9 @@
     </ClCompile>
     <ClCompile Include="CStage2.cpp">
       <Filter>01. Scene\03. Stage3\01. Stage2</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonster.cpp">
+      <Filter>02. Obj\09. Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

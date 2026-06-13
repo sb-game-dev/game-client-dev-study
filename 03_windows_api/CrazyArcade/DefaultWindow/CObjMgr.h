@@ -38,6 +38,8 @@ public:
 	void	PlayerBombCollision();
 
 	int		GetRemainTile();
+	int		GetRemainMonster() { return m_ObjList[OBJ_MONSTER].size(); }
+	bool	GetRemainBoss() { return !m_ObjList[OBJ_BOSS].empty(); }
 public:
 	static CObjMgr* GetInstance()
 	{

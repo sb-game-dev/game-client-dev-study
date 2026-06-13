@@ -40,8 +40,13 @@ void CMainGame::Initialize()
 	m_Bit = CreateCompatibleBitmap(m_hDC, WINCX, WINCY);
 	m_Old = (HBITMAP)SelectObject(m_memDC, m_Bit);
 
+#ifdef _DEBUG
+	CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE3);
+#elif NDEBUG
 	CSceneMgr::GetInstance()->ChangeScene(SC_LOGO);
-	//CSceneMgr::GetInstance()->SceneChangeReserve(SC_EDIT);
+#endif // _DEBUG
+
+	//
 }
 
 void CMainGame::Update()
