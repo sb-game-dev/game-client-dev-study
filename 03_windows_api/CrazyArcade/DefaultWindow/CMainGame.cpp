@@ -41,7 +41,7 @@ void CMainGame::Initialize()
 	m_Old = (HBITMAP)SelectObject(m_memDC, m_Bit);
 
 #ifdef _DEBUG
-	CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE3);
+	CSceneMgr::GetInstance()->SceneChangeReserve(SC_LOGO);
 #elif NDEBUG
 	CSceneMgr::GetInstance()->ChangeScene(SC_LOGO);
 #endif // _DEBUG

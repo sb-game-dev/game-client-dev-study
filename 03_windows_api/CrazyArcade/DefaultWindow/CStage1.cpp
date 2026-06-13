@@ -39,7 +39,7 @@ int CStage1::Update()
 {
 	if (CObjMgr::GetInstance()->GetRemainMonster() <= 0)
 	{
-		CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE3);
+		CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE2);
 		return 0;
 	}
 	CObjMgr::GetInstance()->Update();

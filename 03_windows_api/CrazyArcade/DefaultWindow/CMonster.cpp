@@ -73,6 +73,7 @@ void CMonster::ChangeMotion()
 	switch (m_eCurMotion)
 	{
 	case IDLE:
+		m_pFrameKey = L"Bean_Monster_Down";
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 1;
 		m_tFrame.bLoop = false;
@@ -133,13 +134,12 @@ void CMonster::CheckFrame()
 	if (m_eCurMotion == START
 		&& m_dwFrameCount + m_tFrame.dwSpeed * m_tFrame.iEnd <= GetTickCount64())
 	{
-		m_eCurMotion = DOWN;
+		m_eCurMotion = IDLE;
 		ChangeMotion();
 	}
 	else if (m_eCurMotion == HIT
 		&& m_dwFrameCount + m_tFrame.dwSpeed * m_tFrame.iEnd <= GetTickCount64())
 	{
-		cout << "MonsterDEAD" << endl;
 		m_bDead = DEAD;
 	}
 }
