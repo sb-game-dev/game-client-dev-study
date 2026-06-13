@@ -116,9 +116,16 @@ void CTile::Move()
 	{
 		if (pTile == this) continue;
 
+		//if (pTile->GetFrame().iStart >= 1
+		//	&&fabsf(m_fDstX - pTile->GetInfo()->fX) <= 20.f
+		//	&& fabsf(m_fDstY - pTile->GetInfo()->fY) <= 20.f)
+		//{
+		//	m_bMove = false;
+		//	return;
+		//}
 		if (pTile->GetFrame().iStart >= 1
-			&&fabsf(m_fDstX - pTile->GetInfo()->fX) <= 20.f
-			&& fabsf(m_fDstY - pTile->GetInfo()->fY) <= 20.f)
+			&& m_fDstX == pTile->GetInfo()->fX
+			&& m_fDstY == pTile->GetInfo()->fY)
 		{
 			m_bMove = false;
 			return;

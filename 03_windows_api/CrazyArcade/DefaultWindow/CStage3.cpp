@@ -29,8 +29,6 @@ void CStage3::Initialize()
 	CObjMgr::GetInstance()->AddObject(OBJ_ITEM, CAbstractFactory<CItem>::Create((12 * 40) + 40, (1 * 40) + 60, L"trampoline"));
 #endif // _DEBUG
 
-	
-
 	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create((13 * 40) + 40, (11 * 40) + 60, L"player_start"));
 	CObjMgr::GetInstance()->AddObject(OBJ_BOSS, CAbstractFactory<CBoss>::Create((3 * 40) + 40, (10 * 40) + 60, L"Boss_down"));
 

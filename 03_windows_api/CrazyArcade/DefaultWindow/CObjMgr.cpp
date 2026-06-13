@@ -93,28 +93,38 @@ void CObjMgr::LateUpdate()
 	if (dynamic_cast<CMouse*>(m_ObjList[OBJ_MOUSE].front())->GetChoiceTile() != TILE_END)
 		PutTile();
 
-	CCollisionMgr::CollisionBody(m_TileVec, m_ObjList[OBJ_PLAYER]);
-	CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOMB], m_TileVec);
 	CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_PLAYER]);
-	
-	CCollisionMgr::CollisionAttack(m_TileVec, m_ObjList[OBJ_WAVE]);
+
+	CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_BOMB]);
+
 	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_WAVE]);
-	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOSS], m_ObjList[OBJ_WAVE]);
 
 	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_DART]);
 	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_MONSTER_BOMB], m_ObjList[OBJ_DART]);
-	CCollisionMgr::CollisionAttack(m_TileVec, m_ObjList[OBJ_DART]);
 
 	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_ITEM], m_ObjList[OBJ_PLAYER]);
-	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_BOSS]);
 	CCollisionMgr::CollisionAttack(m_ObjList[OBJ_ITEM], m_ObjList[OBJ_WAVE]);
 
-	if (GetRemainTile() == 0)
+	if (!m_ObjList[OBJ_BOSS].empty())
 	{
-		CCollisionMgr::CollisionBody(m_ObjList[OBJ_MONSTER_BOMB], m_ObjList[OBJ_PLAYER]);
-		CCollisionMgr::CollisionBody(m_ObjList[OBJ_MONSTER_BOMB], m_ObjList[OBJ_MONSTER_BOMB]);
-		CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_MONSTER_BOMB]);
-		CCollisionMgr::CollisionAttack(m_ObjList[OBJ_MONSTER_BOMB], m_ObjList[OBJ_WAVE]);
+		CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOSS], m_ObjList[OBJ_WAVE]);
+		CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_BOSS]);
+		CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_BOSS]);
+		if (GetRemainTile() == 0)
+		{
+			CCollisionMgr::CollisionBody(m_ObjList[OBJ_MONSTER_BOMB], m_ObjList[OBJ_PLAYER]);
+			CCollisionMgr::CollisionBody(m_ObjList[OBJ_MONSTER_BOMB], m_ObjList[OBJ_MONSTER_BOMB]);
+			CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_MONSTER_BOMB]);
+			CCollisionMgr::CollisionAttack(m_ObjList[OBJ_MONSTER_BOMB], m_ObjList[OBJ_WAVE]);
+		}
+	}
+	if(GetRemainTile() > 0)
+	{
+		CCollisionMgr::CollisionAttack(m_TileVec, m_ObjList[OBJ_DART]);
+		CCollisionMgr::CollisionAttack(m_TileVec, m_ObjList[OBJ_WAVE]);
+		CCollisionMgr::CollisionBody(m_TileVec, m_ObjList[OBJ_PLAYER]);
+		CCollisionMgr::CollisionBody(m_TileVec, m_ObjList[OBJ_BOMB]);
+		CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOMB], m_TileVec);
 	}
 
 #ifdef NDEBUG

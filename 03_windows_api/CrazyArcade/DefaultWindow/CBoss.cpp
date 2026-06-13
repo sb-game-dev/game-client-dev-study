@@ -158,12 +158,7 @@ void CBoss::SetHit()
 {
 	if (m_eCurMotion != HIT)
 	{
-
-#ifdef _DEBUG
-		m_iHP -= 4;
-#elif NDEBUG
 		m_iHP -= 1;
-#endif // _DEBUG
 		if (m_iHP <= 0)
 			m_eCurMotion = BUBBLE;
 		else

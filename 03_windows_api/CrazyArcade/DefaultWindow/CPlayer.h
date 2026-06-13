@@ -22,6 +22,7 @@ private:
     void        ChangeMotion();
     void        CheckFrame();
     void        CheckPushBlock(DIRECTION eDIR);
+    void        CheckKickBomb(DIRECTION eDIR);
     void        CreateBomb();
     void        CreateDart();
     void        ShowItemGainEffect(HDC hDC);
@@ -58,5 +59,9 @@ private:
 
     ITEMTYPE    m_eCtrlSlot;
     int         m_iCtrlSlotCnt;
+
+
+    bool        m_bShoe;
+    float       m_fKickBombTime;
 };
 

@@ -8,12 +8,21 @@
 #include "CBomb.h"
 #include "CBmpMgr.h"
 #include "CDart.h"
+#include "CCollisionMgr.h"
 CPlayer::CPlayer():m_ePreMotion(MOTION_END), m_eCurMotion(START), m_fWalkSpeed(3.f), m_fBubbleSpeed(0.5f), m_dwFrameCount(GetTickCount64()),
 m_fBlockMoveTime(0.f), m_iBombRange(1), m_iBombMax(1), m_iBombCnt(0), m_bShowItemGainEffect(false), m_eItemFrameKey(ITEMTYPE_END),
 m_dwItemEffectFrameCount(GetTickCount64()),m_iCtrlSlotCnt(0), m_eCtrlSlot(ITEMTYPE_END), m_dwShieldEffectFrameCount(GetTickCount64())
 {
 	m_bShowShieldEffect = false;
 	m_iShieldFrame = 0;
+
+	m_fKickBombTime = 0.f;
+#ifdef _DEBUG
+	m_bShoe = true;
+#elif NDEBUG
+	m_bShoe = false;
+#endif // _DEBUG
+
 }
 
 CPlayer::~CPlayer()
@@ -138,9 +147,13 @@ void CPlayer::KeyInput()
 			m_eCurMotion = RIGHT;
 
 		if (m_eCurMotion != m_ePreMotion)
+		{
 			m_fBlockMoveTime = 0.f;
+			m_fKickBombTime = 0.f;
+		}
 		ChangeMotion();
 		CheckPushBlock(DIR_RIGHT);
+		CheckKickBomb(DIR_RIGHT);
 		m_tInfo.fX += m_fSpeed;
 	}
 	else if (CKeyMgr::GetInstance()->KeyPressing(VK_LEFT) && m_tRect.left > 20)
@@ -148,9 +161,13 @@ void CPlayer::KeyInput()
 		if (m_eCurMotion != HIT)
 			m_eCurMotion = LEFT;
 		if (m_eCurMotion != m_ePreMotion)
+		{
 			m_fBlockMoveTime = 0.f;
+			m_fKickBombTime = 0.f;
+		}
 		ChangeMotion();
 		CheckPushBlock(DIR_LEFT);
+		CheckKickBomb(DIR_LEFT);
 		m_tInfo.fX -= m_fSpeed;
 	}
 	else if (CKeyMgr::GetInstance()->KeyPressing(VK_UP) && m_tRect.top > 40)
@@ -158,9 +175,13 @@ void CPlayer::KeyInput()
 		if (m_eCurMotion != HIT)
 			m_eCurMotion = UP;
 		if (m_eCurMotion != m_ePreMotion)
+		{
 			m_fBlockMoveTime = 0.f;
+			m_fKickBombTime = 0.f;
+		}
 		ChangeMotion();
 		CheckPushBlock(DIR_UP);
+		CheckKickBomb(DIR_UP);
 		m_tInfo.fY -= m_fSpeed;
 	}
 	else if (CKeyMgr::GetInstance()->KeyPressing(VK_DOWN) && m_tRect.bottom < 560)
@@ -168,14 +189,19 @@ void CPlayer::KeyInput()
 		if (m_eCurMotion != HIT)
 			m_eCurMotion = DOWN;
 		if (m_eCurMotion != m_ePreMotion)
+		{
 			m_fBlockMoveTime = 0.f;
+			m_fKickBombTime = 0.f;
+		}
 		ChangeMotion();
 		CheckPushBlock(DIR_DOWN);
+		CheckKickBomb(DIR_DOWN);
 		m_tInfo.fY += m_fSpeed;
 	}
 	else	//IDEL
 	{
 		m_fBlockMoveTime = 0.f;
+		m_fKickBombTime = 0.f;
 		if (m_eCurMotion != HIT && m_eCurMotion != REVIVAL)
 			m_eCurMotion = IDLE;
 		ChangeMotion();
@@ -425,6 +451,32 @@ void CPlayer::CheckPushBlock(DIRECTION eDIR)
 	}
 }
 
+void CPlayer::CheckKickBomb(DIRECTION eDIR)
+{
+	if (m_bShoe == false)
+		return;
+	cout << m_fKickBombTime << endl;
+	float tempx = 0.f;
+	for (auto& pBomb : CObjMgr::GetInstance()->GetList(OBJ_BOMB))
+	{
+		CBomb* pTempBomb = dynamic_cast<CBomb*>(pBomb);
+		if (pTempBomb->GetPlayerCollision() == false)
+			continue;
+		if (fabsf(m_tInfo.fX - pTempBomb->GetInfo()->fX) <= 36.f
+			&& fabsf(m_tInfo.fY - pTempBomb->GetInfo()->fY) <= 36.f)
+		{
+			m_fKickBombTime += 1.f;
+
+			if (m_fKickBombTime >= 5.f)
+			{
+				m_fKickBombTime = 0;
+				pTempBomb->SetCanMove(true);
+				pTempBomb->SetDirection(eDIR);
+			}
+		}
+	}
+}
+
 void CPlayer::CreateBomb()
 {
 	float fX = AdjustPosX(m_tInfo.fX);
@@ -604,7 +656,8 @@ void CPlayer::PickUpItem(const WCHAR* pItemFrameKey)
 	}
 	else if (!lstrcmp(pItemFrameKey, L"shoe"))
 	{
-
+		cout << "PickShoe" << endl;
+		m_bShoe = true;
 	}
 	else if (!lstrcmp(pItemFrameKey, L"trampoline"))
 	{

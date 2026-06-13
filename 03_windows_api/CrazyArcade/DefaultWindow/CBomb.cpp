@@ -51,6 +51,13 @@ int CBomb::Update()
         return DEAD;
     if (m_bCanMove == true)
         MoveBomb();
+    else
+    {
+
+        m_tInfo.fX = AdjustPosX(m_tInfo.fX);
+        m_tInfo.fY = AdjustPosY(m_tInfo.fY);
+
+    }
     MoveFrame();
     return 0;
 }
