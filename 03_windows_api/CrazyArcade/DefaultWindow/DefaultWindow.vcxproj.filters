@@ -46,12 +46,6 @@
     <Filter Include="01. Scene\00. Logo">
       <UniqueIdentifier>{f179319e-c8ef-4f73-9b1c-d18f7a9a3052}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Scene\01. Edit">
-      <UniqueIdentifier>{16b4f217-24ff-4cbf-bbf2-b7b596243dfb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Scene\02. Stage3">
-      <UniqueIdentifier>{a1ff1725-c2cc-4187-9e4f-b8b8e9c8d086}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. Obj\02. Button">
       <UniqueIdentifier>{9c2eef90-9c30-4e48-9b83-2d0347a54833}</UniqueIdentifier>
     </Filter>
@@ -85,6 +79,27 @@
     <Filter Include="02. Obj\08. Dart">
       <UniqueIdentifier>{45d23252-6e23-4ae3-a2fa-99be94e19c54}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Scene\01. Menu">
+      <UniqueIdentifier>{d25ee7d2-59d6-41eb-a771-66ba3fa26b6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\02. Edit">
+      <UniqueIdentifier>{16b4f217-24ff-4cbf-bbf2-b7b596243dfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\03. Stage3">
+      <UniqueIdentifier>{a1ff1725-c2cc-4187-9e4f-b8b8e9c8d086}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\03. Stage3\01. Stage2">
+      <UniqueIdentifier>{ec777d4e-6704-44f7-9c41-112cce43e7d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\03. Stage3\02. Stage3">
+      <UniqueIdentifier>{b1546f2b-c318-475b-aa11-82181433d8b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\03. Stage3\00. Stage1">
+      <UniqueIdentifier>{613e573c-cdfd-4ee5-adb5-af27cfa8ca4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\04. Shop">
+      <UniqueIdentifier>{7d57a1e3-97eb-4043-a27f-bc15680f9c0a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -117,9 +132,6 @@
     <ClInclude Include="CSceneMgr.h">
       <Filter>03. Design\03. SceneMgr</Filter>
     </ClInclude>
-    <ClInclude Include="CStage3.h">
-      <Filter>01. Scene\02. Stage3</Filter>
-    </ClInclude>
     <ClInclude Include="CScene.h">
       <Filter>01. Scene</Filter>
     </ClInclude>
@@ -139,7 +151,7 @@
       <Filter>01. Scene\00. Logo</Filter>
     </ClInclude>
     <ClInclude Include="CEdit.h">
-      <Filter>01. Scene\01. Edit</Filter>
+      <Filter>01. Scene\02. Edit</Filter>
     </ClInclude>
     <ClInclude Include="CTile.h">
       <Filter>02. Obj\01. Tile</Filter>
@@ -174,6 +186,18 @@
     <ClInclude Include="CDart.h">
       <Filter>02. Obj\08. Dart</Filter>
     </ClInclude>
+    <ClInclude Include="CStage3.h">
+      <Filter>01. Scene\03. Stage3\02. Stage3</Filter>
+    </ClInclude>
+    <ClInclude Include="CMenu.h">
+      <Filter>01. Scene\01. Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="CStage1.h">
+      <Filter>01. Scene\03. Stage3\00. Stage1</Filter>
+    </ClInclude>
+    <ClInclude Include="CStage2.h">
+      <Filter>01. Scene\03. Stage3\01. Stage2</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefaultWindow.cpp">
@@ -194,9 +218,6 @@
     <ClCompile Include="CSceneMgr.cpp">
       <Filter>03. Design\03. SceneMgr</Filter>
     </ClCompile>
-    <ClCompile Include="CStage3.cpp">
-      <Filter>01. Scene\02. Stage3</Filter>
-    </ClCompile>
     <ClCompile Include="CScene.cpp">
       <Filter>01. Scene</Filter>
     </ClCompile>
@@ -213,7 +234,7 @@
       <Filter>01. Scene\00. Logo</Filter>
     </ClCompile>
     <ClCompile Include="CEdit.cpp">
-      <Filter>01. Scene\01. Edit</Filter>
+      <Filter>01. Scene\02. Edit</Filter>
     </ClCompile>
     <ClCompile Include="CTile.cpp">
       <Filter>02. Obj\01. Tile</Filter>
@@ -247,6 +268,18 @@
     </ClCompile>
     <ClCompile Include="CDart.cpp">
       <Filter>02. Obj\08. Dart</Filter>
+    </ClCompile>
+    <ClCompile Include="CStage3.cpp">
+      <Filter>01. Scene\03. Stage3\02. Stage3</Filter>
+    </ClCompile>
+    <ClCompile Include="CMenu.cpp">
+      <Filter>01. Scene\01. Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="CStage1.cpp">
+      <Filter>01. Scene\03. Stage3\00. Stage1</Filter>
+    </ClCompile>
+    <ClCompile Include="CStage2.cpp">
+      <Filter>01. Scene\03. Stage3\01. Stage2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

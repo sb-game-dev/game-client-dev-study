@@ -40,7 +40,8 @@ void CMainGame::Initialize()
 	m_Bit = CreateCompatibleBitmap(m_hDC, WINCX, WINCY);
 	m_Old = (HBITMAP)SelectObject(m_memDC, m_Bit);
 
-	CSceneMgr::GetInstance()->ChangeScene(SC_STAGE3);
+	CSceneMgr::GetInstance()->ChangeScene(SC_LOGO);
+	//CSceneMgr::GetInstance()->SceneChangeReserve(SC_EDIT);
 }
 
 void CMainGame::Update()
@@ -88,6 +89,6 @@ void CMainGame::Release()
 	CBmpMgr::Destroy();
 	CImgMgr::Destroy();
 	CKeyMgr::Destroy();
-	CObjMgr::Destroy();
 	CSceneMgr::Destroy();
+	CObjMgr::Destroy();
 }

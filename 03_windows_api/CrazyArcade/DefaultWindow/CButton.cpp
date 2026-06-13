@@ -6,7 +6,7 @@
 #include "CObjMgr.h"
 #include "CBmpMgr.h"
 
-CButton::CButton() :m_iDrawID(0)
+CButton::CButton()
 {
 }
 
@@ -25,9 +25,47 @@ void CButton::Initialize()
 		m_tFrame.iCX = 34;
 		m_tFrame.iCY = 34;
 	}
-	else if (!lstrcmp(L"", m_pFrameKey))
+	else if (!lstrcmp(L"button_creator", m_pFrameKey))
 	{
+		m_tInfo.fCX = 124;
+		m_tInfo.fCY = 48;
 
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 4;
+		m_tFrame.iMotion = 0;
+		m_tFrame.bLoop = true;
+		m_tFrame.iCX = m_tInfo.fCX;
+		m_tFrame.iCY = m_tInfo.fCY;
+		m_tFrame.dwSpeed = 100.f;
+		m_tFrame.dwTime = GetTickCount64();
+	}
+	else if (!lstrcmp(L"button_exitEdit", m_pFrameKey))
+	{
+		m_tInfo.fCX = 24;
+		m_tInfo.fCY = 20;
+
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 2;
+		m_tFrame.iMotion = 0;
+		m_tFrame.bLoop = true;
+		m_tFrame.iCX = m_tInfo.fCX;
+		m_tFrame.iCY = m_tInfo.fCY;
+		m_tFrame.dwSpeed = 100.f;
+		m_tFrame.dwTime = GetTickCount64();
+	}
+	else if (!lstrcmp(L"button_fastStart", m_pFrameKey))
+	{
+		m_tInfo.fCX = 124;
+		m_tInfo.fCY = 48;
+
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 5;
+		m_tFrame.iMotion = 0;
+		m_tFrame.bLoop = true;
+		m_tFrame.iCX = m_tInfo.fCX;
+		m_tFrame.iCY = m_tInfo.fCY;
+		m_tFrame.dwSpeed = 100.f;
+		m_tFrame.dwTime = GetTickCount64();
 	}
 }
 
@@ -40,15 +78,28 @@ int CButton::Update()
 
 	if (PtInRect(&m_tRect, ptMouse))
 	{
+		MoveFrame();
 		if (CKeyMgr::GetInstance()->KeyDown(VK_LBUTTON))
 		{
-			
+			if (!lstrcmp(L"button_creator", m_pFrameKey))
+			{
+				CSceneMgr::GetInstance()->SceneChangeReserve(SC_EDIT);
+			}
+			if (!lstrcmp(L"button_exitEdit", m_pFrameKey))
+			{
+				CSceneMgr::GetInstance()->SceneChangeReserve(SC_MENU);
+			}
+			if (!lstrcmp(L"button_fastStart", m_pFrameKey))
+			{
+				CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE3);
+			}
 		}
-
-		m_iDrawID = 1;
 	}
 	else
-		m_iDrawID = 0;
+	{
+		if (lstrcmp(L"button_edit", m_pFrameKey))
+			m_tFrame.iStart = 0;
+	}
 
 
 	return 0;
@@ -77,15 +128,18 @@ void CButton::Render(HDC hDC)
 	//	UnitPixel,
 	//	&attr);
 	HDC hButton = CBmpMgr::GetInstance()->FindImage(m_pFrameKey);
-	BitBlt(hDC,							    // 목적지 DC
+	GdiTransparentBlt(hDC,					// 목적지 DC
 		m_tRect.left,		// 목적지 LEFT,RIGHT
 		m_tRect.top,
 		(int)m_tFrame.iCX,				// 원본 DC에서 가져올 영역의 크기
 		(int)m_tFrame.iCY,
-		hButton,							// 원본 DC
-		m_tFrame.iCX * m_tFrame.iStart,		// 원본 이미지에서 가져오기 시작할 좌표의 LEFT, TOP
+		hButton,						// 원본 이미지 DC
+		m_tFrame.iCX * m_tFrame.iStart,	// 원본 이미지 LEFT, TOP
 		0,
-		SRCCOPY);						// 그대로 복사하여 출력
+		m_tFrame.iCX,			// 원본 이미지 가로, 세로 사이즈
+		m_tFrame.iCY,
+		RGB(255, 0, 255));		// 제거할 픽셀 색상
+
 }
 
 void CButton::Release()

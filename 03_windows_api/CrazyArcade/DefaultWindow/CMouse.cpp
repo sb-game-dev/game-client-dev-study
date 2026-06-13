@@ -47,8 +47,6 @@ void CMouse::LateUpdate()
 
 void CMouse::Render(HDC hDC)
 {
-	
-
 	if (m_tInfo.fX < MAP_RIGHT
 		&& m_tInfo.fX > MAP_LEFT
 		&& m_tInfo.fY < MAP_BOTTOM
@@ -133,6 +131,9 @@ void CMouse::SetChoiceTile(int eID)
 		break;
 	case 10:
 		m_eChoiceTile = WALL7;
+		break;
+	case 11:
+		m_eChoiceTile = TILE_END;
 		break;
 	default:
 		break;

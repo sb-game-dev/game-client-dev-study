@@ -8,12 +8,13 @@ public:
     ~CLogo();
 public:
     void Initialize()                   override;
-    int Update()                        override;
+    int  Update()                        override;
     void LateUpdate()                   override;
     void Render(HDC hDC)                override;
     void Release()                      override;
+    void InsertImg()                    override;
 private:
-    float       m_fAlpha;
     ULONGLONG   m_dwTime;
+    
 };
 

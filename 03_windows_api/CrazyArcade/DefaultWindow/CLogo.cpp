@@ -3,7 +3,7 @@
 #include "CImgMgr.h"
 #include "CSceneMgr.h"
 
-CLogo::CLogo():m_fAlpha(1.f), m_dwTime(GetTickCount64())
+CLogo::CLogo():m_dwTime(GetTickCount64())
 {
 }
 
@@ -14,21 +14,48 @@ CLogo::~CLogo()
 
 void CLogo::Initialize()
 {
-	CImgMgr::GetInstance()->InsertImg(L"../Resource/BackGround/Logo.png", L"Logo");
-	CImgMgr::GetInstance()->InsertImg(L"../Resource/BackGround/black_bg.png", L"black_bg");
+	InsertImg(); 
 }
 
 int CLogo::Update()
 {
-	if (m_fAlpha > 0.f && m_dwTime + 10 <= GetTickCount64())
+	if (m_fAlpha > 0 && m_dwTime + 10 <= GetTickCount64())
 	{
 		m_dwTime = GetTickCount64();
 		m_fAlpha -= 0.01f;
 	}
 	else
 	{
-		CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE3);
+		CSceneMgr::GetInstance()->SceneChangeReserve(SC_MENU);
 	}
+
+	// cout << m_fAlpha << endl;
+	//if (m_bStartScene && m_dwTime + 10 <= GetTickCount64())
+	//{
+	//	m_dwTime = GetTickCount64();
+	//	m_fAlpha -= 0.01f;
+	//}
+	//if (m_bEndScene && m_dwTime + 10 <= GetTickCount64())
+	//{
+	//	m_dwTime = GetTickCount64();
+	//	m_fAlpha += 0.01f;
+	//}
+	//else
+	//{
+	//	CSceneMgr::GetInstance()->SceneChangeReserve(SC_MENU);
+	//}
+	//
+	//
+	//if (m_fAlpha < 0)
+	//{
+	//	m_bStartScene = false;
+	//	m_bEndScene = true;
+	//}
+	//if (m_fAlpha > 1)
+	//{
+	//	m_bEndScene = false;
+	//}
+	
     return 0;
 }
 
@@ -52,4 +79,10 @@ void CLogo::Render(HDC hDC)
 
 void CLogo::Release()
 {
+}
+
+void CLogo::InsertImg()
+{
+	CImgMgr::GetInstance()->InsertImg(L"../Resource/BackGround/Logo.png", L"Logo");
+	CImgMgr::GetInstance()->InsertImg(L"../Resource/BackGround/black_bg.png", L"black_bg");
 }

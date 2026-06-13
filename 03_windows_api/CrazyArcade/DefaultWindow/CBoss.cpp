@@ -387,7 +387,7 @@ void CBoss::Move()
 		if (m_bCheckRemainTile == true)
 		{
 			m_iRemainTile = CObjMgr::GetInstance()->GetRemainTile();
-			cout << "TileCnt: " << m_iRemainTile << endl;
+			//cout << "TileCnt: " << m_iRemainTile << endl;
 			if (m_iRemainTile == 0)
 				m_bCheckRemainTile = false;
 		}

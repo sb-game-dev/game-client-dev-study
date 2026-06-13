@@ -63,6 +63,10 @@ void CStage3::Render(HDC hDC)
 
 void CStage3::Release()
 {
+	CObjMgr::GetInstance()->DeleteObj(OBJ_PLAYER);
+	CObjMgr::GetInstance()->DeleteObj(OBJ_BOSS);
+	CObjMgr::GetInstance()->DeleteObj(OBJ_ITEM);
+	CObjMgr::GetInstance()->DeleteTile();
 }
 
 void CStage3::InsertImg()

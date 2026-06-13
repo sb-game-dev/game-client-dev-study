@@ -12,5 +12,12 @@ public:
 	virtual void LateUpdate()					PURE;
 	virtual void Render(HDC hDC)				PURE;
 	virtual void Release()						PURE;
+	virtual void InsertImg()					PURE;
+
+protected:
+	float	m_fAlpha;
+	float	m_fDeltaAlpha;
+	bool	m_bStartScene;
+	bool	m_bEndScene;
 };
 

@@ -3,6 +3,7 @@
 #include "CStage3.h"
 #include "CLogo.h"
 #include "CEdit.h"
+#include "CMenu.h"
 CSceneMgr* CSceneMgr::m_pInstance = nullptr;
 
 CSceneMgr::CSceneMgr():m_pScene(NULL), m_bSceneReserve(false), m_eNextScene(SC_END)
@@ -21,6 +22,9 @@ void CSceneMgr::ChangeScene(SCENEID eID)
 	{
 	case SC_LOGO:
 		m_pScene = new CLogo;
+		break;
+	case SC_MENU:
+		m_pScene = new CMenu;
 		break;
 	case SC_EDIT:
 		m_pScene = new CEdit;

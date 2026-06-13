@@ -455,7 +455,6 @@ void CPlayer::CheckKickBomb(DIRECTION eDIR)
 {
 	if (m_bShoe == false)
 		return;
-	cout << m_fKickBombTime << endl;
 	float tempx = 0.f;
 	for (auto& pBomb : CObjMgr::GetInstance()->GetList(OBJ_BOMB))
 	{
@@ -656,7 +655,6 @@ void CPlayer::PickUpItem(const WCHAR* pItemFrameKey)
 	}
 	else if (!lstrcmp(pItemFrameKey, L"shoe"))
 	{
-		cout << "PickShoe" << endl;
 		m_bShoe = true;
 	}
 	else if (!lstrcmp(pItemFrameKey, L"trampoline"))
