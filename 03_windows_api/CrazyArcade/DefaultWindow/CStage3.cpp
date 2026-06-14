@@ -40,8 +40,15 @@ void CStage3::Initialize()
 
 int CStage3::Update()
 {
-	if (CObjMgr::GetInstance()->GetRemainBoss() == false)
+	if (CObjMgr::GetInstance()->GetRemainBoss() <= 0)
+	{
 		CSceneMgr::GetInstance()->SceneChangeReserve(SC_MENU);
+		return 0;
+	}
+	else if (CObjMgr::GetInstance()->GetRemainPlayer() == false)
+	{
+		m_bEndScene = true;
+	}
 	CObjMgr::GetInstance()->Update();
 	return 0;
 }

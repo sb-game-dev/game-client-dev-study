@@ -59,7 +59,12 @@ int CStage2::Update()
 		CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE3);
 		return 0;
 	}
+	else if (CObjMgr::GetInstance()->GetRemainPlayer() == false)
+	{
+		m_bEndScene = true;
+	}
 	CObjMgr::GetInstance()->Update();
+
 	return 0;
 }
 

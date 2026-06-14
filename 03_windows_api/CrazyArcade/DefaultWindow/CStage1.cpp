@@ -53,10 +53,8 @@ int CStage1::Update()
 	{
 		m_bEndScene = true;
 	}
-	else
-	{
-		CObjMgr::GetInstance()->Update();
-	}
+	CObjMgr::GetInstance()->Update();
+
 	return 0;
 }
 
