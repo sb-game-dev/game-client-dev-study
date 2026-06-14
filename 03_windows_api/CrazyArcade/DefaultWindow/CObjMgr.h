@@ -14,6 +14,7 @@ public:
 	void		AddTile(CObj* pObj);
 	list<CObj*>	GetList(OBJID eID) {return m_ObjList[eID];	}
 	vector<CObj*>GetTile() { return m_TileVec; }
+	vector<CObj*>* GetTilePtr() { return &m_TileVec; }
 
 public :
 	void	Initialize();

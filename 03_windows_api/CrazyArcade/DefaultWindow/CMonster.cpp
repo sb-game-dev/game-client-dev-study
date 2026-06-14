@@ -1,8 +1,9 @@
 #include "pch.h"
 #include "CMonster.h"
 #include "CBmpMgr.h"
+#include "CObjMgr.h"
 
-CMonster::CMonster():m_ePreMotion(MOTION_END), m_eCurMotion(START), m_dwFrameCount(GetTickCount64())
+CMonster::CMonster():m_ePreMotion(MOTION_END), m_eCurMotion(START), m_dwFrameCount(GetTickCount64()), m_pTile(nullptr)
 {
 }
 
@@ -13,8 +14,10 @@ CMonster::~CMonster()
 
 void CMonster::Initialize()
 {
-	m_tInfo.fCX = 30.f;
-	m_tInfo.fCY = 30.f;
+	m_pTile = CObjMgr::GetInstance()->GetTilePtr();
+
+	m_tInfo.fCX = 40.f;
+	m_tInfo.fCY = 40.f;
 
 	m_fSpeed = 2.f;
 	m_tFrame.iStart = 0;
@@ -33,6 +36,7 @@ int CMonster::Update()
 {
 	if (m_bDead == DEAD)
 		return DEAD;
+	//RotateMove();
 	MoveFrame(); 
 	CheckFrame();
 	return 0;
@@ -135,11 +139,82 @@ void CMonster::CheckFrame()
 		&& m_dwFrameCount + m_tFrame.dwSpeed * m_tFrame.iEnd <= GetTickCount64())
 	{
 		m_eCurMotion = IDLE;
+		//switch (rand()%4)
+		//{
+		//case 0:
+		//	m_eCurMotion = LEFT;
+		//	break;
+		//case 1:
+		//	m_eCurMotion = UP;
+		//	break;
+		//case 2:
+		//	m_eCurMotion = RIGHT;
+		//	break;
+		//case 3:
+		//	m_eCurMotion = DOWN;
+		//	break;
+		//default:
+		//	break;
+		//}
 		ChangeMotion();
 	}
 	else if (m_eCurMotion == HIT
 		&& m_dwFrameCount + m_tFrame.dwSpeed * m_tFrame.iEnd <= GetTickCount64())
 	{
 		m_bDead = DEAD;
+	}
+}
+
+void CMonster::RotateMove()
+{
+	int x = (AdjustPosX(m_tInfo.fX) - MAP_LEFT) / TILECX;
+	int y = (AdjustPosY(m_tInfo.fY) - MAP_TOP) / TILECX;
+
+	cout << "X: " << x << "\tY:" << y << endl;
+	int LeftIndex = y * MAP_CNT_X + x - 1;
+	int TopIndex = (y - 1) * MAP_CNT_X + x;
+	int RightIndex = y * MAP_CNT_X + x + 1;
+	int BottomIndex = (y + 1) * MAP_CNT_X + x;
+
+	if (m_eCurMotion == LEFT &&
+		(LeftIndex < 0 || LeftIndex / MAP_CNT_X != (LeftIndex + 1) / MAP_CNT_X || 
+		(*m_pTile)[LeftIndex]->GetFrame().iStart >= 2))
+	{
+		m_eCurMotion = UP;
+	}
+	if (m_eCurMotion == UP &&
+		(TopIndex < 0 ||
+		(*m_pTile)[TopIndex]->GetFrame().iStart >= 2))
+	{
+		m_eCurMotion = RIGHT;
+	}
+	if (m_eCurMotion == RIGHT &&
+		(RightIndex / MAP_CNT_X != (RightIndex - 1) / MAP_CNT_X ||
+		(*m_pTile)[RightIndex]->GetFrame().iStart >= 2))
+	{
+		m_eCurMotion = DOWN;
+	}
+	if (m_eCurMotion == DOWN &&
+		(BottomIndex > 194 ||
+		(*m_pTile)[BottomIndex]->GetFrame().iStart >= 2))
+	{
+		m_eCurMotion = LEFT;
+	}
+	switch (m_eCurMotion)
+	{
+	case LEFT:
+		m_tInfo.fX -= m_fSpeed;
+		break;
+	case RIGHT:
+		m_tInfo.fX += m_fSpeed;
+		break;
+	case UP:
+		m_tInfo.fY -= m_fSpeed;
+		break;
+	case DOWN:
+		m_tInfo.fY += m_fSpeed;
+		break;
+	default:
+		break;
 	}
 }

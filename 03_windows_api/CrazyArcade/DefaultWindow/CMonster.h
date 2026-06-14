@@ -17,10 +17,12 @@ public:
 private:
     void        ChangeMotion();
     void        CheckFrame();
-
+    void        RotateMove();
 private:
     MOTION      m_ePreMotion;
     MOTION      m_eCurMotion;
     ULONGLONG   m_dwFrameCount;
+
+    vector<CObj*>* m_pTile;
 };
 

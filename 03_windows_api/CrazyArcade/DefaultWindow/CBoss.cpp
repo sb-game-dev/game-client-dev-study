@@ -116,7 +116,7 @@ void CBoss::Render(HDC hDC)
 			hHpBarColor = CBmpMgr::GetInstance()->FindImage(L"HP_Bar_Blue");
 		else
 		{
-			m_fSpeed = m_fAngrySpeed;
+			//m_fSpeed = m_fAngrySpeed;
 			hHpBarColor = CBmpMgr::GetInstance()->FindImage(L"HP_Bar_Red");
 		}
 		GdiTransparentBlt(hDC,					// ¸ñÀûÁö DC

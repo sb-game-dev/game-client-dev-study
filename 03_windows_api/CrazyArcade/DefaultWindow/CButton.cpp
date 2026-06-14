@@ -82,6 +82,20 @@ void CButton::Initialize()
 		m_tFrame.dwSpeed = 100.f;
 		m_tFrame.dwTime = GetTickCount64();
 	}
+	else if (!lstrcmp(L"button_save", m_pFrameKey))
+	{
+		m_tInfo.fCX = 162;
+		m_tInfo.fCY = 38;
+
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 2;
+		m_tFrame.iMotion = 0;
+		m_tFrame.bLoop = true;
+		m_tFrame.iCX = m_tInfo.fCX;
+		m_tFrame.iCY = m_tInfo.fCY;
+		m_tFrame.dwSpeed = 100.f;
+		m_tFrame.dwTime = GetTickCount64();
+	}
 }
 
 int CButton::Update()
@@ -114,6 +128,10 @@ int CButton::Update()
 			else if (!lstrcmp(L"button_stageExit", m_pFrameKey))
 			{
 				CSceneMgr::GetInstance()->SceneChangeReserve(SC_MENU);
+			}
+			else if (!lstrcmp(L"button_stageExit", m_pFrameKey))
+			{
+				CObjMgr::GetInstance()->SaveTile(0);
 			}
 		}
 	}

@@ -43,7 +43,7 @@ void CMainGame::Initialize()
 	CSoundMgr::Get_Instance()->Initialize();
 
 #ifdef _DEBUG
-	CSceneMgr::GetInstance()->SceneChangeReserve(SC_LOGO);
+	CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE3);
 #elif NDEBUG
 	CSceneMgr::GetInstance()->ChangeScene(SC_LOGO);
 #endif // _DEBUG
