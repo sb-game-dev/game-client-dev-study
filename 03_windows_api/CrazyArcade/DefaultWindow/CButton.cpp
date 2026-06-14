@@ -5,8 +5,9 @@
 #include "CImgMgr.h"
 #include "CObjMgr.h"
 #include "CBmpMgr.h"
+#include "CSoundMgr.h"
 
-CButton::CButton()
+CButton::CButton():m_bCurState(false), m_bPreState(false)
 {
 }
 
@@ -67,6 +68,20 @@ void CButton::Initialize()
 		m_tFrame.dwSpeed = 100.f;
 		m_tFrame.dwTime = GetTickCount64();
 	}
+	else if (!lstrcmp(L"button_stageExit", m_pFrameKey))
+	{
+		m_tInfo.fCX = 143;
+		m_tInfo.fCY = 33;
+
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 2;
+		m_tFrame.iMotion = 0;
+		m_tFrame.bLoop = true;
+		m_tFrame.iCX = m_tInfo.fCX;
+		m_tFrame.iCY = m_tInfo.fCY;
+		m_tFrame.dwSpeed = 100.f;
+		m_tFrame.dwTime = GetTickCount64();
+	}
 }
 
 int CButton::Update()
@@ -76,29 +91,42 @@ int CButton::Update()
 	ScreenToClient(g_hWnd, &ptMouse);
 
 
+	m_bPreState = m_bCurState;
 	if (PtInRect(&m_tRect, ptMouse))
 	{
+		m_bCurState = true;
 		MoveFrame();
 		if (CKeyMgr::GetInstance()->KeyDown(VK_LBUTTON))
 		{
+			CSoundMgr::Get_Instance()->PlaySound(L"buttonClick_2.wav", BUTTON_CLICK, 0.1f);
 			if (!lstrcmp(L"button_creator", m_pFrameKey))
 			{
 				CSceneMgr::GetInstance()->SceneChangeReserve(SC_EDIT);
 			}
-			if (!lstrcmp(L"button_exitEdit", m_pFrameKey))
+			else if (!lstrcmp(L"button_exitEdit", m_pFrameKey))
 			{
 				CSceneMgr::GetInstance()->SceneChangeReserve(SC_MENU);
 			}
-			if (!lstrcmp(L"button_fastStart", m_pFrameKey))
+			else if (!lstrcmp(L"button_fastStart", m_pFrameKey))
 			{
 				CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE1);
+			}
+			else if (!lstrcmp(L"button_stageExit", m_pFrameKey))
+			{
+				CSceneMgr::GetInstance()->SceneChangeReserve(SC_MENU);
 			}
 		}
 	}
 	else
 	{
+		m_bCurState = false;
 		if (lstrcmp(L"button_edit", m_pFrameKey))
 			m_tFrame.iStart = 0;
+	}
+	if (m_bCurState == true && (m_bCurState != m_bPreState))
+	{
+		cout << "m_bCurState :" << m_bCurState << "\tm_bPreState: " << m_bPreState << endl;
+		CSoundMgr::Get_Instance()->PlaySound(L"buttonCursor_0.wav", BUTTON_CURSOR, 0.1f);
 	}
 
 

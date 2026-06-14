@@ -40,6 +40,7 @@ public:
 	int		GetRemainTile();
 	int		GetRemainMonster() { return m_ObjList[OBJ_MONSTER].size(); }
 	bool	GetRemainBoss() { return !m_ObjList[OBJ_BOSS].empty(); }
+	bool	GetRemainPlayer() {return m_ObjList[OBJ_PLAYER].size();}
 public:
 	static CObjMgr* GetInstance()
 	{

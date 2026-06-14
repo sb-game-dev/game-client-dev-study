@@ -93,10 +93,10 @@ void CMainGame::Release()
 
 	ReleaseDC(g_hWnd, m_hDC);
 
-	CSoundMgr::Destroy_Instance();
 	CBmpMgr::Destroy();
 	CImgMgr::Destroy();
 	CKeyMgr::Destroy();
 	CSceneMgr::Destroy();
+	CSoundMgr::Destroy_Instance();
 	CObjMgr::Destroy();
 }

@@ -5,6 +5,7 @@
 #include "CWave.h"
 #include "CAbstractFactory.h"
 #include "CPlayer.h"
+#include "CSoundMgr.h"
 CBomb::CBomb():m_dwBombTime(GetTickCount64()), m_bPlayerCollision(false),m_iBombRange(0)
 {
 }
@@ -106,6 +107,8 @@ CObj* CBomb::CreateWave()
     CObj* pWave = CAbstractFactory<CWave>::Create(m_tInfo.fX, m_tInfo.fY,L"WaveCenter");
 
     dynamic_cast<CWave*>(pWave)->Spread(m_iBombRange);
+
+    CSoundMgr::Get_Instance()->PlaySound(L"ExplodeBomb2.wav", BOMB_EXPLODE, 0.3f);
     return pWave;
 }
 

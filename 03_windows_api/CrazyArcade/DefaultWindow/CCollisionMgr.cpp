@@ -210,7 +210,7 @@ void CCollisionMgr::CollisionBody(list<CObj*>& DstList, vector<CObj*>& SrcList)
 			
 			if (CheckRect(DstObj, SrcObj, fDeltaSizeX, fDeltaSizeY))
 			{
-				if (pTempBomb->GetCanMove() == false)
+				if (pTempBomb && pTempBomb->GetCanMove() == false)
 				{
 					continue;
 					pTempBomb->SetPosX(AdjustPosX(pTempBomb->GetInfo()->fX));

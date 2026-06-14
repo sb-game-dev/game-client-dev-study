@@ -9,6 +9,7 @@
 #include "CBmpMgr.h"
 #include "CDart.h"
 #include "CCollisionMgr.h"
+#include "CSoundMgr.h"
 CPlayer::CPlayer():m_ePreMotion(MOTION_END), m_eCurMotion(START), m_fWalkSpeed(3.f), m_fBubbleSpeed(0.5f), m_dwFrameCount(GetTickCount64()),
 m_fBlockMoveTime(0.f), m_iBombRange(1), m_iBombMax(1), m_iBombCnt(0), m_bShowItemGainEffect(false), m_eItemFrameKey(ITEMTYPE_END),
 m_dwItemEffectFrameCount(GetTickCount64()),m_iCtrlSlotCnt(0), m_eCtrlSlot(ITEMTYPE_END), m_dwShieldEffectFrameCount(GetTickCount64())
@@ -229,6 +230,8 @@ void CPlayer::KeyInput()
 		{
 			if (m_eCurMotion == HIT)
 			{
+				//SOUND_NEDDLE
+				CSoundMgr::Get_Instance()->PlaySound(L"Neddle_11.wav", SOUND_NEDDLE, 0.3f);
 				--m_iCtrlSlotCnt;
 				m_eCurMotion = REVIVAL;
 				ChangeMotion();
@@ -325,6 +328,7 @@ void CPlayer::ChangeMotion()
 		m_tFrame.dwTime = GetTickCount64();
 		break;
 	case HIT:
+		CSoundMgr::Get_Instance()->PlaySound(L"PlayerGetBubble.wav", PLAYER_BUBBLE, 0.3f);
 		m_fSpeed = m_fBubbleSpeed;
 		m_pFrameKey = L"player_hit";
 		m_tFrame.iStart = 0;
@@ -338,6 +342,7 @@ void CPlayer::ChangeMotion()
 		m_dwFrameCount = GetTickCount64();
 		break;
 	case DEATH:
+		CSoundMgr::Get_Instance()->PlaySound(L"PlayerDead_12.wav", PLAYER_DEAD, 0.3f);
 		m_fSpeed = 0;
 		m_pFrameKey = L"player_death";
 		m_tFrame.iStart = 0;
@@ -376,6 +381,7 @@ void CPlayer::CheckFrame()
 	if (m_eCurMotion == START
 		&& m_dwFrameCount + m_tFrame.dwSpeed * m_tFrame.iEnd <= GetTickCount64())
 	{
+		CSoundMgr::Get_Instance()->PlayBGM(L"Pirate.wav", 0.1f);
 		m_eCurMotion = DOWN;
 		ChangeMotion();
 	}
@@ -388,6 +394,8 @@ void CPlayer::CheckFrame()
 	else if (m_eCurMotion == DEATH
 		&& m_dwFrameCount + m_tFrame.dwSpeed * m_tFrame.iEnd <= GetTickCount64())
 	{
+		CSoundMgr::Get_Instance()->StopAll();
+		CSoundMgr::Get_Instance()->PlaySound(L"Loss_8.wav", STAGE_LOSE, 0.1f);
 		m_bDead = DEAD;
 	}
 	else if (m_eCurMotion == REVIVAL
@@ -430,7 +438,8 @@ void CPlayer::CheckPushBlock(DIRECTION eDIR)
 		fCheckY += 40.f;
 		break;
 	}
-
+	if (fCheckX<=40 || fCheckX >= 600 || fCheckY <=60 || fCheckY >= 540)
+		return;
 	for (auto& pTile : CObjMgr::GetInstance()->GetTile())
 	{
 		CTile* pTempTile = dynamic_cast<CTile*>(pTile);
@@ -484,6 +493,7 @@ void CPlayer::CreateBomb()
 	pBomb->SetCanMove(false);
 	dynamic_cast<CBomb*>(pBomb)->SetBombRange(m_iBombRange);
 	CObjMgr::GetInstance()->AddObject(OBJ_BOMB, pBomb);
+	CSoundMgr::Get_Instance()->PlaySound(L"PutDownbomb1.wav", BOMB_PUTDOWN, 0.3f);
 }
 
 void CPlayer::CreateDart()
@@ -500,6 +510,7 @@ void CPlayer::CreateDart()
 		pDart->SetDirection(DIR_RIGHT);
 
 	CObjMgr::GetInstance()->AddObject(OBJ_DART, pDart);
+	CSoundMgr::Get_Instance()->PlaySound(L"dart.wav", SOUND_DART, 0.3f);
 }
 
 void CPlayer::ShowItemGainEffect(HDC hDC)
@@ -616,7 +627,10 @@ void CPlayer::ShowShield(HDC hDC)
 
 void CPlayer::PickUpItem(const WCHAR* pItemFrameKey)
 {
-	
+	if (m_eCurMotion == HIT)
+		return;
+	//SOUND_ITEMGAIN
+	CSoundMgr::Get_Instance()->PlaySound(L"ItemGain_5.wav", SOUND_ITEMGAIN, 0.3f);
 	if (!lstrcmp(pItemFrameKey, L"bubble"))
 	{
 		m_eItemFrameKey = BUBBLE;

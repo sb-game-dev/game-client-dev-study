@@ -12,5 +12,9 @@ public:
     void        LateUpdate()                override;
     void        Render(HDC hDC)             override;
     void        Release()                   override;
+
+private:
+    bool        m_bCurState;
+    bool        m_bPreState;
 };
 

@@ -6,6 +6,8 @@
 #include "CAbstractFactory.h"
 #include "CMonster.h"
 #include "CSceneMgr.h"
+#include "CSoundMgr.h"
+#include "CButton.h"
 
 CStage1::CStage1()
 {
@@ -32,7 +34,12 @@ void CStage1::Initialize()
 	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((11 * 40) + 40, (6 * 40) + 60, L"Bean_Monster_Start"));
 	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((12 * 40) + 40, (6 * 40) + 60, L"Bean_Monster_Start"));
 
+
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(717, 576, L"button_stageExit"));
+
+
 	CObjMgr::GetInstance()->LoadStage1();
+	CSoundMgr::Get_Instance()->PlaySound(L"StageStart_7.wav", STAGE_START, 0.2f);
 }
 
 int CStage1::Update()
@@ -42,7 +49,14 @@ int CStage1::Update()
 		CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE2);
 		return 0;
 	}
-	CObjMgr::GetInstance()->Update();
+	else if (CObjMgr::GetInstance()->GetRemainPlayer() == false)
+	{
+		m_bEndScene = true;
+	}
+	else
+	{
+		CObjMgr::GetInstance()->Update();
+	}
 	return 0;
 }
 
@@ -65,11 +79,29 @@ void CStage1::Render(HDC hDC)
 		SRCCOPY);						// 그대로 복사하여 출력
 
 	CObjMgr::GetInstance()->Render(hDC);
+	//if (m_bEndScene)
+	//{
+	//	HDC hExitButton = CBmpMgr::GetInstance()->FindImage(L"button_stageExit");
+	//
+	//	BitBlt(hDC,							// 목적지 DC
+	//		0, 0,
+	//		WINCX, WINCY,
+	//		hBackGround,					// 원본 DC
+	//		0,								// 원본 이미지에서 가져오기 시작할 좌표의 LEFT, TOP
+	//		0,
+	//		SRCCOPY);						// 그대로 복사하여 출력
+	//
+	//	CObjMgr::GetInstance()->Render(hDC);
+	//}
 }
 
 void CStage1::Release()
 {
+	CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_PLAYER);
+	CObjMgr::GetInstance()->DeleteObj(OBJ_BOMB);
+	CObjMgr::GetInstance()->DeleteObj(OBJ_BUTTON);
+	CObjMgr::GetInstance()->DeleteObj(OBJ_WAVE);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_MONSTER);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_ITEM);
 	CObjMgr::GetInstance()->DeleteTile();
@@ -145,4 +177,7 @@ void CStage1::InsertImg()
 
 	//SheildEffect
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Item/new/shieldEffects2.bmp", L"shieldEffects");
+
+	//button_Exit
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_stageExit.bmp", L"button_stageExit");
 }

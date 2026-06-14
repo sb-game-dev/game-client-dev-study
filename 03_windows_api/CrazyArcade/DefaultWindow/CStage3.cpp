@@ -8,6 +8,7 @@
 #include "CBmpMgr.h"
 #include "CItem.h"
 #include "CSceneMgr.h"
+#include "CSoundMgr.h"
 CStage3::CStage3()
 {
 }
@@ -34,6 +35,7 @@ void CStage3::Initialize()
 	CObjMgr::GetInstance()->AddObject(OBJ_BOSS, CAbstractFactory<CBoss>::Create((3 * 40) + 40, (10 * 40) + 60, L"Boss_down"));
 
 	CObjMgr::GetInstance()->LoadStage3();
+	CSoundMgr::Get_Instance()->PlaySound(L"StageStart_7.wav", STAGE_START, 0.2f);
 }
 
 int CStage3::Update()
@@ -66,7 +68,11 @@ void CStage3::Render(HDC hDC)
 
 void CStage3::Release()
 {
+	CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_PLAYER);
+	CObjMgr::GetInstance()->DeleteObj(OBJ_BOMB);
+	CObjMgr::GetInstance()->DeleteObj(OBJ_WAVE);
+	CObjMgr::GetInstance()->DeleteObj(OBJ_BUTTON);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_BOSS);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_ITEM);
 	CObjMgr::GetInstance()->DeleteTile();
@@ -74,6 +80,7 @@ void CStage3::Release()
 
 void CStage3::InsertImg()
 {
+#ifdef _DEBUG
 	//BackGround(Map)
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/BackGround/stage_background.bmp", L"stage_background");
 
@@ -108,22 +115,7 @@ void CStage3::InsertImg()
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Wave/down_end.bmp", L"down_end");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Wave/left_end.bmp", L"left_end");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Wave/right_end.bmp", L"right_end");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Wave/up_end.bmp", L"up_end");
-
-	//Boss
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Boss/Boss_down2.bmp", L"Boss_down");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Boss/Boss_up2.bmp", L"Boss_up");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Boss/Boss_left2.bmp", L"Boss_left");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Boss/Boss_right2.bmp", L"Boss_right");
-
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Boss/Boss_Bubble.bmp", L"Boss_Bubble");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Boss/Boss_Dead.bmp", L"Boss_Dead");
-
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/HP_Bar.bmp", L"HP_Bar");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/HP_Bar_Blue.bmp", L"HP_Bar_Blue");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/HP_Bar_Red.bmp", L"HP_Bar_Red");
-
-	//Item
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Wave/up_end.bmp", L"up_end");//Item
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Item/new/bubble.bmp", L"bubble");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Item/new/dart.bmp", L"dart");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Item/new/fluid.bmp", L"fluid");
@@ -146,5 +138,22 @@ void CStage3::InsertImg()
 
 	//SheildEffect
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Item/new/shieldEffects2.bmp", L"shieldEffects");
+	//button_Exit
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_stageExit.bmp", L"button_stageExit");
+#endif // _DEBUG
+	//Boss
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Boss/Boss_down2.bmp", L"Boss_down");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Boss/Boss_up2.bmp", L"Boss_up");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Boss/Boss_left2.bmp", L"Boss_left");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Boss/Boss_right2.bmp", L"Boss_right");
+
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Boss/Boss_Bubble.bmp", L"Boss_Bubble");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Boss/Boss_Dead.bmp", L"Boss_Dead");
+
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/HP_Bar.bmp", L"HP_Bar");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/HP_Bar_Blue.bmp", L"HP_Bar_Blue");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/HP_Bar_Red.bmp", L"HP_Bar_Red");
+
+	
 
 }

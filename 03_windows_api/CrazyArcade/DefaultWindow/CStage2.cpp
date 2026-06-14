@@ -6,6 +6,8 @@
 #include "CAbstractFactory.h"
 #include "CMonster.h"
 #include "CSceneMgr.h"
+#include "CSoundMgr.h"
+#include "CButton.h"
 
 CStage2::CStage2()
 {
@@ -44,7 +46,10 @@ void CStage2::Initialize()
 	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((4 * 40) + 40, (8 * 40) + 60, L"Bean_Monster_Start"));
 	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((10 * 40) + 40, (8 * 40) + 60, L"Bean_Monster_Start"));
 
+
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(717, 576, L"button_stageExit"));
 	CObjMgr::GetInstance()->LoadStage2();
+	CSoundMgr::Get_Instance()->PlaySound(L"StageStart_7.wav", STAGE_START, 0.2f);
 }
 
 int CStage2::Update()
@@ -81,6 +86,10 @@ void CStage2::Render(HDC hDC)
 
 void CStage2::Release()
 {
+	CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
+	CObjMgr::GetInstance()->DeleteObj(OBJ_BOMB);
+	CObjMgr::GetInstance()->DeleteObj(OBJ_WAVE);
+	CObjMgr::GetInstance()->DeleteObj(OBJ_BUTTON);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_PLAYER);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_MONSTER);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_ITEM);
@@ -89,6 +98,7 @@ void CStage2::Release()
 
 void CStage2::InsertImg()
 {
+#ifdef _DEBUG
 	//BackGround(Map)
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/BackGround/stage_background.bmp", L"stage_background");
 
@@ -157,4 +167,9 @@ void CStage2::InsertImg()
 
 	//SheildEffect
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Item/new/shieldEffects2.bmp", L"shieldEffects");
+	//button_Exit
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_stageExit.bmp", L"button_stageExit");
+#endif // _DEBUG
+
+	
 }
