@@ -7,6 +7,7 @@
 #include "CMouse.h"
 #include "CAbstractFactory.h"
 #include "CBmpMgr.h"
+#include "CSoundMgr.h"
 CMainGame::CMainGame() :m_hDC(NULL), m_memDC(NULL), m_Bit(NULL), m_Old(NULL),m_pGraphics(NULL), m_iFPS(0),m_dwTime(GetTickCount64())
 {
 	ZeroMemory(&m_szFPS, sizeof(m_szFPS));
@@ -39,6 +40,7 @@ void CMainGame::Initialize()
 	m_memDC = CreateCompatibleDC(m_hDC);
 	m_Bit = CreateCompatibleBitmap(m_hDC, WINCX, WINCY);
 	m_Old = (HBITMAP)SelectObject(m_memDC, m_Bit);
+	CSoundMgr::Get_Instance()->Initialize();
 
 #ifdef _DEBUG
 	CSceneMgr::GetInstance()->SceneChangeReserve(SC_LOGO);
@@ -91,6 +93,7 @@ void CMainGame::Release()
 
 	ReleaseDC(g_hWnd, m_hDC);
 
+	CSoundMgr::Destroy_Instance();
 	CBmpMgr::Destroy();
 	CImgMgr::Destroy();
 	CKeyMgr::Destroy();

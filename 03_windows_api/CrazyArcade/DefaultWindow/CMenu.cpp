@@ -5,6 +5,7 @@
 #include "CObjMgr.h"
 #include "CButton.h"
 #include "CAbstractFactory.h"
+#include "CSoundMgr.h"
 
 CMenu::CMenu()
 {
@@ -21,6 +22,7 @@ void CMenu::Initialize()
 
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(722, 36, L"button_creator"));
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(296, 36, L"button_fastStart"));
+	CSoundMgr::Get_Instance()->PlayBGM(L"Channel.wav", 0.5f);
 }
 
 int CMenu::Update()

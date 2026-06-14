@@ -103,6 +103,9 @@
     <Filter Include="02. Obj\09. Monster">
       <UniqueIdentifier>{e8712c77-491b-403c-ad74-774ea588e9ca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Design\07. SoundMgr">
+      <UniqueIdentifier>{02319113-d50b-481d-b9f5-b9cd62130ac5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -204,6 +207,9 @@
     <ClInclude Include="CMonster.h">
       <Filter>02. Obj\09. Monster</Filter>
     </ClInclude>
+    <ClInclude Include="CSoundMgr.h">
+      <Filter>03. Design\07. SoundMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefaultWindow.cpp">
@@ -289,6 +295,9 @@
     </ClCompile>
     <ClCompile Include="CMonster.cpp">
       <Filter>02. Obj\09. Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CSoundMgr.cpp">
+      <Filter>03. Design\07. SoundMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

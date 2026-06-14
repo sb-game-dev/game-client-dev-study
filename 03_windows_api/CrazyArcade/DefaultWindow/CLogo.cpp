@@ -2,6 +2,7 @@
 #include "CLogo.h"
 #include "CImgMgr.h"
 #include "CSceneMgr.h"
+#include "CSoundMgr.h"
 
 CLogo::CLogo():m_dwTime(GetTickCount64())
 {
@@ -14,7 +15,7 @@ CLogo::~CLogo()
 
 void CLogo::Initialize()
 {
-	InsertImg(); 
+	InsertImg();
 }
 
 int CLogo::Update()
