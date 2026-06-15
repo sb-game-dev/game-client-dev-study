@@ -42,7 +42,10 @@ int CTile::Update()
 		CheckFrame();
 	}
 	if (m_bMove == true)
+	{
+		cout << "CurX: " << m_tInfo.fX << "\tCurY: " << m_tInfo.fY << endl;
 		Move();
+	}
 	return NOEVENT;
 }
 
@@ -112,24 +115,33 @@ void CTile::Move()
 		m_bMove = false;
 		return;
 	}
-	for (auto& pTile : CObjMgr::GetInstance()->GetTile())
-	{
-		if (pTile == this) continue;
+	//for (auto& pTile : CObjMgr::GetInstance()->GetTile())
+	//{
+	//	if (pTile == this) continue;
+	//
+	//	if (pTile->GetFrame().iStart >= 1
+	//		&&fabsf(m_fDstX - pTile->GetInfo()->fX) <= 20.f
+	//		&& fabsf(m_fDstY - pTile->GetInfo()->fY) <= 20.f)
+	//	{
+	//		m_bMove = false;
+	//		return;
+	//	}
+	//	//if (pTile->GetFrame().iStart >= 1
+	//	//	&& m_fDstX == pTile->GetInfo()->fX
+	//	//	&& m_fDstY == pTile->GetInfo()->fY)
+	//	//{
+	//	//	m_bMove = false;
+	//	//	return;
+	//	//}
+	//}
+	int x = (m_fDstX - MAP_LEFT) / TILECX;
+	int y = (m_fDstY - MAP_TOP) / TILECX;
+	int Index = y * MAP_CNT_X + x;
 
-		//if (pTile->GetFrame().iStart >= 1
-		//	&&fabsf(m_fDstX - pTile->GetInfo()->fX) <= 20.f
-		//	&& fabsf(m_fDstY - pTile->GetInfo()->fY) <= 20.f)
-		//{
-		//	m_bMove = false;
-		//	return;
-		//}
-		if (pTile->GetFrame().iStart >= 1
-			&& m_fDstX == pTile->GetInfo()->fX
-			&& m_fDstY == pTile->GetInfo()->fY)
-		{
-			m_bMove = false;
-			return;
-		}
+	if (CObjMgr::GetInstance()->GetTile()[Index]->GetFrame().iStart >= 1)
+	{
+		m_bMove = false;
+		return;
 	}
 
 	if (m_tInfo.fX < m_fDstX) m_tInfo.fX += 2.0f;
@@ -139,6 +151,7 @@ void CTile::Move()
 	else
 	{
 		CObjMgr::GetInstance()->TileSwap(m_iCurIndex, m_iDstIndex);
+		cout << "CurX: " << m_tInfo.fX << "\tCurY: " << m_tInfo.fY << endl;
 		m_bMove = false;
 	}
 }

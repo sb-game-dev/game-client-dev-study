@@ -10,11 +10,13 @@ public :
 	~CObjMgr();
 
 public:
-	void		AddObject(OBJID eID, CObj* pObj);
-	void		AddTile(CObj* pObj);
-	list<CObj*>	GetList(OBJID eID) {return m_ObjList[eID];	}
-	vector<CObj*>GetTile() { return m_TileVec; }
-	vector<CObj*>* GetTilePtr() { return &m_TileVec; }
+	void			AddObject(OBJID eID, CObj* pObj);
+	void			AddTile(CObj* pObj);
+	list<CObj*>		GetList(OBJID eID) {return m_ObjList[eID];	}
+	list<CObj*>*	GetListPtr(OBJID eID) { return &m_ObjList[eID]; }
+
+	vector<CObj*>	GetTile() { return m_TileVec; }
+	vector<CObj*>*	GetTilePtr() { return &m_TileVec; }
 
 public :
 	void	Initialize();

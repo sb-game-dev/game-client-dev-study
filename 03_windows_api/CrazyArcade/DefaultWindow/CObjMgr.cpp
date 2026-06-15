@@ -78,7 +78,13 @@ int  CObjMgr::Update()
 void CObjMgr::LateUpdate() 
 {
 	for (auto& pObj : m_TileVec)
-		pObj->Update_Rect();
+		pObj->LateUpdate();
+
+	//for (int i = 0; i < 195; ++i)
+	//{
+	//	if (m_TileVec[i]->GetFrame().iStart == 2)
+	//		cout << i << endl;
+	//}
 	for (int i = 0; i < OBJ_END; ++i)
 	{
 		for (auto& pObj : m_ObjList[i])

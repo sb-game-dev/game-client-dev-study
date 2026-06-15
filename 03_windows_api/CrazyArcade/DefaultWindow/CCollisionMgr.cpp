@@ -84,7 +84,7 @@ void CCollisionMgr::CollisionBody(list<CObj*>& DstList, list<CObj*>& SrcList)
 			CBomb* pDstBomb = dynamic_cast<CBomb*> (DstObj);
 			CBomb* pSrcBomb = dynamic_cast<CBomb*> (SrcObj);
 
-			if (pDstBomb && pDstBomb->GetPlayerCollision() == false)
+			if (pDstBomb && (pDstBomb->GetPlayerCollision() == false || pDstBomb->GetCanMove() == true))
 				return;
 
 			if (CheckRect(DstObj, SrcObj, fDeltaSizeX, fDeltaSizeY))

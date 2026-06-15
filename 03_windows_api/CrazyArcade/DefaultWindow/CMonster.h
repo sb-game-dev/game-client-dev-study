@@ -17,12 +17,17 @@ public:
 private:
     void        ChangeMotion();
     void        CheckFrame();
-    void        RotateMove();
+    void        LeftHandRuleMove();
+    void        SetDestination(DIRECTION eDir, int iIndex);
 private:
     MOTION      m_ePreMotion;
     MOTION      m_eCurMotion;
     ULONGLONG   m_dwFrameCount;
 
-    vector<CObj*>* m_pTile;
+    vector<CObj*>*  m_pTile;
+    list<CObj*>*    m_pBombList;
+
+    float       m_fDstX;
+    float       m_fDstY;
 };
 

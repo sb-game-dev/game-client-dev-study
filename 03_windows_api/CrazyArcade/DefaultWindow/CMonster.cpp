@@ -3,7 +3,8 @@
 #include "CBmpMgr.h"
 #include "CObjMgr.h"
 
-CMonster::CMonster():m_ePreMotion(MOTION_END), m_eCurMotion(START), m_dwFrameCount(GetTickCount64()), m_pTile(nullptr)
+CMonster::CMonster():m_ePreMotion(MOTION_END), m_eCurMotion(START), m_dwFrameCount(GetTickCount64()), m_pTile(nullptr), m_pBombList(nullptr),
+m_fDstX(0.f), m_fDstY(0.f)
 {
 }
 
@@ -15,11 +16,12 @@ CMonster::~CMonster()
 void CMonster::Initialize()
 {
 	m_pTile = CObjMgr::GetInstance()->GetTilePtr();
+	m_pBombList = CObjMgr::GetInstance()->GetListPtr(OBJ_BOMB);
 
 	m_tInfo.fCX = 40.f;
 	m_tInfo.fCY = 40.f;
 
-	m_fSpeed = 2.f;
+	m_fSpeed = 0.f;
 	m_tFrame.iStart = 0;
 	m_tFrame.iEnd = 4;
 	m_tFrame.iMotion = 0;
@@ -30,13 +32,54 @@ void CMonster::Initialize()
 	m_tFrame.dwTime = GetTickCount64();
 
 	m_eRenderID = GAMEOBJECT;
+	m_bCanMove = false;
 }
 
 int CMonster::Update()
 {
 	if (m_bDead == DEAD)
 		return DEAD;
-	//RotateMove();
+	//m_tInfo.fX += m_fSpeed;
+	//cout << "CurX: " << m_tInfo.fX << "\tCurY: " << m_tInfo.fY << endl;
+	//cout << "DstX: " << m_fDstX << "\tDstY: " << m_fDstY << endl;
+	//cout << m_bCanMove << endl;
+	//cout << m_eCurMotion << endl;
+	if (m_bCanMove == true)
+	{
+		switch (m_eCurMotion)
+		{
+		case UP:
+			if (m_fDstY != m_tInfo.fY)
+				m_tInfo.fY -= m_fSpeed;
+			else
+				m_bCanMove = false;
+			break;
+		case LEFT:
+			if (m_fDstX != m_tInfo.fX)
+				m_tInfo.fX -= m_fSpeed;
+			else
+				m_bCanMove = false;
+			break;
+		case DOWN:
+			if (m_fDstY != m_tInfo.fY)
+				m_tInfo.fY += m_fSpeed;
+			else
+				m_bCanMove = false;
+			break;
+		case RIGHT:
+			if (m_fDstX != m_tInfo.fX)
+				m_tInfo.fX += m_fSpeed;
+			else
+				m_bCanMove = false;
+			break;
+		default:
+			break;
+		}
+	}
+	else
+	{
+		LeftHandRuleMove();
+	}
 	MoveFrame(); 
 	CheckFrame();
 	return 0;
@@ -51,19 +94,17 @@ void CMonster::Render(HDC hDC)
 {
 	HDC hMonster = CBmpMgr::GetInstance()->FindImage(m_pFrameKey);
 	
-	//Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
-
-	GdiTransparentBlt(hDC,					// 목적지 DC
+	GdiTransparentBlt(hDC,						// 목적지 DC
 		int(m_tInfo.fX - (m_tFrame.iCX / 2)),	// 목적지 LEFT, TOP
 		int(m_tInfo.fY - (m_tFrame.iCY - m_tInfo.fCY * 0.5)),
-		m_tFrame.iCX,			// 목적지 공간의 가로, 세로 사이즈
+		m_tFrame.iCX,							// 목적지 공간의 가로, 세로 사이즈
 		m_tFrame.iCY,
-		hMonster,						// 원본 이미지 DC
-		m_tFrame.iCX * m_tFrame.iStart,	// 원본 이미지 LEFT, TOP
+		hMonster,								// 원본 이미지 DC
+		m_tFrame.iCX * m_tFrame.iStart,			// 원본 이미지 LEFT, TOP
 		0,
-		m_tFrame.iCX,			// 원본 이미지 가로, 세로 사이즈
+		m_tFrame.iCX,							// 원본 이미지 가로, 세로 사이즈
 		m_tFrame.iCY,
-		RGB(0, 255, 0));		// 제거할 픽셀 색상
+		RGB(0, 255, 0));						// 제거할 픽셀 색상
 }
 
 void CMonster::Release()
@@ -135,20 +176,21 @@ void CMonster::ChangeMotion()
 
 void CMonster::CheckFrame()
 {
+	//cout << "CheckFrameRunning" << endl;
 	if (m_eCurMotion == START
 		&& m_dwFrameCount + m_tFrame.dwSpeed * m_tFrame.iEnd <= GetTickCount64())
 	{
-		m_eCurMotion = IDLE;
+		//m_eCurMotion = IDLE;
 		//switch (rand()%4)
 		//{
 		//case 0:
 		//	m_eCurMotion = LEFT;
 		//	break;
 		//case 1:
-		//	m_eCurMotion = UP;
+		//	m_eCurMotion = RIGHT;
 		//	break;
 		//case 2:
-		//	m_eCurMotion = RIGHT;
+		//	m_eCurMotion = UP;
 		//	break;
 		//case 3:
 		//	m_eCurMotion = DOWN;
@@ -156,6 +198,9 @@ void CMonster::CheckFrame()
 		//default:
 		//	break;
 		//}
+		cout << "StartMotionEnd" << endl;
+		m_fSpeed = 2.f;
+		m_eCurMotion = LEFT;
 		ChangeMotion();
 	}
 	else if (m_eCurMotion == HIT
@@ -165,56 +210,184 @@ void CMonster::CheckFrame()
 	}
 }
 
-void CMonster::RotateMove()
-{
-	int x = (AdjustPosX(m_tInfo.fX) - MAP_LEFT) / TILECX;
-	int y = (AdjustPosY(m_tInfo.fY) - MAP_TOP) / TILECX;
 
-	cout << "X: " << x << "\tY:" << y << endl;
+
+void CMonster::LeftHandRuleMove()
+{
+	int x = ((m_tInfo.fX) - MAP_LEFT) / TILECX;
+	int y = ((m_tInfo.fY) - MAP_TOP) / TILECX;
+
+	int Left	= 0;
+	int Front	= 0;
+	int Right	= 0;
+	int Back	= 0;
+
 	int LeftIndex = y * MAP_CNT_X + x - 1;
+	if (LeftIndex < 0 || LeftIndex / MAP_CNT_X != (LeftIndex + 1) / MAP_CNT_X)
+	{
+		LeftIndex = -1;
+	}
 	int TopIndex = (y - 1) * MAP_CNT_X + x;
+
+	if (TopIndex < 0)
+	{
+		TopIndex = -1;
+	}
 	int RightIndex = y * MAP_CNT_X + x + 1;
+
+	if (RightIndex / MAP_CNT_X != (RightIndex - 1) / MAP_CNT_X)
+	{
+		RightIndex = -1;
+	}
 	int BottomIndex = (y + 1) * MAP_CNT_X + x;
 
-	if (m_eCurMotion == LEFT &&
-		(LeftIndex < 0 || LeftIndex / MAP_CNT_X != (LeftIndex + 1) / MAP_CNT_X || 
-		(*m_pTile)[LeftIndex]->GetFrame().iStart >= 2))
+	if (BottomIndex > 194)
 	{
-		m_eCurMotion = UP;
+		BottomIndex = -1;
 	}
-	if (m_eCurMotion == UP &&
-		(TopIndex < 0 ||
-		(*m_pTile)[TopIndex]->GetFrame().iStart >= 2))
-	{
-		m_eCurMotion = RIGHT;
-	}
-	if (m_eCurMotion == RIGHT &&
-		(RightIndex / MAP_CNT_X != (RightIndex - 1) / MAP_CNT_X ||
-		(*m_pTile)[RightIndex]->GetFrame().iStart >= 2))
-	{
-		m_eCurMotion = DOWN;
-	}
-	if (m_eCurMotion == DOWN &&
-		(BottomIndex > 194 ||
-		(*m_pTile)[BottomIndex]->GetFrame().iStart >= 2))
-	{
-		m_eCurMotion = LEFT;
-	}
+	
 	switch (m_eCurMotion)
 	{
 	case LEFT:
-		m_tInfo.fX -= m_fSpeed;
+		Left = BottomIndex;
+		Front = LeftIndex;
+		Right = TopIndex;
+		Back = RightIndex;
 		break;
 	case RIGHT:
-		m_tInfo.fX += m_fSpeed;
+		Left = TopIndex;
+		Front = RightIndex;
+		Right = BottomIndex;
+		Back = LeftIndex;
 		break;
 	case UP:
-		m_tInfo.fY -= m_fSpeed;
+		Left = LeftIndex;
+		Front = TopIndex;
+		Right = RightIndex;
+		Back = BottomIndex;
 		break;
 	case DOWN:
-		m_tInfo.fY += m_fSpeed;
+		Left = RightIndex;
+		Front = BottomIndex;
+		Right = LeftIndex;
+		Back = TopIndex;
 		break;
 	default:
 		break;
 	}
+	// 왼쪽 확인
+	DIRECTION eResultDirection = DIR_END;
+	if (Left != -1 && (*m_pTile)[Left]->GetFrame().iStart < 2)
+	{
+		bool iBombCheck = true;
+		x = (Left % MAP_CNT_X) * 40 + 20 + MAP_LEFT;
+		y = (Left / MAP_CNT_X) * 40 + 20 + MAP_TOP;
+		for (auto& pBomb : *(m_pBombList))
+		{
+			if (pBomb->GetInfo()->fX == x && pBomb->GetInfo()->fY == y)
+			{
+				iBombCheck = false;
+				break;
+			}
+		}
+		if (iBombCheck == true)
+		{
+			SetDestination(DIR_LEFT, Left);
+			return;
+		}
+	}
+	// 앞쪽 확인
+	if (Front != -1 && (*m_pTile)[Front]->GetFrame().iStart < 2)
+	{
+		bool iBombCheck = true;
+		x = (Front % MAP_CNT_X) * 40 + 20 + MAP_LEFT;
+		y = (Front / MAP_CNT_X) * 40 + 20 + MAP_TOP;
+		for (auto& pBomb : *(m_pBombList))
+		{
+			if (pBomb->GetInfo()->fX == x && pBomb->GetInfo()->fY == y)
+			{
+				iBombCheck = false;
+				break;
+			}
+		}
+		if (iBombCheck == true)
+		{
+			SetDestination(DIR_UP, Front);
+			return;
+		}
+	}
+	// 오른쪽 확인
+	if (Right != -1 && (*m_pTile)[Right]->GetFrame().iStart < 2)
+	{
+		bool iBombCheck = true;
+		x = (Right % MAP_CNT_X) * 40 + 20 + MAP_LEFT;
+		y = (Right / MAP_CNT_X) * 40 + 20 + MAP_TOP;
+		for (auto& pBomb : *(m_pBombList))
+		{
+			if (pBomb->GetInfo()->fX == x && pBomb->GetInfo()->fY == y)
+			{
+				iBombCheck = false;
+				break;
+			}
+		}
+		if (iBombCheck == true)
+		{
+			SetDestination(DIR_RIGHT, Right);
+			return;
+			
+		}
+	}
+	//	뒤쪽 확인
+	if(Back != -1 && (*m_pTile)[Back]->GetFrame().iStart < 2)
+	{
+		bool iBombCheck = true;
+		x = (Back % MAP_CNT_X) * 40 + 20 + MAP_LEFT;
+		y = (Back / MAP_CNT_X) * 40 + 20 + MAP_TOP;
+		for (auto& pBomb : *(m_pBombList))
+		{
+			if (pBomb->GetInfo()->fX == x && pBomb->GetInfo()->fY == y)
+			{
+				iBombCheck = false;
+				break;
+			}
+		}
+		if (iBombCheck == true)
+		{
+			SetDestination(DIR_DOWN, Back);
+			return;
+		}
+	}
+}
+
+void CMonster::SetDestination(DIRECTION eDir, int iIndex)
+{
+	switch (eDir)
+	{
+	case DIR_UP:
+		m_fDstX = (iIndex % MAP_CNT_X) * 40 + 20 + MAP_LEFT;
+		m_fDstY = (iIndex / MAP_CNT_X) * 40 + 20 + MAP_TOP;
+		m_bCanMove = true;
+		break;
+	case DIR_DOWN:
+		m_fDstX = (iIndex % MAP_CNT_X) * 40 + 20 + MAP_LEFT;
+		m_fDstY = (iIndex / MAP_CNT_X) * 40 + 20 + MAP_TOP;
+		m_eCurMotion = MOTION((m_eCurMotion - 2 + 2) % 4 + 2);
+		m_bCanMove = true;
+		break;
+	case DIR_LEFT:
+		m_fDstX = (iIndex % MAP_CNT_X) * 40 + 20 + MAP_LEFT;
+		m_fDstY = (iIndex / MAP_CNT_X) * 40 + 20 + MAP_TOP;
+		m_eCurMotion = MOTION((m_eCurMotion - 2 + 1) % 4 + 2);
+		m_bCanMove = true;
+		break;
+	case DIR_RIGHT:
+		m_fDstX = (iIndex % MAP_CNT_X) * 40 + 20 + MAP_LEFT;
+		m_fDstY = (iIndex / MAP_CNT_X) * 40 + 20 + MAP_TOP;
+		m_eCurMotion = MOTION((m_eCurMotion - 2 + 3) % 4 + 2);
+		m_bCanMove = true;
+		break;
+	default:
+		break;
+	}
+	ChangeMotion();
 }

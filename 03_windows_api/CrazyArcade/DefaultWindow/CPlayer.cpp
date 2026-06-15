@@ -450,7 +450,7 @@ void CPlayer::CheckPushBlock(DIRECTION eDIR)
 			{
 				m_fBlockMoveTime += 1.f;
 
-				if (m_fBlockMoveTime >= 20.f)
+				if (m_fBlockMoveTime >= 21.f)
 				{
 					m_fBlockMoveTime = 0;
 					pTempTile->SetMove(eDIR);

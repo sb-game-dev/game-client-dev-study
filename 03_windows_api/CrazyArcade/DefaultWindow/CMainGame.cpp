@@ -47,8 +47,6 @@ void CMainGame::Initialize()
 #elif NDEBUG
 	CSceneMgr::GetInstance()->ChangeScene(SC_LOGO);
 #endif // _DEBUG
-
-	//
 }
 
 void CMainGame::Update()
