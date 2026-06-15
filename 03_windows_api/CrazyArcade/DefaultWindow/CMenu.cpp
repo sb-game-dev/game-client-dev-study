@@ -22,10 +22,10 @@ void CMenu::Initialize()
 
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(722, 36, L"button_creator"));
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(296, 36, L"button_fastStart"));
-	if(rand()%2 == 1)
-		CSoundMgr::Get_Instance()->PlayBGM(L"Channel.wav", 0.1f);
-	else
-		CSoundMgr::Get_Instance()->PlayBGM(L"Lobby.wav", 0.1f);
+	//if(rand()%2 == 1)
+	//	CSoundMgr::Get_Instance()->PlayBGM(L"Channel.wav", 0.1f);
+	//else
+	//	CSoundMgr::Get_Instance()->PlayBGM(L"Lobby.wav", 0.1f);
 
 }
 

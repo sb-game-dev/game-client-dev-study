@@ -47,7 +47,7 @@ int CStage1::Update()
 {
 	if (CObjMgr::GetInstance()->GetRemainMonster() <= 0)
 	{
-		CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE2);
+		CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE1);
 		return 0;
 	}
 	else if (CObjMgr::GetInstance()->GetRemainPlayer() == false)

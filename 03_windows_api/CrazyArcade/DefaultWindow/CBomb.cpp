@@ -68,7 +68,9 @@ void CBomb::LateUpdate()
     if (m_dwBombTime + 2500 <= GetTickCount64())
     {
         CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CreateWave());
-        dynamic_cast<CPlayer*>(CObjMgr::GetInstance()->GetList(OBJ_PLAYER).front())->SetReduceBombCnt();
+        CPlayer* pTempPlayer = dynamic_cast<CPlayer*>(CObjMgr::GetInstance()->GetList(OBJ_PLAYER).front());
+        if(pTempPlayer)
+            pTempPlayer->SetReduceBombCnt();
         m_bDead = DEAD;
     }
 }

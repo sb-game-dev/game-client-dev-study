@@ -112,7 +112,8 @@ int CButton::Update()
 		MoveFrame();
 		if (CKeyMgr::GetInstance()->KeyDown(VK_LBUTTON))
 		{
-			CSoundMgr::Get_Instance()->PlaySound(L"buttonClick_2.wav", BUTTON_CLICK, 0.1f);
+			CSoundMgr::Get_Instance()->PlaySound(L"buttonClick_2.wav", BUTTON_CLICK, 0.3f);
+
 			if (!lstrcmp(L"button_creator", m_pFrameKey))
 			{
 				CSceneMgr::GetInstance()->SceneChangeReserve(SC_EDIT);
@@ -146,8 +147,6 @@ int CButton::Update()
 		cout << "m_bCurState :" << m_bCurState << "\tm_bPreState: " << m_bPreState << endl;
 		CSoundMgr::Get_Instance()->PlaySound(L"buttonCursor_0.wav", BUTTON_CURSOR, 0.1f);
 	}
-
-
 	return 0;
 }
 

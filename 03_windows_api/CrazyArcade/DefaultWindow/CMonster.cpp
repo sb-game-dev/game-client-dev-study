@@ -6,6 +6,7 @@
 CMonster::CMonster():m_ePreMotion(MOTION_END), m_eCurMotion(START), m_dwFrameCount(GetTickCount64()), m_pTile(nullptr), m_pBombList(nullptr),
 m_fDstX(0.f), m_fDstY(0.f)
 {
+
 }
 
 CMonster::~CMonster()
@@ -21,6 +22,7 @@ void CMonster::Initialize()
 	m_tInfo.fCX = 40.f;
 	m_tInfo.fCY = 40.f;
 
+	
 	m_fSpeed = 0.f;
 	m_tFrame.iStart = 0;
 	m_tFrame.iEnd = 4;
@@ -30,20 +32,19 @@ void CMonster::Initialize()
 	m_tFrame.iCY = 40;
 	m_tFrame.dwSpeed = 150.f;
 	m_tFrame.dwTime = GetTickCount64();
-
+	m_ePreMotion = MOTION_END;
+	m_eCurMotion = START;
 	m_eRenderID = GAMEOBJECT;
 	m_bCanMove = false;
+	ChangeMotion();
 }
 
 int CMonster::Update()
 {
 	if (m_bDead == DEAD)
 		return DEAD;
-	//m_tInfo.fX += m_fSpeed;
-	//cout << "CurX: " << m_tInfo.fX << "\tCurY: " << m_tInfo.fY << endl;
-	//cout << "DstX: " << m_fDstX << "\tDstY: " << m_fDstY << endl;
-	//cout << m_bCanMove << endl;
-	//cout << m_eCurMotion << endl;
+
+
 	if (m_bCanMove == true)
 	{
 		switch (m_eCurMotion)
@@ -78,6 +79,10 @@ int CMonster::Update()
 	}
 	else
 	{
+		if(m_eCurMotion == LEFT ||
+			m_eCurMotion == RIGHT||
+			m_eCurMotion == UP||
+			m_eCurMotion == DOWN)
 		LeftHandRuleMove();
 	}
 	MoveFrame(); 
@@ -119,14 +124,16 @@ void CMonster::ChangeMotion()
 	{
 	case IDLE:
 		m_pFrameKey = L"Bean_Monster_Down";
+		m_fSpeed = 0;
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 1;
 		m_tFrame.bLoop = false;
-		m_tFrame.dwSpeed = 100.f;
+		m_tFrame.dwSpeed = 300.f;
 		m_tFrame.dwTime = GetTickCount64();
 		break;
 	case LEFT:
 		m_pFrameKey = L"Bean_Monster_Left";
+		m_fSpeed = 2.f;
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 2;
 		m_tFrame.bLoop = true;
@@ -135,6 +142,7 @@ void CMonster::ChangeMotion()
 		break;
 	case RIGHT:
 		m_pFrameKey = L"Bean_Monster_Right";
+		m_fSpeed = 2.f;
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 2;
 		m_tFrame.bLoop = true;
@@ -143,6 +151,7 @@ void CMonster::ChangeMotion()
 		break;
 	case UP:
 		m_pFrameKey = L"Bean_Monster_Up";
+		m_fSpeed = 2.f;
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 2;
 		m_tFrame.bLoop = true;
@@ -151,6 +160,7 @@ void CMonster::ChangeMotion()
 		break;
 	case DOWN:
 		m_pFrameKey = L"Bean_Monster_Down";
+		m_fSpeed = 2.f;
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 2;
 		m_tFrame.bLoop = true;
@@ -159,6 +169,7 @@ void CMonster::ChangeMotion()
 		break;
 	case HIT:
 		m_pFrameKey = L"Bean_Monster_Death";
+		m_fSpeed = 0.f;
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 3;
 		m_tFrame.bLoop = false;
@@ -176,29 +187,9 @@ void CMonster::ChangeMotion()
 
 void CMonster::CheckFrame()
 {
-	//cout << "CheckFrameRunning" << endl;
-	if (m_eCurMotion == START
+	if ((m_eCurMotion == START )
 		&& m_dwFrameCount + m_tFrame.dwSpeed * m_tFrame.iEnd <= GetTickCount64())
 	{
-		//m_eCurMotion = IDLE;
-		//switch (rand()%4)
-		//{
-		//case 0:
-		//	m_eCurMotion = LEFT;
-		//	break;
-		//case 1:
-		//	m_eCurMotion = RIGHT;
-		//	break;
-		//case 2:
-		//	m_eCurMotion = UP;
-		//	break;
-		//case 3:
-		//	m_eCurMotion = DOWN;
-		//	break;
-		//default:
-		//	break;
-		//}
-		cout << "StartMotionEnd" << endl;
 		m_fSpeed = 2.f;
 		m_eCurMotion = LEFT;
 		ChangeMotion();
