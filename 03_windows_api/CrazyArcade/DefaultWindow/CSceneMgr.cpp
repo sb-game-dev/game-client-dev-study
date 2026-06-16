@@ -3,6 +3,7 @@
 #include "CStage1.h"
 #include "CStage2.h"
 #include "CStage3.h"
+#include "CStage4.h"
 #include "CLogo.h"
 #include "CEdit.h"
 #include "CMenu.h"
@@ -39,6 +40,9 @@ void CSceneMgr::ChangeScene(SCENEID eID)
 		break;
 	case SC_STAGE3:
 		m_pScene = new CStage3;
+		break;
+	case SC_STAGE4:
+		m_pScene = new CStage4;
 		break;
 	default:
 		break;

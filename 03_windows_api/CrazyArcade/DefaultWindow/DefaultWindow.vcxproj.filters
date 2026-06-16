@@ -106,6 +106,12 @@
     <Filter Include="03. Design\07. SoundMgr">
       <UniqueIdentifier>{02319113-d50b-481d-b9f5-b9cd62130ac5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Scene\03. Stage3\03. Stage4">
+      <UniqueIdentifier>{68804d61-5d8d-4796-8d5e-b5099eb271f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Obj\10. Mark">
+      <UniqueIdentifier>{eb9c0387-40c8-474b-8b6f-4443db52841d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -210,6 +216,9 @@
     <ClInclude Include="CSoundMgr.h">
       <Filter>03. Design\07. SoundMgr</Filter>
     </ClInclude>
+    <ClInclude Include="CStage4.h">
+      <Filter>01. Scene\03. Stage3\03. Stage4</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefaultWindow.cpp">
@@ -298,6 +307,9 @@
     </ClCompile>
     <ClCompile Include="CSoundMgr.cpp">
       <Filter>03. Design\07. SoundMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CStage4.cpp">
+      <Filter>01. Scene\03. Stage3\03. Stage4</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

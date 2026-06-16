@@ -1,73 +1,65 @@
 #include "pch.h"
-#include "CStage1.h"
-#include "CBmpMgr.h"
+#include "CStage4.h"
 #include "CObjMgr.h"
-#include "CPlayer.h"
 #include "CAbstractFactory.h"
-#include "CMonster.h"
+#include "CPlayer.h"
+#include "CImgMgr.h"
+#include "CBoss.h"
+#include "CBmpMgr.h"
+#include "CItem.h"
 #include "CSceneMgr.h"
 #include "CSoundMgr.h"
+#include "CMonster.h"
 #include "CButton.h"
-
-CStage1::CStage1()
+CStage4::CStage4()
 {
 }
 
-CStage1::~CStage1()
+CStage4::~CStage4()
 {
 	Release();
 }
 
-void CStage1::Initialize()
+void CStage4::Initialize()
 {
 	InsertImg();
+#ifdef _DEBUG
 
-	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create((13 * 40) + 40, (11 * 40) + 60, L"player_start"));
 
-	//Follow
+#endif // _DEBUG
 
-	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((7 * 40) + 40, (2  * 40) + 60, L"Bean_Monster_Start"));
-	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((7 * 40) + 40, (12 * 40) + 60, L"Bean_Monster_Start"));
-	
-	//Basic
-	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((9 * 40) + 40,  (7 * 40) + 60, L"Bean_Monster_Start"));
-	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((10 * 40) + 40, (7 * 40) + 60, L"Bean_Monster_Start"));
-	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((11 * 40) + 40, (7 * 40) + 60, L"Bean_Monster_Start"));
-	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((12 * 40) + 40, (7 * 40) + 60, L"Bean_Monster_Start"));
+	int iPlayer_StartX = 9;
+	int iPlayer_StartY = 9;
+	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create((iPlayer_StartX * 40) + 40, (iPlayer_StartY * 40) + 60, L"player_start"));
+
+	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((0 * 40) + 40, (0 * 40) + 60, L"Bean_Monster_Start"));
+
+	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((5 * 40) + 40, (4 * 40) + 60, L"Bean_Monster_Start"));
+	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((3 * 40) + 40, (12 * 40) + 60, L"Bean_Monster_Start"));
+	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((8 * 40) + 40, (6 * 40) + 60, L"Bean_Monster_Start"));
+	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((11 * 40) + 40,(12 * 40) + 60, L"Bean_Monster_Start"));
 
 
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(717, 576, L"button_stageExit"));
 
-
-	CObjMgr::GetInstance()->LoadStage1();
+	CObjMgr::GetInstance()->LoadStage4();
 	CSoundMgr::Get_Instance()->PlaySound(L"StageStart_7.wav", STAGE_START, 0.2f);
 }
 
-int CStage1::Update()
+int CStage4::Update()
 {
-	if (CObjMgr::GetInstance()->GetRemainMonster() <= 0)
-	{
-		CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE2);
-		return 0;
-	}
-	else if (CObjMgr::GetInstance()->GetRemainPlayer() == false)
-	{
-		m_bEndScene = true;
-	}
 	CObjMgr::GetInstance()->Update();
-
 	return 0;
 }
 
-void CStage1::LateUpdate()
+void CStage4::LateUpdate()
 {
-
 	CObjMgr::GetInstance()->LateUpdate();
 }
 
-void CStage1::Render(HDC hDC)
+void CStage4::Render(HDC hDC)
 {
-	HDC hBackGround = CBmpMgr::GetInstance()->FindImage(L"stage_background");
+	HDC hBackGround = CBmpMgr::GetInstance()->FindImage(L"stage2");
 
 	BitBlt(hDC,							// 목적지 DC
 		0, 0,
@@ -78,37 +70,25 @@ void CStage1::Render(HDC hDC)
 		SRCCOPY);						// 그대로 복사하여 출력
 
 	CObjMgr::GetInstance()->Render(hDC);
-	//if (m_bEndScene)
-	//{
-	//	HDC hExitButton = CBmpMgr::GetInstance()->FindImage(L"button_stageExit");
-	//
-	//	BitBlt(hDC,							// 목적지 DC
-	//		0, 0,
-	//		WINCX, WINCY,
-	//		hBackGround,					// 원본 DC
-	//		0,								// 원본 이미지에서 가져오기 시작할 좌표의 LEFT, TOP
-	//		0,
-	//		SRCCOPY);						// 그대로 복사하여 출력
-	//
-	//	CObjMgr::GetInstance()->Render(hDC);
-	//}
 }
 
-void CStage1::Release()
+void CStage4::Release()
 {
 	CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_PLAYER);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_BOMB);
-	CObjMgr::GetInstance()->DeleteObj(OBJ_BUTTON);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_WAVE);
-	CObjMgr::GetInstance()->DeleteObj(OBJ_MONSTER);
+	CObjMgr::GetInstance()->DeleteObj(OBJ_BUTTON);
+	CObjMgr::GetInstance()->DeleteObj(OBJ_BOSS);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_ITEM);
 	CObjMgr::GetInstance()->DeleteTile();
 }
 
-void CStage1::InsertImg()
+void CStage4::InsertImg()
 {
+#ifdef _DEBUG
 	//BackGround(Map)
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/BackGround/stage2.bmp", L"stage2");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/BackGround/stage_background.bmp", L"stage_background");
 
 	//Player
@@ -125,6 +105,7 @@ void CStage1::InsertImg()
 
 	//Tile
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile2.bmp", L"tile");
+	//CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile.bmp", L"tile");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile_hit.bmp", L"tile_hit");
 
 	//Bubble
@@ -144,15 +125,6 @@ void CStage1::InsertImg()
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Wave/right_end.bmp", L"right_end");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Wave/up_end.bmp", L"up_end");
 
-	//Monster
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Monster/Bean_Monster_Start.bmp", L"Bean_Monster_Start");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Monster/Bean_Monster_Death.bmp", L"Bean_Monster_Death");
-
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Monster/Bean_Monster_Down.bmp", L"Bean_Monster_Down");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Monster/Bean_Monster_Left.bmp", L"Bean_Monster_Left");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Monster/Bean_Monster_Right.bmp", L"Bean_Monster_Right");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Monster/Bean_Monster_Up.bmp", L"Bean_Monster_Up");
-
 	//Item
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Item/new/bubble.bmp", L"bubble");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Item/new/dart.bmp", L"dart");
@@ -162,6 +134,15 @@ void CStage1::InsertImg()
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Item/new/shield.bmp", L"shield");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Item/new/shoe.bmp", L"shoe");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Item/new/trampoline.bmp", L"trampoline");
+
+	//Monster
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Monster/Bean_Monster_Start.bmp", L"Bean_Monster_Start");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Monster/Bean_Monster_Death.bmp", L"Bean_Monster_Death");
+
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Monster/Bean_Monster_Down.bmp", L"Bean_Monster_Down");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Monster/Bean_Monster_Left.bmp", L"Bean_Monster_Left");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Monster/Bean_Monster_Right.bmp", L"Bean_Monster_Right");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Monster/Bean_Monster_Up.bmp", L"Bean_Monster_Up");
 
 	//Item_UI
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/UI_Bomb.bmp", L"UI_Bomb");
@@ -176,7 +157,22 @@ void CStage1::InsertImg()
 
 	//SheildEffect
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Item/new/shieldEffects2.bmp", L"shieldEffects");
-
 	//button_Exit
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_stageExit.bmp", L"button_stageExit");
+#endif // _DEBUG
+	//Boss
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Boss/Boss_down2.bmp", L"Boss_down");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Boss/Boss_up2.bmp", L"Boss_up");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Boss/Boss_left2.bmp", L"Boss_left");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Boss/Boss_right2.bmp", L"Boss_right");
+
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Boss/Boss_Bubble.bmp", L"Boss_Bubble");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Boss/Boss_Dead.bmp", L"Boss_Dead");
+
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/HP_Bar.bmp", L"HP_Bar");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/HP_Bar_Blue.bmp", L"HP_Bar_Blue");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/HP_Bar_Red.bmp", L"HP_Bar_Red");
+
+
+
 }

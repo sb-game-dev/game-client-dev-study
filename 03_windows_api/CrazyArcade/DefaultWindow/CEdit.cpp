@@ -33,6 +33,25 @@ void CEdit::Initialize()
 
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(657, 348, L"button_edit", WALL7));
 
+
+
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(693, 348, L"button_edit", STAGE2TILE1));
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(731, 348, L"button_edit", STAGE2TILE2));
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(763, 348, L"button_edit", STAGE2TILE3));
+
+
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(657, 384, L"button_edit", STAGE2TILE4));
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(693, 384, L"button_edit", STAGE2TILE5));
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(731, 384, L"button_edit", STAGE2TILE6));
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(763, 384, L"button_edit", STAGE2TILE7));
+
+
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(657, 420, L"button_edit", STAGE2TILE8));
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(693, 420, L"button_edit", STAGE2TILE9));
+
+
+
+
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(716, 577, L"button_save"));
 
 
@@ -68,6 +87,9 @@ void CEdit::LateUpdate()
 	else if (CKeyMgr::GetInstance()->KeyDown('3'))
 		CObjMgr::GetInstance()->SaveTile(3);
 
+	else if (CKeyMgr::GetInstance()->KeyDown('4'))
+		CObjMgr::GetInstance()->SaveTile(4);
+
 	else if (CKeyMgr::GetInstance()->KeyDown('L'))
 		CObjMgr::GetInstance()->LoadTile();
 }
@@ -96,9 +118,11 @@ void CEdit::Release()
 void CEdit::InsertImg()
 {
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/BackGround/edit_background.bmp", L"edit_background");
+
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_edit.bmp", L"button_edit");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_save.bmp", L"button_save");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile.bmp", L"tile");
+	//CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile.bmp", L"tile");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile2.bmp", L"tile");
 
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_exitEdit.bmp", L"button_exitEdit");
 }

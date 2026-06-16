@@ -17,7 +17,7 @@ void CMouse::Initialize()
 	m_eRenderID = MOUSE;
 
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Mouse/mouse.bmp", L"mouse");
-	CImgMgr::GetInstance()->InsertImg(L"../Resource/Tile/tile.png", L"tile");
+	CImgMgr::GetInstance()->InsertImg(L"../Resource/Tile/tile2.png", L"tile");
 
 	m_pFrameKey = L"mouse";
 	m_tInfo.fCX = 37.f;
@@ -56,13 +56,13 @@ void CMouse::Render(HDC hDC)
 		Graphics* _pGraphics = Graphics::FromHDC(hDC);
 		Gdiplus::Image* pImg = CImgMgr::GetInstance()->FindImg(L"tile");
 		Rect rect = { AdjustPosX(m_tInfo.fX) - 20,
-					AdjustPosY(m_tInfo.fY) - 36,
-					40,56 };
+					AdjustPosY(m_tInfo.fY) - 47,
+					40,67 };
 		ImageAttributes attr;
 		MakeAlphaAttr(attr, 0.5f);
 		_pGraphics->DrawImage(pImg, rect,
 			m_eChoiceTile* 40, 0,
-			40, 56,
+			40, 67,
 			UnitPixel,
 			&attr);
 	}
@@ -133,6 +133,33 @@ void CMouse::SetChoiceTile(int eID)
 		m_eChoiceTile = WALL7;
 		break;
 	case 11:
+		m_eChoiceTile = STAGE2TILE1;
+		break;
+	case 12:
+		m_eChoiceTile = STAGE2TILE2;
+		break;
+	case 13:
+		m_eChoiceTile = STAGE2TILE3;
+		break;
+	case 14:
+		m_eChoiceTile = STAGE2TILE4;
+		break;
+	case 15:
+		m_eChoiceTile = STAGE2TILE5;
+		break;
+	case 16:
+		m_eChoiceTile = STAGE2TILE6;
+		break;
+	case 17:
+		m_eChoiceTile = STAGE2TILE7;
+		break;
+	case 18:
+		m_eChoiceTile = STAGE2TILE8;
+		break;
+	case 19:
+		m_eChoiceTile = STAGE2TILE9;
+		break;
+	case 20:
 		m_eChoiceTile = TILE_END;
 		break;
 	default:

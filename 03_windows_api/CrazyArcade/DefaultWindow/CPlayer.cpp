@@ -381,7 +381,7 @@ void CPlayer::CheckFrame()
 	if (m_eCurMotion == START
 		&& m_dwFrameCount + m_tFrame.dwSpeed * m_tFrame.iEnd <= GetTickCount64())
 	{
-		CSoundMgr::Get_Instance()->PlayBGM(L"Pirate.wav", 0.1f);
+		//CSoundMgr::Get_Instance()->PlayBGM(L"Pirate.wav", 0.1f);
 		m_eCurMotion = DOWN;
 		ChangeMotion();
 	}

@@ -266,9 +266,33 @@ void CMonster::LeftHandRuleMove()
 	default:
 		break;
 	}
+
+	//int iDirArr[] = { Left,Front,Right,Back };
+	//for (auto iDir : iDirArr)
+	//{
+	//	if (iDir != -1 && ((*m_pTile)[iDir]->GetFrame().iStart < 2 || (*m_pTile)[iDir]->GetFrame().iStart >= 11 && (*m_pTile)[iDir]->GetFrame().iStart <= 17))
+	//	{
+	//		bool iBombCheck = true;
+	//		x = (iDir % MAP_CNT_X) * 40 + 20 + MAP_LEFT;
+	//		y = (iDir / MAP_CNT_X) * 40 + 20 + MAP_TOP;
+	//		for (auto& pBomb : *(m_pBombList))
+	//		{
+	//			if (pBomb->GetInfo()->fX == x && pBomb->GetInfo()->fY == y)
+	//			{
+	//				iBombCheck = false;
+	//				break;
+	//			}
+	//		}
+	//		if (iBombCheck == true)
+	//		{
+	//			SetDestination(DIR_LEFT, iDir);
+	//			return;
+	//		}
+	//	}
+	//}
 	// 왼쪽 확인
-	DIRECTION eResultDirection = DIR_END;
-	if (Left != -1 && (*m_pTile)[Left]->GetFrame().iStart < 2)
+	
+	if (Left != -1 && ((*m_pTile)[Left]->GetFrame().iStart < 2 || ((*m_pTile)[Left]->GetFrame().iStart >=11 && (*m_pTile)[Left]->GetFrame().iStart <=17)))
 	{
 		bool iBombCheck = true;
 		x = (Left % MAP_CNT_X) * 40 + 20 + MAP_LEFT;
@@ -288,7 +312,7 @@ void CMonster::LeftHandRuleMove()
 		}
 	}
 	// 앞쪽 확인
-	if (Front != -1 && (*m_pTile)[Front]->GetFrame().iStart < 2)
+	if (Front != -1 && ((*m_pTile)[Front]->GetFrame().iStart < 2 || ((*m_pTile)[Front]->GetFrame().iStart >= 11 && (*m_pTile)[Front]->GetFrame().iStart <= 17)))
 	{
 		bool iBombCheck = true;
 		x = (Front % MAP_CNT_X) * 40 + 20 + MAP_LEFT;
@@ -308,7 +332,7 @@ void CMonster::LeftHandRuleMove()
 		}
 	}
 	// 오른쪽 확인
-	if (Right != -1 && (*m_pTile)[Right]->GetFrame().iStart < 2)
+	if (Right != -1 && ((*m_pTile)[Right]->GetFrame().iStart < 2 || ((*m_pTile)[Right]->GetFrame().iStart >= 11 && (*m_pTile)[Right]->GetFrame().iStart <= 17)))
 	{
 		bool iBombCheck = true;
 		x = (Right % MAP_CNT_X) * 40 + 20 + MAP_LEFT;
@@ -329,7 +353,7 @@ void CMonster::LeftHandRuleMove()
 		}
 	}
 	//	뒤쪽 확인
-	if(Back != -1 && (*m_pTile)[Back]->GetFrame().iStart < 2)
+	if (Back != -1 && ((*m_pTile)[Back]->GetFrame().iStart < 2 || ((*m_pTile)[Back]->GetFrame().iStart >= 11 && (*m_pTile)[Back]->GetFrame().iStart <= 17)))
 	{
 		bool iBombCheck = true;
 		x = (Back % MAP_CNT_X) * 40 + 20 + MAP_LEFT;

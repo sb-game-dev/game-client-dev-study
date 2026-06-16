@@ -22,7 +22,7 @@ void CTile::Initialize()
 	m_tInfo.fCY = 40.f;
 	m_pFrameKey = L"tile";
 	m_fSpeed = 0;
-	m_tFrame.iEnd = 11;
+	m_tFrame.iEnd = 20;
 	m_tFrame.iMotion = 0;
 	m_tFrame.bLoop = false;
 	m_tFrame.iCX = TILECX;
@@ -56,7 +56,7 @@ void CTile::LateUpdate()
 
 void CTile::Render(HDC hDC)
 {
-	if (!lstrcmp(L"tile", m_pFrameKey) && m_tFrame.iStart <= 1)
+	if (m_tFrame.iStart <= 1)// || (m_tFrame.iStart >= 11 && m_tFrame.iStart <= 17))
 		return;
 
 	HDC hTile = CBmpMgr::GetInstance()->FindImage(m_pFrameKey);

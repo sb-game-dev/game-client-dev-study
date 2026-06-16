@@ -26,6 +26,13 @@ void CButton::Initialize()
 		m_tFrame.iCX = 34;
 		m_tFrame.iCY = 34;
 	}
+	else if (!lstrcmp(L"button2_edit", m_pFrameKey))
+	{
+		m_tInfo.fCX = 34.f;
+		m_tInfo.fCY = 34.f;
+		m_tFrame.iCX = 34;
+		m_tFrame.iCY = 34;
+	}
 	else if (!lstrcmp(L"button_creator", m_pFrameKey))
 	{
 		m_tInfo.fCX = 124;
@@ -108,7 +115,8 @@ int CButton::Update()
 	m_bPreState = m_bCurState;
 	if (PtInRect(&m_tRect, ptMouse))
 	{
-		m_bCurState = true;
+		if(lstrcmp(L"button_edit", m_pFrameKey) && lstrcmp(L"button2_edit", m_pFrameKey))
+			m_bCurState = true;
 		MoveFrame();
 		if (CKeyMgr::GetInstance()->KeyDown(VK_LBUTTON))
 		{
@@ -156,22 +164,6 @@ void CButton::LateUpdate()
 
 void CButton::Render(HDC hDC)
 {
-	//Graphics* _pGraphics = Graphics::FromHDC(hDC);
-	//
-	//Gdiplus::Image* pImg = CImgMgr::GetInstance()->FindImg(m_pFrameKey);
-	//
-	//Rect rect = { m_tRect.left,m_tRect.top, (int)m_tInfo.fCX,(int)m_tInfo.fCY };
-	//
-	//ImageAttributes attr;
-	//attr.SetColorKey(
-	//	Color(255, 0, 255),
-	//	Color(255, 0, 255));
-	//
-	//_pGraphics->DrawImage(pImg, rect,
-	//	m_tFrame.iCX * m_tFrame.iStart, m_tFrame.iCY * m_tFrame.iMotion,
-	//	m_tFrame.iCX, m_tFrame.iCY,
-	//	UnitPixel,
-	//	&attr);
 	HDC hButton = CBmpMgr::GetInstance()->FindImage(m_pFrameKey);
 	GdiTransparentBlt(hDC,					// 목적지 DC
 		m_tRect.left,		// 목적지 LEFT,RIGHT
@@ -184,7 +176,6 @@ void CButton::Render(HDC hDC)
 		m_tFrame.iCX,			// 원본 이미지 가로, 세로 사이즈
 		m_tFrame.iCY,
 		RGB(255, 0, 255));		// 제거할 픽셀 색상
-
 }
 
 void CButton::Release()

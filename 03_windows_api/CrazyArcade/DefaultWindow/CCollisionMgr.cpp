@@ -161,7 +161,7 @@ void CCollisionMgr::CollisionBody(vector<CObj*>& DstList, list<CObj*>& SrcList)
 			CTile* pTempTile = dynamic_cast<CTile*> (DstObj);
 			CBomb* pSrcBomb = dynamic_cast<CBomb*> (SrcObj);
 
-			if (pTempTile->GetFrame().iStart <= 1)
+			if (pTempTile->GetFrame().iStart <= 1 || (pTempTile->GetFrame().iStart >= 11 && pTempTile->GetFrame().iStart <= 17))
 				continue;
 		
 			if (CheckRect(DstObj, SrcObj, fDeltaSizeX, fDeltaSizeY))
@@ -204,8 +204,9 @@ void CCollisionMgr::CollisionBody(list<CObj*>& DstList, vector<CObj*>& SrcList)
 			if (DstObj == SrcObj)
 				continue;
 			CTile* pTempTile = dynamic_cast<CTile*> (SrcObj);
-			if (pTempTile->GetFrame().iStart <= 1)
+			if (pTempTile->GetFrame().iStart <= 1 || (pTempTile->GetFrame().iStart >= 11 && pTempTile->GetFrame().iStart <= 17))
 				continue;
+
 			CBomb* pTempBomb = dynamic_cast<CBomb*>(DstObj);
 			
 			if (CheckRect(DstObj, SrcObj, fDeltaSizeX, fDeltaSizeY))

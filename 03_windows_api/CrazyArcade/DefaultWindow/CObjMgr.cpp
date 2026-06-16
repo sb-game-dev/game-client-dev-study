@@ -79,7 +79,7 @@ void CObjMgr::LateUpdate()
 {
 	for (auto& pObj : m_TileVec)
 		pObj->LateUpdate();
-
+	cout << GetRemainTile() << endl;
 	//for (int i = 0; i < 195; ++i)
 	//{
 	//	if (m_TileVec[i]->GetFrame().iStart == 2)
@@ -214,12 +214,13 @@ void CObjMgr::ChoiceButton()
 
 	for (auto& pButton : m_ObjList[OBJ_BUTTON])
 	{
-		if (lstrcmp(pButton->GetFrameKey(), L"button_edit"))
-			continue;
-		if (PtInRect(pButton->GetRect(), ptMouse)
-			&& CKeyMgr::GetInstance()->KeyDown(VK_LBUTTON))
+		if (!lstrcmp(pButton->GetFrameKey(), L"button_edit") || !lstrcmp(pButton->GetFrameKey(), L"button2_edit"))
 		{
-			dynamic_cast<CMouse*> (m_ObjList[OBJ_MOUSE].front())->SetChoiceTile(pButton->GetFrame().iStart);
+			if (PtInRect(pButton->GetRect(), ptMouse)
+				&& CKeyMgr::GetInstance()->KeyDown(VK_LBUTTON))
+			{
+				dynamic_cast<CMouse*> (m_ObjList[OBJ_MOUSE].front())->SetChoiceTile(pButton->GetFrame().iStart);
+			}
 		}
 	}
 }
@@ -242,7 +243,7 @@ void CObjMgr::PutTile()
 
 				pTile->SetStartFrame(eID);
 			}
-			else if (CKeyMgr::GetInstance()->KeyPressing(VK_RBUTTON))
+			if (CKeyMgr::GetInstance()->KeyPressing(VK_RBUTTON))
 			{
 				pTile->SetStartFrame(0);
 			}
@@ -266,6 +267,9 @@ void CObjMgr::SaveTile(int iOption)
 		break;
 	case 3:
 		pFilePath = L"../Data/Tile3.dat";
+		break;
+	case 4:
+		pFilePath = L"../Data/Tile4.dat";
 		break;
 	default:
 		break;
@@ -295,7 +299,7 @@ void CObjMgr::SaveTile(int iOption)
 
 	CloseHandle(hFile);
 
-	MessageBox(g_hWnd, _T("Save 완료"), L"Success", MB_OKCANCEL);
+	MessageBox(g_hWnd, pFilePath, L"Success", MB_OKCANCEL);
 }
 void CObjMgr::LoadTile()
 {
@@ -453,6 +457,45 @@ void CObjMgr::LoadStage3()
 	CloseHandle(hFile);
 }
 
+void CObjMgr::LoadStage4()
+{
+	cout << "LoadStage4" << endl;
+	HANDLE	hFile = CreateFile(L"../Data/Tile4.dat",		// 파일의 경로
+		GENERIC_READ,			// 파일 접근 모드 / GENERIC_READ(읽기 전용)
+		NULL,					// 공유 방식
+		NULL,					// 보안 모드 설정
+		OPEN_EXISTING,			// 쓰기 전용일 때 파일이 없는 경우 파일 생성하여 저장, // OPEN_EXISTING : 파일이 있을 경우에만 불러오기
+		FILE_ATTRIBUTE_NORMAL,	// 파일 속성(아무런 속성이 없는 일반 파일)
+		NULL);					// 생성될 파일의 속성을 제공할 템플릿 파일(안쓰기 때문에 NULL)
+
+	if (INVALID_HANDLE_VALUE == hFile)
+	{
+		MessageBox(g_hWnd, _T("Load File"), L"Fail", MB_OKCANCEL);
+		return;
+	}
+
+	DeleteTile();
+
+	int			iStartFrame(0);
+	INFO		tTile{};
+	DWORD		dwByte(0);		// eof 역할하는 변수
+
+	while (true)
+	{
+		ReadFile(hFile, &tTile, sizeof(INFO), &dwByte, nullptr);
+		ReadFile(hFile, &iStartFrame, sizeof(TILEID), &dwByte, nullptr);
+
+		if (0 == dwByte)
+			break;
+
+		CObj* pTile = CAbstractFactory<CTile>::Create(tTile.fX, tTile.fY);
+		pTile->SetStartFrame(iStartFrame);
+		pTile->SetFrameKey(L"tile");
+		m_TileVec.push_back(pTile);
+	}
+
+	CloseHandle(hFile);
+}
 void CObjMgr::DeleteObj(OBJID eID)
 {
 	for (auto& pObj : m_ObjList[eID])
@@ -498,7 +541,10 @@ int CObjMgr::GetRemainTile()
 	int iCnt = 0;
 	for (auto& pTile : m_TileVec)
 	{
-		if (pTile->GetFrame().iStart == 2 || pTile->GetFrame().iStart == 3)
+		if (pTile->GetFrame().iStart == 2 
+			|| pTile->GetFrame().iStart == 3 
+			|| pTile->GetFrame().iStart == 18 
+			|| pTile->GetFrame().iStart == 19)
 			++iCnt;
 	}
 	return iCnt;
