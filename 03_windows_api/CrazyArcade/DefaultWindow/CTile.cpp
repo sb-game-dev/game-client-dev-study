@@ -43,7 +43,6 @@ int CTile::Update()
 	}
 	if (m_bMove == true)
 	{
-		cout << "CurX: " << m_tInfo.fX << "\tCurY: " << m_tInfo.fY << endl;
 		Move();
 	}
 	return NOEVENT;
@@ -56,6 +55,9 @@ void CTile::LateUpdate()
 
 void CTile::Render(HDC hDC)
 {
+	if (m_bDraw == false)
+		return;
+
 	if (m_tFrame.iStart <= 1)// || (m_tFrame.iStart >= 11 && m_tFrame.iStart <= 17))
 		return;
 
@@ -151,7 +153,6 @@ void CTile::Move()
 	else
 	{
 		CObjMgr::GetInstance()->TileSwap(m_iCurIndex, m_iDstIndex);
-		cout << "CurX: " << m_tInfo.fX << "\tCurY: " << m_tInfo.fY << endl;
 		m_bMove = false;
 	}
 }

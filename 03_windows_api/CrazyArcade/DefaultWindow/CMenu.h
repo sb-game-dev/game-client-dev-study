@@ -12,7 +12,6 @@ public:
     void    LateUpdate()        override;
     void    Render(HDC hDC)     override;
     void    Release()           override;
-    void    InsertImg()         override;
 
 };
 

@@ -18,6 +18,7 @@ public :
     void        SetHit() { m_eCurMotion = HIT; ChangeMotion(); }
     void        ChangeMotion();
     void        Move();
+
     void        SetMove(DIRECTION eDIR);
 
 private:

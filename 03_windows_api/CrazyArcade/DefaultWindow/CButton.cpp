@@ -152,7 +152,6 @@ int CButton::Update()
 	}
 	if (m_bCurState == true && (m_bCurState != m_bPreState))
 	{
-		cout << "m_bCurState :" << m_bCurState << "\tm_bPreState: " << m_bPreState << endl;
 		CSoundMgr::Get_Instance()->PlaySound(L"buttonCursor_0.wav", BUTTON_CURSOR, 0.1f);
 	}
 	return 0;

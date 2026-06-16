@@ -15,7 +15,7 @@ public:
 	void		LateUpdate();
 	void		Render();	// 매 프레임마다 출력하는 코드를 모아놓는 함수
 	void		Release();
-
+	void		InsertImg();
 private:
 	HDC			m_hDC;
 

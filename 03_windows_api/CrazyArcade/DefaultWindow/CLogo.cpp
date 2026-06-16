@@ -15,7 +15,6 @@ CLogo::~CLogo()
 
 void CLogo::Initialize()
 {
-	InsertImg();
 }
 
 int CLogo::Update()
@@ -82,8 +81,3 @@ void CLogo::Release()
 {
 }
 
-void CLogo::InsertImg()
-{
-	CImgMgr::GetInstance()->InsertImg(L"../Resource/BackGround/Logo.png", L"Logo");
-	CImgMgr::GetInstance()->InsertImg(L"../Resource/BackGround/black_bg.png", L"black_bg");
-}

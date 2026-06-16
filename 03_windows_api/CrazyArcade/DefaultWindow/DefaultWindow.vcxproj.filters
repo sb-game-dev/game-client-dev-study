@@ -219,6 +219,9 @@
     <ClInclude Include="CStage4.h">
       <Filter>01. Scene\03. Stage3\03. Stage4</Filter>
     </ClInclude>
+    <ClInclude Include="CMark.h">
+      <Filter>02. Obj\10. Mark</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefaultWindow.cpp">
@@ -310,6 +313,9 @@
     </ClCompile>
     <ClCompile Include="CStage4.cpp">
       <Filter>01. Scene\03. Stage3\03. Stage4</Filter>
+    </ClCompile>
+    <ClCompile Include="CMark.cpp">
+      <Filter>02. Obj\10. Mark</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

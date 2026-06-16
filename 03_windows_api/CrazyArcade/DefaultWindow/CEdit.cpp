@@ -19,8 +19,6 @@ CEdit::~CEdit()
 
 void CEdit::Initialize()
 {
-	InsertImg();
-
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(657, 277, L"button_edit", PUSH));
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(693, 277, L"button_edit", BREAK));
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(731, 277, L"button_edit", WALL1));
@@ -115,14 +113,3 @@ void CEdit::Release()
 	dynamic_cast<CMouse*>(CObjMgr::GetInstance()->GetList(OBJ_MOUSE).front())->SetChoiceTile(TILE_END);
 }
 
-void CEdit::InsertImg()
-{
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/BackGround/edit_background.bmp", L"edit_background");
-
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_edit.bmp", L"button_edit");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_save.bmp", L"button_save");
-	//CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile.bmp", L"tile");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile2.bmp", L"tile");
-
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_exitEdit.bmp", L"button_exitEdit");
-}

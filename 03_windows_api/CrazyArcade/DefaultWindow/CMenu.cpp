@@ -18,8 +18,6 @@ CMenu::~CMenu()
 
 void CMenu::Initialize()
 {
-	InsertImg();
-
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(722, 36, L"button_creator"));
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(296, 36, L"button_fastStart"));
 	srand(unsigned(time(NULL)));
@@ -68,13 +66,4 @@ void CMenu::Release()
 {
 	CObjMgr::GetInstance()->DeleteObj(OBJ_BUTTON);
 	CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
-}
-
-void CMenu::InsertImg()
-{
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/BackGround/menu_background.bmp", L"menu_background");
-	CImgMgr::GetInstance()->InsertImg(L"../Resource/BackGround/black_bg.png", L"black_bg");
-
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_creator.bmp", L"button_creator");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_fastStart.bmp", L"button_fastStart");
 }

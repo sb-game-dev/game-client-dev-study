@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "CObj.h"
 
-CObj::CObj() : m_fSpeed(0.f), m_pFrameKey(nullptr), m_bDead(false), m_bHit(false), m_eRenderID(RENDER_END), m_bCanMove(true), m_eDIR(DIR_END)
+CObj::CObj() : m_fSpeed(0.f), m_pFrameKey(nullptr), m_bDead(false), m_bHit(false), m_eRenderID(RENDER_END), m_bCanMove(true), m_eDIR(DIR_END),m_bDraw(true)
 {
 	ZeroMemory(&m_tInfo, sizeof(INFO));
 	ZeroMemory(&m_tRect, sizeof(RECT));

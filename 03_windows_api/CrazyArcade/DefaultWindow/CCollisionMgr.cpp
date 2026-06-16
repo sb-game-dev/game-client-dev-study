@@ -9,6 +9,7 @@
 #include "CItem.h"
 #include "CDart.h"
 #include "CMonster.h"
+#include "CMark.h"
 
 void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 {
@@ -56,8 +57,16 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 				else if (pSrcPlayer)//pDstItem && 
 				{
 					CItem* pDstItem = dynamic_cast<CItem*>(Dst);
-					pSrcPlayer->PickUpItem(pDstItem->GetFrameKey());
-					pDstItem->SetDead();
+					CMark* pDstMark = dynamic_cast<CMark*>(Dst);
+					if (pDstItem)
+					{
+						pSrcPlayer->PickUpItem(pDstItem->GetFrameKey());
+						pDstItem->SetDead();
+					}
+					else if (pDstMark && pDstMark->GetDraw() == true)
+					{
+						pDstMark->SetStartFrame(1);
+					}
 				}
 				else
 				{

@@ -9,6 +9,7 @@
 CObjMgr* CObjMgr::m_pInstance = nullptr;
 CObjMgr::CObjMgr()
 {
+	m_TileVec.reserve(195);
 }
 
 CObjMgr::~CObjMgr()
@@ -71,15 +72,13 @@ int  CObjMgr::Update()
 			}
 		}
 	}
-
-	
 	return 0;
 }
 void CObjMgr::LateUpdate() 
 {
 	for (auto& pObj : m_TileVec)
 		pObj->LateUpdate();
-	cout << GetRemainTile() << endl;
+	//cout << GetRemainTile() << endl;
 	//for (int i = 0; i < 195; ++i)
 	//{
 	//	if (m_TileVec[i]->GetFrame().iStart == 2)
@@ -93,12 +92,16 @@ void CObjMgr::LateUpdate()
 		}
 	}
 
+	//cout << m_ObjList[OBJ_MARK].size() << endl;
 	if(!m_ObjList[OBJ_BUTTON].empty())
 		ChoiceButton();
 
 	if (dynamic_cast<CMouse*>(m_ObjList[OBJ_MOUSE].front())->GetChoiceTile() != TILE_END)
 		PutTile();
-
+	if (!m_ObjList[OBJ_MARK].empty() && !m_ObjList[OBJ_PLAYER].empty())
+	{
+		CCollisionMgr::CollisionAttack(m_ObjList[OBJ_MARK], m_ObjList[OBJ_PLAYER]);
+	}
 	if (!m_ObjList[OBJ_BOMB].empty() && !m_ObjList[OBJ_PLAYER].empty())
 	{
 		CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_PLAYER]);
@@ -289,7 +292,7 @@ void CObjMgr::SaveTile(int iOption)
 	}
 	int			iStartFrame(0);
 	DWORD		dwByte(0);		// eof 역할하는 변수
-
+	bool		bDraw;
 	for (auto& pTile : m_TileVec)
 	{
 		iStartFrame = pTile->GetFrame().iStart;
@@ -459,7 +462,6 @@ void CObjMgr::LoadStage3()
 
 void CObjMgr::LoadStage4()
 {
-	cout << "LoadStage4" << endl;
 	HANDLE	hFile = CreateFile(L"../Data/Tile4.dat",		// 파일의 경로
 		GENERIC_READ,			// 파일 접근 모드 / GENERIC_READ(읽기 전용)
 		NULL,					// 공유 방식

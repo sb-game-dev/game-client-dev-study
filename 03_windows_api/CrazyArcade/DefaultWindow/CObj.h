@@ -30,6 +30,8 @@ public:
 
 	void			SetFrameKey(const WCHAR* pFrameKey) { m_pFrameKey = pFrameKey; }
 	void			SetStartFrame(int eID) { m_tFrame.iStart = eID; }
+
+	void			SetDraw(bool bDraw) { m_bDraw = bDraw; }
 	
 	void			SetCanMove(bool bMove) { m_bCanMove = bMove; }
 
@@ -38,6 +40,7 @@ public:
 	INFO*			GetInfo() { return &m_tInfo; }
 	const RENDERID& GetRenderID() const { return m_eRenderID; }
 	bool			GetCanMove() { return m_bCanMove; }
+	bool			GetDraw() { return m_bDraw; }
 
 	void			MoveFrame();
 protected:
@@ -54,5 +57,6 @@ protected:
 
 	RENDERID		m_eRenderID;
 	bool			m_bCanMove;
+	bool			m_bDraw;
 };
 

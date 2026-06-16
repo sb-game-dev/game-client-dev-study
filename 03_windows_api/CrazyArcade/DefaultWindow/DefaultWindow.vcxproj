@@ -148,6 +148,7 @@
     <ClInclude Include="CKeyMgr.h" />
     <ClInclude Include="CLogo.h" />
     <ClInclude Include="CMainGame.h" />
+    <ClInclude Include="CMark.h" />
     <ClInclude Include="CMenu.h" />
     <ClInclude Include="CMonster.h" />
     <ClInclude Include="CMouse.h" />
@@ -184,6 +185,7 @@
     <ClCompile Include="CKeyMgr.cpp" />
     <ClCompile Include="CLogo.cpp" />
     <ClCompile Include="CMainGame.cpp" />
+    <ClCompile Include="CMark.cpp" />
     <ClCompile Include="CMenu.cpp" />
     <ClCompile Include="CMonster.cpp" />
     <ClCompile Include="CMouse.cpp" />
