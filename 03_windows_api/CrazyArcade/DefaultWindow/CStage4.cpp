@@ -12,7 +12,7 @@
 #include "CMonster.h"
 #include "CButton.h"
 #include "CMark.h"
-CStage4::CStage4():m_iFirstBlockCnt(0),m_hBackGround(NULL),m_MarkList(nullptr), m_bFristBlockCheck(false),m_pTileVector(nullptr)
+CStage4::CStage4():m_iFirstBlockCnt(0),m_hBackGround(NULL),m_pMarkList(nullptr), m_bFristBlockCheck(false),m_pTileVector(nullptr)
 {
 	ZeroMemory(&m_bBlockCheck, sizeof(m_bBlockCheck));
 
@@ -142,7 +142,7 @@ void CStage4::Initialize()
 
 	m_hBackGround = CBmpMgr::GetInstance()->FindImage(L"stage2");
 	m_pTileVector = CObjMgr::GetInstance()->GetTilePtr();
-	m_MarkList = CObjMgr::GetInstance()->GetListPtr(OBJ_MARK);
+	m_pMarkList = CObjMgr::GetInstance()->GetListPtr(OBJ_MARK);
 
 	for (auto& pTile : *m_pTileVector)
 	{
@@ -212,7 +212,7 @@ void CStage4::LateUpdate()
 		if (m_bBlockCheck[i] == false) 
 		{
 			m_iBlockCnt[i] = 0; 
-			for (auto pMark : *(m_MarkList))
+			for (auto pMark : *(m_pMarkList))
 			{
 				if (CheckRange(m_BlockRect[i][0], pMark) || CheckRange(m_BlockRect[i][1], pMark)) 
 					++m_iBlockCnt[i]; 
@@ -230,7 +230,7 @@ void CStage4::LateUpdate()
 	{
 		if (m_bBlockCheck[i] == true)
 		{
-			for (auto pMark : *(m_MarkList))
+			for (auto pMark : *(m_pMarkList))
 			{
 				if (CheckRange(m_BlockRect[i][0], pMark) || CheckRange(m_BlockRect[i][1], pMark))
 					pMark->SetDraw(false);
@@ -242,7 +242,7 @@ void CStage4::LateUpdate()
 	{
 		if (m_bBlockCheck[i] == false)
 		{
-			for (auto pMark : *(m_MarkList))
+			for (auto pMark : *(m_pMarkList))
 			{
 				if (CheckRange(m_BlockRect[i][0], pMark) || CheckRange(m_BlockRect[i][1], pMark))
 					pMark->SetDraw(true);
@@ -266,6 +266,7 @@ void CStage4::Render(HDC hDC)
 
 void CStage4::Release()
 {
+	CObjMgr::GetInstance()->ReleaseRenderList();
 	CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_PLAYER);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_BOMB);

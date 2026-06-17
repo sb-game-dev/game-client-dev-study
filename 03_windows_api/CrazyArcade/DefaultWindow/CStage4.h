@@ -20,8 +20,8 @@ private:
 
 private:
     HDC             m_hBackGround;
-    list<CObj*>*    m_MarkList;
-    vector<CObj*>* m_pTileVector;
+    list<CObj*>*    m_pMarkList;
+    vector<CObj*>*  m_pTileVector;
 
     bool            m_bBlockCheck[19];
     int             m_iBlockCnt[19];

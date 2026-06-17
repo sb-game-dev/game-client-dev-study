@@ -94,6 +94,7 @@ void CStage2::Render(HDC hDC)
 
 void CStage2::Release()
 {
+	CObjMgr::GetInstance()->ReleaseRenderList();
 	CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_BOMB);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_WAVE);

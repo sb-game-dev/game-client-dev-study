@@ -12,6 +12,8 @@ CItem::~CItem()
 
 void CItem::Initialize()
 {
+	m_eRenderID = GAMEOBJECT;
+
 	m_tInfo.fCX = 40.f;
 	m_tInfo.fCY = 40.f;
 
@@ -20,8 +22,6 @@ void CItem::Initialize()
 	m_tFrame.iMotion = 0;
 	m_tFrame.iCX = 40;
 	m_tFrame.iCY = 40;
-
-	m_eRenderID = GAMEOBJECT;
 }
 
 int CItem::Update()

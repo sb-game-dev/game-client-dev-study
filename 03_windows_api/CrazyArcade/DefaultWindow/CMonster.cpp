@@ -16,6 +16,8 @@ CMonster::~CMonster()
 
 void CMonster::Initialize()
 {
+	m_eRenderID = GAMEOBJECT;
+
 	m_pTile = CObjMgr::GetInstance()->GetTilePtr();
 	m_pBombList = CObjMgr::GetInstance()->GetListPtr(OBJ_BOMB);
 
@@ -34,7 +36,6 @@ void CMonster::Initialize()
 	m_tFrame.dwTime = GetTickCount64();
 	m_ePreMotion = MOTION_END;
 	m_eCurMotion = START;
-	m_eRenderID = GAMEOBJECT;
 	m_bCanMove = false;
 	ChangeMotion();
 }

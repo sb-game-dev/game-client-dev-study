@@ -13,6 +13,8 @@ CDart::~CDart()
 
 void CDart::Initialize()
 {
+	m_eRenderID = GAMEOBJECT;
+
 	m_tInfo.fCX = 27.f;
 	m_tInfo.fCY = 9.f;
 
@@ -25,8 +27,6 @@ void CDart::Initialize()
 	m_tFrame.iCY = 9;
 	m_tFrame.dwSpeed = 50.f;
 	m_tFrame.dwTime = GetTickCount64();
-
-	m_eRenderID = GAMEOBJECT;
 }
 
 int CDart::Update()

@@ -12,6 +12,8 @@ CMark::~CMark()
 
 void CMark::Initialize()
 {
+	m_eRenderID = GAMEOBJECT;
+
 	m_tInfo.fCX = 7.f;
 	m_tInfo.fCY = 7.f;
 	m_tFrame.iStart = 0.f;

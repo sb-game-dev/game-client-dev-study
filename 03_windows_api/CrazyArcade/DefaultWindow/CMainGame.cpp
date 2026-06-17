@@ -76,7 +76,6 @@ void CMainGame::Render()
 
 		SetWindowText(g_hWnd, m_szFPS);
 	}
-	CObjMgr::GetInstance()->Render(m_memDC);
 	CSceneMgr::GetInstance()->Render(m_memDC);
 
 	BitBlt(m_hDC, 0, 0, WINCX, WINCY, m_memDC, 0, 0, SRCCOPY);
@@ -102,7 +101,6 @@ void CMainGame::Release()
 
 void CMainGame::InsertImg()
 {
-
 	//BackGround(Map)
 	CImgMgr::GetInstance()->InsertImg(L"../Resource/BackGround/Logo.png", L"Logo");
 	CImgMgr::GetInstance()->InsertImg(L"../Resource/BackGround/black_bg.png", L"black_bg");
@@ -119,6 +117,10 @@ void CMainGame::InsertImg()
 
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_creator.bmp", L"button_creator");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_fastStart.bmp", L"button_fastStart");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_stageStart.bmp", L"button_stageStart");
+
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_FirstStage.bmp", L"button_FirstStage");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_SecondStage.bmp", L"button_SecondStage");
 
 	//Player
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_start.bmp", L"player_start");

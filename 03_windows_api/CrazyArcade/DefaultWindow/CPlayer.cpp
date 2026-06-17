@@ -33,6 +33,8 @@ CPlayer::~CPlayer()
 
 void CPlayer::Initialize()
 {	
+	m_eRenderID = GAMEOBJECT;
+
 	m_tInfo.fCX = 30.f;
 	m_tInfo.fCY = 30.f;
 
@@ -46,7 +48,6 @@ void CPlayer::Initialize()
 	m_tFrame.dwSpeed = 50.f;
 	m_tFrame.dwTime = GetTickCount64();
 
-	m_eRenderID = GAMEOBJECT;
 }
 
 int CPlayer::Update()

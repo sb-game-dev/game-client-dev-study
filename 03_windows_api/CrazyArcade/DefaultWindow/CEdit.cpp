@@ -109,6 +109,7 @@ void CEdit::Render(HDC hDC)
 
 void CEdit::Release()
 {
+	CObjMgr::GetInstance()->ReleaseRenderList();
 	CObjMgr::GetInstance()->DeleteObj(OBJ_BUTTON);
 	dynamic_cast<CMouse*>(CObjMgr::GetInstance()->GetList(OBJ_MOUSE).front())->SetChoiceTile(TILE_END);
 }

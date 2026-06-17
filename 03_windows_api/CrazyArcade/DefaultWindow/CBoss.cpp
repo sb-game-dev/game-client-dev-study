@@ -23,14 +23,14 @@ CBoss::~CBoss()
 
 void CBoss::Initialize()
 {
+	m_eRenderID = GAMEOBJECT;
+
 	m_tInfo.fCX = 120.f;
 	m_tInfo.fCY = 120.f;
 
 	m_fSpeed = m_fWalkSpeed;
 
 	m_eCurMotion = IDLE;
-
-	m_eRenderID = GAMEOBJECT;
 	
 	CreateDst();
 }

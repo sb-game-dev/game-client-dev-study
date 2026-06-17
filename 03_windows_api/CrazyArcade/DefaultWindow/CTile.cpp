@@ -17,7 +17,9 @@ CTile::~CTile()
 }
 
 void CTile::Initialize()
-{	
+{
+	m_eRenderID = GAMEOBJECT;
+
 	m_tInfo.fCX = 40.f;
 	m_tInfo.fCY = 40.f;
 	m_pFrameKey = L"tile";

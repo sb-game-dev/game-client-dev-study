@@ -77,22 +77,33 @@ int  CObjMgr::Update()
 void CObjMgr::LateUpdate() 
 {
 	for (auto& pObj : m_TileVec)
-		pObj->LateUpdate();
-	//cout << GetRemainTile() << endl;
-	//for (int i = 0; i < 195; ++i)
-	//{
-	//	if (m_TileVec[i]->GetFrame().iStart == 2)
-	//		cout << i << endl;
-	//}
-	for (int i = 0; i < OBJ_END; ++i)
 	{
+		pObj->LateUpdate();
+		m_RenderList[GAMEOBJECT].push_back(pObj);
+	}
+
+	//for (int i = 0; i < OBJ_END; ++i)
+	//{
+	//	for (auto& pObj : m_ObjList[i])
+	//	{
+	//		pObj->LateUpdate();
+	//	}
+	//}
+
+	for (size_t i = 0; i < OBJ_END; ++i)
+	{
+
 		for (auto& pObj : m_ObjList[i])
 		{
 			pObj->LateUpdate();
+
+			RENDERID eID = pObj->GetRenderID();
+
+			m_RenderList[eID].push_back(pObj);
 		}
+
 	}
 
-	//cout << m_ObjList[OBJ_MARK].size() << endl;
 	if(!m_ObjList[OBJ_BUTTON].empty())
 		ChoiceButton();
 
@@ -168,27 +179,27 @@ void CObjMgr::LateUpdate()
 }
 void CObjMgr::Render(HDC hDC)
 {
-	for (auto& pObj : m_TileVec)
-		pObj->Render(hDC);
-	for (int i = 0; i < OBJ_END; ++i)
-	{
-		for (auto& pObj : m_ObjList[i])
-		{
-			pObj->Render(hDC);
-		}
-	}
-	//for (size_t i = 0; i < RENDER_END; ++i)
+	//for (auto& pObj : m_TileVec)
+	//	pObj->Render(hDC);
+	//for (int i = 0; i < OBJ_END; ++i)
 	//{
-	//	m_RenderList[i].sort([](CObj* pDst, CObj* pSrc)->bool
-	//		{
-	//			return pDst->GetInfo()->fY < pSrc->GetInfo()->fY;
-	//		});
-	//
-	//	for (auto& pObj : m_RenderList[i])
+	//	for (auto& pObj : m_ObjList[i])
+	//	{
 	//		pObj->Render(hDC);
-	//
-	//	m_RenderList[i].clear();
+	//	}
 	//}
+
+	for (size_t i = 0; i < RENDER_END; ++i)
+	{
+		m_RenderList[i].sort([](CObj* pDst, CObj* pSrc)->bool
+			{	
+				return pDst->GetRect()->bottom < pSrc->GetRect()->bottom;
+			});
+
+		for (auto& pObj : m_RenderList[i])
+			pObj->Render(hDC);
+		m_RenderList[i].clear();
+	}
 }
 
 void CObjMgr::Release() 
@@ -550,5 +561,11 @@ int CObjMgr::GetRemainTile()
 			++iCnt;
 	}
 	return iCnt;
+}
+
+void CObjMgr::ReleaseRenderList()
+{
+	for (size_t i = 0; i < RENDER_END; ++i)
+		m_RenderList[i].clear();
 }
 

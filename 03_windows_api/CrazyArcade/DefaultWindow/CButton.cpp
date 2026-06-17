@@ -61,10 +61,10 @@ void CButton::Initialize()
 		m_tFrame.dwSpeed = 100.f;
 		m_tFrame.dwTime = GetTickCount64();
 	}
-	else if (!lstrcmp(L"button_fastStart", m_pFrameKey))
+	else if (!lstrcmp(L"button_stageStart", m_pFrameKey))
 	{
-		m_tInfo.fCX = 124;
-		m_tInfo.fCY = 48;
+		m_tInfo.fCX = 188;
+		m_tInfo.fCY = 54;
 
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 5;
@@ -84,6 +84,34 @@ void CButton::Initialize()
 		m_tFrame.iEnd = 2;
 		m_tFrame.iMotion = 0;
 		m_tFrame.bLoop = true;
+		m_tFrame.iCX = m_tInfo.fCX;
+		m_tFrame.iCY = m_tInfo.fCY;
+		m_tFrame.dwSpeed = 100.f;
+		m_tFrame.dwTime = GetTickCount64();
+	}
+	else if (!lstrcmp(L"button_FirstStage", m_pFrameKey))
+	{
+		m_tInfo.fCX = 141;
+		m_tInfo.fCY = 128;
+
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 2;
+		m_tFrame.iMotion = 0;
+		m_tFrame.bLoop = false;
+		m_tFrame.iCX = m_tInfo.fCX;
+		m_tFrame.iCY = m_tInfo.fCY;
+		m_tFrame.dwSpeed = 100.f;
+		m_tFrame.dwTime = GetTickCount64();
+	}
+	else if (!lstrcmp(L"button_SecondStage", m_pFrameKey))
+	{
+		m_tInfo.fCX = 141;
+		m_tInfo.fCY = 128;
+
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 2;
+		m_tFrame.iMotion = 0;
+		m_tFrame.bLoop = false;
 		m_tFrame.iCX = m_tInfo.fCX;
 		m_tFrame.iCY = m_tInfo.fCY;
 		m_tFrame.dwSpeed = 100.f;
@@ -117,7 +145,8 @@ int CButton::Update()
 	{
 		if(lstrcmp(L"button_edit", m_pFrameKey) && lstrcmp(L"button2_edit", m_pFrameKey))
 			m_bCurState = true;
-		MoveFrame();
+		if(m_tFrame.iEnd > 2)
+			MoveFrame();
 		if (CKeyMgr::GetInstance()->KeyDown(VK_LBUTTON))
 		{
 			CSoundMgr::Get_Instance()->PlaySound(L"buttonClick_2.wav", BUTTON_CLICK, 0.3f);
@@ -130,9 +159,9 @@ int CButton::Update()
 			{
 				CSceneMgr::GetInstance()->SceneChangeReserve(SC_MENU);
 			}
-			else if (!lstrcmp(L"button_fastStart", m_pFrameKey))
+			else if (!lstrcmp(L"button_stageStart", m_pFrameKey))
 			{
-				CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE1);
+				//CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE1);
 			}
 			else if (!lstrcmp(L"button_stageExit", m_pFrameKey))
 			{
@@ -147,7 +176,7 @@ int CButton::Update()
 	else
 	{
 		m_bCurState = false;
-		if (lstrcmp(L"button_edit", m_pFrameKey))
+		if (lstrcmp(L"button_edit", m_pFrameKey) && (lstrcmp(L"button_FirstStage", m_pFrameKey) && lstrcmp(L"button_SecondStage", m_pFrameKey)))
 			m_tFrame.iStart = 0;
 	}
 	if (m_bCurState == true && (m_bCurState != m_bPreState))

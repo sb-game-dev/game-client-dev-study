@@ -1,5 +1,6 @@
 #pragma once
 #include "CScene.h"
+#include "CObj.h"
 class CMenu :
     public CScene
 {
@@ -13,5 +14,8 @@ public:
     void    Render(HDC hDC)     override;
     void    Release()           override;
 
+private:
+    list<CObj*>*    m_pButtonList;
+    CObj*           m_pSelectStage;
 };
 

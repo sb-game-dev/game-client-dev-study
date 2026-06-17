@@ -6,8 +6,10 @@
 #include "CButton.h"
 #include "CAbstractFactory.h"
 #include "CSoundMgr.h"
+#include "CKeyMgr.h"
+#include "CSceneMgr.h"
 
-CMenu::CMenu()
+CMenu::CMenu():m_pButtonList(nullptr), m_pSelectStage(nullptr)
 {
 }
 
@@ -19,13 +21,17 @@ CMenu::~CMenu()
 void CMenu::Initialize()
 {
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(722, 36, L"button_creator"));
-	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(296, 36, L"button_fastStart"));
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(508, 347, L"button_stageStart"));
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(338, 225, L"button_FirstStage"));
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(509, 225, L"button_SecondStage"));
+
+	m_pButtonList = CObjMgr::GetInstance()->GetListPtr(OBJ_BUTTON);
+
 	srand(unsigned(time(NULL)));
 	if(rand()%2 == 1)
 		CSoundMgr::Get_Instance()->PlayBGM(L"Channel.wav", 0.1f);
 	else
 		CSoundMgr::Get_Instance()->PlayBGM(L"Lobby.wav", 0.1f);
-
 }
 
 int CMenu::Update()
@@ -36,6 +42,32 @@ int CMenu::Update()
 
 void CMenu::LateUpdate()
 {
+	POINT		ptMouse{};
+	GetCursorPos(&ptMouse);
+	ScreenToClient(g_hWnd, &ptMouse);
+	for (auto& pButton : *m_pButtonList)
+	{
+		if (PtInRect(pButton->GetRect(), ptMouse) && CKeyMgr::GetInstance()->KeyDown(VK_LBUTTON))
+		{
+			if (!lstrcmp(L"button_FirstStage", pButton->GetFrameKey()) || !lstrcmp(L"button_SecondStage", pButton->GetFrameKey()))
+			{
+				m_pSelectStage = pButton;
+				pButton->SetStartFrame(1);
+			}
+			else if (!lstrcmp(L"button_stageStart", pButton->GetFrameKey()))
+			{
+				if (m_pSelectStage && !lstrcmp(L"button_FirstStage", m_pSelectStage->GetFrameKey()))
+					CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE1);
+				else if (m_pSelectStage && !lstrcmp(L"button_SecondStage", m_pSelectStage->GetFrameKey()))
+					CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE4);
+			}
+		}
+		if ((!lstrcmp(L"button_FirstStage", pButton->GetFrameKey()) || !lstrcmp(L"button_SecondStage", pButton->GetFrameKey())) && 
+			pButton != m_pSelectStage)
+		{
+			pButton->SetStartFrame(0);
+		}
+	}
 
 	CObjMgr::GetInstance()->LateUpdate();
 }
@@ -64,6 +96,7 @@ void CMenu::Render(HDC hDC)
 
 void CMenu::Release()
 {
+	CObjMgr::GetInstance()->ReleaseRenderList();
 	CObjMgr::GetInstance()->DeleteObj(OBJ_BUTTON);
 	CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 }

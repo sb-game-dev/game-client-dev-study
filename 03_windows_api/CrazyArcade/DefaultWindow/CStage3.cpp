@@ -80,6 +80,7 @@ void CStage3::Render(HDC hDC)
 
 void CStage3::Release()
 {
+	CObjMgr::GetInstance()->ReleaseRenderList();
 	CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_PLAYER);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_BOMB);
