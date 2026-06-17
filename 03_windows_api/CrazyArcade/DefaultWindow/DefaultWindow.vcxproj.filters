@@ -85,18 +85,6 @@
     <Filter Include="01. Scene\02. Edit">
       <UniqueIdentifier>{16b4f217-24ff-4cbf-bbf2-b7b596243dfb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Scene\03. Stage3">
-      <UniqueIdentifier>{a1ff1725-c2cc-4187-9e4f-b8b8e9c8d086}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Scene\03. Stage3\01. Stage2">
-      <UniqueIdentifier>{ec777d4e-6704-44f7-9c41-112cce43e7d8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Scene\03. Stage3\02. Stage3">
-      <UniqueIdentifier>{b1546f2b-c318-475b-aa11-82181433d8b6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Scene\03. Stage3\00. Stage1">
-      <UniqueIdentifier>{613e573c-cdfd-4ee5-adb5-af27cfa8ca4a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01. Scene\04. Shop">
       <UniqueIdentifier>{7d57a1e3-97eb-4043-a27f-bc15680f9c0a}</UniqueIdentifier>
     </Filter>
@@ -106,11 +94,23 @@
     <Filter Include="03. Design\07. SoundMgr">
       <UniqueIdentifier>{02319113-d50b-481d-b9f5-b9cd62130ac5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Scene\03. Stage3\03. Stage4">
-      <UniqueIdentifier>{68804d61-5d8d-4796-8d5e-b5099eb271f2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. Obj\10. Mark">
       <UniqueIdentifier>{eb9c0387-40c8-474b-8b6f-4443db52841d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\03. Stage">
+      <UniqueIdentifier>{a1ff1725-c2cc-4187-9e4f-b8b8e9c8d086}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\03. Stage\01. Stage2">
+      <UniqueIdentifier>{ec777d4e-6704-44f7-9c41-112cce43e7d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\03. Stage\02. Stage3">
+      <UniqueIdentifier>{b1546f2b-c318-475b-aa11-82181433d8b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\03. Stage\00. Stage1">
+      <UniqueIdentifier>{613e573c-cdfd-4ee5-adb5-af27cfa8ca4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\03. Stage\03. Stage4">
+      <UniqueIdentifier>{68804d61-5d8d-4796-8d5e-b5099eb271f2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -199,16 +199,16 @@
       <Filter>02. Obj\08. Dart</Filter>
     </ClInclude>
     <ClInclude Include="CStage3.h">
-      <Filter>01. Scene\03. Stage3\02. Stage3</Filter>
+      <Filter>01. Scene\03. Stage\02. Stage3</Filter>
     </ClInclude>
     <ClInclude Include="CMenu.h">
       <Filter>01. Scene\01. Menu</Filter>
     </ClInclude>
     <ClInclude Include="CStage1.h">
-      <Filter>01. Scene\03. Stage3\00. Stage1</Filter>
+      <Filter>01. Scene\03. Stage\00. Stage1</Filter>
     </ClInclude>
     <ClInclude Include="CStage2.h">
-      <Filter>01. Scene\03. Stage3\01. Stage2</Filter>
+      <Filter>01. Scene\03. Stage\01. Stage2</Filter>
     </ClInclude>
     <ClInclude Include="CMonster.h">
       <Filter>02. Obj\09. Monster</Filter>
@@ -217,7 +217,7 @@
       <Filter>03. Design\07. SoundMgr</Filter>
     </ClInclude>
     <ClInclude Include="CStage4.h">
-      <Filter>01. Scene\03. Stage3\03. Stage4</Filter>
+      <Filter>01. Scene\03. Stage\03. Stage4</Filter>
     </ClInclude>
     <ClInclude Include="CMark.h">
       <Filter>02. Obj\10. Mark</Filter>
@@ -294,16 +294,16 @@
       <Filter>02. Obj\08. Dart</Filter>
     </ClCompile>
     <ClCompile Include="CStage3.cpp">
-      <Filter>01. Scene\03. Stage3\02. Stage3</Filter>
+      <Filter>01. Scene\03. Stage\02. Stage3</Filter>
     </ClCompile>
     <ClCompile Include="CMenu.cpp">
       <Filter>01. Scene\01. Menu</Filter>
     </ClCompile>
     <ClCompile Include="CStage1.cpp">
-      <Filter>01. Scene\03. Stage3\00. Stage1</Filter>
+      <Filter>01. Scene\03. Stage\00. Stage1</Filter>
     </ClCompile>
     <ClCompile Include="CStage2.cpp">
-      <Filter>01. Scene\03. Stage3\01. Stage2</Filter>
+      <Filter>01. Scene\03. Stage\01. Stage2</Filter>
     </ClCompile>
     <ClCompile Include="CMonster.cpp">
       <Filter>02. Obj\09. Monster</Filter>
@@ -312,7 +312,7 @@
       <Filter>03. Design\07. SoundMgr</Filter>
     </ClCompile>
     <ClCompile Include="CStage4.cpp">
-      <Filter>01. Scene\03. Stage3\03. Stage4</Filter>
+      <Filter>01. Scene\03. Stage\03. Stage4</Filter>
     </ClCompile>
     <ClCompile Include="CMark.cpp">
       <Filter>02. Obj\10. Mark</Filter>
