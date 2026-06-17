@@ -77,11 +77,11 @@ void CTile::Render(HDC hDC)
 
 	//int iX = (m_tInfo.fX - MAP_LEFT) / TILECX;
 	//int iY = (m_tInfo.fY - MAP_TOP) / TILECX;
-	//
-	//int Index = iY * MAP_CNT_X + iX;
+	////
+	////int Index = iY * MAP_CNT_X + iX;
 	//TCHAR	szBuff[32] = L"";
-	//swprintf_s(szBuff, L"%.d", Index);
-	//TextOut(hDC, m_tInfo.fX, m_tInfo.fY, szBuff, lstrlen(szBuff));
+	//swprintf_s(szBuff, L"(%d,%d)", iX,iY);
+	//TextOut(hDC, m_tInfo.fX - 20, m_tInfo.fY-10, szBuff, lstrlen(szBuff));
 }
 
 void CTile::Release()

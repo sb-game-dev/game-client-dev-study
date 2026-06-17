@@ -32,7 +32,9 @@ void CMark::LateUpdate()
 void CMark::Render(HDC hDC)
 {
 	if (m_bDraw == false)
+	{
 		return;
+	}
 	HDC hMark = CBmpMgr::GetInstance()->FindImage(L"Mark");
 	BitBlt(hDC,							    // 格利瘤 DC
 		m_tRect.left,		// 格利瘤 LEFT,RIGHT

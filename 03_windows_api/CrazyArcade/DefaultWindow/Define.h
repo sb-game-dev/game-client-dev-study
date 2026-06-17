@@ -54,7 +54,13 @@ enum CHANNELID { SOUND_BGM, SOUND_EFFECT,
 	SOUND_ITEMGAIN, SOUND_DART, SOUND_NEDDLE,
 	STAGE_START, STAGE_WIN, STAGE_LOSE, 
 	MAXCHANNEL };
-
+typedef struct tagIntRect
+{
+	int iLeft;
+	int iTop;
+	int iRight;
+	int iBottom;
+}INTRECT;
 typedef struct tagNode
 {
 	int m_iNodeID;

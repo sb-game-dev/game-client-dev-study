@@ -1,11 +1,13 @@
 #pragma once
 #include "CScene.h"
+#include "CObj.h"
 class CStage4 :
     public CScene
 {
 public:
     CStage4();
     virtual~CStage4();
+
 public:
     void    Initialize()                override;
     int     Update()                    override;
@@ -14,6 +16,20 @@ public:
     void    Release()                   override;
 
 private:
-    HDC         m_hBackGround;
+    bool    CheckRange(INTRECT tIntRect, CObj* pMark);
+
+private:
+    HDC             m_hBackGround;
+    list<CObj*>*    m_MarkList;
+    vector<CObj*>* m_pTileVector;
+
+    bool            m_bBlockCheck[19];
+    int             m_iBlockCnt[19];
+    int             m_iBlockCntAnswer[19];
+
+    bool            m_bFristBlockCheck;
+    int             m_iFirstBlockCnt;
+    INTRECT         m_BlockRect[19][2];
+    vector<int>     m_TileBlockVec[19];
 };
 
