@@ -222,6 +222,9 @@
     <ClInclude Include="CMark.h">
       <Filter>02. Obj\10. Mark</Filter>
     </ClInclude>
+    <ClInclude Include="CShop.h">
+      <Filter>01. Scene\04. Shop</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefaultWindow.cpp">
@@ -316,6 +319,9 @@
     </ClCompile>
     <ClCompile Include="CMark.cpp">
       <Filter>02. Obj\10. Mark</Filter>
+    </ClCompile>
+    <ClCompile Include="CShop.cpp">
+      <Filter>01. Scene\04. Shop</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
