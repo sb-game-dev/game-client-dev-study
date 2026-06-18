@@ -22,22 +22,17 @@ void CMouse::Initialize()
 	m_pFrameKey = L"mouse";
 	m_tInfo.fCX = 37.f;
 	m_tInfo.fCY = 39.f;
+	ShowCursor(FALSE);
 }
 
 int CMouse::Update()
 {
 	POINT		ptMouse{};
-
 	GetCursorPos(&ptMouse);	// ½ºÅ©¸° ÁÂÇ¥ÀÇ ¸¶¿ì½º °ªÀ» ¾ò¾î¿È
-
 	ScreenToClient(g_hWnd, &ptMouse); // ½ºÅ©¸° ÁÂÇ¥¸¦ Ã¢ ÁÂÇ¥·Î º¯È¯
-
 
 	m_tInfo.fX = (float)ptMouse.x;
 	m_tInfo.fY = (float)ptMouse.y;
-
-	ShowCursor(FALSE);
-
 	return NOEVENT;
 }
 

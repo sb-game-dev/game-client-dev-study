@@ -33,6 +33,23 @@ void CButton::Initialize()
 		m_tFrame.iCX = m_tInfo.fCX;
 		m_tFrame.iCY = m_tInfo.fCY;
 	}
+	else if (!lstrcmp(L"button_buy0", m_pFrameKey)
+		|| !lstrcmp(L"button_buy1", m_pFrameKey) 
+		|| !lstrcmp(L"button_buy2", m_pFrameKey)
+		|| !lstrcmp(L"button_buy3", m_pFrameKey))
+	{
+		m_tInfo.fCX = 41.f;
+		m_tInfo.fCY = 19.f;
+		m_tFrame.iCX = m_tInfo.fCX;
+		m_tFrame.iCY = m_tInfo.fCY;
+	}
+	else if (!lstrcmp(L"button_shop", m_pFrameKey))
+	{
+		m_tInfo.fCX = 61.f;
+		m_tInfo.fCY = 22.f;
+		m_tFrame.iCX = m_tInfo.fCX;
+		m_tFrame.iCY = m_tInfo.fCY;
+	}
 	else if (!lstrcmp(L"button2_edit", m_pFrameKey))
 	{
 		m_tInfo.fCX = 34.f;
@@ -146,14 +163,16 @@ int CButton::Update()
 	GetCursorPos(&ptMouse);
 	ScreenToClient(g_hWnd, &ptMouse);
 
-
+	
 	m_bPreState = m_bCurState;
 	if (PtInRect(&m_tRect, ptMouse))
 	{
 		if(lstrcmp(L"button_edit", m_pFrameKey) && lstrcmp(L"button2_edit", m_pFrameKey))
 			m_bCurState = true;
-		if(m_tFrame.iEnd > 2)
+		if (m_tFrame.iEnd > 2)
 			MoveFrame();
+		else
+			m_tFrame.iStart = 1;
 		if (CKeyMgr::GetInstance()->KeyDown(VK_LBUTTON))
 		{
 			CSoundMgr::Get_Instance()->PlaySound(L"buttonClick_2.wav", BUTTON_CLICK, 0.3f);
@@ -161,6 +180,14 @@ int CButton::Update()
 			if (!lstrcmp(L"button_creator", m_pFrameKey))
 			{
 				CSceneMgr::GetInstance()->SceneChangeReserve(SC_EDIT);
+			}
+			else if (!lstrcmp(L"button_back", m_pFrameKey))
+			{
+				CSceneMgr::GetInstance()->SceneChangeReserve(SC_MENU);
+			}
+			else if (!lstrcmp(L"button_shop", m_pFrameKey))
+			{
+				CSceneMgr::GetInstance()->SceneChangeReserve(SC_SHOP);
 			}
 			else if (!lstrcmp(L"button_exitEdit", m_pFrameKey))
 			{
