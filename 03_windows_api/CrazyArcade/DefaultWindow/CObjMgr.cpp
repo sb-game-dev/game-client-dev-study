@@ -120,6 +120,7 @@ void CObjMgr::LateUpdate()
 		CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_WAVE]);
 		CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_DART]);
 	}
+	
 	if (!m_ObjList[OBJ_ITEM].empty() && !m_ObjList[OBJ_PLAYER].empty())
 	{
 		CCollisionMgr::CollisionAttack(m_ObjList[OBJ_ITEM], m_ObjList[OBJ_PLAYER]);

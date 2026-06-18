@@ -46,7 +46,7 @@ void CMainGame::Initialize()
 	CSoundMgr::Get_Instance()->Initialize();
 
 #ifdef _DEBUG
-	CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE3);
+	CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE4);
 #elif NDEBUG
 	CSceneMgr::GetInstance()->SceneChangeReserve(SC_LOGO);
 #endif // _DEBUG
@@ -93,7 +93,7 @@ void CMainGame::Release()
 #endif // _DEBUG
 
 	ReleaseDC(g_hWnd, m_hDC);
-
+	CInven::Destroy();
 	CBmpMgr::Destroy();
 	CImgMgr::Destroy();
 	CKeyMgr::Destroy();
