@@ -32,10 +32,10 @@ void CMenu::Initialize()
 	m_pButtonList = CObjMgr::GetInstance()->GetListPtr(OBJ_BUTTON);
 
 	srand(unsigned(time(NULL)));
-	//if(rand()%2 == 1)
-	//	CSoundMgr::Get_Instance()->PlayBGM(L"Channel.wav", 0.1f);
-	//else
-	//	CSoundMgr::Get_Instance()->PlayBGM(L"Lobby.wav", 0.1f);
+	if(rand()%2 == 1)
+		CSoundMgr::Get_Instance()->PlayBGM(L"Channel.wav", 0.1f);
+	else
+		CSoundMgr::Get_Instance()->PlayBGM(L"Lobby.wav", 0.1f);
 }
 
 int CMenu::Update()

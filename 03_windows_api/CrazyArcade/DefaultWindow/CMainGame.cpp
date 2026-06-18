@@ -210,6 +210,9 @@ void CMainGame::InsertImg()
 
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/InvenItem.bmp", L"InvenItem");
 
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/InGameSlot.bmp", L"InGameSlot");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/InGameNumber.bmp", L"InGameNumber");
+
 	//Ctrl_slot
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/stage_ctrlItem.bmp", L"stage_ctrlItem");
 

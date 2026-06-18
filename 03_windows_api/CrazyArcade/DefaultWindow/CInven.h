@@ -18,21 +18,23 @@ public :
 	void	Release();
 
 public:
-	void	SetGold(int iGold) { m_iGold += iGold; }
-	void	SetDraw(bool bDraw) { m_bDraw = bDraw; }
-	void	SetNeedleCnt(int iNeedle) { m_tItemStorageCnt.iNeedleCnt += iNeedle; }
-	void	SetDartCnt(int iDart) { m_tItemStorageCnt.iDartCnt += iDart; }
-	void	SetShieldCnt(int iShield) { m_tItemStorageCnt.iShieldCnt += iShield; }
+	void			SetGold(int iGold) { m_iGold += iGold; }
+	void			SetDraw(bool bDraw) { m_bDraw = bDraw; }
+	void			SetNeedleCnt(int iNeedle) { m_tItemStorageCnt.iNeedleCnt += iNeedle; }
+	void			SetDartCnt(int iDart) { m_tItemStorageCnt.iDartCnt += iDart; }
+	void			SetShieldCnt(int iShield) { m_tItemStorageCnt.iShieldCnt += iShield; }
 
-	int		GetGold() { return m_iGold; }
-	bool	GetDraw() { return m_bDraw; }
-	bool*	GetDrawPtr() { return &m_bDraw; }
-	INVEN	GetInven() { return m_tItemStorageCnt; }
+	int				GetGold() { return m_iGold; }
+	bool			GetDraw() { return m_bDraw; }
+	bool*			GetDrawPtr() { return &m_bDraw; }
+	INVEN			GetInven() { return m_tItemStorageCnt; }
+	vector<CObj*>*	GetItemSlotPtr() { return &m_ItemSlot; }
+	vector<CObj*>	GetItemSlot() { return m_ItemSlot; }
 
-	void	AddItemToStorage(ITEMTYPE eID);
+	void			AddItemToStorage(ITEMTYPE eID);
 
 private:
-	void	ExitButtonUpdate();
+	void			ExitButtonUpdate();
 
 public:
 	static CInven* GetInstance()

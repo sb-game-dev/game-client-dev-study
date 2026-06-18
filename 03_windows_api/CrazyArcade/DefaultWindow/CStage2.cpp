@@ -8,6 +8,7 @@
 #include "CSceneMgr.h"
 #include "CSoundMgr.h"
 #include "CButton.h"
+#include "CInven.h"
 
 CStage2::CStage2()
 {
@@ -90,6 +91,38 @@ void CStage2::Render(HDC hDC)
 		SRCCOPY);						// 그대로 복사하여 출력
 
 	CObjMgr::GetInstance()->Render(hDC);
+	int iItemCnt = 0;
+	for (auto& pitem : *(CInven::GetInstance()->GetItemSlotPtr()))
+	{
+		if (pitem->GetFrame().iStart == 0)
+		{
+			++iItemCnt;
+			continue;
+		}
+		HDC hSlotNum = CBmpMgr::GetInstance()->FindImage(L"InGameNumber");
+		BitBlt(hDC,							// 목적지 DC
+			243 + 40 * iItemCnt,
+			568,
+			13, 11,
+			hSlotNum,						// 원본 DC
+			13 * iItemCnt,					// 원본 이미지에서 가져오기 시작할 좌표의 LEFT, TOP
+			0,
+			SRCCOPY);						// 그대로 복사하여 출력
+
+		HDC hSlotItem = CBmpMgr::GetInstance()->FindImage(L"InGameSlot");
+		GdiTransparentBlt(hDC,						// 목적지 DC
+			243 + 40 * iItemCnt,						// 목적지 LEFT, TOP
+			568,
+			37,										// 목적지 공간의 가로, 세로 사이즈
+			29,
+			hSlotItem,								// 원본 이미지 DC
+			37 * (pitem->GetFrame().iStart - 1),	// 원본 이미지 LEFT, TOP
+			0,
+			37,										// 원본 이미지 가로, 세로 사이즈
+			29,
+			RGB(255, 0, 255));						// 제거할 픽셀 색상
+		++iItemCnt;
+	}
 }
 
 void CStage2::Release()
