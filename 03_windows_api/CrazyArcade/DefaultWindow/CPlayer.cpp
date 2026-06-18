@@ -58,7 +58,7 @@ int CPlayer::Update()
 		KeyInput();
 	CheckFrame();
 	MoveFrame();
-
+	//cout << m_tInfo.fX << "\t" << m_tInfo.fY << endl;
 	return NOEVENT;
 }
 

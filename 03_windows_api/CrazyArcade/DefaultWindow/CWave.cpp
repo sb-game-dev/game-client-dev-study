@@ -58,31 +58,6 @@ void CWave::Render(HDC hDC)
 		m_tFrame.iCX,			// 원본 이미지 가로, 세로 사이즈
 		m_tFrame.iCY,
 		RGB(255, 0, 255));		// 제거할 픽셀 색상
-
-	//if (!lstrcmp(m_pFrameKey, L"WaveCenter"))
-	//{
-	//	vector<CObj*> tempTileVec = CObjMgr::GetInstance()->GetTile();
-	//	int x = (m_tInfo.fX - MAP_LEFT) / TILECX;
-	//	int y = (m_tInfo.fY - MAP_TOP) / TILECX;
-	//
-	//	int Index = y * MAP_CNT_X + x;
-	//
-	//	int RightIndex = y * MAP_CNT_X + x + 1;
-	//
-	//	TCHAR	szBuff[32] = L"";
-	//	swprintf_s(szBuff, L"TileID : %d", tempTileVec[RightIndex]->GetFrame().iStart);// dynamic_cast<CTile*>(tempTileVec[RightIndex])->GetTileID());
-	//	TextOut(hDC, 50, 150, szBuff, lstrlen(szBuff));
-	//}
-
-	//if (!lstrcmp(m_pFrameKey, L"right"))
-	//{
-	//	TCHAR	szBuff[32] = L"";
-	//	swprintf_s(szBuff, L"X : %.0f", m_tInfo.fX);
-	//	TextOut(hDC, 50, 150, szBuff, lstrlen(szBuff));
-	//	TCHAR	szBuff2[32] = L"";
-	//	swprintf_s(szBuff2, L"Y : %.0f", m_tInfo.fY);
-	//	TextOut(hDC, 50, 175, szBuff2, lstrlen(szBuff2));
-	//}
 }
 
 void CWave::Release()
@@ -107,7 +82,8 @@ void CWave::Spread(int iBombRange)
 		int RightIndex = y * MAP_CNT_X + x + i;
 		if (RightIndex/ MAP_CNT_X != (RightIndex-1) / MAP_CNT_X)
 			break;
-		if (tempTileVec[RightIndex]->GetFrame().iStart <= 1)
+		if (tempTileVec[RightIndex]->GetFrame().iStart <= 1||
+			(tempTileVec[RightIndex]->GetFrame().iStart >= 11 && tempTileVec[RightIndex]->GetFrame().iStart<=17))
 		{
 			if (i == iBombRange)
 				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(m_tInfo.fX + m_tInfo.fCX * i, m_tInfo.fY, L"right_end"));
@@ -132,7 +108,8 @@ void CWave::Spread(int iBombRange)
 		int LeftIndex = y * MAP_CNT_X + x - i;
 		if (LeftIndex<0 ||LeftIndex / MAP_CNT_X != (LeftIndex + 1) / MAP_CNT_X)
 			break;
-		if (tempTileVec[LeftIndex]->GetFrame().iStart <= 1)
+		if (tempTileVec[LeftIndex]->GetFrame().iStart <= 1||
+			(tempTileVec[LeftIndex]->GetFrame().iStart >= 11 && tempTileVec[LeftIndex]->GetFrame().iStart <= 17))
 		{
 			if (i == iBombRange)
 				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(m_tInfo.fX - m_tInfo.fCX * i, m_tInfo.fY , L"left_end"));
@@ -157,7 +134,8 @@ void CWave::Spread(int iBombRange)
 		int TopIndex = (y - i) * MAP_CNT_X + x;
 		if (TopIndex < 0)
 			break;
-		if (tempTileVec[TopIndex]->GetFrame().iStart <= 1)
+		if (tempTileVec[TopIndex]->GetFrame().iStart <= 1 ||
+			(tempTileVec[TopIndex]->GetFrame().iStart >= 11 && tempTileVec[TopIndex]->GetFrame().iStart <= 17))
 		{
 			if (i == iBombRange)
 				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(m_tInfo.fX, m_tInfo.fY - m_tInfo.fCY * i, L"up_end"));
@@ -182,7 +160,8 @@ void CWave::Spread(int iBombRange)
 		int BottomIndex = (y + i) * MAP_CNT_X + x;
 		if (BottomIndex > 194)
 			return;
-		if (tempTileVec[BottomIndex]->GetFrame().iStart <= 1)
+		if (tempTileVec[BottomIndex]->GetFrame().iStart <= 1 ||
+			(tempTileVec[BottomIndex]->GetFrame().iStart >= 11 && tempTileVec[BottomIndex]->GetFrame().iStart <= 17))
 		{
 			if (i == iBombRange)
 				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(m_tInfo.fX, m_tInfo.fY + m_tInfo.fCY * i, L"down_end"));
@@ -202,98 +181,4 @@ void CWave::Spread(int iBombRange)
 		else
 			break;
 	}
-	//
-	////right
-	//bool bRunning = true;
-	//for (int i = 1; i <= iBombRange; ++i)
-	//{
-	//	if (bRunning == false) break;
-	//	CObj* pWater = nullptr;
-	//	if (i == iBombRange)
-	//		pWater = CAbstractFactory<CWave>::Create(m_tInfo.fX + m_tInfo.fCX * i, m_tInfo.fY, L"right_end");
-	//	else
-	//		pWater = CAbstractFactory<CWave>::Create(m_tInfo.fX + m_tInfo.fCX * i, m_tInfo.fY, L"right");
-	//
-	//	
-	//	if (i + 1 > iBombRange) break;
-	//	for (auto& pBlock : CObjMgr::GetInstance()->GetTile())
-	//	{
-	//		if (fabsf(pWater->GetInfo()->fX - pBlock->GetInfo()->fX) <= 10.f &&
-	//			fabsf(pWater->GetInfo()->fY - pBlock->GetInfo()->fY) <= 10.f)
-	//		{
-	//			bRunning = false;
-	//			break;
-	//		}
-	//		CObjMgr::GetInstance()->AddObject(OBJ_WAVE, pWater);
-	//	}
-	//}
-	////left
-	//bRunning = true;
-	//for (int i = 1; i <= iBombRange; ++i)
-	//{
-	//	if (bRunning == false) break;
-	//
-	//	CObj* pWater = nullptr;
-	//	if (i == iBombRange)
-	//		pWater = CAbstractFactory<CWave>::Create(m_tInfo.fX - m_tInfo.fCX * i, m_tInfo.fY, L"left_end");
-	//	else
-	//		pWater = CAbstractFactory<CWave>::Create(m_tInfo.fX - m_tInfo.fCX * i, m_tInfo.fY, L"left");
-	//
-	//	CObjMgr::GetInstance()->AddObject(OBJ_WAVE, pWater);
-	//	if (i + 1 > iBombRange) break;
-	//	for (auto& pBlock : CObjMgr::GetInstance()->GetTile())
-	//	{
-	//		if (fabsf(pWater->GetInfo()->fX - pBlock->GetInfo()->fX) <= 10.f &&
-	//			fabsf(pWater->GetInfo()->fY - pBlock->GetInfo()->fY) <= 10.f)
-	//		{
-	//			bRunning = false;
-	//			break;
-	//		}
-	//	}
-	//}
-	////top
-	//bRunning = true;
-	//for (int i = 1; i <= iBombRange; ++i)
-	//{
-	//	if (bRunning == false) break;
-	//	CObj* pWater = nullptr;
-	//	if (i == iBombRange)
-	//		pWater = CAbstractFactory<CWave>::Create(m_tInfo.fX, m_tInfo.fY - m_tInfo.fCY * i, L"up_end");
-	//	else
-	//		pWater = CAbstractFactory<CWave>::Create(m_tInfo.fX, m_tInfo.fY - m_tInfo.fCY * i, L"up");
-	//
-	//	CObjMgr::GetInstance()->AddObject(OBJ_WAVE, pWater);
-	//	if (i + 1 > iBombRange) break;
-	//	for (auto& pBlock : CObjMgr::GetInstance()->GetTile())
-	//	{
-	//		if (fabsf(pWater->GetInfo()->fX - pBlock->GetInfo()->fX) <= 10.f &&
-	//			fabsf(pWater->GetInfo()->fY - pBlock->GetInfo()->fY) <= 10.f)
-	//		{
-	//			bRunning = false;
-	//			break;
-	//		}
-	//	}
-	//}
-	////bottom
-	//bRunning = true;
-	//for (int i = 1; i <= iBombRange; ++i)
-	//{
-	//	if (bRunning == false) break;
-	//	CObj* pWater = nullptr;
-	//	if (i == iBombRange)
-	//		pWater = CAbstractFactory<CWave>::Create(m_tInfo.fX, m_tInfo.fY + m_tInfo.fCY * i, L"down_end");
-	//	else
-	//		pWater = CAbstractFactory<CWave>::Create(m_tInfo.fX, m_tInfo.fY + m_tInfo.fCY * i, L"down");
-	//	CObjMgr::GetInstance()->AddObject(OBJ_WAVE, pWater);
-	//	if (i + 1 > iBombRange) break;
-	//	for (auto& pBlock : CObjMgr::GetInstance()->GetTile())
-	//	{
-	//		if (fabsf(pWater->GetInfo()->fX - pBlock->GetInfo()->fX) <= 10.f &&
-	//			fabsf(pWater->GetInfo()->fY - pBlock->GetInfo()->fY) <= 10.f)
-	//		{
-	//			bRunning = false;
-	//			break;
-	//		}
-	//	}
-	//}
 }

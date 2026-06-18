@@ -180,12 +180,25 @@ void CCollisionMgr::CollisionBody(vector<CObj*>& DstList, list<CObj*>& SrcList)
 					pSrcBomb->SetCanMove(false);
 					continue;
 				}
+				//if (fDeltaSizeX < 15.f && fDeltaSizeY < 15.f)
+				//{
+				//	//SrcObj->SetPosX(AdjustPosX(SrcObj->GetInfo()->fX));
+				//	//SrcObj->SetPosY(AdjustPosY(SrcObj->GetInfo()->fY));
+				//	return;
+				//}
 				if (fDeltaSizeX > fDeltaSizeY)
 				{
-					if (DstObj->GetInfo()->fY < SrcObj->GetInfo()->fY)
+					if (DstObj->GetInfo()->fY < SrcObj->GetInfo()->fY)	
 						SrcObj->SetPosY(fDeltaSizeY);
-					else
+					else												
 						SrcObj->SetPosY(-fDeltaSizeY);
+					if (fDeltaSizeX < 20.f && fDeltaSizeY < 20.f)
+					{
+						if (DstObj->GetInfo()->fX < SrcObj->GetInfo()->fX)
+							SrcObj->SetPosX(3);
+						else
+							SrcObj->SetPosX(-3);
+					}
 				}
 				else
 				{
@@ -193,6 +206,13 @@ void CCollisionMgr::CollisionBody(vector<CObj*>& DstList, list<CObj*>& SrcList)
 						SrcObj->SetPosX(fDeltaSizeX);
 					else
 						SrcObj->SetPosX(-fDeltaSizeX);
+					if (fDeltaSizeX < 20.f && fDeltaSizeY < 20.f)
+					{
+						if (DstObj->GetInfo()->fY < SrcObj->GetInfo()->fY)
+							SrcObj->SetPosY(3);
+						else
+							SrcObj->SetPosY(-3);
+					}
 				}
 
 			}
