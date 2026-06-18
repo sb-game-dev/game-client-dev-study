@@ -24,6 +24,7 @@ void CMenu::Initialize()
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(508, 347, L"button_stageStart"));
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(338, 225, L"button_FirstStage"));
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(509, 225, L"button_SecondStage"));
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(117, 585, L"button_back"));
 
 	m_pButtonList = CObjMgr::GetInstance()->GetListPtr(OBJ_BUTTON);
 
@@ -60,6 +61,10 @@ void CMenu::LateUpdate()
 					CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE1);
 				else if (m_pSelectStage && !lstrcmp(L"button_SecondStage", m_pSelectStage->GetFrameKey()))
 					CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE4);
+			}
+			else if (!lstrcmp(L"button_back", pButton->GetFrameKey()))
+			{
+				CSceneMgr::GetInstance()->SceneChangeReserve(SC_SHOP);
 			}
 		}
 		if ((!lstrcmp(L"button_FirstStage", pButton->GetFrameKey()) || !lstrcmp(L"button_SecondStage", pButton->GetFrameKey())) && 

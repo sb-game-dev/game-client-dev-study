@@ -4,6 +4,7 @@
 #include "CStage2.h"
 #include "CStage3.h"
 #include "CStage4.h"
+#include "CShop.h"
 #include "CLogo.h"
 #include "CEdit.h"
 #include "CMenu.h"
@@ -43,6 +44,9 @@ void CSceneMgr::ChangeScene(SCENEID eID)
 		break;
 	case SC_STAGE4:
 		m_pScene = new CStage4;
+		break;
+	case SC_SHOP:
+		m_pScene = new CShop;
 		break;
 	default:
 		break;

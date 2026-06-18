@@ -23,15 +23,22 @@ void CButton::Initialize()
 	{
 		m_tInfo.fCX = 34.f;
 		m_tInfo.fCY = 34.f;
-		m_tFrame.iCX = 34;
-		m_tFrame.iCY = 34;
+		m_tFrame.iCX = m_tInfo.fCX;
+		m_tFrame.iCY = m_tInfo.fCY;
+	}
+	else if (!lstrcmp(L"button_back", m_pFrameKey))
+	{
+		m_tInfo.fCX = 29.f;
+		m_tInfo.fCY = 21.f;
+		m_tFrame.iCX = m_tInfo.fCX;
+		m_tFrame.iCY = m_tInfo.fCY;
 	}
 	else if (!lstrcmp(L"button2_edit", m_pFrameKey))
 	{
 		m_tInfo.fCX = 34.f;
 		m_tInfo.fCY = 34.f;
-		m_tFrame.iCX = 34;
-		m_tFrame.iCY = 34;
+		m_tFrame.iCX = m_tInfo.fCX;
+		m_tFrame.iCY = m_tInfo.fCY;
 	}
 	else if (!lstrcmp(L"button_creator", m_pFrameKey))
 	{
@@ -158,10 +165,6 @@ int CButton::Update()
 			else if (!lstrcmp(L"button_exitEdit", m_pFrameKey))
 			{
 				CSceneMgr::GetInstance()->SceneChangeReserve(SC_MENU);
-			}
-			else if (!lstrcmp(L"button_stageStart", m_pFrameKey))
-			{
-				//CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE1);
 			}
 			else if (!lstrcmp(L"button_stageExit", m_pFrameKey))
 			{

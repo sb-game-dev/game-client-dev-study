@@ -128,6 +128,7 @@ void CMainGame::InsertImg()
 
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_back.bmp", L"button_back");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_shop.bmp", L"button_shop");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_buy.bmp", L"button_buy");
 
 	//Player
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_start.bmp", L"player_start");
