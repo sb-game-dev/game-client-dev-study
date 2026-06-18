@@ -144,6 +144,7 @@
     <ClInclude Include="CDart.h" />
     <ClInclude Include="CEdit.h" />
     <ClInclude Include="CImgMgr.h" />
+    <ClInclude Include="CInven.h" />
     <ClInclude Include="CItem.h" />
     <ClInclude Include="CKeyMgr.h" />
     <ClInclude Include="CLogo.h" />
@@ -182,6 +183,7 @@
     <ClCompile Include="CDart.cpp" />
     <ClCompile Include="CEdit.cpp" />
     <ClCompile Include="CImgMgr.cpp" />
+    <ClCompile Include="CInven.cpp" />
     <ClCompile Include="CItem.cpp" />
     <ClCompile Include="CKeyMgr.cpp" />
     <ClCompile Include="CLogo.cpp" />

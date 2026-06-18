@@ -8,6 +8,7 @@
 #include "CAbstractFactory.h"
 #include "CBmpMgr.h"
 #include "CSoundMgr.h"
+#include "CInven.h"
 CMainGame::CMainGame() :m_hDC(NULL), m_memDC(NULL), m_Bit(NULL), m_Old(NULL),m_pGraphics(NULL), m_iFPS(0),m_dwTime(GetTickCount64())
 {
 	ZeroMemory(&m_szFPS, sizeof(m_szFPS));
@@ -34,17 +35,18 @@ void CMainGame::Initialize()
 
 #endif // _DEBUG
 	InsertImg();
+
 	m_hDC = GetDC(g_hWnd);
-
-	CObjMgr::GetInstance()->AddObject(OBJ_MOUSE, CAbstractFactory<CMouse>::Create(0.f, 0.f));
-
 	m_memDC = CreateCompatibleDC(m_hDC);
 	m_Bit = CreateCompatibleBitmap(m_hDC, WINCX, WINCY);
 	m_Old = (HBITMAP)SelectObject(m_memDC, m_Bit);
+
+	CObjMgr::GetInstance()->AddObject(OBJ_MOUSE, CAbstractFactory<CMouse>::Create(0.f, 0.f));
+
 	CSoundMgr::Get_Instance()->Initialize();
 
 #ifdef _DEBUG
-	CSceneMgr::GetInstance()->SceneChangeReserve(SC_SHOP);
+	CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE3);
 #elif NDEBUG
 	CSceneMgr::GetInstance()->SceneChangeReserve(SC_LOGO);
 #endif // _DEBUG
@@ -61,6 +63,7 @@ void CMainGame::LateUpdate()
 	CSceneMgr::GetInstance()->LateUpdate();
 	CSceneMgr::GetInstance()->SceneProcess();
 }
+
 
 void CMainGame::Render()
 {
@@ -189,6 +192,11 @@ void CMainGame::InsertImg()
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/UI_Bomb.bmp", L"UI_Bomb");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/UI_Liquid2.bmp", L"UI_Liquid2");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/UI_Skate.bmp", L"UI_Skate");
+
+	//Numver_UI
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/Timer/numbers.bmp", L"numbers");
+
+	
 
 	//Ctrl_slot
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/stage_ctrlItem.bmp", L"stage_ctrlItem");

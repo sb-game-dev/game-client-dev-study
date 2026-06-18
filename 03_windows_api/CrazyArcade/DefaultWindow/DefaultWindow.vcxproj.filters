@@ -25,24 +25,6 @@
     <Filter Include="02. Obj\00. Player">
       <UniqueIdentifier>{ebfd781e-9046-4d72-b4e6-0652c8a57405}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. Design">
-      <UniqueIdentifier>{f9bf4f58-134f-49e8-8654-cc6c0bb47df8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. Design\00. AbstractFactory">
-      <UniqueIdentifier>{26b52742-b195-45cd-9b8a-c122d82b03f5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. Design\01. ObjMgr">
-      <UniqueIdentifier>{eb5410cf-e93b-48d3-ae85-634cb4d0bc28}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. Design\02. KeyMgr">
-      <UniqueIdentifier>{619dd2f4-8191-4402-bdce-3f2145e1269c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. Design\03. SceneMgr">
-      <UniqueIdentifier>{dce3bcf9-f491-4a30-8e61-ead712f7db54}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. Design\04. ImgMgr">
-      <UniqueIdentifier>{61201fb2-4a4a-4940-b335-008a4ff9e2c3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01. Scene\00. Logo">
       <UniqueIdentifier>{f179319e-c8ef-4f73-9b1c-d18f7a9a3052}</UniqueIdentifier>
     </Filter>
@@ -54,15 +36,6 @@
     </Filter>
     <Filter Include="02. Obj\03. Mouse">
       <UniqueIdentifier>{e57fc1de-493d-402f-aeed-e38fa1ad10cd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. Design\05. BmpMgr">
-      <UniqueIdentifier>{5cf5bed7-46d5-4ad6-b783-dee30bd84c45}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. Design\05. BmpMgr\MyBmp">
-      <UniqueIdentifier>{ddb5462d-c4ef-4700-bf11-2becf294fb8d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. Design\06. CollisionMgr">
-      <UniqueIdentifier>{d62f87ef-bdba-434e-97b2-c6a57a24d258}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. Obj\04. Bomb">
       <UniqueIdentifier>{29d902c1-d323-4f73-a012-fccdfaaadb8e}</UniqueIdentifier>
@@ -91,9 +64,6 @@
     <Filter Include="02. Obj\09. Monster">
       <UniqueIdentifier>{e8712c77-491b-403c-ad74-774ea588e9ca}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. Design\07. SoundMgr">
-      <UniqueIdentifier>{02319113-d50b-481d-b9f5-b9cd62130ac5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. Obj\10. Mark">
       <UniqueIdentifier>{eb9c0387-40c8-474b-8b6f-4443db52841d}</UniqueIdentifier>
     </Filter>
@@ -111,6 +81,39 @@
     </Filter>
     <Filter Include="01. Scene\03. Stage\03. Stage4">
       <UniqueIdentifier>{68804d61-5d8d-4796-8d5e-b5099eb271f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Inven">
+      <UniqueIdentifier>{b859da22-6a6b-4288-a5e1-f7e9c3a1822a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Design">
+      <UniqueIdentifier>{f9bf4f58-134f-49e8-8654-cc6c0bb47df8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Design\00. AbstractFactory">
+      <UniqueIdentifier>{26b52742-b195-45cd-9b8a-c122d82b03f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Design\01. ObjMgr">
+      <UniqueIdentifier>{eb5410cf-e93b-48d3-ae85-634cb4d0bc28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Design\02. KeyMgr">
+      <UniqueIdentifier>{619dd2f4-8191-4402-bdce-3f2145e1269c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Design\03. SceneMgr">
+      <UniqueIdentifier>{dce3bcf9-f491-4a30-8e61-ead712f7db54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Design\04. ImgMgr">
+      <UniqueIdentifier>{61201fb2-4a4a-4940-b335-008a4ff9e2c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Design\05. BmpMgr">
+      <UniqueIdentifier>{5cf5bed7-46d5-4ad6-b783-dee30bd84c45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Design\05. BmpMgr\MyBmp">
+      <UniqueIdentifier>{ddb5462d-c4ef-4700-bf11-2becf294fb8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Design\06. CollisionMgr">
+      <UniqueIdentifier>{d62f87ef-bdba-434e-97b2-c6a57a24d258}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Design\07. SoundMgr">
+      <UniqueIdentifier>{02319113-d50b-481d-b9f5-b9cd62130ac5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -142,22 +145,22 @@
       <Filter>02. Obj\00. Player</Filter>
     </ClInclude>
     <ClInclude Include="CSceneMgr.h">
-      <Filter>03. Design\03. SceneMgr</Filter>
+      <Filter>04. Design\03. SceneMgr</Filter>
     </ClInclude>
     <ClInclude Include="CScene.h">
       <Filter>01. Scene</Filter>
     </ClInclude>
     <ClInclude Include="CAbstractFactory.h">
-      <Filter>03. Design\00. AbstractFactory</Filter>
+      <Filter>04. Design\00. AbstractFactory</Filter>
     </ClInclude>
     <ClInclude Include="CObjMgr.h">
-      <Filter>03. Design\01. ObjMgr</Filter>
+      <Filter>04. Design\01. ObjMgr</Filter>
     </ClInclude>
     <ClInclude Include="CKeyMgr.h">
-      <Filter>03. Design\02. KeyMgr</Filter>
+      <Filter>04. Design\02. KeyMgr</Filter>
     </ClInclude>
     <ClInclude Include="CImgMgr.h">
-      <Filter>03. Design\04. ImgMgr</Filter>
+      <Filter>04. Design\04. ImgMgr</Filter>
     </ClInclude>
     <ClInclude Include="CLogo.h">
       <Filter>01. Scene\00. Logo</Filter>
@@ -175,13 +178,13 @@
       <Filter>02. Obj\03. Mouse</Filter>
     </ClInclude>
     <ClInclude Include="CBmpMgr.h">
-      <Filter>03. Design\05. BmpMgr</Filter>
+      <Filter>04. Design\05. BmpMgr</Filter>
     </ClInclude>
     <ClInclude Include="CMyBmp.h">
-      <Filter>03. Design\05. BmpMgr\MyBmp</Filter>
+      <Filter>04. Design\05. BmpMgr\MyBmp</Filter>
     </ClInclude>
     <ClInclude Include="CCollisionMgr.h">
-      <Filter>03. Design\06. CollisionMgr</Filter>
+      <Filter>04. Design\06. CollisionMgr</Filter>
     </ClInclude>
     <ClInclude Include="CBomb.h">
       <Filter>02. Obj\04. Bomb</Filter>
@@ -214,7 +217,7 @@
       <Filter>02. Obj\09. Monster</Filter>
     </ClInclude>
     <ClInclude Include="CSoundMgr.h">
-      <Filter>03. Design\07. SoundMgr</Filter>
+      <Filter>04. Design\07. SoundMgr</Filter>
     </ClInclude>
     <ClInclude Include="CStage4.h">
       <Filter>01. Scene\03. Stage\03. Stage4</Filter>
@@ -224,6 +227,9 @@
     </ClInclude>
     <ClInclude Include="CShop.h">
       <Filter>01. Scene\04. Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="CInven.h">
+      <Filter>03. Inven</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -243,19 +249,19 @@
       <Filter>02. Obj\00. Player</Filter>
     </ClCompile>
     <ClCompile Include="CSceneMgr.cpp">
-      <Filter>03. Design\03. SceneMgr</Filter>
+      <Filter>04. Design\03. SceneMgr</Filter>
     </ClCompile>
     <ClCompile Include="CScene.cpp">
       <Filter>01. Scene</Filter>
     </ClCompile>
     <ClCompile Include="CObjMgr.cpp">
-      <Filter>03. Design\01. ObjMgr</Filter>
+      <Filter>04. Design\01. ObjMgr</Filter>
     </ClCompile>
     <ClCompile Include="CKeyMgr.cpp">
-      <Filter>03. Design\02. KeyMgr</Filter>
+      <Filter>04. Design\02. KeyMgr</Filter>
     </ClCompile>
     <ClCompile Include="CImgMgr.cpp">
-      <Filter>03. Design\04. ImgMgr</Filter>
+      <Filter>04. Design\04. ImgMgr</Filter>
     </ClCompile>
     <ClCompile Include="CLogo.cpp">
       <Filter>01. Scene\00. Logo</Filter>
@@ -273,13 +279,13 @@
       <Filter>02. Obj\03. Mouse</Filter>
     </ClCompile>
     <ClCompile Include="CBmpMgr.cpp">
-      <Filter>03. Design\05. BmpMgr</Filter>
+      <Filter>04. Design\05. BmpMgr</Filter>
     </ClCompile>
     <ClCompile Include="CMyBmp.cpp">
-      <Filter>03. Design\05. BmpMgr\MyBmp</Filter>
+      <Filter>04. Design\05. BmpMgr\MyBmp</Filter>
     </ClCompile>
     <ClCompile Include="CCollisionMgr.cpp">
-      <Filter>03. Design\06. CollisionMgr</Filter>
+      <Filter>04. Design\06. CollisionMgr</Filter>
     </ClCompile>
     <ClCompile Include="CBomb.cpp">
       <Filter>02. Obj\04. Bomb</Filter>
@@ -312,7 +318,7 @@
       <Filter>02. Obj\09. Monster</Filter>
     </ClCompile>
     <ClCompile Include="CSoundMgr.cpp">
-      <Filter>03. Design\07. SoundMgr</Filter>
+      <Filter>04. Design\07. SoundMgr</Filter>
     </ClCompile>
     <ClCompile Include="CStage4.cpp">
       <Filter>01. Scene\03. Stage\03. Stage4</Filter>
@@ -322,6 +328,9 @@
     </ClCompile>
     <ClCompile Include="CShop.cpp">
       <Filter>01. Scene\04. Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="CInven.cpp">
+      <Filter>03. Inven</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

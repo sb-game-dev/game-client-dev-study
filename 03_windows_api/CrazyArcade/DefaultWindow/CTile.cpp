@@ -221,5 +221,5 @@ void CTile::CreateItem()
 		L"dart" ,L"shield" ,L"shoe" ,L"trampoline"
 	};
 	
-	CObjMgr::GetInstance()->AddObject(OBJ_ITEM ,CAbstractFactory<CItem>::Create(m_tInfo.fX, m_tInfo.fY, pItemType[rand() % 8]));
+	CObjMgr::GetInstance()->AddObject(OBJ_ITEM ,CAbstractFactory<CItem>::Create(m_tInfo.fX, m_tInfo.fY, pItemType[rand() % 7]));
 }

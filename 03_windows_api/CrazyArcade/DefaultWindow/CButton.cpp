@@ -6,6 +6,7 @@
 #include "CObjMgr.h"
 #include "CBmpMgr.h"
 #include "CSoundMgr.h"
+#include "CInven.h"
 
 CButton::CButton():m_bCurState(false), m_bPreState(false)
 {
@@ -180,6 +181,26 @@ int CButton::Update()
 			if (!lstrcmp(L"button_creator", m_pFrameKey))
 			{
 				CSceneMgr::GetInstance()->SceneChangeReserve(SC_EDIT);
+			}
+			else if (!lstrcmp(L"button_buy0", m_pFrameKey))
+			{
+				if(CInven::GetInstance()->GetGold() - 2750 > 0)
+					CInven::GetInstance()->SetGold(-2750);
+			}
+			else if (!lstrcmp(L"button_buy1", m_pFrameKey))
+			{
+				if (CInven::GetInstance()->GetGold() - 1650 > 0)
+					CInven::GetInstance()->SetGold(-1650);
+			}
+			else if (!lstrcmp(L"button_buy2", m_pFrameKey))
+			{
+				if (CInven::GetInstance()->GetGold() - 2750 > 0)
+					CInven::GetInstance()->SetGold(-2750);
+			}
+			else if (!lstrcmp(L"button_buy3", m_pFrameKey))
+			{
+				if (CInven::GetInstance()->GetGold() - 2500 > 0)
+					CInven::GetInstance()->SetGold(-2500);
 			}
 			else if (!lstrcmp(L"button_back", m_pFrameKey))
 			{

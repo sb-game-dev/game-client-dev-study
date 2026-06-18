@@ -6,6 +6,7 @@
 #include "CSoundMgr.h"
 #include "CButton.h"
 #include "CBmpMgr.h"
+#include "CInven.h"
 
 CShop::CShop()
 {
@@ -28,6 +29,8 @@ void CShop::Initialize()
 
 int CShop::Update()
 {
+	//int iMoney = CInven::GetInstance()->GetGold();
+	//cout << iMoney << endl;
 	CObjMgr::GetInstance()->Update();
 	return 0;
 }
@@ -47,6 +50,28 @@ void CShop::Render(HDC hDC)
 		0,								// 원본 이미지에서 가져오기 시작할 좌표의 LEFT, TOP
 		0,
 		SRCCOPY);						// 그대로 복사하여 출력
+
+	int iMoney = CInven::GetInstance()->GetGold();
+	int iNumcnt = 0;
+	while (iMoney)
+	{
+		
+		int iNum = iMoney % 10;
+		HDC hNumber = CBmpMgr::GetInstance()->FindImage(L"numbers");
+		GdiTransparentBlt(hDC,					// 목적지 DC
+			int(307-11)-22*iNumcnt,	// 목적지 LEFT, TOP
+			int(15),
+			22,			// 목적지 공간의 가로, 세로 사이즈
+			26,
+			hNumber,						// 원본 이미지 DC
+			22 * iNum,	// 원본 이미지 LEFT, TOP
+			0,
+			22,				// 원본 이미지 가로, 세로 사이즈
+			26,		
+			RGB(255, 0, 255));		// 제거할 픽셀 색상
+		++iNumcnt;
+		iMoney /= 10;
+	}
 	CObjMgr::GetInstance()->Render(hDC);
 }
 
