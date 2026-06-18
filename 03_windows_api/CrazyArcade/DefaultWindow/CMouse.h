@@ -18,7 +18,12 @@ public:
     void        SetChoiceTile(int eID);
     TILEID      GetChoiceTile() { return m_eChoiceTile; }
 
+
+    void        SetChoiceItem(int iItem) { m_iChoiceItem = iItem; }
+    int         GetChoiceItem() { return m_iChoiceItem; }
+
 private:
     TILEID      m_eChoiceTile;
+    int         m_iChoiceItem;
 };
 

@@ -86,6 +86,7 @@ void CStage3::Release()
 	CObjMgr::GetInstance()->DeleteObj(OBJ_BOMB);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_WAVE);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_BUTTON);
+	CObjMgr::GetInstance()->DeleteObj(OBJ_MONSTER);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_BOSS);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_ITEM);
 	CObjMgr::GetInstance()->DeleteTile();

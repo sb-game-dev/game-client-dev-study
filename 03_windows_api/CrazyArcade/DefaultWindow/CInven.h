@@ -1,5 +1,6 @@
 #pragma once
 #include "Define.h"
+#include "CObj.h"
 
 class CInven
 {
@@ -9,11 +10,29 @@ public:
 	CInven& operator=(const CInven* rhs) = delete;
 	~CInven();
 
+public :
+	void	Initialize();
+	int		Update();
+	void	LateUpdate();
+	void	Render(HDC hDC);
+	void	Release();
+
 public:
 	void	SetGold(int iGold) { m_iGold += iGold; }
-
+	void	SetDraw(bool bDraw) { m_bDraw = bDraw; }
+	void	SetNeedleCnt(int iNeedle) { m_tItemStorageCnt.iNeedleCnt += iNeedle; }
+	void	SetDartCnt(int iDart) { m_tItemStorageCnt.iDartCnt += iDart; }
+	void	SetShieldCnt(int iShield) { m_tItemStorageCnt.iShieldCnt += iShield; }
 
 	int		GetGold() { return m_iGold; }
+	bool	GetDraw() { return m_bDraw; }
+	bool*	GetDrawPtr() { return &m_bDraw; }
+	INVEN	GetInven() { return m_tItemStorageCnt; }
+
+	void	AddItemToStorage(ITEMTYPE eID);
+
+private:
+	void	ExitButtonUpdate();
 
 public:
 	static CInven* GetInstance()
@@ -28,8 +47,27 @@ public:
 	}
 private:
 	static CInven*	m_pInstance;
+
 	int				m_iGold;
+	CObj*			m_pItemSlot1;
+	CObj*			m_pItemSlot2;
+	CObj*			m_pItemSlot3;
+	CObj*			m_pItemSlot4;
+
+	vector<CObj*>	m_ItemSlot;
+	vector<CObj*>	m_ItemStorage;
+
+	bool			m_bDraw;
+
+	CObj*			m_pExitButton;
 
 
+	bool			m_bButtonCurState;
+	bool			m_bButtonPreState;
+
+	INVEN			m_tItemStorageCnt;
+
+	CObj*			m_pMouse;
+	int				m_iPreSlotIndex;
 };
 

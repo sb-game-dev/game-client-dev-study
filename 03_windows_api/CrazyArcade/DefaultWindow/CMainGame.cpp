@@ -46,7 +46,7 @@ void CMainGame::Initialize()
 	CSoundMgr::Get_Instance()->Initialize();
 
 #ifdef _DEBUG
-	CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE4);
+	CSceneMgr::GetInstance()->SceneChangeReserve(SC_MENU);
 #elif NDEBUG
 	CSceneMgr::GetInstance()->SceneChangeReserve(SC_LOGO);
 #endif // _DEBUG
@@ -93,13 +93,13 @@ void CMainGame::Release()
 #endif // _DEBUG
 
 	ReleaseDC(g_hWnd, m_hDC);
-	CInven::Destroy();
 	CBmpMgr::Destroy();
 	CImgMgr::Destroy();
 	CKeyMgr::Destroy();
 	CSceneMgr::Destroy();
 	CSoundMgr::Destroy_Instance();
 	CObjMgr::Destroy();
+	CInven::Destroy();
 }
 
 void CMainGame::InsertImg()
@@ -135,6 +135,10 @@ void CMainGame::InsertImg()
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_buy.bmp", L"button_buy1");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_buy.bmp", L"button_buy2");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_buy.bmp", L"button_buy3");
+
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_InvenExit.bmp", L"button_InvenExit");
+
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_myPage.bmp", L"button_myPage");
 
 	//Player
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_start.bmp", L"player_start");
@@ -196,7 +200,15 @@ void CMainGame::InsertImg()
 	//Numver_UI
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/Timer/numbers.bmp", L"numbers");
 
-	
+	//Inventory_UI
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/MyPage.bmp", L"MyPage");
+
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/Slot1.bmp", L"Slot1");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/Slot2.bmp", L"Slot2");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/Slot3.bmp", L"Slot3");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/Slot4.bmp", L"Slot4");
+
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/InvenItem.bmp", L"InvenItem");
 
 	//Ctrl_slot
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/stage_ctrlItem.bmp", L"stage_ctrlItem");

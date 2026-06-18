@@ -22,9 +22,9 @@ void CShop::Initialize()
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(224, 420, L"button_buy0"));
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(455, 420, L"button_buy1"));
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(224, 517, L"button_buy2"));
-	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(455, 517, L"button_buy3"));
 
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(117, 585, L"button_back"));
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(662, 584, L"button_myPage"));
 }
 
 int CShop::Update()
@@ -32,12 +32,20 @@ int CShop::Update()
 	//int iMoney = CInven::GetInstance()->GetGold();
 	//cout << iMoney << endl;
 	CObjMgr::GetInstance()->Update();
+	
 	return 0;
 }
 
 void CShop::LateUpdate()
 {
-	CObjMgr::GetInstance()->LateUpdate();
+	if (CInven::GetInstance()->GetDraw())
+	{
+		CInven::GetInstance()->LateUpdate();
+	}
+	else
+	{
+		CObjMgr::GetInstance()->LateUpdate();
+	}
 }
 
 void CShop::Render(HDC hDC)
@@ -72,11 +80,17 @@ void CShop::Render(HDC hDC)
 		++iNumcnt;
 		iMoney /= 10;
 	}
-	CObjMgr::GetInstance()->Render(hDC);
+	CObjMgr::GetInstance()->Render(hDC); 
+	if (CInven::GetInstance()->GetDraw())
+	{
+		CInven::GetInstance()->Render(hDC);
+		CObjMgr::GetInstance()->GetList(OBJ_MOUSE).front()->Render(hDC);
+	}
 }
 
 void CShop::Release()
 {
+	CInven::GetInstance()->SetDraw(false);
 	CObjMgr::GetInstance()->ReleaseRenderList();
 	CObjMgr::GetInstance()->DeleteObj(OBJ_BUTTON);
 	CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);

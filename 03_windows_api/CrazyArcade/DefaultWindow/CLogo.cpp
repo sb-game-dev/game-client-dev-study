@@ -29,7 +29,8 @@ int CLogo::Update()
 		CSceneMgr::GetInstance()->SceneChangeReserve(SC_MENU);
 	}
 
-	// cout << m_fAlpha << endl;
+	// 
+	// << m_fAlpha << endl;
 	//if (m_bStartScene && m_dwTime + 10 <= GetTickCount64())
 	//{
 	//	m_dwTime = GetTickCount64();

@@ -26,6 +26,14 @@ void CButton::Initialize()
 		m_tInfo.fCY = 34.f;
 		m_tFrame.iCX = m_tInfo.fCX;
 		m_tFrame.iCY = m_tInfo.fCY;
+		m_tFrame.iEnd = 20;
+	}
+	else if (!lstrcmp(L"button_myPage", m_pFrameKey))
+	{
+		m_tInfo.fCX = 65.f;
+		m_tInfo.fCY = 22.f;
+		m_tFrame.iCX = m_tInfo.fCX;
+		m_tFrame.iCY = m_tInfo.fCY;
 	}
 	else if (!lstrcmp(L"button_back", m_pFrameKey))
 	{
@@ -35,12 +43,55 @@ void CButton::Initialize()
 		m_tFrame.iCY = m_tInfo.fCY;
 	}
 	else if (!lstrcmp(L"button_buy0", m_pFrameKey)
-		|| !lstrcmp(L"button_buy1", m_pFrameKey) 
+		|| !lstrcmp(L"button_buy1", m_pFrameKey)
 		|| !lstrcmp(L"button_buy2", m_pFrameKey)
 		|| !lstrcmp(L"button_buy3", m_pFrameKey))
 	{
 		m_tInfo.fCX = 41.f;
 		m_tInfo.fCY = 19.f;
+		m_tFrame.iCX = m_tInfo.fCX;
+		m_tFrame.iCY = m_tInfo.fCY;
+	}
+	else if (!lstrcmp(L"Slot1", m_pFrameKey))
+	{
+		m_tInfo.fCX = 33.f;
+		m_tInfo.fCY = 31.f;
+		m_tRect = { 569,175,602,206 };
+		m_tFrame.iCX = m_tInfo.fCX;
+		m_tFrame.iCY = m_tInfo.fCY;
+	}
+	else if (!lstrcmp(L"Slot2", m_pFrameKey))
+	{
+		m_tInfo.fCX = 33.f;
+		m_tInfo.fCY = 31.f;
+		m_tRect = { 489,235,522,266 };
+		m_tFrame.iCX = m_tInfo.fCX;
+		m_tFrame.iCY = m_tInfo.fCY;
+	}
+	else if (!lstrcmp(L"Slot3", m_pFrameKey))
+	{
+		m_tInfo.fCX = 33.f;
+		m_tInfo.fCY = 31.f;
+		m_tRect = { 569,295,602,326 };
+		m_tFrame.iCX = m_tInfo.fCX;
+		m_tFrame.iCY = m_tInfo.fCY;
+	}
+	else if (!lstrcmp(L"Slot4", m_pFrameKey))
+	{
+		m_tInfo.fCX = 33.f;
+		m_tInfo.fCY = 31.f;
+		m_tRect = { 649,235,682,266 };
+		m_tFrame.iCX = m_tInfo.fCX;
+		m_tFrame.iCY = m_tInfo.fCY;
+	}
+	else if (!lstrcmp(L"InvenItem", m_pFrameKey))
+	{
+		m_tInfo.fCX = 33.f;
+		m_tInfo.fCY = 31.f;
+		m_tRect = { LONG(m_tInfo.fX - 16.5f) ,
+					LONG(m_tInfo.fY - 15.5f),
+					LONG(m_tInfo.fX + 16.5f) ,
+					LONG(m_tInfo.fY - 15.5f) };
 		m_tFrame.iCX = m_tInfo.fCX;
 		m_tFrame.iCY = m_tInfo.fCY;
 	}
@@ -51,10 +102,11 @@ void CButton::Initialize()
 		m_tFrame.iCX = m_tInfo.fCX;
 		m_tFrame.iCY = m_tInfo.fCY;
 	}
-	else if (!lstrcmp(L"button2_edit", m_pFrameKey))
+	else if (!lstrcmp(L"button_InvenExit", m_pFrameKey))
 	{
-		m_tInfo.fCX = 34.f;
-		m_tInfo.fCY = 34.f;
+		m_tInfo.fCX = 137.f;
+		m_tInfo.fCY = 31.f;
+		m_tRect = {238,505,369,536};
 		m_tFrame.iCX = m_tInfo.fCX;
 		m_tFrame.iCY = m_tInfo.fCY;
 	}
@@ -160,6 +212,8 @@ void CButton::Initialize()
 
 int CButton::Update()
 {
+	if (CInven::GetInstance()->GetDraw() == true)
+		return 0;
 	POINT		ptMouse{};
 	GetCursorPos(&ptMouse);
 	ScreenToClient(g_hWnd, &ptMouse);
@@ -168,12 +222,15 @@ int CButton::Update()
 	m_bPreState = m_bCurState;
 	if (PtInRect(&m_tRect, ptMouse))
 	{
-		if(lstrcmp(L"button_edit", m_pFrameKey) && lstrcmp(L"button2_edit", m_pFrameKey))
+		if (lstrcmp(L"button_edit", m_pFrameKey))
+		{
 			m_bCurState = true;
-		if (m_tFrame.iEnd > 2)
-			MoveFrame();
-		else
-			m_tFrame.iStart = 1;
+
+			if (m_tFrame.iEnd > 2)
+				MoveFrame();
+			else
+				m_tFrame.iStart = 1;
+		}
 		if (CKeyMgr::GetInstance()->KeyDown(VK_LBUTTON))
 		{
 			CSoundMgr::Get_Instance()->PlaySound(L"buttonClick_2.wav", BUTTON_CLICK, 0.3f);
@@ -182,31 +239,35 @@ int CButton::Update()
 			{
 				CSceneMgr::GetInstance()->SceneChangeReserve(SC_EDIT);
 			}
-			else if (!lstrcmp(L"button_buy0", m_pFrameKey))
-			{
-				if(CInven::GetInstance()->GetGold() - 2750 > 0)
-					CInven::GetInstance()->SetGold(-2750);
-			}
-			else if (!lstrcmp(L"button_buy1", m_pFrameKey))
-			{
-				if (CInven::GetInstance()->GetGold() - 1650 > 0)
-					CInven::GetInstance()->SetGold(-1650);
-			}
-			else if (!lstrcmp(L"button_buy2", m_pFrameKey))
+			else if (!lstrcmp(L"button_buy0", m_pFrameKey) && CInven::GetInstance()->GetDraw() == false)
 			{
 				if (CInven::GetInstance()->GetGold() - 2750 > 0)
+				{
 					CInven::GetInstance()->SetGold(-2750);
+					CInven::GetInstance()->AddItemToStorage(IT_NEEDLE);
+				}
 			}
-			else if (!lstrcmp(L"button_buy3", m_pFrameKey))
+			else if (!lstrcmp(L"button_buy1", m_pFrameKey) && CInven::GetInstance()->GetDraw() == false)
+			{
+				if (CInven::GetInstance()->GetGold() - 1650 > 0)
+				{
+					CInven::GetInstance()->SetGold(-1650);
+					CInven::GetInstance()->AddItemToStorage(IT_DART);
+				}
+			}
+			else if (!lstrcmp(L"button_buy2", m_pFrameKey) && CInven::GetInstance()->GetDraw() == false)
 			{
 				if (CInven::GetInstance()->GetGold() - 2500 > 0)
+				{
 					CInven::GetInstance()->SetGold(-2500);
+					CInven::GetInstance()->AddItemToStorage(IT_SHIELD);
+				}
 			}
-			else if (!lstrcmp(L"button_back", m_pFrameKey))
+			else if (!lstrcmp(L"button_back", m_pFrameKey) && CInven::GetInstance()->GetDraw() == false)
 			{
 				CSceneMgr::GetInstance()->SceneChangeReserve(SC_MENU);
 			}
-			else if (!lstrcmp(L"button_shop", m_pFrameKey))
+			else if (!lstrcmp(L"button_shop", m_pFrameKey) && CInven::GetInstance()->GetDraw() == false)
 			{
 				CSceneMgr::GetInstance()->SceneChangeReserve(SC_SHOP);
 			}
@@ -214,13 +275,21 @@ int CButton::Update()
 			{
 				CSceneMgr::GetInstance()->SceneChangeReserve(SC_MENU);
 			}
-			else if (!lstrcmp(L"button_stageExit", m_pFrameKey))
+			else if (!lstrcmp(L"button_stageExit", m_pFrameKey) && CInven::GetInstance()->GetDraw() == false)
 			{
 				CSceneMgr::GetInstance()->SceneChangeReserve(SC_MENU);
 			}
-			else if (!lstrcmp(L"button_stageExit", m_pFrameKey))
+			else if (!lstrcmp(L"button_save", m_pFrameKey))
 			{
 				CObjMgr::GetInstance()->SaveTile(0);
+			}
+			else if (!lstrcmp(L"button_myPage", m_pFrameKey) && CInven::GetInstance()->GetDraw() == false)
+			{
+				CInven::GetInstance()->SetDraw(true);
+			}
+			else if (!lstrcmp(L"button_InvenExit", m_pFrameKey) && CInven::GetInstance()->GetDraw() == true)
+			{
+				CInven::GetInstance()->SetDraw(false);
 			}
 		}
 	}
@@ -243,6 +312,8 @@ void CButton::LateUpdate()
 
 void CButton::Render(HDC hDC)
 {
+	if (!lstrcmp(L"button_InvenExit", m_pFrameKey))
+		return;
 	HDC hButton = CBmpMgr::GetInstance()->FindImage(m_pFrameKey);
 	GdiTransparentBlt(hDC,					// 格利瘤 DC
 		m_tRect.left,		// 格利瘤 LEFT,RIGHT

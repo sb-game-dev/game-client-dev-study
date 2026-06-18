@@ -3,7 +3,7 @@
 #include "CImgMgr.h"
 #include "CBmpMgr.h"
 
-CMouse::CMouse():m_eChoiceTile(TILE_END)
+CMouse::CMouse():m_eChoiceTile(TILE_END), m_iChoiceItem(-1)
 {
 }
 
@@ -19,6 +19,9 @@ void CMouse::Initialize()
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Mouse/mouse.bmp", L"mouse");
 	CImgMgr::GetInstance()->InsertImg(L"../Resource/Tile/tile2.png", L"tile");
 
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/MouseItem.bmp", L"MouseItem");
+	
+
 	m_pFrameKey = L"mouse";
 	m_tInfo.fCX = 37.f;
 	m_tInfo.fCY = 39.f;
@@ -28,8 +31,8 @@ void CMouse::Initialize()
 int CMouse::Update()
 {
 	POINT		ptMouse{};
-	GetCursorPos(&ptMouse);	// 스크린 좌표의 마우스 값을 얻어옴
-	ScreenToClient(g_hWnd, &ptMouse); // 스크린 좌표를 창 좌표로 변환
+	GetCursorPos(&ptMouse);				// 스크린 좌표의 마우스 값을 얻어옴
+	ScreenToClient(g_hWnd, &ptMouse);	// 스크린 좌표를 창 좌표로 변환
 
 	m_tInfo.fX = (float)ptMouse.x;
 	m_tInfo.fY = (float)ptMouse.y;
@@ -67,6 +70,22 @@ void CMouse::Render(HDC hDC)
 			UnitPixel,
 			&attr);
 	}
+	if (m_iChoiceItem >= 0)
+	{
+		HDC hItem = CBmpMgr::GetInstance()->FindImage(L"MouseItem");
+		GdiTransparentBlt(hDC,					// 목적지 DC
+			m_tInfo.fX - 30,	// 목적지 LEFT, TOP
+			m_tInfo.fY - 25,
+			60,			// 목적지 공간의 가로, 세로 사이즈
+			50,
+			hItem,						// 원본 이미지 DC
+			m_iChoiceItem * 60,							// 원본 이미지 LEFT, TOP
+			0,
+			60,			// 원본 이미지 가로, 세로 사이즈
+			50,
+			RGB(255, 0, 255));		// 제거할 픽셀 색상
+	}
+	//cout << m_iChoiceItem << endl;
 	HDC hMouse = CBmpMgr::GetInstance()->FindImage(L"mouse");
 	GdiTransparentBlt(hDC,					// 목적지 DC
 		m_tInfo.fX,	// 목적지 LEFT, TOP

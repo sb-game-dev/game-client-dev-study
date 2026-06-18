@@ -45,6 +45,7 @@ public:
 		pObj->SetPos(fX, fY);
 		pObj->SetFrameKey(pFrameKey);
 		pObj->SetStartFrame(eID);
+
 		pObj->Initialize();
 		return pObj;
 	}
