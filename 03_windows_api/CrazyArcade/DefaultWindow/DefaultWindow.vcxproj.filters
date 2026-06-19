@@ -115,6 +115,9 @@
     <Filter Include="04. Design\07. SoundMgr">
       <UniqueIdentifier>{02319113-d50b-481d-b9f5-b9cd62130ac5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Scene\03. Stage\04. Stage5">
+      <UniqueIdentifier>{4b0a1602-aa51-40d1-a1d4-999a7e6b7857}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -231,6 +234,9 @@
     <ClInclude Include="CInven.h">
       <Filter>03. Inven</Filter>
     </ClInclude>
+    <ClInclude Include="CStage5.h">
+      <Filter>01. Scene\03. Stage\04. Stage5</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefaultWindow.cpp">
@@ -331,6 +337,9 @@
     </ClCompile>
     <ClCompile Include="CInven.cpp">
       <Filter>03. Inven</Filter>
+    </ClCompile>
+    <ClCompile Include="CStage5.cpp">
+      <Filter>01. Scene\03. Stage\04. Stage5</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -26,7 +26,7 @@ void CButton::Initialize()
 		m_tInfo.fCY = 34.f;
 		m_tFrame.iCX = m_tInfo.fCX;
 		m_tFrame.iCY = m_tInfo.fCY;
-		m_tFrame.iEnd = 20;
+		m_tFrame.iEnd = TILE_END;
 	}
 	else if (!lstrcmp(L"button_myPage", m_pFrameKey))
 	{

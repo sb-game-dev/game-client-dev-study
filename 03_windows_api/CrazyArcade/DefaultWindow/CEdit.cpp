@@ -21,32 +21,46 @@ void CEdit::Initialize()
 {
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(657, 277, L"button_edit", PUSH));
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(693, 277, L"button_edit", BREAK));
-	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(731, 277, L"button_edit", WALL1));
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(729, 277, L"button_edit", WALL1));
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(763, 277, L"button_edit", WALL2));
 
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(657, 312, L"button_edit", WALL3));
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(693, 312, L"button_edit", WALL4));
-	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(731, 312, L"button_edit", WALL5));
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(729, 312, L"button_edit", WALL5));
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(763, 312, L"button_edit", WALL6));
 
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(657, 348, L"button_edit", WALL7));
-
-
-
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(693, 348, L"button_edit", STAGE2TILE1));
-	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(731, 348, L"button_edit", STAGE2TILE2));
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(729, 348, L"button_edit", STAGE2TILE2));
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(763, 348, L"button_edit", STAGE2TILE3));
 
 
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(657, 384, L"button_edit", STAGE2TILE4));
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(693, 384, L"button_edit", STAGE2TILE5));
-	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(731, 384, L"button_edit", STAGE2TILE6));
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(729, 384, L"button_edit", STAGE2TILE6));
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(763, 384, L"button_edit", STAGE2TILE7));
 
 
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(657, 420, L"button_edit", STAGE2TILE8));
-	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(693, 420, L"button_edit", STAGE2TILE9));
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(693, 420, L"button_edit", STAGE3TILE1));
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(729, 420, L"button_edit", STAGE3TILE2));
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(763, 420, L"button_edit", STAGE3TILE3));
 
+
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(657, 456, L"button_edit", STAGE3TILE4));
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(693, 456, L"button_edit", STAGE3TILE5));
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(729, 456, L"button_edit", STAGE3TILE6));
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(763, 456, L"button_edit", STAGE3TILE7));
+
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(657, 492, L"button_edit", STAGE3TILE8));
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(693, 492, L"button_edit", STAGE3TILE9));
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(729, 492, L"button_edit", STAGE3TILE10));
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(763, 492, L"button_edit", STAGE3TILE11));
+	
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(657, 528, L"button_edit", STAGE3TILE12));
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(693, 528, L"button_edit", STAGE3TILE13));
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(729, 528, L"button_edit", STAGE3TILE14));
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(763, 528, L"button_edit", STAGE3TILE15));
 
 
 
@@ -72,7 +86,6 @@ int CEdit::Update()
 
 void CEdit::LateUpdate()
 {
-	CObjMgr::GetInstance()->LateUpdate();
 	if (CKeyMgr::GetInstance()->KeyDown('S'))
 		CObjMgr::GetInstance()->SaveTile(0);
 
@@ -88,8 +101,27 @@ void CEdit::LateUpdate()
 	else if (CKeyMgr::GetInstance()->KeyDown('4'))
 		CObjMgr::GetInstance()->SaveTile(4);
 
+	else if (CKeyMgr::GetInstance()->KeyDown('5'))
+		CObjMgr::GetInstance()->SaveTile(5);
+
 	else if (CKeyMgr::GetInstance()->KeyDown('L'))
 		CObjMgr::GetInstance()->LoadTile();
+
+	else if (CKeyMgr::GetInstance()->KeyDown('Q'))
+		CObjMgr::GetInstance()->LoadStage1();
+
+	else if (CKeyMgr::GetInstance()->KeyDown('W'))
+		CObjMgr::GetInstance()->LoadStage2();
+
+	else if (CKeyMgr::GetInstance()->KeyDown('E'))
+		CObjMgr::GetInstance()->LoadStage3();
+
+	else if (CKeyMgr::GetInstance()->KeyDown('R'))
+		CObjMgr::GetInstance()->LoadStage4();
+
+	else if (CKeyMgr::GetInstance()->KeyDown('T'))
+		CObjMgr::GetInstance()->LoadStage5();
+	CObjMgr::GetInstance()->LateUpdate();
 }
 
 void CEdit::Render(HDC hDC)

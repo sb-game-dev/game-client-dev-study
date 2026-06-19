@@ -180,6 +180,51 @@ void CMouse::SetChoiceTile(int eID)
 		m_eChoiceTile = STAGE2TILE9;
 		break;
 	case 20:
+		m_eChoiceTile = STAGE3TILE1;
+		break;
+	case 21:
+		m_eChoiceTile = STAGE3TILE2;
+		break;
+	case 22:
+		m_eChoiceTile = STAGE3TILE3;
+		break;
+	case 23:
+		m_eChoiceTile = STAGE3TILE4;
+		break;
+	case 24:
+		m_eChoiceTile = STAGE3TILE5;
+		break;
+	case 25:
+		m_eChoiceTile = STAGE3TILE6;
+		break;
+	case 26:
+		m_eChoiceTile = STAGE3TILE7;
+		break;
+	case 27:
+		m_eChoiceTile = STAGE3TILE8;
+		break;
+	case 28:
+		m_eChoiceTile = STAGE3TILE9;
+		break;
+	case 29:
+		m_eChoiceTile = STAGE3TILE10;
+		break;
+	case 30:
+		m_eChoiceTile = STAGE3TILE11;
+		break;
+	case 31:
+		m_eChoiceTile = STAGE3TILE12;
+		break;
+	case 32:
+		m_eChoiceTile = STAGE3TILE13;
+		break;
+	case 33:
+		m_eChoiceTile = STAGE3TILE14;
+		break;
+	case 34:
+		m_eChoiceTile = STAGE3TILE15;
+		break;
+	case 35:
 		m_eChoiceTile = TILE_END;
 		break;
 	default:

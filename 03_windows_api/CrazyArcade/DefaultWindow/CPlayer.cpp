@@ -13,7 +13,7 @@
 #include "CInven.h"
 CPlayer::CPlayer():m_ePreMotion(MOTION_END), m_eCurMotion(START), m_fWalkSpeed(3.f), m_fBubbleSpeed(0.5f), m_dwFrameCount(GetTickCount64()),
 m_fBlockMoveTime(0.f), m_iBombRange(1), m_iBombMax(1), m_iBombCnt(0), m_bShowItemGainEffect(false), m_eItemFrameKey(ITEMTYPE_END),
-m_dwItemEffectFrameCount(GetTickCount64()),m_iCtrlSlotCnt(0), m_eCtrlSlot(ITEMTYPE_END), m_dwShieldEffectFrameCount(GetTickCount64())
+m_dwItemEffectFrameCount(GetTickCount64()),m_iCtrlSlotCnt(0), m_eCtrlSlot(ITEMTYPE_END), m_dwShieldEffectFrameCount(GetTickCount64()), m_pTileVector(nullptr)
 {
 	m_bShowShieldEffect = false;
 	m_iShieldFrame = 0;
@@ -36,8 +36,8 @@ void CPlayer::Initialize()
 {	
 	m_eRenderID = GAMEOBJECT;
 
-	m_tInfo.fCX = 30.f;
-	m_tInfo.fCY = 30.f;
+	m_tInfo.fCX = 40.f;
+	m_tInfo.fCY = 40.f;
 
 	m_fSpeed = 0;
 	m_tFrame.iStart = 0;
@@ -49,6 +49,7 @@ void CPlayer::Initialize()
 	m_tFrame.dwSpeed = 50.f;
 	m_tFrame.dwTime = GetTickCount64();
 
+	m_pTileVector = CObjMgr::GetInstance()->GetTilePtr();
 }
 
 int CPlayer::Update()
@@ -59,6 +60,7 @@ int CPlayer::Update()
 		KeyInput();
 	CheckFrame();
 	MoveFrame();
+	//cout << m_fBlockMoveTime << endl;
 	//cout << m_tInfo.fX << "\t" << m_tInfo.fY << endl;
 	return NOEVENT;
 }
@@ -576,8 +578,8 @@ void CPlayer::CheckFrame()
 
 void CPlayer::CheckPushBlock(DIRECTION eDIR)
 {
-	float fCheckX = m_tInfo.fX;
-	float fCheckY = m_tInfo.fY;
+	float fCheckX = AdjustPosX(m_tInfo.fX);
+	float fCheckY = AdjustPosY(m_tInfo.fY);
 	switch (eDIR)
 	{
 	case DIR_LEFT:
@@ -595,17 +597,34 @@ void CPlayer::CheckPushBlock(DIRECTION eDIR)
 	}
 	if (fCheckX<=40 || fCheckX >= 600 || fCheckY <=60 || fCheckY >= 540)
 		return;
-	for (auto& pTile : CObjMgr::GetInstance()->GetTile())
+
+	//int x = (fCheckX - MAP_LEFT) / TILECX;
+	//int y = (fCheckY - MAP_TOP) / TILECX;
+	//
+	//int iIndex = y * MAP_CNT_X + x;
+	//CTile* pTempTile = dynamic_cast<CTile*>((*m_pTileVector)[iIndex]);
+	//if (pTempTile->GetFrame().iStart == 2 && pTempTile->GetMove() == false)
+	//{
+	//	m_fBlockMoveTime += 1.f;
+	//
+	//	if (m_fBlockMoveTime >= 50.f)
+	//	{
+	//		m_fBlockMoveTime = 0;
+	//		pTempTile->SetMove(eDIR);
+	//	}
+	//}
+
+	for (auto& pTile : *m_pTileVector)
 	{
 		CTile* pTempTile = dynamic_cast<CTile*>(pTile);
 		if (pTempTile->GetFrame().iStart == 2)
 		{
-			if (fabsf(fCheckX - pTempTile->GetInfo()->fX) <= 15.f
-				&& fabsf(fCheckY - pTempTile->GetInfo()->fY) <= 15.f)
+			if (fabsf(fCheckX - pTempTile->GetInfo()->fX) <= 20.f
+				&& fabsf(fCheckY - pTempTile->GetInfo()->fY) <= 20.f)
 			{
 				m_fBlockMoveTime += 1.f;
-
-				if (m_fBlockMoveTime >= 21.f)
+	
+				if (m_fBlockMoveTime >= 22.f)
 				{
 					m_fBlockMoveTime = 0;
 					pTempTile->SetMove(eDIR);

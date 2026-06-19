@@ -63,5 +63,7 @@ private:
 
     bool        m_bShoe;
     float       m_fKickBombTime;
+
+    vector<CObj*>* m_pTileVector;
 };
 

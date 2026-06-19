@@ -20,7 +20,7 @@ public :
     void        Move();
 
     void        SetMove(DIRECTION eDIR);
-
+    bool        GetMove() { return m_bMove; }
 private:
     void        CreateItem();
 

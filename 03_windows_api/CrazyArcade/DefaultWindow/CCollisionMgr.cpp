@@ -194,6 +194,9 @@ void CCollisionMgr::CollisionBody(vector<CObj*>& DstList, list<CObj*>& SrcList)
 						SrcObj->SetPosY(fDeltaSizeY);
 					else												
 						SrcObj->SetPosY(-fDeltaSizeY);
+
+					if (DstObj->GetFrame().iStart == PUSH)
+						continue;
 					if (fDeltaSizeX < 20.f && fDeltaSizeY < 20.f)
 					{
 						if (DstObj->GetInfo()->fX < SrcObj->GetInfo()->fX)
@@ -208,6 +211,8 @@ void CCollisionMgr::CollisionBody(vector<CObj*>& DstList, list<CObj*>& SrcList)
 						SrcObj->SetPosX(fDeltaSizeX);
 					else
 						SrcObj->SetPosX(-fDeltaSizeX);
+					if (DstObj->GetFrame().iStart == PUSH)
+						continue;
 					if (fDeltaSizeX < 20.f && fDeltaSizeY < 20.f)
 					{
 						if (DstObj->GetInfo()->fY < SrcObj->GetInfo()->fY)

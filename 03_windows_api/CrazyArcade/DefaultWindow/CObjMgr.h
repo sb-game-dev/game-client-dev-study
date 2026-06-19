@@ -35,6 +35,7 @@ public:
 	void	LoadStage2();
 	void	LoadStage3();
 	void	LoadStage4();
+	void	LoadStage5();
 	void	DeleteObj(OBJID eID);
 	void	DeleteTile();
 	void	TileSwap(int iLeftIndex, int iRightIndex);

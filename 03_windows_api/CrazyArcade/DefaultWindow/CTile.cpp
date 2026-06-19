@@ -82,7 +82,7 @@ void CTile::Render(HDC hDC)
 	////
 	////int Index = iY * MAP_CNT_X + iX;
 	//TCHAR	szBuff[32] = L"";
-	//swprintf_s(szBuff, L"(%d,%d)", iX,iY);
+	//swprintf_s(szBuff, L"(%.0f,%.0f)", m_tInfo.fX,m_tInfo.fY);
 	//TextOut(hDC, m_tInfo.fX - 20, m_tInfo.fY-10, szBuff, lstrlen(szBuff));
 }
 
@@ -152,7 +152,7 @@ void CTile::Move()
 	else if (m_tInfo.fX > m_fDstX) m_tInfo.fX -= 2.0f;
 	else if (m_tInfo.fY < m_fDstY) m_tInfo.fY += 2.0f;
 	else if (m_tInfo.fY > m_fDstY)m_tInfo.fY -= 2.0f;
-	else
+	else if(m_tInfo.fX == m_fDstX && m_tInfo.fY == m_fDstY)
 	{
 		CObjMgr::GetInstance()->TileSwap(m_iCurIndex, m_iDstIndex);
 		m_bMove = false;
@@ -193,7 +193,7 @@ void CTile::SetMove(DIRECTION eDIR)
 
 void CTile::CheckFrame()
 {
-	if (m_dwFrameCount + m_tFrame.dwSpeed * m_tFrame.iEnd <= GetTickCount64())
+	if (m_dwFrameCount + m_tFrame.dwSpeed * m_tFrame.iEnd < GetTickCount64())
 	{
 		m_eCurMotion = DEATH;
 		m_pFrameKey = L"tile";
@@ -203,6 +203,9 @@ void CTile::CheckFrame()
 		m_tFrame.iMotion = 0;
 		m_tFrame.bLoop = false;
 
+		m_tFrame.iCX = TILECX;
+		m_tFrame.iCY = TILECY;
+		//m_bDraw = false;
 
 		if(rand()%10 < 4)
 			CreateItem();
