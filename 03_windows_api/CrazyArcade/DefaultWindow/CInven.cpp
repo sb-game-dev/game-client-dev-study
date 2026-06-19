@@ -23,10 +23,6 @@ CInven::CInven():m_iGold(100000),m_bDraw(false), m_bButtonCurState(false), m_bBu
 	m_ItemSlot.push_back(CAbstractFactory<CButton>::Create(569 + 11.5, 295 + 10.5, L"Slot3"));
 	m_ItemSlot.push_back(CAbstractFactory<CButton>::Create(649 + 11.5, 235 + 10.5, L"Slot4"));
 
-	//m_pItemSlot1 = CAbstractFactory<CButton>::Create(569 + 11.5, 175 + 10.5, L"Slot1");
-	//m_pItemSlot2 = CAbstractFactory<CButton>::Create(489 + 11.5, 235 + 10.5, L"Slot2");
-	//m_pItemSlot3 = CAbstractFactory<CButton>::Create(569 + 11.5, 295 + 10.5, L"Slot3");
-	//m_pItemSlot4 = CAbstractFactory<CButton>::Create(649 + 11.5, 235 + 10.5, L"Slot4");
 	ZeroMemory(&m_tItemStorageCnt, sizeof(m_tItemStorageCnt));
 }
 CInven::~CInven()
@@ -85,19 +81,27 @@ void CInven::LateUpdate()
 		}
 	}
 	
-	for (auto& pStorage : m_ItemStorage)
+	//for (auto& pStorage : m_ItemStorage)
+	for (int i = 0; i < m_ItemStorage.size(); i++)
 	{
 		if (CKeyMgr::GetInstance()->KeyPressing(VK_LBUTTON))
 		{
-			RECT rc = { pStorage->GetInfo()->fX - pStorage->GetInfo()->fCX,
-						pStorage->GetInfo()->fY - pStorage->GetInfo()->fCY,
-						pStorage->GetInfo()->fX + pStorage->GetInfo()->fCX,
-						pStorage->GetInfo()->fY + pStorage->GetInfo()->fCY,
+			RECT rc = { m_ItemStorage[i]->GetInfo()->fX - m_ItemStorage[i]->GetInfo()->fCX,
+						m_ItemStorage[i]->GetInfo()->fY - m_ItemStorage[i]->GetInfo()->fCY,
+						m_ItemStorage[i]->GetInfo()->fX + m_ItemStorage[i]->GetInfo()->fCX,
+						m_ItemStorage[i]->GetInfo()->fY + m_ItemStorage[i]->GetInfo()->fCY,
 			};
 			if (PtInRect(&rc, ptMouse))
 			{
 				if (dynamic_cast<CMouse*> (m_pMouse)->GetChoiceItem() == -1)
-					dynamic_cast<CMouse*> (m_pMouse)->SetChoiceItem(pStorage->GetFrame().iStart);
+				{
+					dynamic_cast<CMouse*> (m_pMouse)->SetChoiceItem(m_ItemStorage[i]->GetFrame().iStart);
+					//Safe_Delete(m_ItemStorage[i]);
+					//m_ItemStorage.erase(m_ItemStorage.begin() + i);
+					////UpdateStoragePos();
+					//cout << "마우스로 듦" << endl;
+					//cout << m_ItemStorage.size() << endl;
+				}
 			}
 		}
 		else
@@ -105,6 +109,31 @@ void CInven::LateUpdate()
 			dynamic_cast<CMouse*> (m_pMouse)->SetChoiceItem(-1);
 		}
 	}
+	//if (CKeyMgr::GetInstance()->KeyUp(VK_LBUTTON))
+	//{
+	//	if (ptMouse.y < 411)
+	//	{
+	//		if (dynamic_cast<CMouse*>(m_pMouse)->GetChoiceItem() != -1)
+	//		{
+	//			int iX = m_ItemStorage.size();
+	//			switch (dynamic_cast<CMouse*>(m_pMouse)->GetChoiceItem())
+	//			{
+	//			case 1:
+	//				m_ItemStorage.push_back(CAbstractFactory<CButton>::Create(478 + iX * 72, 411, L"InvenItem", TILE1));
+	//				break;
+	//			case 2:
+	//				m_ItemStorage.push_back(CAbstractFactory<CButton>::Create(478 + iX * 72, 411, L"InvenItem", TILE2));
+	//				break;
+	//			case 3:
+	//				m_ItemStorage.push_back(CAbstractFactory<CButton>::Create(478 + iX * 72, 411, L"InvenItem", PUSH));
+	//				break;
+	//			default:
+	//				break;
+	//			}
+	//			cout << "스토리치에 추가 후 스토리지 사이즈: " << m_ItemStorage.size() << endl;
+	//		}
+	//	}
+	//}
 }
 void CInven::Render(HDC hDC)
 {
@@ -117,17 +146,84 @@ void CInven::Render(HDC hDC)
 	BitBlt(hDC, 238, 505, 137, 31, hExitButton, 137 * m_pExitButton->GetFrame().iStart, 0, SRCCOPY);
 
 	HDC hSlot1 = CBmpMgr::GetInstance()->FindImage(L"Slot1");
-	BitBlt(hDC, 569, 175, 33, 31, hSlot1, 33 * m_ItemSlot[0]->GetFrame().iStart, 0, SRCCOPY);
+	switch (m_ItemSlot[0]->GetFrame().iStart)
+	{
+	case 1:
+		if(m_tItemStorageCnt.iNeedleCnt>0)
+			BitBlt(hDC, 569, 175, 33, 31, hSlot1, 33 * m_ItemSlot[0]->GetFrame().iStart, 0, SRCCOPY);
+		break;
+	case 2:
+		if (m_tItemStorageCnt.iDartCnt > 0)
+			BitBlt(hDC, 569, 175, 33, 31, hSlot1, 33 * m_ItemSlot[0]->GetFrame().iStart, 0, SRCCOPY);
+		break;
+	case 3:
+		if (m_tItemStorageCnt.iShieldCnt > 0)
+			BitBlt(hDC, 569, 175, 33, 31, hSlot1, 33 * m_ItemSlot[0]->GetFrame().iStart, 0, SRCCOPY);
+		break;
+	default:
+		break;
+	}
+	
 	
 	HDC hSlot2 = CBmpMgr::GetInstance()->FindImage(L"Slot2");
-	BitBlt(hDC, 489, 235, 33, 31, hSlot2, 33 * m_ItemSlot[1]->GetFrame().iStart, 0, SRCCOPY);
+	switch (m_ItemSlot[1]->GetFrame().iStart)
+	{
+	case 1:
+		if (m_tItemStorageCnt.iNeedleCnt > 0)
+			BitBlt(hDC, 489, 235, 33, 31, hSlot2, 33 * m_ItemSlot[1]->GetFrame().iStart, 0, SRCCOPY);
+		break;
+	case 2:
+		if (m_tItemStorageCnt.iDartCnt > 0)
+			BitBlt(hDC, 489, 235, 33, 31, hSlot2, 33 * m_ItemSlot[1]->GetFrame().iStart, 0, SRCCOPY);
+		break;
+	case 3:
+		if (m_tItemStorageCnt.iShieldCnt > 0)
+			BitBlt(hDC, 489, 235, 33, 31, hSlot2, 33 * m_ItemSlot[1]->GetFrame().iStart, 0, SRCCOPY);
+		break;
+	default:
+		break;
+	}
+	
 	
 	HDC hSlot3 = CBmpMgr::GetInstance()->FindImage(L"Slot3");
-	BitBlt(hDC, 569, 295, 33, 31, hSlot3, 33 * m_ItemSlot[2]->GetFrame().iStart, 0, SRCCOPY);
+	switch (m_ItemSlot[2]->GetFrame().iStart)
+	{
+	case 1:
+		if (m_tItemStorageCnt.iNeedleCnt > 0)
+			BitBlt(hDC, 569, 295, 33, 31, hSlot3, 33 * m_ItemSlot[2]->GetFrame().iStart, 0, SRCCOPY);
+		break;
+	case 2:
+		if (m_tItemStorageCnt.iDartCnt > 0)
+			BitBlt(hDC, 569, 295, 33, 31, hSlot3, 33 * m_ItemSlot[2]->GetFrame().iStart, 0, SRCCOPY);
+		break;
+	case 3:
+		if (m_tItemStorageCnt.iShieldCnt > 0)
+			BitBlt(hDC, 569, 295, 33, 31, hSlot3, 33 * m_ItemSlot[2]->GetFrame().iStart, 0, SRCCOPY);
+		break;
+	default:
+		break;
+	}
+	
 	
 	HDC hSlot4 = CBmpMgr::GetInstance()->FindImage(L"Slot4");
-	BitBlt(hDC, 649, 235, 33, 31, hSlot4, 33 * m_ItemSlot[3]->GetFrame().iStart, 0, SRCCOPY);
-
+	switch (m_ItemSlot[3]->GetFrame().iStart)
+	{
+	case 1:
+		if (m_tItemStorageCnt.iNeedleCnt > 0)
+			BitBlt(hDC, 649, 235, 33, 31, hSlot4, 33 * m_ItemSlot[3]->GetFrame().iStart, 0, SRCCOPY);
+		break;
+	case 2:
+		if (m_tItemStorageCnt.iDartCnt > 0)
+			BitBlt(hDC, 649, 235, 33, 31, hSlot4, 33 * m_ItemSlot[3]->GetFrame().iStart, 0, SRCCOPY);
+		break;
+	case 3:
+		if (m_tItemStorageCnt.iShieldCnt > 0)
+			BitBlt(hDC, 649, 235, 33, 31, hSlot4, 33 * m_ItemSlot[3]->GetFrame().iStart, 0, SRCCOPY);
+		break;
+	default:
+		break;
+	}
+	
 	for (auto& pStorage : m_ItemStorage)
 	{
 		HDC hStorage = CBmpMgr::GetInstance()->FindImage(pStorage->GetFrameKey());
@@ -244,4 +340,34 @@ void CInven::ExitButtonUpdate()
 	{
 		CSoundMgr::Get_Instance()->PlaySound(L"buttonCursor_0.wav", BUTTON_CURSOR, 0.1f);
 	}
+}
+
+void CInven::UpdateStoragePos()
+{
+	cout << "UpdateStoragePos" << endl;
+	//for (int i = 0; i < m_ItemStorage.size(); ++i)
+	//{
+	//	int iX = i % 4;
+	//	int iY = i / 4;
+	//	switch (m_ItemStorage[i]->GetFrame().iStart)
+	//	{
+	//	case IT_NEEDLE:
+	//		//if (m_tItemStorageCnt.iNeedleCnt > 0)
+	//			m_ItemStorage.push_back(CAbstractFactory<CButton>::Create(478 + iX * 72, 411, L"InvenItem", TILE1));
+	//		break;
+	//	case IT_DART:
+	//		//if (m_tItemStorageCnt.iDartCnt > 0)
+	//			m_ItemStorage.push_back(CAbstractFactory<CButton>::Create(478 + iX * 72, 411, L"InvenItem", TILE2));
+	//		break;
+	//	case IT_SHIELD:
+	//		//if (m_tItemStorageCnt.iShieldCnt > 0)
+	//			m_ItemStorage.push_back(CAbstractFactory<CButton>::Create(478 + iX * 72, 411, L"InvenItem", PUSH));
+	//		break;
+	//		//case IT_TRAMPOLINE:
+	//		//	m_ItemStorage.push_back(CAbstractFactory<CButton>::Create(478 + iX * 72, 175 + 10.5, L"InvenItem", BREAK));
+	//		//	break;
+	//	default:
+	//		break;
+	//	}
+	//}
 }

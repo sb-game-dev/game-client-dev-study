@@ -35,6 +35,7 @@ public:
 
 private:
 	void			ExitButtonUpdate();
+	void			UpdateStoragePos();
 
 public:
 	static CInven* GetInstance()
@@ -51,10 +52,6 @@ private:
 	static CInven*	m_pInstance;
 
 	int				m_iGold;
-	CObj*			m_pItemSlot1;
-	CObj*			m_pItemSlot2;
-	CObj*			m_pItemSlot3;
-	CObj*			m_pItemSlot4;
 
 	vector<CObj*>	m_ItemSlot;
 	vector<CObj*>	m_ItemStorage;

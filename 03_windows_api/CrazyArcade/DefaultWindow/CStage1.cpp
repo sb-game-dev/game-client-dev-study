@@ -79,14 +79,16 @@ void CStage1::Render(HDC hDC)
 
 	CObjMgr::GetInstance()->Render(hDC);
 	int iItemCnt = 0;
+	//cout << CInven::GetInstance()->GetItemSlotPtr()->size() << endl;
 	for (auto& pitem:*(CInven::GetInstance()->GetItemSlotPtr()))
 	{
-		if (pitem->GetFrame().iStart == 0 || pitem)
+		if (pitem->GetFrame().iStart == 0)
 		{
 			++iItemCnt;
 			continue;
 		}
 		HDC hSlotNum = CBmpMgr::GetInstance()->FindImage(L"InGameNumber");
+		
 		BitBlt(hDC,							// ¸ñÀûÁö DC
 			243 + 40 * iItemCnt,
 			568,
