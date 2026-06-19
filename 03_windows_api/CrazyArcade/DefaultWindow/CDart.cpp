@@ -18,7 +18,7 @@ void CDart::Initialize()
 	m_tInfo.fCX = 27.f;
 	m_tInfo.fCY = 9.f;
 
-	m_fSpeed = 010;
+	m_fSpeed = 8.f;
 	m_tFrame.iStart = 0;
 	m_tFrame.iEnd = 2;
 	m_tFrame.iMotion = 0;

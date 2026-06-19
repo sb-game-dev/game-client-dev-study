@@ -10,6 +10,7 @@
 #include "CDart.h"
 #include "CMonster.h"
 #include "CMark.h"
+#include "CSoundMgr.h"
 
 void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 {
@@ -33,6 +34,7 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 					pDstBomb->SetDead();
 					if (pSrcDart)
 					{
+						CSoundMgr::Get_Instance()->PlaySound(L"ExplodeBomb2.wav", BOMB_EXPLODE, 0.3f);
 						pSrcDart->SetDead();
 					}
 				}
