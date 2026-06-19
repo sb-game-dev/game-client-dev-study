@@ -263,6 +263,15 @@ void CStage4::Render(HDC hDC)
 		SRCCOPY);						// 그대로 복사하여 출력
 
 	CObjMgr::GetInstance()->Render(hDC); 
+	//HDC hTemp = CBmpMgr::GetInstance()->FindImage(L"dart_obj");
+	//
+	//BitBlt(hDC,							// 목적지 DC
+	//	0, 0,
+	//	27, 9,
+	//	hTemp,					// 원본 DC
+	//	0,								// 원본 이미지에서 가져오기 시작할 좌표의 LEFT, TOP
+	//	0,
+	//	SRCCOPY);						// 그대로 복사하여 출력
 
 	int iItemCnt = 0;
 	for (auto& pitem : *(CInven::GetInstance()->GetItemSlotPtr()))

@@ -45,7 +45,8 @@ public:
 	int		GetRemainMonster() { return m_ObjList[OBJ_MONSTER].size(); }
 	bool	GetRemainBoss() { return !m_ObjList[OBJ_BOSS].empty(); }
 	bool	GetRemainPlayer() {return m_ObjList[OBJ_PLAYER].size();}
-	
+	int		GetRemainDart() { return m_ObjList[OBJ_DART].size(); }
+
 	void	ReleaseRenderList();
 public:
 	static CObjMgr* GetInstance()

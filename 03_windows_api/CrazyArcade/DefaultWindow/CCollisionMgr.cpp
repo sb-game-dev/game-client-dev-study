@@ -149,7 +149,7 @@ void CCollisionMgr::CollisionAttack(vector<CObj*>& DstList, list<CObj*>& SrcList
 				}
 				else if (pDstTile && pSrcDart)
 				{
-					if (pDstTile->GetFrame().iStart != TILE1)
+					if ((pDstTile->GetFrame().iStart >= 2 && pDstTile->GetFrame().iStart <=10) || pDstTile->GetFrame().iStart>= 18)
 						pSrcDart->SetDead();
 				}
 			}

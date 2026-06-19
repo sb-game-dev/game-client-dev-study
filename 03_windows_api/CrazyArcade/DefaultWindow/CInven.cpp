@@ -163,8 +163,6 @@ void CInven::Render(HDC hDC)
 	default:
 		break;
 	}
-	
-	
 	HDC hSlot2 = CBmpMgr::GetInstance()->FindImage(L"Slot2");
 	switch (m_ItemSlot[1]->GetFrame().iStart)
 	{
@@ -183,7 +181,6 @@ void CInven::Render(HDC hDC)
 	default:
 		break;
 	}
-	
 	
 	HDC hSlot3 = CBmpMgr::GetInstance()->FindImage(L"Slot3");
 	switch (m_ItemSlot[2]->GetFrame().iStart)
@@ -241,8 +238,6 @@ void CInven::Render(HDC hDC)
 			(int)(pStorage->GetRect()->right),
 			(int)(pStorage->GetRect()->bottom)
 		);
-
-
 		TCHAR	szBuff[32] = L"";
 		int iCnt = 0;
 		switch (pStorage->GetFrame().iStart)
@@ -267,7 +262,6 @@ void CInven::Render(HDC hDC)
 		else
 			TextOut(hDC, pStorage->GetInfo()->fX + 19, pStorage->GetInfo()->fY + 10, szBuff, lstrlen(szBuff));
 	}
-
 }
 void CInven::Release()
 {

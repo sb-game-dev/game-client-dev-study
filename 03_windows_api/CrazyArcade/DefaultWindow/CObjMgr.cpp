@@ -177,6 +177,8 @@ void CObjMgr::LateUpdate()
 			pObj->Update_Rect();
 		}
 	}
+
+	//cout << GetRemainDart() << endl;
 }
 void CObjMgr::Render(HDC hDC)
 {
