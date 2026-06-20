@@ -118,6 +118,9 @@
     <Filter Include="01. Scene\03. Stage\04. Stage5">
       <UniqueIdentifier>{4b0a1602-aa51-40d1-a1d4-999a7e6b7857}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Obj\11. Base">
+      <UniqueIdentifier>{6790f7e5-883b-4a41-a6ed-fb7f11b151cf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -237,6 +240,9 @@
     <ClInclude Include="CStage5.h">
       <Filter>01. Scene\03. Stage\04. Stage5</Filter>
     </ClInclude>
+    <ClInclude Include="CBase.h">
+      <Filter>02. Obj\11. Base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefaultWindow.cpp">
@@ -340,6 +346,9 @@
     </ClCompile>
     <ClCompile Include="CStage5.cpp">
       <Filter>01. Scene\03. Stage\04. Stage5</Filter>
+    </ClCompile>
+    <ClCompile Include="CBase.cpp">
+      <Filter>02. Obj\11. Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

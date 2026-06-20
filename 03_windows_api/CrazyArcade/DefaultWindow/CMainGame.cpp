@@ -46,7 +46,7 @@ void CMainGame::Initialize()
 	CSoundMgr::Get_Instance()->Initialize();
 
 #ifdef _DEBUG
-	CSceneMgr::GetInstance()->SceneChangeReserve(SC_MENU);
+	CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE5);
 #elif NDEBUG
 	CSceneMgr::GetInstance()->SceneChangeReserve(SC_LOGO);
 #endif // _DEBUG
@@ -112,6 +112,7 @@ void CMainGame::InsertImg()
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/BackGround/stage_background.bmp", L"stage_background");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/BackGround/stage2.bmp", L"stage2");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/BackGround/shop.bmp", L"shop");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/BackGround/stage3.bmp", L"stage3");
 
 
 	//Button
@@ -155,6 +156,12 @@ void CMainGame::InsertImg()
 	//Tile
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile.bmp", L"tile");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile_hit.bmp", L"tile_hit");
+
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile_base1.bmp", L"tile_base1");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile_base2.bmp", L"tile_base2");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile_base3.bmp", L"tile_base3");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile_base4.bmp", L"tile_base4");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile_final.bmp", L"tile_final");
 
 	//Bubble
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Bomb/BlueBubble.bmp", L"BlueBubble");

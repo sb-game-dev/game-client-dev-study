@@ -13,7 +13,8 @@
 #include "CButton.h"
 #include "CMark.h"
 #include "CInven.h"
-CStage5::CStage5() :m_hBackGround(NULL)
+#include "CBase.h"
+CStage5::CStage5() :m_hBackGround(NULL), m_pTileVector(nullptr)
 {
 }
 
@@ -28,20 +29,34 @@ void CStage5::Initialize()
 
 
 #endif // _DEBUG
-	int iPlayer_StartX = 9;
-	int iPlayer_StartY = 9;
+	int iPlayer_StartX = 14;
+	int iPlayer_StartY = 11;
 	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create((iPlayer_StartX * 40) + 40, (iPlayer_StartY * 40) + 60, L"player_start"));
 
-	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((0 * 40) + 40, (0 * 40) + 60, L"Bean_Monster_Start"));
-	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((5 * 40) + 40, (4 * 40) + 60, L"Bean_Monster_Start"));
-	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((3 * 40) + 40, (12 * 40) + 60, L"Bean_Monster_Start"));
-	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((8 * 40) + 40, (6 * 40) + 60, L"Bean_Monster_Start"));
-	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((11 * 40) + 40, (12 * 40) + 60, L"Bean_Monster_Start"));
+	CObjMgr::GetInstance()->AddObject(OBJ_BASE, CAbstractFactory<CBase>::Create((2 * 40) + 40,  (3 * 40) + 60, L"tile_base1"));
+	CObjMgr::GetInstance()->AddObject(OBJ_BASE, CAbstractFactory<CBase>::Create((10 * 40) + 40, (1 * 40) + 60, L"tile_base2"));
+	CObjMgr::GetInstance()->AddObject(OBJ_BASE, CAbstractFactory<CBase>::Create((2 * 40) + 40, (11 * 40) + 60, L"tile_base3"));
+	CObjMgr::GetInstance()->AddObject(OBJ_BASE, CAbstractFactory<CBase>::Create((14 * 40) + 40, (5 * 40) + 60, L"tile_base4"));
+
+	CObjMgr::GetInstance()->AddObject(OBJ_BASE, CAbstractFactory<CBase>::Create((12 * 40) + 40, (11 * 40) + 60 + 20, L"tile_final"));
+
+
 
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(717, 576, L"button_stageExit"));
 
 	CObjMgr::GetInstance()->LoadStage5();
+	m_hBackGround = CBmpMgr::GetInstance()->FindImage(L"stage3");
+	m_pTileVector = CObjMgr::GetInstance()->GetTilePtr();
 
+	for (auto& pTile : *m_pTileVector)
+	{
+		int iStart = pTile->GetFrame().iStart;
+		if ((iStart >= 20 && iStart <= 30) || (iStart >=32 && iStart <=34))
+		{
+			pTile->Render(m_hBackGround);
+			pTile->SetDraw(false);
+		}
+	}
 
 	CSoundMgr::Get_Instance()->PlaySound(L"StageStart_7.wav", STAGE_START, 0.2f);
 }
@@ -55,16 +70,15 @@ int CStage5::Update()
 void CStage5::LateUpdate()
 {
 	CObjMgr::GetInstance()->LateUpdate();
-	
 }
 
 void CStage5::Render(HDC hDC)
 {
-	HDC hBackGround = CBmpMgr::GetInstance()->FindImage(L"stage_background");
+	
 	BitBlt(hDC,							// 목적지 DC
 		0, 0,
 		WINCX, WINCY,
-		hBackGround,					// 원본 DC
+		m_hBackGround,					// 원본 DC
 		0,								// 원본 이미지에서 가져오기 시작할 좌표의 LEFT, TOP
 		0,
 		SRCCOPY);						// 그대로 복사하여 출력

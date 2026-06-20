@@ -83,7 +83,8 @@ void CWave::Spread(int iBombRange)
 		if (RightIndex/ MAP_CNT_X != (RightIndex-1) / MAP_CNT_X)
 			break;
 		if (tempTileVec[RightIndex]->GetFrame().iStart <= 1||
-			(tempTileVec[RightIndex]->GetFrame().iStart >= 11 && tempTileVec[RightIndex]->GetFrame().iStart<=17))
+			(tempTileVec[RightIndex]->GetFrame().iStart >= 11 && tempTileVec[RightIndex]->GetFrame().iStart<=17) ||
+			(tempTileVec[RightIndex]->GetFrame().iStart >= 20 && tempTileVec[RightIndex]->GetFrame().iStart <= 30))
 		{
 			if (i == iBombRange)
 				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(m_tInfo.fX + m_tInfo.fCX * i, m_tInfo.fY, L"right_end"));
@@ -91,7 +92,7 @@ void CWave::Spread(int iBombRange)
 			else
 				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(m_tInfo.fX + m_tInfo.fCX * i, m_tInfo.fY, L"right"));
 		}
-		else if (tempTileVec[RightIndex]->GetFrame().iStart <= 3)
+		else if (tempTileVec[RightIndex]->GetFrame().iStart <= 3 || tempTileVec[RightIndex]->GetFrame().iStart == 31)
 		{
 			if (i == iBombRange)
 				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(m_tInfo.fX + m_tInfo.fCX * i, m_tInfo.fY, L"right_end"));
@@ -109,7 +110,8 @@ void CWave::Spread(int iBombRange)
 		if (LeftIndex<0 ||LeftIndex / MAP_CNT_X != (LeftIndex + 1) / MAP_CNT_X)
 			break;
 		if (tempTileVec[LeftIndex]->GetFrame().iStart <= 1||
-			(tempTileVec[LeftIndex]->GetFrame().iStart >= 11 && tempTileVec[LeftIndex]->GetFrame().iStart <= 17))
+			(tempTileVec[LeftIndex]->GetFrame().iStart >= 11 && tempTileVec[LeftIndex]->GetFrame().iStart <= 17) ||
+			(tempTileVec[LeftIndex]->GetFrame().iStart >= 20 && tempTileVec[LeftIndex]->GetFrame().iStart <= 30))
 		{
 			if (i == iBombRange)
 				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(m_tInfo.fX - m_tInfo.fCX * i, m_tInfo.fY , L"left_end"));
@@ -117,7 +119,7 @@ void CWave::Spread(int iBombRange)
 			else
 				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(m_tInfo.fX - m_tInfo.fCX * i, m_tInfo.fY , L"left"));
 		}
-		else if (tempTileVec[LeftIndex]->GetFrame().iStart <= 3)
+		else if (tempTileVec[LeftIndex]->GetFrame().iStart <= 3 || tempTileVec[LeftIndex]->GetFrame().iStart == 31)
 		{
 			if (i == iBombRange)
 				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(m_tInfo.fX - m_tInfo.fCX * i, m_tInfo.fY , L"left_end"));
@@ -135,7 +137,8 @@ void CWave::Spread(int iBombRange)
 		if (TopIndex < 0)
 			break;
 		if (tempTileVec[TopIndex]->GetFrame().iStart <= 1 ||
-			(tempTileVec[TopIndex]->GetFrame().iStart >= 11 && tempTileVec[TopIndex]->GetFrame().iStart <= 17))
+			(tempTileVec[TopIndex]->GetFrame().iStart >= 11 && tempTileVec[TopIndex]->GetFrame().iStart <= 17) ||
+			(tempTileVec[TopIndex]->GetFrame().iStart >= 20 && tempTileVec[TopIndex]->GetFrame().iStart <= 30))
 		{
 			if (i == iBombRange)
 				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(m_tInfo.fX, m_tInfo.fY - m_tInfo.fCY * i, L"up_end"));
@@ -143,7 +146,7 @@ void CWave::Spread(int iBombRange)
 			else
 				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(m_tInfo.fX, m_tInfo.fY - m_tInfo.fCY * i, L"up"));
 		}
-		else if (tempTileVec[TopIndex]->GetFrame().iStart <= 3)
+		else if (tempTileVec[TopIndex]->GetFrame().iStart <= 3 || tempTileVec[TopIndex]->GetFrame().iStart == 31)
 		{
 			if (i == iBombRange)
 				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(m_tInfo.fX, m_tInfo.fY - m_tInfo.fCY * i, L"up_end"));
@@ -161,7 +164,8 @@ void CWave::Spread(int iBombRange)
 		if (BottomIndex > 194)
 			return;
 		if (tempTileVec[BottomIndex]->GetFrame().iStart <= 1 ||
-			(tempTileVec[BottomIndex]->GetFrame().iStart >= 11 && tempTileVec[BottomIndex]->GetFrame().iStart <= 17))
+			(tempTileVec[BottomIndex]->GetFrame().iStart >= 11 && tempTileVec[BottomIndex]->GetFrame().iStart <= 17) ||
+			(tempTileVec[BottomIndex]->GetFrame().iStart >= 20 && tempTileVec[BottomIndex]->GetFrame().iStart <= 30))
 		{
 			if (i == iBombRange)
 				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(m_tInfo.fX, m_tInfo.fY + m_tInfo.fCY * i, L"down_end"));
@@ -169,7 +173,7 @@ void CWave::Spread(int iBombRange)
 			else
 				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(m_tInfo.fX, m_tInfo.fY + m_tInfo.fCY * i, L"down"));
 		}																										   
-		else if (tempTileVec[BottomIndex]->GetFrame().iStart <= 3)													   
+		else if (tempTileVec[BottomIndex]->GetFrame().iStart <= 3 || tempTileVec[BottomIndex]->GetFrame().iStart == 31)
 		{																										   
 			if (i == iBombRange)																				   
 				CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CAbstractFactory<CWave>::Create(m_tInfo.fX, m_tInfo.fY + m_tInfo.fCY * i, L"down_end"));

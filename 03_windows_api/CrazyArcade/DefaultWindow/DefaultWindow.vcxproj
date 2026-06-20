@@ -136,6 +136,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CAbstractFactory.h" />
+    <ClInclude Include="CBase.h" />
     <ClInclude Include="CBmpMgr.h" />
     <ClInclude Include="CBomb.h" />
     <ClInclude Include="CBoss.h" />
@@ -176,6 +177,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CBase.cpp" />
     <ClCompile Include="CBmpMgr.cpp" />
     <ClCompile Include="CBomb.cpp" />
     <ClCompile Include="CBoss.cpp" />

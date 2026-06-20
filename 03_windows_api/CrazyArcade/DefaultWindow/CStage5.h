@@ -1,5 +1,6 @@
 #pragma once
 #include "CScene.h"
+#include "CObj.h"
 class CStage5 :
     public CScene
 {
@@ -17,4 +18,5 @@ public:
 
 private:
     HDC             m_hBackGround;
+    vector<CObj*>*  m_pTileVector;
 };

@@ -600,7 +600,8 @@ int CObjMgr::GetRemainTile()
 		if (pTile->GetFrame().iStart == 2 
 			|| pTile->GetFrame().iStart == 3 
 			|| pTile->GetFrame().iStart == 18 
-			|| pTile->GetFrame().iStart == 19)
+			|| pTile->GetFrame().iStart == 19
+			|| (pTile->GetFrame().iStart>=31 && pTile->GetFrame().iStart<=34))
 			++iCnt;
 	}
 	return iCnt;

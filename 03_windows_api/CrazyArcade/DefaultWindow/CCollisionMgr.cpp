@@ -141,7 +141,7 @@ void CCollisionMgr::CollisionAttack(vector<CObj*>& DstList, list<CObj*>& SrcList
 				CDart* pSrcDart = dynamic_cast<CDart*>(Src);
 				if (pDstTile && pSrWave)
 				{
-					if (pDstTile->GetFrame().iStart == PUSH || pDstTile->GetFrame().iStart == BREAK)
+					if (pDstTile->GetFrame().iStart == PUSH || pDstTile->GetFrame().iStart == BREAK || pDstTile->GetFrame().iStart == STAGE3TILE12)
 					{
 						pSrWave->SetDead();
 						pDstTile->SetHit();
@@ -149,7 +149,7 @@ void CCollisionMgr::CollisionAttack(vector<CObj*>& DstList, list<CObj*>& SrcList
 				}
 				else if (pDstTile && pSrcDart)
 				{
-					if ((pDstTile->GetFrame().iStart >= 2 && pDstTile->GetFrame().iStart <=10) || pDstTile->GetFrame().iStart>= 18)
+					if ((pDstTile->GetFrame().iStart >= 2 && pDstTile->GetFrame().iStart <=10) || pDstTile->GetFrame().iStart>= 18 || pDstTile->GetFrame().iStart >= 31)
 						pSrcDart->SetDead();
 				}
 			}
@@ -172,7 +172,9 @@ void CCollisionMgr::CollisionBody(vector<CObj*>& DstList, list<CObj*>& SrcList)
 			CTile* pTempTile = dynamic_cast<CTile*> (DstObj);
 			CBomb* pSrcBomb = dynamic_cast<CBomb*> (SrcObj);
 
-			if (pTempTile->GetFrame().iStart <= 1 || (pTempTile->GetFrame().iStart >= 11 && pTempTile->GetFrame().iStart <= 17))
+			if (pTempTile->GetFrame().iStart <= 1
+				|| (pTempTile->GetFrame().iStart >= 11 && pTempTile->GetFrame().iStart <= 17)
+				|| (pTempTile->GetFrame().iStart >= 20 && pTempTile->GetFrame().iStart <= 30))
 				continue;
 		
 			if (CheckRect(DstObj, SrcObj, fDeltaSizeX, fDeltaSizeY))
