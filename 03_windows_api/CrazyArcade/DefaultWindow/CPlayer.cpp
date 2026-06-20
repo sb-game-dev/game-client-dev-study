@@ -13,7 +13,8 @@
 #include "CInven.h"
 CPlayer::CPlayer():m_ePreMotion(MOTION_END), m_eCurMotion(START), m_fWalkSpeed(3.f), m_fBubbleSpeed(0.5f), m_dwFrameCount(GetTickCount64()),
 m_fBlockMoveTime(0.f), m_iBombRange(1), m_iBombMax(1), m_iBombCnt(0), m_bShowItemGainEffect(false), m_eItemFrameKey(ITEMTYPE_END),
-m_dwItemEffectFrameCount(GetTickCount64()),m_iCtrlSlotCnt(0), m_eCtrlSlot(ITEMTYPE_END), m_dwShieldEffectFrameCount(GetTickCount64()), m_pTileVector(nullptr)
+m_dwItemEffectFrameCount(GetTickCount64()),m_iCtrlSlotCnt(0), m_eCtrlSlot(ITEMTYPE_END), m_dwShieldEffectFrameCount(GetTickCount64()), m_pTileVector(nullptr),
+m_bRide(false), m_fKartSpeed(6.f)
 {
 	m_bShowShieldEffect = false;
 	m_iShieldFrame = 0;
@@ -424,54 +425,144 @@ void CPlayer::ChangeMotion()
 	switch (m_eCurMotion)
 	{
 	case IDLE:
-		m_fSpeed = m_fWalkSpeed;
-		m_tFrame.iStart = 0;
-		m_tFrame.iEnd = 1;
-		m_tFrame.iMotion = 0;
-		m_tFrame.bLoop = false;
-		m_tFrame.iCX = PLAYER_CX;
-		m_tFrame.iCY = PLAYER_CY;
-		m_tFrame.dwSpeed = 100.f;
-		m_tFrame.dwTime = GetTickCount64();
+		if (m_bRide == false)
+		{
+			m_fSpeed = m_fWalkSpeed;
+			m_tFrame.iStart = 0;
+			m_tFrame.iEnd = 1;
+			m_tFrame.iMotion = 0;
+			m_tFrame.bLoop = false;
+			m_tFrame.iCX = PLAYER_CX;
+			m_tFrame.iCY = PLAYER_CY;
+			m_tFrame.dwSpeed = 100.f;
+			m_tFrame.dwTime = GetTickCount64();
+		}
+		else
+		{
+			m_fSpeed = m_fKartSpeed;
+			m_tFrame.iStart = 0;
+			m_tFrame.iEnd = 1;
+			m_tFrame.iMotion = 0;
+			m_tFrame.bLoop = false;
+			m_tFrame.dwSpeed = 100.f;
+			m_tFrame.dwTime = GetTickCount64();
+		}
 		break;
 	case LEFT:
-		m_fSpeed = m_fWalkSpeed;
-		m_pFrameKey = L"player_left";
-		m_tFrame.iStart = 0;
-		m_tFrame.iEnd = 6;
-		m_tFrame.iMotion = 0;
-		m_tFrame.bLoop = true;
-		m_tFrame.iCX = PLAYER_CX;
-		m_tFrame.iCY = PLAYER_CY;
-		m_tFrame.dwSpeed = 100.f;
-		m_tFrame.dwTime = GetTickCount64();
+		if (m_bRide == false)
+		{
+			m_fSpeed = m_fWalkSpeed;
+			m_pFrameKey = L"player_left";
+			m_tFrame.iStart = 0;
+			m_tFrame.iEnd = 6;
+			m_tFrame.iMotion = 0;
+			m_tFrame.bLoop = true;
+			m_tFrame.iCX = PLAYER_CX;
+			m_tFrame.iCY = PLAYER_CY;
+			m_tFrame.dwSpeed = 100.f;
+			m_tFrame.dwTime = GetTickCount64();
+		}
+		else
+		{
+			m_fSpeed = m_fKartSpeed;
+			m_pFrameKey = L"kart_left";
+			m_tFrame.iStart = 0;
+			m_tFrame.iEnd = 4;
+			m_tFrame.iMotion = 0;
+			m_tFrame.bLoop = true;
+			m_tFrame.iCX = 47;
+			m_tFrame.iCY = 80;
+			m_tFrame.dwSpeed = 100.f;
+			m_tFrame.dwTime = GetTickCount64();
+		}
 		break;
 	case RIGHT:
-		m_fSpeed = m_fWalkSpeed;
-		m_pFrameKey = L"player_right";
-		m_tFrame.iStart = 0;
-		m_tFrame.iEnd = 6;
-		m_tFrame.iMotion = 0;
-		m_tFrame.bLoop = true;
-		m_tFrame.iCX = PLAYER_CX;
-		m_tFrame.iCY = PLAYER_CY;
-		m_tFrame.dwSpeed = 100.f;
-		m_tFrame.dwTime = GetTickCount64();
+		if (m_bRide == false)
+		{
+			m_fSpeed = m_fWalkSpeed;
+			m_pFrameKey = L"player_right";
+			m_tFrame.iStart = 0;
+			m_tFrame.iEnd = 6;
+			m_tFrame.iMotion = 0;
+			m_tFrame.bLoop = true;
+			m_tFrame.iCX = PLAYER_CX;
+			m_tFrame.iCY = PLAYER_CY;
+			m_tFrame.dwSpeed = 100.f;
+			m_tFrame.dwTime = GetTickCount64();
+		}
+		else
+		{
+			m_fSpeed = m_fKartSpeed;
+			m_pFrameKey = L"kart_right";
+			m_tFrame.iStart = 0;
+			m_tFrame.iEnd = 4;
+			m_tFrame.iMotion = 0;
+			m_tFrame.bLoop = true;
+			m_tFrame.iCX = 47;
+			m_tFrame.iCY = 80;
+			m_tFrame.dwSpeed = 100.f;
+			m_tFrame.dwTime = GetTickCount64();
+		}
 		break;
 	case UP:
-		m_fSpeed = m_fWalkSpeed;
-		m_pFrameKey = L"player_up";
-		m_tFrame.iStart = 0;
-		m_tFrame.iEnd = 8;
-		m_tFrame.iMotion = 0;
-		m_tFrame.bLoop = true;
-		m_tFrame.iCX = PLAYER_CX;
-		m_tFrame.iCY = PLAYER_CY;
-		m_tFrame.dwSpeed = 100.f;
-		m_tFrame.dwTime = GetTickCount64();
+		if (m_bRide == false)
+		{
+			m_fSpeed = m_fWalkSpeed;
+			m_pFrameKey = L"player_up";
+			m_tFrame.iStart = 0;
+			m_tFrame.iEnd = 8;
+			m_tFrame.iMotion = 0;
+			m_tFrame.bLoop = true;
+			m_tFrame.iCX = PLAYER_CX;
+			m_tFrame.iCY = PLAYER_CY;
+			m_tFrame.dwSpeed = 100.f;
+			m_tFrame.dwTime = GetTickCount64();
+		}
+		else
+		{
+			m_fSpeed = m_fKartSpeed;
+			m_pFrameKey = L"kart_up";
+			m_tFrame.iStart = 0;
+			m_tFrame.iEnd = 4;
+			m_tFrame.iMotion = 0;
+			m_tFrame.bLoop = true;
+			m_tFrame.iCX = 44;
+			m_tFrame.iCY = 80;
+			m_tFrame.dwSpeed = 100.f;
+			m_tFrame.dwTime = GetTickCount64();
+		}
 		break;
 	case DOWN:
-		m_fSpeed = m_fWalkSpeed;
+		
+		if (m_bRide == false)
+		{
+			m_fSpeed = m_fWalkSpeed;
+			m_pFrameKey = L"player_down";
+			m_tFrame.iStart = 0;
+			m_tFrame.iEnd = 8;
+			m_tFrame.iMotion = 0;
+			m_tFrame.bLoop = true;
+			m_tFrame.iCX = PLAYER_CX;
+			m_tFrame.iCY = PLAYER_CY;
+			m_tFrame.dwSpeed = 100.f;
+			m_tFrame.dwTime = GetTickCount64();
+		}
+		else
+		{
+			m_fSpeed = m_fKartSpeed;
+			m_pFrameKey = L"kart_down";
+			m_tFrame.iStart = 0;
+			m_tFrame.iEnd = 4;
+			m_tFrame.iMotion = 0;
+			m_tFrame.bLoop = true;
+			m_tFrame.iCX = 44;
+			m_tFrame.iCY = 80;
+			m_tFrame.dwSpeed = 100.f;
+			m_tFrame.dwTime = GetTickCount64();
+		}
+		break;
+	case DISMOUNT:
+		m_fSpeed = 0;
 		m_pFrameKey = L"player_down";
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 8;
@@ -656,7 +747,20 @@ void CPlayer::CheckKickBomb(DIRECTION eDIR)
 		}
 	}
 }
-
+void CPlayer::SetHit()
+{
+	if (m_bRide == false)
+	{
+		m_eCurMotion = HIT; 
+		ChangeMotion();
+	}
+	else
+	{
+		m_bRide = false;
+		m_eCurMotion = DISMOUNT;
+		ChangeMotion();
+	}
+}
 void CPlayer::CreateBomb()
 {
 	float fX = AdjustPosX(m_tInfo.fX);
@@ -844,6 +948,12 @@ void CPlayer::PickUpItem(const WCHAR* pItemFrameKey)
 	else if (!lstrcmp(pItemFrameKey, L"shoe"))
 	{
 		m_bShoe = true;
+	}
+	else if (!lstrcmp(pItemFrameKey, L"joystick"))
+	{
+		m_ePreMotion = MOTION_END;
+		m_bRide = true;
+		ChangeMotion();
 	}
 	else if (!lstrcmp(pItemFrameKey, L"trampoline"))
 	{

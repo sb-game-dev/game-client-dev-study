@@ -144,6 +144,7 @@
     <ClInclude Include="CCollisionMgr.h" />
     <ClInclude Include="CDart.h" />
     <ClInclude Include="CEdit.h" />
+    <ClInclude Include="CGasStation.h" />
     <ClInclude Include="CImgMgr.h" />
     <ClInclude Include="CInven.h" />
     <ClInclude Include="CItem.h" />
@@ -185,6 +186,7 @@
     <ClCompile Include="CCollisionMgr.cpp" />
     <ClCompile Include="CDart.cpp" />
     <ClCompile Include="CEdit.cpp" />
+    <ClCompile Include="CGasStation.cpp" />
     <ClCompile Include="CImgMgr.cpp" />
     <ClCompile Include="CInven.cpp" />
     <ClCompile Include="CItem.cpp" />

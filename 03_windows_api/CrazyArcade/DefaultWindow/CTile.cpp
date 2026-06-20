@@ -5,6 +5,7 @@
 #include "CObjMgr.h"
 #include "CItem.h"
 #include "CAbstractFactory.h"
+#include "CSceneMgr.h"
 CTile::CTile(): m_dwFrameCount(GetTickCount64()), m_pImg(nullptr), m_eDirection(DIR_END), m_eCurMotion(IDLE),m_ePreMotion(MOTION_END),
 m_eTileID(TILE_END), m_iCurIndex(0),m_iDstIndex(0),m_bMove(false),m_fDstX(0.f),m_fDstY(0.f)
 {
@@ -223,6 +224,19 @@ void CTile::CreateItem()
 		L"bubble" ,L"roller",L"fluid" ,L"needle" ,
 		L"dart" ,L"shield" ,L"shoe" ,L"trampoline"
 	};
-	
-	CObjMgr::GetInstance()->AddObject(OBJ_ITEM ,CAbstractFactory<CItem>::Create(m_tInfo.fX, m_tInfo.fY, pItemType[rand() % 7]));
+	if (CSceneMgr::GetInstance()->GetCurScene() == SC_STAGE5)
+	{
+		if (rand() % 100 <= 95)
+		{
+			CObjMgr::GetInstance()->AddObject(OBJ_ITEM, CAbstractFactory<CItem>::Create(m_tInfo.fX, m_tInfo.fY, L"joystick"));
+		}
+		else
+		{
+			CObjMgr::GetInstance()->AddObject(OBJ_ITEM, CAbstractFactory<CItem>::Create(m_tInfo.fX, m_tInfo.fY, pItemType[rand() % 7]));
+		}
+	}
+	else
+	{
+		CObjMgr::GetInstance()->AddObject(OBJ_ITEM ,CAbstractFactory<CItem>::Create(m_tInfo.fX, m_tInfo.fY, pItemType[rand() % 7]));
+	}
 }

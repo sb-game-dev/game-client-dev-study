@@ -127,6 +127,7 @@ void CMainGame::InsertImg()
 
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_FirstStage.bmp", L"button_FirstStage");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_SecondStage.bmp", L"button_SecondStage");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_ThirdStage.bmp", L"button_ThirdStage");
 
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_stageExit.bmp", L"button_stageExit");
 
@@ -143,6 +144,11 @@ void CMainGame::InsertImg()
 
 	//Player
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_start.bmp", L"player_start");
+
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/kart_up.bmp", L"kart_up");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/kart_right.bmp", L"kart_right");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/kart_left.bmp", L"kart_left");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/kart_down.bmp", L"kart_down");
 
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_down.bmp", L"player_down");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_up.bmp", L"player_up");
@@ -163,6 +169,8 @@ void CMainGame::InsertImg()
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile_base4.bmp", L"tile_base4");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile_final.bmp", L"tile_final");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile_start.bmp", L"tile_start");
+
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/GasStation/GasStation.bmp", L"GasStation");
 
 	//Bubble
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Bomb/BlueBubble.bmp", L"BlueBubble");
@@ -190,6 +198,7 @@ void CMainGame::InsertImg()
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Item/new/shield.bmp", L"shield");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Item/new/shoe.bmp", L"shoe");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Item/new/trampoline.bmp", L"trampoline");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Item/new/joystick.bmp", L"joystick");
 
 	//Monster
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Monster/Bean_Monster_Start.bmp", L"Bean_Monster_Start");

@@ -5,7 +5,7 @@ class CBase :
 {
 public:
     CBase();
-    ~CBase();
+    virtual~CBase();
 public:
     void    Initialize()       override;
     int     Update()           override;

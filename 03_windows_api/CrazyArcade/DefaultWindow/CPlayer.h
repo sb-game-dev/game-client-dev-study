@@ -29,12 +29,14 @@ private:
     void        ShowCtrlSlot(HDC hDC);
     void        ShowShield(HDC hDC);
 public:
-    void        SetHit() { m_eCurMotion = HIT; ChangeMotion(); }
+    void        SetHit();// { m_eCurMotion = HIT; ChangeMotion(); }
     void        SetBossHit(){ m_eCurMotion = DEATH; ChangeMotion(); }
     void        SetReduceBombCnt() { --m_iBombCnt; }
 
     MOTION      GetCurMotion() { return m_eCurMotion; }
     bool        GetShield() { return m_bShowShieldEffect; }
+    bool        GetRide() { return m_bRide; }
+
 
     void        PickUpItem(const WCHAR* pItemFrameKey);
 private:
@@ -42,6 +44,7 @@ private:
     MOTION      m_eCurMotion;
     float       m_fWalkSpeed;
     float       m_fBubbleSpeed;
+    float       m_fKartSpeed;
 
     ULONGLONG   m_dwFrameCount;
     ULONGLONG   m_dwItemEffectFrameCount;
@@ -60,7 +63,7 @@ private:
     ITEMTYPE    m_eCtrlSlot;
     int         m_iCtrlSlotCnt;
 
-
+    bool        m_bRide;
     bool        m_bShoe;
     float       m_fKickBombTime;
 

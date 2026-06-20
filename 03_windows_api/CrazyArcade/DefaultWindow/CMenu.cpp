@@ -25,6 +25,8 @@ void CMenu::Initialize()
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(508, 347, L"button_stageStart"));
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(338, 225, L"button_FirstStage"));
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(509, 225, L"button_SecondStage"));
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(679.5, 225, L"button_ThirdStage"));
+
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(176, 585, L"button_shop"));
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(662, 584, L"button_myPage"));
 
@@ -59,7 +61,9 @@ void CMenu::LateUpdate()
 		{
 			if (PtInRect(pButton->GetRect(), ptMouse) && CKeyMgr::GetInstance()->KeyDown(VK_LBUTTON))
 			{
-				if (!lstrcmp(L"button_FirstStage", pButton->GetFrameKey()) || !lstrcmp(L"button_SecondStage", pButton->GetFrameKey()))
+				if (!lstrcmp(L"button_FirstStage", pButton->GetFrameKey()) || 
+					!lstrcmp(L"button_SecondStage", pButton->GetFrameKey()) || 
+					!lstrcmp(L"button_ThirdStage", pButton->GetFrameKey()))
 				{
 					m_pSelectStage = pButton;
 					pButton->SetStartFrame(1);
@@ -70,10 +74,14 @@ void CMenu::LateUpdate()
 						CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE1);
 					else if (m_pSelectStage && !lstrcmp(L"button_SecondStage", m_pSelectStage->GetFrameKey()))
 						CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE4);
+					else if (m_pSelectStage && !lstrcmp(L"button_ThirdStage", m_pSelectStage->GetFrameKey()))
+						CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE5);
 				}
 			}
-			if ((!lstrcmp(L"button_FirstStage", pButton->GetFrameKey()) || !lstrcmp(L"button_SecondStage", pButton->GetFrameKey())) &&
-				pButton != m_pSelectStage)
+			if ((!lstrcmp(L"button_FirstStage", pButton->GetFrameKey()) || 
+				!lstrcmp(L"button_SecondStage", pButton->GetFrameKey()) || 
+				!lstrcmp(L"button_ThirdStage", pButton->GetFrameKey())) 
+				&&	pButton != m_pSelectStage)
 			{
 				pButton->SetStartFrame(0);
 			}

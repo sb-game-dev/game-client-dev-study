@@ -10,15 +10,17 @@ public:
 	~CSceneMgr();
 
 public:
-	void ChangeScene(SCENEID eID);
-	int	 Update();
-	void LateUpdate();
-	void Render(HDC hDC);
-	void Release();
+	void		ChangeScene(SCENEID eID);
+	int			Update();
+	void		LateUpdate();
+	void		Render(HDC hDC);
+	void		Release();
 
 
-	void SceneChangeReserve(SCENEID eID);
-	void SceneProcess();
+	void		SceneChangeReserve(SCENEID eID);
+	void		SceneProcess();
+
+	SCENEID		GetCurScene() { return m_eCurScene; }
 public:
 	static CSceneMgr* GetInstance()
 	{
@@ -37,5 +39,7 @@ private:
 
 	bool				m_bSceneReserve;
 	SCENEID				m_eNextScene;
+	SCENEID				m_eCurScene;
+
 };	
 

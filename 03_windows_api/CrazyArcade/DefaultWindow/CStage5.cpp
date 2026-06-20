@@ -14,6 +14,7 @@
 #include "CMark.h"
 #include "CInven.h"
 #include "CBase.h"
+#include "CGasStation.h"
 CStage5::CStage5() :m_hBackGround(NULL), m_pTileVector(nullptr)
 {
 	m_pBaseStart	= nullptr;
@@ -65,6 +66,8 @@ void CStage5::Initialize()
 
 	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBaseFinal);
 
+	CObjMgr::GetInstance()->AddObject(OBJ_GASSTATION, CAbstractFactory<CGasStation>::Create(260, 159.5, L"GasStation"));
+
 
 
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(717, 576, L"button_stageExit"));
@@ -91,8 +94,15 @@ void CStage5::Initialize()
 
 int CStage5::Update()
 {
-	CObjMgr::GetInstance()->Update();
-	CheckBase();
+	if (m_iTrackCnt > 0)
+	{
+		CObjMgr::GetInstance()->Update();
+		CheckBase();
+	}
+	else
+	{
+		CSceneMgr::GetInstance()->SceneChangeReserve(SC_MENU);
+	}
 	return 0;
 }
 
@@ -183,11 +193,17 @@ void CStage5::Release()
 	CObjMgr::GetInstance()->DeleteObj(OBJ_BUTTON);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_MONSTER);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_ITEM);
+
+	CObjMgr::GetInstance()->DeleteObj(OBJ_BASE);
+	CObjMgr::GetInstance()->DeleteObj(OBJ_GASSTATION);
+
 	CObjMgr::GetInstance()->DeleteTile();
 }
 
 void CStage5::CheckBase()
 {
+	if (dynamic_cast<CPlayer*>(m_pPlayer)->GetRide() == false)
+		return;
 	RECT rc;
 	if (m_iTrackCnt == 3 && m_iNextBase == 0
 		&& IntersectRect(&rc, m_pBaseStart->GetRect(), m_pPlayer->GetRect()))

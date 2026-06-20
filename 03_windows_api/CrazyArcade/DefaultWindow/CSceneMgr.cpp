@@ -11,7 +11,7 @@
 #include "CMenu.h"
 CSceneMgr* CSceneMgr::m_pInstance = nullptr;
 
-CSceneMgr::CSceneMgr():m_pScene(NULL), m_bSceneReserve(false), m_eNextScene(SC_END)
+CSceneMgr::CSceneMgr():m_pScene(NULL), m_bSceneReserve(false), m_eNextScene(SC_END), m_eCurScene(SC_END)
 {
 }
 
@@ -23,6 +23,7 @@ CSceneMgr::~CSceneMgr()
 void CSceneMgr::ChangeScene(SCENEID eID)
 {
 	Safe_Delete(m_pScene);
+	m_eCurScene = eID;
 	switch (eID)
 	{
 	case SC_LOGO:

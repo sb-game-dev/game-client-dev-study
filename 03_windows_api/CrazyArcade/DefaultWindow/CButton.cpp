@@ -194,6 +194,21 @@ void CButton::Initialize()
 		m_tFrame.dwSpeed = 100.f;
 		m_tFrame.dwTime = GetTickCount64();
 	}
+
+	else if (!lstrcmp(L"button_ThirdStage", m_pFrameKey))
+	{
+		m_tInfo.fCX = 141;
+		m_tInfo.fCY = 128;
+
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 2;
+		m_tFrame.iMotion = 0;
+		m_tFrame.bLoop = false;
+		m_tFrame.iCX = m_tInfo.fCX;
+		m_tFrame.iCY = m_tInfo.fCY;
+		m_tFrame.dwSpeed = 100.f;
+		m_tFrame.dwTime = GetTickCount64();
+		}
 	else if (!lstrcmp(L"button_save", m_pFrameKey))
 	{
 		m_tInfo.fCX = 162;
@@ -296,7 +311,7 @@ int CButton::Update()
 	else
 	{
 		m_bCurState = false;
-		if (lstrcmp(L"button_edit", m_pFrameKey) && (lstrcmp(L"button_FirstStage", m_pFrameKey) && lstrcmp(L"button_SecondStage", m_pFrameKey)))
+		if (lstrcmp(L"button_edit", m_pFrameKey) && (lstrcmp(L"button_FirstStage", m_pFrameKey) && lstrcmp(L"button_SecondStage", m_pFrameKey) && lstrcmp(L"button_ThirdStage", m_pFrameKey)))
 			m_tFrame.iStart = 0;
 	}
 	if (m_bCurState == true && (m_bCurState != m_bPreState))
