@@ -36,8 +36,8 @@ void CPlayer::Initialize()
 {	
 	m_eRenderID = GAMEOBJECT;
 
-	m_tInfo.fCX = 40.f;
-	m_tInfo.fCY = 40.f;
+	m_tInfo.fCX = 30.f;
+	m_tInfo.fCY = 30.f;
 
 	m_fSpeed = 0;
 	m_tFrame.iStart = 0;
@@ -60,8 +60,6 @@ int CPlayer::Update()
 		KeyInput();
 	CheckFrame();
 	MoveFrame();
-	//cout << m_fBlockMoveTime << endl;
-	//cout << m_tInfo.fX << "\t" << m_tInfo.fY << endl;
 	return NOEVENT;
 }
 

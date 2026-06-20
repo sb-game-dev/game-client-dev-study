@@ -570,12 +570,9 @@ void CObjMgr::DeleteTile()
 
 void CObjMgr::TileSwap(int iLeftIndex, int iRightIndex)
 {
-	int temp = m_TileVec[iLeftIndex]->GetFrame().iStart;
-	m_TileVec[iLeftIndex]->SetStartFrame( m_TileVec[iRightIndex]->GetFrame().iStart);
-	m_TileVec[iRightIndex]->SetStartFrame(temp);
-	cout << "TileSwap" << endl;
-	cout << "LeftIndex = " << iLeftIndex << "\tRightIndex = " << iRightIndex << endl;
-	//swap(m_TileVec[iLeftIndex], m_TileVec[iRightIndex]);
+	//cout << "TileSwap" << endl;
+	//cout << "LeftIndex = " << iLeftIndex << "\tRightIndex = " << iRightIndex << endl;
+	swap(m_TileVec[iLeftIndex], m_TileVec[iRightIndex]);
 }
 
 void CObjMgr::PlayerBombCollision()
