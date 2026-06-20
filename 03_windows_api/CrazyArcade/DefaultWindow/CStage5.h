@@ -19,4 +19,11 @@ public:
 private:
     HDC             m_hBackGround;
     vector<CObj*>*  m_pTileVector;
+
+    CObj*           m_pBaseStart;
+    CObj*           m_pBase1;
+    CObj*           m_pBase2;
+    CObj*           m_pBase3;
+    CObj*           m_pBase4;
+    CObj*           m_pBaseFinal;
 };

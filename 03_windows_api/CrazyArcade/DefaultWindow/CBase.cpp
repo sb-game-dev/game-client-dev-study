@@ -2,7 +2,7 @@
 #include "CBase.h"
 #include "CBmpMgr.h"
 
-CBase::CBase():m_bBaseMoveFrame(true)
+CBase::CBase():m_bBaseMoveFrame(false)
 {
 }
 
@@ -15,7 +15,7 @@ void CBase::Initialize()
 {
 	m_eRenderID = BACKGROUND;
 
-	if (!lstrcmp(L"tile_final", m_pFrameKey))
+	if (!lstrcmp(L"tile_final", m_pFrameKey) || !lstrcmp(L"tile_start", m_pFrameKey))
 		m_tInfo.fCY = 80.f;
 	else
 		m_tInfo.fCY = 40.f;
@@ -50,6 +50,8 @@ void CBase::LateUpdate()
 
 void CBase::Render(HDC hDC)
 {
+	if (m_bDraw == false)
+		return;
 	HDC hBase = CBmpMgr::GetInstance()->FindImage(m_pFrameKey);
 	BitBlt(hDC,							// 格利瘤 DC
 		m_tRect.left,					// 格利瘤 LEFT,RIGHT

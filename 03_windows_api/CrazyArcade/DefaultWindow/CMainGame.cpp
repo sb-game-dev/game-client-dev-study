@@ -162,6 +162,7 @@ void CMainGame::InsertImg()
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile_base3.bmp", L"tile_base3");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile_base4.bmp", L"tile_base4");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile_final.bmp", L"tile_final");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile_start.bmp", L"tile_start");
 
 	//Bubble
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Bomb/BlueBubble.bmp", L"BlueBubble");

@@ -16,6 +16,12 @@
 #include "CBase.h"
 CStage5::CStage5() :m_hBackGround(NULL), m_pTileVector(nullptr)
 {
+	m_pBaseStart	= nullptr;
+	m_pBase1		= nullptr;
+	m_pBase2		= nullptr;
+	m_pBase3		= nullptr;
+	m_pBase4		= nullptr;
+	m_pBaseFinal	= nullptr;
 }
 
 CStage5::~CStage5()
@@ -33,12 +39,24 @@ void CStage5::Initialize()
 	int iPlayer_StartY = 11;
 	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create((iPlayer_StartX * 40) + 40, (iPlayer_StartY * 40) + 60, L"player_start"));
 
-	CObjMgr::GetInstance()->AddObject(OBJ_BASE, CAbstractFactory<CBase>::Create((2 * 40) + 40,  (3 * 40) + 60, L"tile_base1"));
-	CObjMgr::GetInstance()->AddObject(OBJ_BASE, CAbstractFactory<CBase>::Create((10 * 40) + 40, (1 * 40) + 60, L"tile_base2"));
-	CObjMgr::GetInstance()->AddObject(OBJ_BASE, CAbstractFactory<CBase>::Create((2 * 40) + 40, (11 * 40) + 60, L"tile_base3"));
-	CObjMgr::GetInstance()->AddObject(OBJ_BASE, CAbstractFactory<CBase>::Create((14 * 40) + 40, (5 * 40) + 60, L"tile_base4"));
+	m_pBaseStart = CAbstractFactory<CBase>::Create((12 * 40) + 40, (11 * 40) + 60 + 20, L"tile_start");
+	dynamic_cast<CBase*>(m_pBaseStart)->SetBaseMoveFrame(true);
 
-	CObjMgr::GetInstance()->AddObject(OBJ_BASE, CAbstractFactory<CBase>::Create((12 * 40) + 40, (11 * 40) + 60 + 20, L"tile_final"));
+	m_pBase1	 = CAbstractFactory<CBase>::Create((2 * 40) + 40, (3 * 40) + 60, L"tile_base1");
+	m_pBase2	 = CAbstractFactory<CBase>::Create((10 * 40) + 40, (1 * 40) + 60, L"tile_base2");
+	m_pBase3	 = CAbstractFactory<CBase>::Create((2 * 40) + 40, (11 * 40) + 60, L"tile_base3");
+	m_pBase4	 = CAbstractFactory<CBase>::Create((14 * 40) + 40, (5 * 40) + 60, L"tile_base4");
+	m_pBaseFinal = CAbstractFactory<CBase>::Create((12 * 40) + 40, (11 * 40) + 60 + 20, L"tile_final");
+	m_pBaseFinal->SetDraw(false);
+
+	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBaseStart);
+
+	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBase1);
+	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBase2);
+	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBase3);
+	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBase4);
+
+	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBaseFinal);
 
 
 
