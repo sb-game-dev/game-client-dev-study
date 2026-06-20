@@ -17,11 +17,18 @@
 CStage5::CStage5() :m_hBackGround(NULL), m_pTileVector(nullptr)
 {
 	m_pBaseStart	= nullptr;
+
 	m_pBase1		= nullptr;
 	m_pBase2		= nullptr;
 	m_pBase3		= nullptr;
 	m_pBase4		= nullptr;
+
 	m_pBaseFinal	= nullptr;
+
+	m_pPlayer		= nullptr;
+
+	m_iTrackCnt		= 3;
+	m_iNextBase		= 0;
 }
 
 CStage5::~CStage5()
@@ -63,6 +70,9 @@ void CStage5::Initialize()
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(717, 576, L"button_stageExit"));
 
 	CObjMgr::GetInstance()->LoadStage5();
+
+	m_pPlayer = CObjMgr::GetInstance()->GetList(OBJ_PLAYER).front();
+
 	m_hBackGround = CBmpMgr::GetInstance()->FindImage(L"stage3");
 	m_pTileVector = CObjMgr::GetInstance()->GetTilePtr();
 
@@ -82,6 +92,7 @@ void CStage5::Initialize()
 int CStage5::Update()
 {
 	CObjMgr::GetInstance()->Update();
+	CheckBase();
 	return 0;
 }
 
@@ -173,4 +184,65 @@ void CStage5::Release()
 	CObjMgr::GetInstance()->DeleteObj(OBJ_MONSTER);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_ITEM);
 	CObjMgr::GetInstance()->DeleteTile();
+}
+
+void CStage5::CheckBase()
+{
+	RECT rc;
+	if (m_iTrackCnt == 3 && m_iNextBase == 0
+		&& IntersectRect(&rc, m_pBaseStart->GetRect(), m_pPlayer->GetRect()))
+	{
+		dynamic_cast<CBase*>(m_pBaseStart)->SetBaseMoveFrame(false);
+		dynamic_cast<CBase*>(m_pBase1)->SetBaseMoveFrame(true);
+		//++m_iNextBase;
+		m_iNextBase = m_iNextBase % 4 + 1;
+	}
+	CObj* BaseArr[4] = { m_pBase1,m_pBase2,m_pBase3,m_pBase4 };
+	for (int i = 0; i < 4; i++)
+	{
+		if (m_iNextBase == i+1
+			&& IntersectRect(&rc, BaseArr[i]->GetRect(), m_pPlayer->GetRect()))
+		{
+			if (m_iNextBase == 4)
+				--m_iTrackCnt;
+			dynamic_cast<CBase*>(BaseArr[m_iNextBase -1])->SetBaseMoveFrame(false);
+			dynamic_cast<CBase*>(BaseArr[m_iNextBase % 4])->SetBaseMoveFrame(true);
+			m_iNextBase = m_iNextBase % 4 + 1;
+		}
+	}
+	//if (m_iNextBase == 1
+	//	&& IntersectRect(&rc, m_pBase1->GetRect(), m_pPlayer->GetRect()))
+	//{
+	//	dynamic_cast<CBase*>(m_pBase1)->SetBaseMoveFrame(false);
+	//	dynamic_cast<CBase*>(m_pBase2)->SetBaseMoveFrame(true);
+	//	//++m_iNextBase;
+	//	m_iNextBase = m_iNextBase % 4 + 1;
+	//}
+	//if (m_iNextBase == 2
+	//	&& IntersectRect(&rc, m_pBase2->GetRect(), m_pPlayer->GetRect()))
+	//{
+	//	dynamic_cast<CBase*>(m_pBase2)->SetBaseMoveFrame(false);
+	//	dynamic_cast<CBase*>(m_pBase3)->SetBaseMoveFrame(true);
+	//	//++m_iNextBase;
+	//	m_iNextBase = m_iNextBase % 4 + 1;
+	//}
+
+	//if (m_iNextBase == 3
+	//	&& IntersectRect(&rc, m_pBase3->GetRect(), m_pPlayer->GetRect()))
+	//{
+	//	dynamic_cast<CBase*>(m_pBase3)->SetBaseMoveFrame(false);
+	//	dynamic_cast<CBase*>(m_pBase4)->SetBaseMoveFrame(true);
+	//	//++m_iNextBase;
+	//	m_iNextBase = m_iNextBase % 4 + 1;
+	//}
+
+	//if (m_iNextBase == 4
+	//	&& IntersectRect(&rc, m_pBase4->GetRect(), m_pPlayer->GetRect()))
+	//{
+	//	dynamic_cast<CBase*>(m_pBase4)->SetBaseMoveFrame(false);
+	//	dynamic_cast<CBase*>(m_pBase1)->SetBaseMoveFrame(true);
+	//	//++m_iNextBase;
+	//	m_iNextBase = m_iNextBase % 4 + 1;
+	//}
+
 }

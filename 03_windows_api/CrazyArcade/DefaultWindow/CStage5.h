@@ -9,12 +9,13 @@ public:
     virtual~CStage5();
 
 public:
-    void    Initialize()                override;
-    int     Update()                    override;
-    void    LateUpdate()                override;
-    void    Render(HDC hDC)             override;
-    void    Release()                   override;
-
+    void            Initialize()                override;
+    int             Update()                    override;
+    void            LateUpdate()                override;
+    void            Render(HDC hDC)             override;
+    void            Release()                   override;
+private:
+    void            CheckBase();
 
 private:
     HDC             m_hBackGround;
@@ -26,4 +27,9 @@ private:
     CObj*           m_pBase3;
     CObj*           m_pBase4;
     CObj*           m_pBaseFinal;
+
+    CObj*           m_pPlayer;
+
+    int             m_iTrackCnt;
+    int             m_iNextBase;
 };
