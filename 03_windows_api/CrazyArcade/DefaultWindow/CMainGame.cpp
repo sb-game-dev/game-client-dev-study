@@ -150,6 +150,8 @@ void CMainGame::InsertImg()
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/kart_left.bmp", L"kart_left");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/kart_down.bmp", L"kart_down");
 
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/kart_dismount.bmp", L"kart_dismount");
+
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_down.bmp", L"player_down");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_up.bmp", L"player_up");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_left.bmp", L"player_left");

@@ -94,21 +94,18 @@ void CStage5::Initialize()
 
 int CStage5::Update()
 {
-	if (m_iTrackCnt > 0)
-	{
-		CObjMgr::GetInstance()->Update();
-		CheckBase();
-	}
-	else
-	{
-		CSceneMgr::GetInstance()->SceneChangeReserve(SC_MENU);
-	}
+	CObjMgr::GetInstance()->Update();
 	return 0;
 }
 
 void CStage5::LateUpdate()
 {
+	if (m_pPlayer == nullptr)
+		return;
+
 	CObjMgr::GetInstance()->LateUpdate();
+
+	CheckBase();
 }
 
 void CStage5::Render(HDC hDC)
@@ -202,63 +199,52 @@ void CStage5::Release()
 
 void CStage5::CheckBase()
 {
-	if (dynamic_cast<CPlayer*>(m_pPlayer)->GetRide() == false)
-		return;
+	if (!CObjMgr::GetInstance()->GetList(OBJ_PLAYER).empty())
+	{
+		CPlayer* pTempPlayer = dynamic_cast<CPlayer*>(m_pPlayer);
+		if(pTempPlayer && pTempPlayer->GetRide() == false)
+			return;
+	}
+
 	RECT rc;
+	//Start
 	if (m_iTrackCnt == 3 && m_iNextBase == 0
 		&& IntersectRect(&rc, m_pBaseStart->GetRect(), m_pPlayer->GetRect()))
 	{
 		dynamic_cast<CBase*>(m_pBaseStart)->SetBaseMoveFrame(false);
 		dynamic_cast<CBase*>(m_pBase1)->SetBaseMoveFrame(true);
-		//++m_iNextBase;
 		m_iNextBase = m_iNextBase % 4 + 1;
 	}
-	CObj* BaseArr[4] = { m_pBase1,m_pBase2,m_pBase3,m_pBase4 };
-	for (int i = 0; i < 4; i++)
+	if (m_iTrackCnt > 0)
 	{
-		if (m_iNextBase == i+1
-			&& IntersectRect(&rc, BaseArr[i]->GetRect(), m_pPlayer->GetRect()))
+		CObj* BaseArr[4] = { m_pBase1,m_pBase2,m_pBase3,m_pBase4 };
+		for (int i = 0; i < 4; i++)
 		{
-			if (m_iNextBase == 4)
-				--m_iTrackCnt;
-			dynamic_cast<CBase*>(BaseArr[m_iNextBase -1])->SetBaseMoveFrame(false);
-			dynamic_cast<CBase*>(BaseArr[m_iNextBase % 4])->SetBaseMoveFrame(true);
-			m_iNextBase = m_iNextBase % 4 + 1;
+			if (m_iNextBase == i + 1
+				&& IntersectRect(&rc, BaseArr[i]->GetRect(), m_pPlayer->GetRect()))
+			{
+				if (m_iNextBase == 4)
+					--m_iTrackCnt;
+				dynamic_cast<CBase*>(BaseArr[m_iNextBase - 1])->SetBaseMoveFrame(false);
+				if (m_iTrackCnt > 0)
+				{
+					dynamic_cast<CBase*>(BaseArr[m_iNextBase % 4])->SetBaseMoveFrame(true);
+					m_iNextBase = m_iNextBase % 4 + 1;
+				}
+				else
+				{
+					m_pBaseFinal->SetDraw(true);
+					dynamic_cast<CBase*>(m_pBaseFinal)->SetBaseMoveFrame(true);
+				}
+			}
 		}
 	}
-	//if (m_iNextBase == 1
-	//	&& IntersectRect(&rc, m_pBase1->GetRect(), m_pPlayer->GetRect()))
-	//{
-	//	dynamic_cast<CBase*>(m_pBase1)->SetBaseMoveFrame(false);
-	//	dynamic_cast<CBase*>(m_pBase2)->SetBaseMoveFrame(true);
-	//	//++m_iNextBase;
-	//	m_iNextBase = m_iNextBase % 4 + 1;
-	//}
-	//if (m_iNextBase == 2
-	//	&& IntersectRect(&rc, m_pBase2->GetRect(), m_pPlayer->GetRect()))
-	//{
-	//	dynamic_cast<CBase*>(m_pBase2)->SetBaseMoveFrame(false);
-	//	dynamic_cast<CBase*>(m_pBase3)->SetBaseMoveFrame(true);
-	//	//++m_iNextBase;
-	//	m_iNextBase = m_iNextBase % 4 + 1;
-	//}
-
-	//if (m_iNextBase == 3
-	//	&& IntersectRect(&rc, m_pBase3->GetRect(), m_pPlayer->GetRect()))
-	//{
-	//	dynamic_cast<CBase*>(m_pBase3)->SetBaseMoveFrame(false);
-	//	dynamic_cast<CBase*>(m_pBase4)->SetBaseMoveFrame(true);
-	//	//++m_iNextBase;
-	//	m_iNextBase = m_iNextBase % 4 + 1;
-	//}
-
-	//if (m_iNextBase == 4
-	//	&& IntersectRect(&rc, m_pBase4->GetRect(), m_pPlayer->GetRect()))
-	//{
-	//	dynamic_cast<CBase*>(m_pBase4)->SetBaseMoveFrame(false);
-	//	dynamic_cast<CBase*>(m_pBase1)->SetBaseMoveFrame(true);
-	//	//++m_iNextBase;
-	//	m_iNextBase = m_iNextBase % 4 + 1;
-	//}
-
+	
+	//Final
+	if (m_pBaseFinal->GetDraw() == true &&
+		IntersectRect(&rc, m_pBaseFinal->GetRect(), m_pPlayer->GetRect()))
+	{
+		cout << "FinalRectCollision" << endl;
+		CSceneMgr::GetInstance()->SceneChangeReserve(SC_MENU);
+	}
 }

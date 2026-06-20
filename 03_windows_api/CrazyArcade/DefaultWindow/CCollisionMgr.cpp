@@ -40,21 +40,23 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 				}
 				else if (pDstPlayer)
 				{
-					if (pDstPlayer->GetShield() == true || pDstPlayer->GetCurMotion() == HIT || pDstPlayer->GetCurMotion() == DEATH)
+					if (pDstPlayer->GetShield() == true || pDstPlayer->GetCurMotion() == HIT || pDstPlayer->GetCurMotion() == DEATH || pDstPlayer->GetCurMotion() == DISMOUNT)
 						return;
 
 					CWave* pSrcWave = dynamic_cast<CWave*>(Src);
 					CBoss* pSrcBoss = dynamic_cast<CBoss*>(Src);
 					CMonster* pSrcMonster = dynamic_cast<CMonster*>(Src);
 					if (pSrcBoss && pSrcBoss->GetCurMotion() == BUBBLE)
-						pSrcBoss->SetDeath();					
+						pSrcBoss->SetDeath();	
+
 #ifdef NDEBUG
 					else if(pSrcBoss || pSrcMonster)
 						pDstPlayer->SetBossHit();
 					else if(pSrcWave)
 						pDstPlayer->SetHit();
 #endif // NDEBUG
-
+					else if (pSrcWave)
+						pDstPlayer->SetHit();
 				}
 				else if (pSrcPlayer)//pDstItem && 
 				{

@@ -145,6 +145,8 @@ void CPlayer::Release()
 
 void CPlayer::KeyInput()
 {
+	if (m_eCurMotion == DISMOUNT)
+		return;
 	if (CKeyMgr::GetInstance()->KeyPressing(VK_RIGHT) && m_tRect.right < 620)
 	{
 		if(m_eCurMotion != HIT)
@@ -206,7 +208,7 @@ void CPlayer::KeyInput()
 	{
 		m_fBlockMoveTime = 0.f;
 		m_fKickBombTime = 0.f;
-		if (m_eCurMotion != HIT && m_eCurMotion != REVIVAL)
+		if (m_eCurMotion != HIT && m_eCurMotion != REVIVAL && m_eCurMotion != DISMOUNT)
 			m_eCurMotion = IDLE;
 		ChangeMotion();
 	}
@@ -563,15 +565,16 @@ void CPlayer::ChangeMotion()
 		break;
 	case DISMOUNT:
 		m_fSpeed = 0;
-		m_pFrameKey = L"player_down";
+		m_pFrameKey = L"kart_dismount";
 		m_tFrame.iStart = 0;
-		m_tFrame.iEnd = 8;
+		m_tFrame.iEnd = 12;
 		m_tFrame.iMotion = 0;
-		m_tFrame.bLoop = true;
-		m_tFrame.iCX = PLAYER_CX;
-		m_tFrame.iCY = PLAYER_CY;
+		m_tFrame.bLoop = false;
+		m_tFrame.iCX = 44;
+		m_tFrame.iCY = 113;
 		m_tFrame.dwSpeed = 100.f;
 		m_tFrame.dwTime = GetTickCount64();
+		m_dwFrameCount = GetTickCount64();
 		break;
 	case HIT:
 		CSoundMgr::Get_Instance()->PlaySound(L"PlayerGetBubble.wav", PLAYER_BUBBLE, 0.3f);
@@ -631,10 +634,17 @@ void CPlayer::CheckFrame()
 		m_eCurMotion = DOWN;
 		ChangeMotion();
 	}
-	else if (m_eCurMotion == HIT 
+	else if (m_eCurMotion == HIT
 		&& m_dwFrameCount + m_tFrame.dwSpeed * m_tFrame.iEnd <= GetTickCount64())
 	{
 		m_eCurMotion = DEATH;
+		ChangeMotion();
+	}
+	else if (m_eCurMotion == DISMOUNT
+		&& m_dwFrameCount + m_tFrame.dwSpeed * m_tFrame.iEnd <= GetTickCount64())
+	{
+		m_eCurMotion = DOWN;
+		m_bRide = false;
 		ChangeMotion();
 	}
 	else if (m_eCurMotion == DEATH
@@ -754,9 +764,8 @@ void CPlayer::SetHit()
 		m_eCurMotion = HIT; 
 		ChangeMotion();
 	}
-	else
+	else if(m_bRide == true)
 	{
-		m_bRide = false;
 		m_eCurMotion = DISMOUNT;
 		ChangeMotion();
 	}
@@ -776,7 +785,6 @@ void CPlayer::CreateDart()
 {
 	CObj* pDart = CAbstractFactory<CDart>::Create(m_tInfo.fX, m_tInfo.fY, L"dart_obj");
 	
-	//if(pDart)cout << "createDart" << endl;
 
 	if (!lstrcmp(m_pFrameKey, L"player_down"))
 		pDart->SetDirection(DIR_DOWN);

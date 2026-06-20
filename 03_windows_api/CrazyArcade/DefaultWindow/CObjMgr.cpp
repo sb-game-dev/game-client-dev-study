@@ -155,6 +155,15 @@ void CObjMgr::LateUpdate()
 		CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOMB], m_TileVec);
 	}
 
+
+	if (!m_ObjList[OBJ_PLAYER].empty())
+	{
+		CCollisionMgr::CollisionAttack(m_ObjList[OBJ_ITEM], m_ObjList[OBJ_BOMB]);
+		CCollisionMgr::CollisionAttack(m_ObjList[OBJ_ITEM], m_ObjList[OBJ_BOSS_BOMB]);
+		CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_WAVE]);
+	}
+
+
 #ifdef NDEBUG
 
 	if (!m_ObjList[OBJ_PLAYER].empty())
