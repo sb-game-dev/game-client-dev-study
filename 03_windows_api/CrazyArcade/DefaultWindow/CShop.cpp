@@ -7,6 +7,7 @@
 #include "CButton.h"
 #include "CBmpMgr.h"
 #include "CInven.h"
+#include "CImgMgr.h"
 
 CShop::CShop()
 {
@@ -25,12 +26,16 @@ void CShop::Initialize()
 
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(117, 585, L"button_back"));
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(662, 584, L"button_myPage"));
+
+	srand(unsigned(time(NULL)));
+	if (rand() % 2 == 1)
+		CSoundMgr::Get_Instance()->PlayBGM(L"Channel.wav", 0.1f);
+	else
+		CSoundMgr::Get_Instance()->PlayBGM(L"Lobby.wav", 0.1f);
 }
 
 int CShop::Update()
 {
-	//int iMoney = CInven::GetInstance()->GetGold();
-	//cout << iMoney << endl;
 	CObjMgr::GetInstance()->Update();
 	
 	return 0;
@@ -45,6 +50,21 @@ void CShop::LateUpdate()
 	else
 	{
 		CObjMgr::GetInstance()->LateUpdate();
+	}
+
+	if (m_eCurSceneState == SCENE_START || m_eCurSceneState == SCENE_END)
+	{
+		if (m_eCurSceneState == SCENE_START && m_fAlpha > 0.f && m_dwFrameTime + 10 <= GetTickCount64())
+		{
+			m_dwFrameTime = GetTickCount64();
+			m_fAlpha -= 0.015f;
+		}
+		else if (m_eCurSceneState == SCENE_END && m_fAlpha < 1.f && m_dwFrameTime + 10 <= GetTickCount64())
+		{
+			m_dwFrameTime = GetTickCount64();
+			m_fAlpha += 0.03f;
+		}
+		CheckSceneFrame();
 	}
 }
 
@@ -85,6 +105,18 @@ void CShop::Render(HDC hDC)
 		CInven::GetInstance()->Render(hDC);
 		CObjMgr::GetInstance()->GetList(OBJ_MOUSE).front()->Render(hDC);
 	}
+
+	if (m_eCurSceneState == SCENE_START)
+	{
+		Graphics* _pGraphics = Graphics::FromHDC(hDC);
+		Gdiplus::Image* pBlackImg = CImgMgr::GetInstance()->FindImg(L"black_bg");
+
+		Rect rect = { 0,0,800,600 };
+
+		ImageAttributes attr;
+		MakeAlphaAttr(attr, m_fAlpha);
+		_pGraphics->DrawImage(pBlackImg, rect, 0, 0, WINCX, WINCY, UnitPixel, &attr);
+	}
 }
 
 void CShop::Release()
@@ -93,4 +125,14 @@ void CShop::Release()
 	CObjMgr::GetInstance()->ReleaseRenderList();
 	CObjMgr::GetInstance()->DeleteObj(OBJ_BUTTON);
 	CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
+}
+void CShop::CheckSceneFrame()
+{
+	if (m_eCurSceneState == SCENE_START && m_fAlpha < 0.f)
+	{
+		m_eCurSceneState = SCENE_PLAY;
+	}
+	else if (m_eCurSceneState == SCENE_END && m_fAlpha >= 1.f)
+	{
+	}
 }
