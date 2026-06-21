@@ -40,7 +40,7 @@ void CStage1::Initialize()
 
 
 	CObjMgr::GetInstance()->LoadStage1();
-	CSoundMgr::Get_Instance()->PlaySound(L"StageStart_7.wav", STAGE_START, 0.2f);
+	CSoundMgr::Get_Instance()->PlaySound(L"StageStart_7.wav", STAGE_START, 0.1f);
 }
 
 int CStage1::Update()
@@ -204,7 +204,7 @@ void CStage1::ChangeScene()
 		m_dwFrameTime = GetTickCount64();
 		break;
 	case SCENE_WIN:
-		CSoundMgr::Get_Instance()->PlaySound(L"Win.wav", SOUND_EFFECT, 0.2f);
+		CSoundMgr::Get_Instance()->PlaySound(L"Win.wav", SOUND_EFFECT, 0.1f);
 		break;
 	case SCENE_LOSE:
 		break;

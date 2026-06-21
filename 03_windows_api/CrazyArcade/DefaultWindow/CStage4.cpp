@@ -198,7 +198,7 @@ void CStage4::Initialize()
 			pTile->SetDraw(false);
 		}
 	}
-	CSoundMgr::Get_Instance()->PlaySound(L"StageStart_7.wav", STAGE_START, 0.2f);
+	CSoundMgr::Get_Instance()->PlaySound(L"StageStart_7.wav", STAGE_START, 0.1f);
 }
 
 int CStage4::Update()
@@ -432,7 +432,7 @@ void CStage4::ChangeScene()
 		m_dwFrameTime = GetTickCount64();
 		break;
 	case SCENE_WIN:
-		CSoundMgr::Get_Instance()->PlaySound(L"Win.wav", SOUND_EFFECT, 0.2f);
+		CSoundMgr::Get_Instance()->PlaySound(L"Win.wav", SOUND_EFFECT, 0.1f);
 		CObjMgr::GetInstance()->DestroyMonster();
 		break;
 	case SCENE_LOSE:

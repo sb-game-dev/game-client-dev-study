@@ -54,7 +54,7 @@ void CStage2::Initialize()
 
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(717, 576, L"button_stageExit"));
 	CObjMgr::GetInstance()->LoadStage2();
-	CSoundMgr::Get_Instance()->PlaySound(L"StageStart_7.wav", STAGE_START, 0.2f);
+	CSoundMgr::Get_Instance()->PlaySound(L"StageStart_7.wav", STAGE_START, 0.1f);
 }
 
 int CStage2::Update()
@@ -216,7 +216,7 @@ void CStage2::ChangeScene()
 		m_dwFrameTime = GetTickCount64();
 		break;
 	case SCENE_WIN:
-		CSoundMgr::Get_Instance()->PlaySound(L"Win.wav", SOUND_EFFECT, 0.2f);
+		CSoundMgr::Get_Instance()->PlaySound(L"Win.wav", SOUND_EFFECT, 0.1f);
 		break;
 	case SCENE_LOSE:
 		break;

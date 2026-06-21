@@ -359,7 +359,7 @@ void CStage5::ChangeScene()
 		m_dwFrameTime = GetTickCount64();
 		break;
 	case SCENE_WIN:
-		CSoundMgr::Get_Instance()->PlaySound(L"Win.wav", SOUND_EFFECT, 0.2f);
+		CSoundMgr::Get_Instance()->PlaySound(L"Win.wav", SOUND_EFFECT, 0.1f);
 		break;
 	case SCENE_LOSE:
 		break;

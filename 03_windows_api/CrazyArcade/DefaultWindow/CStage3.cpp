@@ -41,7 +41,7 @@ void CStage3::Initialize()
 	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((12 * 40) + 40, (7 * 40) + 60, L"Bean_Monster_Start"));
 
 	CObjMgr::GetInstance()->LoadStage3();
-	CSoundMgr::Get_Instance()->PlaySound(L"StageStart_7.wav", STAGE_START, 0.2f);
+	CSoundMgr::Get_Instance()->PlaySound(L"StageStart_7.wav", STAGE_START, 0.1f);
 }
 
 int CStage3::Update()
@@ -204,7 +204,7 @@ void CStage3::ChangeScene()
 		m_dwFrameTime = GetTickCount64();
 		break;
 	case SCENE_WIN:
-		CSoundMgr::Get_Instance()->PlaySound(L"Win.wav", SOUND_EFFECT, 0.2f);
+		CSoundMgr::Get_Instance()->PlaySound(L"Win.wav", SOUND_EFFECT, 0.1f);
 		break;
 	case SCENE_LOSE:
 		break;
