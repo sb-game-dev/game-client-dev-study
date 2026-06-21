@@ -4,7 +4,7 @@
 #include "CSceneMgr.h"
 #include "CSoundMgr.h"
 
-CLogo::CLogo():m_dwTime(GetTickCount64())
+CLogo::CLogo()
 {
 }
 
@@ -19,44 +19,17 @@ void CLogo::Initialize()
 
 int CLogo::Update()
 {
-	if (m_fAlpha > 0 && m_dwTime + 10 <= GetTickCount64())
+	if (m_eCurSceneState == SCENE_START && m_fAlpha > 0.f && m_dwFrameTime + 10 <= GetTickCount64())
 	{
-		m_dwTime = GetTickCount64();
+		m_dwFrameTime = GetTickCount64();
 		m_fAlpha -= 0.01f;
 	}
-	else
+	if (m_eCurSceneState == SCENE_END && m_fAlpha < 1.f && m_dwFrameTime + 10 <= GetTickCount64())
 	{
-		CSceneMgr::GetInstance()->SceneChangeReserve(SC_MENU);
+		m_dwFrameTime = GetTickCount64();
+		m_fAlpha += 0.01f;
 	}
-
-	// 
-	// << m_fAlpha << endl;
-	//if (m_bStartScene && m_dwTime + 10 <= GetTickCount64())
-	//{
-	//	m_dwTime = GetTickCount64();
-	//	m_fAlpha -= 0.01f;
-	//}
-	//if (m_bEndScene && m_dwTime + 10 <= GetTickCount64())
-	//{
-	//	m_dwTime = GetTickCount64();
-	//	m_fAlpha += 0.01f;
-	//}
-	//else
-	//{
-	//	CSceneMgr::GetInstance()->SceneChangeReserve(SC_MENU);
-	//}
-	//
-	//
-	//if (m_fAlpha < 0)
-	//{
-	//	m_bStartScene = false;
-	//	m_bEndScene = true;
-	//}
-	//if (m_fAlpha > 1)
-	//{
-	//	m_bEndScene = false;
-	//}
-	
+	CheckSceneFrame();
     return 0;
 }
 
@@ -80,5 +53,36 @@ void CLogo::Render(HDC hDC)
 
 void CLogo::Release()
 {
+}
+
+void CLogo::CheckSceneFrame()
+{
+	if (m_eCurSceneState == SCENE_START	&& m_fAlpha < 0.f)
+	{
+		m_eCurSceneState = SCENE_END;
+		//ChangeScene();
+	}
+	else if (m_eCurSceneState == SCENE_END && m_fAlpha >= 1.f)
+	{
+		CSceneMgr::GetInstance()->SceneChangeReserve(SC_MENU);
+	}
+}
+
+void CLogo::ChangeScene()
+{
+	if (m_ePreSceneState == m_eCurSceneState)
+		return;
+	switch (m_eCurSceneState)
+	{
+	case SCENE_START:
+		m_dwFrameTime = GetTickCount64();
+		break;
+	case SCENE_END:
+		m_dwFrameTime = GetTickCount64();
+		break;
+	default:
+		break;
+	}
+	m_ePreSceneState = m_eCurSceneState;
 }
 

@@ -1,5 +1,6 @@
 #pragma once
 #include "CScene.h"
+#include "CPlayer.h"
 class CStage1 :
     public CScene
 {
@@ -12,5 +13,12 @@ public:
     void    LateUpdate()        override;
     void    Render(HDC hDC)     override;
     void    Release()           override;
+
+private:
+    void        CheckSceneFrame();
+    void        ChangeScene();
+
+private:
+    CObj*       m_pPlayer;
 };
 

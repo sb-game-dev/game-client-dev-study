@@ -16,6 +16,9 @@ public:
     void            Release()                   override;
 private:
     void            CheckBase();
+    void            CheckCollisionGasStation();
+    void            CheckSceneFrame();
+    void            ChangeScene();
 
 private:
     HDC             m_hBackGround;
@@ -27,9 +30,12 @@ private:
     CObj*           m_pBase3;
     CObj*           m_pBase4;
     CObj*           m_pBaseFinal;
-
+    
     CObj*           m_pPlayer;
+    CObj*           m_pGasStation;
 
     int             m_iTrackCnt;
     int             m_iNextBase;
+
+    float*          m_pPlayerRemainGas;
 };

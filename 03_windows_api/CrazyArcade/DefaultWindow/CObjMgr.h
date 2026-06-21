@@ -48,6 +48,8 @@ public:
 	bool	GetRemainPlayer() {return m_ObjList[OBJ_PLAYER].size();}
 	int		GetRemainDart() { return m_ObjList[OBJ_DART].size(); }
 
+	void	DestroyMonster();
+
 	void	ReleaseRenderList();
 public:
 	static CObjMgr* GetInstance()

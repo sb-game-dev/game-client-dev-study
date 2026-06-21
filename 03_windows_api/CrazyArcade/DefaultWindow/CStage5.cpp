@@ -15,7 +15,7 @@
 #include "CInven.h"
 #include "CBase.h"
 #include "CGasStation.h"
-CStage5::CStage5() :m_hBackGround(NULL), m_pTileVector(nullptr)
+CStage5::CStage5() :m_hBackGround(NULL), m_pTileVector(nullptr), m_pPlayerRemainGas(nullptr)
 {
 	m_pBaseStart	= nullptr;
 
@@ -27,7 +27,7 @@ CStage5::CStage5() :m_hBackGround(NULL), m_pTileVector(nullptr)
 	m_pBaseFinal	= nullptr;
 
 	m_pPlayer		= nullptr;
-
+	m_pGasStation	= nullptr;
 	m_iTrackCnt		= 3;
 	m_iNextBase		= 0;
 }
@@ -57,6 +57,8 @@ void CStage5::Initialize()
 	m_pBaseFinal = CAbstractFactory<CBase>::Create((12 * 40) + 40, (11 * 40) + 60 + 20, L"tile_final");
 	m_pBaseFinal->SetDraw(false);
 
+	m_pGasStation = CAbstractFactory<CGasStation>::Create((5 * 40) + 40, (3 * 40) + 60, L"GasStation");
+
 	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBaseStart);
 
 	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBase1);
@@ -66,7 +68,7 @@ void CStage5::Initialize()
 
 	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBaseFinal);
 
-	CObjMgr::GetInstance()->AddObject(OBJ_GASSTATION, CAbstractFactory<CGasStation>::Create(260, 159.5, L"GasStation"));
+	CObjMgr::GetInstance()->AddObject(OBJ_GASSTATION, m_pGasStation);
 
 
 
@@ -78,11 +80,11 @@ void CStage5::Initialize()
 
 	m_hBackGround = CBmpMgr::GetInstance()->FindImage(L"stage3");
 	m_pTileVector = CObjMgr::GetInstance()->GetTilePtr();
-
+	m_pPlayerRemainGas = dynamic_cast<CPlayer*>(m_pPlayer)->GetRemainGasPtr();
 	for (auto& pTile : *m_pTileVector)
 	{
 		int iStart = pTile->GetFrame().iStart;
-		if ((iStart >= 20 && iStart <= 30) || (iStart >=32 && iStart <=34))
+		if ((iStart >= 20 && iStart <= 30) || iStart == 4)// || (iStart >=32 && iStart <=34))
 		{
 			pTile->Render(m_hBackGround);
 			pTile->SetDraw(false);
@@ -94,6 +96,13 @@ void CStage5::Initialize()
 
 int CStage5::Update()
 {
+	if (CObjMgr::GetInstance()->GetRemainPlayer() == false)
+	{
+		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
+		m_eCurSceneState = SCENE_LOSE;
+		ChangeScene();
+	}
+
 	CObjMgr::GetInstance()->Update();
 	return 0;
 }
@@ -106,6 +115,21 @@ void CStage5::LateUpdate()
 	CObjMgr::GetInstance()->LateUpdate();
 
 	CheckBase();
+	CheckCollisionGasStation();
+	if (m_eCurSceneState == SCENE_START || m_eCurSceneState == SCENE_END)
+	{
+		if (m_eCurSceneState == SCENE_START && m_fAlpha > 0.f && m_dwFrameTime + 10 <= GetTickCount64())
+		{
+			m_dwFrameTime = GetTickCount64();
+			m_fAlpha -= 0.015f;
+		}
+		else if (m_eCurSceneState == SCENE_END && m_fAlpha < 1.f && m_dwFrameTime + 10 <= GetTickCount64())
+		{
+			m_dwFrameTime = GetTickCount64();
+			m_fAlpha += 0.03f;
+		}
+		CheckSceneFrame();
+	}
 }
 
 void CStage5::Render(HDC hDC)
@@ -120,6 +144,29 @@ void CStage5::Render(HDC hDC)
 		SRCCOPY);						// 그대로 복사하여 출력
 
 	CObjMgr::GetInstance()->Render(hDC);
+
+	if (dynamic_cast<CPlayer*>(m_pPlayer)->GetRide())
+	{
+		Graphics* _pGraphics = Graphics::FromHDC(hDC);
+		Gdiplus::Image* hTrackCnt = CImgMgr::GetInstance()->FindImg(L"trackCnt");
+
+		Rect rect = { 24, 495,97, 41 };
+
+		ImageAttributes attr;
+		MakeAlphaAttr(attr, 0.7f);
+		_pGraphics->DrawImage(hTrackCnt, rect,
+			97 * ((3 - m_iTrackCnt < 3) ? (3 - m_iTrackCnt) : 2), 0,
+			97, 41,
+			UnitPixel, &attr);
+
+		HDC hGasFrame = CBmpMgr::GetInstance()->FindImage(L"gas_frame");
+		BitBlt(hDC, 24, 536, 170, 22, hGasFrame, 0, 0, SRCCOPY);
+
+		HDC hGasBar = CBmpMgr::GetInstance()->FindImage(L"gas_bar");
+		BitBlt(hDC, 101, 540, 87* (*m_pPlayerRemainGas)/300,14, hGasBar, 0, 0, SRCCOPY);
+	}
+
+
 
 	int iItemCnt = 0;
 	for (auto& pitem : *(CInven::GetInstance()->GetItemSlotPtr()))
@@ -178,6 +225,18 @@ void CStage5::Render(HDC hDC)
 			RGB(255, 0, 255));						// 제거할 픽셀 색상
 		++iItemCnt;
 	}
+	if (m_eCurSceneState == SCENE_START || m_eCurSceneState == SCENE_END)
+	{
+		Graphics* _pGraphics = Graphics::FromHDC(hDC);
+		Gdiplus::Image* pBlackImg = CImgMgr::GetInstance()->FindImg(L"black_bg");
+
+		Rect rect = { 0,0,800,600 };
+
+		ImageAttributes attr;
+		MakeAlphaAttr(attr, m_fAlpha);
+		_pGraphics->DrawImage(pBlackImg, rect, 0, 0, WINCX, WINCY, UnitPixel, &attr);
+	}
+	CObjMgr::GetInstance()->GetList(OBJ_MOUSE).front()->Render(hDC);
 }
 
 void CStage5::Release()
@@ -245,6 +304,65 @@ void CStage5::CheckBase()
 		IntersectRect(&rc, m_pBaseFinal->GetRect(), m_pPlayer->GetRect()))
 	{
 		cout << "FinalRectCollision" << endl;
-		CSceneMgr::GetInstance()->SceneChangeReserve(SC_MENU);
+
+		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
+		m_eCurSceneState = SCENE_WIN;
+		dynamic_cast<CPlayer*>(m_pPlayer)->SetWin();
+		ChangeScene();
 	}
+	
+}
+
+void CStage5::CheckCollisionGasStation()
+{
+	if (CObjMgr::GetInstance()->GetList(OBJ_PLAYER).empty()
+		|| dynamic_cast<CPlayer*>(m_pPlayer)->GetRide() == false)
+		return;
+	RECT rc;
+	RECT rcGasStation = {260,160,300,200};
+	if (IntersectRect(&rc, &rcGasStation, m_pPlayer->GetRect()))
+	{
+		m_pPlayer->SetDraw(false);
+		if ((*m_pPlayerRemainGas) < 300)
+		{
+			dynamic_cast<CGasStation*>(m_pGasStation)->SetRefuel(true);
+			dynamic_cast<CPlayer*>(m_pPlayer)->AddGas(1.f);
+		}
+	}
+	else
+	{
+		dynamic_cast<CGasStation*>(m_pGasStation)->SetRefuel(false);
+		m_pPlayer->SetDraw(true);
+	}
+}
+void CStage5::CheckSceneFrame()
+{
+	if (m_eCurSceneState == SCENE_START && m_fAlpha < 0.f)
+	{
+		m_eCurSceneState = SCENE_PLAY;
+		CSoundMgr::Get_Instance()->PlayBGM(L"bg_4.wav", 0.2f);
+	}
+	else if (m_eCurSceneState == SCENE_END && m_fAlpha >= 1.f)
+	{
+	}
+}
+
+void CStage5::ChangeScene()
+{
+	if (m_ePreSceneState == m_eCurSceneState)
+		return;
+	switch (m_eCurSceneState)
+	{
+	case SCENE_START:
+		m_dwFrameTime = GetTickCount64();
+		break;
+	case SCENE_WIN:
+		CSoundMgr::Get_Instance()->PlaySound(L"Win.wav", SOUND_EFFECT, 0.2f);
+		break;
+	case SCENE_LOSE:
+		break;
+	default:
+		break;
+	}
+	m_ePreSceneState = m_eCurSceneState;
 }

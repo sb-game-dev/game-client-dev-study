@@ -66,7 +66,7 @@ void CBomb::LateUpdate()
     if (m_dwBombTime + 2500 <= GetTickCount64())
     {
         CObjMgr::GetInstance()->AddObject(OBJ_WAVE, CreateWave());
-        CSoundMgr::Get_Instance()->PlaySound(L"ExplodeBomb2.wav", BOMB_EXPLODE, 0.3f);
+        CSoundMgr::Get_Instance()->PlaySound(L"BubblePop.wav", BOMB_EXPLODE, 0.3f);
         CPlayer* pTempPlayer = dynamic_cast<CPlayer*>(CObjMgr::GetInstance()->GetList(OBJ_PLAYER).front());
         if(pTempPlayer)
             pTempPlayer->SetReduceBombCnt();

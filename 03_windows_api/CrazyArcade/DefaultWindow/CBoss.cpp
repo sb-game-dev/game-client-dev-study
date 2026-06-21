@@ -40,18 +40,12 @@ int CBoss::Update()
 	if (m_bDead == DEAD)
 		return DEAD;
 
-	//if (m_eCurMotion != BUBBLE && m_eCurMotion != DEATH && m_eCurMotion != HIT
-	//	&&m_dwAttackTime + 2000 <= GetTickCount64())
-	//{
-	//	m_dwAttackTime = GetTickCount64();
-	//	BossAttackAround(m_iAttackRange);
-	//	++m_iAttackRange;
-	//	if (m_iAttackRange > 7)
-	//		m_iAttackRange = 3;
-	//	
-	//	m_eCurMotion = ATTACK;
-	//	ChangeMotion();
-	//}
+	if (CObjMgr::GetInstance()->GetList(OBJ_PLAYER).empty())
+	{
+		m_eCurMotion = DOWN;
+		ChangeMotion();
+		return 0;
+	}
 	BossPattern();
 	MoveFrame();
 	CheckFrame();

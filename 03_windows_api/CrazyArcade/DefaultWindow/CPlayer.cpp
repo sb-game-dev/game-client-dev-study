@@ -14,7 +14,7 @@
 CPlayer::CPlayer():m_ePreMotion(MOTION_END), m_eCurMotion(START), m_fWalkSpeed(3.f), m_fBubbleSpeed(0.5f), m_dwFrameCount(GetTickCount64()),
 m_fBlockMoveTime(0.f), m_iBombRange(1), m_iBombMax(1), m_iBombCnt(0), m_bShowItemGainEffect(false), m_eItemFrameKey(ITEMTYPE_END),
 m_dwItemEffectFrameCount(GetTickCount64()),m_iCtrlSlotCnt(0), m_eCtrlSlot(ITEMTYPE_END), m_dwShieldEffectFrameCount(GetTickCount64()), m_pTileVector(nullptr),
-m_bRide(false), m_fKartSpeed(6.f)
+m_bRide(false), m_fKartSpeed(6.f), m_fRemainGas(300.f)
 {
 	m_bShowShieldEffect = false;
 	m_iShieldFrame = 0;
@@ -57,10 +57,26 @@ int CPlayer::Update()
 {
 	if (m_bDead == DEAD)
 		return DEAD;
-	if (m_eCurMotion != DEATH && m_eCurMotion != START)
+	if (m_eCurMotion != DEATH && m_eCurMotion != START && m_eCurMotion != WIN)
 		KeyInput();
 	CheckFrame();
 	MoveFrame();
+	if (m_bRide == true)
+	{
+		if (m_fRemainGas > 200)
+		{
+			m_fKartSpeed = 6.f;
+		}
+		else if (m_fRemainGas > 100)
+		{
+			m_fKartSpeed = 4.f;
+		}
+		else
+		{
+			m_fKartSpeed = 2.f;
+		}
+	}
+	//cout << "m_fSpeed : " << m_fSpeed << "\tm_fRemainGas: " << m_fRemainGas << endl;
 	return NOEVENT;
 }
 
@@ -71,6 +87,8 @@ void CPlayer::LateUpdate()
 
 void CPlayer::Render(HDC hDC)
 {
+	if (m_bDraw == false)
+		return;
 #ifdef _DEBUG
 	Rectangle(hDC,
 		m_tRect.left,
@@ -147,6 +165,7 @@ void CPlayer::KeyInput()
 {
 	if (m_eCurMotion == DISMOUNT)
 		return;
+	float fDeltaGas = 0.2f;
 	if (CKeyMgr::GetInstance()->KeyPressing(VK_RIGHT) && m_tRect.right < 620)
 	{
 		if(m_eCurMotion != HIT)
@@ -161,6 +180,8 @@ void CPlayer::KeyInput()
 		CheckPushBlock(DIR_RIGHT);
 		CheckKickBomb(DIR_RIGHT);
 		m_tInfo.fX += m_fSpeed;
+		if (m_bRide && m_fRemainGas > 0)
+			m_fRemainGas -= fDeltaGas;
 	}
 	else if (CKeyMgr::GetInstance()->KeyPressing(VK_LEFT) && m_tRect.left > 20)
 	{
@@ -175,6 +196,8 @@ void CPlayer::KeyInput()
 		CheckPushBlock(DIR_LEFT);
 		CheckKickBomb(DIR_LEFT);
 		m_tInfo.fX -= m_fSpeed;
+		if (m_bRide && m_fRemainGas > 0)
+			m_fRemainGas -= fDeltaGas;
 	}
 	else if (CKeyMgr::GetInstance()->KeyPressing(VK_UP) && m_tRect.top > 40)
 	{
@@ -189,6 +212,8 @@ void CPlayer::KeyInput()
 		CheckPushBlock(DIR_UP);
 		CheckKickBomb(DIR_UP);
 		m_tInfo.fY -= m_fSpeed;
+		if (m_bRide && m_fRemainGas > 0)
+			m_fRemainGas -= fDeltaGas;
 	}
 	else if (CKeyMgr::GetInstance()->KeyPressing(VK_DOWN) && m_tRect.bottom < 560)
 	{
@@ -203,6 +228,8 @@ void CPlayer::KeyInput()
 		CheckPushBlock(DIR_DOWN);
 		CheckKickBomb(DIR_DOWN);
 		m_tInfo.fY += m_fSpeed;
+		if (m_bRide && m_fRemainGas > 0)
+			m_fRemainGas -= fDeltaGas;
 	}
 	else	//IDEL
 	{
@@ -236,7 +263,7 @@ void CPlayer::KeyInput()
 			if (m_eCurMotion == HIT)
 			{
 				//SOUND_NEDDLE
-				CSoundMgr::Get_Instance()->PlaySound(L"Neddle_11.wav", SOUND_NEDDLE, 0.3f);
+				CSoundMgr::Get_Instance()->PlaySound(L"Neddle_11.wav", SOUND_NEDDLE, 0.2f);
 				--m_iCtrlSlotCnt;
 				m_eCurMotion = REVIVAL;
 				ChangeMotion();
@@ -272,7 +299,7 @@ void CPlayer::KeyInput()
 		case 1:
 			if (m_eCurMotion == HIT && CInven::GetInstance()->GetInven().iNeedleCnt > 0)
 			{
-				CSoundMgr::Get_Instance()->PlaySound(L"Neddle_11.wav", SOUND_NEDDLE, 0.3f);
+				CSoundMgr::Get_Instance()->PlaySound(L"Neddle_11.wav", SOUND_NEDDLE, 0.2f);
 				CInven::GetInstance()->SetNeedleCnt(-1);
 				m_eCurMotion = REVIVAL;
 				ChangeMotion();
@@ -310,7 +337,7 @@ void CPlayer::KeyInput()
 		case 1:
 			if (m_eCurMotion == HIT && CInven::GetInstance()->GetInven().iNeedleCnt > 0)
 			{
-				CSoundMgr::Get_Instance()->PlaySound(L"Neddle_11.wav", SOUND_NEDDLE, 0.3f);
+				CSoundMgr::Get_Instance()->PlaySound(L"Neddle_11.wav", SOUND_NEDDLE, 0.2f);
 				CInven::GetInstance()->SetNeedleCnt(-1);
 				m_eCurMotion = REVIVAL;
 				ChangeMotion();
@@ -348,7 +375,7 @@ void CPlayer::KeyInput()
 		case 1:
 			if (m_eCurMotion == HIT && CInven::GetInstance()->GetInven().iNeedleCnt > 0)
 			{
-				CSoundMgr::Get_Instance()->PlaySound(L"Neddle_11.wav", SOUND_NEDDLE, 0.3f);
+				CSoundMgr::Get_Instance()->PlaySound(L"Neddle_11.wav", SOUND_NEDDLE, 0.2f);
 				CInven::GetInstance()->SetNeedleCnt(-1);
 				m_eCurMotion = REVIVAL;
 				ChangeMotion();
@@ -387,7 +414,7 @@ void CPlayer::KeyInput()
 		case 1:
 			if (m_eCurMotion == HIT && CInven::GetInstance()->GetInven().iNeedleCnt > 0)
 			{
-				CSoundMgr::Get_Instance()->PlaySound(L"Neddle_11.wav", SOUND_NEDDLE, 0.3f);
+				CSoundMgr::Get_Instance()->PlaySound(L"Neddle_11.wav", SOUND_NEDDLE, 0.2f);
 				CInven::GetInstance()->SetNeedleCnt(-1);
 				m_eCurMotion = REVIVAL;
 				ChangeMotion();
@@ -577,7 +604,7 @@ void CPlayer::ChangeMotion()
 		m_dwFrameCount = GetTickCount64();
 		break;
 	case HIT:
-		CSoundMgr::Get_Instance()->PlaySound(L"PlayerGetBubble.wav", PLAYER_BUBBLE, 0.3f);
+		CSoundMgr::Get_Instance()->PlaySound(L"PlayerGetBubble.wav", PLAYER_BUBBLE, 0.2f);
 		m_fSpeed = m_fBubbleSpeed;
 		m_pFrameKey = L"player_hit";
 		m_tFrame.iStart = 0;
@@ -591,7 +618,7 @@ void CPlayer::ChangeMotion()
 		m_dwFrameCount = GetTickCount64();
 		break;
 	case DEATH:
-		CSoundMgr::Get_Instance()->PlaySound(L"PlayerDead_12.wav", PLAYER_DEAD, 0.3f);
+		CSoundMgr::Get_Instance()->PlaySound(L"PlayerDead_12.wav", PLAYER_DEAD, 0.2f);
 		m_fSpeed = 0;
 		m_pFrameKey = L"player_death";
 		m_tFrame.iStart = 0;
@@ -616,6 +643,18 @@ void CPlayer::ChangeMotion()
 		m_tFrame.dwSpeed = 130.f;
 		m_tFrame.dwTime = GetTickCount64();
 		m_dwFrameCount = GetTickCount64();
+		break;
+	case WIN:
+		m_fSpeed = 0;
+		m_pFrameKey = L"player_win";
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 8;
+		m_tFrame.iMotion = 0;
+		m_tFrame.bLoop = true;
+		m_tFrame.iCX = 64;
+		m_tFrame.iCY = 80;
+		m_tFrame.dwSpeed = 130.f;
+		m_tFrame.dwTime = GetTickCount64();
 		break;
 	case MOTION_END:
 		break;

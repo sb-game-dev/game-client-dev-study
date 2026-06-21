@@ -14,9 +14,14 @@ public:
 	virtual void Release()						PURE;
 
 protected:
-	float	m_fAlpha;
-	float	m_fDeltaAlpha;
-	bool	m_bStartScene;
-	bool	m_bEndScene;
+	float			m_fAlpha;
+	float			m_fDeltaAlpha;
+	bool			m_bStartScene;
+	bool			m_bEndScene;
+
+	SCENESTATE		m_ePreSceneState;
+	SCENESTATE		m_eCurSceneState;
+
+	ULONGLONG		m_dwFrameTime;
 };
 

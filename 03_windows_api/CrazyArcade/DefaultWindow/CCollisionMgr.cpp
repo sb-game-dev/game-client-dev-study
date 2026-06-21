@@ -34,7 +34,7 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 					pDstBomb->SetDead();
 					if (pSrcDart)
 					{
-						CSoundMgr::Get_Instance()->PlaySound(L"ExplodeBomb2.wav", BOMB_EXPLODE, 0.3f);
+						CSoundMgr::Get_Instance()->PlaySound(L"BubblePop.wav", BOMB_EXPLODE, 0.3f);
 						pSrcDart->SetDead();
 					}
 				}
@@ -49,14 +49,16 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 					if (pSrcBoss && pSrcBoss->GetCurMotion() == BUBBLE)
 						pSrcBoss->SetDeath();	
 
+					//else if (pSrcBoss || pSrcMonster)
+					//	pDstPlayer->SetBossHit();
+					//else if (pSrcWave)
+					//	pDstPlayer->SetHit();
 #ifdef NDEBUG
 					else if(pSrcBoss || pSrcMonster)
 						pDstPlayer->SetBossHit();
 					else if(pSrcWave)
 						pDstPlayer->SetHit();
 #endif // NDEBUG
-					else if (pSrcWave)
-						pDstPlayer->SetHit();
 				}
 				else if (pSrcPlayer)//pDstItem && 
 				{

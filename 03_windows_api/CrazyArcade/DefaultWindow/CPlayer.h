@@ -32,12 +32,14 @@ public:
     void        SetHit();// { m_eCurMotion = HIT; ChangeMotion(); }
     void        SetBossHit(){ m_eCurMotion = DEATH; ChangeMotion(); }
     void        SetReduceBombCnt() { --m_iBombCnt; }
+    void        AddGas(float fGas) { m_fRemainGas += fGas; }
+    void        SetWin() { m_eCurMotion = WIN; ChangeMotion(); }
 
     MOTION      GetCurMotion() { return m_eCurMotion; }
     bool        GetShield() { return m_bShowShieldEffect; }
     bool        GetRide() { return m_bRide; }
-
-
+    float       GetRemainGas() { return m_fRemainGas; }
+    float*      GetRemainGasPtr() { return &m_fRemainGas; }
     void        PickUpItem(const WCHAR* pItemFrameKey);
 private:
     MOTION      m_ePreMotion;
@@ -68,5 +70,7 @@ private:
     float       m_fKickBombTime;
 
     vector<CObj*>* m_pTileVector;
+
+    float       m_fRemainGas;
 };
 

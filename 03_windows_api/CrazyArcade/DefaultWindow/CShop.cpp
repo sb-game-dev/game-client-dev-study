@@ -63,7 +63,6 @@ void CShop::Render(HDC hDC)
 	int iNumcnt = 0;
 	while (iMoney)
 	{
-		
 		int iNum = iMoney % 10;
 		HDC hNumber = CBmpMgr::GetInstance()->FindImage(L"numbers");
 		GdiTransparentBlt(hDC,					// ¸ñÀûÁö DC

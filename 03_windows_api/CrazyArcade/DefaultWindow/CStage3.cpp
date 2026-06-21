@@ -2,7 +2,6 @@
 #include "CStage3.h"
 #include "CObjMgr.h"
 #include "CAbstractFactory.h"
-#include "CPlayer.h"
 #include "CImgMgr.h"
 #include "CBoss.h"
 #include "CBmpMgr.h"
@@ -12,7 +11,7 @@
 #include "CMonster.h"
 #include "CButton.h"
 #include "CInven.h"
-CStage3::CStage3()
+CStage3::CStage3() :m_pPlayer(nullptr)
 {
 }
 
@@ -31,10 +30,11 @@ void CStage3::Initialize()
 	CObjMgr::GetInstance()->AddObject(OBJ_ITEM, CAbstractFactory<CItem>::Create((3 * 40) + 40, (1 * 40) + 60, L"roller"));
 	CObjMgr::GetInstance()->AddObject(OBJ_ITEM, CAbstractFactory<CItem>::Create((10 * 40) + 40, (1 * 40) + 60, L"shield"));
 	CObjMgr::GetInstance()->AddObject(OBJ_ITEM, CAbstractFactory<CItem>::Create((11 * 40) + 40, (1 * 40) + 60, L"shoe"));
-	CObjMgr::GetInstance()->AddObject(OBJ_ITEM, CAbstractFactory<CItem>::Create((12 * 40) + 40, (1 * 40) + 60, L"trampoline"));
 #endif // _DEBUG
 
-	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create((13 * 40) + 40, (11 * 40) + 60, L"player_start"));
+	m_pPlayer = CAbstractFactory<CPlayer>::Create((13 * 40) + 40, (11 * 40) + 60, L"player_start");
+	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, m_pPlayer);
+
 	CObjMgr::GetInstance()->AddObject(OBJ_BOSS, CAbstractFactory<CBoss>::Create((3 * 40) + 40, (10 * 40) + 60, L"Boss_down"));
 
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(717, 576, L"button_stageExit"));
@@ -48,13 +48,18 @@ int CStage3::Update()
 {
 	if (CObjMgr::GetInstance()->GetRemainBoss() <= 0)
 	{
-		CSceneMgr::GetInstance()->SceneChangeReserve(SC_MENU);
-		return 0;
+		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
+		m_eCurSceneState = SCENE_WIN;
+		dynamic_cast<CPlayer*>(m_pPlayer)->SetWin();
+		ChangeScene();
 	}
 	else if (CObjMgr::GetInstance()->GetRemainPlayer() == false)
 	{
-		m_bEndScene = true;
+		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
+		m_eCurSceneState = SCENE_LOSE;
+		ChangeScene();
 	}
+
 	CObjMgr::GetInstance()->Update();
 	return 0;
 }
@@ -62,6 +67,20 @@ int CStage3::Update()
 void CStage3::LateUpdate()
 {
 	CObjMgr::GetInstance()->LateUpdate();
+	if (m_eCurSceneState == SCENE_START || m_eCurSceneState == SCENE_WIN)
+	{
+		if (m_eCurSceneState == SCENE_START && m_fAlpha > 0.f && m_dwFrameTime + 10 <= GetTickCount64())
+		{
+			m_dwFrameTime = GetTickCount64();
+			m_fAlpha -= 0.015f;
+		}
+		else if (m_eCurSceneState == SCENE_WIN && m_fAlpha < 1.f && m_dwFrameTime + 10 <= GetTickCount64())
+		{
+			m_dwFrameTime = GetTickCount64();
+			m_fAlpha += 0.008f;
+		}
+		CheckSceneFrame();
+	}
 }
 
 void CStage3::Render(HDC hDC)
@@ -134,6 +153,18 @@ void CStage3::Render(HDC hDC)
 			RGB(255, 0, 255));						// 제거할 픽셀 색상
 		++iItemCnt;
 	}
+
+	if (m_eCurSceneState == SCENE_START)
+	{
+		Graphics* _pGraphics = Graphics::FromHDC(hDC);
+		Gdiplus::Image* pBlackImg = CImgMgr::GetInstance()->FindImg(L"black_bg");
+
+		Rect rect = { 0,0,800,600 };
+
+		ImageAttributes attr;
+		MakeAlphaAttr(attr, m_fAlpha);
+		_pGraphics->DrawImage(pBlackImg, rect, 0, 0, WINCX, WINCY, UnitPixel, &attr);
+	}
 }
 
 void CStage3::Release()
@@ -151,3 +182,34 @@ void CStage3::Release()
 }
 
 
+void CStage3::CheckSceneFrame()
+{
+	if (m_eCurSceneState == SCENE_START && m_fAlpha < 0.f)
+	{
+		m_eCurSceneState = SCENE_PLAY;
+		CSoundMgr::Get_Instance()->PlayBGM(L"BossBGM.wav", 0.2f);
+	}
+	else if (m_eCurSceneState == SCENE_END && m_fAlpha >= 1.f)
+	{
+	}
+}
+
+void CStage3::ChangeScene()
+{
+	if (m_ePreSceneState == m_eCurSceneState)
+		return;
+	switch (m_eCurSceneState)
+	{
+	case SCENE_START:
+		m_dwFrameTime = GetTickCount64();
+		break;
+	case SCENE_WIN:
+		CSoundMgr::Get_Instance()->PlaySound(L"Win.wav", SOUND_EFFECT, 0.2f);
+		break;
+	case SCENE_LOSE:
+		break;
+	default:
+		break;
+	}
+	m_ePreSceneState = m_eCurSceneState;
+}

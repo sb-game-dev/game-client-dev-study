@@ -2,15 +2,15 @@
 #include "CStage2.h"
 #include "CBmpMgr.h"
 #include "CObjMgr.h"
-#include "CPlayer.h"
 #include "CAbstractFactory.h"
 #include "CMonster.h"
 #include "CSceneMgr.h"
 #include "CSoundMgr.h"
 #include "CButton.h"
 #include "CInven.h"
+#include "CImgMgr.h"
 
-CStage2::CStage2()
+CStage2::CStage2():m_pPlayer(nullptr)
 {
 }
 
@@ -25,7 +25,8 @@ void CStage2::Initialize()
 
 	CObjMgr::GetInstance()->DeleteObj(OBJ_MONSTER);
 
-	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create((6 * 40) + 40, (5 * 40) + 60, L"player_start"));
+	m_pPlayer = CAbstractFactory<CPlayer>::Create((6 * 40) + 40, (5 * 40) + 60, L"player_start");
+	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, m_pPlayer);
 
 	//Follow
 	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((7 * 40) + 40, (0 * 40) + 60, L"Bean_Monster_Start"));
@@ -60,13 +61,18 @@ int CStage2::Update()
 {
 	if (CObjMgr::GetInstance()->GetRemainMonster() <= 0)
 	{
-		CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE3);
-		return 0;
+		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
+		m_eCurSceneState = SCENE_WIN;
+		dynamic_cast<CPlayer*>(m_pPlayer)->SetWin();
+		ChangeScene();
 	}
 	else if (CObjMgr::GetInstance()->GetRemainPlayer() == false)
 	{
-		m_bEndScene = true;
+		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
+		m_eCurSceneState = SCENE_LOSE;
+		ChangeScene();
 	}
+
 	CObjMgr::GetInstance()->Update();
 
 	return 0;
@@ -74,8 +80,21 @@ int CStage2::Update()
 
 void CStage2::LateUpdate()
 {
-
 	CObjMgr::GetInstance()->LateUpdate();
+	if (m_eCurSceneState == SCENE_START || m_eCurSceneState == SCENE_WIN)
+	{
+		if (m_eCurSceneState == SCENE_START && m_fAlpha > 0.f && m_dwFrameTime + 10 <= GetTickCount64())
+		{
+			m_dwFrameTime = GetTickCount64();
+			m_fAlpha -= 0.015f;
+		}
+		else if (m_eCurSceneState == SCENE_WIN && m_fAlpha < 1.f && m_dwFrameTime + 10 <= GetTickCount64())
+		{
+			m_dwFrameTime = GetTickCount64();
+			m_fAlpha += 0.008f;
+		}
+		CheckSceneFrame();
+	}
 }
 
 void CStage2::Render(HDC hDC)
@@ -148,6 +167,17 @@ void CStage2::Render(HDC hDC)
 			RGB(255, 0, 255));						// 제거할 픽셀 색상
 		++iItemCnt;
 	}
+	if (m_eCurSceneState == SCENE_START)
+	{
+		Graphics* _pGraphics = Graphics::FromHDC(hDC);
+		Gdiplus::Image* pBlackImg = CImgMgr::GetInstance()->FindImg(L"black_bg");
+
+		Rect rect = { 0,0,800,600 };
+
+		ImageAttributes attr;
+		MakeAlphaAttr(attr, m_fAlpha);
+		_pGraphics->DrawImage(pBlackImg, rect, 0, 0, WINCX, WINCY, UnitPixel, &attr);
+	}
 }
 
 void CStage2::Release()
@@ -163,3 +193,35 @@ void CStage2::Release()
 	CObjMgr::GetInstance()->DeleteTile();
 }
 
+void CStage2::CheckSceneFrame()
+{
+	if (m_eCurSceneState == SCENE_START && m_fAlpha < 0.f)
+	{
+		m_eCurSceneState = SCENE_PLAY;
+		CSoundMgr::Get_Instance()->PlayBGM(L"Pirate.wav", 0.1f);
+	}
+	else if (m_eCurSceneState == SCENE_WIN && m_fAlpha >= 1.f)
+	{
+		CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE3);
+	}
+}
+
+void CStage2::ChangeScene()
+{
+	if (m_ePreSceneState == m_eCurSceneState)
+		return;
+	switch (m_eCurSceneState)
+	{
+	case SCENE_START:
+		m_dwFrameTime = GetTickCount64();
+		break;
+	case SCENE_WIN:
+		CSoundMgr::Get_Instance()->PlaySound(L"Win.wav", SOUND_EFFECT, 0.2f);
+		break;
+	case SCENE_LOSE:
+		break;
+	default:
+		break;
+	}
+	m_ePreSceneState = m_eCurSceneState;
+}

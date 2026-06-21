@@ -13,7 +13,7 @@
 #include "CButton.h"
 #include "CMark.h"
 #include "CInven.h"
-CStage4::CStage4():m_iFirstBlockCnt(0),m_hBackGround(NULL),m_pMarkList(nullptr), m_bFristBlockCheck(false),m_pTileVector(nullptr)
+CStage4::CStage4():m_iFirstBlockCnt(0),m_hBackGround(NULL),m_pMarkList(nullptr), m_bFristBlockCheck(false),m_pTileVector(nullptr), m_iClearRangeCnt(0), m_pPlayer(nullptr)
 {
 	ZeroMemory(&m_bBlockCheck, sizeof(m_bBlockCheck));
 
@@ -129,8 +129,11 @@ void CStage4::Initialize()
 #endif // _DEBUG
 	int iPlayer_StartX = 9;
 	int iPlayer_StartY = 9;
-	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create((iPlayer_StartX * 40) + 40, (iPlayer_StartY * 40) + 60, L"player_start"));
-	
+
+	m_pPlayer = CAbstractFactory<CPlayer>::Create((iPlayer_StartX * 40) + 40, (iPlayer_StartY * 40) + 60, L"player_start");
+	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, m_pPlayer);
+
+
 	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((0 * 40) + 40, (0 * 40) + 60, L"Bean_Monster_Start"));
 	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((5 * 40) + 40, (4 * 40) + 60, L"Bean_Monster_Start"));
 	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((3 * 40) + 40, (12 * 40) + 60, L"Bean_Monster_Start"));
@@ -200,6 +203,19 @@ void CStage4::Initialize()
 
 int CStage4::Update()
 {
+	if (m_iClearRangeCnt>=19)
+	{
+		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
+		m_eCurSceneState = SCENE_WIN;
+		dynamic_cast<CPlayer*>(m_pPlayer)->SetWin();
+		ChangeScene();
+	}
+	else if (CObjMgr::GetInstance()->GetRemainPlayer() == false)
+	{
+		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
+		m_eCurSceneState = SCENE_LOSE;
+		ChangeScene();
+	}
 	CObjMgr::GetInstance()->Update();
 	return 0;
 }
@@ -221,6 +237,7 @@ void CStage4::LateUpdate()
 			if (m_iBlockCnt[i] == m_iBlockCntAnswer[i]) 
 			{
 				m_bBlockCheck[i] = true;
+				++m_iClearRangeCnt;
 				for (auto TileIndex : m_TileBlockVec[i])
 					(*m_pTileVector)[TileIndex]->SetStartFrame(19);
 			}
@@ -249,6 +266,21 @@ void CStage4::LateUpdate()
 					pMark->SetDraw(true);
 			}
 		}
+	}
+
+	if (m_eCurSceneState == SCENE_START || m_eCurSceneState == SCENE_WIN)
+	{
+		if (m_eCurSceneState == SCENE_START && m_fAlpha > 0.f && m_dwFrameTime + 10 <= GetTickCount64())
+		{
+			m_dwFrameTime = GetTickCount64();
+			m_fAlpha -= 0.015f;
+		}
+		else if (m_eCurSceneState == SCENE_WIN && m_fAlpha < 1.f && m_dwFrameTime + 10 <= GetTickCount64())
+		{
+			m_dwFrameTime = GetTickCount64();
+			m_fAlpha += 0.008f;
+		}
+		CheckSceneFrame();
 	}
 }
 
@@ -318,7 +350,7 @@ void CStage4::Render(HDC hDC)
 
 		HDC hSlotItem = CBmpMgr::GetInstance()->FindImage(L"InGameSlot");
 		GdiTransparentBlt(hDC,						// 목적지 DC
-			243 + 40 * iItemCnt,						// 목적지 LEFT, TOP
+			243 + 40 * iItemCnt,					// 목적지 LEFT, TOP
 			568,
 			37,										// 목적지 공간의 가로, 세로 사이즈
 			29,
@@ -329,6 +361,17 @@ void CStage4::Render(HDC hDC)
 			29,
 			RGB(255, 0, 255));						// 제거할 픽셀 색상
 		++iItemCnt;
+	}
+	if (m_eCurSceneState == SCENE_START)
+	{
+		Graphics* _pGraphics = Graphics::FromHDC(hDC);
+		Gdiplus::Image* pBlackImg = CImgMgr::GetInstance()->FindImg(L"black_bg");
+
+		Rect rect = { 0,0,800,600 };
+
+		ImageAttributes attr;
+		MakeAlphaAttr(attr, m_fAlpha);
+		_pGraphics->DrawImage(pBlackImg, rect, 0, 0, WINCX, WINCY, UnitPixel, &attr);
 	}
 }
 
@@ -365,4 +408,37 @@ bool CStage4::CheckRange(INTRECT tIntRect, CObj* pMark)
 		return true;
 	}
 	return false;
+}
+void CStage4::CheckSceneFrame()
+{
+	if (m_eCurSceneState == SCENE_START && m_fAlpha < 0.f)
+	{
+		m_eCurSceneState = SCENE_PLAY;
+		CSoundMgr::Get_Instance()->PlayBGM(L"StageBGM.wav", 0.2f);
+	}
+	else if (m_eCurSceneState == SCENE_END && m_fAlpha >= 1.f)
+	{
+
+	}
+}
+
+void CStage4::ChangeScene()
+{
+	if (m_ePreSceneState == m_eCurSceneState)
+		return;
+	switch (m_eCurSceneState)
+	{
+	case SCENE_START:
+		m_dwFrameTime = GetTickCount64();
+		break;
+	case SCENE_WIN:
+		CSoundMgr::Get_Instance()->PlaySound(L"Win.wav", SOUND_EFFECT, 0.2f);
+		CObjMgr::GetInstance()->DestroyMonster();
+		break;
+	case SCENE_LOSE:
+		break;
+	default:
+		break;
+	}
+	m_ePreSceneState = m_eCurSceneState;
 }

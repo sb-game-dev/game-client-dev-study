@@ -122,6 +122,20 @@ void CEdit::LateUpdate()
 	else if (CKeyMgr::GetInstance()->KeyDown('T'))
 		CObjMgr::GetInstance()->LoadStage5();
 	CObjMgr::GetInstance()->LateUpdate();
+	if (m_eCurSceneState == SCENE_START || m_eCurSceneState == SCENE_END)
+	{
+		if (m_eCurSceneState == SCENE_START && m_fAlpha > 0.f && m_dwFrameTime + 10 <= GetTickCount64())
+		{
+			m_dwFrameTime = GetTickCount64();
+			m_fAlpha -= 0.015f;
+		}
+		else if (m_eCurSceneState == SCENE_END && m_fAlpha < 1.f && m_dwFrameTime + 10 <= GetTickCount64())
+		{
+			m_dwFrameTime = GetTickCount64();
+			m_fAlpha += 0.03f;
+		}
+		CheckSceneFrame();
+	}
 }
 
 void CEdit::Render(HDC hDC)
@@ -137,6 +151,17 @@ void CEdit::Render(HDC hDC)
 		SRCCOPY);						// 그대로 복사하여 출력
 
 	CObjMgr::GetInstance()->Render(hDC);
+	if (m_eCurSceneState == SCENE_START || m_eCurSceneState == SCENE_END)
+	{
+		Graphics* _pGraphics = Graphics::FromHDC(hDC);
+		Gdiplus::Image* pBlackImg = CImgMgr::GetInstance()->FindImg(L"black_bg");
+
+		Rect rect = { 0,0,800,600 };
+
+		ImageAttributes attr;
+		MakeAlphaAttr(attr, m_fAlpha);
+		_pGraphics->DrawImage(pBlackImg, rect, 0, 0, WINCX, WINCY, UnitPixel, &attr);
+	}
 }
 
 void CEdit::Release()
@@ -146,3 +171,14 @@ void CEdit::Release()
 	dynamic_cast<CMouse*>(CObjMgr::GetInstance()->GetList(OBJ_MOUSE).front())->SetChoiceTile(TILE_END);
 }
 
+void CEdit::CheckSceneFrame()
+{
+	if (m_eCurSceneState == SCENE_START && m_fAlpha < 0.f)
+	{
+		m_eCurSceneState = SCENE_PLAY;
+	}
+	else if (m_eCurSceneState == SCENE_END && m_fAlpha >= 1.f)
+	{
+
+	}
+}

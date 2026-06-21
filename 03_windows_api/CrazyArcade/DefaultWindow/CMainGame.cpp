@@ -46,7 +46,7 @@ void CMainGame::Initialize()
 	CSoundMgr::Get_Instance()->Initialize();
 
 #ifdef _DEBUG
-	CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE5);
+	CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE3);
 #elif NDEBUG
 	CSceneMgr::GetInstance()->SceneChangeReserve(SC_LOGO);
 #endif // _DEBUG
@@ -160,6 +160,7 @@ void CMainGame::InsertImg()
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_hit.bmp", L"player_hit");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_death.bmp", L"player_death");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_live.bmp", L"player_live");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_win.bmp", L"player_win");
 
 	//Tile
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile.bmp", L"tile");
@@ -231,6 +232,15 @@ void CMainGame::InsertImg()
 
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/InGameSlot.bmp", L"InGameSlot");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/InGameNumber.bmp", L"InGameNumber");
+
+	//trackCnt_UI
+	CImgMgr::GetInstance()->InsertImg(L"../Resource/UI/trackCnt.bmp", L"trackCnt");
+	//CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/trackCnt.bmp", L"trackCnt");
+
+	//gasBar_UI
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/gas_frame.bmp", L"gas_frame");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/gas_bar.bmp", L"gas_bar");
+
 
 	//Ctrl_slot
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/stage_ctrlItem.bmp", L"stage_ctrlItem");

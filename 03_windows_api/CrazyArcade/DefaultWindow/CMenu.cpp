@@ -70,12 +70,13 @@ void CMenu::LateUpdate()
 				}
 				else if (!lstrcmp(L"button_stageStart", pButton->GetFrameKey()))
 				{
-					if (m_pSelectStage && !lstrcmp(L"button_FirstStage", m_pSelectStage->GetFrameKey()))
-						CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE1);
-					else if (m_pSelectStage && !lstrcmp(L"button_SecondStage", m_pSelectStage->GetFrameKey()))
-						CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE4);
-					else if (m_pSelectStage && !lstrcmp(L"button_ThirdStage", m_pSelectStage->GetFrameKey()))
-						CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE5);
+					m_eCurSceneState = SCENE_END;
+					//if (m_pSelectStage && !lstrcmp(L"button_FirstStage", m_pSelectStage->GetFrameKey()))
+					//	CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE1);
+					//else if (m_pSelectStage && !lstrcmp(L"button_SecondStage", m_pSelectStage->GetFrameKey()))
+					//	CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE4);
+					//else if (m_pSelectStage && !lstrcmp(L"button_ThirdStage", m_pSelectStage->GetFrameKey()))
+					//	CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE5);
 				}
 			}
 			if ((!lstrcmp(L"button_FirstStage", pButton->GetFrameKey()) || 
@@ -89,12 +90,25 @@ void CMenu::LateUpdate()
 
 		CObjMgr::GetInstance()->LateUpdate();
 	}
+	if (m_eCurSceneState == SCENE_START || m_eCurSceneState == SCENE_END)
+	{
+		if (m_eCurSceneState == SCENE_START && m_fAlpha > 0.f && m_dwFrameTime + 10 <= GetTickCount64())
+		{
+			m_dwFrameTime = GetTickCount64();
+			m_fAlpha -= 0.015f;
+		}
+		else if (m_eCurSceneState == SCENE_END && m_fAlpha < 1.f && m_dwFrameTime + 10 <= GetTickCount64())
+		{
+			m_dwFrameTime = GetTickCount64();
+			m_fAlpha += 0.03f;
+		}
+		CheckSceneFrame();
+	}
 }
 
 void CMenu::Render(HDC hDC)
 {
 	HDC hBackGround = CBmpMgr::GetInstance()->FindImage(L"menu_background");
-
 	BitBlt(hDC,							// 목적지 DC
 		0, 0,
 		WINCX, WINCY,
@@ -102,14 +116,7 @@ void CMenu::Render(HDC hDC)
 		0,								// 원본 이미지에서 가져오기 시작할 좌표의 LEFT, TOP
 		0,
 		SRCCOPY);						// 그대로 복사하여 출력
-	//Graphics* _pGraphics = Graphics::FromHDC(hDC);
-	//Gdiplus::Image* pBlackImg = CImgMgr::GetInstance()->FindImg(L"black_bg");
-	//
-	//Rect rect = { 0,0,800,600 };
-	//
-	//ImageAttributes attr;
-	//MakeAlphaAttr(attr, m_fAlpha);
-	//_pGraphics->DrawImage(pBlackImg, rect, 0, 0, WINCX, WINCY, UnitPixel, &attr);
+	
 	CObjMgr::GetInstance()->Render(hDC);
 	if (CInven::GetInstance()->GetDraw())
 	{
@@ -117,6 +124,17 @@ void CMenu::Render(HDC hDC)
 		CObjMgr::GetInstance()->GetList(OBJ_MOUSE).front()->Render(hDC);
 	}
 
+	if (m_eCurSceneState == SCENE_START || m_eCurSceneState == SCENE_END)
+	{
+		Graphics* _pGraphics = Graphics::FromHDC(hDC);
+		Gdiplus::Image* pBlackImg = CImgMgr::GetInstance()->FindImg(L"black_bg");
+
+		Rect rect = { 0,0,800,600 };
+
+		ImageAttributes attr;
+		MakeAlphaAttr(attr, m_fAlpha);
+		_pGraphics->DrawImage(pBlackImg, rect, 0, 0, WINCX, WINCY, UnitPixel, &attr);
+	}
 }
 
 void CMenu::Release()
@@ -125,4 +143,21 @@ void CMenu::Release()
 	CObjMgr::GetInstance()->ReleaseRenderList();
 	CObjMgr::GetInstance()->DeleteObj(OBJ_BUTTON);
 	CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
+}
+
+void CMenu::CheckSceneFrame()
+{
+	if (m_eCurSceneState == SCENE_START && m_fAlpha < 0.f)
+	{
+		m_eCurSceneState = SCENE_PLAY;
+	}
+	else if (m_eCurSceneState == SCENE_END && m_fAlpha >= 1.f)
+	{
+		if (m_pSelectStage && !lstrcmp(L"button_FirstStage", m_pSelectStage->GetFrameKey()))
+			CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE1);
+		else if (m_pSelectStage && !lstrcmp(L"button_SecondStage", m_pSelectStage->GetFrameKey()))
+			CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE4);
+		else if (m_pSelectStage && !lstrcmp(L"button_ThirdStage", m_pSelectStage->GetFrameKey()))
+			CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE5);
+	}
 }
