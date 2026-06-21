@@ -342,7 +342,7 @@ void CStage5::CheckSceneFrame()
 	if (m_eCurSceneState == SCENE_START && m_fAlpha < 0.f)
 	{
 		m_eCurSceneState = SCENE_PLAY;
-		CSoundMgr::Get_Instance()->PlayBGM(L"bg_4.wav", 0.2f);
+		CSoundMgr::Get_Instance()->PlayBGM(L"bg_4.wav", 0.1f);
 	}
 	else if (m_eCurSceneState == SCENE_END && m_fAlpha >= 1.f)
 	{
