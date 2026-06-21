@@ -270,6 +270,7 @@ void CStage5::CheckBase()
 	if (m_iTrackCnt == 3 && m_iNextBase == 0
 		&& IntersectRect(&rc, m_pBaseStart->GetRect(), m_pPlayer->GetRect()))
 	{
+		CSoundMgr::Get_Instance()->PlaySound(L"ef_4.wav", SOUND_EFFECT, 0.2f);
 		dynamic_cast<CBase*>(m_pBaseStart)->SetBaseMoveFrame(false);
 		dynamic_cast<CBase*>(m_pBase1)->SetBaseMoveFrame(true);
 		m_iNextBase = m_iNextBase % 4 + 1;
@@ -282,6 +283,7 @@ void CStage5::CheckBase()
 			if (m_iNextBase == i + 1
 				&& IntersectRect(&rc, BaseArr[i]->GetRect(), m_pPlayer->GetRect()))
 			{
+				CSoundMgr::Get_Instance()->PlaySound(L"ef_4.wav", SOUND_EFFECT, 0.2f);
 				if (m_iNextBase == 4)
 					--m_iTrackCnt;
 				dynamic_cast<CBase*>(BaseArr[m_iNextBase - 1])->SetBaseMoveFrame(false);
