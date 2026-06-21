@@ -274,6 +274,7 @@ void CPlayer::KeyInput()
 			if (m_bShowShieldEffect == true || m_eCurMotion == HIT || m_eCurMotion == DEATH)
 				return;
 			--m_iCtrlSlotCnt;
+			CSoundMgr::Get_Instance()->PlaySound(L"Shield.wav", SOUND_NEDDLE, 0.8f);
 			m_bShowShieldEffect = true;
 			m_iShieldFrame = 0;
 			m_dwShieldEffectFrameCount = GetTickCount64(); 
@@ -319,6 +320,7 @@ void CPlayer::KeyInput()
 				return;
 			if (CInven::GetInstance()->GetInven().iShieldCnt > 0)
 			{
+				CSoundMgr::Get_Instance()->PlaySound(L"Shield.wav", SOUND_NEDDLE, 0.8f);
 				m_bShowShieldEffect = true;
 				m_iShieldFrame = 0;
 				m_dwShieldEffectFrameCount = GetTickCount64();
@@ -337,7 +339,7 @@ void CPlayer::KeyInput()
 		case 1:
 			if (m_eCurMotion == HIT && CInven::GetInstance()->GetInven().iNeedleCnt > 0)
 			{
-				CSoundMgr::Get_Instance()->PlaySound(L"Neddle_11.wav", SOUND_NEDDLE, 0.2f);
+				CSoundMgr::Get_Instance()->PlaySound(L"Neddle_11.wav", SOUND_NEDDLE, 0.8f);
 				CInven::GetInstance()->SetNeedleCnt(-1);
 				m_eCurMotion = REVIVAL;
 				ChangeMotion();
@@ -357,6 +359,7 @@ void CPlayer::KeyInput()
 				return;
 			if (CInven::GetInstance()->GetInven().iShieldCnt > 0)
 			{
+				CSoundMgr::Get_Instance()->PlaySound(L"Shield.wav", SOUND_NEDDLE, 0.8f);
 				m_bShowShieldEffect = true;
 				m_iShieldFrame = 0;
 				m_dwShieldEffectFrameCount = GetTickCount64();
@@ -396,6 +399,7 @@ void CPlayer::KeyInput()
 
 			if (CInven::GetInstance()->GetInven().iShieldCnt > 0)
 			{
+				CSoundMgr::Get_Instance()->PlaySound(L"Shield.wav", SOUND_NEDDLE, 0.8f);
 				m_bShowShieldEffect = true;
 				m_iShieldFrame = 0;
 				m_dwShieldEffectFrameCount = GetTickCount64();
@@ -434,6 +438,7 @@ void CPlayer::KeyInput()
 				return;
 			if (CInven::GetInstance()->GetInven().iShieldCnt > 0)
 			{
+				CSoundMgr::Get_Instance()->PlaySound(L"Shield.wav", SOUND_NEDDLE, 0.8f);
 				m_bShowShieldEffect = true;
 				m_iShieldFrame = 0;
 				m_dwShieldEffectFrameCount = GetTickCount64();

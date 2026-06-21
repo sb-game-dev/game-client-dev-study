@@ -238,6 +238,7 @@ void CStage4::LateUpdate()
 			{
 				m_bBlockCheck[i] = true;
 				++m_iClearRangeCnt;
+				CSoundMgr::Get_Instance()->PlaySound(L"ef_6.wav", SOUND_NEDDLE, 0.3f);
 				for (auto TileIndex : m_TileBlockVec[i])
 					(*m_pTileVector)[TileIndex]->SetStartFrame(19);
 			}
