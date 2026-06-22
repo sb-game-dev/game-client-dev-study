@@ -124,6 +124,9 @@
     <Filter Include="02. Obj\12. GasStation">
       <UniqueIdentifier>{13d56975-57b5-4f31-9701-27321eb057d2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Obj\13. UI">
+      <UniqueIdentifier>{9cf485c5-2fd7-4bcc-8f0c-01ea99e2dd23}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -249,6 +252,9 @@
     <ClInclude Include="CGasStation.h">
       <Filter>02. Obj\12. GasStation</Filter>
     </ClInclude>
+    <ClInclude Include="CUI.h">
+      <Filter>02. Obj\13. UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefaultWindow.cpp">
@@ -358,6 +364,9 @@
     </ClCompile>
     <ClCompile Include="CGasStation.cpp">
       <Filter>02. Obj\12. GasStation</Filter>
+    </ClCompile>
+    <ClCompile Include="CUI.cpp">
+      <Filter>02. Obj\13. UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

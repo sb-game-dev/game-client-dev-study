@@ -169,6 +169,7 @@
     <ClInclude Include="CStage4.h" />
     <ClInclude Include="CStage5.h" />
     <ClInclude Include="CTile.h" />
+    <ClInclude Include="CUI.h" />
     <ClInclude Include="CWave.h" />
     <ClInclude Include="DefaultWindow.h" />
     <ClInclude Include="Define.h" />
@@ -211,6 +212,7 @@
     <ClCompile Include="CStage4.cpp" />
     <ClCompile Include="CStage5.cpp" />
     <ClCompile Include="CTile.cpp" />
+    <ClCompile Include="CUI.cpp" />
     <ClCompile Include="CWave.cpp" />
     <ClCompile Include="DefaultWindow.cpp" />
     <ClCompile Include="pch.cpp">
