@@ -244,6 +244,11 @@ void CObjMgr::LateUpdate()
 	{
 		Player2BombCollision();
 	}
+	if (!m_ObjList[OBJ_PLAYER].empty() && !m_ObjList[OBJ_PLAYER2].empty())
+	{
+		CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_PLAYER2]);
+		CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER2], m_ObjList[OBJ_PLAYER]);
+	}
 	for (auto& pObj : m_TileVec)
 			pObj->Update_Rect();
 	for (int i = 0; i < OBJ_END; ++i)

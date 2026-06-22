@@ -56,7 +56,9 @@ void CPlayer::Initialize()
 
 	m_pPlayMode = CSceneMgr::GetInstance()->GetPlayModePtr();
 
-	m_pRespawnPoint = CAbstractFactory<CUI*>
+	m_pRespawnPoint = CAbstractFactory<CUI>::Create(m_tInfo.fX, m_tInfo.fY - 38.5f, L"UI_Respawn");
+	m_pRespawnPoint->SetDraw(false);
+	CObjMgr::GetInstance()->AddObject(OBJ_UI, m_pRespawnPoint);
 }
 
 int CPlayer::Update()
@@ -93,15 +95,15 @@ void CPlayer::LateUpdate()
 
 void CPlayer::Render(HDC hDC)
 {
+#ifdef _DEBUG
+	Rectangle(hDC,
+		m_tRect.left,
+		m_tRect.top,
+		m_tRect.right,
+		m_tRect.bottom);
+#endif // _DEBUG
 	if (m_bDraw == true)
 	{
-#ifdef _DEBUG
-		Rectangle(hDC,
-			m_tRect.left,
-			m_tRect.top,
-			m_tRect.right,
-			m_tRect.bottom);
-#endif // _DEBUG
 
 		HDC hPlayer = CBmpMgr::GetInstance()->FindImage(m_pFrameKey);
 
@@ -279,7 +281,7 @@ void CPlayer::KeyInput()
 			m_eCurMotion = IDLE;
 		ChangeMotion();
 	}
-	if (CKeyMgr::GetInstance()->KeyDown(VK_SPACE))
+	if (CKeyMgr::GetInstance()->KeyDown(VK_SPACE) && * m_pPlayMode == MODE1P)
 	{
 		if (m_eCurMotion == HIT || m_eCurMotion == DEATH)
 			return;
@@ -288,6 +290,21 @@ void CPlayer::KeyInput()
 			for (auto& pBomb : CObjMgr::GetInstance()->GetList(OBJ_BOMB))
 			{
 				if (AdjustPosX(m_tInfo.fX) == pBomb->GetInfo()->fX 
+					&& AdjustPosY(m_tInfo.fY) == pBomb->GetInfo()->fY)
+					return;
+			}
+			CreateBomb();
+		}
+	}
+	else if (CKeyMgr::GetInstance()->KeyDown(VK_RSHIFT) && *m_pPlayMode == MODE2P)
+	{
+		if (m_eCurMotion == HIT || m_eCurMotion == DEATH)
+			return;
+		if (CObjMgr::GetInstance()->GetList(OBJ_BOMB).size() < m_iBombMax)
+		{
+			for (auto& pBomb : CObjMgr::GetInstance()->GetList(OBJ_BOMB))
+			{
+				if (AdjustPosX(m_tInfo.fX) == pBomb->GetInfo()->fX
 					&& AdjustPosY(m_tInfo.fY) == pBomb->GetInfo()->fY)
 					return;
 			}
@@ -499,6 +516,7 @@ void CPlayer::ChangeMotion()
 	switch (m_eCurMotion)
 	{
 	case START:
+		m_pRespawnPoint->SetDraw(false);
 		m_bDraw = true;
 		m_fSpeed = 0;
 		m_pFrameKey = L"player_start";
@@ -691,6 +709,7 @@ void CPlayer::ChangeMotion()
 		m_dwFrameCount = GetTickCount64();
 		break;
 	case RESPAWN:
+		m_pRespawnPoint->SetDraw(true);
 		m_fSpeed = 0;
 		m_dwFrameCount = GetTickCount64();
 		m_bDraw = false;

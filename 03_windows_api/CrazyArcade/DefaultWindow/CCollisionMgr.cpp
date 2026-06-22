@@ -43,19 +43,17 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 				}
 				else if (pDstPlayer)
 				{
-					if (pDstPlayer->GetShield() == true || pDstPlayer->GetCurMotion() == HIT || pDstPlayer->GetCurMotion() == DEATH || pDstPlayer->GetCurMotion() == DISMOUNT
-						|| pDstPlayer->GetCurMotion() == REVIVAL || pDstPlayer->GetCurMotion() == START)
-						return;
+					if (pSrcPlayer2 && pDstPlayer->GetCurMotion() == HIT)
+						pDstPlayer->SetBossHit();
 
+					if (pDstPlayer->GetShield() == true || pDstPlayer->GetCurMotion() == HIT || pDstPlayer->GetCurMotion() == DEATH || pDstPlayer->GetCurMotion() == DISMOUNT
+						|| pDstPlayer->GetCurMotion() == REVIVAL || pDstPlayer->GetCurMotion() == START || pDstPlayer->GetCurMotion() == RESPAWN)
+						return;
 					CWave* pSrcWave = dynamic_cast<CWave*>(Src);
 					CBoss* pSrcBoss = dynamic_cast<CBoss*>(Src);
 					CMonster* pSrcMonster = dynamic_cast<CMonster*>(Src);
 					if (pSrcBoss && pSrcBoss->GetCurMotion() == BUBBLE)
 						pSrcBoss->SetDeath();
-					else if (pSrcBoss || pSrcMonster)
-						pDstPlayer->SetBossHit();
-					else if (pSrcWave)
-						pDstPlayer->SetHit();
 #ifdef NDEBUG
 					else if(pSrcBoss || pSrcMonster)
 						pDstPlayer->SetBossHit();
@@ -65,8 +63,11 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 				}
 				else if (pDstPlayer2)
 				{
+					if (pSrcPlayer && pDstPlayer2->GetCurMotion() == HIT)
+						pDstPlayer2->SetBossHit();
+
 					if (pDstPlayer2->GetShield() == true || pDstPlayer2->GetCurMotion() == HIT || pDstPlayer2->GetCurMotion() == DEATH || pDstPlayer2->GetCurMotion() == DISMOUNT
-						|| pDstPlayer2->GetCurMotion() == REVIVAL || pDstPlayer2->GetCurMotion() == START)
+						|| pDstPlayer2->GetCurMotion() == REVIVAL || pDstPlayer2->GetCurMotion() == START || pDstPlayer2->GetCurMotion() == RESPAWN)
 						return;
 
 					CWave* pSrcWave = dynamic_cast<CWave*>(Src);
@@ -74,10 +75,6 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 					CMonster* pSrcMonster = dynamic_cast<CMonster*>(Src);
 					if (pSrcBoss && pSrcBoss->GetCurMotion() == BUBBLE)
 						pSrcBoss->SetDeath();
-					else if (pSrcBoss || pSrcMonster)
-						pDstPlayer2->SetBossHit();
-					else if (pSrcWave)
-						pDstPlayer2->SetHit();
 #ifdef NDEBUG
 					else if (pSrcBoss || pSrcMonster)
 						pDstPlayer2->SetBossHit();

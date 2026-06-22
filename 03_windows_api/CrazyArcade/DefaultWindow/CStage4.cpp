@@ -266,7 +266,6 @@ int CStage4::Update()
 			ChangeScene();
 		}
 	}
-	cout << m_eCurSceneState << endl;
 	CObjMgr::GetInstance()->Update();
 	return 0;
 }
@@ -535,7 +534,7 @@ void CStage4::CheckSceneFrame()
 		CSoundMgr::Get_Instance()->PlayBGM(L"StageBGM.wav", 0.1f);
 	}
 	else if (m_eCurSceneState == SCENE_PLAYERRESPAWN
-		&& m_dwFrameTime + 2000 <= GetTickCount64())
+		&& m_dwFrameTime + 1000 <= GetTickCount64())
 	{
 		m_eCurSceneState = SCENE_PLAY;
 	}

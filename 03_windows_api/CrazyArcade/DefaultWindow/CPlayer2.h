@@ -72,5 +72,6 @@ private:
 
     float       m_fRemainGas;
     float       m_fRespawnTime;
+    CObj*       m_pRespawnPoint;
 };
 

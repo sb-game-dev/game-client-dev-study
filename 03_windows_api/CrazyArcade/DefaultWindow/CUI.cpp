@@ -15,7 +15,7 @@ void CUI::Initialize()
 	m_eRenderID = UI;
 	if (!lstrcmp(L"UI_Respawn", m_pFrameKey))
 	{
-		m_tInfo.fCX = 54;
+		m_tInfo.fCX = 56;
 		m_tInfo.fCY = 79;
 
 		m_tFrame.iStart = 0;
@@ -31,6 +31,8 @@ void CUI::Initialize()
 
 int CUI::Update()
 {
+	if (m_bDraw == true)
+		MoveFrame();
 	return 0;
 }
 
@@ -40,6 +42,9 @@ void CUI::LateUpdate()
 
 void CUI::Render(HDC hDC)
 {
+	if (m_bDraw == false)
+		return;
+	cout << "UIRender" << endl;
 	HDC hUI = CBmpMgr::GetInstance()->FindImage(m_pFrameKey);
 	GdiTransparentBlt(hDC,					// 格利瘤 DC
 		m_tRect.left,		// 格利瘤 LEFT,RIGHT

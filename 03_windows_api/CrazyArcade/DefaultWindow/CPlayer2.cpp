@@ -12,10 +12,11 @@
 #include "CSoundMgr.h"
 #include "CInven.h"
 #include "CSceneMgr.h"
+#include "CUI.h"
 CPlayer2::CPlayer2() :m_ePreMotion(MOTION_END), m_eCurMotion(START), m_fWalkSpeed(3.f), m_fBubbleSpeed(0.5f), m_dwFrameCount(GetTickCount64()),
 m_fBlockMoveTime(0.f), m_iBombRange(1), m_iBombMax(1), m_iBombCnt(0), m_bShowItemGainEffect(false), m_eItemFrameKey(ITEMTYPE_END),
 m_dwItemEffectFrameCount(GetTickCount64()), m_iCtrlSlotCnt(0), m_eCtrlSlot(ITEMTYPE_END), m_dwShieldEffectFrameCount(GetTickCount64()), m_pTileVector(nullptr),
-m_bRide(false), m_fKartSpeed(6.f), m_fRemainGas(300.f), m_fRespawnTime(2000.f)
+m_bRide(false), m_fKartSpeed(6.f), m_fRemainGas(300.f), m_fRespawnTime(2000.f), m_pRespawnPoint(nullptr)
 {
 	m_bShowShieldEffect = false;
 	m_iShieldFrame = 0;
@@ -52,6 +53,9 @@ void CPlayer2::Initialize()
 	m_tFrame.dwTime = GetTickCount64();
 
 	m_pTileVector = CObjMgr::GetInstance()->GetTilePtr();
+	m_pRespawnPoint = CAbstractFactory<CUI>::Create(m_tInfo.fX, m_tInfo.fY - 38.5f, L"UI_Respawn");
+	m_pRespawnPoint->SetDraw(false);
+	CObjMgr::GetInstance()->AddObject(OBJ_UI, m_pRespawnPoint);
 }
 
 int CPlayer2::Update()
@@ -88,15 +92,15 @@ void CPlayer2::LateUpdate()
 
 void CPlayer2::Render(HDC hDC)
 {
+#ifdef _DEBUG
+	Rectangle(hDC,
+		m_tRect.left,
+		m_tRect.top,
+		m_tRect.right,
+		m_tRect.bottom);
+#endif // _DEBUG
 	if (m_bDraw == true)
 	{
-#ifdef _DEBUG
-		Rectangle(hDC,
-			m_tRect.left,
-			m_tRect.top,
-			m_tRect.right,
-			m_tRect.bottom);
-#endif // _DEBUG
 
 		HDC hPlayer = CBmpMgr::GetInstance()->FindImage(m_pFrameKey);
 
@@ -476,6 +480,7 @@ void CPlayer2::ChangeMotion()
 	switch (m_eCurMotion)
 	{
 	case START:
+		m_pRespawnPoint->SetDraw(false);
 		m_fSpeed = 0;
 		m_pFrameKey = L"player_start";
 		m_tFrame.iStart = 0;
@@ -654,6 +659,7 @@ void CPlayer2::ChangeMotion()
 		m_dwFrameCount = GetTickCount64();
 		break;
 	case RESPAWN:
+		m_pRespawnPoint->SetDraw(true);
 		cout << "Player2RespawnCheckMotion" << endl;
 		m_fSpeed = 0;
 		m_dwFrameCount = GetTickCount64();
