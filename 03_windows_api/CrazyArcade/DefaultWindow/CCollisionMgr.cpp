@@ -84,6 +84,9 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 				}
 				else if (pSrcPlayer)
 				{
+					if (pSrcPlayer->GetCurMotion() == HIT || pSrcPlayer->GetCurMotion() == DEATH || pSrcPlayer->GetCurMotion() == DISMOUNT
+						|| pSrcPlayer->GetCurMotion() == REVIVAL || pSrcPlayer->GetCurMotion() == START || pSrcPlayer->GetCurMotion() == RESPAWN)
+						return;
 					CItem* pDstItem = dynamic_cast<CItem*>(Dst);
 					CMark* pDstMark = dynamic_cast<CMark*>(Dst);
 					if (pDstItem)
@@ -98,6 +101,9 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 				}
 				else if (pSrcPlayer2)
 				{
+					if (pSrcPlayer2->GetCurMotion() == HIT || pSrcPlayer2->GetCurMotion() == DEATH || pSrcPlayer2->GetCurMotion() == DISMOUNT
+						|| pSrcPlayer2->GetCurMotion() == REVIVAL || pSrcPlayer2->GetCurMotion() == START || pSrcPlayer2->GetCurMotion() == RESPAWN)
+						return;
 					CItem* pDstItem = dynamic_cast<CItem*>(Dst);
 					CMark* pDstMark = dynamic_cast<CMark*>(Dst);
 					if (pDstItem)

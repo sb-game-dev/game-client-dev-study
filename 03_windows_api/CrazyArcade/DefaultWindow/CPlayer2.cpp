@@ -187,7 +187,7 @@ void CPlayer2::KeyInput()
 	if (m_eCurMotion == DISMOUNT)
 		return;
 	float fDeltaGas = 0.2f;
-	if (CKeyMgr::GetInstance()->KeyPressing('D') && m_tRect.right < 620)
+	if (CKeyMgr::GetInstance()->KeyPressing('G') && m_tRect.right < 620)
 	{
 		if (m_eCurMotion != HIT)
 			m_eCurMotion = RIGHT;
@@ -204,7 +204,7 @@ void CPlayer2::KeyInput()
 		if (m_bRide && m_fRemainGas > 0)
 			m_fRemainGas -= fDeltaGas;
 	}
-	else if (CKeyMgr::GetInstance()->KeyPressing('A') && m_tRect.left > 20)
+	else if (CKeyMgr::GetInstance()->KeyPressing('D') && m_tRect.left > 20)
 	{
 		if (m_eCurMotion != HIT)
 			m_eCurMotion = LEFT;
@@ -220,7 +220,7 @@ void CPlayer2::KeyInput()
 		if (m_bRide && m_fRemainGas > 0)
 			m_fRemainGas -= fDeltaGas;
 	}
-	else if (CKeyMgr::GetInstance()->KeyPressing('W') && m_tRect.top > 40)
+	else if (CKeyMgr::GetInstance()->KeyPressing('R') && m_tRect.top > 40)
 	{
 		if (m_eCurMotion != HIT)
 			m_eCurMotion = UP;
@@ -236,7 +236,7 @@ void CPlayer2::KeyInput()
 		if (m_bRide && m_fRemainGas > 0)
 			m_fRemainGas -= fDeltaGas;
 	}
-	else if (CKeyMgr::GetInstance()->KeyPressing('S') && m_tRect.bottom < 560)
+	else if (CKeyMgr::GetInstance()->KeyPressing('F') && m_tRect.bottom < 560)
 	{
 		if (m_eCurMotion != HIT)
 			m_eCurMotion = DOWN;

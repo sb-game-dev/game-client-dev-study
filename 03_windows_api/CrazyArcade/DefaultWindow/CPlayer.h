@@ -41,6 +41,7 @@ public:
     float       GetRemainGas() { return m_fRemainGas; }
     float*      GetRemainGasPtr() { return &m_fRemainGas; }
     void        PickUpItem(const WCHAR* pItemFrameKey);
+
 private:
     MOTION      m_ePreMotion;
     MOTION      m_eCurMotion;
