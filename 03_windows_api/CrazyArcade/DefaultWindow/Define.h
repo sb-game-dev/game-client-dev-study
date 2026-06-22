@@ -32,8 +32,10 @@
 #define fMarkDeltaX 14.f
 #define fMarkDeltaY 8.5f
 
-extern HWND g_hWnd;
-extern int  m_iBombCnt;
+extern HWND			g_hWnd;
+extern PLAYMODE		g_ePlayerMode;
+
+enum PLAYMODE { MODE1P, MODE2P, PLAYMODE_END };
 
 enum TILEID { 
 	TILE1, TILE2, PUSH, BREAK, WALL1, WALL2, WALL3, WALL4, WALL5, WALL6, WALL7, 
