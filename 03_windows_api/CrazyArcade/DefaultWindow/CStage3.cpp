@@ -46,7 +46,7 @@ void CStage3::Initialize()
 
 int CStage3::Update()
 {
-	if (CObjMgr::GetInstance()->GetRemainBoss() <= 0)
+	if (CObjMgr::GetInstance()->GetRemainBoss() == false)
 	{
 		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 		m_eCurSceneState = SCENE_WIN;

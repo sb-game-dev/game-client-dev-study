@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "CPlayer.h"
+#include "CPlayer2.h"
 #include "CKeyMgr.h"
 #include "CImgMgr.h"
 #include "CObjMgr.h"
@@ -12,11 +12,10 @@
 #include "CSoundMgr.h"
 #include "CInven.h"
 #include "CSceneMgr.h"
-#include "CUI.h"
-CPlayer::CPlayer():m_ePreMotion(MOTION_END), m_eCurMotion(START), m_fWalkSpeed(3.f), m_fBubbleSpeed(0.5f), m_dwFrameCount(GetTickCount64()),
+CPlayer2::CPlayer2() :m_ePreMotion(MOTION_END), m_eCurMotion(START), m_fWalkSpeed(3.f), m_fBubbleSpeed(0.5f), m_dwFrameCount(GetTickCount64()),
 m_fBlockMoveTime(0.f), m_iBombRange(1), m_iBombMax(1), m_iBombCnt(0), m_bShowItemGainEffect(false), m_eItemFrameKey(ITEMTYPE_END),
-m_dwItemEffectFrameCount(GetTickCount64()),m_iCtrlSlotCnt(0), m_eCtrlSlot(ITEMTYPE_END), m_dwShieldEffectFrameCount(GetTickCount64()), m_pTileVector(nullptr),
-m_bRide(false), m_fKartSpeed(6.f), m_fRemainGas(300.f), m_pPlayMode(nullptr), m_fRespawnTime(2000), m_pRespawnPoint(nullptr)
+m_dwItemEffectFrameCount(GetTickCount64()), m_iCtrlSlotCnt(0), m_eCtrlSlot(ITEMTYPE_END), m_dwShieldEffectFrameCount(GetTickCount64()), m_pTileVector(nullptr),
+m_bRide(false), m_fKartSpeed(6.f), m_fRemainGas(300.f), m_fRespawnTime(2000.f)
 {
 	m_bShowShieldEffect = false;
 	m_iShieldFrame = 0;
@@ -30,13 +29,13 @@ m_bRide(false), m_fKartSpeed(6.f), m_fRemainGas(300.f), m_pPlayMode(nullptr), m_
 
 }
 
-CPlayer::~CPlayer()
+CPlayer2::~CPlayer2()
 {
 	Release();
 }
 
-void CPlayer::Initialize()
-{	
+void CPlayer2::Initialize()
+{
 	m_eRenderID = GAMEOBJECT;
 
 	m_tInfo.fCX = 30.f;
@@ -53,13 +52,9 @@ void CPlayer::Initialize()
 	m_tFrame.dwTime = GetTickCount64();
 
 	m_pTileVector = CObjMgr::GetInstance()->GetTilePtr();
-
-	m_pPlayMode = CSceneMgr::GetInstance()->GetPlayModePtr();
-
-	m_pRespawnPoint = CAbstractFactory<CUI*>
 }
 
-int CPlayer::Update()
+int CPlayer2::Update()
 {
 	if (m_bDead == DEAD)
 		return DEAD;
@@ -87,11 +82,11 @@ int CPlayer::Update()
 }
 
 
-void CPlayer::LateUpdate()
+void CPlayer2::LateUpdate()
 {
 }
 
-void CPlayer::Render(HDC hDC)
+void CPlayer2::Render(HDC hDC)
 {
 	if (m_bDraw == true)
 	{
@@ -117,46 +112,28 @@ void CPlayer::Render(HDC hDC)
 			m_tFrame.iCY,
 			RGB(255, 0, 255));		// 제거할 픽셀 색상
 
-		if (*m_pPlayMode == MODE2P)
-		{
-			HDC hArrow = CBmpMgr::GetInstance()->FindImage(L"PlayerArrow2");
 
-			GdiTransparentBlt(hDC,					// 목적지 DC
-				int(m_tInfo.fX - 9),	// 목적지 LEFT, TOP
-				int(m_tInfo.fY - (m_tFrame.iCY - m_tInfo.fCY * 0.5) - 33),
-				18,			// 목적지 공간의 가로, 세로 사이즈
-				30,
-				hArrow,						// 원본 이미지 DC
-				0,	// 원본 이미지 LEFT, TOP
-				0,
-				18,			// 원본 이미지 가로, 세로 사이즈
-				30,
-				RGB(255, 0, 255));		// 제거할 픽셀 색상
-		}
-		else
-		{
-			if (m_iCtrlSlotCnt > 0)
-			{
-				ShowCtrlSlot(hDC);
-			}
-			HDC hArrow = CBmpMgr::GetInstance()->FindImage(L"PlayerArrow2");
+		HDC hArrow = CBmpMgr::GetInstance()->FindImage(L"PlayerArrow2");
 
-			GdiTransparentBlt(hDC,					// 목적지 DC
-				int(m_tInfo.fX - 9),	// 목적지 LEFT, TOP
-				int(m_tInfo.fY - (m_tFrame.iCY - m_tInfo.fCY * 0.5) - 33),
-				18,			// 목적지 공간의 가로, 세로 사이즈
-				30,
-				hArrow,						// 원본 이미지 DC
-				36,	// 원본 이미지 LEFT, TOP
-				0,
-				18,			// 원본 이미지 가로, 세로 사이즈
-				30,
-				RGB(255, 0, 255));		// 제거할 픽셀 색상
-		}
+		GdiTransparentBlt(hDC,					// 목적지 DC
+			int(m_tInfo.fX - 9),	// 목적지 LEFT, TOP
+			int(m_tInfo.fY - (m_tFrame.iCY - m_tInfo.fCY * 0.5) - 33),
+			18,			// 목적지 공간의 가로, 세로 사이즈
+			30,
+			hArrow,						// 원본 이미지 DC
+			18,	// 원본 이미지 LEFT, TOP
+			0,
+			18,			// 원본 이미지 가로, 세로 사이즈
+			30,
+			RGB(255, 0, 255));		// 제거할 픽셀 색상
 	}
 	if (m_bShowItemGainEffect == true)
 	{
 		ShowItemGainEffect(hDC);
+	}
+	if (m_iCtrlSlotCnt > 0)
+	{
+		ShowCtrlSlot(hDC);
 	}
 	if (m_bShowShieldEffect == true)
 	{
@@ -195,20 +172,20 @@ void CPlayer::Render(HDC hDC)
 	//TextOut(hDC, 50, 75, szBuff2, lstrlen(szBuff2));
 }
 
-void CPlayer::Release()
+void CPlayer2::Release()
 {
 }
 
 
 
-void CPlayer::KeyInput()
+void CPlayer2::KeyInput()
 {
 	if (m_eCurMotion == DISMOUNT)
 		return;
 	float fDeltaGas = 0.2f;
-	if (CKeyMgr::GetInstance()->KeyPressing(VK_RIGHT) && m_tRect.right < 620)
+	if (CKeyMgr::GetInstance()->KeyPressing('D') && m_tRect.right < 620)
 	{
-		if(m_eCurMotion != HIT)
+		if (m_eCurMotion != HIT)
 			m_eCurMotion = RIGHT;
 
 		if (m_eCurMotion != m_ePreMotion)
@@ -223,7 +200,7 @@ void CPlayer::KeyInput()
 		if (m_bRide && m_fRemainGas > 0)
 			m_fRemainGas -= fDeltaGas;
 	}
-	else if (CKeyMgr::GetInstance()->KeyPressing(VK_LEFT) && m_tRect.left > 20)
+	else if (CKeyMgr::GetInstance()->KeyPressing('A') && m_tRect.left > 20)
 	{
 		if (m_eCurMotion != HIT)
 			m_eCurMotion = LEFT;
@@ -239,7 +216,7 @@ void CPlayer::KeyInput()
 		if (m_bRide && m_fRemainGas > 0)
 			m_fRemainGas -= fDeltaGas;
 	}
-	else if (CKeyMgr::GetInstance()->KeyPressing(VK_UP) && m_tRect.top > 40)
+	else if (CKeyMgr::GetInstance()->KeyPressing('W') && m_tRect.top > 40)
 	{
 		if (m_eCurMotion != HIT)
 			m_eCurMotion = UP;
@@ -255,7 +232,7 @@ void CPlayer::KeyInput()
 		if (m_bRide && m_fRemainGas > 0)
 			m_fRemainGas -= fDeltaGas;
 	}
-	else if (CKeyMgr::GetInstance()->KeyPressing(VK_DOWN) && m_tRect.bottom < 560)
+	else if (CKeyMgr::GetInstance()->KeyPressing('S') && m_tRect.bottom < 560)
 	{
 		if (m_eCurMotion != HIT)
 			m_eCurMotion = DOWN;
@@ -275,11 +252,11 @@ void CPlayer::KeyInput()
 	{
 		m_fBlockMoveTime = 0.f;
 		m_fKickBombTime = 0.f;
-		if (m_eCurMotion != HIT && m_eCurMotion != REVIVAL && m_eCurMotion != DISMOUNT && m_eCurMotion != RESPAWN)
+		if (m_eCurMotion != HIT && m_eCurMotion != REVIVAL && m_eCurMotion != DISMOUNT)
 			m_eCurMotion = IDLE;
 		ChangeMotion();
 	}
-	if (CKeyMgr::GetInstance()->KeyDown(VK_SPACE))
+	if (CKeyMgr::GetInstance()->KeyDown(VK_LSHIFT))
 	{
 		if (m_eCurMotion == HIT || m_eCurMotion == DEATH)
 			return;
@@ -287,7 +264,7 @@ void CPlayer::KeyInput()
 		{
 			for (auto& pBomb : CObjMgr::GetInstance()->GetList(OBJ_BOMB))
 			{
-				if (AdjustPosX(m_tInfo.fX) == pBomb->GetInfo()->fX 
+				if (AdjustPosX(m_tInfo.fX) == pBomb->GetInfo()->fX
 					&& AdjustPosY(m_tInfo.fY) == pBomb->GetInfo()->fY)
 					return;
 			}
@@ -317,7 +294,7 @@ void CPlayer::KeyInput()
 			CSoundMgr::Get_Instance()->PlaySound(L"Shield.wav", SOUND_NEDDLE, 0.8f);
 			m_bShowShieldEffect = true;
 			m_iShieldFrame = 0;
-			m_dwShieldEffectFrameCount = GetTickCount64(); 
+			m_dwShieldEffectFrameCount = GetTickCount64();
 			m_dwFrameCount = GetTickCount64();
 		}
 		else if (m_eCtrlSlot == DART)
@@ -492,14 +469,13 @@ void CPlayer::KeyInput()
 	}
 }
 
-void CPlayer::ChangeMotion()
+void CPlayer2::ChangeMotion()
 {
 	if (m_ePreMotion == m_eCurMotion)
 		return;
 	switch (m_eCurMotion)
 	{
 	case START:
-		m_bDraw = true;
 		m_fSpeed = 0;
 		m_pFrameKey = L"player_start";
 		m_tFrame.iStart = 0;
@@ -512,6 +488,7 @@ void CPlayer::ChangeMotion()
 		m_tFrame.dwTime = GetTickCount64();
 		m_dwFrameCount = GetTickCount64();
 		break;
+
 	case IDLE:
 		if (m_bRide == false)
 		{
@@ -621,7 +598,7 @@ void CPlayer::ChangeMotion()
 		}
 		break;
 	case DOWN:
-		
+
 		if (m_bRide == false)
 		{
 			m_fSpeed = m_fWalkSpeed;
@@ -676,6 +653,12 @@ void CPlayer::ChangeMotion()
 		m_tFrame.dwTime = GetTickCount64();
 		m_dwFrameCount = GetTickCount64();
 		break;
+	case RESPAWN:
+		cout << "Player2RespawnCheckMotion" << endl;
+		m_fSpeed = 0;
+		m_dwFrameCount = GetTickCount64();
+		m_bDraw = false;
+		break;
 	case DEATH:
 		CSoundMgr::Get_Instance()->PlaySound(L"PlayerDead_12.wav", PLAYER_DEAD, 0.2f);
 		m_fSpeed = 0;
@@ -689,11 +672,6 @@ void CPlayer::ChangeMotion()
 		m_tFrame.dwSpeed = 100.f;
 		m_tFrame.dwTime = GetTickCount64();
 		m_dwFrameCount = GetTickCount64();
-		break;
-	case RESPAWN:
-		m_fSpeed = 0;
-		m_dwFrameCount = GetTickCount64();
-		m_bDraw = false;
 		break;
 	case REVIVAL:
 		m_fSpeed = 0;
@@ -728,7 +706,7 @@ void CPlayer::ChangeMotion()
 	m_ePreMotion = m_eCurMotion;
 }
 
-void CPlayer::CheckFrame()
+void CPlayer2::CheckFrame()
 {
 	if (m_eCurMotion == START
 		&& m_dwFrameCount + m_tFrame.dwSpeed * m_tFrame.iEnd <= GetTickCount64())
@@ -752,31 +730,27 @@ void CPlayer::CheckFrame()
 	else if (m_eCurMotion == DEATH
 		&& m_dwFrameCount + m_tFrame.dwSpeed * m_tFrame.iEnd <= GetTickCount64())
 	{
-		if (*m_pPlayMode == MODE1P)
-		{
-			CSoundMgr::Get_Instance()->StopAll();
-			CSoundMgr::Get_Instance()->PlaySound(L"Loss_8.wav", STAGE_LOSE, 0.1f);
-			m_bDead = DEAD;
-		}
-		else if (*m_pPlayMode == MODE2P)
-		{
-			m_eCurMotion = RESPAWN;
-			ChangeMotion();
-		}
+		//CSoundMgr::Get_Instance()->StopAll();
+		//CSoundMgr::Get_Instance()->PlaySound(L"Loss_8.wav", STAGE_LOSE, 0.1f);
+		//m_bDead = DEAD;
+
+		m_eCurMotion = RESPAWN;
+		ChangeMotion();
 	}
 	else if (m_eCurMotion == RESPAWN
 		&& m_dwFrameCount + m_fRespawnTime <= GetTickCount64())
 	{
 		m_eCurMotion = START;
-		ChangeMotion();
 		m_bDraw = true;
+
 		if (CSceneMgr::GetInstance()->GetCurScene() == SC_STAGE4)
 		{
-			int iPlayer_StartX = 12;
-			int iPlayer_StartY = 9;
-			m_tInfo.fX = (iPlayer_StartX * 40) + 40;
-			m_tInfo.fY = (iPlayer_StartY * 40) + 60;
+			int iPlayer2_StartX = 4;
+			int iPlayer2_StartY = 9;
+			m_tInfo.fX = (iPlayer2_StartX * 40) + 40;
+			m_tInfo.fY = (iPlayer2_StartY * 40) + 60;
 		}
+		ChangeMotion();
 	}
 	else if (m_eCurMotion == REVIVAL
 		&& m_dwFrameCount + m_tFrame.dwSpeed * m_tFrame.iEnd <= GetTickCount64()) //m_tFrame.iStart - 1 >= m_tFrame.iEnd
@@ -799,7 +773,7 @@ void CPlayer::CheckFrame()
 	}
 }
 
-void CPlayer::CheckPushBlock(DIRECTION eDIR)
+void CPlayer2::CheckPushBlock(DIRECTION eDIR)
 {
 	float fCheckX = AdjustPosX(m_tInfo.fX);
 	float fCheckY = AdjustPosY(m_tInfo.fY);
@@ -818,7 +792,7 @@ void CPlayer::CheckPushBlock(DIRECTION eDIR)
 		fCheckY += 40.f;
 		break;
 	}
-	if (fCheckX<=40 || fCheckX >= 600 || fCheckY <=60 || fCheckY >= 540)
+	if (fCheckX <= 40 || fCheckX >= 600 || fCheckY <= 60 || fCheckY >= 540)
 		return;
 
 	//int x = (fCheckX - MAP_LEFT) / TILECX;
@@ -846,7 +820,7 @@ void CPlayer::CheckPushBlock(DIRECTION eDIR)
 				&& fabsf(fCheckY - pTempTile->GetInfo()->fY) <= 20.f)
 			{
 				m_fBlockMoveTime += 1.f;
-	
+
 				if (m_fBlockMoveTime >= 22.f)
 				{
 					m_fBlockMoveTime = 0;
@@ -857,12 +831,12 @@ void CPlayer::CheckPushBlock(DIRECTION eDIR)
 	}
 }
 
-void CPlayer::CheckKickBomb(DIRECTION eDIR)
+void CPlayer2::CheckKickBomb(DIRECTION eDIR)
 {
 	if (m_bShoe == false)
 		return;
 	float tempx = 0.f;
-	for (auto& pBomb : CObjMgr::GetInstance()->GetList(OBJ_BOMB))
+	for (auto& pBomb : CObjMgr::GetInstance()->GetList(OBJ_BOMB2))
 	{
 		CBomb* pTempBomb = dynamic_cast<CBomb*>(pBomb);
 		if (pTempBomb->GetPlayerCollision() == false)
@@ -881,34 +855,34 @@ void CPlayer::CheckKickBomb(DIRECTION eDIR)
 		}
 	}
 }
-void CPlayer::SetHit()
+void CPlayer2::SetHit()
 {
 	if (m_bRide == false)
 	{
 		m_eCurMotion = HIT;
 		ChangeMotion();
 	}
-	else if(m_bRide == true)
+	else if (m_bRide == true)
 	{
 		m_eCurMotion = DISMOUNT;
 		ChangeMotion();
 	}
 }
-void CPlayer::CreateBomb()
+void CPlayer2::CreateBomb()
 {
 	float fX = AdjustPosX(m_tInfo.fX);
 	float fY = AdjustPosY(m_tInfo.fY);
 	CObj* pBomb = CAbstractFactory<CBomb>::Create(fX, fY, L"BlueBubble");
 	pBomb->SetCanMove(false);
 	dynamic_cast<CBomb*>(pBomb)->SetBombRange(m_iBombRange);
-	CObjMgr::GetInstance()->AddObject(OBJ_BOMB, pBomb);
+	CObjMgr::GetInstance()->AddObject(OBJ_BOMB2, pBomb);
 	CSoundMgr::Get_Instance()->PlaySound(L"PutDownbomb1.wav", BOMB_PUTDOWN, 0.3f);
 }
 
-void CPlayer::CreateDart()
+void CPlayer2::CreateDart()
 {
 	CObj* pDart = CAbstractFactory<CDart>::Create(m_tInfo.fX, m_tInfo.fY, L"dart_obj");
-	
+
 
 	if (!lstrcmp(m_pFrameKey, L"player_down"))
 		pDart->SetDirection(DIR_DOWN);
@@ -923,7 +897,7 @@ void CPlayer::CreateDart()
 	CSoundMgr::Get_Instance()->PlaySound(L"dart.wav", SOUND_DART, 0.3f);
 }
 
-void CPlayer::ShowItemGainEffect(HDC hDC)
+void CPlayer2::ShowItemGainEffect(HDC hDC)
 {
 	HDC hItem_Effect = nullptr;
 	int iItemStat = 0;
@@ -986,7 +960,7 @@ void CPlayer::ShowItemGainEffect(HDC hDC)
 		RGB(255, 0, 255));					// 제거할 픽셀 색상
 }
 
-void CPlayer::ShowCtrlSlot(HDC hDC)
+void CPlayer2::ShowCtrlSlot(HDC hDC)
 {
 	//L"stage_ctrlItem"
 	HDC hItem_Effect = CBmpMgr::GetInstance()->FindImage(L"stage_ctrlItem");
@@ -999,7 +973,7 @@ void CPlayer::ShowCtrlSlot(HDC hDC)
 		iItemType = 2;
 	else if (m_eCtrlSlot == TRAMPOLINE)
 		iItemType = 3;
-	else 
+	else
 		return;
 	GdiTransparentBlt(hDC,					// 목적지 DC
 		639,				// 목적지 LEFT, TOP
@@ -1007,15 +981,14 @@ void CPlayer::ShowCtrlSlot(HDC hDC)
 		157,								// 목적지 공간의 가로, 세로 사이즈
 		105,
 		hItem_Effect,						// 원본 이미지 DC
-		(m_iCtrlSlotCnt-1) * 157,					// 원본 이미지 LEFT, TOP
+		(m_iCtrlSlotCnt - 1) * 157,					// 원본 이미지 LEFT, TOP
 		iItemType * 105,
 		157,								// 원본 이미지 가로, 세로 사이즈
 		105,
 		RGB(255, 0, 255));					// 제거할 픽셀 색상
-
 }
 
-void CPlayer::ShowShield(HDC hDC)
+void CPlayer2::ShowShield(HDC hDC)
 {
 	HDC hShield = CBmpMgr::GetInstance()->FindImage(L"shieldEffects");
 	if (m_dwShieldEffectFrameCount + 100 <= GetTickCount64())
@@ -1036,7 +1009,7 @@ void CPlayer::ShowShield(HDC hDC)
 		RGB(255, 0, 255));		// 제거할 픽셀 색상
 }
 
-void CPlayer::PickUpItem(const WCHAR* pItemFrameKey)
+void CPlayer2::PickUpItem(const WCHAR* pItemFrameKey)
 {
 	if (m_eCurMotion == HIT)
 		return;

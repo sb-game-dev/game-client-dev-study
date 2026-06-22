@@ -9,8 +9,9 @@
 #include "CButton.h"
 #include "CInven.h"
 #include "CImgMgr.h"
+#include "CPlayer2.h"
 
-CStage2::CStage2():m_pPlayer(nullptr)
+CStage2::CStage2():m_pPlayer(nullptr), m_pPlayer2(nullptr)
 {
 }
 

@@ -21,6 +21,7 @@ public:
 	void		SceneProcess();
 
 	SCENEID		GetCurScene() { return m_eCurScene; }
+	PLAYMODE*	GetPlayModePtr() { return &m_ePlayMode; }
 public:
 	static CSceneMgr* GetInstance()
 	{
@@ -41,5 +42,6 @@ private:
 	SCENEID				m_eNextScene;
 	SCENEID				m_eCurScene;
 
+	PLAYMODE			m_ePlayMode;
 };	
 

@@ -6,9 +6,11 @@
 #include "CAbstractFactory.h"
 #include "CCollisionMgr.h"
 #include "CBomb.h"
+#include "CSceneMgr.h"
 CObjMgr* CObjMgr::m_pInstance = nullptr;
-CObjMgr::CObjMgr()
+CObjMgr::CObjMgr():m_pPlayMode(nullptr)
 {
+	m_pPlayMode = CSceneMgr::GetInstance()->GetPlayModePtr();
 	m_TileVec.reserve(195);
 }
 
@@ -119,6 +121,9 @@ void CObjMgr::LateUpdate()
 		CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_BOMB]);
 		CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_WAVE]);
 		CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_DART]);
+
+
+		CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_PLAYER2]);
 	}
 	
 	if (!m_ObjList[OBJ_ITEM].empty() && !m_ObjList[OBJ_PLAYER].empty())
@@ -143,6 +148,7 @@ void CObjMgr::LateUpdate()
 			CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOSS_BOMB], m_ObjList[OBJ_PLAYER]);
 			CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOSS_BOMB], m_ObjList[OBJ_BOSS_BOMB]);
 			CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_BOSS_BOMB]);
+			CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOMB2], m_ObjList[OBJ_BOSS_BOMB]);
 			CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOSS_BOMB], m_ObjList[OBJ_WAVE]);
 		}
 	}
@@ -166,9 +172,77 @@ void CObjMgr::LateUpdate()
 		CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_WAVE]);
 	}
 
+	if (*m_pPlayMode == MODE2P)
+	{
+		if (!m_ObjList[OBJ_MARK].empty() && !m_ObjList[OBJ_PLAYER2].empty())
+		{
+			CCollisionMgr::CollisionAttack(m_ObjList[OBJ_MARK], m_ObjList[OBJ_PLAYER2]);
+		}
+		if (!m_ObjList[OBJ_BOMB2].empty() && !m_ObjList[OBJ_PLAYER2].empty())
+		{
+			CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOMB2], m_ObjList[OBJ_PLAYER2]);
+			CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOMB2], m_ObjList[OBJ_BOMB2]);
+			CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOMB2], m_ObjList[OBJ_WAVE]);
+			CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOMB2], m_ObjList[OBJ_DART]);
+
+
+			CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOMB2], m_ObjList[OBJ_PLAYER]);
+		}
+
+		if (!m_ObjList[OBJ_ITEM].empty() && !m_ObjList[OBJ_PLAYER2].empty())
+		{
+			CCollisionMgr::CollisionAttack(m_ObjList[OBJ_ITEM], m_ObjList[OBJ_PLAYER2]);
+			//CCollisionMgr::CollisionAttack(m_ObjList[OBJ_ITEM], m_ObjList[OBJ_WAVE]);
+		}
+		if (!m_ObjList[OBJ_MONSTER].empty() && !m_ObjList[OBJ_PLAYER2].empty())
+		{
+			CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER2], m_ObjList[OBJ_MONSTER]);
+			//CCollisionMgr::CollisionAttack(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_WAVE]);
+			//CCollisionMgr::CollisionBody(m_ObjList[OBJ_MONSTER], m_TileVec);
+		}
+
+		if (!m_ObjList[OBJ_BOSS].empty() && !m_ObjList[OBJ_PLAYER2].empty())
+		{
+			CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOSS], m_ObjList[OBJ_WAVE]);
+			CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOMB2], m_ObjList[OBJ_BOSS]);
+			CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER2], m_ObjList[OBJ_BOSS]);
+			if (GetRemainTile() == 0)
+			{
+				CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOSS_BOMB], m_ObjList[OBJ_PLAYER2]);
+				CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOSS_BOMB], m_ObjList[OBJ_BOSS_BOMB]);
+				CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOMB2], m_ObjList[OBJ_BOSS_BOMB]);
+				CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOSS_BOMB], m_ObjList[OBJ_WAVE]);
+			}
+		}
+		if (GetRemainTile() > 0 && !m_ObjList[OBJ_PLAYER2].empty())
+		{
+			CCollisionMgr::CollisionAttack(m_TileVec, m_ObjList[OBJ_DART]);
+			CCollisionMgr::CollisionAttack(m_TileVec, m_ObjList[OBJ_WAVE]);
+			CCollisionMgr::CollisionBody(m_TileVec, m_ObjList[OBJ_PLAYER2]);
+			CCollisionMgr::CollisionBody(m_TileVec, m_ObjList[OBJ_BOMB2]);
+			CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOMB2], m_TileVec);
+		}
+		if (!m_ObjList[OBJ_GASSTATION].empty() && !m_ObjList[OBJ_PLAYER2].empty())
+		{
+			CCollisionMgr::CollisionBody(m_ObjList[OBJ_GASSTATION], m_ObjList[OBJ_PLAYER2]);
+		}
+
+		if (!m_ObjList[OBJ_PLAYER2].empty())
+		{
+			CCollisionMgr::CollisionAttack(m_ObjList[OBJ_ITEM], m_ObjList[OBJ_BOMB2]);
+			CCollisionMgr::CollisionAttack(m_ObjList[OBJ_ITEM], m_ObjList[OBJ_BOSS_BOMB]);
+			CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER2], m_ObjList[OBJ_WAVE]);
+		}
+	}
+
+
 	if (!m_ObjList[OBJ_PLAYER].empty())
 	{
 		PlayerBombCollision();
+	}
+	if (!m_ObjList[OBJ_PLAYER2].empty())
+	{
+		Player2BombCollision();
 	}
 	for (auto& pObj : m_TileVec)
 			pObj->Update_Rect();
@@ -587,6 +661,22 @@ void CObjMgr::PlayerBombCollision()
 			float fTemp1 = 0.f;
 			float fTemp2 = 0.f;
 			if (!CCollisionMgr::CheckRect(pTempBomb, m_ObjList[OBJ_PLAYER].front(), fTemp1, fTemp2))
+			{
+				pTempBomb->SetPlayerCollision();
+			}
+		}
+	}
+}
+void CObjMgr::Player2BombCollision()
+{
+	for (auto& pBomb : m_ObjList[OBJ_BOMB2])
+	{
+		CBomb* pTempBomb = dynamic_cast<CBomb*>(pBomb);
+		if (pTempBomb->GetPlayerCollision() == false)
+		{
+			float fTemp1 = 0.f;
+			float fTemp2 = 0.f;
+			if (!CCollisionMgr::CheckRect(pTempBomb, m_ObjList[OBJ_PLAYER2].front(), fTemp1, fTemp2))
 			{
 				pTempBomb->SetPlayerCollision();
 			}

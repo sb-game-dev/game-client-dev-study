@@ -127,6 +127,12 @@
     <Filter Include="02. Obj\13. UI">
       <UniqueIdentifier>{9cf485c5-2fd7-4bcc-8f0c-01ea99e2dd23}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Obj\00. Player\Player1">
+      <UniqueIdentifier>{c3f6900a-4dbe-4061-8e94-e1592ef728c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Obj\00. Player\Player2">
+      <UniqueIdentifier>{61c22f18-d807-4b67-b267-5e9108713422}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -152,9 +158,6 @@
     </ClInclude>
     <ClInclude Include="CObj.h">
       <Filter>02. Obj</Filter>
-    </ClInclude>
-    <ClInclude Include="CPlayer.h">
-      <Filter>02. Obj\00. Player</Filter>
     </ClInclude>
     <ClInclude Include="CSceneMgr.h">
       <Filter>04. Design\03. SceneMgr</Filter>
@@ -255,6 +258,12 @@
     <ClInclude Include="CUI.h">
       <Filter>02. Obj\13. UI</Filter>
     </ClInclude>
+    <ClInclude Include="CPlayer.h">
+      <Filter>02. Obj\00. Player\Player1</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayer2.h">
+      <Filter>02. Obj\00. Player\Player2</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefaultWindow.cpp">
@@ -268,9 +277,6 @@
     </ClCompile>
     <ClCompile Include="CObj.cpp">
       <Filter>02. Obj</Filter>
-    </ClCompile>
-    <ClCompile Include="CPlayer.cpp">
-      <Filter>02. Obj\00. Player</Filter>
     </ClCompile>
     <ClCompile Include="CSceneMgr.cpp">
       <Filter>04. Design\03. SceneMgr</Filter>
@@ -367,6 +373,12 @@
     </ClCompile>
     <ClCompile Include="CUI.cpp">
       <Filter>02. Obj\13. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayer.cpp">
+      <Filter>02. Obj\00. Player\Player1</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayer2.cpp">
+      <Filter>02. Obj\00. Player\Player2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

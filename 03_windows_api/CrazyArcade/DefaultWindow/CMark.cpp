@@ -17,7 +17,7 @@ void CMark::Initialize()
 	m_tInfo.fCX = 7.f;
 	m_tInfo.fCY = 7.f;
 	m_tFrame.iStart = 0.f;
-	m_tFrame.iEnd = 2;
+	m_tFrame.iEnd = 3;
 	m_tFrame.iCX = m_tInfo.fCX;
 	m_tFrame.iCY = m_tInfo.fCY;
 }

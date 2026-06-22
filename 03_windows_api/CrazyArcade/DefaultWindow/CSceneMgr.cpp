@@ -11,7 +11,7 @@
 #include "CMenu.h"
 CSceneMgr* CSceneMgr::m_pInstance = nullptr;
 
-CSceneMgr::CSceneMgr():m_pScene(NULL), m_bSceneReserve(false), m_eNextScene(SC_END), m_eCurScene(SC_END)
+CSceneMgr::CSceneMgr():m_pScene(NULL), m_bSceneReserve(false), m_eNextScene(SC_END), m_eCurScene(SC_END), m_ePlayMode(PLAYMODE_END)
 {
 }
 

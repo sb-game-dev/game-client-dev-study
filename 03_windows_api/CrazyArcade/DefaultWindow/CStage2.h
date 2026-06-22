@@ -18,6 +18,7 @@ private:
     void        ChangeScene();
 
 private:
-    CObj* m_pPlayer;
+    CObj*   m_pPlayer;
+    CObj*   m_pPlayer2;
 };
 

@@ -13,11 +13,40 @@
 #include "CButton.h"
 #include "CMark.h"
 #include "CInven.h"
-CStage4::CStage4():m_iFirstBlockCnt(0),m_hBackGround(NULL),m_pMarkList(nullptr), m_bFristBlockCheck(false),m_pTileVector(nullptr), m_iClearRangeCnt(0), m_pPlayer(nullptr)
-{
-	ZeroMemory(&m_bBlockCheck, sizeof(m_bBlockCheck));
+#include "CPlayer2.h"
 
-	ZeroMemory(&m_iBlockCnt, sizeof(m_iBlockCnt));
+
+//extern PLAYMODE		g_ePlayerMode;
+
+CStage4::CStage4():m_iFirstBlockCnt(0),m_hBackGround(NULL),m_pMarkList(nullptr), m_bFristBlockCheck(false),m_pTileVector(nullptr), m_iPlayer1ClearCnt(0), m_iPlayer2ClearCnt(0),
+m_pPlayer(nullptr), m_pPlayer2(nullptr), m_pPlayMode(nullptr)
+{
+	ZeroMemory(&m_iBlockCheck, sizeof(m_iBlockCheck));
+
+	ZeroMemory(&m_iPlayer1MarkCnt, sizeof(m_iPlayer1MarkCnt));
+	ZeroMemory(&m_iPlayer2MarkCnt, sizeof(m_iPlayer2MarkCnt));
+
+	m_iBlockSize[0] = 8;
+	m_iBlockSize[1] = 3;
+	m_iBlockSize[2] = 8;
+	m_iBlockSize[3] = 5;
+	m_iBlockSize[4] = 5;
+	m_iBlockSize[5] = 2;
+	m_iBlockSize[6] = 4;
+	m_iBlockSize[7] = 2;
+	m_iBlockSize[8] = 3;
+	m_iBlockSize[9] = 1;
+	m_iBlockSize[10] = 3;
+	m_iBlockSize[11] = 3;
+	m_iBlockSize[12] = 1;
+	m_iBlockSize[13] = 3;
+	m_iBlockSize[14] = 1;
+	m_iBlockSize[15] = 5;
+	m_iBlockSize[16] = 6;
+	m_iBlockSize[17] = 5;
+	m_iBlockSize[18] = 1;
+
+
 	m_BlockRect[0][0] = { 0,0,3,4 };
 	m_BlockRect[0][1] = { 0,0,5,2 };
 
@@ -127,12 +156,21 @@ void CStage4::Initialize()
 
 
 #endif // _DEBUG
-	int iPlayer_StartX = 9;
+	int iPlayer_StartX = 12;
 	int iPlayer_StartY = 9;
 
 	m_pPlayer = CAbstractFactory<CPlayer>::Create((iPlayer_StartX * 40) + 40, (iPlayer_StartY * 40) + 60, L"player_start");
 	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, m_pPlayer);
 
+	int iPlayer2_StartX = 4;
+	int iPlayer2_StartY = 9;
+	m_pPlayMode = CSceneMgr::GetInstance()->GetPlayModePtr();
+	*m_pPlayMode = MODE2P;
+	if (*m_pPlayMode == MODE2P)
+	{
+		m_pPlayer2 = CAbstractFactory<CPlayer2>::Create((iPlayer2_StartX * 40) + 40, (iPlayer2_StartY * 40) + 60, L"player_start");
+		CObjMgr::GetInstance()->AddObject(OBJ_PLAYER2, m_pPlayer2);
+	}
 
 	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((0 * 40) + 40, (0 * 40) + 60, L"Bean_Monster_Start"));
 	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((5 * 40) + 40, (4 * 40) + 60, L"Bean_Monster_Start"));
@@ -203,19 +241,32 @@ void CStage4::Initialize()
 
 int CStage4::Update()
 {
-	if (m_iClearRangeCnt>=19)
+	if (m_iPlayer1ClearCnt >= 34)
 	{
 		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 		m_eCurSceneState = SCENE_WIN;
 		dynamic_cast<CPlayer*>(m_pPlayer)->SetWin();
+		dynamic_cast<CPlayer2*>(m_pPlayer2)->SetWin();
 		ChangeScene();
 	}
-	else if (CObjMgr::GetInstance()->GetRemainPlayer() == false)
+	else if (m_iPlayer2ClearCnt >= 34)
 	{
 		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
-		m_eCurSceneState = SCENE_LOSE;
+		m_eCurSceneState = SCENE_WIN;
+		dynamic_cast<CPlayer*>(m_pPlayer)->SetWin();
+		dynamic_cast<CPlayer2*>(m_pPlayer2)->SetWin();
 		ChangeScene();
 	}
+	else
+	{
+		if (dynamic_cast<CPlayer*>(m_pPlayer)->GetCurMotion() == RESPAWN || dynamic_cast<CPlayer2*>(m_pPlayer2)->GetCurMotion() == RESPAWN)
+		{
+			m_ePreSceneState = SCENE_END;
+			m_eCurSceneState = SCENE_PLAYERRESPAWN;
+			ChangeScene();
+		}
+	}
+	cout << m_eCurSceneState << endl;
 	CObjMgr::GetInstance()->Update();
 	return 0;
 }
@@ -226,28 +277,40 @@ void CStage4::LateUpdate()
 	//범위 완성 확인
 	for (int i = 0; i < 19 ; i++)
 	{
-		if (m_bBlockCheck[i] == false) 
+		if (m_iBlockCheck[i] == false) 
 		{
-			m_iBlockCnt[i] = 0; 
+			m_iPlayer1MarkCnt[i] = 0;
+			m_iPlayer2MarkCnt[i] = 0;
 			for (auto pMark : *(m_pMarkList))
 			{
-				if (CheckRange(m_BlockRect[i][0], pMark) || CheckRange(m_BlockRect[i][1], pMark)) 
-					++m_iBlockCnt[i]; 
+				if (CheckRange(m_BlockRect[i][0], pMark) == 1 || CheckRange(m_BlockRect[i][1], pMark) == 1)
+					++m_iPlayer1MarkCnt[i];
+				else if (CheckRange(m_BlockRect[i][0], pMark) == 2 || CheckRange(m_BlockRect[i][1], pMark) == 2)
+					++m_iPlayer2MarkCnt[i];
 			}
-			if (m_iBlockCnt[i] == m_iBlockCntAnswer[i]) 
+			if (m_iPlayer1MarkCnt[i] == m_iBlockCntAnswer[i]) 
 			{
-				m_bBlockCheck[i] = true;
-				++m_iClearRangeCnt;
+				m_iBlockCheck[i] = 1;
+				m_iPlayer1ClearCnt+= m_iBlockSize[i];
 				CSoundMgr::Get_Instance()->PlaySound(L"ef_6.wav", SOUND_NEDDLE, 0.3f);
 				for (auto TileIndex : m_TileBlockVec[i])
 					(*m_pTileVector)[TileIndex]->SetStartFrame(19);
 			}
+			else if(m_iPlayer2MarkCnt[i] == m_iBlockCntAnswer[i])
+			{
+				m_iBlockCheck[i] = 2;
+				m_iPlayer2ClearCnt += m_iBlockSize[i]; 
+				CSoundMgr::Get_Instance()->PlaySound(L"ef_6.wav", SOUND_NEDDLE, 0.3f);
+				for (auto TileIndex : m_TileBlockVec[i])
+					(*m_pTileVector)[TileIndex]->SetStartFrame(35);
+			}
+			
 		}
 	}
 	// 완성된 범위 Mark 지우기
 	for (int i = 0; i < 19; i++)
 	{
-		if (m_bBlockCheck[i] == true)
+		if (m_iBlockCheck[i] >= 1)
 		{
 			for (auto pMark : *(m_pMarkList))
 			{
@@ -259,7 +322,7 @@ void CStage4::LateUpdate()
 	// 미완성 범위 Mark 그리기
 	for (int i = 0; i < 19; i++)
 	{
-		if (m_bBlockCheck[i] == false)
+		if (m_iBlockCheck[i] == 0)
 		{
 			for (auto pMark : *(m_pMarkList))
 			{
@@ -269,7 +332,7 @@ void CStage4::LateUpdate()
 		}
 	}
 
-	if (m_eCurSceneState == SCENE_START || m_eCurSceneState == SCENE_WIN)
+	if (m_eCurSceneState != SCENE_PLAY)
 	{
 		if (m_eCurSceneState == SCENE_START && m_fAlpha > 0.f && m_dwFrameTime + 10 <= GetTickCount64())
 		{
@@ -295,74 +358,105 @@ void CStage4::Render(HDC hDC)
 		0,
 		SRCCOPY);						// 그대로 복사하여 출력
 
-	CObjMgr::GetInstance()->Render(hDC); 
-	//HDC hTemp = CBmpMgr::GetInstance()->FindImage(L"dart_obj");
-	//
-	//BitBlt(hDC,							// 목적지 DC
-	//	0, 0,
-	//	27, 9,
-	//	hTemp,					// 원본 DC
-	//	0,								// 원본 이미지에서 가져오기 시작할 좌표의 LEFT, TOP
-	//	0,
-	//	SRCCOPY);						// 그대로 복사하여 출력
-
-	int iItemCnt = 0;
-	for (auto& pitem : *(CInven::GetInstance()->GetItemSlotPtr()))
+	int iPlayer1Score = m_iPlayer1ClearCnt;
+	int iPlayer1NumCnt = 0;
+	while (iPlayer1Score)
 	{
-		switch (pitem->GetFrame().iStart)
-		{
-		case 0:
-			++iItemCnt;
-			continue;
-		case 1:
-			if (CInven::GetInstance()->GetInven().iNeedleCnt <= 0)
-			{
-				++iItemCnt;
-				continue;
-			}
-			break;
-		case 2:
-			if (CInven::GetInstance()->GetInven().iDartCnt <= 0)
-			{
-				++iItemCnt;
-				continue;
-			}
-			break;
-		case 3:
-			if (CInven::GetInstance()->GetInven().iShieldCnt <= 0)
-			{
-				++iItemCnt;
-				continue;
-			}
-			break;
-		default:
-			break;
-		}
-		HDC hSlotNum = CBmpMgr::GetInstance()->FindImage(L"InGameNumber");
-
-		BitBlt(hDC,							// 목적지 DC
-			243 + 40 * iItemCnt,
-			568,
-			13, 11,
-			hSlotNum,						// 원본 DC
-			13 * iItemCnt,					// 원본 이미지에서 가져오기 시작할 좌표의 LEFT, TOP
+		int iNum = iPlayer1Score % 10;
+		HDC hNumber = CBmpMgr::GetInstance()->FindImage(L"Bulla_Num");
+		GdiTransparentBlt(hDC,					// 목적지 DC
+			int(211) - 18 * iPlayer1NumCnt,	// 목적지 LEFT, TOP
+			int(10),
+			17,			// 목적지 공간의 가로, 세로 사이즈
+			21,
+			hNumber,						// 원본 이미지 DC
+			17 * iNum,	// 원본 이미지 LEFT, TOP
 			0,
-			SRCCOPY);						// 그대로 복사하여 출력
-
-		HDC hSlotItem = CBmpMgr::GetInstance()->FindImage(L"InGameSlot");
-		GdiTransparentBlt(hDC,						// 목적지 DC
-			243 + 40 * iItemCnt,					// 목적지 LEFT, TOP
-			568,
-			37,										// 목적지 공간의 가로, 세로 사이즈
-			29,
-			hSlotItem,								// 원본 이미지 DC
-			37 * (pitem->GetFrame().iStart - 1),	// 원본 이미지 LEFT, TOP
-			0,
-			37,										// 원본 이미지 가로, 세로 사이즈
-			29,
-			RGB(255, 0, 255));						// 제거할 픽셀 색상
-		++iItemCnt;
+			17,				// 원본 이미지 가로, 세로 사이즈
+			21,
+			RGB(255, 0, 255));		// 제거할 픽셀 색상
+		++iPlayer1NumCnt;
+		iPlayer1Score /= 10;
 	}
+	int iPlayer2Score = m_iPlayer2ClearCnt; 
+	int iPlayer2NumCnt = 0;
+	while (iPlayer2Score)
+	{
+		int iNum = iPlayer2Score % 10;
+		HDC hNumber = CBmpMgr::GetInstance()->FindImage(L"Bulla_Num");
+		GdiTransparentBlt(hDC,					// 목적지 DC
+			int(317) - 18 * iPlayer2NumCnt,	// 목적지 LEFT, TOP
+			int(10),
+			17,			// 목적지 공간의 가로, 세로 사이즈
+			21,
+			hNumber,						// 원본 이미지 DC
+			17 * iNum,	// 원본 이미지 LEFT, TOP
+			0,
+			17,				// 원본 이미지 가로, 세로 사이즈
+			21,
+			RGB(255, 0, 255));		// 제거할 픽셀 색상
+		++iPlayer2NumCnt;
+		iPlayer2Score /= 10;
+	}
+	CObjMgr::GetInstance()->Render(hDC); 
+
+	//int iItemCnt = 0;
+	//for (auto& pitem : *(CInven::GetInstance()->GetItemSlotPtr()))
+	//{
+	//	switch (pitem->GetFrame().iStart)
+	//	{
+	//	case 0:
+	//		++iItemCnt;
+	//		continue;
+	//	case 1:
+	//		if (CInven::GetInstance()->GetInven().iNeedleCnt <= 0)
+	//		{
+	//			++iItemCnt;
+	//			continue;
+	//		}
+	//		break;
+	//	case 2:
+	//		if (CInven::GetInstance()->GetInven().iDartCnt <= 0)
+	//		{
+	//			++iItemCnt;
+	//			continue;
+	//		}
+	//		break;
+	//	case 3:
+	//		if (CInven::GetInstance()->GetInven().iShieldCnt <= 0)
+	//		{
+	//			++iItemCnt;
+	//			continue;
+	//		}
+	//		break;
+	//	default:
+	//		break;
+	//	}
+	//	HDC hSlotNum = CBmpMgr::GetInstance()->FindImage(L"InGameNumber");
+	//
+	//	BitBlt(hDC,							// 목적지 DC
+	//		243 + 40 * iItemCnt,
+	//		568,
+	//		13, 11,
+	//		hSlotNum,						// 원본 DC
+	//		13 * iItemCnt,					// 원본 이미지에서 가져오기 시작할 좌표의 LEFT, TOP
+	//		0,
+	//		SRCCOPY);						// 그대로 복사하여 출력
+	//
+	//	HDC hSlotItem = CBmpMgr::GetInstance()->FindImage(L"InGameSlot");
+	//	GdiTransparentBlt(hDC,						// 목적지 DC
+	//		243 + 40 * iItemCnt,					// 목적지 LEFT, TOP
+	//		568,
+	//		37,										// 목적지 공간의 가로, 세로 사이즈
+	//		29,
+	//		hSlotItem,								// 원본 이미지 DC
+	//		37 * (pitem->GetFrame().iStart - 1),	// 원본 이미지 LEFT, TOP
+	//		0,
+	//		37,										// 원본 이미지 가로, 세로 사이즈
+	//		29,
+	//		RGB(255, 0, 255));						// 제거할 픽셀 색상
+	//	++iItemCnt;
+	//}
 	if (m_eCurSceneState == SCENE_START)
 	{
 		Graphics* _pGraphics = Graphics::FromHDC(hDC);
@@ -372,6 +466,17 @@ void CStage4::Render(HDC hDC)
 
 		ImageAttributes attr;
 		MakeAlphaAttr(attr, m_fAlpha);
+		_pGraphics->DrawImage(pBlackImg, rect, 0, 0, WINCX, WINCY, UnitPixel, &attr);
+	}
+	else if (m_eCurSceneState == SCENE_PLAYERRESPAWN)
+	{
+		Graphics* _pGraphics = Graphics::FromHDC(hDC);
+		Gdiplus::Image* pBlackImg = CImgMgr::GetInstance()->FindImg(L"black_bg");
+
+		Rect rect = { 0,0,800,600 };
+
+		ImageAttributes attr;
+		MakeAlphaAttr(attr, 0.2);
 		_pGraphics->DrawImage(pBlackImg, rect, 0, 0, WINCX, WINCY, UnitPixel, &attr);
 	}
 }
@@ -388,9 +493,13 @@ void CStage4::Release()
 	CObjMgr::GetInstance()->DeleteObj(OBJ_ITEM);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_MARK);
 	CObjMgr::GetInstance()->DeleteTile();
+	if (*m_pPlayMode == MODE2P)
+	{
+		CObjMgr::GetInstance()->DeleteObj(OBJ_PLAYER2);
+	}
 }
 
-bool CStage4::CheckRange(INTRECT tIntRect, CObj* pMark)
+int CStage4::CheckRange(INTRECT tIntRect, CObj* pMark)
 {
 	float fX = pMark->GetInfo()->fX;
 	float fY = pMark->GetInfo()->fY;
@@ -406,9 +515,17 @@ bool CStage4::CheckRange(INTRECT tIntRect, CObj* pMark)
 		&&
 		pMark->GetFrame().iStart == 1)
 	{
-		return true;
+		return 1;
 	}
-	return false;
+	if (iLIndex * 40 + 40 <= fX && fX <= iRIndex * 40 + 40
+		&&
+		iTIndex * 40 + 60 + fMarkDeltaY <= fY && fY <= iBIndex * 40 + 60 + fMarkDeltaY
+		&&
+		pMark->GetFrame().iStart == 2)
+	{
+		return 2;
+	}
+	return 0;
 }
 void CStage4::CheckSceneFrame()
 {
@@ -416,6 +533,11 @@ void CStage4::CheckSceneFrame()
 	{
 		m_eCurSceneState = SCENE_PLAY;
 		CSoundMgr::Get_Instance()->PlayBGM(L"StageBGM.wav", 0.1f);
+	}
+	else if (m_eCurSceneState == SCENE_PLAYERRESPAWN
+		&& m_dwFrameTime + 2000 <= GetTickCount64())
+	{
+		m_eCurSceneState = SCENE_PLAY;
 	}
 	else if (m_eCurSceneState == SCENE_END && m_fAlpha >= 1.f)
 	{
@@ -436,6 +558,8 @@ void CStage4::ChangeScene()
 		CSoundMgr::Get_Instance()->PlaySound(L"Win.wav", SOUND_EFFECT, 0.1f);
 		CObjMgr::GetInstance()->DestroyMonster();
 		break;
+	case SCENE_PLAYERRESPAWN:
+		m_dwFrameTime = GetTickCount64();
 	case SCENE_LOSE:
 		break;
 	default:

@@ -41,11 +41,13 @@ public:
 	void	TileSwap(int iLeftIndex, int iRightIndex);
 
 	void	PlayerBombCollision();
+	void	Player2BombCollision();
 
 	int		GetRemainTile();
 	int		GetRemainMonster() { return m_ObjList[OBJ_MONSTER].size(); }
 	bool	GetRemainBoss() { return !m_ObjList[OBJ_BOSS].empty(); }
-	bool	GetRemainPlayer() {return m_ObjList[OBJ_PLAYER].size();}
+	bool	GetRemainPlayer() { return m_ObjList[OBJ_PLAYER].size(); }
+	bool	GetRemainPlayer2() { return m_ObjList[OBJ_PLAYER2].size(); }
 	int		GetRemainDart() { return m_ObjList[OBJ_DART].size(); }
 
 	void	DestroyMonster();
@@ -67,5 +69,6 @@ private:
 	list<CObj*>		m_ObjList[OBJ_END];
 	list<CObj*>		m_RenderList[RENDER_END];
 	vector<CObj*>	m_TileVec;
+	PLAYMODE*		m_pPlayMode;
 };
 

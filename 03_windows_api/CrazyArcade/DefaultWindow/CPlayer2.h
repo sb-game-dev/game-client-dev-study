@@ -1,14 +1,13 @@
 #pragma once
-
 #include "CObj.h"
-
-class CPlayer : public CObj
-{   
+class CPlayer2 :
+    public CObj
+{
 private:
     enum ITEMTYPE { BUBBLE, DART, FLUID, NEEDLE, ROLLER, SHIELD, SHOE, TRAMPOLINE, ITEMTYPE_END };
 public:
-    CPlayer();
-    virtual ~CPlayer();
+    CPlayer2();
+    virtual ~CPlayer2();
 
 public:
     void        Initialize()                       override;
@@ -72,9 +71,6 @@ private:
     vector<CObj*>* m_pTileVector;
 
     float       m_fRemainGas;
-
-    PLAYMODE*   m_pPlayMode;
     float       m_fRespawnTime;
-    CObj*       m_pRespawnPoint;
 };
 

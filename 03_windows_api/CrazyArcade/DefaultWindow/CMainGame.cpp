@@ -46,7 +46,7 @@ void CMainGame::Initialize()
 	CSoundMgr::Get_Instance()->Initialize();
 
 #ifdef _DEBUG
-	CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE3);
+	CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE4);
 #elif NDEBUG
 	CSceneMgr::GetInstance()->SceneChangeReserve(SC_LOGO);
 #endif // _DEBUG
@@ -216,6 +216,7 @@ void CMainGame::InsertImg()
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/UI_Bomb.bmp", L"UI_Bomb");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/UI_Liquid2.bmp", L"UI_Liquid2");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/UI_Skate.bmp", L"UI_Skate");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/Bulla_Num.bmp", L"Bulla_Num");
 
 	//Numver_UI
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/Timer/numbers.bmp", L"numbers");
@@ -235,12 +236,15 @@ void CMainGame::InsertImg()
 
 	//trackCnt_UI
 	CImgMgr::GetInstance()->InsertImg(L"../Resource/UI/trackCnt.bmp", L"trackCnt");
-	//CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/trackCnt.bmp", L"trackCnt");
 
 	//gasBar_UI
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/gas_frame.bmp", L"gas_frame");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/gas_bar.bmp", L"gas_bar");
-
+	
+	//Arrow_UI
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/PlayerArrow2.bmp", L"PlayerArrow2");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/UI_Respawn.bmp", L"UI_Respawn");
+	
 
 	//Ctrl_slot
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/stage_ctrlItem.bmp", L"stage_ctrlItem");

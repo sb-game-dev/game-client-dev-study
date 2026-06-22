@@ -11,6 +11,7 @@
 #include "CMonster.h"
 #include "CMark.h"
 #include "CSoundMgr.h"
+#include "CPlayer2.h"
 
 void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 {
@@ -25,8 +26,10 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 			{
 				CBomb* pDstBomb = dynamic_cast<CBomb*>(Dst);
 				CPlayer* pDstPlayer = dynamic_cast<CPlayer*>(Dst);
+				CPlayer2* pDstPlayer2 = dynamic_cast<CPlayer2*>(Dst);
 
 				CPlayer* pSrcPlayer = dynamic_cast<CPlayer*>(Src);
+				CPlayer2* pSrcPlayer2 = dynamic_cast<CPlayer2*>(Src);
 				if (pDstBomb)
 				{
 					CDart* pSrcDart = dynamic_cast<CDart*>(Src);
@@ -40,19 +43,19 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 				}
 				else if (pDstPlayer)
 				{
-					if (pDstPlayer->GetShield() == true || pDstPlayer->GetCurMotion() == HIT || pDstPlayer->GetCurMotion() == DEATH || pDstPlayer->GetCurMotion() == DISMOUNT)
+					if (pDstPlayer->GetShield() == true || pDstPlayer->GetCurMotion() == HIT || pDstPlayer->GetCurMotion() == DEATH || pDstPlayer->GetCurMotion() == DISMOUNT
+						|| pDstPlayer->GetCurMotion() == REVIVAL || pDstPlayer->GetCurMotion() == START)
 						return;
 
 					CWave* pSrcWave = dynamic_cast<CWave*>(Src);
 					CBoss* pSrcBoss = dynamic_cast<CBoss*>(Src);
 					CMonster* pSrcMonster = dynamic_cast<CMonster*>(Src);
 					if (pSrcBoss && pSrcBoss->GetCurMotion() == BUBBLE)
-						pSrcBoss->SetDeath();	
-
-					//else if (pSrcBoss || pSrcMonster)
-					//	pDstPlayer->SetBossHit();
-					//else if (pSrcWave)
-					//	pDstPlayer->SetHit();
+						pSrcBoss->SetDeath();
+					else if (pSrcBoss || pSrcMonster)
+						pDstPlayer->SetBossHit();
+					else if (pSrcWave)
+						pDstPlayer->SetHit();
 #ifdef NDEBUG
 					else if(pSrcBoss || pSrcMonster)
 						pDstPlayer->SetBossHit();
@@ -60,7 +63,29 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 						pDstPlayer->SetHit();
 #endif // NDEBUG
 				}
-				else if (pSrcPlayer)//pDstItem && 
+				else if (pDstPlayer2)
+				{
+					if (pDstPlayer2->GetShield() == true || pDstPlayer2->GetCurMotion() == HIT || pDstPlayer2->GetCurMotion() == DEATH || pDstPlayer2->GetCurMotion() == DISMOUNT
+						|| pDstPlayer2->GetCurMotion() == REVIVAL || pDstPlayer2->GetCurMotion() == START)
+						return;
+
+					CWave* pSrcWave = dynamic_cast<CWave*>(Src);
+					CBoss* pSrcBoss = dynamic_cast<CBoss*>(Src);
+					CMonster* pSrcMonster = dynamic_cast<CMonster*>(Src);
+					if (pSrcBoss && pSrcBoss->GetCurMotion() == BUBBLE)
+						pSrcBoss->SetDeath();
+					else if (pSrcBoss || pSrcMonster)
+						pDstPlayer2->SetBossHit();
+					else if (pSrcWave)
+						pDstPlayer2->SetHit();
+#ifdef NDEBUG
+					else if (pSrcBoss || pSrcMonster)
+						pDstPlayer2->SetBossHit();
+					else if (pSrcWave)
+						pDstPlayer2->SetHit();
+#endif // NDEBUG
+				}
+				else if (pSrcPlayer)
 				{
 					CItem* pDstItem = dynamic_cast<CItem*>(Dst);
 					CMark* pDstMark = dynamic_cast<CMark*>(Dst);
@@ -69,9 +94,23 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 						pSrcPlayer->PickUpItem(pDstItem->GetFrameKey());
 						pDstItem->SetDead();
 					}
-					else if (pDstMark && pDstMark->GetDraw() == true)
+					else if (pDstMark && pSrcPlayer && pDstMark->GetDraw() == true)
 					{
 						pDstMark->SetStartFrame(1);
+					}
+				}
+				else if (pSrcPlayer2)
+				{
+					CItem* pDstItem = dynamic_cast<CItem*>(Dst);
+					CMark* pDstMark = dynamic_cast<CMark*>(Dst);
+					if (pDstItem)
+					{
+						pSrcPlayer2->PickUpItem(pDstItem->GetFrameKey());
+						pDstItem->SetDead();
+					}
+					else if (pDstMark && pSrcPlayer2 && pDstMark->GetDraw() == true)
+					{
+						pDstMark->SetStartFrame(2);
 					}
 				}
 				else
@@ -123,7 +162,6 @@ void CCollisionMgr::CollisionBody(list<CObj*>& DstList, list<CObj*>& SrcList)
 					else 
 						SrcObj->SetPosX(-fDeltaSizeX);
 				}
-				
 			}
 		}
 	}
