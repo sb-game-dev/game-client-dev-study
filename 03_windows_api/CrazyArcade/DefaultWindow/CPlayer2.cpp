@@ -283,7 +283,6 @@ void CPlayer2::KeyInput()
 		{
 			if (m_eCurMotion == HIT)
 			{
-				//SOUND_NEDDLE
 				CSoundMgr::Get_Instance()->PlaySound(L"Neddle_11.wav", SOUND_NEDDLE, 0.2f);
 				--m_iCtrlSlotCnt;
 				m_eCurMotion = REVIVAL;

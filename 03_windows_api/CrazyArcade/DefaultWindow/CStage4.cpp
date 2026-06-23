@@ -257,6 +257,14 @@ int CStage4::Update()
 		dynamic_cast<CPlayer2*>(m_pPlayer2)->SetWin();
 		ChangeScene();
 	}
+	else if (m_iPlayer1ClearCnt == 33 && m_iPlayer2ClearCnt == 33)
+	{
+		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
+		m_eCurSceneState = SCENE_DRAW;
+		dynamic_cast<CPlayer*>(m_pPlayer)->SetWin();
+		dynamic_cast<CPlayer2*>(m_pPlayer2)->SetWin();
+		ChangeScene();
+	}
 	else
 	{
 		if (dynamic_cast<CPlayer*>(m_pPlayer)->GetCurMotion() == RESPAWN || dynamic_cast<CPlayer2*>(m_pPlayer2)->GetCurMotion() == RESPAWN)
