@@ -4,7 +4,7 @@
 #include "CObjMgr.h"
 
 CMonster::CMonster():m_ePreMotion(MOTION_END), m_eCurMotion(START), m_dwFrameCount(GetTickCount64()), m_pTile(nullptr), m_pBombList(nullptr),
-m_fDstX(0.f), m_fDstY(0.f)
+m_fDstX(0.f), m_fDstY(0.f), m_pBombList2(nullptr)
 {
 
 }
@@ -19,7 +19,8 @@ void CMonster::Initialize()
 	m_eRenderID = GAMEOBJECT;
 
 	m_pTile = CObjMgr::GetInstance()->GetTilePtr();
-	m_pBombList = CObjMgr::GetInstance()->GetListPtr(OBJ_BOMB);
+	m_pBombList  = CObjMgr::GetInstance()->GetListPtr(OBJ_BOMB);
+	m_pBombList2 = CObjMgr::GetInstance()->GetListPtr(OBJ_BOMB2);
 
 	m_tInfo.fCX = 40.f;
 	m_tInfo.fCY = 40.f;
@@ -311,6 +312,14 @@ void CMonster::LeftHandRuleMove()
 				break;
 			}
 		}
+		for (auto& pBomb : *(m_pBombList2))
+		{
+			if (pBomb->GetInfo()->fX == x && pBomb->GetInfo()->fY == y)
+			{
+				iBombCheck = false;
+				break;
+			}
+		}
 		if (iBombCheck == true)
 		{
 			SetDestination(DIR_LEFT, Left);
@@ -324,6 +333,14 @@ void CMonster::LeftHandRuleMove()
 		x = (Front % MAP_CNT_X) * 40 + 20 + MAP_LEFT;
 		y = (Front / MAP_CNT_X) * 40 + 20 + MAP_TOP;
 		for (auto& pBomb : *(m_pBombList))
+		{
+			if (pBomb->GetInfo()->fX == x && pBomb->GetInfo()->fY == y)
+			{
+				iBombCheck = false;
+				break;
+			}
+		}
+		for (auto& pBomb : *(m_pBombList2))
 		{
 			if (pBomb->GetInfo()->fX == x && pBomb->GetInfo()->fY == y)
 			{
@@ -351,6 +368,14 @@ void CMonster::LeftHandRuleMove()
 				break;
 			}
 		}
+		for (auto& pBomb : *(m_pBombList2))
+		{
+			if (pBomb->GetInfo()->fX == x && pBomb->GetInfo()->fY == y)
+			{
+				iBombCheck = false;
+				break;
+			}
+		}
 		if (iBombCheck == true)
 		{
 			SetDestination(DIR_RIGHT, Right);
@@ -365,6 +390,14 @@ void CMonster::LeftHandRuleMove()
 		x = (Back % MAP_CNT_X) * 40 + 20 + MAP_LEFT;
 		y = (Back / MAP_CNT_X) * 40 + 20 + MAP_TOP;
 		for (auto& pBomb : *(m_pBombList))
+		{
+			if (pBomb->GetInfo()->fX == x && pBomb->GetInfo()->fY == y)
+			{
+				iBombCheck = false;
+				break;
+			}
+		}
+		for (auto& pBomb : *(m_pBombList2))
 		{
 			if (pBomb->GetInfo()->fX == x && pBomb->GetInfo()->fY == y)
 			{

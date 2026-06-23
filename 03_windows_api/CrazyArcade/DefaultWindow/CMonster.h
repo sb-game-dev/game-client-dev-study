@@ -26,6 +26,7 @@ private:
 
     vector<CObj*>*  m_pTile;
     list<CObj*>*    m_pBombList;
+    list<CObj*>*    m_pBombList2;
 
     float       m_fDstX;
     float       m_fDstY;

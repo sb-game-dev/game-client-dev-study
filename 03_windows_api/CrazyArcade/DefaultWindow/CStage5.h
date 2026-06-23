@@ -17,6 +17,8 @@ public:
 private:
     void            CheckBase();
     void            CheckCollisionGasStation();
+    void            CheckCollisionGasStation2();
+
     void            CheckSceneFrame();
     void            ChangeScene();
 
@@ -30,12 +32,15 @@ private:
     CObj*           m_pBase3;
     CObj*           m_pBase4;
     CObj*           m_pBaseFinal;
-    
+
     CObj*           m_pPlayer;
+    CObj*           m_pPlayer2;
     CObj*           m_pGasStation;
 
     int             m_iTrackCnt;
     int             m_iNextBase;
 
     float*          m_pPlayerRemainGas;
+    float*          m_pPlayerRemainGas2;
+    PLAYMODE*       m_pPlayMode;
 };

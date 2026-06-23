@@ -137,6 +137,7 @@
   <ItemGroup>
     <ClInclude Include="CAbstractFactory.h" />
     <ClInclude Include="CBase.h" />
+    <ClInclude Include="CBaseEffect.h" />
     <ClInclude Include="CBmpMgr.h" />
     <ClInclude Include="CBomb.h" />
     <ClInclude Include="CBoss.h" />
@@ -181,6 +182,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CBase.cpp" />
+    <ClCompile Include="CBaseEffect.cpp" />
     <ClCompile Include="CBmpMgr.cpp" />
     <ClCompile Include="CBomb.cpp" />
     <ClCompile Include="CBoss.cpp" />

@@ -133,6 +133,9 @@
     <Filter Include="02. Obj\00. Player\Player2">
       <UniqueIdentifier>{61c22f18-d807-4b67-b267-5e9108713422}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Obj\14. BaseEffect">
+      <UniqueIdentifier>{52f4378a-dfe0-4fa4-92d5-ac48fa57a2c1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -264,6 +267,9 @@
     <ClInclude Include="CPlayer2.h">
       <Filter>02. Obj\00. Player\Player2</Filter>
     </ClInclude>
+    <ClInclude Include="CBaseEffect.h">
+      <Filter>02. Obj\14. BaseEffect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefaultWindow.cpp">
@@ -379,6 +385,9 @@
     </ClCompile>
     <ClCompile Include="CPlayer2.cpp">
       <Filter>02. Obj\00. Player\Player2</Filter>
+    </ClCompile>
+    <ClCompile Include="CBaseEffect.cpp">
+      <Filter>02. Obj\14. BaseEffect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
