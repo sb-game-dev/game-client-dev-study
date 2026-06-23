@@ -36,6 +36,7 @@ void CSceneMgr::ChangeScene(SCENEID eID)
 		m_pScene = new CEdit;
 		break;
 	case SC_STAGE1:
+		m_ePlayMode = MODE1P;
 		m_pScene = new CStage1;
 		break;
 	case SC_STAGE2:
@@ -45,6 +46,7 @@ void CSceneMgr::ChangeScene(SCENEID eID)
 		m_pScene = new CStage3;
 		break;
 	case SC_STAGE4:
+		m_ePlayMode = MODE2P;
 		m_pScene = new CStage4;
 		break;
 	case SC_STAGE5:

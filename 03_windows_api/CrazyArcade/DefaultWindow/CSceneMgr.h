@@ -19,6 +19,7 @@ public:
 
 	void		SceneChangeReserve(SCENEID eID);
 	void		SceneProcess();
+	void		SetPlayMode(PLAYMODE eMode) { m_ePlayMode = eMode; }
 
 	SCENEID		GetCurScene() { return m_eCurScene; }
 	PLAYMODE*	GetPlayModePtr() { return &m_ePlayMode; }
