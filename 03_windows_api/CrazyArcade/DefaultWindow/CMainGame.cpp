@@ -46,7 +46,7 @@ void CMainGame::Initialize()
 	CSoundMgr::Get_Instance()->Initialize();
 
 #ifdef _DEBUG
-	CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE4);
+	CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE5);
 #elif NDEBUG
 	CSceneMgr::GetInstance()->SceneChangeReserve(SC_LOGO);
 #endif // _DEBUG
@@ -173,6 +173,20 @@ void CMainGame::InsertImg()
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile_final.bmp", L"tile_final");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile_start.bmp", L"tile_start");
 
+
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile_base1_1.bmp", L"tile_base1_1");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile_base1_2.bmp", L"tile_base1_2");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile_base2_1.bmp", L"tile_base2_1");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile_base2_2.bmp", L"tile_base2_2");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile_base3_1.bmp", L"tile_base3_1");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile_base3_2.bmp", L"tile_base3_2");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile_base4_1.bmp", L"tile_base4_1");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile_base4_2.bmp", L"tile_base4_2");
+
+
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile_start1.bmp", L"tile_start1");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile_start2.bmp", L"tile_start2");
+
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/GasStation/GasStation.bmp", L"GasStation");
 
 	//Bubble
@@ -239,6 +253,7 @@ void CMainGame::InsertImg()
 
 	//gasBar_UI
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/gas_frame.bmp", L"gas_frame");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/gas_frame2.bmp", L"gas_frame2");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/gas_bar.bmp", L"gas_bar");
 	
 	//Arrow_UI

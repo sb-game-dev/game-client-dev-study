@@ -3,11 +3,20 @@
 class CBaseEffect :
     public CObj
 {
-    // CObj을(를) 통해 상속됨
+public:
+    CBaseEffect();
+    virtual~CBaseEffect();
+public:
     void Initialize() override;
     int Update() override;
     void LateUpdate() override;
     void Render(HDC hDC) override;
     void Release() override;
+
+public:
+    void    SetMoveFrame(bool bMove) { m_bMoveFrame = bMove; }
+
+private:
+    bool    m_bMoveFrame;
 };
 

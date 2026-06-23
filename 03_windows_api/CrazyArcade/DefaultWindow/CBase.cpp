@@ -2,7 +2,7 @@
 #include "CBase.h"
 #include "CBmpMgr.h"
 
-CBase::CBase():m_bBaseMoveFrame(false)
+CBase::CBase() :m_bBaseMoveFrame(false)
 {
 }
 

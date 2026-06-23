@@ -226,14 +226,7 @@ void CTile::CreateItem()
 	};
 	if (CSceneMgr::GetInstance()->GetCurScene() == SC_STAGE5)
 	{
-		if (rand() % 100 <= 95)
-		{
-			CObjMgr::GetInstance()->AddObject(OBJ_ITEM, CAbstractFactory<CItem>::Create(m_tInfo.fX, m_tInfo.fY, L"joystick"));
-		}
-		else
-		{
-			CObjMgr::GetInstance()->AddObject(OBJ_ITEM, CAbstractFactory<CItem>::Create(m_tInfo.fX, m_tInfo.fY, pItemType[rand() % 7]));
-		}
+		CObjMgr::GetInstance()->AddObject(OBJ_ITEM, CAbstractFactory<CItem>::Create(m_tInfo.fX, m_tInfo.fY, L"joystick"));
 	}
 	else
 	{

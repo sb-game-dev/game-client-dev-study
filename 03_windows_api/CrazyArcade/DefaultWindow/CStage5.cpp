@@ -16,6 +16,7 @@
 #include "CBase.h"
 #include "CGasStation.h"
 #include "CPlayer2.h"
+#include "CBaseEffect.h"
 CStage5::CStage5() :m_hBackGround(NULL), m_pTileVector(nullptr), m_pPlayerRemainGas(nullptr), m_pPlayerRemainGas2(nullptr), m_pPlayMode(nullptr)
 {
 	m_pBaseStart	= nullptr;
@@ -30,8 +31,24 @@ CStage5::CStage5() :m_hBackGround(NULL), m_pTileVector(nullptr), m_pPlayerRemain
 	m_pPlayer		= nullptr;
 	m_pPlayer2		= nullptr;
 	m_pGasStation	= nullptr;
+
+	m_pBaseStartEffect1	= nullptr;
+	m_pBaseStartEffect2	= nullptr;
+
+	m_pBase1Effect1		= nullptr;
+	m_pBase1Effect2		= nullptr;
+	m_pBase2Effect1		= nullptr;
+	m_pBase2Effect2		= nullptr;
+	m_pBase3Effect1		= nullptr;
+	m_pBase3Effect2		= nullptr;
+	m_pBase4Effect1		= nullptr;
+	m_pBase4Effect2		= nullptr;
+
 	m_iTrackCnt		= 3;
 	m_iNextBase		= 0;
+
+	m_iTrackCnt2	= 3;
+	m_iNextBase2	= 0;
 }
 
 CStage5::~CStage5()
@@ -45,35 +62,41 @@ void CStage5::Initialize()
 
 
 #endif // _DEBUG
+
+
+	m_pPlayMode = CSceneMgr::GetInstance()->GetPlayModePtr();
+	*m_pPlayMode = MODE2P;
+
+
 	int iPlayer_StartX = 14;
 	int iPlayer_StartY = 11;
-	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, CAbstractFactory<CPlayer>::Create((iPlayer_StartX * 40) + 40, (iPlayer_StartY * 40) + 60, L"player_start"));
+	m_pPlayer = CAbstractFactory<CPlayer>::Create((iPlayer_StartX * 40) + 40, (iPlayer_StartY * 40) + 60, L"player_start");
+	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, m_pPlayer);
 
 
 	int iPlayer2_StartX = 4;
-	int iPlayer2_StartY = 9;
-	m_pPlayMode = CSceneMgr::GetInstance()->GetPlayModePtr();
-	*m_pPlayMode = MODE2P;
+	int iPlayer2_StartY = 8;
 	if (*m_pPlayMode == MODE2P)
 	{
 		m_pPlayer2 = CAbstractFactory<CPlayer2>::Create((iPlayer2_StartX * 40) + 40, (iPlayer2_StartY * 40) + 60, L"player_start");
 		CObjMgr::GetInstance()->AddObject(OBJ_PLAYER2, m_pPlayer2);
 	}
 
-	m_pBaseStart = CAbstractFactory<CBase>::Create((12 * 40) + 40, (11 * 40) + 60 + 20, L"tile_start");
-	dynamic_cast<CBase*>(m_pBaseStart)->SetBaseMoveFrame(true);
+	m_pBaseStart = CAbstractFactory<CBase>::Create((12 * 40) + 40, (11 * 40) + 60 + 20, L"tile_start");	
+
 
 	m_pBase1	 = CAbstractFactory<CBase>::Create((2 * 40) + 40, (3 * 40) + 60, L"tile_base1");
 	m_pBase2	 = CAbstractFactory<CBase>::Create((10 * 40) + 40, (1 * 40) + 60, L"tile_base2");
 	m_pBase3	 = CAbstractFactory<CBase>::Create((2 * 40) + 40, (11 * 40) + 60, L"tile_base3");
 	m_pBase4	 = CAbstractFactory<CBase>::Create((14 * 40) + 40, (5 * 40) + 60, L"tile_base4");
 	m_pBaseFinal = CAbstractFactory<CBase>::Create((12 * 40) + 40, (11 * 40) + 60 + 20, L"tile_final");
+
 	m_pBaseFinal->SetDraw(false);
 
 	m_pGasStation = CAbstractFactory<CGasStation>::Create((5 * 40) + 40, (3 * 40) + 60, L"GasStation");
 
 	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBaseStart);
-
+	
 	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBase1);
 	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBase2);
 	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBase3);
@@ -82,8 +105,6 @@ void CStage5::Initialize()
 	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBaseFinal);
 
 	CObjMgr::GetInstance()->AddObject(OBJ_GASSTATION, m_pGasStation);
-
-
 
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(717, 576, L"button_stageExit"));
 
@@ -105,19 +126,58 @@ void CStage5::Initialize()
 		}
 	}
 
+
+	m_pBaseStartEffect1 = CAbstractFactory<CBaseEffect>::Create((12 * 40) + 40, (11 * 40) + 60 + 20, L"tile_start1");
+	dynamic_cast<CBaseEffect*>(m_pBaseStartEffect1)->SetMoveFrame(true);
+	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBaseStartEffect1);
+
+	m_pBaseStartEffect2 = CAbstractFactory<CBaseEffect>::Create((12 * 40) + 40, (11 * 40) + 60 + 20, L"tile_start2");
+	dynamic_cast<CBaseEffect*>(m_pBaseStartEffect2)->SetMoveFrame(true);
+	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBaseStartEffect2);
+
+	m_pBase1Effect1 = CAbstractFactory<CBaseEffect>::Create((2 * 40) + 40, (3 * 40) + 60, L"tile_base1_1");
+	m_pBase1Effect1->SetDraw(false);
+	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBase1Effect1);
+
+	m_pBase1Effect2 = CAbstractFactory<CBaseEffect>::Create((2 * 40) + 40, (3 * 40) + 60, L"tile_base1_2");
+	m_pBase1Effect2->SetDraw(false);
+	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBase1Effect2);
+
+	m_pBase2Effect1 = CAbstractFactory<CBaseEffect>::Create((10 * 40) + 40, (1 * 40) + 60, L"tile_base2_1");
+	m_pBase2Effect1->SetDraw(false);
+	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBase2Effect1);
+
+	m_pBase2Effect2 = CAbstractFactory<CBaseEffect>::Create((10 * 40) + 40, (1 * 40) + 60, L"tile_base2_2");
+	m_pBase2Effect2->SetDraw(false);
+	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBase2Effect2);
+
+	m_pBase3Effect1 = CAbstractFactory<CBaseEffect>::Create((2 * 40) + 40, (11 * 40) + 60, L"tile_base3_1");
+	m_pBase3Effect1->SetDraw(false);
+	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBase3Effect1);
+
+	m_pBase3Effect2 = CAbstractFactory<CBaseEffect>::Create((2 * 40) + 40, (11 * 40) + 60, L"tile_base3_2");
+	m_pBase3Effect2->SetDraw(false);
+	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBase3Effect2);
+
+	m_pBase4Effect1 = CAbstractFactory<CBaseEffect>::Create((14 * 40) + 40, (5 * 40) + 60, L"tile_base4_1");
+	m_pBase4Effect1->SetDraw(false);
+	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBase4Effect1);
+
+	m_pBase4Effect2 = CAbstractFactory<CBaseEffect>::Create((14 * 40) + 40, (5 * 40) + 60, L"tile_base4_2");
+	m_pBase4Effect2->SetDraw(false);
+	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBase4Effect2);
+
+
 	CSoundMgr::Get_Instance()->PlaySound(L"StageStart_7.wav", STAGE_START, 0.2f);
 }
 
 int CStage5::Update()
 {
-	if (CObjMgr::GetInstance()->GetRemainPlayer() == false)
-	{
-		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
-		m_eCurSceneState = SCENE_LOSE;
-		ChangeScene();
-	}
-
 	CObjMgr::GetInstance()->Update();
+
+	CheckCollisionGasStation();
+	CheckCollisionGasStation2();
+
 	return 0;
 }
 
@@ -128,9 +188,10 @@ void CStage5::LateUpdate()
 
 	CObjMgr::GetInstance()->LateUpdate();
 
-	CheckBase();
-	CheckCollisionGasStation(); 
-	CheckCollisionGasStation2();
+	CheckBase(); 
+	CheckBase2();
+	CheckNoCollisionGasStation();
+
 	if (m_eCurSceneState == SCENE_START || m_eCurSceneState == SCENE_END)
 	{
 		if (m_eCurSceneState == SCENE_START && m_fAlpha > 0.f && m_dwFrameTime + 10 <= GetTickCount64())
@@ -149,7 +210,6 @@ void CStage5::LateUpdate()
 
 void CStage5::Render(HDC hDC)
 {
-	
 	BitBlt(hDC,							// ¸ñÀûÁö DC
 		0, 0,
 		WINCX, WINCY,
@@ -160,12 +220,12 @@ void CStage5::Render(HDC hDC)
 
 	CObjMgr::GetInstance()->Render(hDC);
 
-	if (dynamic_cast<CPlayer*>(m_pPlayer)->GetRide())
+	if (m_pPlayer && dynamic_cast<CPlayer*>(m_pPlayer)->GetRide())
 	{
 		Graphics* _pGraphics = Graphics::FromHDC(hDC);
 		Gdiplus::Image* hTrackCnt = CImgMgr::GetInstance()->FindImg(L"trackCnt");
 
-		Rect rect = { 24, 495,97, 41 };
+		Rect rect = { 519, 495, 97, 41 };
 
 		ImageAttributes attr;
 		MakeAlphaAttr(attr, 0.7f);
@@ -175,10 +235,32 @@ void CStage5::Render(HDC hDC)
 			UnitPixel, &attr);
 
 		HDC hGasFrame = CBmpMgr::GetInstance()->FindImage(L"gas_frame");
-		BitBlt(hDC, 24, 536, 170, 22, hGasFrame, 0, 0, SRCCOPY);
+		BitBlt(hDC, 447, 536, 170, 22, hGasFrame, 0, 0, SRCCOPY);
 
 		HDC hGasBar = CBmpMgr::GetInstance()->FindImage(L"gas_bar");
-		BitBlt(hDC, 101, 540, 87* (*m_pPlayerRemainGas)/300,14, hGasBar, 0, 0, SRCCOPY);
+		BitBlt(hDC, 524, 540, 87 * (*m_pPlayerRemainGas) / 300, 14, hGasBar, 0, 0, SRCCOPY);
+	}
+
+	//2p_UI
+	if (m_pPlayer2 && dynamic_cast<CPlayer2*>(m_pPlayer2)->GetRide())
+	{
+		Graphics* _pGraphics = Graphics::FromHDC(hDC);
+		Gdiplus::Image* hTrackCnt = CImgMgr::GetInstance()->FindImg(L"trackCnt");
+	
+		Rect rect = { 24, 495,97, 41 };
+	
+		ImageAttributes attr;
+		MakeAlphaAttr(attr, 0.7f);
+		_pGraphics->DrawImage(hTrackCnt, rect,
+			97 * ((3 - m_iTrackCnt < 3) ? (3 - m_iTrackCnt) : 2), 0,
+			97, 41,
+			UnitPixel, &attr);
+	
+		HDC hGasFrame = CBmpMgr::GetInstance()->FindImage(L"gas_frame2");
+		BitBlt(hDC, 24, 536, 170, 22, hGasFrame, 0, 0, SRCCOPY);
+	
+		HDC hGasBar = CBmpMgr::GetInstance()->FindImage(L"gas_bar");
+		BitBlt(hDC, 101, 540, 87 * (*m_pPlayerRemainGas2) / 300, 14, hGasBar, 0, 0, SRCCOPY);
 	}
 
 
@@ -259,6 +341,7 @@ void CStage5::Release()
 	CObjMgr::GetInstance()->ReleaseRenderList();
 	CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_PLAYER);
+	CObjMgr::GetInstance()->DeleteObj(OBJ_PLAYER2);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_BOMB);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_WAVE);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_BUTTON);
@@ -279,20 +362,21 @@ void CStage5::CheckBase()
 		if(pTempPlayer && pTempPlayer->GetRide() == false)
 			return;
 	}
-
+	cout << "m_iNextBase: " << m_iNextBase << endl;
 	RECT rc;
 	//Start
 	if (m_iTrackCnt == 3 && m_iNextBase == 0
 		&& IntersectRect(&rc, m_pBaseStart->GetRect(), m_pPlayer->GetRect()))
 	{
 		CSoundMgr::Get_Instance()->PlaySound(L"ef_4.wav", SOUND_EFFECT, 0.2f);
-		dynamic_cast<CBase*>(m_pBaseStart)->SetBaseMoveFrame(false);
-		dynamic_cast<CBase*>(m_pBase1)->SetBaseMoveFrame(true);
+		dynamic_cast<CBaseEffect*>(m_pBaseStartEffect1)->SetMoveFrame(false);
+		dynamic_cast<CBaseEffect*>(m_pBase1Effect1)->SetMoveFrame(true);
 		m_iNextBase = m_iNextBase % 4 + 1;
 	}
+
 	if (m_iTrackCnt > 0)
 	{
-		CObj* BaseArr[4] = { m_pBase1,m_pBase2,m_pBase3,m_pBase4 };
+		CObj* BaseArr[4] = { m_pBase1Effect1,m_pBase2Effect1,m_pBase3Effect1,m_pBase4Effect1 };
 		for (int i = 0; i < 4; i++)
 		{
 			if (m_iNextBase == i + 1
@@ -301,16 +385,17 @@ void CStage5::CheckBase()
 				CSoundMgr::Get_Instance()->PlaySound(L"ef_4.wav", SOUND_EFFECT, 0.2f);
 				if (m_iNextBase == 4)
 					--m_iTrackCnt;
-				dynamic_cast<CBase*>(BaseArr[m_iNextBase - 1])->SetBaseMoveFrame(false);
+				dynamic_cast<CBaseEffect*>(BaseArr[m_iNextBase - 1])->SetMoveFrame(false);
 				if (m_iTrackCnt > 0)
 				{
-					dynamic_cast<CBase*>(BaseArr[m_iNextBase % 4])->SetBaseMoveFrame(true);
+					dynamic_cast<CBaseEffect*>(BaseArr[m_iNextBase % 4])->SetMoveFrame(true);
 					m_iNextBase = m_iNextBase % 4 + 1;
 				}
 				else
 				{
 					m_pBaseFinal->SetDraw(true);
 					dynamic_cast<CBase*>(m_pBaseFinal)->SetBaseMoveFrame(true);
+					dynamic_cast<CBaseEffect*>(m_pBaseStartEffect2)->SetMoveFrame(false);
 				}
 			}
 		}
@@ -330,13 +415,75 @@ void CStage5::CheckBase()
 	
 }
 
+void CStage5::CheckBase2()
+{
+
+	if (!CObjMgr::GetInstance()->GetList(OBJ_PLAYER2).empty())
+	{
+		CPlayer2* pTempPlayer = dynamic_cast<CPlayer2*>(m_pPlayer2);
+		if (pTempPlayer && pTempPlayer->GetRide() == false)
+			return;
+	}
+	cout << "m_iNextBase2: " << m_iNextBase2 << endl;
+	RECT rc;
+	//Start
+	if (m_iTrackCnt2 == 3 && m_iNextBase2 == 0
+		&& IntersectRect(&rc, m_pBaseStart->GetRect(), m_pPlayer2->GetRect()))
+	{
+		CSoundMgr::Get_Instance()->PlaySound(L"ef_4.wav", SOUND_EFFECT, 0.2f);
+		dynamic_cast<CBaseEffect*>(m_pBaseStartEffect2)->SetMoveFrame(false);
+		dynamic_cast<CBaseEffect*>(m_pBase1Effect2)->SetMoveFrame(true);
+		m_iNextBase2 = m_iNextBase2 % 4 + 1;
+	}
+
+	if (m_iTrackCnt2 > 0)
+	{
+		CObj* BaseArr[4] = { m_pBase1Effect2,m_pBase2Effect2,m_pBase3Effect2,m_pBase4Effect2 };
+		for (int i = 0; i < 4; i++)
+		{
+			if (m_iNextBase2 == i + 1
+				&& IntersectRect(&rc, BaseArr[i]->GetRect(), m_pPlayer2->GetRect()))
+			{
+				CSoundMgr::Get_Instance()->PlaySound(L"ef_4.wav", SOUND_EFFECT, 0.2f);
+				if (m_iNextBase2 == 4)
+					--m_iTrackCnt2;
+				dynamic_cast<CBaseEffect*>(BaseArr[m_iNextBase2 - 1])->SetMoveFrame(false);
+				if (m_iTrackCnt2 > 0)
+				{
+					dynamic_cast<CBaseEffect*>(BaseArr[m_iNextBase2 % 4])->SetMoveFrame(true);
+					m_iNextBase2 = m_iNextBase2 % 4 + 1;
+				}
+				else
+				{
+					m_pBaseFinal->SetDraw(true);
+					dynamic_cast<CBase*>(m_pBaseFinal)->SetBaseMoveFrame(true);
+					dynamic_cast<CBaseEffect*>(m_pBaseStartEffect1)->SetMoveFrame(false);
+				}
+			}
+		}
+	}
+
+	//Final
+	if (m_pBaseFinal->GetDraw() == true &&
+		IntersectRect(&rc, m_pBaseFinal->GetRect(), m_pPlayer->GetRect()))
+	{
+		cout << "FinalRectCollision" << endl;
+
+		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
+		m_eCurSceneState = SCENE_WIN;
+		dynamic_cast<CPlayer*>(m_pPlayer)->SetWin();
+		ChangeScene();
+	}
+
+}
+
 void CStage5::CheckCollisionGasStation()
 {
 	if (CObjMgr::GetInstance()->GetList(OBJ_PLAYER).empty()
 		|| dynamic_cast<CPlayer*>(m_pPlayer)->GetRide() == false)
 		return;
 	RECT rc;
-	RECT rcGasStation = {260,160,300,200};
+	RECT rcGasStation = { 260,160,300,200 };
 	if (IntersectRect(&rc, &rcGasStation, m_pPlayer->GetRect()))
 	{
 		m_pPlayer->SetDraw(false);
@@ -348,9 +495,11 @@ void CStage5::CheckCollisionGasStation()
 	}
 	else
 	{
-		dynamic_cast<CGasStation*>(m_pGasStation)->SetRefuel(false);
 		m_pPlayer->SetDraw(true);
 	}
+
+		
+	
 }
 
 void CStage5::CheckCollisionGasStation2()
@@ -371,9 +520,26 @@ void CStage5::CheckCollisionGasStation2()
 	}
 	else
 	{
-		dynamic_cast<CGasStation*>(m_pGasStation)->SetRefuel(false);
 		m_pPlayer2->SetDraw(true);
 	}
+	
+	
+}
+
+void CStage5::CheckNoCollisionGasStation()
+{
+	if (CObjMgr::GetInstance()->GetList(OBJ_PLAYER).empty() ||
+		CObjMgr::GetInstance()->GetList(OBJ_PLAYER2).empty())
+		return;
+
+	RECT rc;
+	RECT rcGasStation = { 260,160,300,200 };
+	if (!IntersectRect(&rc, &rcGasStation, m_pPlayer->GetRect()) &&
+		!IntersectRect(&rc, &rcGasStation, m_pPlayer2->GetRect()))
+	{
+		dynamic_cast<CGasStation*>(m_pGasStation)->SetRefuel(false);
+	}
+
 }
 
 void CStage5::CheckSceneFrame()

@@ -264,9 +264,9 @@ void CPlayer2::KeyInput()
 	{
 		if (m_eCurMotion == HIT || m_eCurMotion == DEATH)
 			return;
-		if (CObjMgr::GetInstance()->GetList(OBJ_BOMB).size() < m_iBombMax)
+		if (CObjMgr::GetInstance()->GetList(OBJ_BOMB2).size() < m_iBombMax)
 		{
-			for (auto& pBomb : CObjMgr::GetInstance()->GetList(OBJ_BOMB))
+			for (auto& pBomb : CObjMgr::GetInstance()->GetList(OBJ_BOMB2))
 			{
 				if (AdjustPosX(m_tInfo.fX) == pBomb->GetInfo()->fX
 					&& AdjustPosY(m_tInfo.fY) == pBomb->GetInfo()->fY)

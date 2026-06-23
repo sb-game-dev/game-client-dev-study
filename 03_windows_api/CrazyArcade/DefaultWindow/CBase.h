@@ -23,4 +23,3 @@ private:
 private:
     bool    m_bBaseMoveFrame;
 };
-
