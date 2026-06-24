@@ -68,5 +68,7 @@ private:
 
 	CObj*			m_pMouse;
 	int				m_iPreSlotIndex;
+
+
 };
 

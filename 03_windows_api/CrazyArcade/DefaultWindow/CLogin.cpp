@@ -107,6 +107,7 @@ void CLogin::Render(HDC hDC)
 void CLogin::Release()
 {
 	CObjMgr::GetInstance()->DeleteObj(OBJ_BUTTON);
+	CObjMgr::GetInstance()->ReleaseRenderList();
 	CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 }
 

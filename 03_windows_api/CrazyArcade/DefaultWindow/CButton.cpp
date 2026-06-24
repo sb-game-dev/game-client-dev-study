@@ -7,6 +7,7 @@
 #include "CBmpMgr.h"
 #include "CSoundMgr.h"
 #include "CInven.h"
+#include "CNotice.h"
 
 CButton::CButton():m_bCurState(false), m_bPreState(false)
 {
@@ -43,6 +44,50 @@ void CButton::Initialize()
 	{
 		m_tInfo.fCX = 95.f;
 		m_tInfo.fCY = 118.f;
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 2;
+		m_tFrame.iMotion = 0;
+		m_tFrame.bLoop = false;
+		m_tFrame.iCX = m_tInfo.fCX;
+		m_tFrame.iCY = m_tInfo.fCY;
+	}
+	else if (!lstrcmp(L"button_exit", m_pFrameKey))
+	{
+		m_tInfo.fCX = 30.f;
+		m_tInfo.fCY = 24.f;
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 2;
+		m_tFrame.iMotion = 0;
+		m_tFrame.bLoop = false;
+		m_tFrame.iCX = m_tInfo.fCX;
+		m_tFrame.iCY = m_tInfo.fCY;
+	}
+	else if (!lstrcmp(L"button_ExitGame", m_pFrameKey))
+	{
+		m_tInfo.fCX = 102.f;
+		m_tInfo.fCY = 30.f;
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 2;
+		m_tFrame.iMotion = 0;
+		m_tFrame.bLoop = false;
+		m_tFrame.iCX = m_tInfo.fCX;
+		m_tFrame.iCY = m_tInfo.fCY;
+	}
+	else if (!lstrcmp(L"button_ExitNotice", m_pFrameKey))
+	{
+		m_tInfo.fCX = 23.f;
+		m_tInfo.fCY = 20.f;
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 2;
+		m_tFrame.iMotion = 0;
+		m_tFrame.bLoop = false;
+		m_tFrame.iCX = m_tInfo.fCX;
+		m_tFrame.iCY = m_tInfo.fCY;
+	}
+	else if (!lstrcmp(L"button_ReLogin", m_pFrameKey))
+	{
+		m_tInfo.fCX = 102.f;
+		m_tInfo.fCY = 30.f;
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 2;
 		m_tFrame.iMotion = 0;
@@ -249,7 +294,7 @@ void CButton::Initialize()
 
 int CButton::Update()
 {
-	if (CInven::GetInstance()->GetDraw() == true)
+	if (CInven::GetInstance()->GetDraw() == true || CNotice::GetInstance()->GetDraw() == true)
 		return 0;
 	POINT		ptMouse{};
 	GetCursorPos(&ptMouse);
@@ -327,6 +372,10 @@ int CButton::Update()
 			else if (!lstrcmp(L"button_InvenExit", m_pFrameKey) && CInven::GetInstance()->GetDraw() == true)
 			{
 				CInven::GetInstance()->SetDraw(false);
+			}
+			else if (!lstrcmp(L"button_exit", m_pFrameKey) && CNotice::GetInstance()->GetDraw() == false)
+			{
+				CNotice::GetInstance()->SetDraw(true);
 			}
 		}
 	}

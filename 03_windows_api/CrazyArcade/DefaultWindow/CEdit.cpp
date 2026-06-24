@@ -77,10 +77,7 @@ void CEdit::Initialize()
 			CObjMgr::GetInstance()->AddTile(CAbstractFactory<CTile>::Create((j * 40) + 40, (i * 40) + 60, L"tile", TILE1));
 		}
 	}
-
-
 	CSoundMgr::Get_Instance()->PlayBGM(L"Channel.wav", 0.1f);
-
 }
 
 int CEdit::Update()

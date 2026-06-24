@@ -263,26 +263,30 @@ void CObjMgr::LateUpdate()
 }
 void CObjMgr::Render(HDC hDC)
 {
-	//for (auto& pObj : m_TileVec)
-	//	pObj->Render(hDC);
-	//for (int i = 0; i < OBJ_END; ++i)
-	//{
-	//	for (auto& pObj : m_ObjList[i])
-	//	{
-	//		pObj->Render(hDC);
-	//	}
-	//}
 
-	for (size_t i = 0; i < RENDER_END; ++i)
+	if (CSceneMgr::GetInstance()->GetCurScene() == SC_LOGIN)
 	{
-		m_RenderList[i].sort([](CObj* pDst, CObj* pSrc)->bool
-			{	
-				return pDst->GetRect()->bottom < pSrc->GetRect()->bottom;
-			});
-	
-		for (auto& pObj : m_RenderList[i])
-			pObj->Render(hDC);
-		m_RenderList[i].clear();
+		for (int i = 0; i < OBJ_END; ++i)
+		{
+			for (auto& pObj : m_ObjList[i])
+			{
+				pObj->Render(hDC);
+			}
+		}
+	}
+	else
+	{
+		for (size_t i = 0; i < RENDER_END; ++i)
+		{
+			m_RenderList[i].sort([](CObj* pDst, CObj* pSrc)->bool
+				{
+					return pDst->GetRect()->bottom < pSrc->GetRect()->bottom;
+				});
+
+			for (auto& pObj : m_RenderList[i])
+				pObj->Render(hDC);
+			m_RenderList[i].clear();
+		}
 	}
 }
 

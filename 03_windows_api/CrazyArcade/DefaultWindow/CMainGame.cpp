@@ -9,6 +9,7 @@
 #include "CBmpMgr.h"
 #include "CSoundMgr.h"
 #include "CInven.h"
+#include "CNotice.h"
 CMainGame::CMainGame() :m_hDC(NULL), m_memDC(NULL), m_Bit(NULL), m_Old(NULL),m_pGraphics(NULL), m_iFPS(0),m_dwTime(GetTickCount64())
 {
 	ZeroMemory(&m_szFPS, sizeof(m_szFPS));
@@ -46,7 +47,7 @@ void CMainGame::Initialize()
 	CSoundMgr::Get_Instance()->Initialize();
 
 #ifdef _DEBUG
-	CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE5);
+	CSceneMgr::GetInstance()->SceneChangeReserve(SC_MENU);
 #elif NDEBUG
 	CSceneMgr::GetInstance()->SceneChangeReserve(SC_LOGO);
 #endif // _DEBUG
@@ -100,6 +101,7 @@ void CMainGame::Release()
 	CSoundMgr::Destroy_Instance();
 	CObjMgr::Destroy();
 	CInven::Destroy();
+	CNotice::Destroy();
 }
 
 void CMainGame::InsertImg()
@@ -145,6 +147,12 @@ void CMainGame::InsertImg()
 
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/Login_2P.bmp", L"Login_2P");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/Login_1P.bmp", L"Login_1P");
+
+
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_exit.bmp", L"button_exit");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_ReLogin.bmp", L"button_ReLogin");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_ExitGame.bmp", L"button_ExitGame");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_ExitNotice.bmp", L"button_ExitNotice");
 
 	//Player
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_start.bmp", L"player_start");
@@ -242,6 +250,7 @@ void CMainGame::InsertImg()
 	//Inventory_UI
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/MyPage.bmp", L"MyPage");
 
+
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/Slot1.bmp", L"Slot1");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/Slot2.bmp", L"Slot2");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/Slot3.bmp", L"Slot3");
@@ -251,6 +260,9 @@ void CMainGame::InsertImg()
 
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/InGameSlot.bmp", L"InGameSlot");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/InGameNumber.bmp", L"InGameNumber");
+
+	//Notice_UI
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/Notice.bmp", L"Notice");
 
 	//Control_2P
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/Control_2P.bmp", L"Control_2P");

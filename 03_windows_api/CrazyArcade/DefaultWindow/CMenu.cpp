@@ -9,6 +9,7 @@
 #include "CKeyMgr.h"
 #include "CSceneMgr.h"
 #include "CInven.h"
+#include "CNotice.h"
 
 CMenu::CMenu():m_pButtonList(nullptr), m_pSelectStage(nullptr)
 {
@@ -29,6 +30,8 @@ void CMenu::Initialize()
 
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(176, 585, L"button_shop"));
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(662, 584, L"button_myPage"));
+
+	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(765, 584, L"button_exit"));
 
 
 	m_pButtonList = CObjMgr::GetInstance()->GetListPtr(OBJ_BUTTON);
@@ -51,6 +54,10 @@ void CMenu::LateUpdate()
 	{
 		CInven::GetInstance()->LateUpdate();
 	}
+	else if (CNotice::GetInstance()->GetDraw())
+	{
+		CNotice::GetInstance()->LateUpdate();
+	}
 	else
 	{
 		POINT		ptMouse{};
@@ -69,13 +76,15 @@ void CMenu::LateUpdate()
 				}
 				else if (!lstrcmp(L"button_stageStart", pButton->GetFrameKey()))
 				{
-					m_eCurSceneState = SCENE_END;
-					//if (m_pSelectStage && !lstrcmp(L"button_FirstStage", m_pSelectStage->GetFrameKey()))
-					//	CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE1);
-					//else if (m_pSelectStage && !lstrcmp(L"button_SecondStage", m_pSelectStage->GetFrameKey()))
-					//	CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE4);
-					//else if (m_pSelectStage && !lstrcmp(L"button_ThirdStage", m_pSelectStage->GetFrameKey()))
-					//	CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE5);
+					if (*CSceneMgr::GetInstance()->GetPlayModePtr() == MODE1P &&
+						(!lstrcmp(L"button_SecondStage", m_pSelectStage->GetFrameKey()) ||
+							!lstrcmp(L"button_ThirdStage", m_pSelectStage->GetFrameKey())))
+					{
+						m_eCurSceneState = SCENE_PLAY;
+						CSoundMgr::Get_Instance()->PlaySound(L"ban.wav", BUTTON_CURSOR, 0.9f);
+					}
+					else
+						m_eCurSceneState = SCENE_END;
 				}
 			}
 			if ((!lstrcmp(L"button_FirstStage", pButton->GetFrameKey()) || 
@@ -123,6 +132,12 @@ void CMenu::Render(HDC hDC)
 		CObjMgr::GetInstance()->GetList(OBJ_MOUSE).front()->Render(hDC);
 	}
 
+	if (CNotice::GetInstance()->GetDraw())
+	{
+		CNotice::GetInstance()->Render(hDC);
+		CObjMgr::GetInstance()->GetList(OBJ_MOUSE).front()->Render(hDC);
+	}
+
 	if (m_eCurSceneState == SCENE_START || m_eCurSceneState == SCENE_END)
 	{
 		Graphics* _pGraphics = Graphics::FromHDC(hDC);
@@ -139,6 +154,7 @@ void CMenu::Render(HDC hDC)
 void CMenu::Release()
 {
 	CInven::GetInstance()->SetDraw(false);
+	CNotice::GetInstance()->SetDraw(false);
 	CObjMgr::GetInstance()->ReleaseRenderList();
 	CObjMgr::GetInstance()->DeleteObj(OBJ_BUTTON);
 	CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);

@@ -85,7 +85,6 @@ int CStage1::Update()
 
 void CStage1::LateUpdate()
 {
-
 	CObjMgr::GetInstance()->LateUpdate();
 	if (m_eCurSceneState == SCENE_START || m_eCurSceneState == SCENE_WIN)
 	{
