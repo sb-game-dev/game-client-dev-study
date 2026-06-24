@@ -52,71 +52,14 @@
     <Filter Include="02. Obj\08. Dart">
       <UniqueIdentifier>{45d23252-6e23-4ae3-a2fa-99be94e19c54}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Scene\01. Menu">
-      <UniqueIdentifier>{d25ee7d2-59d6-41eb-a771-66ba3fa26b6b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Scene\02. Edit">
-      <UniqueIdentifier>{16b4f217-24ff-4cbf-bbf2-b7b596243dfb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Scene\04. Shop">
-      <UniqueIdentifier>{7d57a1e3-97eb-4043-a27f-bc15680f9c0a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. Obj\09. Monster">
       <UniqueIdentifier>{e8712c77-491b-403c-ad74-774ea588e9ca}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. Obj\10. Mark">
       <UniqueIdentifier>{eb9c0387-40c8-474b-8b6f-4443db52841d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Scene\03. Stage">
-      <UniqueIdentifier>{a1ff1725-c2cc-4187-9e4f-b8b8e9c8d086}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Scene\03. Stage\01. Stage2">
-      <UniqueIdentifier>{ec777d4e-6704-44f7-9c41-112cce43e7d8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Scene\03. Stage\02. Stage3">
-      <UniqueIdentifier>{b1546f2b-c318-475b-aa11-82181433d8b6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Scene\03. Stage\00. Stage1">
-      <UniqueIdentifier>{613e573c-cdfd-4ee5-adb5-af27cfa8ca4a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Scene\03. Stage\03. Stage4">
-      <UniqueIdentifier>{68804d61-5d8d-4796-8d5e-b5099eb271f2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. Inven">
       <UniqueIdentifier>{b859da22-6a6b-4288-a5e1-f7e9c3a1822a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04. Design">
-      <UniqueIdentifier>{f9bf4f58-134f-49e8-8654-cc6c0bb47df8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04. Design\00. AbstractFactory">
-      <UniqueIdentifier>{26b52742-b195-45cd-9b8a-c122d82b03f5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04. Design\01. ObjMgr">
-      <UniqueIdentifier>{eb5410cf-e93b-48d3-ae85-634cb4d0bc28}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04. Design\02. KeyMgr">
-      <UniqueIdentifier>{619dd2f4-8191-4402-bdce-3f2145e1269c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04. Design\03. SceneMgr">
-      <UniqueIdentifier>{dce3bcf9-f491-4a30-8e61-ead712f7db54}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04. Design\04. ImgMgr">
-      <UniqueIdentifier>{61201fb2-4a4a-4940-b335-008a4ff9e2c3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04. Design\05. BmpMgr">
-      <UniqueIdentifier>{5cf5bed7-46d5-4ad6-b783-dee30bd84c45}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04. Design\05. BmpMgr\MyBmp">
-      <UniqueIdentifier>{ddb5462d-c4ef-4700-bf11-2becf294fb8d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04. Design\06. CollisionMgr">
-      <UniqueIdentifier>{d62f87ef-bdba-434e-97b2-c6a57a24d258}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04. Design\07. SoundMgr">
-      <UniqueIdentifier>{02319113-d50b-481d-b9f5-b9cd62130ac5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. Scene\03. Stage\04. Stage5">
-      <UniqueIdentifier>{4b0a1602-aa51-40d1-a1d4-999a7e6b7857}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. Obj\11. Base">
       <UniqueIdentifier>{6790f7e5-883b-4a41-a6ed-fb7f11b151cf}</UniqueIdentifier>
@@ -135,6 +78,69 @@
     </Filter>
     <Filter Include="02. Obj\14. BaseEffect">
       <UniqueIdentifier>{52f4378a-dfe0-4fa4-92d5-ac48fa57a2c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\01. Login">
+      <UniqueIdentifier>{39b76ed7-ba59-4158-b5f7-a81a3dbecb87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\02. Menu">
+      <UniqueIdentifier>{d25ee7d2-59d6-41eb-a771-66ba3fa26b6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\03. Edit">
+      <UniqueIdentifier>{16b4f217-24ff-4cbf-bbf2-b7b596243dfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\04. Stage">
+      <UniqueIdentifier>{a1ff1725-c2cc-4187-9e4f-b8b8e9c8d086}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\04. Stage\01. Stage2">
+      <UniqueIdentifier>{ec777d4e-6704-44f7-9c41-112cce43e7d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\04. Stage\02. Stage3">
+      <UniqueIdentifier>{b1546f2b-c318-475b-aa11-82181433d8b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\04. Stage\00. Stage1">
+      <UniqueIdentifier>{613e573c-cdfd-4ee5-adb5-af27cfa8ca4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\04. Stage\03. Stage4">
+      <UniqueIdentifier>{68804d61-5d8d-4796-8d5e-b5099eb271f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\04. Stage\04. Stage5">
+      <UniqueIdentifier>{4b0a1602-aa51-40d1-a1d4-999a7e6b7857}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\05. Shop">
+      <UniqueIdentifier>{7d57a1e3-97eb-4043-a27f-bc15680f9c0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Notice">
+      <UniqueIdentifier>{25e6dfb7-cd0e-4fee-846b-1c96c72f5bae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Design">
+      <UniqueIdentifier>{f9bf4f58-134f-49e8-8654-cc6c0bb47df8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Design\00. AbstractFactory">
+      <UniqueIdentifier>{26b52742-b195-45cd-9b8a-c122d82b03f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Design\01. ObjMgr">
+      <UniqueIdentifier>{eb5410cf-e93b-48d3-ae85-634cb4d0bc28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Design\02. KeyMgr">
+      <UniqueIdentifier>{619dd2f4-8191-4402-bdce-3f2145e1269c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Design\03. SceneMgr">
+      <UniqueIdentifier>{dce3bcf9-f491-4a30-8e61-ead712f7db54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Design\04. ImgMgr">
+      <UniqueIdentifier>{61201fb2-4a4a-4940-b335-008a4ff9e2c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Design\05. BmpMgr">
+      <UniqueIdentifier>{5cf5bed7-46d5-4ad6-b783-dee30bd84c45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Design\05. BmpMgr\MyBmp">
+      <UniqueIdentifier>{ddb5462d-c4ef-4700-bf11-2becf294fb8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Design\06. CollisionMgr">
+      <UniqueIdentifier>{d62f87ef-bdba-434e-97b2-c6a57a24d258}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. Design\07. SoundMgr">
+      <UniqueIdentifier>{02319113-d50b-481d-b9f5-b9cd62130ac5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -163,28 +169,28 @@
       <Filter>02. Obj</Filter>
     </ClInclude>
     <ClInclude Include="CSceneMgr.h">
-      <Filter>04. Design\03. SceneMgr</Filter>
+      <Filter>05. Design\03. SceneMgr</Filter>
     </ClInclude>
     <ClInclude Include="CScene.h">
       <Filter>01. Scene</Filter>
     </ClInclude>
     <ClInclude Include="CAbstractFactory.h">
-      <Filter>04. Design\00. AbstractFactory</Filter>
+      <Filter>05. Design\00. AbstractFactory</Filter>
     </ClInclude>
     <ClInclude Include="CObjMgr.h">
-      <Filter>04. Design\01. ObjMgr</Filter>
+      <Filter>05. Design\01. ObjMgr</Filter>
     </ClInclude>
     <ClInclude Include="CKeyMgr.h">
-      <Filter>04. Design\02. KeyMgr</Filter>
+      <Filter>05. Design\02. KeyMgr</Filter>
     </ClInclude>
     <ClInclude Include="CImgMgr.h">
-      <Filter>04. Design\04. ImgMgr</Filter>
+      <Filter>05. Design\04. ImgMgr</Filter>
     </ClInclude>
     <ClInclude Include="CLogo.h">
       <Filter>01. Scene\00. Logo</Filter>
     </ClInclude>
     <ClInclude Include="CEdit.h">
-      <Filter>01. Scene\02. Edit</Filter>
+      <Filter>01. Scene\03. Edit</Filter>
     </ClInclude>
     <ClInclude Include="CTile.h">
       <Filter>02. Obj\01. Tile</Filter>
@@ -196,13 +202,13 @@
       <Filter>02. Obj\03. Mouse</Filter>
     </ClInclude>
     <ClInclude Include="CBmpMgr.h">
-      <Filter>04. Design\05. BmpMgr</Filter>
+      <Filter>05. Design\05. BmpMgr</Filter>
     </ClInclude>
     <ClInclude Include="CMyBmp.h">
-      <Filter>04. Design\05. BmpMgr\MyBmp</Filter>
+      <Filter>05. Design\05. BmpMgr\MyBmp</Filter>
     </ClInclude>
     <ClInclude Include="CCollisionMgr.h">
-      <Filter>04. Design\06. CollisionMgr</Filter>
+      <Filter>05. Design\06. CollisionMgr</Filter>
     </ClInclude>
     <ClInclude Include="CBomb.h">
       <Filter>02. Obj\04. Bomb</Filter>
@@ -220,37 +226,37 @@
       <Filter>02. Obj\08. Dart</Filter>
     </ClInclude>
     <ClInclude Include="CStage3.h">
-      <Filter>01. Scene\03. Stage\02. Stage3</Filter>
+      <Filter>01. Scene\04. Stage\02. Stage3</Filter>
     </ClInclude>
     <ClInclude Include="CMenu.h">
-      <Filter>01. Scene\01. Menu</Filter>
+      <Filter>01. Scene\02. Menu</Filter>
     </ClInclude>
     <ClInclude Include="CStage1.h">
-      <Filter>01. Scene\03. Stage\00. Stage1</Filter>
+      <Filter>01. Scene\04. Stage\00. Stage1</Filter>
     </ClInclude>
     <ClInclude Include="CStage2.h">
-      <Filter>01. Scene\03. Stage\01. Stage2</Filter>
+      <Filter>01. Scene\04. Stage\01. Stage2</Filter>
     </ClInclude>
     <ClInclude Include="CMonster.h">
       <Filter>02. Obj\09. Monster</Filter>
     </ClInclude>
     <ClInclude Include="CSoundMgr.h">
-      <Filter>04. Design\07. SoundMgr</Filter>
+      <Filter>05. Design\07. SoundMgr</Filter>
     </ClInclude>
     <ClInclude Include="CStage4.h">
-      <Filter>01. Scene\03. Stage\03. Stage4</Filter>
+      <Filter>01. Scene\04. Stage\03. Stage4</Filter>
     </ClInclude>
     <ClInclude Include="CMark.h">
       <Filter>02. Obj\10. Mark</Filter>
     </ClInclude>
     <ClInclude Include="CShop.h">
-      <Filter>01. Scene\04. Shop</Filter>
+      <Filter>01. Scene\05. Shop</Filter>
     </ClInclude>
     <ClInclude Include="CInven.h">
       <Filter>03. Inven</Filter>
     </ClInclude>
     <ClInclude Include="CStage5.h">
-      <Filter>01. Scene\03. Stage\04. Stage5</Filter>
+      <Filter>01. Scene\04. Stage\04. Stage5</Filter>
     </ClInclude>
     <ClInclude Include="CBase.h">
       <Filter>02. Obj\11. Base</Filter>
@@ -270,6 +276,9 @@
     <ClInclude Include="CBaseEffect.h">
       <Filter>02. Obj\14. BaseEffect</Filter>
     </ClInclude>
+    <ClInclude Include="CLogin.h">
+      <Filter>01. Scene\01. Login</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefaultWindow.cpp">
@@ -285,25 +294,25 @@
       <Filter>02. Obj</Filter>
     </ClCompile>
     <ClCompile Include="CSceneMgr.cpp">
-      <Filter>04. Design\03. SceneMgr</Filter>
+      <Filter>05. Design\03. SceneMgr</Filter>
     </ClCompile>
     <ClCompile Include="CScene.cpp">
       <Filter>01. Scene</Filter>
     </ClCompile>
     <ClCompile Include="CObjMgr.cpp">
-      <Filter>04. Design\01. ObjMgr</Filter>
+      <Filter>05. Design\01. ObjMgr</Filter>
     </ClCompile>
     <ClCompile Include="CKeyMgr.cpp">
-      <Filter>04. Design\02. KeyMgr</Filter>
+      <Filter>05. Design\02. KeyMgr</Filter>
     </ClCompile>
     <ClCompile Include="CImgMgr.cpp">
-      <Filter>04. Design\04. ImgMgr</Filter>
+      <Filter>05. Design\04. ImgMgr</Filter>
     </ClCompile>
     <ClCompile Include="CLogo.cpp">
       <Filter>01. Scene\00. Logo</Filter>
     </ClCompile>
     <ClCompile Include="CEdit.cpp">
-      <Filter>01. Scene\02. Edit</Filter>
+      <Filter>01. Scene\03. Edit</Filter>
     </ClCompile>
     <ClCompile Include="CTile.cpp">
       <Filter>02. Obj\01. Tile</Filter>
@@ -315,13 +324,13 @@
       <Filter>02. Obj\03. Mouse</Filter>
     </ClCompile>
     <ClCompile Include="CBmpMgr.cpp">
-      <Filter>04. Design\05. BmpMgr</Filter>
+      <Filter>05. Design\05. BmpMgr</Filter>
     </ClCompile>
     <ClCompile Include="CMyBmp.cpp">
-      <Filter>04. Design\05. BmpMgr\MyBmp</Filter>
+      <Filter>05. Design\05. BmpMgr\MyBmp</Filter>
     </ClCompile>
     <ClCompile Include="CCollisionMgr.cpp">
-      <Filter>04. Design\06. CollisionMgr</Filter>
+      <Filter>05. Design\06. CollisionMgr</Filter>
     </ClCompile>
     <ClCompile Include="CBomb.cpp">
       <Filter>02. Obj\04. Bomb</Filter>
@@ -339,37 +348,37 @@
       <Filter>02. Obj\08. Dart</Filter>
     </ClCompile>
     <ClCompile Include="CStage3.cpp">
-      <Filter>01. Scene\03. Stage\02. Stage3</Filter>
+      <Filter>01. Scene\04. Stage\02. Stage3</Filter>
     </ClCompile>
     <ClCompile Include="CMenu.cpp">
-      <Filter>01. Scene\01. Menu</Filter>
+      <Filter>01. Scene\02. Menu</Filter>
     </ClCompile>
     <ClCompile Include="CStage1.cpp">
-      <Filter>01. Scene\03. Stage\00. Stage1</Filter>
+      <Filter>01. Scene\04. Stage\00. Stage1</Filter>
     </ClCompile>
     <ClCompile Include="CStage2.cpp">
-      <Filter>01. Scene\03. Stage\01. Stage2</Filter>
+      <Filter>01. Scene\04. Stage\01. Stage2</Filter>
     </ClCompile>
     <ClCompile Include="CMonster.cpp">
       <Filter>02. Obj\09. Monster</Filter>
     </ClCompile>
     <ClCompile Include="CSoundMgr.cpp">
-      <Filter>04. Design\07. SoundMgr</Filter>
+      <Filter>05. Design\07. SoundMgr</Filter>
     </ClCompile>
     <ClCompile Include="CStage4.cpp">
-      <Filter>01. Scene\03. Stage\03. Stage4</Filter>
+      <Filter>01. Scene\04. Stage\03. Stage4</Filter>
     </ClCompile>
     <ClCompile Include="CMark.cpp">
       <Filter>02. Obj\10. Mark</Filter>
     </ClCompile>
     <ClCompile Include="CShop.cpp">
-      <Filter>01. Scene\04. Shop</Filter>
+      <Filter>01. Scene\05. Shop</Filter>
     </ClCompile>
     <ClCompile Include="CInven.cpp">
       <Filter>03. Inven</Filter>
     </ClCompile>
     <ClCompile Include="CStage5.cpp">
-      <Filter>01. Scene\03. Stage\04. Stage5</Filter>
+      <Filter>01. Scene\04. Stage\04. Stage5</Filter>
     </ClCompile>
     <ClCompile Include="CBase.cpp">
       <Filter>02. Obj\11. Base</Filter>
@@ -388,6 +397,9 @@
     </ClCompile>
     <ClCompile Include="CBaseEffect.cpp">
       <Filter>02. Obj\14. BaseEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="CLogin.cpp">
+      <Filter>01. Scene\01. Login</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

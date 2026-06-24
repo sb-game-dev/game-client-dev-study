@@ -735,11 +735,20 @@ void CPlayer2::CheckFrame()
 	else if (m_eCurMotion == DEATH
 		&& m_dwFrameCount + m_tFrame.dwSpeed * m_tFrame.iEnd <= GetTickCount64())
 	{
-		//CSoundMgr::Get_Instance()->StopAll();
-		//CSoundMgr::Get_Instance()->PlaySound(L"Loss_8.wav", STAGE_LOSE, 0.1f);
-		//m_bDead = DEAD;
-
-		m_eCurMotion = RESPAWN;
+		switch (CSceneMgr::GetInstance()->GetCurScene())
+		{
+		case SC_STAGE1:
+		case SC_STAGE2:
+		case SC_STAGE3:
+			m_bDead = DEAD;
+			break;
+		case SC_STAGE4:
+		case SC_STAGE5:
+			m_eCurMotion = RESPAWN;
+			break;
+		default:
+			break;
+		}
 		ChangeMotion();
 	}
 	else if (m_eCurMotion == RESPAWN
@@ -748,13 +757,23 @@ void CPlayer2::CheckFrame()
 		m_eCurMotion = START;
 		m_bDraw = true;
 
-		if (CSceneMgr::GetInstance()->GetCurScene() == SC_STAGE4)
+		int iPlayer2_StartX = 0;
+		int iPlayer2_StartY = 0;
+		switch (CSceneMgr::GetInstance()->GetCurScene())
 		{
-			int iPlayer2_StartX = 4;
-			int iPlayer2_StartY = 9;
-			m_tInfo.fX = (iPlayer2_StartX * 40) + 40;
-			m_tInfo.fY = (iPlayer2_StartY * 40) + 60;
+		case SC_STAGE4:
+			iPlayer2_StartX = 4;
+			iPlayer2_StartY = 9; 
+			break;
+		case SC_STAGE5:
+			iPlayer2_StartX = 4;
+			iPlayer2_StartY = 8; 
+			break;
+		default:
+			break;
 		}
+		m_tInfo.fX = (iPlayer2_StartX * 40) + 40;
+		m_tInfo.fY = (iPlayer2_StartY * 40) + 60;
 		ChangeMotion();
 	}
 	else if (m_eCurMotion == REVIVAL

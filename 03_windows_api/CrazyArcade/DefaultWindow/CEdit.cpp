@@ -7,6 +7,7 @@
 #include "CKeyMgr.h"
 #include "CBmpMgr.h"
 #include "CMouse.h"
+#include "CSoundMgr.h"
 
 CEdit::CEdit()
 {
@@ -76,6 +77,10 @@ void CEdit::Initialize()
 			CObjMgr::GetInstance()->AddTile(CAbstractFactory<CTile>::Create((j * 40) + 40, (i * 40) + 60, L"tile", TILE1));
 		}
 	}
+
+
+	CSoundMgr::Get_Instance()->PlayBGM(L"Channel.wav", 0.1f);
+
 }
 
 int CEdit::Update()
@@ -168,6 +173,7 @@ void CEdit::Release()
 {
 	CObjMgr::GetInstance()->ReleaseRenderList();
 	CObjMgr::GetInstance()->DeleteObj(OBJ_BUTTON);
+	CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 	dynamic_cast<CMouse*>(CObjMgr::GetInstance()->GetList(OBJ_MOUSE).front())->SetChoiceTile(TILE_END);
 }
 

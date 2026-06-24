@@ -20,5 +20,7 @@ private:
 
 private:
     CObj*       m_pPlayer;
+    CObj*       m_pPlayer2;
+    PLAYMODE*   m_pPlayMode;
 };
 

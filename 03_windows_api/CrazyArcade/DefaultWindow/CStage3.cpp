@@ -11,7 +11,8 @@
 #include "CMonster.h"
 #include "CButton.h"
 #include "CInven.h"
-CStage3::CStage3() :m_pPlayer(nullptr)
+#include "CPlayer2.h"
+CStage3::CStage3() :m_pPlayer(nullptr), m_pPlayer2(nullptr), m_pPlayMode(nullptr)
 {
 }
 
@@ -22,7 +23,6 @@ CStage3::~CStage3()
 
 void CStage3::Initialize()
 {
-	//InsertImg();
 #ifdef _DEBUG
 	CObjMgr::GetInstance()->AddObject(OBJ_ITEM, CAbstractFactory<CItem>::Create((0 * 40) + 40, (1 * 40) + 60, L"bubble"));
 	CObjMgr::GetInstance()->AddObject(OBJ_ITEM, CAbstractFactory<CItem>::Create((1 * 40) + 40, (1 * 40) + 60, L"dart"));
@@ -34,6 +34,20 @@ void CStage3::Initialize()
 
 	m_pPlayer = CAbstractFactory<CPlayer>::Create((13 * 40) + 40, (11 * 40) + 60, L"player_start");
 	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, m_pPlayer);
+
+	m_pPlayMode = CSceneMgr::GetInstance()->GetPlayModePtr();
+
+#ifdef _DEBUG
+	* m_pPlayMode = MODE2P;
+#endif // _DEBUG
+
+	if (*m_pPlayMode == MODE2P)
+	{
+		int iPlayer2_StartX = 13;
+		int iPlayer2_StartY = 1;
+		m_pPlayer2 = CAbstractFactory<CPlayer2>::Create((iPlayer2_StartX * 40) + 40, (iPlayer2_StartY * 40) + 60, L"player_start");
+		CObjMgr::GetInstance()->AddObject(OBJ_PLAYER2, m_pPlayer2);
+	}
 
 	CObjMgr::GetInstance()->AddObject(OBJ_BOSS, CAbstractFactory<CBoss>::Create((3 * 40) + 40, (10 * 40) + 60, L"Boss_down"));
 
@@ -50,10 +64,13 @@ int CStage3::Update()
 	{
 		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 		m_eCurSceneState = SCENE_WIN;
-		dynamic_cast<CPlayer*>(m_pPlayer)->SetWin();
+		if (m_pPlayer)
+			dynamic_cast<CPlayer*>(m_pPlayer)->SetWin();
+		if (m_pPlayer2)
+			dynamic_cast<CPlayer2*>(m_pPlayer2)->SetWin();
 		ChangeScene();
 	}
-	else if (CObjMgr::GetInstance()->GetRemainPlayer() == false)
+	else if (CObjMgr::GetInstance()->GetRemainPlayer() == false && CObjMgr::GetInstance()->GetRemainPlayer2() == false)
 	{
 		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 		m_eCurSceneState = SCENE_LOSE;
@@ -172,6 +189,7 @@ void CStage3::Release()
 	CObjMgr::GetInstance()->ReleaseRenderList();
 	CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_PLAYER);
+	CObjMgr::GetInstance()->DeleteObj(OBJ_PLAYER2);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_BOMB);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_WAVE);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_BUTTON);
@@ -207,6 +225,7 @@ void CStage3::ChangeScene()
 		CSoundMgr::Get_Instance()->PlaySound(L"Win.wav", SOUND_EFFECT, 0.1f);
 		break;
 	case SCENE_LOSE:
+		CSoundMgr::Get_Instance()->PlaySound(L"Loss_8.wav", STAGE_LOSE, 0.1f);
 		break;
 	default:
 		break;

@@ -64,7 +64,7 @@ void CLogo::CheckSceneFrame()
 	}
 	else if (m_eCurSceneState == SCENE_END && m_fAlpha >= 1.f)
 	{
-		CSceneMgr::GetInstance()->SceneChangeReserve(SC_MENU);
+		CSceneMgr::GetInstance()->SceneChangeReserve(SC_LOGIN);
 	}
 }
 

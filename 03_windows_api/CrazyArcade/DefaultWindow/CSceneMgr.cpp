@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "CSceneMgr.h"
+#include "CLogin.h"
 #include "CStage1.h"
 #include "CStage2.h"
 #include "CStage3.h"
@@ -29,6 +30,9 @@ void CSceneMgr::ChangeScene(SCENEID eID)
 	case SC_LOGO:
 		m_pScene = new CLogo;
 		break;
+	case SC_LOGIN:
+		m_pScene = new CLogin;
+		break;
 	case SC_MENU:
 		m_pScene = new CMenu;
 		break;
@@ -36,7 +40,6 @@ void CSceneMgr::ChangeScene(SCENEID eID)
 		m_pScene = new CEdit;
 		break;
 	case SC_STAGE1:
-		m_ePlayMode = MODE1P;
 		m_pScene = new CStage1;
 		break;
 	case SC_STAGE2:
@@ -46,7 +49,6 @@ void CSceneMgr::ChangeScene(SCENEID eID)
 		m_pScene = new CStage3;
 		break;
 	case SC_STAGE4:
-		m_ePlayMode = MODE2P;
 		m_pScene = new CStage4;
 		break;
 	case SC_STAGE5:

@@ -28,6 +28,28 @@ void CButton::Initialize()
 		m_tFrame.iCY = m_tInfo.fCY;
 		m_tFrame.iEnd = TILE_END;
 	}
+	else if (!lstrcmp(L"Login_2P", m_pFrameKey))
+	{
+		m_tInfo.fCX = 95.f;
+		m_tInfo.fCY = 116.f;
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 2;
+		m_tFrame.iMotion = 0;
+		m_tFrame.bLoop = false;
+		m_tFrame.iCX = m_tInfo.fCX;
+		m_tFrame.iCY = m_tInfo.fCY;
+	}
+	else if (!lstrcmp(L"Login_1P", m_pFrameKey))
+	{
+		m_tInfo.fCX = 95.f;
+		m_tInfo.fCY = 118.f;
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 2;
+		m_tFrame.iMotion = 0;
+		m_tFrame.bLoop = false;
+		m_tFrame.iCX = m_tInfo.fCX;
+		m_tFrame.iCY = m_tInfo.fCY;
+	}
 	else if (!lstrcmp(L"button_myPage", m_pFrameKey))
 	{
 		m_tInfo.fCX = 65.f;

@@ -12,8 +12,7 @@ public:
     void        LateUpdate()                   override;
     void        Render(HDC hDC)                override;
     void        Release()                      override;
-private:
-    
+
 private:
     void        CheckSceneFrame();
     void        ChangeScene();

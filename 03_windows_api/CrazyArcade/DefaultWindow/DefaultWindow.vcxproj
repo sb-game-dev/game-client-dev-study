@@ -150,6 +150,7 @@
     <ClInclude Include="CInven.h" />
     <ClInclude Include="CItem.h" />
     <ClInclude Include="CKeyMgr.h" />
+    <ClInclude Include="CLogin.h" />
     <ClInclude Include="CLogo.h" />
     <ClInclude Include="CMainGame.h" />
     <ClInclude Include="CMark.h" />
@@ -195,6 +196,7 @@
     <ClCompile Include="CInven.cpp" />
     <ClCompile Include="CItem.cpp" />
     <ClCompile Include="CKeyMgr.cpp" />
+    <ClCompile Include="CLogin.cpp" />
     <ClCompile Include="CLogo.cpp" />
     <ClCompile Include="CMainGame.cpp" />
     <ClCompile Include="CMark.cpp" />

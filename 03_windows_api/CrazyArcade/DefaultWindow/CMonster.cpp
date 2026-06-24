@@ -45,7 +45,7 @@ int CMonster::Update()
 {
 	if (m_bDead == DEAD)
 		return DEAD;
-	if (CObjMgr::GetInstance()->GetList(OBJ_PLAYER).empty())
+	if (CObjMgr::GetInstance()->GetRemainPlayer() == false && CObjMgr::GetInstance()->GetRemainPlayer2() == false)
 	{
 		m_eCurMotion = DOWN;
 		ChangeMotion();

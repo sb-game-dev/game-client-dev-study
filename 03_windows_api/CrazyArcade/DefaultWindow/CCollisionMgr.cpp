@@ -12,6 +12,7 @@
 #include "CMark.h"
 #include "CSoundMgr.h"
 #include "CPlayer2.h"
+#include "CSceneMgr.h"
 
 void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 {
@@ -43,8 +44,27 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 				}
 				else if (pDstPlayer)
 				{
-					if (pSrcPlayer2 && pDstPlayer->GetCurMotion() == HIT)
-						pDstPlayer->SetBossHit();
+					if (pSrcPlayer2 && pDstPlayer->GetCurMotion() == HIT) //살려주기 or 죽이기
+					{
+						switch (CSceneMgr::GetInstance()->GetCurScene())
+						{
+						case SC_STAGE1:
+						case SC_STAGE2:
+						case SC_STAGE3:
+							if (pSrcPlayer2->GetCurMotion() != HIT || pSrcPlayer2->GetCurMotion() != DEATH)
+							{
+								CSoundMgr::Get_Instance()->PlaySound(L"Neddle_11.wav", SOUND_NEDDLE, 0.2f);
+								pDstPlayer->SetRevival();
+							}
+							break;
+						case SC_STAGE4:
+						case SC_STAGE5:
+							pDstPlayer->SetBossHit();
+							break;
+						default:
+							break;
+						}
+					}
 
 					if (pDstPlayer->GetShield() == true || pDstPlayer->GetCurMotion() == HIT || pDstPlayer->GetCurMotion() == DEATH || pDstPlayer->GetCurMotion() == DISMOUNT
 						|| pDstPlayer->GetCurMotion() == REVIVAL || pDstPlayer->GetCurMotion() == START || pDstPlayer->GetCurMotion() == RESPAWN)
@@ -63,8 +83,27 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 				}
 				else if (pDstPlayer2)
 				{
-					if (pSrcPlayer && pDstPlayer2->GetCurMotion() == HIT)
-						pDstPlayer2->SetBossHit();
+					if (pSrcPlayer && pDstPlayer2->GetCurMotion() == HIT) //살려주기 or 죽이기
+					{
+						switch (CSceneMgr::GetInstance()->GetCurScene())
+						{
+						case SC_STAGE1:
+						case SC_STAGE2:
+						case SC_STAGE3:
+							if (pSrcPlayer->GetCurMotion() != HIT || pSrcPlayer->GetCurMotion() != DEATH)
+							{
+								CSoundMgr::Get_Instance()->PlaySound(L"Neddle_11.wav", SOUND_NEDDLE, 0.2f);
+								pDstPlayer2->SetRevival();
+							}
+							break;
+						case SC_STAGE4:
+						case SC_STAGE5:
+							pDstPlayer2->SetBossHit();
+							break;
+						default:
+							break;
+						}
+					}
 
 					if (pDstPlayer2->GetShield() == true || pDstPlayer2->GetCurMotion() == HIT || pDstPlayer2->GetCurMotion() == DEATH || pDstPlayer2->GetCurMotion() == DISMOUNT
 						|| pDstPlayer2->GetCurMotion() == REVIVAL || pDstPlayer2->GetCurMotion() == START || pDstPlayer2->GetCurMotion() == RESPAWN)

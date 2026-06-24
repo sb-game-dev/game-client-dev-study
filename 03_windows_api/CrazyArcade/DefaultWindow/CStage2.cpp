@@ -11,7 +11,7 @@
 #include "CImgMgr.h"
 #include "CPlayer2.h"
 
-CStage2::CStage2():m_pPlayer(nullptr), m_pPlayer2(nullptr)
+CStage2::CStage2():m_pPlayer(nullptr), m_pPlayer2(nullptr), m_pPlayMode(nullptr)
 {
 }
 
@@ -28,6 +28,20 @@ void CStage2::Initialize()
 
 	m_pPlayer = CAbstractFactory<CPlayer>::Create((6 * 40) + 40, (5 * 40) + 60, L"player_start");
 	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, m_pPlayer);
+
+	m_pPlayMode = CSceneMgr::GetInstance()->GetPlayModePtr();
+
+#ifdef _DEBUG
+	* m_pPlayMode = MODE2P;
+#endif // _DEBUG
+
+	if (*m_pPlayMode == MODE2P)
+	{
+		int iPlayer2_StartX = 6;
+		int iPlayer2_StartY = 7;
+		m_pPlayer2 = CAbstractFactory<CPlayer2>::Create((iPlayer2_StartX * 40) + 40, (iPlayer2_StartY * 40) + 60, L"player_start");
+		CObjMgr::GetInstance()->AddObject(OBJ_PLAYER2, m_pPlayer2);
+	}
 
 	//Follow
 	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((7 * 40) + 40, (0 * 40) + 60, L"Bean_Monster_Start"));
@@ -64,10 +78,13 @@ int CStage2::Update()
 	{
 		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 		m_eCurSceneState = SCENE_WIN;
-		dynamic_cast<CPlayer*>(m_pPlayer)->SetWin();
+		if (m_pPlayer)
+			dynamic_cast<CPlayer*>(m_pPlayer)->SetWin();
+		if (m_pPlayer2)
+			dynamic_cast<CPlayer2*>(m_pPlayer2)->SetWin();
 		ChangeScene();
 	}
-	else if (CObjMgr::GetInstance()->GetRemainPlayer() == false)
+	else if (CObjMgr::GetInstance()->GetRemainPlayer() == false && CObjMgr::GetInstance()->GetRemainPlayer2() == false)
 	{
 		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 		m_eCurSceneState = SCENE_LOSE;
@@ -189,6 +206,7 @@ void CStage2::Release()
 	CObjMgr::GetInstance()->DeleteObj(OBJ_WAVE);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_BUTTON);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_PLAYER);
+	CObjMgr::GetInstance()->DeleteObj(OBJ_PLAYER2);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_MONSTER);
 	CObjMgr::GetInstance()->DeleteObj(OBJ_ITEM);
 	CObjMgr::GetInstance()->DeleteTile();
@@ -220,6 +238,7 @@ void CStage2::ChangeScene()
 		CSoundMgr::Get_Instance()->PlaySound(L"Win.wav", SOUND_EFFECT, 0.1f);
 		break;
 	case SCENE_LOSE:
+		CSoundMgr::Get_Instance()->PlaySound(L"Loss_8.wav", STAGE_LOSE, 0.1f);
 		break;
 	default:
 		break;

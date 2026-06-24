@@ -113,6 +113,7 @@ void CMainGame::InsertImg()
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/BackGround/stage2.bmp", L"stage2");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/BackGround/shop.bmp", L"shop");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/BackGround/stage3.bmp", L"stage3");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/BackGround/LogIn.bmp", L"LogIn");
 
 
 	//Button
@@ -141,6 +142,9 @@ void CMainGame::InsertImg()
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_InvenExit.bmp", L"button_InvenExit");
 
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_myPage.bmp", L"button_myPage");
+
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/Login_2P.bmp", L"Login_2P");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/Login_1P.bmp", L"Login_1P");
 
 	//Player
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_start.bmp", L"player_start");
@@ -248,8 +252,12 @@ void CMainGame::InsertImg()
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/InGameSlot.bmp", L"InGameSlot");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/InGameNumber.bmp", L"InGameNumber");
 
+	//Control_2P
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/Control_2P.bmp", L"Control_2P");
+
 	//trackCnt_UI
 	CImgMgr::GetInstance()->InsertImg(L"../Resource/UI/trackCnt.bmp", L"trackCnt");
+	CImgMgr::GetInstance()->InsertImg(L"../Resource/UI/trackCnt2.bmp", L"trackCnt2");
 
 	//gasBar_UI
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/gas_frame.bmp", L"gas_frame");

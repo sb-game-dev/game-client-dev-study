@@ -27,11 +27,7 @@ void CShop::Initialize()
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(117, 585, L"button_back"));
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(662, 584, L"button_myPage"));
 
-	srand(unsigned(time(NULL)));
-	if (rand() % 2 == 1)
-		CSoundMgr::Get_Instance()->PlayBGM(L"Channel.wav", 0.1f);
-	else
-		CSoundMgr::Get_Instance()->PlayBGM(L"Lobby.wav", 0.1f);
+	CSoundMgr::Get_Instance()->PlayBGM(L"Channel.wav", 0.1f);
 }
 
 int CShop::Update()

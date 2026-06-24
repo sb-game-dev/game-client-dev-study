@@ -31,6 +31,7 @@ private:
 public:
     void        SetHit();// { m_eCurMotion = HIT; ChangeMotion(); }
     void        SetBossHit() { m_eCurMotion = DEATH; ChangeMotion(); }
+    void        SetRevival() { m_eCurMotion = REVIVAL; ChangeMotion(); }
     void        SetReduceBombCnt() { --m_iBombCnt; }
     void        AddGas(float fGas) { m_fRemainGas += fGas; }
     void        SetWin() { m_eCurMotion = WIN; ChangeMotion(); }

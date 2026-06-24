@@ -152,10 +152,6 @@ CStage4::~CStage4()
 
 void CStage4::Initialize()
 {
-#ifdef _DEBUG
-
-
-#endif // _DEBUG
 	int iPlayer_StartX = 12;
 	int iPlayer_StartY = 9;
 
@@ -164,8 +160,12 @@ void CStage4::Initialize()
 
 	int iPlayer2_StartX = 4;
 	int iPlayer2_StartY = 9;
+
 	m_pPlayMode = CSceneMgr::GetInstance()->GetPlayModePtr();
+#ifdef _DEBUG
 	*m_pPlayMode = MODE2P;
+
+#endif // _DEBUG
 	if (*m_pPlayMode == MODE2P)
 	{
 		m_pPlayer2 = CAbstractFactory<CPlayer2>::Create((iPlayer2_StartX * 40) + 40, (iPlayer2_StartY * 40) + 60, L"player_start");
@@ -246,14 +246,12 @@ int CStage4::Update()
 		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 		m_eCurSceneState = SCENE_WIN;
 		dynamic_cast<CPlayer*>(m_pPlayer)->SetWin();
-		dynamic_cast<CPlayer2*>(m_pPlayer2)->SetWin();
 		ChangeScene();
 	}
 	else if (m_iPlayer2ClearCnt >= 34)
 	{
 		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 		m_eCurSceneState = SCENE_WIN;
-		dynamic_cast<CPlayer*>(m_pPlayer)->SetWin();
 		dynamic_cast<CPlayer2*>(m_pPlayer2)->SetWin();
 		ChangeScene();
 	}
@@ -261,8 +259,6 @@ int CStage4::Update()
 	{
 		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 		m_eCurSceneState = SCENE_DRAW;
-		dynamic_cast<CPlayer*>(m_pPlayer)->SetWin();
-		dynamic_cast<CPlayer2*>(m_pPlayer2)->SetWin();
 		ChangeScene();
 	}
 	else

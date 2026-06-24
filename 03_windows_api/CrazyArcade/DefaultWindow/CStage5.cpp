@@ -58,24 +58,17 @@ CStage5::~CStage5()
 
 void CStage5::Initialize()
 {
-#ifdef _DEBUG
-
-
-#endif // _DEBUG
-
-
-	m_pPlayMode = CSceneMgr::GetInstance()->GetPlayModePtr();
-	*m_pPlayMode = MODE2P;
-
-
 	int iPlayer_StartX = 14;
 	int iPlayer_StartY = 11;
 	m_pPlayer = CAbstractFactory<CPlayer>::Create((iPlayer_StartX * 40) + 40, (iPlayer_StartY * 40) + 60, L"player_start");
 	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, m_pPlayer);
 
-
 	int iPlayer2_StartX = 4;
 	int iPlayer2_StartY = 8;
+	m_pPlayMode = CSceneMgr::GetInstance()->GetPlayModePtr();
+#ifdef _DEBUG
+	* m_pPlayMode = MODE2P;
+#endif // _DEBUG
 	if (*m_pPlayMode == MODE2P)
 	{
 		m_pPlayer2 = CAbstractFactory<CPlayer2>::Create((iPlayer2_StartX * 40) + 40, (iPlayer2_StartY * 40) + 60, L"player_start");
@@ -125,7 +118,6 @@ void CStage5::Initialize()
 			pTile->SetDraw(false);
 		}
 	}
-
 
 	m_pBaseStartEffect1 = CAbstractFactory<CBaseEffect>::Create((12 * 40) + 40, (11 * 40) + 60 + 20, L"tile_start1");
 	dynamic_cast<CBaseEffect*>(m_pBaseStartEffect1)->SetMoveFrame(true);
@@ -245,7 +237,7 @@ void CStage5::Render(HDC hDC)
 	if (m_pPlayer2 && dynamic_cast<CPlayer2*>(m_pPlayer2)->GetRide())
 	{
 		Graphics* _pGraphics = Graphics::FromHDC(hDC);
-		Gdiplus::Image* hTrackCnt = CImgMgr::GetInstance()->FindImg(L"trackCnt");
+		Gdiplus::Image* hTrackCnt = CImgMgr::GetInstance()->FindImg(L"trackCnt2");
 	
 		Rect rect = { 24, 495,97, 41 };
 	
@@ -411,13 +403,11 @@ void CStage5::CheckBase()
 		m_eCurSceneState = SCENE_WIN;
 		dynamic_cast<CPlayer*>(m_pPlayer)->SetWin();
 		ChangeScene();
-	}
-	
+	}	
 }
 
 void CStage5::CheckBase2()
 {
-
 	if (!CObjMgr::GetInstance()->GetList(OBJ_PLAYER2).empty())
 	{
 		CPlayer2* pTempPlayer = dynamic_cast<CPlayer2*>(m_pPlayer2);
@@ -426,7 +416,6 @@ void CStage5::CheckBase2()
 	}
 	cout << "m_iNextBase2: " << m_iNextBase2 << endl;
 	RECT rc;
-	//Start
 	if (m_iTrackCnt2 == 3 && m_iNextBase2 == 0
 		&& IntersectRect(&rc, m_pBaseStart->GetRect(), m_pPlayer2->GetRect()))
 	{
@@ -435,7 +424,6 @@ void CStage5::CheckBase2()
 		dynamic_cast<CBaseEffect*>(m_pBase1Effect2)->SetMoveFrame(true);
 		m_iNextBase2 = m_iNextBase2 % 4 + 1;
 	}
-
 	if (m_iTrackCnt2 > 0)
 	{
 		CObj* BaseArr[4] = { m_pBase1Effect2,m_pBase2Effect2,m_pBase3Effect2,m_pBase4Effect2 };
