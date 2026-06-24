@@ -10,6 +10,7 @@
 #include "CInven.h"
 #include "CImgMgr.h"
 #include "CPlayer2.h"
+#include "CStartEffect.h"
 
 CStage1::CStage1():m_pPlayer(nullptr), m_pPlayMode(nullptr)
 {
@@ -78,7 +79,7 @@ int CStage1::Update()
 	}
 
 	CObjMgr::GetInstance()->Update();
-
+	CStartEffect::GetInstance()->Update();
 	
 	return 0;
 }
@@ -183,6 +184,7 @@ void CStage1::Render(HDC hDC)
 		MakeAlphaAttr(attr, m_fAlpha);
 		_pGraphics->DrawImage(pBlackImg, rect, 0, 0, WINCX, WINCY, UnitPixel, &attr);
 	}
+	CStartEffect::GetInstance()->Render(hDC);
 }
 
 void CStage1::Release()

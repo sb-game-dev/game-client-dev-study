@@ -17,6 +17,7 @@
 #include "CGasStation.h"
 #include "CPlayer2.h"
 #include "CBaseEffect.h"
+#include "CStartEffect.h"
 CStage5::CStage5() :m_hBackGround(NULL), m_pTileVector(nullptr), m_pPlayerRemainGas(nullptr), m_pPlayerRemainGas2(nullptr), m_pPlayMode(nullptr)
 {
 	m_pBaseStart	= nullptr;
@@ -169,6 +170,7 @@ int CStage5::Update()
 
 	CheckCollisionGasStation();
 	CheckCollisionGasStation2();
+	CStartEffect::GetInstance()->Update();
 
 	return 0;
 }
@@ -326,6 +328,7 @@ void CStage5::Render(HDC hDC)
 		_pGraphics->DrawImage(pBlackImg, rect, 0, 0, WINCX, WINCY, UnitPixel, &attr);
 	}
 	CObjMgr::GetInstance()->GetList(OBJ_MOUSE).front()->Render(hDC);
+	CStartEffect::GetInstance()->Render(hDC);
 }
 
 void CStage5::Release()

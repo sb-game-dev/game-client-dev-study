@@ -12,6 +12,7 @@
 #include "CButton.h"
 #include "CInven.h"
 #include "CPlayer2.h"
+#include "CStartEffect.h"
 CStage3::CStage3() :m_pPlayer(nullptr), m_pPlayer2(nullptr), m_pPlayMode(nullptr)
 {
 }
@@ -78,6 +79,7 @@ int CStage3::Update()
 	}
 
 	CObjMgr::GetInstance()->Update();
+	CStartEffect::GetInstance()->Update();
 	return 0;
 }
 
@@ -182,6 +184,7 @@ void CStage3::Render(HDC hDC)
 		MakeAlphaAttr(attr, m_fAlpha);
 		_pGraphics->DrawImage(pBlackImg, rect, 0, 0, WINCX, WINCY, UnitPixel, &attr);
 	}
+	CStartEffect::GetInstance()->Render(hDC);
 }
 
 void CStage3::Release()

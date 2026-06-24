@@ -306,4 +306,12 @@ void CMainGame::InsertImg()
 
 	//Mark
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Mark/Mark.bmp", L"Mark");
+
+	//StartEffect
+
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/GameStart/game_start_s.bmp", L"game_start_s");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/GameStart/game_start_t.bmp", L"game_start_t");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/GameStart/game_start_a.bmp", L"game_start_a");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/GameStart/game_start_r.bmp", L"game_start_r");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/GameStart/game_start_mark.bmp", L"game_start_mark");
 }
