@@ -14,10 +14,10 @@ public:
     void        Release()           override;
 public:
     void	    SetHit() { m_eCurMotion = HIT; ChangeMotion(); }
+    void        LeftHandRuleMove();
 private:
     void        ChangeMotion();
     void        CheckFrame();
-    void        LeftHandRuleMove();
     void        SetDestination(DIRECTION eDir, int iIndex);
 private:
     MOTION      m_ePreMotion;

@@ -149,6 +149,27 @@ void CTile::Move()
 		return;
 	}
 
+	for (auto& pBomb : CObjMgr::GetInstance()->GetList(OBJ_BOMB))
+	{
+		if (fabsf(pBomb->GetInfo()->fX - x) <= 15 &&
+			fabsf(pBomb->GetInfo()->fY - y) <= 15)
+		{
+			m_bMove = false;
+			return;
+		}
+	}
+
+
+	for (auto& pBomb : CObjMgr::GetInstance()->GetList(OBJ_BOMB2))
+	{
+		if (fabsf(pBomb->GetInfo()->fX - x) <= 15 &&
+			fabsf(pBomb->GetInfo()->fY - y) <= 15)
+		{
+			m_bMove = false;
+			return;
+		}
+	}
+
 	if (m_tInfo.fX < m_fDstX) m_tInfo.fX += 2.0f;
 	else if (m_tInfo.fX > m_fDstX) m_tInfo.fX -= 2.0f;
 	else if (m_tInfo.fY < m_fDstY) m_tInfo.fY += 2.0f;
@@ -220,8 +241,8 @@ void CTile::CheckFrame()
 
 void CTile::CreateItem()
 {
-	const WCHAR* pItemType[8] = { 
-		L"bubble" ,L"roller",L"fluid" ,L"needle" ,
+	const WCHAR* pItemType[11] = { 
+		L"bubble" ,L"bubble" ,L"bubble" ,L"bubble" ,L"roller",L"fluid" ,L"needle" ,
 		L"dart" ,L"shield" ,L"shoe" ,L"trampoline"
 	};
 	if (CSceneMgr::GetInstance()->GetCurScene() == SC_STAGE5)
@@ -230,6 +251,7 @@ void CTile::CreateItem()
 	}
 	else
 	{
-		CObjMgr::GetInstance()->AddObject(OBJ_ITEM ,CAbstractFactory<CItem>::Create(m_tInfo.fX, m_tInfo.fY, pItemType[rand() % 7]));
+		srand(unsigned(time(NULL)));
+		CObjMgr::GetInstance()->AddObject(OBJ_ITEM ,CAbstractFactory<CItem>::Create(m_tInfo.fX, m_tInfo.fY, pItemType[rand() % 11]));
 	}
 }

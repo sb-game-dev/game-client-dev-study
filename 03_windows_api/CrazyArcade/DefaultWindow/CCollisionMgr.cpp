@@ -26,6 +26,7 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 			if (IntersectRect(&rc, Dst->GetRect(), Src->GetRect()))
 			{
 				CBomb* pDstBomb = dynamic_cast<CBomb*>(Dst);
+				CBomb* pSrcBomb = dynamic_cast<CBomb*>(Src);
 				CPlayer* pDstPlayer = dynamic_cast<CPlayer*>(Dst);
 				CPlayer2* pDstPlayer2 = dynamic_cast<CPlayer2*>(Dst);
 
@@ -155,6 +156,18 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 						pDstMark->SetStartFrame(2);
 					}
 				}
+				else if (pSrcBomb)
+				{
+					CMonster* pDstMonster = dynamic_cast<CMonster*>(Dst);
+					if (pDstMonster && pSrcBomb->GetCanMove() == true)
+					{
+						pSrcBomb->SetCanMove(false);
+						pDstMonster->LeftHandRuleMove();
+						//pSrcBomb->SetPosX(AdjustPosX(pSrcBomb->GetInfo()->fX));
+						//pSrcBomb->SetPosY(AdjustPosY(pSrcBomb->GetInfo()->fY));
+					}
+
+				}
 				else
 				{
 					Dst->SetHit();
@@ -176,10 +189,11 @@ void CCollisionMgr::CollisionBody(list<CObj*>& DstList, list<CObj*>& SrcList)
 		{
 			if (DstObj == SrcObj)
 				continue;
-			
+
 			CBomb* pDstBomb = dynamic_cast<CBomb*> (DstObj);
 			CBomb* pSrcBomb = dynamic_cast<CBomb*> (SrcObj);
 
+			CMonster* pDstMonster = dynamic_cast<CMonster*>(DstObj);
 			if (pDstBomb && (pDstBomb->GetPlayerCollision() == false || pDstBomb->GetCanMove() == true))
 				return;
 

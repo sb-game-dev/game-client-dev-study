@@ -22,8 +22,8 @@ void CMonster::Initialize()
 	m_pBombList  = CObjMgr::GetInstance()->GetListPtr(OBJ_BOMB);
 	m_pBombList2 = CObjMgr::GetInstance()->GetListPtr(OBJ_BOMB2);
 
-	m_tInfo.fCX = 40.f;
-	m_tInfo.fCY = 40.f;
+	m_tInfo.fCX = 30.f;
+	m_tInfo.fCY = 30.f;
 
 	
 	m_fSpeed = 0.f;

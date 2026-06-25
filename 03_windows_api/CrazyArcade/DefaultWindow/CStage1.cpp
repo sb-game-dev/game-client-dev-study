@@ -66,10 +66,10 @@ int CStage1::Update()
 	{
 		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 		m_eCurSceneState = SCENE_WIN;
-		if (m_pPlayer) 
-			dynamic_cast<CPlayer*>(m_pPlayer)->SetWin();
-		if (m_pPlayer2) 
-			dynamic_cast<CPlayer2*>(m_pPlayer2)->SetWin();
+		//if (m_pPlayer) 
+		//	dynamic_cast<CPlayer*>(m_pPlayer)->SetWin();
+		//if (m_pPlayer2) 
+		//	dynamic_cast<CPlayer2*>(m_pPlayer2)->SetWin();
 		ChangeScene();
 	}
 	else if (CObjMgr::GetInstance()->GetRemainPlayer() == false && CObjMgr::GetInstance()->GetRemainPlayer2() == false)

@@ -28,6 +28,7 @@ m_bRide(false), m_fKartSpeed(6.f), m_fRemainGas(300.f), m_fRespawnTime(2000.f), 
 	m_bShoe = false;
 #endif // _DEBUG
 
+	m_bShoe = true;
 }
 
 CPlayer2::~CPlayer2()

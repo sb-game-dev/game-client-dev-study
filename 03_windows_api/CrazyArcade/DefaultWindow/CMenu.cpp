@@ -180,7 +180,7 @@ void CMenu::CheckSceneFrame()
 	else if (m_eCurSceneState == SCENE_END && m_fAlpha >= 1.f)
 	{
 		if (m_pSelectStage && !lstrcmp(L"button_FirstStage", m_pSelectStage->GetFrameKey()))
-			CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE1);
+			CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE2);
 		else if (m_pSelectStage && !lstrcmp(L"button_SecondStage", m_pSelectStage->GetFrameKey()))
 			CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE4);
 		else if (m_pSelectStage && !lstrcmp(L"button_ThirdStage", m_pSelectStage->GetFrameKey()))

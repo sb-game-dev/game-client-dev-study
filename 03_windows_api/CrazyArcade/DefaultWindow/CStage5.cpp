@@ -463,7 +463,7 @@ void CStage5::CheckBase2()
 
 		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 		m_eCurSceneState = SCENE_WIN;
-		dynamic_cast<CPlayer*>(m_pPlayer2)->SetWin();
+		dynamic_cast<CPlayer2*>(m_pPlayer2)->SetWin();
 		ChangeScene();
 	}
 
