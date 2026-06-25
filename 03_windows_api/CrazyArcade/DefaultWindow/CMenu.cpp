@@ -10,6 +10,7 @@
 #include "CSceneMgr.h"
 #include "CInven.h"
 #include "CNotice.h"
+#include "CSelectPlayer.h"
 
 CMenu::CMenu():m_pButtonList(nullptr), m_pSelectStage(nullptr)
 {
@@ -57,6 +58,10 @@ void CMenu::LateUpdate()
 	else if (CNotice::GetInstance()->GetDraw())
 	{
 		CNotice::GetInstance()->LateUpdate();
+	}
+	else if (CSelectPlayer::GetInstance()->GetDraw())
+	{
+		CSelectPlayer::GetInstance()->LateUpdate();
 	}
 	else
 	{
@@ -135,6 +140,12 @@ void CMenu::Render(HDC hDC)
 	if (CNotice::GetInstance()->GetDraw())
 	{
 		CNotice::GetInstance()->Render(hDC);
+		CObjMgr::GetInstance()->GetList(OBJ_MOUSE).front()->Render(hDC);
+	}
+
+	if (CSelectPlayer::GetInstance()->GetDraw())
+	{
+		CSelectPlayer::GetInstance()->Render(hDC);
 		CObjMgr::GetInstance()->GetList(OBJ_MOUSE).front()->Render(hDC);
 	}
 

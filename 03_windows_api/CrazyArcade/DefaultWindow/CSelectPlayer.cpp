@@ -26,7 +26,7 @@ void CSelectPlayer::Render(HDC hDC)
 		return;
 
 	HDC hSelect = CBmpMgr::GetInstance()->FindImage(L"UserSelect");
-	GdiTransparentBlt(hDC, 240, 174, 320, 252, hSelect, 0, 0, 320, 252, RGB(255, 0, 255));
+	GdiTransparentBlt(hDC, 240, 174, 350, 221, hSelect, 0, 0, 350, 221, RGB(255, 0, 255));
 }
 void CSelectPlayer::Release()
 {

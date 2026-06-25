@@ -8,6 +8,7 @@
 #include "CSoundMgr.h"
 #include "CInven.h"
 #include "CNotice.h"
+#include "CSelectPlayer.h"
 
 CButton::CButton():m_bCurState(false), m_bPreState(false)
 {
@@ -294,13 +295,14 @@ void CButton::Initialize()
 
 int CButton::Update()
 {
-	if (CInven::GetInstance()->GetDraw() == true || CNotice::GetInstance()->GetDraw() == true)
+	if (CInven::GetInstance()->GetDraw() == true 
+		|| CNotice::GetInstance()->GetDraw() == true 
+		|| CSelectPlayer::GetInstance()->GetDraw() == true)
 		return 0;
 	POINT		ptMouse{};
 	GetCursorPos(&ptMouse);
 	ScreenToClient(g_hWnd, &ptMouse);
 
-	
 	m_bPreState = m_bCurState;
 	if (PtInRect(&m_tRect, ptMouse))
 	{
@@ -351,7 +353,12 @@ int CButton::Update()
 			}
 			else if (!lstrcmp(L"button_shop", m_pFrameKey) && CInven::GetInstance()->GetDraw() == false)
 			{
-				CSceneMgr::GetInstance()->SceneChangeReserve(SC_SHOP);
+				if (*CSceneMgr::GetInstance()->GetPlayModePtr() == MODE2P)
+				{
+					CSelectPlayer::GetInstance()->SetDraw(true);
+				}
+				else
+					CSceneMgr::GetInstance()->SceneChangeReserve(SC_SHOP);
 			}
 			else if (!lstrcmp(L"button_exitEdit", m_pFrameKey))
 			{
@@ -367,7 +374,12 @@ int CButton::Update()
 			}
 			else if (!lstrcmp(L"button_myPage", m_pFrameKey) && CInven::GetInstance()->GetDraw() == false)
 			{
-				CInven::GetInstance()->SetDraw(true);
+				if (*CSceneMgr::GetInstance()->GetPlayModePtr() == MODE2P)
+				{
+					CSelectPlayer::GetInstance()->SetDraw(true);
+				}
+				else
+					CInven::GetInstance()->SetDraw(true);
 			}
 			else if (!lstrcmp(L"button_InvenExit", m_pFrameKey) && CInven::GetInstance()->GetDraw() == true)
 			{
