@@ -35,12 +35,15 @@ public:
 	
 	void			SetCanMove(bool bMove) { m_bCanMove = bMove; }
 
+	void			SetPlayerID(PLAYERID eID) { m_ePlayerID = eID; }
+
 	FRAME			GetFrame() { return m_tFrame; }
 	RECT*			GetRect() { return &m_tRect; }
 	INFO*			GetInfo() { return &m_tInfo; }
 	const RENDERID& GetRenderID() const { return m_eRenderID; }
 	bool			GetCanMove() { return m_bCanMove; }
 	bool			GetDraw() { return m_bDraw; }
+	PLAYERID		GetPlayerID() { return m_ePlayerID; }
 
 	void			MoveFrame();
 protected:
@@ -58,5 +61,6 @@ protected:
 	RENDERID		m_eRenderID;
 	bool			m_bCanMove;
 	bool			m_bDraw;
+	PLAYERID		m_ePlayerID;
 };
 

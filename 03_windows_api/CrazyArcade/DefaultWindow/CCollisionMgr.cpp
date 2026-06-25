@@ -162,7 +162,7 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 					if (pDstMonster && pSrcBomb->GetCanMove() == true)
 					{
 						pSrcBomb->SetCanMove(false);
-						pDstMonster->LeftHandRuleMove();
+						//pDstMonster->LeftHandRuleMove();
 						//pSrcBomb->SetPosX(AdjustPosX(pSrcBomb->GetInfo()->fX));
 						//pSrcBomb->SetPosY(AdjustPosY(pSrcBomb->GetInfo()->fY));
 					}
@@ -194,8 +194,12 @@ void CCollisionMgr::CollisionBody(list<CObj*>& DstList, list<CObj*>& SrcList)
 			CBomb* pSrcBomb = dynamic_cast<CBomb*> (SrcObj);
 
 			CMonster* pDstMonster = dynamic_cast<CMonster*>(DstObj);
-			if (pDstBomb && (pDstBomb->GetPlayerCollision() == false || pDstBomb->GetCanMove() == true))
-				return;
+			if (pDstBomb)
+			{
+				if((pDstBomb->GetPlayerCollision() == false && pDstBomb->GetPlayerID() == SrcObj->GetPlayerID())
+					|| pDstBomb->GetCanMove() == true)
+					return;
+			}
 
 			if (CheckRect(DstObj, SrcObj, fDeltaSizeX, fDeltaSizeY))
 			{

@@ -27,8 +27,6 @@ m_bRide(false), m_fKartSpeed(6.f), m_fRemainGas(300.f), m_fRespawnTime(2000.f), 
 #elif NDEBUG
 	m_bShoe = false;
 #endif // _DEBUG
-
-	m_bShoe = true;
 }
 
 CPlayer2::~CPlayer2()
@@ -39,6 +37,8 @@ CPlayer2::~CPlayer2()
 void CPlayer2::Initialize()
 {
 	m_eRenderID = GAMEOBJECT;
+
+	m_ePlayerID = PLAYER2;
 
 	m_tInfo.fCX = 30.f;
 	m_tInfo.fCY = 30.f;
@@ -126,7 +126,7 @@ void CPlayer2::Render(HDC hDC)
 			18,			// 목적지 공간의 가로, 세로 사이즈
 			30,
 			hArrow,						// 원본 이미지 DC
-			18,	// 원본 이미지 LEFT, TOP
+			0,	// 원본 이미지 LEFT, TOP
 			0,
 			18,			// 원본 이미지 가로, 세로 사이즈
 			30,
@@ -276,7 +276,7 @@ void CPlayer2::KeyInput()
 			CreateBomb();
 		}
 	}
-	if (CKeyMgr::GetInstance()->KeyDown(VK_CONTROL))
+	if (CKeyMgr::GetInstance()->KeyDown(VK_LCONTROL))
 	{
 		if (m_iCtrlSlotCnt < 1) return;
 
@@ -866,8 +866,8 @@ void CPlayer2::CheckKickBomb(DIRECTION eDIR)
 		CBomb* pTempBomb = dynamic_cast<CBomb*>(pBomb);
 		if (pTempBomb->GetPlayerCollision() == false)
 			continue;
-		if (fabsf(m_tInfo.fX - pTempBomb->GetInfo()->fX) <= 36.f
-			&& fabsf(m_tInfo.fY - pTempBomb->GetInfo()->fY) <= 36.f)
+		if (fabsf(m_tInfo.fX - pTempBomb->GetInfo()->fX) <= 35.f
+			&& fabsf(m_tInfo.fY - pTempBomb->GetInfo()->fY) <= 35.f)
 		{
 			m_fKickBombTime += 1.f;
 
@@ -899,6 +899,7 @@ void CPlayer2::CreateBomb()
 	float fY = AdjustPosY(m_tInfo.fY);
 	CObj* pBomb = CAbstractFactory<CBomb>::Create(fX, fY, L"BlueBubble");
 	pBomb->SetCanMove(false);
+	pBomb->SetPlayerID(PLAYER2);
 	dynamic_cast<CBomb*>(pBomb)->SetBombRange(m_iBombRange);
 	CObjMgr::GetInstance()->AddObject(OBJ_BOMB2, pBomb);
 	CSoundMgr::Get_Instance()->PlaySound(L"PutDownbomb1.wav", BOMB_PUTDOWN, 0.3f);
@@ -987,8 +988,7 @@ void CPlayer2::ShowItemGainEffect(HDC hDC)
 
 void CPlayer2::ShowCtrlSlot(HDC hDC)
 {
-	//L"stage_ctrlItem"
-	HDC hItem_Effect = CBmpMgr::GetInstance()->FindImage(L"stage_ctrlItem");
+	HDC hItem_Effect = CBmpMgr::GetInstance()->FindImage(L"stage_ctrlItemP1");
 	int iItemType = 0;
 	if (m_eCtrlSlot == SHIELD)
 		iItemType = 0;
@@ -1000,17 +1000,15 @@ void CPlayer2::ShowCtrlSlot(HDC hDC)
 		iItemType = 3;
 	else
 		return;
-	GdiTransparentBlt(hDC,					// 목적지 DC
-		639,				// 목적지 LEFT, TOP
-		450,
-		157,								// 목적지 공간의 가로, 세로 사이즈
-		105,
+	BitBlt(hDC,					// 목적지 DC
+		653,				// 목적지 LEFT, TOP
+		468,
+		63,								// 목적지 공간의 가로, 세로 사이즈
+		81,
 		hItem_Effect,						// 원본 이미지 DC
-		(m_iCtrlSlotCnt - 1) * 157,					// 원본 이미지 LEFT, TOP
-		iItemType * 105,
-		157,								// 원본 이미지 가로, 세로 사이즈
-		105,
-		RGB(255, 0, 255));					// 제거할 픽셀 색상
+		(m_iCtrlSlotCnt - 1) * 63,					// 원본 이미지 LEFT, TOP
+		iItemType * 81,
+		SRCCOPY);					// 제거할 픽셀 색상
 }
 
 void CPlayer2::ShowShield(HDC hDC)

@@ -148,6 +148,7 @@
     <ClInclude Include="CGasStation.h" />
     <ClInclude Include="CImgMgr.h" />
     <ClInclude Include="CInven.h" />
+    <ClInclude Include="CInven2.h" />
     <ClInclude Include="CItem.h" />
     <ClInclude Include="CKeyMgr.h" />
     <ClInclude Include="CLogin.h" />
@@ -197,6 +198,7 @@
     <ClCompile Include="CGasStation.cpp" />
     <ClCompile Include="CImgMgr.cpp" />
     <ClCompile Include="CInven.cpp" />
+    <ClCompile Include="CInven2.cpp" />
     <ClCompile Include="CItem.cpp" />
     <ClCompile Include="CKeyMgr.cpp" />
     <ClCompile Include="CLogin.cpp" />

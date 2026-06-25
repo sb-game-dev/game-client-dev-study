@@ -149,15 +149,7 @@ void CTile::Move()
 		return;
 	}
 
-	for (auto& pBomb : CObjMgr::GetInstance()->GetList(OBJ_BOMB))
-	{
-		if (fabsf(pBomb->GetInfo()->fX - x) <= 15 &&
-			fabsf(pBomb->GetInfo()->fY - y) <= 15)
-		{
-			m_bMove = false;
-			return;
-		}
-	}
+
 
 
 	for (auto& pBomb : CObjMgr::GetInstance()->GetList(OBJ_BOMB2))
@@ -211,6 +203,32 @@ void CTile::SetMove(DIRECTION eDIR)
 	int iRihgtY = (m_fDstY - MAP_TOP) / TILECX;
 	
 	m_iDstIndex = iRihgtY * MAP_CNT_X + iRightX;
+
+	for (auto& pBomb : CObjMgr::GetInstance()->GetList(OBJ_BOMB))
+	{
+		if (m_fDstX == pBomb->GetInfo()->fX && m_fDstY == pBomb->GetInfo()->fY)
+		{
+			m_bMove = false;
+			return;
+		}
+	}
+	for (auto& pBomb : CObjMgr::GetInstance()->GetList(OBJ_BOMB2))
+	{
+		if (m_fDstX == pBomb->GetInfo()->fX && m_fDstY == pBomb->GetInfo()->fY)
+		{
+			m_bMove = false;
+			return;
+		}
+	}
+	for (auto& pMonster : CObjMgr::GetInstance()->GetList(OBJ_MONSTER))
+	{
+		if (fabsf(m_fDstX - pMonster->GetInfo()->fX)
+			&& fabsf(m_fDstY == pMonster->GetInfo()->fY))
+		{
+			m_bMove = false;
+			return;
+		}
+	}
 }
 
 void CTile::CheckFrame()
@@ -241,9 +259,14 @@ void CTile::CheckFrame()
 
 void CTile::CreateItem()
 {
-	const WCHAR* pItemType[11] = { 
-		L"bubble" ,L"bubble" ,L"bubble" ,L"bubble" ,L"roller",L"fluid" ,L"needle" ,
-		L"dart" ,L"shield" ,L"shoe" ,L"trampoline"
+	const WCHAR* pItemType[] = { 
+		L"bubble" ,L"bubble" ,L"bubble" ,L"bubble" ,
+		L"roller",L"roller",L"roller",
+		L"fluid" ,L"fluid" ,L"fluid" ,L"fluid" ,
+		L"needle" ,
+		L"dart" ,
+		L"shield" ,
+		L"shoe" 
 	};
 	if (CSceneMgr::GetInstance()->GetCurScene() == SC_STAGE5)
 	{
@@ -251,7 +274,6 @@ void CTile::CreateItem()
 	}
 	else
 	{
-		srand(unsigned(time(NULL)));
-		CObjMgr::GetInstance()->AddObject(OBJ_ITEM ,CAbstractFactory<CItem>::Create(m_tInfo.fX, m_tInfo.fY, pItemType[rand() % 11]));
+		CObjMgr::GetInstance()->AddObject(OBJ_ITEM ,CAbstractFactory<CItem>::Create(m_tInfo.fX, m_tInfo.fY, pItemType[rand() % 15]));
 	}
 }

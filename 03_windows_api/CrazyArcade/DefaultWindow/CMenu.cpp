@@ -11,6 +11,7 @@
 #include "CInven.h"
 #include "CNotice.h"
 #include "CSelectPlayer.h"
+#include "CInven2.h"
 
 CMenu::CMenu():m_pButtonList(nullptr), m_pSelectStage(nullptr)
 {
@@ -37,6 +38,7 @@ void CMenu::Initialize()
 
 	m_pButtonList = CObjMgr::GetInstance()->GetListPtr(OBJ_BUTTON);
 
+	CSelectPlayer::GetInstance()->SetNextStage(STAGESTATE_END);
 
 	CSoundMgr::Get_Instance()->PlayBGM(L"Channel.wav", 0.1f);
 
@@ -54,6 +56,10 @@ void CMenu::LateUpdate()
 	if (CInven::GetInstance()->GetDraw())
 	{
 		CInven::GetInstance()->LateUpdate();
+	}
+	else if (CInven2::GetInstance()->GetDraw())
+	{
+		CInven2::GetInstance()->LateUpdate();
 	}
 	else if (CNotice::GetInstance()->GetDraw())
 	{
@@ -136,6 +142,11 @@ void CMenu::Render(HDC hDC)
 		CInven::GetInstance()->Render(hDC);
 		CObjMgr::GetInstance()->GetList(OBJ_MOUSE).front()->Render(hDC);
 	}
+	if (CInven2::GetInstance()->GetDraw())
+	{
+		CInven2::GetInstance()->Render(hDC);
+		CObjMgr::GetInstance()->GetList(OBJ_MOUSE).front()->Render(hDC);
+	}
 
 	if (CNotice::GetInstance()->GetDraw())
 	{
@@ -180,7 +191,7 @@ void CMenu::CheckSceneFrame()
 	else if (m_eCurSceneState == SCENE_END && m_fAlpha >= 1.f)
 	{
 		if (m_pSelectStage && !lstrcmp(L"button_FirstStage", m_pSelectStage->GetFrameKey()))
-			CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE2);
+			CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE1);
 		else if (m_pSelectStage && !lstrcmp(L"button_SecondStage", m_pSelectStage->GetFrameKey()))
 			CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE4);
 		else if (m_pSelectStage && !lstrcmp(L"button_ThirdStage", m_pSelectStage->GetFrameKey()))

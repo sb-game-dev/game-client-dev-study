@@ -13,6 +13,7 @@
 #include "CInven.h"
 #include "CSceneMgr.h"
 #include "CUI.h"
+#include "CInven2.h"
 CPlayer::CPlayer():m_ePreMotion(MOTION_END), m_eCurMotion(START), m_fWalkSpeed(3.f), m_fBubbleSpeed(0.5f), m_dwFrameCount(GetTickCount64()),
 m_fBlockMoveTime(0.f), m_iBombRange(1), m_iBombMax(1), m_iBombCnt(0), m_bShowItemGainEffect(false), m_eItemFrameKey(ITEMTYPE_END),
 m_dwItemEffectFrameCount(GetTickCount64()),m_iCtrlSlotCnt(0), m_eCtrlSlot(ITEMTYPE_END), m_dwShieldEffectFrameCount(GetTickCount64()), m_pTileVector(nullptr),
@@ -28,7 +29,6 @@ m_bRide(false), m_fKartSpeed(6.f), m_fRemainGas(300.f), m_pPlayMode(nullptr), m_
 	m_bShoe = false;
 #endif // _DEBUG
 
-	m_bShoe = true;
 }
 
 CPlayer::~CPlayer()
@@ -40,6 +40,7 @@ void CPlayer::Initialize()
 {	
 	m_eRenderID = GAMEOBJECT;
 
+	m_ePlayerID = PLAYER1;
 	m_tInfo.fCX = 30.f;
 	m_tInfo.fCY = 30.f;
 
@@ -66,6 +67,7 @@ int CPlayer::Update()
 {
 	if (m_bDead == DEAD)
 		return DEAD;
+	cout <<"m_fBlockMoveTime: "<< m_fBlockMoveTime << endl;
 	if (m_eCurMotion != DEATH && m_eCurMotion != START && m_eCurMotion != WIN && m_eCurMotion != RESPAWN)
 		KeyInput();
 	CheckFrame();
@@ -85,7 +87,6 @@ int CPlayer::Update()
 			m_fKartSpeed = 2.f;
 		}
 	}
-	//cout << "m_fSpeed : " << m_fSpeed << "\tm_fRemainGas: " << m_fRemainGas << endl;
 	return NOEVENT;
 }
 
@@ -130,18 +131,15 @@ void CPlayer::Render(HDC hDC)
 				18,			// 목적지 공간의 가로, 세로 사이즈
 				30,
 				hArrow,						// 원본 이미지 DC
-				0,	// 원본 이미지 LEFT, TOP
+				18,	// 원본 이미지 LEFT, TOP
 				0,
 				18,			// 원본 이미지 가로, 세로 사이즈
 				30,
 				RGB(255, 0, 255));		// 제거할 픽셀 색상
+
 		}
 		else
 		{
-			if (m_iCtrlSlotCnt > 0)
-			{
-				ShowCtrlSlot(hDC);
-			}
 			HDC hArrow = CBmpMgr::GetInstance()->FindImage(L"PlayerArrow2");
 
 			GdiTransparentBlt(hDC,					// 목적지 DC
@@ -157,6 +155,10 @@ void CPlayer::Render(HDC hDC)
 				RGB(255, 0, 255));		// 제거할 픽셀 색상
 		}
 	}
+	if (m_iCtrlSlotCnt > 0)
+	{
+		ShowCtrlSlot(hDC);
+	}
 	if (m_bShowItemGainEffect == true)
 	{
 		ShowItemGainEffect(hDC);
@@ -165,37 +167,6 @@ void CPlayer::Render(HDC hDC)
 	{
 		ShowShield(hDC);
 	}
-
-	//Graphics* _pGraphics = Graphics::FromHDC(hDC);
-	//Gdiplus::Image* pImg = CImgMgr::GetInstance()->FindImg(m_pFrameKey);
-	//
-	//Rect rect = {int(m_tInfo.fX - (m_tFrame.iCX/2)),
-	//			int(m_tInfo.fY - (m_tFrame.iCY - m_tInfo.fCY*0.5)),
-	//			m_tFrame.iCX,
-	//			m_tFrame.iCY };
-	//
-	//ImageAttributes attr;
-	//attr.SetColorKey(
-	//	Color(255,0, 255),
-	//	Color(255,0, 255));
-	//
-	//_pGraphics->DrawImage(pImg, rect,
-	//	m_tFrame.iCX * m_tFrame.iStart, m_tFrame.iCY * m_tFrame.iMotion,
-	//	m_tFrame.iCX, m_tFrame.iCY,
-	//	UnitPixel,
-	//	&attr);
-
-	//int x = (AdjustPosX(m_tInfo.fX) - MAP_LEFT) / TILECX;
-	//int y = (AdjustPosY(m_tInfo.fY) - MAP_TOP) / TILECX;
-	//
-	//int Index = y * MAP_CNT_X + x;
-	//
-	//TCHAR	szBuff[32] = L"";
-	//swprintf_s(szBuff, L"PlayerX : %.0f", m_tInfo.fX);
-	//TextOut(hDC, 50, 50, szBuff, lstrlen(szBuff));
-	//TCHAR	szBuff2[32] = L"";
-	//swprintf_s(szBuff2, L"PlayerY : %.0f", m_tInfo.fY);
-	//TextOut(hDC, 50, 75, szBuff2, lstrlen(szBuff2));
 }
 
 void CPlayer::Release()
@@ -312,7 +283,7 @@ void CPlayer::KeyInput()
 			CreateBomb();
 		}
 	}
-	if (CKeyMgr::GetInstance()->KeyDown(VK_CONTROL))
+	if (CKeyMgr::GetInstance()->KeyDown(VK_CONTROL) && *CSceneMgr::GetInstance()->GetPlayModePtr() == MODE1P)
 	{
 		if (m_iCtrlSlotCnt < 1) return;
 
@@ -351,161 +322,364 @@ void CPlayer::KeyInput()
 				return;
 		}
 	}
-	if (CKeyMgr::GetInstance()->KeyDown('1'))
+	if (CKeyMgr::GetInstance()->KeyDown(VK_RCONTROL) && *CSceneMgr::GetInstance()->GetPlayModePtr() == MODE2P)
 	{
-		switch (CInven::GetInstance()->GetItemSlot()[0]->GetFrame().iStart)
-		{
-		case 1:
-			if (m_eCurMotion == HIT && CInven::GetInstance()->GetInven().iNeedleCnt > 0)
-			{
-				CSoundMgr::Get_Instance()->PlaySound(L"Neddle_11.wav", SOUND_NEDDLE, 0.2f);
-				CInven::GetInstance()->SetNeedleCnt(-1);
-				m_eCurMotion = REVIVAL;
-				ChangeMotion();
-			}
-			break;
-		case 2:
-			if (m_eCurMotion == HIT || m_eCurMotion == DEATH)
-				return;
-			if (CInven::GetInstance()->GetInven().iDartCnt > 0)
-			{
-				CreateDart();
-				CInven::GetInstance()->SetDartCnt(-1);
-			}
-			break;
-		case 3:
-			if (m_bShowShieldEffect == true || m_eCurMotion == HIT || m_eCurMotion == DEATH)
-				return;
-			if (CInven::GetInstance()->GetInven().iShieldCnt > 0)
-			{
-				CSoundMgr::Get_Instance()->PlaySound(L"Shield.wav", SOUND_NEDDLE, 0.8f);
-				m_bShowShieldEffect = true;
-				m_iShieldFrame = 0;
-				m_dwShieldEffectFrameCount = GetTickCount64();
-				m_dwFrameCount = GetTickCount64();
-				CInven::GetInstance()->SetShieldCnt(-1);
-			}
-			break;
-		default:
-			break;
-		}
-	}
-	if (CKeyMgr::GetInstance()->KeyDown('2'))
-	{
-		switch (CInven::GetInstance()->GetItemSlot()[1]->GetFrame().iStart)
-		{
-		case 1:
-			if (m_eCurMotion == HIT && CInven::GetInstance()->GetInven().iNeedleCnt > 0)
-			{
-				CSoundMgr::Get_Instance()->PlaySound(L"Neddle_11.wav", SOUND_NEDDLE, 0.8f);
-				CInven::GetInstance()->SetNeedleCnt(-1);
-				m_eCurMotion = REVIVAL;
-				ChangeMotion();
-			}
-			break;
-		case 2:
-			if (m_eCurMotion == HIT || m_eCurMotion == DEATH)
-				return;
-			if (CInven::GetInstance()->GetInven().iDartCnt > 0)
-			{
-				CreateDart();
-				CInven::GetInstance()->SetDartCnt(-1);
-			}
-			break;
-		case 3:
-			if (m_bShowShieldEffect == true || m_eCurMotion == HIT || m_eCurMotion == DEATH)
-				return;
-			if (CInven::GetInstance()->GetInven().iShieldCnt > 0)
-			{
-				CSoundMgr::Get_Instance()->PlaySound(L"Shield.wav", SOUND_NEDDLE, 0.8f);
-				m_bShowShieldEffect = true;
-				m_iShieldFrame = 0;
-				m_dwShieldEffectFrameCount = GetTickCount64();
-				m_dwFrameCount = GetTickCount64();
-				CInven::GetInstance()->SetShieldCnt(-1);
-			}
-			break;
-		default:
-			break;
-		}
-	}
-	if (CKeyMgr::GetInstance()->KeyDown('3'))
-	{
-		switch (CInven::GetInstance()->GetItemSlot()[2]->GetFrame().iStart)
-		{
-		case 1:
-			if (m_eCurMotion == HIT && CInven::GetInstance()->GetInven().iNeedleCnt > 0)
-			{
-				CSoundMgr::Get_Instance()->PlaySound(L"Neddle_11.wav", SOUND_NEDDLE, 0.2f);
-				CInven::GetInstance()->SetNeedleCnt(-1);
-				m_eCurMotion = REVIVAL;
-				ChangeMotion();
-			}
-			break;
-		case 2:
-			if (m_eCurMotion == HIT || m_eCurMotion == DEATH)
-				return;
-			if (CInven::GetInstance()->GetInven().iDartCnt > 0)
-			{
-				CreateDart();
-				CInven::GetInstance()->SetDartCnt(-1);
-			}
-			break;
-		case 3:
-			if (m_bShowShieldEffect == true || m_eCurMotion == HIT || m_eCurMotion == DEATH)
-				return;
+		if (m_iCtrlSlotCnt < 1) return;
 
-			if (CInven::GetInstance()->GetInven().iShieldCnt > 0)
-			{
-				CSoundMgr::Get_Instance()->PlaySound(L"Shield.wav", SOUND_NEDDLE, 0.8f);
-				m_bShowShieldEffect = true;
-				m_iShieldFrame = 0;
-				m_dwShieldEffectFrameCount = GetTickCount64();
-				m_dwFrameCount = GetTickCount64();
-				CInven::GetInstance()->SetShieldCnt(-1);
-			}
-			break;
-		default:
-			break;
-		}
-	}
-	if (CKeyMgr::GetInstance()->KeyDown('4'))
-	{
-		switch (CInven::GetInstance()->GetItemSlot()[3]->GetFrame().iStart)
+		if (m_eCtrlSlot == NEEDLE)
 		{
-		case 1:
-			if (m_eCurMotion == HIT && CInven::GetInstance()->GetInven().iNeedleCnt > 0)
+			if (m_eCurMotion == HIT)
 			{
+				//SOUND_NEDDLE
 				CSoundMgr::Get_Instance()->PlaySound(L"Neddle_11.wav", SOUND_NEDDLE, 0.2f);
-				CInven::GetInstance()->SetNeedleCnt(-1);
+				--m_iCtrlSlotCnt;
 				m_eCurMotion = REVIVAL;
 				ChangeMotion();
 			}
-			break;
-		case 2:
-			if (m_eCurMotion == HIT || m_eCurMotion == DEATH)
-				return;
-			if (CInven::GetInstance()->GetInven().iDartCnt > 0)
-			{
-				CreateDart();
-				CInven::GetInstance()->SetDartCnt(-1);
-			}
-			break;
-		case 3:
+		}
+		else if (m_eCtrlSlot == SHIELD)
+		{
 			if (m_bShowShieldEffect == true || m_eCurMotion == HIT || m_eCurMotion == DEATH)
 				return;
-			if (CInven::GetInstance()->GetInven().iShieldCnt > 0)
+			--m_iCtrlSlotCnt;
+			CSoundMgr::Get_Instance()->PlaySound(L"Shield.wav", SOUND_EFFECT, 0.8f);
+			m_bShowShieldEffect = true;
+			m_iShieldFrame = 0;
+			m_dwShieldEffectFrameCount = GetTickCount64();
+			m_dwFrameCount = GetTickCount64();
+		}
+		else if (m_eCtrlSlot == DART)
+		{
+			if (m_eCurMotion == HIT || m_eCurMotion == DEATH)
+				return;
+			--m_iCtrlSlotCnt;
+			CreateDart();
+		}
+		else if (m_eCtrlSlot == TRAMPOLINE)
+		{
+			if (m_eCurMotion == HIT || m_eCurMotion == DEATH)
+				return;
+		}
+	}
+
+	if (*CSceneMgr::GetInstance()->GetPlayModePtr() == MODE1P)
+	{
+		if (CKeyMgr::GetInstance()->KeyDown('1'))
+		{
+			switch (CInven2::GetInstance()->GetItemSlot()[0]->GetFrame().iStart)
 			{
-				CSoundMgr::Get_Instance()->PlaySound(L"Shield.wav", SOUND_NEDDLE, 0.8f);
-				m_bShowShieldEffect = true;
-				m_iShieldFrame = 0;
-				m_dwShieldEffectFrameCount = GetTickCount64();
-				m_dwFrameCount = GetTickCount64();
-				CInven::GetInstance()->SetShieldCnt(-1);
+			case 1:
+				if (m_eCurMotion == HIT && CInven2::GetInstance()->GetInven().iNeedleCnt > 0)
+				{
+					CSoundMgr::Get_Instance()->PlaySound(L"Neddle_11.wav", SOUND_NEDDLE, 0.2f);
+					CInven2::GetInstance()->SetNeedleCnt(-1);
+					m_eCurMotion = REVIVAL;
+					ChangeMotion();
+				}
+				break;
+			case 2:
+				if (m_eCurMotion == HIT || m_eCurMotion == DEATH)
+					return;
+				if (CInven2::GetInstance()->GetInven().iDartCnt > 0)
+				{
+					CreateDart();
+					CInven2::GetInstance()->SetDartCnt(-1);
+				}
+				break;
+			case 3:
+				if (m_bShowShieldEffect == true || m_eCurMotion == HIT || m_eCurMotion == DEATH)
+					return;
+				if (CInven2::GetInstance()->GetInven().iShieldCnt > 0)
+				{
+					CSoundMgr::Get_Instance()->PlaySound(L"Shield.wav", SOUND_NEDDLE, 0.8f);
+					m_bShowShieldEffect = true;
+					m_iShieldFrame = 0;
+					m_dwShieldEffectFrameCount = GetTickCount64();
+					m_dwFrameCount = GetTickCount64();
+					CInven2::GetInstance()->SetShieldCnt(-1);
+				}
+				break;
+			default:
+				break;
 			}
-			break;
-		default:
-			break;
+		}
+		if (CKeyMgr::GetInstance()->KeyDown('2'))
+		{
+			switch (CInven2::GetInstance()->GetItemSlot()[1]->GetFrame().iStart)
+			{
+			case 1:
+				if (m_eCurMotion == HIT && CInven2::GetInstance()->GetInven().iNeedleCnt > 0)
+				{
+					CSoundMgr::Get_Instance()->PlaySound(L"Neddle_11.wav", SOUND_NEDDLE, 0.8f);
+					CInven2::GetInstance()->SetNeedleCnt(-1);
+					m_eCurMotion = REVIVAL;
+					ChangeMotion();
+				}
+				break;
+			case 2:
+				if (m_eCurMotion == HIT || m_eCurMotion == DEATH)
+					return;
+				if (CInven2::GetInstance()->GetInven().iDartCnt > 0)
+				{
+					CreateDart();
+					CInven2::GetInstance()->SetDartCnt(-1);
+				}
+				break;
+			case 3:
+				if (m_bShowShieldEffect == true || m_eCurMotion == HIT || m_eCurMotion == DEATH)
+					return;
+				if (CInven2::GetInstance()->GetInven().iShieldCnt > 0)
+				{
+					CSoundMgr::Get_Instance()->PlaySound(L"Shield.wav", SOUND_NEDDLE, 0.8f);
+					m_bShowShieldEffect = true;
+					m_iShieldFrame = 0;
+					m_dwShieldEffectFrameCount = GetTickCount64();
+					m_dwFrameCount = GetTickCount64();
+					CInven2::GetInstance()->SetShieldCnt(-1);
+				}
+				break;
+			default:
+				break;
+			}
+		}
+		if (CKeyMgr::GetInstance()->KeyDown('3'))
+		{
+			switch (CInven2::GetInstance()->GetItemSlot()[2]->GetFrame().iStart)
+			{
+			case 1:
+				if (m_eCurMotion == HIT && CInven2::GetInstance()->GetInven().iNeedleCnt > 0)
+				{
+					CSoundMgr::Get_Instance()->PlaySound(L"Neddle_11.wav", SOUND_NEDDLE, 0.2f);
+					CInven2::GetInstance()->SetNeedleCnt(-1);
+					m_eCurMotion = REVIVAL;
+					ChangeMotion();
+				}
+				break;
+			case 2:
+				if (m_eCurMotion == HIT || m_eCurMotion == DEATH)
+					return;
+				if (CInven2::GetInstance()->GetInven().iDartCnt > 0)
+				{
+					CreateDart();
+					CInven2::GetInstance()->SetDartCnt(-1);
+				}
+				break;
+			case 3:
+				if (m_bShowShieldEffect == true || m_eCurMotion == HIT || m_eCurMotion == DEATH)
+					return;
+
+				if (CInven2::GetInstance()->GetInven().iShieldCnt > 0)
+				{
+					CSoundMgr::Get_Instance()->PlaySound(L"Shield.wav", SOUND_NEDDLE, 0.8f);
+					m_bShowShieldEffect = true;
+					m_iShieldFrame = 0;
+					m_dwShieldEffectFrameCount = GetTickCount64();
+					m_dwFrameCount = GetTickCount64();
+					CInven2::GetInstance()->SetShieldCnt(-1);
+				}
+				break;
+			default:
+				break;
+			}
+		}
+		if (CKeyMgr::GetInstance()->KeyDown('4'))
+		{
+			switch (CInven2::GetInstance()->GetItemSlot()[3]->GetFrame().iStart)
+			{
+			case 1:
+				if (m_eCurMotion == HIT && CInven2::GetInstance()->GetInven().iNeedleCnt > 0)
+				{
+					CSoundMgr::Get_Instance()->PlaySound(L"Neddle_11.wav", SOUND_NEDDLE, 0.2f);
+					CInven2::GetInstance()->SetNeedleCnt(-1);
+					m_eCurMotion = REVIVAL;
+					ChangeMotion();
+				}
+				break;
+			case 2:
+				if (m_eCurMotion == HIT || m_eCurMotion == DEATH)
+					return;
+				if (CInven2::GetInstance()->GetInven().iDartCnt > 0)
+				{
+					CreateDart();
+					CInven2::GetInstance()->SetDartCnt(-1);
+				}
+				break;
+			case 3:
+				if (m_bShowShieldEffect == true || m_eCurMotion == HIT || m_eCurMotion == DEATH)
+					return;
+				if (CInven2::GetInstance()->GetInven().iShieldCnt > 0)
+				{
+					CSoundMgr::Get_Instance()->PlaySound(L"Shield.wav", SOUND_NEDDLE, 0.8f);
+					m_bShowShieldEffect = true;
+					m_iShieldFrame = 0;
+					m_dwShieldEffectFrameCount = GetTickCount64();
+					m_dwFrameCount = GetTickCount64();
+					CInven2::GetInstance()->SetShieldCnt(-1);
+				}
+				break;
+			default:
+				break;
+			}
+		}
+	}
+	else if (*CSceneMgr::GetInstance()->GetPlayModePtr() == MODE2P)
+	{
+		if (CKeyMgr::GetInstance()->KeyDown(VK_INSERT))
+		{
+			switch (CInven2::GetInstance()->GetItemSlot()[0]->GetFrame().iStart)
+			{
+			case 1:
+				if (m_eCurMotion == HIT && CInven2::GetInstance()->GetInven().iNeedleCnt > 0)
+				{
+					CSoundMgr::Get_Instance()->PlaySound(L"Neddle_11.wav", SOUND_NEDDLE, 0.2f);
+					CInven2::GetInstance()->SetNeedleCnt(-1);
+					m_eCurMotion = REVIVAL;
+					ChangeMotion();
+				}
+				break;
+			case 2:
+				if (m_eCurMotion == HIT || m_eCurMotion == DEATH)
+					return;
+				if (CInven2::GetInstance()->GetInven().iDartCnt > 0)
+				{
+					CreateDart();
+					CInven2::GetInstance()->SetDartCnt(-1);
+				}
+				break;
+			case 3:
+				if (m_bShowShieldEffect == true || m_eCurMotion == HIT || m_eCurMotion == DEATH)
+					return;
+				if (CInven2::GetInstance()->GetInven().iShieldCnt > 0)
+				{
+					CSoundMgr::Get_Instance()->PlaySound(L"Shield.wav", SOUND_NEDDLE, 0.8f);
+					m_bShowShieldEffect = true;
+					m_iShieldFrame = 0;
+					m_dwShieldEffectFrameCount = GetTickCount64();
+					m_dwFrameCount = GetTickCount64();
+					CInven2::GetInstance()->SetShieldCnt(-1);
+				}
+				break;
+			default:
+				break;
+			}
+		}
+		if (CKeyMgr::GetInstance()->KeyDown(VK_HOME))
+		{
+			switch (CInven2::GetInstance()->GetItemSlot()[1]->GetFrame().iStart)
+			{
+			case 1:
+				if (m_eCurMotion == HIT && CInven2::GetInstance()->GetInven().iNeedleCnt > 0)
+				{
+					CSoundMgr::Get_Instance()->PlaySound(L"Neddle_11.wav", SOUND_NEDDLE, 0.8f);
+					CInven2::GetInstance()->SetNeedleCnt(-1);
+					m_eCurMotion = REVIVAL;
+					ChangeMotion();
+				}
+				break;
+			case 2:
+				if (m_eCurMotion == HIT || m_eCurMotion == DEATH)
+					return;
+				if (CInven2::GetInstance()->GetInven().iDartCnt > 0)
+				{
+					CreateDart();
+					CInven2::GetInstance()->SetDartCnt(-1);
+				}
+				break;
+			case 3:
+				if (m_bShowShieldEffect == true || m_eCurMotion == HIT || m_eCurMotion == DEATH)
+					return;
+				if (CInven2::GetInstance()->GetInven().iShieldCnt > 0)
+				{
+					CSoundMgr::Get_Instance()->PlaySound(L"Shield.wav", SOUND_NEDDLE, 0.8f);
+					m_bShowShieldEffect = true;
+					m_iShieldFrame = 0;
+					m_dwShieldEffectFrameCount = GetTickCount64();
+					m_dwFrameCount = GetTickCount64();
+					CInven2::GetInstance()->SetShieldCnt(-1);
+				}
+				break;
+			default:
+				break;
+			}
+		}
+		if (CKeyMgr::GetInstance()->KeyDown(VK_PRIOR))
+		{
+			switch (CInven2::GetInstance()->GetItemSlot()[2]->GetFrame().iStart)
+			{
+			case 1:
+				if (m_eCurMotion == HIT && CInven2::GetInstance()->GetInven().iNeedleCnt > 0)
+				{
+					CSoundMgr::Get_Instance()->PlaySound(L"Neddle_11.wav", SOUND_NEDDLE, 0.2f);
+					CInven2::GetInstance()->SetNeedleCnt(-1);
+					m_eCurMotion = REVIVAL;
+					ChangeMotion();
+				}
+				break;
+			case 2:
+				if (m_eCurMotion == HIT || m_eCurMotion == DEATH)
+					return;
+				if (CInven2::GetInstance()->GetInven().iDartCnt > 0)
+				{
+					CreateDart();
+					CInven2::GetInstance()->SetDartCnt(-1);
+				}
+				break;
+			case 3:
+				if (m_bShowShieldEffect == true || m_eCurMotion == HIT || m_eCurMotion == DEATH)
+					return;
+
+				if (CInven2::GetInstance()->GetInven().iShieldCnt > 0)
+				{
+					CSoundMgr::Get_Instance()->PlaySound(L"Shield.wav", SOUND_NEDDLE, 0.8f);
+					m_bShowShieldEffect = true;
+					m_iShieldFrame = 0;
+					m_dwShieldEffectFrameCount = GetTickCount64();
+					m_dwFrameCount = GetTickCount64();
+					CInven2::GetInstance()->SetShieldCnt(-1);
+				}
+				break;
+			default:
+				break;
+			}
+		}
+		if (CKeyMgr::GetInstance()->KeyDown(VK_DELETE))
+		{
+			switch (CInven2::GetInstance()->GetItemSlot()[3]->GetFrame().iStart)
+			{
+			case 1:
+				if (m_eCurMotion == HIT && CInven2::GetInstance()->GetInven().iNeedleCnt > 0)
+				{
+					CSoundMgr::Get_Instance()->PlaySound(L"Neddle_11.wav", SOUND_NEDDLE, 0.2f);
+					CInven2::GetInstance()->SetNeedleCnt(-1);
+					m_eCurMotion = REVIVAL;
+					ChangeMotion();
+				}
+				break;
+			case 2:
+				if (m_eCurMotion == HIT || m_eCurMotion == DEATH)
+					return;
+				if (CInven2::GetInstance()->GetInven().iDartCnt > 0)
+				{
+					CreateDart();
+					CInven2::GetInstance()->SetDartCnt(-1);
+				}
+				break;
+			case 3:
+				if (m_bShowShieldEffect == true || m_eCurMotion == HIT || m_eCurMotion == DEATH)
+					return;
+				if (CInven2::GetInstance()->GetInven().iShieldCnt > 0)
+				{
+					CSoundMgr::Get_Instance()->PlaySound(L"Shield.wav", SOUND_NEDDLE, 0.8f);
+					m_bShowShieldEffect = true;
+					m_iShieldFrame = 0;
+					m_dwShieldEffectFrameCount = GetTickCount64();
+					m_dwFrameCount = GetTickCount64();
+					CInven2::GetInstance()->SetShieldCnt(-1);
+				}
+				break;
+			default:
+				break;
+			}
 		}
 	}
 }
@@ -909,13 +1083,15 @@ void CPlayer::CheckKickBomb(DIRECTION eDIR)
 		CBomb* pTempBomb = dynamic_cast<CBomb*>(pBomb);
 		if (pTempBomb->GetPlayerCollision() == false)
 			continue;
-		if (fabsf(m_tInfo.fX - pTempBomb->GetInfo()->fX) <= 36.f
-			&& fabsf(m_tInfo.fY - pTempBomb->GetInfo()->fY) <= 36.f)
+		if (fabsf(m_tInfo.fX - pTempBomb->GetInfo()->fX) <= 35.f
+			&& fabsf(m_tInfo.fY - pTempBomb->GetInfo()->fY) <= 35.f)
 		{
 			m_fKickBombTime += 1.f;
 
 			if (m_fKickBombTime >= 5.f)
 			{
+
+				cout << m_fKickBombTime << endl;
 				m_fKickBombTime = 0;
 				pTempBomb->SetCanMove(true);
 				pTempBomb->SetDirection(eDIR);
@@ -941,7 +1117,8 @@ void CPlayer::CreateBomb()
 	float fX = AdjustPosX(m_tInfo.fX);
 	float fY = AdjustPosY(m_tInfo.fY);
 	CObj* pBomb = CAbstractFactory<CBomb>::Create(fX, fY, L"BlueBubble");
-	pBomb->SetCanMove(false);
+	pBomb->SetCanMove(false); 
+	pBomb->SetPlayerID(PLAYER1);
 	dynamic_cast<CBomb*>(pBomb)->SetBombRange(m_iBombRange);
 	CObjMgr::GetInstance()->AddObject(OBJ_BOMB, pBomb);
 	CSoundMgr::Get_Instance()->PlaySound(L"PutDownbomb1.wav", BOMB_PUTDOWN, 0.3f);
@@ -1031,29 +1208,56 @@ void CPlayer::ShowItemGainEffect(HDC hDC)
 void CPlayer::ShowCtrlSlot(HDC hDC)
 {
 	//L"stage_ctrlItem"
-	HDC hItem_Effect = CBmpMgr::GetInstance()->FindImage(L"stage_ctrlItem");
-	int iItemType = 0;
-	if (m_eCtrlSlot == SHIELD)
-		iItemType = 0;
-	else if (m_eCtrlSlot == DART)
-		iItemType = 1;
-	else if (m_eCtrlSlot == NEEDLE)
-		iItemType = 2;
-	else if (m_eCtrlSlot == TRAMPOLINE)
-		iItemType = 3;
-	else 
-		return;
-	GdiTransparentBlt(hDC,					// 목적지 DC
-		639,				// 목적지 LEFT, TOP
-		450,
-		157,								// 목적지 공간의 가로, 세로 사이즈
-		105,
-		hItem_Effect,						// 원본 이미지 DC
-		(m_iCtrlSlotCnt-1) * 157,					// 원본 이미지 LEFT, TOP
-		iItemType * 105,
-		157,								// 원본 이미지 가로, 세로 사이즈
-		105,
-		RGB(255, 0, 255));					// 제거할 픽셀 색상
+	if (*CSceneMgr::GetInstance()->GetPlayModePtr() == MODE1P)
+	{
+		HDC hItem_Effect = CBmpMgr::GetInstance()->FindImage(L"stage_ctrlItem");
+		int iItemType = 0;
+		if (m_eCtrlSlot == SHIELD)
+			iItemType = 0;
+		else if (m_eCtrlSlot == DART)
+			iItemType = 1;
+		else if (m_eCtrlSlot == NEEDLE)
+			iItemType = 2;
+		else if (m_eCtrlSlot == TRAMPOLINE)
+			iItemType = 3;
+		else
+			return;
+		GdiTransparentBlt(hDC,					// 목적지 DC
+			639,				// 목적지 LEFT, TOP
+			450,
+			157,								// 목적지 공간의 가로, 세로 사이즈
+			105,
+			hItem_Effect,						// 원본 이미지 DC
+			(m_iCtrlSlotCnt - 1) * 157,					// 원본 이미지 LEFT, TOP
+			iItemType * 105,
+			157,								// 원본 이미지 가로, 세로 사이즈
+			105,
+			RGB(255, 0, 255));					// 제거할 픽셀 색상
+	}
+	else if (*CSceneMgr::GetInstance()->GetPlayModePtr() == MODE2P)
+	{
+		HDC hItem_Effect = CBmpMgr::GetInstance()->FindImage(L"stage_ctrlItemP2");
+		int iItemType = 0;
+		if (m_eCtrlSlot == SHIELD)
+			iItemType = 0;
+		else if (m_eCtrlSlot == DART)
+			iItemType = 1;
+		else if (m_eCtrlSlot == NEEDLE)
+			iItemType = 2;
+		else if (m_eCtrlSlot == TRAMPOLINE)
+			iItemType = 3;
+		else
+			return;
+		BitBlt(hDC,					// 목적지 DC
+			719,				// 목적지 LEFT, TOP
+			468,
+			63,								// 목적지 공간의 가로, 세로 사이즈
+			81,
+			hItem_Effect,						// 원본 이미지 DC
+			(m_iCtrlSlotCnt - 1) * 63,					// 원본 이미지 LEFT, TOP
+			iItemType * 81,
+			SRCCOPY);					// 제거할 픽셀 색상
+	}
 
 }
 

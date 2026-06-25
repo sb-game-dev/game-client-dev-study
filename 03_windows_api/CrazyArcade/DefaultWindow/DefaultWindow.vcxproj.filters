@@ -148,6 +148,12 @@
     <Filter Include="07. Design\07. SoundMgr">
       <UniqueIdentifier>{02319113-d50b-481d-b9f5-b9cd62130ac5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Inven\00. Player1Inven">
+      <UniqueIdentifier>{87486488-0714-4a86-a92b-1419a0f27cf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Inven\01. Player2Inven">
+      <UniqueIdentifier>{3d9b0375-f6ff-438e-bd7a-36b2723c6471}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -258,9 +264,6 @@
     <ClInclude Include="CShop.h">
       <Filter>01. Scene\05. Shop</Filter>
     </ClInclude>
-    <ClInclude Include="CInven.h">
-      <Filter>03. Inven</Filter>
-    </ClInclude>
     <ClInclude Include="CStage5.h">
       <Filter>01. Scene\04. Stage\04. Stage5</Filter>
     </ClInclude>
@@ -293,6 +296,12 @@
     </ClInclude>
     <ClInclude Include="CSelectPlayer.h">
       <Filter>06. SelectPlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="CInven2.h">
+      <Filter>03. Inven\01. Player2Inven</Filter>
+    </ClInclude>
+    <ClInclude Include="CInven.h">
+      <Filter>03. Inven\00. Player1Inven</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -389,9 +398,6 @@
     <ClCompile Include="CShop.cpp">
       <Filter>01. Scene\05. Shop</Filter>
     </ClCompile>
-    <ClCompile Include="CInven.cpp">
-      <Filter>03. Inven</Filter>
-    </ClCompile>
     <ClCompile Include="CStage5.cpp">
       <Filter>01. Scene\04. Stage\04. Stage5</Filter>
     </ClCompile>
@@ -424,6 +430,12 @@
     </ClCompile>
     <ClCompile Include="CSelectPlayer.cpp">
       <Filter>06. SelectPlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="CInven2.cpp">
+      <Filter>03. Inven\01. Player2Inven</Filter>
+    </ClCompile>
+    <ClCompile Include="CInven.cpp">
+      <Filter>03. Inven\00. Player1Inven</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -9,6 +9,7 @@
 #include "CInven.h"
 #include "CNotice.h"
 #include "CSelectPlayer.h"
+#include "CInven2.h"
 
 CButton::CButton():m_bCurState(false), m_bPreState(false)
 {
@@ -26,8 +27,8 @@ void CButton::Initialize()
 	{
 		m_tInfo.fCX = 34.f;
 		m_tInfo.fCY = 34.f;
-		m_tFrame.iCX = m_tInfo.fCX;
-		m_tFrame.iCY = m_tInfo.fCY;
+		m_tFrame.iCX = int(m_tInfo.fCX);
+		m_tFrame.iCY = int(m_tInfo.fCY);
 		m_tFrame.iEnd = TILE_END;
 	}
 	else if (!lstrcmp(L"Login_2P", m_pFrameKey))
@@ -38,8 +39,30 @@ void CButton::Initialize()
 		m_tFrame.iEnd = 2;
 		m_tFrame.iMotion = 0;
 		m_tFrame.bLoop = false;
-		m_tFrame.iCX = m_tInfo.fCX;
-		m_tFrame.iCY = m_tInfo.fCY;
+		m_tFrame.iCX = int(m_tInfo.fCX);
+		m_tFrame.iCY = int(m_tInfo.fCY);
+	}
+	else if (!lstrcmp(L"button_SelectPlayer1", m_pFrameKey) || !lstrcmp(L"button_SelectPlayer2", m_pFrameKey))
+	{
+		m_tInfo.fCX = 81.f;
+		m_tInfo.fCY = 21.f;
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 2;
+		m_tFrame.iMotion = 0;
+		m_tFrame.bLoop = false;
+		m_tFrame.iCX = int(m_tInfo.fCX);
+		m_tFrame.iCY = int(m_tInfo.fCY);
+	}
+	else if (!lstrcmp(L"button_ExitSelectPlayer", m_pFrameKey))
+	{
+		m_tInfo.fCX = 102.f;
+		m_tInfo.fCY = 30.f;
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 2;
+		m_tFrame.iMotion = 0;
+		m_tFrame.bLoop = false;
+		m_tFrame.iCX = int(m_tInfo.fCX);
+		m_tFrame.iCY = int(m_tInfo.fCY);
 	}
 	else if (!lstrcmp(L"Login_1P", m_pFrameKey))
 	{
@@ -49,8 +72,8 @@ void CButton::Initialize()
 		m_tFrame.iEnd = 2;
 		m_tFrame.iMotion = 0;
 		m_tFrame.bLoop = false;
-		m_tFrame.iCX = m_tInfo.fCX;
-		m_tFrame.iCY = m_tInfo.fCY;
+		m_tFrame.iCX = int(m_tInfo.fCX);
+		m_tFrame.iCY = int(m_tInfo.fCY);
 	}
 	else if (!lstrcmp(L"button_exit", m_pFrameKey))
 	{
@@ -60,8 +83,8 @@ void CButton::Initialize()
 		m_tFrame.iEnd = 2;
 		m_tFrame.iMotion = 0;
 		m_tFrame.bLoop = false;
-		m_tFrame.iCX = m_tInfo.fCX;
-		m_tFrame.iCY = m_tInfo.fCY;
+		m_tFrame.iCX = int(m_tInfo.fCX);
+		m_tFrame.iCY = int(m_tInfo.fCY);
 	}
 	else if (!lstrcmp(L"button_ExitGame", m_pFrameKey))
 	{
@@ -71,8 +94,8 @@ void CButton::Initialize()
 		m_tFrame.iEnd = 2;
 		m_tFrame.iMotion = 0;
 		m_tFrame.bLoop = false;
-		m_tFrame.iCX = m_tInfo.fCX;
-		m_tFrame.iCY = m_tInfo.fCY;
+		m_tFrame.iCX = int(m_tInfo.fCX);
+		m_tFrame.iCY = int(m_tInfo.fCY);
 	}
 	else if (!lstrcmp(L"button_ExitNotice", m_pFrameKey))
 	{
@@ -82,8 +105,8 @@ void CButton::Initialize()
 		m_tFrame.iEnd = 2;
 		m_tFrame.iMotion = 0;
 		m_tFrame.bLoop = false;
-		m_tFrame.iCX = m_tInfo.fCX;
-		m_tFrame.iCY = m_tInfo.fCY;
+		m_tFrame.iCX = int(m_tInfo.fCX);
+		m_tFrame.iCY = int(m_tInfo.fCY);
 	}
 	else if (!lstrcmp(L"button_ReLogin", m_pFrameKey))
 	{
@@ -93,22 +116,22 @@ void CButton::Initialize()
 		m_tFrame.iEnd = 2;
 		m_tFrame.iMotion = 0;
 		m_tFrame.bLoop = false;
-		m_tFrame.iCX = m_tInfo.fCX;
-		m_tFrame.iCY = m_tInfo.fCY;
+		m_tFrame.iCX = int(m_tInfo.fCX);
+		m_tFrame.iCY = int(m_tInfo.fCY);
 	}
 	else if (!lstrcmp(L"button_myPage", m_pFrameKey))
 	{
 		m_tInfo.fCX = 65.f;
 		m_tInfo.fCY = 22.f;
-		m_tFrame.iCX = m_tInfo.fCX;
-		m_tFrame.iCY = m_tInfo.fCY;
+		m_tFrame.iCX = int(m_tInfo.fCX);
+		m_tFrame.iCY = int(m_tInfo.fCY);
 	}
 	else if (!lstrcmp(L"button_back", m_pFrameKey))
 	{
 		m_tInfo.fCX = 29.f;
 		m_tInfo.fCY = 21.f;
-		m_tFrame.iCX = m_tInfo.fCX;
-		m_tFrame.iCY = m_tInfo.fCY;
+		m_tFrame.iCX = int(m_tInfo.fCX);
+		m_tFrame.iCY = int(m_tInfo.fCY);
 	}
 	else if (!lstrcmp(L"button_buy0", m_pFrameKey)
 		|| !lstrcmp(L"button_buy1", m_pFrameKey)
@@ -117,40 +140,40 @@ void CButton::Initialize()
 	{
 		m_tInfo.fCX = 41.f;
 		m_tInfo.fCY = 19.f;
-		m_tFrame.iCX = m_tInfo.fCX;
-		m_tFrame.iCY = m_tInfo.fCY;
+		m_tFrame.iCX = int(m_tInfo.fCX);
+		m_tFrame.iCY = int(m_tInfo.fCY);
 	}
 	else if (!lstrcmp(L"Slot1", m_pFrameKey))
 	{
 		m_tInfo.fCX = 33.f;
 		m_tInfo.fCY = 31.f;
 		m_tRect = { 569,175,602,206 };
-		m_tFrame.iCX = m_tInfo.fCX;
-		m_tFrame.iCY = m_tInfo.fCY;
+		m_tFrame.iCX = int(m_tInfo.fCX);
+		m_tFrame.iCY = int(m_tInfo.fCY);
 	}
 	else if (!lstrcmp(L"Slot2", m_pFrameKey))
 	{
 		m_tInfo.fCX = 33.f;
 		m_tInfo.fCY = 31.f;
 		m_tRect = { 489,235,522,266 };
-		m_tFrame.iCX = m_tInfo.fCX;
-		m_tFrame.iCY = m_tInfo.fCY;
+		m_tFrame.iCX = int(m_tInfo.fCX);
+		m_tFrame.iCY = int(m_tInfo.fCY);
 	}
 	else if (!lstrcmp(L"Slot3", m_pFrameKey))
 	{
 		m_tInfo.fCX = 33.f;
 		m_tInfo.fCY = 31.f;
 		m_tRect = { 569,295,602,326 };
-		m_tFrame.iCX = m_tInfo.fCX;
-		m_tFrame.iCY = m_tInfo.fCY;
+		m_tFrame.iCX = int(m_tInfo.fCX);
+		m_tFrame.iCY = int(m_tInfo.fCY);
 	}
 	else if (!lstrcmp(L"Slot4", m_pFrameKey))
 	{
 		m_tInfo.fCX = 33.f;
 		m_tInfo.fCY = 31.f;
 		m_tRect = { 649,235,682,266 };
-		m_tFrame.iCX = m_tInfo.fCX;
-		m_tFrame.iCY = m_tInfo.fCY;
+		m_tFrame.iCX = int(m_tInfo.fCX);
+		m_tFrame.iCY = int(m_tInfo.fCY);
 	}
 	else if (!lstrcmp(L"InvenItem", m_pFrameKey))
 	{
@@ -160,23 +183,23 @@ void CButton::Initialize()
 					LONG(m_tInfo.fY - 15.5f),
 					LONG(m_tInfo.fX + 16.5f) ,
 					LONG(m_tInfo.fY - 15.5f) };
-		m_tFrame.iCX = m_tInfo.fCX;
-		m_tFrame.iCY = m_tInfo.fCY;
+		m_tFrame.iCX = int(m_tInfo.fCX);
+		m_tFrame.iCY = int(m_tInfo.fCY);
 	}
 	else if (!lstrcmp(L"button_shop", m_pFrameKey))
 	{
 		m_tInfo.fCX = 61.f;
 		m_tInfo.fCY = 22.f;
-		m_tFrame.iCX = m_tInfo.fCX;
-		m_tFrame.iCY = m_tInfo.fCY;
+		m_tFrame.iCX = int(m_tInfo.fCX);
+		m_tFrame.iCY = int(m_tInfo.fCY);
 	}
 	else if (!lstrcmp(L"button_InvenExit", m_pFrameKey))
 	{
 		m_tInfo.fCX = 137.f;
 		m_tInfo.fCY = 31.f;
 		m_tRect = {238,505,369,536};
-		m_tFrame.iCX = m_tInfo.fCX;
-		m_tFrame.iCY = m_tInfo.fCY;
+		m_tFrame.iCX = int(m_tInfo.fCX);
+		m_tFrame.iCY = int(m_tInfo.fCY);
 	}
 	else if (!lstrcmp(L"button_creator", m_pFrameKey))
 	{
@@ -187,9 +210,9 @@ void CButton::Initialize()
 		m_tFrame.iEnd = 4;
 		m_tFrame.iMotion = 0;
 		m_tFrame.bLoop = true;
-		m_tFrame.iCX = m_tInfo.fCX;
-		m_tFrame.iCY = m_tInfo.fCY;
-		m_tFrame.dwSpeed = 100.f;
+		m_tFrame.iCX = int(m_tInfo.fCX);
+		m_tFrame.iCY = int(m_tInfo.fCY);
+		m_tFrame.dwSpeed = ULONGLONG(100);
 		m_tFrame.dwTime = GetTickCount64();
 	}
 	else if (!lstrcmp(L"button_exitEdit", m_pFrameKey))
@@ -201,9 +224,9 @@ void CButton::Initialize()
 		m_tFrame.iEnd = 2;
 		m_tFrame.iMotion = 0;
 		m_tFrame.bLoop = true;
-		m_tFrame.iCX = m_tInfo.fCX;
-		m_tFrame.iCY = m_tInfo.fCY;
-		m_tFrame.dwSpeed = 100.f;
+		m_tFrame.iCX = int(m_tInfo.fCX);
+		m_tFrame.iCY = int(m_tInfo.fCY);
+		m_tFrame.dwSpeed = ULONGLONG(100.f);
 		m_tFrame.dwTime = GetTickCount64();
 	}
 	else if (!lstrcmp(L"button_stageStart", m_pFrameKey))
@@ -215,9 +238,9 @@ void CButton::Initialize()
 		m_tFrame.iEnd = 5;
 		m_tFrame.iMotion = 0;
 		m_tFrame.bLoop = true;
-		m_tFrame.iCX = m_tInfo.fCX;
-		m_tFrame.iCY = m_tInfo.fCY;
-		m_tFrame.dwSpeed = 100.f;
+		m_tFrame.iCX = int(m_tInfo.fCX);
+		m_tFrame.iCY = int(m_tInfo.fCY);
+		m_tFrame.dwSpeed = ULONGLONG(100.f);
 		m_tFrame.dwTime = GetTickCount64();
 	}
 	else if (!lstrcmp(L"button_stageExit", m_pFrameKey))
@@ -229,9 +252,9 @@ void CButton::Initialize()
 		m_tFrame.iEnd = 2;
 		m_tFrame.iMotion = 0;
 		m_tFrame.bLoop = true;
-		m_tFrame.iCX = m_tInfo.fCX;
-		m_tFrame.iCY = m_tInfo.fCY;
-		m_tFrame.dwSpeed = 100.f;
+		m_tFrame.iCX = int(m_tInfo.fCX);
+		m_tFrame.iCY = int(m_tInfo.fCY);
+		m_tFrame.dwSpeed = ULONGLONG(100.f);
 		m_tFrame.dwTime = GetTickCount64();
 	}
 	else if (!lstrcmp(L"button_FirstStage", m_pFrameKey))
@@ -243,9 +266,9 @@ void CButton::Initialize()
 		m_tFrame.iEnd = 2;
 		m_tFrame.iMotion = 0;
 		m_tFrame.bLoop = false;
-		m_tFrame.iCX = m_tInfo.fCX;
-		m_tFrame.iCY = m_tInfo.fCY;
-		m_tFrame.dwSpeed = 100.f;
+		m_tFrame.iCX = int(m_tInfo.fCX);
+		m_tFrame.iCY = int(m_tInfo.fCY);
+		m_tFrame.dwSpeed = ULONGLONG(100.f);
 		m_tFrame.dwTime = GetTickCount64();
 	}
 	else if (!lstrcmp(L"button_SecondStage", m_pFrameKey))
@@ -257,9 +280,9 @@ void CButton::Initialize()
 		m_tFrame.iEnd = 2;
 		m_tFrame.iMotion = 0;
 		m_tFrame.bLoop = false;
-		m_tFrame.iCX = m_tInfo.fCX;
-		m_tFrame.iCY = m_tInfo.fCY;
-		m_tFrame.dwSpeed = 100.f;
+		m_tFrame.iCX = int(m_tInfo.fCX);
+		m_tFrame.iCY = int(m_tInfo.fCY);
+		m_tFrame.dwSpeed = ULONGLONG(100.f);
 		m_tFrame.dwTime = GetTickCount64();
 	}
 
@@ -272,9 +295,9 @@ void CButton::Initialize()
 		m_tFrame.iEnd = 2;
 		m_tFrame.iMotion = 0;
 		m_tFrame.bLoop = false;
-		m_tFrame.iCX = m_tInfo.fCX;
-		m_tFrame.iCY = m_tInfo.fCY;
-		m_tFrame.dwSpeed = 100.f;
+		m_tFrame.iCX = int(m_tInfo.fCX);
+		m_tFrame.iCY = int(m_tInfo.fCY);
+		m_tFrame.dwSpeed = ULONGLONG(100.f);
 		m_tFrame.dwTime = GetTickCount64();
 		}
 	else if (!lstrcmp(L"button_save", m_pFrameKey))
@@ -286,9 +309,9 @@ void CButton::Initialize()
 		m_tFrame.iEnd = 2;
 		m_tFrame.iMotion = 0;
 		m_tFrame.bLoop = true;
-		m_tFrame.iCX = m_tInfo.fCX;
-		m_tFrame.iCY = m_tInfo.fCY;
-		m_tFrame.dwSpeed = 100.f;
+		m_tFrame.iCX = int(m_tInfo.fCX);
+		m_tFrame.iCY = int(m_tInfo.fCY);
+		m_tFrame.dwSpeed = ULONGLONG(100.f);
 		m_tFrame.dwTime = GetTickCount64();
 	}
 }
@@ -296,6 +319,7 @@ void CButton::Initialize()
 int CButton::Update()
 {
 	if (CInven::GetInstance()->GetDraw() == true 
+		|| CInven2::GetInstance()->GetDraw() == true
 		|| CNotice::GetInstance()->GetDraw() == true 
 		|| CSelectPlayer::GetInstance()->GetDraw() == true)
 		return 0;
@@ -323,38 +347,72 @@ int CButton::Update()
 			{
 				CSceneMgr::GetInstance()->SceneChangeReserve(SC_EDIT);
 			}
-			else if (!lstrcmp(L"button_buy0", m_pFrameKey) && CInven::GetInstance()->GetDraw() == false)
+			else if (!lstrcmp(L"button_buy0", m_pFrameKey))
 			{
-				if (CInven::GetInstance()->GetGold() - 2750 > 0)
+				if (CSelectPlayer::GetInstance()->GetSelectPlayerID() == PLAYER1)
 				{
-					CInven::GetInstance()->SetGold(-2750);
-					CInven::GetInstance()->AddItemToStorage(IT_NEEDLE);
+					if (CInven::GetInstance()->GetGold() - 2750 > 0)
+					{
+						CInven::GetInstance()->SetGold(-2750);
+						CInven::GetInstance()->AddItemToStorage(IT_NEEDLE);
+					}
+				}
+				else
+				{
+					if (CInven2::GetInstance()->GetGold() - 2750 > 0)
+					{
+						CInven2::GetInstance()->SetGold(-2750);
+						CInven2::GetInstance()->AddItemToStorage(IT_NEEDLE);
+					}
 				}
 			}
-			else if (!lstrcmp(L"button_buy1", m_pFrameKey) && CInven::GetInstance()->GetDraw() == false)
+			else if (!lstrcmp(L"button_buy1", m_pFrameKey))
 			{
-				if (CInven::GetInstance()->GetGold() - 1650 > 0)
+				if (CSelectPlayer::GetInstance()->GetSelectPlayerID() == PLAYER1)
 				{
-					CInven::GetInstance()->SetGold(-1650);
-					CInven::GetInstance()->AddItemToStorage(IT_DART);
+					if (CInven::GetInstance()->GetGold() - 1650 > 0)
+					{
+						CInven::GetInstance()->SetGold(-1650);
+						CInven::GetInstance()->AddItemToStorage(IT_DART);
+					}
+				}
+				else
+				{
+					if (CInven2::GetInstance()->GetGold() - 1650 > 0)
+					{
+						CInven2::GetInstance()->SetGold(-1650);
+						CInven2::GetInstance()->AddItemToStorage(IT_DART);
+					}
 				}
 			}
-			else if (!lstrcmp(L"button_buy2", m_pFrameKey) && CInven::GetInstance()->GetDraw() == false)
+			else if (!lstrcmp(L"button_buy2", m_pFrameKey))
 			{
-				if (CInven::GetInstance()->GetGold() - 2500 > 0)
+				if (CSelectPlayer::GetInstance()->GetSelectPlayerID() == PLAYER1)
 				{
-					CInven::GetInstance()->SetGold(-2500);
-					CInven::GetInstance()->AddItemToStorage(IT_SHIELD);
+					if (CInven::GetInstance()->GetGold() - 2500 > 0)
+					{
+						CInven::GetInstance()->SetGold(-2500);
+						CInven::GetInstance()->AddItemToStorage(IT_SHIELD);
+					}
+				}
+				else
+				{
+					if (CInven2::GetInstance()->GetGold() - 2500 > 0)
+					{
+						CInven2::GetInstance()->SetGold(-2500);
+						CInven2::GetInstance()->AddItemToStorage(IT_SHIELD);
+					}
 				}
 			}
-			else if (!lstrcmp(L"button_back", m_pFrameKey) && CInven::GetInstance()->GetDraw() == false)
+			else if (!lstrcmp(L"button_back", m_pFrameKey))
 			{
 				CSceneMgr::GetInstance()->SceneChangeReserve(SC_MENU);
 			}
-			else if (!lstrcmp(L"button_shop", m_pFrameKey) && CInven::GetInstance()->GetDraw() == false)
+			else if (!lstrcmp(L"button_shop", m_pFrameKey))
 			{
 				if (*CSceneMgr::GetInstance()->GetPlayModePtr() == MODE2P)
 				{
+					CSelectPlayer::GetInstance()->SetNextStage(SHOP);
 					CSelectPlayer::GetInstance()->SetDraw(true);
 				}
 				else
@@ -364,7 +422,7 @@ int CButton::Update()
 			{
 				CSceneMgr::GetInstance()->SceneChangeReserve(SC_MENU);
 			}
-			else if (!lstrcmp(L"button_stageExit", m_pFrameKey) && CInven::GetInstance()->GetDraw() == false)
+			else if (!lstrcmp(L"button_stageExit", m_pFrameKey))
 			{
 				CSceneMgr::GetInstance()->SceneChangeReserve(SC_MENU);
 			}
@@ -372,18 +430,32 @@ int CButton::Update()
 			{
 				CObjMgr::GetInstance()->SaveTile(0);
 			}
-			else if (!lstrcmp(L"button_myPage", m_pFrameKey) && CInven::GetInstance()->GetDraw() == false)
+			else if (!lstrcmp(L"button_myPage", m_pFrameKey))
 			{
 				if (*CSceneMgr::GetInstance()->GetPlayModePtr() == MODE2P)
 				{
-					CSelectPlayer::GetInstance()->SetDraw(true);
+					switch (CSelectPlayer::GetInstance()->GetNextStage())
+					{
+					case MYPAGE:
+						CSelectPlayer::GetInstance()->SetNextStage(MYPAGE);
+						CSelectPlayer::GetInstance()->SetDraw(true);
+						break;
+					case SHOP:
+						if(CSelectPlayer::GetInstance()->GetSelectPlayerID() == PLAYER1)
+							CInven::GetInstance()->SetDraw(true);
+						else
+							CInven2::GetInstance()->SetDraw(true);
+						break;
+					case STAGESTATE_END:
+						CSelectPlayer::GetInstance()->SetNextStage(MYPAGE);
+						CSelectPlayer::GetInstance()->SetDraw(true);
+						break;
+					default:
+						break;
+					}
 				}
 				else
-					CInven::GetInstance()->SetDraw(true);
-			}
-			else if (!lstrcmp(L"button_InvenExit", m_pFrameKey) && CInven::GetInstance()->GetDraw() == true)
-			{
-				CInven::GetInstance()->SetDraw(false);
+					CInven2::GetInstance()->SetDraw(true);
 			}
 			else if (!lstrcmp(L"button_exit", m_pFrameKey) && CNotice::GetInstance()->GetDraw() == false)
 			{

@@ -114,8 +114,9 @@ CObj* CBomb::CreateWave()
 
 void CBomb::MoveBomb()
 {
-    if (m_tInfo.fX<=40 || m_tInfo.fX>=600 || m_tInfo.fY <=60 || m_tInfo.fY >= 540)
+    if (m_tInfo.fX<40 || m_tInfo.fX>600 || m_tInfo.fY <60 || m_tInfo.fY > 540)
     {
+        cout << "MoveBombFalse" << endl;
         m_bCanMove = false;
         return;
     }

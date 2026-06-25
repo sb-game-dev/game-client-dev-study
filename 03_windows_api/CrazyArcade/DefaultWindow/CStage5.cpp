@@ -18,6 +18,7 @@
 #include "CPlayer2.h"
 #include "CBaseEffect.h"
 #include "CStartEffect.h"
+#include "CInven2.h"
 CStage5::CStage5() :m_hBackGround(NULL), m_pTileVector(nullptr), m_pPlayerRemainGas(nullptr), m_pPlayerRemainGas2(nullptr), m_pPlayMode(nullptr)
 {
 	m_pBaseStart	= nullptr;
@@ -258,66 +259,188 @@ void CStage5::Render(HDC hDC)
 		BitBlt(hDC, 101, 540, 87 * (*m_pPlayerRemainGas2) / 300, 14, hGasBar, 0, 0, SRCCOPY);
 	}
 
-
-
-	int iItemCnt = 0;
-	for (auto& pitem : *(CInven::GetInstance()->GetItemSlotPtr()))
+	if (*CSceneMgr::GetInstance()->GetPlayModePtr() == MODE1P)
 	{
-		switch (pitem->GetFrame().iStart)
+		int iItemCnt = 0;
+		for (auto& pitem : *(CInven2::GetInstance()->GetItemSlotPtr()))
 		{
-		case 0:
+			switch (pitem->GetFrame().iStart)
+			{
+			case 0:
+				++iItemCnt;
+				continue;
+			case 1:
+				if (CInven2::GetInstance()->GetInven().iNeedleCnt <= 0)
+				{
+					++iItemCnt;
+					continue;
+				}
+				break;
+			case 2:
+				if (CInven2::GetInstance()->GetInven().iDartCnt <= 0)
+				{
+					++iItemCnt;
+					continue;
+				}
+				break;
+			case 3:
+				if (CInven2::GetInstance()->GetInven().iShieldCnt <= 0)
+				{
+					++iItemCnt;
+					continue;
+				}
+				break;
+			default:
+				break;
+			}
+			HDC hSlotNum = CBmpMgr::GetInstance()->FindImage(L"InGameNumber");
+
+			BitBlt(hDC,							// 목적지 DC
+				243 + 40 * iItemCnt,
+				568,
+				13, 11,
+				hSlotNum,						// 원본 DC
+				13 * iItemCnt,					// 원본 이미지에서 가져오기 시작할 좌표의 LEFT, TOP
+				0,
+				SRCCOPY);						// 그대로 복사하여 출력
+
+			HDC hSlotItem = CBmpMgr::GetInstance()->FindImage(L"InGameSlot");
+			GdiTransparentBlt(hDC,						// 목적지 DC
+				243 + 40 * iItemCnt,						// 목적지 LEFT, TOP
+				568,
+				37,										// 목적지 공간의 가로, 세로 사이즈
+				29,
+				hSlotItem,								// 원본 이미지 DC
+				37 * (pitem->GetFrame().iStart - 1),	// 원본 이미지 LEFT, TOP
+				0,
+				37,										// 원본 이미지 가로, 세로 사이즈
+				29,
+				RGB(255, 0, 255));						// 제거할 픽셀 색상
 			++iItemCnt;
-			continue;
-		case 1:
-			if (CInven::GetInstance()->GetInven().iNeedleCnt <= 0)
-			{
-				++iItemCnt;
-				continue;
-			}
-			break;
-		case 2:
-			if (CInven::GetInstance()->GetInven().iDartCnt <= 0)
-			{
-				++iItemCnt;
-				continue;
-			}
-			break;
-		case 3:
-			if (CInven::GetInstance()->GetInven().iShieldCnt <= 0)
-			{
-				++iItemCnt;
-				continue;
-			}
-			break;
-		default:
-			break;
 		}
-		HDC hSlotNum = CBmpMgr::GetInstance()->FindImage(L"InGameNumber");
-
-		BitBlt(hDC,							// 목적지 DC
-			243 + 40 * iItemCnt,
-			568,
-			13, 11,
-			hSlotNum,						// 원본 DC
-			13 * iItemCnt,					// 원본 이미지에서 가져오기 시작할 좌표의 LEFT, TOP
-			0,
-			SRCCOPY);						// 그대로 복사하여 출력
-
-		HDC hSlotItem = CBmpMgr::GetInstance()->FindImage(L"InGameSlot");
-		GdiTransparentBlt(hDC,						// 목적지 DC
-			243 + 40 * iItemCnt,						// 목적지 LEFT, TOP
-			568,
-			37,										// 목적지 공간의 가로, 세로 사이즈
-			29,
-			hSlotItem,								// 원본 이미지 DC
-			37 * (pitem->GetFrame().iStart - 1),	// 원본 이미지 LEFT, TOP
-			0,
-			37,										// 원본 이미지 가로, 세로 사이즈
-			29,
-			RGB(255, 0, 255));						// 제거할 픽셀 색상
-		++iItemCnt;
 	}
-	if (m_eCurSceneState == SCENE_START || m_eCurSceneState == SCENE_END)
+	else
+	{
+		int iItemCnt = 0;
+		for (auto& pitem : *(CInven::GetInstance()->GetItemSlotPtr()))
+		{
+			switch (pitem->GetFrame().iStart)
+			{
+			case 0:
+				++iItemCnt;
+				continue;
+			case 1:
+				if (CInven::GetInstance()->GetInven().iNeedleCnt <= 0)
+				{
+					++iItemCnt;
+					continue;
+				}
+				break;
+			case 2:
+				if (CInven::GetInstance()->GetInven().iDartCnt <= 0)
+				{
+					++iItemCnt;
+					continue;
+				}
+				break;
+			case 3:
+				if (CInven::GetInstance()->GetInven().iShieldCnt <= 0)
+				{
+					++iItemCnt;
+					continue;
+				}
+				break;
+			default:
+				break;
+			}
+
+			HDC hSlotItem = CBmpMgr::GetInstance()->FindImage(L"InGameSlot");
+			GdiTransparentBlt(hDC,						// 목적지 DC
+				68 + 40 * iItemCnt,						// 목적지 LEFT, TOP
+				568,
+				37,										// 목적지 공간의 가로, 세로 사이즈
+				29,
+				hSlotItem,								// 원본 이미지 DC
+				37 * (pitem->GetFrame().iStart - 1),	// 원본 이미지 LEFT, TOP
+				0,
+				37,										// 원본 이미지 가로, 세로 사이즈
+				29,
+				RGB(255, 0, 255));						// 제거할 픽셀 색상
+
+
+			HDC hSlotNum = CBmpMgr::GetInstance()->FindImage(L"InGameNumber");
+
+			BitBlt(hDC,							// 목적지 DC
+				68 + 40 * iItemCnt,
+				568,
+				13, 10,
+				hSlotNum,						// 원본 DC
+				13 * iItemCnt,					// 원본 이미지에서 가져오기 시작할 좌표의 LEFT, TOP
+				0,
+				SRCCOPY);						// 그대로 복사하여 출력
+
+			++iItemCnt;
+		}
+		iItemCnt = 0;
+		for (auto& pitem : *(CInven2::GetInstance()->GetItemSlotPtr()))
+		{
+			switch (pitem->GetFrame().iStart)
+			{
+			case 0:
+				++iItemCnt;
+				continue;
+			case 1:
+				if (CInven2::GetInstance()->GetInven().iNeedleCnt <= 0)
+				{
+					++iItemCnt;
+					continue;
+				}
+				break;
+			case 2:
+				if (CInven2::GetInstance()->GetInven().iDartCnt <= 0)
+				{
+					++iItemCnt;
+					continue;
+				}
+				break;
+			case 3:
+				if (CInven2::GetInstance()->GetInven().iShieldCnt <= 0)
+				{
+					++iItemCnt;
+					continue;
+				}
+				break;
+			default:
+				break;
+			}
+
+			HDC hSlotItem = CBmpMgr::GetInstance()->FindImage(L"InGameSlot");
+			GdiTransparentBlt(hDC,						// 목적지 DC
+				335 + 40 * iItemCnt,						// 목적지 LEFT, TOP
+				568,
+				37,										// 목적지 공간의 가로, 세로 사이즈
+				29,
+				hSlotItem,								// 원본 이미지 DC
+				37 * (pitem->GetFrame().iStart - 1),	// 원본 이미지 LEFT, TOP
+				0,
+				37,										// 원본 이미지 가로, 세로 사이즈
+				29,
+				RGB(255, 0, 255));						// 제거할 픽셀 색상
+
+			HDC hSlotNum = CBmpMgr::GetInstance()->FindImage(L"InGameNumber2");
+
+			BitBlt(hDC,							// 목적지 DC
+				335 + 40 * iItemCnt,
+				568,
+				37, 11,
+				hSlotNum,						// 원본 DC
+				37 * iItemCnt,					// 원본 이미지에서 가져오기 시작할 좌표의 LEFT, TOP
+				0,
+				SRCCOPY);						// 그대로 복사하여 출력
+			++iItemCnt;
+		}
+	}
+	if (m_eCurSceneState == SCENE_START)
 	{
 		Graphics* _pGraphics = Graphics::FromHDC(hDC);
 		Gdiplus::Image* pBlackImg = CImgMgr::GetInstance()->FindImg(L"black_bg");

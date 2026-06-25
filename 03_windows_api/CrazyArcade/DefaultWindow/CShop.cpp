@@ -8,6 +8,8 @@
 #include "CBmpMgr.h"
 #include "CInven.h"
 #include "CImgMgr.h"
+#include "CInven2.h"
+#include "CSelectPlayer.h"
 
 CShop::CShop()
 {
@@ -43,6 +45,10 @@ void CShop::LateUpdate()
 	{
 		CInven::GetInstance()->LateUpdate();
 	}
+	else if (CInven2::GetInstance()->GetDraw())
+	{
+		CInven2::GetInstance()->LateUpdate();
+	}
 	else
 	{
 		CObjMgr::GetInstance()->LateUpdate();
@@ -75,30 +81,61 @@ void CShop::Render(HDC hDC)
 		0,
 		SRCCOPY);						// 그대로 복사하여 출력
 
-	int iMoney = CInven::GetInstance()->GetGold();
-	int iNumcnt = 0;
-	while (iMoney)
+	if (CSelectPlayer::GetInstance()->GetSelectPlayerID() == PLAYER1)
 	{
-		int iNum = iMoney % 10;
-		HDC hNumber = CBmpMgr::GetInstance()->FindImage(L"numbers");
-		GdiTransparentBlt(hDC,					// 목적지 DC
-			int(307-11)-22*iNumcnt,	// 목적지 LEFT, TOP
-			int(15),
-			22,			// 목적지 공간의 가로, 세로 사이즈
-			26,
-			hNumber,						// 원본 이미지 DC
-			22 * iNum,	// 원본 이미지 LEFT, TOP
-			0,
-			22,				// 원본 이미지 가로, 세로 사이즈
-			26,		
-			RGB(255, 0, 255));		// 제거할 픽셀 색상
-		++iNumcnt;
-		iMoney /= 10;
+		int iMoney = CInven::GetInstance()->GetGold();
+		int iNumcnt = 0;
+		while (iMoney)
+		{
+			int iNum = iMoney % 10;
+			HDC hNumber = CBmpMgr::GetInstance()->FindImage(L"numbers");
+			GdiTransparentBlt(hDC,					// 목적지 DC
+				int(307 - 11) - 22 * iNumcnt,	// 목적지 LEFT, TOP
+				int(15),
+				22,			// 목적지 공간의 가로, 세로 사이즈
+				26,
+				hNumber,						// 원본 이미지 DC
+				22 * iNum,	// 원본 이미지 LEFT, TOP
+				0,
+				22,				// 원본 이미지 가로, 세로 사이즈
+				26,
+				RGB(255, 0, 255));		// 제거할 픽셀 색상
+			++iNumcnt;
+			iMoney /= 10;
+		}
 	}
-	CObjMgr::GetInstance()->Render(hDC); 
+	else
+	{
+		int iMoney = CInven2::GetInstance()->GetGold();
+		int iNumcnt = 0;
+		while (iMoney)
+		{
+			int iNum = iMoney % 10;
+			HDC hNumber = CBmpMgr::GetInstance()->FindImage(L"numbers");
+			GdiTransparentBlt(hDC,					// 목적지 DC
+				int(307 - 11) - 22 * iNumcnt,	// 목적지 LEFT, TOP
+				int(15),
+				22,			// 목적지 공간의 가로, 세로 사이즈
+				26,
+				hNumber,						// 원본 이미지 DC
+				22 * iNum,	// 원본 이미지 LEFT, TOP
+				0,
+				22,				// 원본 이미지 가로, 세로 사이즈
+				26,
+				RGB(255, 0, 255));		// 제거할 픽셀 색상
+			++iNumcnt;
+			iMoney /= 10;
+		}
+	}
+	CObjMgr::GetInstance()->Render(hDC);
 	if (CInven::GetInstance()->GetDraw())
 	{
 		CInven::GetInstance()->Render(hDC);
+		CObjMgr::GetInstance()->GetList(OBJ_MOUSE).front()->Render(hDC);
+	}
+	if (CInven2::GetInstance()->GetDraw())
+	{
+		CInven2::GetInstance()->Render(hDC);
 		CObjMgr::GetInstance()->GetList(OBJ_MOUSE).front()->Render(hDC);
 	}
 

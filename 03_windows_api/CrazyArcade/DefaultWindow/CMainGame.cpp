@@ -11,6 +11,8 @@
 #include "CInven.h"
 #include "CNotice.h"
 #include "CStartEffect.h"
+#include "CSelectPlayer.h"
+#include "CInven2.h"
 CMainGame::CMainGame() :m_hDC(NULL), m_memDC(NULL), m_Bit(NULL), m_Old(NULL),m_pGraphics(NULL), m_iFPS(0),m_dwTime(GetTickCount64())
 {
 	ZeroMemory(&m_szFPS, sizeof(m_szFPS));
@@ -102,8 +104,10 @@ void CMainGame::Release()
 	CSoundMgr::Destroy_Instance();
 	CObjMgr::Destroy();
 	CInven::Destroy();
+	CInven2::Destroy();
 	CNotice::Destroy();
 	CStartEffect::Destroy();
+	CSelectPlayer::Destroy();
 }
 
 void CMainGame::InsertImg()
@@ -156,6 +160,11 @@ void CMainGame::InsertImg()
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_ReLogin.bmp", L"button_ReLogin");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_ExitGame.bmp", L"button_ExitGame");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_ExitNotice.bmp", L"button_ExitNotice");
+
+
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_SelectPlayer.bmp", L"button_SelectPlayer1");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_SelectPlayer.bmp", L"button_SelectPlayer2");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_ExitSelectPlayer.bmp", L"button_ExitSelectPlayer");
 
 	//Player
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_start.bmp", L"player_start");
@@ -263,6 +272,7 @@ void CMainGame::InsertImg()
 
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/InGameSlot.bmp", L"InGameSlot");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/InGameNumber.bmp", L"InGameNumber");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/InGameNumber2.bmp", L"InGameNumber2");
 
 	//Notice_UI
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/Notice.bmp", L"Notice");
@@ -289,6 +299,8 @@ void CMainGame::InsertImg()
 
 	//Ctrl_slot
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/stage_ctrlItem.bmp", L"stage_ctrlItem");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/stage_ctrlItemP1.bmp", L"stage_ctrlItemP1");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/stage_ctrlItemP2.bmp", L"stage_ctrlItemP2");
 
 	//DartObj
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Item/new/dart_obj.bmp", L"dart_obj");
