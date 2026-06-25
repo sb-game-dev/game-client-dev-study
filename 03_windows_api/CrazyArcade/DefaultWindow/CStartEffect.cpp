@@ -6,6 +6,7 @@ CStartEffect* CStartEffect::m_pInstance = nullptr;
 
 CStartEffect::CStartEffect()
 {
+	m_fCnt = 0.f;
 	m_fTop1 = 245.f;
 	m_fTop2 = 245.f;
 	m_fTop3 = 245.f;
@@ -16,20 +17,35 @@ CStartEffect::CStartEffect()
 
 	m_bEffectRunning = true;
 
-	m_fSpeed = 100.f;
+	m_fSpeed = 80.f;
 }
 
 CStartEffect::~CStartEffect()
 {
 }
 
+void CStartEffect::Initialize()
+{
+	m_fCnt = 0.f;
+	m_fTop1 = 245.f;
+	m_fTop2 = 245.f;
+	m_fTop3 = 245.f;
+	m_fTop4 = 245.f;
+	m_fTop5 = 245.f;
+	m_fTop6 = 245.f;
+	m_fTop7 = 245.f;
+
+	m_bEffectRunning = true;
+
+	m_fSpeed = 80.f;
+}
 
 void CStartEffect::Update()
 {
 	if (m_bEffectRunning == false)
 		return;
 	//cout << m_fCnt << endl;
-	m_fCnt += 0.1f;
+	m_fCnt += 0.3f;
 	if (m_fCnt >= 1)
 	{
 		m_fTop1 -= m_fSpeed;

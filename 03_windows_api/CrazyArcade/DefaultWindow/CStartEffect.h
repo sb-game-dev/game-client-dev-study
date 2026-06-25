@@ -9,13 +9,13 @@ public:
 	~CStartEffect();
 
 public:
+	void	Initialize();
 	void	Update();
 	void	Render(HDC hDC);
 
 
 public:
 	void	SetEffectRunning(bool bRunning) { m_bEffectRunning = bRunning; }
-
 	bool	GetEffectRunning() { return m_bEffectRunning; }
 
 public:

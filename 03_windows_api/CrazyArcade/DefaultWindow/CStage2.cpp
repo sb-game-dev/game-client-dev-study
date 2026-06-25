@@ -70,6 +70,7 @@ void CStage2::Initialize()
 
 	CObjMgr::GetInstance()->AddObject(OBJ_BUTTON, CAbstractFactory<CButton>::Create(717, 576, L"button_stageExit"));
 	CObjMgr::GetInstance()->LoadStage2();
+	CStartEffect::GetInstance()->Initialize();
 	CSoundMgr::Get_Instance()->PlaySound(L"StageStart_7.wav", STAGE_START, 0.1f);
 }
 

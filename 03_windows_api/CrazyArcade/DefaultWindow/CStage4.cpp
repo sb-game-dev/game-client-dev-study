@@ -237,6 +237,7 @@ void CStage4::Initialize()
 			pTile->SetDraw(false);
 		}
 	}
+	CStartEffect::GetInstance()->Initialize();
 	CSoundMgr::Get_Instance()->PlaySound(L"StageStart_7.wav", STAGE_START, 0.1f);
 }
 

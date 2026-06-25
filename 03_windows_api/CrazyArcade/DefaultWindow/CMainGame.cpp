@@ -10,6 +10,7 @@
 #include "CSoundMgr.h"
 #include "CInven.h"
 #include "CNotice.h"
+#include "CStartEffect.h"
 CMainGame::CMainGame() :m_hDC(NULL), m_memDC(NULL), m_Bit(NULL), m_Old(NULL),m_pGraphics(NULL), m_iFPS(0),m_dwTime(GetTickCount64())
 {
 	ZeroMemory(&m_szFPS, sizeof(m_szFPS));
@@ -102,6 +103,7 @@ void CMainGame::Release()
 	CObjMgr::Destroy();
 	CInven::Destroy();
 	CNotice::Destroy();
+	CStartEffect::Destroy();
 }
 
 void CMainGame::InsertImg()

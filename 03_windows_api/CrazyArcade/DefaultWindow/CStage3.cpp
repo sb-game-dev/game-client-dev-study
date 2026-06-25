@@ -56,6 +56,7 @@ void CStage3::Initialize()
 	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((12 * 40) + 40, (7 * 40) + 60, L"Bean_Monster_Start"));
 
 	CObjMgr::GetInstance()->LoadStage3();
+	CStartEffect::GetInstance()->Initialize();
 	CSoundMgr::Get_Instance()->PlaySound(L"StageStart_7.wav", STAGE_START, 0.1f);
 }
 

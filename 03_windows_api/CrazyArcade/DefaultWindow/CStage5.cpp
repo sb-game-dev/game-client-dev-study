@@ -161,6 +161,7 @@ void CStage5::Initialize()
 	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBase4Effect2);
 
 
+	CStartEffect::GetInstance()->Initialize();
 	CSoundMgr::Get_Instance()->PlaySound(L"StageStart_7.wav", STAGE_START, 0.2f);
 }
 
@@ -246,7 +247,7 @@ void CStage5::Render(HDC hDC)
 		ImageAttributes attr;
 		MakeAlphaAttr(attr, 0.7f);
 		_pGraphics->DrawImage(hTrackCnt, rect,
-			97 * ((3 - m_iTrackCnt < 3) ? (3 - m_iTrackCnt) : 2), 0,
+			97 * ((3 - m_iTrackCnt2 < 3) ? (3 - m_iTrackCnt2) : 2), 0,
 			97, 41,
 			UnitPixel, &attr);
 	
@@ -456,13 +457,13 @@ void CStage5::CheckBase2()
 
 	//Final
 	if (m_pBaseFinal->GetDraw() == true &&
-		IntersectRect(&rc, m_pBaseFinal->GetRect(), m_pPlayer->GetRect()))
+		IntersectRect(&rc, m_pBaseFinal->GetRect(), m_pPlayer2->GetRect()))
 	{
 		cout << "FinalRectCollision" << endl;
 
 		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 		m_eCurSceneState = SCENE_WIN;
-		dynamic_cast<CPlayer*>(m_pPlayer)->SetWin();
+		dynamic_cast<CPlayer*>(m_pPlayer2)->SetWin();
 		ChangeScene();
 	}
 

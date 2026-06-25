@@ -12,7 +12,7 @@
 #include "CPlayer2.h"
 #include "CStartEffect.h"
 
-CStage1::CStage1():m_pPlayer(nullptr), m_pPlayMode(nullptr)
+CStage1::CStage1():m_pPlayer(nullptr), m_pPlayer2(nullptr), m_pPlayMode(nullptr)
 {
 }
 
@@ -56,6 +56,7 @@ void CStage1::Initialize()
 
 
 	CObjMgr::GetInstance()->LoadStage1();
+	CStartEffect::GetInstance()->Initialize();
 	CSoundMgr::Get_Instance()->PlaySound(L"StageStart_7.wav", STAGE_START, 0.1f);
 }
 
