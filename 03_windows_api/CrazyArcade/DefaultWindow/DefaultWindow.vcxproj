@@ -165,6 +165,7 @@
     <ClInclude Include="CPlayer2.h" />
     <ClInclude Include="CScene.h" />
     <ClInclude Include="CSceneMgr.h" />
+    <ClInclude Include="CSelectPlayer.h" />
     <ClInclude Include="CShop.h" />
     <ClInclude Include="CSoundMgr.h" />
     <ClInclude Include="CStage1.h" />
@@ -213,6 +214,7 @@
     <ClCompile Include="CPlayer2.cpp" />
     <ClCompile Include="CScene.cpp" />
     <ClCompile Include="CSceneMgr.cpp" />
+    <ClCompile Include="CSelectPlayer.cpp" />
     <ClCompile Include="CShop.cpp" />
     <ClCompile Include="CSoundMgr.cpp" />
     <ClCompile Include="CStage1.cpp" />

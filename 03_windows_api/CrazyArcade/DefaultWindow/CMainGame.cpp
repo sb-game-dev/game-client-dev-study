@@ -267,6 +267,9 @@ void CMainGame::InsertImg()
 	//Notice_UI
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/Notice.bmp", L"Notice");
 
+	//SelectPlayer
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/UserSelect.bmp", L"UserSelect");
+
 	//Control_2P
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/Control_2P.bmp", L"Control_2P");
 

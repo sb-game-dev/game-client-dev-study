@@ -145,6 +145,9 @@
     <Filter Include="05. StartEffect">
       <UniqueIdentifier>{605850bf-cb16-466b-a3bb-4e2e0f558513}</UniqueIdentifier>
     </Filter>
+    <Filter Include="06. SelectPlayer">
+      <UniqueIdentifier>{0fbd32c5-4087-4a8f-aee0-18f43956ddee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -288,6 +291,9 @@
     <ClInclude Include="CStartEffect.h">
       <Filter>05. StartEffect</Filter>
     </ClInclude>
+    <ClInclude Include="CSelectPlayer.h">
+      <Filter>06. SelectPlayer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DefaultWindow.cpp">
@@ -415,6 +421,9 @@
     </ClCompile>
     <ClCompile Include="CStartEffect.cpp">
       <Filter>05. StartEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="CSelectPlayer.cpp">
+      <Filter>06. SelectPlayer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
