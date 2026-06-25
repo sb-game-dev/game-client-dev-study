@@ -106,15 +106,30 @@ void CStage1::LateUpdate()
 
 void CStage1::Render(HDC hDC)
 {
-	HDC hBackGround = CBmpMgr::GetInstance()->FindImage(L"stage_background");
-	
-	BitBlt(hDC,							// 목적지 DC
-		0, 0,
-		WINCX, WINCY,
-		hBackGround,					// 원본 DC
-		0,								// 원본 이미지에서 가져오기 시작할 좌표의 LEFT, TOP
-		0,
-		SRCCOPY);						// 그대로 복사하여 출력
+	HDC hBackGround = NULL;
+
+	if (*CSceneMgr::GetInstance()->GetPlayModePtr() == MODE1P)
+	{
+		hBackGround = CBmpMgr::GetInstance()->FindImage(L"stage_background");
+		BitBlt(hDC,							// 목적지 DC
+			0, 0,
+			WINCX, WINCY,
+			hBackGround,					// 원본 DC
+			0,								// 원본 이미지에서 가져오기 시작할 좌표의 LEFT, TOP
+			0,
+			SRCCOPY);						// 그대로 복사하여 출력
+	}
+	else 
+	{
+		hBackGround = CBmpMgr::GetInstance()->FindImage(L"stage_background2");
+		BitBlt(hDC,							// 목적지 DC
+			0, 0,
+			WINCX, WINCY,
+			hBackGround,					// 원본 DC
+			0,								// 원본 이미지에서 가져오기 시작할 좌표의 LEFT, TOP
+			0,
+			SRCCOPY);						// 그대로 복사하여 출력
+	}
 
 	CObjMgr::GetInstance()->Render(hDC);
 	int iItemCnt = 0;

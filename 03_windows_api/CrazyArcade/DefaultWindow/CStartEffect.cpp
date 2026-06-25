@@ -44,8 +44,7 @@ void CStartEffect::Update()
 {
 	if (m_bEffectRunning == false)
 		return;
-	//cout << m_fCnt << endl;
-	m_fCnt += 0.3f;
+	m_fCnt += 0.2f;
 	if (m_fCnt >= 1)
 	{
 		m_fTop1 -= m_fSpeed;

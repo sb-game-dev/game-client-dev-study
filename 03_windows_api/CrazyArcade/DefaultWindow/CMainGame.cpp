@@ -114,6 +114,7 @@ void CMainGame::InsertImg()
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/BackGround/menu_background.bmp", L"menu_background");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/BackGround/edit_background.bmp", L"edit_background");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/BackGround/stage_background.bmp", L"stage_background");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/BackGround/stage_background2.bmp", L"stage_background2");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/BackGround/stage2.bmp", L"stage2");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/BackGround/shop.bmp", L"shop");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/BackGround/stage3.bmp", L"stage3");
