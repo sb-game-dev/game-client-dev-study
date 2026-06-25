@@ -489,9 +489,6 @@ void CStage5::CheckCollisionGasStation()
 	{
 		m_pPlayer->SetDraw(true);
 	}
-
-		
-	
 }
 
 void CStage5::CheckCollisionGasStation2()
