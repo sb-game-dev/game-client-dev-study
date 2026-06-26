@@ -191,7 +191,6 @@ void CObjMgr::LateUpdate()
 			CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOMB2], m_ObjList[OBJ_WAVE]);
 			CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOMB2], m_ObjList[OBJ_DART]);
 
-
 			CCollisionMgr::CollisionBody(m_ObjList[OBJ_BOMB2], m_ObjList[OBJ_PLAYER]);
 		}
 
@@ -205,9 +204,9 @@ void CObjMgr::LateUpdate()
 		{
 			CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER2], m_ObjList[OBJ_MONSTER]);
 			CCollisionMgr::CollisionAttack(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_BOMB2]);
+			CCollisionMgr::CollisionAttack(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_WAVE]);
 
 			//CCollisionMgr::CollisionBody(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_BOMB2]);
-			//CCollisionMgr::CollisionAttack(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_WAVE]);
 			//CCollisionMgr::CollisionBody(m_ObjList[OBJ_MONSTER], m_TileVec);
 		}
 

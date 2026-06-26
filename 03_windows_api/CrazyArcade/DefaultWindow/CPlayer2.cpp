@@ -909,16 +909,16 @@ void CPlayer2::CreateDart()
 {
 	CObj* pDart = CAbstractFactory<CDart>::Create(m_tInfo.fX, m_tInfo.fY, L"dart_obj");
 
-
-	if (!lstrcmp(m_pFrameKey, L"player_down"))
+	if (!lstrcmp(m_pFrameKey, L"player_down2"))
 		pDart->SetDirection(DIR_DOWN);
-	else if (!lstrcmp(m_pFrameKey, L"player_up"))
+	else if (!lstrcmp(m_pFrameKey, L"player_up2"))
 		pDart->SetDirection(DIR_UP);
-	else if (!lstrcmp(m_pFrameKey, L"player_left"))
+	else if (!lstrcmp(m_pFrameKey, L"player_left2"))
 		pDart->SetDirection(DIR_LEFT);
-	else if (!lstrcmp(m_pFrameKey, L"player_right"))
+	else if (!lstrcmp(m_pFrameKey, L"player_right2"))
 		pDart->SetDirection(DIR_RIGHT);
 
+	cout << "CreateDart" << endl;
 	CObjMgr::GetInstance()->AddObject(OBJ_DART, pDart);
 	CSoundMgr::Get_Instance()->PlaySound(L"dart.wav", SOUND_DART, 0.3f);
 }
@@ -1082,6 +1082,7 @@ void CPlayer2::PickUpItem(const WCHAR* pItemFrameKey)
 	{
 		m_ePreMotion = MOTION_END;
 		m_bRide = true;
+		m_fRemainGas = 300.f;
 		ChangeMotion();
 	}
 	else if (!lstrcmp(pItemFrameKey, L"trampoline"))

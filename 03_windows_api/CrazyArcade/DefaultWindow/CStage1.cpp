@@ -63,14 +63,17 @@ void CStage1::Initialize()
 
 int CStage1::Update()
 {
+	CObjMgr::GetInstance()->Update();
+	CStartEffect::GetInstance()->Update();
+
 	if (CObjMgr::GetInstance()->GetRemainMonster() <= 0)
 	{
 		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 		m_eCurSceneState = SCENE_WIN;
-		//if (m_pPlayer) 
-		//	dynamic_cast<CPlayer*>(m_pPlayer)->SetWin();
-		//if (m_pPlayer2) 
-		//	dynamic_cast<CPlayer2*>(m_pPlayer2)->SetWin();
+		if (dynamic_cast<CPlayer*>(m_pPlayer))
+			dynamic_cast<CPlayer*>(m_pPlayer)->SetWin();
+		if (dynamic_cast<CPlayer2*>(m_pPlayer2))
+			dynamic_cast<CPlayer2*>(m_pPlayer2)->SetWin();
 		ChangeScene();
 	}
 	else if (CObjMgr::GetInstance()->GetRemainPlayer() == false && CObjMgr::GetInstance()->GetRemainPlayer2() == false)
@@ -79,10 +82,6 @@ int CStage1::Update()
 		m_eCurSceneState = SCENE_LOSE;
 		ChangeScene();
 	}
-
-	CObjMgr::GetInstance()->Update();
-	CStartEffect::GetInstance()->Update();
-	
 	return 0;
 }
 

@@ -244,17 +244,21 @@ void CStage4::Initialize()
 
 int CStage4::Update()
 {
+	CObjMgr::GetInstance()->Update();
+	CStartEffect::GetInstance()->Update();
 	if (m_iPlayer1ClearCnt >= 34)
 	{
 		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 		m_eCurSceneState = SCENE_WIN;
 		dynamic_cast<CPlayer*>(m_pPlayer)->SetWin();
+		dynamic_cast<CPlayer2*>(m_pPlayer2)->SetBossHit();
 		ChangeScene();
 	}
 	else if (m_iPlayer2ClearCnt >= 34)
 	{
 		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 		m_eCurSceneState = SCENE_WIN;
+		dynamic_cast<CPlayer*>(m_pPlayer)->SetBossHit();
 		dynamic_cast<CPlayer2*>(m_pPlayer2)->SetWin();
 		ChangeScene();
 	}
@@ -273,8 +277,6 @@ int CStage4::Update()
 			ChangeScene();
 		}
 	}
-	CObjMgr::GetInstance()->Update();
-	CStartEffect::GetInstance()->Update();
 	return 0;
 }
 

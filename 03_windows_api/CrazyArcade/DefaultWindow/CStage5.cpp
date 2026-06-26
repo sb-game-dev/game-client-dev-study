@@ -121,43 +121,43 @@ void CStage5::Initialize()
 		}
 	}
 
-	m_pBaseStartEffect1 = CAbstractFactory<CBaseEffect>::Create((12 * 40) + 40, (11 * 40) + 60 + 20, L"tile_start1");
+	m_pBaseStartEffect1 = CAbstractFactory<CBaseEffect>::Create((12 * 40) + 40, (11 * 40) + 60 + 20, L"tile_start2");
 	dynamic_cast<CBaseEffect*>(m_pBaseStartEffect1)->SetMoveFrame(true);
 	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBaseStartEffect1);
 
-	m_pBaseStartEffect2 = CAbstractFactory<CBaseEffect>::Create((12 * 40) + 40, (11 * 40) + 60 + 20, L"tile_start2");
+	m_pBaseStartEffect2 = CAbstractFactory<CBaseEffect>::Create((12 * 40) + 40, (11 * 40) + 60 + 20, L"tile_start1");
 	dynamic_cast<CBaseEffect*>(m_pBaseStartEffect2)->SetMoveFrame(true);
 	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBaseStartEffect2);
 
-	m_pBase1Effect1 = CAbstractFactory<CBaseEffect>::Create((2 * 40) + 40, (3 * 40) + 60, L"tile_base1_1");
+	m_pBase1Effect1 = CAbstractFactory<CBaseEffect>::Create((2 * 40) + 40, (3 * 40) + 60, L"tile_base1_2");
 	m_pBase1Effect1->SetDraw(false);
 	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBase1Effect1);
 
-	m_pBase1Effect2 = CAbstractFactory<CBaseEffect>::Create((2 * 40) + 40, (3 * 40) + 60, L"tile_base1_2");
+	m_pBase1Effect2 = CAbstractFactory<CBaseEffect>::Create((2 * 40) + 40, (3 * 40) + 60, L"tile_base1_1");
 	m_pBase1Effect2->SetDraw(false);
 	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBase1Effect2);
 
-	m_pBase2Effect1 = CAbstractFactory<CBaseEffect>::Create((10 * 40) + 40, (1 * 40) + 60, L"tile_base2_1");
+	m_pBase2Effect1 = CAbstractFactory<CBaseEffect>::Create((10 * 40) + 40, (1 * 40) + 60, L"tile_base2_2");
 	m_pBase2Effect1->SetDraw(false);
 	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBase2Effect1);
 
-	m_pBase2Effect2 = CAbstractFactory<CBaseEffect>::Create((10 * 40) + 40, (1 * 40) + 60, L"tile_base2_2");
+	m_pBase2Effect2 = CAbstractFactory<CBaseEffect>::Create((10 * 40) + 40, (1 * 40) + 60, L"tile_base2_1");
 	m_pBase2Effect2->SetDraw(false);
 	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBase2Effect2);
 
-	m_pBase3Effect1 = CAbstractFactory<CBaseEffect>::Create((2 * 40) + 40, (11 * 40) + 60, L"tile_base3_1");
+	m_pBase3Effect1 = CAbstractFactory<CBaseEffect>::Create((2 * 40) + 40, (11 * 40) + 60, L"tile_base3_2");
 	m_pBase3Effect1->SetDraw(false);
 	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBase3Effect1);
 
-	m_pBase3Effect2 = CAbstractFactory<CBaseEffect>::Create((2 * 40) + 40, (11 * 40) + 60, L"tile_base3_2");
+	m_pBase3Effect2 = CAbstractFactory<CBaseEffect>::Create((2 * 40) + 40, (11 * 40) + 60, L"tile_base3_1");
 	m_pBase3Effect2->SetDraw(false);
 	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBase3Effect2);
 
-	m_pBase4Effect1 = CAbstractFactory<CBaseEffect>::Create((14 * 40) + 40, (5 * 40) + 60, L"tile_base4_1");
+	m_pBase4Effect1 = CAbstractFactory<CBaseEffect>::Create((14 * 40) + 40, (5 * 40) + 60, L"tile_base4_2");
 	m_pBase4Effect1->SetDraw(false);
 	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBase4Effect1);
 
-	m_pBase4Effect2 = CAbstractFactory<CBaseEffect>::Create((14 * 40) + 40, (5 * 40) + 60, L"tile_base4_2");
+	m_pBase4Effect2 = CAbstractFactory<CBaseEffect>::Create((14 * 40) + 40, (5 * 40) + 60, L"tile_base4_1");
 	m_pBase4Effect2->SetDraw(false);
 	CObjMgr::GetInstance()->AddObject(OBJ_BASE, m_pBase4Effect2);
 
@@ -521,7 +521,8 @@ void CStage5::CheckBase()
 	}
 	
 	//Final
-	if (m_pBaseFinal->GetDraw() == true &&
+	if (m_iTrackCnt<=0 &&
+		m_pBaseFinal->GetDraw() == true &&
 		IntersectRect(&rc, m_pBaseFinal->GetRect(), m_pPlayer->GetRect()))
 	{
 		cout << "FinalRectCollision" << endl;
@@ -529,6 +530,7 @@ void CStage5::CheckBase()
 		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 		m_eCurSceneState = SCENE_WIN;
 		dynamic_cast<CPlayer*>(m_pPlayer)->SetWin();
+		
 		ChangeScene();
 	}	
 }
@@ -579,7 +581,8 @@ void CStage5::CheckBase2()
 	}
 
 	//Final
-	if (m_pBaseFinal->GetDraw() == true &&
+	if (m_iTrackCnt2 <= 0 &&
+		m_pBaseFinal->GetDraw() == true &&
 		IntersectRect(&rc, m_pBaseFinal->GetRect(), m_pPlayer2->GetRect()))
 	{
 		cout << "FinalRectCollision" << endl;
@@ -587,6 +590,7 @@ void CStage5::CheckBase2()
 		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 		m_eCurSceneState = SCENE_WIN;
 		dynamic_cast<CPlayer2*>(m_pPlayer2)->SetWin();
+		dynamic_cast<CPlayer*>(m_pPlayer)->SetBossHit();
 		ChangeScene();
 	}
 

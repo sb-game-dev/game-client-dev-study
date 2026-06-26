@@ -322,7 +322,7 @@ void CPlayer::KeyInput()
 				return;
 		}
 	}
-	if (CKeyMgr::GetInstance()->KeyDown(VK_RCONTROL) && *CSceneMgr::GetInstance()->GetPlayModePtr() == MODE2P)
+	if (CKeyMgr::GetInstance()->KeyDown('M') && *CSceneMgr::GetInstance()->GetPlayModePtr() == MODE2P)
 	{
 		if (m_iCtrlSlotCnt < 1) return;
 
@@ -1332,6 +1332,7 @@ void CPlayer::PickUpItem(const WCHAR* pItemFrameKey)
 	{
 		m_ePreMotion = MOTION_END;
 		m_bRide = true;
+		m_fRemainGas = 300.f;
 		ChangeMotion();
 	}
 	else if (!lstrcmp(pItemFrameKey, L"trampoline"))
