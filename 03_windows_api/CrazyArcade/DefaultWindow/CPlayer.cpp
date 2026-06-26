@@ -1114,6 +1114,8 @@ void CPlayer::SetHit()
 }
 void CPlayer::CreateBomb()
 {
+	if (m_bDraw == false)
+		return;
 	float fX = AdjustPosX(m_tInfo.fX);
 	float fY = AdjustPosY(m_tInfo.fY);
 	CObj* pBomb = CAbstractFactory<CBomb>::Create(fX, fY, L"BlueBubble");

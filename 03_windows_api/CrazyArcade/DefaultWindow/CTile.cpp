@@ -245,15 +245,19 @@ void CTile::CheckFrame()
 
 		m_tFrame.iCX = TILECX;
 		m_tFrame.iCY = TILECY;
-		//m_bDraw = false;
 
-		if(rand()%10 < 4)
-			CreateItem();
 
-		//m_tFrame.iCX = TILECX;
-		//m_tFrame.iCY = TILECY;
-		//m_tFrame.dwSpeed = 1.f;
-		//m_tFrame.dwTime = GetTickCount64();
+		if (CSceneMgr::GetInstance()->GetCurScene() == SC_STAGE5)
+		{
+			if (rand() % 10 < 80)
+				CreateItem();
+		}
+		else
+		{
+			if (rand() % 10 < 80)
+				CreateItem();
+		}
+
 	}
 }
 

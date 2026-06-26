@@ -131,6 +131,8 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 					CMark* pDstMark = dynamic_cast<CMark*>(Dst);
 					if (pDstItem)
 					{
+						if (pSrcPlayer->GetRide() == true)
+							return;
 						pSrcPlayer->PickUpItem(pDstItem->GetFrameKey());
 						pDstItem->SetDead();
 					}
@@ -148,6 +150,8 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 					CMark* pDstMark = dynamic_cast<CMark*>(Dst);
 					if (pDstItem)
 					{
+						if (pSrcPlayer2->GetRide() == true)
+							return;
 						pSrcPlayer2->PickUpItem(pDstItem->GetFrameKey());
 						pDstItem->SetDead();
 					}
