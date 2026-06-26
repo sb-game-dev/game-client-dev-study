@@ -186,6 +186,19 @@ void CMainGame::InsertImg()
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_live.bmp", L"player_live");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_win.bmp", L"player_win");
 
+
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_start2.bmp", L"player_start2");
+
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_down2.bmp", L"player_down2");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_up2.bmp", L"player_up2");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_left2.bmp", L"player_left2");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_right2.bmp", L"player_right2");
+
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_hit2.bmp", L"player_hit2");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_death2.bmp", L"player_death2");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_live2.bmp", L"player_live2");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_win2.bmp", L"player_win2");
+
 	//Tile
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile.bmp", L"tile");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile_hit.bmp", L"tile_hit");

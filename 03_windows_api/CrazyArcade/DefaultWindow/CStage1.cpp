@@ -38,7 +38,7 @@ void CStage1::Initialize()
 	{
 		int iPlayer2_StartX = 2;
 		int iPlayer2_StartY = 3;
-		m_pPlayer2 = CAbstractFactory<CPlayer2>::Create((iPlayer2_StartX * 40) + 40, (iPlayer2_StartY * 40) + 60, L"player_start");
+		m_pPlayer2 = CAbstractFactory<CPlayer2>::Create((iPlayer2_StartX * 40) + 40, (iPlayer2_StartY * 40) + 60, L"player_start2");
 		CObjMgr::GetInstance()->AddObject(OBJ_PLAYER2, m_pPlayer2);
 	}
 

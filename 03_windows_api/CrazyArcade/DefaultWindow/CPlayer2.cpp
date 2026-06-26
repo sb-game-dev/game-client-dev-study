@@ -482,7 +482,7 @@ void CPlayer2::ChangeMotion()
 	case START:
 		m_pRespawnPoint->SetDraw(false);
 		m_fSpeed = 0;
-		m_pFrameKey = L"player_start";
+		m_pFrameKey = L"player_start2";
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 18;
 		m_tFrame.iMotion = 0;
@@ -522,7 +522,7 @@ void CPlayer2::ChangeMotion()
 		if (m_bRide == false)
 		{
 			m_fSpeed = m_fWalkSpeed;
-			m_pFrameKey = L"player_left";
+			m_pFrameKey = L"player_left2";
 			m_tFrame.iStart = 0;
 			m_tFrame.iEnd = 6;
 			m_tFrame.iMotion = 0;
@@ -550,7 +550,7 @@ void CPlayer2::ChangeMotion()
 		if (m_bRide == false)
 		{
 			m_fSpeed = m_fWalkSpeed;
-			m_pFrameKey = L"player_right";
+			m_pFrameKey = L"player_right2";
 			m_tFrame.iStart = 0;
 			m_tFrame.iEnd = 6;
 			m_tFrame.iMotion = 0;
@@ -578,7 +578,7 @@ void CPlayer2::ChangeMotion()
 		if (m_bRide == false)
 		{
 			m_fSpeed = m_fWalkSpeed;
-			m_pFrameKey = L"player_up";
+			m_pFrameKey = L"player_up2";
 			m_tFrame.iStart = 0;
 			m_tFrame.iEnd = 8;
 			m_tFrame.iMotion = 0;
@@ -607,7 +607,7 @@ void CPlayer2::ChangeMotion()
 		if (m_bRide == false)
 		{
 			m_fSpeed = m_fWalkSpeed;
-			m_pFrameKey = L"player_down";
+			m_pFrameKey = L"player_down2";
 			m_tFrame.iStart = 0;
 			m_tFrame.iEnd = 8;
 			m_tFrame.iMotion = 0;
@@ -647,7 +647,7 @@ void CPlayer2::ChangeMotion()
 	case HIT:
 		CSoundMgr::Get_Instance()->PlaySound(L"PlayerGetBubble.wav", PLAYER_BUBBLE, 0.2f);
 		m_fSpeed = m_fBubbleSpeed;
-		m_pFrameKey = L"player_hit";
+		m_pFrameKey = L"player_hit2";
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 13;
 		m_tFrame.iMotion = 0;
@@ -668,7 +668,7 @@ void CPlayer2::ChangeMotion()
 	case DEATH:
 		CSoundMgr::Get_Instance()->PlaySound(L"PlayerDead_12.wav", PLAYER_DEAD, 0.2f);
 		m_fSpeed = 0;
-		m_pFrameKey = L"player_death";
+		m_pFrameKey = L"player_death2";
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 15;
 		m_tFrame.iMotion = 0;
@@ -694,7 +694,7 @@ void CPlayer2::ChangeMotion()
 		break;
 	case WIN:
 		m_fSpeed = 0;
-		m_pFrameKey = L"player_win";
+		m_pFrameKey = L"player_win2";
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 8;
 		m_tFrame.iMotion = 0;

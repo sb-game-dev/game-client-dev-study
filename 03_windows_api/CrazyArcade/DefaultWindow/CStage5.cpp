@@ -73,11 +73,11 @@ void CStage5::Initialize()
 #endif // _DEBUG
 	if (*m_pPlayMode == MODE2P)
 	{
-		m_pPlayer2 = CAbstractFactory<CPlayer2>::Create((iPlayer2_StartX * 40) + 40, (iPlayer2_StartY * 40) + 60, L"player_start");
+		m_pPlayer2 = CAbstractFactory<CPlayer2>::Create((iPlayer2_StartX * 40) + 40, (iPlayer2_StartY * 40) + 60, L"player_start2");
 		CObjMgr::GetInstance()->AddObject(OBJ_PLAYER2, m_pPlayer2);
 	}
 
-	m_pBaseStart = CAbstractFactory<CBase>::Create((12 * 40) + 40, (11 * 40) + 60 + 20, L"tile_start");	
+	m_pBaseStart = CAbstractFactory<CBase>::Create((12 * 40) + 40, (11 * 40) + 60 + 20, L"tile_start");
 
 
 	m_pBase1	 = CAbstractFactory<CBase>::Create((2 * 40) + 40, (3 * 40) + 60, L"tile_base1");
