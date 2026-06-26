@@ -274,6 +274,9 @@ void CMainGame::InsertImg()
 
 	//Inventory_UI
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/MyPage.bmp", L"MyPage");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/MyPage1P.bmp", L"MyPage1P");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/MyPage2P-1.bmp", L"MyPage2P-1");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/MyPage2P-2.bmp", L"MyPage2P-2");
 
 
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/Slot1.bmp", L"Slot1");

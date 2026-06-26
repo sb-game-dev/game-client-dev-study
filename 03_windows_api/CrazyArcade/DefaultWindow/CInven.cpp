@@ -8,6 +8,8 @@
 #include "CSoundMgr.h"
 #include "CItem.h"
 #include "CMouse.h"
+#include "CSceneMgr.h"
+#include "CSelectPlayer.h"
 
 CInven* CInven::m_pInstance = nullptr;
 CInven::CInven():m_iGold(100000),m_bDraw(false), m_bButtonCurState(false), m_bButtonPreState(false), m_iPreSlotIndex(- 1)
@@ -109,39 +111,21 @@ void CInven::LateUpdate()
 			dynamic_cast<CMouse*> (m_pMouse)->SetChoiceItem(-1);
 		}
 	}
-	//if (CKeyMgr::GetInstance()->KeyUp(VK_LBUTTON))
-	//{
-	//	if (ptMouse.y < 411)
-	//	{
-	//		if (dynamic_cast<CMouse*>(m_pMouse)->GetChoiceItem() != -1)
-	//		{
-	//			int iX = m_ItemStorage.size();
-	//			switch (dynamic_cast<CMouse*>(m_pMouse)->GetChoiceItem())
-	//			{
-	//			case 1:
-	//				m_ItemStorage.push_back(CAbstractFactory<CButton>::Create(478 + iX * 72, 411, L"InvenItem", TILE1));
-	//				break;
-	//			case 2:
-	//				m_ItemStorage.push_back(CAbstractFactory<CButton>::Create(478 + iX * 72, 411, L"InvenItem", TILE2));
-	//				break;
-	//			case 3:
-	//				m_ItemStorage.push_back(CAbstractFactory<CButton>::Create(478 + iX * 72, 411, L"InvenItem", PUSH));
-	//				break;
-	//			default:
-	//				break;
-	//			}
-	//			cout << "스토리치에 추가 후 스토리지 사이즈: " << m_ItemStorage.size() << endl;
-	//		}
-	//	}
-	//}
 }
 void CInven::Render(HDC hDC)
 {
 	if (m_bDraw == false)
 		return;
-	HDC hMyPage = CBmpMgr::GetInstance()->FindImage(L"MyPage");
-	GdiTransparentBlt(hDC,185,16,595,538,hMyPage,0,0,595,538,RGB(255, 0, 255));	
-
+	if (*CSceneMgr::GetInstance()->GetPlayModePtr() == MODE1P)
+	{
+		HDC hMyPage = CBmpMgr::GetInstance()->FindImage(L"MyPage1P");
+		GdiTransparentBlt(hDC, 185, 16, 595, 538, hMyPage, 0, 0, 595, 538, RGB(255, 0, 255));
+	}
+	else
+	{
+		HDC hMyPage = CBmpMgr::GetInstance()->FindImage(L"MyPage2P-1");
+		GdiTransparentBlt(hDC, 185, 16, 595, 538, hMyPage, 0, 0, 595, 538, RGB(255, 0, 255));
+	}
 	HDC hExitButton = CBmpMgr::GetInstance()->FindImage(L"button_InvenExit");
 	BitBlt(hDC, 238, 505, 137, 31, hExitButton, 137 * m_pExitButton->GetFrame().iStart, 0, SRCCOPY);
 

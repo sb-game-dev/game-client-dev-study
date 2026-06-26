@@ -140,7 +140,7 @@ void CInven2::Render(HDC hDC)
 {
 	if (m_bDraw == false)
 		return;
-	HDC hMyPage = CBmpMgr::GetInstance()->FindImage(L"MyPage");
+	HDC hMyPage = CBmpMgr::GetInstance()->FindImage(L"MyPage2P-2");
 	GdiTransparentBlt(hDC, 185, 16, 595, 538, hMyPage, 0, 0, 595, 538, RGB(255, 0, 255));
 
 	HDC hExitButton = CBmpMgr::GetInstance()->FindImage(L"button_InvenExit");
