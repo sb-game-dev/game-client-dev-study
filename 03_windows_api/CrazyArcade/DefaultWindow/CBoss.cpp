@@ -14,6 +14,8 @@ m_bCheckRemainTile(true), m_iRemainTile(195), m_fAngrySpeed(4.f),m_fWalkSpeed(1.
 	m_ePreMotion = MOTION_END;
 	m_eCurMotion = IDLE;
 	m_eReturnMotion = IDLE;
+
+	m_bBossWin = true;
 }
 
 CBoss::~CBoss()
@@ -40,7 +42,7 @@ int CBoss::Update()
 	if (m_bDead == DEAD)
 		return DEAD;
 
-	if (CObjMgr::GetInstance()->GetRemainPlayer() == false && CObjMgr::GetInstance()->GetRemainPlayer2() == false)
+	if ((CObjMgr::GetInstance()->GetRemainPlayer() == false && CObjMgr::GetInstance()->GetRemainPlayer2() == false) || m_bBossWin == true)
 	{
 		m_eCurMotion = DOWN;
 		ChangeMotion();

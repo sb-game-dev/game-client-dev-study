@@ -13,6 +13,7 @@
 #include "CStartEffect.h"
 #include "CSelectPlayer.h"
 #include "CInven2.h"
+#include "CTimer.h"
 CMainGame::CMainGame() :m_hDC(NULL), m_memDC(NULL), m_Bit(NULL), m_Old(NULL),m_pGraphics(NULL), m_iFPS(0),m_dwTime(GetTickCount64())
 {
 	ZeroMemory(&m_szFPS, sizeof(m_szFPS));
@@ -108,6 +109,7 @@ void CMainGame::Release()
 	CNotice::Destroy();
 	CStartEffect::Destroy();
 	CSelectPlayer::Destroy();
+	CTimer::Destroy();
 }
 
 void CMainGame::InsertImg()
@@ -281,6 +283,9 @@ void CMainGame::InsertImg()
 
 	//Numver_UI
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/Timer/numbers.bmp", L"numbers");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/Timer/TimerNumbers.bmp", L"TimerNumbers");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/Timer/Time.bmp", L"Time");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/Timer/Dot.bmp", L"Dot");
 
 	//Inventory_UI
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/MyPage.bmp", L"MyPage");

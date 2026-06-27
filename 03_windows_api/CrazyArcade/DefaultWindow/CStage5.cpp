@@ -19,6 +19,7 @@
 #include "CBaseEffect.h"
 #include "CStartEffect.h"
 #include "CInven2.h"
+#include "CTimer.h"
 CStage5::CStage5() :m_hBackGround(NULL), m_pTileVector(nullptr), m_pPlayerRemainGas(nullptr), m_pPlayerRemainGas2(nullptr), m_pPlayMode(nullptr)
 {
 	m_pBaseStart	= nullptr;
@@ -163,13 +164,14 @@ void CStage5::Initialize()
 
 
 	CStartEffect::GetInstance()->Initialize();
+	CTimer::GetInstance()->Initialize();
 	CSoundMgr::Get_Instance()->PlaySound(L"StageStart_7.wav", STAGE_START, 0.2f);
 }
 
 int CStage5::Update()
 {
 	CObjMgr::GetInstance()->Update();
-
+	CTimer::GetInstance()->Update();
 	CheckCollisionGasStation();
 	CheckCollisionGasStation2();
 	CStartEffect::GetInstance()->Update();
@@ -206,16 +208,16 @@ void CStage5::LateUpdate()
 
 void CStage5::Render(HDC hDC)
 {
-	BitBlt(hDC,							// 목적지 DC
+	BitBlt(hDC,		
 		0, 0,
 		WINCX, WINCY,
-		m_hBackGround,					// 원본 DC
-		0,								// 원본 이미지에서 가져오기 시작할 좌표의 LEFT, TOP
+		m_hBackGround,
+		0,			
 		0,
-		SRCCOPY);						// 그대로 복사하여 출력
+		SRCCOPY);	
 
 	CObjMgr::GetInstance()->Render(hDC);
-
+	CTimer::GetInstance()->Render(hDC);
 	if (m_pPlayer && dynamic_cast<CPlayer*>(m_pPlayer)->GetRide())
 	{
 		Graphics* _pGraphics = Graphics::FromHDC(hDC);
@@ -293,17 +295,7 @@ void CStage5::Render(HDC hDC)
 			default:
 				break;
 			}
-			HDC hSlotNum = CBmpMgr::GetInstance()->FindImage(L"InGameNumber");
-
-			BitBlt(hDC,							// 목적지 DC
-				243 + 40 * iItemCnt,
-				568,
-				13, 11,
-				hSlotNum,						// 원본 DC
-				13 * iItemCnt,					// 원본 이미지에서 가져오기 시작할 좌표의 LEFT, TOP
-				0,
-				SRCCOPY);						// 그대로 복사하여 출력
-
+			
 			HDC hSlotItem = CBmpMgr::GetInstance()->FindImage(L"InGameSlot");
 			GdiTransparentBlt(hDC,						// 목적지 DC
 				243 + 40 * iItemCnt,						// 목적지 LEFT, TOP
@@ -316,6 +308,18 @@ void CStage5::Render(HDC hDC)
 				37,										// 원본 이미지 가로, 세로 사이즈
 				29,
 				RGB(255, 0, 255));						// 제거할 픽셀 색상
+			HDC hSlotNum = CBmpMgr::GetInstance()->FindImage(L"InGameNumber");
+
+			BitBlt(hDC,							// 목적지 DC
+				243 + 40 * iItemCnt,
+				568,
+				13, 11,
+				hSlotNum,						// 원본 DC
+				13 * iItemCnt,					// 원본 이미지에서 가져오기 시작할 좌표의 LEFT, TOP
+				0,
+				SRCCOPY);						// 그대로 복사하여 출력
+
+			
 			++iItemCnt;
 		}
 	}
@@ -530,6 +534,7 @@ void CStage5::CheckBase()
 		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 		m_eCurSceneState = SCENE_WIN;
 		dynamic_cast<CPlayer*>(m_pPlayer)->SetWin();
+		dynamic_cast<CPlayer2*>(m_pPlayer2)->SetLose();
 		
 		ChangeScene();
 	}	
@@ -590,7 +595,7 @@ void CStage5::CheckBase2()
 		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 		m_eCurSceneState = SCENE_WIN;
 		dynamic_cast<CPlayer2*>(m_pPlayer2)->SetWin();
-		dynamic_cast<CPlayer*>(m_pPlayer)->SetBossHit();
+		dynamic_cast<CPlayer*>(m_pPlayer)->SetLose();
 		ChangeScene();
 	}
 

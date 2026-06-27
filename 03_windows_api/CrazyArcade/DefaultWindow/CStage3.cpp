@@ -14,6 +14,7 @@
 #include "CPlayer2.h"
 #include "CStartEffect.h"
 #include "CInven2.h"
+#include "CTimer.h"
 CStage3::CStage3() :m_pPlayer(nullptr), m_pPlayer2(nullptr), m_pPlayMode(nullptr)
 {
 }
@@ -58,6 +59,7 @@ void CStage3::Initialize()
 
 	CObjMgr::GetInstance()->LoadStage3();
 	CStartEffect::GetInstance()->Initialize();
+	CTimer::GetInstance()->Initialize();
 	CSoundMgr::Get_Instance()->PlaySound(L"StageStart_7.wav", STAGE_START, 0.1f);
 }
 
@@ -65,6 +67,7 @@ int CStage3::Update()
 {
 	CObjMgr::GetInstance()->Update();
 	CStartEffect::GetInstance()->Update();
+	CTimer::GetInstance()->Update();
 	if (CObjMgr::GetInstance()->GetRemainBoss() == false)
 	{
 		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
@@ -75,8 +78,22 @@ int CStage3::Update()
 			dynamic_cast<CPlayer2*>(m_pPlayer2)->SetWin();
 		ChangeScene();
 	}
-	else if (CObjMgr::GetInstance()->GetRemainPlayer() == false && CObjMgr::GetInstance()->GetRemainPlayer2() == false)
+	else if (CTimer::GetInstance()->GetSec() <= 0 || (CObjMgr::GetInstance()->GetRemainPlayer() == false && CObjMgr::GetInstance()->GetRemainPlayer2() == false))
 	{
+		if (dynamic_cast<CPlayer*>(m_pPlayer))
+			dynamic_cast<CPlayer*>(m_pPlayer)->SetLose();
+		if (dynamic_cast<CPlayer2*>(m_pPlayer2))
+			dynamic_cast<CPlayer2*>(m_pPlayer2)->SetLose();
+		for (auto& pMonster : CObjMgr::GetInstance()->GetList(OBJ_MONSTER))
+		{
+			CMonster* pTempMonster = dynamic_cast<CMonster*>(pMonster);
+			if (pTempMonster)
+				pTempMonster->SetMonsterWin();
+		}
+		CBoss* pTempBoss = dynamic_cast<CBoss*>(CObjMgr::GetInstance()->GetList(OBJ_BOSS).front());
+		if(pTempBoss)
+			pTempBoss->SetBossWin();
+
 		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 		m_eCurSceneState = SCENE_LOSE;
 		ChangeScene();
@@ -115,7 +132,8 @@ void CStage3::Render(HDC hDC)
 		0,								// 원본 이미지에서 가져오기 시작할 좌표의 LEFT, TOP
 		0,
 		SRCCOPY);						// 그대로 복사하여 출력
-
+	
+	CTimer::GetInstance()->Render(hDC);
 	CObjMgr::GetInstance()->Render(hDC); 
 	if (*CSceneMgr::GetInstance()->GetPlayModePtr() == MODE1P)
 	{

@@ -14,6 +14,7 @@ public:
     void        Release()           override;
 public:
     void	    SetHit() { m_eCurMotion = HIT; ChangeMotion(); }
+    void        SetMonsterWin() { m_bMonsterWin = true; };
     void        LeftHandRuleMove();
 private:
     void        ChangeMotion();
@@ -30,5 +31,7 @@ private:
 
     float       m_fDstX;
     float       m_fDstY;
+
+    bool        m_bMonsterWin;
 };
 

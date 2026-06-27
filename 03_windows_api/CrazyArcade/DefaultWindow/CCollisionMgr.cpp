@@ -35,12 +35,17 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 				if (pDstBomb)
 				{
 					CDart* pSrcDart = dynamic_cast<CDart*>(Src);
+					CBoss* pSrcBoss = dynamic_cast<CBoss*>(Src);
 					CObjMgr::GetInstance()->AddObject(OBJ_WAVE, pDstBomb->CreateWave());
 					pDstBomb->SetDead();
 					if (pSrcDart)
 					{
 						CSoundMgr::Get_Instance()->PlaySound(L"BubblePop.wav", BOMB_EXPLODE, 0.3f);
 						pSrcDart->SetDead();
+					}
+					if (pSrcBoss)
+					{
+						CSoundMgr::Get_Instance()->PlaySound(L"BubblePop.wav", BOMB_EXPLODE, 0.3f);
 					}
 				}
 				else if (pDstPlayer)
@@ -166,7 +171,6 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 					if (pDstMonster && pSrcBomb->GetCanMove() == true)
 					{
 						pSrcBomb->SetCanMove(false);
-						CSoundMgr::Get_Instance()->PlaySound(L"BubblePop.wav", BOMB_EXPLODE, 0.3f);
 						//pDstMonster->LeftHandRuleMove();
 						//pSrcBomb->SetPosX(AdjustPosX(pSrcBomb->GetInfo()->fX));
 						//pSrcBomb->SetPosY(AdjustPosY(pSrcBomb->GetInfo()->fY));

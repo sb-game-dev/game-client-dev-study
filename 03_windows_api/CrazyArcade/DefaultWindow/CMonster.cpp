@@ -4,7 +4,7 @@
 #include "CObjMgr.h"
 
 CMonster::CMonster():m_ePreMotion(MOTION_END), m_eCurMotion(START), m_dwFrameCount(GetTickCount64()), m_pTile(nullptr), m_pBombList(nullptr),
-m_fDstX(0.f), m_fDstY(0.f), m_pBombList2(nullptr)
+m_fDstX(0.f), m_fDstY(0.f), m_pBombList2(nullptr), m_bMonsterWin(false)
 {
 
 }
@@ -45,7 +45,7 @@ int CMonster::Update()
 {
 	if (m_bDead == DEAD)
 		return DEAD;
-	if (CObjMgr::GetInstance()->GetRemainPlayer() == false && CObjMgr::GetInstance()->GetRemainPlayer2() == false)
+	if ((CObjMgr::GetInstance()->GetRemainPlayer() == false && CObjMgr::GetInstance()->GetRemainPlayer2() == false) || m_bMonsterWin)
 	{
 		m_eCurMotion = DOWN;
 		ChangeMotion();

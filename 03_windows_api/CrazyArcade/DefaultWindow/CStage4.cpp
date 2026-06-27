@@ -16,6 +16,7 @@
 #include "CPlayer2.h"
 #include "CStartEffect.h"
 #include "CInven2.h"
+#include "CTimer.h"
 
 
 //extern PLAYMODE		g_ePlayerMode;
@@ -239,6 +240,8 @@ void CStage4::Initialize()
 		}
 	}
 	CStartEffect::GetInstance()->Initialize();
+	CTimer::GetInstance()->Initialize();
+
 	CSoundMgr::Get_Instance()->PlaySound(L"StageStart_7.wav", STAGE_START, 0.1f);
 }
 
@@ -246,19 +249,41 @@ int CStage4::Update()
 {
 	CObjMgr::GetInstance()->Update();
 	CStartEffect::GetInstance()->Update();
+	CTimer::GetInstance()->Update();
+	if (CTimer::GetInstance()->GetSec() <= 0)
+	{
+		if (m_iPlayer1ClearCnt >= m_iPlayer2ClearCnt)
+		{
+			CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
+			m_eCurSceneState = SCENE_WIN;
+			dynamic_cast<CPlayer*>(m_pPlayer)->SetWin();
+			dynamic_cast<CPlayer2*>(m_pPlayer2)->SetLose();
+			ChangeScene();
+		}
+		else
+		{
+			CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
+			m_eCurSceneState = SCENE_WIN;
+			dynamic_cast<CPlayer*>(m_pPlayer)->SetLose();
+			dynamic_cast<CPlayer2*>(m_pPlayer2)->SetWin();
+			ChangeScene();
+		}
+		return 0;
+	}
+
 	if (m_iPlayer1ClearCnt >= 34)
 	{
 		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 		m_eCurSceneState = SCENE_WIN;
 		dynamic_cast<CPlayer*>(m_pPlayer)->SetWin();
-		dynamic_cast<CPlayer2*>(m_pPlayer2)->SetBossHit();
+		dynamic_cast<CPlayer2*>(m_pPlayer2)->SetLose();
 		ChangeScene();
 	}
 	else if (m_iPlayer2ClearCnt >= 34)
 	{
 		CSoundMgr::Get_Instance()->StopSound(SOUND_BGM);
 		m_eCurSceneState = SCENE_WIN;
-		dynamic_cast<CPlayer*>(m_pPlayer)->SetBossHit();
+		dynamic_cast<CPlayer*>(m_pPlayer)->SetLose();
 		dynamic_cast<CPlayer2*>(m_pPlayer2)->SetWin();
 		ChangeScene();
 	}
@@ -366,7 +391,7 @@ void CStage4::Render(HDC hDC)
 		0,								// 원본 이미지에서 가져오기 시작할 좌표의 LEFT, TOP
 		0,
 		SRCCOPY);						// 그대로 복사하여 출력
-
+	CTimer::GetInstance()->Render(hDC);
 	int iPlayer1Score = m_iPlayer1ClearCnt;
 	int iPlayer1NumCnt = 0;
 	while (iPlayer1Score)

@@ -176,6 +176,7 @@
     <ClInclude Include="CStage5.h" />
     <ClInclude Include="CStartEffect.h" />
     <ClInclude Include="CTile.h" />
+    <ClInclude Include="CTimer.h" />
     <ClInclude Include="CUI.h" />
     <ClInclude Include="CWave.h" />
     <ClInclude Include="DefaultWindow.h" />
@@ -226,6 +227,7 @@
     <ClCompile Include="CStage5.cpp" />
     <ClCompile Include="CStartEffect.cpp" />
     <ClCompile Include="CTile.cpp" />
+    <ClCompile Include="CTimer.cpp" />
     <ClCompile Include="CUI.cpp" />
     <ClCompile Include="CWave.cpp" />
     <ClCompile Include="DefaultWindow.cpp" />

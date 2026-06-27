@@ -73,7 +73,7 @@ int CPlayer::Update()
 	if (m_bDead == DEAD)
 		return DEAD;
 	cout <<"m_fBlockMoveTime: "<< m_fBlockMoveTime << endl;
-	if (m_eCurMotion != DEATH && m_eCurMotion != START && m_eCurMotion != WIN && m_eCurMotion != RESPAWN)
+	if (m_eCurMotion != DEATH && m_eCurMotion != START && m_eCurMotion != WIN && m_eCurMotion != RESPAWN && m_eCurMotion != LOSE)
 		KeyInput();
 	CheckFrame();
 	MoveFrame();
@@ -939,6 +939,15 @@ void CPlayer::ChangeMotion()
 		m_tFrame.dwSpeed = 130.f;
 		m_tFrame.dwTime = GetTickCount64();
 		break;
+	case LOSE:
+		m_pFrameKey = L"player_down";
+		m_fSpeed = 0;
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 1;
+		m_tFrame.iMotion = 0;
+		m_tFrame.bLoop = false;
+		m_tFrame.dwSpeed = 100.f;
+		m_tFrame.dwTime = GetTickCount64();
 	case MOTION_END:
 		break;
 	default:
@@ -1063,22 +1072,6 @@ void CPlayer::CheckPushBlock(DIRECTION eDIR)
 	if (fCheckX<=40 || fCheckX >= 600 || fCheckY <=60 || fCheckY >= 540)
 		return;
 
-	//int x = (fCheckX - MAP_LEFT) / TILECX;
-	//int y = (fCheckY - MAP_TOP) / TILECX;
-	//
-	//int iIndex = y * MAP_CNT_X + x;
-	//CTile* pTempTile = dynamic_cast<CTile*>((*m_pTileVector)[iIndex]);
-	//if (pTempTile->GetFrame().iStart == 2 && pTempTile->GetMove() == false)
-	//{
-	//	m_fBlockMoveTime += 1.f;
-	//
-	//	if (m_fBlockMoveTime >= 50.f)
-	//	{
-	//		m_fBlockMoveTime = 0;
-	//		pTempTile->SetMove(eDIR);
-	//	}
-	//}
-
 	for (auto& pTile : *m_pTileVector)
 	{
 		CTile* pTempTile = dynamic_cast<CTile*>(pTile);
@@ -1103,18 +1096,35 @@ void CPlayer::CheckKickBomb(DIRECTION eDIR)
 {
 	if (m_bShoe == false)
 		return;
-	float tempx = 0.f;
+	//float tempx = 0.f;
+	float fCheckX = AdjustPosX(m_tInfo.fX);
+	float fCheckY = AdjustPosY(m_tInfo.fY);
+	switch (eDIR)
+	{
+	case DIR_LEFT:
+		fCheckX -= 40.f;
+		break;
+	case DIR_UP:
+		fCheckY -= 40.f;
+		break;
+	case DIR_RIGHT:
+		fCheckX += 40.f;
+		break;
+	case DIR_DOWN:
+		fCheckY += 40.f;
+		break;
+	}
 	for (auto& pBomb : CObjMgr::GetInstance()->GetList(OBJ_BOMB))
 	{
 		CBomb* pTempBomb = dynamic_cast<CBomb*>(pBomb);
 		if (pTempBomb->GetPlayerCollision() == false)
 			continue;
-		if (fabsf(m_tInfo.fX - pTempBomb->GetInfo()->fX) <= 35.f
-			&& fabsf(m_tInfo.fY - pTempBomb->GetInfo()->fY) <= 35.f)
+		if (fabsf(fCheckX - pTempBomb->GetInfo()->fX) <= 35.f
+			&& fabsf(fCheckY - pTempBomb->GetInfo()->fY) <= 35.f)
 		{
 			m_fKickBombTime += 1.f;
 
-			if (m_fKickBombTime >= 5.f)
+			if (m_fKickBombTime >= 15.f)
 			{
 
 				cout << m_fKickBombTime << endl;

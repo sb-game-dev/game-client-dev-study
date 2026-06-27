@@ -15,6 +15,7 @@ public:
 
 public:
 	void		SetHit()			override;
+	void		SetBossWin() { m_bBossWin = true; }
 	MOTION		GetCurMotion() { return m_eCurMotion; }
 	void		SetDeath() { m_eCurMotion = DEATH; ChangeMotion(); }
 private:
@@ -56,5 +57,7 @@ private:
 	int			m_iShootCnt;
 	bool		m_bCheckRemainTile;
 	int			m_iRemainTile;
+
+	bool		m_bBossWin;
 };
 

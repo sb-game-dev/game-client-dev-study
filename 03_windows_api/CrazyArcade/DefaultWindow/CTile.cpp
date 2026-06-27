@@ -223,8 +223,16 @@ void CTile::CheckFrame()
 		}
 		else
 		{
-			if (rand() % 10 < 80)
-				CreateItem();
+			if (CSceneMgr::GetInstance()->GetCurScene() == SC_STAGE3)
+			{
+				if (rand() % 10 < 40)
+					CreateItem();
+			}
+			else
+			{
+				if (rand() % 10 < 80)
+					CreateItem();
+			}
 		}
 
 	}

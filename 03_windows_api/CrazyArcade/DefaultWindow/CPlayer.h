@@ -37,6 +37,7 @@ public:
     void        SetReduceBombCnt() { --m_iBombCnt; }
     void        AddGas(float fGas) { m_fRemainGas += fGas; }
     void        SetWin() { m_eCurMotion = WIN; ChangeMotion(); }
+    void        SetLose() { m_eCurMotion = LOSE; ChangeMotion(); }
 
     MOTION      GetCurMotion() { return m_eCurMotion; }
     bool        GetShield() { return m_bShowShieldEffect; }
