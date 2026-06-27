@@ -166,6 +166,7 @@ void CCollisionMgr::CollisionAttack(list<CObj*>& DstList, list<CObj*>& SrcList)
 					if (pDstMonster && pSrcBomb->GetCanMove() == true)
 					{
 						pSrcBomb->SetCanMove(false);
+						CSoundMgr::Get_Instance()->PlaySound(L"BubblePop.wav", BOMB_EXPLODE, 0.3f);
 						//pDstMonster->LeftHandRuleMove();
 						//pSrcBomb->SetPosX(AdjustPosX(pSrcBomb->GetInfo()->fX));
 						//pSrcBomb->SetPosY(AdjustPosY(pSrcBomb->GetInfo()->fY));

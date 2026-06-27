@@ -22,6 +22,7 @@ using namespace std;
 #include <gdiplus.h>
 using namespace Gdiplus;
 #pragma comment (lib,"Gdiplus.lib")
+#pragma comment(lib, "msimg32.lib")
 
 #include "fmod.h"
 #include "fmod.hpp"

@@ -115,6 +115,10 @@ void CMainGame::InsertImg()
 	//BackGround
 	CImgMgr::GetInstance()->InsertImg(L"../Resource/BackGround/Logo.png", L"Logo");
 	CImgMgr::GetInstance()->InsertImg(L"../Resource/BackGround/black_bg.png", L"black_bg");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/BackGround/black_bg.bmp", L"black_bg1");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/BackGround/black_bg.bmp", L"black_bg2");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/BackGround/black_bg.bmp", L"black_bg3");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/BackGround/black_bg.bmp", L"black_bg4");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/BackGround/menu_background.bmp", L"menu_background");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/BackGround/edit_background.bmp", L"edit_background");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/BackGround/stage_background.bmp", L"stage_background");
@@ -180,6 +184,12 @@ void CMainGame::InsertImg()
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_up.bmp", L"player_up");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_left.bmp", L"player_left");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_right.bmp", L"player_right");
+
+
+	CImgMgr::GetInstance()->InsertImg(L"../Resource/Player/player_down.png", L"player_down");
+	CImgMgr::GetInstance()->InsertImg(L"../Resource/Player/player_up.png", L"player_up");
+	CImgMgr::GetInstance()->InsertImg(L"../Resource/Player/player_left.png", L"player_left");
+	CImgMgr::GetInstance()->InsertImg(L"../Resource/Player/player_right.png", L"player_right");
 
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_hit.bmp", L"player_hit");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_death.bmp", L"player_death");

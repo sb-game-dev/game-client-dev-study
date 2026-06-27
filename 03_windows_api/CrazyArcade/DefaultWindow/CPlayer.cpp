@@ -17,8 +17,13 @@
 CPlayer::CPlayer():m_ePreMotion(MOTION_END), m_eCurMotion(START), m_fWalkSpeed(3.f), m_fBubbleSpeed(0.5f), m_dwFrameCount(GetTickCount64()),
 m_fBlockMoveTime(0.f), m_iBombRange(1), m_iBombMax(1), m_iBombCnt(0), m_bShowItemGainEffect(false), m_eItemFrameKey(ITEMTYPE_END),
 m_dwItemEffectFrameCount(GetTickCount64()),m_iCtrlSlotCnt(0), m_eCtrlSlot(ITEMTYPE_END), m_dwShieldEffectFrameCount(GetTickCount64()), m_pTileVector(nullptr),
-m_bRide(false), m_fKartSpeed(6.f), m_fRemainGas(300.f), m_pPlayMode(nullptr), m_fRespawnTime(2000), m_pRespawnPoint(nullptr)
+m_bRide(false), m_fKartSpeed(6.f), m_fRemainGas(300.f), m_pPlayMode(nullptr), m_fRespawnTime(2000), m_pRespawnPoint(nullptr), m_bBlur(false)
 {
+	m_iMaxVecSize = 5;
+	m_iVecSize = 0;
+	m_FrameKeyvector.reserve(m_iMaxVecSize);
+
+
 	m_bShowShieldEffect = false;
 	m_iShieldFrame = 0;
 
@@ -93,6 +98,7 @@ int CPlayer::Update()
 
 void CPlayer::LateUpdate()
 {
+	
 }
 
 void CPlayer::Render(HDC hDC)
@@ -106,20 +112,27 @@ void CPlayer::Render(HDC hDC)
 #endif // _DEBUG
 	if (m_bDraw == true)
 	{
+		if (m_bBlur)
+		{
+			ShowBlur(hDC);
+		}
+		else
+		{
+			HDC hPlayer = CBmpMgr::GetInstance()->FindImage(m_pFrameKey);
+			
+			GdiTransparentBlt(hDC,					// 목적지 DC
+				int(m_tInfo.fX - (m_tFrame.iCX / 2)),	// 목적지 LEFT, TOP
+				int(m_tInfo.fY - (m_tFrame.iCY - m_tInfo.fCY * 0.5)),
+				m_tFrame.iCX,			// 목적지 공간의 가로, 세로 사이즈
+				m_tFrame.iCY,
+				hPlayer,						// 원본 이미지 DC
+				m_tFrame.iCX * m_tFrame.iStart,	// 원본 이미지 LEFT, TOP
+				0,
+				m_tFrame.iCX,			// 원본 이미지 가로, 세로 사이즈
+				m_tFrame.iCY,
+				RGB(255, 0, 255));		// 제거할 픽셀 색상
+		}
 
-		HDC hPlayer = CBmpMgr::GetInstance()->FindImage(m_pFrameKey);
-
-		GdiTransparentBlt(hDC,					// 목적지 DC
-			int(m_tInfo.fX - (m_tFrame.iCX / 2)),	// 목적지 LEFT, TOP
-			int(m_tInfo.fY - (m_tFrame.iCY - m_tInfo.fCY * 0.5)),
-			m_tFrame.iCX,			// 목적지 공간의 가로, 세로 사이즈
-			m_tFrame.iCY,
-			hPlayer,						// 원본 이미지 DC
-			m_tFrame.iCX * m_tFrame.iStart,	// 원본 이미지 LEFT, TOP
-			0,
-			m_tFrame.iCX,			// 원본 이미지 가로, 세로 사이즈
-			m_tFrame.iCY,
-			RGB(255, 0, 255));		// 제거할 픽셀 색상
 
 		if (*m_pPlayMode == MODE2P)
 		{
@@ -691,6 +704,7 @@ void CPlayer::ChangeMotion()
 	switch (m_eCurMotion)
 	{
 	case START:
+		m_bBlur = false;
 		m_pRespawnPoint->SetDraw(false);
 		m_bDraw = true;
 		m_fSpeed = 0;
@@ -720,6 +734,7 @@ void CPlayer::ChangeMotion()
 		}
 		else
 		{
+			m_bBlur = false;
 			m_fSpeed = m_fKartSpeed;
 			m_tFrame.iStart = 0;
 			m_tFrame.iEnd = 1;
@@ -745,6 +760,7 @@ void CPlayer::ChangeMotion()
 		}
 		else
 		{
+			m_bBlur = false;
 			m_fSpeed = m_fKartSpeed;
 			m_pFrameKey = L"kart_left";
 			m_tFrame.iStart = 0;
@@ -773,6 +789,7 @@ void CPlayer::ChangeMotion()
 		}
 		else
 		{
+			m_bBlur = false;
 			m_fSpeed = m_fKartSpeed;
 			m_pFrameKey = L"kart_right";
 			m_tFrame.iStart = 0;
@@ -801,6 +818,7 @@ void CPlayer::ChangeMotion()
 		}
 		else
 		{
+			m_bBlur = false;
 			m_fSpeed = m_fKartSpeed;
 			m_pFrameKey = L"kart_up";
 			m_tFrame.iStart = 0;
@@ -830,6 +848,7 @@ void CPlayer::ChangeMotion()
 		}
 		else
 		{
+			m_bBlur = false;
 			m_fSpeed = m_fKartSpeed;
 			m_pFrameKey = L"kart_down";
 			m_tFrame.iStart = 0;
@@ -843,6 +862,7 @@ void CPlayer::ChangeMotion()
 		}
 		break;
 	case DISMOUNT:
+		m_bBlur = false;
 		m_fSpeed = 0;
 		m_pFrameKey = L"kart_dismount";
 		m_tFrame.iStart = 0;
@@ -856,6 +876,7 @@ void CPlayer::ChangeMotion()
 		m_dwFrameCount = GetTickCount64();
 		break;
 	case HIT:
+		m_bBlur = false;
 		CSoundMgr::Get_Instance()->PlaySound(L"PlayerGetBubble.wav", PLAYER_BUBBLE, 0.2f);
 		m_fSpeed = m_fBubbleSpeed;
 		m_pFrameKey = L"player_hit";
@@ -870,6 +891,7 @@ void CPlayer::ChangeMotion()
 		m_dwFrameCount = GetTickCount64();
 		break;
 	case DEATH:
+		m_bBlur = false;
 		CSoundMgr::Get_Instance()->PlaySound(L"PlayerDead_12.wav", PLAYER_DEAD, 0.2f);
 		m_fSpeed = 0;
 		m_pFrameKey = L"player_death";
@@ -884,12 +906,14 @@ void CPlayer::ChangeMotion()
 		m_dwFrameCount = GetTickCount64();
 		break;
 	case RESPAWN:
+		m_bBlur = false;
 		m_pRespawnPoint->SetDraw(true);
 		m_fSpeed = 0;
 		m_dwFrameCount = GetTickCount64();
 		m_bDraw = false;
 		break;
 	case REVIVAL:
+		m_bBlur = false;
 		m_fSpeed = 0;
 		m_pFrameKey = L"player_live";
 		m_tFrame.iStart = 0;
@@ -903,6 +927,7 @@ void CPlayer::ChangeMotion()
 		m_dwFrameCount = GetTickCount64();
 		break;
 	case WIN:
+		m_bBlur = false;
 		m_fSpeed = 0;
 		m_pFrameKey = L"player_win";
 		m_tFrame.iStart = 0;
@@ -927,6 +952,7 @@ void CPlayer::CheckFrame()
 	if (m_eCurMotion == START
 		&& m_dwFrameCount + m_tFrame.dwSpeed * m_tFrame.iEnd <= GetTickCount64())
 	{
+		m_bBlur = true;
 		m_eCurMotion = DOWN;
 		ChangeMotion();
 	}
@@ -1282,6 +1308,49 @@ void CPlayer::ShowShield(HDC hDC)
 		88,			// 원본 이미지 가로, 세로 사이즈
 		101,
 		RGB(255, 0, 255));		// 제거할 픽셀 색상
+}
+
+void CPlayer::ShowBlur(HDC hDC)
+{
+	if (m_iVecSize < 4)
+	{
+		++m_iVecSize;
+	}
+	else
+	{
+		m_PosVector.erase(m_PosVector.begin());
+		m_FrameKeyvector.erase(m_FrameKeyvector.begin());
+	}
+	m_PosVector.push_back({ m_tInfo.fX,m_tInfo.fY });
+	m_FrameKeyvector.push_back(m_pFrameKey);
+	float fAlpha = 0.2f;
+	for (int i = 0; i < m_iVecSize; ++i)
+	{
+		Graphics* _pGraphics = Graphics::FromHDC(hDC);
+		Gdiplus::Image* hBlur = CImgMgr::GetInstance()->FindImg(m_FrameKeyvector[i]);
+
+		Rect rect = { 
+			int(m_PosVector[i].first - (m_tFrame.iCX / 2)),
+			int(m_PosVector[i].second - (m_tFrame.iCY - m_tInfo.fCY * 0.5)),
+			m_tFrame.iCX,
+			m_tFrame.iCY,
+		};
+
+		ImageAttributes attr;
+		attr.SetColorKey(
+			Color(255, 0, 255),
+			Color(255, 0, 255));
+
+		MakeAlphaAttr(attr, fAlpha);
+
+		_pGraphics->DrawImage(hBlur, rect,
+			m_tFrame.iCX * m_tFrame.iStart, 0,
+			m_tFrame.iCX,
+			m_tFrame.iCY,
+			UnitPixel, 
+			&attr);
+		fAlpha += 0.2;
+	}
 }
 
 void CPlayer::PickUpItem(const WCHAR* pItemFrameKey)

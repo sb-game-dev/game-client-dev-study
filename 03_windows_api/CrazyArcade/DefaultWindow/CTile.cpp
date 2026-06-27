@@ -120,25 +120,7 @@ void CTile::Move()
 		m_bMove = false;
 		return;
 	}
-	//for (auto& pTile : CObjMgr::GetInstance()->GetTile())
-	//{
-	//	if (pTile == this) continue;
-	//
-	//	if (pTile->GetFrame().iStart >= 1
-	//		&&fabsf(m_fDstX - pTile->GetInfo()->fX) <= 20.f
-	//		&& fabsf(m_fDstY - pTile->GetInfo()->fY) <= 20.f)
-	//	{
-	//		m_bMove = false;
-	//		return;
-	//	}
-	//	//if (pTile->GetFrame().iStart >= 1
-	//	//	&& m_fDstX == pTile->GetInfo()->fX
-	//	//	&& m_fDstY == pTile->GetInfo()->fY)
-	//	//{
-	//	//	m_bMove = false;
-	//	//	return;
-	//	//}
-	//}
+
 	int x = (m_fDstX - MAP_LEFT) / TILECX;
 	int y = (m_fDstY - MAP_TOP) / TILECX;
 	int Index = y * MAP_CNT_X + x;
@@ -147,19 +129,6 @@ void CTile::Move()
 	{
 		m_bMove = false;
 		return;
-	}
-
-
-
-
-	for (auto& pBomb : CObjMgr::GetInstance()->GetList(OBJ_BOMB2))
-	{
-		if (fabsf(pBomb->GetInfo()->fX - x) <= 15 &&
-			fabsf(pBomb->GetInfo()->fY - y) <= 15)
-		{
-			m_bMove = false;
-			return;
-		}
 	}
 
 	if (m_tInfo.fX < m_fDstX) m_tInfo.fX += 2.0f;
@@ -222,8 +191,8 @@ void CTile::SetMove(DIRECTION eDIR)
 	}
 	for (auto& pMonster : CObjMgr::GetInstance()->GetList(OBJ_MONSTER))
 	{
-		if (fabsf(m_fDstX - pMonster->GetInfo()->fX)
-			&& fabsf(m_fDstY == pMonster->GetInfo()->fY))
+		if (fabsf(m_fDstX - pMonster->GetInfo()->fX) <= 20.f
+			&& fabsf(m_fDstY == pMonster->GetInfo()->fY) <= 20.f)
 		{
 			m_bMove = false;
 			return;
