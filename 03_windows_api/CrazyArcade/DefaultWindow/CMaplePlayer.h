@@ -20,6 +20,7 @@ private:
 	void        ChangeMotion();
 	void        CheckFrame();
 
+
 	void        Jump();
 	void        Gravity();
 	void        DownJump();
@@ -28,6 +29,7 @@ private:
 private:
 	MOTION      m_ePreMotion;
 	MOTION      m_eCurMotion;
+
 	ULONGLONG   m_dwFrameCount;
 	float       m_time;
 	float       m_fJumpPower;
@@ -40,6 +42,8 @@ private:
 	float       m_fPrevX;
 	float       m_fPrevY;
 
-	CLine* m_pCurLine;
+	CLine*		m_pCurLine;
+
+	bool		m_bMoveFrame;
 };
 

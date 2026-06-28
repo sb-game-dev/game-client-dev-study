@@ -4,7 +4,9 @@
 #include "CLineMgr.h"
 #include "CBmpMgr.h"
 
-CMaplePlayer::CMaplePlayer():m_eCurMotion(MOTION_END), m_ePreMotion(MOTION_END),m_dwFrameCount(GetTickCount64())
+CMaplePlayer::CMaplePlayer():m_eCurMotion(MOTION_END), m_ePreMotion(MOTION_END),m_dwFrameCount(GetTickCount64()),
+m_time(0), m_ePreMoveState(MOVE_GROUND), m_eMoveState(MOVE_GROUND), m_bJump(false), m_bFalling(false), m_fPrevX(0.f), m_fPrevY(0.f), m_pCurLine(nullptr), m_fJumpPower(10),
+m_bMoveFrame(true)
 {
 }
 
@@ -14,6 +16,14 @@ CMaplePlayer::~CMaplePlayer()
 
 void CMaplePlayer::Initialize()
 {
+
+	CLine* pLine = CLineMgr::GetInstance()->GetFirstLine();
+	float x = (pLine->GetLine().tLeft.fX + pLine->GetLine().tRight.fX) * 0.5f;
+	float y = pLine->GetLine().tLeft.fY;
+
+	m_tInfo.fX = x;
+	m_tInfo.fY = y;
+
 	m_eRenderID = GAMEOBJECT;
 
 	m_tInfo.fCX = 32.f;
@@ -36,20 +46,69 @@ void CMaplePlayer::Initialize()
 
 int CMaplePlayer::Update()
 {
+	m_fPrevX = m_tInfo.fX;
+	m_fPrevY = m_tInfo.fY;
+
 	KeyInput();
-	MoveFrame();
+	if(m_bMoveFrame)
+		MoveFrame();
+
+	//cout << CLineMgr::GetInstance()->CheckRopeLine(m_tInfo.fX, m_tInfo.fY) << endl;
+	cout << "PlayerX: " << m_tInfo.fX << endl;
+	cout << "PlayerY: " << m_tInfo.fY << endl;
+	if (m_eMoveState == MOVE_ROPE)
+		m_time = 0;
+	if (m_eMoveState == MOVE_GROUND)
+	{
+		m_time = 0;
+		if (CLineMgr::GetInstance()->SetLine(m_tInfo.fX, m_tInfo.fY, m_fPrevX, m_fPrevY) == false)
+		{
+			m_eMoveState = MOVE_FALL;
+		}
+		else
+		{
+			m_pCurLine = CLineMgr::GetInstance()->FindCurrentLine(m_tInfo.fX, m_tInfo.fY);
+		}
+	}
+
 	return 0;
 }
 
 void CMaplePlayer::LateUpdate()
 {
-
+	switch (m_eMoveState)
+	{
+	case MOVE_GROUND:
+		//cout << "MOVE_GROUND" << endl;
+		break;
+	case MOVE_JUMP:
+		//cout << "MOVE_JUMP" << endl;
+		Jump();
+		break;
+	case MOVE_FALL:
+		//cout << "MOVE_FALL" << endl;
+		Gravity();
+		break;
+	case MOVE_DOWNJUMP:
+		//cout << "MOVE_DOWNJUMP" << endl;
+		DownJump();
+		break;
+	case MOVE_TAKEDAMAGER:
+		//cout << "MOVE_TAKEDAMAGER" << endl;
+		TakeDamage();
+		break;
+	case MOVE_TAKEDAMAGEL:
+		//cout << "MOVE_TAKEDAMAGEL" << endl;
+		TakeDamage();
+		break;
+	default:
+		break;
+	}
 }
 
 void CMaplePlayer::Render(HDC hDC)
 {
 	HDC hPlayer = CBmpMgr::GetInstance()->FindImage(m_pFrameKey);
-	cout << "PlayerRender" << endl;
 	GdiTransparentBlt(hDC,					// 格利瘤 DC
 		int(m_tInfo.fX - (m_tFrame.iCX / 2)),	// 格利瘤 LEFT, TOP
 		int(m_tInfo.fY - (m_tFrame.iCY - m_tInfo.fCY * 0.5)),
@@ -72,38 +131,113 @@ void CMaplePlayer::KeyInput()
 	if (CKeyMgr::GetInstance()->KeyPressing(VK_RIGHT))
 	{
 		m_pFrameKey = L"Player_RIGHT";
-		m_eMoveState = MOVE_GROUND;
-		
-		m_tInfo.fX += m_fSpeed;
+		m_eCurMotion = RIGHT;
+		if (m_eMoveState != MOVE_ROPE)
+		{
+			//CScrollMgr::GetInstance()->SetScrollX(-m_fSpeed);
+			m_tInfo.fX += m_fSpeed;
+		}
 		ChangeMotion();
 	}
 	else if (CKeyMgr::GetInstance()->KeyPressing(VK_LEFT))
 	{
 		m_pFrameKey = L"Player_LEFT";
-		m_eMoveState = MOVE_GROUND;
-		
-		m_tInfo.fX -= m_fSpeed; 
+		m_eCurMotion = LEFT; 
+		if (m_eMoveState != MOVE_ROPE)
+		{
+			//CScrollMgr::GetInstance()->SetScrollX(m_fSpeed);
+			m_tInfo.fX -= m_fSpeed;
+		}
 		ChangeMotion();
 	}
 	else
 	{
-		m_eMoveState = MOVE_IDLE;
+		m_eCurMotion = IDLE;
 		ChangeMotion();
 	}
-	if (CKeyMgr::GetInstance()->KeyPressing(VK_MENU))
+
+	if (CKeyMgr::GetInstance()->KeyPressing(VK_DOWN))
 	{
-		//Jump();
-		m_eMoveState = MOVE_JUMP;
-		ChangeMotion();
+		if (m_eMoveState == MOVE_GROUND)
+		{
+			m_eCurMotion = DOWN;
+			ChangeMotion();
+		}
+
+		if (CKeyMgr::GetInstance()->KeyDown(VK_SPACE) && m_eMoveState == MOVE_GROUND)
+		{
+			m_time = 0.f;
+			m_eMoveState = MOVE_DOWNJUMP;
+		}
 	}
+	if (CKeyMgr::GetInstance()->KeyPressing(VK_SPACE))
+	{
+		if (m_eMoveState == MOVE_GROUND)
+		{
+			m_time = 0.f;
+			m_eMoveState = MOVE_JUMP;
+			m_eCurMotion = JUMP;
+			ChangeMotion();
+		}
+	}
+	if (CLineMgr::GetInstance()->CheckRopeLine(m_tInfo.fX, m_tInfo.fY))
+	{
+		if (m_eMoveState == MOVE_ROPE)
+		{
+			m_eCurMotion = ROPE;
+			ChangeMotion();
+		}
+		m_bMoveFrame = false;
+		if (CKeyMgr::GetInstance()->KeyPressing(VK_UP))
+		{
+			m_bMoveFrame = true;
+			CLineMgr::GetInstance()->SetRopeLine(m_tInfo.fX, m_tInfo.fY);
+			if (m_tInfo.fY >= 50.f)
+				m_tInfo.fY -= m_fSpeed;
+			m_eMoveState = MOVE_ROPE;
+			if (!CLineMgr::GetInstance()->CheckRopeLine(m_tInfo.fX, m_tInfo.fY))
+			{
+				m_eMoveState = MOVE_GROUND;
+				m_eCurMotion = IDLE;
+				ChangeMotion();
+			}
+		}
+		if (CKeyMgr::GetInstance()->KeyPressing(VK_DOWN))
+		{
+			m_bMoveFrame = true;
+			CLineMgr::GetInstance()->SetRopeLine(m_tInfo.fX, m_tInfo.fY);
+			m_tInfo.fY += m_fSpeed;
+			m_eMoveState = MOVE_ROPE;
+			m_eCurMotion = ROPE;
+			ChangeMotion();
+
+			if (!CLineMgr::GetInstance()->CheckRopeLine(m_tInfo.fX, m_tInfo.fY))
+			{
+				m_eMoveState = MOVE_FALL;
+				m_eCurMotion = IDLE;
+				ChangeMotion();
+			}
+		}
+		if ((CKeyMgr::GetInstance()->KeyPressing(VK_RIGHT) || CKeyMgr::GetInstance()->KeyPressing(VK_LEFT)) && CKeyMgr::GetInstance()->KeyPressing(VK_SPACE))
+		{
+			m_time = 0.f;
+			m_eMoveState = MOVE_FALL;
+		}
+	}
+	else
+	{
+		m_bMoveFrame = true;
+	}
+	
 }
 void CMaplePlayer::ChangeMotion()
 {
-	if (m_ePreMoveState == m_eMoveState)
+	if (m_ePreMotion == m_eCurMotion)
 		return;
-	switch (m_eMoveState)
+	switch (m_eCurMotion)
 	{
-	case MOVE_IDLE:
+	case IDLE:
+		cout << "IDLE" << endl;
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 5;
 		m_tFrame.iMotion = 0;
@@ -111,7 +245,7 @@ void CMaplePlayer::ChangeMotion()
 		m_tFrame.dwSpeed = 100.f;
 		m_tFrame.dwTime = GetTickCount64();
 		break;
-	case MOVE_GROUND:
+	case LEFT:
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 3;
 		m_tFrame.iMotion = 1;
@@ -119,7 +253,15 @@ void CMaplePlayer::ChangeMotion()
 		m_tFrame.dwSpeed = 100.f;
 		m_tFrame.dwTime = GetTickCount64();
 		break;
-	case MOVE_JUMP:
+	case RIGHT:
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 3;
+		m_tFrame.iMotion = 1;
+		m_tFrame.bLoop = true;
+		m_tFrame.dwSpeed = 100.f;
+		m_tFrame.dwTime = GetTickCount64();
+		break;
+	case JUMP:
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 1;
 		m_tFrame.iMotion = 6;
@@ -127,10 +269,24 @@ void CMaplePlayer::ChangeMotion()
 		m_tFrame.dwSpeed = 100.f;
 		m_tFrame.dwTime = GetTickCount64();
 		break;
-	case MOVE_FALL:
+	case DOWN:
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 1;
+		m_tFrame.iMotion = 4;
+		m_tFrame.bLoop = true;
+		m_tFrame.dwSpeed = 100.f;
+		m_tFrame.dwTime = GetTickCount64();
+		break;
+	case ROPE:
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 2;
+		m_tFrame.iMotion = 7;
+		m_tFrame.bLoop = true;
+		m_tFrame.dwSpeed = 150.f;
+		m_tFrame.dwTime = GetTickCount64();
 		break;
 	}
-	m_ePreMoveState = m_eMoveState;
+	m_ePreMotion = m_eCurMotion;
 }
 
 void CMaplePlayer::CheckFrame()
@@ -140,31 +296,73 @@ void CMaplePlayer::CheckFrame()
 
 void CMaplePlayer::Jump()
 {
+	m_tFrame.iStart = 0;
+	m_tFrame.iEnd = 1;
+	m_tFrame.iMotion = 6;
+	m_tFrame.bLoop = true;
+	m_tFrame.dwSpeed = 100.f;
+	m_tFrame.dwTime = GetTickCount64();
+
 	m_time += 0.1f;
 	m_tInfo.fY += -m_fJumpPower * m_time + 0.5f * 9.8f * m_time * m_time;
+
 	if (-m_fJumpPower * m_time + 0.5f * 9.8f * m_time * m_time >= 0
 		&& CLineMgr::GetInstance()->SetLine(m_tInfo.fX, m_tInfo.fY, m_fPrevX, m_fPrevY))
 	{
-		m_eMoveState = MOVE_GROUND;
+		cout << "JumpEnd" << endl;
+		m_eMoveState = MOVE_GROUND; 
+		m_eCurMotion = IDLE;
+
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 5;
+		m_tFrame.iMotion = 0;
+		m_tFrame.bLoop = true;
+		m_tFrame.dwSpeed = 100.f;
+		m_tFrame.dwTime = GetTickCount64();
+		ChangeMotion();
 	}
 }
 
 void CMaplePlayer::Gravity()
 {
+	m_tFrame.iStart = 0;
+	m_tFrame.iEnd = 1;
+	m_tFrame.iMotion = 6;
+	m_tFrame.bLoop = true;
+	m_tFrame.dwSpeed = 100.f;
+	m_tFrame.dwTime = GetTickCount64();
+
 	m_time += 0.1f;
 	m_tInfo.fY += 0.5f * 9.8f * m_time * m_time;
 	if (CLineMgr::GetInstance()->SetLine(m_tInfo.fX, m_tInfo.fY, m_fPrevX, m_fPrevY))
 	{
 		m_eMoveState = MOVE_GROUND;
+		m_eCurMotion = IDLE;
+
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 5;
+		m_tFrame.iMotion = 0;
+		m_tFrame.bLoop = true;
+		m_tFrame.dwSpeed = 100.f;
+		m_tFrame.dwTime = GetTickCount64();
+		ChangeMotion();
 	}
 }
 
 void CMaplePlayer::DownJump()
 {
+	m_tFrame.iStart = 0;
+	m_tFrame.iEnd = 1;
+	m_tFrame.iMotion = 6;
+	m_tFrame.bLoop = true;
+	m_tFrame.dwSpeed = 100.f;
+	m_tFrame.dwTime = GetTickCount64();
+
 	m_time += 0.1f;
 	m_tInfo.fY += 0.5f * 9.8f * m_time * m_time;
 	if (m_pCurLine != nullptr && CLineMgr::GetInstance()->CheckDownJumpLine(m_tInfo.fX, m_tInfo.fY, m_pCurLine))
 	{
+
 		m_eMoveState = MOVE_FALL;
 	}
 }

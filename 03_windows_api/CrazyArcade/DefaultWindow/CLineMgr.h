@@ -15,8 +15,8 @@ public:
 	bool	SetRopeLine(float& fPlayerX, float fPlayerY);
 
 	bool	CheckDownJumpLine(float fX, float pY, CLine* pLine);
-	CLine* FindCurrentLine(float fPlayerX, float fPlayerY);
-	CLine* GetFirstLine() { return m_LineList.front(); }
+	CLine*	FindCurrentLine(float fPlayerX, float fPlayerY);
+	CLine*	GetFirstLine() { return m_LineList.front(); }
 
 public:
 	void	Initialize();

@@ -14,6 +14,8 @@
 #include "CSelectPlayer.h"
 #include "CInven2.h"
 #include "CTimer.h"
+#include "CLineMgr.h"
+#include "CScrollMgr.h"
 CMainGame::CMainGame() :m_hDC(NULL), m_memDC(NULL), m_Bit(NULL), m_Old(NULL),m_pGraphics(NULL), m_iFPS(0),m_dwTime(GetTickCount64())
 {
 	ZeroMemory(&m_szFPS, sizeof(m_szFPS));
@@ -110,6 +112,8 @@ void CMainGame::Release()
 	CStartEffect::Destroy();
 	CSelectPlayer::Destroy();
 	CTimer::Destroy();
+	CLineMgr::DestroyInstance();
+	CScrollMgr::DestroyInstance();
 }
 
 void CMainGame::InsertImg()
@@ -177,7 +181,7 @@ void CMainGame::InsertImg()
 	//Player
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Maple/Player/Player_LEFT.bmp", L"Player_LEFT");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Maple/Player/Player_RIGHT.bmp", L"Player_RIGHT");
-	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Maple/Player/Player_LOPE.bmp", L"Player_LOPE");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Maple/Player/Player_ROPE.bmp", L"Player_ROPE");
 
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_start.bmp", L"player_start");
 

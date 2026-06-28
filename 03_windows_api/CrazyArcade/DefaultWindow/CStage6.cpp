@@ -4,6 +4,7 @@
 #include "CMaplePlayer.h"
 #include "CBmpMgr.h"
 #include "CObjMgr.h"
+#include "CLineMgr.h"
 
 CStage6::CStage6()
 {
@@ -15,13 +16,17 @@ CStage6::~CStage6()
 
 void CStage6::Initialize()
 {
-	m_pPlayer = CAbstractFactory<CMaplePlayer>::Create(WINCX / 2, WINCY / 2, L"Player_RIGHT");
+	CLineMgr::GetInstance()->Initialize();
+
+
+	m_pPlayer = CAbstractFactory<CMaplePlayer>::Create(100, 500, L"Player_RIGHT");
 	CObjMgr::GetInstance()->AddObject(OBJ_PLAYER, m_pPlayer);
 }
 
 int CStage6::Update()
 {
 	CObjMgr::GetInstance()->Update();
+	CLineMgr::GetInstance()->Update();
 	return 0;
 }
 
@@ -41,6 +46,7 @@ void CStage6::Render(HDC hDC)
 		1080 - WINCY,
 		SRCCOPY);
 	CObjMgr::GetInstance()->Render(hDC);
+	CLineMgr::GetInstance()->Render(hDC);
 }
 
 void CStage6::Release()
