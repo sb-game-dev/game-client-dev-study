@@ -4,7 +4,7 @@
 #include "CObjMgr.h"
 
 CMonster::CMonster():m_ePreMotion(MOTION_END), m_eCurMotion(START), m_dwFrameCount(GetTickCount64()), m_pTile(nullptr), m_pBombList(nullptr),
-m_fDstX(0.f), m_fDstY(0.f), m_pBombList2(nullptr), m_bMonsterWin(false)
+m_fDstX(0.f), m_fDstY(0.f), m_pBombList2(nullptr), m_bMonsterWin(false), m_eMonsterType(MONSTERTYPE_END)
 {
 
 }
@@ -25,6 +25,14 @@ void CMonster::Initialize()
 	m_tInfo.fCX = 30.f;
 	m_tInfo.fCY = 30.f;
 
+	if (!lstrcmp(m_pFrameKey, L"Bean_Monster_Start"))
+	{
+		m_eMonsterType = BEAN1;
+	}
+	else if (!lstrcmp(m_pFrameKey, L"Bean_Monster_Start2"))
+	{
+		m_eMonsterType = BEAN2;
+	}
 	
 	m_fSpeed = 0.f;
 	m_tFrame.iStart = 0;
@@ -43,6 +51,7 @@ void CMonster::Initialize()
 
 int CMonster::Update()
 {
+	cout << m_eMonsterType << endl;
 	if (m_bDead == DEAD)
 		return DEAD;
 	if ((CObjMgr::GetInstance()->GetRemainPlayer() == false && CObjMgr::GetInstance()->GetRemainPlayer2() == false) || m_bMonsterWin)
@@ -129,8 +138,29 @@ void CMonster::ChangeMotion()
 		return;
 	switch (m_eCurMotion)
 	{
+	case START:
+		if (m_eMonsterType == BEAN1)
+			m_pFrameKey = L"Bean_Monster_Down";
+		else if (m_eMonsterType == BEAN2)
+			m_pFrameKey = L"Bean_Monster_Down2";
+		m_fSpeed = 0.f;
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 4;
+		m_tFrame.iMotion = 0;
+		m_tFrame.bLoop = false;
+		m_tFrame.iCX = 40;
+		m_tFrame.iCY = 40;
+		m_tFrame.dwSpeed = 150.f;
+		m_tFrame.dwTime = GetTickCount64();
+		m_ePreMotion = MOTION_END;
+		m_eCurMotion = START;
+		m_bCanMove = false;
+		break;
 	case IDLE:
-		m_pFrameKey = L"Bean_Monster_Down";
+		if(m_eMonsterType == BEAN1)
+			m_pFrameKey = L"Bean_Monster_Down";
+		else if(m_eMonsterType == BEAN2)
+			m_pFrameKey = L"Bean_Monster_Down2";
 		m_fSpeed = 0;
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 1;
@@ -139,7 +169,11 @@ void CMonster::ChangeMotion()
 		m_tFrame.dwTime = GetTickCount64();
 		break;
 	case LEFT:
-		m_pFrameKey = L"Bean_Monster_Left";
+		if (m_eMonsterType == BEAN1)
+			m_pFrameKey = L"Bean_Monster_Left";
+		else if(m_eMonsterType == BEAN2)
+			m_pFrameKey = L"Bean_Monster_Left2";
+
 		m_fSpeed = 2.f;
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 2;
@@ -148,7 +182,11 @@ void CMonster::ChangeMotion()
 		m_tFrame.dwTime = GetTickCount64();
 		break;
 	case RIGHT:
-		m_pFrameKey = L"Bean_Monster_Right";
+		if (m_eMonsterType == BEAN1)
+			m_pFrameKey = L"Bean_Monster_Right";
+		else if (m_eMonsterType == BEAN2)
+			m_pFrameKey = L"Bean_Monster_Right2";
+
 		m_fSpeed = 2.f;
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 2;
@@ -157,7 +195,10 @@ void CMonster::ChangeMotion()
 		m_tFrame.dwTime = GetTickCount64();
 		break;
 	case UP:
-		m_pFrameKey = L"Bean_Monster_Up";
+		if (m_eMonsterType == BEAN1)
+			m_pFrameKey = L"Bean_Monster_Up";
+		else if (m_eMonsterType == BEAN2)
+			m_pFrameKey = L"Bean_Monster_Up2";
 		m_fSpeed = 2.f;
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 2;
@@ -166,7 +207,10 @@ void CMonster::ChangeMotion()
 		m_tFrame.dwTime = GetTickCount64();
 		break;
 	case DOWN:
-		m_pFrameKey = L"Bean_Monster_Down";
+		if (m_eMonsterType == BEAN1)
+			m_pFrameKey = L"Bean_Monster_Down";
+		else if (m_eMonsterType == BEAN2)
+			m_pFrameKey = L"Bean_Monster_Down2";
 		m_fSpeed = 2.f;
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 2;
@@ -175,7 +219,10 @@ void CMonster::ChangeMotion()
 		m_tFrame.dwTime = GetTickCount64();
 		break;
 	case HIT:
-		m_pFrameKey = L"Bean_Monster_Death";
+		if (m_eMonsterType == BEAN1)
+			m_pFrameKey = L"Bean_Monster_Death";
+		else if (m_eMonsterType == BEAN2)
+			m_pFrameKey = L"Bean_Monster_Death2";
 		m_fSpeed = 0.f;
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 3;

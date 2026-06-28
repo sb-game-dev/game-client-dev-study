@@ -47,10 +47,10 @@ void CStage2::Initialize()
 	}
 
 	//Follow
-	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((7 * 40) + 40, (0 * 40) + 60, L"Bean_Monster_Start"));
-	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((7 * 40) + 40, (12 * 40) + 60, L"Bean_Monster_Start"));
-	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((2 * 40) + 40, (6 * 40) + 60, L"Bean_Monster_Start"));
-	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((12 * 40) + 40, (6 * 40) + 60, L"Bean_Monster_Start"));
+	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((7 * 40) + 40, (0 * 40) + 60, L"Bean_Monster_Start2"));
+	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((7 * 40) + 40, (12 * 40) + 60, L"Bean_Monster_Start2"));
+	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((2 * 40) + 40, (6 * 40) + 60, L"Bean_Monster_Start2"));
+	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((12 * 40) + 40, (6 * 40) + 60, L"Bean_Monster_Start2"));
 	
 	//Basic
 	CObjMgr::GetInstance()->AddObject(OBJ_MONSTER, CAbstractFactory<CMonster>::Create((0 * 40) + 40, (0 * 40) + 60, L"Bean_Monster_Start"));

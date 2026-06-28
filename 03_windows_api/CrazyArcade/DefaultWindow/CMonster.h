@@ -33,5 +33,6 @@ private:
     float       m_fDstY;
 
     bool        m_bMonsterWin;
+    MONSTERTYPE m_eMonsterType;
 };
 

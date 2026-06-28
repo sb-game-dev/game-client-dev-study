@@ -275,6 +275,15 @@ void CMainGame::InsertImg()
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Monster/Bean_Monster_Right.bmp", L"Bean_Monster_Right");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Monster/Bean_Monster_Up.bmp", L"Bean_Monster_Up");
 
+
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Monster/Bean_Monster_Start2.bmp", L"Bean_Monster_Start2");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Monster/Bean_Monster_Death2.bmp", L"Bean_Monster_Death2");
+
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Monster/Bean_Monster_Down2.bmp", L"Bean_Monster_Down2");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Monster/Bean_Monster_Left2.bmp", L"Bean_Monster_Left2");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Monster/Bean_Monster_Right2.bmp", L"Bean_Monster_Right2");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Monster/Bean_Monster_Up2.bmp", L"Bean_Monster_Up2");
+
 	//Item_UI
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/UI_Bomb.bmp", L"UI_Bomb");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/UI_Liquid2.bmp", L"UI_Liquid2");
