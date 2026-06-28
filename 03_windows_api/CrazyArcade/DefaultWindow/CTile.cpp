@@ -246,8 +246,9 @@ void CTile::CreateItem()
 		L"fluid" ,L"fluid" ,L"fluid" ,L"fluid" ,
 		L"needle" ,
 		L"dart" ,
-		L"shield" ,
-		L"shoe" 
+		L"shield",
+		L"shoe" ,
+		L"blur"
 	};
 	if (CSceneMgr::GetInstance()->GetCurScene() == SC_STAGE5)
 	{
@@ -255,6 +256,6 @@ void CTile::CreateItem()
 	}
 	else
 	{
-		CObjMgr::GetInstance()->AddObject(OBJ_ITEM ,CAbstractFactory<CItem>::Create(m_tInfo.fX, m_tInfo.fY, pItemType[rand() % 15]));
+		CObjMgr::GetInstance()->AddObject(OBJ_ITEM ,CAbstractFactory<CItem>::Create(m_tInfo.fX, m_tInfo.fY, pItemType[rand() % 16]));
 	}
 }

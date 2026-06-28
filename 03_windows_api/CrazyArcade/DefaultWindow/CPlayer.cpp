@@ -961,7 +961,6 @@ void CPlayer::CheckFrame()
 	if (m_eCurMotion == START
 		&& m_dwFrameCount + m_tFrame.dwSpeed * m_tFrame.iEnd <= GetTickCount64())
 	{
-		m_bBlur = true;
 		m_eCurMotion = DOWN;
 		ChangeMotion();
 	}
@@ -1030,7 +1029,7 @@ void CPlayer::CheckFrame()
 		m_tInfo.fY = (iPlayer_StartY * 40) + 60;
 	}
 	else if (m_eCurMotion == REVIVAL
-		&& m_dwFrameCount + m_tFrame.dwSpeed * m_tFrame.iEnd <= GetTickCount64()) //m_tFrame.iStart - 1 >= m_tFrame.iEnd
+		&& m_dwFrameCount + m_tFrame.dwSpeed * m_tFrame.iEnd <= GetTickCount64())
 	{
 		m_eCurMotion = DOWN;
 		m_pFrameKey = L"player_down";
@@ -1047,6 +1046,12 @@ void CPlayer::CheckFrame()
 		&& m_dwFrameCount + 2500 <= GetTickCount64())
 	{
 		m_bShowShieldEffect = false;
+	}
+	if (m_bBlur == true
+		&& m_dwFrameCount + 30000 <= GetTickCount64())
+	{
+		m_fSpeed = m_fWalkSpeed;
+		m_bBlur = false;
 	}
 }
 
@@ -1415,6 +1420,12 @@ void CPlayer::PickUpItem(const WCHAR* pItemFrameKey)
 		m_bRide = true;
 		m_fRemainGas = 300.f;
 		ChangeMotion();
+	}
+	else if (!lstrcmp(pItemFrameKey, L"blur"))
+	{
+		m_bBlur = true;
+		m_dwFrameCount = GetTickCount64();
+		m_fSpeed = 7.f;
 	}
 	else if (!lstrcmp(pItemFrameKey, L"trampoline"))
 	{

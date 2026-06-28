@@ -16,8 +16,12 @@
 CPlayer2::CPlayer2() :m_ePreMotion(MOTION_END), m_eCurMotion(START), m_fWalkSpeed(3.f), m_fBubbleSpeed(0.5f), m_dwFrameCount(GetTickCount64()),
 m_fBlockMoveTime(0.f), m_iBombRange(1), m_iBombMax(1), m_iBombCnt(0), m_bShowItemGainEffect(false), m_eItemFrameKey(ITEMTYPE_END),
 m_dwItemEffectFrameCount(GetTickCount64()), m_iCtrlSlotCnt(0), m_eCtrlSlot(ITEMTYPE_END), m_dwShieldEffectFrameCount(GetTickCount64()), m_pTileVector(nullptr),
-m_bRide(false), m_fKartSpeed(6.f), m_fRemainGas(300.f), m_fRespawnTime(2000.f), m_pRespawnPoint(nullptr)
+m_bRide(false), m_fKartSpeed(6.f), m_fRemainGas(300.f), m_fRespawnTime(2000.f), m_pRespawnPoint(nullptr), m_bBlur(false)
 {
+	m_iMaxVecSize = 5;
+	m_iVecSize = 0;
+	m_FrameKeyvector.reserve(m_iMaxVecSize);
+
 	m_bShowShieldEffect = false;
 	m_iShieldFrame = 0;
 
@@ -102,22 +106,27 @@ void CPlayer2::Render(HDC hDC)
 #endif // _DEBUG
 	if (m_bDraw == true)
 	{
+		if (m_bBlur)
+		{
+			ShowBlur(hDC);
+		}
+		else
+		{
+			HDC hPlayer = CBmpMgr::GetInstance()->FindImage(m_pFrameKey);
 
-		HDC hPlayer = CBmpMgr::GetInstance()->FindImage(m_pFrameKey);
+			GdiTransparentBlt(hDC,					// 목적지 DC
+				int(m_tInfo.fX - (m_tFrame.iCX / 2)),	// 목적지 LEFT, TOP
+				int(m_tInfo.fY - (m_tFrame.iCY - m_tInfo.fCY * 0.5)),
+				m_tFrame.iCX,			// 목적지 공간의 가로, 세로 사이즈
+				m_tFrame.iCY,
+				hPlayer,						// 원본 이미지 DC
+				m_tFrame.iCX * m_tFrame.iStart,	// 원본 이미지 LEFT, TOP
+				0,
+				m_tFrame.iCX,			// 원본 이미지 가로, 세로 사이즈
+				m_tFrame.iCY,
+				RGB(255, 0, 255));		// 제거할 픽셀 색상
 
-		GdiTransparentBlt(hDC,					// 목적지 DC
-			int(m_tInfo.fX - (m_tFrame.iCX / 2)),	// 목적지 LEFT, TOP
-			int(m_tInfo.fY - (m_tFrame.iCY - m_tInfo.fCY * 0.5)),
-			m_tFrame.iCX,			// 목적지 공간의 가로, 세로 사이즈
-			m_tFrame.iCY,
-			hPlayer,						// 원본 이미지 DC
-			m_tFrame.iCX * m_tFrame.iStart,	// 원본 이미지 LEFT, TOP
-			0,
-			m_tFrame.iCX,			// 원본 이미지 가로, 세로 사이즈
-			m_tFrame.iCY,
-			RGB(255, 0, 255));		// 제거할 픽셀 색상
-
-
+		}
 		HDC hArrow = CBmpMgr::GetInstance()->FindImage(L"PlayerArrow2");
 
 		GdiTransparentBlt(hDC,					// 목적지 DC
@@ -807,6 +816,12 @@ void CPlayer2::CheckFrame()
 	{
 		m_bShowShieldEffect = false;
 	}
+	if (m_bBlur == true
+		&& m_dwFrameCount + 30000 <= GetTickCount64())
+	{
+		m_fSpeed = m_fWalkSpeed;
+		m_bBlur = false;
+	}
 }
 
 void CPlayer2::CheckPushBlock(DIRECTION eDIR)
@@ -889,7 +904,7 @@ void CPlayer2::CheckKickBomb(DIRECTION eDIR)
 		fCheckY += 40.f;
 		break;
 	}
-	for (auto& pBomb : CObjMgr::GetInstance()->GetList(OBJ_BOMB))
+	for (auto& pBomb : CObjMgr::GetInstance()->GetList(OBJ_BOMB2))
 	{
 		CBomb* pTempBomb = dynamic_cast<CBomb*>(pBomb);
 		if (pTempBomb->GetPlayerCollision() == false)
@@ -901,7 +916,6 @@ void CPlayer2::CheckKickBomb(DIRECTION eDIR)
 
 			if (m_fKickBombTime >= 15.f)
 			{
-
 				cout << m_fKickBombTime << endl;
 				m_fKickBombTime = 0;
 				pTempBomb->SetCanMove(true);
@@ -1063,7 +1077,48 @@ void CPlayer2::ShowShield(HDC hDC)
 		101,
 		RGB(255, 0, 255));		// 제거할 픽셀 색상
 }
+void CPlayer2::ShowBlur(HDC hDC)
+{
+	if (m_iVecSize < 4)
+	{
+		++m_iVecSize;
+	}
+	else
+	{
+		m_PosVector.erase(m_PosVector.begin());
+		m_FrameKeyvector.erase(m_FrameKeyvector.begin());
+	}
+	m_PosVector.push_back({ m_tInfo.fX,m_tInfo.fY });
+	m_FrameKeyvector.push_back(m_pFrameKey);
+	float fAlpha = 0.2f;
+	for (int i = 0; i < m_iVecSize; ++i)
+	{
+		Graphics* _pGraphics = Graphics::FromHDC(hDC);
+		Gdiplus::Image* hBlur = CImgMgr::GetInstance()->FindImg(m_FrameKeyvector[i]);
 
+		Rect rect = {
+			int(m_PosVector[i].first - (m_tFrame.iCX / 2)),
+			int(m_PosVector[i].second - (m_tFrame.iCY - m_tInfo.fCY * 0.5)),
+			m_tFrame.iCX,
+			m_tFrame.iCY,
+		};
+
+		ImageAttributes attr;
+		attr.SetColorKey(
+			Color(255, 0, 255),
+			Color(255, 0, 255));
+
+		MakeAlphaAttr(attr, fAlpha);
+
+		_pGraphics->DrawImage(hBlur, rect,
+			m_tFrame.iCX * m_tFrame.iStart, 0,
+			m_tFrame.iCX,
+			m_tFrame.iCY,
+			UnitPixel,
+			&attr);
+		fAlpha += 0.2;
+	}
+}
 void CPlayer2::PickUpItem(const WCHAR* pItemFrameKey)
 {
 	if (m_eCurMotion == HIT)
@@ -1116,6 +1171,12 @@ void CPlayer2::PickUpItem(const WCHAR* pItemFrameKey)
 		m_bRide = true;
 		m_fRemainGas = 300.f;
 		ChangeMotion();
+	}
+	else if (!lstrcmp(pItemFrameKey, L"blur"))
+	{
+		m_bBlur = true;
+		m_dwFrameCount = GetTickCount64();
+		m_fSpeed = 7.f;
 	}
 	else if (!lstrcmp(pItemFrameKey, L"trampoline"))
 	{

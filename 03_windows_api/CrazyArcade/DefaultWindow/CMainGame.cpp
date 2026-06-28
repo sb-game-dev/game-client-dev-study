@@ -206,6 +206,11 @@ void CMainGame::InsertImg()
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_left2.bmp", L"player_left2");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_right2.bmp", L"player_right2");
 
+	CImgMgr::GetInstance()->InsertImg(L"../Resource/Player/player_down2.png", L"player_down2");
+	CImgMgr::GetInstance()->InsertImg(L"../Resource/Player/player_up2.png", L"player_up2");
+	CImgMgr::GetInstance()->InsertImg(L"../Resource/Player/player_left2.png", L"player_left2");
+	CImgMgr::GetInstance()->InsertImg(L"../Resource/Player/player_right2.png", L"player_right2");
+
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_hit2.bmp", L"player_hit2");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_death2.bmp", L"player_death2");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_live2.bmp", L"player_live2");
@@ -265,6 +270,7 @@ void CMainGame::InsertImg()
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Item/new/shoe.bmp", L"shoe");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Item/new/trampoline.bmp", L"trampoline");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Item/new/joystick.bmp", L"joystick");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Item/new/blur.bmp", L"blur");
 
 	//Monster
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Monster/Bean_Monster_Start.bmp", L"Bean_Monster_Start");

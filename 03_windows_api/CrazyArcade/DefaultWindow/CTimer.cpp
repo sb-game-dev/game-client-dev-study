@@ -22,7 +22,7 @@ void CTimer::Update()
 {
 	if (m_iSec < 0)
 		return;
-	if (m_dwTimer + 100 <= GetTickCount64())
+	if (m_dwTimer + 1000 <= GetTickCount64())
 	{
 		m_dwTimer = GetTickCount64();
 		--m_iSec;

@@ -27,6 +27,8 @@ private:
     void        ShowItemGainEffect(HDC hDC);
     void        ShowCtrlSlot(HDC hDC);
     void        ShowShield(HDC hDC);
+    void        ShowBlur(HDC hDC);
+
 public:
     void        SetHit();// { m_eCurMotion = HIT; ChangeMotion(); }
     void        SetBossHit() { m_eCurMotion = DEATH; ChangeMotion(); }
@@ -75,5 +77,12 @@ private:
     float       m_fRemainGas;
     float       m_fRespawnTime;
     CObj*       m_pRespawnPoint;
+
+
+    bool        m_bBlur;
+    int         m_iVecSize;
+    int         m_iMaxVecSize;
+    vector<pair<float, float>>  m_PosVector;
+    vector<const WCHAR*>        m_FrameKeyvector;
 };
 
