@@ -51,7 +51,7 @@ enum TILEID {
 
 enum STAGESTATE { SHOP, MYPAGE, STAGESTATE_END };
 
-enum SCENEID { SC_LOGO,SC_LOGIN, SC_MENU, SC_EDIT, SC_SHOP, SC_STAGE1, SC_STAGE2, SC_STAGE3, SC_STAGE4, SC_STAGE5, SC_END };
+enum SCENEID { SC_LOGO,SC_LOGIN, SC_MENU, SC_EDIT, SC_SHOP, SC_STAGE1, SC_STAGE2, SC_STAGE3, SC_STAGE4, SC_STAGE5, SC_STAGE6, SC_END };
 
 enum SCENESTATE { SCENE_START, SCENE_PLAY, SCENE_WIN, SCENE_LOSE, SCENE_DRAW, SCENE_END, SCENE_PLAYERRESPAWN, SCENESTATE_END };
 
@@ -74,6 +74,47 @@ enum CHANNELID { SOUND_BGM, SOUND_EFFECT,
 	SOUND_ITEMGAIN, SOUND_DART, SOUND_NEDDLE,
 	STAGE_START, STAGE_WIN, STAGE_LOSE, 
 	MAXCHANNEL };
+
+enum MOVE_STATE {
+	MOVE_IDLE,
+	MOVE_GROUND,
+	MOVE_JUMP,
+	MOVE_FALL,
+	MOVE_DOWNJUMP,
+	MOVE_WALL,
+	MOVE_ROPE,
+	MOVE_TAKEDAMAGER,
+	MOVE_TAKEDAMAGEL,
+	MOVE_END
+};
+
+typedef struct tagLinePoint
+{
+	float fX, fY;
+	tagLinePoint() { ZeroMemory(this, sizeof(tagLinePoint)); }
+	tagLinePoint(float _fX, float _fY) :fX(_fX), fY(_fY) {}
+}LINEPOINT;
+
+typedef struct tagLine
+{
+	LINEPOINT tLeft;
+	LINEPOINT tRight;
+
+	tagLine() { ZeroMemory(this, sizeof(tagLine)); }
+	tagLine(LINEPOINT& _tLeft, LINEPOINT& _tRight) :tLeft(_tLeft), tRight(_tRight) {}
+
+	bool operator==(tagLine rLine)
+	{
+		if (fabs(tLeft.fX - rLine.tLeft.fX) <= 2.f
+			&& fabs(tLeft.fY == rLine.tLeft.fY) <= 2.f
+			&& fabs(tRight.fX == rLine.tRight.fX) <= 2.f
+			&& fabs(tRight.fY == rLine.tRight.fY) <= 2.f)
+		{
+			return true;
+		}
+		return false;
+	}
+}LINE;
 
 typedef struct tagInven
 {

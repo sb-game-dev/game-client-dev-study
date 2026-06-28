@@ -70,12 +70,6 @@
     <Filter Include="02. Obj\13. UI">
       <UniqueIdentifier>{9cf485c5-2fd7-4bcc-8f0c-01ea99e2dd23}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Obj\00. Player\Player1">
-      <UniqueIdentifier>{c3f6900a-4dbe-4061-8e94-e1592ef728c5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. Obj\00. Player\Player2">
-      <UniqueIdentifier>{61c22f18-d807-4b67-b267-5e9108713422}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. Obj\14. BaseEffect">
       <UniqueIdentifier>{52f4378a-dfe0-4fa4-92d5-ac48fa57a2c1}</UniqueIdentifier>
     </Filter>
@@ -156,6 +150,27 @@
     </Filter>
     <Filter Include="08. Design\07. SoundMgr">
       <UniqueIdentifier>{02319113-d50b-481d-b9f5-b9cd62130ac5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Obj\00. Player\00. Player1">
+      <UniqueIdentifier>{c3f6900a-4dbe-4061-8e94-e1592ef728c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Obj\00. Player\01. Player2">
+      <UniqueIdentifier>{61c22f18-d807-4b67-b267-5e9108713422}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Obj\00. Player\02. MaplePlayer">
+      <UniqueIdentifier>{e51e89db-79de-4089-9319-1ca4d46cb007}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Design\09. LineMgr">
+      <UniqueIdentifier>{37f564e9-3f32-4e38-9607-67605211b2d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Design\09. LineMgr\Line">
+      <UniqueIdentifier>{abc0e8f8-7cff-4335-8178-a4195294e9a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Design\08. ScrollMgr">
+      <UniqueIdentifier>{089ccd00-9292-4ced-8113-9c75b04afdf1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\04. Stage\05. Stage6">
+      <UniqueIdentifier>{25f54569-95c9-4551-ad74-43d92ed85faf}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -280,10 +295,10 @@
       <Filter>02. Obj\13. UI</Filter>
     </ClInclude>
     <ClInclude Include="CPlayer.h">
-      <Filter>02. Obj\00. Player\Player1</Filter>
+      <Filter>02. Obj\00. Player\00. Player1</Filter>
     </ClInclude>
     <ClInclude Include="CPlayer2.h">
-      <Filter>02. Obj\00. Player\Player2</Filter>
+      <Filter>02. Obj\00. Player\01. Player2</Filter>
     </ClInclude>
     <ClInclude Include="CBaseEffect.h">
       <Filter>02. Obj\14. BaseEffect</Filter>
@@ -308,6 +323,21 @@
     </ClInclude>
     <ClInclude Include="CTimer.h">
       <Filter>07. Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="CMaplePlayer.h">
+      <Filter>02. Obj\00. Player\02. MaplePlayer</Filter>
+    </ClInclude>
+    <ClInclude Include="CLineMgr.h">
+      <Filter>08. Design\09. LineMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CLine.h">
+      <Filter>08. Design\09. LineMgr\Line</Filter>
+    </ClInclude>
+    <ClInclude Include="CScrollMgr.h">
+      <Filter>08. Design\08. ScrollMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CStage6.h">
+      <Filter>01. Scene\04. Stage\05. Stage6</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -417,10 +447,10 @@
       <Filter>02. Obj\13. UI</Filter>
     </ClCompile>
     <ClCompile Include="CPlayer.cpp">
-      <Filter>02. Obj\00. Player\Player1</Filter>
+      <Filter>02. Obj\00. Player\00. Player1</Filter>
     </ClCompile>
     <ClCompile Include="CPlayer2.cpp">
-      <Filter>02. Obj\00. Player\Player2</Filter>
+      <Filter>02. Obj\00. Player\01. Player2</Filter>
     </ClCompile>
     <ClCompile Include="CBaseEffect.cpp">
       <Filter>02. Obj\14. BaseEffect</Filter>
@@ -445,6 +475,21 @@
     </ClCompile>
     <ClCompile Include="CTimer.cpp">
       <Filter>07. Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="CMaplePlayer.cpp">
+      <Filter>02. Obj\00. Player\02. MaplePlayer</Filter>
+    </ClCompile>
+    <ClCompile Include="CLineMgr.cpp">
+      <Filter>08. Design\09. LineMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CLine.cpp">
+      <Filter>08. Design\09. LineMgr\Line</Filter>
+    </ClCompile>
+    <ClCompile Include="CScrollMgr.cpp">
+      <Filter>08. Design\08. ScrollMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CStage6.cpp">
+      <Filter>01. Scene\04. Stage\05. Stage6</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

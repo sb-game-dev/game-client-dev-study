@@ -544,7 +544,7 @@ void CPlayer2::ChangeMotion()
 		else
 		{
 			m_fSpeed = m_fKartSpeed;
-			m_pFrameKey = L"kart_left";
+			m_pFrameKey = L"kart_left2";
 			m_tFrame.iStart = 0;
 			m_tFrame.iEnd = 4;
 			m_tFrame.iMotion = 0;
@@ -572,7 +572,7 @@ void CPlayer2::ChangeMotion()
 		else
 		{
 			m_fSpeed = m_fKartSpeed;
-			m_pFrameKey = L"kart_right";
+			m_pFrameKey = L"kart_right2";
 			m_tFrame.iStart = 0;
 			m_tFrame.iEnd = 4;
 			m_tFrame.iMotion = 0;
@@ -600,7 +600,7 @@ void CPlayer2::ChangeMotion()
 		else
 		{
 			m_fSpeed = m_fKartSpeed;
-			m_pFrameKey = L"kart_up";
+			m_pFrameKey = L"kart_up2";
 			m_tFrame.iStart = 0;
 			m_tFrame.iEnd = 4;
 			m_tFrame.iMotion = 0;
@@ -629,7 +629,7 @@ void CPlayer2::ChangeMotion()
 		else
 		{
 			m_fSpeed = m_fKartSpeed;
-			m_pFrameKey = L"kart_down";
+			m_pFrameKey = L"kart_down2";
 			m_tFrame.iStart = 0;
 			m_tFrame.iEnd = 4;
 			m_tFrame.iMotion = 0;
@@ -642,7 +642,7 @@ void CPlayer2::ChangeMotion()
 		break;
 	case DISMOUNT:
 		m_fSpeed = 0;
-		m_pFrameKey = L"kart_dismount";
+		m_pFrameKey = L"kart_dismount2";
 		m_tFrame.iStart = 0;
 		m_tFrame.iEnd = 12;
 		m_tFrame.iMotion = 0;

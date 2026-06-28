@@ -51,7 +51,7 @@ void CMainGame::Initialize()
 	CSoundMgr::Get_Instance()->Initialize();
 
 #ifdef _DEBUG
-	CSceneMgr::GetInstance()->SceneChangeReserve(SC_MENU);
+	CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE6);
 #elif NDEBUG
 	CSceneMgr::GetInstance()->SceneChangeReserve(SC_LOGO);
 #endif // _DEBUG
@@ -131,6 +131,8 @@ void CMainGame::InsertImg()
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/BackGround/LogIn.bmp", L"LogIn");
 
 
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Maple/BackGround/MBackGround.bmp", L"MBackGround");
+
 	//Button
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_edit.bmp", L"button_edit");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_save.bmp", L"button_save");
@@ -173,6 +175,10 @@ void CMainGame::InsertImg()
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_ExitSelectPlayer.bmp", L"button_ExitSelectPlayer");
 
 	//Player
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Maple/Player/Player_LEFT.bmp", L"Player_LEFT");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Maple/Player/Player_RIGHT.bmp", L"Player_RIGHT");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Maple/Player/Player_LOPE.bmp", L"Player_LOPE");
+
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_start.bmp", L"player_start");
 
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/kart_up.bmp", L"kart_up");
@@ -205,6 +211,11 @@ void CMainGame::InsertImg()
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_up2.bmp", L"player_up2");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_left2.bmp", L"player_left2");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_right2.bmp", L"player_right2");
+
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/kart_up2.bmp", L"kart_up2");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/kart_right2.bmp", L"kart_right2");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/kart_left2.bmp", L"kart_left2");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/kart_down2.bmp", L"kart_down2");
 
 	CImgMgr::GetInstance()->InsertImg(L"../Resource/Player/player_down2.png", L"player_down2");
 	CImgMgr::GetInstance()->InsertImg(L"../Resource/Player/player_up2.png", L"player_up2");

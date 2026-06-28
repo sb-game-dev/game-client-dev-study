@@ -151,9 +151,12 @@
     <ClInclude Include="CInven2.h" />
     <ClInclude Include="CItem.h" />
     <ClInclude Include="CKeyMgr.h" />
+    <ClInclude Include="CLine.h" />
+    <ClInclude Include="CLineMgr.h" />
     <ClInclude Include="CLogin.h" />
     <ClInclude Include="CLogo.h" />
     <ClInclude Include="CMainGame.h" />
+    <ClInclude Include="CMaplePlayer.h" />
     <ClInclude Include="CMark.h" />
     <ClInclude Include="CMenu.h" />
     <ClInclude Include="CMonster.h" />
@@ -166,6 +169,7 @@
     <ClInclude Include="CPlayer2.h" />
     <ClInclude Include="CScene.h" />
     <ClInclude Include="CSceneMgr.h" />
+    <ClInclude Include="CScrollMgr.h" />
     <ClInclude Include="CSelectPlayer.h" />
     <ClInclude Include="CShop.h" />
     <ClInclude Include="CSoundMgr.h" />
@@ -174,6 +178,7 @@
     <ClInclude Include="CStage3.h" />
     <ClInclude Include="CStage4.h" />
     <ClInclude Include="CStage5.h" />
+    <ClInclude Include="CStage6.h" />
     <ClInclude Include="CStartEffect.h" />
     <ClInclude Include="CTile.h" />
     <ClInclude Include="CTimer.h" />
@@ -202,9 +207,12 @@
     <ClCompile Include="CInven2.cpp" />
     <ClCompile Include="CItem.cpp" />
     <ClCompile Include="CKeyMgr.cpp" />
+    <ClCompile Include="CLine.cpp" />
+    <ClCompile Include="CLineMgr.cpp" />
     <ClCompile Include="CLogin.cpp" />
     <ClCompile Include="CLogo.cpp" />
     <ClCompile Include="CMainGame.cpp" />
+    <ClCompile Include="CMaplePlayer.cpp" />
     <ClCompile Include="CMark.cpp" />
     <ClCompile Include="CMenu.cpp" />
     <ClCompile Include="CMonster.cpp" />
@@ -217,6 +225,7 @@
     <ClCompile Include="CPlayer2.cpp" />
     <ClCompile Include="CScene.cpp" />
     <ClCompile Include="CSceneMgr.cpp" />
+    <ClCompile Include="CScrollMgr.cpp" />
     <ClCompile Include="CSelectPlayer.cpp" />
     <ClCompile Include="CShop.cpp" />
     <ClCompile Include="CSoundMgr.cpp" />
@@ -225,6 +234,7 @@
     <ClCompile Include="CStage3.cpp" />
     <ClCompile Include="CStage4.cpp" />
     <ClCompile Include="CStage5.cpp" />
+    <ClCompile Include="CStage6.cpp" />
     <ClCompile Include="CStartEffect.cpp" />
     <ClCompile Include="CTile.cpp" />
     <ClCompile Include="CTimer.cpp" />
