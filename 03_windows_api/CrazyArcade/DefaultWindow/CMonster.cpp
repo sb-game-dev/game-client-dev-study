@@ -60,7 +60,7 @@ int CMonster::Update()
 		ChangeMotion();
 		return 0;
 	}
-
+	cout << "m_eCurMotion: " << m_eCurMotion << endl;
 	if (m_bCanMove == true)
 	{
 		switch (m_eCurMotion)
@@ -320,31 +320,6 @@ void CMonster::LeftHandRuleMove()
 	default:
 		break;
 	}
-
-	//int iDirArr[] = { Left,Front,Right,Back };
-	//for (auto iDir : iDirArr)
-	//{
-	//	if (iDir != -1 && ((*m_pTile)[iDir]->GetFrame().iStart < 2 || (*m_pTile)[iDir]->GetFrame().iStart >= 11 && (*m_pTile)[iDir]->GetFrame().iStart <= 17))
-	//	{
-	//		bool iBombCheck = true;
-	//		x = (iDir % MAP_CNT_X) * 40 + 20 + MAP_LEFT;
-	//		y = (iDir / MAP_CNT_X) * 40 + 20 + MAP_TOP;
-	//		for (auto& pBomb : *(m_pBombList))
-	//		{
-	//			if (pBomb->GetInfo()->fX == x && pBomb->GetInfo()->fY == y)
-	//			{
-	//				iBombCheck = false;
-	//				break;
-	//			}
-	//		}
-	//		if (iBombCheck == true)
-	//		{
-	//			SetDestination(DIR_LEFT, iDir);
-	//			return;
-	//		}
-	//	}
-	//}
-	// ¿ÞÂÊ È®ÀÎ
 	
 	if (Left != -1 && ((*m_pTile)[Left]->GetFrame().iStart < 2 || ((*m_pTile)[Left]->GetFrame().iStart >=11 && (*m_pTile)[Left]->GetFrame().iStart <=17)))
 	{
