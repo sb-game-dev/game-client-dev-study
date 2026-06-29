@@ -137,58 +137,57 @@ CLine* CLineMgr::FindCurrentLine(float fPlayerX, float fPlayerY)
 
 void CLineMgr::Initialize()
 {
+	// 시작 지점
+	m_LineList.push_back(new CLine(LINEPOINT{ 0.f,500.f }, LINEPOINT{ 1920.f, 500.f }));
 
 	//m_LineList.push_back(new CLine(LINEPOINT{ 0.f,400.f }, LINEPOINT{ 200.f, 400.f }));
-
-	// 시작 지점
-	m_LineList.push_back(new CLine(LINEPOINT{ 0.f,400.f }, LINEPOINT{ 200.f, 400.f }));
-	m_LineList.push_back(new CLine(LINEPOINT{ 200.f,400.f }, LINEPOINT{ 220.f, 450.f }));
-	m_LineList.push_back(new CLine(LINEPOINT{ 220.f, 450.f }, LINEPOINT{ 270.f, 450.f }));
-	
-	m_RopeList.push_back(new CLine(LINEPOINT{ 100.f, 200.f }, LINEPOINT{ 100.f, 350.f }));
-
-	m_LineList.push_back(new CLine(LINEPOINT{ 0.f, 200.f }, LINEPOINT{ 270.f, 200.f }));
+	//m_LineList.push_back(new CLine(LINEPOINT{ 200.f,400.f }, LINEPOINT{ 220.f, 450.f }));
+	//m_LineList.push_back(new CLine(LINEPOINT{ 220.f, 450.f }, LINEPOINT{ 270.f, 450.f }));
+	//
+	//m_RopeList.push_back(new CLine(LINEPOINT{ 100.f, 200.f }, LINEPOINT{ 100.f, 350.f }));
+	//
+	//m_LineList.push_back(new CLine(LINEPOINT{ 0.f, 200.f }, LINEPOINT{ 270.f, 200.f }));
 
 	
-	//< 22개 벽>
-	
-	float fB2Floor = 500.f;
-	float fB1Floor = 450.f;
-	float fFirstFloor = 400.f;
-	float fSecondFloor = 350.f;
-	float fThirdFloor = 300.f;
-	float fFourthFloor = 250.f;
-	
-	float ListY[] = {
-		fFirstFloor ,fSecondFloor ,fFirstFloor ,fFirstFloor,
-		fSecondFloor,fSecondFloor ,fFirstFloor,fSecondFloor,
-		fThirdFloor,  fSecondFloor ,fFirstFloor ,fSecondFloor ,
-		fFirstFloor ,fSecondFloor ,fThirdFloor ,fFourthFloor,
-		fFirstFloor ,fSecondFloor ,fThirdFloor,fFirstFloor ,
-		fB1Floor,fB2Floor };
-	float fX = 250.f;
-	for (int i = 0; i < sizeof(ListY) / sizeof(ListY[0]); ++i)
-	{
-		m_LineList.push_back(new CLine(LINEPOINT{ fX,ListY[i] }, LINEPOINT{ fX + 50.f, ListY[i] }));
-		fX += 100.f;
-	}
-	// 쉬는 지점
-	m_LineList.push_back(new CLine(LINEPOINT{ fX,fB2Floor }, LINEPOINT{ fX + 200.f, fB2Floor }));
-	fX += 250;
-	
-	// 로프
-	m_RopeList.push_back(new CLine(LINEPOINT{ fX,0 }, LINEPOINT{ fX, fB2Floor }));
-	fX += 100.f;
-	
-	m_RopeList.push_back(new CLine(LINEPOINT{ fX,0 }, LINEPOINT{ fX, fFirstFloor }));
-	fX += 100.f;
-	
-	m_RopeList.push_back(new CLine(LINEPOINT{ fX,0 }, LINEPOINT{ fX, fFirstFloor }));
-	fX += 100.f;
-	
-	m_RopeList.push_back(new CLine(LINEPOINT{ fX,0 }, LINEPOINT{ fX, fSecondFloor - 50.f }));
-	m_LineList.push_back(new CLine(LINEPOINT{ fX - 25.f,fSecondFloor }, LINEPOINT{ fX + 25.f, fSecondFloor }));
-	fX += 100.f;
+	////< 22개 벽>
+	//
+	//float fB2Floor = 500.f;
+	//float fB1Floor = 450.f;
+	//float fFirstFloor = 400.f;
+	//float fSecondFloor = 350.f;
+	//float fThirdFloor = 300.f;
+	//float fFourthFloor = 250.f;
+	//
+	//float ListY[] = {
+	//	fFirstFloor ,fSecondFloor ,fFirstFloor ,fFirstFloor,
+	//	fSecondFloor,fSecondFloor ,fFirstFloor,fSecondFloor,
+	//	fThirdFloor,  fSecondFloor ,fFirstFloor ,fSecondFloor,
+	//	fFirstFloor ,fSecondFloor ,fThirdFloor ,fFourthFloor,
+	//	fFirstFloor ,fSecondFloor ,fThirdFloor,fFirstFloor ,
+	//	fB1Floor,fB2Floor };
+	//float fX = 250.f;
+	//for (int i = 0; i < sizeof(ListY) / sizeof(ListY[0]); ++i)
+	//{
+	//	m_LineList.push_back(new CLine(LINEPOINT{ fX,ListY[i] }, LINEPOINT{ fX + 50.f, ListY[i] }));
+	//	fX += 100.f;
+	//}
+	//// 쉬는 지점
+	//m_LineList.push_back(new CLine(LINEPOINT{ fX,fB2Floor }, LINEPOINT{ fX + 200.f, fB2Floor }));
+	//fX += 250;
+	//
+	//// 로프
+	//m_RopeList.push_back(new CLine(LINEPOINT{ fX,0 }, LINEPOINT{ fX, fB2Floor }));
+	//fX += 100.f;
+	//
+	//m_RopeList.push_back(new CLine(LINEPOINT{ fX,0 }, LINEPOINT{ fX, fFirstFloor }));
+	//fX += 100.f;
+	//
+	//m_RopeList.push_back(new CLine(LINEPOINT{ fX,0 }, LINEPOINT{ fX, fFirstFloor }));
+	//fX += 100.f;
+	//
+	//m_RopeList.push_back(new CLine(LINEPOINT{ fX,0 }, LINEPOINT{ fX, fSecondFloor - 50.f }));
+	//m_LineList.push_back(new CLine(LINEPOINT{ fX - 25.f,fSecondFloor }, LINEPOINT{ fX + 25.f, fSecondFloor }));
+	//fX += 100.f;
 
 
 }

@@ -17,7 +17,7 @@
 CPlayer::CPlayer():m_ePreMotion(MOTION_END), m_eCurMotion(START), m_fWalkSpeed(3.f), m_fBubbleSpeed(0.5f), m_dwFrameCount(GetTickCount64()),
 m_fBlockMoveTime(0.f), m_iBombRange(1), m_iBombMax(1), m_iBombCnt(0), m_bShowItemGainEffect(false), m_eItemFrameKey(ITEMTYPE_END),
 m_dwItemEffectFrameCount(GetTickCount64()),m_iCtrlSlotCnt(0), m_eCtrlSlot(ITEMTYPE_END), m_dwShieldEffectFrameCount(GetTickCount64()), m_pTileVector(nullptr),
-m_bRide(false), m_fKartSpeed(6.f), m_fRemainGas(300.f), m_pPlayMode(nullptr), m_fRespawnTime(2000), m_pRespawnPoint(nullptr), m_bBlur(false)
+m_bRide(false), m_fKartSpeed(6.f), m_fRemainGas(300.f), m_pPlayMode(nullptr), m_fRespawnTime(2000), m_pRespawnPoint(nullptr), m_bBlur(true)
 {
 	m_iMaxVecSize = 5;
 	m_iVecSize = 0;

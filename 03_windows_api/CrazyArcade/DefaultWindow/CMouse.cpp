@@ -38,7 +38,7 @@ int CMouse::Update()
 	m_tInfo.fY = (float)ptMouse.y;
 
 #ifdef _DEBUG
-	//cout << "Mouse X: " << m_tInfo.fX << "\tMouse Y: " << m_tInfo.fY << endl;
+	cout << "Mouse X: " << m_tInfo.fX << "\tMouse Y: " << m_tInfo.fY << endl;
 #endif // _DEBUG
 
 

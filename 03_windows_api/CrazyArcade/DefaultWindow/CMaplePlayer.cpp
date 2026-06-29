@@ -18,7 +18,7 @@ void CMaplePlayer::Initialize()
 {
 
 	CLine* pLine = CLineMgr::GetInstance()->GetFirstLine();
-	float x = (pLine->GetLine().tLeft.fX + pLine->GetLine().tRight.fX) * 0.5f;
+	float x = 100.f;
 	float y = pLine->GetLine().tLeft.fY;
 
 	m_tInfo.fX = x;
@@ -54,8 +54,8 @@ int CMaplePlayer::Update()
 		MoveFrame();
 
 	//cout << CLineMgr::GetInstance()->CheckRopeLine(m_tInfo.fX, m_tInfo.fY) << endl;
-	cout << "PlayerX: " << m_tInfo.fX << endl;
-	cout << "PlayerY: " << m_tInfo.fY << endl;
+	//cout << "PlayerX: " << m_tInfo.fX << endl;
+	//cout << "PlayerY: " << m_tInfo.fY << endl;
 	if (m_eMoveState == MOVE_ROPE)
 		m_time = 0;
 	if (m_eMoveState == MOVE_GROUND)
@@ -110,7 +110,7 @@ void CMaplePlayer::Render(HDC hDC)
 {
 	HDC hPlayer = CBmpMgr::GetInstance()->FindImage(m_pFrameKey);
 	GdiTransparentBlt(hDC,					// 목적지 DC
-		int(m_tInfo.fX - (m_tFrame.iCX / 2)),	// 목적지 LEFT, TOP
+		int(m_tInfo.fX - (m_tFrame.iCX / 2.f)),	// 목적지 LEFT, TOP
 		int(m_tInfo.fY - (m_tFrame.iCY - m_tInfo.fCY * 0.5)),
 		m_tFrame.iCX,			// 목적지 공간의 가로, 세로 사이즈
 		m_tFrame.iCY,
@@ -309,7 +309,6 @@ void CMaplePlayer::Jump()
 	if (-m_fJumpPower * m_time + 0.5f * 9.8f * m_time * m_time >= 0
 		&& CLineMgr::GetInstance()->SetLine(m_tInfo.fX, m_tInfo.fY, m_fPrevX, m_fPrevY))
 	{
-		cout << "JumpEnd" << endl;
 		m_eMoveState = MOVE_GROUND; 
 		m_eCurMotion = IDLE;
 
@@ -362,7 +361,6 @@ void CMaplePlayer::DownJump()
 	m_tInfo.fY += 0.5f * 9.8f * m_time * m_time;
 	if (m_pCurLine != nullptr && CLineMgr::GetInstance()->CheckDownJumpLine(m_tInfo.fX, m_tInfo.fY, m_pCurLine))
 	{
-
 		m_eMoveState = MOVE_FALL;
 	}
 }

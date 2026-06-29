@@ -51,7 +51,6 @@ void CMonster::Initialize()
 
 int CMonster::Update()
 {
-	cout << m_eMonsterType << endl;
 	if (m_bDead == DEAD)
 		return DEAD;
 	if ((CObjMgr::GetInstance()->GetRemainPlayer() == false && CObjMgr::GetInstance()->GetRemainPlayer2() == false) || m_bMonsterWin)
@@ -60,7 +59,6 @@ int CMonster::Update()
 		ChangeMotion();
 		return 0;
 	}
-	cout << "m_eCurMotion: " << m_eCurMotion << endl;
 	if (m_bCanMove == true)
 	{
 		switch (m_eCurMotion)
