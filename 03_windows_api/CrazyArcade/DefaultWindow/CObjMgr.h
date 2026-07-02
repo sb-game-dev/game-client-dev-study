@@ -70,5 +70,6 @@ private:
 	list<CObj*>		m_RenderList[RENDER_END];
 	vector<CObj*>	m_TileVec;
 	PLAYMODE*		m_pPlayMode;
+	bool			m_bInvincibility;
 };
 

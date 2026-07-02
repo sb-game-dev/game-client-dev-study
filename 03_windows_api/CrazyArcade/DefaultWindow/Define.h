@@ -6,6 +6,7 @@
 #define PI			3.141592f
 
 
+#define MWINCY		3479
 
 #define PURE		= 0
 #define NOEVENT		0

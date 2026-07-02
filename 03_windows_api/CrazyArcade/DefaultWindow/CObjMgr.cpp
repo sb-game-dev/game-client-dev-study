@@ -8,7 +8,7 @@
 #include "CBomb.h"
 #include "CSceneMgr.h"
 CObjMgr* CObjMgr::m_pInstance = nullptr;
-CObjMgr::CObjMgr():m_pPlayMode(nullptr)
+CObjMgr::CObjMgr():m_pPlayMode(nullptr), m_bInvincibility(false)
 {
 	m_pPlayMode = CSceneMgr::GetInstance()->GetPlayModePtr();
 	m_TileVec.reserve(195);
@@ -44,6 +44,17 @@ void CObjMgr::Initialize()
 
 int  CObjMgr::Update() 
 {
+	if (CKeyMgr::GetInstance()->KeyDown('0'))
+	{
+		if (m_bInvincibility == false)
+		{
+			m_bInvincibility = true;
+		}
+		else
+		{
+			m_bInvincibility = false;
+		}
+	}
 	for (auto iter = m_TileVec.begin(); iter != m_TileVec.end();)
 	{
 		int iResult = (*iter)->Update();
@@ -130,7 +141,8 @@ void CObjMgr::LateUpdate()
 	}
 	if (!m_ObjList[OBJ_MONSTER].empty() && !m_ObjList[OBJ_PLAYER].empty())
 	{
-		CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_MONSTER]);
+		if(m_bInvincibility == false)
+			CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_MONSTER]);
 		CCollisionMgr::CollisionAttack(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_WAVE]);
 		CCollisionMgr::CollisionAttack(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_BOMB]);
 	}
@@ -139,6 +151,8 @@ void CObjMgr::LateUpdate()
 	{
 		CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOSS], m_ObjList[OBJ_WAVE]);
 		CCollisionMgr::CollisionAttack(m_ObjList[OBJ_BOMB], m_ObjList[OBJ_BOSS]);
+
+		//if (m_bInvincibility == false)
 		CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_BOSS]);
 		if (GetRemainTile() == 0)
 		{
@@ -168,7 +182,9 @@ void CObjMgr::LateUpdate()
 	{
 		CCollisionMgr::CollisionAttack(m_ObjList[OBJ_ITEM], m_ObjList[OBJ_BOMB]);
 		CCollisionMgr::CollisionAttack(m_ObjList[OBJ_ITEM], m_ObjList[OBJ_BOSS_BOMB]);
-		CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_WAVE]);
+
+		if (m_bInvincibility == false)
+			CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER], m_ObjList[OBJ_WAVE]);
 	}
 
 	if (*m_pPlayMode == MODE2P)
@@ -196,7 +212,9 @@ void CObjMgr::LateUpdate()
 		}
 		if (!m_ObjList[OBJ_MONSTER].empty() && !m_ObjList[OBJ_PLAYER2].empty())
 		{
-			CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER2], m_ObjList[OBJ_MONSTER]);
+
+			if (m_bInvincibility == false)
+				CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER2], m_ObjList[OBJ_MONSTER]);
 			CCollisionMgr::CollisionAttack(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_BOMB2]);
 			CCollisionMgr::CollisionAttack(m_ObjList[OBJ_MONSTER], m_ObjList[OBJ_WAVE]);
 
@@ -234,7 +252,9 @@ void CObjMgr::LateUpdate()
 		{
 			CCollisionMgr::CollisionAttack(m_ObjList[OBJ_ITEM], m_ObjList[OBJ_BOMB2]);
 			CCollisionMgr::CollisionAttack(m_ObjList[OBJ_ITEM], m_ObjList[OBJ_BOSS_BOMB]);
-			CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER2], m_ObjList[OBJ_WAVE]);
+
+			if (m_bInvincibility == false)
+				CCollisionMgr::CollisionAttack(m_ObjList[OBJ_PLAYER2], m_ObjList[OBJ_WAVE]);
 		}
 	}
 

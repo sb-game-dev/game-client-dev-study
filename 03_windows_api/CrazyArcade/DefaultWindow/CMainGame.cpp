@@ -53,7 +53,7 @@ void CMainGame::Initialize()
 	CSoundMgr::Get_Instance()->Initialize();
 
 #ifdef _DEBUG
-	CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE6);
+	CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE3);
 #elif NDEBUG
 	CSceneMgr::GetInstance()->SceneChangeReserve(SC_LOGO);
 #endif // _DEBUG
@@ -63,6 +63,10 @@ void CMainGame::Update()
 {
 	CKeyMgr::GetInstance()->KeyUpdate();
 	CSceneMgr::GetInstance()->Update();
+	if (CKeyMgr::GetInstance()->KeyDown('N'))
+	{
+		CSceneMgr::GetInstance()->SceneChangeReserve(SC_LOGO);
+	}
 }
 
 void CMainGame::LateUpdate()
@@ -172,6 +176,7 @@ void CMainGame::InsertImg()
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_ReLogin.bmp", L"button_ReLogin");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_ExitGame.bmp", L"button_ExitGame");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_ExitNotice.bmp", L"button_ExitNotice");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_Maple.bmp", L"button_Maple");
 
 
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Button/bmp/button_SelectPlayer.bmp", L"button_SelectPlayer1");
@@ -230,6 +235,10 @@ void CMainGame::InsertImg()
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_death2.bmp", L"player_death2");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_live2.bmp", L"player_live2");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Player/player_win2.bmp", L"player_win2");
+
+	//Mouse
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Mouse/mouse.bmp", L"mouse");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Maple/Mouse/Mouse.bmp", L"Mmouse");
 
 	//Tile
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Tile/tile.bmp", L"tile");
@@ -393,4 +402,14 @@ void CMainGame::InsertImg()
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/GameStart/game_start_a.bmp", L"game_start_a");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/GameStart/game_start_r.bmp", L"game_start_r");
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/GameStart/game_start_mark.bmp", L"game_start_mark");
+
+
+	//MapleBoard
+
+	CImgMgr::GetInstance()->InsertImg(L"../Resource/Maple/Board/Board4.png", L"Board4");
+	CImgMgr::GetInstance()->InsertImg(L"../Resource/Maple/Board/Board1.png", L"Board1");
+	CImgMgr::GetInstance()->InsertImg(L"../Resource/Maple/Rope/Rope.png", L"Rope");
+
+	//MapleUI
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Maple/BackGround/MainUI.bmp", L"MainUI");
 }

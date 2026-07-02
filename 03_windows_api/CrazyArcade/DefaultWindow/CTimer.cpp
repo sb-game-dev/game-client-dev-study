@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CTimer.h"
 #include "CBmpMgr.h"
+#include "CObjMgr.h"
 CTimer* CTimer::m_pInstance = nullptr;
 
 
@@ -21,6 +22,8 @@ void CTimer::Initialize()
 void CTimer::Update()
 {
 	if (m_iSec < 0)
+		return;
+	if ((CObjMgr::GetInstance()->GetRemainPlayer() == false && CObjMgr::GetInstance()->GetRemainPlayer2() == false))
 		return;
 	if (m_dwTimer + 1000 <= GetTickCount64())
 	{

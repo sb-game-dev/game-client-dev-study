@@ -13,8 +13,8 @@ public:
 	{
 		CObj* pObj = new T;
 
-		pObj->Initialize();
 		pObj->SetPos(fX, fY);
+		pObj->Initialize();
 		return pObj;
 	}
 

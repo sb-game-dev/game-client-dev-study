@@ -3,10 +3,12 @@
 #include "CKeyMgr.h"
 #include "CLineMgr.h"
 #include "CBmpMgr.h"
+#include "CScrollMgr.h"
+#include "CSoundMgr.h"
 
-CMaplePlayer::CMaplePlayer():m_eCurMotion(MOTION_END), m_ePreMotion(MOTION_END),m_dwFrameCount(GetTickCount64()),
+CMaplePlayer::CMaplePlayer() :m_eCurMotion(MOTION_END), m_ePreMotion(MOTION_END), m_dwFrameCount(GetTickCount64()),
 m_time(0), m_ePreMoveState(MOVE_GROUND), m_eMoveState(MOVE_GROUND), m_bJump(false), m_bFalling(false), m_fPrevX(0.f), m_fPrevY(0.f), m_pCurLine(nullptr), m_fJumpPower(10),
-m_bMoveFrame(true)
+m_bMoveFrame(true), m_fOffsetSpeed(0.f), m_bOffsetMove(false)
 {
 }
 
@@ -18,10 +20,9 @@ void CMaplePlayer::Initialize()
 {
 
 	CLine* pLine = CLineMgr::GetInstance()->GetFirstLine();
-	float x = 100.f;
+
 	float y = pLine->GetLine().tLeft.fY;
 
-	m_tInfo.fX = x;
 	m_tInfo.fY = y;
 
 	m_eRenderID = GAMEOBJECT;
@@ -41,7 +42,7 @@ void CMaplePlayer::Initialize()
 	m_eCurMotion = IDLE;
 	ChangeMotion();
 
-	m_fSpeed = 3.f;
+	m_fSpeed = 2.f;
 }
 
 int CMaplePlayer::Update()
@@ -54,8 +55,7 @@ int CMaplePlayer::Update()
 		MoveFrame();
 
 	//cout << CLineMgr::GetInstance()->CheckRopeLine(m_tInfo.fX, m_tInfo.fY) << endl;
-	//cout << "PlayerX: " << m_tInfo.fX << endl;
-	//cout << "PlayerY: " << m_tInfo.fY << endl;
+	
 	if (m_eMoveState == MOVE_ROPE)
 		m_time = 0;
 	if (m_eMoveState == MOVE_GROUND)
@@ -104,14 +104,19 @@ void CMaplePlayer::LateUpdate()
 	default:
 		break;
 	}
+
+	Offset();
 }
 
 void CMaplePlayer::Render(HDC hDC)
 {
+	int iScrollX = (int)CScrollMgr::GetInstance()->GetScrollX();
+	int iScrollY = (int)CScrollMgr::GetInstance()->GetScrollY();
+
 	HDC hPlayer = CBmpMgr::GetInstance()->FindImage(m_pFrameKey);
 	GdiTransparentBlt(hDC,					// 목적지 DC
-		int(m_tInfo.fX - (m_tFrame.iCX / 2.f)),	// 목적지 LEFT, TOP
-		int(m_tInfo.fY - (m_tFrame.iCY - m_tInfo.fCY * 0.5)),
+		int(m_tInfo.fX - (m_tFrame.iCX / 2.f)) + iScrollX,	// 목적지 LEFT, TOP
+		int(m_tInfo.fY - (m_tFrame.iCY - m_tInfo.fCY * 0.5)) + iScrollY,
 		m_tFrame.iCX,			// 목적지 공간의 가로, 세로 사이즈
 		m_tFrame.iCY,
 		hPlayer,						// 원본 이미지 DC
@@ -134,7 +139,6 @@ void CMaplePlayer::KeyInput()
 		m_eCurMotion = RIGHT;
 		if (m_eMoveState != MOVE_ROPE)
 		{
-			//CScrollMgr::GetInstance()->SetScrollX(-m_fSpeed);
 			m_tInfo.fX += m_fSpeed;
 		}
 		ChangeMotion();
@@ -145,7 +149,6 @@ void CMaplePlayer::KeyInput()
 		m_eCurMotion = LEFT; 
 		if (m_eMoveState != MOVE_ROPE)
 		{
-			//CScrollMgr::GetInstance()->SetScrollX(m_fSpeed);
 			m_tInfo.fX -= m_fSpeed;
 		}
 		ChangeMotion();
@@ -177,6 +180,7 @@ void CMaplePlayer::KeyInput()
 			m_time = 0.f;
 			m_eMoveState = MOVE_JUMP;
 			m_eCurMotion = JUMP;
+			CSoundMgr::Get_Instance()->PlaySound(L"jump.mp3", PLAYER_BUBBLE, 0.4f);
 			ChangeMotion();
 		}
 	}
@@ -192,7 +196,6 @@ void CMaplePlayer::KeyInput()
 		{
 			m_bMoveFrame = true;
 			CLineMgr::GetInstance()->SetRopeLine(m_tInfo.fX, m_tInfo.fY);
-			if (m_tInfo.fY >= 50.f)
 				m_tInfo.fY -= m_fSpeed;
 			m_eMoveState = MOVE_ROPE;
 			if (!CLineMgr::GetInstance()->CheckRopeLine(m_tInfo.fX, m_tInfo.fY))
@@ -228,7 +231,22 @@ void CMaplePlayer::KeyInput()
 	{
 		m_bMoveFrame = true;
 	}
-	
+	if (CKeyMgr::GetInstance()->KeyPressing('W'))
+	{
+		CScrollMgr::GetInstance()->SetScrollY(20.f);
+	}
+	if (CKeyMgr::GetInstance()->KeyPressing('S'))
+	{
+		CScrollMgr::GetInstance()->SetScrollY(-20.f);
+	}
+	if (CKeyMgr::GetInstance()->KeyPressing('A'))
+	{
+		CScrollMgr::GetInstance()->SetScrollX(20.f);
+	}
+	if (CKeyMgr::GetInstance()->KeyPressing('D'))
+	{
+		CScrollMgr::GetInstance()->SetScrollX(-20.f);
+	}
 }
 void CMaplePlayer::ChangeMotion()
 {
@@ -380,5 +398,58 @@ void CMaplePlayer::TakeDamage()
 		&& CLineMgr::GetInstance()->SetLine(m_tInfo.fX, m_tInfo.fY, m_fPrevX, m_fPrevY))
 	{
 		m_eMoveState = MOVE_GROUND;
+	}
+}
+
+void CMaplePlayer::Offset()
+{
+	int iOffsetminX = 300;
+	int iOffsetmaxX = WINCX - 300;
+
+	int iOffsetminY = 300;
+	int iOffsetmaxY = WINCY - 100;
+
+	int iScrollX = (int)CScrollMgr::GetInstance()->GetScrollX();
+	int iScrollY = (int)CScrollMgr::GetInstance()->GetScrollY();
+
+	if (iOffsetminX > m_tInfo.fX + iScrollX)
+	{
+		if (iScrollX < 0)
+		{
+			CScrollMgr::GetInstance()->SetScrollX((m_fSpeed));
+		}
+	}
+	
+	if (iOffsetmaxX < m_tInfo.fX + iScrollX)
+	{
+		if (iScrollX > -1920)
+		{
+			CScrollMgr::GetInstance()->SetScrollX(-(m_fSpeed));
+		}
+	}
+
+	if (iOffsetminY > m_tInfo.fY + iScrollY)
+	{
+		CScrollMgr::GetInstance()->SetScrollY((m_fSpeed));
+	}
+
+	if (iOffsetmaxY < m_tInfo.fY + iScrollY)
+	{
+		if (iScrollY > 0)
+		{
+			if(m_bOffsetMove)
+				m_fOffsetSpeed += 0.3f;
+			CScrollMgr::GetInstance()->SetScrollY(-(m_fSpeed + m_fOffsetSpeed));
+		}
+	}
+	else
+	{
+		m_fOffsetSpeed = 0;
+	}
+	if (iScrollY < 0)
+		CScrollMgr::GetInstance()->SetScrollYZero();
+	if (m_bOffsetMove == false && iScrollY == 0)
+	{
+		m_bOffsetMove = true;
 	}
 }

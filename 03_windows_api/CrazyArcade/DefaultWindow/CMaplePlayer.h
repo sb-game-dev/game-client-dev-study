@@ -14,7 +14,11 @@ public:
 	void		LateUpdate()		override;
 	void		Render(HDC hDC)	override;
 	void		Release()			override;
+	
 
+public:
+	void		Offset();
+	bool		GetOffsetMove() { return m_bOffsetMove; }
 private:
 	void        KeyInput();
 	void        ChangeMotion();
@@ -45,5 +49,8 @@ private:
 	CLine*		m_pCurLine;
 
 	bool		m_bMoveFrame;
+
+	float		m_fOffsetSpeed;
+	bool		m_bOffsetMove;
 };
 

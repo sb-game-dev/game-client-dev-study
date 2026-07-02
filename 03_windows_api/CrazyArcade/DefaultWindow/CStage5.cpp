@@ -232,7 +232,7 @@ void CStage5::Render(HDC hDC)
 			97, 41,
 			UnitPixel, &attr);
 
-		HDC hGasFrame = CBmpMgr::GetInstance()->FindImage(L"gas_frame");
+		HDC hGasFrame = CBmpMgr::GetInstance()->FindImage(L"gas_frame2");
 		BitBlt(hDC, 447, 536, 170, 22, hGasFrame, 0, 0, SRCCOPY);
 
 		HDC hGasBar = CBmpMgr::GetInstance()->FindImage(L"gas_bar");
@@ -254,7 +254,7 @@ void CStage5::Render(HDC hDC)
 			97, 41,
 			UnitPixel, &attr);
 	
-		HDC hGasFrame = CBmpMgr::GetInstance()->FindImage(L"gas_frame2");
+		HDC hGasFrame = CBmpMgr::GetInstance()->FindImage(L"gas_frame");
 		BitBlt(hDC, 24, 536, 170, 22, hGasFrame, 0, 0, SRCCOPY);
 	
 		HDC hGasBar = CBmpMgr::GetInstance()->FindImage(L"gas_bar");
@@ -298,7 +298,7 @@ void CStage5::Render(HDC hDC)
 			
 			HDC hSlotItem = CBmpMgr::GetInstance()->FindImage(L"InGameSlot");
 			GdiTransparentBlt(hDC,						// 목적지 DC
-				243 + 40 * iItemCnt,						// 목적지 LEFT, TOP
+				335 + 40 * iItemCnt,						// 목적지 LEFT, TOP
 				568,
 				37,										// 목적지 공간의 가로, 세로 사이즈
 				29,
@@ -308,18 +308,18 @@ void CStage5::Render(HDC hDC)
 				37,										// 원본 이미지 가로, 세로 사이즈
 				29,
 				RGB(255, 0, 255));						// 제거할 픽셀 색상
-			HDC hSlotNum = CBmpMgr::GetInstance()->FindImage(L"InGameNumber");
 
-			BitBlt(hDC,							// 목적지 DC
-				243 + 40 * iItemCnt,
+			HDC hSlotNum = CBmpMgr::GetInstance()->FindImage(L"InGameNumber2");
+
+			GdiTransparentBlt(hDC,							// 목적지 DC
+				335 + 40 * iItemCnt,
 				568,
-				13, 11,
+				37, 10,
 				hSlotNum,						// 원본 DC
-				13 * iItemCnt,					// 원본 이미지에서 가져오기 시작할 좌표의 LEFT, TOP
+				37 * iItemCnt,					// 원본 이미지에서 가져오기 시작할 좌표의 LEFT, TOP
 				0,
-				SRCCOPY);						// 그대로 복사하여 출력
-
-			
+				37, 10,
+				RGB(255, 0, 255));						// 그대로 복사하여 출력
 			++iItemCnt;
 		}
 	}
@@ -431,16 +431,18 @@ void CStage5::Render(HDC hDC)
 				29,
 				RGB(255, 0, 255));						// 제거할 픽셀 색상
 
+
 			HDC hSlotNum = CBmpMgr::GetInstance()->FindImage(L"InGameNumber2");
 
-			BitBlt(hDC,							// 목적지 DC
+			GdiTransparentBlt(hDC,							// 목적지 DC
 				335 + 40 * iItemCnt,
 				568,
-				37, 11,
+				37, 10,
 				hSlotNum,						// 원본 DC
 				37 * iItemCnt,					// 원본 이미지에서 가져오기 시작할 좌표의 LEFT, TOP
 				0,
-				SRCCOPY);						// 그대로 복사하여 출력
+				37, 10,
+				RGB(255, 0, 255));						// 그대로 복사하여 출력
 			++iItemCnt;
 		}
 	}

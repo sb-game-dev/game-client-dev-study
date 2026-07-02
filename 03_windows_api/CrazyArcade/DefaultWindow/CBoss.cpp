@@ -15,7 +15,7 @@ m_bCheckRemainTile(true), m_iRemainTile(195), m_fAngrySpeed(4.f),m_fWalkSpeed(1.
 	m_eCurMotion = IDLE;
 	m_eReturnMotion = IDLE;
 
-	m_bBossWin = true;
+	m_bBossWin = false;
 }
 
 CBoss::~CBoss()

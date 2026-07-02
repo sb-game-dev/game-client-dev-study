@@ -119,6 +119,17 @@ void CButton::Initialize()
 		m_tFrame.iCX = int(m_tInfo.fCX);
 		m_tFrame.iCY = int(m_tInfo.fCY);
 	}
+	else if (!lstrcmp(L"button_Maple", m_pFrameKey))
+	{
+		m_tInfo.fCX = 124.f;
+		m_tInfo.fCY = 56.f;
+		m_tFrame.iStart = 0;
+		m_tFrame.iEnd = 2;
+		m_tFrame.iMotion = 0;
+		m_tFrame.bLoop = false;
+		m_tFrame.iCX = int(m_tInfo.fCX);
+		m_tFrame.iCY = int(m_tInfo.fCY);
+	}
 	else if (!lstrcmp(L"button_myPage", m_pFrameKey))
 	{
 		m_tInfo.fCX = 65.f;
@@ -425,6 +436,10 @@ int CButton::Update()
 			else if (!lstrcmp(L"button_stageExit", m_pFrameKey))
 			{
 				CSceneMgr::GetInstance()->SceneChangeReserve(SC_MENU);
+			}
+			else if (!lstrcmp(L"button_Maple", m_pFrameKey))
+			{
+				CSceneMgr::GetInstance()->SceneChangeReserve(SC_STAGE6);
 			}
 			else if (!lstrcmp(L"button_save", m_pFrameKey))
 			{

@@ -15,6 +15,8 @@ CLogo::~CLogo()
 
 void CLogo::Initialize()
 {
+
+	CSoundMgr::Get_Instance()->PlaySound(L"logo.mp3", PLAYER_BUBBLE, 0.2f);
 }
 
 int CLogo::Update()

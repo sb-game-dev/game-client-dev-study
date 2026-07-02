@@ -137,8 +137,52 @@ CLine* CLineMgr::FindCurrentLine(float fPlayerX, float fPlayerY)
 
 void CLineMgr::Initialize()
 {
-	// 시작 지점
+	// 바닥
 	m_LineList.push_back(new CLine(LINEPOINT{ 0.f,500.f }, LINEPOINT{ 1920.f, 500.f }));
+
+	float fX = 935.f;
+	float fY = 430.f;
+	float fXr = fX;
+	float fXl = fX;
+	int iCnt = 5;
+	while (iCnt)
+	{
+		m_LineList.push_back(new CLine(LINEPOINT{ fX,fY }, LINEPOINT{ fX + 50.f, fY }));
+		for (int i = 0; i < iCnt; ++i)
+		{
+			fXr += 90.f;
+			fXl -= 90.f;
+			fY -= 70.f;
+			m_LineList.push_back(new CLine(LINEPOINT{ fXr,fY }, LINEPOINT{ fXr + 50.f, fY }));
+			m_LineList.push_back(new CLine(LINEPOINT{ fXl,fY }, LINEPOINT{ fXl + 50.f, fY }));
+		}
+		--iCnt;
+		for (int i = 0; i < iCnt; ++i)
+		{
+			fXr -= 90.f;
+			fXl += 90.f;
+			fY -= 70.f;
+			m_LineList.push_back(new CLine(LINEPOINT{ fXr,fY }, LINEPOINT{ fXr + 50.f, fY }));
+			m_LineList.push_back(new CLine(LINEPOINT{ fXl,fY }, LINEPOINT{ fXl + 50.f, fY }));
+		}
+		fXl += 90.f;
+		fY -= 70.f;
+		m_LineList.push_back(new CLine(LINEPOINT{ fXl,fY }, LINEPOINT{ fXl + 50.f, fY }));
+		fXr = fXl;
+	}
+
+	fY -= 70.f;
+	fY -= 350.f;
+	m_LineList.push_back(new CLine(LINEPOINT{ fXl,fY }, LINEPOINT{ fXl + 50.f, fY }));
+
+	m_RopeList.push_back(new CLine(LINEPOINT{ fXr+25.f, fY }, LINEPOINT{ fXr + 25.f, fY + 350.f }));
+
+
+	fY -= 70.f;
+	fXl += 90.f;
+	m_LineList.push_back(new CLine(LINEPOINT{ fXl,fY }, LINEPOINT{ fXl + 160.f, fY }));
+
+
 
 	//m_LineList.push_back(new CLine(LINEPOINT{ 0.f,400.f }, LINEPOINT{ 200.f, 400.f }));
 	//m_LineList.push_back(new CLine(LINEPOINT{ 200.f,400.f }, LINEPOINT{ 220.f, 450.f }));
@@ -188,8 +232,6 @@ void CLineMgr::Initialize()
 	//m_RopeList.push_back(new CLine(LINEPOINT{ fX,0 }, LINEPOINT{ fX, fSecondFloor - 50.f }));
 	//m_LineList.push_back(new CLine(LINEPOINT{ fX - 25.f,fSecondFloor }, LINEPOINT{ fX + 25.f, fSecondFloor }));
 	//fX += 100.f;
-
-
 }
 void CLineMgr::Update()
 {

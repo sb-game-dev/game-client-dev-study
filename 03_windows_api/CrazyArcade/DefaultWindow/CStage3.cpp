@@ -80,10 +80,10 @@ int CStage3::Update()
 	}
 	else if (CTimer::GetInstance()->GetSec() <= 0 || (CObjMgr::GetInstance()->GetRemainPlayer() == false && CObjMgr::GetInstance()->GetRemainPlayer2() == false))
 	{
-		if (dynamic_cast<CPlayer*>(m_pPlayer))
-			dynamic_cast<CPlayer*>(m_pPlayer)->SetLose();
-		if (dynamic_cast<CPlayer2*>(m_pPlayer2))
-			dynamic_cast<CPlayer2*>(m_pPlayer2)->SetLose();
+		//if (dynamic_cast<CPlayer*>(m_pPlayer))
+		//	dynamic_cast<CPlayer*>(m_pPlayer)->SetLose();
+		//if (dynamic_cast<CPlayer2*>(m_pPlayer2))
+		//	dynamic_cast<CPlayer2*>(m_pPlayer2)->SetLose();
 		for (auto& pMonster : CObjMgr::GetInstance()->GetList(OBJ_MONSTER))
 		{
 			CMonster* pTempMonster = dynamic_cast<CMonster*>(pMonster);
@@ -125,13 +125,28 @@ void CStage3::Render(HDC hDC)
 {
 	HDC hBackGround = CBmpMgr::GetInstance()->FindImage(L"stage_background");
 
-	BitBlt(hDC,							// 목적지 DC
-		0,0,
-		WINCX,WINCY,
-		hBackGround,					// 원본 DC
-		0,								// 원본 이미지에서 가져오기 시작할 좌표의 LEFT, TOP
-		0,
-		SRCCOPY);						// 그대로 복사하여 출력
+	if (*CSceneMgr::GetInstance()->GetPlayModePtr() == MODE1P)
+	{
+		hBackGround = CBmpMgr::GetInstance()->FindImage(L"stage_background");
+		BitBlt(hDC,							// 목적지 DC
+			0, 0,
+			WINCX, WINCY,
+			hBackGround,					// 원본 DC
+			0,								// 원본 이미지에서 가져오기 시작할 좌표의 LEFT, TOP
+			0,
+			SRCCOPY);						// 그대로 복사하여 출력
+	}
+	else
+	{
+		hBackGround = CBmpMgr::GetInstance()->FindImage(L"stage_background2");
+		BitBlt(hDC,							// 목적지 DC
+			0, 0,
+			WINCX, WINCY,
+			hBackGround,					// 원본 DC
+			0,								// 원본 이미지에서 가져오기 시작할 좌표의 LEFT, TOP
+			0,
+			SRCCOPY);						// 그대로 복사하여 출력
+	}
 	
 	CTimer::GetInstance()->Render(hDC);
 	CObjMgr::GetInstance()->Render(hDC); 
@@ -305,14 +320,15 @@ void CStage3::Render(HDC hDC)
 
 			HDC hSlotNum = CBmpMgr::GetInstance()->FindImage(L"InGameNumber2");
 
-			BitBlt(hDC,							// 목적지 DC
+			GdiTransparentBlt(hDC,							// 목적지 DC
 				335 + 40 * iItemCnt,
 				568,
-				37, 11,
+				37, 10,
 				hSlotNum,						// 원본 DC
 				37 * iItemCnt,					// 원본 이미지에서 가져오기 시작할 좌표의 LEFT, TOP
 				0,
-				SRCCOPY);						// 그대로 복사하여 출력
+				37, 10,
+				RGB(255, 0, 255));						// 그대로 복사하여 출력
 			++iItemCnt;
 		}
 	}

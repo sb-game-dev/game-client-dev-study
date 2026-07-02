@@ -18,6 +18,9 @@ public:
 	CLine*	FindCurrentLine(float fPlayerX, float fPlayerY);
 	CLine*	GetFirstLine() { return m_LineList.front(); }
 
+	list<CLine*>* GetLine() { return &m_LineList; }
+	list<CLine*>* GetRope() { return &m_RopeList; }
+
 public:
 	void	Initialize();
 	void	Update();

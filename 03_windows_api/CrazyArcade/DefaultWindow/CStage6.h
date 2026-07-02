@@ -1,6 +1,7 @@
 #pragma once
 #include "CScene.h"
 #include "CObj.h"
+#include "CLine.h"
 class CStage6 :
     public CScene
 {
@@ -15,6 +16,20 @@ public:
     void Release() override;
 
 private:
-    CObj*       m_pPlayer;
+
+    HDC			m_hDC;
+
+    HDC			m_memDC;
+    HBITMAP		m_Bit;
+    HBITMAP		m_Old;
+
+    HDC             m_hBackGround;
+
+    CObj*               m_pPlayer;
+
+
+    list<CLine*>*		m_pLineList;
+    list<CLine*>*		m_pRopeList;
+    
 };
 

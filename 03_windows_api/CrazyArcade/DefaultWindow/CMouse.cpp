@@ -2,6 +2,7 @@
 #include "CMouse.h"
 #include "CImgMgr.h"
 #include "CBmpMgr.h"
+#include "CSceneMgr.h"
 
 CMouse::CMouse():m_eChoiceTile(TILE_END), m_iChoiceItem(-1)
 {
@@ -17,12 +18,12 @@ void CMouse::Initialize()
 	m_eRenderID = MOUSE;
 
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Mouse/mouse.bmp", L"mouse");
+	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/Maple/Mouse/Mouse.bmp", L"Mmouse");
 	CImgMgr::GetInstance()->InsertImg(L"../Resource/Tile/tile2.png", L"tile");
 
 	CBmpMgr::GetInstance()->InsertBmp(L"../Resource/UI/MouseItem.bmp", L"MouseItem");
 	
-
-	m_pFrameKey = L"mouse";
+	
 	m_tInfo.fCX = 37.f;
 	m_tInfo.fCY = 39.f;
 	ShowCursor(FALSE);
@@ -38,7 +39,7 @@ int CMouse::Update()
 	m_tInfo.fY = (float)ptMouse.y;
 
 #ifdef _DEBUG
-	cout << "Mouse X: " << m_tInfo.fX << "\tMouse Y: " << m_tInfo.fY << endl;
+	//cout << "Mouse X: " << m_tInfo.fX << "\tMouse Y: " << m_tInfo.fY << endl;
 #endif // _DEBUG
 
 
@@ -51,24 +52,26 @@ void CMouse::LateUpdate()
 
 void CMouse::Render(HDC hDC)
 {
-	if (m_tInfo.fX < MAP_RIGHT
-		&& m_tInfo.fX > MAP_LEFT
-		&& m_tInfo.fY < MAP_BOTTOM
-		&& m_tInfo.fY > MAP_TOP
-		&& m_eChoiceTile != TILE_END)
-	{
-		Graphics* _pGraphics = Graphics::FromHDC(hDC);
-		Gdiplus::Image* pImg = CImgMgr::GetInstance()->FindImg(L"tile");
-		Rect rect = { AdjustPosX(m_tInfo.fX) - 20,
-					AdjustPosY(m_tInfo.fY) - 47,
-					40,67 };
-		ImageAttributes attr;
-		MakeAlphaAttr(attr, 0.5f);
-		_pGraphics->DrawImage(pImg, rect,
-			m_eChoiceTile* 40, 0,
-			40, 67,
-			UnitPixel,
-			&attr);
+	if (CSceneMgr::GetInstance()->GetCurScene() == SC_EDIT)
+	{	if (m_tInfo.fX < MAP_RIGHT
+			&& m_tInfo.fX > MAP_LEFT
+			&& m_tInfo.fY < MAP_BOTTOM
+			&& m_tInfo.fY > MAP_TOP
+			&& m_eChoiceTile != TILE_END)
+		{
+			Graphics* _pGraphics = Graphics::FromHDC(hDC);
+			Gdiplus::Image* pImg = CImgMgr::GetInstance()->FindImg(L"tile");
+			Rect rect = { AdjustPosX(m_tInfo.fX) - 20,
+						AdjustPosY(m_tInfo.fY) - 47,
+						40,67 };
+			ImageAttributes attr;
+			MakeAlphaAttr(attr, 0.5f);
+			_pGraphics->DrawImage(pImg, rect,
+				m_eChoiceTile * 40, 0,
+				40, 67,
+				UnitPixel,
+				&attr);
+		}
 	}
 	if (m_iChoiceItem >= 0)
 	{
@@ -86,7 +89,21 @@ void CMouse::Render(HDC hDC)
 			RGB(255, 0, 255));		// 제거할 픽셀 색상
 	}
 	//cout << m_iChoiceItem << endl;
-	HDC hMouse = CBmpMgr::GetInstance()->FindImage(L"mouse");
+
+	if (CSceneMgr::GetInstance()->GetCurScene() == SC_STAGE6)
+	{
+		m_pFrameKey = L"Mmouse";
+		m_tInfo.fCX = 24.f;
+		m_tInfo.fCY = 28.f;
+	}
+	else
+	{
+		m_pFrameKey = L"mouse";
+		m_tInfo.fCX = 37.f;
+		m_tInfo.fCY = 39.f;
+	}
+
+	HDC hMouse = CBmpMgr::GetInstance()->FindImage(m_pFrameKey);
 	GdiTransparentBlt(hDC,					// 목적지 DC
 		m_tInfo.fX,	// 목적지 LEFT, TOP
 		m_tInfo.fY,
@@ -98,16 +115,6 @@ void CMouse::Render(HDC hDC)
 		(int)m_tInfo.fCX,			// 원본 이미지 가로, 세로 사이즈
 		(int)m_tInfo.fCY,
 		RGB(255, 0, 255));		// 제거할 픽셀 색상
-
-
-	//Gdiplus::Image* pImg = CImgMgr::GetInstance()->FindImg(m_pFrameKey);
-	//
-	//Rect rect = { (int)m_tInfo.fX,(int)m_tInfo.fY,(int)m_tInfo.fCX,(int)m_tInfo.fCY };
-	//
-	//_pGraphics->DrawImage(pImg, rect,
-	//	0,0,
-	//	m_tInfo.fCX, m_tInfo.fCY,
-	//	UnitPixel);
 }
 
 void CMouse::Release()
