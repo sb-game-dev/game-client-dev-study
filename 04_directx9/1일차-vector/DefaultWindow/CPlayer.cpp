@@ -14,7 +14,7 @@ CPlayer::~CPlayer()
 void CPlayer::Initialize()
 {
 	m_tInfo.vPos = { 400.f, 300.f, 0.f };
-	m_tInfo.vDir = { 1.f, 0.f, 0.f };
+	m_tInfo.vDir = { 0.f, 1.f, 0.f };
 	m_fSpeed = 10.f;
 }
 

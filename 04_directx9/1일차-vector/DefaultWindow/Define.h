@@ -45,7 +45,7 @@ inline float GetLength(float fX, float fY)
 	return sqrtf(fX * fX + fY * fY);
 }
 
-inline float GetCos(D3DXVECTOR3 vDst, D3DXVECTOR3 vSrc)
+inline float GetCos(const D3DXVECTOR3& vDst, const D3DXVECTOR3& vSrc)
 {
 	float fDstLength = GetLength(vDst.x, vDst.y);
 	float fSrcLength = GetLength(vSrc.x, vSrc.y);
