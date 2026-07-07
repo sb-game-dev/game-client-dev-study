@@ -15,7 +15,7 @@ public:
 
 public:
     void    KeyInput();
-
+    void    FollowMouse();
 private:
     float   m_fRotateAngle;
 };

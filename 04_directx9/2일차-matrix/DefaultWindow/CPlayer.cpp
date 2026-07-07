@@ -62,9 +62,10 @@ void CPlayer::Update()
 	//// D3DXVec3Cross(결과 값을 저장할 벡터의 주소, 방향 벡터 1의 주소, 방향 벡터 2의 주소)
 
 
-	D3DXVec3Normalize(&m_tInfo.vDir, &m_tInfo.vDir);
 
 	KeyInput();
+
+	//FollowMouse();
 }
 
 void CPlayer::Render(HDC hDC)
@@ -147,6 +148,14 @@ void CPlayer::KeyInput()
 
 	}
 
+}
+
+void CPlayer::FollowMouse()
+{
+	m_tInfo.vDir = ::GetMouse() - m_tInfo.vPos;
+
+	D3DXVec3Normalize(&m_tInfo.vDir, &m_tInfo.vDir);
+	m_tInfo.vPos += m_tInfo.vDir * m_fSpeed;
 }
 
 
