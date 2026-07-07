@@ -46,16 +46,17 @@ void CPlayer::Render(HDC hDC)
 		vecLD.x - fSize * (m_tInfo.vDir.y),
 		vecLD.y + fSize * (m_tInfo.vDir.x),
 		0.f };
-	Ellipse(hDC,
-		vecRU.x - 5.f,
-		vecRU.y - 5.f,
-		vecRU.x + 5.f,
-		vecRU.y + 5.f);
 	MoveToEx(hDC, vecRU.x, vecRU.y, NULL);
 	LineTo(hDC, vecLU.x, vecLU.y);
 	LineTo(hDC, vecLD.x, vecLD.y);
 	LineTo(hDC, vecRD.x, vecRD.y);
 	LineTo(hDC, vecRU.x, vecRU.y);
+
+	Ellipse(hDC,
+		vecRU.x - 5.f,
+		vecRU.y - 5.f,
+		vecRU.x + 5.f,
+		vecRU.y + 5.f);
 
 	MoveToEx(hDC, m_tInfo.vPos.x, m_tInfo.vPos.y,NULL);
 	LineTo(hDC, m_tInfo.vPos.x + m_tInfo.vDir.x * 100, m_tInfo.vPos.y + m_tInfo.vDir.y * 100);
