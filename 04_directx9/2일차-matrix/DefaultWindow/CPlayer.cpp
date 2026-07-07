@@ -108,23 +108,31 @@ void CPlayer::Release()
 
 void CPlayer::KeyInput()
 {
-	if (GetAsyncKeyState('W'))
-	{
-		D3DXMATRIX matTemp;
-
-		D3DXMatrixTranslation(&matTemp, 
-			m_tInfo.vDir.x * m_fSpeed,
-			m_tInfo.vDir.y * m_fSpeed,
-			0.f);
-
-		D3DXVec3TransformCoord(&m_tInfo.vPos, &m_tInfo.vPos, &matTemp);
-	}
+	
 	if (GetAsyncKeyState('A'))
 	{
 		D3DXMATRIX matTemp;
 		D3DXMatrixRotationZ(&matTemp, D3DXToRadian(-m_fRotateAngle));
 
 		D3DXVec3TransformNormal(&m_tInfo.vDir, &m_tInfo.vDir, &matTemp);
+	}
+	if (GetAsyncKeyState('D'))
+	{
+		D3DXMATRIX matTemp;
+		D3DXMatrixRotationZ(&matTemp, D3DXToRadian(m_fRotateAngle));
+
+		D3DXVec3TransformNormal(&m_tInfo.vDir, &m_tInfo.vDir, &matTemp);
+
+	}if (GetAsyncKeyState('W'))
+	{
+		D3DXMATRIX matTemp;
+
+		D3DXMatrixTranslation(&matTemp,
+			m_tInfo.vDir.x * m_fSpeed,
+			m_tInfo.vDir.y * m_fSpeed,
+			0.f);
+
+		D3DXVec3TransformCoord(&m_tInfo.vPos, &m_tInfo.vPos, &matTemp);
 	}
 	if (GetAsyncKeyState('S'))
 	{
@@ -136,14 +144,6 @@ void CPlayer::KeyInput()
 			0.f);
 
 		D3DXVec3TransformCoord(&m_tInfo.vPos, &m_tInfo.vPos, &matTemp);
-
-	}
-	if (GetAsyncKeyState('D'))
-	{
-		D3DXMATRIX matTemp;
-		D3DXMatrixRotationZ(&matTemp, D3DXToRadian(m_fRotateAngle));
-
-		D3DXVec3TransformNormal(&m_tInfo.vDir, &m_tInfo.vDir, &matTemp);
 
 	}
 
