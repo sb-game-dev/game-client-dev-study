@@ -18,16 +18,16 @@ void CMonster::Initialize()
 
 void CMonster::Update()
 {
-	m_tInfo.vDir = m_pPlayer->GetInfo().vPos - m_tInfo.vPos;
-
-	// 벡터의 정규화 과정
-	float	fLength = sqrtf(m_tInfo.vDir.x * m_tInfo.vDir.x + m_tInfo.vDir.y * m_tInfo.vDir.y);
-
-	m_tInfo.vDir.x /= fLength;
-	m_tInfo.vDir.y /= fLength;
-	m_tInfo.vDir.z = 0.f;
-
-	m_tInfo.vPos += m_tInfo.vDir * 2.f;
+	//m_tInfo.vDir = m_pPlayer->GetInfo().vPos - m_tInfo.vPos;
+	//
+	//// 벡터의 정규화 과정
+	//float	fLength = sqrtf(m_tInfo.vDir.x * m_tInfo.vDir.x + m_tInfo.vDir.y * m_tInfo.vDir.y);
+	//
+	//m_tInfo.vDir.x /= fLength;
+	//m_tInfo.vDir.y /= fLength;
+	//m_tInfo.vDir.z = 0.f;
+	//
+	//m_tInfo.vPos += m_tInfo.vDir * 2.f;
 
 	// m_tInfo.vPos.x += cos() * m_fSpeed;
 	// m_tInfo.vPos.y -= sin() * m_fSpeed;
@@ -35,11 +35,11 @@ void CMonster::Update()
 
 void CMonster::Render(HDC hDC)
 {
-	Ellipse(hDC,
-		m_tInfo.vPos.x - 50.f,
-		m_tInfo.vPos.y - 50.f,
-		m_tInfo.vPos.x + 50.f,
-		m_tInfo.vPos.y + 50.f);
+	//Ellipse(hDC,
+	//	m_tInfo.vPos.x - 50.f,
+	//	m_tInfo.vPos.y - 50.f,
+	//	m_tInfo.vPos.x + 50.f,
+	//	m_tInfo.vPos.y + 50.f);
 }
 
 void CMonster::Release()
