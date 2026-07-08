@@ -28,7 +28,6 @@ void CPlayer::Update()
 
 void CPlayer::Render(HDC hDC)
 {
-
 	float fSize = 100.f;
 	D3DXVECTOR3 vecRU = {
 		m_tInfo.vPos.x - fSize/2 * (m_tInfo.vDir.y) + fSize / 2 * (m_tInfo.vDir.x),
@@ -68,7 +67,6 @@ void CPlayer::Release()
 
 void CPlayer::KeyInput()
 {
-	
 	if (GetAsyncKeyState('A'))
 	{
 		D3DXMATRIX matTemp;
@@ -86,7 +84,6 @@ void CPlayer::KeyInput()
 	}if (GetAsyncKeyState('W'))
 	{
 		D3DXMATRIX matTemp;
-
 		D3DXMatrixTranslation(&matTemp,
 			m_tInfo.vDir.x * m_fSpeed,
 			m_tInfo.vDir.y * m_fSpeed,
@@ -97,16 +94,13 @@ void CPlayer::KeyInput()
 	if (GetAsyncKeyState('S'))
 	{
 		D3DXMATRIX matTemp;
-
 		D3DXMatrixTranslation(&matTemp,
 			m_tInfo.vDir.x * -m_fSpeed,
 			m_tInfo.vDir.y * -m_fSpeed,
 			0.f);
 
 		D3DXVec3TransformCoord(&m_tInfo.vPos, &m_tInfo.vPos, &matTemp);
-
 	}
-
 }
 
 void CPlayer::FollowMouse()
