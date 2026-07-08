@@ -15,17 +15,14 @@ void CPlayer::Initialize()
 {
 	m_tInfo.vPos = { 400.f, 300.f, 0.f };
 
-	m_vPoint[0] = { m_tInfo.vPos.x - 50.f, m_tInfo.vPos.y - 50.f,  0.f };
-	m_vPoint[1] = { m_tInfo.vPos.x + 50.f, m_tInfo.vPos.y - 50.f,  0.f };
-	m_vPoint[2] = { m_tInfo.vPos.x + 50.f, m_tInfo.vPos.y + 50.f,  0.f };
-	m_vPoint[3] = { m_tInfo.vPos.x - 50.f, m_tInfo.vPos.y + 50.f,  0.f };
-
-	for (int i = 0; i < 4; ++i)
-		m_vOriginPoint[i] = m_vPoint[i];
+	// 꼭짓점
+	m_vOriginPoint[0] = { - 50.f,- 50.f,  0.f };
+	m_vOriginPoint[1] = { + 50.f,- 50.f,  0.f };
+	m_vOriginPoint[2] = { + 50.f,+ 50.f,  0.f };
+	m_vOriginPoint[3] = { - 50.f,+ 50.f,  0.f };
 
 	// 포신 
-	m_vGunPoint = { m_tInfo.vPos.x, m_tInfo.vPos.y - 100.f, 0.f };
-	m_vGunOriginPoint = m_vGunPoint;
+	m_vGunOriginPoint = { 0.f, - 100.f, 0.f };
 
 	m_tInfo.vLook = { 0.f, -1.f, 0.f };
 
@@ -40,8 +37,14 @@ void CPlayer::Update()
 	//for (int i = 0; i < 4; ++i)
 	//{
 	//	D3DXVECTOR3			vTemp = m_vOriginPoint[i];
+	//	// 크기
+	//	float fSizeX = 2.f;
+	//	float fSizeY = 1.f;
+	//	float fSizeZ = 1.f;
 	//
-	//	vTemp -= { 400.f, 300.f, 0.f};
+	//	vTemp.x *= fSizeX;
+	//	vTemp.y *= fSizeY;
+	//	vTemp.z *= fSizeZ;
 	//
 	//	// 자전
 	//	m_vPoint[i].x = vTemp.x * cos(m_fAngle) - vTemp.y * sin(m_fAngle);
@@ -51,11 +54,7 @@ void CPlayer::Update()
 	//	m_vPoint[i] += m_tInfo.vPos;
 	//}
 	//
-	//// 포신도 월드 변환
-	//
 	//D3DXVECTOR3			vTemp = m_vGunOriginPoint;
-	//
-	//vTemp -= { 400.f, 300.f, 0.f};
 	//
 	//// 자전
 	//m_vGunPoint.x = vTemp.x * cos(m_fAngle) - vTemp.y * sin(m_fAngle);
@@ -66,28 +65,24 @@ void CPlayer::Update()
 #pragma endregion
 
 	D3DXMATRIX	matScale, matRotZ, matTrans;
-
-	D3DXMatrixScaling(&matScale, 2.f, 1.f, 1.f);
+	
+	D3DXMatrixScaling(&matScale, 1.f, 1.f, 1.f);
 	D3DXMatrixRotationZ(&matRotZ, m_fAngle);
 	D3DXMatrixTranslation(&matTrans, m_tInfo.vPos.x, m_tInfo.vPos.y, m_tInfo.vPos.z);
-
+	
 	m_tInfo.matWorld = matScale * matRotZ * matTrans;
-
+	
 	for (int i = 0; i < 4; ++i)
 	{
 		m_vPoint[i] = m_vOriginPoint[i];
-
-		m_vPoint[i] -= {400.f, 300.f, 0.f};
-
+	
 		D3DXVec3TransformCoord(&m_vPoint[i], &m_vPoint[i], &m_tInfo.matWorld);
 	}
 	
 	m_vGunPoint = m_vGunOriginPoint;
-
-	m_vGunPoint -= {400.f, 300.f, 0.f};
-
+	
 	D3DXVec3TransformCoord(&m_vGunPoint, &m_vGunPoint, &m_tInfo.matWorld);
-
+	
 	//x * cos(m_fAngle) - y * sin(m_fAngle), x * sin(m_fAngle) + y * cos(m_fAngle);
 
 }
@@ -128,12 +123,10 @@ void CPlayer::KeyInput()
 	if (GetAsyncKeyState('A'))
 	{
 		m_fAngle += D3DXToRadian(3.f);
-		D3DXVec3TransformNormal(&m_tInfo.vDir, &m_tInfo.vLook, &m_tInfo.matWorld);
 	}
 	if (GetAsyncKeyState('D'))
 	{
 		m_fAngle -= D3DXToRadian(3.f);
-		D3DXVec3TransformNormal(&m_tInfo.vDir, &m_tInfo.vLook, &m_tInfo.matWorld);
 	}
 
 	if (GetAsyncKeyState('W'))
@@ -141,7 +134,7 @@ void CPlayer::KeyInput()
 		//m_tInfo.vDir.x = m_tInfo.vLook.x * cos(m_fAngle) - m_tInfo.vLook.y * sin(m_fAngle);
 		//m_tInfo.vDir.y = m_tInfo.vLook.x * sin(m_fAngle) + m_tInfo.vLook.y * cos(m_fAngle);
 
-		//D3DXVec3TransformNormal(&m_tInfo.vDir, &m_tInfo.vLook, &m_tInfo.matWorld);
+		D3DXVec3TransformNormal(&m_tInfo.vDir, &m_tInfo.vLook, &m_tInfo.matWorld);
 		m_tInfo.vPos += m_tInfo.vDir * m_fSpeed;
 	}
 
@@ -151,7 +144,7 @@ void CPlayer::KeyInput()
 		//m_tInfo.vDir.x = m_tInfo.vLook.x * cos(m_fAngle) - m_tInfo.vLook.y * sin(m_fAngle);
 		//m_tInfo.vDir.y = m_tInfo.vLook.x * sin(m_fAngle) + m_tInfo.vLook.y * cos(m_fAngle);
 
-		//D3DXVec3TransformNormal(&m_tInfo.vDir, &m_tInfo.vLook, &m_tInfo.matWorld);
+		D3DXVec3TransformNormal(&m_tInfo.vDir, &m_tInfo.vLook, &m_tInfo.matWorld);
 		m_tInfo.vPos -= m_tInfo.vDir * m_fSpeed;
 	}
 
