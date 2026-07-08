@@ -19,7 +19,6 @@ typedef struct tagInfo
 
 	D3DXMATRIX		matWorld;
 
-
 }INFO;
 
 // 벡터의 상등 : 방향과 크기가 일치하는 벡터는 완전히 같은 벡터
@@ -80,10 +79,10 @@ _41, _42, _43, _44
 //0 0 1
 //
 //
-//1 0 0 0	->	right	(dir)
-//0 1 0 0	->  up		(dir)
-//0 0 1 0	->  look	(dir)
-//0 0 0 1	->  pos		(pos)
+//1 0 0 0	->	right(dir)
+//0 1 0 0	->  up	(dir)
+//0 0 1 0	->  look(dir)
+//0 0 0 1	->  pos	(pos)
 
 
 // 행렬의 곱셈 법칙
