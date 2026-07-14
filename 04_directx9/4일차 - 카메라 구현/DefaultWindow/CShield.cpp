@@ -23,10 +23,8 @@ void CShield::Update()
 {
 	m_fAngle += D3DXToRadian(3.f);
 
-
-	D3DXMATRIX matView;
-	matView = CCameraMgr::GetInstance()->GetMatView();
-	m_tInfo.matView = matView;
+	m_tInfo.matView = CCameraMgr::GetInstance()->GetMatView();
+	m_tInfo.matProj = CCameraMgr::GetInstance()->GetMatProj();
 
 }
 
@@ -51,9 +49,17 @@ void CShield::LateUpdate()
 	for (int i = 0; i < 4; ++i)
 		D3DXVec3TransformCoord(&m_vViewBody[i], &m_vWorldBody[i], &m_tInfo.matView);
 
+	for (int i = 0; i < 4; ++i)
+		D3DXVec3TransformCoord(&m_vViewBody[i], &m_vViewBody[i], &m_tInfo.matProj);
+
+	// ºäÆ÷Æ® º¯È¯
 	for (int i = 0; i < 4; ++i) {
 		m_vViewBody[i] += {WINCX / 2, WINCY / 2, 0};
+		//m_vViewBody[i].x = (m_vViewBody[i].x + 1) * WINCX;
+		//m_vViewBody[i].y = (-m_vViewBody[i].y + 1) * WINCY;
 	}
+
+
 }
 
 void CShield::Render(HDC hDC)

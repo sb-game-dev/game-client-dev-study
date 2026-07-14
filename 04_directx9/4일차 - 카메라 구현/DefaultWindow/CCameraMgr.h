@@ -34,13 +34,20 @@ public:
 	
 
 	D3DXMATRIX	GetMatView() { return m_matView; }
-	D3DXMATRIX*	GetMatViewPtr() { return &m_matView; }
+	D3DXMATRIX  GetMatProj() { return m_matProj; }
+
+	D3DXMATRIX* GetMatViewPtr() { return &m_matView; }
+	D3DXMATRIX* GetMatProjPtr() { return &m_matProj; }
+
+private:
+	void	KeyInput();
 
 public:
 	D3DXVECTOR3	m_vPos;
 	D3DXVECTOR3	m_vUp;
 
 	D3DXMATRIX	m_matView;
+	D3DXMATRIX	m_matProj;
 
 	CObj*		m_pTarget;
 };

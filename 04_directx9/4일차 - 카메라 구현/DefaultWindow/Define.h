@@ -19,6 +19,7 @@ typedef struct tagInfo
 
 	D3DXMATRIX		matWorld;
 	D3DXMATRIX		matView;
+	D3DXMATRIX		matProj;
 
 }INFO;
 
