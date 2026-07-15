@@ -7,6 +7,27 @@
     <Filter Include="99. Headers">
       <UniqueIdentifier>{30efcc35-7bce-40aa-8c3e-3c6867c802b1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. FrameMgr">
+      <UniqueIdentifier>{55418797-3ad4-4308-9914-d710901cdbef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. TimerMgr">
+      <UniqueIdentifier>{9c759dc1-9cd7-4d76-a12b-c7d0656161b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Management">
+      <UniqueIdentifier>{5e9bc3c0-f719-4353-a2c1-e57c35ba5245}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Management\00. Scene">
+      <UniqueIdentifier>{8eded060-3862-4b78-b35b-8dd076d29251}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Management\01. Layer">
+      <UniqueIdentifier>{62cc2f4f-b90d-4d12-bccc-a6b1ad53e80a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Management\02. GameObject">
+      <UniqueIdentifier>{af4976e0-5778-448d-ad38-147bfea89fd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Management\03. Component">
+      <UniqueIdentifier>{900c00b3-f42c-4503-a871-b82640173a17}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\Engine_Define.h">

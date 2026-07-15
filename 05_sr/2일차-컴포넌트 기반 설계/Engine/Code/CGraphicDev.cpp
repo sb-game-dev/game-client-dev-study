@@ -95,7 +95,7 @@ void	CGraphicDev::Render_Begin(D3DXCOLOR Color)
 						D3DCLEAR_STENCIL | D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
 						Color,		// 후면 버퍼 텍스처 색상
 						1.f,		// "z버퍼 초기화 값"
-						0);		// 스텐실 버퍼 초기화 값
+						0);			// 스텐실 버퍼 초기화 값
 
 	m_pGraphicDev->BeginScene();
 }
