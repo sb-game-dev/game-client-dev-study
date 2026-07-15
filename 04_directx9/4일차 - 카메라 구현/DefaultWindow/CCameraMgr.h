@@ -31,6 +31,7 @@ public:
 	void	Release();
 
 	void	SetTarget(CObj* pObj) { m_pTarget = pObj; }
+	void	SetTarget2(CObj* pObj) { m_pTarget2 = pObj; }
 	
 
 	D3DXMATRIX	GetMatView() { return m_matView; }
@@ -50,5 +51,6 @@ public:
 	D3DXMATRIX	m_matProj;
 
 	CObj*		m_pTarget;
+	CObj*		m_pTarget2;
 };
 

@@ -49,6 +49,7 @@ void CMainGame::Initialize()
 	}
 
 	CCameraMgr::GetInstance()->SetTarget(m_pPlayer);
+	CCameraMgr::GetInstance()->SetTarget2(m_pMonster);
 }
 
 void CMainGame::Update()

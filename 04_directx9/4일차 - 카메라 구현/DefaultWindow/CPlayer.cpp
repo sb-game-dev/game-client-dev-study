@@ -25,7 +25,7 @@ void CPlayer::Initialize()
 	m_tInfo.vLook = { 0.f,-1.f,0.f };
 
 	m_tInfo.vDir = { 0.f,1.f,0.f };
-	m_fSpeed = 1.f;
+	m_fSpeed = 5.f;
 
 	
 }

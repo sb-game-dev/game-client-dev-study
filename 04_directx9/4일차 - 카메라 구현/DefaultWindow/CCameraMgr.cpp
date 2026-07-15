@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "CCameraMgr.h"
 CCameraMgr* CCameraMgr::m_pInstance = nullptr;
-CCameraMgr::CCameraMgr():m_pTarget(nullptr)
+CCameraMgr::CCameraMgr():m_pTarget(nullptr), m_pTarget2(nullptr)
 {
 	ZeroMemory(&m_vPos, sizeof(m_vPos));
 	ZeroMemory(&m_matView, sizeof(m_matView));
@@ -25,9 +25,24 @@ void CCameraMgr::Update()
 {
 	KeyInput();
 	D3DXVECTOR3 vTargetPos = m_pTarget->GetInfo().vPos;
-	m_vPos.x = vTargetPos.x;
-	m_vPos.y = vTargetPos.y;
+	D3DXVECTOR3 vTargetPos2 = m_pTarget2->GetInfo().vPos;
+	//m_vPos.x = vTargetPos.x;
+	//m_vPos.y = vTargetPos.y;
 
+	m_vPos.x = (vTargetPos.x + vTargetPos2.x) * 0.5f;
+	m_vPos.y = (vTargetPos.y + vTargetPos2.y) * 0.5f;
+
+	D3DXVECTOR3 vCameraLook = { m_vPos.x, m_vPos.y, 1 };
+
+	float fDistanceX = fabsf(vTargetPos.x - vTargetPos2.x);
+	float fDistanceY = fabsf(vTargetPos.y - vTargetPos2.y);
+
+	float fDistance = sqrtf(fDistanceX * fDistanceX + fDistanceY * fDistanceY);
+	
+	m_vPos.z = -fDistance * 0.009f;
+
+	if (m_vPos.z >= -1.f)
+		m_vPos.z = -1.f;
 
 	//D3DXMatrixLookAtLH(
 	//	&m_matView,
@@ -38,7 +53,7 @@ void CCameraMgr::Update()
 	D3DXMatrixLookAtLH(
 		&m_matView,
 		&m_vPos,
-		&vTargetPos,
+		&vCameraLook,
 		&m_vUp
 	);
 	D3DXMatrixPerspectiveFovLH(
