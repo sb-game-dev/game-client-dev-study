@@ -18,7 +18,7 @@ HRESULT CTimer::Ready_Timer()
 	QueryPerformanceCounter(&m_LastTime);			// 1085
 	QueryPerformanceCounter(&m_FixTime);			// 1090
 
-	QueryPerformanceFrequency(&m_CpuTick);			// cpu tick 값을 얻어오는 함수
+	QueryPerformanceFrequency(&m_CpuTick);		// cpu tick 값을 얻어오는 함수
 
 	return S_OK;
 }
