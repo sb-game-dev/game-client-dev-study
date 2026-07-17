@@ -33,8 +33,6 @@ private:
 
 private:
 	virtual void Free();
-
-
 };
 
 END

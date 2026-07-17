@@ -28,7 +28,7 @@ private:
 
 private:
 	Engine::CGraphicDev*	m_pDeviceClass;
-	Engine::CManagement* m_pManagementClass;
+	Engine::CManagement*	m_pManagementClass;
 	LPDIRECT3DDEVICE9		m_pGraphicDev;
 
 
