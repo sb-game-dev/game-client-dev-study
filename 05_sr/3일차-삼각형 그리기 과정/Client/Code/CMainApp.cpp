@@ -59,7 +59,7 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 
 	_matrix matView, matProj;
 	
-	_vec3   vEye{ 0.f, 10.f, -10.f };
+	_vec3   vEye{ 0.f, 5.f, -10.f };
 	_vec3   vAt{ 0.f, 0.f, 1.f };
 	_vec3   vUp{ 0.f, 1.f, 0.f };
 	

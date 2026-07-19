@@ -28,6 +28,9 @@
     <Filter Include="02. GameObject\00. BackGround">
       <UniqueIdentifier>{8b53fb1c-f18e-4aa3-8cbe-81350722ac44}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\01. Bullet">
+      <UniqueIdentifier>{2d4ae6d1-e399-4e8a-b201-2f6a911e33d4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -54,6 +57,9 @@
     <ClInclude Include="..\Header\CBackGround.h">
       <Filter>02. GameObject\00. BackGround</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CBullet.h">
+      <Filter>02. GameObject\01. Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -70,6 +76,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CBackGround.cpp">
       <Filter>02. GameObject\00. BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBullet.cpp">
+      <Filter>02. GameObject\01. Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

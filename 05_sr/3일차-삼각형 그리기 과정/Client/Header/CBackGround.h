@@ -6,6 +6,7 @@ namespace Engine
 {
 	class CTriCol;
 	class CRectCol;
+	class CPillarCol;
 }
 
 class CBackGround :  public CGameObject
@@ -22,12 +23,12 @@ public:
 
 private:
 	HRESULT			Add_Component();
-	void			KetInput();
+	void			KetInput(const _float& fTimeDelta);
 
 private:
 	Engine::CTriCol*		m_pBufferCom;
 	Engine::CRectCol*		m_pRectBufferCom;
-
+	Engine::CPillarCol*		m_pPillarBufferCom;
 
 	D3DXVECTOR3				m_vScale;
 	D3DXVECTOR3				m_vPos;

@@ -43,6 +43,12 @@
     <Filter Include="04. Component\00. VIBuffer\01. RectCol">
       <UniqueIdentifier>{9fa8d340-d140-4adf-8aee-1559d7bb4012}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Component\00. VIBuffer\02. PillarCol">
+      <UniqueIdentifier>{f3831040-e856-4c10-b7d2-cafe0c8f64f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\00. VIBuffer\03. RectPillarCol">
+      <UniqueIdentifier>{367e30f9-b0c9-47db-badb-fc4a9a46ff4f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -102,6 +108,12 @@
     <ClInclude Include="..\Header\CRectCol.h">
       <Filter>04. Component\00. VIBuffer\01. RectCol</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CPillarCol.h">
+      <Filter>04. Component\00. VIBuffer\02. PillarCol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CRectPillarCol.h">
+      <Filter>04. Component\00. VIBuffer\03. RectPillarCol</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -142,6 +154,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CRectCol.cpp">
       <Filter>04. Component\00. VIBuffer\01. RectCol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CPillarCol.cpp">
+      <Filter>04. Component\00. VIBuffer\02. PillarCol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CRectPillarCol.cpp">
+      <Filter>04. Component\00. VIBuffer\03. RectPillarCol</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
