@@ -21,6 +21,11 @@ public:
 	{
 		*(((_float*)&m_vAngle) + eType) += fAngle;
 	}
+	void		RotationAxis(_matrix* matRot);
+	void		RotX(const _float& fAngle)
+	{
+		m_vAngle.x += fAngle;
+	}
 
 	_matrix* Get_World() { return &m_matWorld; }
 	void	 Get_Info(INFO eType, _vec3* pInfo)
@@ -29,7 +34,7 @@ public:
 	}
 
 public:
-	HRESULT		Ready_Transform();
+	HRESULT			Ready_Transform();
 	virtual _int	Update_Component(const _float& fTimeDelta);
 	virtual void	LateUpdate_Component();
 

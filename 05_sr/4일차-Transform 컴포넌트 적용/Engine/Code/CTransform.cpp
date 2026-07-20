@@ -29,6 +29,15 @@ CTransform::~CTransform()
 {
 }
 
+void CTransform::RotationAxis(_matrix* matRot)
+{
+	m_matWorld = *matRot * m_matWorld;
+	//for (_uint i = 0; i < INFO_POS; ++i)
+	//{
+	//	D3DXVec3TransformCoord(&m_vInfo[i], &m_vInfo[i], matRot);
+	//}
+}
+
 HRESULT CTransform::Ready_Transform()
 {
 	D3DXMatrixIdentity(&m_matWorld);
@@ -51,7 +60,7 @@ _int CTransform::Update_Component(const _float& fTimeDelta)
 
 	for (_uint i = 0; i < INFO_POS; ++i)
 	{
-		D3DXVec3Normalize(&m_vInfo[i], &m_vInfo[i]);		
+		D3DXVec3Normalize(&m_vInfo[i], &m_vInfo[i]);	
 		m_vInfo[i] *= *(((_float*)&m_vScale) + i);
 	}
 

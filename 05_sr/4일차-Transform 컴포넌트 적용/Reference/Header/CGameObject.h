@@ -2,7 +2,9 @@
 #include "CBase.h"
 #include "CComponent.h"
 
+
 BEGIN(Engine)
+class CTransform;
 
 class ENGINE_DLL CGameObject : public CBase
 {
@@ -20,6 +22,15 @@ public:
 	virtual			void		LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual			void		Render_GameObject();
 
+	virtual			void		SetTargetTransfrom(CTransform* pCom) 
+	{
+		m_pTargetTransfrom = pCom;
+		if (m_pTargetTransfrom == nullptr)
+		{
+			MSG_BOX("TargetTransfrom Failed");
+		}
+	}
+
 protected:
 	map<const _tchar*, CComponent*>			m_mapComponent[ID_END];
 	LPDIRECT3DDEVICE9						m_pGraphicDev;
@@ -30,6 +41,9 @@ private:
 
 protected:
 	virtual		void		Free();
+
+protected:
+	CTransform* m_pTargetTransfrom;
 };
 
 END

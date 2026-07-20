@@ -3,6 +3,8 @@
 #include "CBackGround.h"
 #include "CProtoMgr.h"
 #include "CFontMgr.h"
+#include "CPlayer.h"
+#include <CMonster.h>
 
 CLogo::CLogo(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev)
@@ -20,9 +22,6 @@ HRESULT CLogo::Ready_Scene()
     
     if (FAILED(Ready_Environment_Layer(L"Environment_Layer")))
         return E_FAIL;
- 
-
-
     return S_OK;
 }
 
@@ -57,34 +56,39 @@ HRESULT CLogo::Ready_Environment_Layer(const _tchar* pLayerTag)
     CGameObject* pGameObject = nullptr;
 
     // backGround
-    pGameObject = CBackGround::Create(m_pGraphicDev);
-    
-    if (nullptr == pGameObject)
-        return E_FAIL;
+    //pGameObject = CBackGround::Create(m_pGraphicDev);
+    //
+    //if (nullptr == pGameObject)
+    //    return E_FAIL;
+    //
+    //if (FAILED(pLayer->Add_GameObject(L"BackGround", pGameObject)))
+    //    return E_FAIL;
 
-    if (FAILED(pLayer->Add_GameObject(L"BackGround", pGameObject)))
-        return E_FAIL;
 
     // Player
-    //pGameObject = CPlayer::Create(m_pGraphicDev);
-    //
-    //if (nullptr == pGameObject)
-    //    return E_FAIL;
-    //
-    //if (FAILED(pLayer->Add_GameObject(L"Player", pGameObject)))
-    //    return E_FAIL;
-    //
-    //// Monster
-    //pGameObject = CMonster::Create(m_pGraphicDev);
-    //
-    //if (nullptr == pGameObject)
-    //    return E_FAIL;
-    //
-    //if (FAILED(pLayer->Add_GameObject(L"Monster", pGameObject)))
-    //    return E_FAIL;
+    CGameObject* pPlayer = CPlayer::Create(m_pGraphicDev);
+    
+    if (nullptr == pPlayer)
+        return E_FAIL;
+    
+    if (FAILED(pLayer->Add_GameObject(L"Player", pPlayer)))
+        return E_FAIL;
 
+    
+    // Monster
+    CGameObject* pMonster = CMonster::Create(m_pGraphicDev);
+    
+    if (nullptr == pMonster)
+        return E_FAIL;
+
+    if (FAILED(pLayer->Add_GameObject(L"Monster", pMonster)))
+        return E_FAIL;
 
     m_mapLayer.insert({ pLayerTag, pLayer });
+
+    pMonster->SetTargetTransfrom(
+        dynamic_cast<CTransform*> (pPlayer->Get_Component(ID_DYNAMIC, L"Com_Transform"))
+    );
 
     return S_OK;
 }

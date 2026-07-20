@@ -22,6 +22,18 @@ HRESULT CMainApp::Ready_MainApp()
 	if (FAILED(Ready_Scene(m_pGraphicDev)))
 		return E_FAIL;
 
+//#ifdef _DEBUG
+//
+//	if (::AllocConsole() == TRUE)
+//	{
+//		FILE* nfp[3];
+//		freopen_s(nfp + 0, "CONOUT$", "rb", stdin);
+//		freopen_s(nfp + 1, "CONOUT$", "wb", stdout);
+//		freopen_s(nfp + 2, "CONOUT$", "wb", stderr);
+//		std::ios::sync_with_stdio();
+//	}
+//
+//#endif // _DEBUG
 
 	return S_OK;
 }
@@ -61,7 +73,7 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 
 	_matrix matView, matProj;
 	
-	_vec3   vEye{ 0.f, 0.f, -10.f };
+	_vec3   vEye{ 0.f, 0.f, -15.f };
 	_vec3   vAt{ 0.f, 0.f, 1.f };
 	_vec3   vUp{ 0.f, 1.f, 0.f };
 	
