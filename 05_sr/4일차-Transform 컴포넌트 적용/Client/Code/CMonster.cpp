@@ -51,7 +51,7 @@ HRESULT CMonster::AddComponent()
 		MSG_BOX("BufferCom Failed");
 		return E_FAIL;
 	}
-	m_mapComponent[ID_STATIC].insert({ L"TriCom",pComponent });
+	m_mapComponent[ID_STATIC].insert({ L"Com_Buffer",pComponent });
 
 	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform"));
 	if (nullptr == pComponent)
@@ -59,7 +59,7 @@ HRESULT CMonster::AddComponent()
 		MSG_BOX("TransformCom Failed");
 		return E_FAIL;
 	}
-	m_mapComponent[ID_DYNAMIC].insert({ L"TriCom",pComponent });
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform",pComponent });
 
 	return S_OK;
 }
@@ -111,5 +111,8 @@ CMonster* CMonster::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CMonster::Free()
 {
+	Safe_Release(m_pBufferCom);
+
+	Safe_Release(m_pTransformCom);
 	CGameObject::Free();
 }

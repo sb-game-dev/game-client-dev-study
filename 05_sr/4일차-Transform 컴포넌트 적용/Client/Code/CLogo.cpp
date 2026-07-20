@@ -5,6 +5,7 @@
 #include "CFontMgr.h"
 #include "CPlayer.h"
 #include <CMonster.h>
+#include <CBlock.h>
 
 CLogo::CLogo(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev)
@@ -74,15 +75,24 @@ HRESULT CLogo::Ready_Environment_Layer(const _tchar* pLayerTag)
     if (FAILED(pLayer->Add_GameObject(L"Player", pPlayer)))
         return E_FAIL;
 
-    
+
     // Monster
     CGameObject* pMonster = CMonster::Create(m_pGraphicDev);
-    
+
     if (nullptr == pMonster)
         return E_FAIL;
 
     if (FAILED(pLayer->Add_GameObject(L"Monster", pMonster)))
         return E_FAIL;
+
+    // Block
+    //CGameObject* pBlock = CBlock::Create(m_pGraphicDev);
+    //
+    //if (nullptr == pBlock)
+    //    return E_FAIL;
+    //
+    //if (FAILED(pLayer->Add_GameObject(L"Block", pBlock)))
+    //    return E_FAIL;
 
     m_mapLayer.insert({ pLayerTag, pLayer });
 

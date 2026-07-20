@@ -1,18 +1,15 @@
 #pragma once
-
 #include "CGameObject.h"
-
 namespace Engine
 {
 	class CRcCol;
 	class CTransform;
 }
-
-class CPlayer : public CGameObject
+class CBlock : public CGameObject
 {
 private:
-	explicit CPlayer(LPDIRECT3DDEVICE9 pGraphicDev);
-	virtual	 ~CPlayer();
+	explicit CBlock(LPDIRECT3DDEVICE9 pGraphicDev);
+	virtual ~CBlock();
 
 public:
 	virtual			HRESULT		Ready_GameObject();
@@ -21,18 +18,13 @@ public:
 	virtual			void		Render_GameObject();
 
 private:
-	HRESULT			Add_Component();
-	void			KeyInput(const _float& fTimeDelta);
-
-private:
 	Engine::CRcCol*		m_pBufferCom;
 	Engine::CTransform* m_pTransformCom;
 
 public:
-	static CPlayer* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CBlock* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
-private:
-	virtual			void		Shoot();
-	virtual			void		Free();
+	virtual void Free();
+	virtual HRESULT AddComponent();
 };
 

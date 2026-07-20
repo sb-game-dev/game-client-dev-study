@@ -50,7 +50,7 @@ HRESULT	CPlayer::Add_Component()
 		MSG_BOX("RcCom Failed");
 		return E_FAIL;
 	}
-	m_mapComponent[ID_STATIC].insert({ L"Com_RcCol",pComponent });
+	m_mapComponent[ID_STATIC].insert({ L"Com_Buffer",pComponent });
 
 	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform"));
 	if (nullptr == pComponent)
@@ -98,7 +98,14 @@ CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	}
 	return pObj;
 }
+void CPlayer::Shoot()
+{
+}
 void CPlayer::Free()
 {
+	Safe_Release(m_pBufferCom);
+
+	Safe_Release(m_pTransformCom);
+
 	CGameObject::Free();
 }
