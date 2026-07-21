@@ -59,8 +59,6 @@ HRESULT	CPlayer::Add_Component()
 		return E_FAIL;
 	}
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform",pComponent });
-
-
 }
 void CPlayer::KeyInput(const _float& fTimeDelta)
 {

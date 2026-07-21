@@ -15,6 +15,7 @@ HRESULT	 CMonster::Ready_GameObject()
 {
 	if (FAILED(AddComponent()))
 		return E_FAIL;
+	m_pTransformCom->m_vScale = { 2,1,1 };
 	return S_OK;
 }
 _int CMonster::Update_GameObject(const _float& fTimeDelta)
@@ -79,7 +80,7 @@ void CMonster::Follow(const _float& fTimeDelta)
 	m_pTargetTransfrom->Get_Info(INFO_POS, &vTargetPos);
 	m_pTransformCom->Get_Info(INFO_POS, &vMyPos);
 	
-	m_pTargetTransfrom->Get_Info(INFO_UP, &vTargetLook);
+	m_pTargetTransfrom->Get_Info(INFO_UP, &vTargetLook); 
 	m_pTransformCom->Get_Info(INFO_UP, &vMyLook);
 
 	vDeltaPos = vTargetPos - vMyPos;
@@ -93,7 +94,7 @@ void CMonster::Follow(const _float& fTimeDelta)
 	D3DXMatrixRotationAxis(&matRot, &vCross, fAngle);
 	m_pTransformCom->RotationAxis(&matRot);
 	
-	vTargetPos -= vMyPos;
+
 	m_pTransformCom->Move_Pos(&vDeltaPos, 5.f, fTimeDelta);
 }
 CMonster* CMonster::Create(LPDIRECT3DDEVICE9 pGraphicDev)
