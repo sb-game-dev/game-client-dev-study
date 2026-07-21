@@ -32,10 +32,6 @@ CTransform::~CTransform()
 void CTransform::RotationAxis(_matrix* matRot)
 {
 	m_matWorld = *matRot * m_matWorld;
-	//for (_uint i = 0; i < INFO_POS; ++i)
-	//{
-	//	D3DXVec3TransformCoord(&m_vInfo[i], &m_vInfo[i], matRot);
-	//}
 }
 
 HRESULT CTransform::Ready_Transform()
