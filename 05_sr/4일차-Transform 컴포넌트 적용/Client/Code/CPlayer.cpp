@@ -101,9 +101,5 @@ void CPlayer::Shoot()
 }
 void CPlayer::Free()
 {
-	Safe_Release(m_pBufferCom);
-
-	Safe_Release(m_pTransformCom);
-
 	CGameObject::Free();
 }

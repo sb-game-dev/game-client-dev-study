@@ -86,13 +86,13 @@ HRESULT CLogo::Ready_Environment_Layer(const _tchar* pLayerTag)
         return E_FAIL;
 
     // Block
-    //CGameObject* pBlock = CBlock::Create(m_pGraphicDev);
-    //
-    //if (nullptr == pBlock)
-    //    return E_FAIL;
-    //
-    //if (FAILED(pLayer->Add_GameObject(L"Block", pBlock)))
-    //    return E_FAIL;
+    CGameObject* pBlock = CBlock::Create(m_pGraphicDev);
+    
+    if (nullptr == pBlock)
+        return E_FAIL;
+    
+    if (FAILED(pLayer->Add_GameObject(L"Block", pBlock)))
+        return E_FAIL;
 
     m_mapLayer.insert({ pLayerTag, pLayer });
 

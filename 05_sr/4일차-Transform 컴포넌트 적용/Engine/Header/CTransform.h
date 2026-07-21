@@ -17,6 +17,11 @@ public:
 		m_vInfo[INFO_POS] += *pDir * fSpeed * fTimeDelta;
 	}
 
+	void		Set_Pos(const _vec3* pDir)
+	{
+		m_vInfo[INFO_POS] = *pDir;
+	}
+
 	void		Rotation(ROTATION eType, const _float& fAngle)
 	{
 		*(((_float*)&m_vAngle) + eType) += fAngle;

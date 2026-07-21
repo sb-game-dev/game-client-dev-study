@@ -15,7 +15,7 @@ HRESULT	 CMonster::Ready_GameObject()
 {
 	if (FAILED(AddComponent()))
 		return E_FAIL;
-	m_pTransformCom->m_vScale = { 2,1,1 };
+	//m_pTransformCom->m_vScale = { 2,1,1 };
 	return S_OK;
 }
 _int CMonster::Update_GameObject(const _float& fTimeDelta)
@@ -112,8 +112,5 @@ CMonster* CMonster::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CMonster::Free()
 {
-	Safe_Release(m_pBufferCom);
-
-	Safe_Release(m_pTransformCom);
 	CGameObject::Free();
 }

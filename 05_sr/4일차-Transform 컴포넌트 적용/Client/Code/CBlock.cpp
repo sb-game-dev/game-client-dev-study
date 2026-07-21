@@ -16,6 +16,8 @@ HRESULT CBlock::Ready_GameObject()
 	{
 		return E_FAIL;
 	}
+	_vec3 vStartPos = { 5,5,5 };
+	m_pTransformCom->Set_Pos(&vStartPos);
 	return S_OK;
 }
 _int CBlock::Update_GameObject(const _float& fTimeDelta)
