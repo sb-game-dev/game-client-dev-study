@@ -4,6 +4,8 @@
 #include "CTriCol.h"
 #include "CRcCol.h"
 #include "CRcTex.h"
+#include "CCubeTex.h"
+#include "CPyramidCol.h"
 
 #include "CTransform.h"
 #include "CTexture.h"

@@ -15,7 +15,7 @@ HRESULT CPlayer::Ready_GameObject()
 {
 	if (FAILED(Add_Component()))
 		return E_FAIL;
-
+	m_pTransformCom->Rotation(ROT_X, 90);
 
 	return S_OK;
 }
@@ -33,6 +33,10 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
 
 	Key_Input(fTimeDelta);
+
+	_vec3 vTemp;
+	m_pTransformCom->Get_Info(INFO_UP, &vTemp);
+	cout << "UPX: " << vTemp.x << "\tUPY: " << vTemp.y << "\tUPZ: " << vTemp.z << endl;
 }
 
 void CPlayer::Render_GameObject()
@@ -53,7 +57,7 @@ HRESULT CPlayer::Add_Component()
 	Engine::CComponent* pComponent = nullptr;
 
 	// RcCol
-	pComponent = m_pBufferCom = dynamic_cast<CRcTex*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_RcTex"));
+	pComponent = m_pBufferCom = dynamic_cast<CPyramidCol*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Pyramid"));
 	if (nullptr == pComponent)
 		return E_FAIL;
 
@@ -82,7 +86,6 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 	_vec3	vLook;
 	m_pTransformCom->Get_Info(INFO_UP, &vLook);
 
-
 	if (GetAsyncKeyState(VK_UP))
 	{
 		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vLook, &vLook), 10.f, fTimeDelta);
@@ -92,36 +95,52 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 	{
 		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vLook, &vLook), -10.f, fTimeDelta);
 	}
-
-	if (GetAsyncKeyState('Q'))
-	{
-		m_pTransformCom->Rotation(ROT_X, 180.f * fTimeDelta);
-	}
-
-	if (GetAsyncKeyState('A'))
-	{
-		m_pTransformCom->Rotation(ROT_X, -180.f * fTimeDelta);
-	}
-
-	if (GetAsyncKeyState('W'))
-	{
-		m_pTransformCom->Rotation(ROT_Y, 180.f * fTimeDelta);
-	}
-
-	if (GetAsyncKeyState('S'))
+	if (GetAsyncKeyState(VK_LEFT))
 	{
 		m_pTransformCom->Rotation(ROT_Y, -180.f * fTimeDelta);
 	}
 
-	if (GetAsyncKeyState('E'))
+	if (GetAsyncKeyState(VK_RIGHT))
 	{
-		m_pTransformCom->Rotation(ROT_Z, 180.f * fTimeDelta);
+		m_pTransformCom->Rotation(ROT_Y, 180.f * fTimeDelta);
 	}
 
-	if (GetAsyncKeyState('D'))
+	if (GetAsyncKeyState('W'))
 	{
-		m_pTransformCom->Rotation(ROT_Z, -180.f * fTimeDelta);
+		m_pTransformCom->Rotation(ROT_X, -80.f * fTimeDelta);
 	}
+
+	if (GetAsyncKeyState('S'))
+	{
+		m_pTransformCom->Rotation(ROT_X, 80.f * fTimeDelta);
+	}
+	if (GetAsyncKeyState(VK_LSHIFT))
+	{
+		m_fSpeed = m_fBoostSpeed;
+	}
+	else
+	{
+		m_fSpeed = m_fNormalSpeed;
+	}
+	//if (GetAsyncKeyState('W'))
+	//{
+	//	m_pTransformCom->Rotation(ROT_Y, 180.f * fTimeDelta);
+	//}
+	//
+	//if (GetAsyncKeyState('S'))
+	//{
+	//	m_pTransformCom->Rotation(ROT_Y, -180.f * fTimeDelta);
+	//}
+	//
+	//if (GetAsyncKeyState('E'))
+	//{
+	//	m_pTransformCom->Rotation(ROT_Z, 180.f * fTimeDelta);
+	//}
+	//
+	//if (GetAsyncKeyState('D'))
+	//{
+	//	m_pTransformCom->Rotation(ROT_Z, -180.f * fTimeDelta);
+	//}
 
 }
 

@@ -34,6 +34,9 @@
     <Filter Include="02. GameObject\02. Monster">
       <UniqueIdentifier>{898f6eee-a6eb-47eb-b7a6-4509b5aee5a5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\03. Camera">
+      <UniqueIdentifier>{46c5bbff-47e1-4a84-96f2-884f4b8dcf44}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -66,6 +69,9 @@
     <ClInclude Include="..\Header\CMonster.h">
       <Filter>02. GameObject\02. Monster</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CCamera.h">
+      <Filter>02. GameObject\03. Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -88,6 +94,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CMonster.cpp">
       <Filter>02. GameObject\02. Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCamera.cpp">
+      <Filter>02. GameObject\03. Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

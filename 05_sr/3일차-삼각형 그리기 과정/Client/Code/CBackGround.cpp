@@ -61,7 +61,6 @@ void CBackGround::Render_GameObject()
 	D3DXMatrixTranslation(&matTrans, m_vPos.x, m_vPos.y, m_vPos.z);
 
 
-
 	D3DXMatrixIdentity(&matWorld);
 	matWorld = matRotX* matRotY * matTrans;
 

@@ -36,13 +36,13 @@ HRESULT CTriCol::Ready_Buffer()
 	// &pVertex : 버텍스 버퍼에 저장된 버텍스 중 첫번째 버텍스의 주소를 얻어옴
 	m_pVB->Lock(0, 0, (void**)&pVertex, 0);
 
-	pVertex[0].vPosition = { 0.f, 1.f, 0.f };
+	pVertex[0].vPosition = { 0.f, 0.f, 1.f };
 	pVertex[0].dwColor = D3DXCOLOR(0.f, 1.f, 0.f, 1.f);
 
-	pVertex[1].vPosition = { 1.f, -1.f, 0.f };
+	pVertex[1].vPosition = { 1.f, 0.f, -1.f };
 	pVertex[1].dwColor = D3DXCOLOR(0.f, 1.f, 0.f, 1.f);
 
-	pVertex[2].vPosition = { -1.f, -1.f, 0.f };
+	pVertex[2].vPosition = { -1.f, 0.f, -1.f };
 	pVertex[2].dwColor = D3DXCOLOR(0.f, 1.f, 0.f, 1.f);
 
 	m_pVB->Unlock();

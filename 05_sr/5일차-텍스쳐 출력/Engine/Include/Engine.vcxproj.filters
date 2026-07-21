@@ -61,6 +61,12 @@
     <Filter Include="04. Component\02. Texture">
       <UniqueIdentifier>{023f0eac-6052-4574-aefd-dd051dbf492d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Component\00. VIBuffer\03. CubeTex">
+      <UniqueIdentifier>{40efd09d-ed1f-4415-ba7b-4999e6627e08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\00. VIBuffer\04. PyramidCol">
+      <UniqueIdentifier>{e2fa2c5b-9383-49ec-ab6e-5341e3e0b4bb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -138,6 +144,12 @@
     <ClInclude Include="..\Header\CTexture.h">
       <Filter>04. Component\02. Texture</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CCubeTex.h">
+      <Filter>04. Component\00. VIBuffer\03. CubeTex</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CPyramidCol.h">
+      <Filter>04. Component\00. VIBuffer\04. PyramidCol</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -196,6 +208,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CTexture.cpp">
       <Filter>04. Component\02. Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCubeTex.cpp">
+      <Filter>04. Component\00. VIBuffer\03. CubeTex</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CPyramidCol.cpp">
+      <Filter>04. Component\00. VIBuffer\04. PyramidCol</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -15,16 +15,18 @@ HRESULT CBackGround::Ready_GameObject()
 {
 	if (FAILED(Add_Component()))
 		return E_FAIL;
+	//m_pTransformCom->Rotation(ROT_X, 90);
 
-	//m_pTransformCom->m_vScale = { 2.f, 1.f, 1.f };
+	m_pTransformCom->m_vScale = { 60.f, 60.f, 60.f };
 
+	//m_pTransformCom->m_vInfo[INFO_POS] = { 0,40,0 };
+	//m_pTransformCom->Rotation(ROT_X, 90);
 
 	return S_OK;
 }
 
 _int CBackGround::Update_GameObject(const _float& fTimeDelta)
 {
-
 	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
 
 	return iExit;
@@ -34,41 +36,45 @@ void CBackGround::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
 
-	Key_Input(fTimeDelta);
+	//Key_Input(fTimeDelta);
 }
 
 void CBackGround::Render_GameObject()
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
-
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-	m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
-
+	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW);
+	
+	m_pTextureCom->Set_Texture(0);
 	m_pBufferCom->Render_Buffer();
-
+	
 	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
-	m_pGraphicDev->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 }
 
 HRESULT CBackGround::Add_Component()
 {
 	Engine::CComponent* pComponent = nullptr;
 
-	// RcCol
-	pComponent = m_pBufferCom = dynamic_cast<CRcCol*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_RcCol"));
+	// 1
+	pComponent = m_pBufferCom = dynamic_cast<CCubeTex*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_CubeTex"));
 	if (nullptr == pComponent)
 		return E_FAIL;
 
 	m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
 
-	/////////////////////////////////////////////////////////////////
-	// Transform
 	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform"));
 	if (nullptr == pComponent)
 		return E_FAIL;
 	
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
+	
+	/////////////////////////////////////////////////////////////////
 
+	// Texture
+	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_SkyTexture"));
+	if (nullptr == pComponent)
+		return E_FAIL;
+
+	m_mapComponent[ID_STATIC].insert({ L"Com_Texture", pComponent });
 	///////////////////////////////////////////////////////////////////
 	// RcCol
 	//pComponent = m_pBufferCom = dynamic_cast<CRcCol*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_RcCol"));
@@ -144,7 +150,5 @@ CBackGround* CBackGround::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CBackGround::Free()
 {
-	Safe_Release(m_pBufferCom);
-
 	CGameObject::Free();
 }

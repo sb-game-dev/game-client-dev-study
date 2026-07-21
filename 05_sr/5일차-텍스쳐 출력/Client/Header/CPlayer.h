@@ -4,7 +4,7 @@
 
 namespace Engine
 {
-	class CRcTex;
+	class CPyramidCol;
 	class CTransform;
 	class CTexture;
 }
@@ -26,9 +26,13 @@ private:
 	void			Key_Input(const _float& fTimeDelta);
 
 private:
-	Engine::CRcTex*				m_pBufferCom;
+	Engine::CPyramidCol*				m_pBufferCom;
 	Engine::CTransform*			m_pTransformCom;
 	Engine::CTexture*			m_pTextureCom;
+
+	float m_fSpeed;
+	float m_fNormalSpeed;
+	float m_fBoostSpeed;
 
 public:
 	static CPlayer* Create(LPDIRECT3DDEVICE9 pGraphicDev);

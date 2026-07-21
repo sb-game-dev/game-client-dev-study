@@ -22,6 +22,19 @@ HRESULT CMainApp::Ready_MainApp()
 	if (FAILED(Ready_Scene(m_pGraphicDev)))
 		return E_FAIL;
 
+//#ifdef _DEBUG
+//
+//	if (::AllocConsole() == TRUE)
+//	{
+//		FILE* nfp[3];
+//		freopen_s(nfp + 0, "CONOUT$", "rb", stdin);
+//		freopen_s(nfp + 1, "CONOUT$", "wb", stdout);
+//		freopen_s(nfp + 2, "CONOUT$", "wb", stderr);
+//		std::ios::sync_with_stdio();
+//	}
+//
+//#endif // _DEBUG
+
 
 	return S_OK;
 }
@@ -59,17 +72,6 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 
 	(*ppGraphicDev)->SetRenderState(D3DRS_LIGHTING, FALSE);
 
-	_matrix matView, matProj;
-	
-	_vec3   vEye{ 0.f, 0.f, -10.f };
-	_vec3   vAt{ 0.f, 0.f, 1.f };
-	_vec3   vUp{ 0.f, 1.f, 0.f };
-	
-	D3DXMatrixLookAtLH(&matView, &vEye, &vAt, &vUp);
-	(*ppGraphicDev)->SetTransform(D3DTS_VIEW, &matView);
-	
-	D3DXMatrixPerspectiveFovLH(&matProj, D3DXToRadian(60.f), (_float)WINCX / WINCY, 0.1f, 1000.f);
-	(*ppGraphicDev)->SetTransform(D3DTS_PROJECTION, &matProj);
 
 	// 폰트 추가
 

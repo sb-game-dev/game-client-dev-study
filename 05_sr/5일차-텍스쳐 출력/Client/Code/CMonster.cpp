@@ -16,7 +16,7 @@ HRESULT CMonster::Ready_GameObject()
 {
 	if (FAILED(Add_Component()))
 		return E_FAIL;
-
+	m_pTransformCom->m_vScale = { 2,1,1 };
 	return S_OK;
 }
 

@@ -37,7 +37,7 @@ void CTransform::Chase_Target(const _vec3* pPos, const _float& fSpeed, const _fl
 
 	_matrix		matScale, matRot, matTrans;
 	
-	D3DXMatrixScaling(&matScale, 1.f, 1.f, 1.f);
+	D3DXMatrixScaling(&matScale, m_vScale.x, m_vScale.y, m_vScale.z);
 	D3DXMatrixTranslation(&matTrans, 
 		m_vInfo[INFO_POS].x,
 		m_vInfo[INFO_POS].y,
@@ -46,7 +46,6 @@ void CTransform::Chase_Target(const _vec3* pPos, const _float& fSpeed, const _fl
 	matRot = *Compute_Lookattarget(pPos);
 
 	m_matWorld = matScale * matRot * matTrans;
-
 }
 
 _matrix* CTransform::Compute_Lookattarget(const _vec3* pPos)
@@ -71,7 +70,7 @@ _matrix* CTransform::Compute_Lookattarget(const _vec3* pPos)
 
 
 	return D3DXMatrixRotationAxis(&matRot, 
-								D3DXVec3Cross(&vAxis, &m_vInfo[INFO_UP], &vDir),
+								D3DXVec3Cross(&vAxis, &m_vInfo[INFO_LOOK], &vDir),
 								acosf(D3DXVec3Dot(D3DXVec3Normalize(&vDir, &vDir), 
 												  D3DXVec3Normalize(&vUp, &m_vInfo[INFO_UP]))));
 }
