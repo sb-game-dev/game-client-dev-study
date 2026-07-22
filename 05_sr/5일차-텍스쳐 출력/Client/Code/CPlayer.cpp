@@ -36,7 +36,6 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 
 	_vec3 vTemp;
 	m_pTransformCom->Get_Info(INFO_UP, &vTemp);
-	cout << "UPX: " << vTemp.x << "\tUPY: " << vTemp.y << "\tUPZ: " << vTemp.z << endl;
 }
 
 void CPlayer::Render_GameObject()

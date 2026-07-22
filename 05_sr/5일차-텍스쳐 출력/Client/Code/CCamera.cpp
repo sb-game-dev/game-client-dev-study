@@ -15,6 +15,11 @@ HRESULT		CCamera::Ready_GameObject()
 {
 	if (FAILED(Add_Component()))
 		return E_FAIL;
+	m_pTransformCom->m_vInfo[INFO_POS] = { 0,30,-40 };
+
+	m_vEye = { 0.f, 0.f, -10.f };
+	m_vAt = { 0.f, 0.f, 0.f };
+	m_vUp = { 0.f, 1.f, 0.f };
 	return S_OK;
 }
 _int	CCamera::Update_GameObject(const _float& fTimeDelta)
@@ -26,25 +31,11 @@ void	CCamera::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
 
+	//Direct_Follow(&m_vEye,&m_vAt,&m_vUp);
+	Smooth_Follow(&m_vEye, &m_vAt, &m_vUp, fTimeDelta);
 
 	_matrix matView, matProj;
-
-	_vec3   vEye{ 0.f, 0.f, -10.f };
-	_vec3   vUp{ 0.f, 1.f, 0.f };
-	_vec3	vPlayerPos;
-	_vec3	vPlayerUp;
-	_vec3	vPlayerLOOK;
-
-	CTransform* pPlayerTransformCom = dynamic_cast<CTransform*>
-		(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"Environment_Layer", L"Player", L"Com_Transform"));
-
-	pPlayerTransformCom->Get_Info(INFO_POS, &vPlayerPos);
-	pPlayerTransformCom->Get_Info(INFO_UP, &vPlayerUp);
-	pPlayerTransformCom->Get_Info(INFO_LOOK, &vPlayerLOOK);
-	vEye = vPlayerPos + (vPlayerUp * -5) +(vPlayerLOOK * -5);
-	vUp = -vPlayerLOOK;
-
-	D3DXMatrixLookAtLH(&matView, &vEye, &vPlayerPos, &vUp);
+	D3DXMatrixLookAtLH(&matView, &m_vEye, &m_vAt, &m_vUp);
 	m_pGraphicDev->SetTransform(D3DTS_VIEW, &matView);
 
 	D3DXMatrixPerspectiveFovLH(&matProj, D3DXToRadian(60.f), (_float)WINCX / WINCY, 0.1f, 1000.f);
@@ -56,9 +47,65 @@ void		CCamera::Render_GameObject()
 
 HRESULT CCamera::Add_Component()
 {
+	Engine::CComponent* pComponent = nullptr;
+	// Transform
+	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform"));
+	if (nullptr == pComponent)
+		return E_FAIL;
+
+	m_mapComponent[ID_STATIC].insert({ L"Com_Transform", pComponent });
+
 	return S_OK;
 }
 
+void CCamera::Direct_Follow(_vec3* vEye,_vec3* vAt,_vec3* vUp)
+{
+	_vec3	vPlayerPos;
+	_vec3	vPlayerUp;
+	_vec3	vPlayerLOOK;
+
+	CTransform* pPlayerTransformCom = dynamic_cast<CTransform*>
+		(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"Environment_Layer", L"Player", L"Com_Transform"));
+
+	pPlayerTransformCom->Get_Info(INFO_POS, &vPlayerPos);
+	pPlayerTransformCom->Get_Info(INFO_UP, &vPlayerUp);
+	pPlayerTransformCom->Get_Info(INFO_LOOK, &vPlayerLOOK);
+
+	*vEye = vPlayerPos + (vPlayerUp * -5) + (vPlayerLOOK * -5);
+	*vAt = vPlayerPos;
+	*vUp = -vPlayerLOOK;
+}
+
+void CCamera::Smooth_Follow(_vec3* vEye, _vec3* vAt, _vec3* vUp, const _float& fTimeDelta)
+{
+	_vec3	vPlayerPos;
+	_vec3	vPlayerUp;
+	_vec3	vPlayerLOOK;
+	_vec3	vDeltaPos;
+	_vec3	vMyPos;
+
+	CTransform* pPlayerTransformCom = dynamic_cast<CTransform*>
+		(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"Environment_Layer", L"Player", L"Com_Transform"));
+
+	pPlayerTransformCom->Get_Info(INFO_POS, &vPlayerPos);
+	pPlayerTransformCom->Get_Info(INFO_UP, &vPlayerUp);
+	pPlayerTransformCom->Get_Info(INFO_LOOK, &vPlayerLOOK);
+	m_pTransformCom->Get_Info(INFO_POS, &vMyPos);
+
+	_vec3	vTargetPos = vPlayerPos + (vPlayerUp * -5) + (vPlayerLOOK * -5);
+
+	vDeltaPos = vTargetPos - vMyPos;
+	float	fDeltaPos = D3DXVec3Length(&vDeltaPos);
+	
+	if (fabsf(fDeltaPos) > 1.f)
+	{
+		float	fChaseSpeed = 5.f + fabsf(fDeltaPos);
+		m_pTransformCom->Chase_Target(&vTargetPos, fChaseSpeed, fTimeDelta);
+	}
+	m_pTransformCom->Get_Info(INFO_POS, vEye);
+	*vAt = vPlayerPos;
+	*vUp = -vPlayerLOOK;
+}
 
 CCamera* CCamera::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {

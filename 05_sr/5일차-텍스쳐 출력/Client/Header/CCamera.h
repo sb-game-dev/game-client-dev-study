@@ -25,6 +25,12 @@ private:
 	Engine::CTransform* m_pTransformCom;
 
 	HRESULT	Add_Component();
+	void	Direct_Follow(_vec3* vEye, _vec3* vAt, _vec3* vUp);
+	void	Smooth_Follow(_vec3* vEye, _vec3* vAt, _vec3* vUp, const _float& fTimeDelta);
+
+	_vec3   m_vEye;
+	_vec3   m_vAt;
+	_vec3   m_vUp;
 
 public:
 	static CCamera*		Create(LPDIRECT3DDEVICE9 pGraphicDev);
