@@ -16,7 +16,9 @@ HRESULT CPlayer::Ready_GameObject()
 	if (FAILED(Add_Component()))
 		return E_FAIL;
 	m_pTransformCom->Rotation(ROT_X, 90);
-
+	m_fSpeed = 10.f;
+	m_fNormalSpeed = 10.f;
+	m_fBoostSpeed = 20.f;
 	return S_OK;
 }
 
@@ -87,12 +89,12 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 
 	if (GetAsyncKeyState(VK_UP))
 	{
-		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vLook, &vLook), 10.f, fTimeDelta);
+		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vLook, &vLook), m_fSpeed, fTimeDelta);
 	}
 
 	if (GetAsyncKeyState(VK_DOWN))
 	{
-		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vLook, &vLook), -10.f, fTimeDelta);
+		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vLook, &vLook), -m_fSpeed, fTimeDelta);
 	}
 	if (GetAsyncKeyState(VK_LEFT))
 	{
