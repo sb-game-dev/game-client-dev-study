@@ -44,7 +44,6 @@ HRESULT CTexture::Ready_Texture(TEXTUREID eID, const _tchar* pPath, const _uint&
         case TEX_NORMAL:
             if (FAILED(D3DXCreateTextureFromFile(m_pGraphicDev, szFileName, (LPDIRECT3DTEXTURE9*)&pTexture)))
                 return E_FAIL;
-
             break;
 
         case TEX_CUBE:

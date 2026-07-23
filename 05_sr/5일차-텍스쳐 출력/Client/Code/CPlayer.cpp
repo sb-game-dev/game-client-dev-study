@@ -16,9 +16,9 @@ HRESULT CPlayer::Ready_GameObject()
 	if (FAILED(Add_Component()))
 		return E_FAIL;
 	m_pTransformCom->Rotation(ROT_X, 90);
-	m_fSpeed = 10.f;
 	m_fNormalSpeed = 10.f;
 	m_fBoostSpeed = 20.f;
+	m_fSpeed = m_fNormalSpeed;
 	return S_OK;
 }
 
