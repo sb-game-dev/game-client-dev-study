@@ -19,6 +19,9 @@ public:
 		const _tchar* pObjTag,
 		const _tchar* pComponentTag);
 
+	CLayer*		Get_Layer(const _tchar* pLayerTag);
+
+
 public:
 	HRESULT			Set_Scene(CScene* pScene);
 	_int			Update_Scene(const _float& fTimeDelta);

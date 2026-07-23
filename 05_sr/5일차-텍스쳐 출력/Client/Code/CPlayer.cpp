@@ -1,7 +1,9 @@
 #include "pch.h"
 #include "CPlayer.h"
 #include "CProtoMgr.h"
-
+#include "CBullet.h"
+#include "CManagement.h"
+#include "CKeyMgr.h"
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CGameObject(pGraphicDev)
 {
@@ -19,6 +21,7 @@ HRESULT CPlayer::Ready_GameObject()
 	m_fNormalSpeed = 10.f;
 	m_fBoostSpeed = 20.f;
 	m_fSpeed = m_fNormalSpeed;
+	m_iBulletCnt = 0;
 	return S_OK;
 }
 
@@ -115,6 +118,13 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 	{
 		m_pTransformCom->Rotation(ROT_X, 80.f * fTimeDelta);
 	}
+
+	//if (CKeyMgr::GetInstance()->KeyDown(VK_SPACE))
+	if(GetAsyncKeyState(VK_SPACE))
+	{
+		Shoot();
+	}
+
 	if (GetAsyncKeyState(VK_LSHIFT))
 	{
 		m_fSpeed = m_fBoostSpeed;
@@ -123,26 +133,27 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 	{
 		m_fSpeed = m_fNormalSpeed;
 	}
-	//if (GetAsyncKeyState('W'))
-	//{
-	//	m_pTransformCom->Rotation(ROT_Y, 180.f * fTimeDelta);
-	//}
-	//
-	//if (GetAsyncKeyState('S'))
-	//{
-	//	m_pTransformCom->Rotation(ROT_Y, -180.f * fTimeDelta);
-	//}
-	//
-	//if (GetAsyncKeyState('E'))
-	//{
-	//	m_pTransformCom->Rotation(ROT_Z, 180.f * fTimeDelta);
-	//}
-	//
-	//if (GetAsyncKeyState('D'))
-	//{
-	//	m_pTransformCom->Rotation(ROT_Z, -180.f * fTimeDelta);
-	//}
+}
 
+void CPlayer::Shoot()
+{
+	_vec3 vDir;
+	_vec3 vPos;
+	m_pTransformCom->Get_Info(INFO_UP, &vDir);
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+	CGameObject* pBullet = CBullet::Create(m_pGraphicDev, vPos, vDir);
+
+	CLayer* pLayer = CManagement::GetInstance()->Get_Layer(L"Environment_Layer");
+	if (pLayer == nullptr)
+	{
+		MSG_BOX("Shoot and Layer Create Failed");
+		return;
+	}
+	++m_iBulletCnt;
+
+	const _tchar* szBuff = L"Bullet" + m_iBulletCnt;
+	cout << szBuff << endl;
+	pLayer->Add_GameObject(szBuff, pBullet);
 }
 
 CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)

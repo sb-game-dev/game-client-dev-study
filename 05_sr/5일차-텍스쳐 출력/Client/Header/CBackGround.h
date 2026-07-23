@@ -6,6 +6,7 @@ namespace Engine
 {
 	class CRcTex;
 	class CCubeTex;
+	class CTerainTex;
 	class CTransform;
 	class CTexture;
 }
@@ -27,7 +28,7 @@ private:
 	void			Key_Input(const _float& fTimeDelta);
 
 private:
-	Engine::CCubeTex*			m_pBufferCom;
+	Engine::CTerainTex*		m_pBufferCom;
 	Engine::CTransform*		m_pTransformCom;
 
 	Engine::CTexture*		m_pTextureCom;

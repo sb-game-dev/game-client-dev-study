@@ -6,6 +6,7 @@
 #include "CRcTex.h"
 #include "CCubeTex.h"
 #include "CPyramidCol.h"
+#include "CTerainTex.h"
 
 #include "CTransform.h"
 #include "CTexture.h"

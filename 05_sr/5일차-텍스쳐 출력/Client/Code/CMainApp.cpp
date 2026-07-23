@@ -3,6 +3,7 @@
 #include "CLogo.h"
 #include "CProtoMgr.h"
 #include "CFontMgr.h"
+#include "CKeyMgr.h"
 
 CMainApp::CMainApp()
 	: m_pDeviceClass(nullptr), m_pGraphicDev(nullptr)
@@ -53,7 +54,7 @@ void CMainApp::LateUpdate_MainApp(const float& fTimeDelta)
 
 void CMainApp::Render_MainApp()
 {
-	m_pDeviceClass->Render_Begin(D3DXCOLOR(0.f, 0.f, 0.f, 1.f));
+	m_pDeviceClass->Render_Begin(D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
 
 	m_pManagementClass->Render_Scene(m_pGraphicDev);
 
@@ -121,6 +122,7 @@ void CMainApp::Free()
 	Safe_Release(m_pGraphicDev);
 	Safe_Release(m_pDeviceClass);
 
+	CKeyMgr::DestroyInstance();
 	CFontMgr::DestroyInstance();
 	CProtoMgr::DestroyInstance();
 	CFrameMgr::DestroyInstance();

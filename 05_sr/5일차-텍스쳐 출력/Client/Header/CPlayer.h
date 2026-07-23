@@ -24,6 +24,7 @@ public:
 private:
 	HRESULT			Add_Component();
 	void			Key_Input(const _float& fTimeDelta);
+	void			Shoot();
 
 private:
 	Engine::CPyramidCol*				m_pBufferCom;
@@ -34,6 +35,7 @@ private:
 	float m_fNormalSpeed;
 	float m_fBoostSpeed;
 
+	int	  m_iBulletCnt;
 public:
 	static CPlayer* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 

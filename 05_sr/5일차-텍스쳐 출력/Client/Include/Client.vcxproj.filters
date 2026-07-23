@@ -37,6 +37,9 @@
     <Filter Include="02. GameObject\03. Camera">
       <UniqueIdentifier>{46c5bbff-47e1-4a84-96f2-884f4b8dcf44}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\04. CBullet">
+      <UniqueIdentifier>{8c18c0e8-c6c3-4989-ac9e-d26deecf1d6b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -72,6 +75,9 @@
     <ClInclude Include="..\Header\CCamera.h">
       <Filter>02. GameObject\03. Camera</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CBullet.h">
+      <Filter>02. GameObject\04. CBullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -97,6 +103,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CCamera.cpp">
       <Filter>02. GameObject\03. Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CBullet.cpp">
+      <Filter>02. GameObject\04. CBullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

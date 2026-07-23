@@ -6,7 +6,7 @@
 
 #include "CPlayer.h"
 #include "CMonster.h"
-#include <CCamera.h>
+#include "CCamera.h"
 
 CLogo::CLogo(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev)
@@ -69,18 +69,6 @@ HRESULT CLogo::Ready_Environment_Layer(const _tchar* pLayerTag)
     if (FAILED(pLayer->Add_GameObject(L"Camera", pGameObject)))
         return E_FAIL;
 
-    //_matrix matView, matProj;
-    //
-    //_vec3   vEye{ 0.f, 5.f, -10.f };
-    //_vec3   vAt{ 0.f, 0.f, 1.f };
-    //_vec3   vUp{ 0.f, 1.f, 0.f };
-    //
-    //D3DXMatrixLookAtLH(&matView, &vEye, &vAt, &vUp);
-    //m_pGraphicDev->SetTransform(D3DTS_VIEW, &matView);
-    //
-    //D3DXMatrixPerspectiveFovLH(&matProj, D3DXToRadian(60.f), (_float)WINCX / WINCY, 0.1f, 1000.f);
-    //m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matProj);
-
     // BackGround
     pGameObject = CBackGround::Create(m_pGraphicDev);
 
@@ -132,6 +120,9 @@ HRESULT CLogo::Ready_Prototype()
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Pyramid", Engine::CPyramidCol::Create(m_pGraphicDev))))
         return E_FAIL;
 
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_TerainTex", Engine::CTerainTex::Create(m_pGraphicDev))))
+        return E_FAIL;
+
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_Transform", Engine::CTransform::Create(m_pGraphicDev))))
         return E_FAIL;
 
@@ -139,6 +130,12 @@ HRESULT CLogo::Ready_Prototype()
         return E_FAIL;
 
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_SkyTexture", Engine::CTexture::Create(m_pGraphicDev, TEX_NORMAL, L"../Bin/Resource/Texture/sky.jpg", 1))))
+        return E_FAIL;
+
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_TerainTexture", Engine::CTexture::Create(m_pGraphicDev, TEX_NORMAL, L"../Bin/Resource/Texture/Terrain/Terrain0.png", 1))))
+        return E_FAIL;
+
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_BulletTexture", Engine::CTexture::Create(m_pGraphicDev, TEX_NORMAL, L"../Bin/Resource/Texture/Logo/sana.jpg", 1))))
         return E_FAIL;
 
     return S_OK;

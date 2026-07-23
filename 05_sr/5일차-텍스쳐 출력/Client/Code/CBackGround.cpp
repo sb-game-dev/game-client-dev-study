@@ -15,12 +15,9 @@ HRESULT CBackGround::Ready_GameObject()
 {
 	if (FAILED(Add_Component()))
 		return E_FAIL;
-	//m_pTransformCom->Rotation(ROT_X, 90);
 
-	m_pTransformCom->m_vScale = { 60.f, 60.f, 60.f };
 
-	//m_pTransformCom->m_vInfo[INFO_POS] = { 0,40,0 };
-	//m_pTransformCom->Rotation(ROT_X, 90);
+	//m_pTransformCom->m_vScale = { 60.f, 60.f, 60.f };
 
 	return S_OK;
 }
@@ -42,7 +39,7 @@ void CBackGround::LateUpdate_GameObject(const _float& fTimeDelta)
 void CBackGround::Render_GameObject()
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CW);
+	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 	
 	m_pTextureCom->Set_Texture(0);
 	m_pBufferCom->Render_Buffer();
@@ -55,7 +52,7 @@ HRESULT CBackGround::Add_Component()
 	Engine::CComponent* pComponent = nullptr;
 
 	// 1
-	pComponent = m_pBufferCom = dynamic_cast<CCubeTex*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_CubeTex"));
+	pComponent = m_pBufferCom = dynamic_cast<CTerainTex*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_TerainTex"));
 	if (nullptr == pComponent)
 		return E_FAIL;
 
@@ -70,18 +67,12 @@ HRESULT CBackGround::Add_Component()
 	/////////////////////////////////////////////////////////////////
 
 	// Texture
-	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_SkyTexture"));
+	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_TerainTexture"));
 	if (nullptr == pComponent)
 		return E_FAIL;
 
 	m_mapComponent[ID_STATIC].insert({ L"Com_Texture", pComponent });
 	///////////////////////////////////////////////////////////////////
-	// RcCol
-	//pComponent = m_pBufferCom = dynamic_cast<CRcCol*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_RcCol"));
-	//if (nullptr == pComponent)
-	//	return E_FAIL;
-	//
-	//m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
 
 	return S_OK;
 }

@@ -67,6 +67,12 @@
     <Filter Include="04. Component\00. VIBuffer\04. PyramidCol">
       <UniqueIdentifier>{e2fa2c5b-9383-49ec-ab6e-5341e3e0b4bb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Component\00. VIBuffer\05. TerainTex">
+      <UniqueIdentifier>{94e88071-40c9-4533-877e-f1230f24eab4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. KeyMgr">
+      <UniqueIdentifier>{c79f5de0-806b-411a-a0b8-bd9d7ee831fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -150,6 +156,12 @@
     <ClInclude Include="..\Header\CPyramidCol.h">
       <Filter>04. Component\00. VIBuffer\04. PyramidCol</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CTerainTex.h">
+      <Filter>04. Component\00. VIBuffer\05. TerainTex</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CKeyMgr.h">
+      <Filter>07. KeyMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -214,6 +226,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CPyramidCol.cpp">
       <Filter>04. Component\00. VIBuffer\04. PyramidCol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTerainTex.cpp">
+      <Filter>04. Component\00. VIBuffer\05. TerainTex</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CKeyMgr.cpp">
+      <Filter>07. KeyMgr</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
