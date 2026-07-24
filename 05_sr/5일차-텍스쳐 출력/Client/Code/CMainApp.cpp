@@ -44,6 +44,9 @@ int CMainApp::Update_MaintApp(const float& fTimeDelta)
 {
 	m_pManagementClass->Update_Scene(fTimeDelta);
 
+	//void	KeyUpdate();
+
+	CKeyMgr::GetInstance()->KeyUpdate();
 	return 0;
 }
 

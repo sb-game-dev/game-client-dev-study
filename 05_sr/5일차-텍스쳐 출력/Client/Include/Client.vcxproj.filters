@@ -40,6 +40,9 @@
     <Filter Include="02. GameObject\04. CBullet">
       <UniqueIdentifier>{8c18c0e8-c6c3-4989-ac9e-d26deecf1d6b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\05. Terain">
+      <UniqueIdentifier>{85afb6fa-8eaa-4892-bb67-2ca2f4b41a4c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -78,6 +81,9 @@
     <ClInclude Include="..\Header\CBullet.h">
       <Filter>02. GameObject\04. CBullet</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CTerain.h">
+      <Filter>02. GameObject\05. Terain</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -106,6 +112,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CBullet.cpp">
       <Filter>02. GameObject\04. CBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTerain.cpp">
+      <Filter>02. GameObject\05. Terain</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

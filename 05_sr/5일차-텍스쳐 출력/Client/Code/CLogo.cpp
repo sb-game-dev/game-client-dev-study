@@ -7,6 +7,7 @@
 #include "CPlayer.h"
 #include "CMonster.h"
 #include "CCamera.h"
+#include <CTerain.h>
 
 CLogo::CLogo(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev)
@@ -76,6 +77,15 @@ HRESULT CLogo::Ready_Environment_Layer(const _tchar* pLayerTag)
         return E_FAIL;
 
     if (FAILED(pLayer->Add_GameObject(L"BackGround", pGameObject)))
+        return E_FAIL;
+
+    // BackGround
+    pGameObject = CTerain::Create(m_pGraphicDev);
+
+    if (nullptr == pGameObject)
+        return E_FAIL;
+
+    if (FAILED(pLayer->Add_GameObject(L"Terain", pGameObject)))
         return E_FAIL;
 
     // Player

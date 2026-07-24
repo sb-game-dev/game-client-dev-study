@@ -47,13 +47,13 @@ void CPlayer::Render_GameObject()
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
 
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	//m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	m_pTextureCom->Set_Texture(0);
 
 	m_pBufferCom->Render_Buffer();
 
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	//m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
 
 HRESULT CPlayer::Add_Component()
@@ -119,8 +119,7 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 		m_pTransformCom->Rotation(ROT_X, 80.f * fTimeDelta);
 	}
 
-	//if (CKeyMgr::GetInstance()->KeyDown(VK_SPACE))
-	if(GetAsyncKeyState(VK_SPACE))
+	if (CKeyMgr::GetInstance()->KeyDown(VK_SPACE))
 	{
 		Shoot();
 	}
@@ -141,6 +140,7 @@ void CPlayer::Shoot()
 	_vec3 vPos;
 	m_pTransformCom->Get_Info(INFO_UP, &vDir);
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+	vPos += vDir * 4;
 	CGameObject* pBullet = CBullet::Create(m_pGraphicDev, vPos, vDir);
 
 	CLayer* pLayer = CManagement::GetInstance()->Get_Layer(L"Environment_Layer");
@@ -152,7 +152,7 @@ void CPlayer::Shoot()
 	++m_iBulletCnt;
 
 	const _tchar* szBuff = L"Bullet" + m_iBulletCnt;
-	cout << szBuff << endl;
+	//cout << szBuff << endl;
 	pLayer->Add_GameObject(szBuff, pBullet);
 }
 

@@ -44,7 +44,7 @@ void	CCamera::LateUpdate_GameObject(const _float& fTimeDelta)
 	D3DXMatrixPerspectiveFovLH(&matProj, D3DXToRadian(m_fFov), (_float)WINCX / WINCY, 0.1f, 1000.f);
 	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matProj);
 }
-void		CCamera::Render_GameObject()
+void CCamera::Render_GameObject()
 {
 }
 

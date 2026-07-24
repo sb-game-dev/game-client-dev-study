@@ -17,7 +17,7 @@ HRESULT CBullet::Ready_GameObject()
 		return E_FAIL;
 	m_fSpeed = 50.f;
 	//m_pTransformCom->m_vInfo[INFO_LOOK] = m_vDir;
-	m_pTransformCom->m_vScale = { 3,3,3 };
+	m_pTransformCom->m_vScale = { 0.3,0.3,0.3 };
 	m_pTransformCom->m_vInfo[INFO_POS] = m_vPos;
 	return S_OK;
 }

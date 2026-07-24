@@ -1,7 +1,5 @@
 #pragma once
-
 #include "CGameObject.h"
-
 namespace Engine
 {
 	class CRcTex;
@@ -11,11 +9,11 @@ namespace Engine
 	class CTexture;
 }
 
-class CBackGround :  public CGameObject
+class CTerain : public CGameObject
 {
 private:
-	explicit CBackGround(LPDIRECT3DDEVICE9 pGraphicDev);
-	virtual ~CBackGround();
+	explicit CTerain(LPDIRECT3DDEVICE9 pGraphicDev);
+	virtual ~CTerain();
 
 public:
 	virtual			HRESULT		Ready_GameObject();
@@ -27,13 +25,13 @@ private:
 	HRESULT			Add_Component();
 
 private:
-	Engine::CCubeTex*		m_pBufferCom;
-	Engine::CTransform*		m_pTransformCom;
+	Engine::CTerainTex* m_pBufferCom;
+	Engine::CTransform* m_pTransformCom;
 
-	Engine::CTexture*		m_pTextureCom;
+	Engine::CTexture* m_pTextureCom;
 
 public:
-	static CBackGround* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CTerain* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
 	virtual void	Free();
