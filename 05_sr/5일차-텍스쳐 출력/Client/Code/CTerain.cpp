@@ -17,6 +17,7 @@ HRESULT CTerain::Ready_GameObject()
 		return E_FAIL;
 
 
+	m_pBufferCom->Ready_HeightMap(L"../Bin/Resource/Texture/Terrain/Height1.bmp");
 	//m_pTransformCom->m_vScale = { 60.f, 60.f, 60.f };
 
 	return S_OK;
@@ -54,6 +55,7 @@ HRESULT CTerain::Add_Component()
 	if (nullptr == pComponent)
 		return E_FAIL;
 
+	//m_pBufferCom->ReadBmp("../Bin/Resource/Texture/Terrain/Height2.bmp");
 	m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
 
 	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform"));

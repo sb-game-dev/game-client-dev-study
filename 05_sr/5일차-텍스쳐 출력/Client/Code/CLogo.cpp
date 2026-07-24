@@ -71,15 +71,15 @@ HRESULT CLogo::Ready_Environment_Layer(const _tchar* pLayerTag)
         return E_FAIL;
 
     // BackGround
-    pGameObject = CBackGround::Create(m_pGraphicDev);
+    //pGameObject = CBackGround::Create(m_pGraphicDev);
+    //
+    //if (nullptr == pGameObject)
+    //    return E_FAIL;
+    //
+    //if (FAILED(pLayer->Add_GameObject(L"BackGround", pGameObject)))
+    //    return E_FAIL;
 
-    if (nullptr == pGameObject)
-        return E_FAIL;
-
-    if (FAILED(pLayer->Add_GameObject(L"BackGround", pGameObject)))
-        return E_FAIL;
-
-    // BackGround
+    // Terrain
     pGameObject = CTerain::Create(m_pGraphicDev);
 
     if (nullptr == pGameObject)
