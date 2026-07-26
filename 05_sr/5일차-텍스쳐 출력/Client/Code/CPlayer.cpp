@@ -37,10 +37,12 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
 
-	Key_Input(fTimeDelta);
+	//Key_Input(fTimeDelta);
+	
 
-	_vec3 vTemp;
-	m_pTransformCom->Get_Info(INFO_UP, &vTemp);
+	Key_Input2(fTimeDelta);
+
+
 }
 
 void CPlayer::Render_GameObject()
@@ -124,6 +126,47 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 		Shoot();
 	}
 
+	if (GetAsyncKeyState(VK_LSHIFT))
+	{
+		m_fSpeed = m_fBoostSpeed;
+	}
+	else
+	{
+		m_fSpeed = m_fNormalSpeed;
+	}
+}
+
+void CPlayer::Key_Input2(const _float& fTimeDelta)
+{
+	_vec3	vLook;
+
+	//m_pTransformCom->Get_Info(INFO_UP, &vLook);
+
+	CTransform* pCameraTransformCom = dynamic_cast<CTransform*>
+		(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"Environment_Layer", L"Camera", L"Com_Transform"));
+
+	pCameraTransformCom->Get_Info(INFO_LOOK, &vLook);
+
+	cout << vLook.z << endl;
+
+	if (GetAsyncKeyState('W'))
+	{
+		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vLook, &vLook), m_fSpeed, fTimeDelta);
+	}
+
+	if (GetAsyncKeyState('S'))
+	{
+		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vLook, &vLook), -m_fSpeed, fTimeDelta);
+	}
+	//if (GetAsyncKeyState(VK_LEFT))
+	//{
+	//	m_pTransformCom->Rotation(ROT_Y, -180.f * fTimeDelta);
+	//}
+	//
+	//if (GetAsyncKeyState(VK_RIGHT))
+	//{
+	//	m_pTransformCom->Rotation(ROT_Y, 180.f * fTimeDelta);
+	//}
 	if (GetAsyncKeyState(VK_LSHIFT))
 	{
 		m_fSpeed = m_fBoostSpeed;

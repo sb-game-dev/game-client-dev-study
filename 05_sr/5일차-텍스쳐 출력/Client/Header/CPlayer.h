@@ -24,6 +24,7 @@ public:
 private:
 	HRESULT			Add_Component();
 	void			Key_Input(const _float& fTimeDelta);
+	void			Key_Input2(const _float& fTimeDelta);
 	void			Shoot();
 
 private:

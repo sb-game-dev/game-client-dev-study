@@ -25,7 +25,6 @@ bool CKeyMgr::KeyUp(int iKey)
 
 bool CKeyMgr::KeyDown(int iKey)
 {
-	cout << "KeyDown" << endl;
 	return !m_bPreState[iKey] && m_bCurState[iKey];
 }
 

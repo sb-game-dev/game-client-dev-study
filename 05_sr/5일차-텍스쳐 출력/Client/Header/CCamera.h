@@ -26,14 +26,20 @@ private:
 
 	HRESULT	Add_Component();
 	void	KeyInput(const _float& fTimeDelta);
+	_vec3	GetMouse();
 
 private:
 	void	Direct_Follow(_vec3* vEye, _vec3* vAt, _vec3* vUp);
 	void	Smooth_Follow(_vec3* vEye, _vec3* vAt, _vec3* vUp, float* fFov, const _float& fTimeDelta);
+	void	MouseControl(_vec3* vEye, _vec3* vAt, _vec3* vUp, float* fFov, const _float& fTimeDelta);
 
 	_vec3   m_vEye;
 	_vec3   m_vAt;
 	_vec3   m_vUp;
+
+	_vec3	m_vPreMousePos;
+	_vec3	m_vCurMousePos;
+
 	float	m_fFov;
 
 public:
