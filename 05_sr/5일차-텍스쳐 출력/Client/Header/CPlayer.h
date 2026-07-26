@@ -7,6 +7,7 @@ namespace Engine
 	class CPyramidCol;
 	class CTransform;
 	class CTexture;
+	class CCameraCom;
 }
 
 class CPlayer : public CGameObject
@@ -28,9 +29,10 @@ private:
 	void			Shoot();
 
 private:
-	Engine::CPyramidCol*				m_pBufferCom;
+	Engine::CPyramidCol*		m_pBufferCom;
 	Engine::CTransform*			m_pTransformCom;
 	Engine::CTexture*			m_pTextureCom;
+	Engine::CCameraCom*			m_pCameraCom;
 
 	float m_fSpeed;
 	float m_fNormalSpeed;

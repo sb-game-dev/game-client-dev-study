@@ -73,6 +73,9 @@
     <Filter Include="07. KeyMgr">
       <UniqueIdentifier>{c79f5de0-806b-411a-a0b8-bd9d7ee831fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Component\03. Camera">
+      <UniqueIdentifier>{3b3a6ac4-bf9f-4855-b14a-0c621df1370a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -162,6 +165,9 @@
     <ClInclude Include="..\Header\CKeyMgr.h">
       <Filter>07. KeyMgr</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CCameraCom.h">
+      <Filter>04. Component\03. Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -232,6 +238,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CKeyMgr.cpp">
       <Filter>07. KeyMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCameraCom.cpp">
+      <Filter>04. Component\03. Camera</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

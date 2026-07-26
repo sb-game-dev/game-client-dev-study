@@ -7,6 +7,7 @@
 #include "CCubeTex.h"
 #include "CPyramidCol.h"
 #include "CTerainTex.h"
+#include "CCameraCom.h"
 
 #include "CTransform.h"
 #include "CTexture.h"

@@ -27,8 +27,27 @@ HRESULT CPlayer::Ready_GameObject()
 
 _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 {
-
 	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
+
+	_vec3 vPlayerPos;
+	_vec3 vPlayerLook;
+	_vec3 vMousePos;
+
+	m_pTransformCom->Get_Info(INFO_POS, &vPlayerPos);
+
+	POINT		pt{};
+
+	GetCursorPos(&pt);
+	ScreenToClient(g_hWnd, &pt);
+
+	vMousePos = _vec3((float)pt.x, (float)pt.y, 0.f);
+
+	//m_pCameraCom->MouseControl(&vPlayerPos,&vPlayerLook,&vMousePos);
+
+	//_vec3	vLookTarget;
+	//vLookTarget = vPlayerPos + vPlayerLook;
+	//
+	//_matrix matRot = *(m_pTransformCom->Compute_Lookattarget(&vLookTarget));
 
 	return iExit;
 }
@@ -77,12 +96,19 @@ HRESULT CPlayer::Add_Component()
 
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
 
+	// Camera
+	pComponent = m_pCameraCom = dynamic_cast<CCameraCom*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Camera"));
+	if (nullptr == pComponent)
+		return E_FAIL;
+
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Camera", pComponent });
+
 	// Texture
 	//pComponent = m_pTextureCom = dynamic_cast<CTexture*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_PlayerTexture"));
 	//if (nullptr == pComponent)
 	//	return E_FAIL;
-
-	m_mapComponent[ID_STATIC].insert({ L"Com_Texture", pComponent });
+	//
+	//m_mapComponent[ID_STATIC].insert({ L"Com_Texture", pComponent });
 
 	return S_OK;
 }
@@ -140,12 +166,12 @@ void CPlayer::Key_Input2(const _float& fTimeDelta)
 {
 	_vec3	vLook;
 
-	//m_pTransformCom->Get_Info(INFO_UP, &vLook);
+	m_pTransformCom->Get_Info(INFO_UP, &vLook);
 
-	CTransform* pCameraTransformCom = dynamic_cast<CTransform*>
-		(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"Environment_Layer", L"Camera", L"Com_Transform"));
-
-	pCameraTransformCom->Get_Info(INFO_LOOK, &vLook);
+	//CTransform* pCameraTransformCom = dynamic_cast<CTransform*>
+	//	(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"Environment_Layer", L"Camera", L"Com_Transform"));
+	//
+	//pCameraTransformCom->Get_Info(INFO_LOOK, &vLook);
 
 	cout << vLook.z << endl;
 

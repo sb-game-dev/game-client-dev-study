@@ -147,19 +147,21 @@ void CCamera::MouseControl(_vec3* vEye, _vec3* vAt, _vec3* vUp, float* fFov, con
 	// 1. 마우스 위치 가져오기
 	m_vCurMousePos = GetMouse();
 
+	m_vCurMousePos.x -= WINCX * 0.5f;
+	m_vCurMousePos.y -= WINCY * 0.5f;
 	// 2. At 이동
 	*vAt = { 0,0,1 };
 
 	// 3. At 회전(공전)
 	_matrix		matRot[ROT_END];
 
-	FLOAT		fRotX = D3DXToRadian(m_vCurMousePos.y) / 10;
-	FLOAT		fRotY = D3DXToRadian(m_vCurMousePos.x) / 10;
+	FLOAT		fRotX = D3DXToRadian(m_vCurMousePos.y / 3);
+	FLOAT		fRotY = D3DXToRadian(m_vCurMousePos.x / 4) ;
 
-	if (fRotX > 1.5)
-		fRotX = 1.5;
-	if (fRotX < -1.5)
-		fRotX = -1.5;
+	if (fRotX >= D3DXToRadian(90))
+		fRotX = D3DXToRadian(89);
+	if (fRotX <= -D3DXToRadian(90))
+		fRotX = -D3DXToRadian(89);
 
 	D3DXMatrixRotationX(&matRot[ROT_X], fRotX);
 	D3DXMatrixRotationY(&matRot[ROT_Y], fRotY);
