@@ -49,6 +49,10 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 	//
 	//_matrix matRot = *(m_pTransformCom->Compute_Lookattarget(&vLookTarget));
 
+
+	//Key_Input(fTimeDelta);
+	Key_Input2(fTimeDelta);
+
 	return iExit;
 }
 
@@ -56,25 +60,23 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
 
-	//Key_Input(fTimeDelta);
-	
+	CTerrainTex* pTerrainCom = dynamic_cast<CTerrainTex*>
+		(CManagement::GetInstance()->Get_Component(ID_STATIC, L"Environment_Layer", L"Terrain", L"Com_Buffer"));
 
-	Key_Input2(fTimeDelta);
-
-
+	_vec3	vPos;
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+	if (vPos.x > 0 && vPos.x < 129 && vPos.z < 0 && vPos.z > -129)
+	{
+		float fY = pTerrainCom->GetHeight(vPos.x, vPos.z);
+		m_pTransformCom->m_vInfo[INFO_POS].y = fY;
+	}
 }
 
 void CPlayer::Render_GameObject()
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
 
-	//m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
-
-	//m_pTextureCom->Set_Texture(0);
-
 	m_pBufferCom->Render_Buffer();
-
-	//m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
 
 HRESULT CPlayer::Add_Component()
@@ -164,32 +166,47 @@ void CPlayer::Key_Input(const _float& fTimeDelta)
 
 void CPlayer::Key_Input2(const _float& fTimeDelta)
 {
-	_vec3	vLook;
+	_vec3	vCameraLook;
+	_vec3	vPlayerLook;
 
-	m_pTransformCom->Get_Info(INFO_UP, &vLook);
-
-	//CTransform* pCameraTransformCom = dynamic_cast<CTransform*>
-	//	(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"Environment_Layer", L"Camera", L"Com_Transform"));
-	//
-	//pCameraTransformCom->Get_Info(INFO_LOOK, &vLook);
-
-	cout << vLook.z << endl;
-
+	CTransform* pCameraTransformCom = dynamic_cast<CTransform*>
+		(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"Environment_Layer", L"Camera", L"Com_Transform"));
+	
+	vCameraLook = pCameraTransformCom->m_vInfo[INFO_LOOK];
+	vPlayerLook = m_pTransformCom->m_vInfo[INFO_UP];
+	
 	if (GetAsyncKeyState('W'))
 	{
-		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vLook, &vLook), m_fSpeed, fTimeDelta);
+		_vec3 cross;
+		D3DXVec3Cross(&cross, &vPlayerLook, &vCameraLook);
+		
+		float fAngle = acosf(D3DXVec3Dot(D3DXVec3Normalize(&vPlayerLook, &vPlayerLook),
+							D3DXVec3Normalize(&vCameraLook, &vCameraLook)));
+		if (cross.y < 0) fAngle *= -1;
+		
+		m_pTransformCom->Rotation(ROT_Y, fAngle);
+
+		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vCameraLook, &vCameraLook), m_fSpeed, fTimeDelta);
 	}
 
 	if (GetAsyncKeyState('S'))
 	{
-		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vLook, &vLook), -m_fSpeed, fTimeDelta);
+		_vec3 cross;
+		D3DXVec3Cross(&cross, &vPlayerLook, &vCameraLook);
+
+		float fAngle = acosf(D3DXVec3Dot(D3DXVec3Normalize(&vPlayerLook, &vPlayerLook),
+			D3DXVec3Normalize(&vCameraLook, &vCameraLook)));
+		if (cross.y < 0) fAngle *= -1;
+
+		m_pTransformCom->Rotation(ROT_Y, fAngle);
+		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vCameraLook, &vCameraLook), -m_fSpeed, fTimeDelta);
 	}
-	//if (GetAsyncKeyState(VK_LEFT))
+	//if (GetAsyncKeyState('A'))
 	//{
 	//	m_pTransformCom->Rotation(ROT_Y, -180.f * fTimeDelta);
 	//}
 	//
-	//if (GetAsyncKeyState(VK_RIGHT))
+	//if (GetAsyncKeyState('S'))
 	//{
 	//	m_pTransformCom->Rotation(ROT_Y, 180.f * fTimeDelta);
 	//}

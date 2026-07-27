@@ -26,13 +26,18 @@ public:
 
     bool Ready_HeightMap(const wstring& pFilePath);
 
-	int  GetHeightmapEntry(int row, int col);
 	void SetHeightmapEntry(int row, int col, int value);
+	float	GetHeight(float fX, float fZ);
 
 	virtual CComponent* Clone();
 
 private:
 	virtual void	Free();
+
+	int		GetHeightmapEntry(int iRow, int iCol);
+
+	float Lerp(float a, float b, float t) { return a - (a * t) + (b * t); }
+
 
 private:
 	std::vector<int>	m_vHeightmap;

@@ -67,8 +67,6 @@ _matrix* CTransform::Compute_Lookattarget(const _vec3* pPos)
 	//D3DXMatrixRotationAxis(&matRot, &vAxis, fAngle);
 	//
 	//return &matRot;
-
-
 	return D3DXMatrixRotationAxis(&matRot, 
 								D3DXVec3Cross(&vAxis, &m_vInfo[INFO_LOOK], &vDir),
 								acosf(D3DXVec3Dot(D3DXVec3Normalize(&vDir, &vDir), 

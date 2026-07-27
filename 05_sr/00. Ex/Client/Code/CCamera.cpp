@@ -176,9 +176,9 @@ void CCamera::MouseControl(_vec3* vEye, _vec3* vAt, _vec3* vUp, float* fFov, con
 	*vAt += *vEye;
 	
 	// 6. 플레이어에게 넘겨줄 방향 설정
-	m_pTransformCom->m_vInfo[INFO_LOOK] = (*vAt);
+	m_pTransformCom->m_vInfo[INFO_LOOK] = (*vAt) - (*vEye);
 
-	cout << "CameraLook: " << m_pTransformCom->m_vInfo[INFO_LOOK].x << endl;
+	//cout << "CameraLook: " << m_pTransformCom->m_vInfo[INFO_LOOK].x << endl;
 }
 
 CCamera* CCamera::Create(LPDIRECT3DDEVICE9 pGraphicDev)

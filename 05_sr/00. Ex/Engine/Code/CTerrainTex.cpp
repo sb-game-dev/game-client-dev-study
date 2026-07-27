@@ -29,7 +29,7 @@ HRESULT CTerrainTex::Ready_Buffer()
 
 	m_dwVtxSize = sizeof(VTXTEX);
 	m_dwVtxCnt = iXCnt * iZCnt ;
-	m_dwTriCnt = iXCnt * iZCnt * 2; // (iXCnt-1) * (iZCnt - 1) * 2
+	m_dwTriCnt = (iXCnt-1) * (iZCnt-1) * 2; // (iXCnt-1) * (iZCnt - 1) * 2
 	m_dwFVF = FVF_TEX;
 
 	m_dwIdxSize = sizeof(INDEX32);
@@ -42,8 +42,8 @@ HRESULT CTerrainTex::Ready_Buffer()
 	int i = 0;
 	m_pVB->Lock(0, 0, (void**)&pVertex, 0);
 
-	float uCoordIncrementSize = 1.f / iXCnt; // 1.f / (iXCnt - 1)
-	float vCoordIncrementSize = 1.f / iZCnt; // 1.f / (iZCnt - 1)
+	float uCoordIncrementSize = 1.f / (iXCnt-1); // 1.f / (iXCnt - 1)
+	float vCoordIncrementSize = 1.f / (iZCnt-1); // 1.f / (iZCnt - 1)
 	m_fHeightWeight = 0.05f;
 
 	for (int z = 0; z > -iZCnt; z-=VTXITV)
@@ -79,9 +79,9 @@ HRESULT CTerrainTex::Ready_Buffer()
 
 	m_pIB->Lock(0, 0, (void**)&pIndex, 0);
 	int iBaseIndex = 0;
-	for (int i = 0; i < iZCnt; ++i)
+	for (int i = 0; i < iZCnt-1; ++i)
 	{
-		for (int j = 0; j < iXCnt; ++j)
+		for (int j = 0; j < iXCnt-1; ++j)
 		{
 			//pIndex[(i * iXCnt) * 2 + j * 2]._0 = (i * iXCnt) * 4 + j * 4;
 			//pIndex[(i * iXCnt) * 2 + j * 2]._1 = (i * iXCnt) * 4 + j * 4 + 1;
@@ -97,8 +97,8 @@ HRESULT CTerrainTex::Ready_Buffer()
 			pIndex[iBaseIndex]._2 = (i + 1) * iXCnt + j;
 
 			pIndex[iBaseIndex + 1]._0 = (i + 1) * iXCnt + j;
-			pIndex[iBaseIndex + 1]._1 = (i + 1) * iXCnt + j + 1;
-			pIndex[iBaseIndex + 1]._2 = i * iXCnt + j + 1;
+			pIndex[iBaseIndex + 1]._1 = i * iXCnt + j + 1;
+			pIndex[iBaseIndex + 1]._2 = (i + 1) * iXCnt + j + 1;
 
 			iBaseIndex += 2;
 		}
@@ -128,10 +128,44 @@ CTerrainTex* CTerrainTex::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	return pTerrainTex;
 }
 
-
-int CTerrainTex::GetHeightmapEntry(int row, int col)
+int CTerrainTex::GetHeightmapEntry(int iRow, int iCol)
 {
-	return m_vHeightmap[row * VTXCNTX + col];
+	return m_vHeightmap[iRow * VTXCNTX + iCol];
+}
+
+float CTerrainTex::GetHeight(float fX, float fZ)
+{
+	fZ *= -1;
+
+	float fCol = ::floorf(fX);
+	float fRow = ::floorf(fZ);
+
+	float fA = GetHeightmapEntry(fRow, fCol);
+	float fB = GetHeightmapEntry(fRow, fCol + 1);
+	float fC = GetHeightmapEntry(fRow + 1, fCol);
+	float fD = GetHeightmapEntry(fRow + 1, fCol + 1);
+
+
+	float fDx = fX - fCol;
+	float fDz = fZ - fRow;
+
+	float fHeight = 0.0f;
+	if (fDz < 1.0f - fDx)  
+	{
+		float uy = fB - fA; 
+		float vy = fC - fA; 
+
+		fHeight = fA + Lerp(0.0f, uy, fDx) + Lerp(0.0f, vy, fDz);
+	}
+	else 
+	{
+		float uy = fC - fD; 
+		float vy = fB - fD; 
+
+		fHeight = fD + Lerp(0.0f, uy, 1.0f - fDx) + Lerp(0.0f, vy, 1.0f - fDz);
+	}
+
+	return fHeight;
 }
 
 void CTerrainTex::SetHeightmapEntry(int row, int col, int value)
@@ -183,52 +217,6 @@ void CTerrainTex::Free()
 
 bool CTerrainTex::Ready_HeightMap(const wstring& pFilePath)
 {
-	//HANDLE hFile = CreateFile(pFilePath.c_str(), GENERIC_READ, FILE_SHARE_READ,
-	//	NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-	//if (hFile == INVALID_HANDLE_VALUE)
-	//	return E_FAIL;
-	//
-	//BITMAPFILEHEADER fh = {};
-	//BITMAPINFOHEADER ih = {};
-	//DWORD dwByte = 0;
-	//
-	//ReadFile(hFile, &fh, sizeof(BITMAPFILEHEADER), &dwByte, NULL);
-	//ReadFile(hFile, &ih, sizeof(BITMAPINFOHEADER), &dwByte, NULL);
-	//
-	//if (ih.biBitCount != 32)
-	//	return E_FAIL; // 32비트가 아니면 처리 안 함 (혹은 다른 분기)
-	//
-	//SetFilePointer(hFile, fh.bfOffBits, NULL, FILE_BEGIN);
-	//
-	//int iBytePerPixel = 4;
-	//int iRowSize = ih.biWidth * iBytePerPixel; // 4의 배수라 패딩 없음
-	//int iPixelDataSize = iRowSize * ih.biHeight;
-	//
-	//BYTE* pPixel = new BYTE[iPixelDataSize];
-	//ReadFile(hFile, pPixel, iPixelDataSize, &dwByte, NULL);
-	//CloseHandle(hFile);
-	//
-	//m_vHeightmap.resize(ih.biWidth * ih.biHeight);
-	//
-	//// BMP는 기본적으로 Bottom-Up 저장 -> 위아래 뒤집어서 채움
-	//for (int i = 0; i < ih.biHeight; ++i)
-	//{
-	//	int iSrcRow = i * iRowSize;                          // 파일 순서 (bottom-up)
-	//	int iDstRow = (ih.biHeight - 1 - i) * ih.biWidth;     // 사용 순서 (top-down)
-	//
-	//	for (int j = 0; j < ih.biWidth; ++j)
-	//	{
-	//		BYTE* pPixelData = &pPixel[iSrcRow + j * iBytePerPixel];
-	//		// pPixelData[0] = B, [1] = G, [2] = R, [3] = A
-	//
-	//		BYTE byHeight = pPixelData[0]; // 보통 그레이스케일이면 B=G=R이라 아무거나 써도 됨
-	//		m_vHeightmap[iDstRow + j] = byHeight;
-	//	}
-	//}
-	//
-	//Safe_Delete_Array(pPixel);
-	//return S_OK;
-
 	ifstream inFile(pFilePath.c_str(), ios::binary);
 	if (!inFile)
 		return false;
@@ -310,7 +298,8 @@ bool CTerrainTex::Ready_HeightMap(const wstring& pFilePath)
 	m_pVB->Lock(0, 0, (void**)&pVertex, 0);
 
 	for (int i = 0; i < vIn.size(); ++i) {
-		pVertex[i].vPosition.y = m_vHeightmap[i] * 0.3f;
+		m_vHeightmap[i] *= 0.3f;
+		pVertex[i].vPosition.y = m_vHeightmap[i];
 	}
 
 	m_pVB->Unlock();
