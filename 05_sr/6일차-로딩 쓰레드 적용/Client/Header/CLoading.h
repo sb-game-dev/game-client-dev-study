@@ -24,7 +24,7 @@ public:
 	_uint		Loading_Stage();
 
 public:
-	static unsigned int CALLBACK Thread_Main(void* pArg);
+	static unsigned int CALLBACK Thread_Main(void* pArg); // 쓰레드 생성 후 동작시키기 위한 함수
 
 
 private:

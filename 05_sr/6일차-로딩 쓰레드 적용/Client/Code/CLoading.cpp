@@ -15,10 +15,11 @@ CLoading::~CLoading()
 
 HRESULT CLoading::Ready_Loading(LOADINGID eID)
 {
-    InitializeCriticalSection(&m_Crt);
+    InitializeCriticalSection(&m_Crt);// 객체 생성
 
-    m_eLoadingID = eID;
+    m_eLoadingID = eID; //로딩 씬 설정
 
+    //
     m_hThread = (HANDLE)_beginthreadex(NULL, // 보안 속성(핸들의 상속 여부, NULL인 경우 상속에서 제외)
                                         0,  // 디폴트 스택 사이즈(1 바이트)
                                         Thread_Main, // 구동할 쓰레드 함수
