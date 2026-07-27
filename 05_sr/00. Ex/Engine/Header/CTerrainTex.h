@@ -17,11 +17,11 @@ protected:
 	virtual ~CTerrainTex();
 
 public:
-	virtual HRESULT		Ready_Buffer();
+	virtual HRESULT		Ready_Buffer();							// 가로 버텍스 길이, 세로 버텍스 길이, 버텍스 간격 추가
 	virtual void		Render_Buffer();
 
 public:
-	static CTerrainTex* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CTerrainTex* Create(LPDIRECT3DDEVICE9 pGraphicDev);	// 가로 버텍스 길이, 세로 버텍스 길이, 버텍스 간격 추가
 	bool		ReadBmp(const char* filename);
 
     bool Ready_HeightMap(const wstring& pFilePath);

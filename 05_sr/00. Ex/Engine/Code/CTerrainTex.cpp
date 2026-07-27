@@ -29,7 +29,7 @@ HRESULT CTerrainTex::Ready_Buffer()
 
 	m_dwVtxSize = sizeof(VTXTEX);
 	m_dwVtxCnt = iXCnt * iZCnt ;
-	m_dwTriCnt = iXCnt * iZCnt * 2;
+	m_dwTriCnt = iXCnt * iZCnt * 2; // (iXCnt-1) * (iZCnt - 1) * 2
 	m_dwFVF = FVF_TEX;
 
 	m_dwIdxSize = sizeof(INDEX32);
@@ -42,8 +42,8 @@ HRESULT CTerrainTex::Ready_Buffer()
 	int i = 0;
 	m_pVB->Lock(0, 0, (void**)&pVertex, 0);
 
-	float uCoordIncrementSize = 1.f / iXCnt;
-	float vCoordIncrementSize = 1.f / iZCnt;
+	float uCoordIncrementSize = 1.f / iXCnt; // 1.f / (iXCnt - 1)
+	float vCoordIncrementSize = 1.f / iZCnt; // 1.f / (iZCnt - 1)
 	m_fHeightWeight = 0.05f;
 
 	for (int z = 0; z > -iZCnt; z-=VTXITV)

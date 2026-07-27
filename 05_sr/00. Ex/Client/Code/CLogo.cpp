@@ -7,7 +7,7 @@
 #include "CPlayer.h"
 #include "CMonster.h"
 #include "CCamera.h"
-#include <CTerrain.h>
+#include "CTerrain.h"
 
 CLogo::CLogo(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev)
