@@ -21,6 +21,8 @@ HRESULT CPlayer::Ready_GameObject()
 	m_fNormalSpeed = 10.f;
 	m_fBoostSpeed = 20.f;
 	m_fSpeed = m_fNormalSpeed;
+
+	m_eMoveState = GROUND;
 	m_iBulletCnt = 0;
 	return S_OK;
 }
@@ -51,6 +53,8 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 
 
 	//Key_Input(fTimeDelta);
+	
+
 	Key_Input2(fTimeDelta);
 
 	return iExit;
@@ -68,6 +72,12 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 	if (vPos.x > 0 && vPos.x < 129 && vPos.z < 0 && vPos.z > -129)
 	{
 		float fY = pTerrainCom->GetHeight(vPos.x, vPos.z);
+
+		if (vPos.y > fY)
+		{
+			m_pTransformCom->m_vInfo[INFO_POS].y -= 9.8f * 0.0002f;
+		}
+
 		m_pTransformCom->m_vInfo[INFO_POS].y = fY;
 	}
 }
@@ -75,7 +85,7 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 void CPlayer::Render_GameObject()
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
-
+	m_pGraphicDev->SetTexture(0, NULL);
 	m_pBufferCom->Render_Buffer();
 }
 

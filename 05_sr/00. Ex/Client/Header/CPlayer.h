@@ -34,11 +34,16 @@ private:
 	Engine::CTexture*			m_pTextureCom;
 	Engine::CCameraCom*			m_pCameraCom;
 
-	float m_fSpeed;
-	float m_fNormalSpeed;
-	float m_fBoostSpeed;
+	enum MOVE_STATE { GROUND, JUMP, FALL, MOVE_END };
 
-	int	  m_iBulletCnt;
+	int			m_iBulletCnt;
+
+	float		m_fSpeed;
+	float		m_fNormalSpeed;
+	float		m_fBoostSpeed;
+
+	MOVE_STATE	m_eMoveState;
+
 public:
 	static CPlayer* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
