@@ -177,15 +177,21 @@ void CPlayer::Key_Input2(const _float& fTimeDelta)
 	
 	if (GetAsyncKeyState('W'))
 	{
+		vCameraLook.y = 0;
+		vPlayerLook.y = 0;
+		
 		_vec3 cross;
 		D3DXVec3Cross(&cross, &vPlayerLook, &vCameraLook);
-		
-		float fAngle = acosf(D3DXVec3Dot(D3DXVec3Normalize(&vPlayerLook, &vPlayerLook),
-							D3DXVec3Normalize(&vCameraLook, &vCameraLook)));
-		if (cross.y < 0) fAngle *= -1;
-		
-		m_pTransformCom->Rotation(ROT_Y, fAngle);
 
+		float fAngle = acosf(D3DXVec3Dot(D3DXVec3Normalize(&vPlayerLook, &vPlayerLook),
+										 D3DXVec3Normalize(&vCameraLook, &vCameraLook)));
+		
+		if (D3DXToDegree(fAngle) > 1)
+		{
+			if (cross.y < 0) fAngle *= -1;
+
+			m_pTransformCom->Rotation(ROT_Y, D3DXToDegree(fAngle));
+		}
 		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vCameraLook, &vCameraLook), m_fSpeed, fTimeDelta);
 	}
 
@@ -200,6 +206,11 @@ void CPlayer::Key_Input2(const _float& fTimeDelta)
 
 		m_pTransformCom->Rotation(ROT_Y, fAngle);
 		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vCameraLook, &vCameraLook), -m_fSpeed, fTimeDelta);
+	}
+
+	if (CKeyMgr::GetInstance()->KeyPressing(VK_SPACE))
+	{
+
 	}
 	//if (GetAsyncKeyState('A'))
 	//{

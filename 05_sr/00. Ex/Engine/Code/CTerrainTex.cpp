@@ -83,15 +83,6 @@ HRESULT CTerrainTex::Ready_Buffer()
 	{
 		for (int j = 0; j < iXCnt-1; ++j)
 		{
-			//pIndex[(i * iXCnt) * 2 + j * 2]._0 = (i * iXCnt) * 4 + j * 4;
-			//pIndex[(i * iXCnt) * 2 + j * 2]._1 = (i * iXCnt) * 4 + j * 4 + 1;
-			//pIndex[(i * iXCnt) * 2 + j * 2]._2 = (i * iXCnt) * 4 + j * 4 + 3;
-			//
-			//pIndex[(i * iXCnt) * 2 + j * 2 + 1]._0 = (i * iXCnt) * 4 + j * 4 + 3;
-			//pIndex[(i * iXCnt) * 2 + j * 2 + 1]._1 = (i * iXCnt) * 4 + j * 4 + 1;
-			//pIndex[(i * iXCnt) * 2 + j * 2 + 1]._2 = (i * iXCnt) * 4 + j * 4 + 2;
-			////////////////////////////////////////////////////////////////////////
-
 			pIndex[iBaseIndex]._0 = i * iXCnt + j;
 			pIndex[iBaseIndex]._1 = i * iXCnt + j + 1;
 			pIndex[iBaseIndex]._2 = (i + 1) * iXCnt + j;
