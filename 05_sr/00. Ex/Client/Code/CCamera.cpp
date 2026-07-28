@@ -33,7 +33,9 @@ HRESULT		CCamera::Ready_GameObject()
 	D3DXMatrixLookAtLH(&matView, &m_vEye, &m_vAt, &m_vUp);
 	m_pGraphicDev->SetTransform(D3DTS_VIEW, &matView);
 
-	D3DXMatrixPerspectiveFovLH(&matProj, D3DXToRadian(m_fFov), (_float)WINCX / WINCY, 0.1f, 1000.f);
+	D3DVIEWPORT9 vp;
+	m_pGraphicDev->GetViewport(&vp);
+	D3DXMatrixPerspectiveFovLH(&matProj, D3DXToRadian(m_fFov), (_float)vp.Width / vp.Height, 0.1f, 1000.f);
 	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matProj);
 
 	return S_OK;
@@ -47,7 +49,6 @@ _int	CCamera::Update_GameObject(const _float& fTimeDelta)
 
 	MouseControl(&m_vEye, &m_vAt, &m_vUp, &m_fFov, fTimeDelta);
 	MouseFix();
-
 
 	_matrix matView, matProj;
 	D3DXMatrixLookAtLH(&matView, &m_vEye, &m_vAt, &m_vUp);
@@ -180,7 +181,13 @@ void CCamera::MouseControl(_vec3* vEye, _vec3* vAt, _vec3* vUp, float* fFov, con
 	// 6. 플레이어에게 넘겨줄 방향 설정
 	m_pTransformCom->m_vInfo[INFO_LOOK] = (*vAt) - (*vEye);
 
-	cout << "CameraLook: " << m_pTransformCom->m_vInfo[INFO_LOOK].x << endl;
+	_vec3 cross;
+	_vec3 up = { 0,1,0 };
+	D3DXVec3Cross(&cross, &up, &m_pTransformCom->m_vInfo[INFO_LOOK]);
+
+	m_pTransformCom->m_vInfo[INFO_RIGHT] = cross;
+
+	//cout << "cross: " << cross.y << endl;
 }
 
 void CCamera::MouseFix()

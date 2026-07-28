@@ -18,12 +18,17 @@ HRESULT CPlayer::Ready_GameObject()
 {
 	if (FAILED(Add_Component()))
 		return E_FAIL;
+
 	m_pTransformCom->Rotation(ROT_X, 90);
+	m_pTransformCom->m_vInfo[INFO_POS] = { 50,50,-50 };
 	m_fNormalSpeed = 10.f;
 	m_fBoostSpeed = 20.f;
 	m_fSpeed = m_fNormalSpeed;
 	m_vGravity = { 0, -9.8,0 };
 	m_fJumpPower = 30.f;
+
+	m_bKeyStateA = false;
+	m_bKeyStateD = false;
 
 	m_eMoveState = GROUND;
 	m_iBulletCnt = 0;
@@ -33,12 +38,6 @@ HRESULT CPlayer::Ready_GameObject()
 _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 {
 	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
-
-	_vec3 vPlayerPos;
-	_vec3 vPlayerLook;
-	_vec3 vMousePos;
-
-	m_pTransformCom->Get_Info(INFO_POS, &vPlayerPos);
 
 	m_vGravity.y -= 20 * fTimeDelta;
 	m_pTransformCom->Move_Pos(&m_vGravity, 3, fTimeDelta);
@@ -151,21 +150,18 @@ void CPlayer::Key_Input2(const _float& fTimeDelta)
 {
 	_vec3	vCameraLook;
 	_vec3	vPlayerLook;
-	_vec3	vPlayerRight;
+	_vec3	m_vPlayerRight;
 
 	CTransform* pCameraTransformCom = dynamic_cast<CTransform*>
 		(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"Environment_Layer", L"Camera", L"Com_Transform"));
 	
 	vCameraLook = pCameraTransformCom->m_vInfo[INFO_LOOK];
 	vPlayerLook = m_pTransformCom->m_vInfo[INFO_UP];
-	
-	//cout << vCameraLook.x << endl;
 
+	vCameraLook.y = 0;
+	vPlayerLook.y = 0;
 	if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_W))
 	{
-		vCameraLook.y = 0;
-		vPlayerLook.y = 0;
-		
 		_vec3 cross;
 		D3DXVec3Cross(&cross, &vPlayerLook, &vCameraLook);
 
@@ -175,7 +171,6 @@ void CPlayer::Key_Input2(const _float& fTimeDelta)
 		if (D3DXToDegree(fAngle) > 1)
 		{
 			if (cross.y < 0) fAngle *= -1;
-
 			m_pTransformCom->Rotation(ROT_Y, D3DXToDegree(fAngle));
 		}
 		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vCameraLook, &vCameraLook), m_fSpeed, fTimeDelta);
@@ -183,23 +178,56 @@ void CPlayer::Key_Input2(const _float& fTimeDelta)
 
 	else if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_S))
 	{
-		vCameraLook.y = 0;
-		vPlayerLook.y = 0;
-
 		_vec3 cross;
 		D3DXVec3Cross(&cross, &vPlayerLook, &vCameraLook);
 
 		float fAngle = acosf(D3DXVec3Dot(D3DXVec3Normalize(&vPlayerLook, &vPlayerLook),
-			D3DXVec3Normalize(&vCameraLook, &vCameraLook)));
+										 D3DXVec3Normalize(&vCameraLook, &vCameraLook)));
 
 		if (D3DXToDegree(fAngle) > 1)
 		{
 			if (cross.y < 0) fAngle *= -1;
-
 			m_pTransformCom->Rotation(ROT_Y, D3DXToDegree(fAngle));
 		}
 		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vCameraLook, &vCameraLook), -m_fSpeed, fTimeDelta);
 	}
+
+	if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_D))
+	{
+		memcpy(&m_vPlayerRight, &pCameraTransformCom->m_vInfo[INFO_RIGHT], sizeof(_vec3));
+		m_vPlayerRight.y = 0;
+
+		_vec3 cross;
+		D3DXVec3Cross(&cross, &vPlayerLook, &m_vPlayerRight);
+		float fAngle = acosf(D3DXVec3Dot(D3DXVec3Normalize(&vPlayerLook, &vPlayerLook),
+										 D3DXVec3Normalize(&m_vPlayerRight, &m_vPlayerRight)));
+
+		if (D3DXToDegree(fAngle) > 1)
+		{
+			if (cross.y < 0) fAngle *= -1;
+			m_pTransformCom->Rotation(ROT_Y, D3DXToDegree(fAngle));
+		}
+		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&m_vPlayerRight, &m_vPlayerRight), m_fSpeed, fTimeDelta);
+	}
+
+	if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_A))
+	{
+		memcpy(&m_vPlayerRight, &pCameraTransformCom->m_vInfo[INFO_RIGHT], sizeof(_vec3));
+		m_vPlayerRight.y = 0;
+		m_vPlayerRight *= -1;
+		_vec3 cross;
+		D3DXVec3Cross(&cross, &vPlayerLook, &m_vPlayerRight);
+		float fAngle = acosf(D3DXVec3Dot(D3DXVec3Normalize(&vPlayerLook, &vPlayerLook),
+			D3DXVec3Normalize(&m_vPlayerRight, &m_vPlayerRight)));
+
+		if (D3DXToDegree(fAngle) > 1)
+		{
+			if (cross.y < 0) fAngle *= -1;
+			m_pTransformCom->Rotation(ROT_Y, D3DXToDegree(fAngle));
+		}
+		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&m_vPlayerRight, &m_vPlayerRight), m_fSpeed, fTimeDelta);
+	}
+
 
 	if (CDInputMgr::GetInstance()->Get_KeyDown(DIK_Q))
 	{
@@ -213,20 +241,6 @@ void CPlayer::Key_Input2(const _float& fTimeDelta)
 			ReSetGravity();
 			m_vGravity.y += m_fJumpPower;
 		}
-	}
-	if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_D))
-	{
-		memcpy(&vPlayerRight, &m_pTransformCom->m_matWorld.m[0][0], sizeof(_vec3));
-		vPlayerRight.y = 0;
-		//m_pTransformCom->Rotation(ROT_Y, -90);
-		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vPlayerRight, &vPlayerRight), m_fSpeed, fTimeDelta);
-	}
-	if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_A))
-	{
-		memcpy(&vPlayerRight, &m_pTransformCom->m_matWorld.m[0][0], sizeof(_vec3));
-		vPlayerRight.y = 0;
-		//m_pTransformCom->Rotation(ROT_Y, -90);
-		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vPlayerRight, &vPlayerRight), -m_fSpeed, fTimeDelta);
 	}
 	if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_LSHIFT))
 	{

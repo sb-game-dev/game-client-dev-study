@@ -60,8 +60,20 @@ void CMainApp::Render_MainApp()
 {
 	m_pDeviceClass->Render_Begin(D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
 
+	D3DVIEWPORT9 oldViewPort;
+	m_pGraphicDev->GetViewport(&oldViewPort);
+	D3DVIEWPORT9 viewPort = { 0,0,WINCX,WINCY };
+	m_pGraphicDev->SetViewport(&viewPort);
+
 	m_pManagementClass->Render_Scene(m_pGraphicDev);
 
+	D3DVIEWPORT9 viewPort2 = { WINCX * 0.7,0,WINCX * 0.3,WINCY*0.3 };
+
+	m_pGraphicDev->SetViewport(&viewPort2);
+	
+	m_pManagementClass->Render_Scene(m_pGraphicDev);
+
+	m_pGraphicDev->SetViewport(&oldViewPort);
 	m_pDeviceClass->Render_End();
 }
 

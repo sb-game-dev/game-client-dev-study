@@ -43,8 +43,12 @@ private:
 	enum MOVE_STATE { GROUND, JUMP, FALL, MOVE_END };
 
 	MOVE_STATE	m_eMoveState;
-	_vec3 m_vGravity;
-	float m_fJumpPower;
+
+	_vec3		m_vGravity;
+	float		m_fJumpPower;
+
+	bool		m_bKeyStateA;
+	bool		m_bKeyStateD;
 
 public:
 	static CPlayer* Create(LPDIRECT3DDEVICE9 pGraphicDev);
