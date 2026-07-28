@@ -1,12 +1,10 @@
 #pragma once
 #include "CScene.h"
-#include "CLoading.h"
-
-class CLogo : public CScene
+class CStage : public CScene
 {
 private:
-	explicit CLogo(LPDIRECT3DDEVICE9 pGraphicDev);
-	virtual ~CLogo();
+	explicit CStage(LPDIRECT3DDEVICE9 pGraphicDev);
+	virtual ~CStage();
 
 public:
 	virtual			HRESULT		Ready_Scene();
@@ -16,17 +14,14 @@ public:
 
 private:
 	HRESULT		Ready_Environment_Layer(const _tchar* pLayerTag);
-	HRESULT		Ready_GameLogic_Layer(const _tchar* pLayerTag) { return S_OK; }
-	HRESULT		Ready_UI_Layer(const _tchar* pLayerTag) { return S_OK; }
+	HRESULT		Ready_GameLogic_Layer(const _tchar* pLayerTag);
+	HRESULT		Ready_UI_Layer(const _tchar* pLayerTag);
 
 private:
 	HRESULT		Ready_Prototype();
 
-private:
-	CLoading* m_pLoading;
-
 public:
-	static CLogo* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+	static CStage* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
 	virtual void Free();

@@ -150,9 +150,6 @@
     <ClInclude Include="..\Header\CTerrainTex.h">
       <Filter>04. Component\00. VIBuffer\03. TerrainTex</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CCamera.h">
-      <Filter>03. Management\02. GameObject\Camera</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CDInputMgr.h">
       <Filter>07. DInput</Filter>
     </ClInclude>
@@ -217,9 +214,6 @@
     </ClCompile>
     <ClCompile Include="..\Code\CTerrainTex.cpp">
       <Filter>04. Component\00. VIBuffer\03. TerrainTex</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Code\CCamera.cpp">
-      <Filter>03. Management\02. GameObject\Camera</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CDInputMgr.cpp">
       <Filter>07. DInput</Filter>

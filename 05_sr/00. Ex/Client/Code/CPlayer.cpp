@@ -4,6 +4,7 @@
 #include "CBullet.h"
 #include "CManagement.h"
 #include "CKeyMgr.h"
+#include "CDInputMgr.h"
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CGameObject(pGraphicDev)
 {
@@ -21,6 +22,8 @@ HRESULT CPlayer::Ready_GameObject()
 	m_fNormalSpeed = 10.f;
 	m_fBoostSpeed = 20.f;
 	m_fSpeed = m_fNormalSpeed;
+	m_vGravity = { 0, -9.8,0 };
+	m_fJumpPower = 30.f;
 
 	m_eMoveState = GROUND;
 	m_iBulletCnt = 0;
@@ -37,25 +40,8 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 
 	m_pTransformCom->Get_Info(INFO_POS, &vPlayerPos);
 
-	POINT		pt{};
-
-	GetCursorPos(&pt);
-	ScreenToClient(g_hWnd, &pt);
-
-	vMousePos = _vec3((float)pt.x, (float)pt.y, 0.f);
-
-	//m_pCameraCom->MouseControl(&vPlayerPos,&vPlayerLook,&vMousePos);
-
-	//_vec3	vLookTarget;
-	//vLookTarget = vPlayerPos + vPlayerLook;
-	//
-	//_matrix matRot = *(m_pTransformCom->Compute_Lookattarget(&vLookTarget));
-
-
-	//Key_Input(fTimeDelta);
-	
-
-	Key_Input2(fTimeDelta);
+	m_vGravity.y -= 20 * fTimeDelta;
+	m_pTransformCom->Move_Pos(&m_vGravity, 3, fTimeDelta);
 
 	return iExit;
 }
@@ -63,22 +49,23 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
+	Key_Input2(fTimeDelta);
 
 	CTerrainTex* pTerrainCom = dynamic_cast<CTerrainTex*>
 		(CManagement::GetInstance()->Get_Component(ID_STATIC, L"Environment_Layer", L"Terrain", L"Com_Buffer"));
 
 	_vec3	vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
-	if (vPos.x > 0 && vPos.x < 129 && vPos.z < 0 && vPos.z > -129)
+	if (vPos.x > 0 && vPos.x < 128 && vPos.z < 0 && vPos.z > -128)
 	{
 		float fY = pTerrainCom->GetHeight(vPos.x, vPos.z);
 
-		if (vPos.y > fY)
+		if (m_eMoveState == JUMP && vPos.y < fY -1 )
 		{
-			m_pTransformCom->m_vInfo[INFO_POS].y -= 9.8f * 0.0002f;
+			m_eMoveState = GROUND;
 		}
-
-		m_pTransformCom->m_vInfo[INFO_POS].y = fY;
+		if(m_eMoveState == GROUND)
+			m_pTransformCom->m_vInfo[INFO_POS].y = fY;
 	}
 }
 
@@ -107,20 +94,6 @@ HRESULT CPlayer::Add_Component()
 		return E_FAIL;
 
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
-
-	// Camera
-	pComponent = m_pCameraCom = dynamic_cast<CCameraCom*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Camera"));
-	if (nullptr == pComponent)
-		return E_FAIL;
-
-	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Camera", pComponent });
-
-	// Texture
-	//pComponent = m_pTextureCom = dynamic_cast<CTexture*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_PlayerTexture"));
-	//if (nullptr == pComponent)
-	//	return E_FAIL;
-	//
-	//m_mapComponent[ID_STATIC].insert({ L"Com_Texture", pComponent });
 
 	return S_OK;
 }
@@ -178,6 +151,7 @@ void CPlayer::Key_Input2(const _float& fTimeDelta)
 {
 	_vec3	vCameraLook;
 	_vec3	vPlayerLook;
+	_vec3	vPlayerRight;
 
 	CTransform* pCameraTransformCom = dynamic_cast<CTransform*>
 		(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"Environment_Layer", L"Camera", L"Com_Transform"));
@@ -185,7 +159,9 @@ void CPlayer::Key_Input2(const _float& fTimeDelta)
 	vCameraLook = pCameraTransformCom->m_vInfo[INFO_LOOK];
 	vPlayerLook = m_pTransformCom->m_vInfo[INFO_UP];
 	
-	if (GetAsyncKeyState('W'))
+	//cout << vCameraLook.x << endl;
+
+	if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_W))
 	{
 		vCameraLook.y = 0;
 		vPlayerLook.y = 0;
@@ -205,33 +181,54 @@ void CPlayer::Key_Input2(const _float& fTimeDelta)
 		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vCameraLook, &vCameraLook), m_fSpeed, fTimeDelta);
 	}
 
-	if (GetAsyncKeyState('S'))
+	else if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_S))
 	{
+		vCameraLook.y = 0;
+		vPlayerLook.y = 0;
+
 		_vec3 cross;
 		D3DXVec3Cross(&cross, &vPlayerLook, &vCameraLook);
 
 		float fAngle = acosf(D3DXVec3Dot(D3DXVec3Normalize(&vPlayerLook, &vPlayerLook),
 			D3DXVec3Normalize(&vCameraLook, &vCameraLook)));
-		if (cross.y < 0) fAngle *= -1;
 
-		m_pTransformCom->Rotation(ROT_Y, fAngle);
+		if (D3DXToDegree(fAngle) > 1)
+		{
+			if (cross.y < 0) fAngle *= -1;
+
+			m_pTransformCom->Rotation(ROT_Y, D3DXToDegree(fAngle));
+		}
 		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vCameraLook, &vCameraLook), -m_fSpeed, fTimeDelta);
 	}
 
-	if (CKeyMgr::GetInstance()->KeyPressing(VK_SPACE))
+	if (CDInputMgr::GetInstance()->Get_KeyDown(DIK_Q))
 	{
-
+		Shoot();
 	}
-	//if (GetAsyncKeyState('A'))
-	//{
-	//	m_pTransformCom->Rotation(ROT_Y, -180.f * fTimeDelta);
-	//}
-	//
-	//if (GetAsyncKeyState('S'))
-	//{
-	//	m_pTransformCom->Rotation(ROT_Y, 180.f * fTimeDelta);
-	//}
-	if (GetAsyncKeyState(VK_LSHIFT))
+	if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_SPACE))
+	{
+		if (m_eMoveState == GROUND)
+		{
+			m_eMoveState = JUMP;
+			ReSetGravity();
+			m_vGravity.y += m_fJumpPower;
+		}
+	}
+	if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_D))
+	{
+		memcpy(&vPlayerRight, &m_pTransformCom->m_matWorld.m[0][0], sizeof(_vec3));
+		vPlayerRight.y = 0;
+		//m_pTransformCom->Rotation(ROT_Y, -90);
+		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vPlayerRight, &vPlayerRight), m_fSpeed, fTimeDelta);
+	}
+	if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_A))
+	{
+		memcpy(&vPlayerRight, &m_pTransformCom->m_matWorld.m[0][0], sizeof(_vec3));
+		vPlayerRight.y = 0;
+		//m_pTransformCom->Rotation(ROT_Y, -90);
+		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vPlayerRight, &vPlayerRight), -m_fSpeed, fTimeDelta);
+	}
+	if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_LSHIFT))
 	{
 		m_fSpeed = m_fBoostSpeed;
 	}
@@ -279,6 +276,6 @@ CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 void CPlayer::Free()
 {
-
 	CGameObject::Free();
 }
+

@@ -34,21 +34,25 @@ private:
 	Engine::CTexture*			m_pTextureCom;
 	Engine::CCameraCom*			m_pCameraCom;
 
-	enum MOVE_STATE { GROUND, JUMP, FALL, MOVE_END };
-
 	int			m_iBulletCnt;
 
 	float		m_fSpeed;
 	float		m_fNormalSpeed;
 	float		m_fBoostSpeed;
 
+	enum MOVE_STATE { GROUND, JUMP, FALL, MOVE_END };
+
 	MOVE_STATE	m_eMoveState;
+	_vec3 m_vGravity;
+	float m_fJumpPower;
 
 public:
 	static CPlayer* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
 	virtual void	Free();
+
+	void			ReSetGravity() { m_vGravity = { 0,-9.8f,0 }; }
 
 };
 

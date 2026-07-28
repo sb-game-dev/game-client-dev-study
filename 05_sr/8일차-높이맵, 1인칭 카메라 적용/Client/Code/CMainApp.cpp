@@ -22,7 +22,18 @@ HRESULT CMainApp::Ready_MainApp()
 
 	if (FAILED(Ready_Scene(m_pGraphicDev)))
 		return E_FAIL;
-
+//#ifdef _DEBUG
+//
+//	if (::AllocConsole() == TRUE)
+//	{
+//		FILE* nfp[3];
+//		freopen_s(nfp + 0, "CONOUT$", "rb", stdin);
+//		freopen_s(nfp + 1, "CONOUT$", "wb", stdout);
+//		freopen_s(nfp + 2, "CONOUT$", "wb", stderr);
+//		std::ios::sync_with_stdio();
+//	}
+//
+//#endif // _DEBUG
 
 	return S_OK;
 }
@@ -82,6 +93,19 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 
 HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 {
+	//Engine::CScene* pLogo = CLogo::Create(pGraphicDev);
+	//
+	//if (nullptr == pLogo)
+	//	return E_FAIL;
+	//
+	//if (FAILED(m_pManagementClass->Set_Scene(pLogo)))
+	//{
+	//	Safe_Release(pLogo);
+	//
+	//	MSG_BOX("Logo Create Failed");
+	//	return E_FAIL;
+	//}
+	
 	Engine::CScene* pLogo = CLogo::Create(pGraphicDev);
 
 	if (nullptr == pLogo)
@@ -94,7 +118,7 @@ HRESULT CMainApp::Ready_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 		MSG_BOX("Logo Create Failed");
 		return E_FAIL;
 	}
-	
+
 	return S_OK;
 }
 

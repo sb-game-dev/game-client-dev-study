@@ -5,13 +5,10 @@
 namespace Engine
 {
 	class CRcTex;
-	class CCubeTex;
-	class CTerainTex;
-	class CTransform;
 	class CTexture;
 }
 
-class CBackGround :  public CGameObject
+class CBackGround : public CGameObject
 {
 private:
 	explicit CBackGround(LPDIRECT3DDEVICE9 pGraphicDev);
@@ -27,11 +24,8 @@ private:
 	HRESULT			Add_Component();
 
 private:
-	Engine::CCubeTex*		m_pBufferCom;
-	Engine::CTransform*		m_pTransformCom;
-
-	Engine::CTexture*		m_pTextureCom;
-
+	Engine::CRcTex* m_pBufferCom;
+	Engine::CTexture* m_pTextureCom;
 public:
 	static CBackGround* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 

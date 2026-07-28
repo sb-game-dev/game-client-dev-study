@@ -43,6 +43,15 @@
     <Filter Include="02. GameObject\05. Terrain">
       <UniqueIdentifier>{85afb6fa-8eaa-4892-bb67-2ca2f4b41a4c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObject\06. SkyBox">
+      <UniqueIdentifier>{238be305-0fb8-4872-9aa4-7403b9dc6fc4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\01. Stage">
+      <UniqueIdentifier>{f4171dc6-046e-403c-92b5-282462b38627}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Scene\02. Loding">
+      <UniqueIdentifier>{f51774a5-eef8-4c45-a14c-ab0d60083ef9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -84,6 +93,15 @@
     <ClInclude Include="..\Header\CTerrain.h">
       <Filter>02. GameObject\05. Terrain</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CSkyBox.h">
+      <Filter>02. GameObject\06. SkyBox</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CLoading.h">
+      <Filter>01. Scene\02. Loding</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CStage.h">
+      <Filter>01. Scene\01. Stage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -115,6 +133,15 @@
     </ClCompile>
     <ClCompile Include="..\Code\CTerrain.cpp">
       <Filter>02. GameObject\05. Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSkyBox.cpp">
+      <Filter>02. GameObject\06. SkyBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CLoading.cpp">
+      <Filter>01. Scene\02. Loding</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CStage.cpp">
+      <Filter>01. Scene\01. Stage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

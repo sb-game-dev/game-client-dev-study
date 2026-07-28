@@ -76,6 +76,9 @@
     <Filter Include="04. Component\00. VIBuffer\05. TerrainTex">
       <UniqueIdentifier>{94e88071-40c9-4533-877e-f1230f24eab4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="08. DInputMgr">
+      <UniqueIdentifier>{6abb3279-31a1-4dc5-894a-3f7c0997aab4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -168,6 +171,9 @@
     <ClInclude Include="..\Header\CCameraCom.h">
       <Filter>04. Component\03. Camera</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CDInputMgr.h">
+      <Filter>08. DInputMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -241,6 +247,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CCameraCom.cpp">
       <Filter>04. Component\03. Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDInputMgr.cpp">
+      <Filter>08. DInputMgr</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

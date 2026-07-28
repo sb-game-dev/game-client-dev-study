@@ -50,12 +50,12 @@ _int CDynamicCamera::Update_GameObject(const _float& fTimeDelta)
 
 void CDynamicCamera::LateUpdate_GameObject(const _float& fTimeDelta)
 {
-	Key_Input(fTimeDelta);
 
+	Key_Input(fTimeDelta);
 	if (m_bFix)
 	{
 		Mouse_Move();
-		Mouse_Fix();
+		//Mouse_Fix();
 	}
 
 }
@@ -140,6 +140,7 @@ void CDynamicCamera::Mouse_Move()
 
 	if (dwMouseMove = CDInputMgr::GetInstance()->Get_DIMouseMove(DIMS_Y))
 	{
+
 		_vec3	vRight;
 		memcpy(&vRight, &matCamWorld.m[0][0], sizeof(_vec3));
 
@@ -156,6 +157,7 @@ void CDynamicCamera::Mouse_Move()
 
 	if (dwMouseMove = CDInputMgr::GetInstance()->Get_DIMouseMove(DIMS_X))
 	{
+		//cout << dwMouseMove << endl;
 		_vec3	vUp{ 0.f, 1.f, 0.f };
 
 		_vec3	vLook = m_vAt - m_vEye;
@@ -177,7 +179,6 @@ void CDynamicCamera::Mouse_Fix()
 
 	ClientToScreen(g_hWnd, &ptMouse);
 	SetCursorPos(ptMouse.x, ptMouse.y);
-
 }
 
 CDynamicCamera* CDynamicCamera::Create(LPDIRECT3DDEVICE9 pGraphicDev, const _vec3* pEye, const _vec3* pAt, const _vec3* pUp, const _float& fFov, const _float& fAspect, const _float& fNear, const _float& fFar)

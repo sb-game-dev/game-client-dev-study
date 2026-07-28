@@ -3,6 +3,7 @@
 #include "CLogo.h"
 #include "CProtoMgr.h"
 #include "CFontMgr.h"
+#include "CDInputMgr.h"
 #include "CKeyMgr.h"
 
 CMainApp::CMainApp()
@@ -23,18 +24,18 @@ HRESULT CMainApp::Ready_MainApp()
 	if (FAILED(Ready_Scene(m_pGraphicDev)))
 		return E_FAIL;
 
-#ifdef _DEBUG
-
-	if (::AllocConsole() == TRUE)
-	{
-		FILE* nfp[3];
-		freopen_s(nfp + 0, "CONOUT$", "rb", stdin);
-		freopen_s(nfp + 1, "CONOUT$", "wb", stdout);
-		freopen_s(nfp + 2, "CONOUT$", "wb", stderr);
-		std::ios::sync_with_stdio();
-	}
-
-#endif // _DEBUG
+//#ifdef _DEBUG
+//
+//	if (::AllocConsole() == TRUE)
+//	{
+//		FILE* nfp[3];
+//		freopen_s(nfp + 0, "CONOUT$", "rb", stdin);
+//		freopen_s(nfp + 1, "CONOUT$", "wb", stdout);
+//		freopen_s(nfp + 2, "CONOUT$", "wb", stderr);
+//		std::ios::sync_with_stdio();
+//	}
+//
+//#endif // _DEBUG
 
 
 	return S_OK;
@@ -42,11 +43,11 @@ HRESULT CMainApp::Ready_MainApp()
 
 int CMainApp::Update_MaintApp(const float& fTimeDelta)
 {
+
+	CDInputMgr::GetInstance()->Update_InputDev();
+
 	m_pManagementClass->Update_Scene(fTimeDelta);
 
-	//void	KeyUpdate();
-
-	CKeyMgr::GetInstance()->KeyUpdate();
 	return 0;
 }
 
@@ -83,6 +84,10 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 		return E_FAIL;
 
 	if (FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_Jinji", L"±Ã¼­", 20, 15, FW_THIN)))
+		return E_FAIL;
+
+	// DInputMgrÀÇ ¸â¹öµé °´Ã¼ »ý¼º
+	if (FAILED(CDInputMgr::GetInstance()->Ready_InputDev(g_hInst, g_hWnd)))
 		return E_FAIL;
 
 	return S_OK;
@@ -125,6 +130,7 @@ void CMainApp::Free()
 	Safe_Release(m_pGraphicDev);
 	Safe_Release(m_pDeviceClass);
 
+	CDInputMgr::DestroyInstance();
 	CKeyMgr::DestroyInstance();
 	CFontMgr::DestroyInstance();
 	CProtoMgr::DestroyInstance();
