@@ -79,6 +79,9 @@
     <Filter Include="08. DInputMgr">
       <UniqueIdentifier>{6abb3279-31a1-4dc5-894a-3f7c0997aab4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Component\04. Collider">
+      <UniqueIdentifier>{8ec7a197-9adc-4921-97d4-ce7e948246d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -174,6 +177,9 @@
     <ClInclude Include="..\Header\CDInputMgr.h">
       <Filter>08. DInputMgr</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CCollider.h">
+      <Filter>04. Component\04. Collider</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -250,6 +256,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CDInputMgr.cpp">
       <Filter>08. DInputMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCollider.cpp">
+      <Filter>04. Component\04. Collider</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

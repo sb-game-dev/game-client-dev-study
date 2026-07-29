@@ -16,7 +16,9 @@ HRESULT CMonster::Ready_GameObject()
 {
 	if (FAILED(Add_Component()))
 		return E_FAIL;
-	m_pTransformCom->m_vScale = { 2,1,1 };
+	m_pTransformCom->m_vScale = { 10,10,10 };
+
+	m_pTransformCom->m_vInfo[INFO_POS] = { 77,40,-100 };
 	return S_OK;
 }
 
@@ -31,35 +33,17 @@ _int CMonster::Update_GameObject(const _float& fTimeDelta)
 void CMonster::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
-
-	CTransform* pPlayerTransformCom = dynamic_cast<CTransform*>
-		(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"Environment_Layer", L"Player", L"Com_Transform"));
-
-	if (nullptr == pPlayerTransformCom)
-		return;
-
-	_vec3	vPlayerPos;
-	pPlayerTransformCom->Get_Info(INFO_POS, &vPlayerPos);
-
-	//_vec3	vMonsterPos;
-	//m_pTransformCom->Get_Info(INFO_POS, &vMonsterPos);
-	//
-	//_vec3	vDir = vPlayerPos - vMonsterPos;
-	//
-	//m_pTransformCom->Move_Pos(D3DXVec3Normalize(&vDir, &vDir), 5.f, fTimeDelta);
-
-	m_pTransformCom->Chase_Target(&vPlayerPos, 5.f, fTimeDelta);
 }
 
 void CMonster::Render_GameObject()
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
 
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	//cout << "MonsterRender" << endl;
+	m_pTextureCom->Set_Texture(0);
 
 	m_pBufferCom->Render_Buffer();
 
-	m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
 }
 
 HRESULT CMonster::Add_Component()
@@ -67,7 +51,7 @@ HRESULT CMonster::Add_Component()
 	Engine::CComponent* pComponent = nullptr;
 
 	// TriCol
-	pComponent = m_pBufferCom = dynamic_cast<CTriCol*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_TriCol"));
+	pComponent = m_pBufferCom = dynamic_cast<CCubeTex*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_CubeTex"));
 	if (nullptr == pComponent)
 		return E_FAIL;
 
@@ -79,7 +63,13 @@ HRESULT CMonster::Add_Component()
 	if (nullptr == pComponent)
 		return E_FAIL;
 
-	m_mapComponent[ID_STATIC].insert({ L"Com_Transform", pComponent });
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
+
+
+	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_PlayerTexture"));
+	if (nullptr == pComponent)
+		return E_FAIL;
+	m_mapComponent[ID_STATIC].insert({ L"Com_Texture", pComponent });
 
 
 	return S_OK;

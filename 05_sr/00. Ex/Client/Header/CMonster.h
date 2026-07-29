@@ -4,8 +4,9 @@
 
 namespace Engine
 {
-	class CTriCol;
+	class CCubeTex;
 	class CTransform;
+	class CTexture;
 }
 
 class CMonster : public CGameObject
@@ -24,8 +25,11 @@ private:
 	HRESULT			Add_Component();
 
 private:
-	Engine::CTriCol*		m_pBufferCom;
-	Engine::CTransform*		m_pTransformCom;
+	Engine::CCubeTex*		m_pBufferCom;
+	Engine::CTransform* m_pTransformCom;
+	Engine::CTexture* m_pTextureCom;
+
+	
 
 public:
 	static CMonster* Create(LPDIRECT3DDEVICE9 pGraphicDev);

@@ -64,6 +64,13 @@ _int	CCamera::Update_GameObject(const _float& fTimeDelta)
 	//Direct_Follow(&m_vEye,&m_vAt,&m_vUp);
 	//Smooth_Follow(&m_vEye, &m_vAt, &m_vUp, &m_fFov, fTimeDelta);
 
+
+
+	return iExit;
+}
+void CCamera::LateUpdate_GameObject(const _float& fTimeDelta)
+{
+	CGameObject::LateUpdate_GameObject(fTimeDelta);
 	_matrix matView;
 	switch (m_eCameraType)
 	{
@@ -85,13 +92,6 @@ _int	CCamera::Update_GameObject(const _float& fTimeDelta)
 	default:
 		break;
 	}
-
-
-	return iExit;
-}
-void CCamera::LateUpdate_GameObject(const _float& fTimeDelta)
-{
-	CGameObject::LateUpdate_GameObject(fTimeDelta);
 
 }
 void CCamera::Render_GameObject()
@@ -225,7 +225,6 @@ void CCamera::MouseControl(_vec3* vEye, _vec3* vAt, _vec3* vUp, float* fFov, con
 
 void CCamera::ViewWolrdMap(_vec3* vEye, _vec3* vAt, _vec3* vUp)
 {
-	cout << "RunWorldMap" << endl;
 	*vEye = { 50,100,-150 };
 	*vAt = { 50,0,-50 };
 	*vUp = { 0,1,0 };

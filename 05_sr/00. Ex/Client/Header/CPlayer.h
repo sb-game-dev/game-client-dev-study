@@ -8,6 +8,7 @@ namespace Engine
 	class CTransform;
 	class CTexture;
 	class CCameraCom;
+	class CCollider;
 }
 
 class CPlayer : public CGameObject
@@ -33,6 +34,7 @@ private:
 	Engine::CTransform*			m_pTransformCom;
 	Engine::CTexture*			m_pTextureCom;
 	Engine::CCameraCom*			m_pCameraCom;
+	Engine::CCollider*			m_pColliderCom;
 
 	int			m_iBulletCnt;
 

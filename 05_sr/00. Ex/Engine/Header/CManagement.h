@@ -10,16 +10,16 @@ class ENGINE_DLL CManagement : public CBase
 	DECLARE_SINGLETON(CManagement)
 
 private:
-	explicit	CManagement();
-	virtual		~CManagement();
+	explicit		CManagement();
+	virtual			~CManagement();
 
 public:
-	CComponent* Get_Component(COMPONENTID eID,
-		const _tchar* pLayerTag,
-		const _tchar* pObjTag,
-		const _tchar* pComponentTag);
+	CComponent*		Get_Component(COMPONENTID eID,
+								  const _tchar* pLayerTag,
+								  const _tchar* pObjTag,
+								  const _tchar* pComponentTag);
 
-	CLayer*		Get_Layer(const _tchar* pLayerTag);
+	CLayer*			Get_Layer(const _tchar* pLayerTag);
 
 
 public:
@@ -29,10 +29,10 @@ public:
 	void			Render_Scene(LPDIRECT3DDEVICE9 pGraphicDev);
 
 private:
-	CScene*					m_pScene;
+	CScene*			m_pScene;
 
 public:
-	virtual void			Free();
+	virtual void	Free();
 };
 
 END

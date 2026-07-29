@@ -5,6 +5,7 @@ namespace Engine
     class CCubeTex;
     class CTransform;
     class CTexture;
+    class CCollider;
 }
 class CBullet :
     public CGameObject
@@ -31,6 +32,7 @@ private:
     Engine::CCubeTex*   m_pBufferCom;
     Engine::CTransform* m_pTransformCom;
     Engine::CTexture*   m_pTextureCom;
+    Engine::CCollider*  m_pColliderCom;
 
     _vec3               m_vDir;
     _vec3               m_vPos;

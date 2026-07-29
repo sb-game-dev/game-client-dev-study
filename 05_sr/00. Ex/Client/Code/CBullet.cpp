@@ -19,6 +19,7 @@ HRESULT CBullet::Ready_GameObject()
 	//m_pTransformCom->m_vInfo[INFO_LOOK] = m_vDir;
 	m_pTransformCom->m_vScale = { 0.3,0.3,0.3 };
 	m_pTransformCom->m_vInfo[INFO_POS] = m_vPos;
+	m_pColliderCom->SetHalfSize(m_pTransformCom->m_vScale);
 	return S_OK;
 }
 _int CBullet::Update_GameObject(const _float& fTimeDelta)
@@ -30,6 +31,9 @@ _int CBullet::Update_GameObject(const _float& fTimeDelta)
 void CBullet::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
+	_vec3 vPos;
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+	m_pColliderCom->SetCenter(vPos);
 }
 void CBullet::Render_GameObject()
 {
@@ -58,6 +62,12 @@ HRESULT CBullet::Add_Component()
 	if (nullptr == pComponent)
 		return E_FAIL;
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Texture", pComponent });
+
+	pComponent = m_pColliderCom = dynamic_cast<CCollider*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Collider"));
+	if (nullptr == pComponent)
+		return E_FAIL;
+
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Collider", pComponent });
 
 	return S_OK;
 }

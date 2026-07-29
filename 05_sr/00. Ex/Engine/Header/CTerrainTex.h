@@ -22,11 +22,11 @@ public:
 
 public:
 	static CTerrainTex* Create(LPDIRECT3DDEVICE9 pGraphicDev);	// 가로 버텍스 길이, 세로 버텍스 길이, 버텍스 간격 추가
-	bool		ReadBmp(const char* filename);
+	bool	ReadBmp(const char* filename);
 
-    bool Ready_HeightMap(const wstring& pFilePath);
+    bool	Ready_HeightMap(const wstring& pFilePath);
 
-	void SetHeightmapEntry(int row, int col, int value);
+	void	SetHeightmapEntry(int row, int col, int value);
 	float	GetHeight(float fX, float fZ);
 
 	virtual CComponent* Clone();

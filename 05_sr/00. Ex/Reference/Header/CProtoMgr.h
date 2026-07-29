@@ -8,6 +8,7 @@
 #include "CPyramidCol.h"
 #include "CTerrainTex.h"
 #include "CCameraCom.h"
+#include "CCollider.h"
 
 #include "CTransform.h"
 #include "CTexture.h"

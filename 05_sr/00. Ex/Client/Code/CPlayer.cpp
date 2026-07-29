@@ -32,6 +32,9 @@ HRESULT CPlayer::Ready_GameObject()
 
 	m_eMoveState = GROUND;
 	m_iBulletCnt = 0;
+
+	m_pColliderCom->SetHalfSize({1,1,2});
+
 	return S_OK;
 }
 
@@ -48,8 +51,8 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
-	Key_Input2(fTimeDelta);
 
+	Key_Input2(fTimeDelta);
 	CTerrainTex* pTerrainCom = dynamic_cast<CTerrainTex*>
 		(CManagement::GetInstance()->Get_Component(ID_STATIC, L"Environment_Layer", L"Terrain", L"Com_Buffer"));
 
@@ -66,6 +69,9 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 		if(m_eMoveState == GROUND)
 			m_pTransformCom->m_vInfo[INFO_POS].y = fY;
 	}
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+	m_pColliderCom->SetCenter(vPos);
+	cout << m_pTransformCom->m_vInfo[INFO_POS].x << "\t" << m_pTransformCom->m_vInfo[INFO_POS].y << "\t" << m_pTransformCom->m_vInfo[INFO_POS].z << endl;
 }
 
 void CPlayer::Render_GameObject()
@@ -93,6 +99,13 @@ HRESULT CPlayer::Add_Component()
 		return E_FAIL;
 
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
+
+	// Collider
+	pComponent = m_pColliderCom = dynamic_cast<CCollider*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Collider"));
+	if (nullptr == pComponent)
+		return E_FAIL;
+
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Collider", pComponent });
 
 	return S_OK;
 }
@@ -160,8 +173,10 @@ void CPlayer::Key_Input2(const _float& fTimeDelta)
 
 	vCameraLook.y = 0;
 	vPlayerLook.y = 0;
+	bool bKeyInput = false;
 	if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_W))
 	{
+		bKeyInput = true;
 		_vec3 cross;
 		D3DXVec3Cross(&cross, &vPlayerLook, &vCameraLook);
 
@@ -178,6 +193,7 @@ void CPlayer::Key_Input2(const _float& fTimeDelta)
 
 	else if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_S))
 	{
+		bKeyInput = true;
 		_vec3 cross;
 		D3DXVec3Cross(&cross, &vPlayerLook, &vCameraLook);
 
@@ -197,15 +213,18 @@ void CPlayer::Key_Input2(const _float& fTimeDelta)
 		memcpy(&m_vPlayerRight, &pCameraTransformCom->m_vInfo[INFO_RIGHT], sizeof(_vec3));
 		m_vPlayerRight.y = 0;
 
-		_vec3 cross;
-		D3DXVec3Cross(&cross, &vPlayerLook, &m_vPlayerRight);
-		float fAngle = acosf(D3DXVec3Dot(D3DXVec3Normalize(&vPlayerLook, &vPlayerLook),
-										 D3DXVec3Normalize(&m_vPlayerRight, &m_vPlayerRight)));
-
-		if (D3DXToDegree(fAngle) > 1)
+		if (bKeyInput == false)
 		{
-			if (cross.y < 0) fAngle *= -1;
-			m_pTransformCom->Rotation(ROT_Y, D3DXToDegree(fAngle));
+			_vec3 cross;
+			D3DXVec3Cross(&cross, &vPlayerLook, &m_vPlayerRight);
+			float fAngle = acosf(D3DXVec3Dot(D3DXVec3Normalize(&vPlayerLook, &vPlayerLook),
+				D3DXVec3Normalize(&m_vPlayerRight, &m_vPlayerRight)));
+
+			if (D3DXToDegree(fAngle) > 1)
+			{
+				if (cross.y < 0) fAngle *= -1;
+				m_pTransformCom->Rotation(ROT_Y, D3DXToDegree(fAngle));
+			}
 		}
 		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&m_vPlayerRight, &m_vPlayerRight), m_fSpeed, fTimeDelta);
 	}
@@ -215,15 +234,19 @@ void CPlayer::Key_Input2(const _float& fTimeDelta)
 		memcpy(&m_vPlayerRight, &pCameraTransformCom->m_vInfo[INFO_RIGHT], sizeof(_vec3));
 		m_vPlayerRight.y = 0;
 		m_vPlayerRight *= -1;
-		_vec3 cross;
-		D3DXVec3Cross(&cross, &vPlayerLook, &m_vPlayerRight);
-		float fAngle = acosf(D3DXVec3Dot(D3DXVec3Normalize(&vPlayerLook, &vPlayerLook),
-			D3DXVec3Normalize(&m_vPlayerRight, &m_vPlayerRight)));
 
-		if (D3DXToDegree(fAngle) > 1)
+		if (bKeyInput == false)
 		{
-			if (cross.y < 0) fAngle *= -1;
-			m_pTransformCom->Rotation(ROT_Y, D3DXToDegree(fAngle));
+			_vec3 cross;
+			D3DXVec3Cross(&cross, &vPlayerLook, &m_vPlayerRight);
+			float fAngle = acosf(D3DXVec3Dot(D3DXVec3Normalize(&vPlayerLook, &vPlayerLook),
+				D3DXVec3Normalize(&m_vPlayerRight, &m_vPlayerRight)));
+
+			if (D3DXToDegree(fAngle) > 1)
+			{
+				if (cross.y < 0) fAngle *= -1;
+				m_pTransformCom->Rotation(ROT_Y, D3DXToDegree(fAngle));
+			}
 		}
 		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&m_vPlayerRight, &m_vPlayerRight), m_fSpeed, fTimeDelta);
 	}
