@@ -52,6 +52,9 @@
     <Filter Include="01. Scene\02. Loding">
       <UniqueIdentifier>{f51774a5-eef8-4c45-a14c-ab0d60083ef9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. CameraMgr">
+      <UniqueIdentifier>{7fb3e7f9-9f24-42e2-b199-a2d4aeaf4834}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -102,6 +105,9 @@
     <ClInclude Include="..\Header\CStage.h">
       <Filter>01. Scene\01. Stage</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CCameraMgr.h">
+      <Filter>03. CameraMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -142,6 +148,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CStage.cpp">
       <Filter>01. Scene\01. Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCameraMgr.cpp">
+      <Filter>03. CameraMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -20,5 +20,7 @@ namespace Engine
 
 	enum MOUSEMOVESTATE {	DIMS_X, DIMS_Y, DIMS_Z, DIMS_END };
 
+	enum CAMERATYPE { PLAYER1, PLAYER2, MAP, CAMERATYPE_END };
+
 }
 #endif // Engine_Enum_h__

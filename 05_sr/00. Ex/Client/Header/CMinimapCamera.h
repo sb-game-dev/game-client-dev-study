@@ -1,28 +1,21 @@
 #pragma once
 #include "CGameObject.h"
 
-
 namespace Engine
 {
 	class CTransform;
 }
-
-class CCamera :
-    public CGameObject
+class CMinimapCamera : public CGameObject
 {
 private:
-	explicit CCamera(LPDIRECT3DDEVICE9 pGraphicDev);
-	virtual	~CCamera();
+	explicit CMinimapCamera(LPDIRECT3DDEVICE9 pGraphicDev);
+	virtual	~CMinimapCamera();
 
 public:
 	virtual	HRESULT		Ready_GameObject();
 	virtual	_int		Update_GameObject(const _float& fTimeDelta);
 	virtual	void		LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual	void		Render_GameObject();
-
-	CAMERATYPE			GetCameraType() { return m_eCameraType; }
-	D3DVIEWPORT9		GetViewPort()	{ return m_tViewPort; }
-	_matrix				GetVeiwMat()	{ return m_matView; }
 
 private:
 	Engine::CTransform* m_pTransformCom;
@@ -33,7 +26,6 @@ private:
 	void	Direct_Follow(_vec3* vEye, _vec3* vAt, _vec3* vUp);
 	void	Smooth_Follow(_vec3* vEye, _vec3* vAt, _vec3* vUp, float* fFov, const _float& fTimeDelta);
 	void	MouseControl(_vec3* vEye, _vec3* vAt, _vec3* vUp, float* fFov, const _float& fTimeDelta);
-	void	ViewWolrdMap(_vec3* vEye, _vec3* vAt, _vec3* vUp);
 
 	void	MouseFix();
 
@@ -49,11 +41,7 @@ private:
 	float	m_fRotX;
 	float	m_fRotY;
 
-	CAMERATYPE		m_eCameraType;
-	D3DVIEWPORT9	m_tViewPort;
-	_matrix			m_matView;
-
 public:
-	static CCamera*		Create(LPDIRECT3DDEVICE9 pGraphicDev, CAMERATYPE eType);
+	static CMinimapCamera* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	virtual void		Free();
 };

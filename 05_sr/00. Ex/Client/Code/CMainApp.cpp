@@ -5,6 +5,7 @@
 #include "CFontMgr.h"
 #include "CDInputMgr.h"
 #include "CKeyMgr.h"
+#include "CCameraMgr.h"
 
 CMainApp::CMainApp()
 	: m_pDeviceClass(nullptr), m_pGraphicDev(nullptr)
@@ -24,18 +25,18 @@ HRESULT CMainApp::Ready_MainApp()
 	if (FAILED(Ready_Scene(m_pGraphicDev)))
 		return E_FAIL;
 
-//#ifdef _DEBUG
-//
-//	if (::AllocConsole() == TRUE)
-//	{
-//		FILE* nfp[3];
-//		freopen_s(nfp + 0, "CONOUT$", "rb", stdin);
-//		freopen_s(nfp + 1, "CONOUT$", "wb", stdout);
-//		freopen_s(nfp + 2, "CONOUT$", "wb", stderr);
-//		std::ios::sync_with_stdio();
-//	}
-//
-//#endif // _DEBUG
+#ifdef _DEBUG
+
+	if (::AllocConsole() == TRUE)
+	{
+		FILE* nfp[3];
+		freopen_s(nfp + 0, "CONOUT$", "rb", stdin);
+		freopen_s(nfp + 1, "CONOUT$", "wb", stdout);
+		freopen_s(nfp + 2, "CONOUT$", "wb", stderr);
+		std::ios::sync_with_stdio();
+	}
+
+#endif // _DEBUG
 
 
 	return S_OK;
@@ -60,21 +61,42 @@ void CMainApp::Render_MainApp()
 {
 	m_pDeviceClass->Render_Begin(D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
 
-	D3DVIEWPORT9 oldViewPort;
-	m_pGraphicDev->GetViewport(&oldViewPort);
-	D3DVIEWPORT9 viewPort = { 0,0,WINCX,WINCY };
-	m_pGraphicDev->SetViewport(&viewPort);
-
-	m_pManagementClass->Render_Scene(m_pGraphicDev);
-
-	D3DVIEWPORT9 viewPort2 = { WINCX * 0.7,0,WINCX * 0.3,WINCY*0.3 };
-
-	m_pGraphicDev->SetViewport(&viewPort2);
 	
-	m_pManagementClass->Render_Scene(m_pGraphicDev);
+	if (CCameraMgr::GetInstance()->GetCameraCnt() > 0)
+	{
+		D3DVIEWPORT9 oldViewPort;
+		m_pGraphicDev->GetViewport(&oldViewPort);
+		D3DVIEWPORT9 ViewPort;
+		_matrix matView;
 
-	m_pGraphicDev->SetViewport(&oldViewPort);
+		//////////////////////ÀÏ¹Ý ¸Ê/////////////////////////////////////////////
+		ViewPort = CCameraMgr::GetInstance()->GetCameraViewPort(PLAYER1);
+		m_pGraphicDev->SetViewport(&ViewPort);
+
+		matView = CCameraMgr::GetInstance()->GetCameraView(PLAYER1);
+		m_pGraphicDev->SetTransform(D3DTS_VIEW, &matView);
+		m_pManagementClass->Render_Scene(m_pGraphicDev);
+
+		//////////////////////¹Ì´Ï ¸Ê/////////////////////////////////////////////
+		ViewPort = CCameraMgr::GetInstance()->GetCameraViewPort(MAP);
+		m_pGraphicDev->SetViewport(&ViewPort);
+
+		m_pDeviceClass->Render_Begin(D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
+		matView = CCameraMgr::GetInstance()->GetCameraView(MAP);
+		m_pGraphicDev->SetTransform(D3DTS_VIEW, &matView);
+		m_pManagementClass->Render_Scene(m_pGraphicDev);
+
+		//////////////////////ºäÆ÷Æ® ÃÊ±âÈ­/////////////////////////////////////////////
+		m_pGraphicDev->SetViewport(&oldViewPort);
+	}
+	else
+	{
+		m_pManagementClass->Render_Scene(m_pGraphicDev);
+	}
+
 	m_pDeviceClass->Render_End();
+
+
 }
 
 HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
@@ -142,6 +164,7 @@ void CMainApp::Free()
 	Safe_Release(m_pGraphicDev);
 	Safe_Release(m_pDeviceClass);
 
+	CCameraMgr::DestroyInstance();
 	CDInputMgr::DestroyInstance();
 	CKeyMgr::DestroyInstance();
 	CFontMgr::DestroyInstance();

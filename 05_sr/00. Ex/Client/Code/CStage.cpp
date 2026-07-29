@@ -9,6 +9,7 @@
 #include "CTerrain.h"
 #include "CCamera.h"
 #include "CSkyBox.h"
+#include "CCameraMgr.h"
 
 CStage::CStage(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev)
@@ -66,15 +67,29 @@ HRESULT CStage::Ready_Environment_Layer(const _tchar* pLayerTag)
     //_vec3   vAt{ 0.f, 0.f, 1.f };
     //_vec3   vUp{ 0.f, 1.f, 0.f };
 
-    // DynamicCamera
+    // MainCamera
    
-    pGameObject = CCamera::Create(m_pGraphicDev);
+    pGameObject = CCamera::Create(m_pGraphicDev, PLAYER1);
+    
+    if (nullptr == pGameObject)
+        return E_FAIL;
+    
+    if (FAILED(pLayer->Add_GameObject(L"Camera", pGameObject)))
+        return E_FAIL;
+    CCameraMgr::GetInstance()->AddCamera(pGameObject);
+
+    // MapCamera
+
+    pGameObject = CCamera::Create(m_pGraphicDev, MAP);
 
     if (nullptr == pGameObject)
         return E_FAIL;
 
-    if (FAILED(pLayer->Add_GameObject(L"Camera", pGameObject)))
+    if (FAILED(pLayer->Add_GameObject(L"MapCamera", pGameObject)))
         return E_FAIL;
+    CCameraMgr::GetInstance()->AddCamera(pGameObject);
+    //if (FAILED(pLayer->Add_GameObject(L"MinimapCamera", pGameObject)))
+    //    return E_FAIL;
 
        
     // Terrain

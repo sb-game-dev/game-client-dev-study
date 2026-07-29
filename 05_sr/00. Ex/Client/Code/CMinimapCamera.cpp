@@ -1,18 +1,18 @@
 #include "pch.h"
-#include "CCamera.h"
+#include "CMinimapCamera.h"
 #include "CProtoMgr.h"
 #include "CManagement.h"
 #include "CDInputMgr.h"
 
-CCamera::CCamera(LPDIRECT3DDEVICE9 pGraphicDev)
+CMinimapCamera::CMinimapCamera(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CGameObject(pGraphicDev)
 {
 }
 
-CCamera::~CCamera()
+CMinimapCamera::~CMinimapCamera()
 {
 }
-HRESULT		CCamera::Ready_GameObject()
+HRESULT		CMinimapCamera::Ready_GameObject()
 {
 	if (FAILED(Add_Component()))
 		return E_FAIL;
@@ -29,76 +29,44 @@ HRESULT		CCamera::Ready_GameObject()
 	m_fRotX = 0.f;
 	m_fRotY = 0.f;
 
-	_matrix matProj;
-	D3DXMatrixLookAtLH(&m_matView, &m_vEye, &m_vAt, &m_vUp);
-	m_pGraphicDev->SetTransform(D3DTS_VIEW, &m_matView);
+	_matrix matView, matProj;
+	D3DXMatrixLookAtLH(&matView, &m_vEye, &m_vAt, &m_vUp);
+	m_pGraphicDev->SetTransform(D3DTS_VIEW, &matView);
 
-	switch (m_eCameraType)
-	{
-	case Engine::PLAYER1:
-		m_tViewPort = { 0,0,WINCX,WINCY };
-		break;
-	case Engine::PLAYER2:
-		m_tViewPort = { WINCX / 2,0,WINCX / 2,WINCY };
-		break;
-	case Engine::MAP:
-		m_tViewPort = { _ulong(WINCX * 0.7) ,0,_ulong(WINCX * 0.3),_ulong(WINCY * 0.3) };
-		//m_tViewPort.MinZ = -1;
-		//m_tViewPort.MaxZ = 0;
-		break;
-	case Engine::CAMERATYPE_END:
-		break;
-	default:
-		break;
-	}
-	D3DXMatrixPerspectiveFovLH(&matProj, D3DXToRadian(m_fFov), (_float)m_tViewPort.Width / m_tViewPort.Height, 0.1f, 1000.f);
 
+	D3DXMatrixPerspectiveFovLH(&matProj, D3DXToRadian(m_fFov), (_float)WINCX*0.3 / WINCY*0.3, 0.1f, 1000.f);
 	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matProj);
 
 	return S_OK;
 }
-_int	CCamera::Update_GameObject(const _float& fTimeDelta)
+_int	CMinimapCamera::Update_GameObject(const _float& fTimeDelta)
 {
 	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
 
 	//Direct_Follow(&m_vEye,&m_vAt,&m_vUp);
 	//Smooth_Follow(&m_vEye, &m_vAt, &m_vUp, &m_fFov, fTimeDelta);
 
-	_matrix matView;
-	switch (m_eCameraType)
-	{
-	case Engine::PLAYER1:
-		MouseControl(&m_vEye, &m_vAt, &m_vUp, &m_fFov, fTimeDelta);
-		MouseFix();
-		D3DXMatrixLookAtLH(&m_matView, &m_vEye, &m_vAt, &m_vUp);
-		//m_pGraphicDev->SetTransform(D3DTS_VIEW, &matView);
-		break;
-	case Engine::PLAYER2:
-		break;
-	case Engine::MAP:
-		ViewWolrdMap(&m_vEye, &m_vAt, &m_vUp);
-		D3DXMatrixLookAtLH(&m_matView, &m_vEye, &m_vAt, &m_vUp);
-		//m_pGraphicDev->SetTransform(D3DTS_VIEW, &matView);
-		break;
-	case Engine::CAMERATYPE_END:
-		break;
-	default:
-		break;
-	}
+	MouseControl(&m_vEye, &m_vAt, &m_vUp, &m_fFov, fTimeDelta);
+	MouseFix();
 
+	_matrix matView, matProj;
+	D3DXMatrixLookAtLH(&matView, &m_vEye, &m_vAt, &m_vUp);
+	m_pGraphicDev->SetTransform(D3DTS_VIEW, &matView);
 
 	return iExit;
 }
-void CCamera::LateUpdate_GameObject(const _float& fTimeDelta)
+void	CMinimapCamera::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
 
+	D3DVIEWPORT9 viewPort = { WINCX * 0.7,0,WINCX * 0.3,WINCY * 0.3 };
+	m_pGraphicDev->SetViewport(&viewPort);
 }
-void CCamera::Render_GameObject()
+void CMinimapCamera::Render_GameObject()
 {
 }
 
-HRESULT CCamera::Add_Component()
+HRESULT CMinimapCamera::Add_Component()
 {
 	Engine::CComponent* pComponent = nullptr;
 	// Transform
@@ -111,7 +79,7 @@ HRESULT CCamera::Add_Component()
 	return S_OK;
 }
 
-void CCamera::Direct_Follow(_vec3* vEye,_vec3* vAt,_vec3* vUp)
+void CMinimapCamera::Direct_Follow(_vec3* vEye, _vec3* vAt, _vec3* vUp)
 {
 	_vec3	vPlayerPos;
 	_vec3	vPlayerUp;
@@ -124,12 +92,12 @@ void CCamera::Direct_Follow(_vec3* vEye,_vec3* vAt,_vec3* vUp)
 	pPlayerTransformCom->Get_Info(INFO_UP, &vPlayerUp);
 	pPlayerTransformCom->Get_Info(INFO_LOOK, &vPlayerLOOK);
 
-	*vEye	= vPlayerPos + (vPlayerUp * -5) + (vPlayerLOOK * -5);
-	*vAt	= vPlayerPos;
-	*vUp	= -vPlayerLOOK;
+	*vEye = vPlayerPos + (vPlayerUp * -5) + (vPlayerLOOK * -5);
+	*vAt = vPlayerPos;
+	*vUp = -vPlayerLOOK;
 }
 
-void CCamera::Smooth_Follow(_vec3* vEye, _vec3* vAt, _vec3* vUp, float* fFov, const _float& fTimeDelta)
+void CMinimapCamera::Smooth_Follow(_vec3* vEye, _vec3* vAt, _vec3* vUp, float* fFov, const _float& fTimeDelta)
 {
 	_vec3	vPlayerPos;
 	_vec3	vPlayerUp;
@@ -149,7 +117,7 @@ void CCamera::Smooth_Follow(_vec3* vEye, _vec3* vAt, _vec3* vUp, float* fFov, co
 
 	vDeltaPos = vTargetPos - vMyPos;
 	float	fDeltaPos = D3DXVec3Length(&vDeltaPos);
-	
+
 	if (fDeltaPos > 1.f)
 	{
 		float	fChaseSpeed = 5.f + fDeltaPos;
@@ -162,7 +130,7 @@ void CCamera::Smooth_Follow(_vec3* vEye, _vec3* vAt, _vec3* vUp, float* fFov, co
 	*vUp = -vPlayerLOOK;
 }
 
-void CCamera::MouseControl(_vec3* vEye, _vec3* vAt, _vec3* vUp, float* fFov, const _float& fTimeDelta)
+void CMinimapCamera::MouseControl(_vec3* vEye, _vec3* vAt, _vec3* vUp, float* fFov, const _float& fTimeDelta)
 {
 	// 0. 플레이어 위치 가져오기
 	_vec3	vPlayerPos;
@@ -190,8 +158,8 @@ void CCamera::MouseControl(_vec3* vEye, _vec3* vAt, _vec3* vUp, float* fFov, con
 	//FLOAT		fRotX = D3DXToRadian(m_vCurMousePos.y / 3);
 	//FLOAT		fRotY = D3DXToRadian(m_vCurMousePos.x / 4);
 
-	m_fRotX += D3DXToRadian(y/5);
-	m_fRotY += D3DXToRadian(x/5);
+	m_fRotX += D3DXToRadian(y / 5);
+	m_fRotY += D3DXToRadian(x / 5);
 
 
 	if (m_fRotX >= D3DXToRadian(90))
@@ -210,7 +178,7 @@ void CCamera::MouseControl(_vec3* vEye, _vec3* vAt, _vec3* vUp, float* fFov, con
 
 	// 5. At 이동
 	*vAt += *vEye;
-	
+
 	// 6. 플레이어에게 넘겨줄 방향 설정
 	m_pTransformCom->m_vInfo[INFO_LOOK] = (*vAt) - (*vEye);
 
@@ -223,15 +191,7 @@ void CCamera::MouseControl(_vec3* vEye, _vec3* vAt, _vec3* vUp, float* fFov, con
 	//cout << "cross: " << cross.y << endl;
 }
 
-void CCamera::ViewWolrdMap(_vec3* vEye, _vec3* vAt, _vec3* vUp)
-{
-	cout << "RunWorldMap" << endl;
-	*vEye = { 50,100,-150 };
-	*vAt = { 50,0,-50 };
-	*vUp = { 0,1,0 };
-}
-
-void CCamera::MouseFix()
+void CMinimapCamera::MouseFix()
 {
 	POINT		ptMouse{ WINCX >> 1, WINCY >> 1 };
 
@@ -239,10 +199,10 @@ void CCamera::MouseFix()
 	SetCursorPos(ptMouse.x, ptMouse.y);
 }
 
-CCamera* CCamera::Create(LPDIRECT3DDEVICE9 pGraphicDev,CAMERATYPE eType)
+CMinimapCamera* CMinimapCamera::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	CCamera* pCamera = new CCamera(pGraphicDev);
-	pCamera->m_eCameraType = eType;
+	CMinimapCamera* pCamera = new CMinimapCamera(pGraphicDev);
+
 	if (FAILED(pCamera->Ready_GameObject()))
 	{
 		MSG_BOX("Camera Create Failed");
@@ -252,7 +212,7 @@ CCamera* CCamera::Create(LPDIRECT3DDEVICE9 pGraphicDev,CAMERATYPE eType)
 	return pCamera;
 }
 
-void CCamera::Free()
+void CMinimapCamera::Free()
 {
 	CGameObject::Free();
 }
