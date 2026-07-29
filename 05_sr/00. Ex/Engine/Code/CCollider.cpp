@@ -5,10 +5,12 @@ CCollider::CCollider()
 }
 
 CCollider::CCollider(LPDIRECT3DDEVICE9 pGraphicDev)
+	:CComponent(pGraphicDev)
 {
 }
 
 CCollider::CCollider(const CCollider& rhs)
+	:CComponent(rhs)
 {
 }
 
