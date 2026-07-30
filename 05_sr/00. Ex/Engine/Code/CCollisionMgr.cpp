@@ -1,6 +1,6 @@
 #include "CCollisionMgr.h"
 
-//IMPLEMENT_SINGLETON(CCollisionMgr)
+IMPLEMENT_SINGLETON(CCollisionMgr)
 
 CCollisionMgr::CCollisionMgr()
 {

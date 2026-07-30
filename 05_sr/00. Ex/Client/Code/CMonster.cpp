@@ -19,6 +19,9 @@ HRESULT CMonster::Ready_GameObject()
 	m_pTransformCom->m_vScale = { 10,10,10 };
 
 	m_pTransformCom->m_vInfo[INFO_POS] = { 77,40,-100 };
+
+	m_pColliderCom->SetCenter(m_pTransformCom->m_vInfo[INFO_POS]);
+	m_pColliderCom->SetHalfSize(m_pTransformCom->m_vScale);
 	return S_OK;
 }
 
@@ -33,6 +36,10 @@ _int CMonster::Update_GameObject(const _float& fTimeDelta)
 void CMonster::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
+
+	_vec3	vPos;
+	m_pTransformCom->Get_Info(INFO_POS, &vPos);
+	m_pColliderCom->SetCenter(vPos);
 }
 
 void CMonster::Render_GameObject()
@@ -70,6 +77,13 @@ HRESULT CMonster::Add_Component()
 	if (nullptr == pComponent)
 		return E_FAIL;
 	m_mapComponent[ID_STATIC].insert({ L"Com_Texture", pComponent });
+
+	// Collider
+	pComponent = m_pColliderCom = dynamic_cast<CCollider*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Collider"));
+	if (nullptr == pComponent)
+		return E_FAIL;
+
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Collider", pComponent });
 
 
 	return S_OK;

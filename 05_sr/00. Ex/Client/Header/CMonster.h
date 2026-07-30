@@ -7,6 +7,7 @@ namespace Engine
 	class CCubeTex;
 	class CTransform;
 	class CTexture;
+	class CCollider;
 }
 
 class CMonster : public CGameObject
@@ -26,8 +27,9 @@ private:
 
 private:
 	Engine::CCubeTex*		m_pBufferCom;
-	Engine::CTransform* m_pTransformCom;
-	Engine::CTexture* m_pTextureCom;
+	Engine::CTransform*		m_pTransformCom;
+	Engine::CTexture*		m_pTextureCom;
+	Engine::CCollider*		m_pColliderCom;
 
 	
 

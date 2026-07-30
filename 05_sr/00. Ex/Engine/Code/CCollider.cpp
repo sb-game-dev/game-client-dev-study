@@ -20,10 +20,6 @@ CCollider::~CCollider()
 
 HRESULT CCollider::Ready_CColliderCom()
 {
-	//D3DXMatrixIdentity(&m_matWorld);
-	//
-	//for (_uint i = 0; i < INFO_END; ++i)
-	//	memcpy(&m_vInfo[i], &m_matWorld.m[i][0], sizeof(_vec3));
 	m_vCenter = { 0, 0, 0 };
 	m_vHalfSize = { 1, 1, 1 };
 

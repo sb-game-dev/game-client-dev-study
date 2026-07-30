@@ -10,6 +10,8 @@
 #include "CCamera.h"
 #include "CSkyBox.h"
 #include "CCameraMgr.h"
+#include "CCollisionMgr.h"
+#include "CManagement.h"
 
 CStage::CStage(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev)
@@ -44,6 +46,14 @@ _int CStage::Update_Scene(const _float& fTimeDelta)
 void CStage::LateUpdate_Scene(const _float& fTimeDelta)
 {
     CScene::LateUpdate_Scene(fTimeDelta);
+
+    CCollider* CPlayerCollider = dynamic_cast<CCollider*>
+        (CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", L"Player", L"Com_Collider"));
+
+    CCollider* CMonsterCollider = dynamic_cast<CCollider*>
+        (CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", L"Monster", L"Com_Collider"));
+
+    CCollisionMgr::GetInstance()->CheckCollision(CMonsterCollider, CPlayerCollider);
 }
 
 void CStage::Render_Scene()

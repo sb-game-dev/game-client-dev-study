@@ -34,6 +34,7 @@ HRESULT CPlayer::Ready_GameObject()
 	m_iBulletCnt = 0;
 
 	m_pColliderCom->SetHalfSize({1,1,2});
+	m_pColliderCom->SetCenter(m_pTransformCom->m_vInfo[INFO_POS]);
 
 	return S_OK;
 }
@@ -71,7 +72,7 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 	}
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	m_pColliderCom->SetCenter(vPos);
-	cout << m_pTransformCom->m_vInfo[INFO_POS].x << "\t" << m_pTransformCom->m_vInfo[INFO_POS].y << "\t" << m_pTransformCom->m_vInfo[INFO_POS].z << endl;
+	//cout << m_pTransformCom->m_vInfo[INFO_POS].x << "\t" << m_pTransformCom->m_vInfo[INFO_POS].y << "\t" << m_pTransformCom->m_vInfo[INFO_POS].z << endl;
 }
 
 void CPlayer::Render_GameObject()

@@ -6,6 +6,7 @@
 #include "CDInputMgr.h"
 #include "CKeyMgr.h"
 #include "CCameraMgr.h"
+#include "CCollisionMgr.h"
 
 CMainApp::CMainApp()
 	: m_pDeviceClass(nullptr), m_pGraphicDev(nullptr)
@@ -164,6 +165,7 @@ void CMainApp::Free()
 	Safe_Release(m_pGraphicDev);
 	Safe_Release(m_pDeviceClass);
 
+	CCollisionMgr::DestroyInstance();
 	CCameraMgr::DestroyInstance();
 	CDInputMgr::DestroyInstance();
 	CKeyMgr::DestroyInstance();
