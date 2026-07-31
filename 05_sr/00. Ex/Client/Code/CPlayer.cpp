@@ -47,7 +47,10 @@ HRESULT CPlayer::Ready_GameObject()
 _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 {
 	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
-	if (m_eMoveState != GROUND)
+
+	m_pTransformCom->m_ePreMoveState = m_pTransformCom->m_eMoveState;
+
+	if (m_pTransformCom->m_eMoveState == JUMP || m_pTransformCom->m_eMoveState == FALL)
 	{
 		m_vGravity.y -= 20 * fTimeDelta;
 		m_pTransformCom->Move_Pos(&m_vGravity, 3, fTimeDelta);
@@ -72,15 +75,18 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 	{
 		float fY = pTerrainCom->GetHeight_UsePlane(vPos.x, vPos.z);
 
-		if (m_eMoveState == JUMP && vPos.y < fY + 2 )
+		if ((m_pTransformCom->m_eMoveState == JUMP || m_pTransformCom->m_eMoveState == FALL) && vPos.y < fY )
 		{
-			m_eMoveState = GROUND;
+			m_pTransformCom->m_eMoveState = GROUND;
 		}
-		if(m_eMoveState == GROUND)
+		if(m_pTransformCom->m_eMoveState == GROUND)
 			m_pTransformCom->m_vInfo[INFO_POS].y = fY + 2;
 	}
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	m_pColliderCom->SetCenter(vPos);
+
+
+	//cout << m_pTransformCom->m_eMoveState << endl;
 	//cout << m_pTransformCom->m_vInfo[INFO_POS].x << "\t" << m_pTransformCom->m_vInfo[INFO_POS].y << "\t" << m_pTransformCom->m_vInfo[INFO_POS].z << endl;
 }
 
@@ -268,9 +274,9 @@ void CPlayer::Key_Input2(const _float& fTimeDelta)
 	}
 	if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_SPACE))
 	{
-		if (m_eMoveState == GROUND)
+		if (m_pTransformCom->m_eMoveState == GROUND || m_pTransformCom->m_eMoveState == RIDING)
 		{
-			m_eMoveState = JUMP;
+			m_pTransformCom->m_eMoveState = JUMP;
 			ReSetGravity();
 			m_vGravity.y += m_fJumpPower;
 		}
@@ -300,9 +306,9 @@ void CPlayer::Mouse_Input(const _float& fTimeDelta)
 	}
 	if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_SPACE))
 	{
-		if (m_eMoveState == GROUND)
+		if (m_pTransformCom->m_eMoveState == GROUND || m_pTransformCom->m_eMoveState == RIDING)
 		{
-			m_eMoveState = JUMP;
+			m_pTransformCom->m_eMoveState = JUMP;
 			ReSetGravity();
 			m_vGravity.y += m_fJumpPower;
 		}

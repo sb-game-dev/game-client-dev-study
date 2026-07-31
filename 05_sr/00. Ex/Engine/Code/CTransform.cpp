@@ -9,7 +9,7 @@ CTransform::CTransform()
 
 CTransform::CTransform(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CComponent(pGraphicDev)
-	, m_vScale(1.f, 1.f, 1.f), m_vAngle(0.f, 0.f, 0.f)
+	, m_vScale(1.f, 1.f, 1.f), m_vAngle(0.f, 0.f, 0.f),m_eMoveState(GROUND), m_ePreMoveState(GROUND)
 {
 	ZeroMemory(m_vInfo, sizeof(_vec3) * INFO_END);
 	D3DXMatrixIdentity(&m_matWorld);
@@ -17,7 +17,7 @@ CTransform::CTransform(LPDIRECT3DDEVICE9 pGraphicDev)
 
 CTransform::CTransform(const CTransform& rhs)
 	: CComponent(rhs)
-	, m_vScale(rhs.m_vScale), m_vAngle(rhs.m_vAngle)
+	, m_vScale(rhs.m_vScale), m_vAngle(rhs.m_vAngle), m_eMoveState(rhs.m_eMoveState), m_ePreMoveState(rhs.m_ePreMoveState)
 {
 	for (_uint i = 0; i < INFO_END; ++i)
 		m_vInfo[i] = rhs.m_vInfo[i];

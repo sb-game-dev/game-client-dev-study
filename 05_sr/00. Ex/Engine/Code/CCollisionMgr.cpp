@@ -57,31 +57,43 @@ void CCollisionMgr::PhysicalCollision(CCollider* pDst, CCollider* pSrc, CTransfo
 
 		_vec3 vDS = SrcCenter - DstCenter;
 
-
 		if (fX == min(fX, fY, fZ))
 		{
 			if (vDS.x > 0)
 				pSrcTransform->m_vInfo[INFO_POS].x += fX;
-			else if (vDS.x < 0)
+			else 
 				pSrcTransform->m_vInfo[INFO_POS].x -= fX;
 		}
 
 		if (fY == min(fX, fY, fZ))
 		{
 			if (vDS.y > 0)
+			{
 				pSrcTransform->m_vInfo[INFO_POS].y += fY;
-			else if (vDS.y < 0)
+				pSrcTransform->m_eMoveState = RIDING;
+			}
+			else
+			{
 				pSrcTransform->m_vInfo[INFO_POS].y -= fY;
+				pSrcTransform->m_eMoveState = FALL;
+			}
 		}
 
 		if (fZ == min(fX, fY, fZ))
 		{
 			if (vDS.z > 0)
 				pSrcTransform->m_vInfo[INFO_POS].z += fZ;
-			else if (vDS.z < 0)
+			else 
 				pSrcTransform->m_vInfo[INFO_POS].z -= fZ;
 		}
-
+	}
+	else
+	{
+		cout << "CollisionExit" << endl;
+		if(pSrcTransform->m_ePreMoveState == RIDING)
+		{
+			pSrcTransform->m_eMoveState = FALL;
+		}
 	}
 }
 

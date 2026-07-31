@@ -51,6 +51,9 @@ public:
 
 	_matrix		m_matWorld;
 
+	MOVE_STATE	m_eMoveState;
+	MOVE_STATE	m_ePreMoveState;
+
 public:
 	static CTransform* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 	virtual CComponent* Clone();
