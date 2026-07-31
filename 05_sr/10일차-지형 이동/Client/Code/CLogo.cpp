@@ -65,8 +65,6 @@ void CLogo::LateUpdate_Scene(const _float& fTimeDelta)
 
 void CLogo::Render_Scene()
 {
-  
-
     _vec2       vPos = { 100.f, 100.f };
     
     CFontMgr::GetInstance()->Render_Font(L"Font_Jinji", m_pLoading->Get_String(), &vPos, D3DXCOLOR(1.f, 1.f, 1.f, 1.f));

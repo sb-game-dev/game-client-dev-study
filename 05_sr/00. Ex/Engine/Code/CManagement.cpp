@@ -1,4 +1,5 @@
 #include "CManagement.h"
+#include "CRenderer.h"
 
 IMPLEMENT_SINGLETON(CManagement)
 
@@ -54,6 +55,7 @@ void CManagement::LateUpdate_Scene(const _float& fTimeDelta)
 
 void CManagement::Render_Scene(LPDIRECT3DDEVICE9 pGraphicDev)
 {
+    CRenderer::GetInstance()->Render_GameObject(pGraphicDev);
     m_pScene->Render_Scene();
 }
 

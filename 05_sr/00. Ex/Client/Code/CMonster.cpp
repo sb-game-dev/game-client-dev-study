@@ -2,6 +2,7 @@
 #include "CMonster.h"
 #include "CProtoMgr.h"
 #include "CManagement.h"
+#include "CRenderer.h"
 
 CMonster::CMonster(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CGameObject(pGraphicDev)
@@ -22,13 +23,14 @@ HRESULT CMonster::Ready_GameObject()
 
 	m_pColliderCom->SetCenter(m_pTransformCom->m_vInfo[INFO_POS]);
 	m_pColliderCom->SetHalfSize(m_pTransformCom->m_vScale);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA, this);
 	return S_OK;
 }
 
 _int CMonster::Update_GameObject(const _float& fTimeDelta)
 {
-
 	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
+
 
 	return iExit;
 }
@@ -46,7 +48,6 @@ void CMonster::Render_GameObject()
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
 
-	//cout << "MonsterRender" << endl;
 	m_pTextureCom->Set_Texture(0);
 
 	m_pBufferCom->Render_Buffer();

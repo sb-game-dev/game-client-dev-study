@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CSkyBox.h"
 #include "CProtoMgr.h"
+#include "CRenderer.h"
 
 CSkyBox::CSkyBox(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CGameObject(pGraphicDev)
@@ -19,6 +20,7 @@ HRESULT CSkyBox::Ready_GameObject()
 	}
 	float fScale = 200.f;
 	m_pTransformCom->m_vScale = { fScale,fScale,fScale };
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_PRIORITY, this);
 	return S_OK;
 }
 

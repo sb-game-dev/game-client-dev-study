@@ -8,6 +8,7 @@
 #include "CMonster.h"
 #include "CStage.h"
 #include "CManagement.h"
+#include "CRenderer.h"
 
 CLogo::CLogo(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev), m_pLoading(nullptr)
@@ -42,8 +43,8 @@ _int CLogo::Update_Scene(const _float& fTimeDelta)
     {
         if (GetAsyncKeyState(VK_RETURN))
         {
+            CRenderer::GetInstance()->Clear_RenderGroup();
             Engine::CScene* pStage = CStage::Create(m_pGraphicDev);
-
             if (nullptr == pStage)
                 return E_FAIL;
 
@@ -65,8 +66,6 @@ void CLogo::LateUpdate_Scene(const _float& fTimeDelta)
 
 void CLogo::Render_Scene()
 {
-    CScene::Render_Scene();
-
     _vec2       vPos = { 100.f, 100.f };
 
     CFontMgr::GetInstance()->Render_Font(L"Font_Jinji", m_pLoading->Get_String(), &vPos, D3DXCOLOR(1.f, 1.f, 1.f, 1.f));

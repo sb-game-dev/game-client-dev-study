@@ -7,6 +7,8 @@
 #include "CDInputMgr.h"
 #include "Engine_Function.h"
 #include "CCameraMgr.h"
+#include "CRenderer.h"
+
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CGameObject(pGraphicDev)
 {
@@ -38,6 +40,8 @@ HRESULT CPlayer::Ready_GameObject()
 	m_pColliderCom->SetHalfSize({2,2,2});
 	m_pColliderCom->SetCenter(m_pTransformCom->m_vInfo[INFO_POS]);
 
+
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA, this);
 	return S_OK;
 }
 

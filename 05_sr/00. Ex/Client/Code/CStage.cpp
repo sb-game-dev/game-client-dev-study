@@ -61,7 +61,7 @@ void CStage::Render_Scene()
     //_vec2       vPos = { 100.f, 100.f };    
     //CFontMgr::GetInstance()->Render_Font(L"Font_Jinji", L"Hello", &vPos, D3DXCOLOR(1.f, 0.f, 0.f, 1.f));
 
-    CScene::Render_Scene();
+    //sCScene::Render_Scene();
 }
 
 HRESULT CStage::Ready_Environment_Layer(const _tchar* pLayerTag)

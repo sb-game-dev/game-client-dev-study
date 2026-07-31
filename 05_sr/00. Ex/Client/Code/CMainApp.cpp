@@ -7,7 +7,7 @@
 #include "CKeyMgr.h"
 #include "CCameraMgr.h"
 #include "CCollisionMgr.h"
-
+#include "CRenderer.h"
 CMainApp::CMainApp()
 	: m_pDeviceClass(nullptr), m_pGraphicDev(nullptr)
 	, m_pManagementClass(CManagement::GetInstance())
@@ -73,7 +73,7 @@ void CMainApp::Render_MainApp()
 		//////////////////////ÀÏ¹Ý ¸Ê/////////////////////////////////////////////
 		ViewPort = CCameraMgr::GetInstance()->GetCameraViewPort(PLAYER1);
 		m_pGraphicDev->SetViewport(&ViewPort);
-
+		
 		matView = CCameraMgr::GetInstance()->GetCameraView(PLAYER1);
 		m_pGraphicDev->SetTransform(D3DTS_VIEW, &matView);
 		m_pManagementClass->Render_Scene(m_pGraphicDev);
@@ -165,6 +165,7 @@ void CMainApp::Free()
 	Safe_Release(m_pGraphicDev);
 	Safe_Release(m_pDeviceClass);
 
+	CRenderer::DestroyInstance();
 	CCollisionMgr::DestroyInstance();
 	CCameraMgr::DestroyInstance();
 	CDInputMgr::DestroyInstance();

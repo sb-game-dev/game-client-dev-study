@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CTerrain.h"
 #include "CProtoMgr.h"
+#include "CRenderer.h"
 
 CTerrain::CTerrain(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CGameObject(pGraphicDev)
@@ -16,9 +17,10 @@ HRESULT CTerrain::Ready_GameObject()
 	if (FAILED(Add_Component()))
 		return E_FAIL;
 
-
+	
 	m_pBufferCom->Ready_HeightMap(L"../Bin/Resource/Texture/Terrain/Height1.bmp");
 	//m_pTransformCom->m_vScale = { 60.f, 60.f, 60.f };
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_NONALPHA, this);
 
 	return S_OK;
 }
@@ -26,7 +28,6 @@ HRESULT CTerrain::Ready_GameObject()
 _int CTerrain::Update_GameObject(const _float& fTimeDelta)
 {
 	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
-
 	return iExit;
 }
 

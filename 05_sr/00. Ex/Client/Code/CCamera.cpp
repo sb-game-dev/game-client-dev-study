@@ -79,6 +79,7 @@ void CCamera::LateUpdate_GameObject(const _float& fTimeDelta)
 		//MouseControl(&m_vEye, &m_vAt, &m_vUp, &m_fFov, fTimeDelta);
 		//MouseFix();
 		Direct_Follow(&m_vEye, &m_vAt, &m_vUp);
+		//D3DXMatrixLookAtLH(&m_matView, &m_vEye, &m_vAt, &m_vUp);
 		CalculateVeiw(&m_matView, &m_vEye, &m_vAt, &m_vUp);
 		//m_pGraphicDev->SetTransform(D3DTS_VIEW, &matView);
 		break;
@@ -86,6 +87,7 @@ void CCamera::LateUpdate_GameObject(const _float& fTimeDelta)
 		break;
 	case Engine::MAP:
 		ViewWolrdMap(&m_vEye, &m_vAt, &m_vUp);
+		//D3DXMatrixLookAtLH(&m_matView, &m_vEye, &m_vAt, &m_vUp);
 		CalculateVeiw(&m_matView, &m_vEye, &m_vAt, &m_vUp);
 		//m_pGraphicDev->SetTransform(D3DTS_VIEW, &matView);
 		break;

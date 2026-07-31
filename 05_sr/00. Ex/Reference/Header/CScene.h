@@ -23,7 +23,7 @@ public:
 	virtual			HRESULT		Ready_Scene();
 	virtual			_int		Update_Scene(const _float& fTimeDelta);
 	virtual			void		LateUpdate_Scene(const _float& fTimeDelta);
-	virtual			void		Render_Scene();
+	virtual			void		Render_Scene() PURE;
 
 protected:
 	map<const _tchar*, CLayer*>			m_mapLayer;

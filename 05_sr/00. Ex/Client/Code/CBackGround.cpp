@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CBackGround.h"
 #include "CProtoMgr.h"
+#include "CRenderer.h"
 
 CBackGround::CBackGround(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CGameObject(pGraphicDev)
@@ -16,6 +17,7 @@ HRESULT CBackGround::Ready_GameObject()
 	if (FAILED(Add_Component()))
 		return E_FAIL;
 
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_PRIORITY, this);
 
 	return S_OK;
 }
@@ -25,6 +27,7 @@ _int CBackGround::Update_GameObject(const _float& fTimeDelta)
 
 	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
 
+	
 	return iExit;
 }
 

@@ -85,6 +85,9 @@
     <Filter Include="04. Component\05. CollisionMgr">
       <UniqueIdentifier>{08e9b278-e72e-42bc-8f2b-d6b84c1ba9ae}</UniqueIdentifier>
     </Filter>
+    <Filter Include="09. Renderer">
+      <UniqueIdentifier>{8560e70c-fb04-4b8b-947c-a78399f1dcd8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -186,6 +189,9 @@
     <ClInclude Include="..\Header\CCollisionMgr.h">
       <Filter>04. Component\05. CollisionMgr</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CRenderer.h">
+      <Filter>09. Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -268,6 +274,9 @@
     </ClCompile>
     <ClCompile Include="..\Code\CCollisionMgr.cpp">
       <Filter>04. Component\05. CollisionMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CRenderer.cpp">
+      <Filter>09. Renderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

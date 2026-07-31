@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "CBullet.h"
 #include "CProtoMgr.h"
-
+#include "CRenderer.h"
 CBullet::CBullet(LPDIRECT3DDEVICE9 pGraphicDev, _vec3 vPos, _vec3 vDir)
 	:CGameObject(pGraphicDev), m_vDir(vDir), m_vPos(vPos)
 {
@@ -20,6 +20,7 @@ HRESULT CBullet::Ready_GameObject()
 	m_pTransformCom->m_vScale = { 0.3,0.3,0.3 };
 	m_pTransformCom->m_vInfo[INFO_POS] = m_vPos;
 	m_pColliderCom->SetHalfSize(m_pTransformCom->m_vScale);
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_NONALPHA, this);
 	return S_OK;
 }
 _int CBullet::Update_GameObject(const _float& fTimeDelta)
