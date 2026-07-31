@@ -22,12 +22,15 @@ public:
 
 public:
 	static CTerrainTex* Create(LPDIRECT3DDEVICE9 pGraphicDev);	// 가로 버텍스 길이, 세로 버텍스 길이, 버텍스 간격 추가
-	bool	ReadBmp(const char* filename);
 
     bool	Ready_HeightMap(const wstring& pFilePath);
 
 	void	SetHeightmapEntry(int row, int col, int value);
 	float	GetHeight(float fX, float fZ);
+	float	GetHeight_UsePlane(float fX, float fZ);
+
+	vector<_vec3> GetVertex()	{ return m_vVertex; }
+	vector<_vec3> GetIndex()	{ return m_vIndex; }
 
 	virtual CComponent* Clone();
 
@@ -40,7 +43,9 @@ private:
 
 
 private:
-	std::vector<int>	m_vHeightmap;
+	vector<int>			m_vHeightmap;
+	vector<_vec3>		m_vVertex;
+	vector<_vec3>		m_vIndex;
 	float				m_fHeightWeight;
 };
 

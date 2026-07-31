@@ -27,7 +27,11 @@ private:
 	HRESULT			Add_Component();
 	void			Key_Input(const _float& fTimeDelta);
 	void			Key_Input2(const _float& fTimeDelta);
+	void			Mouse_Input(const _float& fTimeDelta);
+
+
 	void			Shoot();
+	void			MoveToTarget(const _float& fTimeDelta);
 
 private:
 	Engine::CPyramidCol*		m_pBufferCom;
@@ -42,6 +46,11 @@ private:
 	float		m_fNormalSpeed;
 	float		m_fBoostSpeed;
 
+	vector<_vec3> m_vTerrainVertex;
+	vector<_vec3> m_vTerrainIndex;
+
+	_vec3		m_vTargetPos;
+
 	enum MOVE_STATE { GROUND, JUMP, FALL, MOVE_END };
 
 	MOVE_STATE	m_eMoveState;
@@ -49,8 +58,6 @@ private:
 	_vec3		m_vGravity;
 	float		m_fJumpPower;
 
-	bool		m_bKeyStateA;
-	bool		m_bKeyStateD;
 
 public:
 	static CPlayer* Create(LPDIRECT3DDEVICE9 pGraphicDev);

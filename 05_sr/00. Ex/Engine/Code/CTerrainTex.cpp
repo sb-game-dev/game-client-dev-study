@@ -14,7 +14,7 @@ CTerrainTex::CTerrainTex(LPDIRECT3DDEVICE9 pGraphicDev)
 }
 
 CTerrainTex::CTerrainTex(const CTerrainTex& rhs)
-	:CVIBuffer(rhs)
+	:CVIBuffer(rhs),m_vVertex(rhs.m_vVertex),m_vIndex(rhs.m_vIndex)
 {
 }
 
@@ -65,6 +65,7 @@ HRESULT CTerrainTex::Ready_Buffer()
 			///////////////////////////////////////////////////////
 
 			int iIndex = i * iXCnt + j;
+			m_vVertex.push_back({ float(x),0,float(z) });
 			pVertex[iIndex].vPosition = { float(x),0,float(z)};
 			pVertex[iIndex].vTexUV = { j * uCoordIncrementSize, i * vCoordIncrementSize };
 			++j;
@@ -90,6 +91,9 @@ HRESULT CTerrainTex::Ready_Buffer()
 			pIndex[iBaseIndex + 1]._0 = (i + 1) * iXCnt + j;
 			pIndex[iBaseIndex + 1]._1 = i * iXCnt + j + 1;
 			pIndex[iBaseIndex + 1]._2 = (i + 1) * iXCnt + j + 1;
+
+			m_vIndex.push_back({ (FLOAT)pIndex[iBaseIndex]._0,		(FLOAT)pIndex[iBaseIndex]._1,		(FLOAT)pIndex[iBaseIndex]._2 });
+			m_vIndex.push_back({ (FLOAT)pIndex[iBaseIndex + 1]._0,	(FLOAT)pIndex[iBaseIndex + 1]._1,	(FLOAT)pIndex[iBaseIndex + 2]._2 });
 
 			iBaseIndex += 2;
 		}
@@ -159,6 +163,47 @@ float CTerrainTex::GetHeight(float fX, float fZ)
 	return fHeight;
 }
 
+float CTerrainTex::GetHeight_UsePlane(float fX, float fZ)
+{
+	//fZ *= -1;
+
+	float fCol = ::floorf(fX);
+	float fRow = ::floorf(-fZ);
+
+	_vec3 vA = { fCol,		FLOAT(GetHeightmapEntry(fRow, fCol)),			-(fRow)		};
+	_vec3 vB = { fCol +1,	FLOAT(GetHeightmapEntry(fRow, fCol + 1)),		-(fRow)		};
+	_vec3 vC = { fCol,		FLOAT(GetHeightmapEntry(fRow + 1, fCol)),		-(fRow + 1)	};
+	_vec3 vD = { fCol + 1,	FLOAT(GetHeightmapEntry(fRow + 1, fCol + 1)),	-(fRow + 1) };
+
+
+	float fDx = fX - fCol;
+	float fDz = -fZ - fRow;
+
+	float fHeight = 0.0f;
+	D3DXPLANE	Plane;
+
+	if (fDz < 1.0f - fDx)
+	{
+		D3DXPlaneFromPoints(&Plane, &vA, &vB, &vC);
+		FLOAT a = Plane.a;
+		FLOAT b = Plane.b;
+		FLOAT c = Plane.c;
+		FLOAT d = Plane.d;
+		fHeight = (a * fX + c * fZ + d) / (-b);
+	}
+	else
+	{
+		D3DXPlaneFromPoints(&Plane, &vD, &vB, &vC);
+		FLOAT a = Plane.a;
+		FLOAT b = Plane.b;
+		FLOAT c = Plane.c;
+		FLOAT d = Plane.d;
+		fHeight = (a * fX + c * fZ + d) / (-b);
+	}
+
+	return fHeight;
+}
+
 void CTerrainTex::SetHeightmapEntry(int row, int col, int value)
 {
 	m_vHeightmap[row * VTXCNTX + col] = value;
@@ -168,37 +213,6 @@ CComponent* CTerrainTex::Clone()
 {
 	return new CTerrainTex(*this);
 }
-
-bool CTerrainTex::ReadBmp(const char* filename)
-{
-	std::ifstream file(filename, std::ios::binary);
-	if (!file) return false;
-
-	BITMAPFILEHEADER fileHeader;
-	BITMAPINFOHEADER infoHeader;
-
-	file.read(reinterpret_cast<char*>(&fileHeader), sizeof(fileHeader));
-	file.read(reinterpret_cast<char*>(&infoHeader), sizeof(infoHeader));
-
-	if (fileHeader.bfType != 0x4D42 || infoHeader.biBitCount != 32) {
-		return false;
-	}
-
-	std::vector<BYTE> in(m_dwVtxCnt * 4);
-
-	file.seekg(fileHeader.bfOffBits, std::ios::beg);
-	file.read((char*)&in[0], // buffer
-		in.size());// number of bytes to read into buffer
-
-	m_vHeightmap.resize(m_dwVtxCnt * 4);
-
-	for (int i = 0; i < in.size(); i++)
-		m_vHeightmap[i] = in[i];
-	file.close();
-
-	return true;
-}
-
 
 void CTerrainTex::Free()
 {
@@ -289,7 +303,8 @@ bool CTerrainTex::Ready_HeightMap(const wstring& pFilePath)
 	m_pVB->Lock(0, 0, (void**)&pVertex, 0);
 
 	for (int i = 0; i < vIn.size(); ++i) {
-		m_vHeightmap[i] *= 0.3f;
+		m_vHeightmap[i] *= 0.1f;
+		m_vVertex[i].y = m_vHeightmap[i];
 		pVertex[i].vPosition.y = m_vHeightmap[i];
 	}
 

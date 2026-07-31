@@ -51,9 +51,10 @@ HRESULT		CCamera::Ready_GameObject()
 	default:
 		break;
 	}
-	D3DXMatrixPerspectiveFovLH(&matProj, D3DXToRadian(m_fFov), (_float)m_tViewPort.Width / m_tViewPort.Height, 0.1f, 1000.f);
 
-	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &matProj);
+	D3DXMatrixPerspectiveFovLH(&m_matProj, D3DXToRadian(m_fFov), (_float)m_tViewPort.Width / m_tViewPort.Height, 0.1f, 1000.f);
+
+	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProj);
 
 	return S_OK;
 }
@@ -75,8 +76,9 @@ void CCamera::LateUpdate_GameObject(const _float& fTimeDelta)
 	switch (m_eCameraType)
 	{
 	case Engine::PLAYER1:
-		MouseControl(&m_vEye, &m_vAt, &m_vUp, &m_fFov, fTimeDelta);
-		MouseFix();
+		//MouseControl(&m_vEye, &m_vAt, &m_vUp, &m_fFov, fTimeDelta);
+		//MouseFix();
+		Direct_Follow(&m_vEye, &m_vAt, &m_vUp);
 		D3DXMatrixLookAtLH(&m_matView, &m_vEye, &m_vAt, &m_vUp);
 		//m_pGraphicDev->SetTransform(D3DTS_VIEW, &matView);
 		break;
@@ -118,13 +120,14 @@ void CCamera::Direct_Follow(_vec3* vEye,_vec3* vAt,_vec3* vUp)
 	_vec3	vPlayerLOOK;
 
 	CTransform* pPlayerTransformCom = dynamic_cast<CTransform*>
-		(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"Environment_Layer", L"Player", L"Com_Transform"));
+		(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", L"Player", L"Com_Transform"));
 
 	pPlayerTransformCom->Get_Info(INFO_POS, &vPlayerPos);
 	pPlayerTransformCom->Get_Info(INFO_UP, &vPlayerUp);
 	pPlayerTransformCom->Get_Info(INFO_LOOK, &vPlayerLOOK);
 
-	*vEye	= vPlayerPos + (vPlayerUp * -5) + (vPlayerLOOK * -5);
+	//*vEye	= vPlayerPos + (vPlayerUp * -50) + (vPlayerLOOK * -50);
+	*vEye = { vPlayerPos.x,vPlayerPos.y + 50 , vPlayerPos.z - 50 };
 	*vAt	= vPlayerPos;
 	*vUp	= -vPlayerLOOK;
 }
@@ -138,7 +141,7 @@ void CCamera::Smooth_Follow(_vec3* vEye, _vec3* vAt, _vec3* vUp, float* fFov, co
 	_vec3	vMyPos;
 
 	CTransform* pPlayerTransformCom = dynamic_cast<CTransform*>
-		(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"Environment_Layer", L"Player", L"Com_Transform"));
+		(CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", L"Player", L"Com_Transform"));
 
 	pPlayerTransformCom->Get_Info(INFO_POS, &vPlayerPos);
 	pPlayerTransformCom->Get_Info(INFO_UP, &vPlayerUp);

@@ -41,3 +41,16 @@ _matrix CCameraMgr::GetCameraView(CAMERATYPE eType)
 	}
 	MSG_BOX("NO CameraType");
 }
+
+_matrix CCameraMgr::GetCameraProj(CAMERATYPE eType)
+{
+	for (auto pObj : m_vCamera)
+	{
+		CCamera* pCamera = dynamic_cast<CCamera*> (pObj);
+		if (pCamera->GetCameraType() == eType)
+		{
+			return pCamera->GetProjMat();
+		}
+	}
+	MSG_BOX("NO CameraType");
+}

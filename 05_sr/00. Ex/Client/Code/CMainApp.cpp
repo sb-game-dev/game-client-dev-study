@@ -45,7 +45,7 @@ HRESULT CMainApp::Ready_MainApp()
 
 int CMainApp::Update_MaintApp(const float& fTimeDelta)
 {
-
+	CKeyMgr::GetInstance()->KeyUpdate();
 	CDInputMgr::GetInstance()->Update_InputDev();
 
 	m_pManagementClass->Update_Scene(fTimeDelta);
@@ -81,7 +81,7 @@ void CMainApp::Render_MainApp()
 		//////////////////////¹Ì´Ï ¸Ê/////////////////////////////////////////////
 		ViewPort = CCameraMgr::GetInstance()->GetCameraViewPort(MAP);
 		m_pGraphicDev->SetViewport(&ViewPort);
-
+		
 		m_pDeviceClass->Render_Begin(D3DXCOLOR(1.f, 1.f, 1.f, 1.f));
 		matView = CCameraMgr::GetInstance()->GetCameraView(MAP);
 		m_pGraphicDev->SetTransform(D3DTS_VIEW, &matView);

@@ -13,6 +13,7 @@ public:
 	void			AddCamera(CGameObject*);
 	D3DVIEWPORT9	GetCameraViewPort(CAMERATYPE eType);
 	_matrix			GetCameraView(CAMERATYPE eType);
+	_matrix			GetCameraProj(CAMERATYPE eType);
 	int				GetCameraCnt() { return m_vCamera.size(); }
 
 private:

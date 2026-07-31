@@ -5,6 +5,8 @@
 #include "CManagement.h"
 #include "CKeyMgr.h"
 #include "CDInputMgr.h"
+#include "Engine_Function.h"
+#include "CCameraMgr.h"
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CGameObject(pGraphicDev)
 {
@@ -19,21 +21,21 @@ HRESULT CPlayer::Ready_GameObject()
 	if (FAILED(Add_Component()))
 		return E_FAIL;
 
-	m_pTransformCom->Rotation(ROT_X, 90);
 	m_pTransformCom->m_vInfo[INFO_POS] = { 50,50,-50 };
+	m_pTransformCom->m_vScale = { 2,1,2 };
+	m_pTransformCom->Rotation(ROT_X, 90);
 	m_fNormalSpeed = 10.f;
 	m_fBoostSpeed = 20.f;
 	m_fSpeed = m_fNormalSpeed;
 	m_vGravity = { 0, -9.8,0 };
 	m_fJumpPower = 30.f;
 
-	m_bKeyStateA = false;
-	m_bKeyStateD = false;
+	m_vTargetPos = m_pTransformCom->m_vInfo[INFO_POS];
 
 	m_eMoveState = GROUND;
 	m_iBulletCnt = 0;
 
-	m_pColliderCom->SetHalfSize({1,1,2});
+	m_pColliderCom->SetHalfSize({2,2,2});
 	m_pColliderCom->SetCenter(m_pTransformCom->m_vInfo[INFO_POS]);
 
 	return S_OK;
@@ -53,7 +55,9 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
 
-	Key_Input2(fTimeDelta);
+	//Key_Input2(fTimeDelta);
+	Mouse_Input(fTimeDelta);
+	MoveToTarget(fTimeDelta);
 	CTerrainTex* pTerrainCom = dynamic_cast<CTerrainTex*>
 		(CManagement::GetInstance()->Get_Component(ID_STATIC, L"Environment_Layer", L"Terrain", L"Com_Buffer"));
 
@@ -61,14 +65,14 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	if (vPos.x > 0 && vPos.x < 128 && vPos.z < 0 && vPos.z > -128)
 	{
-		float fY = pTerrainCom->GetHeight(vPos.x, vPos.z);
+		float fY = pTerrainCom->GetHeight_UsePlane(vPos.x, vPos.z);
 
 		if (m_eMoveState == JUMP && vPos.y < fY -1 )
 		{
 			m_eMoveState = GROUND;
 		}
 		if(m_eMoveState == GROUND)
-			m_pTransformCom->m_vInfo[INFO_POS].y = fY;
+			m_pTransformCom->m_vInfo[INFO_POS].y = fY + 2;
 	}
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	m_pColliderCom->SetCenter(vPos);
@@ -276,6 +280,95 @@ void CPlayer::Key_Input2(const _float& fTimeDelta)
 	}
 }
 
+void CPlayer::Mouse_Input(const _float& fTimeDelta)
+{
+	if (CDInputMgr::GetInstance()->Get_DIMouseState(DIM_RB))
+	//if(CKeyMgr::GetInstance()->KeyDown(VK_RBUTTON))
+	{
+		//1. 마우스 위치 가져오기
+		_vec3 vMousePos = GetMouse(g_hWnd);
+
+		// 2. 광선 위치 및 방향 계산(아직 view 스페이스)
+		D3DVIEWPORT9 vp = CCameraMgr::GetInstance()->GetCameraViewPort(PLAYER1);
+
+		_matrix proj = CCameraMgr::GetInstance()->GetCameraProj(PLAYER1);
+
+		RAY ray = CalPickingRay(m_pGraphicDev,vp,proj, vMousePos.x, vMousePos.y);
+
+		// 3. 광선을 view -> world로 변환
+		D3DXMATRIX view = CCameraMgr::GetInstance()->GetCameraView(PLAYER1);
+
+		D3DXMATRIX viewInverse;
+		D3DXMatrixInverse(&viewInverse, 0, &view);
+
+		TransformRay(&ray, &viewInverse);
+		
+		// 4. 피킹 좌표 가져오기
+		float u, v;        
+		float dist;        
+		_vec3	vPickPos;
+		if (m_vTerrainVertex.empty())
+		{
+			CTerrainTex* pTerrainCom = dynamic_cast<CTerrainTex*>
+				(CManagement::GetInstance()->Get_Component(ID_STATIC, L"Environment_Layer", L"Terrain", L"Com_Buffer"));
+
+			m_vTerrainVertex = pTerrainCom->GetVertex();
+			m_vTerrainIndex = pTerrainCom->GetIndex();
+		}
+
+		for (auto i : m_vTerrainIndex)
+		{
+			if (D3DXIntersectTri(
+				&m_vTerrainVertex[i.x],
+				&m_vTerrainVertex[i.y],
+				&m_vTerrainVertex[i.z],
+				&ray.vOrig,
+				&ray.vDir,
+				&u,
+				&v,
+				&dist))
+			{
+				//PickPos = v0 + u * (v1 - v0) + v * (v2 - v0);
+				vPickPos =
+					m_vTerrainVertex[i.x]
+					+ u * (m_vTerrainVertex[i.y] - m_vTerrainVertex[i.x])
+					+ v * (m_vTerrainVertex[i.z] - m_vTerrainVertex[i.x]);
+				// 5. 이동
+				m_vTargetPos = vPickPos;
+				//_vec3 vMoveDir = vPickPos - m_pTransformCom->m_vInfo[INFO_POS];
+				//m_pTransformCom->Move_Pos(&vMoveDir, m_fSpeed, fTimeDelta);
+
+				break;
+			}
+		}
+	}
+
+	// 총 발사 및 점프
+	if (CDInputMgr::GetInstance()->Get_KeyDown(DIK_Q))
+	{
+		Shoot();
+	}
+	if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_SPACE))
+	{
+		if (m_eMoveState == GROUND)
+		{
+			m_eMoveState = JUMP;
+			ReSetGravity();
+			m_vGravity.y += m_fJumpPower;
+		}
+	}
+
+	if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_LSHIFT))
+	{
+		m_fSpeed = m_fBoostSpeed;
+	}
+	else
+	{
+		m_fSpeed = m_fNormalSpeed;
+	}
+}
+
+
 void CPlayer::Shoot()
 {
 	_vec3 vDir;
@@ -296,6 +389,19 @@ void CPlayer::Shoot()
 	const _tchar* szBuff = L"Bullet" + m_iBulletCnt;
 	//cout << szBuff << endl;
 	pLayer->Add_GameObject(szBuff, pBullet);
+}
+
+void CPlayer::MoveToTarget(const _float& fTimeDelta)
+{
+	_vec3 vMoveDir = m_vTargetPos - m_pTransformCom->m_vInfo[INFO_POS];
+	if (fabsf(D3DXVec3Length(&vMoveDir)) > 0.05f)
+	{
+		D3DXVec3Normalize(&vMoveDir, &vMoveDir);
+		
+		m_pTransformCom->Move_Pos(&vMoveDir, m_fSpeed, fTimeDelta);
+		vMoveDir.y = 0;
+		m_pTransformCom->Rotation(ROT_Y, D3DXToDegree(D3DXVec3Dot(&m_pTransformCom->m_vInfo[INFO_UP], D3DXVec3Normalize(&vMoveDir, &vMoveDir))));
+	}
 }
 
 CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)

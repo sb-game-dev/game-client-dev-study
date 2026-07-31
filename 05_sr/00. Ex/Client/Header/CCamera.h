@@ -22,7 +22,8 @@ public:
 
 	CAMERATYPE			GetCameraType() { return m_eCameraType; }
 	D3DVIEWPORT9		GetViewPort()	{ return m_tViewPort; }
-	_matrix				GetVeiwMat()	{ return m_matView; }
+	_matrix				GetVeiwMat() { return m_matView; }
+	_matrix				GetProjMat() { return m_matProj; }
 
 private:
 	Engine::CTransform* m_pTransformCom;
@@ -52,6 +53,7 @@ private:
 	CAMERATYPE		m_eCameraType;
 	D3DVIEWPORT9	m_tViewPort;
 	_matrix			m_matView;
+	_matrix			m_matProj;
 
 public:
 	static CCamera*		Create(LPDIRECT3DDEVICE9 pGraphicDev, CAMERATYPE eType);

@@ -53,7 +53,7 @@ void CStage::LateUpdate_Scene(const _float& fTimeDelta)
     CCollider* CMonsterCollider = dynamic_cast<CCollider*>
         (CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", L"Monster", L"Com_Collider"));
 
-    CCollisionMgr::GetInstance()->CheckCollision(CMonsterCollider, CPlayerCollider);
+    //CCollisionMgr::GetInstance()->CheckCollision(CMonsterCollider, CPlayerCollider);
 }
 
 void CStage::Render_Scene()
@@ -91,15 +91,13 @@ HRESULT CStage::Ready_Environment_Layer(const _tchar* pLayerTag)
     // MapCamera
 
     pGameObject = CCamera::Create(m_pGraphicDev, MAP);
-
+    
     if (nullptr == pGameObject)
         return E_FAIL;
-
+    
     if (FAILED(pLayer->Add_GameObject(L"MapCamera", pGameObject)))
         return E_FAIL;
     CCameraMgr::GetInstance()->AddCamera(pGameObject);
-    //if (FAILED(pLayer->Add_GameObject(L"MinimapCamera", pGameObject)))
-    //    return E_FAIL;
 
        
     // Terrain

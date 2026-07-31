@@ -56,6 +56,12 @@ namespace Engine
 
 	}INDEX32;	
 
+	typedef struct Ray
+	{
+		_vec3 vOrig;
+		_vec3 vDir;
+	}RAY;
+
 }
 
 

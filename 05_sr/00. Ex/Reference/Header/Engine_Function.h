@@ -8,6 +8,53 @@ namespace Engine
 	// 템플릿은 기능의 정해져있으나 자료형은 정해져있지 않은 것
 	// 기능을 인스턴스화 하기 위하여 만들어두는 틀
 
+	static D3DXVECTOR3	GetMouse(HWND hWnd)
+	{
+		POINT		pt{};
+
+		GetCursorPos(&pt);
+		ScreenToClient(hWnd, &pt);
+
+		return D3DXVECTOR3((float)pt.x, (float)pt.y, 0.f);
+	}
+	static RAY CalPickingRay(LPDIRECT3DDEVICE9 pGraphicDev, D3DVIEWPORT9 vp, _matrix proj,int iX, int iY)
+	{
+		float px = 0.f;
+		float py = 0.f;
+
+		//D3DVIEWPORT9 vp;
+		//pGraphicDev->GetViewport(&vp);
+		//
+		//_matrix proj;
+		//pGraphicDev->GetTransform(D3DTS_PROJECTION, &proj);
+
+		px = (((2.f * iX) / vp.Width) - 1.f) / proj(0, 0);
+		py = (((-2.f * iY) / vp.Height) + 1.f) / proj(1, 1);
+
+		RAY ray;
+		ray.vOrig = _vec3(0, 0, 0);
+		ray.vDir = _vec3(px, py, 1);
+
+		return ray;
+	}
+
+	static void TransformRay(RAY* ray, _matrix* mat)
+	{
+		D3DXVec3TransformCoord(
+			&ray->vOrig,
+			&ray->vOrig,
+			mat
+		);
+
+		D3DXVec3TransformNormal(
+			&ray->vDir,
+			&ray->vDir,
+			mat
+		);
+
+		D3DXVec3Normalize(&ray->vDir, &ray->vDir);
+	}
+
 	template<typename T>
 	void	Safe_Delete(T& Pointer)
 	{
