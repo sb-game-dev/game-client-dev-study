@@ -22,9 +22,13 @@ public:
 
 	CAMERATYPE			GetCameraType() { return m_eCameraType; }
 	D3DVIEWPORT9		GetViewPort()	{ return m_tViewPort; }
+
 	_matrix				GetVeiwMat() { return m_matView; }
 	_matrix				GetProjMat() { return m_matProj; }
 
+	_matrix*			CalculateVeiw(_matrix* matOut, _vec3* vEye, _vec3* vAt, _vec3* vUp );
+	_matrix*			CalculatePorj(_matrix* matOut, FLOAT fov, FLOAT Aspect, FLOAT zn, FLOAT zf);
+	
 private:
 	Engine::CTransform* m_pTransformCom;
 

@@ -52,7 +52,9 @@ HRESULT		CCamera::Ready_GameObject()
 		break;
 	}
 
-	D3DXMatrixPerspectiveFovLH(&m_matProj, D3DXToRadian(m_fFov), (_float)m_tViewPort.Width / m_tViewPort.Height, 0.1f, 1000.f);
+
+	//D3DXMatrixPerspectiveFovLH(&m_matProj, D3DXToRadian(m_fFov), (_float)m_tViewPort.Width / m_tViewPort.Height, 0.1f, 1000.f);
+	CalculatePorj(&m_matProj, D3DXToRadian(m_fFov), (_float)m_tViewPort.Width / m_tViewPort.Height, 0.1f, 1000.f);
 
 	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProj);
 
@@ -64,8 +66,6 @@ _int	CCamera::Update_GameObject(const _float& fTimeDelta)
 
 	//Direct_Follow(&m_vEye,&m_vAt,&m_vUp);
 	//Smooth_Follow(&m_vEye, &m_vAt, &m_vUp, &m_fFov, fTimeDelta);
-
-
 
 	return iExit;
 }
@@ -79,14 +79,14 @@ void CCamera::LateUpdate_GameObject(const _float& fTimeDelta)
 		//MouseControl(&m_vEye, &m_vAt, &m_vUp, &m_fFov, fTimeDelta);
 		//MouseFix();
 		Direct_Follow(&m_vEye, &m_vAt, &m_vUp);
-		D3DXMatrixLookAtLH(&m_matView, &m_vEye, &m_vAt, &m_vUp);
+		CalculateVeiw(&m_matView, &m_vEye, &m_vAt, &m_vUp);
 		//m_pGraphicDev->SetTransform(D3DTS_VIEW, &matView);
 		break;
 	case Engine::PLAYER2:
 		break;
 	case Engine::MAP:
 		ViewWolrdMap(&m_vEye, &m_vAt, &m_vUp);
-		D3DXMatrixLookAtLH(&m_matView, &m_vEye, &m_vAt, &m_vUp);
+		CalculateVeiw(&m_matView, &m_vEye, &m_vAt, &m_vUp);
 		//m_pGraphicDev->SetTransform(D3DTS_VIEW, &matView);
 		break;
 	case Engine::CAMERATYPE_END:
@@ -94,10 +94,59 @@ void CCamera::LateUpdate_GameObject(const _float& fTimeDelta)
 	default:
 		break;
 	}
-
 }
 void CCamera::Render_GameObject()
 {
+}
+
+_matrix* CCamera::CalculateVeiw(_matrix* matOut, _vec3* vEye, _vec3* vAt, _vec3* vUp)
+{
+	// 1. 항등행렬 설정
+	ZeroMemory(matOut, sizeof(_matrix));
+	for (int i = 0; i < 4; ++i)
+		matOut->m[i][i] = 1;
+	
+	// (Up 벡터 설정??)
+
+
+	// 2. 회전
+	// 2 - 1. 실제 카메라 Look 확인
+	_vec3 vCameraLook = *vAt - *vEye;
+	D3DXVec3Normalize(&vCameraLook, &vCameraLook);
+	// 2 - 2. 카메라 Look vs {0,0,0} 사잇각 + 회전축 구하기(내적 , 외적)
+	_vec3 vLook = { 0,0,1 };
+	_float fAngle = D3DXVec3Dot(&vLook, &vCameraLook);
+
+	_vec3 vCross;
+	D3DXVec3Cross(&vCross, &vLook, &vCameraLook);
+
+	// 2 - 3. 카메라 회전
+	D3DXMatrixRotationAxis(matOut, &vCross, fAngle);
+
+	// 3. 좌표 설정
+	for (int i = 0; i < 3; ++i)
+		matOut->m[3][i] = *(((_float*)vEye) + i);
+
+	// 4. 카메라 월드행렬의 역행렬 설정
+	D3DXMatrixInverse(matOut, NULL, matOut);
+
+	return matOut;
+}
+
+_matrix* CCamera::CalculatePorj(_matrix* matOut, FLOAT fov, FLOAT Aspect, FLOAT zn, FLOAT zf)
+{
+	// 1. 제로 메모리 설정
+	ZeroMemory(matOut, sizeof(_matrix));
+
+	// 2. 값 설정
+	matOut->m[2][3] = 1;
+	
+	matOut->m[0][0] = 1 / tanf(fov / 2) / Aspect;
+	matOut->m[1][1] = 1 / tanf(fov / 2);
+	matOut->m[2][2] = zf/(zf-zn);
+	matOut->m[3][2] = -(zn * zf) / (zf - zn);
+
+	return matOut;
 }
 
 HRESULT CCamera::Add_Component()
