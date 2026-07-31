@@ -10,7 +10,7 @@ CCollider::CCollider(LPDIRECT3DDEVICE9 pGraphicDev)
 }
 
 CCollider::CCollider(const CCollider& rhs)
-	:CComponent(rhs)
+	:CComponent(rhs),m_vCenter(rhs.m_vCenter),m_vHalfSize(rhs.m_vHalfSize)
 {
 }
 

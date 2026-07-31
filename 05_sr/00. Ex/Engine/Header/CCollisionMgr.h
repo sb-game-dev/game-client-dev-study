@@ -1,5 +1,7 @@
 #pragma once
 #include "CCollider.h"
+#include "CTransform.h"
+#include "CGameObject.h"
 
 BEGIN(Engine)
 
@@ -16,7 +18,8 @@ public:
 	virtual void LateUpdate_Component();
 
 public:
-	bool	CheckCollision(CCollider* Dst, CCollider* Src);
+	bool	CheckCollision(CCollider* pDst, CCollider* pSrc, float* fX, float* fY, float* fZ);
+	void	PhysicalCollision(CCollider* pDst, CCollider* pSrc,  CTransform* pSrcTransform);
 
 };
 

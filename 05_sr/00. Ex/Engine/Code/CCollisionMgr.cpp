@@ -1,4 +1,5 @@
 #include "CCollisionMgr.h"
+#include "CManagement.h"
 
 IMPLEMENT_SINGLETON(CCollisionMgr)
 
@@ -23,22 +24,65 @@ void CCollisionMgr::LateUpdate_Component()
 {
 }
 
-bool CCollisionMgr::CheckCollision(CCollider* Dst, CCollider* Src)
+bool CCollisionMgr::CheckCollision(CCollider* pDst, CCollider* pSrc, float* fX, float* fY, float* fZ)
 {
-	_vec3 DstCenter = Dst->GetCenter();
-	_vec3 SrcCenter = Src->GetCenter();
+	_vec3 DstCenter = pDst->GetCenter();
+	_vec3 SrcCenter = pSrc->GetCenter();
 
-	_vec3 DstHalfSize = Dst->GetHalfSize();
-	_vec3 SrcHalfSize = Src->GetHalfSize();
+	_vec3 DstHalfSize = pDst->GetHalfSize();
+	_vec3 SrcHalfSize = pSrc->GetHalfSize();
 
 	if (fabsf(DstCenter.x - SrcCenter.x) < DstHalfSize.x + SrcHalfSize.x
 		&& fabsf(DstCenter.y - SrcCenter.y) < DstHalfSize.y + SrcHalfSize.y
 		&& fabsf(DstCenter.z - SrcCenter.z) < DstHalfSize.z + SrcHalfSize.z)
 	{
-		MSG_BOX("Collision");
+		*fX = fabsf(fabsf(DstCenter.x - SrcCenter.x) - (DstHalfSize.x + SrcHalfSize.x));
+		*fY = fabsf(fabsf(DstCenter.y - SrcCenter.y) - (DstHalfSize.y + SrcHalfSize.y));
+		*fZ = fabsf(fabsf(DstCenter.z - SrcCenter.z) - (DstHalfSize.z + SrcHalfSize.z));
+
+
 		return true;
 	}
 	return false;
 }
 
-// 일단 저 함수가 맞는지 확인해야하니까 그냥 클라에서 한번 불러봐야겠지?
+void CCollisionMgr::PhysicalCollision(CCollider* pDst, CCollider* pSrc, CTransform* pSrcTransform)
+{
+	float fX, fY, fZ;
+
+	if (CheckCollision(pDst, pSrc, &fX, &fY, &fZ))
+	{
+		_vec3 DstCenter = pDst->GetCenter();
+		_vec3 SrcCenter = pSrc->GetCenter();
+
+		_vec3 vDS = SrcCenter - DstCenter;
+
+
+		if (fX == min(fX, fY, fZ))
+		{
+			if (vDS.x > 0)
+				pSrcTransform->m_vInfo[INFO_POS].x += fX;
+			else if (vDS.x < 0)
+				pSrcTransform->m_vInfo[INFO_POS].x -= fX;
+		}
+
+		if (fY == min(fX, fY, fZ))
+		{
+			if (vDS.y > 0)
+				pSrcTransform->m_vInfo[INFO_POS].y += fY;
+			else if (vDS.y < 0)
+				pSrcTransform->m_vInfo[INFO_POS].y -= fY;
+		}
+
+		if (fZ == min(fX, fY, fZ))
+		{
+			if (vDS.z > 0)
+				pSrcTransform->m_vInfo[INFO_POS].z += fZ;
+			else if (vDS.z < 0)
+				pSrcTransform->m_vInfo[INFO_POS].z -= fZ;
+		}
+
+	}
+}
+
+

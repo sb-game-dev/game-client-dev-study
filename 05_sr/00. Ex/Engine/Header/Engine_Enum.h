@@ -22,5 +22,8 @@ namespace Engine
 
 	enum CAMERATYPE { PLAYER1, PLAYER2, MAP, CAMERATYPE_END };
 
+	enum MOVE_STATE { GROUND, JUMP, FALL, MOVE_END };
+
+
 }
 #endif // Engine_Enum_h__

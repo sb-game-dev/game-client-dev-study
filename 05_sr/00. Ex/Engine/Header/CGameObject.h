@@ -1,6 +1,7 @@
 #pragma once
 #include "CBase.h"
 #include "CComponent.h"
+//#include "CRenderer.h"
 
 BEGIN(Engine)
 

@@ -24,7 +24,7 @@ HRESULT CPlayer::Ready_GameObject()
 		return E_FAIL;
 
 	m_pTransformCom->m_vInfo[INFO_POS] = { 50,50,-50 };
-	m_pTransformCom->m_vScale = { 2,1,2 };
+	m_pTransformCom->m_vScale = { 1,1,1 };
 	m_pTransformCom->Rotation(ROT_X, 90);
 	m_fNormalSpeed = 10.f;
 	m_fBoostSpeed = 20.f;
@@ -37,9 +37,8 @@ HRESULT CPlayer::Ready_GameObject()
 	m_eMoveState = GROUND;
 	m_iBulletCnt = 0;
 
-	m_pColliderCom->SetHalfSize({2,2,2});
-	m_pColliderCom->SetCenter(m_pTransformCom->m_vInfo[INFO_POS]);
-
+	m_pColliderCom->SetHalfSize({1,1,2});
+	m_pColliderCom->SetCenter({ 50,50,-50 });
 
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_ALPHA, this);
 	return S_OK;
@@ -48,9 +47,11 @@ HRESULT CPlayer::Ready_GameObject()
 _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 {
 	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
-
-	m_vGravity.y -= 20 * fTimeDelta;
-	m_pTransformCom->Move_Pos(&m_vGravity, 3, fTimeDelta);
+	if (m_eMoveState != GROUND)
+	{
+		m_vGravity.y -= 20 * fTimeDelta;
+		m_pTransformCom->Move_Pos(&m_vGravity, 3, fTimeDelta);
+	}
 
 	return iExit;
 }
@@ -59,9 +60,9 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
 
-	//Key_Input2(fTimeDelta);
-	Mouse_Input(fTimeDelta);
-	MoveToTarget(fTimeDelta);
+	Key_Input2(fTimeDelta);
+	//Mouse_Input(fTimeDelta);
+	//MoveToTarget(fTimeDelta);
 	CTerrainTex* pTerrainCom = dynamic_cast<CTerrainTex*>
 		(CManagement::GetInstance()->Get_Component(ID_STATIC, L"Environment_Layer", L"Terrain", L"Com_Buffer"));
 
@@ -71,7 +72,7 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 	{
 		float fY = pTerrainCom->GetHeight_UsePlane(vPos.x, vPos.z);
 
-		if (m_eMoveState == JUMP && vPos.y < fY -1 )
+		if (m_eMoveState == JUMP && vPos.y < fY + 2 )
 		{
 			m_eMoveState = GROUND;
 		}
@@ -286,65 +287,10 @@ void CPlayer::Key_Input2(const _float& fTimeDelta)
 
 void CPlayer::Mouse_Input(const _float& fTimeDelta)
 {
-	if (CDInputMgr::GetInstance()->Get_DIMouseState(DIM_RB))
 	//if(CKeyMgr::GetInstance()->KeyDown(VK_RBUTTON))
+	if (CDInputMgr::GetInstance()->Get_DIMouseState(DIM_RB))
 	{
-		//1. 마우스 위치 가져오기
-		_vec3 vMousePos = GetMouse(g_hWnd);
-
-		// 2. 광선 위치 및 방향 계산(아직 view 스페이스)
-		D3DVIEWPORT9 vp = CCameraMgr::GetInstance()->GetCameraViewPort(PLAYER1);
-
-		_matrix proj = CCameraMgr::GetInstance()->GetCameraProj(PLAYER1);
-
-		RAY ray = CalPickingRay(m_pGraphicDev,vp,proj, vMousePos.x, vMousePos.y);
-
-		// 3. 광선을 view -> world로 변환
-		D3DXMATRIX view = CCameraMgr::GetInstance()->GetCameraView(PLAYER1);
-
-		D3DXMATRIX viewInverse;
-		D3DXMatrixInverse(&viewInverse, 0, &view);
-
-		TransformRay(&ray, &viewInverse);
-		
-		// 4. 피킹 좌표 가져오기
-		float u, v;        
-		float dist;        
-		_vec3	vPickPos;
-		if (m_vTerrainVertex.empty())
-		{
-			CTerrainTex* pTerrainCom = dynamic_cast<CTerrainTex*>
-				(CManagement::GetInstance()->Get_Component(ID_STATIC, L"Environment_Layer", L"Terrain", L"Com_Buffer"));
-
-			m_vTerrainVertex = pTerrainCom->GetVertex();
-			m_vTerrainIndex = pTerrainCom->GetIndex();
-		}
-
-		for (auto i : m_vTerrainIndex)
-		{
-			if (D3DXIntersectTri(
-				&m_vTerrainVertex[i.x],
-				&m_vTerrainVertex[i.y],
-				&m_vTerrainVertex[i.z],
-				&ray.vOrig,
-				&ray.vDir,
-				&u,
-				&v,
-				&dist))
-			{
-				//PickPos = v0 + u * (v1 - v0) + v * (v2 - v0);
-				vPickPos =
-					m_vTerrainVertex[i.x]
-					+ u * (m_vTerrainVertex[i.y] - m_vTerrainVertex[i.x])
-					+ v * (m_vTerrainVertex[i.z] - m_vTerrainVertex[i.x]);
-				// 5. 이동
-				m_vTargetPos = vPickPos;
-				//_vec3 vMoveDir = vPickPos - m_pTransformCom->m_vInfo[INFO_POS];
-				//m_pTransformCom->Move_Pos(&vMoveDir, m_fSpeed, fTimeDelta);
-
-				break;
-			}
-		}
+		m_vTargetPos = GetRayPickPos();
 	}
 
 	// 총 발사 및 점프
@@ -397,15 +343,93 @@ void CPlayer::Shoot()
 
 void CPlayer::MoveToTarget(const _float& fTimeDelta)
 {
+
 	_vec3 vMoveDir = m_vTargetPos - m_pTransformCom->m_vInfo[INFO_POS];
-	if (fabsf(D3DXVec3Length(&vMoveDir)) > 0.05f)
+	vMoveDir.y = 0;
+	if (D3DXVec3Length(&vMoveDir) > 0.1f)
 	{
 		D3DXVec3Normalize(&vMoveDir, &vMoveDir);
-		
 		m_pTransformCom->Move_Pos(&vMoveDir, m_fSpeed, fTimeDelta);
-		vMoveDir.y = 0;
-		m_pTransformCom->Rotation(ROT_Y, D3DXToDegree(D3DXVec3Dot(&m_pTransformCom->m_vInfo[INFO_UP], D3DXVec3Normalize(&vMoveDir, &vMoveDir))));
+		//if (D3DXVec3Length(&vMoveDir) > m_fSpeed * fTimeDelta)
+		//{
+		//	m_pTransformCom->Move_Pos(&vMoveDir, m_fSpeed, fTimeDelta);
+		//}
+		//else
+		//{
+		//	m_pTransformCom->Move_Pos(&vMoveDir, D3DXVec3Length(&vMoveDir) / fTimeDelta, fTimeDelta);
+		//}
+		_vec3 vPlayerLook;
+		vPlayerLook = m_pTransformCom->m_vInfo[INFO_UP];
+		vPlayerLook.y = 0;
+		D3DXVec3Normalize(&vPlayerLook, &vPlayerLook);
+
+		_vec3 cross;
+		D3DXVec3Cross(&cross, &vPlayerLook, &vMoveDir);
+
+		float fAngle = acosf(D3DXVec3Dot(&vPlayerLook, &vMoveDir));
+		if (D3DXToDegree(fAngle) > 1)
+		{
+			if (cross.y < 0) fAngle *= -1;
+			m_pTransformCom->Rotation(ROT_Y, D3DXToDegree(fAngle));
+		}
 	}
+
+
+
+}
+
+_vec3 CPlayer::GetRayPickPos()
+{//1. 마우스 위치 가져오기
+	_vec3 vMousePos = GetMouse(g_hWnd);
+
+	// 2. 광선 위치 및 방향 계산(아직 view 스페이스)
+	D3DVIEWPORT9 vp = CCameraMgr::GetInstance()->GetCameraViewPort(PLAYER1);
+
+	_matrix proj = CCameraMgr::GetInstance()->GetCameraProj(PLAYER1);
+
+	RAY ray = CalPickingRay(m_pGraphicDev, vp, proj, vMousePos.x, vMousePos.y);
+
+	// 3. 광선을 view -> world로 변환
+	D3DXMATRIX view = CCameraMgr::GetInstance()->GetCameraView(PLAYER1);
+
+	D3DXMATRIX viewInverse;
+	D3DXMatrixInverse(&viewInverse, 0, &view);
+
+	TransformRay(&ray, &viewInverse);
+
+	// 4. 피킹 좌표 가져오기
+	float u, v;
+	float dist;
+	_vec3	vPickPos;
+	if (m_vTerrainVertex.empty())
+	{
+		CTerrainTex* pTerrainCom = dynamic_cast<CTerrainTex*>
+			(CManagement::GetInstance()->Get_Component(ID_STATIC, L"Environment_Layer", L"Terrain", L"Com_Buffer"));
+
+		m_vTerrainVertex = pTerrainCom->GetVertex();
+		m_vTerrainIndex = pTerrainCom->GetIndex();
+	}
+	for (auto i : m_vTerrainIndex)
+	{
+		if (D3DXIntersectTri(
+			&m_vTerrainVertex[i.x],
+			&m_vTerrainVertex[i.y],
+			&m_vTerrainVertex[i.z],
+			&ray.vOrig,
+			&ray.vDir,
+			&u,
+			&v,
+			&dist))
+		{
+			vPickPos =
+				m_vTerrainVertex[i.x]
+				+ u * (m_vTerrainVertex[i.y] - m_vTerrainVertex[i.x])
+				+ v * (m_vTerrainVertex[i.z] - m_vTerrainVertex[i.x]);
+			return vPickPos;
+			// 5. 이동
+		}
+	}
+	return { 0,0,0 };
 }
 
 CPlayer* CPlayer::Create(LPDIRECT3DDEVICE9 pGraphicDev)

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CGameObject.h"
+#include "Engine_Enum.h"
 
 namespace Engine
 {
@@ -29,9 +30,9 @@ private:
 	void			Key_Input2(const _float& fTimeDelta);
 	void			Mouse_Input(const _float& fTimeDelta);
 
-
 	void			Shoot();
 	void			MoveToTarget(const _float& fTimeDelta);
+	_vec3			GetRayPickPos();
 
 private:
 	Engine::CPyramidCol*		m_pBufferCom;
@@ -51,16 +52,15 @@ private:
 
 	_vec3		m_vTargetPos;
 
-	enum MOVE_STATE { GROUND, JUMP, FALL, MOVE_END };
-
 	MOVE_STATE	m_eMoveState;
 
 	_vec3		m_vGravity;
 	float		m_fJumpPower;
 
-
 public:
 	static CPlayer* Create(LPDIRECT3DDEVICE9 pGraphicDev);
+
+	void	SetMoveState(MOVE_STATE eMove) { m_eMoveState = eMove; }
 
 private:
 	virtual void	Free();

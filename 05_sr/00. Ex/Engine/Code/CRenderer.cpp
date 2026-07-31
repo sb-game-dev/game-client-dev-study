@@ -54,10 +54,15 @@ void CRenderer::Render_NonAlpha(LPDIRECT3DDEVICE9& pGraphicDev)
 void CRenderer::Render_Alpha(LPDIRECT3DDEVICE9& pGraphicDev)
 {
 	pGraphicDev->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-	
-	pGraphicDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);
-	pGraphicDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
 
+	
+	pGraphicDev->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA);		// 소스(지금 그리는 픽셀)의 알파값을 곱하라는 뜻이다.
+	pGraphicDev->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);	// 이미 화면에 있던 색(목적지)에 (1 - Source Alpha) 를 곱한다.
+	// 최종 색 = (그릴 색 × 알파) + (기존 화면 색 × (1 - 알파))
+	// 이미지의 배경 알파값 -> 1
+	// 그릴색 * 0 + 기존 화면색 * 1 -> 기존 화면색만 남게 된다.
+	//
+	
 	//pGraphicDev->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
 	//pGraphicDev->SetRenderState(D3DRS_ALPHAFUNC, D3DCMP_GREATER);
 	//pGraphicDev->SetRenderState(D3DRS_ALPHAREF, 0xc0);

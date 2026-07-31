@@ -34,6 +34,12 @@ _int CSkyBox::Update_GameObject(const _float& fTimeDelta)
 void CSkyBox::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
+
+	//_matrix	matCamWorld;
+	//m_pGraphicDev->GetTransform(D3DTS_VIEW, &matCamWorld);
+	//D3DXMatrixInverse(&matCamWorld, 0, &matCamWorld);
+	//
+	//m_pTransformCom->Set_Pos(matCamWorld._41, matCamWorld._42 + 3.f, matCamWorld._43);
 }
 
 void CSkyBox::Render_GameObject()

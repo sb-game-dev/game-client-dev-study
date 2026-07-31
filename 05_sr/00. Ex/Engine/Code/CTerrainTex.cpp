@@ -303,7 +303,7 @@ bool CTerrainTex::Ready_HeightMap(const wstring& pFilePath)
 	m_pVB->Lock(0, 0, (void**)&pVertex, 0);
 
 	for (int i = 0; i < vIn.size(); ++i) {
-		m_vHeightmap[i] *= 0.1f;
+		m_vHeightmap[i] *= 0.2f;
 		m_vVertex[i].y = m_vHeightmap[i];
 		pVertex[i].vPosition.y = m_vHeightmap[i];
 	}

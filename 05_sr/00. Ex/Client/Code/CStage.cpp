@@ -49,19 +49,19 @@ void CStage::LateUpdate_Scene(const _float& fTimeDelta)
 
     CCollider* CPlayerCollider = dynamic_cast<CCollider*>
         (CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", L"Player", L"Com_Collider"));
-
+    
+    CTransform* CPlayerTransform = dynamic_cast<CTransform*>
+        (CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", L"Player", L"Com_Transform"));
+    
     CCollider* CMonsterCollider = dynamic_cast<CCollider*>
         (CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", L"Monster", L"Com_Collider"));
 
-    //CCollisionMgr::GetInstance()->CheckCollision(CMonsterCollider, CPlayerCollider);
+    CCollisionMgr::GetInstance()->PhysicalCollision(CMonsterCollider, CPlayerCollider, CPlayerTransform);
 }
 
 void CStage::Render_Scene()
 {
-    //_vec2       vPos = { 100.f, 100.f };    
-    //CFontMgr::GetInstance()->Render_Font(L"Font_Jinji", L"Hello", &vPos, D3DXCOLOR(1.f, 0.f, 0.f, 1.f));
 
-    //sCScene::Render_Scene();
 }
 
 HRESULT CStage::Ready_Environment_Layer(const _tchar* pLayerTag)

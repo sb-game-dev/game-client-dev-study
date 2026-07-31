@@ -88,6 +88,9 @@
     <Filter Include="09. Renderer">
       <UniqueIdentifier>{8560e70c-fb04-4b8b-947c-a78399f1dcd8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Component\00. VIBuffer\06. CCylinderTex">
+      <UniqueIdentifier>{f19b97fe-2dd1-412b-94fc-c6fa80607fff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -192,6 +195,9 @@
     <ClInclude Include="..\Header\CRenderer.h">
       <Filter>09. Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CCylinderTex.h">
+      <Filter>04. Component\00. VIBuffer\06. CCylinderTex</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -278,8 +284,8 @@
     <ClCompile Include="..\Code\CRenderer.cpp">
       <Filter>09. Renderer</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="cpp.hint" />
+    <ClCompile Include="..\Code\CCylinderTex.cpp">
+      <Filter>04. Component\00. VIBuffer\06. CCylinderTex</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
