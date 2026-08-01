@@ -50,11 +50,32 @@ void CStage::LateUpdate_Scene(const _float& fTimeDelta)
 
     CCollider* CPlayerCollider = dynamic_cast<CCollider*>
         (CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", L"Player", L"Com_Collider"));
-    
-    CCollider* CMonsterCollider = dynamic_cast<CCollider*>
-        (CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"BLock_Layer", L"Monster", L"Com_Collider"));
 
-    CCollisionMgr::GetInstance()->PhysicalCollision(CMonsterCollider, CPlayerCollider);
+    CCollider* CMonsterCollider0 = dynamic_cast<CCollider*>
+        (CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"BLock_Layer", L"Monster0", L"Com_Collider"));
+    CCollider* CMonsterCollider1 = dynamic_cast<CCollider*>
+        (CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"BLock_Layer", L"Monster1", L"Com_Collider"));
+    CCollider* CMonsterCollider2 = dynamic_cast<CCollider*>
+        (CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"BLock_Layer", L"Monster2", L"Com_Collider"));
+
+    bool bRiding = false;
+
+    bRiding |= CCollisionMgr::GetInstance()->PhysicalCollision(CMonsterCollider0, CPlayerCollider);
+    bRiding |= CCollisionMgr::GetInstance()->PhysicalCollision(CMonsterCollider1, CPlayerCollider);
+    bRiding |= CCollisionMgr::GetInstance()->PhysicalCollision(CMonsterCollider2, CPlayerCollider);
+    CGameObject* pSrcObj = CPlayerCollider->GetOwner();
+    CTransform* pSrcTransform = dynamic_cast<CTransform*> (pSrcObj->Get_Component(ID_DYNAMIC, L"Com_Transform"));
+    if (bRiding)
+    {
+        pSrcTransform->m_eMoveState = RIDING;
+    }
+    else
+    {
+        if (pSrcTransform->m_ePreMoveState == RIDING)
+        {
+            pSrcTransform->m_eMoveState = FALL;
+        }
+    }
 }
 
 void CStage::Render_Scene()
@@ -146,15 +167,45 @@ HRESULT CStage::Ready_BLock_Layer(const _tchar* pLayerTag)
     if (nullptr == pLayer)
         return E_FAIL;
 
-    CGameObject* pGameObject = nullptr;
-    // Monster
-    pGameObject = CMonster::Create(m_pGraphicDev);
+    vector<_vec3> vMonsterPos;
+    _float x = 70;
+    _float y = 40;
+    for (int i = 0; i < 3; ++i)
+    {
+        vMonsterPos.push_back({ x,y,-100 });
+        x += 10;
+        y += 10;
+    }
 
+    CGameObject* pGameObject = nullptr;
+
+    // Monster0   
+    pGameObject = CMonster::Create(m_pGraphicDev);
     if (nullptr == pGameObject)
         return E_FAIL;
-
-    if (FAILED(pLayer->Add_GameObject(L"Monster", pGameObject)))
+    CTransform* pTransform = dynamic_cast<CTransform*> (pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"));
+    pTransform->m_vInfo[INFO_POS] = vMonsterPos[0];
+    if (FAILED(pLayer->Add_GameObject(L"Monster0", pGameObject)))
         return E_FAIL;
+    // Monster1   
+    pGameObject = CMonster::Create(m_pGraphicDev);
+    if (nullptr == pGameObject)
+        return E_FAIL;
+    pTransform = dynamic_cast<CTransform*> (pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"));
+    pTransform->m_vInfo[INFO_POS] = vMonsterPos[1];
+    if (FAILED(pLayer->Add_GameObject(L"Monster1", pGameObject)))
+        return E_FAIL;
+    // Monster2   
+    pGameObject = CMonster::Create(m_pGraphicDev);
+    if (nullptr == pGameObject)
+        return E_FAIL;
+    pTransform = dynamic_cast<CTransform*> (pGameObject->Get_Component(ID_DYNAMIC, L"Com_Transform"));
+    pTransform->m_vInfo[INFO_POS] = vMonsterPos[2];
+    if (FAILED(pLayer->Add_GameObject(L"Monster2", pGameObject)))
+        return E_FAIL;
+    
+
+
 
     m_mapLayer.insert({ pLayerTag, pLayer });
     return S_OK;

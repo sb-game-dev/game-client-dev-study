@@ -47,10 +47,10 @@ HRESULT CPlayer::Ready_GameObject()
 _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 {
 	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
+	m_pTransformCom->m_ePreMoveState = m_pTransformCom->m_eMoveState;
 
 	Key_Input2(fTimeDelta);
 
-	m_pTransformCom->m_ePreMoveState = m_pTransformCom->m_eMoveState;
 
 	if (m_pTransformCom->m_eMoveState == JUMP || m_pTransformCom->m_eMoveState == FALL)
 	{
@@ -87,7 +87,7 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 	m_pColliderCom->SetCenter(vPos);
 
 
-	//cout << m_pTransformCom->m_eMoveState << endl;
+	cout <<"MoveState: " << m_pTransformCom->m_eMoveState << endl;
 	//cout << m_pTransformCom->m_vInfo[INFO_POS].x << "\t" << m_pTransformCom->m_vInfo[INFO_POS].y << "\t" << m_pTransformCom->m_vInfo[INFO_POS].z << endl;
 }
 
@@ -246,7 +246,7 @@ void CPlayer::Key_Input2(const _float& fTimeDelta)
 		m_pTransformCom->Move_Pos(D3DXVec3Normalize(&m_vPlayerRight, &m_vPlayerRight), m_fSpeed, fTimeDelta);
 	}
 
-	if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_A))
+	else if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_A))
 	{
 		memcpy(&m_vPlayerRight, &pCameraTransformCom->m_vInfo[INFO_RIGHT], sizeof(_vec3));
 		m_vPlayerRight.y = 0;
@@ -275,8 +275,6 @@ void CPlayer::Key_Input2(const _float& fTimeDelta)
 	}
 	if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_SPACE))
 	{
-		cout << "Space State : " << m_pTransformCom->m_eMoveState << endl;
-		cout << "Prev State  : " << m_pTransformCom->m_ePreMoveState << endl;
 		if (m_pTransformCom->m_eMoveState == GROUND || m_pTransformCom->m_eMoveState == RIDING)
 		{
 			m_pTransformCom->m_eMoveState = JUMP;
@@ -346,7 +344,6 @@ void CPlayer::Shoot()
 	++m_iBulletCnt;
 
 	const _tchar* szBuff = L"Bullet" + m_iBulletCnt;
-	//cout << szBuff << endl;
 	pLayer->Add_GameObject(szBuff, pBullet);
 }
 
