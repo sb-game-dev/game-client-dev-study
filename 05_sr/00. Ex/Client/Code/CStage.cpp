@@ -27,9 +27,10 @@ HRESULT CStage::Ready_Scene()
      if (FAILED(Ready_Environment_Layer(L"Environment_Layer")))
         return E_FAIL;
 
-    if (FAILED(Ready_GameLogic_Layer(L"GameLogic_Layer")))
-        return E_FAIL;
-
+     if (FAILED(Ready_GameLogic_Layer(L"GameLogic_Layer")))
+         return E_FAIL;
+     if (FAILED(Ready_BLock_Layer(L"BLock_Layer")))
+         return E_FAIL;
     if (FAILED(Ready_UI_Layer(L"UI_Layer")))
         return E_FAIL;
 
@@ -50,11 +51,8 @@ void CStage::LateUpdate_Scene(const _float& fTimeDelta)
     CCollider* CPlayerCollider = dynamic_cast<CCollider*>
         (CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", L"Player", L"Com_Collider"));
     
-    CTransform* CPlayerTransform = dynamic_cast<CTransform*>
-        (CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", L"Player", L"Com_Transform"));
-    
     CCollider* CMonsterCollider = dynamic_cast<CCollider*>
-        (CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", L"Monster", L"Com_Collider"));
+        (CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"BLock_Layer", L"Monster", L"Com_Collider"));
 
     CCollisionMgr::GetInstance()->PhysicalCollision(CMonsterCollider, CPlayerCollider);
 }
@@ -72,10 +70,6 @@ HRESULT CStage::Ready_Environment_Layer(const _tchar* pLayerTag)
         return E_FAIL;
 
     CGameObject* pGameObject = nullptr;
-
-    //_vec3   vEye{ 0.f, 10.f, -10.f };
-    //_vec3   vAt{ 0.f, 0.f, 1.f };
-    //_vec3   vUp{ 0.f, 1.f, 0.f };
 
     // MainCamera
    
@@ -99,15 +93,6 @@ HRESULT CStage::Ready_Environment_Layer(const _tchar* pLayerTag)
         return E_FAIL;
     CCameraMgr::GetInstance()->AddCamera(pGameObject);
 
-       
-    // Terrain
-    pGameObject = CTerrain::Create(m_pGraphicDev);
-
-    if (nullptr == pGameObject)
-        return E_FAIL;
-
-    if (FAILED(pLayer->Add_GameObject(L"Terrain", pGameObject)))
-        return E_FAIL;
 
     // SkyBox
     pGameObject = CSkyBox::Create(m_pGraphicDev);
@@ -140,17 +125,38 @@ HRESULT CStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
     if (FAILED(pLayer->Add_GameObject(L"Player", pGameObject)))
         return E_FAIL;
 
-    // Monster
-    pGameObject = CMonster::Create(m_pGraphicDev);
-    
+    // Terrain
+    pGameObject = CTerrain::Create(m_pGraphicDev);
+
     if (nullptr == pGameObject)
         return E_FAIL;
-    
-    if (FAILED(pLayer->Add_GameObject(L"Monster", pGameObject)))
+
+    if (FAILED(pLayer->Add_GameObject(L"Terrain", pGameObject)))
         return E_FAIL;
-    
+
     m_mapLayer.insert({ pLayerTag, pLayer });
 
+    return S_OK;
+}
+
+HRESULT CStage::Ready_BLock_Layer(const _tchar* pLayerTag)
+{
+    CLayer* pLayer = CLayer::Create();
+
+    if (nullptr == pLayer)
+        return E_FAIL;
+
+    CGameObject* pGameObject = nullptr;
+    // Monster
+    pGameObject = CMonster::Create(m_pGraphicDev);
+
+    if (nullptr == pGameObject)
+        return E_FAIL;
+
+    if (FAILED(pLayer->Add_GameObject(L"Monster", pGameObject)))
+        return E_FAIL;
+
+    m_mapLayer.insert({ pLayerTag, pLayer });
     return S_OK;
 }
 

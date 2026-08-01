@@ -68,7 +68,7 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 	//Mouse_Input(fTimeDelta);
 	//MoveToTarget(fTimeDelta);
 	CTerrainTex* pTerrainCom = dynamic_cast<CTerrainTex*>
-		(CManagement::GetInstance()->Get_Component(ID_STATIC, L"Environment_Layer", L"Terrain", L"Com_Buffer"));
+		(CManagement::GetInstance()->Get_Component(ID_STATIC, L"GameLogic_Layer", L"Terrain", L"Com_Buffer"));
 
 	_vec3	vPos;
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
