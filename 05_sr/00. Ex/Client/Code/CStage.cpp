@@ -56,7 +56,7 @@ void CStage::LateUpdate_Scene(const _float& fTimeDelta)
     CCollider* CMonsterCollider = dynamic_cast<CCollider*>
         (CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", L"Monster", L"Com_Collider"));
 
-    CCollisionMgr::GetInstance()->PhysicalCollision(CMonsterCollider, CPlayerCollider, CPlayerTransform);
+    CCollisionMgr::GetInstance()->PhysicalCollision(CMonsterCollider, CPlayerCollider);
 }
 
 void CStage::Render_Scene()

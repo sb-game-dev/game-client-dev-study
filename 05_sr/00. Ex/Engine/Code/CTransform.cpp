@@ -141,12 +141,15 @@ CTransform* CTransform::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	return pTransform;
 }
 
-CComponent* CTransform::Clone()
-{
-	return new CTransform(*this);
-}
-
 void CTransform::Free()
 {
 	CComponent::Free();
+}
+
+CComponent* CTransform::Clone(CGameObject* pOwner)
+{
+	CTransform* pTransform = new CTransform(*this);
+	pTransform->SetOwner(pOwner);
+
+	return pTransform;
 }

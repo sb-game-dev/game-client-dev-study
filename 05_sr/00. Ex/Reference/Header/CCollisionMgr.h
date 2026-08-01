@@ -19,7 +19,7 @@ public:
 
 public:
 	bool	CheckCollision(CCollider* pDst, CCollider* pSrc, float* fX, float* fY, float* fZ);
-	void	PhysicalCollision(CCollider* pDst, CCollider* pSrc,  CTransform* pSrcTransform);
+	void	PhysicalCollision(CCollider* pDst, CCollider* pSrc);
 
 };
 

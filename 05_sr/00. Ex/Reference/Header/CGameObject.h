@@ -4,6 +4,7 @@
 //#include "CRenderer.h"
 
 BEGIN(Engine)
+class CCollider;
 
 class ENGINE_DLL CGameObject : public CBase
 {
@@ -20,6 +21,8 @@ public:
 	virtual			_int		Update_GameObject(const _float& fTimeDelta);
 	virtual			void		LateUpdate_GameObject(const _float& fTimeDelta);
 	virtual			void		Render_GameObject();
+
+	//virtual			void		CollisionEvent(CGameObject* pGameObject);
 
 protected:
 	map<const _tchar*, CComponent*>			m_mapComponent[ID_END];

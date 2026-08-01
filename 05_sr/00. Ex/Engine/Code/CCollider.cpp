@@ -51,12 +51,16 @@ CCollider* CCollider::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	return pTransform;
 }
 
-CComponent* CCollider::Clone()
-{
-	return new CCollider(*this);
-}
 
 void CCollider::Free()
 {
 	CComponent::Free();
+}
+
+CComponent* CCollider::Clone(CGameObject* pOwner)
+{
+	CCollider* pCollider = new CCollider(*this);
+	pCollider->SetOwner(pOwner);
+
+	return pCollider;
 }

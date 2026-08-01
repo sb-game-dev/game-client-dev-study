@@ -32,7 +32,7 @@ public:
 	vector<_vec3> GetVertex()	{ return m_vVertex; }
 	vector<_vec3> GetIndex()	{ return m_vIndex; }
 
-	virtual CComponent* Clone();
+	virtual CComponent* Clone(CGameObject* pOwner) override;
 
 private:
 	virtual void	Free();
@@ -47,6 +47,8 @@ private:
 	vector<_vec3>		m_vVertex;
 	vector<_vec3>		m_vIndex;
 	float				m_fHeightWeight;
+
+	// CVIBuffer을(를) 통해 상속됨
 };
 
 END

@@ -103,12 +103,15 @@ CCylinderTex* CCylinderTex::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 	return pPyramidCol;
 }
-CComponent* CCylinderTex::Clone()
-{
-	return new CCylinderTex(*this);
-}
-
 void	CCylinderTex::Free()
 {
 	CVIBuffer::Free();
+}
+
+CComponent* CCylinderTex::Clone(CGameObject* pOwner)
+{
+	CCylinderTex* pCylinderTex = new CCylinderTex(*this);
+	pCylinderTex->SetOwner(pOwner);
+
+	return pCylinderTex;
 }

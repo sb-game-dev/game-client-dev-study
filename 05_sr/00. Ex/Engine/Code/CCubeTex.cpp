@@ -128,12 +128,16 @@ CCubeTex* CCubeTex::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	return pCubeTex;
 }
 
-CComponent* CCubeTex::Clone()
-{
-	return new CCubeTex(*this);
-}
-
 void CCubeTex::Free()
 {
 	CVIBuffer::Free();
+}
+
+
+CComponent* CCubeTex::Clone(CGameObject* pOwner)
+{
+	CCubeTex* pCubeTex = new CCubeTex(*this);
+	pCubeTex->SetOwner(pOwner);
+
+	return pCubeTex;
 }

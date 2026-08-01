@@ -2,6 +2,7 @@
 #include "CComponent.h"
 
 BEGIN(Engine)
+class CGameObject;
 
 class ENGINE_DLL CCollider :  public CComponent
 {
@@ -20,8 +21,6 @@ public:
 	HRESULT		Ready_CColliderCom();
 	static		CCollider* Create(LPDIRECT3DDEVICE9 pGraphicDev);
 
-	virtual		CComponent* Clone();
-
 	void		SetCenter(_vec3 vCenter)		{ m_vCenter = vCenter; }
 	_vec3		GetCenter()						{ return m_vCenter; }
 
@@ -34,6 +33,9 @@ private:
 
 private:
 	virtual		void		Free();
+
+	// CComponent을(를) 통해 상속됨
+	CComponent* Clone(CGameObject* pOwner) override;
 };
 
 END

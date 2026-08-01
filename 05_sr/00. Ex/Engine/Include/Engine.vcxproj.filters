@@ -70,26 +70,23 @@
     <Filter Include="07. KeyMgr">
       <UniqueIdentifier>{c79f5de0-806b-411a-a0b8-bd9d7ee831fe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. Component\03. Camera">
-      <UniqueIdentifier>{3b3a6ac4-bf9f-4855-b14a-0c621df1370a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="04. Component\00. VIBuffer\05. TerrainTex">
       <UniqueIdentifier>{94e88071-40c9-4533-877e-f1230f24eab4}</UniqueIdentifier>
     </Filter>
     <Filter Include="08. DInputMgr">
       <UniqueIdentifier>{6abb3279-31a1-4dc5-894a-3f7c0997aab4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. Component\04. Collider">
-      <UniqueIdentifier>{8ec7a197-9adc-4921-97d4-ce7e948246d7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04. Component\05. CollisionMgr">
-      <UniqueIdentifier>{08e9b278-e72e-42bc-8f2b-d6b84c1ba9ae}</UniqueIdentifier>
-    </Filter>
     <Filter Include="09. Renderer">
       <UniqueIdentifier>{8560e70c-fb04-4b8b-947c-a78399f1dcd8}</UniqueIdentifier>
     </Filter>
     <Filter Include="04. Component\00. VIBuffer\06. CCylinderTex">
       <UniqueIdentifier>{f19b97fe-2dd1-412b-94fc-c6fa80607fff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\03. Collider">
+      <UniqueIdentifier>{8ec7a197-9adc-4921-97d4-ce7e948246d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\04. CollisionMgr">
+      <UniqueIdentifier>{08e9b278-e72e-42bc-8f2b-d6b84c1ba9ae}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -180,17 +177,14 @@
     <ClInclude Include="..\Header\CKeyMgr.h">
       <Filter>07. KeyMgr</Filter>
     </ClInclude>
-    <ClInclude Include="..\Header\CCameraCom.h">
-      <Filter>04. Component\03. Camera</Filter>
-    </ClInclude>
     <ClInclude Include="..\Header\CDInputMgr.h">
       <Filter>08. DInputMgr</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CCollider.h">
-      <Filter>04. Component\04. Collider</Filter>
+      <Filter>04. Component\03. Collider</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CCollisionMgr.h">
-      <Filter>04. Component\05. CollisionMgr</Filter>
+      <Filter>04. Component\04. CollisionMgr</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CRenderer.h">
       <Filter>09. Renderer</Filter>
@@ -269,17 +263,14 @@
     <ClCompile Include="..\Code\CKeyMgr.cpp">
       <Filter>07. KeyMgr</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CCameraCom.cpp">
-      <Filter>04. Component\03. Camera</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\CDInputMgr.cpp">
       <Filter>08. DInputMgr</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CCollider.cpp">
-      <Filter>04. Component\04. Collider</Filter>
+      <Filter>04. Component\03. Collider</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CCollisionMgr.cpp">
-      <Filter>04. Component\05. CollisionMgr</Filter>
+      <Filter>04. Component\04. CollisionMgr</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CRenderer.cpp">
       <Filter>09. Renderer</Filter>

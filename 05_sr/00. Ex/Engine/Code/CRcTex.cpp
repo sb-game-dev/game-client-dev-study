@@ -86,12 +86,16 @@ CRcTex* CRcTex::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	return pRcTex;
 }
 
-CComponent* CRcTex::Clone()
-{
-	return new CRcTex(*this);
-}
 
 void CRcTex::Free()
 {
 	CVIBuffer::Free();
+}
+
+CComponent* CRcTex::Clone(CGameObject* pOwner)
+{
+	CRcTex* pRcTex = new CRcTex(*this);
+	pRcTex->SetOwner(pOwner);
+
+	return pRcTex;
 }

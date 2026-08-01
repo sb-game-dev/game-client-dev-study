@@ -79,12 +79,15 @@ CTriCol* CTriCol::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	return pTriCol;
 }
 
-CComponent* CTriCol::Clone()
-{
-	return new CTriCol(*this);
-}
-
 void CTriCol::Free()
 {
 	CVIBuffer::Free();
+}
+
+CComponent* CTriCol::Clone(CGameObject* pOwner)
+{
+	CTriCol* pTriCol = new CTriCol(*this);
+	pTriCol->SetOwner(pOwner);
+
+	return pTriCol;
 }

@@ -48,6 +48,8 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 {
 	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
 
+	Key_Input2(fTimeDelta);
+
 	m_pTransformCom->m_ePreMoveState = m_pTransformCom->m_eMoveState;
 
 	if (m_pTransformCom->m_eMoveState == JUMP || m_pTransformCom->m_eMoveState == FALL)
@@ -63,7 +65,6 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
 
-	Key_Input2(fTimeDelta);
 	//Mouse_Input(fTimeDelta);
 	//MoveToTarget(fTimeDelta);
 	CTerrainTex* pTerrainCom = dynamic_cast<CTerrainTex*>
@@ -102,7 +103,7 @@ HRESULT CPlayer::Add_Component()
 	Engine::CComponent* pComponent = nullptr;
 
 	// RcCol
-	pComponent = m_pBufferCom = dynamic_cast<CPyramidCol*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Pyramid"));
+	pComponent = m_pBufferCom = dynamic_cast<CPyramidCol*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Pyramid", this));
 	if (nullptr == pComponent)
 		return E_FAIL;
 
@@ -110,14 +111,14 @@ HRESULT CPlayer::Add_Component()
 
 	/////////////////////////////////////////////////////////////////
 	// Transform
-	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform"));
+	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform", this));
 	if (nullptr == pComponent)
 		return E_FAIL;
 
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
 
 	// Collider
-	pComponent = m_pColliderCom = dynamic_cast<CCollider*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Collider"));
+	pComponent = m_pColliderCom = dynamic_cast<CCollider*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Collider", this));
 	if (nullptr == pComponent)
 		return E_FAIL;
 
@@ -274,6 +275,8 @@ void CPlayer::Key_Input2(const _float& fTimeDelta)
 	}
 	if (CDInputMgr::GetInstance()->Get_DIKeyState(DIK_SPACE))
 	{
+		cout << "Space State : " << m_pTransformCom->m_eMoveState << endl;
+		cout << "Prev State  : " << m_pTransformCom->m_ePreMoveState << endl;
 		if (m_pTransformCom->m_eMoveState == GROUND || m_pTransformCom->m_eMoveState == RIDING)
 		{
 			m_pTransformCom->m_eMoveState = JUMP;

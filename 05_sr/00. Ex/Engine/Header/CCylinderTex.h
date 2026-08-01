@@ -18,10 +18,12 @@ public:
 
 public:
 	static CCylinderTex* Create(LPDIRECT3DDEVICE9 pGraphicDev);
-	virtual CComponent* Clone();
+	virtual CComponent* Clone(CGameObject* pOwner) override;
 
 private:
 	virtual void	Free();
+
+	// CVIBuffer을(를) 통해 상속됨
 };
 
 END

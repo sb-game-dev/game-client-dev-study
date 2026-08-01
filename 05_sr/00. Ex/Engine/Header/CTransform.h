@@ -56,10 +56,12 @@ public:
 
 public:
 	static CTransform* Create(LPDIRECT3DDEVICE9 pGraphicDev);
-	virtual CComponent* Clone();
+	virtual CComponent* Clone(CGameObject* pOwner) override;
 
 private:
 	virtual void		Free();
+
+	// CComponent을(를) 통해 상속됨
 };
 
 END

@@ -23,11 +23,12 @@ public:
 								 TEXTUREID eID, 
 								 const _tchar* pPath, 
 								 const _uint& iCnt = 1);
+	virtual CComponent* Clone(CGameObject* pOwner) override;
 
-	virtual		CComponent* Clone();
 
 private:
 	virtual		void		Free();
+
 };
 
 END

@@ -103,12 +103,15 @@ CPyramidCol* CPyramidCol::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 
 	return pPyramidCol;
 }
-CComponent* CPyramidCol::Clone() 
-{
-	return new CPyramidCol(*this);
-}
-
 void	CPyramidCol::Free()
 {
 	CVIBuffer::Free();
+}
+
+CComponent* CPyramidCol::Clone(CGameObject* pOwner)
+{
+	CPyramidCol* pPyramidCol = new CPyramidCol(*this);
+	pPyramidCol->SetOwner(pOwner);
+
+	return pPyramidCol;
 }

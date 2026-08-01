@@ -1,6 +1,9 @@
 #include "CCollisionMgr.h"
 #include "CManagement.h"
 
+#include <io.h>
+#include <iostream>
+
 IMPLEMENT_SINGLETON(CCollisionMgr)
 
 CCollisionMgr::CCollisionMgr()
@@ -32,9 +35,9 @@ bool CCollisionMgr::CheckCollision(CCollider* pDst, CCollider* pSrc, float* fX, 
 	_vec3 DstHalfSize = pDst->GetHalfSize();
 	_vec3 SrcHalfSize = pSrc->GetHalfSize();
 
-	if (fabsf(DstCenter.x - SrcCenter.x) < DstHalfSize.x + SrcHalfSize.x
-		&& fabsf(DstCenter.y - SrcCenter.y) < DstHalfSize.y + SrcHalfSize.y
-		&& fabsf(DstCenter.z - SrcCenter.z) < DstHalfSize.z + SrcHalfSize.z)
+	if (fabsf(DstCenter.x - SrcCenter.x) <= DstHalfSize.x + SrcHalfSize.x
+		&& fabsf(DstCenter.y - SrcCenter.y) <= DstHalfSize.y + SrcHalfSize.y
+		&& fabsf(DstCenter.z - SrcCenter.z) <= DstHalfSize.z + SrcHalfSize.z)
 	{
 		*fX = fabsf(fabsf(DstCenter.x - SrcCenter.x) - (DstHalfSize.x + SrcHalfSize.x));
 		*fY = fabsf(fabsf(DstCenter.y - SrcCenter.y) - (DstHalfSize.y + SrcHalfSize.y));
@@ -46,7 +49,7 @@ bool CCollisionMgr::CheckCollision(CCollider* pDst, CCollider* pSrc, float* fX, 
 	return false;
 }
 
-void CCollisionMgr::PhysicalCollision(CCollider* pDst, CCollider* pSrc, CTransform* pSrcTransform)
+void CCollisionMgr::PhysicalCollision(CCollider* pDst, CCollider* pSrc)
 {
 	float fX, fY, fZ;
 
@@ -59,6 +62,8 @@ void CCollisionMgr::PhysicalCollision(CCollider* pDst, CCollider* pSrc, CTransfo
 
 		if (fX == min(fX, fY, fZ))
 		{
+			CGameObject* pSrcObj = pSrc->GetOwner();
+			CTransform* pSrcTransform = dynamic_cast<CTransform*> (pSrcObj->Get_Component(ID_DYNAMIC, L"Com_Transform"));
 			if (vDS.x > 0)
 				pSrcTransform->m_vInfo[INFO_POS].x += fX;
 			else 
@@ -67,6 +72,8 @@ void CCollisionMgr::PhysicalCollision(CCollider* pDst, CCollider* pSrc, CTransfo
 
 		if (fY == min(fX, fY, fZ))
 		{
+			CGameObject* pSrcObj = pSrc->GetOwner();
+			CTransform* pSrcTransform = dynamic_cast<CTransform*> (pSrcObj->Get_Component(ID_DYNAMIC, L"Com_Transform"));
 			if (vDS.y > 0)
 			{
 				pSrcTransform->m_vInfo[INFO_POS].y += fY;
@@ -81,6 +88,8 @@ void CCollisionMgr::PhysicalCollision(CCollider* pDst, CCollider* pSrc, CTransfo
 
 		if (fZ == min(fX, fY, fZ))
 		{
+			CGameObject* pSrcObj = pSrc->GetOwner();
+			CTransform* pSrcTransform = dynamic_cast<CTransform*> (pSrcObj->Get_Component(ID_DYNAMIC, L"Com_Transform"));
 			if (vDS.z > 0)
 				pSrcTransform->m_vInfo[INFO_POS].z += fZ;
 			else 
@@ -89,7 +98,8 @@ void CCollisionMgr::PhysicalCollision(CCollider* pDst, CCollider* pSrc, CTransfo
 	}
 	else
 	{
-		cout << "CollisionExit" << endl;
+		CGameObject* pSrcObj = pSrc->GetOwner();
+		CTransform* pSrcTransform = dynamic_cast<CTransform*> (pSrcObj->Get_Component(ID_DYNAMIC, L"Com_Transform"));
 		if(pSrcTransform->m_ePreMoveState == RIDING)
 		{
 			pSrcTransform->m_eMoveState = FALL;

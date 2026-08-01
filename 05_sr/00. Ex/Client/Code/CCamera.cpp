@@ -155,7 +155,7 @@ HRESULT CCamera::Add_Component()
 {
 	Engine::CComponent* pComponent = nullptr;
 	// Transform
-	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform"));
+	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform", this));
 	if (nullptr == pComponent)
 		return E_FAIL;
 

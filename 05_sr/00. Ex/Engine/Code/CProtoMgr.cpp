@@ -24,14 +24,14 @@ HRESULT CProtoMgr::Ready_Prototype(const _tchar* pComponentTag,
     return S_OK;
 }
 
-CComponent* CProtoMgr::Clone_Prototype(const _tchar* pComponentTag)
+CComponent* CProtoMgr::Clone_Prototype(const _tchar* pComponentTag, CGameObject* pGameObject)
 {
     CComponent* pComponent = Find_Prototype(pComponentTag);
 
     if (nullptr == pComponent)
         return nullptr;
 
-    return pComponent->Clone();
+    return pComponent->Clone(pGameObject);
 }
 
 CComponent* CProtoMgr::Find_Prototype(const _tchar* pComponentTag)

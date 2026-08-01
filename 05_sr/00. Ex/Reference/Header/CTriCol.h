@@ -18,10 +18,11 @@ public:
 
 public:
 	static CTriCol* Create(LPDIRECT3DDEVICE9 pGraphicDev);
-	virtual CComponent* Clone();
+	virtual CComponent* Clone(CGameObject* pOwner) override;
 
 private:
 	virtual void	Free();
+
 };
 
 END

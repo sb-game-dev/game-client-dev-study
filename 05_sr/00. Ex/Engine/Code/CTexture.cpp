@@ -83,10 +83,6 @@ CTexture* CTexture::Create(LPDIRECT3DDEVICE9 pGraphicDev,
     return pTexture;
 }
 
-CComponent* CTexture::Clone()
-{
-    return new CTexture(*this);
-}
 
 void CTexture::Free()
 {
@@ -94,4 +90,12 @@ void CTexture::Free()
 
     for_each(m_vecTexture.begin(), m_vecTexture.end(), Safe_Release<IDirect3DBaseTexture9*>);
     m_vecTexture.clear();
+}
+
+CComponent* CTexture::Clone(CGameObject* pOwner)
+{
+    CTexture* pTexture = new CTexture(*this);
+    pTexture->SetOwner(pOwner);
+
+    return pTexture;
 }

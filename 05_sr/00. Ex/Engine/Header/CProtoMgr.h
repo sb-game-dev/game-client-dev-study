@@ -26,7 +26,7 @@ private:
 
 public:
 	HRESULT		Ready_Prototype(const _tchar* pComponentTag, CComponent* pComponent);
-	CComponent* Clone_Prototype(const _tchar* pComponentTag);
+	CComponent* Clone_Prototype(const _tchar* pComponentTag, CGameObject* pGameObject);
 
 private:
 	CComponent* Find_Prototype(const _tchar* pComponentTag);

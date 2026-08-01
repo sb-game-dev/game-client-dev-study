@@ -52,14 +52,14 @@ HRESULT CTerrain::Add_Component()
 	Engine::CComponent* pComponent = nullptr;
 
 	// 1
-	pComponent = m_pBufferCom = dynamic_cast<CTerrainTex*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_TerrainTex"));
+	pComponent = m_pBufferCom = dynamic_cast<CTerrainTex*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_TerrainTex", this));
 	if (nullptr == pComponent)
 		return E_FAIL;
 
 	//m_pBufferCom->ReadBmp("../Bin/Resource/Texture/Terrain/Height2.bmp");
 	m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
 
-	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform"));
+	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform", this));
 	if (nullptr == pComponent)
 		return E_FAIL;
 
@@ -68,7 +68,7 @@ HRESULT CTerrain::Add_Component()
 	/////////////////////////////////////////////////////////////////
 
 	// Texture
-	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_TerrainTexture"));
+	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_TerrainTexture", this));
 	if (nullptr == pComponent)
 		return E_FAIL;
 

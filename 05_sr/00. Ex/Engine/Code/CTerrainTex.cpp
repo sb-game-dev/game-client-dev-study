@@ -128,6 +128,7 @@ int CTerrainTex::GetHeightmapEntry(int iRow, int iCol)
 	return m_vHeightmap[iRow * VTXCNTX + iCol];
 }
 
+
 float CTerrainTex::GetHeight(float fX, float fZ)
 {
 	fZ *= -1;
@@ -209,17 +210,18 @@ void CTerrainTex::SetHeightmapEntry(int row, int col, int value)
 	m_vHeightmap[row * VTXCNTX + col] = value;
 }
 
-CComponent* CTerrainTex::Clone()
-{
-	return new CTerrainTex(*this);
-}
-
 void CTerrainTex::Free()
 {
 	CVIBuffer::Free();
 }
 
+CComponent* CTerrainTex::Clone(CGameObject* pOwner)
+{
+	CTerrainTex* pTerrainTex = new CTerrainTex(*this);
+	pTerrainTex->SetOwner(pOwner);
 
+	return pTerrainTex;
+}
 bool CTerrainTex::Ready_HeightMap(const wstring& pFilePath)
 {
 	ifstream inFile(pFilePath.c_str(), ios::binary);

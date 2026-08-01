@@ -125,12 +125,16 @@ CRcCol* CRcCol::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	return pRcCol;
 }
 
-CComponent* CRcCol::Clone()
-{
-	return new CRcCol(*this);
-}
-
 void CRcCol::Free()
 {
 	CVIBuffer::Free();
+}
+
+
+CComponent* CRcCol::Clone(CGameObject* pOwner)
+{
+	CRcCol* pRcCol = new CRcCol(*this);
+	pRcCol->SetOwner(pOwner);
+
+	return pRcCol;
 }
