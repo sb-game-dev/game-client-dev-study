@@ -60,9 +60,9 @@ void CStage::LateUpdate_Scene(const _float& fTimeDelta)
 
     bool bRiding = false;
 
-    bRiding |= CCollisionMgr::GetInstance()->PhysicalCollision(CMonsterCollider0, CPlayerCollider);
-    bRiding |= CCollisionMgr::GetInstance()->PhysicalCollision(CMonsterCollider1, CPlayerCollider);
-    bRiding |= CCollisionMgr::GetInstance()->PhysicalCollision(CMonsterCollider2, CPlayerCollider);
+    if(CCollisionMgr::GetInstance()->PhysicalCollision(CMonsterCollider0, CPlayerCollider)) bRiding = true;
+    if(CCollisionMgr::GetInstance()->PhysicalCollision(CMonsterCollider1, CPlayerCollider)) bRiding = true;
+    if(CCollisionMgr::GetInstance()->PhysicalCollision(CMonsterCollider2, CPlayerCollider)) bRiding = true;
     CGameObject* pSrcObj = CPlayerCollider->GetOwner();
     CTransform* pSrcTransform = dynamic_cast<CTransform*> (pSrcObj->Get_Component(ID_DYNAMIC, L"Com_Transform"));
     if (bRiding)
