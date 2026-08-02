@@ -77,19 +77,18 @@ void CCamera::LateUpdate_GameObject(const _float& fTimeDelta)
 	{
 	case Engine::PLAYER1:
 		MouseControl(&m_vEye, &m_vAt, &m_vUp, &m_fFov, fTimeDelta);
-		MouseFix();
 		//Direct_Follow(&m_vEye, &m_vAt, &m_vUp);
+		
 		//D3DXMatrixLookAtLH(&m_matView, &m_vEye, &m_vAt, &m_vUp);
 		CalculateVeiw(&m_matView, &m_vEye, &m_vAt, &m_vUp);
-		//m_pGraphicDev->SetTransform(D3DTS_VIEW, &matView);
 		break;
 	case Engine::PLAYER2:
 		break;
 	case Engine::MAP:
 		ViewWolrdMap(&m_vEye, &m_vAt, &m_vUp);
 		//D3DXMatrixLookAtLH(&m_matView, &m_vEye, &m_vAt, &m_vUp);
+
 		CalculateVeiw(&m_matView, &m_vEye, &m_vAt, &m_vUp);
-		//m_pGraphicDev->SetTransform(D3DTS_VIEW, &matView);
 		break;
 	case Engine::CAMERATYPE_END:
 		break;
@@ -256,7 +255,7 @@ void CCamera::MouseControl(_vec3* vEye, _vec3* vAt, _vec3* vUp, float* fFov, con
 		D3DXVec3TransformNormal(vAt, vAt, &matRot[i]);
 
 	// 4. Eye 이동
-	*vEye = vPlayerPos - *vAt * 10;
+	*vEye = vPlayerPos - *vAt * 20;
 
 	// 5. At 이동
 	*vAt += *vEye;
@@ -269,6 +268,9 @@ void CCamera::MouseControl(_vec3* vEye, _vec3* vAt, _vec3* vUp, float* fFov, con
 	D3DXVec3Cross(&cross, &up, &m_pTransformCom->m_vInfo[INFO_LOOK]);
 
 	m_pTransformCom->m_vInfo[INFO_RIGHT] = cross;
+
+
+	MouseFix();
 
 	//cout << "cross: " << cross.y << endl;
 }

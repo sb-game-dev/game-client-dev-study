@@ -2,6 +2,7 @@
 #include "CSkyBox.h"
 #include "CProtoMgr.h"
 #include "CRenderer.h"
+#include "CCameraMgr.h"
 
 CSkyBox::CSkyBox(LPDIRECT3DDEVICE9 pGraphicDev)
 	:CGameObject(pGraphicDev)
@@ -35,11 +36,12 @@ void CSkyBox::LateUpdate_GameObject(const _float& fTimeDelta)
 {
 	CGameObject::LateUpdate_GameObject(fTimeDelta);
 
-	//_matrix	matCamWorld;
-	//m_pGraphicDev->GetTransform(D3DTS_VIEW, &matCamWorld);
-	//D3DXMatrixInverse(&matCamWorld, 0, &matCamWorld);
-	//
-	//m_pTransformCom->Set_Pos(matCamWorld._41, matCamWorld._42 + 3.f, matCamWorld._43);
+
+	_matrix	matView;
+	matView = CCameraMgr::GetInstance()->GetCameraView(PLAYER1);
+
+	D3DXMatrixInverse(&matView, 0, &matView);
+	m_pTransformCom->Set_Pos(matView._41, matView._42 + 3.f, matView._43);
 }
 
 void CSkyBox::Render_GameObject()
