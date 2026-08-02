@@ -24,6 +24,7 @@ namespace Engine
 
 	enum MOVE_STATE { GROUND, JUMP, FALL, RIDING, MOVE_END };
 
+	enum OBJ_ID { OBJ_PLAYER, OBJ_MONSTER, OBJ_END };
 
 }
 #endif // Engine_Enum_h__

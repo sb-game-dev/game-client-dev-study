@@ -76,9 +76,9 @@ void CCamera::LateUpdate_GameObject(const _float& fTimeDelta)
 	switch (m_eCameraType)
 	{
 	case Engine::PLAYER1:
-		//MouseControl(&m_vEye, &m_vAt, &m_vUp, &m_fFov, fTimeDelta);
-		//MouseFix();
-		Direct_Follow(&m_vEye, &m_vAt, &m_vUp);
+		MouseControl(&m_vEye, &m_vAt, &m_vUp, &m_fFov, fTimeDelta);
+		MouseFix();
+		//Direct_Follow(&m_vEye, &m_vAt, &m_vUp);
 		//D3DXMatrixLookAtLH(&m_matView, &m_vEye, &m_vAt, &m_vUp);
 		CalculateVeiw(&m_matView, &m_vEye, &m_vAt, &m_vUp);
 		//m_pGraphicDev->SetTransform(D3DTS_VIEW, &matView);
@@ -103,35 +103,31 @@ void CCamera::Render_GameObject()
 
 _matrix* CCamera::CalculateVeiw(_matrix* matOut, _vec3* vEye, _vec3* vAt, _vec3* vUp)
 {
-	// 1. 항등행렬 설정
 	ZeroMemory(matOut, sizeof(_matrix));
 	for (int i = 0; i < 4; ++i)
 		matOut->m[i][i] = 1;
 	
-	// (Up 벡터 설정??)
-
-
-	// 2. 회전
-	// 2 - 1. 실제 카메라 Look 확인
 	_vec3 vCameraLook = *vAt - *vEye;
 	D3DXVec3Normalize(&vCameraLook, &vCameraLook);
-	// 2 - 2. 카메라 Look vs {0,0,0} 사잇각 + 회전축 구하기(내적 , 외적)
-	_vec3 vLook = { 0,0,1 };
-	_float fAngle = D3DXVec3Dot(&vLook, &vCameraLook);
 
-	_vec3 vCross;
-	D3DXVec3Cross(&vCross, &vLook, &vCameraLook);
+	_vec3 vCameraRight;
+	D3DXVec3Cross(&vCameraRight, vUp, &vCameraLook);
+	D3DXVec3Normalize(&vCameraRight, &vCameraRight);
 
-	// 2 - 3. 카메라 회전
-	D3DXMatrixRotationAxis(matOut, &vCross, fAngle);
+	_vec3 vCameraUp;
+	D3DXVec3Cross(&vCameraUp, &vCameraLook, &vCameraRight);
+	D3DXVec3Normalize(&vCameraUp, &vCameraUp);
 
-	// 3. 좌표 설정
+	for (int i = 0; i < 3; ++i)
+		matOut->m[0][i] = *(((_float*)&vCameraRight) + i);
+	for (int i = 0; i < 3; ++i)
+		matOut->m[1][i] = *(((_float*)&vCameraUp) + i);
+	for (int i = 0; i < 3; ++i)
+		matOut->m[2][i] = *(((_float*)&vCameraLook) + i);
 	for (int i = 0; i < 3; ++i)
 		matOut->m[3][i] = *(((_float*)vEye) + i);
 
-	// 4. 카메라 월드행렬의 역행렬 설정
 	D3DXMatrixInverse(matOut, NULL, matOut);
-
 	return matOut;
 }
 
