@@ -39,10 +39,9 @@ bool CCollisionMgr::CheckCollision(CCollider* pDst, CCollider* pSrc, float* fX, 
 		&& fabsf(DstCenter.y - SrcCenter.y) <= DstHalfSize.y + SrcHalfSize.y
 		&& fabsf(DstCenter.z - SrcCenter.z) <= DstHalfSize.z + SrcHalfSize.z)
 	{
-		*fX = fabsf(fabsf(DstCenter.x - SrcCenter.x) - (DstHalfSize.x + SrcHalfSize.x));
-		*fY = fabsf(fabsf(DstCenter.y - SrcCenter.y) - (DstHalfSize.y + SrcHalfSize.y));
-		*fZ = fabsf(fabsf(DstCenter.z - SrcCenter.z) - (DstHalfSize.z + SrcHalfSize.z));
-
+		*fX = (DstHalfSize.x + SrcHalfSize.x) - fabsf(DstCenter.x - SrcCenter.x);
+		*fY = (DstHalfSize.y + SrcHalfSize.y) - fabsf(DstCenter.y - SrcCenter.y);
+		*fZ = (DstHalfSize.z + SrcHalfSize.z) - fabsf(DstCenter.z - SrcCenter.z);
 
 		return true;
 	}
@@ -109,6 +108,74 @@ bool CCollisionMgr::PhysicalCollision(CCollider* pDst, CCollider* pSrc)
 			pSrcTransform->m_eMoveState = FALL;
 		}
 	}
+}
+
+bool CCollisionMgr::PhysicalCollision(OBJID eDstID, OBJID eSrcID)
+{
+	bool bCollision = false;
+	for (auto pDstCollider : m_ColliderList[eDstID]) 
+	{
+		for (auto pSrcCollider : m_ColliderList[eSrcID])
+		{
+			float fX, fY, fZ;
+			if (CheckCollision(pDstCollider, pSrcCollider, &fX, &fY, &fZ))
+			{
+				_vec3 DstCenter = pDstCollider->GetCenter();
+				_vec3 SrcCenter = pSrcCollider->GetCenter();
+
+				_vec3 vDS = SrcCenter - DstCenter;
+
+				if (fX == min(fX, fY, fZ))
+				{
+					CGameObject* pSrcObj = pSrcCollider->GetOwner();
+					CTransform* pSrcTransform = dynamic_cast<CTransform*> (pSrcObj->Get_Component(ID_DYNAMIC, L"Com_Transform"));
+					if (vDS.x > 0)
+						pSrcTransform->m_vInfo[INFO_POS].x += fX;
+					else
+						pSrcTransform->m_vInfo[INFO_POS].x -= fX;
+					//bCollision = true;
+				}
+
+				if (fY == min(fX, fY, fZ))
+				{
+					CGameObject* pSrcObj = pSrcCollider->GetOwner();
+					CTransform* pSrcTransform = dynamic_cast<CTransform*> (pSrcObj->Get_Component(ID_DYNAMIC, L"Com_Transform"));
+					if (vDS.y > 0)
+					{
+						pSrcTransform->m_vInfo[INFO_POS].y += fY;
+						//pSrcTransform->m_eMoveState = RIDING;
+					}
+					else
+					{
+						pSrcTransform->m_vInfo[INFO_POS].y -= fY;
+						//pSrcTransform->m_eMoveState = FALL;
+					}
+					bCollision = true;
+				}
+
+				if (fZ == min(fX, fY, fZ))
+				{
+					CGameObject* pSrcObj = pSrcCollider->GetOwner();
+					CTransform* pSrcTransform = dynamic_cast<CTransform*> (pSrcObj->Get_Component(ID_DYNAMIC, L"Com_Transform"));
+					if (vDS.z > 0)
+						pSrcTransform->m_vInfo[INFO_POS].z += fZ;
+					else
+						pSrcTransform->m_vInfo[INFO_POS].z -= fZ;
+					//bCollision = true;
+				}
+			}
+		}
+	}
+	if (bCollision)return true;
+	return false;
+	
+}
+
+void CCollisionMgr::AddCollider(OBJID eID, CCollider* pCollider)
+{
+	if (eID > OBJ_END || pCollider == nullptr)
+		return;
+	m_ColliderList[eID].push_back(pCollider);
 }
 
 

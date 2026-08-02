@@ -85,7 +85,7 @@
     <Filter Include="04. Component\03. Collider">
       <UniqueIdentifier>{8ec7a197-9adc-4921-97d4-ce7e948246d7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. Component\04. CollisionMgr">
+    <Filter Include="10. CollisionMgr">
       <UniqueIdentifier>{08e9b278-e72e-42bc-8f2b-d6b84c1ba9ae}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -184,7 +184,7 @@
       <Filter>04. Component\03. Collider</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CCollisionMgr.h">
-      <Filter>04. Component\04. CollisionMgr</Filter>
+      <Filter>10. CollisionMgr</Filter>
     </ClInclude>
     <ClInclude Include="..\Header\CRenderer.h">
       <Filter>09. Renderer</Filter>
@@ -270,7 +270,7 @@
       <Filter>04. Component\03. Collider</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CCollisionMgr.cpp">
-      <Filter>04. Component\04. CollisionMgr</Filter>
+      <Filter>10. CollisionMgr</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\CRenderer.cpp">
       <Filter>09. Renderer</Filter>

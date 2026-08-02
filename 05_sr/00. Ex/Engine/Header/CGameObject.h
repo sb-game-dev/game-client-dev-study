@@ -1,6 +1,7 @@
 #pragma once
 #include "CBase.h"
 #include "CComponent.h"
+//#include "Engine_Enum.h"
 //#include "CRenderer.h"
 
 BEGIN(Engine)
@@ -15,6 +16,8 @@ protected:
 
 public:
 	CComponent* Get_Component(COMPONENTID eID, const _tchar* pComponentTag);
+	void						SetObjID(OBJID eID) { m_eObjID = eID; }
+	OBJID						GetObjID(OBJID eID) { return m_eObjID; }
 
 public:
 	virtual			HRESULT		Ready_GameObject();
@@ -27,7 +30,7 @@ public:
 protected:
 	map<const _tchar*, CComponent*>			m_mapComponent[ID_END];
 	LPDIRECT3DDEVICE9						m_pGraphicDev;
-
+	OBJID									m_eObjID;
 
 private:
 	CComponent* Find_Component(COMPONENTID eID, const _tchar* pComponentTag);

@@ -20,7 +20,11 @@ public:
 public:
 	bool	CheckCollision(CCollider* pDst, CCollider* pSrc, float* fX, float* fY, float* fZ);
 	bool	PhysicalCollision(CCollider* pDst, CCollider* pSrc);
+	bool	PhysicalCollision(OBJID eDstID, OBJID eSrcID);
 
+	void	AddCollider(OBJID eID, CCollider* pCollider);
+private:
+	list<CCollider*>	m_ColliderList[OBJ_END];
 };
 
 END
