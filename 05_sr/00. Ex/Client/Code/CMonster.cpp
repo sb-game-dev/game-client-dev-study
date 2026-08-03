@@ -31,6 +31,7 @@ _int CMonster::Update_GameObject(const _float& fTimeDelta)
 {
 	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
 
+	m_pColliderCom->SetHalfSize(m_pTransformCom->m_vScale);
 
 	return iExit;
 }

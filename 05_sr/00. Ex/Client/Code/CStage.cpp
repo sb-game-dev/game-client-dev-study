@@ -48,20 +48,6 @@ void CStage::LateUpdate_Scene(const _float& fTimeDelta)
 {
     CScene::LateUpdate_Scene(fTimeDelta);
 
-    //bool bRiding = false;
-    
-    //
-    //CCollider* CMonsterCollider0 = dynamic_cast<CCollider*>
-    //    (CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"BLock_Layer", L"Monster0", L"Com_Collider"));
-    //if(CCollisionMgr::GetInstance()->PhysicalCollision(CMonsterCollider0, CPlayerCollider)) bRiding = true;
-
-    //CCollider* CMonsterCollider1 = dynamic_cast<CCollider*>
-    //    (CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"BLock_Layer", L"Monster1", L"Com_Collider"));
-    //CCollider* CMonsterCollider2 = dynamic_cast<CCollider*>
-    //    (CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"BLock_Layer", L"Monster2", L"Com_Collider"));
-    //if(CCollisionMgr::GetInstance()->PhysicalCollision(CMonsterCollider1, CPlayerCollider)) bRiding = true;
-    //if(CCollisionMgr::GetInstance()->PhysicalCollision(CMonsterCollider2, CPlayerCollider)) bRiding = true;
-
     bool bRiding = CCollisionMgr::GetInstance()->PhysicalCollision(OBJ_MONSTER, OBJ_PLAYER);
     CCollider* CPlayerCollider = dynamic_cast<CCollider*>
         (CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", L"Player", L"Com_Collider"));
@@ -212,6 +198,7 @@ HRESULT CStage::Ready_BLock_Layer(const _tchar* pLayerTag)
 
         // CollisonMgr에 콜라이더 등록
         CCollider* pCollider = dynamic_cast<CCollider*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Collider"));
+        pCollider->SetHalfSize({0,0,0});
         CCollisionMgr::GetInstance()->AddCollider(OBJ_MONSTER, pCollider);
 
         const _tchar* szBuff = L"Monster" + i;
