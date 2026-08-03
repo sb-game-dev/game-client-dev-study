@@ -12,6 +12,7 @@
 #include "CCameraMgr.h"
 #include "CCollisionMgr.h"
 #include "CManagement.h"
+#include "CLightMgr.h"
 
 CStage::CStage(LPDIRECT3DDEVICE9 pGraphicDev)
     : CScene(pGraphicDev)
@@ -24,9 +25,11 @@ CStage::~CStage()
 
 HRESULT CStage::Ready_Scene()
 {
-     if (FAILED(Ready_Environment_Layer(L"Environment_Layer")))
+    if (FAILED(Ready_Light()))
         return E_FAIL;
 
+     if (FAILED(Ready_Environment_Layer(L"Environment_Layer")))
+        return E_FAIL;
      if (FAILED(Ready_GameLogic_Layer(L"GameLogic_Layer")))
          return E_FAIL;
      if (FAILED(Ready_BLock_Layer(L"BLock_Layer")))
@@ -138,27 +141,6 @@ HRESULT CStage::Ready_GameLogic_Layer(const _tchar* pLayerTag)
     if (FAILED(pLayer->Add_GameObject(L"Player", pGameObject)))
         return E_FAIL;
 
-    // Terrain
-    pGameObject = CTerrain::Create(m_pGraphicDev);
-
-    if (nullptr == pGameObject)
-        return E_FAIL;
-
-    if (FAILED(pLayer->Add_GameObject(L"Terrain", pGameObject)))
-        return E_FAIL;
-
-    m_mapLayer.insert({ pLayerTag, pLayer });
-
-    return S_OK;
-}
-
-HRESULT CStage::Ready_BLock_Layer(const _tchar* pLayerTag)
-{
-    CLayer* pLayer = CLayer::Create();
-
-    if (nullptr == pLayer)
-        return E_FAIL;
-
     vector<_vec3> vMonsterPos;
     _float x = 0;
     _float y = 0;
@@ -184,7 +166,6 @@ HRESULT CStage::Ready_BLock_Layer(const _tchar* pLayerTag)
         dz *= -1;
     }
 
-    CGameObject* pGameObject = nullptr;
 
     for (int i = 0; i < vMonsterPos.size(); ++i)
     {
@@ -198,7 +179,7 @@ HRESULT CStage::Ready_BLock_Layer(const _tchar* pLayerTag)
 
         // CollisonMgr에 콜라이더 등록
         CCollider* pCollider = dynamic_cast<CCollider*>(pGameObject->Get_Component(ID_DYNAMIC, L"Com_Collider"));
-        pCollider->SetHalfSize({0,0,0});
+        pCollider->SetHalfSize({ 0,0,0 });
         CCollisionMgr::GetInstance()->AddCollider(OBJ_MONSTER, pCollider);
 
         const _tchar* szBuff = L"Monster" + i;
@@ -206,6 +187,29 @@ HRESULT CStage::Ready_BLock_Layer(const _tchar* pLayerTag)
             return E_FAIL;
     }
 
+
+    // Terrain
+    pGameObject = CTerrain::Create(m_pGraphicDev);
+
+    if (nullptr == pGameObject)
+        return E_FAIL;
+
+    if (FAILED(pLayer->Add_GameObject(L"Terrain", pGameObject)))
+        return E_FAIL;
+
+    m_mapLayer.insert({ pLayerTag, pLayer });
+
+    return S_OK;
+}
+
+HRESULT CStage::Ready_BLock_Layer(const _tchar* pLayerTag)
+{
+    CLayer* pLayer = CLayer::Create();
+
+    if (nullptr == pLayer)
+        return E_FAIL;
+
+    
     m_mapLayer.insert({ pLayerTag, pLayer });
     return S_OK;
 }
@@ -221,6 +225,24 @@ HRESULT CStage::Ready_UI_Layer(const _tchar* pLayerTag)
 
     m_mapLayer.insert({ pLayerTag, pLayer });
 
+    return S_OK;
+}
+
+HRESULT CStage::Ready_Light()
+{
+    D3DLIGHT9       tLightInfo;
+    ZeroMemory(&tLightInfo, sizeof(D3DLIGHT9));
+
+    tLightInfo.Type = D3DLIGHT_DIRECTIONAL;
+
+    tLightInfo.Diffuse  = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
+    tLightInfo.Specular = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
+    tLightInfo.Ambient  = D3DXCOLOR(0.f, 0.f, 0.f, 1.f);
+
+    tLightInfo.Direction = { 1.f, -1.f, 1.f };
+
+    if (FAILED(CLightMgr::GetInstance()->Ready_Light(m_pGraphicDev, &tLightInfo, 0)))
+        return E_FAIL;
     return S_OK;
 }
 

@@ -88,6 +88,12 @@
     <Filter Include="10. CollisionMgr">
       <UniqueIdentifier>{08e9b278-e72e-42bc-8f2b-d6b84c1ba9ae}</UniqueIdentifier>
     </Filter>
+    <Filter Include="11. LightMgr">
+      <UniqueIdentifier>{694cb123-c41b-44d8-bb29-047f6a291641}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="11. LightMgr\00. Light">
+      <UniqueIdentifier>{f712ad66-039d-43f5-b4ed-72d002edd5ae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -192,6 +198,12 @@
     <ClInclude Include="..\Header\CCylinderTex.h">
       <Filter>04. Component\00. VIBuffer\06. CCylinderTex</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CLightMgr.h">
+      <Filter>11. LightMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CLight.h">
+      <Filter>11. LightMgr\00. Light</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -277,6 +289,12 @@
     </ClCompile>
     <ClCompile Include="..\Code\CCylinderTex.cpp">
       <Filter>04. Component\00. VIBuffer\06. CCylinderTex</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CLightMgr.cpp">
+      <Filter>11. LightMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CLight.cpp">
+      <Filter>11. LightMgr\00. Light</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -8,6 +8,7 @@
 #include "CCameraMgr.h"
 #include "CCollisionMgr.h"
 #include "CRenderer.h"
+#include "CLightMgr.h"
 CMainApp::CMainApp()
 	: m_pDeviceClass(nullptr), m_pGraphicDev(nullptr)
 	, m_pManagementClass(CManagement::GetInstance())
@@ -112,7 +113,9 @@ HRESULT CMainApp::Ready_DefaultSetting(LPDIRECT3DDEVICE9* ppGraphicDev)
 
 	(*ppGraphicDev)->SetRenderState(D3DRS_LIGHTING, FALSE);
 
-
+	// 텍스처 필터
+	(*ppGraphicDev)->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
+	(*ppGraphicDev)->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
 	// 폰트 추가
 
 	if(FAILED(CFontMgr::GetInstance()->Ready_Font(m_pGraphicDev, L"Font_Default", L"견명조", 20, 15, FW_HEAVY)))
@@ -165,6 +168,7 @@ void CMainApp::Free()
 	Safe_Release(m_pGraphicDev);
 	Safe_Release(m_pDeviceClass);
 
+	CLightMgr::DestroyInstance();
 	CRenderer::DestroyInstance();
 	CCollisionMgr::DestroyInstance();
 	CCameraMgr::DestroyInstance();

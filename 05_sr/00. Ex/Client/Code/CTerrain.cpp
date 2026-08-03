@@ -18,7 +18,6 @@ HRESULT CTerrain::Ready_GameObject()
 		return E_FAIL;
 
 	
-	m_pBufferCom->Ready_HeightMap(L"../Bin/Resource/Texture/Terrain/Height1.bmp");
 	//m_pTransformCom->m_vScale = { 60.f, 60.f, 60.f };
 	CRenderer::GetInstance()->Add_RenderGroup(RENDER_NONALPHA, this);
 
@@ -39,12 +38,16 @@ void CTerrain::LateUpdate_GameObject(const _float& fTimeDelta)
 void CTerrain::Render_GameObject()
 {
 	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
-	//m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, TRUE);
 
 	m_pTextureCom->Set_Texture(0);
+
+	if (FAILED(Set_Material()))
+		return;
+
 	m_pBufferCom->Render_Buffer();
 
-	//m_pGraphicDev->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	m_pGraphicDev->SetRenderState(D3DRS_LIGHTING, FALSE);
 }
 
 HRESULT CTerrain::Add_Component()
@@ -74,6 +77,23 @@ HRESULT CTerrain::Add_Component()
 
 	m_mapComponent[ID_STATIC].insert({ L"Com_Texture", pComponent });
 	///////////////////////////////////////////////////////////////////
+
+	return S_OK;
+}
+
+HRESULT CTerrain::Set_Material()
+{
+	D3DMATERIAL9			tMtrl;
+	ZeroMemory(&tMtrl, sizeof(D3DMATERIAL9));
+
+	tMtrl.Diffuse = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
+	tMtrl.Specular = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
+	tMtrl.Ambient = D3DXCOLOR(0.2f, 0.2f, 0.2f, 1.f);
+
+	tMtrl.Emissive = D3DXCOLOR(0.f, 0.f, 0.f, 0.f);
+	tMtrl.Power = 0.f; // 정반사의 세기
+
+	m_pGraphicDev->SetMaterial(&tMtrl);
 
 	return S_OK;
 }

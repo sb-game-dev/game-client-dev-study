@@ -66,8 +66,12 @@ _uint CLoading::Loading_Stage()
     
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_SkyBoxTexture", Engine::CTexture::Create(m_pGraphicDev, TEX_CUBE, L"../Bin/Resource/Texture/SkyBox/burger3.dds", 1))))
         return E_FAIL;
+
+
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_BlockTexture", Engine::CTexture::Create(m_pGraphicDev, TEX_CUBE, L"../Bin/Resource/Texture/MineCraftBlock.dds", 1))))
+        return E_FAIL;
     
-    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_TerrainTexture", Engine::CTexture::Create(m_pGraphicDev, TEX_NORMAL, L"../Bin/Resource/Texture/Terrain/Terrain0.png", 1))))
+    if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_TerrainTexture", Engine::CTexture::Create(m_pGraphicDev, TEX_NORMAL, L"../Bin/Resource/Texture/Terrain/Grass_0.tga", 1))))
         return E_FAIL;
     
     if (FAILED(CProtoMgr::GetInstance()->Ready_Prototype(L"Proto_BulletTexture", Engine::CTexture::Create(m_pGraphicDev, TEX_NORMAL, L"../Bin/Resource/Texture/Logo/sana.jpg", 1))))

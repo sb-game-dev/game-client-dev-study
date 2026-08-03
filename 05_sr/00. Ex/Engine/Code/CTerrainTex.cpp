@@ -14,7 +14,7 @@ CTerrainTex::CTerrainTex(LPDIRECT3DDEVICE9 pGraphicDev)
 }
 
 CTerrainTex::CTerrainTex(const CTerrainTex& rhs)
-	:CVIBuffer(rhs),m_vVertex(rhs.m_vVertex),m_vIndex(rhs.m_vIndex)
+	:CVIBuffer(rhs),m_vVertex(rhs.m_vVertex),m_vIndex(rhs.m_vIndex), m_vHeightmap(rhs.m_vHeightmap)
 {
 }
 
@@ -44,8 +44,10 @@ HRESULT CTerrainTex::Ready_Buffer()
 
 	float uCoordIncrementSize = 1.f / (iXCnt-1); // 1.f / (iXCnt - 1)
 	float vCoordIncrementSize = 1.f / (iZCnt-1); // 1.f / (iZCnt - 1)
-	m_fHeightWeight = 0.05f;
 
+
+
+	_vec3		vNormal, vSrc, vDst;
 	for (int z = 0; z > -iZCnt; z-=VTXITV)
 	{
 		int j = 0;
@@ -67,13 +69,14 @@ HRESULT CTerrainTex::Ready_Buffer()
 			int iIndex = i * iXCnt + j;
 			m_vVertex.push_back({ float(x),0,float(z) });
 			pVertex[iIndex].vPosition = { float(x),0,float(z)};
-			pVertex[iIndex].vTexUV = { j * uCoordIncrementSize, i * vCoordIncrementSize };
+			pVertex[iIndex].vNormal = { 0,0,0 };
+			pVertex[iIndex].vTexUV = { j * uCoordIncrementSize * 20,
+									   i * vCoordIncrementSize * 20};
 			++j;
 		}
 		++i;
 	}
-	m_pVB->Unlock();
-	/////////////////////////////////////////
+	Ready_HeightMap(L"../Bin/Resource/Texture/Terrain/Height.bmp");
 
 
 	INDEX32* pIndex = NULL;
@@ -87,18 +90,42 @@ HRESULT CTerrainTex::Ready_Buffer()
 			pIndex[iBaseIndex]._0 = i * iXCnt + j;
 			pIndex[iBaseIndex]._1 = i * iXCnt + j + 1;
 			pIndex[iBaseIndex]._2 = (i + 1) * iXCnt + j;
+			m_vIndex.push_back({ (FLOAT)pIndex[iBaseIndex]._0,	(FLOAT)pIndex[iBaseIndex]._1,	(FLOAT)pIndex[iBaseIndex]._2 });
 
-			pIndex[iBaseIndex + 1]._0 = (i + 1) * iXCnt + j;
-			pIndex[iBaseIndex + 1]._1 = i * iXCnt + j + 1;
-			pIndex[iBaseIndex + 1]._2 = (i + 1) * iXCnt + j + 1;
+			vDst = pVertex[pIndex[iBaseIndex]._0].vPosition - pVertex[pIndex[iBaseIndex]._2].vPosition;
+			vSrc = pVertex[pIndex[iBaseIndex]._1].vPosition - pVertex[pIndex[iBaseIndex]._0].vPosition;
 
-			m_vIndex.push_back({ (FLOAT)pIndex[iBaseIndex]._0,		(FLOAT)pIndex[iBaseIndex]._1,		(FLOAT)pIndex[iBaseIndex]._2 });
-			m_vIndex.push_back({ (FLOAT)pIndex[iBaseIndex + 1]._0,	(FLOAT)pIndex[iBaseIndex + 1]._1,	(FLOAT)pIndex[iBaseIndex + 2]._2 });
+			D3DXVec3Cross(&vNormal, &vDst, &vSrc);
 
-			iBaseIndex += 2;
+			pVertex[pIndex[iBaseIndex]._0].vNormal += vNormal;
+			pVertex[pIndex[iBaseIndex]._1].vNormal += vNormal;
+			pVertex[pIndex[iBaseIndex]._2].vNormal += vNormal;
+
+			iBaseIndex++;
+
+			pIndex[iBaseIndex]._0 = (i + 1) * iXCnt + j;
+			pIndex[iBaseIndex]._1 = i * iXCnt + j + 1;
+			pIndex[iBaseIndex]._2 = (i + 1) * iXCnt + j + 1;
+
+			vDst = pVertex[pIndex[iBaseIndex]._0].vPosition - pVertex[pIndex[iBaseIndex]._2].vPosition;
+			vSrc = pVertex[pIndex[iBaseIndex]._1].vPosition - pVertex[pIndex[iBaseIndex]._0].vPosition;
+
+			D3DXVec3Cross(&vNormal, &vDst, &vSrc);
+
+			pVertex[pIndex[iBaseIndex]._0].vNormal += vNormal;
+			pVertex[pIndex[iBaseIndex]._1].vNormal += vNormal;
+			pVertex[pIndex[iBaseIndex]._2].vNormal += vNormal;
+
+			m_vIndex.push_back({ (FLOAT)pIndex[iBaseIndex]._0,	(FLOAT)pIndex[iBaseIndex]._1,	(FLOAT)pIndex[iBaseIndex]._2 });
+
+			iBaseIndex ++;
 		}
 	}
 
+	for (_uint i = 0; i < m_dwVtxCnt; ++i)
+		D3DXVec3Normalize(&pVertex[i].vNormal, &pVertex[i].vNormal);
+
+	m_pVB->Unlock();
 	m_pIB->Unlock();
 
 	return S_OK;

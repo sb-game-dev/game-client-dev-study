@@ -158,6 +158,8 @@
     <ClInclude Include="..\Header\CGraphicDev.h" />
     <ClInclude Include="..\Header\CKeyMgr.h" />
     <ClInclude Include="..\Header\CLayer.h" />
+    <ClInclude Include="..\Header\CLight.h" />
+    <ClInclude Include="..\Header\CLightMgr.h" />
     <ClInclude Include="..\Header\CManagement.h" />
     <ClInclude Include="..\Header\CProtoMgr.h" />
     <ClInclude Include="..\Header\CPyramidCol.h" />
@@ -194,6 +196,8 @@
     <ClCompile Include="..\Code\CGraphicDev.cpp" />
     <ClCompile Include="..\Code\CKeyMgr.cpp" />
     <ClCompile Include="..\Code\CLayer.cpp" />
+    <ClCompile Include="..\Code\CLight.cpp" />
+    <ClCompile Include="..\Code\CLightMgr.cpp" />
     <ClCompile Include="..\Code\CManagement.cpp" />
     <ClCompile Include="..\Code\CProtoMgr.cpp" />
     <ClCompile Include="..\Code\CPyramidCol.cpp" />

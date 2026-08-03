@@ -17,7 +17,7 @@ private:
 	HRESULT		Ready_GameLogic_Layer(const _tchar* pLayerTag);
 	HRESULT		Ready_BLock_Layer(const _tchar* pLayerTag);
 	HRESULT		Ready_UI_Layer(const _tchar* pLayerTag);
-
+	HRESULT		Ready_Light();
 private:
 	HRESULT		Ready_Prototype();
 
