@@ -25,14 +25,15 @@ CStage::~CStage()
 
 HRESULT CStage::Ready_Scene()
 {
+    
     if (FAILED(Ready_Light()))
         return E_FAIL;
 
-     if (FAILED(Ready_Environment_Layer(L"Environment_Layer")))
+    if (FAILED(Ready_Environment_Layer(L"Environment_Layer")))
         return E_FAIL;
-     if (FAILED(Ready_GameLogic_Layer(L"GameLogic_Layer")))
-         return E_FAIL;
-     if (FAILED(Ready_BLock_Layer(L"BLock_Layer")))
+    if (FAILED(Ready_GameLogic_Layer(L"GameLogic_Layer")))
+        return E_FAIL;
+    if (FAILED(Ready_BLock_Layer(L"BLock_Layer")))
          return E_FAIL;
     if (FAILED(Ready_UI_Layer(L"UI_Layer")))
         return E_FAIL;
@@ -235,11 +236,13 @@ HRESULT CStage::Ready_Light()
 
     tLightInfo.Type = D3DLIGHT_DIRECTIONAL;
 
+
     tLightInfo.Diffuse  = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
     tLightInfo.Specular = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
     tLightInfo.Ambient  = D3DXCOLOR(0.f, 0.f, 0.f, 1.f);
 
     tLightInfo.Direction = { 1.f, -1.f, 1.f };
+
 
     if (FAILED(CLightMgr::GetInstance()->Ready_Light(m_pGraphicDev, &tLightInfo, 0)))
         return E_FAIL;

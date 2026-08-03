@@ -26,6 +26,7 @@ public:
 
 private:
 	HRESULT			Add_Component();
+	HRESULT			Add_PointLight();
 	void			Key_Input(const _float& fTimeDelta);
 	void			Key_Input2(const _float& fTimeDelta);
 	void			Mouse_Input(const _float& fTimeDelta);
@@ -49,6 +50,10 @@ private:
 
 	vector<_vec3> m_vTerrainVertex;
 	vector<_vec3> m_vTerrainIndex;
+
+	_vec3			m_vLightPos;
+	D3DLIGHT9       m_tLightInfo;
+
 
 	_vec3		m_vTargetPos;
 

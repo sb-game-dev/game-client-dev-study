@@ -29,6 +29,8 @@ public:
 
 	_matrix* Get_World() { return &m_matWorld; }
 
+	_vec3	Get_Scale() { return m_vScale; }
+
 	void	 Get_Info(INFO eType, _vec3* pInfo)
 	{
 		memcpy(pInfo, &m_matWorld.m[eType][0], sizeof(_vec3));

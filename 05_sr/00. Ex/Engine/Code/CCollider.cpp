@@ -1,5 +1,4 @@
 #include "CCollider.h"
-
 CCollider::CCollider()
 {
 }
@@ -10,13 +9,15 @@ CCollider::CCollider(LPDIRECT3DDEVICE9 pGraphicDev)
 }
 
 CCollider::CCollider(const CCollider& rhs)
-	:CComponent(rhs),m_vCenter(rhs.m_vCenter),m_vHalfSize(rhs.m_vHalfSize)
+	:CComponent(rhs),m_bIsTrigger(rhs.m_bIsTrigger), m_eColliderType(rhs.m_eColliderType), 
+	m_vCenter(rhs.m_vCenter), m_vHalfSize(rhs.m_vHalfSize)
 {
 }
 
 CCollider::~CCollider()
 {
 }
+
 
 HRESULT CCollider::Ready_CColliderCom()
 {
@@ -26,9 +27,9 @@ HRESULT CCollider::Ready_CColliderCom()
 	return S_OK;
 }
 
+
 _int CCollider::Update_Component(const _float& fTimeDelta)
 {
-	
 	return 0;
 }
 
@@ -39,16 +40,16 @@ void CCollider::LateUpdate_Component()
 
 CCollider* CCollider::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 {
-	CCollider* pTransform = new CCollider(pGraphicDev);
+	CCollider* pCollider = new CCollider(pGraphicDev);
 
-	if (FAILED(pTransform->Ready_CColliderCom()))
+	if (FAILED(pCollider->Ready_CColliderCom()))
 	{
-		Safe_Release(pTransform);
-		MSG_BOX("Transform Create Failed");
+		Safe_Release(pCollider);
+		MSG_BOX("pCollider Create Failed");
 		return nullptr;
 	}
 
-	return pTransform;
+	return pCollider;
 }
 
 
@@ -60,6 +61,12 @@ void CCollider::Free()
 CComponent* CCollider::Clone(CGameObject* pOwner)
 {
 	CCollider* pCollider = new CCollider(*this);
+	if (FAILED(pCollider->Ready_CColliderCom()))
+	{
+		Safe_Release(pCollider);
+		MSG_BOX("pCollider Create Failed");
+		return nullptr;
+	}
 	pCollider->SetOwner(pOwner);
 
 	return pCollider;

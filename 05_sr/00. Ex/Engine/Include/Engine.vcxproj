@@ -148,6 +148,7 @@
     <ClInclude Include="..\Header\CCollisionMgr.h" />
     <ClInclude Include="..\Header\CComponent.h" />
     <ClInclude Include="..\Header\CCubeTex.h" />
+    <ClInclude Include="..\Header\CCube_Collider.h" />
     <ClInclude Include="..\Header\CCylinderTex.h" />
     <ClInclude Include="..\Header\CDInputMgr.h" />
     <ClInclude Include="..\Header\CFont.h" />
@@ -167,6 +168,7 @@
     <ClInclude Include="..\Header\CRcTex.h" />
     <ClInclude Include="..\Header\CRenderer.h" />
     <ClInclude Include="..\Header\CScene.h" />
+    <ClInclude Include="..\Header\CSphere_Collider.h" />
     <ClInclude Include="..\Header\CTerrainTex.h" />
     <ClInclude Include="..\Header\CTexture.h" />
     <ClInclude Include="..\Header\CTimer.h" />
@@ -180,12 +182,14 @@
     <ClInclude Include="..\Header\Engine_Macro.h" />
     <ClInclude Include="..\Header\Engine_Struct.h" />
     <ClInclude Include="..\Header\Engine_Typedef.h" />
+    <ClInclude Include="CCapsule_Collider.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CCollider.cpp" />
     <ClCompile Include="..\Code\CCollisionMgr.cpp" />
     <ClCompile Include="..\Code\CComponent.cpp" />
     <ClCompile Include="..\Code\CCubeTex.cpp" />
+    <ClCompile Include="..\Code\CCube_Collider.cpp" />
     <ClCompile Include="..\Code\CCylinderTex.cpp" />
     <ClCompile Include="..\Code\CDInputMgr.cpp" />
     <ClCompile Include="..\Code\CFont.cpp" />
@@ -205,6 +209,7 @@
     <ClCompile Include="..\Code\CRcTex.cpp" />
     <ClCompile Include="..\Code\CRenderer.cpp" />
     <ClCompile Include="..\Code\CScene.cpp" />
+    <ClCompile Include="..\Code\CSphere_Collider.cpp" />
     <ClCompile Include="..\Code\CTerrainTex.cpp" />
     <ClCompile Include="..\Code\CTexture.cpp" />
     <ClCompile Include="..\Code\CTimer.cpp" />
@@ -212,6 +217,7 @@
     <ClCompile Include="..\Code\CTransform.cpp" />
     <ClCompile Include="..\Code\CTriCol.cpp" />
     <ClCompile Include="..\Code\CVIBuffer.cpp" />
+    <ClCompile Include="CCapsule_Collider.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

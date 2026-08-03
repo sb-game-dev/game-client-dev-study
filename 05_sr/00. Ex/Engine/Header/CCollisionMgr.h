@@ -22,6 +22,9 @@ public:
 	bool	PhysicalCollision(CCollider* pDst, CCollider* pSrc);
 	bool	PhysicalCollision(OBJID eDstID, OBJID eSrcID);
 
+	void	Collision(CCollider* pDst, CCollider* pSrc);
+	bool	CubeCollisionCheck(CCollider* pDst, CCollider* pSrc);
+
 	void	AddCollider(OBJID eID, CCollider* pCollider);
 private:
 	list<CCollider*>	m_ColliderList[OBJ_END];

@@ -94,6 +94,15 @@
     <Filter Include="11. LightMgr\00. Light">
       <UniqueIdentifier>{f712ad66-039d-43f5-b4ed-72d002edd5ae}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Component\03. Collider\00. Cube">
+      <UniqueIdentifier>{37028646-b914-457e-aff9-f45848dc62b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\03. Collider\01. Sphere">
+      <UniqueIdentifier>{854046f1-4cf1-4d10-8644-6f0423292f73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\03. Collider\02. Capsule">
+      <UniqueIdentifier>{d87e2a3c-bd77-47bd-89eb-cb4849500051}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Header\CGraphicDev.h">
@@ -204,6 +213,15 @@
     <ClInclude Include="..\Header\CLight.h">
       <Filter>11. LightMgr\00. Light</Filter>
     </ClInclude>
+    <ClInclude Include="..\Header\CCube_Collider.h">
+      <Filter>04. Component\03. Collider\00. Cube</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSphere_Collider.h">
+      <Filter>04. Component\03. Collider\01. Sphere</Filter>
+    </ClInclude>
+    <ClInclude Include="CCapsule_Collider.h">
+      <Filter>04. Component\03. Collider\02. Capsule</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\CGraphicDev.cpp">
@@ -295,6 +313,15 @@
     </ClCompile>
     <ClCompile Include="..\Code\CLight.cpp">
       <Filter>11. LightMgr\00. Light</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCube_Collider.cpp">
+      <Filter>04. Component\03. Collider\00. Cube</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSphere_Collider.cpp">
+      <Filter>04. Component\03. Collider\01. Sphere</Filter>
+    </ClCompile>
+    <ClCompile Include="CCapsule_Collider.cpp">
+      <Filter>04. Component\03. Collider\02. Capsule</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

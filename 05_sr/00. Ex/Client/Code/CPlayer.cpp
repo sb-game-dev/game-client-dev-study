@@ -8,6 +8,7 @@
 #include "Engine_Function.h"
 #include "CCameraMgr.h"
 #include "CRenderer.h"
+#include "CLightMgr.h"
 
 CPlayer::CPlayer(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CGameObject(pGraphicDev)
@@ -22,6 +23,8 @@ HRESULT CPlayer::Ready_GameObject()
 {
 	if (FAILED(Add_Component()))
 		return E_FAIL;
+	//if (FAILED(Add_PointLight()))
+	//	return E_FAIL;
 
 	m_pTransformCom->m_vInfo[INFO_POS] = { 50,50,-50 };
 	m_pTransformCom->m_vScale = { 1,1,1 };
@@ -85,9 +88,9 @@ void CPlayer::LateUpdate_GameObject(const _float& fTimeDelta)
 	}
 	m_pTransformCom->Get_Info(INFO_POS, &vPos);
 	m_pColliderCom->SetCenter(vPos);
+	//m_tLightInfo.Position = vPos;
 
-
-	cout <<"MoveState: " << m_pTransformCom->m_eMoveState << endl;
+	//cout <<"MoveState: " << m_pTransformCom->m_eMoveState << endl;
 	//cout << m_pTransformCom->m_vInfo[INFO_POS].x << "\t" << m_pTransformCom->m_vInfo[INFO_POS].y << "\t" << m_pTransformCom->m_vInfo[INFO_POS].z << endl;
 }
 
@@ -124,6 +127,28 @@ HRESULT CPlayer::Add_Component()
 
 	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Collider", pComponent });
 
+	return S_OK;
+}
+
+HRESULT CPlayer::Add_PointLight()
+{
+	ZeroMemory(&m_tLightInfo, sizeof(D3DLIGHT9));
+
+	m_tLightInfo.Type = D3DLIGHT_POINT;
+
+	m_tLightInfo.Diffuse  = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
+	m_tLightInfo.Specular = D3DXCOLOR(1.f, 1.f, 1.f, 1.f);
+	m_tLightInfo.Ambient  = D3DXCOLOR(0.f, 0.f, 0.f, 1.f);
+
+	m_tLightInfo.Position = { 0,0,0 };
+	m_tLightInfo.Range = 50.0f;
+	m_tLightInfo.Falloff = 1.0f;
+	m_tLightInfo.Attenuation0 = 1.0f;
+	m_tLightInfo.Attenuation1 = 0.0f;
+	m_tLightInfo.Attenuation2 = 0.0f;
+
+	if (FAILED(CLightMgr::GetInstance()->Ready_Light(m_pGraphicDev, &m_tLightInfo, 0)))
+		return E_FAIL;
 	return S_OK;
 }
 

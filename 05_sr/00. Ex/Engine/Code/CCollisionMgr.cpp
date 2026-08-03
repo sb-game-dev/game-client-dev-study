@@ -127,12 +127,18 @@ bool CCollisionMgr::PhysicalCollision(OBJID eDstID, OBJID eSrcID)
 
 				if (fX == min(fX, fY, fZ))
 				{
+					CGameObject* pDstObj = pDstCollider->GetOwner();
 					CGameObject* pSrcObj = pSrcCollider->GetOwner();
 					CTransform* pSrcTransform = dynamic_cast<CTransform*> (pSrcObj->Get_Component(ID_DYNAMIC, L"Com_Transform"));
 					if (vDS.x > 0)
+					{
 						pSrcTransform->m_vInfo[INFO_POS].x += fX;
+						//pDstObj->CollisionEnter();
+					}
 					else
+					{
 						pSrcTransform->m_vInfo[INFO_POS].x -= fX;
+					}
 					//bCollision = true;
 				}
 
@@ -143,11 +149,13 @@ bool CCollisionMgr::PhysicalCollision(OBJID eDstID, OBJID eSrcID)
 					if (vDS.y > 0)
 					{
 						pSrcTransform->m_vInfo[INFO_POS].y += fY;
+
 						//pSrcTransform->m_eMoveState = RIDING;
 					}
 					else
 					{
 						pSrcTransform->m_vInfo[INFO_POS].y -= fY;
+
 						//pSrcTransform->m_eMoveState = FALL;
 					}
 					bCollision = true;
@@ -169,6 +177,56 @@ bool CCollisionMgr::PhysicalCollision(OBJID eDstID, OBJID eSrcID)
 	if (bCollision)return true;
 	return false;
 	
+}
+
+void CCollisionMgr::Collision(CCollider* pDstCollider, CCollider* pSrcCollider)
+{
+	// 충돌 확인 후 Trigger 확인
+	//if (pDstCollider->GetIsTrigger() || pSrcCollider->GetIsTrigger())
+	//{
+	//	//pDstCollider->OnTrigger 호출
+	//	//pSrcCollider->OnTrigger 호출
+	//	return;
+	//}
+
+	COLLIDER_TYPE pDstType = pDstCollider->GetColliderType();
+	COLLIDER_TYPE pSrcType = pSrcCollider->GetColliderType();
+
+	if (pDstType == COLLIDER_CUBE && pSrcType == COLLIDER_CUBE)
+	{
+		if (pDstCollider->GetIsTrigger() || pSrcCollider->GetIsTrigger())
+		{
+			//pDstCollider->OnTrigger 호출
+			//pSrcCollider->OnTrigger 호출
+			return;
+		}
+		else
+		{
+			PhysicalCollision(pDstCollider, pSrcCollider);
+		}
+	}
+	else if (pDstType == COLLIDER_SPHERE && pSrcType == COLLIDER_SPHERE)
+	{
+
+	}
+	else if (pDstType == COLLIDER_CAPSULE && pSrcType == COLLIDER_CAPSULE)
+	{
+
+	}
+	else if (pDstType == COLLIDER_CUBE && pSrcType == COLLIDER_SPHERE)
+	{
+
+	}
+	else if (pDstType == COLLIDER_SPHERE && pSrcType == COLLIDER_CAPSULE)
+	{
+
+	}
+	else if (pDstType == COLLIDER_CAPSULE && pSrcType == COLLIDER_CUBE)
+	{
+
+	}
+
+	return;
 }
 
 void CCollisionMgr::AddCollider(OBJID eID, CCollider* pCollider)
