@@ -23,7 +23,7 @@ public:
 	bool	PhysicalCollision(OBJID eDstID, OBJID eSrcID);
 
 	void	Collision(CCollider* pDst, CCollider* pSrc);
-	bool	CubeCollisionCheck(CCollider* pDst, CCollider* pSrc);
+	bool	CubevsCube(CCollider* pDst, CCollider* pSrc);
 
 	void	AddCollider(OBJID eID, CCollider* pCollider);
 private:

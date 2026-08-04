@@ -194,6 +194,7 @@ void CCollisionMgr::Collision(CCollider* pDstCollider, CCollider* pSrcCollider)
 
 	if (pDstType == COLLIDER_CUBE && pSrcType == COLLIDER_CUBE)
 	{
+		// 함수 내부에서 호출
 		if (pDstCollider->GetIsTrigger() || pSrcCollider->GetIsTrigger())
 		{
 			//pDstCollider->OnTrigger 호출
@@ -202,7 +203,8 @@ void CCollisionMgr::Collision(CCollider* pDstCollider, CCollider* pSrcCollider)
 		}
 		else
 		{
-			PhysicalCollision(pDstCollider, pSrcCollider);
+			//pDstCollider->OnCollision 호출
+			//pSrcCollider->OnCollision 호출
 		}
 	}
 	else if (pDstType == COLLIDER_SPHERE && pSrcType == COLLIDER_SPHERE)
@@ -227,6 +229,28 @@ void CCollisionMgr::Collision(CCollider* pDstCollider, CCollider* pSrcCollider)
 	}
 
 	return;
+}
+
+bool CCollisionMgr::CubevsCube(CCollider* pDstCollider, CCollider* pSrcCollider)
+{
+	vector<_vec3> vAxis(15);
+
+	CTransform* pDstTransform = dynamic_cast<CTransform*>(pDstCollider->GetOwner()->Get_Component(ID_DYNAMIC, L"Com_Transform"));
+	CTransform* pSrcTransform = dynamic_cast<CTransform*>(pSrcCollider->GetOwner()->Get_Component(ID_DYNAMIC, L"Com_Transform"));
+
+	_vec3 vDstAxis,vSrcAxis;
+	for (int i = 0; i < 3; ++i)
+	{
+		memcpy(&vDstAxis, &(pDstTransform->Get_World()->m[i][0]), sizeof(_vec3));
+		vAxis.push_back(vDstAxis);
+
+		memcpy(&vSrcAxis, &(pSrcTransform->Get_World()->m[i][0]), sizeof(_vec3));
+		vAxis.push_back(vSrcAxis);
+	}
+
+	
+
+	return false;
 }
 
 void CCollisionMgr::AddCollider(OBJID eID, CCollider* pCollider)
