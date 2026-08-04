@@ -1,0 +1,122 @@
+#include "pch.h"
+#include "CMonster.h"
+#include "CProtoMgr.h"
+#include "CManagement.h"
+#include "CRenderer.h"
+
+CMonster::CMonster(LPDIRECT3DDEVICE9 pGraphicDev)
+	: CGameObject(pGraphicDev)
+{
+}
+
+CMonster::~CMonster()
+{
+}
+
+HRESULT CMonster::Ready_GameObject()
+{
+	if (FAILED(Add_Component()))
+		return E_FAIL;
+	m_pTransformCom->m_vScale = { 5,5,5 };
+	//m_pTransformCom->m_vInfo[INFO_POS] = { 77,40,-100 };
+
+	m_pColliderCom->SetCenter(m_pTransformCom->m_vInfo[INFO_POS]);
+	m_pColliderCom->SetSize(m_pTransformCom->m_vScale);
+	m_pColliderCom->SetColliderType(CUBE_COLLIDER);
+
+	//m_pColliderCom->SetColliderType(SPHERE_COLLIDER);
+	//m_pColliderCom->SetCenter(m_pTransformCom->m_vInfo[INFO_POS]);
+	//m_pColliderCom->SetRadius(max(m_pTransformCom->Get_Scale().x, m_pTransformCom->Get_Scale().y, m_pTransformCom->Get_Scale().z));
+
+
+	//m_pColliderCom->SetHalfSize(m_pTransformCom->m_vScale);
+
+	CRenderer::GetInstance()->Add_RenderGroup(RENDER_NONALPHA, this);
+	return S_OK;
+}
+
+_int CMonster::Update_GameObject(const _float& fTimeDelta)
+{
+	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
+
+
+	return iExit;
+}
+
+void CMonster::LateUpdate_GameObject(const _float& fTimeDelta)
+{
+	CGameObject::LateUpdate_GameObject(fTimeDelta);
+
+	//_vec3	vPos;
+	//m_pTransformCom->Get_Info(INFO_POS, &vPos);
+	//m_pColliderCom->SetOffset(vPos);
+}
+
+void CMonster::Render_GameObject()
+{
+	m_pGraphicDev->SetTransform(D3DTS_WORLD, m_pTransformCom->Get_World());
+
+	m_pTextureCom->Set_Texture(0);
+
+	m_pBufferCom->Render_Buffer();
+
+}
+
+HRESULT CMonster::Add_Component()
+{
+	Engine::CComponent* pComponent = nullptr;
+
+	// TriCol
+	pComponent = m_pBufferCom = dynamic_cast<CCubeTex*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_CubeTex", this));
+	if (nullptr == pComponent)
+		return E_FAIL;
+
+	m_mapComponent[ID_STATIC].insert({ L"Com_Buffer", pComponent });
+
+	/////////////////////////////////////////////////////////////////
+	// Transform
+	pComponent = m_pTransformCom = dynamic_cast<CTransform*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_Transform", this));
+	if (nullptr == pComponent)
+		return E_FAIL;
+
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Transform", pComponent });
+
+
+	pComponent = m_pTextureCom = dynamic_cast<CTexture*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_BlockTexture", this));
+	if (nullptr == pComponent)
+		return E_FAIL;
+	m_mapComponent[ID_STATIC].insert({ L"Com_Texture", pComponent });
+
+	// Collider
+	pComponent = m_pColliderCom = dynamic_cast<CCube_Collider*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_CubeCollider", this));
+	if (nullptr == pComponent)
+		return E_FAIL;
+
+	//pComponent = m_pColliderCom = dynamic_cast<CSphere_Collider*>(CProtoMgr::GetInstance()->Clone_Prototype(L"Proto_SphereCollider", this));
+	//if (nullptr == pComponent)
+	//	return E_FAIL;	
+
+	m_mapComponent[ID_DYNAMIC].insert({ L"Com_Collider", pComponent });
+
+
+	return S_OK;
+}
+
+CMonster* CMonster::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+	CMonster* pMonster = new CMonster(pGraphicDev);
+
+	if (FAILED(pMonster->Ready_GameObject()))
+	{
+		Safe_Release(pMonster);
+		MSG_BOX("pMonster Create Failed");
+		return nullptr;
+	}
+
+	return pMonster;
+}
+
+void CMonster::Free()
+{
+	CGameObject::Free();
+}

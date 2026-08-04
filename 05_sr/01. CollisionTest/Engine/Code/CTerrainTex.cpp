@@ -1,0 +1,343 @@
+#include "CTerrainTex.h"
+#include <fstream>
+#include <cmath>
+#define WIDTHBYTES(bits) (((bits)+31)/32*4)
+#define BYTE    unsigned char
+
+CTerrainTex::CTerrainTex()
+{
+}
+
+CTerrainTex::CTerrainTex(LPDIRECT3DDEVICE9 pGraphicDev)
+	:CVIBuffer(pGraphicDev), m_fHeightWeight(1.f)
+{
+}
+
+CTerrainTex::CTerrainTex(const CTerrainTex& rhs)
+	:CVIBuffer(rhs),m_vVertex(rhs.m_vVertex),m_vIndex(rhs.m_vIndex), m_vHeightmap(rhs.m_vHeightmap)
+{
+}
+
+CTerrainTex::~CTerrainTex()
+{
+}
+
+HRESULT CTerrainTex::Ready_Buffer()
+{
+	int iXCnt = VTXCNTX;//
+	int iZCnt = VTXCNTZ;//
+
+	m_dwVtxSize = sizeof(VTXTEX);
+	m_dwVtxCnt = iXCnt * iZCnt ;
+	m_dwTriCnt = (iXCnt-1) * (iZCnt-1) * 2; // (iXCnt-1) * (iZCnt - 1) * 2
+	m_dwFVF = FVF_TEX;
+
+	m_dwIdxSize = sizeof(INDEX32);
+	m_IdxFmt = D3DFMT_INDEX32;
+
+	if (FAILED(CVIBuffer::Ready_Buffer()))
+		return E_FAIL;
+
+	VTXTEX* pVertex = NULL;
+	int i = 0;
+	m_pVB->Lock(0, 0, (void**)&pVertex, 0);
+
+	float uCoordIncrementSize = 1.f / (iXCnt-1); // 1.f / (iXCnt - 1)
+	float vCoordIncrementSize = 1.f / (iZCnt-1); // 1.f / (iZCnt - 1)
+
+
+
+	_vec3		vNormal, vSrc, vDst;
+	for (int z = 0; z > -iZCnt; z-=VTXITV)
+	{
+		int j = 0;
+		for (int x = 0; x < iXCnt; x+=VTXITV)
+		{
+			//pVertex[(z * iXCnt) * 4 + x * 4].vPosition = { float(x * VTXITV),0,float((z + 1) * VTXITV) };
+			//pVertex[(z * iXCnt) * 4 + x * 4].vTexUV = { 0.f, 0.f };
+			//
+			//pVertex[(z * iXCnt) * 4 + x * 4 + 1].vPosition = { float((x + 1) * VTXITV),0, float((z + 1) * VTXITV) };
+			//pVertex[(z * iXCnt) * 4 + x * 4 + 1].vTexUV = { 1.f, 0.f };
+			//
+			//pVertex[(z * iXCnt) * 4 + x * 4 + 2].vPosition = { (float(x + 1) * VTXITV),0, float(z * VTXITV) };
+			//pVertex[(z * iXCnt) * 4 + x * 4 + 2].vTexUV = { 1.f, 1.f };
+			//
+			//pVertex[(z * iXCnt) * 4 + x * 4 + 3].vPosition = { float(x * VTXITV),0, float(z * VTXITV) };
+			//pVertex[(z * iXCnt) * 4 + x * 4 + 3].vTexUV = { 0.f, 1.f };
+			///////////////////////////////////////////////////////
+
+			int iIndex = i * iXCnt + j;
+			m_vVertex.push_back({ float(x),0,float(z) });
+			pVertex[iIndex].vPosition = { float(x),0,float(z)};
+			pVertex[iIndex].vNormal = { 0,0,0 };
+			pVertex[iIndex].vTexUV = { j * uCoordIncrementSize * 20,
+									   i * vCoordIncrementSize * 20};
+			++j;
+		}
+		++i;
+	}
+	Ready_HeightMap(L"../Bin/Resource/Texture/Terrain/Height.bmp");
+
+
+	INDEX32* pIndex = NULL;
+
+	m_pIB->Lock(0, 0, (void**)&pIndex, 0);
+	int iBaseIndex = 0;
+	for (int i = 0; i < iZCnt-1; ++i)
+	{
+		for (int j = 0; j < iXCnt-1; ++j)
+		{
+			pIndex[iBaseIndex]._0 = i * iXCnt + j;
+			pIndex[iBaseIndex]._1 = i * iXCnt + j + 1;
+			pIndex[iBaseIndex]._2 = (i + 1) * iXCnt + j;
+			m_vIndex.push_back({ (FLOAT)pIndex[iBaseIndex]._0,	(FLOAT)pIndex[iBaseIndex]._1,	(FLOAT)pIndex[iBaseIndex]._2 });
+
+			vDst = pVertex[pIndex[iBaseIndex]._0].vPosition - pVertex[pIndex[iBaseIndex]._2].vPosition;
+			vSrc = pVertex[pIndex[iBaseIndex]._1].vPosition - pVertex[pIndex[iBaseIndex]._0].vPosition;
+
+			D3DXVec3Cross(&vNormal, &vDst, &vSrc);
+
+			pVertex[pIndex[iBaseIndex]._0].vNormal += vNormal;
+			pVertex[pIndex[iBaseIndex]._1].vNormal += vNormal;
+			pVertex[pIndex[iBaseIndex]._2].vNormal += vNormal;
+
+			iBaseIndex++;
+
+			pIndex[iBaseIndex]._0 = (i + 1) * iXCnt + j;
+			pIndex[iBaseIndex]._1 = i * iXCnt + j + 1;
+			pIndex[iBaseIndex]._2 = (i + 1) * iXCnt + j + 1;
+
+			vDst = pVertex[pIndex[iBaseIndex]._0].vPosition - pVertex[pIndex[iBaseIndex]._2].vPosition;
+			vSrc = pVertex[pIndex[iBaseIndex]._1].vPosition - pVertex[pIndex[iBaseIndex]._0].vPosition;
+
+			D3DXVec3Cross(&vNormal, &vDst, &vSrc);
+
+			pVertex[pIndex[iBaseIndex]._0].vNormal += vNormal;
+			pVertex[pIndex[iBaseIndex]._1].vNormal += vNormal;
+			pVertex[pIndex[iBaseIndex]._2].vNormal += vNormal;
+
+			m_vIndex.push_back({ (FLOAT)pIndex[iBaseIndex]._0,	(FLOAT)pIndex[iBaseIndex]._1,	(FLOAT)pIndex[iBaseIndex]._2 });
+
+			iBaseIndex ++;
+		}
+	}
+
+	for (_uint i = 0; i < m_dwVtxCnt; ++i)
+		D3DXVec3Normalize(&pVertex[i].vNormal, &pVertex[i].vNormal);
+
+	m_pVB->Unlock();
+	m_pIB->Unlock();
+
+	return S_OK;
+}
+
+void CTerrainTex::Render_Buffer()
+{
+	CVIBuffer::Render_Buffer();
+}
+
+CTerrainTex* CTerrainTex::Create(LPDIRECT3DDEVICE9 pGraphicDev)
+{
+	CTerrainTex* pTerrainTex = new CTerrainTex(pGraphicDev);
+
+	if (FAILED(pTerrainTex->Ready_Buffer()))
+	{
+		Safe_Release(pTerrainTex);
+		MSG_BOX("pTerrainTex Create Failed");
+		return nullptr;
+	}
+
+	return pTerrainTex;
+}
+
+int CTerrainTex::GetHeightmapEntry(int iRow, int iCol)
+{
+	return m_vHeightmap[iRow * VTXCNTX + iCol];
+}
+
+
+float CTerrainTex::GetHeight(float fX, float fZ)
+{
+	fZ *= -1;
+
+	float fCol = ::floorf(fX);
+	float fRow = ::floorf(fZ);
+
+	float fA = GetHeightmapEntry(fRow, fCol);
+	float fB = GetHeightmapEntry(fRow, fCol + 1);
+	float fC = GetHeightmapEntry(fRow + 1, fCol);
+	float fD = GetHeightmapEntry(fRow + 1, fCol + 1);
+
+
+	float fDx = fX - fCol;
+	float fDz = fZ - fRow;
+
+	float fHeight = 0.0f;
+	if (fDz < 1.0f - fDx)  
+	{
+		float uy = fB - fA; 
+		float vy = fC - fA; 
+
+		fHeight = fA + Lerp(0.0f, uy, fDx) + Lerp(0.0f, vy, fDz);
+	}
+	else 
+	{
+		float uy = fC - fD; 
+		float vy = fB - fD; 
+
+		fHeight = fD + Lerp(0.0f, uy, 1.0f - fDx) + Lerp(0.0f, vy, 1.0f - fDz);
+	}
+
+	return fHeight;
+}
+
+float CTerrainTex::GetHeight_UsePlane(float fX, float fZ)
+{
+	//fZ *= -1;
+
+	float fCol = ::floorf(fX);
+	float fRow = ::floorf(-fZ);
+
+	_vec3 vA = { fCol,		FLOAT(GetHeightmapEntry(fRow, fCol)),			-(fRow)		};
+	_vec3 vB = { fCol +1,	FLOAT(GetHeightmapEntry(fRow, fCol + 1)),		-(fRow)		};
+	_vec3 vC = { fCol,		FLOAT(GetHeightmapEntry(fRow + 1, fCol)),		-(fRow + 1)	};
+	_vec3 vD = { fCol + 1,	FLOAT(GetHeightmapEntry(fRow + 1, fCol + 1)),	-(fRow + 1) };
+
+
+	float fDx = fX - fCol;
+	float fDz = -fZ - fRow;
+
+	float fHeight = 0.0f;
+	D3DXPLANE	Plane;
+
+	if (fDz < 1.0f - fDx)
+	{
+		D3DXPlaneFromPoints(&Plane, &vA, &vB, &vC);
+		FLOAT a = Plane.a;
+		FLOAT b = Plane.b;
+		FLOAT c = Plane.c;
+		FLOAT d = Plane.d;
+		fHeight = (a * fX + c * fZ + d) / (-b);
+	}
+	else
+	{
+		D3DXPlaneFromPoints(&Plane, &vD, &vB, &vC);
+		FLOAT a = Plane.a;
+		FLOAT b = Plane.b;
+		FLOAT c = Plane.c;
+		FLOAT d = Plane.d;
+		fHeight = (a * fX + c * fZ + d) / (-b);
+	}
+
+	return fHeight;
+}
+
+void CTerrainTex::SetHeightmapEntry(int row, int col, int value)
+{
+	m_vHeightmap[row * VTXCNTX + col] = value;
+}
+
+void CTerrainTex::Free()
+{
+	CVIBuffer::Free();
+}
+
+CComponent* CTerrainTex::Clone(CGameObject* pOwner)
+{
+	CTerrainTex* pTerrainTex = new CTerrainTex(*this);
+	pTerrainTex->SetOwner(pOwner);
+
+	return pTerrainTex;
+}
+bool CTerrainTex::Ready_HeightMap(const wstring& pFilePath)
+{
+	ifstream inFile(pFilePath.c_str(), ios::binary);
+	if (!inFile)
+		return false;
+
+	BITMAPFILEHEADER fileHeader = {};
+	BITMAPINFOHEADER infoHeader = {};
+
+	inFile.read((char*)&fileHeader, sizeof(BITMAPFILEHEADER));
+	inFile.read((char*)&infoHeader, sizeof(BITMAPINFOHEADER));
+
+	if (!inFile || fileHeader.bfType != 0x4D42) {
+		inFile.close();
+		return false;
+	}
+
+	int width = infoHeader.biWidth;
+	int height = abs(infoHeader.biHeight); // 음수면 top-down 저장
+	bool topDown = infoHeader.biHeight < 0;
+	int bitCount = infoHeader.biBitCount;    // 이 파일은 32
+
+	if (bitCount != 8 && bitCount != 24 && bitCount != 32) {
+		inFile.close();
+		return false;
+	}
+
+	int bytesPerPixel = bitCount / 8;
+	int rowSize = ((width * bitCount + 31) / 32) * 4; // 4바이트 정렬된 실제 행 크기
+
+	inFile.seekg(fileHeader.bfOffBits, ios::beg); // 팔레트 포함 헤더 전부 건너뛰기
+
+	vector<BYTE> vRow(rowSize);
+	vector<vector<BYTE>> vRows(height);
+
+	for (int y = 0; y < height; ++y) {
+		inFile.read((char*)&vRow[0], rowSize);
+		if (!inFile) {
+			inFile.close();
+			return false;
+		}
+		vRows[y].assign(vRow.begin(), vRow.end());
+	}
+	inFile.close();
+
+	vector<BYTE> vIn;
+	vIn.reserve(m_dwVtxCnt);
+
+	// BMP는 기본적으로 bottom-up이므로, top-down이 아니면 순서를 뒤집어서 위->아래로 재정렬
+	auto extractGray = [&](const vector<BYTE>& row)
+		{
+			for (int x = 0; x < width; ++x) {
+				const BYTE* px = &row[x * bytesPerPixel];
+				// 8bpp면 px[0]이 팔레트 인덱스(그레이스케일 팔레트 가정),
+				// 24/32bpp면 B=G=R이므로 아무 채널이나 사용 (여기선 B채널)
+				vIn.push_back(px[0]);
+			}
+		};
+
+	if (topDown) {
+		for (int y = 0; y < height; ++y) {
+			extractGray(vRows[y]);
+		}
+	}
+	else {
+		for (int y = height - 1; y >= 0; --y) {
+			extractGray(vRows[y]);
+		}
+	}
+	vIn.resize(m_dwVtxCnt);
+
+	m_vHeightmap.clear();
+	m_vHeightmap.resize(m_dwVtxCnt);
+	for (DWORD i = 0; i < m_dwVtxCnt; ++i) {
+		m_vHeightmap[i] = vIn[i];
+	}
+
+
+	// Vertex 높이값 재설정
+	VTXTEX* pVertex = NULL;
+	m_pVB->Lock(0, 0, (void**)&pVertex, 0);
+
+	for (int i = 0; i < vIn.size(); ++i) {
+		m_vHeightmap[i] *= 0.f;
+		m_vVertex[i].y = m_vHeightmap[i];
+		pVertex[i].vPosition.y = m_vHeightmap[i];
+	}
+
+	m_pVB->Unlock();
+
+	return true;
+}

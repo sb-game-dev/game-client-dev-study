@@ -18,6 +18,7 @@ HRESULT CMonster::Ready_GameObject()
 	if (FAILED(Add_Component()))
 		return E_FAIL;
 	m_pTransformCom->m_vScale = { 5,5,5 };
+	//m_pTransformCom->Rotation(ROT_X, 60);
 	m_pTransformCom->m_vInfo[INFO_POS] = { 77,40,-100 };
 
 	m_pColliderCom->SetCenter(m_pTransformCom->m_vInfo[INFO_POS]);

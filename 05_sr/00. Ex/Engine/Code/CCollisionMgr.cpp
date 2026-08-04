@@ -149,13 +149,11 @@ bool CCollisionMgr::PhysicalCollision(OBJID eDstID, OBJID eSrcID)
 					if (vDS.y > 0)
 					{
 						pSrcTransform->m_vInfo[INFO_POS].y += fY;
-
 						//pSrcTransform->m_eMoveState = RIDING;
 					}
 					else
 					{
 						pSrcTransform->m_vInfo[INFO_POS].y -= fY;
-
 						//pSrcTransform->m_eMoveState = FALL;
 					}
 					bCollision = true;
@@ -206,6 +204,7 @@ void CCollisionMgr::Collision(CCollider* pDstCollider, CCollider* pSrcCollider)
 			//pDstCollider->OnCollision 호출
 			//pSrcCollider->OnCollision 호출
 		}
+		
 	}
 	else if (pDstType == COLLIDER_SPHERE && pSrcType == COLLIDER_SPHERE)
 	{
@@ -246,11 +245,55 @@ bool CCollisionMgr::CubevsCube(CCollider* pDstCollider, CCollider* pSrcCollider)
 
 		memcpy(&vSrcAxis, &(pSrcTransform->Get_World()->m[i][0]), sizeof(_vec3));
 		vAxis.push_back(vSrcAxis);
+		for (int j = 0; j < 3; j++)
+		{
+			_vec3 vCross;
+			D3DXVec3Cross(&vCross, &vDstAxis, &vSrcAxis);
+		}
 	}
 
-	
+	_vec3 vDstPos;
+	_vec3 vSrcPos;
+	pDstTransform->Get_Info(INFO_POS, &vDstPos);
+	pSrcTransform->Get_Info(INFO_POS, &vSrcPos);
+	for (auto Axis : vAxis)
+	{
+		// 중심좌표 투영
+		float fDstCenter = D3DXVec3Dot(&vDstPos, &Axis);
+		float fSrcCenter = D3DXVec3Dot(&vSrcPos, &Axis);
+		float fDistance = fabsf(fDstCenter - fSrcCenter);
 
-	return false;
+		// 반지름 투영
+		_matrix	matDstWorld, matSrcWorld;
+		_vec3 vRight, vUp, vLook, vScale;
+
+		matDstWorld = *(pDstTransform->Get_World());
+
+		memcpy(&vRight, &matDstWorld.m[0][0], sizeof(_vec3));
+		memcpy(&vUp, &matDstWorld.m[1][0], sizeof(_vec3));
+		memcpy(&vLook, &matDstWorld.m[2][0], sizeof(_vec3));
+		vScale = pDstTransform->Get_Scale();
+		vRight	*= vScale.x;
+		vUp		*= vScale.y;
+		vLook	*= vScale.z;
+		_vec3 vSum = vRight + vUp + vLook;
+		float fDstRadius = fabsf(D3DXVec3Dot(&vSum, &Axis) - fDstCenter);
+
+		matSrcWorld = *(pSrcTransform->Get_World());
+		memcpy(&vRight, &matSrcWorld.m[0][0], sizeof(_vec3));
+		memcpy(&vUp,	&matSrcWorld.m[1][0], sizeof(_vec3));
+		memcpy(&vLook,	&matSrcWorld.m[2][0], sizeof(_vec3));
+		vScale = pSrcTransform->Get_Scale();
+		vRight	*= vScale.x;
+		vUp		*= vScale.y;
+		vLook	*= vScale.z;
+		vSum = vRight + vUp + vLook;
+
+		float fSrcRadius = fabsf(D3DXVec3Dot(&vSum, &Axis) - fSrcCenter);
+		if (fDistance > fDstRadius + fSrcRadius)
+			return false;
+	}
+	return true;
 }
 
 void CCollisionMgr::AddCollider(OBJID eID, CCollider* pCollider)
