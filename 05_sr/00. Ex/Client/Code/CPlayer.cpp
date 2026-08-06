@@ -52,7 +52,7 @@ _int CPlayer::Update_GameObject(const _float& fTimeDelta)
 	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
 	m_pTransformCom->m_ePreMoveState = m_pTransformCom->m_eMoveState;
 
-	Key_Input2(fTimeDelta);
+	Key_Input(fTimeDelta);
 
 
 	if (m_pTransformCom->m_eMoveState == JUMP || m_pTransformCom->m_eMoveState == FALL)

@@ -58,25 +58,6 @@ void CStage::LateUpdate_Scene(const _float& fTimeDelta)
         (CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", L"Monster", L"Com_Collider"));
 
     CCollisionMgr::GetInstance()->Collision(CMonsterCollider, CPlayerCollider);
-
-    //bool bRiding = CCollisionMgr::GetInstance()->PhysicalCollision(OBJ_MONSTER, OBJ_PLAYER);
-    //
-    //CCollider* CPlayerCollider = dynamic_cast<CCollider*>
-    //    (CManagement::GetInstance()->Get_Component(ID_DYNAMIC, L"GameLogic_Layer", L"Player", L"Com_Collider"));
-    //
-    //CGameObject* pSrcObj = CPlayerCollider->GetOwner();
-    //CTransform* pSrcTransform = dynamic_cast<CTransform*> (pSrcObj->Get_Component(ID_DYNAMIC, L"Com_Transform"));
-    //if (bRiding)
-    //{
-    //    pSrcTransform->m_eMoveState = RIDING;
-    //}
-    //else
-    //{
-    //    if (pSrcTransform->m_ePreMoveState == RIDING)
-    //    {
-    //        pSrcTransform->m_eMoveState = FALL;
-    //    }
-    //}
 }
 
 void CStage::Render_Scene()
@@ -94,7 +75,6 @@ HRESULT CStage::Ready_Environment_Layer(const _tchar* pLayerTag)
     CGameObject* pGameObject = nullptr;
 
     // MainCamera
-   
     pGameObject = CCamera::Create(m_pGraphicDev, PLAYER1);
     
     if (nullptr == pGameObject)

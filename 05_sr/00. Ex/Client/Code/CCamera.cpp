@@ -43,8 +43,6 @@ HRESULT		CCamera::Ready_GameObject()
 		break;
 	case Engine::MAP:
 		m_tViewPort = { _ulong(WINCX * 0.7) ,0,_ulong(WINCX * 0.3),_ulong(WINCY * 0.3) };
-		//m_tViewPort.MinZ = -1;
-		//m_tViewPort.MaxZ = 0;
 		break;
 	case Engine::CAMERATYPE_END:
 		break;
@@ -52,8 +50,6 @@ HRESULT		CCamera::Ready_GameObject()
 		break;
 	}
 
-
-	//D3DXMatrixPerspectiveFovLH(&m_matProj, D3DXToRadian(m_fFov), (_float)m_tViewPort.Width / m_tViewPort.Height, 0.1f, 1000.f);
 	CalculatePorj(&m_matProj, D3DXToRadian(m_fFov), (_float)m_tViewPort.Width / m_tViewPort.Height, 0.1f, 1000.f);
 
 	m_pGraphicDev->SetTransform(D3DTS_PROJECTION, &m_matProj);
@@ -63,10 +59,6 @@ HRESULT		CCamera::Ready_GameObject()
 _int	CCamera::Update_GameObject(const _float& fTimeDelta)
 {
 	_int iExit = CGameObject::Update_GameObject(fTimeDelta);
-
-	//Direct_Follow(&m_vEye,&m_vAt,&m_vUp);
-	//Smooth_Follow(&m_vEye, &m_vAt, &m_vUp, &m_fFov, fTimeDelta);
-
 	return iExit;
 }
 void CCamera::LateUpdate_GameObject(const _float& fTimeDelta)
@@ -76,9 +68,9 @@ void CCamera::LateUpdate_GameObject(const _float& fTimeDelta)
 	switch (m_eCameraType)
 	{
 	case Engine::PLAYER1:
-		MouseControl(&m_vEye, &m_vAt, &m_vUp, &m_fFov, fTimeDelta);
+		//MouseControl(&m_vEye, &m_vAt, &m_vUp, &m_fFov, fTimeDelta);
 		//Direct_Follow(&m_vEye, &m_vAt, &m_vUp);
-		
+		Smooth_Follow(&m_vEye, &m_vAt, &m_vUp, &m_fFov, fTimeDelta);
 		//D3DXMatrixLookAtLH(&m_matView, &m_vEye, &m_vAt, &m_vUp);
 		CalculateVeiw(&m_matView, &m_vEye, &m_vAt, &m_vUp);
 		break;
