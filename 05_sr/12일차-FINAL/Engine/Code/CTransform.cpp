@@ -9,7 +9,7 @@ CTransform::CTransform()
 
 CTransform::CTransform(LPDIRECT3DDEVICE9 pGraphicDev)
 	: CComponent(pGraphicDev)
-	, m_vScale(1.f, 1.f, 1.f), m_vAngle(0.f, 0.f, 0.f),m_eMoveState(GROUND), m_ePreMoveState(GROUND)
+	, m_vScale(1.f, 1.f, 1.f), m_vAngle(0.f, 0.f, 0.f)
 {
 	ZeroMemory(m_vInfo, sizeof(_vec3) * INFO_END);
 	D3DXMatrixIdentity(&m_matWorld);
@@ -17,7 +17,7 @@ CTransform::CTransform(LPDIRECT3DDEVICE9 pGraphicDev)
 
 CTransform::CTransform(const CTransform& rhs)
 	: CComponent(rhs)
-	, m_vScale(rhs.m_vScale), m_vAngle(rhs.m_vAngle), m_eMoveState(rhs.m_eMoveState), m_ePreMoveState(rhs.m_ePreMoveState)
+	, m_vScale(rhs.m_vScale), m_vAngle(rhs.m_vAngle)
 {
 	for (_uint i = 0; i < INFO_END; ++i)
 		m_vInfo[i] = rhs.m_vInfo[i];
@@ -37,7 +37,7 @@ void CTransform::Chase_Target(const _vec3* pPos, const _float& fSpeed, const _fl
 
 	_matrix		matScale, matRot, matTrans;
 	
-	D3DXMatrixScaling(&matScale, m_vScale.x, m_vScale.y, m_vScale.z);
+	D3DXMatrixScaling(&matScale, 1.f, 1.f, 1.f);
 	D3DXMatrixTranslation(&matTrans, 
 		m_vInfo[INFO_POS].x,
 		m_vInfo[INFO_POS].y,
@@ -46,6 +46,7 @@ void CTransform::Chase_Target(const _vec3* pPos, const _float& fSpeed, const _fl
 	matRot = *Compute_Lookattarget(pPos);
 
 	m_matWorld = matScale * matRot * matTrans;
+
 }
 
 _matrix* CTransform::Compute_Lookattarget(const _vec3* pPos)
@@ -54,8 +55,23 @@ _matrix* CTransform::Compute_Lookattarget(const _vec3* pPos)
 
 	D3DXMATRIX	matRot;
 	_vec3	vAxis, vUp;
+
+	//D3DXVec3Cross(&vAxis, &m_vInfo[INFO_UP], &vDir);
+	//
+	//D3DXVec3Normalize(&vDir, &vDir);
+	//D3DXVec3Normalize(&vUp, &m_vInfo[INFO_UP]);
+	//
+	//float fDot = D3DXVec3Dot(&vDir, &vUp);
+	//
+	//float fAngle = acosf(fDot);
+	//
+	//D3DXMatrixRotationAxis(&matRot, &vAxis, fAngle);
+	//
+	//return &matRot;
+
+
 	return D3DXMatrixRotationAxis(&matRot, 
-								D3DXVec3Cross(&vAxis, &m_vInfo[INFO_LOOK], &vDir),
+								D3DXVec3Cross(&vAxis, &m_vInfo[INFO_UP], &vDir),
 								acosf(D3DXVec3Dot(D3DXVec3Normalize(&vDir, &vDir), 
 												  D3DXVec3Normalize(&vUp, &m_vInfo[INFO_UP]))));
 }
@@ -128,15 +144,12 @@ CTransform* CTransform::Create(LPDIRECT3DDEVICE9 pGraphicDev)
 	return pTransform;
 }
 
+CComponent* CTransform::Clone()
+{
+	return new CTransform(*this);
+}
+
 void CTransform::Free()
 {
 	CComponent::Free();
-}
-
-CComponent* CTransform::Clone(CGameObject* pOwner)
-{
-	CTransform* pTransform = new CTransform(*this);
-	pTransform->SetOwner(pOwner);
-
-	return pTransform;
 }
