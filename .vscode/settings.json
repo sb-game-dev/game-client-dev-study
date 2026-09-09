@@ -1,0 +1,17 @@
+{
+  // 이 저장소의 .h/.cpp 는 BOM 없는 CP949(euc-kr)로 저장되어 있다.
+  // VS Code 기본값(UTF-8)으로 읽으면 한글 주석이 깨진다.
+  // UTF-8 BOM 이 붙은 파일(Visual Studio 마법사 생성분)은 BOM 이 우선하므로
+  // 이 설정과 무관하게 계속 정상 표시된다.
+  "files.encoding": "cp949",
+
+  // 아래 두 종류만 BOM 없는 UTF-8 이라 예외 처리한다.
+  //   - 경로 추가.txt (plaintext)
+  //   - 5개월차 개념 정리.md (markdown)
+  "[markdown]": {
+    "files.encoding": "utf8"
+  },
+  "[plaintext]": {
+    "files.encoding": "utf8"
+  }
+}

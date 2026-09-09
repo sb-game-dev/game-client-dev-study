@@ -51,7 +51,8 @@ HRESULT CVIBuffer::Ready_Buffer()
 												return E_FAIL;
 
 
-	if (FAILED(m_pGraphicDev->CreateIndexBuffer(m_dwTriCnt * m_dwIdxSize,	// 인덱스 버퍼의 크기
+	if (FAILED(m_pGraphicDev->CreateIndexBuffer(
+												m_dwTriCnt * m_dwIdxSize,	// 인덱스 버퍼의 크기
 												0,							// 0인 경우 정적 버퍼, D3DUSAGE_DYNAMIC인 경우 동적 버퍼
 												m_IdxFmt,					// 인덱스 속성
 												D3DPOOL_MANAGED,			// 메모리 풀 세팅
