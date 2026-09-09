@@ -1,0 +1,542 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="00. GraphicDev">
+      <UniqueIdentifier>{9a0bf727-92f9-46f9-a8fa-67d2279f2daa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. TimerMgr">
+      <UniqueIdentifier>{cd9ee44e-7203-4002-adfb-ca659364a879}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. FrameMgr">
+      <UniqueIdentifier>{76333691-6a7f-45cc-b2bf-945ce61b9b6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Management">
+      <UniqueIdentifier>{90b76637-f074-42ee-90a2-802c464b35ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component">
+      <UniqueIdentifier>{bf8f657a-b11c-4745-a623-69ffe0145920}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="99. Headers">
+      <UniqueIdentifier>{4ab1eeeb-a314-4a88-ab88-26b96f2d9676}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="80. FontMgr">
+      <UniqueIdentifier>{678f081c-ebd7-4ae6-81d8-5eb3676f5a99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. TimerMgr\Timer">
+      <UniqueIdentifier>{6024a2d4-d32c-4a16-a933-9ecf05016a51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. FrameMgr\Frame">
+      <UniqueIdentifier>{492aeef5-8c84-4b75-ab6a-4ce2dd3fd978}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Management\GameObject">
+      <UniqueIdentifier>{6d5a75bc-0149-44be-a186-2920ec7750f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Management\Layer">
+      <UniqueIdentifier>{49524d7c-9299-462f-8762-2f95f98e160d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Management\Management">
+      <UniqueIdentifier>{10bcfed6-1020-4f92-9b0c-fc6f5b09352a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\Shape">
+      <UniqueIdentifier>{b3624249-8e48-4bd2-b145-5e2528b2459a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\Transform">
+      <UniqueIdentifier>{45fc99bb-7d70-4f4e-a090-e0e090d2dfaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\Texture">
+      <UniqueIdentifier>{5023dac1-46b0-47e4-81b8-93fe40d22782}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\Shape\VIBuffer">
+      <UniqueIdentifier>{9b5171fc-badb-4511-abe5-e4d235bb4e0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\Shape\RcTex">
+      <UniqueIdentifier>{63ff1988-3cdf-41f1-a9fa-b8b0bcde1687}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\Shape\InnerBox">
+      <UniqueIdentifier>{2922acc3-7d20-47d4-b105-76da1e133923}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\Shape\Pyramid">
+      <UniqueIdentifier>{6f4b624d-aaaa-4630-b864-cc987f2b4254}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. ProtoMgr">
+      <UniqueIdentifier>{e2908b7a-e214-40da-a14b-7b0ba15adc8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="80. FontMgr\Font">
+      <UniqueIdentifier>{eb233f49-961e-49c3-9bb2-391619db993b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Management\Scene">
+      <UniqueIdentifier>{e3cfa153-da2e-4e25-b9bc-c155f4c6f2bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="95. CameraMgr">
+      <UniqueIdentifier>{6090026c-70e9-40bf-a59e-4be142215198}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Management\GameObject\Camera">
+      <UniqueIdentifier>{9c29759e-3fd7-47dc-a9a3-62d2a44a2440}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="90. DInputMgr">
+      <UniqueIdentifier>{ef240718-0671-454b-97a0-476b48da8068}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\Shape\Terrain2">
+      <UniqueIdentifier>{2dfb1d83-2ffe-4247-930f-d50708c997c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98. Renderer">
+      <UniqueIdentifier>{f73f6720-c508-42db-9187-7abb121b370d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="97. Utility">
+      <UniqueIdentifier>{9784b565-b356-46e8-b8f5-fa5aa93accad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="97. Utility\CCalculator">
+      <UniqueIdentifier>{d43e0a19-b353-4ab7-acc3-22549acb2d75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="97. Utility\HeightMapLoader">
+      <UniqueIdentifier>{3d5cb1a0-cfa5-440d-9515-61b60901d391}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\Shape\Cube">
+      <UniqueIdentifier>{24374f82-ca16-4daa-972a-68af2f4e4f38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\Collision">
+      <UniqueIdentifier>{b9b63981-2805-4ff0-bc28-a0369095a44f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\Collision\CollisionMgr">
+      <UniqueIdentifier>{6a53c4bd-5442-41e5-b8c8-2064f51aedbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\Collision\Cube_Collider">
+      <UniqueIdentifier>{3071ec23-7f5c-441b-88b5-391b2cf1d7c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\Collision\Sphere_Collider">
+      <UniqueIdentifier>{ceb6a661-2fe4-4494-a41f-0e3c41b29da3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\Shape\CartBody">
+      <UniqueIdentifier>{db79d51b-b8ff-4a78-a932-dceb7f9ac962}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\Shape\CartWheel">
+      <UniqueIdentifier>{5d788d13-4e5d-40ad-af51-78dc87cc65c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\Shape\Prism">
+      <UniqueIdentifier>{c5363baf-94eb-4490-8ba6-ff484069a8a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\Shape\Prism\Quadrangular">
+      <UniqueIdentifier>{1e282bd4-f05d-460a-8d93-f293a2d502dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\Shape\Prism\Triangular">
+      <UniqueIdentifier>{0b2a77d0-f793-4545-93e3-5778d5715798}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\Shape\MissileTex">
+      <UniqueIdentifier>{f54a7928-d4e9-48c3-b251-d382526affc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\Shape\Terrain3">
+      <UniqueIdentifier>{93dc6801-9724-4a44-8c78-82363190d9f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Management\GameObject\CEmpty">
+      <UniqueIdentifier>{390fe467-04bc-4dbe-a81b-8521d6eac13a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="97. Utility\EditorLoader">
+      <UniqueIdentifier>{70cc0f1a-3659-4586-848c-8c15a15adac7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\Shape\ArrowCol">
+      <UniqueIdentifier>{60a1ea73-0664-4071-ac79-4d5e68c4a8fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\Shape\Spline">
+      <UniqueIdentifier>{b7c8adf4-29d0-43ea-8d3a-3b2372e9b116}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\Shape\MagnetTex">
+      <UniqueIdentifier>{14140801-3ac3-4446-adc8-11e58e106f11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. PSystem">
+      <UniqueIdentifier>{c6af0370-a0cc-4af7-80ab-c1f8d2881d91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. PSystem\SmokeParticle">
+      <UniqueIdentifier>{fa5fe961-14e7-4abc-9ed8-90cf4d9a6e9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. PSystem\StarParticle">
+      <UniqueIdentifier>{4d1041b1-eb20-43c3-8efb-b03cb0d91e76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. PSystem\DustLandingParticle">
+      <UniqueIdentifier>{0dfcbf83-43e5-4260-8a60-2d7bb3724c62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\Shape\HeightMap">
+      <UniqueIdentifier>{82e0f4f7-dd13-4c69-8776-a9984e25d7a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\Shape\Sphere">
+      <UniqueIdentifier>{5d27ba74-c0fc-405d-b474-fd212bb1031b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Management\GameObject\AlphaEmpty">
+      <UniqueIdentifier>{60b4fbdc-da50-4f5b-84b7-f4a988b7376d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\Shape\MeshRibbon">
+      <UniqueIdentifier>{cc39311e-10d7-4f1a-8c54-8a063aef5c63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\TrackGraph">
+      <UniqueIdentifier>{a64704fb-56e1-4455-af2d-03529f16ac2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\Shape\HalfSphere">
+      <UniqueIdentifier>{75949650-08bc-482a-9c97-aeb0f47fb4d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\Shape\CircleCol">
+      <UniqueIdentifier>{be99450a-dfb1-4d80-abd1-465c0c04e7f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. PSystem\ItemGainParticle">
+      <UniqueIdentifier>{6a91a954-567e-46f4-8c26-ab97a8be88ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Component\Shape\OuterBox">
+      <UniqueIdentifier>{e62485eb-2aee-487b-a5ea-f60243b7ac67}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Header\Engine_Define.h">
+      <Filter>99. Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Engine_Enum.h">
+      <Filter>99. Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Engine_Function.h">
+      <Filter>99. Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Engine_Macro.h">
+      <Filter>99. Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Engine_Struct.h">
+      <Filter>99. Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Engine_Typedef.h">
+      <Filter>99. Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CHeightMapLoader.h">
+      <Filter>97. Utility\HeightMapLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CFontMgr.h">
+      <Filter>80. FontMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CFrameMgr.h">
+      <Filter>02. FrameMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTimerMgr.h">
+      <Filter>01. TimerMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CGraphicDev.h">
+      <Filter>00. GraphicDev</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTimer.h">
+      <Filter>01. TimerMgr\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CFrame.h">
+      <Filter>02. FrameMgr\Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CManagement.h">
+      <Filter>03. Management\Management</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CLayer.h">
+      <Filter>03. Management\Layer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CGameObject.h">
+      <Filter>03. Management\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTransform.h">
+      <Filter>04. Component\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTexture.h">
+      <Filter>04. Component\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CVIBuffer.h">
+      <Filter>04. Component\Shape\VIBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CComponent.h">
+      <Filter>04. Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CRcTex.h">
+      <Filter>04. Component\Shape\RcTex</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CInnerBox.h">
+      <Filter>04. Component\Shape\InnerBox</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CPyramid.h">
+      <Filter>04. Component\Shape\Pyramid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CProtoMgr.h">
+      <Filter>05. ProtoMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CFont.h">
+      <Filter>80. FontMgr\Font</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CScene.h">
+      <Filter>03. Management\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CCameraMgr.h">
+      <Filter>95. CameraMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CCamera.h">
+      <Filter>03. Management\GameObject\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CDInputMgr.h">
+      <Filter>90. DInputMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTerrain2.h">
+      <Filter>04. Component\Shape\Terrain2</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CRenderer.h">
+      <Filter>98. Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CCalculator.h">
+      <Filter>97. Utility\CCalculator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CCube.h">
+      <Filter>04. Component\Shape\Cube</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CCollider.h">
+      <Filter>04. Component\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CCollisionMgr.h">
+      <Filter>04. Component\Collision\CollisionMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CCube_Collider.h">
+      <Filter>04. Component\Collision\Cube_Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSphere_Collider.h">
+      <Filter>04. Component\Collision\Sphere_Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CCartWheelCol.h">
+      <Filter>04. Component\Shape\CartWheel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CCartBodyCol.h">
+      <Filter>04. Component\Shape\CartBody</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CQuadrangularPrism.h">
+      <Filter>04. Component\Shape\Prism\Quadrangular</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTriangularPrism.h">
+      <Filter>04. Component\Shape\Prism\Triangular</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CMissileTex.h">
+      <Filter>04. Component\Shape\MissileTex</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTerrain3.h">
+      <Filter>04. Component\Shape\Terrain3</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CEmpty.h">
+      <Filter>03. Management\GameObject\CEmpty</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\Engine_Parsing.h">
+      <Filter>99. Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CEditorLoader.h">
+      <Filter>97. Utility\EditorLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CArrowTex.h">
+      <Filter>04. Component\Shape\ArrowCol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSpline.h">
+      <Filter>04. Component\Shape\Spline</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CGameUI.h" />
+    <ClInclude Include="..\Header\CMagnetTex.h">
+      <Filter>04. Component\Shape\MagnetTex</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\PSystem.h">
+      <Filter>06. PSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSmoke.h">
+      <Filter>06. PSystem\SmokeParticle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CStarParticle.h">
+      <Filter>06. PSystem\StarParticle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CDustLandingParticle.h">
+      <Filter>06. PSystem\DustLandingParticle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CHeightMap.h">
+      <Filter>04. Component\Shape\HeightMap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CSphere.h">
+      <Filter>04. Component\Shape\Sphere</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CAlphaEmpty.h">
+      <Filter>03. Management\GameObject\AlphaEmpty</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CMeshRibbon.h">
+      <Filter>04. Component\Shape\MeshRibbon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CTrackGraph.h">
+      <Filter>04. Component\TrackGraph</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CHalfSphere.h">
+      <Filter>04. Component\Shape\HalfSphere</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CCircleCol.h">
+      <Filter>04. Component\Shape\CircleCol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\CItemGainParticle.h">
+      <Filter>06. PSystem\ItemGainParticle</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Header\COuterBox.h">
+      <Filter>04. Component\Shape\OuterBox</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Code\CGraphicDev.cpp">
+      <Filter>00. GraphicDev</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTimerMgr.cpp">
+      <Filter>01. TimerMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTimer.cpp">
+      <Filter>01. TimerMgr\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CFrameMgr.cpp">
+      <Filter>02. FrameMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CFrame.cpp">
+      <Filter>02. FrameMgr\Frame</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CGameObject.cpp">
+      <Filter>03. Management\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CLayer.cpp">
+      <Filter>03. Management\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CManagement.cpp">
+      <Filter>03. Management\Management</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CComponent.cpp">
+      <Filter>04. Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CRcTex.cpp">
+      <Filter>04. Component\Shape\RcTex</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTexture.cpp">
+      <Filter>04. Component\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTransform.cpp">
+      <Filter>04. Component\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CInnerBox.cpp">
+      <Filter>04. Component\Shape\InnerBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CPyramid.cpp">
+      <Filter>04. Component\Shape\Pyramid</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CVIBuffer.cpp">
+      <Filter>04. Component\Shape\VIBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CProtoMgr.cpp">
+      <Filter>05. ProtoMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CFontMgr.cpp">
+      <Filter>80. FontMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CHeightMapLoader.cpp">
+      <Filter>97. Utility\HeightMapLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CFont.cpp">
+      <Filter>80. FontMgr\Font</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CScene.cpp">
+      <Filter>03. Management\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCameraMgr.cpp">
+      <Filter>95. CameraMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCamera.cpp">
+      <Filter>03. Management\GameObject\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDInputMgr.cpp">
+      <Filter>90. DInputMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTerrain2.cpp">
+      <Filter>04. Component\Shape\Terrain2</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CRenderer.cpp">
+      <Filter>98. Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCalculator.cpp">
+      <Filter>97. Utility\CCalculator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCube.cpp">
+      <Filter>04. Component\Shape\Cube</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCollider.cpp">
+      <Filter>04. Component\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCollisionMgr.cpp">
+      <Filter>04. Component\Collision\CollisionMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCube_Collider.cpp">
+      <Filter>04. Component\Collision\Cube_Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSphere_Collider.cpp">
+      <Filter>04. Component\Collision\Sphere_Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCartWheelCol.cpp">
+      <Filter>04. Component\Shape\CartWheel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCartBodyCol.cpp">
+      <Filter>04. Component\Shape\CartBody</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CQuadrangularPrism.cpp">
+      <Filter>04. Component\Shape\Prism\Quadrangular</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTriangularPrism.cpp">
+      <Filter>04. Component\Shape\Prism\Triangular</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMissileTex.cpp">
+      <Filter>04. Component\Shape\MissileTex</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTerrain3.cpp">
+      <Filter>04. Component\Shape\Terrain3</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEmpty.cpp">
+      <Filter>03. Management\GameObject\CEmpty</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CEditorLoader.cpp">
+      <Filter>97. Utility\EditorLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CArrowTex.cpp">
+      <Filter>04. Component\Shape\ArrowCol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSpline.cpp">
+      <Filter>04. Component\Shape\Spline</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CGameUI.cpp" />
+    <ClCompile Include="..\Code\CMagnetTex.cpp">
+      <Filter>04. Component\Shape\MagnetTex</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\PSystem.cpp">
+      <Filter>06. PSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSmoke.cpp">
+      <Filter>06. PSystem\SmokeParticle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CStarParticle.cpp">
+      <Filter>06. PSystem\StarParticle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CDustLandingParticle.cpp">
+      <Filter>06. PSystem\DustLandingParticle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CHeightMap.cpp">
+      <Filter>04. Component\Shape\HeightMap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CSphere.cpp">
+      <Filter>04. Component\Shape\Sphere</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CAlphaEmpty.cpp">
+      <Filter>03. Management\GameObject\AlphaEmpty</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CMeshRibbon.cpp">
+      <Filter>04. Component\Shape\MeshRibbon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CTrackGraph.cpp">
+      <Filter>04. Component\TrackGraph</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CHalfSphere.cpp">
+      <Filter>04. Component\Shape\HalfSphere</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CCircleCol.cpp">
+      <Filter>04. Component\Shape\CircleCol</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\CItemGainParticle.cpp">
+      <Filter>06. PSystem\ItemGainParticle</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\COuterBox.cpp">
+      <Filter>04. Component\Shape\OuterBox</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
