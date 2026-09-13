@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="98. Default">
-      <UniqueIdentifier>{eb5d5221-cb5c-4d0d-9411-83e891068662}</UniqueIdentifier>
+      <UniqueIdentifier>{dcc302e1-dc64-44ce-a0f2-eb9a286242a6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -10,9 +10,6 @@
       <Filter>98. Default</Filter>
     </ClInclude>
     <ClInclude Include="framework.h">
-      <Filter>98. Default</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\MainApp.h">
       <Filter>98. Default</Filter>
     </ClInclude>
     <ClInclude Include="Resource.h">
@@ -23,10 +20,20 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Client.cpp">
+    <Image Include="Client.ico">
       <Filter>98. Default</Filter>
-    </ClCompile>
-    <ClCompile Include="..\private\MainApp.cpp">
+    </Image>
+    <Image Include="small.ico">
+      <Filter>98. Default</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Client.rc">
+      <Filter>98. Default</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Client.cpp">
       <Filter>98. Default</Filter>
     </ClCompile>
   </ItemGroup>
