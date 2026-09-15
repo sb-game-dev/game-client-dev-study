@@ -4,6 +4,8 @@
 #include "framework.h"
 #include "Client.h"
 
+#include "../Public/MainApp.h"
+
 #define MAX_LOADSTRING 100
 
 // 전역 변수:
@@ -43,13 +45,26 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     MSG msg;
 
     // 기본 메시지 루프입니다:
-    while (GetMessage(&msg, nullptr, 0, 0))
+    while (true)
     {
-        if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+        /* 메세지 큐에 메세지가 있었으면 메세지에 대한 처리를 해준다 */
+        if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
+            if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+            {
+                TranslateMessage(&msg);
+                DispatchMessage(&msg);
+            }
         }
+
+        /* 메세지 큐에 메세지가 없으면 */
+
+
+        /* 내 게임의 업데이트를 수행한다 */
+
+
+        /* 내 게임의 렌더를 수행한다 */
+
     }
 
     return (int) msg.wParam;
