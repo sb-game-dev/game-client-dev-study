@@ -1,0 +1,218 @@
+[image duckov_logo 500]
+
+[Space]
+[color #FF9E3A] [s]     出品人
+[color #FF9E3A] [s]     Presenter
+        陈睿
+[s]     Chen Rui
+
+[Space]
+[color #FF9E3A]        开发
+[color #FF9E3A][s]     Development
+
+[image soda_logo 240]
+[b]碳酸小队
+[s]Team Soda
+
+[s]     制作人 / 程序 / 技术美术 \n 过场动画 / 音效
+[s]     Producer / Programmer \nTechnical Artist \nCutscene Animation / Sound Design
+        陈建烽
+[s]     Jeff Chen
+
+[Horizontal]
+[s]     程序 / 策划 / 技术音频 \n角色动画 / 音效 / 音乐 
+[s]     Programmer / Game Designer \nTechnical Audio Designer \nCharacter Animation \nSound Design / Music 
+        吴乐扬
+[s]     Xavier Wu
+
+[s]     策划
+[s]     Game Designer
+        朱一鸣
+[s]     Zeni Zhu
+[End]
+
+[Horizontal]
+[s]     美术 / 关卡设计
+[s]     Artist / Level Designer
+        董家成
+[s]     Dong Jiacheng
+
+[s]     美术
+[s]     Artist
+        宋金洋
+[s]     Fo Song
+[End]
+
+
+[Horizontal]
+[s]     美术
+[s]     Artist
+        张震
+[s]     Zhang Zhen
+[End]
+
+[Space]
+[color #FF9E3A]        音乐/音效
+[color #FF9E3A][s]     Music/Sound Design
+
+[image salt_logo 100]
+[b]     一罐盐 · 工作室
+[s][b]     Salt Sound Studio
+
+[s]     音频总监
+[s]     Audio Director
+        许文祺
+[s]     Ivy (Wenqi) Xu
+
+[s]     音效设计师
+[s]     Audio Designer
+
+[Horizontal]
+
+        袁旭
+[s]     Yuan Xu
+        
+        许文祺
+[s]     Ivy (Wenqi) Xu
+[End]
+
+[s]     音乐
+[s]     Music
+        滑行浣熊
+[s]     Kyfun
+
+[s]     音频监制
+[s]     Audio Supervisor
+        一罐盐
+[s]     Ismet Lee
+
+[Space]
+[color #FF9E3A]        发行支持
+[color #FF9E3A][s]     Publishing Team
+
+        二猴哥哥
+[s]     Phyllis Chen
+昀芳
+
+Yufei
+
+炉心iRuy
+
+Akiko
+
+Elaine
+
+Yiwen
+
+Zhuxuan
+
+Lixin
+
+晓茵
+
+夏珑
+
+皓宇
+
+张点
+
+阿豆
+
+膜法师
+
+御元宝
+
+一只可达鸭
+
+菡菡
+
+海格
+
+Daner
+
+朦朦
+
+鹏涛
+
+Jason
+
+[Space]
+[color #FF9E3A]        质量保证
+[color #FF9E3A][s]    Quality Assurance
+
+        葛乙凡
+[s]     Mike Ge
+
+[Space]
+[color #FF9E3A]        其他音频资源
+[color #FF9E3A][s]     Additional Audio Technologies and Assets
+
+[s]     基地背景音乐
+[s]     Background Music of the Base
+[b]     INeedMusic.co
+[s]     (Coffee Shop Music Pack)
+
+[Space]
+[s]     主菜单音乐使用来自 Splice 的采样制作
+[s]     The music in the main menu scene is produced using samples from Splice.
+
+[Space]
+     音频引擎
+[s]     Audio Engine
+
+[image fmod_logo 60]
+
+[s]FMOD Studio\nby Firelight Technologies Pty Ltd.
+
+[Space]
+[color #FF9E3A]        合作伙伴
+[color #FF9E3A][s]     Platform Partners
+
+[Horizontal]
+[image steam_logo 60]
+
+[image epic_logo 60]
+
+[image wegame_logo 60]
+[End]
+
+[Horizontal]
+[image steamcn_logo 60]
+
+[image taptap_logo 60]
+
+[image blackbox_logo 60]
+[End]
+
+
+
+[Space]
+[color #FF9E3A]        特别鸣谢
+[color #FF9E3A][s]     Special Acknowledgments
+
+        孙康健
+
+        谭天晓
+
+        
+[Space]
+[color #FF9E3A]        鸣谢
+[color #FF9E3A][s]     Acknowledgments
+
+        潘常鑫
+
+        苍浪子
+        
+        Mr.sans
+        
+        Initloader(呵呵)
+
+        参与测试的玩家
+[s]     Playtest Players
+
+[Space]
+[Space]
+[l] 谢谢游玩
+Thanks for playing!
+
+[Space 0 1000]
