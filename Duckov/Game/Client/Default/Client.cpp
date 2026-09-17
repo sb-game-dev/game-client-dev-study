@@ -53,11 +53,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // 기본 메시지 루프입니다:
     while (true)
     {
-        if (WM_QUIT == msg.message)
-            break;
         /* 메세지 큐에 메세지가 있었으면 메세지에 대한 처리를 해준다 */
         if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
+            if (WM_QUIT == msg.message)
+                break;
             if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
             {
                 TranslateMessage(&msg);

@@ -1,6 +1,5 @@
 #include "MainApp.h"
 
-using namespace Client;
 
 CMainApp::CMainApp()
 {
