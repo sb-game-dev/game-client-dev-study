@@ -4,7 +4,7 @@
 #include "framework.h"
 #include "Client.h"
 
-#include "../Public/MainApp.h"
+#include "MainApp.h"
 
 #define MAX_LOADSTRING 100
 
@@ -44,9 +44,17 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     MSG msg;
 
+    unique_ptr<CMainApp> pMainApp = { nullptr };    //유니폼 초기화
+    
+    pMainApp = CMainApp::Create();
+    if (pMainApp == nullptr)
+        return FALSE;
+
     // 기본 메시지 루프입니다:
     while (true)
     {
+        if (WM_QUIT == msg.message)
+            break;
         /* 메세지 큐에 메세지가 있었으면 메세지에 대한 처리를 해준다 */
         if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
@@ -61,12 +69,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 
         /* 내 게임의 업데이트를 수행한다 */
-
+        pMainApp->Update();
 
         /* 내 게임의 렌더를 수행한다 */
-
+        pMainApp->Render();
     }
 
+    pMainApp.reset();   // 안써도 상관 없긴함. 삭제시점 확인용
+    
     return (int) msg.wParam;
 }
 
