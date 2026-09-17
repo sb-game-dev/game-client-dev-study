@@ -19,8 +19,11 @@ namespace Engine
 
 	typedef    XMFLOAT4X4 float4x4_t;
 
+	typedef		float						_float;
+	typedef		double						_double;
 
 
+	typedef		D3DXMATRIX					_matrix;
 }
 
 #endif // Engine_Typedef_h__
