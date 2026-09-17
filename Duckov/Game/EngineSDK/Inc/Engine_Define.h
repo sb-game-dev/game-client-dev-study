@@ -5,7 +5,7 @@
 //#include <d3dx9.h>
 
 #include <DirectXMath.h> 
-using namespace DirectX
+using namespace DirectX;
 
 #include <vector>
 #include <list>
