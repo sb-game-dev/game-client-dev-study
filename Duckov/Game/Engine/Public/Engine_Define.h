@@ -7,6 +7,7 @@
 #include <DirectXMath.h> 
 using namespace DirectX;
 
+#include <memory>
 #include <vector>
 #include <list>
 #include <map>
@@ -15,6 +16,8 @@ using namespace DirectX;
 #include <string>
 #include <unordered_map>
 #include <ctime>
+
+using namespace std;
 
 #include "Engine_Enum.h"
 #include "Engine_Macro.h"
@@ -43,7 +46,6 @@ using namespace DirectX;
 #endif
 #endif
 
-using namespace std;
 using namespace Engine;
 
 #endif // Engine_Define_h__

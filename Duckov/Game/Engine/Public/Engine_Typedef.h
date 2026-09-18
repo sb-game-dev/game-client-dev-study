@@ -7,6 +7,7 @@ namespace Engine
 
 	typedef		char					char_t;
 	typedef		wchar_t					tchar_t;
+	typedef		wstring					wstring_t;
 
 	typedef		float					f32_t;
 	typedef		double					f64_t;

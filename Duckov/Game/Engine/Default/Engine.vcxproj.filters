@@ -4,6 +4,12 @@
     <Filter Include="99. Defines">
       <UniqueIdentifier>{900d18da-9bc7-4c64-a9ef-7610b2277822}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Timers">
+      <UniqueIdentifier>{b50d97fc-446e-4b23-8292-53682d96baf7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Timers\Manager">
+      <UniqueIdentifier>{445f88da-e951-4411-b8c8-c9f725a82c3b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Engine_Define.h">
@@ -24,5 +30,13 @@
     <ClInclude Include="..\Public\Engine_Typedef.h">
       <Filter>99. Defines</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Timer.h">
+      <Filter>01. Timers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Private\Timer.cpp">
+      <Filter>01. Timers</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

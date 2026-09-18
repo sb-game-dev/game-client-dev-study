@@ -1,5 +1,6 @@
 #include "MainApp.h"
-
+#include "Engine_Define.h"
+#include "Client_Defines.h"
 
 CMainApp::CMainApp()
 {
