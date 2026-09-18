@@ -38,14 +38,12 @@ void CTimer::Update_Timer()
 	m_LastTime = m_FrameTime;
 }
 
-shared_ptr<class CTimer> CTimer::Create()
+shared_ptr<CTimer> CTimer::Create()
 {
-	auto pInstance = shared_ptr<class Timer>(new CTimer);
+	auto pInstance = shared_ptr<CTimer>(new CTimer);
 
 	if (FAILED(pInstance->Ready_Timer()))
-	{
 		pInstance.reset();
-	}
 
 	return pInstance;
 }

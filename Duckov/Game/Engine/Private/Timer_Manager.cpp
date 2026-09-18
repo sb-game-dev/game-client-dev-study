@@ -1,37 +1,37 @@
 #include "Timer_Manager.h"
 #include "Timer.h"
-IMPLEMENT_SINGLETON(CTimerMgr)
+IMPLEMENT_SINGLETON(CTimer_Manager)
 
-CTimerMgr::CTimerMgr()
+CTimer_Manager::CTimer_Manager()
 {
 }
 
-CTimerMgr::~CTimerMgr()
+CTimer_Manager::~CTimer_Manager()
 {
 	Free();
 }
 
-f32_t CTimerMgr::Get_TimeDelta(const tchar_t* pTimerTag)
+f32_t CTimer_Manager::Get_TimeDelta(const wstring_t& strTimerTag)
 {
-	CTimer* pTimer = Find_Timer(pTimerTag);
+	auto pTimer = Find_Timer(strTimerTag);
 	if (nullptr == pTimer)
 		return 0.f;
 
 	return pTimer->Get_TimeDelta();
 }
 
-void CTimerMgr::Set_TimeDelta(const tchar_t* pTimerTag)
+void CTimer_Manager::Set_TimeDelta(const wstring_t& strTimerTag)
 {
-	CTimer* pTimer = Find_Timer(pTimerTag);
+	auto pTimer = Find_Timer(strTimerTag);
 	if (nullptr == pTimer)
 		return;
 
 	pTimer->Update_Timer();
 }
 
-HRESULT CTimerMgr::Ready_Timer(const tchar_t* pTimerTag)
+HRESULT CTimer_Manager::Ready_Timer(const wstring_t& strTimerTag)
 {
-	CTimer* pTimer = Find_Timer(pTimerTag);
+	auto pTimer = Find_Timer(strTimerTag);
 
 	if (nullptr != pTimer)
 		return E_FAIL;
@@ -40,24 +40,22 @@ HRESULT CTimerMgr::Ready_Timer(const tchar_t* pTimerTag)
 	if (nullptr == pTimer)
 		return E_FAIL;
 
-	m_mapTimer.insert({ pTimerTag, pTimer });
+	m_Timers.insert({ strTimerTag, pTimer });
 
 	return S_OK;
 }
 
-shared_ptr<class CTimer> CTimerMgr::Find_Timer(const tchar_t* pTimerTag)
+shared_ptr<class CTimer> CTimer_Manager::Find_Timer(const wstring_t& strTimerTag)
 {
-	auto		iter = find_if(m_mapTimer.begin(),
-								m_mapTimer.end(),
-								CTag_Finder(pTimerTag));
+	auto		iter = m_Timers.find(strTimerTag);
 
-	if (iter == m_mapTimer.end())
+	if (iter == m_Timers.end())
 		return nullptr;
 
 	return iter->second;
 }
 
-void CTimerMgr::Free()
+void CTimer_Manager::Free()
 {
 
 }

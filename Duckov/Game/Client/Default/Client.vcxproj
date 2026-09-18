@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Client_Defines.h" />
+    <ClInclude Include="..\Public\Inven.h" />
     <ClInclude Include="..\Public\MainApp.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="framework.h" />
@@ -141,6 +142,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Private\Inven.cpp" />
     <ClCompile Include="..\Private\MainApp.cpp" />
     <ClCompile Include="Client.cpp" />
   </ItemGroup>

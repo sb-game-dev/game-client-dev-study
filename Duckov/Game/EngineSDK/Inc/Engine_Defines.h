@@ -1,5 +1,5 @@
-#ifndef Engine_Define_h__
-#define Engine_Define_h__
+#ifndef Engine_Defines_h__
+#define Engine_Defines_h__
 
 #include <d3d11.h>
 //#include <d3dx9.h>
@@ -7,6 +7,7 @@
 #include <DirectXMath.h> 
 using namespace DirectX;
 
+#include <memory>
 #include <vector>
 #include <list>
 #include <map>
@@ -15,6 +16,11 @@ using namespace DirectX;
 #include <string>
 #include <unordered_map>
 #include <ctime>
+#include <io.h>
+#include <iostream>
+
+
+using namespace std;
 
 #include "Engine_Enum.h"
 #include "Engine_Macro.h"
@@ -43,7 +49,6 @@ using namespace DirectX;
 #endif
 #endif
 
-using namespace std;
 using namespace Engine;
 
-#endif // Engine_Define_h__
+#endif // Engine_Defines_h__

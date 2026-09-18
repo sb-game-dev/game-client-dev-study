@@ -1,5 +1,5 @@
 #pragma once
-#include "Engine_Define.h"
+#include "Engine_Defines.h"
 
 NS_BEGIN(Engine)
 class CTimer
@@ -26,7 +26,7 @@ private:
 	f32_t				m_fTimeDelta;
 
 public:
-	static shared_ptr<class Timer> Create();
+	static shared_ptr<CTimer> Create();
 private:
 	virtual void	Free();
 };

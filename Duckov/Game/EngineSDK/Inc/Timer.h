@@ -1,12 +1,13 @@
 #pragma once
-#include "Engine_Define.h"
+#include "Engine_Defines.h"
 
 NS_BEGIN(Engine)
-class ENGINE_DLL CTimer
+class CTimer
 {
 private:
-	explicit			 CTimer();
-	virtual				~CTimer();
+	CTimer();
+public:
+	~CTimer();
 
 public:
 	f32_t				Get_TimeDelta() const { return m_fTimeDelta; }
@@ -25,7 +26,7 @@ private:
 	f32_t				m_fTimeDelta;
 
 public:
-	static CTimer* Create();
+	static shared_ptr<CTimer> Create();
 private:
 	virtual void	Free();
 };

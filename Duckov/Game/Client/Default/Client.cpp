@@ -5,6 +5,8 @@
 #include "Client.h"
 
 #include "MainApp.h"
+#include "Timer_Manager.h"
+#include "Inven.h"
 
 #define MAX_LOADSTRING 100
 
@@ -24,6 +26,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ LPWSTR    lpCmdLine,
                      _In_ int       nCmdShow)
 {
+#ifdef _DEBUG
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+#endif
+
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
@@ -49,6 +55,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     pMainApp = CMainApp::Create();
     if (pMainApp == nullptr)
         return FALSE;
+
+
+    CTimer_Manager::GetInstance()->Ready_Timer(TEXT("FDAFDSAFADS"));
 
     // 기본 메시지 루프입니다:
     while (true)
@@ -76,7 +85,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     }
 
     pMainApp.reset();   // 안써도 상관 없긴함. 삭제시점 확인용
-    
+    CTimer_Manager::DestroyInstance();
+    CInven::DestroyInstance();
     return (int) msg.wParam;
 }
 

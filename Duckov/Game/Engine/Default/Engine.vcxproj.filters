@@ -12,7 +12,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Public\Engine_Define.h">
+    <ClInclude Include="..\Public\Engine_Defines.h">
       <Filter>99. Defines</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Engine_Enum.h">
@@ -33,10 +33,16 @@
     <ClInclude Include="..\Public\Timer.h">
       <Filter>01. Timers</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Timer_Manager.h">
+      <Filter>01. Timers\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Timer.cpp">
       <Filter>01. Timers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Timer_Manager.cpp">
+      <Filter>01. Timers\Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
