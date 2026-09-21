@@ -159,7 +159,7 @@ using namespace Engine;
 </details>
 
 <details>
-  <summary> Engine_Enum </summary>
+  <summary> Engine_Enum.h </summary>
 
 - enum class 사용
 - 기존 enum과 동일하게 0부터 정수를 만들어줌
@@ -179,7 +179,7 @@ namespace Engine
 </details>
 
 <details>
-  <summary> Engine_Function </summary>
+  <summary> Engine_Function.h </summary>
 
 - dx9때 사용하던 Find_Tag는 사용하지 않음
 - map컨테이너의 Key를 더이상 w_char로 사용하지 않고 wstring을 사용하여 map컨테이너의 find함수를 하용하여 객체에 접근함
@@ -265,7 +265,7 @@ namespace Engine
 </details>
 
 <details>
-  <summary> Engine_Struct </summary>
+  <summary> Engine_Struct.h </summary>
 
 - Graphic_Device를 초기화하기 위한 매개변수를 구조체로 정의하여 매개변수의 길이를 줄인다
 
@@ -288,7 +288,7 @@ namespace Engine
 </details>
 
 <details>
-  <summary> Engine_Typedef </summary>
+  <summary> Engine_Typedef.h </summary>
 
 > typedef를 사용하는 이유
 
@@ -325,7 +325,7 @@ namespace Engine
 </details>
 
 <details>
-  <summary> Client_Defines </summary>
+  <summary> Client_Defines.h </summary>
 
 ```cpp
 #pragma once
