@@ -1,0 +1,9 @@
+#pragma once
+
+
+/* 클라이언트에서 제작하는 클래스들이 이용해야할 공통적인 정의를 모아둔다. */
+#include <Windows.h>
+#include <memory>
+
+using namespace std;
+

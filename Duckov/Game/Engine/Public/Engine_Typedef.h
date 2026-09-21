@@ -13,7 +13,6 @@ namespace Engine
 	typedef		double					f64_t;
 	typedef		long double				f128_t;
 
-
 	typedef    XMFLOAT2					float2_t;
 	typedef    XMFLOAT3					float3_t;
 	typedef    XMFLOAT4					float4_t;

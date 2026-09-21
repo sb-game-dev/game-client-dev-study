@@ -58,10 +58,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return FALSE;
     if (FAILED(CGameInstance::Get().Add_Timer(TEXT("Timer_Default"))))
         return FALSE;
-    if (FAILED(CGameInstance::Get().Add_Timer(L"Timer_60")))
+    if (FAILED(CGameInstance::Get().Add_Timer(TEXT("Timer_60"))))
         return FALSE;
 
-    f32_t fTimeDelatAcc = 0.f;
+    f32_t fTimeDeltaAcc = {};
 
     // 기본 메시지 루프입니다:
     while (true)
@@ -77,16 +77,19 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                 DispatchMessage(&msg);
             }
         }
-        /* 메세지 큐에 메세지가 없으면 */
         CGameInstance::Get().Update_TimeDelta(TEXT("Timer_Default"));
-        fTimeDelatAcc += CGameInstance::Get().Get_TimeDelta(TEXT("Timer_Default"));
+        fTimeDeltaAcc += CGameInstance::Get().Get_TimeDelta(TEXT("Timer_Default"));
+        if (fTimeDeltaAcc >= 1.f / 60.f)
+        {
+            CGameInstance::Get().Update_TimeDelta(TEXT("Timer_60"));
+            /* 내 게임의 업데이트를 수행한다 */
+            pMainApp->Update(CGameInstance::Get().Get_TimeDelta(TEXT("Timer_60")));
 
+            /* 내 게임의 렌더를 수행한다 */
+            pMainApp->Render();
 
-        /* 내 게임의 업데이트를 수행한다 */
-        pMainApp->Update();
-
-        /* 내 게임의 렌더를 수행한다 */
-        pMainApp->Render();
+            fTimeDeltaAcc = 0.f;
+        }
     }
 
     pMainApp.reset();   // 안써도 상관 없긴함. 삭제시점 확인용
@@ -114,7 +117,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_CLIENT));
     wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
-    wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_CLIENT);
+    wcex.lpszMenuName   = 0;
     wcex.lpszClassName  = szWindowClass;
     wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 

@@ -13,7 +13,7 @@ public:
 
 public:
 	HRESULT		Initialize();
-	void		Update();
+	void		Update(f32_t fDeltaTime);
 	HRESULT		Render();
 
 private:

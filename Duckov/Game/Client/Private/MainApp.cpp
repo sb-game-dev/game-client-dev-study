@@ -58,7 +58,7 @@ HRESULT CMainApp::Initialize()
     return S_OK;
 }
 
-void CMainApp::Update()
+void CMainApp::Update(f32_t fDeltaTime)
 {
 }
 
