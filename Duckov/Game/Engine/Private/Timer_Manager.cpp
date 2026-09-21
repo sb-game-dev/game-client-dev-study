@@ -1,6 +1,5 @@
 #include "Timer_Manager.h"
 #include "Timer.h"
-IMPLEMENT_SINGLETON(CTimer_Manager)
 
 CTimer_Manager::CTimer_Manager()
 {
@@ -11,6 +10,7 @@ CTimer_Manager::~CTimer_Manager()
 	Free();
 }
 
+
 f32_t CTimer_Manager::Get_TimeDelta(const wstring_t& strTimerTag)
 {
 	auto pTimer = Find_Timer(strTimerTag);
@@ -20,7 +20,7 @@ f32_t CTimer_Manager::Get_TimeDelta(const wstring_t& strTimerTag)
 	return pTimer->Get_TimeDelta();
 }
 
-void CTimer_Manager::Set_TimeDelta(const wstring_t& strTimerTag)
+void CTimer_Manager::Update_TimeDelta(const wstring_t& strTimerTag)
 {
 	auto pTimer = Find_Timer(strTimerTag);
 	if (nullptr == pTimer)
@@ -29,7 +29,7 @@ void CTimer_Manager::Set_TimeDelta(const wstring_t& strTimerTag)
 	pTimer->Update_Timer();
 }
 
-HRESULT CTimer_Manager::Ready_Timer(const wstring_t& strTimerTag)
+HRESULT CTimer_Manager::Add_Timer(const wstring_t& strTimerTag)
 {
 	auto pTimer = Find_Timer(strTimerTag);
 
@@ -55,6 +55,10 @@ shared_ptr<class CTimer> CTimer_Manager::Find_Timer(const wstring_t& strTimerTag
 	return iter->second;
 }
 
+unique_ptr<CTimer_Manager>	CTimer_Manager::Create()
+{
+	return unique_ptr<CTimer_Manager>(new CTimer_Manager());
+}
 void CTimer_Manager::Free()
 {
 

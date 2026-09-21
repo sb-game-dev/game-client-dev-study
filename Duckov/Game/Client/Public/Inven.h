@@ -14,7 +14,7 @@ public:
 	void		AddEquipSlot(EQUIP_SLOT eSlotID, shared_ptr<ITEM> pItem);
 	
 	shared_ptr<ITEM>&		GetSlot(EQUIP_SLOT eSlotID) { return m_pEquipSlots[static_cast<int>(eSlotID)]; }
-	//ITEM*&		GetSlot(f32_t x, f32_t y) { return nullptr; }
+	//shared_ptr<ITEM>&		GetSlot(f32_t x, f32_t y) { return nullptr; }
 
 	void		RenderEquipSlot();
 	void		RenderStorage();

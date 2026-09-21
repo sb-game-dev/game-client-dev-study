@@ -5,7 +5,7 @@
 #include "Client.h"
 
 #include "MainApp.h"
-#include "Timer_Manager.h"
+#include "GameInstance.h"
 #include "Inven.h"
 
 #define MAX_LOADSTRING 100
@@ -55,9 +55,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     pMainApp = CMainApp::Create();
     if (pMainApp == nullptr)
         return FALSE;
+    if (FAILED(CGameInstance::Get().Add_Timer(TEXT("Timer_Default"))))
+        return FALSE;
+    if (FAILED(CGameInstance::Get().Add_Timer(L"Timer_60")))
+        return FALSE;
 
-
-    CTimer_Manager::GetInstance()->Ready_Timer(TEXT("FDAFDSAFADS"));
+    f32_t fTimeDelatAcc = 0.f;
 
     // 기본 메시지 루프입니다:
     while (true)
@@ -73,8 +76,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                 DispatchMessage(&msg);
             }
         }
-
         /* 메세지 큐에 메세지가 없으면 */
+        CGameInstance::Get().Update_TimeDelta(TEXT("Timer_Default"));
+        fTimeDelatAcc += CGameInstance::Get().Get_TimeDelta(TEXT("Timer_Default"));
 
 
         /* 내 게임의 업데이트를 수행한다 */
@@ -85,8 +89,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     }
 
     pMainApp.reset();   // 안써도 상관 없긴함. 삭제시점 확인용
-    CTimer_Manager::DestroyInstance();
-    CInven::DestroyInstance();
     return (int) msg.wParam;
 }
 

@@ -2,7 +2,6 @@
 #include <io.h>
 #include <iostream>
 
-IMPLEMENT_SINGLETON(CInven)
 
 CInven::CInven()
 {

@@ -2,6 +2,7 @@
 #include "Engine_Defines.h"
 #include "Client_Defines.h"
 #include "Inven.h"
+#include "GameInstance.h"
 
 CMainApp::CMainApp()
 {
@@ -26,23 +27,26 @@ HRESULT CMainApp::Initialize()
 
     shared_ptr<ITEM> pGun_test = shared_ptr<ITEM>(new GUN);
     pGun_test->strItemName = L"Gun";
-    CInven::GetInstance()->AddEquipSlot(EQUIP_SLOT::GUN_1, pGun_test);
+    CInven::Get().AddEquipSlot(EQUIP_SLOT::GUN_1, pGun_test);
     pGun_test = nullptr;
 
     shared_ptr<ITEM> pGun_test2 = shared_ptr<ITEM>(new GUN);
     pGun_test2->strItemName = L"Gun2";
-    CInven::GetInstance()->AddEquipSlot(EQUIP_SLOT::GUN_2, pGun_test2);
+    CInven::Get().AddEquipSlot(EQUIP_SLOT::GUN_2, pGun_test2);
     pGun_test2 = nullptr;
 
     shared_ptr<ITEM> pBag_test = shared_ptr<ITEM>(new BACKPACK);
     pBag_test->strItemName = L"LV5 BackPack";
-    CInven::GetInstance()->AddEquipSlot(EQUIP_SLOT::BACKPACK, pBag_test);
+    CInven::Get().AddEquipSlot(EQUIP_SLOT::BACKPACK, pBag_test);
     pBag_test = nullptr;
 
     swap(
-        CInven::GetInstance()->GetSlot(EQUIP_SLOT::GUN_1), 
-        CInven::GetInstance()->GetSlot(EQUIP_SLOT::GUN_2)
+        CInven::Get().GetSlot(EQUIP_SLOT::GUN_1),
+        CInven::Get().GetSlot(EQUIP_SLOT::GUN_2)
     );
+
+    if (FAILED(CGameInstance::Get().Initialize_Engine()))
+        return E_FAIL;
 
     return S_OK;
 }
@@ -53,7 +57,7 @@ void CMainApp::Update()
 
 HRESULT CMainApp::Render()
 {
-    CInven::GetInstance()->RenderEquipSlot();
+    CInven::Get().RenderEquipSlot();
     return S_OK;
 }
 

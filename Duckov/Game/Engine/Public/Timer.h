@@ -2,7 +2,7 @@
 #include "Engine_Defines.h"
 
 NS_BEGIN(Engine)
-class CTimer
+class CTimer final
 {
 private:
 	CTimer();
