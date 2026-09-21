@@ -145,20 +145,28 @@ void D3DApp::OnResize()
 
 	HR(mSwapChain->ResizeBuffers(1, mClientWidth, mClientHeight, DXGI_FORMAT_R8G8B8A8_UNORM, 0));
 	ID3D11Texture2D* backBuffer;
-	HR(mSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), reinterpret_cast<void**>(&backBuffer)));
-	HR(md3dDevice->CreateRenderTargetView(backBuffer, 0, &mRenderTargetView));
+
+	// 렌더타겟의 후면버퍼 가져오기
+	HR(mSwapChain->GetBuffer(0,											// 후면버퍼의 인덱스(더블 버퍼라면 0이고 삼중 버퍼 이상이면 신경써야함)
+							 __uuidof(ID3D11Texture2D),					// 버퍼 인터페이스 형식을 지정하는 것. 일반적으로는 ID3D11Texture2D가 사용됨
+							 reinterpret_cast<void**>(&backBuffer)));	// 후면버퍼를 가리키는 포인터를 돌려줌
+	// 렌더타겟 뷰 생성
+	HR(md3dDevice->CreateRenderTargetView(backBuffer,					// 렌더 대상으로 사용할 자원(방금 얻은 렌더타겟의 후면버퍼)
+										  0,							// 렌더타겟 뷰 Desc 구조체를 가리키는 포인터. 형식을 완전히 지정해서 자원을 생성했다면 nullptr로 설정해도 됨.
+										  &mRenderTargetView));			// 반환받을 렌더타겟 뷰
 	ReleaseCOM(backBuffer);
 
 	// Create the depth/stencil buffer and view.
 
 	D3D11_TEXTURE2D_DESC depthStencilDesc;
 	
-	depthStencilDesc.Width     = mClientWidth;
-	depthStencilDesc.Height    = mClientHeight;
-	depthStencilDesc.MipLevels = 1;
-	depthStencilDesc.ArraySize = 1;
-	depthStencilDesc.Format    = DXGI_FORMAT_D24_UNORM_S8_UINT;
+	depthStencilDesc.Width     = mClientWidth;						// 텍스처의 너비
+	depthStencilDesc.Height    = mClientHeight;						// 텍스처의 높이
+	depthStencilDesc.MipLevels = 1;									// 밉맵 수준의 개수(깊이, 스텐실 버퍼를 위한 텍스처에서는 밉맵 수준이 하나만 있으면 됨)
+	depthStencilDesc.ArraySize = 1;									// 텍스처 배열의 텍스처 개수 (깊이, 스텐실 버퍼를 위한 텍스처에서는 밉맵 수준이 하나만 있으면 됨)
+	depthStencilDesc.Format    = DXGI_FORMAT_D24_UNORM_S8_UINT;		// 텍셀의 형식을 뜻하는 필드
 
+	// 다중 표본 개수와 품질 수준을 서술하는 구조체 렌더타겟에서 설정한 것과 동일해야함
 	// Use 4X MSAA? --must match swap chain MSAA values.
 	if( mEnable4xMsaa )
 	{
@@ -172,9 +180,23 @@ void D3DApp::OnResize()
 		depthStencilDesc.SampleDesc.Quality = 0;
 	}
 
+	// 텍스처의 용도를 뜻하는 필드 
+	// D3D11_USAGE_DEFAULT : 자원을 GPU가 읽고 써야한다면 이 용도를 설정 (CPU는 읽을 수 없음)
+	// D3D11_USAGE_IMMUTEABLE : 자원을 일단 생성한 후에는 그 내용을 바꾸지 않는 경우에 이 용도를 지정.(GPU 읽기 전용)
+	// D3D11_USAGE_DYNAMIC : CPU가 이 자원의 내용을 빈번하게 갱신해야 할 때 이 용도를 지정. (GPU 읽기 가능, CPU 읽기 쓰기 가능) 성능상의 피해가 생김
+	// D3D11_USAGE_STAGING : GPU에서 CPU메모리로의 자료복사가능. 매우 느린 연산이므로 꼭 필요한 경우가 아니면 피해야한다.
 	depthStencilDesc.Usage          = D3D11_USAGE_DEFAULT;
+
+	// 자원을 파이프라인에 어떤 식으로 묶을 것인지를 지정하는 하나 이상의 플래그들을 OR로 결합하여 지정
+	// D3D11_BIND_RENDER_TARGET : 텍스처를 렌더 타겟으로서 파이프라인에 묶는다.
+	// D3D11_BIND_SHADER_RESOURCE : 텍스처를 셰이더 자원으로서 파이프라인에 묶는다.
 	depthStencilDesc.BindFlags      = D3D11_BIND_DEPTH_STENCIL;
+
+	// CPU가 자원에 접근하는 방식을 결정하는 플래그들을 지정한다.
+	// 깊이, 스텐실 버퍼의 경우 GPU만 읽고 쓰기 때문에 0을 지정한다.
 	depthStencilDesc.CPUAccessFlags = 0; 
+
+	// 기타 플래그들로 깊이, 스텐시 버퍼의 경우 사용하지 않으므로 0지정
 	depthStencilDesc.MiscFlags      = 0;
 
 	HR(md3dDevice->CreateTexture2D(&depthStencilDesc, 0, &mDepthStencilBuffer));
@@ -183,7 +205,9 @@ void D3DApp::OnResize()
 
 	// Bind the render target view and depth/stencil view to the pipeline.
 
-	md3dImmediateContext->OMSetRenderTargets(1, &mRenderTargetView, mDepthStencilView);
+	md3dImmediateContext->OMSetRenderTargets(1,						// 렌더 대상의 개수 여기서는 하나
+											 &mRenderTargetView,	// 렌더타겟 뷰들을 가리키는 포인터들을 담은 배열의 첫 원소를 가리키는 포인터
+											 mDepthStencilView);	// 파이프라인에 묶을 깊이-스텐실 뷰를 가리키는 포인터
 	
 
 	// Set the viewport transform.
@@ -378,15 +402,22 @@ bool D3DApp::InitDirect3D()
 
 	D3D_FEATURE_LEVEL featureLevel;
 	HRESULT hr = D3D11CreateDevice(
-			0,                 // default adapter
-			md3dDriverType,
-			0,                 // no software device
-			createDeviceFlags, 
-			0, 0,              // default feature level array
-			D3D11_SDK_VERSION,
-			&md3dDevice,
-			&featureLevel,
-			&md3dImmediateContext);
+			0,						// 디스플레이 어댑터
+
+			md3dDriverType,			// 드라이버 타입 : 
+									// D3D_DRIVER_TYPE_HARDWARE(3차원 그래픽 가속이 적용되게하는 구동기)
+									// D3D_DRIVER_TYPE_REFERENCE(표준 장치) 
+									// D3D_DRIVER_TYPE_SOFTWARE(3차원 하드웨어를 흉내 내는 소프트웨어 구동기)
+
+			0,						// 소프트웨어 구동기 지정하는 부분. 이 책에서는 D3D_DRIVER_TYPE_HARDWARE 를 사용하기 때문에 0 또는 nullptr로 지정
+			createDeviceFlags,		// 추가적인 장치 생성 플래그
+			0,						// pFeatureLevels 원소들의 순서가 곧 기능 수준을 점검하는 순서. 이 매개변수에 널 값을 지정하면 지원되는 최고 기능 수준이 선택됨
+			0,						// 위 매개변수에 null을 저장했다면 이 매개변수는 0으로 지정하면 됨
+			D3D11_SDK_VERSION,		// 항상 D3D11_SDK_VERSION로 지정
+			&md3dDevice,			// 생성한 Deviec를 돌려준다
+			&featureLevel,			// 지원되는 최고기능 수준을 돌려준다.
+			&md3dImmediateContext	// 생성된 장치 문맥을 돌려준다.
+	);
 
 	if( FAILED(hr) )
 	{
@@ -410,15 +441,19 @@ bool D3DApp::InitDirect3D()
 
 	// Fill out a DXGI_SWAP_CHAIN_DESC to describe our swap chain.
 
+	// <스왑체인구조체 생성 및 채우기>
 	DXGI_SWAP_CHAIN_DESC sd;
-	sd.BufferDesc.Width  = mClientWidth;
-	sd.BufferDesc.Height = mClientHeight;
-	sd.BufferDesc.RefreshRate.Numerator = 60;
-	sd.BufferDesc.RefreshRate.Denominator = 1;
-	sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-	sd.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
-	sd.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;
+	
+	// 1. BufferDesc : 후면 버퍼의 속성들을 서술하는 구조체
+	sd.BufferDesc.Width  = mClientWidth;									// 후면 버퍼 너비
+	sd.BufferDesc.Height = mClientHeight;									// 후면 버퍼 높이
+	sd.BufferDesc.RefreshRate.Numerator = 60;								// 디스플레이 모드 갱신율
+	sd.BufferDesc.RefreshRate.Denominator = 1;								// 디스플레이 모드 갱신율
+	sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;						// 후면 버퍼 픽셀 형식
+	sd.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;	// 디스플레이 스캔라인 모드
+	sd.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;					// 디스플레이 비례 모드
 
+	// 2. SampleDesc : 다중 표본화를 위해 추출할 표본 개수와 품질 수준을 서술하는 구조체
 	// Use 4X MSAA? 
 	if( mEnable4xMsaa )
 	{
@@ -432,11 +467,22 @@ bool D3DApp::InitDirect3D()
 		sd.SampleDesc.Quality = 0;
 	}
 
+	// 3. BufferUsage : 버퍼의 용도를 서술하는 구조체로, 지금 맥락에서는 후면 버퍼가 렌더타겟이므로 DXGI_USAGE_RENDER_TARGET_OUTPUT
 	sd.BufferUsage  = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+
+	// 4. BufferCount : 스왑체인에서 사용할 후면 버퍼의 개수. 후면버퍼 1개 -> 더블 버퍼링, 후면버퍼 2개 -> 삼중 버퍼링
 	sd.BufferCount  = 1;
+
+	// 5. OutputWindow : 렌더링 결과를 표시할 창의 핸들
 	sd.OutputWindow = mhMainWnd;
+
+	// 6. Windowed : 창모드를 원하면 ture, 전체 화면을 원하면 false
 	sd.Windowed     = true;
+
+	// 7. SwapEffect : 교환 효과를 서술하는 구조체. DXGI_SWAP_EFFECT_DISCARD를 지정하면 디스플레이 구동기가 가장 효율적인 제시 방법을 선택
 	sd.SwapEffect   = DXGI_SWAP_EFFECT_DISCARD;
+
+	//8. Flags : 
 	sd.Flags        = 0;
 
 	// To correctly create the swap chain, we must use the IDXGIFactory that was
@@ -453,7 +499,10 @@ bool D3DApp::InitDirect3D()
 	IDXGIFactory* dxgiFactory = 0;
 	HR(dxgiAdapter->GetParent(__uuidof(IDXGIFactory), (void**)&dxgiFactory));
 
-	HR(dxgiFactory->CreateSwapChain(md3dDevice, &sd, &mSwapChain));
+	// 스왑체인 인터페이스 생성
+	HR(dxgiFactory->CreateSwapChain(md3dDevice,		// ID3D11Device를 가리키는 포인터.
+									&sd,			// 교환 사슬 서술 구조체를 가리키는 포인터.
+									&mSwapChain));	// 생성된 교환 사슬 인터페이스를 돌려준다.
 	
 	ReleaseCOM(dxgiDevice);
 	ReleaseCOM(dxgiAdapter);
