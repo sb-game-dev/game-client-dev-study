@@ -48,6 +48,9 @@
     <ClInclude Include="..\Public\GameInstance.h">
       <Filter>00. GameInstance</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Graphic_Device.h">
+      <Filter>02. Device\Graphic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Timer.cpp">
@@ -58,6 +61,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\GameInstance.cpp">
       <Filter>00. GameInstance</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Graphic_Device.cpp">
+      <Filter>02. Device\Graphic</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

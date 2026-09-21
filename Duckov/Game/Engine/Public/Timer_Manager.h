@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Timer.h"
 #include "Engine_Defines.h"
 
 NS_BEGIN(Engine)

@@ -2,6 +2,9 @@
 #define Engine_Defines_h__
 
 #include <d3d11.h>
+#pragma comment(lib, "d3d11.lib")
+#pragma comment(lib, "dxgi.lib")
+#pragma comment(lib, "dxguid.lib")
 //#include <d3dx9.h>
 
 #include <DirectXMath.h> 
@@ -21,6 +24,10 @@ using namespace DirectX;
 
 
 using namespace std;
+
+#include <wrl/client.h>
+using namespace Microsoft::WRL;
+
 
 #include "Engine_Enum.h"
 #include "Engine_Macro.h"

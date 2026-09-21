@@ -14,6 +14,8 @@ using namespace std;
 using namespace Client;
 using namespace Engine;
 
+extern HWND	g_hWnd;
+
 enum class ITEM_TYPE { GUN, MELEE, BULLET, ARMOR, ATTACH, BACKPACK, TOTEM, MEDICAL, FOOD, MISC, END };
 typedef struct Item
 {
