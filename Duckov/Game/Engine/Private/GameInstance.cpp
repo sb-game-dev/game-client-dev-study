@@ -43,6 +43,12 @@ void CGameInstance::Update_TimeDelta(const wstring_t& strTimerTag)
 	m_pTimer_Manager->Update_TimeDelta(strTimerTag);
 }
 
+void CGameInstance::Release_Engine()
+{
+	m_pTimer_Manager.reset();
+	m_pGraphic_Device.reset();
+}
+
 HRESULT CGameInstance::Add_Timer(const wstring_t& strTimerTag)
 {
 	if (FAILED(m_pTimer_Manager->Add_Timer(strTimerTag)))

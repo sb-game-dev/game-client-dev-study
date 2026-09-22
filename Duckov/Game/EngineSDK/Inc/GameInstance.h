@@ -35,5 +35,8 @@ private:
 	unique_ptr<CGraphic_Device>	m_pGraphic_Device = { nullptr };
 	unique_ptr<CTimer_Manager>	m_pTimer_Manager = { nullptr };
 
+public:
+	void			Release_Engine();
+
 };
 NS_END

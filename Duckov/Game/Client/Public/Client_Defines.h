@@ -4,10 +4,11 @@
 #include <Windows.h>
 #include <memory>
 #include "Engine_Defines.h"
-
+#include "GameInstance.h"
 namespace Client
 {
-
+	static constexpr uint32_t g_iWinSizeX = 1280;
+	static constexpr uint32_t g_iWinSizeY = 720;
 };
 
 using namespace std;

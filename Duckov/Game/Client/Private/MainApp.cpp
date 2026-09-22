@@ -2,11 +2,15 @@
 #include "Engine_Defines.h"
 #include "Client_Defines.h"
 #include "Inven.h"
-#include "GameInstance.h"
 
 CMainApp::CMainApp()
 {
 
+}
+
+CMainApp::~CMainApp()
+{
+    CGameInstance::Get().Release_Engine();
 }
 
 HRESULT CMainApp::Initialize()
@@ -47,8 +51,8 @@ HRESULT CMainApp::Initialize()
 
     ENGINE_DESC EngineDesc{};
     EngineDesc.hWnd = g_hWnd;
-    EngineDesc.iWinSizeX = 800;
-    EngineDesc.iWinSizeY = 600;
+    EngineDesc.iWinSizeX = g_iWinSizeX;
+    EngineDesc.iWinSizeY = g_iWinSizeY;
     EngineDesc.eWinMode = WINMODE::WIN;
 
 

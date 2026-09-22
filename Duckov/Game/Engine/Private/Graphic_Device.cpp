@@ -44,19 +44,19 @@ HRESULT CGraphic_Device::Initialize(HWND hWnd, WINMODE isWindowed, uint32_t iWin
 
 
 
-	if (FAILED(D3D11CreateDevice(nullptr,									// 디스플레이 어댑터
-								 D3D_DRIVER_TYPE_HARDWARE,					// 드라이버 타입 : 
-																			// D3D_DRIVER_TYPE_HARDWARE(3차원 그래픽 가속이 적용되게하는 구동기)
-																			// D3D_DRIVER_TYPE_REFERENCE(표준 장치) 
-																			// D3D_DRIVER_TYPE_SOFTWARE(3차원 하드웨어를 흉내 내는 소프트웨어 구동기)
-								 0,											// 소프트웨어 구동기 지정하는 부분. 이 책에서는 D3D_DRIVER_TYPE_HARDWARE 를 사용하기 때문에 0 또는 nullptr로 지정
-								 iFlag, 									// 추가적인 장치 생성 플래그
-								 nullptr,									// pFeatureLevels 원소들의 순서가 곧 기능 수준을 점검하는 순서. 이 매개변수에 널 값을 지정하면 지원되는 최고 기능 수준이 선택됨
-								 0, 										// 위 매개변수에 null을 저장했다면 이 매개변수는 0으로 지정하면 됨
-								 D3D11_SDK_VERSION,							// 항상 D3D11_SDK_VERSION로 지정
-								 m_pDevice.GetAddressOf(),					// 생성한 Deviec를 돌려준다
-								 &FeatureLV,								// 지원되는 최고기능 수준을 돌려준다.
-								 m_pDeviceContext.GetAddressOf()			// 생성된 장치 문맥을 돌려준다.
+	if (FAILED(D3D11CreateDevice(nullptr,							// 디스플레이 어댑터
+								 D3D_DRIVER_TYPE_HARDWARE,			// 드라이버 타입 : 
+																	// D3D_DRIVER_TYPE_HARDWARE(3차원 그래픽 가속이 적용되게하는 구동기)
+																	// D3D_DRIVER_TYPE_REFERENCE(표준 장치) 
+																	// D3D_DRIVER_TYPE_SOFTWARE(3차원 하드웨어를 흉내 내는 소프트웨어 구동기)
+								 0,									// 소프트웨어 구동기 지정하는 부분. 이 책에서는 D3D_DRIVER_TYPE_HARDWARE 를 사용하기 때문에 0 또는 nullptr로 지정
+								 iFlag, 							// 추가적인 장치 생성 플래그
+								 nullptr,							// pFeatureLevels 원소들의 순서가 곧 기능 수준을 점검하는 순서. 이 매개변수에 널 값을 지정하면 지원되는 최고 기능 수준이 선택됨
+								 0, 								// 위 매개변수에 null을 저장했다면 이 매개변수는 0으로 지정하면 됨
+								 D3D11_SDK_VERSION,					// 항상 D3D11_SDK_VERSION로 지정
+								 m_pDevice.GetAddressOf(),			// 생성한 Deviec를 돌려준다
+								 &FeatureLV,						// 지원되는 최고기능 수준을 돌려준다.
+								 m_pDeviceContext.GetAddressOf()	// 생성된 장치 문맥을 돌려준다.
 	)))
 		return E_FAIL;
 
@@ -177,18 +177,17 @@ HRESULT CGraphic_Device::Ready_SwapChain(HWND hWnd, WINMODE isWindowed, uint32_t
 	/* 스케치북에 사과를 그릴꺼야. */
 	/* RENDER_TARGET : 그림을 당하는 대상. 스케치북 */
 	SwapChain.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
+	// BufferCount : 스왑체인에서 사용할 후면 버퍼의 개수. 후면버퍼 1개 -> 더블 버퍼링, 후면버퍼 2개 -> 삼중 버퍼링
 	SwapChain.BufferCount = 1;
 
 	/*스왑하는 형태 : 모니터 주사율에 따라 조절해도 됨. */
 	SwapChain.BufferDesc.RefreshRate.Numerator = 60;
 	SwapChain.BufferDesc.RefreshRate.Denominator = 1;
 
-	// SampleDesc : 다중 표본화를 위해 추출할 표본 개수와 품질 수준을 서술하는 구조체 4X MSAA를 사용하지 않는 형태 
+	// SampleDesc : 다중 표본화를 위해 추출할 표본 개수와 품질 수준을 서술하는 구조체. 4X MSAA를 사용하지 않는 형태 
 	/* 멀티샘플링 : 안티얼라이징 (계단현상방지) */
 	/* 나중에 후처리 렌더링 : 멀티샘플링 지원(x) */
 	SwapChain.SampleDesc.Quality = 0;
-
-	// BufferCount : 스왑체인에서 사용할 후면 버퍼의 개수. 후면버퍼 1개 -> 더블 버퍼링, 후면버퍼 2개 -> 삼중 버퍼링
 	SwapChain.SampleDesc.Count = 1;	
 
 	// OutputWindow : 렌더링 결과를 표시할 창의 핸들
@@ -227,9 +226,9 @@ HRESULT CGraphic_Device::Ready_BackBufferRenderTargetView()
 
 	// 렌더타겟 뷰 생성
 	/* 실제 렌더타겟용도로 사용할 수 있는 텍스쳐 타입(ID3D11RenderTargetView)의 객체를 생성한다. */
-	if (FAILED(m_pDevice->CreateRenderTargetView(pBackBufferTexture.Get(),// 렌더 대상으로 사용할 자원(방금 얻은 렌더타겟의 후면버퍼)
-												 nullptr, 				  // 렌더타겟 뷰 Desc 구조체를 가리키는 포인터. 형식을 완전히 지정해서 자원을 생성했다면 nullptr로 설정해도 됨.
-												 &m_pBackBufferRTV)))	  // 반환받을 렌더타겟 뷰
+	if (FAILED(m_pDevice->CreateRenderTargetView(pBackBufferTexture.Get(),	// 렌더 대상으로 사용할 자원(방금 얻은 렌더타겟의 후면버퍼)
+												 nullptr, 					// 렌더타겟 뷰 Desc 구조체를 가리키는 포인터. 형식을 완전히 지정해서 자원을 생성했다면 nullptr로 설정해도 됨.
+												 &m_pBackBufferRTV)))		// 반환받을 렌더타겟 뷰
 		return E_FAIL;	
 
 	return S_OK;
