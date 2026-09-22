@@ -418,7 +418,56 @@ NS_END
 
 </details>
 
+### 6일차 GraphicDevice
 
+<details>
+	<summary> GraphicDevice 초기화 단계 </summary>
+
+1. Device(생성 및 할당), DeviceContext(기능 사용 + 파이프라인 연결) 객체 생성
+2. SwapChain 생성
+3. 백버퍼 뷰 생성
+4. 깊이-스텐실 텍스처 생성 + 깊이-스텐실 뷰 생성
+5. 백버퍼 뷰, 깊이-스텐실 뷰를 Device에 바인딩
+6. 뷰포트 설정
+</details>
+
+<details>
+	<summary> 텍스처와 뷰 </summary>
+
+- 텍스처를 생성한 뒤 텍스처에서 뷰를 생성한 뒤 DeviecContext에 view를 바인딩 하여 사용할 수 있다.
+- ID3D11Texture2D는 그냥 메모리 덩어리 일 뿐이고 view가 용도를 정함
+- BindFlags는 만들 수 있는 view 종류의 허가이다. 텍스처 Format은 메모리 규격, view Format은 그 메모리의 해석이다.
+- typed 포맷이면 해석이 하나라서 view desc를 nullptr로 생략할 수 있다. typeless면 view desc에 Format을 직접 지정해야 한다.
+
+```cpp
+ComPtr<ID3D11Texture2D> pDepthStencilTexture = { nullptr };
+
+D3D11_TEXTURE2D_DESC	TextureDesc{};	
+
+TextureDesc.Width = iWinCX;
+TextureDesc.Height = iWinCY;
+TextureDesc.MipLevels = 1;
+TextureDesc.ArraySize = 1;
+TextureDesc.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
+
+TextureDesc.SampleDesc.Quality = 0;
+TextureDesc.SampleDesc.Count = 1;
+
+TextureDesc.Usage = D3D11_USAGE_DEFAULT;
+/* 추후에 어떤 용도로 바인딩 될 수 있는 View타입의 텍스쳐를 만들기위한 Texture2D입니까? */
+TextureDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL
+	/*| D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE*/;
+TextureDesc.CPUAccessFlags = 0;
+TextureDesc.MiscFlags = 0;
+
+// 텍스처를 생성하기 위한 구조체를 채우고 그 구조체로 텍스처 생성
+if (FAILED(m_pDevice->CreateTexture2D(&TextureDesc, nullptr, &pDepthStencilTexture)))
+	return E_FAIL;
+// 텍스처로부터 뷰를 뽑아서 사용함
+if (FAILED(m_pDevice->CreateDepthStencilView(pDepthStencilTexture.Get(), nullptr, &m_pDepthStencilView)))
+	return E_FAIL;	
+```
+</details>
 
 
 
