@@ -469,6 +469,31 @@ if (FAILED(m_pDevice->CreateDepthStencilView(pDepthStencilTexture.Get(), nullptr
 ```
 </details>
 
+<details>
+	<summary> RenderTarget추가 방법 </summary>
+
+```cpp
+// 미니맵 그리기 시작
+// 미니맵RTV, DSV 미리 만들어 놓기
+m_pDeviceContext->OMSetRenderTargets(1, m_pMinimapRTV.GetAddressOf(), m_pMinimapDSV.Get());
+
+// 뷰포트 설정
+D3D11_VIEWPORT vp{ 0.f, 0.f, 256.f, 256.f, 0.f, 1.f };
+m_pDeviceContext->RSSetViewports(1, &vp);
+
+m_pDeviceContext->ClearRenderTargetView(m_pMinimapRTV.Get(), clearColor);
+m_pDeviceContext->ClearDepthStencilView(m_pMinimapDSV.Get(),
+    D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.f, 0);
+
+// ... 미니맵용 카메라로 그리기 ...
+
+// 원래대로 복구: 백버퍼 RTV + 메인 DSV + 메인 뷰포트
+m_pDeviceContext->OMSetRenderTargets(1, m_pBackBufferRTV.GetAddressOf(), m_pDepthStencilView.Get());
+m_pDeviceContext->RSSetViewports(1, &m_MainViewport);
+m_pDeviceContext->PSSetShaderResources(0, 1, m_pMinimapSRV.GetAddressOf()); // 같은 텍스처를 SRV로(dx9에서의 SetTexture의 역할)
+// ... 직교 투영으로 화면 구석에 사각형(RcTex 같은 버퍼) 그리기 ...
+```
+</details>
 
 
 
