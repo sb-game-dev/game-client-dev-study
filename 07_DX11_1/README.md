@@ -463,7 +463,7 @@ TextureDesc.MiscFlags = 0;
 // 텍스처를 생성하기 위한 구조체를 채우고 그 구조체로 텍스처 생성
 if (FAILED(m_pDevice->CreateTexture2D(&TextureDesc, nullptr, &pDepthStencilTexture)))
 	return E_FAIL;
-// 텍스처로부터 뷰를 뽑아서 사용함
+// 텍스처로부터 뷰를 생성하여 사용함
 if (FAILED(m_pDevice->CreateDepthStencilView(pDepthStencilTexture.Get(), nullptr, &m_pDepthStencilView)))
 	return E_FAIL;	
 ```
