@@ -74,6 +74,38 @@ HRESULT CMainApp::Render()
 
     CInven::Get().RenderEquipSlot();
 
+    //// 정점 정보
+    //VTXTEX vertices[] =
+    //{
+    //    { float3_t(-0.5f,  0.5f, 0.f),  float2_t(0.f, 0.f) },  
+    //    { float3_t(0.5f,  0.5f, 0.f),   float2_t(1.f, 0.f) },  
+    //    { float3_t(0.5f, -0.5f, 0.f),   float2_t(1.f, 1.f) },  
+    //    { float3_t(-0.5f, -0.5f, 0.f),  float2_t(0.f, 1.f) },  
+    //};
+    //
+    //unsigned short indices[] = { 0,1,2, 0,2,3 };
+    //
+    //// 정점 버퍼 생성
+    //D3D11_BUFFER_DESC   VBDesc{};
+    //VBDesc.ByteWidth    =   sizeof(vertices);
+    //VBDesc.Usage        =   D3D11_USAGE_IMMUTABLE;
+    //VBDesc.BindFlags    =   D3D11_BIND_VERTEX_BUFFER;
+    //
+    //D3D11_SUBRESOURCE_DATA  VBData{};
+    //VBData.pSysMem = vertices;
+    //m_pDevice->CreateBuffer(&VBDesc, &VBData, &m_pVB);
+    //
+    //// 인덱스 버퍼 생성
+    //D3D11_BUFFER_DESC IBDesc{};
+    //IBDesc.ByteWidth    =   sizeof(indices);              // 2 x 6 = 12바이트
+    //IBDesc.Usage        =   D3D11_USAGE_IMMUTABLE;
+    //IBDesc.BindFlags    =   D3D11_BIND_INDEX_BUFFER;
+    //
+    //D3D11_SUBRESOURCE_DATA IBData{};
+    //IBData.pSysMem = indices;
+    //m_pDevice->CreateBuffer(&IBDesc, &IBData, &m_pIB);
+
+
     CGameInstance::Get().Present();
     return S_OK;
 }

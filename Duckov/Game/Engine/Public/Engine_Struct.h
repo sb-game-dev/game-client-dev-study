@@ -11,6 +11,13 @@ namespace Engine
 		WINMODE		eWinMode;
 		uint32_t	iWinSizeX, iWinSizeY;
 	}ENGINE_DESC;
+
+	//typedef struct tagVtxTex
+	//{
+	//	float3_t	vPosition;
+	//	float2_t	vUV;
+	//}VTXTEX;
+
 }
 
 
