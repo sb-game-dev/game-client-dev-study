@@ -421,6 +421,14 @@ NS_END
 ### 6일차 GraphicDevice
 
 <details>
+	<summary> Com_ptr </summary>
+
+- Dx11의 컴객체 전용 스마트 포인터를 멤버로 들고있는 클래스 객체
+- Com객체의 주소를 얻고 싶다면 .Get()을 사용해야 한다.
+- Com객체의 이중 포인터를 얻고 싶다면 .GetAddressOf()를 사용해야 한다.
+</details>
+
+<details>
 	<summary> GraphicDevice 초기화 단계 </summary>
 
 1. Device(생성 및 할당), DeviceContext(기능 사용 + 파이프라인 연결) 객체 생성
