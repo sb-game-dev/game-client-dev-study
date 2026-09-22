@@ -21,11 +21,11 @@ private:
 	ComPtr<ID3D11DeviceContext>			m_pContext = { nullptr };
 
 
-	ComPtr<ID3D11Buffer>       m_pVB;           // 정점 버퍼
-	ComPtr<ID3D11Buffer>       m_pIB;           // 인덱스 버퍼
-	ComPtr<ID3D11InputLayout>  m_pInputLayout;  // 정점 메모리 해석표
-	ComPtr<ID3D11VertexShader> m_pVS;
-	ComPtr<ID3D11PixelShader>  m_pPS;
+	//ComPtr<ID3D11Buffer>       m_pVB;           // 정점 버퍼
+	//ComPtr<ID3D11Buffer>       m_pIB;           // 인덱스 버퍼
+	//ComPtr<ID3D11InputLayout>  m_pInputLayout;  // 정점 메모리 해석표
+	//ComPtr<ID3D11VertexShader> m_pVS;
+	//ComPtr<ID3D11PixelShader>  m_pPS;
 
 
 public:
