@@ -26,6 +26,12 @@ namespace Engine
 
 	}VTXCOL;
 
+	struct CB_TRANSFORM
+	{
+		float4x4_t WorldMatrix;
+		float4x4_t ViewMatrix;
+		float4x4_t ProjMatrix;
+	};
 	
 	//D3D11_INPUT_ELEMENT_DESC desc1[] =
 	//{

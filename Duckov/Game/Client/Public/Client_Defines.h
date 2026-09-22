@@ -10,12 +10,7 @@ namespace Client
 	static constexpr uint32_t g_iWinSizeX = 1280;
 	static constexpr uint32_t g_iWinSizeY = 720;
 
-	struct CB_TRANSFORM
-	{
-		float4x4_t WorldMatrix;   
-		float4x4_t ViewMatrix;
-		float4x4_t ProjMatrix;
-	};
+	
 };
 
 using namespace std;
