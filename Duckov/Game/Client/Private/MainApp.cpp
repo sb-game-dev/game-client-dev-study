@@ -13,6 +13,7 @@ CMainApp::~CMainApp()
     CGameInstance::Get().Release_Engine();
 }
 
+
 HRESULT CMainApp::Initialize()
 {
     /* 엔진 프로젝트에 대한 준비 */
@@ -63,7 +64,6 @@ HRESULT CMainApp::Initialize()
     if (FAILED(Ready_Cube()))
         return E_FAIL;
 
-
     return S_OK;
 }
 
@@ -79,56 +79,7 @@ HRESULT CMainApp::Render()
     CGameInstance::Get().Clear_BackBuffer_View(&vClearColor);
     CGameInstance::Get().Clear_DepthStencil_View();
 
-// 변환 행렬 계산 -> 상수 버퍼(m_pCB) 갱신
-    XMMATRIX matWorld = XMMatrixRotationX(m_fRotX) * XMMatrixRotationY(m_fRotY * 0.5f) * XMMatrixRotationZ(m_fRotZ * 0.5f);
-    XMMATRIX matView = XMMatrixLookAtLH(
-        XMVectorSet(0.f, 0.f, -3.f, 1.f),
-        XMVectorSet(0.f, 0.f, 0.f, 1.f),
-        XMVectorSet(0.f, 1.f, 0.f, 0.f));
-    XMMATRIX matProj = XMMatrixPerspectiveFovLH(
-        XMConvertToRadians(60.f), (f32_t)g_iWinSizeX / g_iWinSizeY, 0.1f, 100.f);
-
-    // VS로 전달할 구조체 채우기
-    // HLSL은 기본적으로 열 단위로 데이터를 읽기 때문에 전치를 해야 함
-    CB_TRANSFORM cbData;
-    XMStoreFloat4x4(&cbData.WorldMatrix, XMMatrixTranspose(matWorld));
-    XMStoreFloat4x4(&cbData.ViewMatrix, XMMatrixTranspose(matView));
-    XMStoreFloat4x4(&cbData.ProjMatrix, XMMatrixTranspose(matProj));
-
-    // 변환 행렬의 정보를 가지고있는 m_pCB 버퍼로 복사(USAGE_DEFAULT로 생성해서 CPU가 읽고 쓰기가 가능함)
-    // 아래에서 VS의 b0 레지스터에 꽂을 예정
-    m_pContext->UpdateSubresource(m_pCB.Get(), 0, nullptr, &cbData, 0, 0);
-
-// 파이프라인에 꽂기
-    // 정점 하나의 크기와 버퍼의 시작 위치 설정
-    uint32_t iStride = sizeof(VTXCOL);
-    uint32_t iOffset = 0;
-
-    //IA(입력 조립기 단계)
-    // 정점의 28바이트중 앞 12바이트는 POSITION, 나머지 16바이트는 COLOR로 읽어라(FVF의 역할)
-    m_pContext->IASetInputLayout(m_pInputLayout.Get());
-
-    // 버텍스 버퍼 꽂기
-    m_pContext->IASetVertexBuffers(0, 1, m_pVB.GetAddressOf(), &iStride, &iOffset);
-
-    // 인덱스 버퍼 꽂기
-    m_pContext->IASetIndexBuffer(m_pIB.Get(), DXGI_FORMAT_R32_UINT, 0);
-    
-    // 삼각형 그리기 설정
-    m_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-    // VS(버텍스 셰이더) -> 월드변환, 뷰스페이스 변환, 투영 변환 행렬을 전달받아서 버텍스 버퍼에 계산함
-    m_pContext->VSSetShader(m_pVS.Get(), nullptr, 0);
-
-    // VS의 상수버퍼슬롯(b0)에 행렬 버퍼를 꽂기
-    m_pContext->VSSetConstantBuffers(0, //register(b0)과 연결됨
-                                     1,
-                                     m_pCB.GetAddressOf());
-
-    // PS(픽셀 셰이더) -> 지금은 색 밖에 없음
-    m_pContext->PSSetShader(m_pPS.Get(), nullptr, 0);
-
-    m_pContext->DrawIndexed(36, 0, 0);
+    Render_Cube();
 
     //CInven::Get().RenderEquipSlot();
 
@@ -157,7 +108,6 @@ HRESULT CMainApp::Ready_Cube()
     VBDesc.ByteWidth = sizeof(vertices);
     VBDesc.Usage = D3D11_USAGE_IMMUTABLE;
     VBDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-
 
     D3D11_SUBRESOURCE_DATA  VBData{};
     VBData.pSysMem = vertices;
@@ -255,6 +205,60 @@ HRESULT CMainApp::Ready_Cube()
 
 
     return S_OK;
+}
+
+void CMainApp::Render_Cube()
+{
+    // 변환 행렬 계산 -> 상수 버퍼(m_pCB) 갱신
+    XMMATRIX matWorld = XMMatrixRotationX(m_fRotX) * XMMatrixRotationY(m_fRotY * 0.5f) * XMMatrixRotationZ(m_fRotZ * 0.5f);
+    XMMATRIX matView = XMMatrixLookAtLH(
+        XMVectorSet(0.f, 0.f, -3.f, 1.f),
+        XMVectorSet(0.f, 0.f, 0.f, 1.f),
+        XMVectorSet(0.f, 1.f, 0.f, 0.f));
+    XMMATRIX matProj = XMMatrixPerspectiveFovLH(
+        XMConvertToRadians(60.f), (f32_t)g_iWinSizeX / g_iWinSizeY, 0.1f, 100.f);
+
+    // VS로 전달할 구조체 채우기
+    // HLSL은 기본적으로 열 단위로 데이터를 읽기 때문에 전치를 해야 함
+    CB_TRANSFORM cbData;
+    XMStoreFloat4x4(&cbData.WorldMatrix, XMMatrixTranspose(matWorld));
+    XMStoreFloat4x4(&cbData.ViewMatrix, XMMatrixTranspose(matView));
+    XMStoreFloat4x4(&cbData.ProjMatrix, XMMatrixTranspose(matProj));
+
+    // 변환 행렬의 정보를 가지고있는 m_pCB 버퍼로 복사(USAGE_DEFAULT로 생성해서 CPU가 읽고 쓰기가 가능함)
+    // 아래에서 VS의 b0 레지스터에 꽂을 예정
+    m_pContext->UpdateSubresource(m_pCB.Get(), 0, nullptr, &cbData, 0, 0);
+
+    // 파이프라인에 꽂기
+        // 정점 하나의 크기와 버퍼의 시작 위치 설정
+    uint32_t iStride = sizeof(VTXCOL);
+    uint32_t iOffset = 0;
+
+    //IA(입력 조립기 단계)
+    // 정점의 28바이트중 앞 12바이트는 POSITION, 나머지 16바이트는 COLOR로 읽어라(FVF의 역할)
+    m_pContext->IASetInputLayout(m_pInputLayout.Get());
+
+    // 버텍스 버퍼 꽂기
+    m_pContext->IASetVertexBuffers(0, 1, m_pVB.GetAddressOf(), &iStride, &iOffset);
+
+    // 인덱스 버퍼 꽂기
+    m_pContext->IASetIndexBuffer(m_pIB.Get(), DXGI_FORMAT_R32_UINT, 0);
+
+    // 삼각형 그리기 설정
+    m_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+    // VS(버텍스 셰이더) -> 월드변환, 뷰스페이스 변환, 투영 변환 행렬을 전달받아서 버텍스 버퍼에 계산함
+    m_pContext->VSSetShader(m_pVS.Get(), nullptr, 0);
+
+    // VS의 상수버퍼슬롯(b0)에 행렬 버퍼를 꽂기
+    m_pContext->VSSetConstantBuffers(0, //register(b0)과 연결됨
+        1,
+        m_pCB.GetAddressOf());
+
+    // PS(픽셀 셰이더) -> 지금은 색 밖에 없음
+    m_pContext->PSSetShader(m_pPS.Get(), nullptr, 0);
+
+    m_pContext->DrawIndexed(36, 0, 0);
 }
 
 void CMainApp::KeyInput(f32_t fDeltaTime)

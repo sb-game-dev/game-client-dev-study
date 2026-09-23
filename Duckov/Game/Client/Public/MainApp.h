@@ -18,6 +18,7 @@ public:
 	HRESULT		Render();
 
 	HRESULT		Ready_Cube();
+	void		Render_Cube();
 	void		KeyInput(f32_t fDeltaTime);
 
 private:

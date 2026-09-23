@@ -17,6 +17,10 @@ HRESULT CGameInstance::Initialize_Engine(const ENGINE_DESC& EngineDesc, _Out_ Co
 	if (m_pTimer_Manager == nullptr)
 		return E_FAIL;
 
+	m_pLevel_Manager = CLevel_Manager::Create();
+	if (m_pLevel_Manager == nullptr)
+		return E_FAIL;
+
 	return S_OK;
 }
 
@@ -31,6 +35,15 @@ HRESULT CGameInstance::Clear_DepthStencil_View()
 HRESULT CGameInstance::Present()
 {
 	return m_pGraphic_Device->Present();
+}
+
+HRESULT CGameInstance::Clear_Resources(int32_t iCurrentLevel)
+{
+	return S_OK;
+}
+
+void CGameInstance::Update_Engine(f32_t fDeltaTime)
+{
 }
 
 f32_t CGameInstance::Get_TimeDelta(const wstring_t& strTimerTag)
