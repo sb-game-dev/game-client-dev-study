@@ -4,13 +4,13 @@
 
 NS_BEGIN(Client)
 
-class CMainApp final// ÀÚ½Ä Å¬·¡½º
+class CMainApp final// ìžì‹ í´ëž˜ìŠ¤
 {
 private:
 	CMainApp();
 public:
-	~CMainApp();// ½º¸¶Æ® Æ÷ÀÎÅÍ¸¦ »ç¿ëÇÏ±â ¶§¹®¿¡ default·Î ¼³Á¤. = default -> {}ÇÑ °Í°ú °°À½. °¡µ¶¼ºÀÌ ³ôÀ½ 
-				// ÀÌ¾úÀ¸³ª GameInstanceÀÇ ¸â¹ö¸¦ Áö¿ö¾ß ÇÏ±â ¶§¹®¿¡ ¼Ò¸êÀÚ ¸öÃ¼ ¿Ï¼ºÇØÁÜ
+	~CMainApp();// ìŠ¤ë§ˆíŠ¸ í¬ì¸í„°ë¥¼ ì‚¬ìš©í•˜ê¸° ë•Œë¬¸ì— defaultë¡œ ì„¤ì •. = default -> {}í•œ ê²ƒê³¼ ê°™ìŒ. ê°€ë…ì„±ì´ ë†’ìŒ 
+				// ì´ì—ˆìœ¼ë‚˜ GameInstanceì˜ ë©¤ë²„ë¥¼ ì§€ì›Œì•¼ í•˜ê¸° ë•Œë¬¸ì— ì†Œë©¸ìž ëª¸ì²´ ì™„ì„±í•´ì¤Œ
 
 public:
 	HRESULT		Initialize();
@@ -26,13 +26,13 @@ private:
 	ComPtr<ID3D11DeviceContext>			m_pContext = { nullptr };
 
 
-	ComPtr<ID3D11Buffer>       m_pVB;           // ¹öÅØ½º ¹öÆÛ
-	ComPtr<ID3D11Buffer>       m_pIB;           // ÀÎµ¦½º ¹öÆÛ
-	ComPtr<ID3D11InputLayout>  m_pInputLayout;  // Á¤Á¡ ¸Þ¸ð¸® ÇØ¼®Ç¥
+	ComPtr<ID3D11Buffer>       m_pVB;           // ë²„í…ìŠ¤ ë²„í¼
+	ComPtr<ID3D11Buffer>       m_pIB;           // ì¸ë±ìŠ¤ ë²„í¼
+	ComPtr<ID3D11InputLayout>  m_pInputLayout;  // ì •ì  ë©”ëª¨ë¦¬ í•´ì„í‘œ
 	ComPtr<ID3D11VertexShader> m_pVS;
 	ComPtr<ID3D11PixelShader>  m_pPS;
 
-	// º¯È¯ Çà·ÄµéÀ» VS·Î Àü´ÞÇÏ´Â ¹è´Þ »óÀÚÀÇ °³³ä
+	// ë³€í™˜ í–‰ë ¬ë“¤ì„ VSë¡œ ì „ë‹¬í•˜ëŠ” ë°°ë‹¬ ìƒìžì˜ ê°œë…
 	ComPtr<ID3D11Buffer>	   m_pCB;
 
 	f32_t               m_fRotX = 0.f;
