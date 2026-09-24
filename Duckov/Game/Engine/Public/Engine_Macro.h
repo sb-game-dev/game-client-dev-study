@@ -31,5 +31,4 @@
 					static CLASSNAME Instance = {};			\
 					return Instance;						\
 				}											
-
 #endif // Engine_Macro_h__
