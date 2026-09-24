@@ -4,42 +4,29 @@
 
 NS_BEGIN(Client)
 
-class CMainApp final// ìì‹ í´ë˜ìŠ¤
+class CMainApp final// ÀÚ½Ä Å¬·¡½º
 {
 private:
 	CMainApp();
 public:
-	~CMainApp();// ìŠ¤ë§ˆíŠ¸ í¬ì¸í„°ë¥¼ ì‚¬ìš©í•˜ê¸° ë•Œë¬¸ì— defaultë¡œ ì„¤ì •. = default -> {}í•œ ê²ƒê³¼ ê°™ìŒ. ê°€ë…ì„±ì´ ë†’ìŒ 
-				// ì´ì—ˆìœ¼ë‚˜ GameInstanceì˜ ë©¤ë²„ë¥¼ ì§€ì›Œì•¼ í•˜ê¸° ë•Œë¬¸ì— ì†Œë©¸ì ëª¸ì²´ ì™„ì„±í•´ì¤Œ
+	~CMainApp();// ½º¸¶Æ® Æ÷ÀÎÅÍ¸¦ »ç¿ëÇÏ±â ¶§¹®¿¡ default·Î ¼³Á¤. = default -> {}ÇÑ °Í°ú °°À½. °¡µ¶¼ºÀÌ ³ôÀ½
 
 public:
 	HRESULT		Initialize();
 	void		Update(f32_t fDeltaTime);
 	HRESULT		Render();
 
-	HRESULT		Ready_Cube();
-	void		Render_Cube();
-	void		KeyInput(f32_t fDeltaTime);
-
 private:
 	ComPtr<ID3D11Device>				m_pDevice = { nullptr };
 	ComPtr<ID3D11DeviceContext>			m_pContext = { nullptr };
 
 
-	ComPtr<ID3D11Buffer>       m_pVB;           // ë²„í…ìŠ¤ ë²„í¼
-	ComPtr<ID3D11Buffer>       m_pIB;           // ì¸ë±ìŠ¤ ë²„í¼
-	ComPtr<ID3D11InputLayout>  m_pInputLayout;  // ì •ì  ë©”ëª¨ë¦¬ í•´ì„í‘œ
-	ComPtr<ID3D11VertexShader> m_pVS;
-	ComPtr<ID3D11PixelShader>  m_pPS;
+	//ComPtr<ID3D11Buffer>       m_pVB;           // Á¤Á¡ ¹öÆÛ
+	//ComPtr<ID3D11Buffer>       m_pIB;           // ÀÎµ¦½º ¹öÆÛ
+	//ComPtr<ID3D11InputLayout>  m_pInputLayout;  // Á¤Á¡ ¸Ş¸ğ¸® ÇØ¼®Ç¥
+	//ComPtr<ID3D11VertexShader> m_pVS;
+	//ComPtr<ID3D11PixelShader>  m_pPS;
 
-	// ë³€í™˜ í–‰ë ¬ë“¤ì„ VSë¡œ ì „ë‹¬í•˜ëŠ” ë°°ë‹¬ ìƒìì˜ ê°œë…
-	ComPtr<ID3D11Buffer>	   m_pCB;
-
-	f32_t               m_fRotX = 0.f;
-	f32_t               m_fRotY = 0.f;
-	f32_t               m_fRotZ = 0.f;
-	float3_t			m_vPosition = { 0.f,0.f,0.f };
-	
 
 public:
 	static		unique_ptr<CMainApp>		Create();

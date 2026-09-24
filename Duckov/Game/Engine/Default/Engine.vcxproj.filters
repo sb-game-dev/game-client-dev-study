@@ -19,12 +19,6 @@
     <Filter Include="02. Device\Graphic">
       <UniqueIdentifier>{539020f6-a373-4dff-956f-933d629ce6eb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. Levels">
-      <UniqueIdentifier>{a03881c8-be74-4a77-b05f-ef210d41769e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. Levels\Manager">
-      <UniqueIdentifier>{b77c14db-24be-4a71-8bf6-6b0860f31a12}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Engine_Defines.h">
@@ -57,12 +51,6 @@
     <ClInclude Include="..\Public\Graphic_Device.h">
       <Filter>02. Device\Graphic</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Level.h">
-      <Filter>03. Levels</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Public\Level_Manager.h">
-      <Filter>03. Levels\Manager</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Timer.cpp">
@@ -76,12 +64,6 @@
     </ClCompile>
     <ClCompile Include="..\Private\Graphic_Device.cpp">
       <Filter>02. Device\Graphic</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Private\Level.cpp">
-      <Filter>03. Levels</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Private\Level_Manager.cpp">
-      <Filter>03. Levels\Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

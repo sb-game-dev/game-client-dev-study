@@ -2,7 +2,6 @@
 #include "Engine_Defines.h"
 #include "Timer_Manager.h"
 #include "Graphic_Device.h"
-#include "Level_Manager.h"
 /*
 1. 엔진의 기능을 클라이언트에 보여주는 객체.
 2. 엔진에 정의되어있는 다양한 기능을 하는 객체를 모아서 보관한다.
@@ -27,8 +26,6 @@ public:
 	HRESULT			Clear_DepthStencil_View();
 	HRESULT			Present();
 
-	HRESULT			Clear_Resources(int32_t iCurrentLevel);
-
 public:
 	f32_t			Get_TimeDelta(const wstring_t& strTimerTag);
 	HRESULT			Add_Timer(const wstring_t& strTimerTag);
@@ -37,7 +34,6 @@ public:
 private:
 	unique_ptr<CGraphic_Device>	m_pGraphic_Device = { nullptr };
 	unique_ptr<CTimer_Manager>	m_pTimer_Manager = { nullptr };
-	unique_ptr<CLevel_Manager>	m_pLevel_Manager = { nullptr };
 
 public:
 	void			Release_Engine();
