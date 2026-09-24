@@ -13,6 +13,9 @@
     <Filter Include="03. Inven">
       <UniqueIdentifier>{a7523f95-3773-48f0-8dcf-aab76835a9c5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="98. Shader">
+      <UniqueIdentifier>{90107c3a-9809-46f3-a18f-76a63f1bdcd4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -60,5 +63,10 @@
     <ClCompile Include="..\Private\Inven.cpp">
       <Filter>03. Inven</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\Shader\Shader_VtxCol.hlsl">
+      <Filter>98. Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
