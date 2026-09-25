@@ -26,12 +26,23 @@ namespace Engine
 
 	}VTXCOL;
 
-	struct CB_TRANSFORM
+	typedef struct tagCBTransform
 	{
 		float4x4_t WorldMatrix;
 		float4x4_t ViewMatrix;
 		float4x4_t ProjMatrix;
-	};
+	}CB_TRANSFORM;
+
+	typedef struct tagCBPerObject
+	{
+		float4x4_t WorldMatrix;
+	}CB_PER_OBJECT;
+
+	typedef struct tagCBCamera
+	{
+		float4x4_t ViewMatrix;
+		float4x4_t ProjMatrix;
+	}CB_CAMERA;
 	
 	//D3D11_INPUT_ELEMENT_DESC desc1[] =
 	//{

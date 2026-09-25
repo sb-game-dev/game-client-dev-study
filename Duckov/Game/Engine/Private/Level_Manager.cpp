@@ -23,10 +23,18 @@ void CLevel_Manager::Update(f32_t fTimeDelta)
 	if (nullptr != m_pCurrentLevel)
 		m_pCurrentLevel->Update(fTimeDelta);
 }
+
+void CLevel_Manager::LateUpdate(f32_t fTimeDelta)
+{
+	if (nullptr != m_pCurrentLevel)
+		m_pCurrentLevel->LateUpdate(fTimeDelta);
+}
+
 HRESULT CLevel_Manager::Render()
 {
 	if (nullptr != m_pCurrentLevel)
-		return m_pCurrentLevel->Render();
+		m_pCurrentLevel->Render();
+	return S_OK;
 }
 unique_ptr<CLevel_Manager>	CLevel_Manager::Create()
 {

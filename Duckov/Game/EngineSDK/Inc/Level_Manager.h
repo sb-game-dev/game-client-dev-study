@@ -10,12 +10,12 @@ public:
 
 public:
 	HRESULT			Change_Level(int32_t iNewLevelIndex, shared_ptr<CLevel> pNewLevel);
-
 	void			Update(f32_t fTimeDelta);
+	void			LateUpdate(f32_t fDeltaTime);
 	HRESULT			Render();
 
 private:
-	int32_t					m_iCurrentLevelIndex = { -1 };
+	int32_t						m_iCurrentLevelIndex = { -1 };
 	shared_ptr<CLevel>			m_pCurrentLevel = { nullptr };
 
 public:

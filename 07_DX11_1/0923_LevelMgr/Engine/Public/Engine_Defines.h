@@ -2,9 +2,8 @@
 #define Engine_Define_h__
 
 #include <d3d11.h>
-//#include <d3dx9.h>
+#include <DirectXMath.h>
 
-#include <DirectXMath.h> 
 using namespace DirectX;
 
 #include <memory>
@@ -16,11 +15,11 @@ using namespace DirectX;
 #include <string>
 #include <unordered_map>
 #include <ctime>
-#include <io.h>
-#include <iostream>
-
-
 using namespace std;
+
+
+#include <wrl/client.h>
+using namespace Microsoft::WRL;
 
 #include "Engine_Enum.h"
 #include "Engine_Macro.h"
@@ -48,6 +47,7 @@ using namespace std;
 
 #endif
 #endif
+
 
 using namespace Engine;
 

@@ -20,19 +20,30 @@ public:
 	~CGameInstance();
 
 public:/* 엔진의 초기화과정 : 여러 메니져를 미리 할당하여 사용 할 준비를 한다*/
-	HRESULT			Initialize_Engine(const ENGINE_DESC& EngineDesc, _Out_ ComPtr<ID3D11Device>& pDevice, _Out_ ComPtr<ID3D11DeviceContext>& pContext);
+	HRESULT			Initialize_Engine(const ENGINE_DESC& EngineDesc, 
+									  _Out_ ComPtr<ID3D11Device>& pDevice, 
+									  _Out_ ComPtr<ID3D11DeviceContext>& pContext);
 
 public:
 	HRESULT			Clear_BackBuffer_View(const float4_t* pClearColor);
 	HRESULT			Clear_DepthStencil_View();
+	HRESULT			Clear_Resources(int32_t iClearLevelIndex);
+	void			Update_Engine(f32_t fDeltaTime);
+	void			LateUpdate_Engine(f32_t fDeltaTime);
+	HRESULT			Draw();
 	HRESULT			Present();
 
-	HRESULT			Clear_Resources(int32_t iCurrentLevel);
+#pragma region LEVEL_MANAGER
+public:
+	HRESULT			Change_Level(int32_t iNewLevelIndex, shared_ptr<CLevel> pNewLevel);
+#pragma endregion
 
+#pragma region TIMER_MANAGER
 public:
 	f32_t			Get_TimeDelta(const wstring_t& strTimerTag);
 	HRESULT			Add_Timer(const wstring_t& strTimerTag);
 	void			Update_TimeDelta(const wstring_t& strTimerTag);
+#pragma endregion
 
 private:
 	unique_ptr<CGraphic_Device>	m_pGraphic_Device = { nullptr };
