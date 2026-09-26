@@ -19,6 +19,7 @@ public:
 	virtual	void		MovePos(XMVECTOR vDir, f32_t fSpeed, f32_t fDeltaTime);
 	virtual	void		SetWorld(XMMATRIX matWorld)		{ XMStoreFloat4x4(&m_matWorld, matWorld); }
 	virtual	void		SetWorld(float4x4_t matWorld)	{ m_matWorld = matWorld; }
+	virtual	float3_t	GetInfo(INFO eID)				{ return m_vInfo[static_cast<int>(eID)]; }
 
 	virtual XMMATRIX	GetWorld();
 

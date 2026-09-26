@@ -142,7 +142,9 @@ HRESULT CCube::Initialize()
 void CCube::Update(f32_t fDeltaTime)
 {
     __super::Update(fDeltaTime);
-    KeyInput(fDeltaTime);
+
+    if(m_bPlayer)
+        KeyInput(fDeltaTime);
 }
 void CCube::LateUpdate(f32_t fDeltaTime)
 {

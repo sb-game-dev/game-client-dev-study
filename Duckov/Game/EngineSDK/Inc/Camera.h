@@ -1,7 +1,7 @@
 #pragma once
 #include "Engine_Defines.h"
 
-
+NS_BEGIN(Engine)
 class ENGINE_DLL CCamera
 {
 protected:
@@ -43,3 +43,4 @@ public:
 	static	shared_ptr<CCamera>	Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
 };
 
+NS_END

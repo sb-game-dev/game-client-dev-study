@@ -10,9 +10,6 @@
     <Filter Include="99. Define">
       <UniqueIdentifier>{df89e438-ca00-46bb-89c5-fd769935cdf5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. Inven">
-      <UniqueIdentifier>{a7523f95-3773-48f0-8dcf-aab76835a9c5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01. Levels">
       <UniqueIdentifier>{83399820-93de-47e1-8c66-4c4bfdd78c5d}</UniqueIdentifier>
     </Filter>
@@ -37,6 +34,12 @@
     <Filter Include="02. Objects\01. Hills">
       <UniqueIdentifier>{29483659-84d2-404d-bc4d-d423d797ac6c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="96. Inven">
+      <UniqueIdentifier>{a7523f95-3773-48f0-8dcf-aab76835a9c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Camera">
+      <UniqueIdentifier>{5a0a5cf8-c572-4890-a0f3-be617625dde3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -58,7 +61,7 @@
       <Filter>99. Define</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Inven.h">
-      <Filter>03. Inven</Filter>
+      <Filter>96. Inven</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Level_Logo.h">
       <Filter>01. Levels\01. Logo</Filter>
@@ -74,6 +77,9 @@
     </ClInclude>
     <ClInclude Include="..\public\Hill.h">
       <Filter>02. Objects\01. Hills</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\QuarterView_Cam.h">
+      <Filter>03. Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -97,7 +103,7 @@
       <Filter>00. MainApp</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Inven.cpp">
-      <Filter>03. Inven</Filter>
+      <Filter>96. Inven</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Level_Logo.cpp">
       <Filter>01. Levels\01. Logo</Filter>
@@ -113,6 +119,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Hill.cpp">
       <Filter>02. Objects\01. Hills</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\QuarterView_Cam.cpp">
+      <Filter>03. Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

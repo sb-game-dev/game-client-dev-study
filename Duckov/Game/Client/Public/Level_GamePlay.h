@@ -1,7 +1,7 @@
 #pragma once
 #include "Client_Defines.h"
 #include "Level.h"
-#include "Camera.h"
+#include "QuarterView_Cam.h"
 NS_BEGIN(Client)
 class CLevel_GamePlay final : public CLevel
 {
@@ -17,7 +17,7 @@ public:
 	virtual		HRESULT		Render() override;
 
 private:
-	shared_ptr<CCamera>		m_pCamera;
+	shared_ptr<CQuarterView_Cam>		m_pCamera;
 
 public:
 	static shared_ptr<CLevel_GamePlay> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);

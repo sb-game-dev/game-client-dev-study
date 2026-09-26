@@ -10,9 +10,16 @@ HRESULT CLevel_GamePlay::Initialize()
     if (FAILED(__super::Initialize()))
         return E_FAIL;
 
-    m_pCamera = CCamera::Create(m_pDevice, m_pContext);
+    m_pCamera = CQuarterView_Cam::Create(m_pDevice, m_pContext);
 
     shared_ptr<CGameObject> pGameObject = {};
+    pGameObject = CCube::Create(m_pDevice, m_pContext);
+    pGameObject->SetPos({ 0.f,0.f,0.f });
+    dynamic_pointer_cast<CCube>(pGameObject)->SetPlayer();
+    m_mapObject.insert({ L"Player" ,pGameObject });
+
+    m_pCamera->SetPlayer(pGameObject);
+
     pGameObject = CCube::Create(m_pDevice, m_pContext);
     pGameObject->SetPos({ 0.f,0.f,5.f });
     m_mapObject.insert({ L"Cube" ,pGameObject });
