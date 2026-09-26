@@ -29,6 +29,7 @@ protected:
 
 	ComPtr<ID3D11Buffer>				m_pVB;				// 버텍스 버퍼
 	ComPtr<ID3D11Buffer>				m_pIB;				// 인덱스 버퍼
+	uint32_t							m_iIndexCnt;		// 인덱스 개수
 	ComPtr<ID3D11Buffer>				m_pCB;				// 변환 정보를 가지고있는 상수버퍼
 
 	ComPtr<ID3D11InputLayout>			m_pInputLayout;		// 정점 메모리 해석표(FVF의 역할)
@@ -46,5 +47,7 @@ protected:
 	f32_t               m_fRotX = 0.f;
 	f32_t               m_fRotY = 0.f;
 	f32_t               m_fRotZ = 0.f;
+
+	f32_t				m_fSpeed = 1.f;
 };
 NS_END

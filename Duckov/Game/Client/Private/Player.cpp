@@ -1,11 +1,11 @@
-#include "Cube.h"
+#include "Player.h"
 
-CCube::CCube(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
-	:CGameObject(pDevice,pContext)
+CPlayer::CPlayer(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
+    :CGameObject(pDevice, pContext)
 {
 }
 
-HRESULT CCube::Initialize()
+HRESULT CPlayer::Initialize()
 {
     if (FAILED(__super::Initialize()))
         return E_FAIL;
@@ -18,10 +18,7 @@ HRESULT CCube::Initialize()
         { float3_t(-0.5f, +0.5f, -0.5f), float4_t(Colors::Black)},
         { float3_t(+0.5f, +0.5f, -0.5f), float4_t(Colors::Red)},
         { float3_t(+0.5f, -0.5f, -0.5f), float4_t(Colors::Green)},
-        { float3_t(-0.5f, -0.5f, +0.5f), float4_t(Colors::Blue)},
-        { float3_t(-0.5f, +0.5f, +0.5f), float4_t(Colors::Yellow)},
-        { float3_t(+0.5f, +0.5f, +0.5f), float4_t(Colors::Cyan)},
-        { float3_t(+0.5f, -0.5f, +0.5f), float4_t(Colors::Magenta)}
+        { float3_t(0.f, 0.f, +0.5f), float4_t(Colors::Blue)},
     };
 
     // 정점 버퍼 생성
@@ -40,20 +37,10 @@ HRESULT CCube::Initialize()
          0, 1, 2,
          0, 2, 3,
 
-         4, 6, 5,
-         4, 7, 6,
-
-         4, 5, 1,
-         4, 1, 0,
-
-         3, 2, 6,
-         3, 6, 7,
-
-         1, 5, 6,
-         1, 6, 2,
-
-         4, 0, 3,
-         4, 3, 7
+         1, 4, 2,
+         2, 4, 3,
+         3, 4, 0,
+         0, 4, 1
     };
 
     // 인덱스 버퍼 생성
@@ -122,10 +109,10 @@ HRESULT CCube::Initialize()
 
     // Input Layout 생성 (VS 바이트코드와 대조)
     if (FAILED(m_pDevice->CreateInputLayout(VTXCOL::Elements,               // 정점 구조체를 서술하는 D3D11_INPUT_LEELMENT_DESC들의 배열
-                                            VTXCOL::iNumElements,           // 배열 원소의 개수
-                                            pVSBlob->GetBufferPointer(),    // 정점셰이더를 컴파일해서 얻은 바이트코드를 가리키는 포인터
-                                            pVSBlob->GetBufferSize(),       // 바이트코드의 크기
-                                            &m_pInputLayout)))              // 생성된 입력 배치를 돌려줄 포인터
+        VTXCOL::iNumElements,           // 배열 원소의 개수
+        pVSBlob->GetBufferPointer(),    // 정점셰이더를 컴파일해서 얻은 바이트코드를 가리키는 포인터
+        pVSBlob->GetBufferSize(),       // 바이트코드의 크기
+        &m_pInputLayout)))              // 생성된 입력 배치를 돌려줄 포인터
         return E_FAIL;
 
     // 레스터라이저 설정
@@ -136,20 +123,23 @@ HRESULT CCube::Initialize()
     rsDesc.DepthClipEnable = true;
 
     m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
-	return S_OK;
+    return S_OK;
 }
 
-void CCube::Update(f32_t fDeltaTime)
+void CPlayer::Update(f32_t fDeltaTime)
 {
     __super::Update(fDeltaTime);
+
+    KeyInput(fDeltaTime);
+    LookAtMouse(fDeltaTime);
 }
-void CCube::LateUpdate(f32_t fDeltaTime)
+void CPlayer::LateUpdate(f32_t fDeltaTime)
 {
     __super::LateUpdate(fDeltaTime);
 }
 
-HRESULT CCube::Render()
-{    
+HRESULT CPlayer::Render()
+{
     // 변환 행렬 계산 -> 상수 버퍼(변환 행렬) 갱신
     //XMMATRIX matWorld = XMMatrixRotationX(m_fRotX) 
     //                    * XMMatrixRotationY(m_fRotY) 
@@ -158,7 +148,7 @@ HRESULT CCube::Render()
 
     XMMATRIX matWorld = GetWorld();
 
-   
+
 
     // VS로 전달할 구조체 채우기
     // HLSL은 기본적으로 열 단위로 데이터를 읽기 때문에 전치를 해야 함
@@ -169,17 +159,17 @@ HRESULT CCube::Render()
     // 아래에서 VS의 b0 레지스터에 꽂을 예정
     m_pContext->UpdateSubresource(m_pCB.Get(), 0, nullptr, &cbData, 0, 0);
 
-// 파이프라인에 꽂기
-    //IA(입력 조립기 단계)
-    // 정점 하나의 크기와 버퍼의 시작 위치 설정
+    // 파이프라인에 꽂기
+        //IA(입력 조립기 단계)
+        // 정점 하나의 크기와 버퍼의 시작 위치 설정
     uint32_t iStride = sizeof(VTXCOL);
     uint32_t iOffset = 0;
     // 버텍스 버퍼 꽂기
     m_pContext->IASetVertexBuffers(0,                       // 정점 버퍼들을 붙이기 시작할 인덱스
-                                   1,                       // 입력 슬롯에 붙이고자 하는 버퍼의 개수
-                                   m_pVB.GetAddressOf(),    // 버퍼를 담은 배열의 첫 원소를 가리키는 포인터
-                                   &iStride,                // 버퍼의 한 원소의 바이트크기 단위(주소를 넘겨줘야함)
-                                   &iOffset);               // 정점 버퍼의 시작위치에서부터 건너뛸 인덱스
+        1,                       // 입력 슬롯에 붙이고자 하는 버퍼의 개수
+        m_pVB.GetAddressOf(),    // 버퍼를 담은 배열의 첫 원소를 가리키는 포인터
+        &iStride,                // 버퍼의 한 원소의 바이트크기 단위(주소를 넘겨줘야함)
+        &iOffset);               // 정점 버퍼의 시작위치에서부터 건너뛸 인덱스
 
     // 인덱스 버퍼 꽂기
     m_pContext->IASetIndexBuffer(m_pIB.Get(), DXGI_FORMAT_R32_UINT, 0);
@@ -195,8 +185,8 @@ HRESULT CCube::Render()
 
     // VS의 상수버퍼슬롯(b0)에 상수버퍼(변환 행렬 버퍼) 꽂기
     m_pContext->VSSetConstantBuffers(0, //register(b0)과 연결됨
-                                     1,
-                                     m_pCB.GetAddressOf());
+        1,
+        m_pCB.GetAddressOf());
 
     // PS(픽셀 셰이더) -> 지금은 색 밖에 없음
     m_pContext->PSSetShader(m_pPS.Get(), nullptr, 0);
@@ -209,12 +199,68 @@ HRESULT CCube::Render()
         0,  // StartIndexLocation : 사용할 인덱스의 위치
         0); // BaseVertexLocation : 정점들을 가져오기 전에 이 호출에서 사용할 인덱스에 더해지는 정수값
 
-	return S_OK;
+    return S_OK;
 }
 
-shared_ptr<CCube> CCube::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
+void CPlayer::KeyInput(f32_t fDeltaTime)
 {
-	auto pInstance = shared_ptr<CCube>(new CCube(pDevice, pContext));
+    if (GetAsyncKeyState('W'))
+    {
+        if (GetAsyncKeyState('A'))
+            MovePos({ -1 / sqrtf(2),0.f,1 / sqrtf(2) }, m_fSpeed, fDeltaTime);
+        else if (GetAsyncKeyState('D'))
+            MovePos({ 1 / sqrtf(2),0.f,1 / sqrtf(2) }, m_fSpeed, fDeltaTime);
+        else
+            MovePos({ 0.f,0.f,1.f }, m_fSpeed, fDeltaTime);
+    }
+    else if (GetAsyncKeyState('S'))
+    {
+        if (GetAsyncKeyState('A'))
+            MovePos({ -1 / sqrtf(2),0.f,-1 / sqrtf(2) }, m_fSpeed, fDeltaTime);
+        else if (GetAsyncKeyState('D'))
+            MovePos({ 1 / sqrtf(2),0.f,-1 / sqrtf(2) }, m_fSpeed, fDeltaTime);
+        else
+            MovePos({ 0.f,0.f,-1 / sqrtf(2) }, m_fSpeed, fDeltaTime);
+    }
+    else if (GetAsyncKeyState('A'))
+        MovePos({ -1.f, 0.f,0.f }, m_fSpeed, fDeltaTime);
+    else if (GetAsyncKeyState('D'))
+        MovePos({ 1.f,0.f,0.f }, m_fSpeed, fDeltaTime);
+
+    if (GetAsyncKeyState(VK_LSHIFT))
+        m_fSpeed = 4.f;
+    else
+        m_fSpeed = 2.f;
+}
+void CPlayer::LookAtMouse(f32_t fDeltaTime)
+{
+    POINT		pt{};
+
+    GetCursorPos(&pt);
+    ScreenToClient(g_hWnd, &pt);
+
+    uint32_t numVP = 1;
+    D3D11_VIEWPORT  vp;
+    m_pContext->RSGetViewports(&numVP, &vp);
+
+    f32_t x = pt.x - vp.Width / 2;
+    f32_t y = -pt.y + vp.Height / 2;
+
+    XMVECTOR vDir = XMVector3Normalize({ x,0.f,y });
+    XMVECTOR vUp = { 0.f,1.f,0.f };
+
+    XMVECTOR vRight = XMVector3Cross(XMVector3Normalize(vUp), XMVector3Normalize(vDir));
+    
+    XMStoreFloat3(&m_vInfo[static_cast<uint32_t>(INFO::RIGHT)], vRight);
+    XMStoreFloat3(&m_vInfo[static_cast<uint32_t>(INFO::UP)], vUp);
+    XMStoreFloat3(&m_vInfo[static_cast<uint32_t>(INFO::LOOK)], vDir);
+
+    //cout << x << "\t" << y << endl;
+    //cout << XMConvertToDegrees(m_fRotY) << endl;
+}
+shared_ptr<CPlayer> CPlayer::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
+{
+    auto pInstance = shared_ptr<CPlayer>(new CPlayer(pDevice, pContext));
 
     if (FAILED(pInstance->Initialize()))
         pInstance.reset();

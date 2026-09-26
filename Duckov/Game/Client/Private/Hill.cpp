@@ -7,61 +7,101 @@ CHill::CHill(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
 
 HRESULT CHill::Initialize()
 {
-    // 정육면체 그리기
-    // 정점 정보
-    VTXCOL vertices[] =
+    if (FAILED(__super::Initialize()))
+        return E_FAIL;
+
+    uint32_t    ivtxCntX = 129;
+    uint32_t    ivtxCntZ = 129;
+
+    uint32_t    ivtxCnt = ivtxCntX * ivtxCntZ;
+    uint32_t    iFaceCnt = (ivtxCntX - 1) * (ivtxCntZ - 1);
+    f32_t       fHalfWidth = 0.5f * 128.f;
+    f32_t       fHalfDepth = 0.5f * 128.f;
+
+    f32_t   dx = 128.f / (ivtxCntZ);
+    f32_t   dz = 128.f / (ivtxCntX);
+
+    f32_t   du = 1.f / (ivtxCntZ);
+    f32_t   dv = 1.f / (ivtxCntX);
+
+    MESHDATA tMeshData = {};
+    tMeshData.Vertices.resize(ivtxCnt);
+    tMeshData.Indices.resize(iFaceCnt * 6);
+
+    for (uint32_t i = 0; i < ivtxCntX; ++i)
     {
-        { float3_t(-0.5f, -0.5f, -0.5f), float4_t(Colors::White)},
-        { float3_t(-0.5f, +0.5f, -0.5f), float4_t(Colors::Black)},
-        { float3_t(+0.5f, +0.5f, -0.5f), float4_t(Colors::Red)},
-        { float3_t(+0.5f, -0.5f, -0.5f), float4_t(Colors::Green)},
-        { float3_t(-0.5f, -0.5f, +0.5f), float4_t(Colors::Blue)},
-        { float3_t(-0.5f, +0.5f, +0.5f), float4_t(Colors::Yellow)},
-        { float3_t(+0.5f, +0.5f, +0.5f), float4_t(Colors::Cyan)},
-        { float3_t(+0.5f, -0.5f, +0.5f), float4_t(Colors::Magenta)}
-    };
+        float z = fHalfDepth - i * dz;
+        for (uint32_t j = 0; j < ivtxCntZ; ++j)
+        {
+            float x = -fHalfWidth + j * dx;
+            tMeshData.Vertices[i * ivtxCntZ + j].vPosition = float3_t(x, 0.f, z);
+            
+            // 조명
+            tMeshData.Vertices[i * ivtxCntZ + j].vNormal = float3_t(0.f, 1.f, 0.f);
+            tMeshData.Vertices[i * ivtxCntZ + j].vTangentU = float3_t(1.f, 0.f, 0.f);
+
+            // 텍스처
+            tMeshData.Vertices[i * ivtxCntZ + j].TexC.x = j*du;
+            tMeshData.Vertices[i * ivtxCntZ + j].TexC.y = i*dv;
+        }
+    }
+
+    uint32_t k = 0;
+    for (uint32_t i = 0; i < ivtxCntX - 1; ++i)
+    {
+        for (uint32_t j = 0; j < ivtxCntZ - 1; ++j)
+        {
+            tMeshData.Indices[k] = i * ivtxCntZ + j;
+            tMeshData.Indices[k + 1] = i * ivtxCntZ + j + 1;
+            tMeshData.Indices[k + 2] = (i + 1) * ivtxCntZ + j;
+            tMeshData.Indices[k + 3] = (i + 1) * ivtxCntZ + j;
+            tMeshData.Indices[k + 4] = i * ivtxCntZ + j + 1;
+            tMeshData.Indices[k + 5] = (i + 1) * ivtxCntZ + j + 1;
+
+            k += 6;
+        }
+    }
+    m_iIndexCnt = tMeshData.Indices.size();
+    vector<VTXCOL> vertices(tMeshData.Vertices.size());
+    for (size_t i = 0; i < tMeshData.Vertices.size(); ++i)
+    {
+        float3_t p = tMeshData.Vertices[i].vPosition;
+        p.y = GetHeight(p.x, p.z);
+        vertices[i].vPosition = p;
+        if (p.y < -10.0f)
+            vertices[i].vColor = XMFLOAT4(1.0f, 0.96f, 0.62f, 1.0f);
+        else if (p.y < 5.0f)
+            vertices[i].vColor = XMFLOAT4(0.48f, 0.77f, 0.46f, 1.0f);
+        else if (p.y < 12.0f)
+            vertices[i].vColor = XMFLOAT4(0.1f, 0.48f, 0.19f, 1.0f);
+        else if (p.y < 20.0f)
+            vertices[i].vColor = XMFLOAT4(0.45f, 0.39f, 0.34f, 1.0f);
+        else
+            vertices[i].vColor = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+    }
+
 
     // 정점 버퍼 생성
     D3D11_BUFFER_DESC   VBDesc{};
-    VBDesc.ByteWidth = sizeof(vertices);
+    VBDesc.ByteWidth = sizeof(VTXCOL) * tMeshData.Vertices.size();
     VBDesc.Usage = D3D11_USAGE_IMMUTABLE;
     VBDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 
     D3D11_SUBRESOURCE_DATA  VBData{};
-    VBData.pSysMem = vertices;  // 정점 버퍼를 초기화할 자료를 담은 시스템 메모리 배열을 가리키는 포인터
+    VBData.pSysMem = &vertices[0];  // 정점 버퍼를 초기화할 자료를 담은 시스템 메모리 배열을 가리키는 포인터
     if (FAILED(m_pDevice->CreateBuffer(&VBDesc, &VBData, &m_pVB)))
         return E_FAIL;
 
-    // 인덱스 정보
-    UINT indices[] = {
-         0, 1, 2,
-         0, 2, 3,
-
-         4, 6, 5,
-         4, 7, 6,
-
-         4, 5, 1,
-         4, 1, 0,
-
-         3, 2, 6,
-         3, 6, 7,
-
-         1, 5, 6,
-         1, 6, 2,
-
-         4, 0, 3,
-         4, 3, 7
-    };
-
+    
     // 인덱스 버퍼 생성
     D3D11_BUFFER_DESC IBDesc{};
-    IBDesc.ByteWidth = sizeof(indices);
+    IBDesc.ByteWidth = sizeof(UINT) * m_iIndexCnt;
     IBDesc.Usage = D3D11_USAGE_IMMUTABLE;
     IBDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 
 
     D3D11_SUBRESOURCE_DATA IBData{};
-    IBData.pSysMem = indices;
+    IBData.pSysMem = &tMeshData.Indices[0];
     if (FAILED(m_pDevice->CreateBuffer(&IBDesc, &IBData, &m_pIB)))
         return E_FAIL;
 
@@ -127,7 +167,7 @@ HRESULT CHill::Initialize()
 
     // 레스터라이저 설정
     D3D11_RASTERIZER_DESC rsDesc{};
-    rsDesc.FillMode = D3D11_FILL_WIREFRAME;     //D3D11_FILL_WIREFRAME , D3D11_FILL_SOLID
+    rsDesc.FillMode = D3D11_FILL_SOLID;         //D3D11_FILL_WIREFRAME , D3D11_FILL_SOLID
     rsDesc.CullMode = D3D11_CULL_BACK;          // D3D11_CULL_BACK , D3D11_CULL_FRONT
     rsDesc.FrontCounterClockwise = false;       // 시계방향이 전면
     rsDesc.DepthClipEnable = true;
@@ -138,43 +178,37 @@ HRESULT CHill::Initialize()
 
 void CHill::Update(f32_t fDeltaTime)
 {
-    KeyInput(fDeltaTime);
+    __super::Update(fDeltaTime);
+}
+void CHill::LateUpdate(f32_t fDeltaTime)
+{
+    __super::LateUpdate(fDeltaTime);
 }
 
 HRESULT CHill::Render()
-{    // 변환 행렬 계산 -> 상수 버퍼(변환 행렬) 갱신
-    XMMATRIX matWorld = XMMatrixRotationX(m_fRotX) * XMMatrixRotationY(m_fRotY * 0.5f) * XMMatrixRotationZ(m_fRotZ * 0.5f);
-    XMMATRIX matView = XMMatrixLookAtLH(
-        XMVectorSet(0.f, 0.f, -3.f, 1.f),
-        XMVectorSet(0.f, 0.f, 0.f, 1.f),
-        XMVectorSet(0.f, 1.f, 0.f, 0.f));
-    XMMATRIX matProj = XMMatrixPerspectiveFovLH(
-        XMConvertToRadians(60.f), (f32_t)g_iWinSizeX / g_iWinSizeY, 0.1f, 100.f);
+{
+    XMMATRIX matWorld = GetWorld();
 
     // VS로 전달할 구조체 채우기
     // HLSL은 기본적으로 열 단위로 데이터를 읽기 때문에 전치를 해야 함
     CB_TRANSFORM cbData;
     XMStoreFloat4x4(&cbData.WorldMatrix, XMMatrixTranspose(matWorld));
-    XMStoreFloat4x4(&cbData.ViewMatrix, XMMatrixTranspose(matView));
-    XMStoreFloat4x4(&cbData.ProjMatrix, XMMatrixTranspose(matProj));
 
     // 변환 행렬의 정보를 가지고있는 m_pCB 버퍼로 복사(USAGE_DEFAULT로 생성해서 드라이버를 통해 복사)
     // 아래에서 VS의 b0 레지스터에 꽂을 예정
     m_pContext->UpdateSubresource(m_pCB.Get(), 0, nullptr, &cbData, 0, 0);
 
-    // 파이프라인에 꽂기
-
-
-        //IA(입력 조립기 단계)
-        // 정점 하나의 크기와 버퍼의 시작 위치 설정
+// 파이프라인에 꽂기
+    //IA(입력 조립기 단계)
+    // 정점 하나의 크기와 버퍼의 시작 위치 설정
     uint32_t iStride = sizeof(VTXCOL);
     uint32_t iOffset = 0;
     // 버텍스 버퍼 꽂기
     m_pContext->IASetVertexBuffers(0,                       // 정점 버퍼들을 붙이기 시작할 인덱스
-        1,                       // 입력 슬롯에 붙이고자 하는 버퍼의 개수
-        m_pVB.GetAddressOf(),    // 버퍼를 담은 배열의 첫 원소를 가리키는 포인터
-        &iStride,                // 버퍼의 한 원소의 바이트크기 단위(주소를 넘겨줘야함)
-        &iOffset);               // 정점 버퍼의 시작위치에서부터 건너뛸 인덱스
+                                   1,                       // 입력 슬롯에 붙이고자 하는 버퍼의 개수
+                                   m_pVB.GetAddressOf(),    // 버퍼를 담은 배열의 첫 원소를 가리키는 포인터
+                                   &iStride,                // 버퍼의 한 원소의 바이트크기 단위(주소를 넘겨줘야함)
+                                   &iOffset);               // 정점 버퍼의 시작위치에서부터 건너뛸 인덱스
 
     // 인덱스 버퍼 꽂기
     m_pContext->IASetIndexBuffer(m_pIB.Get(), DXGI_FORMAT_R32_UINT, 0);
@@ -200,43 +234,13 @@ HRESULT CHill::Render()
     m_pContext->RSSetState(m_pRS.Get());
 
     // 그리기
-    m_pContext->DrawIndexed(36, // IndexCnt: 인덱스 버퍼의 크기
-        0,  // StartIndexLocation : 사용할 인덱스의 위치
-        0); // BaseVertexLocation : 정점들을 가져오기 전에 이 호출에서 사용할 인덱스에 더해지는 정수값
+    m_pContext->DrawIndexed(m_iIndexCnt, // IndexCnt: 인덱스 버퍼의 크기
+        0,                      // StartIndexLocation : 사용할 인덱스의 위치
+        0);                     // BaseVertexLocation : 정점들을 가져오기 전에 이 호출에서 사용할 인덱스에 더해지는 정수값
 
     return S_OK;
 }
 
-void CHill::KeyInput(f32_t fDeltaTime)
-{
-    if (GetAsyncKeyState('W'))
-    {
-        m_fRotX += fDeltaTime;
-    }
-
-    if (GetAsyncKeyState('S'))
-    {
-        m_fRotX -= fDeltaTime;
-    }
-    if (GetAsyncKeyState('A'))
-    {
-        m_fRotY += fDeltaTime;
-    }
-
-    if (GetAsyncKeyState('D'))
-    {
-        m_fRotY -= fDeltaTime;
-    }
-    if (GetAsyncKeyState('Q'))
-    {
-        m_fRotZ += fDeltaTime;
-    }
-
-    if (GetAsyncKeyState('E'))
-    {
-        m_fRotZ -= fDeltaTime;
-    }
-}
 shared_ptr<CHill> CHill::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
 {
     auto pInstance = shared_ptr<CHill>(new CHill(pDevice, pContext));

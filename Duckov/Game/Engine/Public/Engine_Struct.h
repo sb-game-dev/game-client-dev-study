@@ -43,6 +43,32 @@ namespace Engine
 		float4x4_t ViewMatrix;
 		float4x4_t ProjMatrix;
 	}CB_CAMERA;
+
+	typedef struct tagVertex
+	{
+		tagVertex() {};
+		tagVertex(const float3_t& p, const float3_t& n, const float3_t& t, const float2_t& uv)
+			: vPosition(p), vNormal(n), vTangentU(t), TexC(uv) {
+		}
+		tagVertex(
+			float px, float py, float pz,
+			float nx, float ny, float nz,
+			float tx, float ty, float tz,
+			float u, float v)
+			: vPosition(px, py, pz), vNormal(nx, ny, nz),
+			vTangentU(tx, ty, tz), TexC(u, v) {
+		}
+		float3_t vPosition;
+		float3_t vNormal;
+		float3_t vTangentU;
+		float2_t TexC;
+	}VERTEX;
+
+	typedef struct tagMeshData
+	{
+		vector<VERTEX>	Vertices;
+		vector<UINT> Indices;
+	}MESHDATA;
 	
 	//D3D11_INPUT_ELEMENT_DESC desc1[] =
 	//{

@@ -1,5 +1,7 @@
 #include "Level_GamePlay.h"
 #include "Cube.h"
+#include "Player.h"
+#include "Hill.h"
 CLevel_GamePlay::CLevel_GamePlay(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     :CLevel{ pDevice,pContext }
 {
@@ -13,17 +15,21 @@ HRESULT CLevel_GamePlay::Initialize()
     m_pCamera = CQuarterView_Cam::Create(m_pDevice, m_pContext);
 
     shared_ptr<CGameObject> pGameObject = {};
-    pGameObject = CCube::Create(m_pDevice, m_pContext);
+    pGameObject = CPlayer::Create(m_pDevice, m_pContext);
     pGameObject->SetPos({ 0.f,0.f,0.f });
-    dynamic_pointer_cast<CCube>(pGameObject)->SetPlayer();
     m_mapObject.insert({ L"Player" ,pGameObject });
 
     m_pCamera->SetPlayer(pGameObject);
 
-    pGameObject = CCube::Create(m_pDevice, m_pContext);
-    pGameObject->SetPos({ 0.f,0.f,5.f });
-    m_mapObject.insert({ L"Cube" ,pGameObject });
-
+    for (uint32_t i = 0; i < 16; ++i)
+    {
+        pGameObject = CCube::Create(m_pDevice, m_pContext);
+        f32_t   fTheta = XM_2PI / 16 * i;
+        pGameObject->SetPos({ 5 * sinf(fTheta),0.f,5 * cosf(fTheta) });
+        m_mapObject.insert({ L"Cube" + to_wstring(i) ,pGameObject });
+    }
+    pGameObject = CHill::Create(m_pDevice, m_pContext);
+    m_mapObject.insert({ L"Hill" ,pGameObject });
 
     return S_OK;
 }

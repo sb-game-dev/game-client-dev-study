@@ -28,9 +28,6 @@
     <Filter Include="02. Objects">
       <UniqueIdentifier>{39268f0b-64b7-4429-aa8b-6b7dd2d8aebc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. Objects\00. Cube">
-      <UniqueIdentifier>{1a69be1f-56b7-46d0-a631-ec595b59bd35}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. Objects\01. Hills">
       <UniqueIdentifier>{29483659-84d2-404d-bc4d-d423d797ac6c}</UniqueIdentifier>
     </Filter>
@@ -39,6 +36,12 @@
     </Filter>
     <Filter Include="03. Camera">
       <UniqueIdentifier>{5a0a5cf8-c572-4890-a0f3-be617625dde3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Objects\01. Cube">
+      <UniqueIdentifier>{1a69be1f-56b7-46d0-a631-ec595b59bd35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. Objects\00. Player">
+      <UniqueIdentifier>{5b6b9fdd-7535-407a-9cc4-aa7792059134}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -70,7 +73,7 @@
       <Filter>01. Levels\00. Loding</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Cube.h">
-      <Filter>02. Objects\00. Cube</Filter>
+      <Filter>02. Objects\01. Cube</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Level_GamePlay.h">
       <Filter>01. Levels\02. GamePlay</Filter>
@@ -80,6 +83,9 @@
     </ClInclude>
     <ClInclude Include="..\public\QuarterView_Cam.h">
       <Filter>03. Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Player.h">
+      <Filter>02. Objects\00. Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -112,7 +118,7 @@
       <Filter>01. Levels\00. Loding</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Cube.cpp">
-      <Filter>02. Objects\00. Cube</Filter>
+      <Filter>02. Objects\01. Cube</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Level_GamePlay.cpp">
       <Filter>01. Levels\02. GamePlay</Filter>
@@ -122,6 +128,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\QuarterView_Cam.cpp">
       <Filter>03. Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Player.cpp">
+      <Filter>02. Objects\00. Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

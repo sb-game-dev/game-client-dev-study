@@ -15,14 +15,6 @@ public:
 	virtual	void	LateUpdate(f32_t fDeltaTime) override;
 	virtual HRESULT	Render() override;
 
-	virtual	void	SetPlayer() { m_bPlayer = true; }
-private:
-	_bool	m_bPlayer = false;
-
-private:
-	void	KeyInput(f32_t fDeltaTime);
-
-
 public:
 	static shared_ptr<CCube> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
 };
