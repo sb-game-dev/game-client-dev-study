@@ -7,7 +7,7 @@ CTimer_Manager::CTimer_Manager()
 
 CTimer_Manager::~CTimer_Manager()
 {
-	Free();
+	
 }
 
 
@@ -59,7 +59,4 @@ unique_ptr<CTimer_Manager>	CTimer_Manager::Create()
 {
 	return unique_ptr<CTimer_Manager>(new CTimer_Manager());
 }
-void CTimer_Manager::Free()
-{
 
-}

@@ -27,8 +27,6 @@ private:
 
 public:
 	static unique_ptr<CTimer_Manager>	Create();
-private:
-	virtual void		Free();
 };
 
 NS_END
