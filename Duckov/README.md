@@ -1,6 +1,6 @@
 # 3D 공부 정리
 
-### Chapter6. DX11 그리기 연산
+### Chapter6. DX11 그리기 연산 과정1 - 큐브 출력
 
 <details>
   <summary> 0. 멤버 변수 설정 </summary>
@@ -152,6 +152,7 @@ IBDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
 
 D3D11_SUBRESOURCE_DATA IBData{};
 IBData.pSysMem = indices;
+m_iNumIndices = indices.size();
 // 인덱스 버퍼 생성
 if (FAILED(m_pDevice->CreateBuffer(&IBDesc, &IBData, &m_pIB)))
     return E_FAIL;
@@ -484,8 +485,8 @@ HRESULT CCube::Render()
 
 	// 그리기 (이 시점에 위에서 꽂은 설정들이 실제로 사용됨)
 	m_pContext->DrawIndexed(m_iNumIndices,  // IndexCount : 그릴 인덱스 개수 (인덱스 버퍼 생성 시 저장해 둔 값, 큐브는 36)
- 	                       0,              // StartIndexLocation : 인덱스 버퍼에서 읽기 시작할 인덱스 위치
-      	                  0);             // BaseVertexLocation : 읽어 온 인덱스 값에 더해지는 정수
+ 	                        0,              // StartIndexLocation : 인덱스 버퍼에서 읽기 시작할 인덱스 위치
+      	                    0);             // BaseVertexLocation : 읽어 온 인덱스 값에 더해지는 정수
                        	                 // 예) 인덱스 0, 1, 2 + BaseVertexLocation 8 → 8, 9, 10번 정점을 읽음
                               	          // 여러 메시를 정점 버퍼 하나에 이어 붙여 두고 인덱스 버퍼를 재사용할 때 사용
 
@@ -494,8 +495,186 @@ HRESULT CCube::Render()
 ```
 </details>
 
+### Chapter6. DX11 그리기 연산 과정2 - 지형 출력
+
+<details>
+	<summary> 1. 지형 버퍼 생성 </summary>
+
+```cpp
+
+HRESULT CHill::Initialize()
+{
+    if (FAILED(__super::Initialize()))
+        return E_FAIL;
+
+    uint32_t    ivtxCntX = 129;
+    uint32_t    ivtxCntZ = 129;
+
+    uint32_t    ivtxCnt = ivtxCntX * ivtxCntZ;
+    uint32_t    iFaceCnt = (ivtxCntX - 1) * (ivtxCntZ - 1) * 2;
+    f32_t       fHalfWidth = 0.5f * (ivtxCntX -1);
+    f32_t       fHalfDepth = 0.5f * (ivtxCntZ -1);
+
+    f32_t   dx = 1.f;//128.f / (ivtxCntZ);
+    f32_t   dz = 1.f;//128.f / (ivtxCntX);
+
+    f32_t   du = 1.f / (ivtxCntX);
+    f32_t   dv = 1.f / (ivtxCntZ);
+
+	// MESHDATA 구조체는 단순히 버텍스 벡터, 인덱스 벡터로 이루어진 구조체
+    MESHDATA tMeshData = {};
+    tMeshData.Vertices.resize(ivtxCnt);
+    tMeshData.Indices.resize(iFaceCnt * 3);
+
+	// 지형의 중심을 (0,0)으로 설정, 왼쪽 위 부터 정점 생성
+    for (uint32_t i = 0; i < ivtxCntZ; ++i)
+    {
+        float z = fHalfDepth - i * dz;
+        for (uint32_t j = 0; j < ivtxCntX; ++j)
+        {
+            float x = -fHalfWidth + j * dx;
+            tMeshData.Vertices[i * ivtxCntX + j].vPosition = float3_t(x, 0.f, z);
+            
+            // 조명
+            tMeshData.Vertices[i * ivtxCntX + j].vNormal = float3_t(0.f, 1.f, 0.f);
+            tMeshData.Vertices[i * ivtxCntX + j].vTangentU = float3_t(1.f, 0.f, 0.f);
+
+            // 텍스처uv값 설정
+            tMeshData.Vertices[i * ivtxCntX + j].TexC.x = j*du;
+            tMeshData.Vertices[i * ivtxCntX + j].TexC.y = i*dv;
+        }
+    }
+
+    uint32_t k = 0;
+    for (uint32_t i = 0; i < ivtxCntZ - 1; ++i)
+    {
+        for (uint32_t j = 0; j < ivtxCntX - 1; ++j)
+        {
+            tMeshData.Indices[k] 	 = i * ivtxCntX + j;
+            tMeshData.Indices[k + 1] = i * ivtxCntX + j + 1;
+            tMeshData.Indices[k + 2] = (i + 1) * ivtxCntX + j;
+            tMeshData.Indices[k + 3] = (i + 1) * ivtxCntX + j;
+            tMeshData.Indices[k + 4] = i * ivtxCntX + j + 1;
+            tMeshData.Indices[k + 5] = (i + 1) * ivtxCntX + j + 1;
+
+            k += 6;
+        }
+    }
+    m_iIndexCnt = tMeshData.Indices.size();
+    vector<VTXCOL> vertices(tMeshData.Vertices.size());
+    for (size_t i = 0; i < tMeshData.Vertices.size(); ++i)
+    {
+        float3_t p = tMeshData.Vertices[i].vPosition;
+        p.y = GetHeight(p.x, p.z);
+        vertices[i].vPosition = p;
+        if (p.y < -10.0f)
+            vertices[i].vColor = XMFLOAT4(1.0f, 0.96f, 0.62f, 1.0f);
+        else if (p.y < 5.0f)
+            vertices[i].vColor = XMFLOAT4(0.48f, 0.77f, 0.46f, 1.0f);
+        else if (p.y < 12.0f)
+            vertices[i].vColor = XMFLOAT4(0.1f, 0.48f, 0.19f, 1.0f);
+        else if (p.y < 20.0f)
+            vertices[i].vColor = XMFLOAT4(0.45f, 0.39f, 0.34f, 1.0f);
+        else
+            vertices[i].vColor = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+    }
 
 
+    // 정점 버퍼 생성
+    D3D11_BUFFER_DESC   VBDesc{};
+    VBDesc.ByteWidth = sizeof(VTXCOL) * tMeshData.Vertices.size();
+    VBDesc.Usage = D3D11_USAGE_IMMUTABLE;
+    VBDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 
+    D3D11_SUBRESOURCE_DATA  VBData{};
+    VBData.pSysMem = &vertices[0];  // 정점 버퍼를 초기화할 자료를 담은 시스템 메모리 배열을 가리키는 포인터
+    if (FAILED(m_pDevice->CreateBuffer(&VBDesc, &VBData, &m_pVB)))
+        return E_FAIL;
+
+    
+    // 인덱스 버퍼 생성
+    D3D11_BUFFER_DESC IBDesc{};
+    IBDesc.ByteWidth = sizeof(UINT) * m_iIndexCnt;
+    IBDesc.Usage = D3D11_USAGE_IMMUTABLE;
+    IBDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
+
+
+    D3D11_SUBRESOURCE_DATA IBData{};
+    IBData.pSysMem = &tMeshData.Indices[0];
+    if (FAILED(m_pDevice->CreateBuffer(&IBDesc, &IBData, &m_pIB)))
+        return E_FAIL;
+
+    // 상수 버퍼 생성
+    D3D11_BUFFER_DESC CBDesc{};
+    CBDesc.ByteWidth = sizeof(CB_TRANSFORM);
+    CBDesc.Usage = D3D11_USAGE_DEFAULT;
+    CBDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+
+    // 상수 버퍼를 초기화 할 때 SubResource는 nullptr로 설정. 나중에 UpdateSubresource 할 예정
+    if (FAILED(m_pDevice->CreateBuffer(&CBDesc, nullptr, &m_pCB)))
+        return E_FAIL;
+
+    // Blob은 크기가 정해진 바이트 덩어리를 담는 COM객체
+    // 컴파일 결과를 담으면 바이트코드상자(pVSBlob, pPSBlob)
+    // 에러메세지를 담으면 문자열 상수가 됨
+    // Blob 정보를 이용하여 버텍스 셰이더객체, 픽셀 셰이더 객체를 생성함
+    ComPtr<ID3DBlob> pVSBlob, pPSBlob, pErrBlob;
+
+    uint32_t iFlags = 0;
+#ifdef _DEBUG
+    iFlags = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
+    // 셰이더를 디버그 모드에서 컴파일한다. | 컴파일시 최적화를 사용하지 않는다(디버깅에 유용함)
+#endif
+    //VS 컴파일
+    if (FAILED(D3DCompileFromFile(
+        L"../Shader/Shader_VtxCol.hlsl",  // 파일 경로 (작업 디렉터리 기준)
+        nullptr,                           // 이 책에서는 사용하지 않는 고급 옵션(항상 NULL 또는 0)
+        nullptr,                           // 이 책에서는 사용하지 않는 고급 옵션(항상 NULL 또는 0)
+        "VS_MAIN",                         // 진입점 함수 이름
+        "vs_5_0",                          // 타깃: 버텍스 셰이더, 셰이더 모델 5.0
+        iFlags,                            // 컴파일 옵션
+        0,                                 // 이 책에서는 사용하지 않는 고급 효과 컴파일 옵션(항상 NULL 또는 0)
+        &pVSBlob,                          // 결과: 컴파일된 바이트코드
+        &pErrBlob)))                       // 실패 시 에러 메시지
+    {
+        if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
+        return E_FAIL;
+    }
+    // PS 컴파일
+    if (FAILED(D3DCompileFromFile(L"../Shader/Shader_VtxCol.hlsl", nullptr, nullptr,
+        "PS_MAIN", "ps_5_0", iFlags, 0, &pPSBlob, &pErrBlob)))
+    {
+        if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
+        return E_FAIL;
+    }
+
+    // 버텍스 셰이더 객체 생성
+    if (FAILED(m_pDevice->CreateVertexShader(pVSBlob->GetBufferPointer(), pVSBlob->GetBufferSize(), nullptr, &m_pVS)))
+        return E_FAIL;
+
+    // 픽셀 셰이더 객체 생성
+    if (FAILED(m_pDevice->CreatePixelShader(pPSBlob->GetBufferPointer(), pPSBlob->GetBufferSize(), nullptr, &m_pPS)))
+        return E_FAIL;
+
+    // Input Layout 생성 (VS 바이트코드와 대조)
+    if (FAILED(m_pDevice->CreateInputLayout(VTXCOL::Elements,               // 정점 구조체를 서술하는 D3D11_INPUT_LEELMENT_DESC들의 배열
+        VTXCOL::iNumElements,           // 배열 원소의 개수
+        pVSBlob->GetBufferPointer(),    // 정점셰이더를 컴파일해서 얻은 바이트코드를 가리키는 포인터
+        pVSBlob->GetBufferSize(),       // 바이트코드의 크기
+        &m_pInputLayout)))              // 생성된 입력 배치를 돌려줄 포인터
+        return E_FAIL;
+
+    // 레스터라이저 설정
+    D3D11_RASTERIZER_DESC rsDesc{};
+    rsDesc.FillMode = D3D11_FILL_SOLID;         //D3D11_FILL_WIREFRAME , D3D11_FILL_SOLID
+    rsDesc.CullMode = D3D11_CULL_BACK;          // D3D11_CULL_BACK , D3D11_CULL_FRONT
+    rsDesc.FrontCounterClockwise = false;       // 시계방향이 전면
+    rsDesc.DepthClipEnable = true;
+
+    m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
+    return S_OK;
+}
+```
+</details>
 
 
