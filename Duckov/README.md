@@ -359,9 +359,31 @@ HRESULT CLevel_GamePlay::Render()
 }
 ```
 
-> CameraLateUpdate & CameraBind
+> CameraInitialize & CameraLateUpdate & CameraBind
 
 ```cpp
+HRESULT CCamera::Initialize()
+{
+	// 상수 버퍼
+	D3D11_BUFFER_DESC	CBDesc{};
+	CBDesc.ByteWidth = sizeof(CB_CAMERA);
+	CBDesc.Usage = D3D11_USAGE_DEFAULT;
+	CBDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	
+	// 버퍼 생성
+	if (FAILED(m_pDevice->CreateBuffer(&CBDesc, nullptr, m_pCB.GetAddressOf())))
+		return E_FAIL;
+	return S_OK;
+}
+```
+
+```cpp
+typedef struct tagCBCamera
+{
+	float4x4_t ViewMatrix;
+	float4x4_t ProjMatrix;
+}CB_CAMERA;
+
 void CCamera::LateUpdate(f32_t fDeltTime)
 {
 	// 매 프레임 뷰 행렬, 투영 행렬 계산
