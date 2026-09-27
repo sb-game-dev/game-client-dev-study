@@ -27,7 +27,7 @@ HRESULT CCube::Initialize()
     // 정점 버퍼 생성
     D3D11_BUFFER_DESC   VBDesc{};
     VBDesc.ByteWidth = sizeof(vertices);
-    VBDesc.Usage = D3D11_USAGE_IMMUTABLE;
+    VBDesc.Usage     = D3D11_USAGE_IMMUTABLE;
     VBDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 
     D3D11_SUBRESOURCE_DATA  VBData{};
@@ -65,12 +65,13 @@ HRESULT CCube::Initialize()
 
     D3D11_SUBRESOURCE_DATA IBData{};
     IBData.pSysMem = indices;
+    m_iIndexCnt = size(indices);
     if (FAILED(m_pDevice->CreateBuffer(&IBDesc, &IBData, &m_pIB)))
         return E_FAIL;
 
     // 상수 버퍼 생성
     D3D11_BUFFER_DESC CBDesc{};
-    CBDesc.ByteWidth = sizeof(CB_TRANSFORM);
+    CBDesc.ByteWidth = sizeof(CB_PER_OBJECT);
     CBDesc.Usage = D3D11_USAGE_DEFAULT;
     CBDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 
@@ -91,7 +92,7 @@ HRESULT CCube::Initialize()
 #endif
     //VS 컴파일
     if (FAILED(D3DCompileFromFile(
-        L"../Shader/Shader_VtxCol.hlsl",  // 파일 경로 (작업 디렉터리 기준)
+        L"../Shader/Shader_VtxCol.hlsl",   // 파일 경로 (작업 디렉터리 기준)
         nullptr,                           // 이 책에서는 사용하지 않는 고급 옵션(항상 NULL 또는 0)
         nullptr,                           // 이 책에서는 사용하지 않는 고급 옵션(항상 NULL 또는 0)
         "VS_MAIN",                         // 진입점 함수 이름
@@ -128,9 +129,9 @@ HRESULT CCube::Initialize()
                                             &m_pInputLayout)))              // 생성된 입력 배치를 돌려줄 포인터
         return E_FAIL;
 
-    // 레스터라이저 설정
+    // 래스터라이저 설정
     D3D11_RASTERIZER_DESC rsDesc{};
-    rsDesc.FillMode = D3D11_FILL_SOLID;         //D3D11_FILL_WIREFRAME , D3D11_FILL_SOLID
+    rsDesc.FillMode = D3D11_FILL_SOLID;         // D3D11_FILL_WIREFRAME , D3D11_FILL_SOLID
     rsDesc.CullMode = D3D11_CULL_BACK;          // D3D11_CULL_BACK , D3D11_CULL_FRONT
     rsDesc.FrontCounterClockwise = false;       // 시계방향이 전면
     rsDesc.DepthClipEnable = true;
@@ -204,8 +205,9 @@ HRESULT CCube::Render()
     // RS(레스터라이저 설정)
     m_pContext->RSSetState(m_pRS.Get());
 
+
     // 그리기
-    m_pContext->DrawIndexed(36, // IndexCnt: 인덱스 버퍼의 크기
+    m_pContext->DrawIndexed(m_iIndexCnt, // IndexCnt: 인덱스 버퍼의 크기
         0,  // StartIndexLocation : 사용할 인덱스의 위치
         0); // BaseVertexLocation : 정점들을 가져오기 전에 이 호출에서 사용할 인덱스에 더해지는 정수값
 

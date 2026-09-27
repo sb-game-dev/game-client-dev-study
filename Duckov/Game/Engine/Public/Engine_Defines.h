@@ -22,6 +22,7 @@ using namespace DirectX;
 #include <ctime>
 #include <io.h>
 #include <iostream>
+#include <DirectXCollision.h>
 
 
 using namespace std;

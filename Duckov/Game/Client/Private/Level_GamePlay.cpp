@@ -14,13 +14,14 @@ HRESULT CLevel_GamePlay::Initialize()
 
     m_pCamera = CQuarterView_Cam::Create(m_pDevice, m_pContext);
 
+    shared_ptr<CGameObject> pPlayer = {};
+    pPlayer = CPlayer::Create(m_pDevice, m_pContext);
+    pPlayer->SetPos({ 0.f,0.f,0.f });
+    m_mapObject.insert({ L"Player" ,pPlayer });
+
+    m_pCamera->SetPlayer(pPlayer);
+
     shared_ptr<CGameObject> pGameObject = {};
-    pGameObject = CPlayer::Create(m_pDevice, m_pContext);
-    pGameObject->SetPos({ 0.f,0.f,0.f });
-    m_mapObject.insert({ L"Player" ,pGameObject });
-
-    m_pCamera->SetPlayer(pGameObject);
-
     for (uint32_t i = 0; i < 16; ++i)
     {
         pGameObject = CCube::Create(m_pDevice, m_pContext);
@@ -30,6 +31,7 @@ HRESULT CLevel_GamePlay::Initialize()
     }
     pGameObject = CHill::Create(m_pDevice, m_pContext);
     m_mapObject.insert({ L"Hill" ,pGameObject });
+    static_pointer_cast<CPlayer>(pPlayer)->SetHill(static_pointer_cast<CHill>(pGameObject));
 
     return S_OK;
 }

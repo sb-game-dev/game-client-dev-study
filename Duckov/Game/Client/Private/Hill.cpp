@@ -14,58 +14,56 @@ HRESULT CHill::Initialize()
     uint32_t    ivtxCntZ = 129;
 
     uint32_t    ivtxCnt = ivtxCntX * ivtxCntZ;
-    uint32_t    iFaceCnt = (ivtxCntX - 1) * (ivtxCntZ - 1);
-    f32_t       fHalfWidth = 0.5f * 128.f;
-    f32_t       fHalfDepth = 0.5f * 128.f;
+    uint32_t    iFaceCnt = (ivtxCntX - 1) * (ivtxCntZ - 1) * 2;
+    f32_t       fHalfWidth = 0.5f * (ivtxCntX -1);
+    f32_t       fHalfDepth = 0.5f * (ivtxCntZ -1);
 
-    f32_t   dx = 128.f / (ivtxCntZ);
-    f32_t   dz = 128.f / (ivtxCntX);
+    f32_t   dx = 1.f;//128.f / (ivtxCntZ);
+    f32_t   dz = 1.f;//128.f / (ivtxCntX);
 
-    f32_t   du = 1.f / (ivtxCntZ);
-    f32_t   dv = 1.f / (ivtxCntX);
+    f32_t   du = 1.f / (ivtxCntX);
+    f32_t   dv = 1.f / (ivtxCntZ);
 
-    MESHDATA tMeshData = {};
-    tMeshData.Vertices.resize(ivtxCnt);
-    tMeshData.Indices.resize(iFaceCnt * 6);
+    
+    m_tMeshData.Vertices.resize(ivtxCnt);
+    m_tMeshData.Indices.resize(iFaceCnt * 3);
 
-    for (uint32_t i = 0; i < ivtxCntX; ++i)
+    for (uint32_t i = 0; i < ivtxCntZ; ++i)
     {
         float z = fHalfDepth - i * dz;
-        for (uint32_t j = 0; j < ivtxCntZ; ++j)
+        for (uint32_t j = 0; j < ivtxCntX; ++j)
         {
             float x = -fHalfWidth + j * dx;
-            tMeshData.Vertices[i * ivtxCntZ + j].vPosition = float3_t(x, 0.f, z);
+            m_tMeshData.Vertices[i * ivtxCntX + j].vPosition = float3_t(x, 0.f, z);
             
-            // Á¶¸í
-            tMeshData.Vertices[i * ivtxCntZ + j].vNormal = float3_t(0.f, 1.f, 0.f);
-            tMeshData.Vertices[i * ivtxCntZ + j].vTangentU = float3_t(1.f, 0.f, 0.f);
+            m_tMeshData.Vertices[i * ivtxCntX + j].vNormal = float3_t(0.f, 1.f, 0.f);
+            m_tMeshData.Vertices[i * ivtxCntX + j].vTangentU = float3_t(1.f, 0.f, 0.f);
 
-            // ÅØ½ºÃ³
-            tMeshData.Vertices[i * ivtxCntZ + j].TexC.x = j*du;
-            tMeshData.Vertices[i * ivtxCntZ + j].TexC.y = i*dv;
+            m_tMeshData.Vertices[i * ivtxCntX + j].TexC.x = j*du;
+            m_tMeshData.Vertices[i * ivtxCntX + j].TexC.y = i*dv;
         }
     }
 
     uint32_t k = 0;
-    for (uint32_t i = 0; i < ivtxCntX - 1; ++i)
+    for (uint32_t i = 0; i < ivtxCntZ - 1; ++i)
     {
-        for (uint32_t j = 0; j < ivtxCntZ - 1; ++j)
+        for (uint32_t j = 0; j < ivtxCntX - 1; ++j)
         {
-            tMeshData.Indices[k] = i * ivtxCntZ + j;
-            tMeshData.Indices[k + 1] = i * ivtxCntZ + j + 1;
-            tMeshData.Indices[k + 2] = (i + 1) * ivtxCntZ + j;
-            tMeshData.Indices[k + 3] = (i + 1) * ivtxCntZ + j;
-            tMeshData.Indices[k + 4] = i * ivtxCntZ + j + 1;
-            tMeshData.Indices[k + 5] = (i + 1) * ivtxCntZ + j + 1;
+            m_tMeshData.Indices[k] = i * ivtxCntX + j;
+            m_tMeshData.Indices[k + 1] = i * ivtxCntX + j + 1;
+            m_tMeshData.Indices[k + 2] = (i + 1) * ivtxCntX + j;
+            m_tMeshData.Indices[k + 3] = (i + 1) * ivtxCntX + j;
+            m_tMeshData.Indices[k + 4] = i * ivtxCntX + j + 1;
+            m_tMeshData.Indices[k + 5] = (i + 1) * ivtxCntX + j + 1;
 
             k += 6;
         }
     }
-    m_iIndexCnt = tMeshData.Indices.size();
-    vector<VTXCOL> vertices(tMeshData.Vertices.size());
-    for (size_t i = 0; i < tMeshData.Vertices.size(); ++i)
+    m_iIndexCnt = m_tMeshData.Indices.size();
+    vector<VTXCOL> vertices(m_tMeshData.Vertices.size());
+    for (size_t i = 0; i < m_tMeshData.Vertices.size(); ++i)
     {
-        float3_t p = tMeshData.Vertices[i].vPosition;
+        float3_t& p = m_tMeshData.Vertices[i].vPosition;
         p.y = GetHeight(p.x, p.z);
         vertices[i].vPosition = p;
         if (p.y < -10.0f)
@@ -81,19 +79,18 @@ HRESULT CHill::Initialize()
     }
 
 
-    // Á¤Á¡ ¹öÆÛ »ý¼º
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     D3D11_BUFFER_DESC   VBDesc{};
-    VBDesc.ByteWidth = sizeof(VTXCOL) * tMeshData.Vertices.size();
+    VBDesc.ByteWidth = sizeof(VTXCOL) * m_tMeshData.Vertices.size();
     VBDesc.Usage = D3D11_USAGE_IMMUTABLE;
     VBDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 
     D3D11_SUBRESOURCE_DATA  VBData{};
-    VBData.pSysMem = &vertices[0];  // Á¤Á¡ ¹öÆÛ¸¦ ÃÊ±âÈ­ÇÒ ÀÚ·á¸¦ ´ãÀº ½Ã½ºÅÛ ¸Þ¸ð¸® ¹è¿­À» °¡¸®Å°´Â Æ÷ÀÎÅÍ
+    VBData.pSysMem = &vertices[0];  
     if (FAILED(m_pDevice->CreateBuffer(&VBDesc, &VBData, &m_pVB)))
         return E_FAIL;
 
     
-    // ÀÎµ¦½º ¹öÆÛ »ý¼º
     D3D11_BUFFER_DESC IBDesc{};
     IBDesc.ByteWidth = sizeof(UINT) * m_iIndexCnt;
     IBDesc.Usage = D3D11_USAGE_IMMUTABLE;
@@ -101,47 +98,42 @@ HRESULT CHill::Initialize()
 
 
     D3D11_SUBRESOURCE_DATA IBData{};
-    IBData.pSysMem = &tMeshData.Indices[0];
+    IBData.pSysMem = &m_tMeshData.Indices[0];
     if (FAILED(m_pDevice->CreateBuffer(&IBDesc, &IBData, &m_pIB)))
         return E_FAIL;
 
-    // »ó¼ö ¹öÆÛ »ý¼º
     D3D11_BUFFER_DESC CBDesc{};
     CBDesc.ByteWidth = sizeof(CB_TRANSFORM);
     CBDesc.Usage = D3D11_USAGE_DEFAULT;
     CBDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 
-    // »ó¼ö ¹öÆÛ¸¦ ÃÊ±âÈ­ ÇÒ ¶§ SubResource´Â nullptr·Î ¼³Á¤. ³ªÁß¿¡ UpdateSubresource ÇÒ ¿¹Á¤
     if (FAILED(m_pDevice->CreateBuffer(&CBDesc, nullptr, &m_pCB)))
         return E_FAIL;
 
-    // BlobÀº Å©±â°¡ Á¤ÇØÁø ¹ÙÀÌÆ® µ¢¾î¸®¸¦ ´ã´Â COM°´Ã¼
-    // ÄÄÆÄÀÏ °á°ú¸¦ ´ãÀ¸¸é ¹ÙÀÌÆ®ÄÚµå»óÀÚ(pVSBlob, pPSBlob)
-    // ¿¡·¯¸Þ¼¼Áö¸¦ ´ãÀ¸¸é ¹®ÀÚ¿­ »ó¼ö°¡ µÊ
-    // Blob Á¤º¸¸¦ ÀÌ¿ëÇÏ¿© ¹öÅØ½º ¼ÎÀÌ´õ°´Ã¼, ÇÈ¼¿ ¼ÎÀÌ´õ °´Ã¼¸¦ »ý¼ºÇÔ
+
     ComPtr<ID3DBlob> pVSBlob, pPSBlob, pErrBlob;
 
     uint32_t iFlags = 0;
 #ifdef _DEBUG
     iFlags = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
-    // ¼ÎÀÌ´õ¸¦ µð¹ö±× ¸ðµå¿¡¼­ ÄÄÆÄÀÏÇÑ´Ù. | ÄÄÆÄÀÏ½Ã ÃÖÀûÈ­¸¦ »ç¿ëÇÏÁö ¾Ê´Â´Ù(µð¹ö±ë¿¡ À¯¿ëÇÔ)
+    
 #endif
-    //VS ÄÄÆÄÀÏ
+    
     if (FAILED(D3DCompileFromFile(
-        L"../Shader/Shader_VtxCol.hlsl",  // ÆÄÀÏ °æ·Î (ÀÛ¾÷ µð·ºÅÍ¸® ±âÁØ)
-        nullptr,                           // ÀÌ Ã¥¿¡¼­´Â »ç¿ëÇÏÁö ¾Ê´Â °í±Þ ¿É¼Ç(Ç×»ó NULL ¶Ç´Â 0)
-        nullptr,                           // ÀÌ Ã¥¿¡¼­´Â »ç¿ëÇÏÁö ¾Ê´Â °í±Þ ¿É¼Ç(Ç×»ó NULL ¶Ç´Â 0)
-        "VS_MAIN",                         // ÁøÀÔÁ¡ ÇÔ¼ö ÀÌ¸§
-        "vs_5_0",                          // Å¸±ê: ¹öÅØ½º ¼ÎÀÌ´õ, ¼ÎÀÌ´õ ¸ðµ¨ 5.0
-        iFlags,                            // ÄÄÆÄÀÏ ¿É¼Ç
-        0,                                 // ÀÌ Ã¥¿¡¼­´Â »ç¿ëÇÏÁö ¾Ê´Â °í±Þ È¿°ú ÄÄÆÄÀÏ ¿É¼Ç(Ç×»ó NULL ¶Ç´Â 0)
-        &pVSBlob,                          // °á°ú: ÄÄÆÄÀÏµÈ ¹ÙÀÌÆ®ÄÚµå
-        &pErrBlob)))                       // ½ÇÆÐ ½Ã ¿¡·¯ ¸Þ½ÃÁö
+        L"../Shader/Shader_VtxCol.hlsl",  
+        nullptr,                          
+        nullptr,                          
+        "VS_MAIN",                        
+        "vs_5_0",                         
+        iFlags,                           
+        0,                                
+        &pVSBlob,                         
+        &pErrBlob)))                      
     {
         if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
         return E_FAIL;
     }
-    // PS ÄÄÆÄÀÏ
+    // PS ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     if (FAILED(D3DCompileFromFile(L"../Shader/Shader_VtxCol.hlsl", nullptr, nullptr,
         "PS_MAIN", "ps_5_0", iFlags, 0, &pPSBlob, &pErrBlob)))
     {
@@ -149,27 +141,27 @@ HRESULT CHill::Initialize()
         return E_FAIL;
     }
 
-    // ¹öÅØ½º ¼ÎÀÌ´õ °´Ã¼ »ý¼º
+    // ï¿½ï¿½ï¿½Ø½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
     if (FAILED(m_pDevice->CreateVertexShader(pVSBlob->GetBufferPointer(), pVSBlob->GetBufferSize(), nullptr, &m_pVS)))
         return E_FAIL;
 
-    // ÇÈ¼¿ ¼ÎÀÌ´õ °´Ã¼ »ý¼º
+    // ï¿½È¼ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
     if (FAILED(m_pDevice->CreatePixelShader(pPSBlob->GetBufferPointer(), pPSBlob->GetBufferSize(), nullptr, &m_pPS)))
         return E_FAIL;
 
-    // Input Layout »ý¼º (VS ¹ÙÀÌÆ®ÄÚµå¿Í ´ëÁ¶)
-    if (FAILED(m_pDevice->CreateInputLayout(VTXCOL::Elements,               // Á¤Á¡ ±¸Á¶Ã¼¸¦ ¼­¼úÇÏ´Â D3D11_INPUT_LEELMENT_DESCµéÀÇ ¹è¿­
-        VTXCOL::iNumElements,           // ¹è¿­ ¿ø¼ÒÀÇ °³¼ö
-        pVSBlob->GetBufferPointer(),    // Á¤Á¡¼ÎÀÌ´õ¸¦ ÄÄÆÄÀÏÇØ¼­ ¾òÀº ¹ÙÀÌÆ®ÄÚµå¸¦ °¡¸®Å°´Â Æ÷ÀÎÅÍ
-        pVSBlob->GetBufferSize(),       // ¹ÙÀÌÆ®ÄÚµåÀÇ Å©±â
-        &m_pInputLayout)))              // »ý¼ºµÈ ÀÔ·Â ¹èÄ¡¸¦ µ¹·ÁÁÙ Æ÷ÀÎÅÍ
+    // Input Layout ï¿½ï¿½ï¿½ï¿½ (VS ï¿½ï¿½ï¿½ï¿½Æ®ï¿½Úµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+    if (FAILED(m_pDevice->CreateInputLayout(VTXCOL::Elements,               // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ D3D11_INPUT_LEELMENT_DESCï¿½ï¿½ï¿½ï¿½ ï¿½è¿­
+        VTXCOL::iNumElements,           // ï¿½è¿­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        pVSBlob->GetBufferPointer(),    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½Úµå¸¦ ï¿½ï¿½ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        pVSBlob->GetBufferSize(),       // ï¿½ï¿½ï¿½ï¿½Æ®ï¿½Úµï¿½ï¿½ï¿½ Å©ï¿½ï¿½
+        &m_pInputLayout)))              // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         return E_FAIL;
 
-    // ·¹½ºÅÍ¶óÀÌÀú ¼³Á¤
+    // ï¿½ï¿½ï¿½ï¿½ï¿½Í¶ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     D3D11_RASTERIZER_DESC rsDesc{};
     rsDesc.FillMode = D3D11_FILL_SOLID;         //D3D11_FILL_WIREFRAME , D3D11_FILL_SOLID
     rsDesc.CullMode = D3D11_CULL_BACK;          // D3D11_CULL_BACK , D3D11_CULL_FRONT
-    rsDesc.FrontCounterClockwise = false;       // ½Ã°è¹æÇâÀÌ Àü¸é
+    rsDesc.FrontCounterClockwise = false;       // ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     rsDesc.DepthClipEnable = true;
 
     m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
@@ -189,54 +181,54 @@ HRESULT CHill::Render()
 {
     XMMATRIX matWorld = GetWorld();
 
-    // VS·Î Àü´ÞÇÒ ±¸Á¶Ã¼ Ã¤¿ì±â
-    // HLSLÀº ±âº»ÀûÀ¸·Î ¿­ ´ÜÀ§·Î µ¥ÀÌÅÍ¸¦ ÀÐ±â ¶§¹®¿¡ ÀüÄ¡¸¦ ÇØ¾ß ÇÔ
+    // VSï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼ Ã¤ï¿½ï¿½ï¿½
+    // HLSLï¿½ï¿½ ï¿½âº»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Ð±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ø¾ï¿½ ï¿½ï¿½
     CB_TRANSFORM cbData;
     XMStoreFloat4x4(&cbData.WorldMatrix, XMMatrixTranspose(matWorld));
 
-    // º¯È¯ Çà·ÄÀÇ Á¤º¸¸¦ °¡Áö°íÀÖ´Â m_pCB ¹öÆÛ·Î º¹»ç(USAGE_DEFAULT·Î »ý¼ºÇØ¼­ µå¶óÀÌ¹ö¸¦ ÅëÇØ º¹»ç)
-    // ¾Æ·¡¿¡¼­ VSÀÇ b0 ·¹Áö½ºÅÍ¿¡ ²ÈÀ» ¿¹Á¤
+    // ï¿½ï¿½È¯ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ m_pCB ï¿½ï¿½ï¿½Û·ï¿½ ï¿½ï¿½ï¿½ï¿½(USAGE_DEFAULTï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+    // ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ VSï¿½ï¿½ b0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     m_pContext->UpdateSubresource(m_pCB.Get(), 0, nullptr, &cbData, 0, 0);
 
-// ÆÄÀÌÇÁ¶óÀÎ¿¡ ²È±â
-    //IA(ÀÔ·Â Á¶¸³±â ´Ü°è)
-    // Á¤Á¡ ÇÏ³ªÀÇ Å©±â¿Í ¹öÆÛÀÇ ½ÃÀÛ À§Ä¡ ¼³Á¤
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½È±ï¿½
+    //IA(ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ü°ï¿½)
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
     uint32_t iStride = sizeof(VTXCOL);
     uint32_t iOffset = 0;
-    // ¹öÅØ½º ¹öÆÛ ²È±â
-    m_pContext->IASetVertexBuffers(0,                       // Á¤Á¡ ¹öÆÛµéÀ» ºÙÀÌ±â ½ÃÀÛÇÒ ÀÎµ¦½º
-                                   1,                       // ÀÔ·Â ½½·Ô¿¡ ºÙÀÌ°íÀÚ ÇÏ´Â ¹öÆÛÀÇ °³¼ö
-                                   m_pVB.GetAddressOf(),    // ¹öÆÛ¸¦ ´ãÀº ¹è¿­ÀÇ Ã¹ ¿ø¼Ò¸¦ °¡¸®Å°´Â Æ÷ÀÎÅÍ
-                                   &iStride,                // ¹öÆÛÀÇ ÇÑ ¿ø¼ÒÀÇ ¹ÙÀÌÆ®Å©±â ´ÜÀ§(ÁÖ¼Ò¸¦ ³Ñ°ÜÁà¾ßÇÔ)
-                                   &iOffset);               // Á¤Á¡ ¹öÆÛÀÇ ½ÃÀÛÀ§Ä¡¿¡¼­ºÎÅÍ °Ç³Ê¶Û ÀÎµ¦½º
+    // ï¿½ï¿½ï¿½Ø½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È±ï¿½
+    m_pContext->IASetVertexBuffers(0,                       // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ûµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½
+                                   1,                       // ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½Ô¿ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½ï¿½ï¿½ ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                                   m_pVB.GetAddressOf(),    // ï¿½ï¿½ï¿½Û¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­ï¿½ï¿½ Ã¹ ï¿½ï¿½ï¿½Ò¸ï¿½ ï¿½ï¿½ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                                   &iStride,                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½Ö¼Ò¸ï¿½ ï¿½Ñ°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+                                   &iOffset);               // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç³Ê¶ï¿½ ï¿½Îµï¿½ï¿½ï¿½
 
-    // ÀÎµ¦½º ¹öÆÛ ²È±â
+    // ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È±ï¿½
     m_pContext->IASetIndexBuffer(m_pIB.Get(), DXGI_FORMAT_R32_UINT, 0);
 
-    // »ï°¢Çü ±×¸®±â ¼³Á¤
+    // ï¿½ï°¢ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     m_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-    // InputLayoyt ²È±â(FVFÀÇ ¿ªÇÒ)
+    // InputLayoyt ï¿½È±ï¿½(FVFï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
     m_pContext->IASetInputLayout(m_pInputLayout.Get());
 
-    // VS(¹öÅØ½º ¼ÎÀÌ´õ ´Ü°è) -> ¿ùµåº¯È¯, ºä½ºÆäÀÌ½º º¯È¯, Åõ¿µ º¯È¯ Çà·ÄÀ» Àü´Þ¹Þ¾Æ¼­ ¹öÅØ½º ¹öÆÛ¿¡ °è»êÇÔ
+    // VS(ï¿½ï¿½ï¿½Ø½ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½ ï¿½Ü°ï¿½) -> ï¿½ï¿½ï¿½åº¯È¯, ï¿½ä½ºï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½È¯, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Þ¹Þ¾Æ¼ï¿½ ï¿½ï¿½ï¿½Ø½ï¿½ ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
     m_pContext->VSSetShader(m_pVS.Get(), nullptr, 0);
 
-    // VSÀÇ »ó¼ö¹öÆÛ½½·Ô(b0)¿¡ »ó¼ö¹öÆÛ(º¯È¯ Çà·Ä ¹öÆÛ) ²È±â
-    m_pContext->VSSetConstantBuffers(0, //register(b0)°ú ¿¬°áµÊ
+    // VSï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û½ï¿½ï¿½ï¿½(b0)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½È¯ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½) ï¿½È±ï¿½
+    m_pContext->VSSetConstantBuffers(0, //register(b0)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
         1,
         m_pCB.GetAddressOf());
 
-    // PS(ÇÈ¼¿ ¼ÎÀÌ´õ) -> Áö±ÝÀº »ö ¹Û¿¡ ¾øÀ½
+    // PS(ï¿½È¼ï¿½ ï¿½ï¿½ï¿½Ì´ï¿½) -> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½
     m_pContext->PSSetShader(m_pPS.Get(), nullptr, 0);
 
-    // RS(·¹½ºÅÍ¶óÀÌÀú ¼³Á¤)
+    // RS(ï¿½ï¿½ï¿½ï¿½ï¿½Í¶ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
     m_pContext->RSSetState(m_pRS.Get());
 
-    // ±×¸®±â
-    m_pContext->DrawIndexed(m_iIndexCnt, // IndexCnt: ÀÎµ¦½º ¹öÆÛÀÇ Å©±â
-        0,                      // StartIndexLocation : »ç¿ëÇÒ ÀÎµ¦½ºÀÇ À§Ä¡
-        0);                     // BaseVertexLocation : Á¤Á¡µéÀ» °¡Á®¿À±â Àü¿¡ ÀÌ È£Ãâ¿¡¼­ »ç¿ëÇÒ ÀÎµ¦½º¿¡ ´õÇØÁö´Â Á¤¼ö°ª
+    // ï¿½×¸ï¿½ï¿½ï¿½
+    m_pContext->DrawIndexed(m_iIndexCnt, // IndexCnt: ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½
+        0,                      // StartIndexLocation : ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
+        0);                     // BaseVertexLocation : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ È£ï¿½â¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
     return S_OK;
 }

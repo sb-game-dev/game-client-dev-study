@@ -52,6 +52,7 @@ HRESULT CPlayer::Initialize()
 
     D3D11_SUBRESOURCE_DATA IBData{};
     IBData.pSysMem = indices;
+    m_iIndexCnt = size(indices);
     if (FAILED(m_pDevice->CreateBuffer(&IBDesc, &IBData, &m_pIB)))
         return E_FAIL;
 
@@ -132,6 +133,7 @@ void CPlayer::Update(f32_t fDeltaTime)
 
     KeyInput(fDeltaTime);
     LookAtMouse(fDeltaTime);
+    AdjustPosY();
 }
 void CPlayer::LateUpdate(f32_t fDeltaTime)
 {
@@ -147,7 +149,6 @@ HRESULT CPlayer::Render()
     //                    * XMMatrixTranslation(m_vPosition.x, m_vPosition.y, m_vPosition.z);
 
     XMMATRIX matWorld = GetWorld();
-
 
 
     // VS로 전달할 구조체 채우기
@@ -195,11 +196,48 @@ HRESULT CPlayer::Render()
     m_pContext->RSSetState(m_pRS.Get());
 
     // 그리기
-    m_pContext->DrawIndexed(36, // IndexCnt: 인덱스 버퍼의 크기
+    m_pContext->DrawIndexed(m_iIndexCnt, // IndexCnt: 인덱스 버퍼의 크기
         0,  // StartIndexLocation : 사용할 인덱스의 위치
         0); // BaseVertexLocation : 정점들을 가져오기 전에 이 호출에서 사용할 인덱스에 더해지는 정수값
 
     return S_OK;
+}
+
+void CPlayer::AdjustPosY()
+{
+    float3_t  vPos = m_vInfo[static_cast<uint32_t>(INFO::POS)];
+    auto pHill = static_pointer_cast<CHill>(m_pHill);
+    
+    const auto& vecIndex    = pHill->GetIndex();
+    const auto& vecVtx      = pHill->GetVertices();
+
+    for (uint32_t i = 0; i + 2 < vecIndex.size(); i += 3)
+    {
+        float3_t p0 = vecVtx[vecIndex[i]].vPosition;
+        float3_t p1 = vecVtx[vecIndex[i+1]].vPosition;
+        float3_t p2 = vecVtx[vecIndex[i+2]].vPosition;
+
+        XMVECTOR vPlane = XMPlaneFromPoints(XMLoadFloat3(&p0), XMLoadFloat3(&p1), XMLoadFloat3(&p2));
+
+        XMVECTOR vRayPos = XMVectorSet(vPos.x, vPos.y + 100.f, vPos.z, 1.f);
+        XMVECTOR vRayDir = XMVectorSet(0.f, -1.f, 0.f, 0.f);   // 아래 방향
+
+        XMVECTOR v0 = XMLoadFloat3(&p0);
+        XMVECTOR v1 = XMLoadFloat3(&p1);
+        XMVECTOR v2 = XMLoadFloat3(&p2);
+
+        f32_t fDist = 0.f;
+        if (TriangleTests::Intersects(vRayPos, vRayDir, v0, v1, v2, fDist))
+        {
+            XMFLOAT4 plane;
+            XMStoreFloat4(&plane, vPlane); // x = a, y = b, z = c, w = d -> ax + by + cz + d = 0
+
+            f32_t fY = -(plane.x * vPos.x + plane.z * vPos.z + plane.w) / plane.y;
+
+            SetPos({ vPos.x,fY + 0.5f,vPos.z });
+            return;
+        }
+    }
 }
 
 void CPlayer::KeyInput(f32_t fDeltaTime)
