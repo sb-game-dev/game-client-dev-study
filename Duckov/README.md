@@ -362,9 +362,15 @@ HRESULT CLevel_GamePlay::Render()
 > CameraInitialize & CameraLateUpdate & CameraBind
 
 ```cpp
+typedef struct tagCBCamera
+{
+	float4x4_t ViewMatrix;
+	float4x4_t ProjMatrix;
+}CB_CAMERA;
+
 HRESULT CCamera::Initialize()
 {
-	// 상수 버퍼
+	// 상수 버퍼 구조체 생성
 	D3D11_BUFFER_DESC	CBDesc{};
 	CBDesc.ByteWidth = sizeof(CB_CAMERA);
 	CBDesc.Usage = D3D11_USAGE_DEFAULT;
@@ -378,12 +384,6 @@ HRESULT CCamera::Initialize()
 ```
 
 ```cpp
-typedef struct tagCBCamera
-{
-	float4x4_t ViewMatrix;
-	float4x4_t ProjMatrix;
-}CB_CAMERA;
-
 void CCamera::LateUpdate(f32_t fDeltTime)
 {
 	// 매 프레임 뷰 행렬, 투영 행렬 계산
