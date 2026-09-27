@@ -4,6 +4,7 @@
 
 <details>
   <summary> 0. 멤버 변수 설정 </summary>
+	
 ```cpp
 #pragma once
 #include "Engine_Defines.h"
@@ -338,6 +339,138 @@ m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
 
 
 
+<details>
+	<summary> 8. Render </summary>
+
+> Scene_Render
+
+```cpp
+HRESULT CLevel_GamePlay::Render()
+{
+    // 카메라가 먼저 b1에 뷰/투영 행렬을 꽂아 둠
+    // 상수 버퍼 슬롯은 다른 버퍼로 교체하기 전까지 컨텍스트에 계속 꽂혀 있으므로
+    // 한 번만 Bind해도 이후 모든 오브젝트가 같은 뷰/투영을 공유함
+    // 오브젝트 렌더(__super::Render)보다 먼저 호출해야 함
+    if (FAILED(m_pCamera->Bind()))
+        return E_FAIL;
+    if (FAILED(__super::Render()))
+        return E_FAIL;
+    return S_OK;
+}
+```
+
+> CameraLateUpdate & CameraBind
+
+```cpp
+void CCamera::LateUpdate(f32_t fDeltTime)
+{
+	// 매 프레임 뷰 행렬, 투영 행렬 계산
+	XMMATRIX	matView = XMMatrixLookAtLH(XMLoadFloat3(&m_vEye), XMLoadFloat3(&m_vAt), XMLoadFloat3(&m_vUp));
+	XMMATRIX	matProj = XMMatrixPerspectiveFovLH(m_fFov, m_fAspect, m_fNear, m_fFar);
+
+	XMStoreFloat4x4(&m_matView, matView);
+	XMStoreFloat4x4(&m_matProj, matProj);
+}
+
+HRESULT CCamera::Bind()
+{
+	CB_CAMERA	cbData;
+	XMStoreFloat4x4(&cbData.ViewMatrix, XMMatrixTranspose(XMLoadFloat4x4(&m_matView)));
+	XMStoreFloat4x4(&cbData.ProjMatrix, XMMatrixTranspose(XMLoadFloat4x4(&m_matProj)));
+
+	// 카메라 상수 버퍼의 내용 갱신
+	m_pContext->UpdateSubresource(m_pCB.Get(), 0, nullptr, &cbData, 0, 0);
+
+	// VS의 상수 버퍼 슬롯 1번(register(b1))에 꽂기
+	m_pContext->VSSetConstantBuffers(1, 1, m_pCB.GetAddressOf());
+	return S_OK;
+}
+```
+
+> Obj_Render
+
+```cpp
+HRESULT CCube::Render()
+{    
+	// 변환 행렬 계산 -> 상수 버퍼(월드 행렬) 갱신
+	// 뷰/투영 행렬은 카메라가 b1에 이미 바인딩해 둠 → 여기서는 월드 행렬만 다룸
+	XMMATRIX matWorld = GetWorld();
+
+	// VS로 전달할 구조체 채우기
+	// 전치하는 이유 :
+	// DirectXMath의 XMFLOAT4X4는 메모리에 행 우선(row-major)으로 저장되고,
+	// HLSL은 상수 버퍼의 행렬을 기본적으로 열 우선(column-major)으로 해석함
+	// → 그대로 보내면 셰이더에서 전치된 행렬로 보이므로, 미리 전치해서 보내면 셰이더에서 원래 행렬로 보임
+	// (대안 : 셰이더에서 row_major float4x4로 선언하거나, 컴파일 플래그 D3DCOMPILE_PACK_MATRIX_ROW_MAJOR 사용)
+	CB_TRANSFORM cbData;
+	XMStoreFloat4x4(&cbData.WorldMatrix, XMMatrixTranspose(matWorld));
+
+	// 월드 행렬을 담는 m_pCB 버퍼로 복사 (USAGE_DEFAULT로 생성해서 드라이버를 통해 복사)
+	// 아래에서 VS의 b0 레지스터에 꽂을 예정
+	m_pContext->UpdateSubresource(m_pCB.Get(), 0, nullptr, &cbData, 0, 0);
+
+	// ===== 파이프라인에 꽂기 (IA → VS → RS → PS → OM 순서) =====
+	// 실제 사용은 Draw 호출 시점에 한꺼번에 이루어지므로 꽂는 순서 자체는 기능에 영향 없음
+
+	// [IA] 입력 조립기 단계
+	// 정점 하나의 크기와 버퍼의 시작 위치 설정 (둘 다 바이트 단위)
+	uint32_t iStride = sizeof(VTXCOL);
+	uint32_t iOffset = 0;
+
+	// 정점 버퍼 꽂기
+	// stride, offset을 주소로 넘기는 이유 : 버퍼를 여러 개 한 번에 꽂을 수 있으므로
+	// 버퍼 개수만큼의 배열로 받음 → 지금은 1개라 변수 하나의 주소를 "원소 1개짜리 배열"로 넘김
+	m_pContext->IASetVertexBuffers(0,                        // 정점 버퍼를 붙이기 시작할 입력 슬롯 번호
+									1,                       // 입력 슬롯에 붙이고자 하는 버퍼의 개수
+                               		m_pVB.GetAddressOf(),    // 버퍼를 담은 배열의 첫 원소를 가리키는 포인터
+                               		&iStride,                // 버퍼 한 원소(정점 하나)의 바이트 크기
+									&iOffset);               // 버퍼 시작에서부터 건너뛸 바이트 수
+                                      	                     // 정점 n개를 건너뛰려면 n * sizeof(VTXCOL)
+ 
+	// 인덱스 버퍼 꽂기
+	m_pContext->IASetIndexBuffer(m_pIB.Get(),               // 인덱스 버퍼
+	                             DXGI_FORMAT_R32_UINT,      // 인덱스 하나의 형식 (인덱스 배열 타입 uint32_t와 일치해야 함)
+	                                                        // 정점이 65535개 이하라면 R16_UINT + uint16_t로 메모리 절반
+	                             0);                        // 버퍼 시작에서부터 건너뛸 바이트 수
+
+	// 기본 도형 위상 : 정점 3개씩 묶어 삼각형 하나
+	m_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	
+	// InputLayout 꽂기 (DX9 FVF의 역할)
+	// 차이점 : FVF는 고정된 플래그 조합이었지만, InputLayout은 생성 시 셰이더 입력 시그니처와 검증됨
+	m_pContext->IASetInputLayout(m_pInputLayout.Get());
+
+	// [VS] 버텍스 셰이더 단계
+	// 정점 버퍼에서 정점을 "읽어서" 월드 → 뷰 → 투영 변환한 결과를 다음 단계(래스터라이저)로 넘김
+	// 정점 버퍼에 결과를 다시 쓰지 않음 → 같은 정점 버퍼로 월드 행렬만 바꿔 여러 번 그릴 수 있음
+	m_pContext->VSSetShader(m_pVS.Get(), nullptr, 0);
+
+	// VS의 상수 버퍼 슬롯 0번에 월드 행렬 버퍼 꽂기
+	m_pContext->VSSetConstantBuffers(0,                     // register(b0)과 연결됨
+   		                             1,
+									 m_pCB.GetAddressOf());
+
+	// [RS] 래스터라이저 단계 (고정 기능, 상태 객체로 설정)
+	m_pContext->RSSetState(m_pRS.Get());
+
+	// [PS] 픽셀 셰이더 단계 -> 지금은 보간된 색을 그대로 반환
+	m_pContext->PSSetShader(m_pPS.Get(), nullptr, 0);
+
+	// [OM] 출력 병합기 / 뷰포트
+	// 이 함수에서는 설정하지 않음 → 프레임 시작 시 설정한 렌더 타깃(OMSetRenderTargets)과
+	// 뷰포트(RSSetViewports)가 그대로 사용됨
+
+	// 그리기 (이 시점에 위에서 꽂은 설정들이 실제로 사용됨)
+	m_pContext->DrawIndexed(m_iNumIndices,  // IndexCount : 그릴 인덱스 개수 (인덱스 버퍼 생성 시 저장해 둔 값, 큐브는 36)
+ 	                       0,              // StartIndexLocation : 인덱스 버퍼에서 읽기 시작할 인덱스 위치
+      	                  0);             // BaseVertexLocation : 읽어 온 인덱스 값에 더해지는 정수
+                       	                 // 예) 인덱스 0, 1, 2 + BaseVertexLocation 8 → 8, 9, 10번 정점을 읽음
+                              	          // 여러 메시를 정점 버퍼 하나에 이어 붙여 두고 인덱스 버퍼를 재사용할 때 사용
+
+	return S_OK;
+}
+```
+</details>
 
 
 
