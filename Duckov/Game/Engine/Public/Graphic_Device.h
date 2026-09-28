@@ -53,6 +53,8 @@ private:
 	/* 메모리 할당. (정점버퍼, 인덱스버퍼, 텍스쳐로드, 쉐이더객체를 생성한다. ) 컴객체의 생성과 관련된 역할 */
 	/* 추가적으로 생성된 모든 스레드에서 사용하는데 전혀 문제가 없다. */
 	ComPtr<ID3D11Device>				m_pDevice = { nullptr };
+	
+	
 		
 	/* 기능실행.(바인딩작업, 정점버퍼를 SetVertexBuffers(), SetIndexBuffer(), Apply() */
 	/* 그린다. DrawIndexed() */

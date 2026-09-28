@@ -138,8 +138,9 @@
     <ClInclude Include="..\public\Hill.h" />
     <ClInclude Include="..\Public\Inven.h" />
     <ClInclude Include="..\Public\Level_GamePlay.h" />
-    <ClInclude Include="..\Public\Level_Loding.h" />
+    <ClInclude Include="..\Public\Level_Loading.h" />
     <ClInclude Include="..\public\Level_Logo.h" />
+    <ClInclude Include="..\public\Loader.h" />
     <ClInclude Include="..\Public\MainApp.h" />
     <ClInclude Include="..\public\Player.h" />
     <ClInclude Include="..\public\QuarterView_Cam.h" />
@@ -149,13 +150,14 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\private\Loader.cpp" />
     <ClCompile Include="..\private\Player.cpp" />
     <ClCompile Include="..\Private\QuarterView_Cam.cpp" />
     <ClCompile Include="..\Private\Cube.cpp" />
     <ClCompile Include="..\Private\Hill.cpp" />
     <ClCompile Include="..\Private\Inven.cpp" />
     <ClCompile Include="..\Private\Level_GamePlay.cpp" />
-    <ClCompile Include="..\Private\Level_Loding.cpp" />
+    <ClCompile Include="..\Private\Level_Loading.cpp" />
     <ClCompile Include="..\private\Level_Logo.cpp" />
     <ClCompile Include="..\Private\MainApp.cpp" />
     <ClCompile Include="Client.cpp" />

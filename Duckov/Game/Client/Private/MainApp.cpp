@@ -1,7 +1,7 @@
 #include "MainApp.h"
 #include "Engine_Defines.h"
 #include "Client_Defines.h"
-#include "Level_GamePlay.h"
+#include "Level_Loading.h"
 #include "Inven.h"
 
 CMainApp::CMainApp()
@@ -63,8 +63,9 @@ HRESULT CMainApp::Initialize()
         return E_FAIL;
 
     // ¾À »ý¼º
-    auto pLevel = CLevel_GamePlay::Create(m_pDevice,m_pContext);
-    CGameInstance::Get().Change_Level(static_cast<int>(LEVEL::GAMEPLAY), pLevel);
+    if (FAILED(Start_Level(LEVEL::GAMEPLAY)))
+        return E_FAIL;
+
 
     return S_OK;
 }
@@ -92,6 +93,14 @@ HRESULT CMainApp::Render()
     return S_OK;
 }
 
+
+HRESULT CMainApp::Start_Level(LEVEL eStartLevelID)
+{
+    if(FAILED(CGameInstance::Get().Change_Level(static_cast<int>(LEVEL::GAMEPLAY), 
+        CLevel_Loading::Create(m_pDevice, m_pContext, eStartLevelID))))
+        return E_FAIL;
+    return S_OK;
+}
 
 unique_ptr<CMainApp> CMainApp::Create()
 {

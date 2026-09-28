@@ -18,9 +18,13 @@ public:
 	void		LateUpdate(f32_t fDeltaTime);
 	HRESULT		Render();
 
+
 private:
 	ComPtr<ID3D11Device>				m_pDevice = { nullptr };
 	ComPtr<ID3D11DeviceContext>			m_pContext = { nullptr };	
+
+private:
+	HRESULT	Start_Level(LEVEL eStartLevelID);
 
 public:
 	static		unique_ptr<CMainApp>		Create();

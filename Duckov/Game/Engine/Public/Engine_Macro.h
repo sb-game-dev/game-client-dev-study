@@ -5,6 +5,10 @@
 #define			MSG_BOX(_message)			MessageBox(nullptr, TEXT(_message), L"System Message", MB_OK)
 #endif
 
+
+#define			ETOI(_enum)					static_cast<int32_t>(_enum)
+#define			ETOUI(_enum)				static_cast<uint32_t>(_enum)
+
 #define			NS_BEGIN(NAMESPACE)			namespace NAMESPACE {
 #define			NS_END							}
 

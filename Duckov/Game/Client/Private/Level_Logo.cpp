@@ -17,6 +17,11 @@ void CLevel_Logo::Update(f32_t fDeltaTime)
     __super::Update(fDeltaTime);
 }
 
+void CLevel_Logo::LateUpdate(f32_t fDeltaTime)
+{
+    __super::LateUpdate(fDeltaTime);
+}
+
 HRESULT CLevel_Logo::Render()
 {
     if (FAILED(__super::Render()))

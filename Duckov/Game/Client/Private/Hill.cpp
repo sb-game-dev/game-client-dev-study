@@ -79,7 +79,6 @@ HRESULT CHill::Initialize()
     }
 
 
-    // ���� ���� ����
     D3D11_BUFFER_DESC   VBDesc{};
     VBDesc.ByteWidth = sizeof(VTXCOL) * m_tMeshData.Vertices.size();
     VBDesc.Usage = D3D11_USAGE_IMMUTABLE;

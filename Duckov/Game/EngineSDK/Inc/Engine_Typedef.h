@@ -3,7 +3,7 @@
 
 namespace Engine
 {
-	typedef		bool					_bool;
+	typedef		bool					bool_t;
 
 	typedef		char					char_t;
 	typedef		wchar_t					tchar_t;

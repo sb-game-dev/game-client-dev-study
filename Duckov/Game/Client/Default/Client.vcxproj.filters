@@ -43,6 +43,9 @@
     <Filter Include="02. Objects\00. Player">
       <UniqueIdentifier>{5b6b9fdd-7535-407a-9cc4-aa7792059134}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01. Levels\00. Loding\Loader">
+      <UniqueIdentifier>{f252fa78-18bb-4913-9bcd-00730139e6c9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -69,7 +72,7 @@
     <ClInclude Include="..\public\Level_Logo.h">
       <Filter>01. Levels\01. Logo</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Level_Loding.h">
+    <ClInclude Include="..\Public\Level_Loading.h">
       <Filter>01. Levels\00. Loding</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Cube.h">
@@ -86,6 +89,9 @@
     </ClInclude>
     <ClInclude Include="..\public\Player.h">
       <Filter>02. Objects\00. Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Loader.h">
+      <Filter>01. Levels\00. Loding\Loader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -114,7 +120,7 @@
     <ClCompile Include="..\private\Level_Logo.cpp">
       <Filter>01. Levels\01. Logo</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\Level_Loding.cpp">
+    <ClCompile Include="..\Private\Level_Loading.cpp">
       <Filter>01. Levels\00. Loding</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Cube.cpp">
@@ -131,6 +137,9 @@
     </ClCompile>
     <ClCompile Include="..\private\Player.cpp">
       <Filter>02. Objects\00. Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Loader.cpp">
+      <Filter>01. Levels\00. Loding\Loader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
