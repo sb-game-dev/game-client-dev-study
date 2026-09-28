@@ -64,7 +64,7 @@ HRESULT CMainApp::Initialize()
 
     // ¾À »ý¼º
     auto pLevel = CLevel_GamePlay::Create(m_pDevice,m_pContext);
-    CGameInstance::Get().Change_Level(static_cast<int>(LEVELC::GAMEPLAY), pLevel);
+    CGameInstance::Get().Change_Level(static_cast<int>(LEVEL::GAMEPLAY), pLevel);
 
     return S_OK;
 }

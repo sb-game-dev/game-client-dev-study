@@ -1,6 +1,6 @@
 #include "Level_Loding.h"
 
-CLevel_Loding::CLevel_Loding(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
+CLevel_Loding::CLevel_Loding(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, LEVEL eNextLevel)
     :CLevel{ pDevice,pContext }
 {
 }
@@ -25,7 +25,7 @@ HRESULT CLevel_Loding::Render()
 }
 
 
-shared_ptr<CLevel_Loding> CLevel_Loding::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
+shared_ptr<CLevel_Loding> CLevel_Loding::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, LEVEL eNextLevel)
 {
-    return shared_ptr<CLevel_Loding>(new CLevel_Loding(pDevice, pContext));
+    return shared_ptr<CLevel_Loding>(new CLevel_Loding(pDevice, pContext, eNextLevel));
 }

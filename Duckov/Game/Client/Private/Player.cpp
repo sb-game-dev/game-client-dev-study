@@ -10,7 +10,6 @@ HRESULT CPlayer::Initialize()
     if (FAILED(__super::Initialize()))
         return E_FAIL;
 
-    // 정육면체 그리기
     // 정점 정보
     VTXCOL vertices[] =
     {
