@@ -15,8 +15,9 @@ public:
 	virtual	void		Late_Update(f32_t fDeltTime);
 	virtual HRESULT		Render();
 
-	const float4x4_t&	GetView() { return m_matView; }
-	const float4x4_t&	GetProj() { return m_matProj; }
+	const float4x4_t&	GetView()	{ return m_matView; }
+	const float4x4_t&	GetProj()	{ return m_matProj; }
+	const float3_t&		GetEye()	{ return m_vEye; }
 
 	virtual HRESULT	Bind();
 

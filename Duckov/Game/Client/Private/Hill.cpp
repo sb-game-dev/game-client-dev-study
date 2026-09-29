@@ -36,7 +36,7 @@ HRESULT CHill::Initialize_Prototype()
             float x = -fHalfWidth + j * dx;
             m_tMeshData.Vertices[i * ivtxCntX + j].vPosition = float3_t(x, 0.f, z);
             
-            m_tMeshData.Vertices[i * ivtxCntX + j].vNormal = float3_t(0.f, 1.f, 0.f);
+            m_tMeshData.Vertices[i * ivtxCntX + j].vNormal = GetNormal(x, z);
             m_tMeshData.Vertices[i * ivtxCntX + j].vTangentU = float3_t(1.f, 0.f, 0.f);
 
             m_tMeshData.Vertices[i * ivtxCntX + j].TexC.x = j*du;
@@ -60,27 +60,28 @@ HRESULT CHill::Initialize_Prototype()
         }
     }
     m_iIndexCnt = m_tMeshData.Indices.size();
-    vector<VTXCOL> vertices(m_tMeshData.Vertices.size());
+    vector<VTXNORM> vertices(m_tMeshData.Vertices.size());
     for (size_t i = 0; i < m_tMeshData.Vertices.size(); ++i)
     {
         float3_t& p = m_tMeshData.Vertices[i].vPosition;
         p.y = GetHeight(p.x, p.z);
         vertices[i].vPosition = p;
-        if (p.y < -10.0f)
-            vertices[i].vColor = XMFLOAT4(1.0f, 0.96f, 0.62f, 1.0f);
-        else if (p.y < 5.0f)
-            vertices[i].vColor = XMFLOAT4(0.48f, 0.77f, 0.46f, 1.0f);
-        else if (p.y < 12.0f)
-            vertices[i].vColor = XMFLOAT4(0.1f, 0.48f, 0.19f, 1.0f);
-        else if (p.y < 20.0f)
-            vertices[i].vColor = XMFLOAT4(0.45f, 0.39f, 0.34f, 1.0f);
-        else
-            vertices[i].vColor = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+        vertices[i].vNormal = m_tMeshData.Vertices[i].vNormal;
+        //if (p.y < -10.0f)
+        //    vertices[i].vColor = XMFLOAT4(1.0f, 0.96f, 0.62f, 1.0f);
+        //else if (p.y < 5.0f)
+        //    vertices[i].vColor = XMFLOAT4(0.48f, 0.77f, 0.46f, 1.0f);
+        //else if (p.y < 12.0f)
+        //    vertices[i].vColor = XMFLOAT4(0.1f, 0.48f, 0.19f, 1.0f);
+        //else if (p.y < 20.0f)
+        //    vertices[i].vColor = XMFLOAT4(0.45f, 0.39f, 0.34f, 1.0f);
+        //else
+        //    vertices[i].vColor = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
 
     D3D11_BUFFER_DESC   VBDesc{};
-    VBDesc.ByteWidth = sizeof(VTXCOL) * m_tMeshData.Vertices.size();
+    VBDesc.ByteWidth = sizeof(VTXNORM) * m_tMeshData.Vertices.size();
     VBDesc.Usage = D3D11_USAGE_IMMUTABLE;
     VBDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 
@@ -102,7 +103,7 @@ HRESULT CHill::Initialize_Prototype()
         return E_FAIL;
 
     D3D11_BUFFER_DESC CBDesc{};
-    CBDesc.ByteWidth = sizeof(CB_TRANSFORM);
+    CBDesc.ByteWidth = sizeof(CB_PER_OBJECT_LIT);
     CBDesc.Usage = D3D11_USAGE_DEFAULT;
     CBDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 
@@ -119,9 +120,9 @@ HRESULT CHill::Initialize_Prototype()
 #endif
     
     if (FAILED(D3DCompileFromFile(
-        L"../Shader/Shader_VtxCol.hlsl",  
+        L"../Shader/Shader_VtxNorm.hlsl",  
         nullptr,                          
-        nullptr,                          
+        D3D_COMPILE_STANDARD_FILE_INCLUDE,
         "VS_MAIN",                        
         "vs_5_0",                         
         iFlags,                           
@@ -132,7 +133,7 @@ HRESULT CHill::Initialize_Prototype()
         if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
         return E_FAIL;
     }
-    if (FAILED(D3DCompileFromFile(L"../Shader/Shader_VtxCol.hlsl", nullptr, nullptr,
+    if (FAILED(D3DCompileFromFile(L"../Shader/Shader_VtxNorm.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
         "PS_MAIN", "ps_5_0", iFlags, 0, &pPSBlob, &pErrBlob)))
     {
         if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
@@ -145,8 +146,8 @@ HRESULT CHill::Initialize_Prototype()
     if (FAILED(m_pDevice->CreatePixelShader(pPSBlob->GetBufferPointer(), pPSBlob->GetBufferSize(), nullptr, &m_pPS)))
         return E_FAIL;
 
-    if (FAILED(m_pDevice->CreateInputLayout(VTXCOL::Elements,              
-        VTXCOL::iNumElements,           
+    if (FAILED(m_pDevice->CreateInputLayout(VTXNORM::Elements,              
+        VTXNORM::iNumElements,
         pVSBlob->GetBufferPointer(),    
         pVSBlob->GetBufferSize(),       
         &m_pInputLayout)))              
@@ -159,6 +160,12 @@ HRESULT CHill::Initialize_Prototype()
     rsDesc.DepthClipEnable = true;
 
     m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
+
+
+    // Material
+    m_tMaterial.Ambient = float4_t(0.48f, 0.77f, 0.46f, 1.f);
+    m_tMaterial.Diffuse = float4_t(0.48f, 0.77f, 0.46f, 1.f);
+    m_tMaterial.Specular = float4_t(0.2f, 0.2f, 0.2f, 16.f);   // w = ±¤ÅÃ Áö¼ö, 0ÀÌ¸é ¾È µÊ
     return S_OK;
 }
 
@@ -187,12 +194,17 @@ HRESULT CHill::Render()
 {
     XMMATRIX matWorld = GetWorld();
 
-    CB_TRANSFORM cbData;
-    XMStoreFloat4x4(&cbData.WorldMatrix, XMMatrixTranspose(matWorld));
+    matWorld.r[3] = XMVectorSet(0.f, 0.f, 0.f, 1.f);
+    XMMATRIX matWorldInvTranspos = XMMatrixTranspose(XMMatrixInverse(nullptr, matWorld));
+
+    CB_PER_OBJECT_LIT cbData;
+    XMStoreFloat4x4(&cbData.mat_World, XMMatrixTranspose(matWorld));
+    XMStoreFloat4x4(&cbData.mat_WorldInvTranspose, XMMatrixTranspose(matWorldInvTranspos));
+    cbData.tMaterial = m_tMaterial;    
 
     m_pContext->UpdateSubresource(m_pCB.Get(), 0, nullptr, &cbData, 0, 0);
 
-    uint32_t iStride = sizeof(VTXCOL);
+    uint32_t iStride = sizeof(VTXNORM);
     uint32_t iOffset = 0;
 
     m_pContext->IASetVertexBuffers(0,                       
@@ -213,6 +225,10 @@ HRESULT CHill::Render()
         1,
         m_pCB.GetAddressOf());
 
+    m_pContext->PSSetConstantBuffers(0,
+        1,
+        m_pCB.GetAddressOf());
+
     m_pContext->PSSetShader(m_pPS.Get(), nullptr, 0);
 
     m_pContext->RSSetState(m_pRS.Get());
@@ -222,6 +238,15 @@ HRESULT CHill::Render()
         0);                     
 
     return S_OK;
+}
+
+float3_t CHill::GetNormal(f32_t x, f32_t z)
+{
+    f32_t fDfDx = 0.03f * z * cosf(0.1f * x) + 0.3f * x * cosf(0.1f * z);
+    f32_t fDfDz = 0.3f * z * sinf(0.1f * x) - 0.03f * x * sinf(0.1f * z);
+    float3_t vNormal = { -fDfDx,1.f,-fDfDz };
+    XMStoreFloat3(&vNormal, XMVector3Normalize(XMLoadFloat3(&vNormal)));
+    return vNormal;
 }
 
 shared_ptr<CHill> CHill::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)

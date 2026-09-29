@@ -44,7 +44,7 @@ HRESULT CGameInstance::Clear_Resources(int32_t iCurrentLevel)
 
 void CGameInstance::Priority_Update_Engine(f32_t fDeltaTime)
 {
-	m_pLevel_Manager->Priority_Update_Engine(fDeltaTime);
+	m_pLevel_Manager->Priority_Update(fDeltaTime);
 }
 
 void CGameInstance::Update_Engine(f32_t fDeltaTime)

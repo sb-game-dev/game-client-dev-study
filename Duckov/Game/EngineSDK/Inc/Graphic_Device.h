@@ -56,7 +56,7 @@ private:
 	
 	
 		
-	/* 기능실행.(바인딩작업, 정점버퍼를 SetVertexBuffers(), SetIndexBuffer(), Apply() */
+	/* 기능실행.(바인딩작업, 정점버퍼를 SetVERTEXBuffers(), SetIndexBuffer(), Apply() */
 	/* 그린다. DrawIndexed() */
 	/* 컨텍스트 객체를 생성해낸 스레드 외에 스레드에서는 사용해서는 안된다. */
 	/* 고정기능렌더링파이프라인 : 월드, 뷰, 투영행렬을 바인딩 + 텍스쳐 정보를 바인딩. */

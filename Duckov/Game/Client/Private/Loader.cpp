@@ -7,6 +7,7 @@ CLoader::CLoader(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pCont
 
 CLoader::~CLoader()
 {
+    Free();
 }
 uint32_t APIENTRY ThreadMain(void* pArg)
 {

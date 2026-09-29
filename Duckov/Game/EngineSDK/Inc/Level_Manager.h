@@ -10,6 +10,7 @@ public:
 
 public:
 	HRESULT			Change_Level(int32_t iNewLevelIndex, shared_ptr<CLevel> pNewLevel);
+	void			Priority_Update(f32_t fTimeDelta);
 	void			Update(f32_t fTimeDelta);
 	void			Late_Update(f32_t fDeltaTime);
 	HRESULT			Render();

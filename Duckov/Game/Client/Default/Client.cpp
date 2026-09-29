@@ -83,6 +83,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         {
             CGameInstance::Get().Update_TimeDelta(TEXT("Timer_60"));
             /* 내 게임의 업데이트를 수행한다 */
+            pMainApp->Priority_Update(CGameInstance::Get().Get_TimeDelta(TEXT("Timer_60")));
             pMainApp->Update(CGameInstance::Get().Get_TimeDelta(TEXT("Timer_60")));
             pMainApp->Late_Update(CGameInstance::Get().Get_TimeDelta(TEXT("Timer_60")));
 

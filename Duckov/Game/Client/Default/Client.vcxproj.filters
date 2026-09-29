@@ -155,5 +155,13 @@
     <FxCompile Include="..\Shader\Shader_VtxCol.hlsl">
       <Filter>97. Shader</Filter>
     </FxCompile>
+    <FxCompile Include="..\Shader\Shader_VtxNorm.hlsl">
+      <Filter>97. Shader</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Shader\LightHelper.hlsli">
+      <Filter>97. Shader</Filter>
+    </None>
   </ItemGroup>
 </Project>

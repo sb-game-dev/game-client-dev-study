@@ -13,6 +13,7 @@ namespace Engine
 		uint32_t		iNumLevels;
 	}ENGINE_DESC;
 
+	// GPU가 사용하는 정점 정보
 	typedef struct tagVtxColor
 	{
 		float3_t	vPosition;
@@ -27,12 +28,19 @@ namespace Engine
 
 	}VTXCOL;
 
-	typedef struct tagCBTransform
+	typedef struct tagVtxNorm
 	{
-		float4x4_t WorldMatrix;
-		float4x4_t ViewMatrix;
-		float4x4_t ProjMatrix;
-	}CB_TRANSFORM;
+		float3_t	vPosition;
+		float3_t	vNormal;
+
+		static constexpr uint32_t iNumElements = 2;
+		static constexpr D3D11_INPUT_ELEMENT_DESC Elements[iNumElements] =
+		{
+			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT,0,  0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT,0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		};
+
+	}VTXNORM;
 
 	typedef struct tagCBPerObject
 	{
@@ -45,13 +53,14 @@ namespace Engine
 		float4x4_t ProjMatrix;
 	}CB_CAMERA;
 
-	typedef struct tagVertex
+	// CPU가 사용하는 정점 정보
+	typedef struct tagMeshVertex
 	{
-		tagVertex() {};
-		tagVertex(const float3_t& p, const float3_t& n, const float3_t& t, const float2_t& uv)
+		tagMeshVertex() {};
+		tagMeshVertex(const float3_t& p, const float3_t& n, const float3_t& t, const float2_t& uv)
 			: vPosition(p), vNormal(n), vTangentU(t), TexC(uv) {
 		}
-		tagVertex(
+		tagMeshVertex(
 			float px, float py, float pz,
 			float nx, float ny, float nz,
 			float tx, float ty, float tz,
@@ -70,18 +79,6 @@ namespace Engine
 		vector<VERTEX>	Vertices;
 		vector<UINT> Indices;
 	}MESHDATA;
-	
-	//D3D11_INPUT_ELEMENT_DESC desc1[] =
-	//{
-	//	{"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0,
-	//	 D3D11_INPUT_PER_VERTEX_DATA, 0},
-	//
-	//	{"COLOR", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12,
-	//	 D3D11_INPUT_PER_VERTEX_DATA, 0}
-	//};
-
-
-
 
 	typedef struct tagVtxTex
 	{
@@ -91,8 +88,76 @@ namespace Engine
 		float2_t	vTex1;
 	}VTXTEX;
 
+	struct DirectionalLight
+	{
+		DirectionalLight() { ZeroMemory(this, sizeof(*this)); }
+
+		float4_t	Ambient;
+		float4_t	Diffuse;
+		float4_t	Specular;
+		float3_t	Direction;
+		f32_t		Pad;
+	};
+
+
+	struct PointLight
+	{
+		PointLight() { ZeroMemory(this, sizeof(*this)); }
+
+		float4_t	Ambient;
+		float4_t	Diffuse;
+		float4_t	Specular;
+
+		float3_t	Position;
+		float		Range;
+
+		float3_t	Att;
+		f32_t		Pad;
+	};
+
+	struct SpotLight
+	{
+		SpotLight() { ZeroMemory(this, sizeof(*this)); }
+
+		float4_t	Ambient;
+		float4_t	Diffuse;
+		float4_t	Specular;
+
+		float3_t	Position;
+		f32_t		Range;
+
+		float3_t	Direction;
+		f32_t		Spot;
+
+		float3_t	Att;
+		f32_t		Pad;
+	};
+
+	typedef struct tagMaterial
+	{
+		tagMaterial() { ZeroMemory(this, sizeof(*this)); }
+
+		float4_t	Ambient;
+		float4_t	Diffuse;
+		float4_t	Specular; // w = SpecPower
+		float4_t	Reflect;
+	}MATERIAL;
+
+
+	typedef struct tagCBPerObjectLit
+	{
+		float4x4_t	mat_World;
+		float4x4_t	mat_WorldInvTranspose;
+		MATERIAL	tMaterial;
+	}CB_PER_OBJECT_LIT;
+
+	typedef struct tagCBLight
+	{
+		PointLight	tPointLight;	// 80 바이트
+		float3_t	vEyePosW;		// 12 바이트
+		f32_t		fPad;			// 4  바이트
+	}CB_LIGHT;
 
 }
-
 
 #endif // Engine_Struct_h__

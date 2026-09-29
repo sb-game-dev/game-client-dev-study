@@ -175,7 +175,7 @@ HRESULT CCube::Render()
 
     // VS로 전달할 구조체 채우기
     // HLSL은 기본적으로 열 단위로 데이터를 읽기 때문에 전치를 해야 함
-    CB_TRANSFORM cbData;
+    CB_PER_OBJECT cbData;
     XMStoreFloat4x4(&cbData.WorldMatrix, XMMatrixTranspose(matWorld));
 
     // 변환 행렬의 정보를 가지고있는 m_pCB 버퍼로 복사(USAGE_DEFAULT로 생성해서 드라이버를 통해 복사)
@@ -221,7 +221,7 @@ HRESULT CCube::Render()
     // 그리기
     m_pContext->DrawIndexed(m_iIndexCnt, // IndexCnt: 인덱스 버퍼의 크기
         0,  // StartIndexLocation : 사용할 인덱스의 위치
-        0); // BaseVertexLocation : 정점들을 가져오기 전에 이 호출에서 사용할 인덱스에 더해지는 정수값
+        0); // BaseVERTEXLocation : 정점들을 가져오기 전에 이 호출에서 사용할 인덱스에 더해지는 정수값
 
 	return S_OK;
 }

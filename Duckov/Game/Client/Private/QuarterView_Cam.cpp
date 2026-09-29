@@ -40,7 +40,7 @@ HRESULT CQuarterView_Cam::Render()
 {
 	if (FAILED(__super::Render()))
 		return E_FAIL;
-	return E_NOTIMPL;
+	return S_OK;
 }
 
 
