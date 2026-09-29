@@ -12,7 +12,7 @@ public:
 public:
 	virtual	HRESULT		Initialize();
 	virtual	void		Update(f32_t fDeltTime);
-	virtual	void		LateUpdate(f32_t fDeltTime);
+	virtual	void		Late_Update(f32_t fDeltTime);
 	virtual HRESULT		Render();
 
 	const float4x4_t&	GetView() { return m_matView; }

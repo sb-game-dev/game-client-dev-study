@@ -5,9 +5,9 @@ CPlayer::CPlayer(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pCont
 {
 }
 
-HRESULT CPlayer::Initialize()
+HRESULT CPlayer::Initialize_Prototype()
 {
-    if (FAILED(__super::Initialize()))
+    if (FAILED(__super::Initialize_Prototype()))
         return E_FAIL;
 
     // 정점 정보
@@ -126,6 +126,18 @@ HRESULT CPlayer::Initialize()
     return S_OK;
 }
 
+HRESULT CPlayer::Initialize(void* pArg)
+{
+    if (FAILED(__super::Initialize(pArg)))
+        return E_FAIL;
+    return S_OK;
+}
+
+void CPlayer::Priority_Update(f32_t fDeltaTime)
+{
+    __super::Priority_Update(fDeltaTime);
+}
+
 void CPlayer::Update(f32_t fDeltaTime)
 {
     __super::Update(fDeltaTime);
@@ -134,9 +146,9 @@ void CPlayer::Update(f32_t fDeltaTime)
     LookAtMouse(fDeltaTime);
     AdjustPosY();
 }
-void CPlayer::LateUpdate(f32_t fDeltaTime)
+void CPlayer::Late_Update(f32_t fDeltaTime)
 {
-    __super::LateUpdate(fDeltaTime);
+    __super::Late_Update(fDeltaTime);
 }
 
 HRESULT CPlayer::Render()
@@ -299,7 +311,17 @@ shared_ptr<CPlayer> CPlayer::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11D
 {
     auto pInstance = shared_ptr<CPlayer>(new CPlayer(pDevice, pContext));
 
-    if (FAILED(pInstance->Initialize()))
+    if (FAILED(pInstance->Initialize_Prototype()))
+        pInstance.reset();
+
+    return pInstance;
+}
+
+shared_ptr<CPrototype> CPlayer::Clone(void* pArg)
+{
+    auto pInstance = shared_ptr<CPlayer>(new CPlayer(*this));
+
+    if (FAILED(pInstance->Initialize(pArg)))
         pInstance.reset();
 
     return pInstance;

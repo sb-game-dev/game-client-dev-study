@@ -22,7 +22,7 @@ void CCamera::Update(f32_t fDeltTime)
 {
 
 }
-void CCamera::LateUpdate(f32_t fDeltTime)
+void CCamera::Late_Update(f32_t fDeltTime)
 {
 	XMMATRIX	matView = XMMatrixLookAtLH(XMLoadFloat3(&m_vEye), XMLoadFloat3(&m_vAt), XMLoadFloat3(&m_vUp));
 	XMMATRIX	matProj = XMMatrixPerspectiveFovLH(m_fFov, m_fAspect, m_fNear, m_fFar);

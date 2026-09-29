@@ -31,9 +31,9 @@ void CQuarterView_Cam::Update(f32_t fDeltaTime)
 	XMStoreFloat3(&m_vEye,vCameraEye);
 }
 
-void CQuarterView_Cam::LateUpdate(f32_t fDeltaTime)
+void CQuarterView_Cam::Late_Update(f32_t fDeltaTime)
 {
-	__super::LateUpdate(fDeltaTime);
+	__super::Late_Update(fDeltaTime);
 }
 
 HRESULT CQuarterView_Cam::Render()

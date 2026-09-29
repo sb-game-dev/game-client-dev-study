@@ -12,6 +12,7 @@ HRESULT CLevel_GamePlay::Initialize()
     if (FAILED(__super::Initialize()))
         return E_FAIL;
 
+    SetWindowText(g_hWnd, L"GamePlay_Level");
     m_pCamera = CQuarterView_Cam::Create(m_pDevice, m_pContext);
 
     shared_ptr<CGameObject> pPlayer = {};
@@ -36,6 +37,11 @@ HRESULT CLevel_GamePlay::Initialize()
     return S_OK;
 }
 
+void CLevel_GamePlay::Priority_Update(f32_t fDeltaTime)
+{
+    __super::Priority_Update(fDeltaTime);
+}
+
 void CLevel_GamePlay::Update(f32_t fDeltaTime)
 {
     __super::Update(fDeltaTime);
@@ -43,10 +49,10 @@ void CLevel_GamePlay::Update(f32_t fDeltaTime)
 }
 
 
-void CLevel_GamePlay::LateUpdate(f32_t fDeltaTime)
+void CLevel_GamePlay::Late_Update(f32_t fDeltaTime)
 {
-    __super::LateUpdate(fDeltaTime);
-    m_pCamera->LateUpdate(fDeltaTime);
+    __super::Late_Update(fDeltaTime);
+    m_pCamera->Late_Update(fDeltaTime);
 }
 
 HRESULT CLevel_GamePlay::Render()

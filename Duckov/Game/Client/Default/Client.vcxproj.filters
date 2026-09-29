@@ -96,6 +96,9 @@
     <ClInclude Include="..\public\Loader.h">
       <Filter>01. Levels\00. Loding\Loader</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\BackGround.h">
+      <Filter>02. GameObjects\00. BackGround</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -143,6 +146,9 @@
     </ClCompile>
     <ClCompile Include="..\private\Loader.cpp">
       <Filter>01. Levels\00. Loding\Loader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\BackGround.cpp">
+      <Filter>02. GameObjects\00. BackGround</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

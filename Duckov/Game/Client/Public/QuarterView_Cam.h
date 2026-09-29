@@ -13,7 +13,7 @@ public:
 public:
     virtual HRESULT     Initialize() override;
     virtual void        Update(f32_t fDeltaTime) override;
-    virtual void        LateUpdate(f32_t fDeltaTime) override;
+    virtual void        Late_Update(f32_t fDeltaTime) override;
     virtual HRESULT     Render() override;
 
     void                SetPlayer(shared_ptr<CGameObject> pPlayer) { m_pPlayer = pPlayer; }

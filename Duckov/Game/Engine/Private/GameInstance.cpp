@@ -21,6 +21,10 @@ HRESULT CGameInstance::Initialize_Engine(const ENGINE_DESC& EngineDesc, _Out_ Co
 	if (m_pLevel_Manager == nullptr)
 		return E_FAIL;
 
+	m_pPrototype_Manager = CPrototype_Manager::Create(EngineDesc.iNumLevels);
+	if (m_pPrototype_Manager == nullptr)
+		return E_FAIL;
+
 	return S_OK;
 }
 
@@ -38,14 +42,19 @@ HRESULT CGameInstance::Clear_Resources(int32_t iCurrentLevel)
 	return S_OK;
 }
 
+void CGameInstance::Priority_Update_Engine(f32_t fDeltaTime)
+{
+	m_pLevel_Manager->Priority_Update_Engine(fDeltaTime);
+}
+
 void CGameInstance::Update_Engine(f32_t fDeltaTime)
 {
 	m_pLevel_Manager->Update(fDeltaTime);
 }
 
-void CGameInstance::LateUpdate_Engine(f32_t fDeltaTime)
+void CGameInstance::Late_Update_Engine(f32_t fDeltaTime)
 {
-	m_pLevel_Manager->LateUpdate(fDeltaTime);
+	m_pLevel_Manager->Late_Update(fDeltaTime);
 }
 
 HRESULT CGameInstance::Draw()

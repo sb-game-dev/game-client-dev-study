@@ -28,7 +28,10 @@ HRESULT CLevel_Loading::Initialize(LEVEL eNextLevel)
 
     return S_OK;
 }
-
+void CLevel_Loading::Priority_Update(f32_t fDeltaTime)
+{
+    __super::Priority_Update(fDeltaTime);
+}
 void CLevel_Loading::Update(f32_t fDeltaTime)
 {
     __super::Update(fDeltaTime);
@@ -53,9 +56,9 @@ void CLevel_Loading::Update(f32_t fDeltaTime)
 
 }
 
-void CLevel_Loading::LateUpdate(f32_t fDeltaTime)
+void CLevel_Loading::Late_Update(f32_t fDeltaTime)
 {
-    __super::LateUpdate(fDeltaTime);
+    __super::Late_Update(fDeltaTime);
 }
 
 HRESULT CLevel_Loading::Render()

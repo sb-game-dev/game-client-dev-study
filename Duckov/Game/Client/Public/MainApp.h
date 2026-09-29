@@ -14,8 +14,9 @@ public:
 
 public:
 	HRESULT		Initialize();
+	void		Priority_Update(f32_t fDeltaTime);
 	void		Update(f32_t fDeltaTime);
-	void		LateUpdate(f32_t fDeltaTime);
+	void		Late_Update(f32_t fDeltaTime);
 	HRESULT		Render();
 
 

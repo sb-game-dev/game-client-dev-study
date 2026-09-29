@@ -5,9 +5,9 @@ CHill::CHill(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
 {
 }
 
-HRESULT CHill::Initialize()
+HRESULT CHill::Initialize_Prototype()
 {
-    if (FAILED(__super::Initialize()))
+    if (FAILED(__super::Initialize_Prototype()))
         return E_FAIL;
 
     uint32_t    ivtxCntX = 129;
@@ -132,7 +132,6 @@ HRESULT CHill::Initialize()
         if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
         return E_FAIL;
     }
-    // PS ������
     if (FAILED(D3DCompileFromFile(L"../Shader/Shader_VtxCol.hlsl", nullptr, nullptr,
         "PS_MAIN", "ps_5_0", iFlags, 0, &pPSBlob, &pErrBlob)))
     {
@@ -140,94 +139,87 @@ HRESULT CHill::Initialize()
         return E_FAIL;
     }
 
-    // ���ؽ� ���̴� ��ü ����
     if (FAILED(m_pDevice->CreateVertexShader(pVSBlob->GetBufferPointer(), pVSBlob->GetBufferSize(), nullptr, &m_pVS)))
         return E_FAIL;
 
-    // �ȼ� ���̴� ��ü ����
     if (FAILED(m_pDevice->CreatePixelShader(pPSBlob->GetBufferPointer(), pPSBlob->GetBufferSize(), nullptr, &m_pPS)))
         return E_FAIL;
 
-    // Input Layout ���� (VS ����Ʈ�ڵ�� ����)
-    if (FAILED(m_pDevice->CreateInputLayout(VTXCOL::Elements,               // ���� ����ü�� �����ϴ� D3D11_INPUT_LEELMENT_DESC���� �迭
-        VTXCOL::iNumElements,           // �迭 ������ ����
-        pVSBlob->GetBufferPointer(),    // �������̴��� �������ؼ� ���� ����Ʈ�ڵ带 ����Ű�� ������
-        pVSBlob->GetBufferSize(),       // ����Ʈ�ڵ��� ũ��
-        &m_pInputLayout)))              // ������ �Է� ��ġ�� ������ ������
+    if (FAILED(m_pDevice->CreateInputLayout(VTXCOL::Elements,              
+        VTXCOL::iNumElements,           
+        pVSBlob->GetBufferPointer(),    
+        pVSBlob->GetBufferSize(),       
+        &m_pInputLayout)))              
         return E_FAIL;
 
-    // �����Ͷ����� ����
     D3D11_RASTERIZER_DESC rsDesc{};
-    rsDesc.FillMode = D3D11_FILL_SOLID;         //D3D11_FILL_WIREFRAME , D3D11_FILL_SOLID
-    rsDesc.CullMode = D3D11_CULL_BACK;          // D3D11_CULL_BACK , D3D11_CULL_FRONT
-    rsDesc.FrontCounterClockwise = false;       // �ð������ ����
+    rsDesc.FillMode = D3D11_FILL_SOLID;         
+    rsDesc.CullMode = D3D11_CULL_BACK;          
+    rsDesc.FrontCounterClockwise = false;       
     rsDesc.DepthClipEnable = true;
 
     m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
     return S_OK;
 }
 
+HRESULT CHill::Initialize(void* pArg)
+{
+    if (FAILED(__super::Initialize(pArg)))
+        return E_FAIL;
+    return S_OK;
+}
+
+void CHill::Priority_Update(f32_t fDeltaTime)
+{
+    __super::Priority_Update(fDeltaTime);
+}
+
 void CHill::Update(f32_t fDeltaTime)
 {
     __super::Update(fDeltaTime);
 }
-void CHill::LateUpdate(f32_t fDeltaTime)
+void CHill::Late_Update(f32_t fDeltaTime)
 {
-    __super::LateUpdate(fDeltaTime);
+    __super::Late_Update(fDeltaTime);
 }
 
 HRESULT CHill::Render()
 {
     XMMATRIX matWorld = GetWorld();
 
-    // VS�� ������ ����ü ä���
-    // HLSL�� �⺻������ �� ������ �����͸� �б� ������ ��ġ�� �ؾ� ��
     CB_TRANSFORM cbData;
     XMStoreFloat4x4(&cbData.WorldMatrix, XMMatrixTranspose(matWorld));
 
-    // ��ȯ ����� ������ �������ִ� m_pCB ���۷� ����(USAGE_DEFAULT�� �����ؼ� ����̹��� ���� ����)
-    // �Ʒ����� VS�� b0 �������Ϳ� ���� ����
     m_pContext->UpdateSubresource(m_pCB.Get(), 0, nullptr, &cbData, 0, 0);
 
-// ���������ο� �ȱ�
-    //IA(�Է� ������ �ܰ�)
-    // ���� �ϳ��� ũ��� ������ ���� ��ġ ����
     uint32_t iStride = sizeof(VTXCOL);
     uint32_t iOffset = 0;
-    // ���ؽ� ���� �ȱ�
-    m_pContext->IASetVertexBuffers(0,                       // ���� ���۵��� ���̱� ������ �ε���
-                                   1,                       // �Է� ���Կ� ���̰��� �ϴ� ������ ����
-                                   m_pVB.GetAddressOf(),    // ���۸� ���� �迭�� ù ���Ҹ� ����Ű�� ������
-                                   &iStride,                // ������ �� ������ ����Ʈũ�� ����(�ּҸ� �Ѱ������)
-                                   &iOffset);               // ���� ������ ������ġ�������� �ǳʶ� �ε���
 
-    // �ε��� ���� �ȱ�
+    m_pContext->IASetVertexBuffers(0,                       
+                                   1,                       
+                                   m_pVB.GetAddressOf(),    
+                                   &iStride,                
+                                   &iOffset);               
+
     m_pContext->IASetIndexBuffer(m_pIB.Get(), DXGI_FORMAT_R32_UINT, 0);
 
-    // �ﰢ�� �׸��� ����
     m_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-    // InputLayoyt �ȱ�(FVF�� ����)
     m_pContext->IASetInputLayout(m_pInputLayout.Get());
 
-    // VS(���ؽ� ���̴� �ܰ�) -> ���庯ȯ, �佺���̽� ��ȯ, ���� ��ȯ ����� ���޹޾Ƽ� ���ؽ� ���ۿ� �����
     m_pContext->VSSetShader(m_pVS.Get(), nullptr, 0);
 
-    // VS�� ������۽���(b0)�� �������(��ȯ ��� ����) �ȱ�
-    m_pContext->VSSetConstantBuffers(0, //register(b0)�� �����
+    m_pContext->VSSetConstantBuffers(0, 
         1,
         m_pCB.GetAddressOf());
 
-    // PS(�ȼ� ���̴�) -> ������ �� �ۿ� ����
     m_pContext->PSSetShader(m_pPS.Get(), nullptr, 0);
 
-    // RS(�����Ͷ����� ����)
     m_pContext->RSSetState(m_pRS.Get());
 
-    // �׸���
-    m_pContext->DrawIndexed(m_iIndexCnt, // IndexCnt: �ε��� ������ ũ��
-        0,                      // StartIndexLocation : ����� �ε����� ��ġ
-        0);                     // BaseVertexLocation : �������� �������� ���� �� ȣ�⿡�� ����� �ε����� �������� ������
+    m_pContext->DrawIndexed(m_iIndexCnt, 
+        0,                      
+        0);                     
 
     return S_OK;
 }
@@ -236,7 +228,16 @@ shared_ptr<CHill> CHill::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11Devic
 {
     auto pInstance = shared_ptr<CHill>(new CHill(pDevice, pContext));
 
-    if (FAILED(pInstance->Initialize()))
+    if (FAILED(pInstance->Initialize_Prototype()))
+        pInstance.reset();
+
+    return pInstance;
+}
+
+shared_ptr<CPrototype> CHill::Clone(void* pArg)
+{
+    auto pInstance = shared_ptr<CHill>(new CHill(*this));
+    if (FAILED(pInstance->Initialize(pArg)))
         pInstance.reset();
 
     return pInstance;

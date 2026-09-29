@@ -5,9 +5,9 @@ CCube::CCube(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
 {
 }
 
-HRESULT CCube::Initialize()
+HRESULT CCube::Initialize_Prototype()
 {
-    if (FAILED(__super::Initialize()))
+    if (FAILED(__super::Initialize_Prototype()))
         return E_FAIL;
 
     // 정육면체 그리기
@@ -140,13 +140,25 @@ HRESULT CCube::Initialize()
 	return S_OK;
 }
 
+HRESULT CCube::Initialize(void* pArg)
+{
+    if(FAILED(__super::Initialize(pArg)))
+        return E_FAIL;
+    return S_OK;
+}
+
+void CCube::Priority_Update(f32_t fDeltaTime)
+{
+    __super::Priority_Update(fDeltaTime);
+}
+
 void CCube::Update(f32_t fDeltaTime)
 {
     __super::Update(fDeltaTime);
 }
-void CCube::LateUpdate(f32_t fDeltaTime)
+void CCube::Late_Update(f32_t fDeltaTime)
 {
-    __super::LateUpdate(fDeltaTime);
+    __super::Late_Update(fDeltaTime);
 }
 
 HRESULT CCube::Render()
@@ -218,7 +230,16 @@ shared_ptr<CCube> CCube::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11Devic
 {
 	auto pInstance = shared_ptr<CCube>(new CCube(pDevice, pContext));
 
-    if (FAILED(pInstance->Initialize()))
+    if (FAILED(pInstance->Initialize_Prototype()))
+        pInstance.reset();
+
+    return pInstance;
+}
+
+shared_ptr<CPrototype> CCube::Clone(void* pArg)
+{
+    auto pInstance = shared_ptr<CCube>(new CCube(*this));
+    if (FAILED(pInstance->Initialize(pArg)))
         pInstance.reset();
 
     return pInstance;

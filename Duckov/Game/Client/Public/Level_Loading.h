@@ -16,8 +16,9 @@ public:
 
 public:
 	virtual HRESULT	Initialize(LEVEL eNextLevel);
+	virtual void	Priority_Update(f32_t fDeltaTime) override;
 	virtual void	Update(f32_t fDeltaTime) override;
-	virtual void	LateUpdate(f32_t fDeltaTime) override;
+	virtual void	Late_Update(f32_t fDeltaTime) override;
 	virtual HRESULT	Render() override;
 
 private:

@@ -12,14 +12,18 @@ HRESULT CLevel_Logo::Initialize()
     return S_OK;
 }
 
+void CLevel_Logo::Priority_Update(f32_t fDeltaTime)
+{
+    __super::Priority_Update(fDeltaTime);
+}
 void CLevel_Logo::Update(f32_t fDeltaTime)
 {
     __super::Update(fDeltaTime);
 }
 
-void CLevel_Logo::LateUpdate(f32_t fDeltaTime)
+void CLevel_Logo::Late_Update(f32_t fDeltaTime)
 {
-    __super::LateUpdate(fDeltaTime);
+    __super::Late_Update(fDeltaTime);
 }
 
 HRESULT CLevel_Logo::Render()

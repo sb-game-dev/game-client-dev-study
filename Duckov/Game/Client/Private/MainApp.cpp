@@ -57,6 +57,7 @@ HRESULT CMainApp::Initialize()
     EngineDesc.iWinSizeX = g_iWinSizeX;
     EngineDesc.iWinSizeY = g_iWinSizeY;
     EngineDesc.eWinMode = WINMODE::WIN;
+    EngineDesc.iNumLevels = ETOUI(LEVEL::END);
 
 
     if (FAILED(CGameInstance::Get().Initialize_Engine(EngineDesc,m_pDevice,m_pContext)))
@@ -69,14 +70,17 @@ HRESULT CMainApp::Initialize()
 
     return S_OK;
 }
-
+void CMainApp::Priority_Update(f32_t fDeltaTime)
+{
+    CGameInstance::Get().Priority_Update(fDeltaTime);
+}
 void CMainApp::Update(f32_t fDeltaTime)
 {
     CGameInstance::Get().Update_Engine(fDeltaTime);
 }
-void CMainApp::LateUpdate(f32_t fDeltaTime)
+void CMainApp::Late_Update(f32_t fDeltaTime)
 {
-    CGameInstance::Get().LateUpdate_Engine(fDeltaTime);
+    CGameInstance::Get().Late_Update_Engine(fDeltaTime);
 }
 
 HRESULT CMainApp::Render()

@@ -12,10 +12,10 @@ public:
 	virtual ~CLevel() = default;
 public:
 	virtual HRESULT Initialize();
+	virtual void	Priority_Update(f32_t fDeltaTime);
 	virtual void	Update(f32_t fDeltaTime);
-	virtual void	LateUpdate(f32_t fDeltaTime);
+	virtual void	Late_Update(f32_t fDeltaTime);
 	virtual HRESULT	Render();
-
 
 protected:
 	map<const wstring_t, shared_ptr<CGameObject>> m_mapObject;

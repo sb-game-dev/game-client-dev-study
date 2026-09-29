@@ -1,7 +1,7 @@
 #pragma once
-#include "Engine_Defines.h"
+#include "Prototype.h"
 NS_BEGIN(Engine)
-class ENGINE_DLL CGameObject
+class ENGINE_DLL CGameObject abstract : public CPrototype
 {
 protected:
 	CGameObject(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
@@ -9,9 +9,11 @@ public:
 	virtual ~CGameObject() = default;
 
 public:
-	virtual HRESULT		Initialize();
+	virtual HRESULT		Initialize_Prototype() override;
+	virtual HRESULT		Initialize(void* pArg) override;
+	virtual void		Priority_Update(f32_t fDeltaTime);
 	virtual void		Update(f32_t fDeltaTime);
-	virtual void		LateUpdate(f32_t fDeltaTime);
+	virtual void		Late_Update(f32_t fDeltaTime);
 	virtual HRESULT		Render();
 	
 
@@ -24,9 +26,6 @@ public:
 	virtual XMMATRIX	GetWorld();
 
 protected:
-	ComPtr<ID3D11Device>				m_pDevice = { nullptr };
-	ComPtr<ID3D11DeviceContext>			m_pContext = { nullptr };
-
 	ComPtr<ID3D11Buffer>				m_pVB;				// 버텍스 버퍼
 	ComPtr<ID3D11Buffer>				m_pIB;				// 인덱스 버퍼
 	uint32_t							m_iIndexCnt;		// 인덱스 개수
@@ -49,5 +48,8 @@ protected:
 	f32_t               m_fRotZ = 0.f;
 
 	f32_t				m_fSpeed = 1.f;
+
+public:
+	virtual shared_ptr<CPrototype> Clone(void* pArg) = 0;
 };
 NS_END

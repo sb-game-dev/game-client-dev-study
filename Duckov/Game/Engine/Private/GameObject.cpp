@@ -2,8 +2,7 @@
 
 
 CGameObject::CGameObject(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
-	: m_pDevice{ pDevice }
-	, m_pContext{ pContext }
+	: CPrototype{pDevice, pContext}
 {
 	XMMATRIX matI= XMMatrixIdentity();
 	XMStoreFloat4x4(&m_matWorld, matI);
@@ -14,15 +13,22 @@ CGameObject::CGameObject(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContex
 	m_vInfo[static_cast<uint32_t>(INFO::POS)]	= { 0.f, 0.f, 0.f };
 }
 
-HRESULT CGameObject::Initialize()
+HRESULT CGameObject::Initialize_Prototype()
 {
 	return S_OK;
+}
+HRESULT CGameObject::Initialize(void* pArg)
+{
+	return S_OK;
+}
+void CGameObject::Priority_Update(f32_t fDeltaTime)
+{
 }
 void CGameObject::Update(f32_t fDeltaTime)
 {
 
 }
-void CGameObject::LateUpdate(f32_t fDeltaTime)
+void CGameObject::Late_Update(f32_t fDeltaTime)
 {
 }
 HRESULT	CGameObject::Render()

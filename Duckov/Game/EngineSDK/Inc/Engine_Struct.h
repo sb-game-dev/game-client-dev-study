@@ -7,9 +7,10 @@ namespace Engine
 {
 	typedef struct tagEngineDesc
 	{
-		HWND		hWnd;
-		WINMODE		eWinMode;
-		uint32_t	iWinSizeX, iWinSizeY;
+		HWND			hWnd;
+		WINMODE			eWinMode;
+		uint32_t		iWinSizeX, iWinSizeY;
+		uint32_t		iNumLevels;
 	}ENGINE_DESC;
 
 	typedef struct tagVtxColor

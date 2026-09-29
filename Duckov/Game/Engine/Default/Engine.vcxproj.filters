@@ -25,17 +25,20 @@
     <Filter Include="03. Levels\Manager">
       <UniqueIdentifier>{b77c14db-24be-4a71-8bf6-6b0860f31a12}</UniqueIdentifier>
     </Filter>
-    <Filter Include="05. Camera">
-      <UniqueIdentifier>{7fe7501a-8427-4b61-ab8c-bf82f6654429}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="05. Camera\Manager">
-      <UniqueIdentifier>{e76d5229-a85c-4319-ac10-d604d10d9e8f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="04.Prototypes">
       <UniqueIdentifier>{f42eccff-2608-43f2-8d97-8c138bd70fe4}</UniqueIdentifier>
     </Filter>
     <Filter Include="04.Prototypes\Manager">
       <UniqueIdentifier>{d4948aff-7631-40bc-9d04-88fa9c603de6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Camera">
+      <UniqueIdentifier>{7fe7501a-8427-4b61-ab8c-bf82f6654429}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Camera\Manager">
+      <UniqueIdentifier>{e76d5229-a85c-4319-ac10-d604d10d9e8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component">
+      <UniqueIdentifier>{70cda3ca-5d87-4a93-b1a4-fc0a94e663eb}</UniqueIdentifier>
     </Filter>
     <Filter Include="05. GameObject">
       <UniqueIdentifier>{e53f6393-4c2e-45f4-adcf-8be019a4fe75}</UniqueIdentifier>
@@ -82,13 +85,16 @@
       <Filter>05. GameObject</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Camera.h">
-      <Filter>05. Camera</Filter>
+      <Filter>07. Camera</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Prototype.h">
       <Filter>04.Prototypes</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\Protoype_Manager.h">
+    <ClInclude Include="..\public\Prototype_Manager.h">
       <Filter>04.Prototypes\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Component.h">
+      <Filter>06. Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -114,13 +120,16 @@
       <Filter>05. GameObject</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Camera.cpp">
-      <Filter>05. Camera</Filter>
+      <Filter>07. Camera</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Prototype.cpp">
       <Filter>04.Prototypes</Filter>
     </ClCompile>
-    <ClCompile Include="..\private\Protoype_Manager.cpp">
+    <ClCompile Include="..\private\Prototype_Manager.cpp">
       <Filter>04.Prototypes\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Component.cpp">
+      <Filter>06. Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
