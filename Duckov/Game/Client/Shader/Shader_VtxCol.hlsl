@@ -1,5 +1,6 @@
 // cbuffer -> c++에서 넘겨주는 상수 데이터 묶음
 // register(b0) -> 상수 버퍼 슬롯 0번
+// register(b1) -> 상수 버퍼 슬롯 1번
 
 cbuffer cbPerObject : register(b0)
 {

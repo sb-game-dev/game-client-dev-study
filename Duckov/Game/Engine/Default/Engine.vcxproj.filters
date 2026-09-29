@@ -25,14 +25,20 @@
     <Filter Include="03. Levels\Manager">
       <UniqueIdentifier>{b77c14db-24be-4a71-8bf6-6b0860f31a12}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. GameObject">
-      <UniqueIdentifier>{e53f6393-4c2e-45f4-adcf-8be019a4fe75}</UniqueIdentifier>
-    </Filter>
     <Filter Include="05. Camera">
       <UniqueIdentifier>{7fe7501a-8427-4b61-ab8c-bf82f6654429}</UniqueIdentifier>
     </Filter>
     <Filter Include="05. Camera\Manager">
       <UniqueIdentifier>{e76d5229-a85c-4319-ac10-d604d10d9e8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Prototypes">
+      <UniqueIdentifier>{f42eccff-2608-43f2-8d97-8c138bd70fe4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Prototypes\Manager">
+      <UniqueIdentifier>{d4948aff-7631-40bc-9d04-88fa9c603de6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. GameObject">
+      <UniqueIdentifier>{e53f6393-4c2e-45f4-adcf-8be019a4fe75}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -73,10 +79,16 @@
       <Filter>03. Levels\Manager</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\GameObject.h">
-      <Filter>04. GameObject</Filter>
+      <Filter>05. GameObject</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Camera.h">
       <Filter>05. Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Prototype.h">
+      <Filter>04.Prototypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Protoype_Manager.h">
+      <Filter>04.Prototypes\Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -99,10 +111,16 @@
       <Filter>03. Levels\Manager</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\GameObject.cpp">
-      <Filter>04. GameObject</Filter>
+      <Filter>05. GameObject</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Camera.cpp">
       <Filter>05. Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Prototype.cpp">
+      <Filter>04.Prototypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Protoype_Manager.cpp">
+      <Filter>04.Prototypes\Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
