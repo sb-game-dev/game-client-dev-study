@@ -949,6 +949,130 @@ void CPlayer::BindLight()
 </details>
 
 
+<details>
+	<summary> 7. 조명 연산 </summary>
+
+> 퐁 셰이딩
+
+- Phong 반사 모델 (Phong reflection model)	한 점의 색을 어떤 공식으로 계산할지	Ambient + Diffuse + Specular
+- Phong 셰이딩 (Phong interpolation)	그 공식을 어디서 계산할지	법선을 보간한 뒤 픽셀마다 조명 계산
+
+> Phong 반사 모델 공식
+
+```cpp
+최종색 = Ambient + Diffuse + Specular
+
+Ambient  = Ma ⊗ La
+Diffuse  = max(N·L, 0) × (Md ⊗ Ld)
+Specular = max(R·V, 0)^p × (Ms ⊗ Ls)      (N·L > 0 일 때만)
+
+N : 표면 법선 (단위벡터)
+L : 표면 → 광원 방향 (단위벡터)
+V : 표면 → 눈 방향 (단위벡터)
+R : L을 N 기준으로 반사한 벡터 = reflect(-L, N)
+p : 광택 지수 (Shininess / SpecPower)
+⊗ : 성분별 곱 (RGB 각각 곱하기)
+M* : 재질 색, L* : 조명 색
+```
+
+- 1. Ambient (주변광)
+
+벽이나 바닥에 여러 번 튕겨서 들어오는 간접광을 상수 하나로 흉내 낸 항입니다. 방향과 상관없이 똑같이 더해지기 때문에, 이 항이 없으면 빛이 닿지 않는 면은 완전히 검게 나옵니다.  
+
+```cpp
+Ambient  = Ma ⊗ La
+```
+- 2. Diffuse (난반사, Lambert)
+
+거친 표면은 빛을 모든 방향으로 고르게 흩뿌립니다. 그래서 보는 방향(V)과는 관계가 없고, 빛이 얼마나 정면으로 들어오는지만 중요합니다.  
+
+빛이 수직으로 들어오면(N·L = 1) 단위 면적에 에너지가 가장 많이 들어옵니다.  
+빛이 비스듬해지면 같은 양의 빛이 더 넓은 면적에 퍼지므로 cosθ만큼 어두워집니다(Lambert 코사인 법칙).  
+N·L < 0이면 빛이 뒤에서 오는 것이므로 0으로 처리합니다.  
+
+```cpp
+Diffuse  = max(N·L, 0) × (Md ⊗ Ld)
+
+N : 표면 법선 (단위벡터)
+L : 표면 → 광원 방향 (단위벡터)
+```
+
+- 3. Specular (정반사, 하이라이트)
+
+매끄러운 표면에서 거울처럼 반사된 빛이 눈 방향과 가까울수록 밝게 보이는 항입니다. 그래서 이 항만 시점(V)에 의존합니다. 카메라가 움직이면 하이라이트도 따라서 움직입니다.  
+
+R·V는 반사 방향과 눈 방향 사이 각도의 코사인입니다.  
+지수 p는 하이라이트의 크기를 정합니다. p가 크면 좁고 날카로워지고(금속, 플라스틱), p가 작으면 넓고 뿌옇게 퍼집니다(고무, 흙).  
+
+```cpp
+Specular = max(R·V, 0)^p × (Ms ⊗ Ls)      (N·L > 0 일 때만)
+
+V : 표면 → 눈 방향 (단위벡터)
+R : L을 N 기준으로 반사한 벡터 = reflect(-L, N)
+p : 광택 지수 (Shininess / SpecPower)
+p = 2   → 하이라이트가 넓게 번짐
+p = 16  → 적당한 광택
+p = 128 → 작은 점 같은 하이라이트
+```
+
+> Shader에서의 계산
+
+```cpp
+
+// out = 함수가 끝날 때 결과를 호출자 변수에 복사(레퍼런스와 결과가 비슷하지만 레퍼런스와 같지 않음)
+// 들어오는 값이 정의되지 않으므로 모든 경로에서 반드시 값을 써야 함 (그래서 맨 처음에 0으로 초기화)
+void ComputePointLight(Material mat, PointLight L, float3 pos, float3 normal, float3 toEye,
+                       out float4 ambient, out float4 diffuse, out float4 spec)
+{
+    // Initialize outputs.
+    ambient = float4(0.0f, 0.0f, 0.0f, 0.0f);
+    diffuse = float4(0.0f, 0.0f, 0.0f, 0.0f);
+    spec = float4(0.0f, 0.0f, 0.0f, 0.0f);
+
+	// The vector from the surface to the light.
+    float3 lightVec = L.Position - pos;
+		
+	// The distance from surface to light.
+    float d = length(lightVec);
+	
+	// Range test.
+    if (d > L.Range)
+        return;
+		
+	// Normalize the light vector.
+    lightVec /= d;
+	
+	// Ambient term.
+    ambient = mat.Ambient * L.Ambient;
+
+	// Add diffuse and specular term, provided the surface is in 
+	// the line of site of the light.
+
+    float diffuseFactor = dot(lightVec, normal);
+
+	// flatten -> GPU에게 실제로 분기하지말고 양쪽을 다 계산한 뒤 결과를 고르라
+	[flatten]
+    if (diffuseFactor > 0.0f)
+    {
+        // reflect 
+        // -> 반사되어 나가는 벡터를 구하는 함수
+        // -> 빛이 들어오는 방향을 매개변수로 받음 -> -lightVec
+        float3 v = reflect(-lightVec, normal);
+        float specFactor = pow(max(dot(v, toEye), 0.0f), mat.Specular.w);
+					
+        diffuse = diffuseFactor * mat.Diffuse * L.Diffuse;
+        spec = specFactor * mat.Specular * L.Specular;
+    }
+
+	// Attenuate
+    float att = 1.0f / dot(L.Att, float3(1.0f, d, d * d));
+
+    diffuse *= att;
+    spec *= att;
+}
+```
+
+</details>
 
 
 
