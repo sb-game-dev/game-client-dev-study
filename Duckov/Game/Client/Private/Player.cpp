@@ -129,7 +129,7 @@ HRESULT CPlayer::Initialize_Prototype()
     m_tPointLight.Diffuse = float4_t(0.7f, 0.7f, 0.7f, 1.f);
     m_tPointLight.Specular = float4_t(0.7f, 0.7f, 0.7f, 1.f);
     m_tPointLight.Att = float3_t(1.f, 0.1f, 0.05f);   // a0 = 1: 가까워도 과노출 안 됨
-    m_tPointLight.Range = 25.f;
+    m_tPointLight.Range = 5.f;
 
 
     // 점조명 상수 버퍼 생성
@@ -166,21 +166,8 @@ void CPlayer::Update(f32_t fDeltaTime)
 }
 void CPlayer::Late_Update(f32_t fDeltaTime)
 {
-    // 점조명 위치 초기화
-    float3_t vPos = m_vInfo[ETOUI(INFO::POS)];
-    m_tPointLight.Position = float3_t(vPos.x, vPos.y + 2.f, vPos.z);
-
-    // 조명 상수 버퍼 채우기
-    CB_LIGHT cbLight;
-    cbLight.tPointLight = m_tPointLight;
-    XMStoreFloat3(&cbLight.vEyePosW,XMLoadFloat3(&vPos) + XMVECTOR({ 0.f, 15.f, -5.f }));
-
-    // 3. 갱신하고 PS b2에 꽂기
-    m_pContext->UpdateSubresource(m_pLightCB.Get(), 0, nullptr, &cbLight, 0, 0);
-    m_pContext->PSSetConstantBuffers(2, 1, m_pLightCB.GetAddressOf());
-
-
     __super::Late_Update(fDeltaTime);
+    BindLight();
 }
 
 HRESULT CPlayer::Render()
@@ -281,6 +268,22 @@ void CPlayer::AdjustPosY()
             return;
         }
     }
+}
+
+void CPlayer::BindLight()
+{
+    // 점조명 위치 초기화
+    float3_t vPos = m_vInfo[ETOUI(INFO::POS)];
+    m_tPointLight.Position = float3_t(vPos.x, vPos.y + 2.f, vPos.z);
+
+    // 조명 상수 버퍼 채우기
+    CB_LIGHT cbLight;
+    cbLight.tPointLight = m_tPointLight;
+    XMStoreFloat3(&cbLight.vEyePosW, XMLoadFloat3(&vPos) + XMVECTOR({ 0.f, 15.f, -5.f }));
+
+    // 3. 갱신하고 PS b2에 꽂기
+    m_pContext->UpdateSubresource(m_pLightCB.Get(), 0, nullptr, &cbLight, 0, 0);
+    m_pContext->PSSetConstantBuffers(2, 1, m_pLightCB.GetAddressOf());
 }
 
 void CPlayer::KeyInput(f32_t fDeltaTime)

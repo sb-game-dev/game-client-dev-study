@@ -39,6 +39,7 @@ HRESULT CGameInstance::Clear_DepthStencil_View()
 
 HRESULT CGameInstance::Clear_Resources(int32_t iCurrentLevel)
 {
+	m_pPrototype_Manager->Clear(iCurrentLevel);
 	return S_OK;
 }
 

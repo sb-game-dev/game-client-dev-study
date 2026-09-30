@@ -23,6 +23,8 @@ struct Material
     float4 Reflect;
 };
 
+// out = 함수가 끝날 때 결과를 호출자 변수에 복사(레퍼런스가 아님)
+// 들어오는 값이 정의되지 않으므로 모든 경로에서 반드시 값을 써야 함 (그래서 맨 처음에 0으로 초기화)
 void ComputePointLight(Material mat, PointLight L, float3 pos, float3 normal, float3 toEye,
                        out float4 ambient, out float4 diffuse, out float4 spec)
 {

@@ -79,8 +79,12 @@ HRESULT CHill::Initialize_Prototype()
         //    vertices[i].vColor = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
+    // Material
+    m_tMaterial.Ambient = float4_t(0.48f, 0.77f, 0.46f, 1.f);
+    m_tMaterial.Diffuse = float4_t(0.48f, 0.77f, 0.46f, 1.f);
+    m_tMaterial.Specular = float4_t(0.2f, 0.2f, 0.2f, 16.f);   // w = 광택 지수, 0이면 안 됨
 
-    D3D11_BUFFER_DESC   VBDesc{};
+    D3D11_BUFFER_DESC   VBDesc{}; 
     VBDesc.ByteWidth = sizeof(VTXNORM) * m_tMeshData.Vertices.size();
     VBDesc.Usage = D3D11_USAGE_IMMUTABLE;
     VBDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
@@ -162,10 +166,6 @@ HRESULT CHill::Initialize_Prototype()
     m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
 
 
-    // Material
-    m_tMaterial.Ambient = float4_t(0.48f, 0.77f, 0.46f, 1.f);
-    m_tMaterial.Diffuse = float4_t(0.48f, 0.77f, 0.46f, 1.f);
-    m_tMaterial.Specular = float4_t(0.2f, 0.2f, 0.2f, 16.f);   // w = 광택 지수, 0이면 안 됨
     return S_OK;
 }
 
@@ -221,11 +221,15 @@ HRESULT CHill::Render()
 
     m_pContext->VSSetShader(m_pVS.Get(), nullptr, 0);
 
-    m_pContext->VSSetConstantBuffers(0, 
+    // 월드 변환을 위한 상수 버퍼
+    // Position, Normal 계산을 위해 matWorld, matWorldInvTranspose만 사용
+    m_pContext->VSSetConstantBuffers(0, //레지스터 슬롯 번호
         1,
         m_pCB.GetAddressOf());
 
-    m_pContext->PSSetConstantBuffers(0,
+    // 조명 계산을 위한 상수 버퍼
+    // 조명 계산에 필요한 Material만 사용
+    m_pContext->PSSetConstantBuffers(0, //레지스터 슬롯 번호
         1,
         m_pCB.GetAddressOf());
 
@@ -242,8 +246,9 @@ HRESULT CHill::Render()
 
 float3_t CHill::GetNormal(f32_t x, f32_t z)
 {
-    f32_t fDfDx = 0.03f * z * cosf(0.1f * x) + 0.3f * x * cosf(0.1f * z);
-    f32_t fDfDz = 0.3f * z * sinf(0.1f * x) - 0.03f * x * sinf(0.1f * z);
+    //0.3f * (z * sinf(0.1f * x) + x * cosf(0.1f * z));
+    f32_t fDfDx = 0.03f * z * cosf(0.1f * x) + 0.3f * cosf(0.1f * z);
+    f32_t fDfDz = 0.3f * sinf(0.1f * x) - 0.03f * x * sinf(0.1f * z);
     float3_t vNormal = { -fDfDx,1.f,-fDfDz };
     XMStoreFloat3(&vNormal, XMVector3Normalize(XMLoadFloat3(&vNormal)));
     return vNormal;

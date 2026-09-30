@@ -13,20 +13,6 @@ cbuffer cbCamera : register(b1)
     float4x4 g_matProj;
 }
 
-cbuffer cbPerFrame
-{
-    float3 gLightDirection;
-    float3 gLightPosition;
-    float4 gLightColor;
-};
-
-cbuffer cbRarely
-{
-    float4 gFogColor;
-    float gFogStart;
-    float gFogEnd;
-};
-
 struct VS_IN
 {
     float3 vPosition : POSITION;

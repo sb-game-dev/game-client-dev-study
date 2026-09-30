@@ -77,16 +77,8 @@ namespace Engine
 	typedef struct tagMeshData
 	{
 		vector<VERTEX>	Vertices;
-		vector<UINT> Indices;
+		vector<UINT>	Indices;
 	}MESHDATA;
-
-	typedef struct tagVtxTex
-	{
-		float3_t	vPosition;
-		float3_t	vNormal;
-		float2_t	vTex0;
-		float2_t	vTex1;
-	}VTXTEX;
 
 	struct DirectionalLight
 	{
@@ -109,7 +101,7 @@ namespace Engine
 		float4_t	Specular;
 
 		float3_t	Position;
-		float		Range;
+		f32_t		Range;
 
 		float3_t	Att;
 		f32_t		Pad;

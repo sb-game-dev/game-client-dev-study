@@ -44,7 +44,9 @@ HRESULT CLoader::Loading()
     switch (m_eNextLevelIDID)
     {
     case Client::LEVEL::LOGO:
-        hr = Loading_For_LogoLV();
+        hr = Loading_For_LogoLV();//S_OK or E_FAIL
+        hr = S_OK;
+        hr = E_FAIL;
         break;
     case Client::LEVEL::GAMEPLAY:
         hr = Loading_For_GamePlayLV();
