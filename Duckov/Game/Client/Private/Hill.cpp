@@ -18,11 +18,11 @@ HRESULT CHill::Initialize_Prototype()
     f32_t       fHalfWidth = 0.5f * (ivtxCntX -1);
     f32_t       fHalfDepth = 0.5f * (ivtxCntZ -1);
 
-    f32_t   dx = 1.f;//128.f / (ivtxCntZ);
-    f32_t   dz = 1.f;//128.f / (ivtxCntX);
+    f32_t   dx = 1.f;//128.f / (ivtxCntX);
+    f32_t   dz = 1.f;//128.f / (ivtxCntZ);
 
-    f32_t   du = 1.f / (ivtxCntX);
-    f32_t   dv = 1.f / (ivtxCntZ);
+    f32_t   du = 1.f / (ivtxCntX - 1);
+    f32_t   dv = 1.f / (ivtxCntZ - 1);
 
     
     m_tMeshData.Vertices.resize(ivtxCnt);
@@ -194,8 +194,10 @@ HRESULT CHill::Render()
 {
     XMMATRIX matWorld = GetWorld();
 
-    matWorld.r[3] = XMVectorSet(0.f, 0.f, 0.f, 1.f);
-    XMMATRIX matWorldInvTranspos = XMMatrixTranspose(XMMatrixInverse(nullptr, matWorld));
+    // 역전치 행렬은 이동 성분을 뺀 복사본으로 계산 (matWorld 자체는 이동 성분 유지)
+    XMMATRIX matNoTrans = matWorld;
+    matNoTrans.r[3] = XMVectorSet(0.f, 0.f, 0.f, 1.f);
+    XMMATRIX matWorldInvTranspos = XMMatrixTranspose(XMMatrixInverse(nullptr, matNoTrans));
 
     CB_PER_OBJECT_LIT cbData;
     XMStoreFloat4x4(&cbData.mat_World, XMMatrixTranspose(matWorld));

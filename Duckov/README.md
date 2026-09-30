@@ -705,8 +705,10 @@ typedef struct tagCBLight
 	PointLight	tPointLight;	// 80 바이트
 	float3_t	vEyePosW;		// 12 바이트
 	f32_t		fPad;			// 4  바이트
-}CB_LIGHT;
+}CB_LIGHT;					// 총 96 바이트 (16의 배수)
+```
 
+```hlsl
 // hlsl에서 선언한 구조체
 struct PointLight
 {
@@ -726,7 +728,37 @@ cbuffer cbLight : register(b2)
     float3      g_vEyePosW;
     float       g_fPad;
 }
+```
 
+- **Pad를 두는 이유**: HLSL의 cbuffer는 16바이트(float4) 단위로 묶이고, 변수 하나가 16바이트 경계를 넘어갈 수 없다. 그래서 `float3` 뒤에 `float` 하나를 붙여 C++ 쪽 메모리 배치를 HLSL과 똑같이 맞춘다. 상수 버퍼의 `ByteWidth`도 16의 배수여야 한다.
+- **Range**: 이 거리보다 멀리 있는 픽셀은 조명 계산을 생략한다.
+- **Att**: 감쇠 계수 (a0, a1, a2). 감쇠 = `1 / (a0 + a1·d + a2·d²)`
+- **register(b2)**: C++에서 `PSSetConstantBuffers(2, ...)`로 같은 슬롯 번호에 바인딩해야 한다.
+
+> 재질(Material) 구조체
+
+```cpp
+// c++에서 선언한 구조체
+typedef struct tagMaterial
+{
+	tagMaterial() { ZeroMemory(this, sizeof(*this)); }
+
+	float4_t	Ambient;
+	float4_t	Diffuse;
+	float4_t	Specular;	// w = SpecPower (광택 지수)
+	float4_t	Reflect;
+}MATERIAL;					// 64 바이트
+```
+
+```hlsl
+// hlsl에서 선언한 구조체
+struct Material
+{
+    float4 Ambient;
+    float4 Diffuse;
+    float4 Specular; // w = SpecPower
+    float4 Reflect;
+};
 ```
 
 > 버텍스 버퍼용 구조체
@@ -746,12 +778,14 @@ typedef struct tagVtxNorm
 	};
 
 }VTXNORM;
+```
 
+```hlsl
 // hlsl에서 선언한 구조체
 struct VS_IN
 {
     float3 vPosition    : POSITION;
-    float3 vNormal      : NORMAL;		// 버텍스 셰이더 이후 픽셀 셰이더에서 필요하기 때문에 계산해서 넘겨줘야함
+    float3 vNormal      : NORMAL;
 };
 
 struct VS_OUT
@@ -772,7 +806,9 @@ typedef struct tagCBPerObjectLit
 	float4x4_t	mat_WorldInvTranspose;
 	MATERIAL	tMaterial;
 }CB_PER_OBJECT_LIT;
+```
 
+```hlsl
 // hlsl에서 선언한 구조체
 cbuffer cbPerObject : register(b0)
 {
@@ -786,7 +822,9 @@ cbuffer cbPerObject : register(b0)
 <details> 
 	<summary> 2. Hill의 법선 벡터 설정 </summary>
 
-- Hill의 MeshData에서 기존에는 `vNormal = float3_t(0.1f,1.f,0.f)` 이었으나 `vNormal = GetNormal(x,z)`로 변경
+- Hill의 MeshData에서 기존에는 `vNormal = float3_t(0.f,1.f,0.f)` 이었으나 `vNormal = GetNormal(x,z)`로 변경
+- 높이 함수 `y = f(x, z)`의 곡면에서 x방향 접선은 `(1, ∂f/∂x, 0)`, z방향 접선은 `(0, ∂f/∂z, 1)`
+- 두 접선을 외적하면 법선 `(-∂f/∂x, 1, -∂f/∂z)`가 나오고, 이를 정규화해서 사용
 
 > GetNormal()
 
@@ -867,9 +905,13 @@ m_tMaterial.Specular = float4_t(0.2f, 0.2f, 0.2f, 16.f);   // w = 광택 지수,
 XMMATRIX matWorld = GetWorld();
 
 // 역전치 행렬 설정시 이동부분인 마지막 행은{0, 0, 0, 1}로 설정
-matWorld.r[3] = XMVectorSet(0.f, 0.f, 0.f, 1.f);
-XMMATRIX matWorldInvTranspos = XMMatrixTranspose(XMMatrixInverse(nullptr, matWorld));
+// 주의: matWorld를 직접 바꾸면 mat_World에서도 이동 성분이 사라지므로 복사본을 사용
+XMMATRIX matNoTrans = matWorld;
+matNoTrans.r[3] = XMVectorSet(0.f, 0.f, 0.f, 1.f);
+XMMATRIX matWorldInvTranspos = XMMatrixTranspose(XMMatrixInverse(nullptr, matNoTrans));
 
+// HLSL은 기본이 column-major이므로 업로드하는 모든 행렬을 전치해서 넘긴다
+// (역전치 행렬도 예외 없이 한 번 더 전치)
 CB_PER_OBJECT_LIT cbData;
 XMStoreFloat4x4(&cbData.mat_World, XMMatrixTranspose(matWorld));
 XMStoreFloat4x4(&cbData.mat_WorldInvTranspose, XMMatrixTranspose(matWorldInvTranspos));
@@ -899,7 +941,7 @@ m_pContext->PSSetConstantBuffers(0, //레지스터 슬롯 번호
 <details>
 	<summary> 5. 조명 생성 </summary>
 
-> 조명 구조체 값 설정
+> 조명 구조체 값 설정 (CPlayer에서 조명을 소유)
 
 ```cpp
 m_tPointLight.Ambient = float4_t(0.3f, 0.3f, 0.3f, 1.f);
@@ -939,9 +981,10 @@ void CPlayer::BindLight()
     // 조명 상수 버퍼 채우기
     CB_LIGHT cbLight;
     cbLight.tPointLight = m_tPointLight;
-    XMStoreFloat3(&cbLight.vEyePosW, XMLoadFloat3(&vPos) + XMVECTOR({ 0.f, 150.f, -5.f }));
+    // TODO: 카메라 오프셋을 하드코딩 중 -> 카메라가 바뀌면 스페큘러가 틀어지므로 실제 카메라 위치로 교체
+    XMStoreFloat3(&cbLight.vEyePosW, XMLoadFloat3(&vPos) + XMVECTOR({ 0.f, 15.f, -5.f }));
 
-    // 3. 갱신하고 PS b2에 꽂기
+    // 갱신하고 PS b2에 꽂기
     m_pContext->UpdateSubresource(m_pLightCB.Get(), 0, nullptr, &cbLight, 0, 0);
     m_pContext->PSSetConstantBuffers(2, 1, m_pLightCB.GetAddressOf());
 }
@@ -954,12 +997,14 @@ void CPlayer::BindLight()
 
 > 퐁 셰이딩
 
-- Phong 반사 모델 (Phong reflection model)	한 점의 색을 어떤 공식으로 계산할지	Ambient + Diffuse + Specular
-- Phong 셰이딩 (Phong interpolation)	그 공식을 어디서 계산할지	법선을 보간한 뒤 픽셀마다 조명 계산
+| 용어 | 의미 | 내용 |
+|---|---|---|
+| Phong 반사 모델 (Phong reflection model) | 한 점의 색을 어떤 공식으로 계산할지 | Ambient + Diffuse + Specular |
+| Phong 셰이딩 (Phong interpolation) | 그 공식을 어디서 계산할지 | 법선을 보간한 뒤 픽셀마다 조명 계산 |
 
 > Phong 반사 모델 공식
 
-```cpp
+```text
 최종색 = Ambient + Diffuse + Specular
 
 Ambient  = Ma ⊗ La
@@ -975,14 +1020,15 @@ p : 광택 지수 (Shininess / SpecPower)
 M* : 재질 색, L* : 조명 색
 ```
 
-- 1. Ambient (주변광)
+**1. Ambient (주변광)**
 
 벽이나 바닥에 여러 번 튕겨서 들어오는 간접광을 상수 하나로 흉내 낸 항입니다. 방향과 상관없이 똑같이 더해지기 때문에, 이 항이 없으면 빛이 닿지 않는 면은 완전히 검게 나옵니다.  
 
-```cpp
+```text
 Ambient  = Ma ⊗ La
 ```
-- 2. Diffuse (난반사, Lambert)
+
+**2. Diffuse (난반사, Lambert)**
 
 거친 표면은 빛을 모든 방향으로 고르게 흩뿌립니다. 그래서 보는 방향(V)과는 관계가 없고, 빛이 얼마나 정면으로 들어오는지만 중요합니다.  
 
@@ -990,21 +1036,21 @@ Ambient  = Ma ⊗ La
 빛이 비스듬해지면 같은 양의 빛이 더 넓은 면적에 퍼지므로 cosθ만큼 어두워집니다(Lambert 코사인 법칙).  
 N·L < 0이면 빛이 뒤에서 오는 것이므로 0으로 처리합니다.  
 
-```cpp
+```text
 Diffuse  = max(N·L, 0) × (Md ⊗ Ld)
 
 N : 표면 법선 (단위벡터)
 L : 표면 → 광원 방향 (단위벡터)
 ```
 
-- 3. Specular (정반사, 하이라이트)
+**3. Specular (정반사, 하이라이트)**
 
 매끄러운 표면에서 거울처럼 반사된 빛이 눈 방향과 가까울수록 밝게 보이는 항입니다. 그래서 이 항만 시점(V)에 의존합니다. 카메라가 움직이면 하이라이트도 따라서 움직입니다.  
 
 R·V는 반사 방향과 눈 방향 사이 각도의 코사인입니다.  
 지수 p는 하이라이트의 크기를 정합니다. p가 크면 좁고 날카로워지고(금속, 플라스틱), p가 작으면 넓고 뿌옇게 퍼집니다(고무, 흙).  
 
-```cpp
+```text
 Specular = max(R·V, 0)^p × (Ms ⊗ Ls)      (N·L > 0 일 때만)
 
 V : 표면 → 눈 방향 (단위벡터)
@@ -1015,10 +1061,9 @@ p = 16  → 적당한 광택
 p = 128 → 작은 점 같은 하이라이트
 ```
 
-> Shader에서의 계산
+> Shader에서의 계산 (LightHelper.hlsli)
 
-```cpp
-
+```hlsl
 // out = 함수가 끝날 때 결과를 호출자 변수에 복사(레퍼런스와 결과가 비슷하지만 레퍼런스와 같지 않음)
 // 들어오는 값이 정의되지 않으므로 모든 경로에서 반드시 값을 써야 함 (그래서 맨 처음에 0으로 초기화)
 void ComputePointLight(Material mat, PointLight L, float3 pos, float3 normal, float3 toEye,
@@ -1072,24 +1117,40 @@ void ComputePointLight(Material mat, PointLight L, float3 pos, float3 normal, fl
 }
 ```
 
+- 감쇠는 diffuse, spec에만 적용하고 ambient에는 적용하지 않는다. ambient는 특정 광원에서 직접 오는 빛이 아니라 주변 전체의 간접광을 흉내 낸 값이라, 광원과의 거리와 무관하게 둔다.
+
+> 셰이더 진입점 (Shader_VtxNorm.hlsl)
+
+```hlsl
+VS_OUT VS_MAIN(VS_IN In)
+{
+    VS_OUT Out;
+
+    float4 vPosW = mul(float4(In.vPosition, 1.f), g_matWorld);
+    Out.vPosW = vPosW.xyz;
+
+    // 법선은 방향 벡터이므로 이동이 없어야 함 -> 3x3으로 잘라서 곱함
+    // 비균등 스케일에서도 법선이 표면에 수직이 되도록 역전치 행렬 사용
+    Out.vNormalW = mul(In.vNormal, (float3x3) g_matWorldInvTranspose);
+
+    Out.vPosition = mul(mul(vPosW, g_matView), g_matProj);
+    return Out;
+}
+
+float4 PS_MAIN(VS_OUT In) : SV_TARGET
+{
+    // 래스터라이저가 보간한 법선은 길이가 1이 아니므로 다시 정규화
+    float3 vNormal = normalize(In.vNormalW);
+    float3 vToEye = normalize(g_vEyePosW - In.vPosW);
+
+    float4 vAmbient, vDiffuse, vSpec;
+    ComputePointLight(g_Material, g_PointLight, In.vPosW, vNormal, vToEye, vAmbient, vDiffuse, vSpec);
+    float4 vColor = vAmbient + vDiffuse + vSpec;
+
+    vColor.a = g_Material.Diffuse.a;    // 알파값은 diffuse의 알파값으로 대체
+
+    return vColor;
+}
+```
+
 </details>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
