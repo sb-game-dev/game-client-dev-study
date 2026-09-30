@@ -1,5 +1,4 @@
 #include "Prototype_Manager.h"
-
 #include "Prototype.h"
 
 CPrototype_Manager::CPrototype_Manager()
@@ -17,22 +16,20 @@ HRESULT CPrototype_Manager::Initialize(uint32_t iNumLevels)
 
 HRESULT CPrototype_Manager::Add_Prototype(uint32_t iLevelIndex, const wstring_t& strPrototypeTag, shared_ptr<CPrototype> pPrototype)
 {
-    if (iLevelIndex >= m_iNumLevels || 
+    if (iLevelIndex >= m_iNumLevels ||
         nullptr != Find_Prototype(iLevelIndex, strPrototypeTag))
         return E_FAIL;
 
-    m_pPrototypes[iLevelIndex].emplace(strPrototypeTag, pPrototype);    
-
+    m_pPrototypes[iLevelIndex].emplace(strPrototypeTag, pPrototype);// emplace : 맵의 내부함수, 요소 추가 =/ insert
     return S_OK;
 }
 
 shared_ptr<CPrototype> CPrototype_Manager::Clone_Prototype(uint32_t iLevelIndex, const wstring_t& strPrototypeTag, void* pArg)
 {
-    auto        pPrototype  = Find_Prototype(iLevelIndex, strPrototypeTag);
+    auto    pPrototype = Find_Prototype(iLevelIndex, strPrototypeTag);
     if (nullptr == pPrototype)
         return nullptr;
-
-    auto        pCloneObject = pPrototype->Clone(pArg);
+    auto   pCloneObject = pPrototype->Clone(pArg);
     if (nullptr == pCloneObject)
         return nullptr;
 
@@ -44,19 +41,19 @@ void CPrototype_Manager::Clear(uint32_t iClearLevelIndex)
     if (iClearLevelIndex >= m_iNumLevels)
         return;
 
-    //for (auto& Pair : m_pPrototypes[iClearLevelIndex])    
-    //    Pair.second.reset();
-
     m_pPrototypes[iClearLevelIndex].clear();
 }
 
-shared_ptr<class CPrototype> CPrototype_Manager::Find_Prototype(uint32_t iLevelIndex, const wstring_t& strPrototypeTag)
+shared_ptr<CPrototype> CPrototype_Manager::Find_Prototype(uint32_t iLevelIndex, const wstring_t& strPrototypeTag)
 {
-    auto    iter = m_pPrototypes[iLevelIndex].find(strPrototypeTag);
+    if (iLevelIndex >= m_iNumLevels)
+        return nullptr;
+
+    auto iter = m_pPrototypes[iLevelIndex].find(strPrototypeTag);
     if (iter == m_pPrototypes[iLevelIndex].end())
         return nullptr;
 
-    return iter->second;    
+    return iter->second;
 }
 
 unique_ptr<CPrototype_Manager> CPrototype_Manager::Create(uint32_t iNumLevels)
@@ -64,11 +61,6 @@ unique_ptr<CPrototype_Manager> CPrototype_Manager::Create(uint32_t iNumLevels)
     auto pInstance = unique_ptr<CPrototype_Manager>(new CPrototype_Manager());
 
     if (FAILED(pInstance->Initialize(iNumLevels)))
-    {
-        MSG_BOX("Failed to Created : CPrototype_Manager");
         pInstance.reset();
-    }
-
     return pInstance;
 }
-

@@ -9,10 +9,13 @@ CLoader::~CLoader()
 {
     Free();
 }
+
+// 서브 스레드
 uint32_t APIENTRY ThreadMain(void* pArg)
 {
     auto       pLoader = static_cast<CLoader*>(pArg);
 
+    // 서브 스레드
     if (FAILED(pLoader->Loading()))
         return 1;
 
@@ -23,7 +26,7 @@ HRESULT CLoader::Initialize(LEVEL eNextLevel)
 {
     InitializeCriticalSection(&m_CriticalSection);
 
-    m_eNextLevelIDID = eNextLevel;
+    m_eNextLevelID = eNextLevel;
 
     m_hThread = (HANDLE)_beginthreadex(nullptr, 0, ThreadMain, this, 0, nullptr);
     if (0 == m_hThread)
@@ -41,12 +44,10 @@ HRESULT CLoader::Loading()
     CoInitializeEx(nullptr, 0);
 
     HRESULT hr = {};
-    switch (m_eNextLevelIDID)
+    switch (m_eNextLevelID)
     {
     case Client::LEVEL::LOGO:
         hr = Loading_For_LogoLV();//S_OK or E_FAIL
-        hr = S_OK;
-        hr = E_FAIL;
         break;
     case Client::LEVEL::GAMEPLAY:
         hr = Loading_For_GamePlayLV();
@@ -62,12 +63,14 @@ HRESULT CLoader::Loading()
     return S_OK;
 }
 
+// 메인 스레드
 HRESULT CLoader::Draw_Debug()
 {
     SetWindowText(g_hWnd, m_szLoadingText);
     return S_OK;
 }
 
+// 서브 스레드
 HRESULT CLoader::Loading_For_LogoLV()
 {
     lstrcpy(m_szLoadingText, TEXT("텍스쳐를 준비중입니다."));
@@ -127,7 +130,7 @@ void CLoader::Free()
 {
     WaitForSingleObject(m_hThread, INFINITE);
 
-    DeleteObject(m_hThread);
+    //DeleteObject(m_hThread);
 
     CloseHandle(m_hThread);
 

@@ -100,8 +100,8 @@ HRESULT CMainApp::Render()
 
 HRESULT CMainApp::Start_Level(LEVEL eStartLevelID)
 {
-    if(FAILED(CGameInstance::Get().Change_Level(static_cast<int>(LEVEL::GAMEPLAY), 
-        CLevel_Loading::Create(m_pDevice, m_pContext, eStartLevelID))))
+    if(FAILED(CGameInstance::Get().Change_Level(static_cast<int>(LEVEL::LOADING), 
+                                                CLevel_Loading::Create(m_pDevice, m_pContext, eStartLevelID))))
         return E_FAIL;
     return S_OK;
 }

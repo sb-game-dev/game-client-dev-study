@@ -16,7 +16,7 @@ public:
 	virtual HRESULT Initialize(void* pArg) override;
 
 public:
-	virtual shared_ptr<CPrototype> Clone(void* pArg) = 0;
+	virtual shared_ptr<CPrototype> Clone(void* pArg) PURE;
 
 };
 

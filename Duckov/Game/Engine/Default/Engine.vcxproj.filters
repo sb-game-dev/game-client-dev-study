@@ -25,12 +25,6 @@
     <Filter Include="03. Levels\Manager">
       <UniqueIdentifier>{b77c14db-24be-4a71-8bf6-6b0860f31a12}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04.Prototypes">
-      <UniqueIdentifier>{f42eccff-2608-43f2-8d97-8c138bd70fe4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="04.Prototypes\Manager">
-      <UniqueIdentifier>{d4948aff-7631-40bc-9d04-88fa9c603de6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="07. Camera">
       <UniqueIdentifier>{7fe7501a-8427-4b61-ab8c-bf82f6654429}</UniqueIdentifier>
     </Filter>
@@ -42,6 +36,12 @@
     </Filter>
     <Filter Include="05. GameObject">
       <UniqueIdentifier>{e53f6393-4c2e-45f4-adcf-8be019a4fe75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Prototypes">
+      <UniqueIdentifier>{f42eccff-2608-43f2-8d97-8c138bd70fe4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Prototypes\Manager">
+      <UniqueIdentifier>{d4948aff-7631-40bc-9d04-88fa9c603de6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -88,10 +88,10 @@
       <Filter>07. Camera</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Prototype.h">
-      <Filter>04.Prototypes</Filter>
+      <Filter>04. Prototypes</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Prototype_Manager.h">
-      <Filter>04.Prototypes\Manager</Filter>
+      <Filter>04. Prototypes\Manager</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Component.h">
       <Filter>06. Component</Filter>
@@ -123,10 +123,10 @@
       <Filter>07. Camera</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Prototype.cpp">
-      <Filter>04.Prototypes</Filter>
+      <Filter>04. Prototypes</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Prototype_Manager.cpp">
-      <Filter>04.Prototypes\Manager</Filter>
+      <Filter>04. Prototypes\Manager</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Component.cpp">
       <Filter>06. Component</Filter>

@@ -19,7 +19,7 @@ public:
 	HRESULT Draw_Debug();
 #endif
 private:
-	LEVEL				m_eNextLevelIDID = {};
+	LEVEL				m_eNextLevelID = {};
 	HANDLE				m_hThread = {};
 	CRITICAL_SECTION	m_CriticalSection = {};
 	tchar_t				m_szLoadingText[MAX_PATH] = {};
