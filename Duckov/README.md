@@ -677,4 +677,295 @@ HRESULT CHill::Initialize()
 ```
 </details>
 
+### Chapter7. DX11 조명1 - 점조명
+
+<details>
+	<summary> 1. 구조체 생성 </summary>
+
+> 빛 구조체 
+
+```cpp
+// c++에서 선언한 구조체
+struct PointLight
+{
+	PointLight() { ZeroMemory(this, sizeof(*this)); }
+
+	float4_t	Ambient;
+	float4_t	Diffuse;
+	float4_t	Specular;
+
+	float3_t	Position;
+	f32_t		Range;
+
+	float3_t	Att;
+	f32_t		Pad;
+};
+typedef struct tagCBLight
+{
+	PointLight	tPointLight;	// 80 바이트
+	float3_t	vEyePosW;		// 12 바이트
+	f32_t		fPad;			// 4  바이트
+}CB_LIGHT;
+
+// hlsl에서 선언한 구조체
+struct PointLight
+{
+    float4 Ambient;
+    float4 Diffuse;
+    float4 Specular;
+    
+    float3 Position;
+    float  Range;
+    
+    float3 Att;
+    float  Pad;
+};
+cbuffer cbLight : register(b2)
+{
+    PointLight  g_PointLight;
+    float3      g_vEyePosW;
+    float       g_fPad;
+}
+
+```
+
+> 버텍스 버퍼용 구조체
+
+```cpp
+// c++에서 선언한 구조체
+typedef struct tagVtxNorm
+{
+	float3_t	vPosition;
+	float3_t	vNormal;
+
+	static constexpr uint32_t iNumElements = 2;
+	static constexpr D3D11_INPUT_ELEMENT_DESC Elements[iNumElements] =
+	{
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT,0,  0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT,0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+	};
+
+}VTXNORM;
+
+// hlsl에서 선언한 구조체
+struct VS_IN
+{
+    float3 vPosition    : POSITION;
+    float3 vNormal      : NORMAL;		// 버텍스 셰이더 이후 픽셀 셰이더에서 필요하기 때문에 계산해서 넘겨줘야함
+};
+
+struct VS_OUT
+{
+    float4 vPosition    : SV_POSITION; 	// 클립 공간 위치 (월드,뷰,투영변환 완료된 위치)
+    float3 vPosW        : POSITION;
+    float3 vNormalW     : NORMAL; 		// 버텍스 셰이더 이후 픽셀 셰이더에서 필요하기 때문에 계산해서 넘겨줘야함
+};
+```
+
+> 버텍스 셰이더와 픽셀 셰이더에 연결할 상수버퍼 구조체
+
+```cpp
+// c++에서 선언한 구조체
+typedef struct tagCBPerObjectLit
+{
+	float4x4_t	mat_World;
+	float4x4_t	mat_WorldInvTranspose;
+	MATERIAL	tMaterial;
+}CB_PER_OBJECT_LIT;
+
+// hlsl에서 선언한 구조체
+cbuffer cbPerObject : register(b0)
+{
+    float4x4 g_matWorld;
+    float4x4 g_matWorldInvTranspose;
+    Material g_Material;
+};
+```
+</details>
+
+<details> 
+	<summary> 2. Hill의 법선 벡터 설정 </summary>
+
+- Hill의 MeshData에서 기존에는 `vNormal = float3_t(0.1f,1.f,0.f)` 이었으나 `vNormal = GetNormal(x,z)`로 변경
+
+> GetNormal()
+
+```cpp
+float3_t CHill::GetNormal(f32_t x, f32_t z)
+{
+    // y = 0.3f * (z * sinf(0.1f * x) + x * cosf(0.1f * z));
+	// 편미분을 이용하여 법선벡터 구함
+    f32_t fDfDx = 0.03f * z * cosf(0.1f * x) + 0.3f * cosf(0.1f * z);
+    f32_t fDfDz = 0.3f * sinf(0.1f * x) - 0.03f * x * sinf(0.1f * z);
+    float3_t vNormal = { -fDfDx,1.f,-fDfDz };
+    XMStoreFloat3(&vNormal, XMVector3Normalize(XMLoadFloat3(&vNormal)));
+    return vNormal;
+}
+```
+
+> CHill::Initialize()
+
+```cpp
+for (uint32_t i = 0; i < ivtxCntZ; ++i)
+{
+    float z = fHalfDepth - i * dz;
+    for (uint32_t j = 0; j < ivtxCntX; ++j)
+    {
+        float x = -fHalfWidth + j * dx;
+        m_tMeshData.Vertices[i * ivtxCntX + j].vPosition = float3_t(x, 0.f, z);
+        
+        m_tMeshData.Vertices[i * ivtxCntX + j].vNormal = GetNormal(x, z);	//GetNormal로 변경
+        m_tMeshData.Vertices[i * ivtxCntX + j].vTangentU = float3_t(1.f, 0.f, 0.f);
+
+        m_tMeshData.Vertices[i * ivtxCntX + j].TexC.x = j*du;
+        m_tMeshData.Vertices[i * ivtxCntX + j].TexC.y = i*dv;
+    }
+}
+```
+</details>
+
+<details>
+	<summary> 3. Hill의 버텍스 버퍼 및 머티리얼 설정 </summary>
+
+- 기존에는 높이(y값)에 따라 색을 설정했으나 이제는 법선을 설정
+- 높이와 무관하게 모든 버텍스가 같은 Material로 설정
+
+```cpp
+// 버텍스 버퍼 설정
+vector<VTXNORM> vertices(m_tMeshData.Vertices.size());
+for (size_t i = 0; i < m_tMeshData.Vertices.size(); ++i)
+{
+    float3_t& p = m_tMeshData.Vertices[i].vPosition;
+    p.y = GetHeight(p.x, p.z);
+    vertices[i].vPosition = p;
+    vertices[i].vNormal = m_tMeshData.Vertices[i].vNormal; // 법선 설정
+}
+
+D3D11_BUFFER_DESC   VBDesc{}; 
+VBDesc.ByteWidth = sizeof(VTXNORM) * m_tMeshData.Vertices.size();
+VBDesc.Usage = D3D11_USAGE_IMMUTABLE;
+VBDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+
+D3D11_SUBRESOURCE_DATA  VBData{};
+VBData.pSysMem = &vertices[0];  
+if (FAILED(m_pDevice->CreateBuffer(&VBDesc, &VBData, &m_pVB)))
+    return E_FAIL;
+
+// Material
+m_tMaterial.Ambient = float4_t(0.48f, 0.77f, 0.46f, 1.f);
+m_tMaterial.Diffuse = float4_t(0.48f, 0.77f, 0.46f, 1.f);
+m_tMaterial.Specular = float4_t(0.2f, 0.2f, 0.2f, 16.f);   // w = 광택 지수, 0이면 안 됨
+```
+</details>
+
+<details>
+	<summary> 4. Hill::Render() </summary>
+
+> cbPerObject 상수 버퍼 값 채우기
+
+```cpp
+XMMATRIX matWorld = GetWorld();
+
+// 역전치 행렬 설정시 이동부분인 마지막 행은{0, 0, 0, 1}로 설정
+matWorld.r[3] = XMVectorSet(0.f, 0.f, 0.f, 1.f);
+XMMATRIX matWorldInvTranspos = XMMatrixTranspose(XMMatrixInverse(nullptr, matWorld));
+
+CB_PER_OBJECT_LIT cbData;
+XMStoreFloat4x4(&cbData.mat_World, XMMatrixTranspose(matWorld));
+XMStoreFloat4x4(&cbData.mat_WorldInvTranspose, XMMatrixTranspose(matWorldInvTranspos));
+cbData.tMaterial = m_tMaterial;
+
+m_pContext->UpdateSubresource(m_pCB.Get(), 0, nullptr, &cbData, 0, 0);
+```
+
+> 버텍스 셰이더와 픽셀 셰이더에 버퍼 세팅
+
+```cpp
+// 월드 변환을 위한 상수 버퍼
+// Position, Normal 계산을 위해 matWorld, matWorldInvTranspose만 사용
+m_pContext->VSSetConstantBuffers(0, //레지스터 슬롯 번호
+    1,
+    m_pCB.GetAddressOf());
+
+// 조명 계산을 위한 상수 버퍼
+// 조명 계산에 필요한 Material만 사용
+m_pContext->PSSetConstantBuffers(0, //레지스터 슬롯 번호
+    1,
+    m_pCB.GetAddressOf());
+```
+
+</details>
+
+<details>
+	<summary> 5. 조명 생성 </summary>
+
+> 조명 구조체 값 설정
+
+```cpp
+m_tPointLight.Ambient = float4_t(0.3f, 0.3f, 0.3f, 1.f);
+m_tPointLight.Diffuse = float4_t(0.7f, 0.7f, 0.7f, 1.f);
+m_tPointLight.Specular = float4_t(0.7f, 0.7f, 0.7f, 1.f);
+m_tPointLight.Att = float3_t(1.f, 0.1f, 0.05f);   // a0 = 1: 가까워도 과노출 안 됨
+m_tPointLight.Range = 5.f;
+```
+
+> 점조명 상수버퍼 설정
+
+```cpp
+D3D11_BUFFER_DESC LightCBDesc{};
+LightCBDesc.ByteWidth = sizeof(CB_LIGHT);
+LightCBDesc.Usage = D3D11_USAGE_DEFAULT;
+LightCBDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+
+if (FAILED(m_pDevice->CreateBuffer(&LightCBDesc, nullptr, &m_pLightCB)))
+    return E_FAIL;
+```
+
+</details>
+
+<details>
+	<summary> 6. 조명 Bind </summary>
+
+- 조명은 플레이어 머리 위에 있기 때문에 플레이어가 소유
+- 조명 Bind는 Late_Update에서 호출
+
+```cpp
+void CPlayer::BindLight()
+{
+    // 점조명 위치 초기화
+    float3_t vPos = m_vInfo[ETOUI(INFO::POS)];
+    m_tPointLight.Position = float3_t(vPos.x, vPos.y + 2.f, vPos.z);
+
+    // 조명 상수 버퍼 채우기
+    CB_LIGHT cbLight;
+    cbLight.tPointLight = m_tPointLight;
+    XMStoreFloat3(&cbLight.vEyePosW, XMLoadFloat3(&vPos) + XMVECTOR({ 0.f, 150.f, -5.f }));
+
+    // 3. 갱신하고 PS b2에 꽂기
+    m_pContext->UpdateSubresource(m_pLightCB.Get(), 0, nullptr, &cbLight, 0, 0);
+    m_pContext->PSSetConstantBuffers(2, 1, m_pLightCB.GetAddressOf());
+}
+```
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
