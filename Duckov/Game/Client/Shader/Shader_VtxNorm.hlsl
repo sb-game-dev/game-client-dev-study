@@ -13,15 +13,25 @@ cbuffer cbPerObject : register(b0)
 
 cbuffer cbCamera : register(b1)
 {
-    float4x4 g_matView;
-    float4x4 g_matProj;
+    float4x4    g_matView;
+    float4x4    g_matProj;
+    float3      g_vEye;
+    float       g_Pad;
 }
 
-cbuffer cbLight : register(b2)
+cbuffer cbPointLight : register(b2)
 {
-    PointLight  g_PointLight;
-    float3      g_vEyePosW;
-    float       g_fPad;
+    PointLight          g_PointLight;
+}
+
+cbuffer cbDirLight : register(b3)
+{
+    DirectionalLight    g_DirLight;
+}
+
+cbuffer cbDirLight : register(b4)
+{
+    SpotLight           g_SpotLight;
 }
 
 struct VS_IN
@@ -52,11 +62,19 @@ VS_OUT VS_MAIN(VS_IN In)
 float4 PS_MAIN(VS_OUT In) : SV_TARGET //몇 번째 렌더타겟에 색을 쓸지
 {
     float3 vNormal = normalize(In.vNormalW);
-    float3 vToEye = normalize(g_vEyePosW - In.vPosW);
+    float3 vToEye = normalize(g_vEye - In.vPosW);
     
     float4 vAmbient, vDiffuse, vSpec;
+    float4 vColor = float4(0.f, 0.f, 0.f, 0.f);
+    
     ComputePointLight(g_Material, g_PointLight, In.vPosW, vNormal, vToEye, vAmbient, vDiffuse, vSpec);
-    float4 vColor = vAmbient + vDiffuse + vSpec;
+    vColor += vAmbient + vDiffuse + vSpec;
+    
+    ComputeDirectionalLight(g_Material, g_DirLight, vNormal, vToEye, vAmbient, vDiffuse, vSpec);
+    vColor += vAmbient + vDiffuse + vSpec;
+    
+    ComputeSpotLight(g_Material, g_SpotLight, In.vPosW, vNormal, vToEye, vAmbient, vDiffuse, vSpec);
+    vColor += vAmbient + vDiffuse + vSpec;
     
     vColor.a = g_Material.Diffuse.a;    // 알파값은 diffuse의 알파값으로 대체
     

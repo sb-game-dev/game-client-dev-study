@@ -20,12 +20,8 @@ public:
 
 	virtual void	SetHill(shared_ptr<CHill> pHill) { m_pHill = pHill;}
 	virtual void	AdjustPosY();
-	virtual void	BindLight();
 private:
 	shared_ptr<CHill>		m_pHill = {nullptr};
-
-	ComPtr<ID3D11Buffer>	m_pLightCB = { nullptr };
-	PointLight				m_tPointLight;
 
 private:
 	void	KeyInput(f32_t fDeltaTime);

@@ -49,6 +49,15 @@
     <Filter Include="02. GameObjects\00. BackGround">
       <UniqueIdentifier>{2d194f4d-4dc9-4d66-9195-fdb43a4f77fc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Light">
+      <UniqueIdentifier>{cafa0332-80e2-4859-9865-47201b8915a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Light\00. Player_PointLight">
+      <UniqueIdentifier>{19aee31f-8cdf-4317-8f37-e85a2a8a1c19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Light\01. Player_SpotLight">
+      <UniqueIdentifier>{19910111-dce3-4e18-9ed1-40f9ccc1019d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -98,6 +107,12 @@
     </ClInclude>
     <ClInclude Include="..\public\BackGround.h">
       <Filter>02. GameObjects\00. BackGround</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Player_PointLight.h">
+      <Filter>04. Light\00. Player_PointLight</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Player_SpotLight.h">
+      <Filter>04. Light\01. Player_SpotLight</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -149,6 +164,12 @@
     </ClCompile>
     <ClCompile Include="..\private\BackGround.cpp">
       <Filter>02. GameObjects\00. BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Player_PointLight.cpp">
+      <Filter>04. Light\00. Player_PointLight</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Player_SpotLight.cpp">
+      <Filter>04. Light\01. Player_SpotLight</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -2,6 +2,8 @@
 #include "Cube.h"
 #include "Player.h"
 #include "Hill.h"
+#include "Player_PointLight.h"
+#include "Player_SpotLight.h"
 CLevel_GamePlay::CLevel_GamePlay(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     :CLevel{ pDevice,pContext }
 {
@@ -15,26 +17,6 @@ HRESULT CLevel_GamePlay::Initialize()
     SetWindowText(g_hWnd, L"GamePlay_Level");
     Ready_Layer_BackGround(TEXT("Layer_BackGround"));
     Ready_Layer_GameObject(TEXT("Layer_GameObject"));
-    //m_pCamera = CQuarterView_Cam::Create(m_pDevice, m_pContext);
-    //
-    //shared_ptr<CGameObject> pPlayer = {};
-    //pPlayer = CPlayer::Create(m_pDevice, m_pContext);
-    //pPlayer->SetPos({ 0.f,0.f,0.f });
-    //m_mapObject.insert({ L"Player" ,pPlayer });
-    //
-    //m_pCamera->SetPlayer(pPlayer);
-    //
-    //shared_ptr<CGameObject> pGameObject = {};
-    //for (uint32_t i = 0; i < 16; ++i)
-    //{
-    //    pGameObject = CCube::Create(m_pDevice, m_pContext);
-    //    f32_t   fTheta = XM_2PI / 16 * i;
-    //    pGameObject->SetPos({ 5 * sinf(fTheta),0.f,5 * cosf(fTheta) });
-    //    m_mapObject.insert({ L"Cube" + to_wstring(i) ,pGameObject });
-    //}
-    //pGameObject = CHill::Create(m_pDevice, m_pContext);
-    //m_mapObject.insert({ L"Hill" ,pGameObject });
-    //static_pointer_cast<CPlayer>(pPlayer)->SetHill(static_pointer_cast<CHill>(pGameObject));
 
     return S_OK;
 }
@@ -42,7 +24,6 @@ HRESULT CLevel_GamePlay::Initialize()
 void CLevel_GamePlay::Update(f32_t fDeltaTime)
 {
     __super::Update(fDeltaTime);
-    //m_pCamera->Update(fDeltaTime);
 }
 
 HRESULT CLevel_GamePlay::Render()
@@ -83,6 +64,14 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
     m_pCamera->SetPlayer(pPlayer);
     static_pointer_cast<CPlayer>(pPlayer)->SetHill(static_pointer_cast<CHill>(pHill));
 
+    auto pPlayer_PointLight = CPlayer_PointLight::Create(m_pDevice, m_pContext);
+    pPlayer_PointLight->SetPlayer(pPlayer);
+    CGameInstance::Get().AddLight(L"Player_PointLight", pPlayer_PointLight);
+
+
+    auto pPlayer_SpotLight = CPlayer_SpotLight::Create(m_pDevice, m_pContext);
+    pPlayer_SpotLight->SetPlayer(pPlayer);
+    CGameInstance::Get().AddLight(L"Player_SpotLight", pPlayer_SpotLight);
 
     return S_OK;
 }

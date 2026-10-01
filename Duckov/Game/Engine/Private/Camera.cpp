@@ -38,9 +38,11 @@ HRESULT CCamera::Bind()
 	CB_CAMERA	cbData;
 	XMStoreFloat4x4(&cbData.ViewMatrix, XMMatrixTranspose(XMLoadFloat4x4(&m_matView)));
 	XMStoreFloat4x4(&cbData.ProjMatrix, XMMatrixTranspose(XMLoadFloat4x4(&m_matProj)));
+	cbData.vEye = m_vEye;
 
 	m_pContext->UpdateSubresource(m_pCB.Get(), 0, nullptr, &cbData, 0, 0);
 	m_pContext->VSSetConstantBuffers(1, 1, m_pCB.GetAddressOf());
+	m_pContext->PSSetConstantBuffers(1, 1, m_pCB.GetAddressOf());
 	return S_OK;
 }
 

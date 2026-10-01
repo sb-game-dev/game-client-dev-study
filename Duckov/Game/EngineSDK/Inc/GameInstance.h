@@ -6,6 +6,7 @@
 #include "Prototype_Manager.h"
 #include "Object_Manager.h"
 #include "Camera_Manager.h"
+#include "Light_Manager.h"
 /*
 1. 엔진의 기능을 클라이언트에 보여주는 객체.
 2. 엔진에 정의되어있는 다양한 기능을 하는 객체를 모아서 보관한다.
@@ -66,10 +67,11 @@ public:
 	void				Add_Camera(const wstring_t& strCameraTag, shared_ptr<CCamera> pCamera);
 	void				Set_MainCamera(const wstring_t& strCameraTag);
 	shared_ptr<CCamera> Get_MainCamera(const wstring_t& strCameraTag);
-	void				Priority_Update(f32_t fDeltaTime);
-	void				Update(f32_t fDeltaTime);
-	void				Late_Update(f32_t fDeltaTime);
-	HRESULT				Bind();
+#pragma endregion
+
+#pragma region LIGHT_MANAGER
+	void	AddLight(const wstring_t& strLightTag, shared_ptr<CLight> pLight);
+	shared_ptr<CLight> Find_Light(const wstring_t& strLightTag);
 #pragma endregion
 
 private:
@@ -79,6 +81,7 @@ private:
 	unique_ptr<CLevel_Manager>		m_pLevel_Manager = { nullptr };
 	unique_ptr<CPrototype_Manager>	m_pPrototype_Manager = { nullptr };
 	unique_ptr<CCamera_Manager>		m_pCamera_Manager = { nullptr };
+	unique_ptr<CLight_Manager>		m_pLight_Manager = { nullptr };
 
 public:
 	void			Release_Engine();

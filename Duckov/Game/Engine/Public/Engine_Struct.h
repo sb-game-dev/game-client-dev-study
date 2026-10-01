@@ -51,6 +51,9 @@ namespace Engine
 	{
 		float4x4_t ViewMatrix;
 		float4x4_t ProjMatrix;
+		float3_t   vEye;
+		f32_t	   fPad;
+
 	}CB_CAMERA;
 
 	// CPU가 사용하는 정점 정보
@@ -91,7 +94,6 @@ namespace Engine
 		f32_t		Pad;
 	};
 
-
 	struct PointLight
 	{
 		PointLight() { ZeroMemory(this, sizeof(*this)); }
@@ -115,13 +117,13 @@ namespace Engine
 		float4_t	Diffuse;
 		float4_t	Specular;
 
-		float3_t	Position;
-		f32_t		Range;
+		float3_t	Position;		// 빛의 시작점
+		f32_t		Range;			// 빛의 적용 범위
 
-		float3_t	Direction;
-		f32_t		Spot;
+		float3_t	Direction;		// 방향
+		f32_t		Spot;			// 각도 조절
 
-		float3_t	Att;
+		float3_t	Att;			// 감쇠
 		f32_t		Pad;
 	};
 
@@ -143,12 +145,17 @@ namespace Engine
 		MATERIAL	tMaterial;
 	}CB_PER_OBJECT_LIT;
 
-	typedef struct tagCBLight
+	typedef struct tagCBPointLight
 	{
-		PointLight	tPointLight;	// 80 바이트
-		float3_t	vEyePosW;		// 12 바이트
-		f32_t		fPad;			// 4  바이트
-	}CB_LIGHT;
+		PointLight			tPointLight;	// 점 조명이 여러 개 인 경우 이 구조체를 배열로 선언
+											// 이후 점 조명들을 하나로 모아서 배열의 값을 채워주는 메니저가 필요함
+											// 셰이더 코드에서도 구조체를 배열로 선언한 뒤 PS에서 for문으로 순회하며 조명값 더하기
+	}CB_POINTLIGHT;
+
+	typedef struct tagCBSpotLight
+	{
+		SpotLight			tSpotLight;
+	}CB_SPOTLIGHT;
 
 }
 

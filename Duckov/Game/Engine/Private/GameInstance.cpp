@@ -30,6 +30,10 @@ HRESULT CGameInstance::Initialize_Engine(const ENGINE_DESC& EngineDesc, _Out_ Co
 	if (m_pCamera_Manager == nullptr)
 		return E_FAIL;
 
+	m_pLight_Manager = CLight_Manager::Create();
+	if (m_pLight_Manager == nullptr)
+		return E_FAIL;
+
 	return S_OK;
 }
 
@@ -53,12 +57,15 @@ void CGameInstance::Update_Engine(f32_t fDeltaTime)
 {
 	m_pObject_Manager->Priority_Update(fDeltaTime);
 	m_pCamera_Manager->Priority_Update(fDeltaTime);
+	m_pLight_Manager->Priority_Update(fDeltaTime);
 
 	m_pObject_Manager->Update(fDeltaTime);
 	m_pCamera_Manager->Update(fDeltaTime);
+	m_pLight_Manager->Update(fDeltaTime);
 
 	m_pCamera_Manager->Late_Update(fDeltaTime);
 	m_pObject_Manager->Late_Update(fDeltaTime);
+	m_pLight_Manager->Late_Update(fDeltaTime);
 
 	m_pLevel_Manager->Update(fDeltaTime);
 }
@@ -154,26 +161,22 @@ shared_ptr<CCamera> CGameInstance::Get_MainCamera(const wstring_t& strCameraTag)
 {
 	return m_pCamera_Manager->Get_MainCamera(strCameraTag);
 }
-void CGameInstance::Priority_Update(f32_t fDeltaTime)
+#pragma endregion
+
+#pragma region LIGHT_MANGER
+void CGameInstance::AddLight(const wstring_t& strLightTag, shared_ptr<CLight> pLight)
 {
-	m_pCamera_Manager->Priority_Update(fDeltaTime);
+	m_pLight_Manager->AddLight(strLightTag, pLight);
 }
-void CGameInstance::Update(f32_t fDeltaTime)
+shared_ptr<CLight> CGameInstance::Find_Light(const wstring_t& strLightTag)
 {
-	m_pCamera_Manager->Update(fDeltaTime);
-}
-void CGameInstance::Late_Update(f32_t fDeltaTime)
-{
-	m_pCamera_Manager->Late_Update(fDeltaTime);
-}
-HRESULT CGameInstance::Bind()
-{
-	return m_pCamera_Manager->Bind();
+	return m_pLight_Manager->Find_Light(strLightTag);
 }
 #pragma endregion
 
 void CGameInstance::Release_Engine()
 {
+	m_pLight_Manager.reset();
 	m_pLevel_Manager.reset();
 	m_pCamera_Manager.reset();
 	m_pObject_Manager.reset();

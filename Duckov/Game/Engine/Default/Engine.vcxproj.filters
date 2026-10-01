@@ -49,6 +49,21 @@
     <Filter Include="05. GameObject\Manager\Layer">
       <UniqueIdentifier>{47efc82e-da10-48a0-b028-0a42c53d2050}</UniqueIdentifier>
     </Filter>
+    <Filter Include="08. Light">
+      <UniqueIdentifier>{2275e296-f666-4f6f-88a7-5ec3bb88b248}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Light\01. PointLight">
+      <UniqueIdentifier>{1e1a3983-23e8-4bb0-94d2-0616a94374b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Light\02. DirectionalLight">
+      <UniqueIdentifier>{221ee111-a3b0-4d28-881a-285094942740}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Light\03. SpotLight">
+      <UniqueIdentifier>{3b2d2e0d-eebf-471a-92b1-1878e8447eb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Light\00. Manager">
+      <UniqueIdentifier>{16caa894-e5f1-4ff2-ad29-125f69aec517}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Engine_Defines.h">
@@ -111,6 +126,21 @@
     <ClInclude Include="..\public\Camera_Manager.h">
       <Filter>07. Camera\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\PointLight.h">
+      <Filter>08. Light\01. PointLight</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Light.h">
+      <Filter>08. Light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Light_Manager.h">
+      <Filter>08. Light\00. Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\DirectionalLight.h">
+      <Filter>08. Light\02. DirectionalLight</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\SpotLight.h">
+      <Filter>08. Light\03. SpotLight</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Timer.cpp">
@@ -154,6 +184,21 @@
     </ClCompile>
     <ClCompile Include="..\private\Camera_Manager.cpp">
       <Filter>07. Camera\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\PointLight.cpp">
+      <Filter>08. Light\01. PointLight</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Light.cpp">
+      <Filter>08. Light</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Light_Manager.cpp">
+      <Filter>08. Light\00. Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\DirectionalLight.cpp">
+      <Filter>08. Light\02. DirectionalLight</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\SpotLight.cpp">
+      <Filter>08. Light\03. SpotLight</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

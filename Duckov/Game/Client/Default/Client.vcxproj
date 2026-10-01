@@ -146,6 +146,8 @@
     <ClInclude Include="..\public\Loader.h" />
     <ClInclude Include="..\Public\MainApp.h" />
     <ClInclude Include="..\public\Player.h" />
+    <ClInclude Include="..\public\Player_PointLight.h" />
+    <ClInclude Include="..\public\Player_SpotLight.h" />
     <ClInclude Include="..\public\QuarterView_Cam.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="framework.h" />
@@ -156,6 +158,8 @@
     <ClCompile Include="..\private\BackGround.cpp" />
     <ClCompile Include="..\private\Loader.cpp" />
     <ClCompile Include="..\private\Player.cpp" />
+    <ClCompile Include="..\private\Player_PointLight.cpp" />
+    <ClCompile Include="..\private\Player_SpotLight.cpp" />
     <ClCompile Include="..\Private\QuarterView_Cam.cpp" />
     <ClCompile Include="..\Private\Cube.cpp" />
     <ClCompile Include="..\Private\Hill.cpp" />
