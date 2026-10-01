@@ -36,14 +36,6 @@ void CQuarterView_Cam::Late_Update(f32_t fDeltaTime)
 	__super::Late_Update(fDeltaTime);
 }
 
-HRESULT CQuarterView_Cam::Render()
-{
-	if (FAILED(__super::Render()))
-		return E_FAIL;
-	return S_OK;
-}
-
-
 shared_ptr<CQuarterView_Cam> CQuarterView_Cam::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
 {
 	auto pInstance = shared_ptr<CQuarterView_Cam>(new CQuarterView_Cam(pDevice, pContext));

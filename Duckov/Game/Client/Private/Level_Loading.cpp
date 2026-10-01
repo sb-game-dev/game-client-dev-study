@@ -1,5 +1,5 @@
-#include "Level_Loading.h"
 #include "Loader.h"
+#include "Level_Loading.h"
 #include "Level_Logo.h"
 #include "Level_GamePlay.h"
 
@@ -28,10 +28,7 @@ HRESULT CLevel_Loading::Initialize(LEVEL eNextLevel)
 
     return S_OK;
 }
-void CLevel_Loading::Priority_Update(f32_t fDeltaTime)
-{
-    __super::Priority_Update(fDeltaTime);
-}
+
 void CLevel_Loading::Update(f32_t fDeltaTime)
 {
     __super::Update(fDeltaTime);
@@ -54,11 +51,6 @@ void CLevel_Loading::Update(f32_t fDeltaTime)
         return;
     }
 
-}
-
-void CLevel_Loading::Late_Update(f32_t fDeltaTime)
-{
-    __super::Late_Update(fDeltaTime);
 }
 
 HRESULT CLevel_Loading::Render()

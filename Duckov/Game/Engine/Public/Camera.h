@@ -10,16 +10,16 @@ public:
 	virtual ~CCamera() = default;
 
 public:
-	virtual	HRESULT		Initialize();
-	virtual	void		Update(f32_t fDeltTime);
-	virtual	void		Late_Update(f32_t fDeltTime);
-	virtual HRESULT		Render();
+	virtual	HRESULT			Initialize();
+	virtual	void			Priority_Update(f32_t fDeltTime);
+	virtual	void			Update(f32_t fDeltTime);
+	virtual	void			Late_Update(f32_t fDeltTime);
 
-	const float4x4_t&	GetView()	{ return m_matView; }
-	const float4x4_t&	GetProj()	{ return m_matProj; }
-	const float3_t&		GetEye()	{ return m_vEye; }
+	const	float4x4_t&		GetView()	{ return m_matView; }
+	const	float4x4_t&		GetProj()	{ return m_matProj; }
+	const	float3_t&		GetEye()	{ return m_vEye; }
 
-	virtual HRESULT	Bind();
+	virtual HRESULT			Bind();
 
 protected:
 	ComPtr<ID3D11Device>				m_pDevice = { nullptr };

@@ -3,9 +3,6 @@
 CGameInstance::CGameInstance()
 {
 }
-CGameInstance::~CGameInstance()
-{
-}
 
 HRESULT CGameInstance::Initialize_Engine(const ENGINE_DESC& EngineDesc, _Out_ ComPtr<ID3D11Device>& pDevice, _Out_ ComPtr<ID3D11DeviceContext>& pContext)
 {
@@ -25,6 +22,14 @@ HRESULT CGameInstance::Initialize_Engine(const ENGINE_DESC& EngineDesc, _Out_ Co
 	if (m_pPrototype_Manager == nullptr)
 		return E_FAIL;
 
+	m_pObject_Manager = CObject_Manager::Create(EngineDesc.iNumLevels);
+	if (m_pObject_Manager == nullptr)
+		return E_FAIL;
+
+	m_pCamera_Manager = CCamera_Manager::Create();
+	if (m_pCamera_Manager == nullptr)
+		return E_FAIL;
+
 	return S_OK;
 }
 
@@ -40,33 +45,42 @@ HRESULT CGameInstance::Clear_DepthStencil_View()
 HRESULT CGameInstance::Clear_Resources(int32_t iCurrentLevel)
 {
 	m_pPrototype_Manager->Clear(iCurrentLevel);
+	m_pObject_Manager->Clear(iCurrentLevel);
 	return S_OK;
-}
-
-void CGameInstance::Priority_Update_Engine(f32_t fDeltaTime)
-{
-	m_pLevel_Manager->Priority_Update(fDeltaTime);
 }
 
 void CGameInstance::Update_Engine(f32_t fDeltaTime)
 {
-	m_pLevel_Manager->Update(fDeltaTime);
-}
+	m_pObject_Manager->Priority_Update(fDeltaTime);
+	m_pCamera_Manager->Priority_Update(fDeltaTime);
 
-void CGameInstance::Late_Update_Engine(f32_t fDeltaTime)
-{
-	m_pLevel_Manager->Late_Update(fDeltaTime);
+	m_pObject_Manager->Update(fDeltaTime);
+	m_pCamera_Manager->Update(fDeltaTime);
+
+	m_pCamera_Manager->Late_Update(fDeltaTime);
+	m_pObject_Manager->Late_Update(fDeltaTime);
+
+	m_pLevel_Manager->Update(fDeltaTime);
 }
 
 HRESULT CGameInstance::Draw()
 {
-	return m_pLevel_Manager->Render();
+	m_pCamera_Manager->Bind();
+
+	if (FAILED(m_pObject_Manager->Render()))
+		return E_FAIL;
+	
+	if (FAILED(m_pLevel_Manager->Render()))
+		return E_FAIL;
+
+	return S_OK;
 }
 
 HRESULT CGameInstance::Present()
 {
 	return m_pGraphic_Device->Present();
 }
+
 #pragma region LEVEL_MANAGER
 
 HRESULT CGameInstance::Change_Level(int32_t iNewLevelIndex, shared_ptr<CLevel> pNewLevel)
@@ -96,6 +110,8 @@ void CGameInstance::Update_TimeDelta(const wstring_t& strTimerTag)
 
 #pragma endregion
 
+#pragma region PROTOTYPE_MANAGER
+
 HRESULT CGameInstance::Add_Prototype(uint32_t iLevelIndex, const wstring_t& strPrototypeTag, shared_ptr<CPrototype> pPrototype)
 {
 	if (FAILED(m_pPrototype_Manager->Add_Prototype(iLevelIndex, strPrototypeTag, pPrototype)))
@@ -107,9 +123,61 @@ shared_ptr<CPrototype> CGameInstance::Clone_Prototype(uint32_t iLevelIndex, cons
 	return m_pPrototype_Manager->Clone_Prototype(iLevelIndex, strPrototypeTag, pArg);
 }
 
+#pragma endregion
+
+#pragma region OBJECT_MANAGER
+
+HRESULT CGameInstance::Add_GameObject(uint32_t iPrototypeLevelIndex, const wstring_t& strPrototypeTag, uint32_t iLayerLevelIndex, const wstring_t& strLayerTag, const wstring_t& strGameObjectTag, void* pArg)
+{
+	if (FAILED(m_pObject_Manager->Add_GameObject(iPrototypeLevelIndex, strPrototypeTag, iLayerLevelIndex, strLayerTag, strGameObjectTag, pArg)))
+		return E_FAIL;
+	return S_OK;
+}
+
+shared_ptr<CGameObject> CGameInstance::Find_GameObject(uint32_t iLayerLevelIndex, const wstring_t& strLayerTag, const wstring_t& strGameObjectTag)
+{
+	return m_pObject_Manager->Find_GameObject(iLayerLevelIndex,strLayerTag,strGameObjectTag);
+}
+
+#pragma endregion
+
+#pragma region CAMERA_MANAGER
+void CGameInstance::Add_Camera(const wstring_t& strCameraTag, shared_ptr<CCamera> pCamera)
+{
+	m_pCamera_Manager->Add_Camera(strCameraTag, pCamera);
+}
+void CGameInstance::Set_MainCamera(const wstring_t& strCameraTag)
+{
+	m_pCamera_Manager->Set_MainCamera(strCameraTag);
+}
+shared_ptr<CCamera> CGameInstance::Get_MainCamera(const wstring_t& strCameraTag)
+{
+	return m_pCamera_Manager->Get_MainCamera(strCameraTag);
+}
+void CGameInstance::Priority_Update(f32_t fDeltaTime)
+{
+	m_pCamera_Manager->Priority_Update(fDeltaTime);
+}
+void CGameInstance::Update(f32_t fDeltaTime)
+{
+	m_pCamera_Manager->Update(fDeltaTime);
+}
+void CGameInstance::Late_Update(f32_t fDeltaTime)
+{
+	m_pCamera_Manager->Late_Update(fDeltaTime);
+}
+HRESULT CGameInstance::Bind()
+{
+	return m_pCamera_Manager->Bind();
+}
+#pragma endregion
+
 void CGameInstance::Release_Engine()
 {
 	m_pLevel_Manager.reset();
+	m_pCamera_Manager.reset();
+	m_pObject_Manager.reset();
+	m_pPrototype_Manager.reset();
 	m_pTimer_Manager.reset();
 	m_pGraphic_Device.reset();
 }

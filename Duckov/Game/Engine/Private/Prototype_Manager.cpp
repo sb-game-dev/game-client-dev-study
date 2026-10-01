@@ -1,4 +1,5 @@
 #include "Prototype_Manager.h"
+#include "Prototype.h"
 
 CPrototype_Manager::CPrototype_Manager()
 {
@@ -23,7 +24,15 @@ HRESULT CPrototype_Manager::Add_Prototype(uint32_t iLevelIndex, const wstring_t&
 
 shared_ptr<CPrototype> CPrototype_Manager::Clone_Prototype(uint32_t iLevelIndex, const wstring_t& strPrototypeTag, void* pArg)
 {
-	return shared_ptr<CPrototype>();
+	auto        pPrototype = Find_Prototype(iLevelIndex, strPrototypeTag);
+	if (nullptr == pPrototype)
+		return nullptr;
+
+	auto        pCloneObject = pPrototype->Clone(pArg);
+	if (nullptr == pCloneObject)
+		return nullptr;
+
+	return pCloneObject;
 }
 
 void CPrototype_Manager::Clear(uint32_t iClearLevelIndex)
@@ -48,7 +57,12 @@ shared_ptr<CPrototype> CPrototype_Manager::Find_Prototype(uint32_t iLevelIndex, 
 unique_ptr<CPrototype_Manager> CPrototype_Manager::Create(uint32_t iNumLevels)
 {
 	auto pInstance = unique_ptr<CPrototype_Manager> (new CPrototype_Manager());
+
 	if (FAILED(pInstance->Initialize(iNumLevels)))
+	{
+		MSG_BOX("Failed to Created : CObject_Manager");
 		pInstance.reset();
+	}
+
 	return pInstance;
 }

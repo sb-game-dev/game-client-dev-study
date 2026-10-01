@@ -14,11 +14,8 @@ public:
 
 public:
 	HRESULT		Initialize();
-	void		Priority_Update(f32_t fDeltaTime);
 	void		Update(f32_t fDeltaTime);
-	void		Late_Update(f32_t fDeltaTime);
 	HRESULT		Render();
-
 
 private:
 	ComPtr<ID3D11Device>				m_pDevice = { nullptr };

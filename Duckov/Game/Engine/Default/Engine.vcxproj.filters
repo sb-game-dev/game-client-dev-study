@@ -108,6 +108,9 @@
     <ClInclude Include="..\public\Layer.h">
       <Filter>05. GameObject\Manager\Layer</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\Camera_Manager.h">
+      <Filter>07. Camera\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Timer.cpp">
@@ -148,6 +151,9 @@
     </ClCompile>
     <ClCompile Include="..\private\Layer.cpp">
       <Filter>05. GameObject\Manager\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Camera_Manager.cpp">
+      <Filter>07. Camera\Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

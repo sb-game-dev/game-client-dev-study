@@ -18,9 +18,11 @@ HRESULT CCamera::Initialize()
 		return E_FAIL;
 	return S_OK;
 }
+void CCamera::Priority_Update(f32_t fDeltTime)
+{
+}
 void CCamera::Update(f32_t fDeltTime)
 {
-
 }
 void CCamera::Late_Update(f32_t fDeltTime)
 {
@@ -29,10 +31,6 @@ void CCamera::Late_Update(f32_t fDeltTime)
 
 	XMStoreFloat4x4(&m_matView, matView);
 	XMStoreFloat4x4(&m_matProj, matProj);
-}
-HRESULT CCamera::Render()
-{
-	return S_OK;
 }
 
 HRESULT CCamera::Bind()

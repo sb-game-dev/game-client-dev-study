@@ -18,22 +18,10 @@ HRESULT CLevel_Manager::Change_Level(int32_t iNewLevelIndex, shared_ptr<CLevel> 
 	return S_OK;
 }
 
-void CLevel_Manager::Priority_Update(f32_t fTimeDelta)
-{
-	if (nullptr != m_pCurrentLevel)
-		m_pCurrentLevel->Priority_Update(fTimeDelta);
-}
-
 void CLevel_Manager::Update(f32_t fTimeDelta)
 {
 	if (nullptr != m_pCurrentLevel)
 		m_pCurrentLevel->Update(fTimeDelta);
-}
-
-void CLevel_Manager::Late_Update(f32_t fTimeDelta)
-{
-	if (nullptr != m_pCurrentLevel)
-		m_pCurrentLevel->Late_Update(fTimeDelta);
 }
 
 HRESULT CLevel_Manager::Render()

@@ -70,17 +70,10 @@ HRESULT CMainApp::Initialize()
 
     return S_OK;
 }
-void CMainApp::Priority_Update(f32_t fDeltaTime)
-{
-    CGameInstance::Get().Priority_Update_Engine(fDeltaTime);
-}
+
 void CMainApp::Update(f32_t fDeltaTime)
 {
     CGameInstance::Get().Update_Engine(fDeltaTime);
-}
-void CMainApp::Late_Update(f32_t fDeltaTime)
-{
-    CGameInstance::Get().Late_Update_Engine(fDeltaTime);
 }
 
 HRESULT CMainApp::Render()
