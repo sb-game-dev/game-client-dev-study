@@ -50,6 +50,6 @@ protected:
 	f32_t				m_fSpeed = 1.f;
 
 public:
-	virtual shared_ptr<CPrototype> Clone(void* pArg) = 0;
+	virtual shared_ptr<CPrototype> Clone(void* pArg) PURE;
 };
 NS_END

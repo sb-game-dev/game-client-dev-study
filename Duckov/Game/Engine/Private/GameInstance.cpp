@@ -96,6 +96,17 @@ void CGameInstance::Update_TimeDelta(const wstring_t& strTimerTag)
 
 #pragma endregion
 
+HRESULT CGameInstance::Add_Prototype(uint32_t iLevelIndex, const wstring_t& strPrototypeTag, shared_ptr<CPrototype> pPrototype)
+{
+	if (FAILED(m_pPrototype_Manager->Add_Prototype(iLevelIndex, strPrototypeTag, pPrototype)))
+		return E_FAIL;
+	return S_OK;
+}
+shared_ptr<CPrototype> CGameInstance::Clone_Prototype(uint32_t iLevelIndex, const wstring_t& strPrototypeTag, void* pArg)
+{
+	return m_pPrototype_Manager->Clone_Prototype(iLevelIndex, strPrototypeTag, pArg);
+}
+
 void CGameInstance::Release_Engine()
 {
 	m_pLevel_Manager.reset();

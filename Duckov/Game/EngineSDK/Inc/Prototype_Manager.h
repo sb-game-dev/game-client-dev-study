@@ -1,6 +1,9 @@
 #pragma once
 #include "Engine_Defines.h"
 NS_BEGIN(Engine)
+
+/* 1. 레벨별로 원형객체들을 모아서 관리한다.  */
+/* 2.원형객체를 복제하여 사본객체를 생성해준다. */
 class CPrototype;
 class CPrototype_Manager final
 {

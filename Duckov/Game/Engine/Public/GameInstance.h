@@ -35,6 +35,12 @@ public:
 	HRESULT			Draw();
 	HRESULT			Present();
 
+#pragma region PROTOTYPE_MANAGER
+public:
+	HRESULT Add_Prototype(uint32_t iLevelIndex, const wstring_t& strPrototypeTag, shared_ptr<CPrototype> pPrototype);
+	shared_ptr<CPrototype> Clone_Prototype(uint32_t iLevelIndex, const wstring_t& strPrototypeTag, void* pArg = nullptr);
+#pragma endregion
+
 #pragma region LEVEL_MANAGER
 public:
 	HRESULT			Change_Level(int32_t iNewLevelIndex, shared_ptr<CLevel> pNewLevel);

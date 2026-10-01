@@ -43,6 +43,8 @@ shared_ptr<CPrototype> CPrototype_Manager::Find_Prototype(uint32_t iLevelIndex, 
 	return Pair->second;
 }
 
+
+
 unique_ptr<CPrototype_Manager> CPrototype_Manager::Create(uint32_t iNumLevels)
 {
 	auto pInstance = unique_ptr<CPrototype_Manager> (new CPrototype_Manager());

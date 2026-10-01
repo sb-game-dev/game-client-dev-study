@@ -1,4 +1,5 @@
 #include "Loader.h"
+#include "BackGround.h"
 CLoader::CLoader(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     : m_pDevice{pDevice}
     , m_pContext{ pContext }
@@ -86,8 +87,8 @@ HRESULT CLoader::Loading_For_LogoLV()
         uint32_t iData = 10;
 
     lstrcpy(m_szLoadingText, TEXT("객체원형 준비중입니다."));
-    for (uint32_t i = 0; i < 99999999; i++)
-        uint32_t iData = 10;
+    CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOGO), TEXT("Prototype_GameObejct_BackGround"),
+        CBackGround::Create(m_pDevice, m_pContext));
 
     lstrcpy(m_szLoadingText, TEXT("로딩이 완료되었습니다."));
 
