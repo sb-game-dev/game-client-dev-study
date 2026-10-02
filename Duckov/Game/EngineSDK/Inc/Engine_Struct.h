@@ -117,13 +117,13 @@ namespace Engine
 		float4_t	Diffuse;
 		float4_t	Specular;
 
-		float3_t	Position;
-		f32_t		Range;
+		float3_t	Position;		// 빛의 시작점
+		f32_t		Range;			// 빛의 적용 범위
 
-		float3_t	Direction;
-		f32_t		Spot;
+		float3_t	Direction;		// 방향
+		f32_t		Spot;			// 각도 조절
 
-		float3_t	Att;
+		float3_t	Att;			// 감쇠
 		f32_t		Pad;
 	};
 

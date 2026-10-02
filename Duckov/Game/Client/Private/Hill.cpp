@@ -59,7 +59,7 @@ HRESULT CHill::Initialize_Prototype()
             k += 6;
         }
     }
-    m_iIndexCnt = m_tMeshData.Indices.size();
+    m_iIndexCnt = uint32_t(m_tMeshData.Indices.size());
     vector<VTXNORM> vertices(m_tMeshData.Vertices.size());
     for (size_t i = 0; i < m_tMeshData.Vertices.size(); ++i)
     {
@@ -85,7 +85,7 @@ HRESULT CHill::Initialize_Prototype()
     m_tMaterial.Specular = float4_t(0.2f, 0.2f, 0.2f, 16.f);   // w = ±¤ÅÃ Áö¼ö, 0ÀÌ¸é ¾È µÊ
 
     D3D11_BUFFER_DESC   VBDesc{}; 
-    VBDesc.ByteWidth = sizeof(VTXNORM) * m_tMeshData.Vertices.size();
+    VBDesc.ByteWidth = uint32_t(sizeof(VTXNORM) * m_tMeshData.Vertices.size());
     VBDesc.Usage = D3D11_USAGE_IMMUTABLE;
     VBDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 

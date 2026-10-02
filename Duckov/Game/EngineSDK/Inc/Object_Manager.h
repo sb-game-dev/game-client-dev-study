@@ -17,11 +17,11 @@ public:
 	HRESULT	Add_GameObject(uint32_t iPrototypeLevelIndex, const wstring_t& strPrototypeTag, 
 						   uint32_t iLayerLevelIndex,	  const wstring_t& strLayerTag, const wstring_t& strGameObjectTag, void* pArg = nullptr);
 	
-	void	Priority_Update(f32_t fDeltaTime);
-	void	Update(f32_t fDeltaTime);
-	void	Late_Update(f32_t fDeltaTime);
-	HRESULT	Render();
-	void	Clear(uint32_t iClearLevelIndex);
+	void		Priority_Update(f32_t fDeltaTime);
+	void		Update(f32_t fDeltaTime);
+	void		Late_Update(f32_t fDeltaTime);
+	HRESULT		Render();
+	void		Clear(uint32_t iClearLevelIndex);
 
 	shared_ptr<CGameObject>			Find_GameObject(uint32_t iLayerLevelIndex, const wstring_t& strLayerTag, const wstring_t& strGameObjectTag);
 	//vector<shared_ptr<CGameObject>> Find_GameObjects(uint32_t iLayerLevelIndex, const wstring_t& strLayerTag, const wstring_t& strGameObjectTag);

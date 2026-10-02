@@ -24,6 +24,7 @@ HRESULT	 CPlayer_SpotLight::Initialize()
 
     if (FAILED(m_pDevice->CreateBuffer(&LightCBDesc, nullptr, &m_pLightCB)))
         return E_FAIL;
+    return S_OK;
 }
 
 void CPlayer_SpotLight::Priority_Update(f32_t fDeltaTime)
