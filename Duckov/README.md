@@ -1154,3 +1154,581 @@ float4 PS_MAIN(VS_OUT In) : SV_TARGET
 ```
 
 </details>
+
+### Chapter7. DX11 조명2 - 조명 클래스 및 조명 매니저
+
+<details>
+	<summary> 1. 조명 클래스  </summary>
+
+> 조명 클래스 CLight.h
+
+```cpp
+#pragma once
+#include "Engine_Defines.h"
+NS_BEGIN(Engine)
+class ENGINE_DLL CLight abstract
+{
+protected:
+	CLight(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
+public:
+	~CLight() = default;
+
+public:
+	virtual void	Priority_Update(f32_t fDeltaTime) PURE;
+	virtual void	Update(f32_t fDeltaTime) PURE;
+	// LateUpdate에서 상수버퍼 Binding을 하는 구조
+	virtual void	Late_Update(f32_t fDeltaTime) PURE;
+
+protected:
+	ComPtr<ID3D11Device>		m_pDevice = { nullptr };
+	ComPtr<ID3D11DeviceContext> m_pContext = { nullptr };
+
+	// PointLight or SpotLight, DirectionalLight 중 하나의 정보를 저장할 상수버퍼
+	ComPtr<ID3D11Buffer>		m_pLightCB = { nullptr };
+};
+NS_END
+```
+
+> PointLight.h
+
+```cpp
+#pragma once
+#include "Engine_Defines.h"
+#include "Light.h"
+NS_BEGIN(Engine)
+
+class ENGINE_DLL CPointLight abstract : public CLight
+{
+protected:
+	CPointLight(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
+public:
+	~CPointLight() = default;
+
+public:
+	virtual void	Priority_Update(f32_t fDeltaTime) PURE;
+	virtual void	Update(f32_t fDeltaTime) PURE;
+	virtual void	Late_Update(f32_t fDeltaTime) PURE;
+
+protected:
+	PointLight				m_tPointLight = {};
+};
+NS_END
+
+```
+
+> DirectionalLight
+
+```cpp
+#pragma once
+#include "Engine_Defines.h"
+#include "Light.h"
+
+NS_BEGIN(Engine)
+
+class ENGINE_DLL CDirectionalLight abstract : public CLight
+{
+protected:
+	CDirectionalLight(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
+public:
+	~CDirectionalLight() = default;
+
+public:
+	virtual void	Priority_Update(f32_t fDeltaTime) PURE;
+	virtual void	Update(f32_t fDeltaTime) PURE;
+	virtual void	Late_Update(f32_t fDeltaTime) PURE;
+
+protected:
+	DirectionalLight				m_tDirectionalLight = {};
+};
+
+NS_END
+```
+
+> SpotLight
+
+```cpp
+#pragma once
+#include "Engine_Defines.h"
+#include "Light.h"
+NS_BEGIN(Engine)
+
+class ENGINE_DLL CSpotLight abstract : public CLight
+{
+protected:
+	CSpotLight(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
+public:
+	~CSpotLight() = default;
+
+public:
+	virtual void	Priority_Update(f32_t fDeltaTime) PURE;
+	virtual void	Update(f32_t fDeltaTime) PURE;
+	virtual void	Late_Update(f32_t fDeltaTime) PURE;
+
+protected:
+	SpotLight				m_tSpotLight = {};
+};
+
+NS_END
+```
+</details>
+
+<details>
+	<summary> 2. Light_Manager </summary>
+
+> Light_Manager
+
+- 각 Light들을 맵 컨테이너로 보관.
+- 맵 컨테이너를 순회하면서 Update 3가지를 호출.
+- GameInstnace를 통해 접근
+
+```cpp
+#pragma once
+#include "Engine_Defines.h"
+NS_BEGIN(Engine)
+class CLight;
+class CLight_Manager
+{
+private:
+	CLight_Manager();
+public:
+	~CLight_Manager() = default;
+
+public:
+	void	Priority_Update(f32_t fDeltaTime) ;
+	void	Update(f32_t fDeltaTime) ;
+	void	Late_Update(f32_t fDeltaTime) ;
+
+	void	AddLight(const wstring_t& strLightTag, shared_ptr<CLight> pLight);
+	shared_ptr<CLight> Find_Light(const wstring_t& strLightTag);
+private:
+	map<const wstring_t, shared_ptr<CLight>> m_Lights;
+
+public:
+	static unique_ptr<CLight_Manager> Create();
+};
+
+NS_END
+```
+
+</details>
+
+
+
+### Chapter7. DX11 조명3 - 스포트라이트 조명
+
+<details>
+	<summary> 1. 스포트라이트 조명 구조체  </summary>
+
+- 점 조명과의 다른 점은 spot,Dirction 요소가 추가된 점이다.
+- spot이란 spotLight의 각도를 조절하는 변수
+- Diffuse, Specular에 곱해지는 상수에 사용되는 변수
+- spot값이 클 수록 spotLight 각도가 줄어듦.
+- Direction은 빛의 방향을 의미한다.
+
+> c++ 구조체
+
+```cpp
+
+	struct SpotLight
+	{
+		SpotLight() { ZeroMemory(this, sizeof(*this)); }
+
+		float4_t	Ambient;
+		float4_t	Diffuse;
+		float4_t	Specular;
+
+		float3_t	Position;		// 빛의 시작점
+		f32_t		Range;			// 빛의 적용 범위
+
+		float3_t	Direction;		// 방향
+		f32_t		Spot;			// 각도 조절
+
+		float3_t	Att;			// 감쇠
+		f32_t		Pad;
+	};
+	typedef struct tagCBSpotLight
+	{
+		SpotLight			tSpotLight;
+	}CB_SPOTLIGHT;
+
+```
+
+> hlsl코드
+
+```cpp
+
+struct SpotLight
+{
+    float4 Ambient;
+    float4 Diffuse;
+    float4 Specular;
+    
+    float3 Position;
+    float Range;
+    
+    float3 Direction;
+    float  Spot;
+    
+    float3 Att;
+    float Pad;
+};
+
+cbuffer cbSpotLight : register(b4) // PS 4번 버퍼에 바인드할 예정
+{
+    SpotLight           g_SpotLight;
+}
+
+void ComputeSpotLight(Material mat, SpotLight L, float3 pos, float3 normal, float3 toEye,
+				  out float4 ambient, out float4 diffuse, out float4 spec)
+{
+	// Initialize outputs.
+    ambient = float4(0.0f, 0.0f, 0.0f, 0.0f);
+    diffuse = float4(0.0f, 0.0f, 0.0f, 0.0f);
+    spec = float4(0.0f, 0.0f, 0.0f, 0.0f);
+
+	// The vector from the surface to the light.
+    float3 lightVec = L.Position - pos;
+		
+	// The distance from surface to light.
+    float d = length(lightVec);
+	
+	// Range test.
+    if (d > L.Range)
+        return;
+		
+	// Normalize the light vector.
+    lightVec /= d;
+	
+	// Ambient term.
+    ambient = mat.Ambient * L.Ambient;
+
+	// Add diffuse and specular term, provided the surface is in 
+	// the line of site of the light.
+
+    float diffuseFactor = dot(lightVec, normal);
+
+	// Flatten to avoid dynamic branching.
+	[flatten]
+    if (diffuseFactor > 0.0f)
+    {
+        float3 v = reflect(-lightVec, normal);
+        float specFactor = pow(max(dot(v, toEye), 0.0f), mat.Specular.w);
+					
+        diffuse = diffuseFactor * mat.Diffuse * L.Diffuse;
+        spec = specFactor * mat.Specular * L.Specular;
+    }
+	
+	// Scale by spotlight factor and attenuate.
+    float spot = pow(max(dot(-lightVec, L.Direction), 0.0f), L.Spot);
+
+	// Scale by spotlight factor and attenuate.
+    float att = spot / dot(L.Att, float3(1.0f, d, d * d));
+
+    ambient *= spot;
+    diffuse *= att;
+    spec *= att;
+}
+```
+
+</details>
+
+<details>
+	<summary> 2. Player_SpotLight 클래스 </summary>
+
+- Initialize() 함수에서 기본으로 설정해야할 A,D,S 등의 값을 설정
+- Update()에서 플레이어의 위치를 받아서 Position값 설정
+- Late_Update()에서 상수버퍼를 채우고 픽셀 셰이더의 상수버퍼를 채워준다.
+
+> Player_SportLight.h
+
+```cpp
+#pragma once
+#include "Client_Defines.h"
+#include "SpotLight.h"
+NS_BEGIN(Client)
+class CPlayer_SpotLight : public CSpotLight
+{
+private:
+	CPlayer_SpotLight(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext>pContext);
+public:
+	~CPlayer_SpotLight() = default;
+
+public:
+	HRESULT		 Initialize();
+	virtual void Priority_Update(f32_t fDeltaTime) override;
+	virtual void Update(f32_t fDeltaTime) override;
+	virtual void Late_Update(f32_t fDeltaTime) override;
+
+	void	SetPlayer(shared_ptr<class CGameObject> pPlayer) { m_pPlayer = pPlayer; }
+
+private:
+	shared_ptr<class CGameObject> m_pPlayer;
+
+public:
+	static shared_ptr<CPlayer_SpotLight> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext>pContext);
+
+};
+
+NS_END
+```
+
+> Player_SportLight.cpp
+
+```cpp
+#include "Player_SpotLight.h"
+#include "GameObject.h"
+
+CPlayer_SpotLight::CPlayer_SpotLight(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
+    : CSpotLight{ pDevice,pContext }
+{
+}
+
+HRESULT	 CPlayer_SpotLight::Initialize()
+{
+    // 스포트라이트 조명 구조체 초기화
+    m_tSpotLight.Ambient = float4_t(0.3f, 0.3f, 0.3f, 1.f);
+    m_tSpotLight.Diffuse = float4_t(0.7f, 0.7f, 0.7f, 1.f);
+    m_tSpotLight.Specular = float4_t(0.7f, 0.7f, 0.7f, 1.f);
+    m_tSpotLight.Att = float3_t(1.f, 0.1f, 0.05f);   // a0 = 1: 가까워도 과노출 안 됨
+    m_tSpotLight.Range = 100.f;
+    m_tSpotLight.Spot = 10.f;   // 원뿔이 얼마나 좁은지 정하는 지수
+
+    // 스포트라이트 조명 상수 버퍼 생성
+    D3D11_BUFFER_DESC LightCBDesc{};
+    LightCBDesc.ByteWidth = sizeof(CB_SPOTLIGHT);
+    LightCBDesc.Usage = D3D11_USAGE_DEFAULT;
+    LightCBDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+
+    if (FAILED(m_pDevice->CreateBuffer(&LightCBDesc, nullptr, &m_pLightCB)))
+        return E_FAIL;
+    return S_OK;
+}
+
+void CPlayer_SpotLight::Priority_Update(f32_t fDeltaTime)
+{
+}
+
+void CPlayer_SpotLight::Update(f32_t fDeltaTime)
+{
+}
+
+void CPlayer_SpotLight::Late_Update(f32_t fDeltaTime)
+{
+    // 스포트라이트 조명 위치, 방향 초기화
+    float3_t vPos = m_pPlayer->GetInfo(INFO::POS);
+    m_tSpotLight.Position = float3_t(vPos.x, vPos.y + 2.f, vPos.z);
+    m_tSpotLight.Direction = m_pPlayer->GetInfo(INFO::LOOK);
+
+    // 조명 상수 버퍼 채우기
+    CB_SPOTLIGHT cbLight;
+    cbLight.tSpotLight = m_tSpotLight;
+
+    // 갱신하고 PS b4에 꽂기
+    m_pContext->UpdateSubresource(m_pLightCB.Get(), 0, nullptr, &cbLight, 0, 0);
+    m_pContext->PSSetConstantBuffers(4, 1, m_pLightCB.GetAddressOf());
+}
+
+shared_ptr<CPlayer_SpotLight> CPlayer_SpotLight::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
+{
+    auto pInstance = shared_ptr<CPlayer_SpotLight>(new CPlayer_SpotLight(pDevice, pContext));
+    if (FAILED(pInstance->Initialize()))
+    {
+        MSG_BOX("Create Fail : CPlayer_SpotLight");
+        pInstance.reset();
+    }
+    return pInstance;
+}
+
+```
+
+</details>
+
+### Chapter7. DX11 조명4 - 방향성 조명
+
+<details>
+	<summary> 1. 방향성 조명 구조체 </summary>
+
+> c++ 구조체
+
+```cpp
+	struct DirectionalLight
+	{
+		DirectionalLight() { ZeroMemory(this, sizeof(*this)); }
+
+		float4_t	Ambient;
+		float4_t	Diffuse;
+		float4_t	Specular;
+		float3_t	Direction;
+		f32_t		Pad;
+	};
+
+	typedef struct tagCBDirLight
+	{
+		DirectionalLight			tDirLight;
+	}CB_DIRLIGHT;
+
+```
+
+> hlsl 구조체
+
+```cpp
+
+struct DirectionalLight
+{
+    float4 Ambient;
+    float4 Diffuse;
+    float4 Specular;
+    float3 Direction;
+    float pad;
+};
+
+cbuffer cbDirLight : register(b3)
+{
+    DirectionalLight    g_DirLight;
+}
+
+void ComputeDirectionalLight(Material mat, DirectionalLight L,
+                             float3 normal, float3 toEye,
+					         out float4 ambient,
+						     out float4 diffuse,
+						     out float4 spec)
+{
+	// Initialize outputs.
+    ambient = float4(0.0f, 0.0f, 0.0f, 0.0f);
+    diffuse = float4(0.0f, 0.0f, 0.0f, 0.0f);
+    spec = float4(0.0f, 0.0f, 0.0f, 0.0f);
+
+	// The light vector aims opposite the direction the light rays travel.
+    float3 lightVec = -L.Direction;
+
+	// Add ambient term.
+    ambient = mat.Ambient * L.Ambient;
+
+	// Add diffuse and specular term, provided the surface is in 
+	// the line of site of the light.
+	
+    float diffuseFactor = dot(lightVec, normal);
+
+	// Flatten to avoid dynamic branching.
+	[flatten]
+    if (diffuseFactor > 0.0f)
+    {
+        float3 v = reflect(-lightVec, normal);
+        float specFactor = pow(max(dot(v, toEye), 0.0f), mat.Specular.w);
+					
+        diffuse = diffuseFactor * mat.Diffuse * L.Diffuse;
+        spec = specFactor * mat.Specular * L.Specular;
+    }
+}
+```
+</details>
+
+<details>
+	<summary> 2. SunLight 클래스 </summary>
+
+- 태양의 조명이라고 생각할 수 있는 조명
+- 방향만이 주요 변수
+
+> SunLight.h
+
+```cpp
+#pragma once
+#include "Client_Defines.h"
+#include "DirectionalLight.h"
+NS_BEGIN(Client)
+class CSunLight : public CDirectionalLight
+{
+private:
+	CSunLight(ComPtr<ID3D11Device>pDevice, ComPtr<ID3D11DeviceContext> pContext);
+public:
+	~CSunLight() = default;
+
+public:
+	HRESULT		 Initialize();
+	void		 Priority_Update(f32_t fDeltaTime) override;
+	void		 Update(f32_t fDeltaTime) override;
+	void		 Late_Update(f32_t fDeltaTime) override;
+
+public:
+	static shared_ptr<CSunLight> Create(ComPtr<ID3D11Device>pDevice, ComPtr<ID3D11DeviceContext> pContext);
+};
+
+NS_END	
+```
+
+> SunLight.cpp
+
+```cpp
+#include "SunLight.h"
+
+CSunLight::CSunLight(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
+	:CDirectionalLight(pDevice,pContext)
+{
+}
+
+HRESULT CSunLight::Initialize()
+{
+	// 방향성 조면 구조체 생성
+	m_tDirectionalLight.Ambient		= XMFLOAT4(0.1f, 0.1f, 0.1f, 1.0f);
+	m_tDirectionalLight.Diffuse		= XMFLOAT4(0.25f, 0.25f, 0.25f, 1.0f);
+	m_tDirectionalLight.Specular	= XMFLOAT4(0.25f, 0.25f, 0.25f, 1.0f);
+	m_tDirectionalLight.Direction	= XMFLOAT3(0.5f, -0.5f, 0.5f);
+
+	// 방향성 조명 상수 버퍼 생성
+	D3D11_BUFFER_DESC LightCBDesc{};
+	LightCBDesc.ByteWidth = sizeof(CB_SPOTLIGHT);
+	LightCBDesc.Usage = D3D11_USAGE_DEFAULT;
+	LightCBDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+
+	if (FAILED(m_pDevice->CreateBuffer(&LightCBDesc, nullptr, &m_pLightCB)))
+		return E_FAIL;
+	return S_OK;
+}
+
+void CSunLight::Priority_Update(f32_t fDeltaTime)
+{
+}
+
+void CSunLight::Update(f32_t fDeltaTime)
+{
+}
+
+void CSunLight::Late_Update(f32_t fDeltaTime)
+{
+	// 조명 상수 버퍼 채우기
+	CB_DIRLIGHT cbLight;
+	cbLight.tDirLight = m_tDirectionalLight;
+
+	// 갱신하고 PS b3에 꽂기
+	m_pContext->UpdateSubresource(m_pLightCB.Get(), 0, nullptr, &cbLight, 0, 0);
+	m_pContext->PSSetConstantBuffers(3, 1, m_pLightCB.GetAddressOf());
+}
+
+shared_ptr<CSunLight> CSunLight::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
+{
+	auto pInstance = shared_ptr<CSunLight>(new CSunLight(pDevice,pContext));
+	if (FAILED(pInstance->Initialize()))
+	{
+		MSG_BOX("Create Failed : CSunLight");
+		pInstance.reset();
+	}
+	return pInstance;
+}
+
+```
+
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
