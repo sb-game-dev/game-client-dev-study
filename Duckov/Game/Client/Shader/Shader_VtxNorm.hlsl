@@ -59,6 +59,19 @@ VS_OUT VS_MAIN(VS_IN In)
     return Out;
 }
 
+float4 GetHeightColor(float y)
+{
+    if (y < -10.f)
+        return float4(1.0f, 0.96f, 0.62f, 1.f); // 모래
+    if (y < 5.f)
+        return float4(0.48f, 0.77f, 0.46f, 1.f); // 연한 풀
+    if (y < 12.f)
+        return float4(0.1f, 0.48f, 0.19f, 1.f); // 진한 풀
+    if (y < 20.f)
+        return float4(0.45f, 0.39f, 0.34f, 1.f); // 바위
+    return float4(1.f, 1.f, 1.f, 1.f); // 눈
+}
+
 float4 PS_MAIN(VS_OUT In) : SV_TARGET //몇 번째 렌더타겟에 색을 쓸지
 {
     float3 vNormal = normalize(In.vNormalW);
@@ -67,16 +80,22 @@ float4 PS_MAIN(VS_OUT In) : SV_TARGET //몇 번째 렌더타겟에 색을 쓸지
     float4 vAmbient, vDiffuse, vSpec;
     float4 vColor = float4(0.f, 0.f, 0.f, 0.f);
     
-    ComputePointLight(g_Material, g_PointLight, In.vPosW, vNormal, vToEye, vAmbient, vDiffuse, vSpec);
+    // 높이에 따라 머티리얼 색만 교체 (Specular는 cbuffer 값 그대로)
+    Material tMtrl = g_Material;
+    float4 vHeightColor = GetHeightColor(In.vPosW.y);
+    tMtrl.Ambient = vHeightColor;
+    tMtrl.Diffuse = vHeightColor;
+    
+    ComputePointLight(tMtrl, g_PointLight, In.vPosW, vNormal, vToEye, vAmbient, vDiffuse, vSpec);
     vColor += vAmbient + vDiffuse + vSpec;
     
-    ComputeDirectionalLight(g_Material, g_DirLight, vNormal, vToEye, vAmbient, vDiffuse, vSpec);
+    ComputeDirectionalLight(tMtrl, g_DirLight, vNormal, vToEye, vAmbient, vDiffuse, vSpec);
     vColor += vAmbient + vDiffuse + vSpec;
     
-    ComputeSpotLight(g_Material, g_SpotLight, In.vPosW, vNormal, vToEye, vAmbient, vDiffuse, vSpec);
+    ComputeSpotLight(tMtrl, g_SpotLight, In.vPosW, vNormal, vToEye, vAmbient, vDiffuse, vSpec);
     vColor += vAmbient + vDiffuse + vSpec;
     
-    vColor.a = g_Material.Diffuse.a;    // 알파값은 diffuse의 알파값으로 대체
+    vColor.a = tMtrl.Diffuse.a; // 알파값은 diffuse의 알파값으로 대체
     
     return vColor;
 }

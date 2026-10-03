@@ -44,7 +44,10 @@ shared_ptr<CBackGround> CBackGround::Create(ComPtr<ID3D11Device> pDevice, ComPtr
 	auto pInstance = shared_ptr<CBackGround>(new CBackGround(pDevice, pContext));
 
 	if (FAILED(pInstance->Initialize_Prototype()))
+	{
+		MSG_BOX("Create Failed : CBackGround");
 		pInstance.reset();
+	}
 
 	return pInstance;
 }
@@ -53,7 +56,9 @@ shared_ptr<CPrototype> CBackGround::Clone(void* pArg)
 {
 	auto pInstance = shared_ptr<CBackGround>(new CBackGround(*this));
 	if (FAILED(pInstance->Initialize(pArg)))
+	{
+		MSG_BOX("Clone Failed : CBackGround");
 		pInstance.reset();
-
+	}
 	return pInstance;
 }

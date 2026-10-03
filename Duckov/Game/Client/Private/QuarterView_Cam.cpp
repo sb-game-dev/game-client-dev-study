@@ -25,7 +25,7 @@ void CQuarterView_Cam::Update(f32_t fDeltaTime)
 	float3_t fPlayerPos = m_pPlayer->GetInfo(INFO::POS);
 
 	XMVECTOR vPlayerPos = XMLoadFloat3(&fPlayerPos);
-	XMVECTOR vCameraEye = vPlayerPos + XMVECTOR({ 0.f, 15.f, -5.f });
+	XMVECTOR vCameraEye = vPlayerPos + XMVECTOR({ 0.f, 150.f, -5.f });
 	
 	m_vAt = fPlayerPos;
 	XMStoreFloat3(&m_vEye,vCameraEye);
