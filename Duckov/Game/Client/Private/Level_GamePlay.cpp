@@ -4,6 +4,7 @@
 #include "Hill.h"
 #include "Player_PointLight.h"
 #include "Player_SpotLight.h"
+#include "SunLight.h"
 CLevel_GamePlay::CLevel_GamePlay(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     :CLevel{ pDevice,pContext }
 {
@@ -72,6 +73,10 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
     auto pPlayer_SpotLight = CPlayer_SpotLight::Create(m_pDevice, m_pContext);
     pPlayer_SpotLight->SetPlayer(pPlayer);
     CGameInstance::Get().AddLight(L"Player_SpotLight", pPlayer_SpotLight);
+
+
+    auto SunLight = CSunLight::Create(m_pDevice, m_pContext);
+    CGameInstance::Get().AddLight(L"SunLight", SunLight);
 
     return S_OK;
 }

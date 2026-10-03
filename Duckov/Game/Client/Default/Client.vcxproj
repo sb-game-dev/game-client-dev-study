@@ -138,6 +138,7 @@
     <ClInclude Include="..\public\BackGround.h" />
     <ClInclude Include="..\Public\Client_Defines.h" />
     <ClInclude Include="..\Public\Cube.h" />
+    <ClInclude Include="..\public\SunLight.h" />
     <ClInclude Include="..\public\Hill.h" />
     <ClInclude Include="..\Public\Inven.h" />
     <ClInclude Include="..\Public\Level_GamePlay.h" />
@@ -156,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\private\BackGround.cpp" />
+    <ClCompile Include="..\private\SunLight.cpp" />
     <ClCompile Include="..\private\Loader.cpp" />
     <ClCompile Include="..\private\Player.cpp" />
     <ClCompile Include="..\private\Player_PointLight.cpp" />

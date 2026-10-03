@@ -29,7 +29,7 @@ cbuffer cbDirLight : register(b3)
     DirectionalLight    g_DirLight;
 }
 
-cbuffer cbDirLight : register(b4)
+cbuffer cbSpotLight : register(b4)
 {
     SpotLight           g_SpotLight;
 }

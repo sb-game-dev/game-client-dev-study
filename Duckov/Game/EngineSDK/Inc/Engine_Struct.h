@@ -157,6 +157,11 @@ namespace Engine
 		SpotLight			tSpotLight;
 	}CB_SPOTLIGHT;
 
+	typedef struct tagCBDirLight
+	{
+		DirectionalLight			tDirLight;
+	}CB_DIRLIGHT;
+
 }
 
 #endif // Engine_Struct_h__

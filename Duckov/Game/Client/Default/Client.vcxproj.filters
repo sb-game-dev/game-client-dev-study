@@ -58,6 +58,9 @@
     <Filter Include="04. Light\01. Player_SpotLight">
       <UniqueIdentifier>{19910111-dce3-4e18-9ed1-40f9ccc1019d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Light\02. DirLight">
+      <UniqueIdentifier>{e055516c-97bd-41ed-8e3d-99fe0806140b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -113,6 +116,9 @@
     </ClInclude>
     <ClInclude Include="..\public\Player_SpotLight.h">
       <Filter>04. Light\01. Player_SpotLight</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\SunLight.h">
+      <Filter>04. Light\02. DirLight</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -170,6 +176,9 @@
     </ClCompile>
     <ClCompile Include="..\private\Player_SpotLight.cpp">
       <Filter>04. Light\01. Player_SpotLight</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\SunLight.cpp">
+      <Filter>04. Light\02. DirLight</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
