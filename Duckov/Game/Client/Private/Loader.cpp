@@ -118,7 +118,6 @@ HRESULT CLoader::Loading_For_GamePlayLV()
     lstrcpy(m_szLoadingText, TEXT("객체원형 준비중입니다."));
 
     auto pPlayer = CPlayer::Create(m_pDevice, m_pContext);
-    pPlayer->SetPos({ 0.f,0.f,0.f });
     CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_GameObject_Player"),pPlayer);
 
     shared_ptr<CGameObject> pGameObject = {};
@@ -132,9 +131,6 @@ HRESULT CLoader::Loading_For_GamePlayLV()
 
     pGameObject = CHill::Create(m_pDevice, m_pContext);
     CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_Hill", pGameObject);
-
-    // Find_Object로 불러서 해야할듯?
-    //static_pointer_cast<CPlayer>(pPlayer)->SetHill(static_pointer_cast<CHill>(pGameObject));
 
     lstrcpy(m_szLoadingText, TEXT("로딩이 완료되었습니다."));
 
