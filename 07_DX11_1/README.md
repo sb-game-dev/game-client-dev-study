@@ -506,8 +506,137 @@ m_pDeviceContext->PSSetShaderResources(0, 1, m_pMinimapSRV.GetAddressOf()); // �
 </details>
 
 
+### 7일차 LevelManager
 
+<details>
+	<summary> Level </summary>
 
+- Scene을 앞으로 Level이라고 부름
+- Client에서 Level들을 생성해야 하므로 ENGINE_DLL매크로를 사용
+- 오직 Level은 하나의 종류만 존재해야 함.
+
+```cpp
+#pragma once
+#include "Engine_Defines.h"
+#include "GameObject.h"
+NS_BEGIN(Engine)
+class ENGINE_DLL CLevel abstract //객체화 되지 않는다(x) 자식객체를 생성해야만 객체화 된다.(O)
+{
+protected:
+	CLevel(ComPtr<ID3D11Device>pDevice, ComPtr<ID3D11DeviceContext> pContext);
+
+public:
+	virtual ~CLevel() = default;
+public:
+	virtual HRESULT Initialize();
+	virtual void	Update(f32_t fDeltaTime);
+	virtual HRESULT	Render();
+
+protected:
+	ComPtr<ID3D11Device>		m_pDevice = { nullptr };
+	ComPtr<ID3D11DeviceContext> m_pContext = { nullptr };
+};
+NS_END
+```
+</details>
+
+<details> 
+	<summary> LevelManager </summary>
+
+- 현재 존재하는 Level객체를 저장하고 enum값도 저장함.
+- Level을 변경해주는 역할도 수행함.
+
+> CLevel_Manager
+
+```cpp
+#pragma once
+#include "Level.h"
+NS_BEGIN(Engine)
+class CLevel_Manager
+{
+private:
+	CLevel_Manager();
+public:
+	~CLevel_Manager() = default;
+
+public:
+	HRESULT			Change_Level(int32_t iNewLevelIndex, shared_ptr<CLevel> pNewLevel);
+	void			Update(f32_t fTimeDelta);
+	HRESULT			Render();
+private:
+	int32_t						m_iCurrentLevelIndex = { -1 };
+	shared_ptr<CLevel>			m_pCurrentLevel = { nullptr };
+public:
+	static unique_ptr<CLevel_Manager>	Create();
+};
+NS_END
+```
+
+> CLevel_Manager.cpp
+
+```cpp
+#include "Level_Manager.h"
+#include "GameInstance.h"
+
+CLevel_Manager::CLevel_Manager()
+{
+}
+// 새로운 Level의 enum값과 객체를 전달받는다
+// 기존Level이 있는 경우에는 Level의 자원을 정리(삭제)한다. -> Prototypes(원본 객체), GameObject(사본 객체) 삭제
+HRESULT CLevel_Manager::Change_Level(int32_t iNewLevelIndex, shared_ptr<CLevel> pNewLevel)
+{
+	if (nullptr != m_pCurrentLevel)
+	{
+		m_pCurrentLevel.reset();
+		/* 지금 삭제한 레벨의 자원을 정리한다. */
+		CGameInstance::Get().Clear_Resources(m_iCurrentLevelIndex);
+	}
+	m_iCurrentLevelIndex = iNewLevelIndex;
+	m_pCurrentLevel = pNewLevel;
+
+	return S_OK;
+}
+
+void CLevel_Manager::Update(f32_t fTimeDelta)
+{
+	if (nullptr != m_pCurrentLevel)
+		m_pCurrentLevel->Update(fTimeDelta);
+}
+
+HRESULT CLevel_Manager::Render()
+{
+	if (nullptr != m_pCurrentLevel)
+		m_pCurrentLevel->Render();
+	return S_OK;
+}
+unique_ptr<CLevel_Manager>	CLevel_Manager::Create()
+{
+	return unique_ptr<CLevel_Manager>(new CLevel_Manager());
+}
+```
+
+</details>
+
+<details>
+	<summary> Client에서의 Level </summary>
+
+> Level_Loading
+
+- Level에 필요한 자원들(객체들)의 원본을 생성해주는 Level
+- 생성하고자 하는 Level을 만들기 전에 무조건 먼저 거쳐야하는 Level
+- 따라서 다음 Level의 enum값을 Create()함수의 매개변수로 받고 멤버로 저장한다.
+- 멀티 쓰레드를 사용하여 객체들의 원본을 생성하는 Loader 클래스를 멤버로 갖는다.
+- Loader클래스에서 원본 객체를 생성하는 작업이 끝나면 생성하고자하는 Level을 생성한다.
+
+> Level_Logo
+
+- Logo씬
+
+> Level_GamePlay
+
+- GamePlay씬
+
+</details>
 
 
 
