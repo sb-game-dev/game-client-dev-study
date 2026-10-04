@@ -164,6 +164,7 @@ using namespace Engine;
 - enum class 사용
 - 기존 enum과 동일하게 0부터 정수를 만들어줌
 - 다만 기존의 enum 과는 다르게 정수값으로 묵시적 형변환이 안됨. -> 명시적 형변환 필요
+- 사용 방법 -> `WINMODE::FULL`
 
 ```cpp
 #ifndef Engine_Enum_h__
