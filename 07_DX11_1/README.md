@@ -183,7 +183,8 @@ namespace Engine
   <summary> Engine_Function.h </summary>
 
 - dx9때 사용하던 Find_Tag는 사용하지 않음
-- map컨테이너의 Key를 더이상 w_char로 사용하지 않고 wstring을 사용하여 map컨테이너의 find함수를 하용하여 객체에 접근함
+- map컨테이너의 Key를 더이상 w_char로 사용하지 않고 wstring을 사용하여 map컨테이너의 find함수를 사용하여 객체에 접근함
+- 스마트 포인터를 사용하여 ReferenceCnt를 관리하기 때문에Safe_Release()를 사용하지 않음.
 
 ```cpp
 #ifndef Engine_Function_h__
