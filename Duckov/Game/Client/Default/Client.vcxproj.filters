@@ -64,6 +64,12 @@
     <Filter Include="97. DDSTextureLoader">
       <UniqueIdentifier>{8cc23d17-baf9-4e7a-b3f9-68324a74e749}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Camera\01. QuaterView_Cam">
+      <UniqueIdentifier>{b26241d5-a012-4840-a79b-fddba25685db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Camera\00. Orthographic_Cam">
+      <UniqueIdentifier>{d92a6047-d85f-4814-833d-4911c27fc992}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -102,9 +108,6 @@
     <ClInclude Include="..\public\Hill.h">
       <Filter>02. GameObjects\03. Hills</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\QuarterView_Cam.h">
-      <Filter>03. Camera</Filter>
-    </ClInclude>
     <ClInclude Include="..\public\Player.h">
       <Filter>02. GameObjects\01. Player</Filter>
     </ClInclude>
@@ -125,6 +128,12 @@
     </ClInclude>
     <ClInclude Include="..\Public\DDSTextureLoader.h">
       <Filter>97. DDSTextureLoader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\QuarterView_Cam.h">
+      <Filter>03. Camera\01. QuaterView_Cam</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Orthographic_Cam.h">
+      <Filter>03. Camera\00. Orthographic_Cam</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -165,9 +174,6 @@
     <ClCompile Include="..\Private\Hill.cpp">
       <Filter>02. GameObjects\03. Hills</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\QuarterView_Cam.cpp">
-      <Filter>03. Camera</Filter>
-    </ClCompile>
     <ClCompile Include="..\private\Player.cpp">
       <Filter>02. GameObjects\01. Player</Filter>
     </ClCompile>
@@ -188,6 +194,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\DDSTextureLoader.cpp">
       <Filter>97. DDSTextureLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\QuarterView_Cam.cpp">
+      <Filter>03. Camera\01. QuaterView_Cam</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Orthographic_Cam.cpp">
+      <Filter>03. Camera\00. Orthographic_Cam</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -2,6 +2,8 @@
 #include "Level_Loading.h"
 #include "Level_Logo.h"
 #include "Level_GamePlay.h"
+#include "Orthographic_Cam.h"
+#include "BackGround.h"
 
 CLevel_Loading::CLevel_Loading(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     :CLevel{ pDevice,pContext }
@@ -66,6 +68,21 @@ HRESULT CLevel_Loading::Render()
 
 HRESULT CLevel_Loading::Ready_Layer_BackGround()
 {
+    // 직교투영 카메라
+    auto m_pCamera = COrthographic_Cam::Create(m_pDevice, m_pContext);
+    CGameInstance::Get().Add_Camera(TEXT("COrthographic_Cam"), m_pCamera);
+    CGameInstance::Get().Set_MainCamera(TEXT("COrthographic_Cam"));
+
+    // 배경 원형
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOADING), TEXT("Prototype_GameObject_BackGround"),
+        CBackGround::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+
+    // 배경 복제본
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOI(LEVEL::LOADING), TEXT("Prototype_GameObject_BackGround"),
+        ETOUI(LEVEL::LOADING), L"Layer_BackGround", TEXT("GameObject_BackGround"))))
+        return E_FAIL;
+
     return S_OK;
 }
 

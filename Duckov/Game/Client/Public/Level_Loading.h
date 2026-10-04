@@ -22,6 +22,7 @@ public:
 private:
 	LEVEL							m_eNextLevelID = { LEVEL::END };
 	shared_ptr<class CLoader>		m_pLoader = { nullptr };
+
 private:
 	HRESULT	Ready_Layer_BackGround();
 	HRESULT	Ready_Layer_UI();

@@ -179,7 +179,7 @@ HRESULT CCube::Initialize_Prototype()
     m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
 
     // 텍스처 로드
-    if (FAILED(DirectX::CreateDDSTextureFromFile(m_pDevice.Get(), L"../../../Resource/Ex/WoodCrate01.dds", nullptr, m_pSRV.GetAddressOf())))
+    if (FAILED(CreateDDSTextureFromFile(m_pDevice.Get(), L"../../../Resource/Ex/WoodCrate01.dds", nullptr, m_pSRV.GetAddressOf())))
         return E_FAIL;
 
     // 샘플러 생성
@@ -191,6 +191,9 @@ HRESULT CCube::Initialize_Prototype()
     samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
     samplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
     samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
+    if (FAILED(m_pDevice->CreateSamplerState(&samplerDesc, m_pSampler.GetAddressOf())))
+        return E_FAIL;
 
     // Material
     m_tMaterial.Ambient = float4_t(1.f, 1.f, 1.f, 1.f);
