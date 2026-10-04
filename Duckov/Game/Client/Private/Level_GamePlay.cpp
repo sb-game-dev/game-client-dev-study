@@ -75,8 +75,8 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
     CGameInstance::Get().AddLight(L"Player_SpotLight", pPlayer_SpotLight);
 
 
-    auto SunLight = CSunLight::Create(m_pDevice, m_pContext);
-    CGameInstance::Get().AddLight(L"SunLight", SunLight);
+    //auto SunLight = CSunLight::Create(m_pDevice, m_pContext);
+    //CGameInstance::Get().AddLight(L"SunLight", SunLight);
 
     return S_OK;
 }

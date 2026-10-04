@@ -1,4 +1,5 @@
 #include "Cube.h"
+#include "DDSTextureLoader.h"
 
 CCube::CCube(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
 	:CGameObject(pDevice,pContext)
@@ -12,22 +13,45 @@ HRESULT CCube::Initialize_Prototype()
 
     // 정육면체 그리기
     // 정점 정보
-    VTXCOL vertices[] =
+    VTXNORM vertices[] =
     {
-        { float3_t(-0.5f, -0.5f, -0.5f), float4_t(Colors::White)},
-        { float3_t(-0.5f, +0.5f, -0.5f), float4_t(Colors::Black)},
-        { float3_t(+0.5f, +0.5f, -0.5f), float4_t(Colors::Red)},
-        { float3_t(+0.5f, -0.5f, -0.5f), float4_t(Colors::Green)},
-        { float3_t(-0.5f, -0.5f, +0.5f), float4_t(Colors::Blue)},
-        { float3_t(-0.5f, +0.5f, +0.5f), float4_t(Colors::Yellow)},
-        { float3_t(+0.5f, +0.5f, +0.5f), float4_t(Colors::Cyan)},
-        { float3_t(+0.5f, -0.5f, +0.5f), float4_t(Colors::Magenta)}
+        // z-
+        { float3_t(-0.5f, -0.5f, -0.5f), float3_t(0.f, 0.f, -1.f), float2_t(0.f, 1.f) },
+        { float3_t(-0.5f, +0.5f, -0.5f), float3_t(0.f, 0.f, -1.f), float2_t(0.f, 0.f) },
+        { float3_t(+0.5f, +0.5f, -0.5f), float3_t(0.f, 0.f, -1.f), float2_t(1.f, 0.f) },
+        { float3_t(+0.5f, -0.5f, -0.5f), float3_t(0.f, 0.f, -1.f), float2_t(1.f, 1.f) },
+        // x+
+        { float3_t(+0.5f, -0.5f, -0.5f), float3_t(+1.f, 0.f, 0.f), float2_t(0.f, 1.f) },
+        { float3_t(+0.5f, +0.5f, -0.5f), float3_t(+1.f, 0.f, 0.f), float2_t(0.f, 0.f) },
+        { float3_t(+0.5f, +0.5f, +0.5f), float3_t(+1.f, 0.f, 0.f), float2_t(1.f, 0.f) },
+        { float3_t(+0.5f, -0.5f, +0.5f), float3_t(+1.f, 0.f, 0.f), float2_t(1.f, 1.f) },
+        // z+
+        { float3_t(+0.5f, -0.5f, +0.5f), float3_t(0.f, 0.f, +1.f), float2_t(0.f, 1.f) },
+        { float3_t(+0.5f, +0.5f, +0.5f), float3_t(0.f, 0.f, +1.f), float2_t(0.f, 0.f) },
+        { float3_t(-0.5f, +0.5f, +0.5f), float3_t(0.f, 0.f, +1.f), float2_t(1.f, 0.f) },
+        { float3_t(-0.5f, -0.5f, +0.5f), float3_t(0.f, 0.f, +1.f), float2_t(1.f, 1.f) },
+        // x-
+        { float3_t(-0.5f, -0.5f, +0.5f), float3_t(-1.f, 0.f, 0.f), float2_t(0.f, 1.f) },
+        { float3_t(-0.5f, +0.5f, +0.5f), float3_t(-1.f, 0.f, 0.f), float2_t(0.f, 0.f) },
+        { float3_t(-0.5f, +0.5f, -0.5f), float3_t(-1.f, 0.f, 0.f), float2_t(1.f, 0.f) },
+        { float3_t(-0.5f, -0.5f, -0.5f), float3_t(-1.f, 0.f, 0.f), float2_t(1.f, 1.f) },
+        // y+
+        { float3_t(-0.5f, +0.5f, -0.5f), float3_t(0.f, +1.f, 0.f), float2_t(0.f, 1.f) },
+        { float3_t(-0.5f, +0.5f, +0.5f), float3_t(0.f, +1.f, 0.f), float2_t(0.f, 0.f) },
+        { float3_t(+0.5f, +0.5f, +0.5f), float3_t(0.f, +1.f, 0.f), float2_t(1.f, 0.f) },
+        { float3_t(+0.5f, +0.5f, -0.5f), float3_t(0.f, +1.f, 0.f), float2_t(1.f, 1.f) },
+        // y-
+        { float3_t(-0.5f, -0.5f, +0.5f), float3_t(0.f, -1.f, 0.f), float2_t(0.f, 1.f) },
+        { float3_t(-0.5f, -0.5f, -0.5f), float3_t(0.f, -1.f, 0.f), float2_t(0.f, 0.f) },
+        { float3_t(+0.5f, -0.5f, -0.5f), float3_t(0.f, -1.f, 0.f), float2_t(1.f, 0.f) },
+        { float3_t(+0.5f, -0.5f, +0.5f), float3_t(0.f, -1.f, 0.f), float2_t(1.f, 1.f) },
+
     };
 
     // 정점 버퍼 생성
     D3D11_BUFFER_DESC   VBDesc{};
     VBDesc.ByteWidth = sizeof(vertices);
-    VBDesc.Usage     = D3D11_USAGE_IMMUTABLE;
+    VBDesc.Usage = D3D11_USAGE_IMMUTABLE;
     VBDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 
     D3D11_SUBRESOURCE_DATA  VBData{};
@@ -36,25 +60,41 @@ HRESULT CCube::Initialize_Prototype()
         return E_FAIL;
 
     // 인덱스 정보
-    UINT indices[] = {
-         0, 1, 2,
-         0, 2, 3,
+    //UINT indices[36] = 
+    //{
+    //    //z-
+    //    0, 1, 2,
+    //    0, 2, 3,
+    //    //x+
+    //    4, 5, 6,
+    //    4, 6, 7,
+    //    //z+
+    //    4, 5, 1,
+    //    4, 1, 0,
+    //    //x-
+    //    3, 2, 6,
+    //    3, 6, 7,
+    //    //y+
+    //    1, 5, 6,
+    //    1, 6, 2,
+    //    //y-
+    //    4, 0, 3,
+    //    4, 3, 7
+    //};
+    UINT indices[36] = {};
+    uint32_t iVtx = 0;
+    for (uint32_t i = 0; i < 36; i += 6)
+    {
+        indices[i] = iVtx;
+        indices[i+1] = iVtx + 1;
+        indices[i+2] = iVtx + 2;
 
-         4, 6, 5,
-         4, 7, 6,
+        indices[i+3] = iVtx;
+        indices[i+4] = iVtx + 2;
+        indices[i+5] = iVtx + 3;
 
-         4, 5, 1,
-         4, 1, 0,
-
-         3, 2, 6,
-         3, 6, 7,
-
-         1, 5, 6,
-         1, 6, 2,
-
-         4, 0, 3,
-         4, 3, 7
-    };
+        iVtx += 4;
+    }
 
     // 인덱스 버퍼 생성
     D3D11_BUFFER_DESC IBDesc{};
@@ -71,7 +111,7 @@ HRESULT CCube::Initialize_Prototype()
 
     // 상수 버퍼 생성
     D3D11_BUFFER_DESC CBDesc{};
-    CBDesc.ByteWidth = sizeof(CB_PER_OBJECT);
+    CBDesc.ByteWidth = sizeof(CB_PER_OBJECT_LIT);
     CBDesc.Usage = D3D11_USAGE_DEFAULT;
     CBDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 
@@ -92,9 +132,9 @@ HRESULT CCube::Initialize_Prototype()
 #endif
     //VS 컴파일
     if (FAILED(D3DCompileFromFile(
-        L"../Shader/Shader_VtxCol.hlsl",   // 파일 경로 (작업 디렉터리 기준)
+        L"../Shader/Shader_VtxTex.hlsl",   // 파일 경로 (작업 디렉터리 기준)
         nullptr,                           // 이 책에서는 사용하지 않는 고급 옵션(항상 NULL 또는 0)
-        nullptr,                           // 이 책에서는 사용하지 않는 고급 옵션(항상 NULL 또는 0)
+        D3D_COMPILE_STANDARD_FILE_INCLUDE, // 이 책에서는 사용하지 않는 고급 옵션(항상 NULL 또는 0)
         "VS_MAIN",                         // 진입점 함수 이름
         "vs_5_0",                          // 타깃: 버텍스 셰이더, 셰이더 모델 5.0
         iFlags,                            // 컴파일 옵션
@@ -106,7 +146,7 @@ HRESULT CCube::Initialize_Prototype()
         return E_FAIL;
     }
     // PS 컴파일
-    if (FAILED(D3DCompileFromFile(L"../Shader/Shader_VtxCol.hlsl", nullptr, nullptr,
+    if (FAILED(D3DCompileFromFile(L"../Shader/Shader_VtxTex.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
         "PS_MAIN", "ps_5_0", iFlags, 0, &pPSBlob, &pErrBlob)))
     {
         if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
@@ -122,8 +162,8 @@ HRESULT CCube::Initialize_Prototype()
         return E_FAIL;
 
     // Input Layout 생성 (VS 바이트코드와 대조)
-    if (FAILED(m_pDevice->CreateInputLayout(VTXCOL::Elements,               // 정점 구조체를 서술하는 D3D11_INPUT_LEELMENT_DESC들의 배열
-                                            VTXCOL::iNumElements,           // 배열 원소의 개수
+    if (FAILED(m_pDevice->CreateInputLayout(VTXNORM::Elements,               // 정점 구조체를 서술하는 D3D11_INPUT_LEELMENT_DESC들의 배열
+                                            VTXNORM::iNumElements,           // 배열 원소의 개수
                                             pVSBlob->GetBufferPointer(),    // 정점셰이더를 컴파일해서 얻은 바이트코드를 가리키는 포인터
                                             pVSBlob->GetBufferSize(),       // 바이트코드의 크기
                                             &m_pInputLayout)))              // 생성된 입력 배치를 돌려줄 포인터
@@ -137,6 +177,26 @@ HRESULT CCube::Initialize_Prototype()
     rsDesc.DepthClipEnable = true;
 
     m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
+
+    // 텍스처 로드
+    if (FAILED(DirectX::CreateDDSTextureFromFile(m_pDevice.Get(), L"../../../Resource/Ex/WoodCrate01.dds", nullptr, m_pSRV.GetAddressOf())))
+        return E_FAIL;
+
+    // 샘플러 생성
+    D3D11_SAMPLER_DESC samplerDesc{};
+
+    samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+    samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+    samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+    samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+    samplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+    samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
+    // Material
+    m_tMaterial.Ambient = float4_t(1.f, 1.f, 1.f, 1.f);
+    m_tMaterial.Diffuse = float4_t(1.f, 1.f, 1.f, 1.f);
+    m_tMaterial.Specular = float4_t(0.2f, 0.2f, 0.2f, 16.f);   // w = 광택 지수, 0이면 안 됨
+
 	return S_OK;
 }
 
@@ -171,12 +231,15 @@ HRESULT CCube::Render()
 
     XMMATRIX matWorld = GetWorld();
 
-   
+    // 역전치 행렬은 이동 성분을 뺀 복사본으로 계산 (matWorld 자체는 이동 성분 유지)
+    XMMATRIX matNoTrans = matWorld;
+    matNoTrans.r[3] = XMVectorSet(0.f, 0.f, 0.f, 1.f);
+    XMMATRIX matWorldInvTranspos = XMMatrixTranspose(XMMatrixInverse(nullptr, matNoTrans));
 
-    // VS로 전달할 구조체 채우기
-    // HLSL은 기본적으로 열 단위로 데이터를 읽기 때문에 전치를 해야 함
-    CB_PER_OBJECT cbData;
-    XMStoreFloat4x4(&cbData.WorldMatrix, XMMatrixTranspose(matWorld));
+    CB_PER_OBJECT_LIT cbData;
+    XMStoreFloat4x4(&cbData.mat_World, XMMatrixTranspose(matWorld));
+    XMStoreFloat4x4(&cbData.mat_WorldInvTranspose, XMMatrixTranspose(matWorldInvTranspos));
+    cbData.tMaterial = m_tMaterial;
 
     // 변환 행렬의 정보를 가지고있는 m_pCB 버퍼로 복사(USAGE_DEFAULT로 생성해서 드라이버를 통해 복사)
     // 아래에서 VS의 b0 레지스터에 꽂을 예정
@@ -185,7 +248,7 @@ HRESULT CCube::Render()
 // 파이프라인에 꽂기
     //IA(입력 조립기 단계)
     // 정점 하나의 크기와 버퍼의 시작 위치 설정
-    uint32_t iStride = sizeof(VTXCOL);
+    uint32_t iStride = sizeof(VTXNORM);
     uint32_t iOffset = 0;
     // 버텍스 버퍼 꽂기
     m_pContext->IASetVertexBuffers(0,                       // 정점 버퍼들을 붙이기 시작할 인덱스
@@ -213,6 +276,16 @@ HRESULT CCube::Render()
 
     // PS(픽셀 셰이더) -> 지금은 색 밖에 없음
     m_pContext->PSSetShader(m_pPS.Get(), nullptr, 0);
+
+    m_pContext->PSSetConstantBuffers(0, //register(b0)과 연결됨
+        1,
+        m_pCB.GetAddressOf());
+
+    // 텍스처 바인드
+    m_pContext->PSSetShaderResources(0, 1, m_pSRV.GetAddressOf());
+
+    // 샘플러 바인드
+    m_pContext->PSSetSamplers(0, 1, m_pSampler.GetAddressOf());
 
     // RS(레스터라이저 설정)
     m_pContext->RSSetState(m_pRS.Get());

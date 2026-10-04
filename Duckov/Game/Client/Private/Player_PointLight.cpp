@@ -10,8 +10,8 @@ HRESULT	 CPlayer_PointLight::Initialize()
 {
     // 점조명 구조체 초기화
     m_tPointLight.Ambient = float4_t(0.3f, 0.3f, 0.3f, 1.f);
-    m_tPointLight.Diffuse = float4_t(0.7f, 0.7f, 0.7f, 1.f);
-    m_tPointLight.Specular = float4_t(0.7f, 0.7f, 0.7f, 1.f);
+    m_tPointLight.Diffuse = float4_t(0.3f, 0.3f, 0.3f, 1.f);
+    m_tPointLight.Specular = float4_t(0.3f, 0.3f, 0.3f, 1.f);
     m_tPointLight.Att = float3_t(1.f, 0.1f, 0.05f);   // a0 = 1: 가까워도 과노출 안 됨
     m_tPointLight.Range = 3.f;
 

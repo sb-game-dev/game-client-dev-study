@@ -61,6 +61,9 @@
     <Filter Include="04. Light\02. DirLight">
       <UniqueIdentifier>{e055516c-97bd-41ed-8e3d-99fe0806140b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="97. DDSTextureLoader">
+      <UniqueIdentifier>{8cc23d17-baf9-4e7a-b3f9-68324a74e749}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -119,6 +122,9 @@
     </ClInclude>
     <ClInclude Include="..\public\SunLight.h">
       <Filter>04. Light\02. DirLight</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\DDSTextureLoader.h">
+      <Filter>97. DDSTextureLoader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -180,12 +186,18 @@
     <ClCompile Include="..\private\SunLight.cpp">
       <Filter>04. Light\02. DirLight</Filter>
     </ClCompile>
+    <ClCompile Include="..\Private\DDSTextureLoader.cpp">
+      <Filter>97. DDSTextureLoader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="..\Shader\Shader_VtxCol.hlsl">
       <Filter>97. Shader</Filter>
     </FxCompile>
     <FxCompile Include="..\Shader\Shader_VtxNorm.hlsl">
+      <Filter>97. Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Shader\Shader_VtxTex.hlsl">
       <Filter>97. Shader</Filter>
     </FxCompile>
   </ItemGroup>
