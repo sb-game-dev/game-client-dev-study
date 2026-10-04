@@ -164,6 +164,7 @@ using namespace Engine;
 - enum class 사용
 - 기존 enum과 동일하게 0부터 정수를 만들어줌
 - 다만 기존의 enum 과는 다르게 정수값으로 묵시적 형변환이 안됨. -> 명시적 형변환 필요
+- 사용 방법 -> `WINMODE::FULL`
 
 ```cpp
 #ifndef Engine_Enum_h__
@@ -182,7 +183,8 @@ namespace Engine
   <summary> Engine_Function.h </summary>
 
 - dx9때 사용하던 Find_Tag는 사용하지 않음
-- map컨테이너의 Key를 더이상 w_char로 사용하지 않고 wstring을 사용하여 map컨테이너의 find함수를 하용하여 객체에 접근함
+- map컨테이너의 Key를 더이상 w_char로 사용하지 않고 wstring을 사용하여 map컨테이너의 find함수를 사용하여 객체에 접근함
+- 스마트 포인터를 사용하여 ReferenceCnt를 관리하기 때문에Safe_Release()를 사용하지 않음.
 
 ```cpp
 #ifndef Engine_Function_h__
