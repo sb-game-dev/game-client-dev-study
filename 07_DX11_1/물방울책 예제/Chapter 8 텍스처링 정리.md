@@ -1,11 +1,11 @@
-# 루나책 Chapter 8 — Texturing (텍스처 적용)
+# 루나책 Chapter 8 — Texturing (텍스처 적용) 절별 정리
 
 > 7장(조명)까지는 정점마다 **재질(Material) 색** 하나만 줬다. 그래서 상자는 "갈색 상자", 땅은 "초록 땅"처럼 밋밋했다.
 > 8장의 목표는 **이미지(텍스처)를 삼각형 표면에 붙여서** 나무 무늬, 풀, 물결 같은 디테일을 표현하는 것이다.
 
 > 📌 **이 정리는 이펙트 프레임워크(Effects11) 없이 진행한다.**
-> 책 예제는 `.fx` 파일과 `ID3DX11Effect`를 쓰지만, 수업 엔진(`CHill`, `CCube`)은 `D3DCompileFromFile` + `VSSetShader`로 셰이더를 직접 다룬다.
-> 그래서 모든 코드를 **D3D11 API 직접 호출** 방식으로 바꿔서 정리했다. 개념은 책과 100% 같고, 값을 GPU에 넘기는 방법만 다르다.
+> 책 예제는 `.fx` 파일과 `ID3DX11Effect`(`SetDiffuseMap`, `Apply` 등)를 쓰지만, 수업 엔진(`CHill`, `CCube`)은 `D3DCompileFromFile` + `VSSetShader`로 셰이더를 직접 다룬다.
+> 그래서 모든 코드를 **D3D11 API 직접 호출** 방식으로 바꿔서 정리했다. 개념은 책과 같고, 값을 GPU에 넘기는 방법만 다르다.
 > 책 코드를 읽을 때 쓸 수 있는 대응표는 맨 끝 [부록](#부록-책의-이펙트-코드--직접-호출-대응표)에 있다.
 
 ---
@@ -14,52 +14,54 @@
 
 ```
 [이미지 파일 (.dds)]
-      │  ① 로딩: DirectX::CreateDDSTextureFromFile
+      │  ① 로딩: DirectX::CreateDDSTextureFromFile            (8.3)
       ▼
-[ID3D11Texture2D]  ← 실제 픽셀 데이터 (리소스)
+[ID3D11Texture2D]  ← 실제 픽셀 데이터 (리소스)                  (8.1)
       │  ② 뷰 생성 (로더가 같이 해줌)
       ▼
 [ID3D11ShaderResourceView (SRV)]  ← "셰이더야, 이거 읽어도 돼"라는 출입증
-      │  ③ PSSetShaderResources(0, 1, &srv)   → 셰이더 t0 슬롯
-      │     PSSetSamplers(0, 1, &sampler)      → 셰이더 s0 슬롯
+      │  ③ PSSetShaderResources(0, 1, &srv)   → 셰이더 t0 슬롯  (8.3)
+      │     PSSetSamplers(0, 1, &sampler)      → 셰이더 s0 슬롯  (8.4, 8.8)
       ▼
 [HLSL: Texture2D g_DiffuseTex : register(t0);  SamplerState g_Sampler : register(s0);]
-      │  ④ 픽셀마다 UV 좌표로 샘플링
+      │  ④ 픽셀마다 보간된 UV로 샘플링                          (8.2, 8.5)
       ▼
 vTexColor = g_DiffuseTex.Sample(g_Sampler, In.vTexcoord)
-      │  ⑤ 조명 결과와 합치기
+      │  ⑤ 조명 결과와 합치기                                   (8.6)
       ▼
 최종 색 = vTexColor * (ambient + diffuse) + specular
 ```
 
-| 절 | 내용 | 한 줄 요약 |
+| 절 | 제목 | 한 줄 요약 |
 |---|---|---|
-| 1 | 텍스처와 리소스/뷰 | 텍스처 = GPU 메모리의 이미지, SRV로 셰이더에 연결 |
-| 2 | 텍스처 좌표(UV) | 정점에 (u, v)를 줘서 "이미지의 어느 부분을 붙일지" 지정 |
-| 3 | 텍스처 로드 | DDS 파일 → SRV (DDSTextureLoader) |
-| 4 | 셰이더 레지스터 | b# / t# / s# 슬롯과 C++ 바인딩 함수 |
-| 5 | 필터링과 샘플러 | 텍스처가 확대/축소될 때 색 계산 방법 + `CreateSamplerState` |
-| 6 | 샘플링 | HLSL `Sample()` |
-| 7 | 재질과 텍스처 결합 | 텍스처 색을 디퓨즈 반사율로 사용 |
-| 8 | 주소 모드 | UV가 [0,1] 밖으로 나갔을 때 처리 |
-| 9 | 텍스처 변환 | UV에 행렬을 곱해 타일링/애니메이션 |
-| 10 | 실습 ① 지형에 풀 텍스처 입히기 | 책 Crate 예제의 과정을 수업 엔진(`CHill`)으로 |
-| 11 | 실습 ② 흐르는 물 | 책 Textured Hills and Waves 예제의 과정 |
-| 12 | 로더 없이 텍스처 직접 만들기 | 로더가 내부에서 하는 일 |
-| 13 | 압축 텍스처 포맷 | BC1~BC7, DDS |
-| 14~16 | 실수 체크리스트 / 요약 / 연습문제 | |
+| 8.1 | Texture and Resource Recap | 텍스처 = GPU 메모리의 이미지, 셰이더는 SRV를 통해 읽는다 |
+| 8.2 | Texture Coordinates | 정점에 (u, v)를 줘서 "이미지의 어느 부분을 붙일지" 지정 |
+| 8.3 | Creating and Enabling a Texture | DDS 파일 → SRV, `PSSetShaderResources`로 t# 슬롯에 연결 |
+| 8.4 | Filters | 확대(Point/Linear), 축소(밉맵), 비등방성 + `CreateSamplerState` |
+| 8.5 | Sampling Textures | HLSL `Sample()` |
+| 8.6 | Textures and Materials | 텍스처 색을 디퓨즈/앰비언트 반사율로 사용 |
+| 8.7 | Crate Demo | 상자에 나무 텍스처 입히기 (전체 과정) |
+| 8.8 | Address Modes | UV가 [0,1] 밖으로 나갔을 때 처리 (WRAP/MIRROR/CLAMP/BORDER) |
+| 8.9 | Transforming Textures | UV에 행렬을 곱해 타일링/애니메이션 |
+| 8.10 | Textured Hills and Waves Demo | 그리드 UV 생성, 타일링, 흐르는 물 |
+| 8.11 | Compressed Texture Formats | BC1~BC7, DDS |
+| 8.12 | Summary | |
+| 8.13 | Exercises | |
+| 부록 | 로더 없이 텍스처 만들기 / 실수 체크리스트 / 이펙트 ↔ 직접 호출 대응표 | |
 
 ---
 
-## 1. 텍스처란?
+## 8.1 텍스처와 리소스 복습 (Texture and Resource Recap)
 
 - **텍스처(Texture)** = GPU가 읽을 수 있는 형태로 만든 **이미지 데이터**.
 - 텍스처의 픽셀 하나하나를 **텍셀(Texel, Texture Element)** 이라고 부른다. (화면의 '픽셀'과 구분하기 위함)
-- 종류: 1D / 2D / 3D 텍스처. 8장은 **2D 텍스처**만 다룬다.
+- 종류: 1D / 2D / 3D 텍스처. 8장은 **2D 텍스처(`ID3D11Texture2D`)** 만 다룬다.
+- 텍스처는 단순한 이미지가 아니라 **밉맵 레벨**을 가질 수 있고, GPU가 **필터링·다중 샘플링** 같은 특수 연산을 할 수 있는 자료구조다.
+- 텍셀 형식은 `DXGI_FORMAT`으로 정한다. (예: `DXGI_FORMAT_R8G8B8A8_UNORM` → 채널당 8비트, 0~1로 정규화)
 
 ### 리소스(Resource)와 뷰(View)의 관계 — 중요!
 
-DX11에서는 텍스처를 **바로 셰이더에 꽂지 않는다.** 반드시 **뷰(View)** 를 거쳐서 연결한다.
+DX11에서는 텍스처를 **바로 파이프라인에 꽂지 않는다.** 반드시 **뷰(View)** 를 거쳐서 연결한다. (4장 복습)
 
 ```
 ID3D11Texture2D  (데이터 덩어리 그 자체)
@@ -75,9 +77,9 @@ ID3D11Texture2D  (데이터 덩어리 그 자체)
 
 ---
 
-## 2. 텍스처 좌표 (UV)
+## 8.2 텍스처 좌표 (Texture Coordinates)
 
-### 2-1. 텍스처 좌표계
+### 텍스처 좌표계
 
 ```
 (0,0) ──────────► u (가로)
@@ -94,7 +96,7 @@ ID3D11Texture2D  (데이터 덩어리 그 자체)
 - 정규화 좌표를 쓰는 이유: 이미지가 256×256이든 1024×1024이든 **같은 UV를 그대로 쓸 수 있다.**
   - 실제 텍셀 위치 = (u × 너비, v × 높이)
 
-### 2-2. 정점에 UV를 넣는다
+### 정점에 UV를 넣는다
 
 수업 엔진의 `VTXNORM`에는 이미 UV(`Tex`)와 입력 레이아웃의 `TEXCOORD`가 들어 있다. (`Engine/Public/Engine_Struct.h`)
 
@@ -115,11 +117,13 @@ typedef struct tagVtxNorm
 }VTXNORM;
 ```
 
-### 2-3. 삼각형 내부는 어떻게 되나? → 보간(Interpolation)
+### 삼각형 내부는 어떻게 되나? → 보간(Interpolation)
 
 - UV는 정점 3개에만 주어진다.
 - 래스터라이저가 삼각형 안쪽 픽셀마다 UV를 **선형 보간**해서 픽셀 셰이더로 넘긴다. (법선, 색 보간과 같은 원리)
-- 그래서 픽셀 셰이더는 "이 픽셀의 UV"를 받아 이미지에서 색을 읽기만 하면 된다.
+- 즉 3D 삼각형 위의 점과 텍스처 위의 점이 **1:1로 대응**된다. 픽셀 셰이더는 "이 픽셀의 UV"로 이미지에서 색을 읽기만 하면 된다.
+- 텍스처의 일부분만 잘라서 붙일 수도 있다. (예: UV를 0~0.5로 주면 이미지의 왼쪽 위 1/4만 붙음)
+  → 여러 그림을 한 장에 모은 **텍스처 아틀라스**가 이 원리를 이용한다.
 
 ```
   정점 A UV(0,0)       정점 B UV(1,0)
@@ -132,7 +136,7 @@ typedef struct tagVtxNorm
        정점 C UV(0.5,1)
 ```
 
-### 2-4. 예시: 사각형 한 면 / 그리드
+### 예시: 사각형 한 면
 
 ```
 v0 (-1, +1) UV(0,0)    v1 (+1, +1) UV(1,0)
@@ -144,28 +148,15 @@ v0 (-1, +1) UV(0,0)    v1 (+1, +1) UV(1,0)
 v3 (-1, -1) UV(0,1)    v2 (+1, -1) UV(1,1)
 ```
 
-그리드(지형)는 왼쪽 위 정점이 (0,0), 오른쪽 아래 정점이 (1,1)이 되도록 칸 수로 나눠서 준다. `CHill`이 이미 이렇게 계산하고 있다.
-
-```cpp
-f32_t du = 1.f / (ivtxCntX - 1);
-f32_t dv = 1.f / (ivtxCntZ - 1);
-// ...
-m_tMeshData.Vertices[i * ivtxCntX + j].TexC.x = j * du;   // 오른쪽으로 갈수록 u 증가
-m_tMeshData.Vertices[i * ivtxCntX + j].TexC.y = i * dv;   // 아래(앞쪽)로 갈수록 v 증가
-```
-
-> ⚠️ **계산한 UV를 실제 정점 버퍼용 배열에 복사해야 한다.** 이걸 빠뜨리면 UV가 전부 (0,0)이라 텍스처의 왼쪽 위 한 점 색만 보인다.
-> ```cpp
-> vertices[i].Tex = m_tMeshData.Vertices[i].TexC;   // ★ 필수
-> ```
+> ⚠️ 삼각형과 텍스처 위 삼각형의 모양이 너무 다르면 텍스처가 찌그러져(왜곡) 보인다.
 
 ---
 
-## 3. 텍스처 로드 (파일 → SRV)
+## 8.3 텍스처 생성과 활성화 (Creating and Enabling a Texture)
 
-### 3-1. 로더 고르기
+### 8.3-1. 로더 고르기
 
-DX11 자체에는 "이미지 파일 → 텍스처" 함수가 **없다.** (책 원본의 `D3DX11CreateShaderResourceViewFromFile`은 D3DX가 폐기되면서 사라졌다.)
+DX11 자체에는 "이미지 파일 → 텍스처" 함수가 **없다.** (책 원본의 `D3DX11CreateShaderResourceViewFromFile`은 D3DX가 폐기되면서 사라졌다. 이 폴더의 FDLuna 예제도 `DDSTextureLoader`로 바꿔 놓았다.)
 
 | 방법 | 지원 포맷 | 준비물 |
 |---|---|---|
@@ -175,7 +166,7 @@ DX11 자체에는 "이미지 파일 → 텍스처" 함수가 **없다.** (책 �
 
 가장 쉬운 방법: `FDLuna-master/Common/DDSTextureLoader.h`, `DDSTextureLoader.cpp`를 엔진 프로젝트에 복사해서 추가한다. (`namespace DirectX` 안에 들어 있음)
 
-### 3-2. 텍스처 파일 위치
+### 8.3-2. 텍스처 파일 위치
 
 - 예제 텍스처: `07_DX11_1/물방울책 예제/FDLuna-master/Assets/Textures/` (grass.dds, water2.dds, WoodCrate01.dds 등)
 - Client 프로젝트는 작업 디렉터리가 기본값(`Client/Default`, .vcxproj 위치)이다. 셰이더 경로 `../Shader/...`가 `Client/Shader`를 가리키는 이유.
@@ -190,7 +181,7 @@ Duckov/Game/Client/
          └─ grass.dds
 ```
 
-### 3-3. 로드 코드
+### 8.3-3. 로드 코드 (파일 → SRV)
 
 ```cpp
 #include "DDSTextureLoader.h"
@@ -209,26 +200,18 @@ if (FAILED(DirectX::CreateDDSTextureFromFile(
 
 - 이 함수 하나가 **파일 읽기 → `ID3D11Texture2D` 생성 → SRV 생성**을 전부 해준다.
 - 텍스처 포인터를 nullptr로 받아도 되는 이유: COM 객체는 **참조 카운트**로 관리되는데, SRV가 내부에서 텍스처 참조를 하나 쥐고 있다. SRV가 해제될 때 텍스처도 같이 해제된다.
-- `ComPtr`이라 소멸할 때 자동으로 Release된다. (`ReleaseCOM` 불필요)
+- `ComPtr`이라 소멸할 때 자동으로 Release된다. (책의 `ReleaseCOM` 불필요)
 - `CreateDDSTextureFromFile(device, context, path, ...)`처럼 **컨텍스트를 같이 넘기는 버전**을 쓰면, DDS에 밉맵이 없을 때 밉맵을 자동으로 만들어 준다.
 
-> 💡 텍스처 = 그냥 이미지 데이터라서, 같은 메시에 SRV만 바꿔 끼우면 다른 그림이 입혀진다. (같은 상자 + 나무 텍스처 / 철 텍스처)
-
----
-
-## 4. 셰이더 레지스터와 바인딩
-
-### 4-1. 셰이더에 텍스처/샘플러 선언
+### 8.3-4. 셰이더에 텍스처 선언 — 레지스터
 
 ```hlsl
 Texture2D    g_DiffuseTex : register(t0);   // 텍스처 = t 레지스터
-SamplerState g_Sampler    : register(s0);   // 샘플러 = s 레지스터
+SamplerState g_Sampler    : register(s0);   // 샘플러 = s 레지스터 (8.4)
 ```
 
 - 텍스처와 샘플러는 **숫자가 아니라서 cbuffer 안에 넣을 수 없다.** 전역으로 따로 선언한다.
-- `register(t0)`처럼 **슬롯 번호를 직접 정해 주고**, C++에서 같은 번호로 꽂아야 한다.
-
-### 4-2. 레지스터 종류 정리
+- 책은 이펙트가 슬롯을 알아서 정해 주지만, 직접 호출 방식에서는 `register(t0)`처럼 **슬롯 번호를 직접 정하고**, C++에서 같은 번호로 꽂아야 한다.
 
 | 레지스터 | 담는 것 | HLSL 선언 | C++ 바인딩 함수 |
 |---|---|---|---|
@@ -239,25 +222,24 @@ SamplerState g_Sampler    : register(s0);   // 샘플러 = s 레지스터
 - 슬롯 번호는 **종류별로 따로** 센다. 그래서 `b0`, `t0`, `s0`는 서로 겹치지 않는다.
 - 바인딩은 **셰이더 단계별로 따로**다. 픽셀 셰이더에서 쓰는 텍스처는 `PS`SetShaderResources로 꽂는다. (정점 셰이더에서 쓰려면 `VSSetShaderResources`)
 
-### 4-3. Render()에서 바인딩
+### 8.3-5. 텍스처 활성화 (Render에서 바인딩)
+
+책의 `Effects::BasicFX->SetDiffuseMap(srv)` + `Apply()`에 해당하는 부분.
 
 ```cpp
 m_pContext->PSSetShaderResources(0,                              // 시작 슬롯 (t0)
                                  1,                              // 개수
                                  m_pDiffuseSRV.GetAddressOf());
-
-m_pContext->PSSetSamplers(0,                                     // 시작 슬롯 (s0)
-                          1,
-                          m_pSampler.GetAddressOf());
 ```
 
 - 바인딩은 **컨텍스트에 계속 남아 있다.** 다른 물체가 t0를 다른 텍스처로 덮어쓰기 전까지 유지된다.
   - 그래서 물체마다 Render에서 **자기 텍스처를 매번 다시 꽂는 것**이 안전하다.
 - t0에 아무것도 꽂지 않고 `Sample()`하면 (0,0,0,0)이 나온다 → 화면이 검게 보인다.
+- 💡 텍스처 = 그냥 이미지 데이터라서, 같은 메시에 SRV만 바꿔 끼우면 다른 그림이 입혀진다. (같은 상자 + 나무 텍스처 / 철 텍스처)
 
 ---
 
-## 5. 필터링과 샘플러 상태 — 이 장의 핵심 개념
+## 8.4 필터 (Filters) — 이 장의 핵심 개념
 
 화면 픽셀과 텍스처 텍셀은 **1:1로 딱 맞는 경우가 거의 없다.**
 
@@ -266,17 +248,17 @@ m_pContext->PSSetSamplers(0,                                     // 시작 슬�
 
 이때 "픽셀의 색을 어떤 텍셀들로 어떻게 계산할지" 정하는 게 **필터링**이다.
 
-### 5-1. 확대(Magnification) 필터
+### 8.4.1 확대 (Magnification)
 
 64×64 텍스처를 화면 512×512 영역에 그린다고 해보자. UV가 텍셀과 텍셀 사이 어중간한 위치를 가리키게 된다.
 
-#### ① 점 필터링 (Point / Nearest)
+**① 점 필터링 (Point / Nearest)**
 
-- **가장 가까운 텍셀 하나**의 색을 그대로 쓴다.
+- **가장 가까운 텍셀 하나**의 색을 그대로 쓴다. (상수 보간)
 - 빠르지만 **계단 현상(블록처럼 각진 모양)** 이 생긴다. → 마인크래프트 느낌
 - 픽셀 아트 게임에서는 일부러 쓰기도 한다.
 
-#### ② 선형 필터링 (Linear / Bilinear)
+**② 선형 필터링 (Linear / Bilinear)**
 
 - 주변 **텍셀 4개**를 거리에 따라 **가중 평균**한다.
 - 부드럽게 보이지만, 많이 확대하면 흐릿해진다.
@@ -295,7 +277,7 @@ m_pContext->PSSetSamplers(0,                                     // 시작 슬�
 
 > 확대 문제의 근본 해결책은 더 큰 텍스처를 쓰는 것이지만, 메모리에 한계가 있으니 필터링으로 보완한다.
 
-### 5-2. 축소(Minification) 필터 — 밉맵(Mipmap)
+### 8.4.2 축소 (Minification) — 밉맵(Mipmap)
 
 멀리 있는 물체는 화면 픽셀 하나에 수십 개의 텍셀이 들어간다.
 그중 하나만 집어 오면 카메라가 조금만 움직여도 집히는 텍셀이 계속 바뀌어 **지글지글 깜빡인다(Aliasing, Shimmering).**
@@ -319,7 +301,7 @@ m_pContext->PSSetSamplers(0,                                     // 시작 슬�
 - 메모리는 원본 대비 약 **1/3(33%)만 더** 든다. (1/4 + 1/16 + ... ≈ 1/3)
 - GPU가 화면에서 텍스처가 차지하는 크기를 보고 **알맞은 밉 레벨을 자동으로 고른다.**
 - 밉맵은 DDS 파일 안에 미리 넣어 둘 수 있다. (texconv 등으로 생성)
-  - 이 폴더의 `mipmaps.dds`는 레벨마다 다른 색을 칠해 둔 학습용 파일이다.
+  - 이 폴더의 `Chapter 8 Texturing/mipmaps.dds`는 레벨마다 다른 색을 칠해 둔 학습용 파일이다.
 
 밉 레벨 사이를 어떻게 처리할지도 두 가지가 있다.
 
@@ -331,7 +313,7 @@ m_pContext->PSSetSamplers(0,                                     // 시작 슬�
 > **삼선형(Trilinear) 필터링** = 각 밉 레벨 안에서 Bilinear(2번 보간) + 레벨 사이 Linear(1번 보간) = 총 3방향 보간.
 > → `D3D11_FILTER_MIN_MAG_MIP_LINEAR`가 이것이다.
 
-### 5-3. 비등방성 필터링 (Anisotropic)
+### 8.4.3 비등방성 필터링 (Anisotropic Filtering)
 
 - 땅바닥처럼 **비스듬히 기울어진 면**을 보면, 화면 픽셀 하나가 텍스처 위에서는 **길쭉한 영역**을 덮는다.
 - 일반 밉맵은 정사각형 영역 기준이라 멀리 있는 바닥이 **뿌옇게 뭉개진다.**
@@ -344,9 +326,10 @@ m_pContext->PSSetSamplers(0,                                     // 시작 슬�
   비등방성(anisotropic) = 방향마다 다름    → 기울어진 면에 맞춘 길쭉한 영역 샘플
 ```
 
-### 5-4. 샘플러 상태 만들기 — `CreateSamplerState`
+### 8.4-4. 샘플러 상태 만들기 — `CreateSamplerState` (이펙트 없이)
 
-필터와 주소 모드(8절)는 **샘플러 상태 객체**에 담아 C++에서 만든다.
+책은 `.fx` 안에 `SamplerState samAnisotropic { Filter = ANISOTROPIC; MaxAnisotropy = 4; ... };`로 적고 이펙트가 알아서 만들어 준다.
+**직접 호출 방식에서는 C++에서 샘플러 상태 객체를 만들어 `s#` 슬롯에 꽂아야 한다.**
 
 ```cpp
 // 멤버 변수
@@ -356,7 +339,7 @@ ComPtr<ID3D11SamplerState> m_pSampler;
 D3D11_SAMPLER_DESC SamplerDesc{};
 SamplerDesc.Filter         = D3D11_FILTER_ANISOTROPIC;     // 필터 방식
 SamplerDesc.MaxAnisotropy  = 4;                            // 비등방성일 때만 의미 있음 (1~16)
-SamplerDesc.AddressU       = D3D11_TEXTURE_ADDRESS_WRAP;   // 주소 모드 (8절)
+SamplerDesc.AddressU       = D3D11_TEXTURE_ADDRESS_WRAP;   // 주소 모드 (8.8)
 SamplerDesc.AddressV       = D3D11_TEXTURE_ADDRESS_WRAP;
 SamplerDesc.AddressW       = D3D11_TEXTURE_ADDRESS_WRAP;
 SamplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;       // 비교 샘플러(그림자맵) 아니면 NEVER
@@ -365,6 +348,9 @@ SamplerDesc.MaxLOD         = D3D11_FLOAT32_MAX;            // ⚠️ 끝까지 �
 
 if (FAILED(m_pDevice->CreateSamplerState(&SamplerDesc, m_pSampler.GetAddressOf())))
     return E_FAIL;
+
+// Render()
+m_pContext->PSSetSamplers(0, 1, m_pSampler.GetAddressOf());   // s0
 ```
 
 > ⚠️ `{}`로 0 초기화만 하고 `MaxLOD`를 넣지 않으면 **MaxLOD = 0**이 되어 밉맵 0레벨만 쓴다. (멀리서 지글거림)
@@ -380,31 +366,175 @@ if (FAILED(m_pDevice->CreateSamplerState(&SamplerDesc, m_pSampler.GetAddressOf()
 | `ANISOTROPIC` | 비등방 | 비등방 | 비등방 | 최고 품질 |
 
 > ⚠️ **샘플러를 꽂지 않으면** 기본 샘플러(**선형 필터 + CLAMP**)가 쓰인다. "WRAP으로 반복하려 했는데 가장자리만 늘어난다"면 `PSSetSamplers`를 빠뜨린 것이다.
-> ⚠️ 책의 `.fx`처럼 HLSL 안에 `SamplerState s { Filter = ...; AddressU = WRAP; };`라고 써도 **일반 셰이더 컴파일에서는 적용되지 않는다.** (이건 이펙트 프레임워크 전용 문법) 반드시 C++에서 만든다.
+> ⚠️ HLSL 안에 `SamplerState s { Filter = ...; AddressU = WRAP; };`라고 써도 **일반 셰이더 컴파일(`D3DCompileFromFile`)에서는 적용되지 않는다.** (이펙트 프레임워크 전용 문법) 반드시 C++에서 만든다.
 
 ---
 
-## 6. 텍스처 샘플링
+## 8.5 텍스처 샘플링 (Sampling Textures)
 
 픽셀 셰이더에서 **"텍스처 + 샘플러 + UV"** 세 가지로 색을 읽는다.
 
 ```hlsl
-float4 vTexColor = g_DiffuseTex.Sample(g_Sampler, In.vTexcoord);
-//                   ↑ 어떤 텍스처       ↑ 어떻게 읽을지  ↑ 어디를 읽을지
+Texture2D    g_DiffuseTex : register(t0);
+SamplerState g_Sampler    : register(s0);
+
+float4 PS_MAIN(VS_OUT In) : SV_TARGET
+{
+    float4 vTexColor = g_DiffuseTex.Sample(g_Sampler, In.vTexcoord);
+    //                   ↑ 어떤 텍스처       ↑ 어떻게 읽을지  ↑ 어디를 읽을지
+    ...
+}
 ```
 
 - 결과는 `float4` (r, g, b, a), 각 값은 0~1 범위 (UNORM 포맷일 때).
+- 같은 텍스처라도 **어떤 샘플러로 읽느냐에 따라** 결과(필터, 주소 모드)가 달라진다. 텍스처와 샘플러는 서로 독립된 객체다.
 - `Sample()`은 **픽셀 셰이더에서만** 쓸 수 있다.
   - 밉 레벨을 고르려면 "옆 픽셀과 UV가 얼마나 차이 나는지(미분값)"를 알아야 하는데, 이건 픽셀 셰이더에서만 계산할 수 있기 때문.
   - 정점 셰이더 등에서는 밉 레벨을 직접 지정하는 `SampleLevel(sampler, uv, mipLevel)`을 쓴다.
 
 ---
 
-## 7. 재질과 텍스처 결합
+## 8.6 텍스처와 재질 (Textures and Materials)
 
-텍스처 색을 **디퓨즈(+앰비언트) 반사율**로 사용한다. 즉 "이 표면이 빛을 어떤 색으로 반사하는가"를 픽셀 단위로 바꿔주는 것.
+텍스처 색을 **디퓨즈(+앰비언트) 반사율**로 사용한다. 즉 "이 표면이 빛을 어떤 색으로 반사하는가"를 **픽셀 단위로** 바꿔주는 것.
+(7장에서는 재질 하나가 물체 전체의 반사율이었다면, 이제는 텍셀마다 반사율이 다르다.)
 
-### 7-1. 셰이더 전체 (Shader_VtxNorm.hlsl을 텍스처용으로 수정)
+```hlsl
+float4 vColor = vTexColor * (vAmbient + vDiffuse) + vSpec;
+vColor.a      = g_Material.Diffuse.a * vTexColor.a;   // 알파 = 재질 알파 × 텍스처 알파 (9장 블렌딩에서 사용)
+```
+
+### 왜 스펙큘러는 텍스처와 곱하지 않을까? ("Modulate with late add")
+
+- 반짝이는 하이라이트(정반사)는 보통 **빛의 색** 그대로 보인다. (빨간 사과의 하이라이트도 흰색)
+- 스펙큘러까지 텍스처와 곱하면 어두운 텍스처에서는 하이라이트가 거의 사라진다.
+- 그래서 **텍스처 × (앰비언트 + 디퓨즈)** 를 먼저 하고(modulate), **스펙큘러는 마지막에 더한다(late add).**
+
+### 재질 색은 흰색으로
+
+텍스처가 색을 담당하므로 재질의 Ambient/Diffuse는 **흰색에 가깝게** 둔다.
+(초록 재질 × 풀 텍스처 = 칙칙한 초록이 된다.) 재질은 이제 "텍스처 색을 얼마나 어둡게/밝게 조절할지" 정도의 역할만 한다.
+
+```cpp
+m_tMaterial.Ambient  = float4_t(1.f, 1.f, 1.f, 1.f);
+m_tMaterial.Diffuse  = float4_t(1.f, 1.f, 1.f, 1.f);
+m_tMaterial.Specular = float4_t(0.2f, 0.2f, 0.2f, 16.f);   // w = 광택 지수
+```
+
+---
+
+## 8.7 상자 데모 (Crate Demo)
+
+> 책 예제: `FDLuna-master/Chapter 8 Texturing/Crate` — 상자에 `WoodCrate01.dds`를 입힌다.
+> 아래는 같은 과정을 **이펙트 없이** 수업 엔진 스타일로 옮긴 것이다. (상자 = `CCube`, 땅 = `CHill` 어느 쪽이든 과정은 같다)
+
+### 7장(조명) 대비 바뀌는 점
+
+| 구분 | 7장 (조명) | 8장 (텍스처) |
+|---|---|---|
+| 정점 | 위치 + 법선 | + **UV** (VTXNORM.Tex) |
+| 입력 레이아웃 | POSITION, NORMAL | + **TEXCOORD** |
+| C++ 멤버 | VB, IB, CB, 셰이더, RS | + **SRV**, **샘플러** |
+| cbuffer | World, WorldInvTranspose, Material | + **mat_Tex** (8.9) |
+| HLSL | - | `Texture2D : register(t0)`, `SamplerState : register(s0)` |
+| 재질 | 색 있음 | **흰색** (색은 텍스처가 담당) |
+| Render | - | + `PSSetShaderResources`, `PSSetSamplers` |
+
+### 8.7.1 텍스처 좌표 지정 (Specifying Texture Coordinates)
+
+`GeometryGenerator::CreateBox`는 각 면마다 정점 4개를 따로 만들고, 면마다 UV를 (0,0)~(1,1)로 준다. → **6면 모두에 텍스처 전체가 한 장씩** 붙는다.
+(꼭짓점을 면끼리 공유하지 않는 이유: 같은 위치라도 면마다 법선과 UV가 다르기 때문)
+
+```cpp
+// 앞면 예시 (책 CreateBox)
+v[0] = Vertex(-w2, -h2, -d2, 0.0f, 0.0f, -1.0f, ..., 0.0f, 1.0f);  // 왼쪽 아래 UV(0,1)
+v[1] = Vertex(-w2, +h2, -d2, 0.0f, 0.0f, -1.0f, ..., 0.0f, 0.0f);  // 왼쪽 위   UV(0,0)
+v[2] = Vertex(+w2, +h2, -d2, 0.0f, 0.0f, -1.0f, ..., 1.0f, 0.0f);  // 오른쪽 위 UV(1,0)
+v[3] = Vertex(+w2, -h2, -d2, 0.0f, 0.0f, -1.0f, ..., 1.0f, 1.0f);  // 오른쪽 아래 UV(1,1)
+```
+
+생성한 메시 데이터의 UV를 **정점 버퍼용 배열로 복사**하는 것을 잊지 말 것.
+
+```cpp
+for (size_t i = 0; i < m_tMeshData.Vertices.size(); ++i)
+{
+    vertices[i].vPosition = m_tMeshData.Vertices[i].vPosition;
+    vertices[i].vNormal   = m_tMeshData.Vertices[i].vNormal;
+    vertices[i].Tex       = m_tMeshData.Vertices[i].TexC;     // ★ 빠뜨리면 UV가 전부 (0,0)
+}
+```
+
+### 8.7.2 텍스처 생성 (Creating the Texture)
+
+`Initialize_Prototype()`에서 한 번만 로드한다. (8.3-3 + 8.4-4)
+
+```cpp
+// 텍스처 로드
+if (FAILED(DirectX::CreateDDSTextureFromFile(m_pDevice.Get(),
+        L"../Resources/Textures/WoodCrate01.dds", nullptr, m_pDiffuseSRV.GetAddressOf())))
+    return E_FAIL;
+
+// 샘플러 생성 (책: Basic.fx의 samAnisotropic)
+D3D11_SAMPLER_DESC SamplerDesc{};
+SamplerDesc.Filter         = D3D11_FILTER_ANISOTROPIC;
+SamplerDesc.MaxAnisotropy  = 4;
+SamplerDesc.AddressU       = D3D11_TEXTURE_ADDRESS_WRAP;
+SamplerDesc.AddressV       = D3D11_TEXTURE_ADDRESS_WRAP;
+SamplerDesc.AddressW       = D3D11_TEXTURE_ADDRESS_WRAP;
+SamplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+SamplerDesc.MaxLOD         = D3D11_FLOAT32_MAX;
+if (FAILED(m_pDevice->CreateSamplerState(&SamplerDesc, m_pSampler.GetAddressOf())))
+    return E_FAIL;
+
+// 재질은 흰색 (8.6)
+m_tMaterial.Ambient  = float4_t(0.5f, 0.5f, 0.5f, 1.f);
+m_tMaterial.Diffuse  = float4_t(1.f, 1.f, 1.f, 1.f);
+m_tMaterial.Specular = float4_t(0.6f, 0.6f, 0.6f, 16.f);
+```
+
+### 8.7.3 텍스처 설정 (Setting the Texture)
+
+책은 `SetDiffuseMap(mDiffuseMapSRV)` → `pass->Apply()`. 직접 호출 방식은 Render에서 **각 단계마다 직접 꽂는다.**
+
+```cpp
+HRESULT CCube::Render()
+{
+    XMMATRIX matWorld   = GetWorld();
+    XMMATRIX matNoTrans = matWorld;
+    matNoTrans.r[3]     = XMVectorSet(0.f, 0.f, 0.f, 1.f);
+    XMMATRIX matWorldInvTranspose = XMMatrixTranspose(XMMatrixInverse(nullptr, matNoTrans));
+
+    CB_PER_OBJECT_LIT cbData;
+    XMStoreFloat4x4(&cbData.mat_World,             XMMatrixTranspose(matWorld));
+    XMStoreFloat4x4(&cbData.mat_WorldInvTranspose, XMMatrixTranspose(matWorldInvTranspose));
+    cbData.tMaterial = m_tMaterial;
+    XMStoreFloat4x4(&cbData.mat_Tex, XMMatrixTranspose(XMMatrixIdentity()));   // 상자는 변환 없음
+    m_pContext->UpdateSubresource(m_pCB.Get(), 0, nullptr, &cbData, 0, 0);
+
+    uint32_t iStride = sizeof(VTXNORM);
+    uint32_t iOffset = 0;
+    m_pContext->IASetVertexBuffers(0, 1, m_pVB.GetAddressOf(), &iStride, &iOffset);
+    m_pContext->IASetIndexBuffer(m_pIB.Get(), DXGI_FORMAT_R32_UINT, 0);
+    m_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+    m_pContext->IASetInputLayout(m_pInputLayout.Get());
+
+    m_pContext->VSSetShader(m_pVS.Get(), nullptr, 0);
+    m_pContext->VSSetConstantBuffers(0, 1, m_pCB.GetAddressOf());
+
+    m_pContext->PSSetShader(m_pPS.Get(), nullptr, 0);
+    m_pContext->PSSetConstantBuffers(0, 1, m_pCB.GetAddressOf());
+    m_pContext->PSSetShaderResources(0, 1, m_pDiffuseSRV.GetAddressOf());   // ★ t0
+    m_pContext->PSSetSamplers(0, 1, m_pSampler.GetAddressOf());              // ★ s0
+
+    m_pContext->RSSetState(m_pRS.Get());
+    m_pContext->DrawIndexed(m_iIndexCnt, 0, 0);
+    return S_OK;
+}
+```
+
+### 8.7.4 갱신된 셰이더 (Updated Basic Effect → 일반 HLSL)
+
+책의 `Basic.fx`(technique11 + `uniform bool gUseTexure`)를 이펙트 없이 일반 `.hlsl`로 바꾼 것. `Shader_VtxNorm.hlsl`을 텍스처용으로 수정한다.
 
 ```hlsl
 #include "LightHelper.hlsli"
@@ -414,7 +544,7 @@ cbuffer cbPerObject : register(b0)
     float4x4 g_matWorld;
     float4x4 g_matWorldInvTranspose;
     Material g_Material;
-    float4x4 g_matTex;                      // ★ 텍스처 변환 행렬 (9절)
+    float4x4 g_matTex;                      // ★ 텍스처 변환 행렬 (8.9)
 };
 
 cbuffer cbCamera : register(b1)
@@ -430,7 +560,7 @@ cbuffer cbDirLight   : register(b3) { DirectionalLight g_DirLight;   }
 cbuffer cbSpotLight  : register(b4) { SpotLight        g_SpotLight;  }
 
 Texture2D    g_DiffuseTex : register(t0);   // ★ 텍스처
-SamplerState g_Sampler    : register(s0);   // ★ 샘플러
+SamplerState g_Sampler    : register(s0);   // ★ 샘플러 (C++에서 생성)
 
 struct VS_IN
 {
@@ -456,7 +586,7 @@ VS_OUT VS_MAIN(VS_IN In)
     Out.vNormalW  = mul(In.vNormal, (float3x3) g_matWorldInvTranspose);
     Out.vPosition = mul(mul(vPosW, g_matView), g_matProj);
 
-    // ★ UV도 행렬로 변환 (9절). 변환이 필요 없으면 Out.vTexcoord = In.vTexcoord;
+    // ★ UV도 행렬로 변환 (8.9). 변환이 필요 없으면 Out.vTexcoord = In.vTexcoord;
     Out.vTexcoord = mul(float4(In.vTexcoord, 0.f, 1.f), g_matTex).xy;
     return Out;
 }
@@ -466,7 +596,7 @@ float4 PS_MAIN(VS_OUT In) : SV_TARGET
     float3 vNormal = normalize(In.vNormalW);   // 보간되면 길이가 1이 아니게 되므로 다시 정규화
     float3 vToEye  = normalize(g_vEye - In.vPosW);
 
-    // ★ 텍스처 샘플링
+    // ★ 텍스처 샘플링 (8.5)
     float4 vTexColor = g_DiffuseTex.Sample(g_Sampler, In.vTexcoord);
 
     float4 vA, vD, vS;
@@ -481,39 +611,20 @@ float4 PS_MAIN(VS_OUT In) : SV_TARGET
     ComputeSpotLight(g_Material, g_SpotLight, In.vPosW, vNormal, vToEye, vA, vD, vS);
     vAmbient += vA; vDiffuse += vD; vSpec += vS;
 
-    // ★ 텍스처는 앰비언트+디퓨즈에만 곱하고, 스펙큘러는 마지막에 더한다
+    // ★ 8.6: 텍스처는 앰비언트+디퓨즈에만 곱하고, 스펙큘러는 마지막에 더한다
     float4 vColor = vTexColor * (vAmbient + vDiffuse) + vSpec;
-
-    // 알파 = 재질 디퓨즈 알파 × 텍스처 알파 (9장 블렌딩에서 사용)
     vColor.a = g_Material.Diffuse.a * vTexColor.a;
     return vColor;
 }
 ```
 
-### 7-2. 왜 스펙큘러는 텍스처와 곱하지 않을까? (책: "Modulate with late add")
-
-- 반짝이는 하이라이트(정반사)는 보통 **빛의 색** 그대로 보인다. (빨간 사과의 하이라이트도 흰색)
-- 스펙큘러까지 텍스처와 곱하면 어두운 텍스처에서는 하이라이트가 거의 사라진다.
-- 그래서 **텍스처 × (앰비언트 + 디퓨즈)** 를 먼저 하고, **스펙큘러는 마지막에 더한다.**
-
-### 7-3. 재질 색은 흰색으로
-
-텍스처가 색을 담당하므로 재질의 Ambient/Diffuse는 **흰색에 가깝게** 둔다.
-(초록 재질 × 풀 텍스처 = 칙칙한 초록이 된다.)
-
-```cpp
-m_tMaterial.Ambient  = float4_t(1.f, 1.f, 1.f, 1.f);
-m_tMaterial.Diffuse  = float4_t(1.f, 1.f, 1.f, 1.f);
-m_tMaterial.Specular = float4_t(0.2f, 0.2f, 0.2f, 16.f);   // w = 광택 지수
-```
-
-> 💡 책은 하나의 `.fx`에서 `uniform bool gUseTexure`로 "텍스처 있는 버전 / 없는 버전" 셰이더를 둘 다 만든다.
+> 💡 책은 하나의 `.fx`에서 `uniform bool gUseTexure`로 "텍스처 있는 테크닉 / 없는 테크닉"(`Light2`, `Light2Tex` …)을 둘 다 만든다.
 > 이펙트 없이 같은 걸 하려면 진입 함수를 따로 만들거나(`PS_MAIN`, `PS_MAIN_TEX`), `D3DCompileFromFile`의 두 번째 인자 `D3D_SHADER_MACRO`로 `#define`을 다르게 줘서 두 번 컴파일하면 된다.
 > 처음엔 **텍스처 쓰는 셰이더 하나만** 만드는 것으로 충분하다.
 
 ---
 
-## 8. 주소 모드 (Address Mode)
+## 8.8 주소 모드 (Address Modes)
 
 UV는 보통 [0, 1]이지만, **일부러 그 밖의 값**(예: 0~4)을 줄 수도 있다. 이때 어떻게 할지 정하는 게 주소 모드다.
 샘플러 desc의 `AddressU / AddressV / AddressW`에 지정한다. (축마다 따로 지정 가능)
@@ -543,7 +654,7 @@ SamplerDesc.BorderColor[3] = 1.f;   // A
 
 ---
 
-## 9. 텍스처 변환 (Texture Transform)
+## 8.9 텍스처 변환 (Transforming Textures)
 
 UV도 결국 2D 좌표이므로 **행렬로 이동/회전/크기 변환**을 할 수 있다. 정점 셰이더에서 `g_matTex`를 곱하는 이유가 이것이다.
 
@@ -552,9 +663,13 @@ Out.vTexcoord = mul(float4(In.vTexcoord, 0.f, 1.f), g_matTex).xy;
 //                 ↑ (u, v, 0, 1) 동차좌표로 만들어야 4x4 행렬의 이동(translation)이 적용됨
 ```
 
-### 9-1. C++ 상수 버퍼에 행렬 추가
+- 크기 변환 → **타일링**(반복 횟수 조절)
+- 이동 변환 → **스크롤 애니메이션**(흐르는 물, 구름)
+- 회전 변환 → 텍스처 회전 (연습문제)
 
-C++ 구조체에 **HLSL cbuffer와 같은 순서로** 행렬을 추가한다.
+### C++ 상수 버퍼에 행렬 추가 (책: `SetTexTransform`)
+
+C++ 구조체에 **HLSL cbuffer와 같은 순서로** 행렬을 추가한다. (현재 엔진의 `CB_PER_OBJECT_LIT`에는 아직 없음)
 
 ```cpp
 typedef struct tagCBPerObjectLit
@@ -574,75 +689,31 @@ m_pContext->UpdateSubresource(m_pCB.Get(), 0, nullptr, &cbData, 0, 0);
 ```
 
 > 💡 **왜 전치(Transpose)하나?** HLSL cbuffer의 행렬은 기본적으로 **열 우선(column-major)** 으로 읽힌다.
-> DirectXMath의 행렬은 행 우선이므로, `UpdateSubresource`로 올리기 전에 전치해야 셰이더에서 올바르게 읽힌다. (`mat_World`를 전치하는 이유와 같다.)
+> DirectXMath의 행렬은 행 우선이므로, `UpdateSubresource`로 올리기 전에 전치해야 셰이더에서 올바르게 읽힌다. (`mat_World`를 전치하는 이유와 같다. 이펙트의 `SetMatrix`는 이 처리를 내부에서 해줬다.)
 >
 > 💡 cbuffer는 **16바이트 단위로 정렬**된다. `MATERIAL`(float4 × 4 = 64바이트)과 `float4x4`(64바이트)는 딱 맞으니 걱정 없지만, `float3` 같은 걸 끼워 넣을 때는 패딩(`fPad`)을 넣어야 C++과 HLSL의 배치가 어긋나지 않는다.
 
-### 9-2. 용도 ① 타일링 (크기 변환)
-
-```cpp
-// UV를 5배 → 0~1이 0~5가 됨 → WRAP 모드와 합쳐져 텍스처가 5x5번 반복됨
-XMMATRIX matTex = XMMatrixScaling(5.f, 5.f, 0.f);
-```
-
-- 넓은 땅에 텍스처 한 장을 늘려 붙이면 텍셀이 엄청 커져서 흐릿해진다.
-- 작은 텍스처를 **여러 번 반복**하면 가까이서 봐도 디테일이 살아 있다.
-- z 스케일이 0인 이유: UV는 2D라서 z는 쓸 일이 없다.
-- **WRAP 샘플러가 꽂혀 있어야** 반복된다. (CLAMP면 가장자리만 늘어남)
-
-> ⚠️ 헷갈리는 포인트: UV를 **키우면** 화면의 그림은 **작아지고 더 많이 반복**된다.
-
-### 9-3. 용도 ② 애니메이션 (이동 변환)
-
-```cpp
-// 멤버: float2_t m_vTexOffset = {};
-// Update(): 매 프레임 UV 오프셋을 조금씩 증가 → 텍스처가 표면 위를 흘러감
-m_vTexOffset.x += 0.1f  * fDeltaTime;
-m_vTexOffset.y += 0.05f * fDeltaTime;
-
-// Render()
-XMMATRIX matScale  = XMMatrixScaling(5.f, 5.f, 0.f);
-XMMATRIX matOffset = XMMatrixTranslation(m_vTexOffset.x, m_vTexOffset.y, 0.f);
-XMStoreFloat4x4(&cbData.mat_Tex, XMMatrixTranspose(matScale * matOffset));   // 스케일 → 이동 순서
-```
-
-- 정점은 그대로인데 그림만 움직이는 효과 → 흐르는 물, 용암, 구름, 컨베이어 벨트, 스크롤 배경 등.
-- 오프셋이 계속 커져도 **WRAP 모드**라서 문제없이 무한히 흐른다.
-- 행렬을 CPU에서 만들어 상수 버퍼로 넘기기만 하면 되므로 정점 버퍼를 건드릴 필요가 없다. (아주 싸다!)
-
 ---
 
-## 10. 실습 ① 지형에 풀 텍스처 입히기 (책: Crate 예제)
+## 8.10 텍스처 입힌 언덕과 파도 데모 (Textured Hills and Waves Demo)
 
-> 책의 Crate 예제는 상자에 나무 텍스처를 입힌다. 과정은 똑같으니 수업 엔진의 `CHill`에 `grass.dds`를 입히는 것으로 실습한다.
+> 책 예제: `FDLuna-master/Chapter 8 Texturing/TexturedHillsAndWaves` — 언덕에는 `grass.dds`(타일링), 물결에는 `water2.dds`(흐르는 애니메이션).
+> **셰이더는 8.7.4와 완전히 같고**, 물체마다 넘기는 **SRV와 `mat_Tex`만 다르다.** 수업 엔진의 `CHill`로 실습한다.
 
-### 7장(조명) 대비 바뀌는 점
+### 8.10.1 그리드 텍스처 좌표 생성 (Grid Texture Coordinate Generation)
 
-| 구분 | 7장 (조명) | 8장 (텍스처) |
-|---|---|---|
-| 정점 | 위치 + 법선 | + **UV** (VTXNORM.Tex) |
-| 입력 레이아웃 | POSITION, NORMAL | + **TEXCOORD** |
-| C++ 멤버 | VB, IB, CB, 셰이더, RS | + **SRV**, **샘플러** |
-| cbuffer | World, WorldInvTranspose, Material | + **mat_Tex** |
-| HLSL | - | `Texture2D : register(t0)`, `SamplerState : register(s0)` |
-| 재질 | 초록색 | **흰색** (색은 텍스처가 담당) |
-| Render | - | + `PSSetShaderResources`, `PSSetSamplers` |
-
-### 10-1. 헤더 (Hill.h)
+그리드(지형)는 왼쪽 위 정점이 (0,0), 오른쪽 아래 정점이 (1,1)이 되도록 칸 수로 나눠서 준다. `CHill`이 이미 이렇게 계산하고 있다. (`Duckov/Game/Client/Private/Hill.cpp`)
 
 ```cpp
-private:
-    MESHDATA m_tMeshData = {};
-    MATERIAL m_tMaterial = {};
-
-    ComPtr<ID3D11ShaderResourceView>  m_pDiffuseSRV;   // ★ 텍스처
-    ComPtr<ID3D11SamplerState>        m_pSampler;      // ★ 샘플러
+f32_t du = 1.f / (ivtxCntX - 1);
+f32_t dv = 1.f / (ivtxCntZ - 1);
+// ...
+m_tMeshData.Vertices[i * ivtxCntX + j].TexC.x = j * du;   // 오른쪽으로 갈수록 u 증가
+m_tMeshData.Vertices[i * ivtxCntX + j].TexC.y = i * dv;   // 아래(앞쪽)로 갈수록 v 증가
 ```
 
-### 10-2. Initialize_Prototype()
-
 ```cpp
-// ① UV 복사 (정점 버퍼용 배열로)
+// Initialize_Prototype(): 높이 적용 + UV 복사
 for (size_t i = 0; i < m_tMeshData.Vertices.size(); ++i)
 {
     float3_t& p = m_tMeshData.Vertices[i].vPosition;
@@ -651,82 +722,9 @@ for (size_t i = 0; i < m_tMeshData.Vertices.size(); ++i)
     vertices[i].vNormal   = m_tMeshData.Vertices[i].vNormal;
     vertices[i].Tex       = m_tMeshData.Vertices[i].TexC;     // ★
 }
-
-// ② 재질은 흰색
-m_tMaterial.Ambient  = float4_t(1.f, 1.f, 1.f, 1.f);
-m_tMaterial.Diffuse  = float4_t(1.f, 1.f, 1.f, 1.f);
-m_tMaterial.Specular = float4_t(0.2f, 0.2f, 0.2f, 16.f);
-
-// ... VB, IB, CB 생성 / 셰이더 컴파일 / 입력 레이아웃 생성은 기존과 동일 ...
-
-// ③ 텍스처 로드
-if (FAILED(DirectX::CreateDDSTextureFromFile(m_pDevice.Get(),
-        L"../Resources/Textures/grass.dds", nullptr, m_pDiffuseSRV.GetAddressOf())))
-    return E_FAIL;
-
-// ④ 샘플러 생성
-D3D11_SAMPLER_DESC SamplerDesc{};
-SamplerDesc.Filter         = D3D11_FILTER_ANISOTROPIC;
-SamplerDesc.MaxAnisotropy  = 4;
-SamplerDesc.AddressU       = D3D11_TEXTURE_ADDRESS_WRAP;
-SamplerDesc.AddressV       = D3D11_TEXTURE_ADDRESS_WRAP;
-SamplerDesc.AddressW       = D3D11_TEXTURE_ADDRESS_WRAP;
-SamplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
-SamplerDesc.MaxLOD         = D3D11_FLOAT32_MAX;
-if (FAILED(m_pDevice->CreateSamplerState(&SamplerDesc, m_pSampler.GetAddressOf())))
-    return E_FAIL;
 ```
 
-### 10-3. Render()
-
-```cpp
-HRESULT CHill::Render()
-{
-    XMMATRIX matWorld = GetWorld();
-    XMMATRIX matNoTrans = matWorld;
-    matNoTrans.r[3] = XMVectorSet(0.f, 0.f, 0.f, 1.f);
-    XMMATRIX matWorldInvTranspos = XMMatrixTranspose(XMMatrixInverse(nullptr, matNoTrans));
-
-    CB_PER_OBJECT_LIT cbData;
-    XMStoreFloat4x4(&cbData.mat_World,             XMMatrixTranspose(matWorld));
-    XMStoreFloat4x4(&cbData.mat_WorldInvTranspose, XMMatrixTranspose(matWorldInvTranspos));
-    cbData.tMaterial = m_tMaterial;
-    XMStoreFloat4x4(&cbData.mat_Tex, XMMatrixTranspose(XMMatrixScaling(5.f, 5.f, 0.f)));  // ★ 5x5 타일링
-    m_pContext->UpdateSubresource(m_pCB.Get(), 0, nullptr, &cbData, 0, 0);
-
-    uint32_t iStride = sizeof(VTXNORM);
-    uint32_t iOffset = 0;
-    m_pContext->IASetVertexBuffers(0, 1, m_pVB.GetAddressOf(), &iStride, &iOffset);
-    m_pContext->IASetIndexBuffer(m_pIB.Get(), DXGI_FORMAT_R32_UINT, 0);
-    m_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-    m_pContext->IASetInputLayout(m_pInputLayout.Get());
-
-    m_pContext->VSSetShader(m_pVS.Get(), nullptr, 0);
-    m_pContext->VSSetConstantBuffers(0, 1, m_pCB.GetAddressOf());
-
-    m_pContext->PSSetShader(m_pPS.Get(), nullptr, 0);
-    m_pContext->PSSetConstantBuffers(0, 1, m_pCB.GetAddressOf());
-    m_pContext->PSSetShaderResources(0, 1, m_pDiffuseSRV.GetAddressOf());   // ★ t0
-    m_pContext->PSSetSamplers(0, 1, m_pSampler.GetAddressOf());              // ★ s0
-
-    m_pContext->RSSetState(m_pRS.Get());
-    m_pContext->DrawIndexed(m_iIndexCnt, 0, 0);
-    return S_OK;
-}
-```
-
-> 셰이더는 7-1의 것을 그대로 쓴다. C++ 쪽에서 넘기는 값만 물체마다 다르다.
-
----
-
-## 11. 실습 ② 흐르는 물 (책: Textured Hills and Waves 예제)
-
-> 책 예제는 언덕에는 풀 텍스처(타일링), 물결에는 물 텍스처(흐르는 애니메이션)를 입힌다.
-> **셰이더는 실습 ①과 완전히 같고**, 물체마다 넘기는 **SRV와 `mat_Tex`만 다르다.**
-
-### 11-1. 물결 정점의 UV는 위치에서 계산
-
-책의 물결은 매 프레임 높이가 바뀌어서 동적 버퍼(`D3D11_USAGE_DYNAMIC` + `Map / Unmap`)로 갱신한다. 이때 UV도 위치로부터 계산한다.
+물결은 매 프레임 높이가 바뀌어서 동적 버퍼(`D3D11_USAGE_DYNAMIC` + `Map / Unmap`)로 갱신한다. 이때 UV는 **위치로부터 계산**한다.
 
 ```cpp
 D3D11_MAPPED_SUBRESOURCE mappedData;
@@ -746,20 +744,41 @@ for (uint32_t i = 0; i < iVertexCount; ++i)
 m_pContext->Unmap(m_pWavesVB.Get(), 0);
 ```
 
-### 11-2. 물 텍스처 흘리기
+### 8.10.2 텍스처 타일링 (Texture Tiling)
 
 ```cpp
-// Update()
+// UV를 5배 → 0~1이 0~5가 됨 → WRAP 모드와 합쳐져 텍스처가 5x5번 반복됨
+XMMATRIX matTex = XMMatrixScaling(5.f, 5.f, 0.f);
+XMStoreFloat4x4(&cbData.mat_Tex, XMMatrixTranspose(matTex));
+```
+
+- 넓은 땅에 텍스처 한 장을 늘려 붙이면 텍셀이 엄청 커져서(확대) 흐릿해진다.
+- 작은 텍스처를 **여러 번 반복**하면 가까이서 봐도 디테일이 살아 있다.
+- z 스케일이 0인 이유: UV는 2D라서 z는 쓸 일이 없다.
+- **WRAP 샘플러가 꽂혀 있어야** 반복된다. (CLAMP면 가장자리만 늘어남)
+
+> ⚠️ 헷갈리는 포인트: UV를 **키우면** 화면의 그림은 **작아지고 더 많이 반복**된다.
+
+### 8.10.3 텍스처 애니메이션 (Texture Animation)
+
+```cpp
+// 멤버: float2_t m_vTexOffset = {};
+
+// Update(): 매 프레임 UV 오프셋을 조금씩 증가 → 텍스처가 표면 위를 흘러감
 m_vTexOffset.x += 0.1f  * fDeltaTime;
 m_vTexOffset.y += 0.05f * fDeltaTime;
 
 // Render()
-XMMATRIX matScale  = XMMatrixScaling(5.f, 5.f, 0.f);                                 // 5x5 반복
-XMMATRIX matOffset = XMMatrixTranslation(m_vTexOffset.x, m_vTexOffset.y, 0.f);       // 흘러감
-XMStoreFloat4x4(&cbData.mat_Tex, XMMatrixTranspose(matScale * matOffset));
+XMMATRIX matScale  = XMMatrixScaling(5.f, 5.f, 0.f);                               // 5x5 반복
+XMMATRIX matOffset = XMMatrixTranslation(m_vTexOffset.x, m_vTexOffset.y, 0.f);     // 흘러감
+XMStoreFloat4x4(&cbData.mat_Tex, XMMatrixTranspose(matScale * matOffset));         // 스케일 → 이동 순서
 ```
 
-### 11-3. 그리기: 물체마다 SRV와 행렬만 바꿔 끼운다
+- 정점은 그대로인데 그림만 움직이는 효과 → 흐르는 물, 용암, 구름, 컨베이어 벨트, 스크롤 배경 등.
+- 오프셋이 계속 커져도 **WRAP 모드**라서 문제없이 무한히 흐른다.
+- 행렬을 CPU에서 만들어 상수 버퍼로 넘기기만 하면 되므로 정점 버퍼를 건드릴 필요가 없다. (아주 싸다!)
+
+### 그리기: 물체마다 SRV와 행렬만 바꿔 끼운다
 
 ```cpp
 // 언덕 (CHill::Render)
@@ -771,11 +790,91 @@ cbData.mat_Tex = (5x5 스케일 × 이동);
 m_pContext->PSSetShaderResources(0, 1, m_pWaterSRV.GetAddressOf());
 ```
 
-> 책에서는 물이 반투명하게 보이는 건 9장(블렌딩)에서 다룬다. 8장에서는 불투명한 물이다.
+> 물이 반투명하게 보이는 건 9장(블렌딩)에서 다룬다. 8장에서는 불투명한 물이다.
 
 ---
 
-## 12. (참고) 로더 없이 텍스처 직접 만들기 — 로더가 내부에서 하는 일
+## 8.11 압축 텍스처 포맷 (Compressed Texture Formats)
+
+텍스처는 메모리를 많이 먹는다.
+
+- 1024×1024 RGBA8 텍스처 = 1024 × 1024 × 4바이트 = **4MB** (밉맵 포함 약 5.3MB)
+- 이런 텍스처가 수백 장이면 VRAM이 금방 찬다 → **GPU가 직접 읽을 수 있는 압축 포맷**을 쓴다.
+
+### BC(Block Compression) 포맷
+
+- 텍셀을 **4×4 블록 단위**로 묶어 압축한다.
+- PNG/JPG와 달리 **GPU가 압축된 상태 그대로 샘플링**할 수 있다. (메모리 절약 + 대역폭 절약 = 성능 향상)
+- 손실 압축이라 화질은 약간 떨어진다.
+
+| 포맷 | 용도 | 비고 |
+|---|---|---|
+| **BC1** (DXT1) | RGB + 1비트 알파 (있다/없다) | 4bpp, 가장 작음 (RGBA8 대비 1/8) |
+| **BC2** (DXT3) | RGB + 4비트 명시 알파 | 거의 안 씀 |
+| **BC3** (DXT5) | RGB + 부드러운 8비트 알파 | 반투명 텍스처 |
+| **BC4** | 단일 채널 (흑백) | 높이맵, 마스크 |
+| **BC5** | 2채널 | 노멀맵 (x, y 저장, z는 계산) |
+| BC6H | HDR (부동소수점) RGB | DX11 추가 |
+| BC7 | 고품질 RGB(A) | DX11 추가 |
+
+- 압축 텍스처는 **너비/높이가 4의 배수**여야 한다. (4×4 블록 단위이므로)
+- 이 포맷들을 담는 파일 형식이 **DDS(DirectDraw Surface)**.
+  - DDS는 **밉맵, 압축 포맷, 큐브맵, 텍스처 배열**까지 다 담을 수 있다 → 그래서 DX 예제는 전부 .dds를 쓴다.
+  - `CreateDDSTextureFromFile`은 DDS 헤더에 적힌 포맷(BC1 등)을 그대로 읽어 압축 텍스처로 만든다. 별도 처리 필요 없음.
+- 변환 도구: **texconv** (DirectXTex에 포함), Photoshop/GIMP 플러그인 등.
+
+```bash
+texconv -f BC3_UNORM -m 0 WoodCrate01.png
+```
+
+(`-f` = 포맷, `-m 0` = 밉맵을 끝까지 생성)
+
+---
+
+## 8.12 요약 (Summary)
+
+1. **텍스처**는 `ID3D11Texture2D`(데이터) + **SRV**(셰이더 출입증)로 쓴다. 파일 로드는 `DirectX::CreateDDSTextureFromFile`. (8.1, 8.3)
+2. **텍스처 좌표(UV)** 는 [0,1] 정규화 좌표, 왼쪽 위가 (0,0), v는 아래로 증가. 정점에 지정하면 삼각형 안쪽은 자동으로 보간된다. (8.2)
+3. **레지스터**: 상수 버퍼 `b#`, 텍스처 `t#`, 샘플러 `s#`. HLSL에서 번호를 정하고, C++에서 같은 번호로 `PSSetShaderResources` / `PSSetSamplers`. (8.3)
+4. **필터링** (샘플러 desc의 `Filter`, C++에서 `CreateSamplerState`) (8.4)
+   - 확대: Point(각짐) / Linear(부드러움, 4텍셀 쌍선형 보간)
+   - 축소: **밉맵** 사용. 밉 사이도 Point/Linear → 전부 Linear = **삼선형**
+   - 기울어진 면: **비등방성**이 최고 품질
+5. **샘플링**: `texture.Sample(sampler, uv)` — 픽셀 셰이더 전용. (그 외는 `SampleLevel`) (8.5)
+6. **재질과 결합**: `color = texColor * (ambient + diffuse) + spec`, 알파 = 재질 알파 × 텍스처 알파. 재질 색은 흰색으로. (8.6)
+7. **주소 모드** (샘플러 desc의 `AddressU/V/W`): WRAP(반복) / MIRROR(거울 반복) / CLAMP(가장자리 늘림, 기본값) / BORDER(지정 색). (8.8)
+8. **텍스처 변환**: UV에 행렬 곱하기. 스케일 → **타일링**, 이동 → **흐르는 애니메이션**. C++에서 **전치해서** 상수 버퍼로 넘긴다. (8.9, 8.10)
+9. **압축 포맷(BC1~7)** + **DDS**로 VRAM과 대역폭을 아낀다. 크기는 4의 배수. (8.11)
+
+---
+
+## 8.13 연습문제 (Exercises) 핵심 아이디어
+
+- **UV 범위를 [0,3]으로 바꾸고 주소 모드를 바꿔 보기** → 샘플러 desc의 `AddressU/V`만 바꿔서 WRAP / MIRROR / CLAMP / BORDER 차이를 눈으로 확인. (이펙트처럼 `.fx`를 고치는 게 아니라 **C++ 샘플러 desc를 고친다**)
+- **텍스처 회전 애니메이션** → 텍스처 중심 (0.5, 0.5) 기준으로 돌리려면 원점으로 옮김 → 회전 → 되돌림 순서로 합성한다.
+  ```cpp
+  XMMATRIX matTex = XMMatrixTranslation(-0.5f, -0.5f, 0.f) *
+                    XMMatrixRotationZ(fAngle) *
+                    XMMatrixTranslation( 0.5f,  0.5f, 0.f);
+  XMStoreFloat4x4(&cbData.mat_Tex, XMMatrixTranspose(matTex));
+  ```
+- **두 텍스처 곱하기 (멀티 텍스처링)** → `Chapter 8 Texturing/flare.dds` × `flarealpha.dds`를 상자에 입히고 회전시키기. 텍스처 2개를 t0, t1에 꽂는다.
+  ```hlsl
+  Texture2D g_FlareTex      : register(t0);
+  Texture2D g_FlareAlphaTex : register(t1);
+  // PS
+  float4 c = g_FlareTex.Sample(g_Sampler, In.vTexcoord) * g_FlareAlphaTex.Sample(g_Sampler, In.vTexcoord);
+  ```
+  ```cpp
+  ID3D11ShaderResourceView* pSRVs[2] = { m_pFlareSRV.Get(), m_pFlareAlphaSRV.Get() };
+  m_pContext->PSSetShaderResources(0, 2, pSRVs);   // t0, t1에 한 번에
+  ```
+- **밉맵 레벨 시각화** → `mipmaps.dds`(레벨마다 색이 다름)를 바닥에 입히고 카메라를 멀리/가까이 하며 레벨이 바뀌는 것 관찰. 샘플러 Filter를 `MIN_MAG_LINEAR_MIP_POINT` ↔ `MIN_MAG_MIP_LINEAR`로 바꿔서 경계 차이 보기.
+- **여러 장의 텍스처로 불꽃 애니메이션** → 프레임 이미지 여러 장을 SRV 배열로 미리 로드해 두고, 시간에 맞춰 `PSSetShaderResources`에 넘기는 SRV를 바꾼다.
+
+---
+
+## 부록 A. 로더 없이 텍스처 직접 만들기 — 로더가 내부에서 하는 일
 
 파일 없이 코드로 체크무늬 텍스처를 만들어 보면 **텍스처 → SRV** 과정이 그대로 보인다. 텍스처 테스트용으로도 쓸모 있다.
 
@@ -816,43 +915,7 @@ if (FAILED(m_pDevice->CreateShaderResourceView(pTexture.Get(), nullptr, m_pDiffu
 
 ---
 
-## 13. 압축 텍스처 포맷
-
-텍스처는 메모리를 많이 먹는다.
-
-- 1024×1024 RGBA8 텍스처 = 1024 × 1024 × 4바이트 = **4MB** (밉맵 포함 약 5.3MB)
-- 이런 텍스처가 수백 장이면 VRAM이 금방 찬다 → **GPU가 직접 읽을 수 있는 압축 포맷**을 쓴다.
-
-### BC(Block Compression) 포맷
-
-- 텍셀을 **4×4 블록 단위**로 묶어 압축한다.
-- PNG/JPG와 달리 **GPU가 압축된 상태 그대로 샘플링**할 수 있다. (메모리 절약 + 대역폭 절약 = 성능 향상)
-- 손실 압축이라 화질은 약간 떨어진다.
-
-| 포맷 | 용도 | 비고 |
-|---|---|---|
-| **BC1** (DXT1) | RGB + 1비트 알파 (있다/없다) | 4bpp, 가장 작음 (RGBA8 대비 1/8) |
-| **BC2** (DXT3) | RGB + 4비트 명시 알파 | 거의 안 씀 |
-| **BC3** (DXT5) | RGB + 부드러운 8비트 알파 | 반투명 텍스처 |
-| **BC4** | 단일 채널 (흑백) | 높이맵, 마스크 |
-| **BC5** | 2채널 | 노멀맵 (x, y 저장, z는 계산) |
-| BC6H | HDR (부동소수점) RGB | DX11 추가 |
-| BC7 | 고품질 RGB(A) | DX11 추가 |
-
-- 압축 텍스처는 **너비/높이가 4의 배수**여야 한다. (4×4 블록 단위이므로)
-- 이 포맷들을 담는 파일 형식이 **DDS(DirectDraw Surface)**.
-  - DDS는 **밉맵, 압축 포맷, 큐브맵, 텍스처 배열**까지 다 담을 수 있다 → 그래서 DX 예제는 전부 .dds를 쓴다.
-- 변환 도구: **texconv** (DirectXTex에 포함), Photoshop/GIMP 플러그인 등.
-
-```bash
-texconv -f BC3_UNORM -m 0 WoodCrate01.png
-```
-
-(`-f` = 포맷, `-m 0` = 밉맵을 끝까지 생성)
-
----
-
-## 14. 자주 하는 실수 체크리스트
+## 부록 B. 자주 하는 실수 체크리스트
 
 | 증상 | 원인 |
 |---|---|
@@ -873,50 +936,7 @@ texconv -f BC3_UNORM -m 0 WoodCrate01.png
 
 ---
 
-## 15. 최종 요약
-
-1. **텍스처 좌표(UV)** 는 [0,1] 정규화 좌표, 왼쪽 위가 (0,0), v는 아래로 증가. 정점에 지정하면 삼각형 안쪽은 자동으로 보간된다.
-2. 텍스처는 **`ID3D11Texture2D`(데이터) + SRV(셰이더 출입증)** 로 쓴다. 파일 로드는 `DirectX::CreateDDSTextureFromFile`.
-3. **레지스터**: 상수 버퍼 `b#`, 텍스처 `t#`, 샘플러 `s#`. HLSL에서 번호를 정하고, C++에서 같은 번호로 `PSSetShaderResources` / `PSSetSamplers`.
-4. **필터링** (샘플러 desc의 `Filter`)
-   - 확대: Point(각짐) / Linear(부드러움, 4텍셀 쌍선형 보간)
-   - 축소: **밉맵** 사용. 밉 사이도 Point/Linear → 전부 Linear = **삼선형**
-   - 기울어진 면: **비등방성**이 최고 품질
-5. **샘플링**: `texture.Sample(sampler, uv)` — 픽셀 셰이더 전용. (그 외는 `SampleLevel`)
-6. **조명과 결합**: `color = texColor * (ambient + diffuse) + spec`, 알파 = 재질 알파 × 텍스처 알파. 재질 색은 흰색으로.
-7. **주소 모드** (샘플러 desc의 `AddressU/V/W`): WRAP(반복) / MIRROR(거울 반복) / CLAMP(가장자리 늘림, 기본값) / BORDER(지정 색).
-8. **텍스처 변환**: UV에 행렬 곱하기. 스케일 → **타일링**, 이동 → **흐르는 애니메이션**. C++에서 **전치해서** 상수 버퍼로 넘긴다.
-9. **압축 포맷(BC1~7)** + **DDS**로 VRAM과 대역폭을 아낀다. 크기는 4의 배수.
-
----
-
-## 16. 연습문제 핵심 아이디어 (참고)
-
-- **UV 범위를 [0,3]으로 바꾸고 주소 모드를 바꿔 보기** → 샘플러 desc의 `AddressU/V`만 바꿔서 WRAP / MIRROR / CLAMP / BORDER 차이를 눈으로 확인.
-- **텍스처 회전 애니메이션** → 텍스처 중심 (0.5, 0.5) 기준으로 돌리려면 원점으로 옮김 → 회전 → 되돌림 순서로 합성한다.
-  ```cpp
-  XMMATRIX matTex = XMMatrixTranslation(-0.5f, -0.5f, 0.f) *
-                    XMMatrixRotationZ(fAngle) *
-                    XMMatrixTranslation( 0.5f,  0.5f, 0.f);
-  XMStoreFloat4x4(&cbData.mat_Tex, XMMatrixTranspose(matTex));
-  ```
-- **두 텍스처 곱하기 (멀티 텍스처링)** → 이 폴더의 `flare.dds` × `flarealpha.dds`를 상자에 입히고 회전시키기. 텍스처 2개를 t0, t1에 꽂는다.
-  ```hlsl
-  Texture2D g_FlareTex      : register(t0);
-  Texture2D g_FlareAlphaTex : register(t1);
-  // PS
-  float4 c = g_FlareTex.Sample(g_Sampler, In.vTexcoord) * g_FlareAlphaTex.Sample(g_Sampler, In.vTexcoord);
-  ```
-  ```cpp
-  ID3D11ShaderResourceView* pSRVs[2] = { m_pFlareSRV.Get(), m_pFlareAlphaSRV.Get() };
-  m_pContext->PSSetShaderResources(0, 2, pSRVs);   // t0, t1에 한 번에
-  ```
-- **밉맵 레벨 시각화** → `mipmaps.dds`(레벨마다 색이 다름)를 바닥에 입히고 카메라를 멀리/가까이 하며 레벨이 바뀌는 것 관찰. 샘플러 Filter를 `MIN_MAG_LINEAR_MIP_POINT` ↔ `MIN_MAG_MIP_LINEAR`로 바꿔서 경계 차이 보기.
-- **여러 장의 텍스처로 불꽃 애니메이션** → 프레임 이미지 여러 장을 SRV 배열로 미리 로드해 두고, 시간에 맞춰 `PSSetShaderResources`에 넘기는 SRV를 바꾼다.
-
----
-
-## 부록. 책의 이펙트 코드 ↔ 직접 호출 대응표
+## 부록 C. 책의 이펙트 코드 ↔ 직접 호출 대응표
 
 책 예제 코드를 읽을 때 아래처럼 바꿔 읽으면 된다.
 
