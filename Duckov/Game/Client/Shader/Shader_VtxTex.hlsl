@@ -91,10 +91,8 @@ float4 PS_MAIN(VS_OUT In) : SV_TARGET //몇 번째 렌더타겟에 색을 쓸지
     vDiffuseSum += vDiffuse;
     vSpecSum += vSpec;
     
-    vColor.r = vTexColor.r * (vAmbientSum.r + vDiffuseSum.r) + vSpecSum.r;
-    vColor.g = vTexColor.g * (vAmbientSum.g + vDiffuseSum.g) + vSpecSum.g;
-    vColor.b = vTexColor.b * (vAmbientSum.b + vDiffuseSum.b) + vSpecSum.b;
-    vColor.a = vTexColor.a * (vAmbientSum.a + vDiffuseSum.a) + vSpecSum.a;
+    vColor = vTexColor * (vAmbientSum + vDiffuseSum) + vSpecSum;
+    vColor.a = g_Material.Diffuse.a * vTexColor.a;
     
     return vColor;
 }

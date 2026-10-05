@@ -92,7 +92,7 @@ HRESULT CLoader::Loading_For_LogoLV()
         uint32_t iData = 10;
 
     lstrcpy(m_szLoadingText, TEXT("객체원형 준비중입니다."));
-    CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOGO), TEXT("Prototype_GameObejct_BackGround"),
+    CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOGO), TEXT("Prototype_GameObject_BackGround"),
         CBackGround::Create(m_pDevice, m_pContext));
 
     lstrcpy(m_szLoadingText, TEXT("로딩이 완료되었습니다."));

@@ -17,15 +17,16 @@ HRESULT CLevel_Loading::Initialize(LEVEL eNextLevel)
         return E_FAIL;
     m_eNextLevelID = eNextLevel;
 
-    /* 다음 레벨을 위한 자원 준비하는 과정*/
-    m_pLoader = CLoader::Create(m_pDevice, m_pContext, eNextLevel);
-    if (nullptr == m_pLoader)
-        return E_FAIL;
     /* 로딩레벨에 필요한 객체들을 생성하는 과정. */
     if (FAILED(Ready_Layer_BackGround()))
         return E_FAIL;
 
     if (FAILED(Ready_Layer_UI()))
+        return E_FAIL;
+
+    /* 다음 레벨을 위한 자원 준비하는 과정*/
+    m_pLoader = CLoader::Create(m_pDevice, m_pContext, eNextLevel);
+    if (nullptr == m_pLoader)
         return E_FAIL;
 
     return S_OK;
