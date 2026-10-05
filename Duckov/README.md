@@ -1,4 +1,4 @@
-# 3D 공부 정리
+# 3D 공부 정리(물방울책)
 
 ### Chapter6. DX11 그리기 연산 과정1 - 큐브 출력
 
@@ -1718,6 +1718,158 @@ shared_ptr<CSunLight> CSunLight::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3
 ```
 
 </details>
+
+
+### Chapter8. DX11 텍스처1 - 큐브 텍스처
+
+<details>
+	<summary> 0. 텍스처를 입히는 과정 </summary>
+
+[초기화]
+0. 정점에 UV 추가 (Vertex 구조체 + InputLayout TEXCOORD)
+1. 텍스처 로딩 + SRV 생성 (CreateDDSTextureFromFile / WIC)
+2. Sampler 생성 (Filter, AddressMode 설정)
+
+[렌더링 - 매 프레임]
+3. PSSetShaderResources(0, ...), PSSetSamplers(0, ...) 바인드
+
+[HLSL]
+4. Texture2D g_DiffuseTex : register(t0);
+   SamplerState g_Sampler : register(s0);
+5. VS: UV 전달 → 래스터라이저가 보간
+6. PS: vTexColor = g_DiffuseTex.Sample(g_Sampler, In.vTexcoord);
+7. 최종색 = vTexColor * (ambient + diffuse) + specular
+	
+</details>
+
+<details>
+	<summary> 1. 정점 구조체에 UV 추가 </summary>
+
+- 기존 정점 정보에는 vPos, vNormal만 있었음.
+- 텍스처를 입히기 위한 (u,v) 좌표 정보도 있어야 함.
+- `float2_t Tex`를 추가후 InputLayer 배열도 수정해야 함
+
+```cpp
+typedef struct tagVtxNorm
+{
+	float3_t	vPosition;
+	float3_t	vNormal;
+	float2_t	Tex;
+	static constexpr uint32_t iNumElements = 3;
+	static constexpr D3D11_INPUT_ELEMENT_DESC Elements[iNumElements] =
+	{
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT,0,  0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT,0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,   0, 24, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+	};
+}VTXNORM;
+```
+
+</details>
+
+<details>
+	<summary> 2. 텍스처 로딩 + SRV 생성 </summary>
+
+- 멤버 변수로 `ComPtr<ID3D11ShaderResourceView>	m_pSRV;` 추가
+- View를 바인드하여 사용하고 View에서도 Texture를 참조하기 때문에 멤버로 Texture2D를 갖지 않아도 됨
+
+```cpp
+ // 텍스처 로드 + SRV 생성
+ // nullptr 자리가 Texture2D 자리
+ if (FAILED(CreateDDSTextureFromFile(m_pDevice.Get(), L"../../../Resource/Ex/WoodCrate01.dds", nullptr, m_pSRV.GetAddressOf())))
+     return E_FAIL;
+```
+
+</details>
+
+<details>
+	<summary> 3. Sampler 생성 </summary>
+
+- Filter : 칸 사이를 어떻게 읽을지  
+ 	D3D11_FILTER_MIN_MAG_MIP_POINT : 각진 픽셀아트 느낌  
+	D3D11_FILTER_MIN_MAG_MIP_LINEAR : 무난한 기본값(트라이리니어 필터링)  
+	D3D11_FILTER_MIN_MAG_LINEAR_MIP_POINT : 확대 축소는 부드럽게 하고, 밉 단게는 섞지 않음 (바이너리 필터링)  
+	D3D11_FILTER_ANISOTROPIC : 비등방 필터링  
+	D3D11_FILTER_COMPARISON_... : 그림자 맵 전용  
+	
+- AdressU/V/W : UV가 0 ~ 1 밖일 때  
+	U는 가로, V는 세로 ,W는 3D 텍스처의 깊이 방향  
+    2D 텍스처에서는 W는 쓰이지 않더라도 값은 넣어야함.  
+  	D3D11_TEXTURE_ADDRESS_WRAP : 반복(1.25 -> 0.25로 읽음)  
+	D3D11_TEXTURE_ADDRESS_MIRROR : 거울처럼 뒤집어서 반복(1.25 -> 0.75로 읽음)  
+    D3D11_TEXTURE_ADDRESS_CLAMP : 가장자리 색 고정(1.25 -> 1.0로 읽음)  
+    D3D11_TEXTURE_ADDRESS_BORDER : BorderColor 색. 범위 밖을 특정 색으로 칠하고 싶을 때  
+
+- MipLODBias : 밉 단계를 조정  
+	GPU가 계산한 밉 단계에 이 값을 더함.  
+	+1 로 설정하면 한 단계 더 작은 밉을 사용  
+	-0.5 면 조금 더 큰 밉을 사용 대신 자글거림이 생길 수 있음  
+	보통 0으로 설정  
+
+- MaxAnisotropy : 비등방 필터링 강도  
+	Filter가 ANISOTROPIC 일 때만 사용  
+	1 ~ 16 사이의 값으로 설정. 값이 클 수록 비스듬한 면이 선명하지만 비용이 큼  
+	보통 4 ~ 16으로 설정  
+	다른 필터에서는 무시됨  
+
+- ComparisonFunc : 비교 함수  
+  	Filter가 COMPARISON_... 일 때만 사용  
+    그림자 맵에서 "이 픽셀이 그림자 안에 있나?" 를 판단할 때 사용  
+	일반 텍스처에서는 무시되므로 NEVER로 설정  
+
+- BorderColor[4] : 테두리 색  
+	Address가 BORDER일 때 uv가 0 ~ 1 밖이면 RGBA 색이 나옴  
+
+- MinLOD/MaxLOD : 사용할 밉 단게 범위
+	0이 원본이고, 숫자가 클 수록 작은 밉
+	MinLOD = 0, MaxLOD = D3D11_FLOAT32_MAX로 설정하면 모든 밉을 사용할 수있음  
+    MaxLOD = 0으로 설정하면 항상 원본만 사용  
+
+
+```cpp
+typedef struct D3D11_SAMPLER_DESC {
+    D3D11_FILTER               Filter;          // 1. 필터
+    D3D11_TEXTURE_ADDRESS_MODE AddressU;        // 2. 가로(U) 주소 모드
+    D3D11_TEXTURE_ADDRESS_MODE AddressV;        //    세로(V) 주소 모드
+    D3D11_TEXTURE_ADDRESS_MODE AddressW;        //    깊이(W) 주소 모드
+    FLOAT                      MipLODBias;      // 3. 밉 단계 보정
+    UINT                       MaxAnisotropy;   // 4. 비등방 필터링 강도
+    D3D11_COMPARISON_FUNC      ComparisonFunc;  // 5. 비교 함수
+    FLOAT                      BorderColor[4];  // 6. 테두리 색
+    FLOAT                      MinLOD;          // 7. 밉 범위 최소
+    FLOAT                      MaxLOD;          //    밉 범위 최대
+} D3D11_SAMPLER_DESC;
+```
+
+</details>
+
+<details>
+	<summary> 4. SRV, Sampler 바인드 </summary>
+
+
+
+</details>
+
+<details>
+	<summary> 5. HLSL </summary>
+
+
+
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
