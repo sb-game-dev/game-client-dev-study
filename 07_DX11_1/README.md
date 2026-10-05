@@ -640,6 +640,487 @@ unique_ptr<CLevel_Manager>	CLevel_Manager::Create()
 
 
 
+### 8일차 PrototypeManager
+
+<details>
+	<summary> 1. Prototype </summary>
+
+> Prototype이란?
+
+- 원형을 생성한 뒤 실제 사용은 복제본으로 사용을 하는 디자인 패턴의 종류
+- Initialize에서 멤버변수 초기화등을 하는데 이때 파싱을 하게됨.
+- 파일 읽기를 객체가 생성될 때마다 진행하면 비용이 크기 때문에 원본객체 하나를 생성할 때만 진행하면 객체를 복사할 때는 하지 않아도 되어서 효율적임.
+- 객체 생성시 초기화 : Initialize_Prototype() / 객체 복제시 초기화 : Initialize()
+
+> Prototype을 적용하는 방법
+
+- Prototype(Engine) <- GameObject(Engine) <- Player(Client)
+- Engine에 있는 Prototype,GameObject는 Clone만 있고 Client에 있는 Player는 Create와 Clone(override)이 모두 있다.
+- 원형 Player를 생성할 때는 Create() 함수 호출 후 Initialize_Prototype()을 호출 한 뒤 Prototype_Manager에서 원형을 저장하게 됨(Prototype형으로 저장)
+- 사본객체 Player를 복제할 때는 Clone() 함수 호출 후 Initialize()를 호출 한 뒤 Object_Manager에서 복제본을 저장하게 됨(Prototype형으로 저장)
+- 오브젝트와 컴포넌트에 적용
+
+</details>
+
+<details>
+	<summary> 2. Prototype_Manager </summary>
+
+> Prototype_Manager란?
+
+- 원형 객체들을 레벨별로 모아서 관리한다. (m_pPrototypes, AddPrototype())
+	- 레벨별로 모아서 관리하기 때문에 Client에서 레벨을 몇 개 만들었는지 알아야하고 Create시 매개변수로 받아서 멤버로 저장하게 됨
+	- 또한 레벨별로 map컨테이너를 만들기 위해 map컨테이너타입의 동적배열을 멤버로 가지고있고 Initialize에서 배열의 크기를 정해줌
+- 원형 객체를 복제하여 사본 객체를 생성해준다. (Clone_Prototype())
+
+> Prototype_Manager.h
+
+```cpp
+#pragma once
+#include "Engine_Defines.h"
+NS_BEGIN(Engine)
+
+class CPrototype;
+class CPrototype_Manager final
+{
+private:
+	CPrototype_Manager();
+public:
+	~CPrototype_Manager() = default;
+
+public:
+	HRESULT Initialize(uint32_t iNumLevels);	// Manager 생성시 멤버변수(m_iNumLevels)초기화, 동적배열의 크기 설정
+	HRESULT Add_Prototype(uint32_t iLevelIndex, const wstring_t& strPrototypeTag, shared_ptr<CPrototype> pPrototype);	// 동적배열에 원본객체 추가
+	shared_ptr<CPrototype> Clone_Prototype(uint32_t iLevelIndex, const wstring_t& strPrototypeTag, void* pArg);			// 동적배열의 원본을 복사한 후 반환
+	void Clear(uint32_t iClearLevelIndex);		// 매개변수로 받은 Level의 동적배열을 비워줌
+
+private:
+	uint32_t	m_iNumLevels = {};
+
+private:
+	typedef map<const wstring_t, shared_ptr<CPrototype>>	PROTOTYPES;
+	// 동적 배열을 스마트 포인터로 선언
+	shared_ptr<PROTOTYPES[]> m_pPrototypes = { nullptr };
+private:
+	shared_ptr<CPrototype> Find_Prototype(uint32_t iLevelIndex, const wstring_t& strPrototypeTag);
+public:
+	static unique_ptr<CPrototype_Manager> Create(uint32_t iNumLevels);	//Manager 생성시 Client쪽에서 Level이 몇 개 있는지 입력받음
+};
+
+NS_END
+
+```
+
+> Prototype_Manager.cpp
+
+```cpp
+#include "Prototype_Manager.h"
+#include "Prototype.h"
+
+CPrototype_Manager::CPrototype_Manager()
+{
+}
+
+HRESULT CPrototype_Manager::Initialize(uint32_t iNumLevels)
+{
+	m_iNumLevels = iNumLevels;
+	m_pPrototypes = make_shared<PROTOTYPES[]>(iNumLevels);	// 동적배열을 스마트 포인터로 생성해줌 c++17 버전부터 가능
+	return S_OK;
+}
+
+HRESULT CPrototype_Manager::Add_Prototype(uint32_t iLevelIndex, const wstring_t& strPrototypeTag, shared_ptr<CPrototype> pPrototype)
+{
+	// 추가하고자하는 원형객체가 이미 있는지 확인
+	if (iLevelIndex >= m_iNumLevels ||
+		nullptr != Find_Prototype(iLevelIndex, strPrototypeTag))
+		return E_FAIL;
+
+	// 없는 경우 추가
+	m_pPrototypes[iLevelIndex].emplace(strPrototypeTag, pPrototype);
+	return S_OK;
+}
+
+shared_ptr<CPrototype> CPrototype_Manager::Clone_Prototype(uint32_t iLevelIndex, const wstring_t& strPrototypeTag, void* pArg)
+{
+	// 복제하고자하는 원형객체를 찾음
+	auto        pPrototype = Find_Prototype(iLevelIndex, strPrototypeTag);
+	if (nullptr == pPrototype)
+		return nullptr;
+
+	//원형 객체가 있는 경우 원형객체의 Clone을 호출하여 복제본을 생성
+	auto        pCloneObject = pPrototype->Clone(pArg);
+	if (nullptr == pCloneObject)
+		return nullptr;
+
+	// 복제본이 잘 생성되었다면 반환
+	return pCloneObject;
+}
+
+void CPrototype_Manager::Clear(uint32_t iClearLevelIndex)
+{
+	if (iClearLevelIndex >= m_iNumLevels)
+		return;
+	// 객체들을 스마트포인터로 관리하기 때문에 메모리 해제를 스마트포인터에게 맡김(반복문으로 순회하며 .reset()을 하지 않아도 됨)
+	m_pPrototypes[iClearLevelIndex].clear();
+}
+
+shared_ptr<CPrototype> CPrototype_Manager::Find_Prototype(uint32_t iLevelIndex, const wstring_t& strPrototypeTag)
+{
+	// 맵  특정 key값에 해당하는 원소가 있는지 확인
+	auto Pair = m_pPrototypes[iLevelIndex].find(strPrototypeTag);
+
+	if (Pair == m_pPrototypes[iLevelIndex].end())
+		return nullptr;
+
+	return Pair->second;
+}
+
+unique_ptr<CPrototype_Manager> CPrototype_Manager::Create(uint32_t iNumLevels)
+{
+	auto pInstance = unique_ptr<CPrototype_Manager> (new CPrototype_Manager());
+
+	if (FAILED(pInstance->Initialize(iNumLevels)))
+	{
+		MSG_BOX("Failed to Created : CObject_Manager");
+		pInstance.reset();
+	}
+
+	return pInstance;
+}
+
+```
+
+</details>
+
+
+### 9일차 Object_Manager & Layer
+
+<details>
+	<summary> 1. Object_Manager </summary>
+
+> Object_Manager
+- 사본객체들을 저장하는 레이어를 레벨별로 저장하고 관리함 (m_pLayers, Add_GameObject())
+	- 레벨별로 레이어를 저장하기 때문에 Create시 Client에서 만든 Level의 개수를 전달받음.
+ 	- 또한 레벨별로 map컨테이너를 만들기 위해 map컨테이너타입의 동적배열을 멤버로 가지고있고 Initialize에서 배열의 크기를 정해줌.
+- 저장된 레이어들의 Priority_Update(),Update(),Late_Update()를 호출함.
+
+> Object_Manager.h
+
+```cpp
+#pragma once
+#include "Engine_Defines.h"
+
+NS_BEGIN(Engine)
+class CGameObject;
+class CObject_Manager
+{
+private:
+	CObject_Manager();
+public:
+	~CObject_Manager() = default;
+public:
+	HRESULT	Initialize(uint32_t iNumLevels);
+	HRESULT	Add_GameObject(uint32_t iPrototypeLevelIndex, const wstring_t& strPrototypeTag, 
+						   uint32_t iLayerLevelIndex,	  const wstring_t& strLayerTag, const wstring_t& strGameObjectTag, void* pArg = nullptr);
+	void		Priority_Update(f32_t fDeltaTime);
+	void		Update(f32_t fDeltaTime);
+	void		Late_Update(f32_t fDeltaTime);
+	HRESULT		Render();
+	void		Clear(uint32_t iClearLevelIndex);
+	shared_ptr<CGameObject>			Find_GameObject(uint32_t iLayerLevelIndex, const wstring_t& strLayerTag, const wstring_t& strGameObjectTag);
+private:
+	uint32_t	m_iNumLevels = {};
+	typedef map<const wstring_t, shared_ptr<class CLayer>> LAYERS;
+	shared_ptr<LAYERS[]> m_pLayers = {};
+private:
+	shared_ptr<class CLayer> Find_Layer(uint32_t iLayerLevelIndex, const wstring_t& strLayerTag);
+public:
+	static unique_ptr<CObject_Manager> Create(uint32_t iNumLevels);
+};
+NS_END
+```
+
+> Object_Manager.cpp
+
+```cpp
+#include "Object_Manager.h"
+#include "Layer.h"
+#include "GameInstance.h"
+CObject_Manager::CObject_Manager()
+{
+}
+HRESULT CObject_Manager::Initialize(uint32_t iNumLevels)
+{
+	m_iNumLevels = iNumLevels;
+	m_pLayers = make_shared<LAYERS[]>(iNumLevels);
+	return S_OK;
+}
+
+HRESULT CObject_Manager::Add_GameObject(uint32_t iPrototypeLevelIndex, const wstring_t& strPrototypeTag, 
+										uint32_t iLayerLevelIndex, const wstring_t& strLayerTag, const wstring_t& strGameObjectTag, 
+										void* pArg)
+{
+	// Prototype_Manager에 접근하여 Loader에서 생성한 원본을 가져다 복제본을 생성함
+	auto pCopyGameObject = dynamic_pointer_cast<CGameObject>(CGameInstance::Get().Clone_Prototype(iPrototypeLevelIndex, strPrototypeTag, pArg));
+	if (nullptr == pCopyGameObject)
+		return E_FAIL;
+
+	// 생성한 복제본을 넣을 레이어를 검색
+	auto pLayer = Find_Layer(iLayerLevelIndex, strLayerTag);
+
+	// 만약 레이어가 없다면 
+	if (nullptr == pLayer)
+	{
+		// 레이어를 생성한다
+		pLayer = CLayer::Create();
+		// 생성한 레이어에 복제본을 추가
+		pLayer->Add_GameObject(strGameObjectTag, pCopyGameObject);
+		// 생성한 레이어를 Layers에 등록
+		m_pLayers[iLayerLevelIndex].emplace(strLayerTag, pLayer);
+	}
+	// 레이어가 있다면 생성한 복제본을 레이어에 추가
+	else
+		pLayer->Add_GameObject(strGameObjectTag, pCopyGameObject);
+
+	return S_OK;
+}
+void CObject_Manager::Priority_Update(f32_t fDeltaTime)
+{
+	for (uint32_t i = 0; i < m_iNumLevels; ++i)
+	{
+		for (auto& Pair : m_pLayers[i])
+		{
+			if (nullptr != Pair.second)
+				Pair.second->Priority_Update(fDeltaTime);
+		}
+	}
+}
+void CObject_Manager::Update(f32_t fDeltaTime)
+{
+	for (uint32_t i = 0; i < m_iNumLevels; ++i)
+	{
+		for (auto& Pair : m_pLayers[i])
+		{
+			if (nullptr != Pair.second)
+				Pair.second->Update(fDeltaTime);
+		}
+	}
+}
+void CObject_Manager::Late_Update(f32_t fDeltaTime)
+{
+	for (uint32_t i = 0; i < m_iNumLevels; ++i)
+	{
+		for (auto& Pair : m_pLayers[i])
+		{
+			if (nullptr != Pair.second)
+				Pair.second->Late_Update(fDeltaTime);
+		}
+	}
+}
+HRESULT	CObject_Manager::Render()
+{
+	for (uint32_t i = 0; i < m_iNumLevels; ++i)
+	{
+		for (auto& Pair : m_pLayers[i])
+		{
+			if (nullptr != Pair.second)
+				if (FAILED(Pair.second->Render())) return E_FAIL;
+		}
+	}
+	return S_OK;
+}
+
+void CObject_Manager::Clear(uint32_t iClearLevelIndex)
+{
+	if (iClearLevelIndex >= m_iNumLevels)
+		return;
+	m_pLayers[iClearLevelIndex].clear();
+}
+
+shared_ptr<CGameObject> CObject_Manager::Find_GameObject(uint32_t iLayerLevelIndex, const wstring_t& strLayerTag, const wstring_t& strGameObjectTag)
+{
+	auto pLayer = Find_Layer(iLayerLevelIndex, strLayerTag);
+	if (nullptr == pLayer)
+		return nullptr;
+
+	auto pGameObject = pLayer->Find_GameObject(strGameObjectTag);
+	if (nullptr == pGameObject)
+		return nullptr;
+
+	return pGameObject;
+}
+
+shared_ptr<CLayer> CObject_Manager::Find_Layer(uint32_t iLayerLevelIndex, const wstring_t& strLayerTag)
+{
+	auto iter = m_pLayers[iLayerLevelIndex].find(strLayerTag);
+	if (iter == m_pLayers[iLayerLevelIndex].end())
+		return nullptr;
+	return iter->second;
+}
+
+unique_ptr<CObject_Manager> CObject_Manager::Create(uint32_t iNumLevels)
+{
+	auto pInstance = unique_ptr<CObject_Manager>(new CObject_Manager());
+	if (FAILED(pInstance->Initialize(iNumLevels)))
+	{
+		MSG_BOX("Create Failed : CObject_Manager");
+		pInstance.reset();
+	}
+	return pInstance;
+}
+```
+
+</details>
+
+<details>
+	<summary> 2. Layer </summary>
+
+> Layer란?
+
+- 비슷한 기능을 하는 사본 객체를 모아놓는 그룹 
+- 맵 컨테이너로 사본객체를 저장 (m_GameObjects, Add_GameObject())
+- 사본객체의 Priority_Update(), Update(), Late_Update()를 호출
+
+> Layer.h
+
+```cpp
+#pragma once
+#include "Engine_Defines.h"
+NS_BEGIN(Engine)
+class CGameObject;
+class CLayer
+{
+private:
+	CLayer();
+public:
+	~CLayer() = default;
+
+public:
+	HRESULT		Add_GameObject(const wstring_t& strGameObjectTag ,shared_ptr<class CGameObject> pGameObject);
+	void		Priority_Update(f32_t fTimeDelta);
+	void		Update(f32_t fTimeDelat);
+	void		Late_Update(f32_t fTimeDelta);
+	HRESULT		Render();
+
+	shared_ptr<CGameObject>	Find_GameObject(const wstring_t& strGameObjectTag);
+
+private:
+	map<const wstring_t, shared_ptr<CGameObject>>		m_GameObjects;
+
+public:
+	static shared_ptr<CLayer>	Create();
+};
+
+NS_END
+```
+
+> Layer.cpp
+
+```cpp
+#include "Layer.h"
+#include "GameObject.h"
+CLayer::CLayer()
+{
+
+}
+
+HRESULT CLayer::Add_GameObject(const wstring_t& strGameObjectTag, shared_ptr<class CGameObject> pGameObject)
+{
+    m_GameObjects.emplace(strGameObjectTag, pGameObject);
+
+    return S_OK;
+}
+
+void CLayer::Priority_Update(f32_t fTimeDelta)
+{
+    for (auto& Pair : m_GameObjects)
+    {
+        if (nullptr != Pair.second)
+            Pair.second->Priority_Update(fTimeDelta);
+    }
+}
+void CLayer::Update(f32_t fTimeDelta)
+{
+    for (auto& Pair : m_GameObjects)
+    {
+        if (nullptr != Pair.second)
+            Pair.second->Update(fTimeDelta);
+    }
+}
+void CLayer::Late_Update(f32_t fTimeDelta)
+{
+    for (auto& Pair : m_GameObjects)
+    {
+        if (nullptr != Pair.second)
+            Pair.second->Late_Update(fTimeDelta);
+    }
+}
+HRESULT	CLayer::Render()
+{
+    for (auto& Pair : m_GameObjects)
+    {
+        if (nullptr != Pair.second)
+            if (FAILED(Pair.second->Render()))return E_FAIL;
+    }
+    return S_OK;
+}
+shared_ptr<CGameObject> CLayer::Find_GameObject(const wstring_t& strGameObjectTag)
+{
+    auto iter = m_GameObjects.find(strGameObjectTag);
+    if (iter == m_GameObjects.end())
+        return nullptr;
+    return iter->second;
+}
+shared_ptr<CLayer>	CLayer::Create()
+{
+    return shared_ptr<CLayer>(new CLayer());
+}
+
+```
+
+</details>
+
+<details>
+	<summary> 3. 원형 객체와 사본객체 생성 </summary>
+
+> 원형 객체 생성
+
+- 원형객체는 Level_Loading의 Loader에서 NextLevel에 맞는 원형 객체들을 생성 `CGameInstance::Get().Add_Prototype()`
+- 원형 객체는 Add_Prototype() 함수를 호출하면 Prototype_Manager의 map컨테이너에 등록됨
+- Add_Prototype()의 매개변수
+	- `uint32_t iLevelIndex`
+ 	- `const wstring_t& strPrototypeTag`
+  	- `void* pArg`
+
+> 사본 객체 생성
+
+- 사본 객체는 각 Level에서 원형 객체를 복제함	`CGameInstance::Get().Add_GameObject`
+- 사본 객체는 Layer에 저장되고 Layer는 Object_Manager에 등록됨
+- 원형 객체가 없다면 사본 객체는 생성되지 않음
+- Add_GameObject()의 매개변수
+	- `uint32_t iPrototypeLevelIndex`
+	- `const wstring_t& strPrototypeTag`
+ 	- `uint32_t iLayerLevelIndex`
+  	- `const wstring_t& strLayerTag`
+  	- `const wstring_t& strGameObjectTag`
+  	- `void* pArg = nullptr`
+
+</details>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
