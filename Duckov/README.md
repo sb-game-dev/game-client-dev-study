@@ -1725,20 +1725,20 @@ shared_ptr<CSunLight> CSunLight::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3
 <details>
 	<summary> 0. 텍스처를 입히는 과정 </summary>
 
-[초기화]
-0. 정점에 UV 추가 (Vertex 구조체 + InputLayout TEXCOORD)
-1. 텍스처 로딩 + SRV 생성 (CreateDDSTextureFromFile / WIC)
-2. Sampler 생성 (Filter, AddressMode 설정)
+[초기화]  
+0. 정점에 UV 추가 (Vertex 구조체 + InputLayout TEXCOORD)  
+1. 텍스처 로딩 + SRV 생성 (CreateDDSTextureFromFile / WIC)  
+2. Sampler 생성 (Filter, AddressMode 설정)  
 
-[렌더링 - 매 프레임]
-3. PSSetShaderResources(0, ...), PSSetSamplers(0, ...) 바인드
+[렌더링 - 매 프레임]  
+3. PSSetShaderResources(0, ...), PSSetSamplers(0, ...) 바인드  
 
-[HLSL]
-4. Texture2D g_DiffuseTex : register(t0);
-   SamplerState g_Sampler : register(s0);
-5. VS: UV 전달 → 래스터라이저가 보간
-6. PS: vTexColor = g_DiffuseTex.Sample(g_Sampler, In.vTexcoord);
-7. 최종색 = vTexColor * (ambient + diffuse) + specular
+[HLSL]  
+4. Texture2D g_DiffuseTex : register(t0);  
+   SamplerState g_Sampler : register(s0);  
+5. VS: UV 전달 → 래스터라이저가 보간  
+6. PS: vTexColor = g_DiffuseTex.Sample(g_Sampler, In.vTexcoord);  
+7. 최종색 = vTexColor * (ambient + diffuse) + specular  
 	
 </details>
 
