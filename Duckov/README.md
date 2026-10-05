@@ -1749,7 +1749,7 @@ shared_ptr<CSunLight> CSunLight::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3
 
 - 기존 정점 정보에는 vPos, vNormal만 있었음.
 - 텍스처를 입히기 위한 (u,v) 좌표 정보도 있어야 함.
-- `float2_t Tex`를 추가후 InputLayer 배열도 수정해야 함
+- `float2_t Tex`를 추가후 InputLayout 배열도 수정해야 함
 
 ```cpp
 typedef struct tagVtxNorm
@@ -1797,7 +1797,8 @@ ComPtr<ID3D11SamplerState>			m_pSampler;
 D3D11_SAMPLER_DESC samplerDesc{};
 
 samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
-samplerDesc.AddressU = samplerDesc.AddressV = samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
+samplerDesc.AddressU = samplerDesc.AddressV = samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+samplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
 samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
 
 if (FAILED(m_pDevice->CreateSamplerState(&samplerDesc, m_pSampler.GetAddressOf())))
@@ -1808,46 +1809,46 @@ if (FAILED(m_pDevice->CreateSamplerState(&samplerDesc, m_pSampler.GetAddressOf()
 > D3D11_SAMPLER_DESC 옵션
 
 - Filter : 칸 사이를 어떻게 읽을지  
- 	D3D11_FILTER_MIN_MAG_MIP_POINT : 각진 픽셀아트 느낌  
-	D3D11_FILTER_MIN_MAG_MIP_LINEAR : 무난한 기본값(트라이리니어 필터링)  
-	D3D11_FILTER_MIN_MAG_LINEAR_MIP_POINT : 확대 축소는 부드럽게 하고, 밉 단계는 섞지 않음 (바이너리 필터링)  
-	D3D11_FILTER_ANISOTROPIC : 비등방 필터링  
-	D3D11_FILTER_COMPARISON_... : 그림자 맵 전용  
+ 	- D3D11_FILTER_MIN_MAG_MIP_POINT : 각진 픽셀아트 느낌  
+	- D3D11_FILTER_MIN_MAG_MIP_LINEAR : 무난한 기본값(트라이리니어 필터링)  
+	- D3D11_FILTER_MIN_MAG_LINEAR_MIP_POINT : 확대 축소는 부드럽게 하고, 밉 단계는 섞지 않음 (바이리니어 필터링)  
+	- D3D11_FILTER_ANISOTROPIC : 비등방 필터링  
+	- D3D11_FILTER_COMPARISON_... : 그림자 맵 전용  
 	
-- AdressU/V/W : UV가 0 ~ 1 밖일 때  
-	U는 가로, V는 세로 ,W는 3D 텍스처의 깊이 방향  
-    2D 텍스처에서는 W는 쓰이지 않더라도 값은 넣어야함.  
-  	D3D11_TEXTURE_ADDRESS_WRAP : 반복(1.25 -> 0.25로 읽음)  
-		UV가 반복되지 않는 이미지의 경우 WARP으로 설정하면 반대편 색이 한 줄 비치는 문제가 생길 수 있음  
-		그래서 CLAMP로 설정해야 함  (Filter가 Linear인 경우 0과 -1을 섞으려고 함)
-	D3D11_TEXTURE_ADDRESS_MIRROR : 거울처럼 뒤집어서 반복(1.25 -> 0.75로 읽음)  
-    D3D11_TEXTURE_ADDRESS_CLAMP : 가장자리 색 고정(1.25 -> 1.0로 읽음)  
-    D3D11_TEXTURE_ADDRESS_BORDER : BorderColor 색. 범위 밖을 특정 색으로 칠하고 싶을 때  
+- AddressU/V/W : UV가 0 ~ 1 밖일 때  
+	- U는 가로, V는 세로 ,W는 3D 텍스처의 깊이 방향  
+    - 2D 텍스처에서는 W는 쓰이지 않더라도 값은 넣어야함.  
+  	- D3D11_TEXTURE_ADDRESS_WRAP : 반복(1.25 -> 0.25로 읽음)  
+		- UV가 반복되지 않는 이미지의 경우 WRAP으로 설정하면 반대편 색이 한 줄 비치는 문제가 생길 수 있음  
+		- 그래서 CLAMP로 설정해야 함  (Filter가 Linear인 경우 0근처에서 1을 섞으려고 함)
+	- D3D11_TEXTURE_ADDRESS_MIRROR : 거울처럼 뒤집어서 반복(1.25 -> 0.75로 읽음)  
+    - D3D11_TEXTURE_ADDRESS_CLAMP : 가장자리 색 고정(1.25 -> 1.0로 읽음)  
+    - D3D11_TEXTURE_ADDRESS_BORDER : BorderColor 색. 범위 밖을 특정 색으로 칠하고 싶을 때  
 
 - MipLODBias : 밉 단계를 조정  
-	GPU가 계산한 밉 단계에 이 값을 더함.  
-	+1 로 설정하면 한 단계 더 작은 밉을 사용  
-	-0.5 면 조금 더 큰 밉을 사용 대신 자글거림이 생길 수 있음  
-	보통 0으로 설정  
+	- GPU가 계산한 밉 단계에 이 값을 더함.  
+	- +1 로 설정하면 한 단계 더 작은 밉을 사용  
+	- -0.5 면 조금 더 큰 밉을 사용 대신 자글거림이 생길 수 있음  
+	- 보통 0으로 설정  
 
 - MaxAnisotropy : 비등방 필터링 강도  
-	Filter가 ANISOTROPIC 일 때만 사용  
-	1 ~ 16 사이의 값으로 설정. 값이 클 수록 비스듬한 면이 선명하지만 비용이 큼  
-	보통 4 ~ 16으로 설정  
-	다른 필터에서는 무시됨  
+	- Filter가 ANISOTROPIC 일 때만 사용  
+	- 1 ~ 16 사이의 값으로 설정. 값이 클 수록 비스듬한 면이 선명하지만 비용이 큼  
+	- 보통 4 ~ 16으로 설정  
+	- 다른 필터에서는 무시됨  
 
 - ComparisonFunc : 비교 함수  
-  	Filter가 COMPARISON_... 일 때만 사용  
-    그림자 맵에서 "이 픽셀이 그림자 안에 있나?" 를 판단할 때 사용  
-	일반 텍스처에서는 무시되므로 NEVER로 설정  
+  	- Filter가 COMPARISON_... 일 때만 사용  
+    - 그림자 맵에서 "이 픽셀이 그림자 안에 있나?" 를 판단할 때 사용  
+	- 일반 텍스처에서는 무시되므로 NEVER로 설정  
 
 - BorderColor[4] : 테두리 색  
-	Address가 BORDER일 때 uv가 0 ~ 1 밖이면 RGBA 색이 나옴  
+	- Address가 BORDER일 때 uv가 0 ~ 1 밖이면 RGBA 색이 나옴  
 
-- MinLOD/MaxLOD : 사용할 밉 단게 범위
-	0이 원본이고, 숫자가 클 수록 작은 밉
-	MinLOD = 0, MaxLOD = D3D11_FLOAT32_MAX로 설정하면 모든 밉을 사용할 수있음  
-    MaxLOD = 0으로 설정하면 항상 원본만 사용  
+- MinLOD/MaxLOD : 사용할 밉 단계 범위
+	- 0이 원본이고, 숫자가 클 수록 작은 밉
+	- MinLOD = 0, MaxLOD = D3D11_FLOAT32_MAX로 설정하면 모든 밉을 사용할 수있음  
+    - MaxLOD = 0으로 설정하면 항상 원본만 사용  
 
 ```cpp
 typedef struct D3D11_SAMPLER_DESC {
@@ -1882,7 +1883,6 @@ typedef struct D3D11_SAMPLER_DESC {
 | BorderColor | Address가 `BORDER`일 때만 | 그 외에는 무시됨 |
 | MipLODBias | 거의 안 건드림 | `0` |
 | MinLOD / MaxLOD | 거의 안 건드림 | `0` or `D3D11_FLOAT32_MAX` |
-
 
 > 자주 사용하는 Sampler
 
@@ -1939,10 +1939,93 @@ desc.MaxLOD = D3D11_FLOAT32_MAX;
 <details>
 	<summary> 6. HLSL </summary>
 
+- 셰이더 파일은 Shader_VtxNorm.hlsl을 복사해서 Shader_VtxTex.hlsl로 새로 만듦
+- 바뀐 점은 4가지
+  1. 텍스처와 샘플러 변수 선언
+  2. VS_IN, VS_OUT에 UV 추가
+  3. VS에서 UV를 그대로 넘김
+  4. PS에서 텍스처 색을 읽어 조명 결과와 합침
 
+> 1. 텍스처, 샘플러 선언
+
+```hlsl
+Texture2D    g_DiffuseTex : register(t0);   // PSSetShaderResources(0, ...)로 꽂은 SRV
+SamplerState g_Sampler    : register(s0);   // PSSetSamplers(0, ...)로 꽂은 Sampler
+```
+
+- 레지스터는 종류마다 번호를 따로 셈
+  - `b#` : 상수 버퍼 (cbuffer) → `PSSetConstantBuffers`
+  - `t#` : 텍스처 (SRV) → `PSSetShaderResources`
+  - `s#` : 샘플러 → `PSSetSamplers`
+- 그래서 상수 버퍼 b0와 텍스처 t0, 샘플러 s0는 번호가 같아도 겹치지 않음
+- 텍스처와 샘플러를 따로 두는 이유
+  - 텍스처는 "무엇을 읽을지"(데이터), 샘플러는 "어떻게 읽을지"(필터, 주소 모드)
+  - 따로 두기 때문에 같은 텍스처를 Wrap/Clamp 등 다른 방식으로 읽을 수 있음
+
+> 2. 입출력 구조체에 UV 추가
+
+```hlsl
+struct VS_IN
+{
+    float3 vPosition : POSITION;
+    float3 vNormal   : NORMAL;
+    float2 vTexCoord : TEXCOORD;    // 추가 : C++ InputLayout의 "TEXCOORD"와 시맨틱 이름이 같아야 함
+};
+
+struct VS_OUT
+{
+    float4 vPosition : SV_POSITION;
+    float3 vPosW     : POSITION;
+    float3 vNormalW  : NORMAL;
+    float2 vTexCoord : TEXCOORD;    // 추가 : PS에서 써야 하므로 VS 출력에도 넣어야 함
+};
+```
+
+> 3. VS : UV 전달
+
+```hlsl
+Out.vTexCoord = In.vTexCoord;   // 추가 : UV는 변환 없이 그대로 넘김
+```
+
+- 위치나 법선과 달리 UV는 공간 변환이 필요 없음
+- VS 출력으로 넘긴 UV는 래스터라이저가 픽셀마다 보간해서 PS에 넘겨줌 (법선과 같은 방식)
+- 그래서 정점 3개의 UV만 있어도 삼각형 안의 모든 픽셀이 각자의 UV를 갖게 됨
+
+> 4. PS : 텍스처 샘플링 + 조명 합치기
+
+```hlsl
+// 추가 : 보간된 UV 위치의 텍스처 색을 샘플러 설정대로 읽어옴
+float4 vTexColor = g_DiffuseTex.Sample(g_Sampler, In.vTexCoord);
+
+// ... 조명 계산은 기존과 동일 (Point + Directional + Spot 합산) ...
+
+// 변경 : 텍스처 색을 조명 결과에 곱함
+vColor = vTexColor * (vAmbientSum + vDiffuseSum) + vSpecSum;
+vColor.a = g_Material.Diffuse.a * vTexColor.a;
+```
+
+- `Sample(샘플러, UV)`
+  - UV 위치의 텍셀을 Filter와 AddressMode에 맞게 읽어 float4(RGBA) vTexColor로 반환
+  - 밉맵 단계도 GPU가 자동으로 고름 (화면에서 UV가 얼마나 빨리 변하는지로 판단)
+- 최종색 공식 : `texColor * (ambient + diffuse) + specular`
+  - 텍스처는 표면 자체의 색이므로 재질 색처럼 ambient, diffuse에 곱함
+  - specular는 곱하지 않음 → 하이라이트는 표면 색과 상관없이 빛의 색으로 나와야 하기 때문
+    (어두운 나무 상자에서도 하이라이트는 하얗게 보임)
+- 알파값은 재질 diffuse 알파 × 텍스처 알파
+
+> + 조명 없이 텍스처만 출력하는 PS
+
+```hlsl
+float4 PS_MAIN_NOLIGHT(VS_OUT In) : SV_TARGET
+{
+    return g_DiffuseTex.Sample(g_Sampler, In.vTexCoord);
+}
+```
+
+- 로딩 화면, 배경, UI처럼 조명이 필요 없는 오브젝트에 사용
+- C++에서 PS를 컴파일할 때 진입점 이름만 `"PS_MAIN_NOLIGHT"`로 바꾸면 됨
 
 </details>
-
 
 
 
