@@ -1785,10 +1785,12 @@ typedef struct tagVtxNorm
 <details>
 	<summary> 3. Sampler 생성 </summary>
 
+> D3D11_SAMPLER_DESC 
+
 - Filter : 칸 사이를 어떻게 읽을지  
  	D3D11_FILTER_MIN_MAG_MIP_POINT : 각진 픽셀아트 느낌  
 	D3D11_FILTER_MIN_MAG_MIP_LINEAR : 무난한 기본값(트라이리니어 필터링)  
-	D3D11_FILTER_MIN_MAG_LINEAR_MIP_POINT : 확대 축소는 부드럽게 하고, 밉 단게는 섞지 않음 (바이너리 필터링)  
+	D3D11_FILTER_MIN_MAG_LINEAR_MIP_POINT : 확대 축소는 부드럽게 하고, 밉 단계는 섞지 않음 (바이너리 필터링)  
 	D3D11_FILTER_ANISOTROPIC : 비등방 필터링  
 	D3D11_FILTER_COMPARISON_... : 그림자 맵 전용  
 	
@@ -1796,6 +1798,8 @@ typedef struct tagVtxNorm
 	U는 가로, V는 세로 ,W는 3D 텍스처의 깊이 방향  
     2D 텍스처에서는 W는 쓰이지 않더라도 값은 넣어야함.  
   	D3D11_TEXTURE_ADDRESS_WRAP : 반복(1.25 -> 0.25로 읽음)  
+		UV가 반복되지 않는 이미지의 경우 WARP으로 설정하면 반대편 색이 한 줄 비치는 문제가 생길 수 있음  
+		그래서 CLAMP로 설정해야 함  (Filter가 Linear인 경우 0과 -1을 섞으려고 함)
 	D3D11_TEXTURE_ADDRESS_MIRROR : 거울처럼 뒤집어서 반복(1.25 -> 0.75로 읽음)  
     D3D11_TEXTURE_ADDRESS_CLAMP : 가장자리 색 고정(1.25 -> 1.0로 읽음)  
     D3D11_TEXTURE_ADDRESS_BORDER : BorderColor 색. 범위 밖을 특정 색으로 칠하고 싶을 때  
@@ -1825,7 +1829,6 @@ typedef struct tagVtxNorm
 	MinLOD = 0, MaxLOD = D3D11_FLOAT32_MAX로 설정하면 모든 밉을 사용할 수있음  
     MaxLOD = 0으로 설정하면 항상 원본만 사용  
 
-
 ```cpp
 typedef struct D3D11_SAMPLER_DESC {
     D3D11_FILTER               Filter;          // 1. 필터
@@ -1844,14 +1847,77 @@ typedef struct D3D11_SAMPLER_DESC {
 </details>
 
 <details>
-	<summary> 4. SRV, Sampler 바인드 </summary>
+	<summary> 4. 자주 사용하는 Sampler </summary>
+
+> Sampler 속성별 비중
+
+- 주로 Filter와 Address 두 가지만 정하면 됨. 나머지 속성은 특정 상황에서만 신경씀
+  
+| 속성 | 비중 | 평소 값 |
+|---|---|---|
+| **Filter** | 매번 정해야함 | 용도에 따라 |
+| **AddressU/V/W** | 매번 정해야함 | 용도에 따라 (보통 셋 다 같은 값) |
+| MaxAnisotropy | Filter가 `ANISOTROPIC`일 때만 | 그 외에는 무시됨. 비등방이면 8~16 |
+| ComparisonFunc | Filter가 `COMPARISON_…`일 때만 | 그 외에는 `NEVER` |
+| BorderColor | Address가 `BORDER`일 때만 | 그 외에는 무시됨 |
+| MipLODBias | 거의 안 건드림 | `0` |
+| MinLOD / MaxLOD | 거의 안 건드림 | `0` or `D3D11_FLOAT32_MAX` |
 
 
+> 자주 사용하는 Sampler
+
+```cpp
+//LinearWrap -> Cube같은 3D 오브젝트, 확대 축소가 자유롭게 일어나는 대상
+D3D11_SAMPLER_DESC desc{};
+desc.Filter   = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+desc.AddressU = desc.AddressV = desc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+desc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+desc.MaxLOD = D3D11_FLOAT32_MAX;
+```
+
+```cpp
+// LinearClamp -> 로고 배경과 같은 이미지
+desc.Filter   = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+desc.AddressU = desc.AddressV = desc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
+```
+
+```cpp
+//PointClamp -> 픽셀아트 UI, 렌더타겟 읽기 섞이면 안되는 데이터
+desc.Filter   = D3D11_FILTER_MIN_MAG_MIP_POINT;
+desc.AddressU = desc.AddressV = desc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
+```
+
+```cpp
+//PointWrap -> 픽셀아트 타일, 도트 그래픽 바닥을 반복해서 깔 때 사용
+desc.Filter   = D3D11_FILTER_MIN_MAG_MIP_POINT;
+desc.AddressU = desc.AddressV = desc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+```
+
+```cpp
+//AnisotropicWrap -> 지형 (Hill), 바닥. 비스듬히 보이는 면이 멀리서도 선명하게 보임
+desc.Filter        = D3D11_FILTER_ANISOTROPIC;
+desc.MaxAnisotropy = 16;   // 그래픽 옵션으로 2/4/8/16을 고르게 설정
+desc.AddressU = desc.AddressV = desc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+desc.MaxLOD = D3D11_FLOAT32_MAX;
+```
 
 </details>
 
 <details>
-	<summary> 5. HLSL </summary>
+	<summary> 5. SRV, Sampler 바인드 </summary>
+
+```cpp
+    // 텍스처 바인드
+    m_pContext->PSSetShaderResources(0, 1, m_pSRV.GetAddressOf());
+
+    // 샘플러 바인드
+    m_pContext->PSSetSamplers(0, 1, m_pSampler.GetAddressOf());
+```
+
+</details>
+
+<details>
+	<summary> 6. HLSL </summary>
 
 
 
