@@ -1724,7 +1724,8 @@ shared_ptr<CSunLight> CSunLight::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3
 
 <details>
 	<summary> 0. 텍스처를 입히는 과정 </summary>
-
+	
+```cpp
 [초기화]  
 0. 정점에 UV 추가 (Vertex 구조체 + InputLayout TEXCOORD)  
 1. 텍스처 로딩 + SRV 생성 (CreateDDSTextureFromFile / WIC)  
@@ -1739,7 +1740,8 @@ shared_ptr<CSunLight> CSunLight::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3
 5. VS: UV 전달 → 래스터라이저가 보간  
 6. PS: vTexColor = g_DiffuseTex.Sample(g_Sampler, In.vTexcoord);  
 7. 최종색 = vTexColor * (ambient + diffuse) + specular  
-	
+```
+
 </details>
 
 <details>
@@ -1785,7 +1787,25 @@ typedef struct tagVtxNorm
 <details>
 	<summary> 3. Sampler 생성 </summary>
 
-> D3D11_SAMPLER_DESC 
+> 멤버 변수 설정 및 Sampler 생성
+
+```cpp
+// 멤버변수 설정
+ComPtr<ID3D11SamplerState>			m_pSampler;
+
+// SamplerDesc 구조체 채운 뒤 Sampler 생성
+D3D11_SAMPLER_DESC samplerDesc{};
+
+samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+samplerDesc.AddressU = samplerDesc.AddressV = samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
+samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
+if (FAILED(m_pDevice->CreateSamplerState(&samplerDesc, m_pSampler.GetAddressOf())))
+    return E_FAIL;
+
+```
+
+> D3D11_SAMPLER_DESC 옵션
 
 - Filter : 칸 사이를 어떻게 읽을지  
  	D3D11_FILTER_MIN_MAG_MIP_POINT : 각진 픽셀아트 느낌  
