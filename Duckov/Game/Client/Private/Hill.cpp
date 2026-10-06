@@ -1,4 +1,5 @@
 #include "Hill.h"
+#include "DDSTextureLoader.h"
 
 CHill::CHill(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     :CGameObject(pDevice, pContext)
@@ -39,8 +40,8 @@ HRESULT CHill::Initialize_Prototype()
             m_tMeshData.Vertices[i * ivtxCntX + j].vNormal = GetNormal(x, z);
             m_tMeshData.Vertices[i * ivtxCntX + j].vTangentU = float3_t(1.f, 0.f, 0.f);
 
-            m_tMeshData.Vertices[i * ivtxCntX + j].TexC.x = j*du;
-            m_tMeshData.Vertices[i * ivtxCntX + j].TexC.y = i*dv;
+            m_tMeshData.Vertices[i * ivtxCntX + j].TexC.x = j*du * 5.f;
+            m_tMeshData.Vertices[i * ivtxCntX + j].TexC.y = i*dv * 5.f;
         }
     }
 
@@ -67,6 +68,8 @@ HRESULT CHill::Initialize_Prototype()
         p.y = GetHeight(p.x, p.z);
         vertices[i].vPosition = p;
         vertices[i].vNormal = m_tMeshData.Vertices[i].vNormal;
+        vertices[i].Tex = m_tMeshData.Vertices[i].TexC;
+        
         //if (p.y < -10.0f)
         //    vertices[i].vColor = XMFLOAT4(1.0f, 0.96f, 0.62f, 1.0f);
         //else if (p.y < 5.0f)
@@ -80,8 +83,8 @@ HRESULT CHill::Initialize_Prototype()
     }
 
     // Material
-    m_tMaterial.Ambient = float4_t(0.48f, 0.77f, 0.46f, 1.f);
-    m_tMaterial.Diffuse = float4_t(0.48f, 0.77f, 0.46f, 1.f);
+    m_tMaterial.Ambient = float4_t(1.f, 1.f, 1.f, 1.f);
+    m_tMaterial.Diffuse = float4_t(1.f, 1.f, 1.f, 1.f);
     m_tMaterial.Specular = float4_t(0.2f, 0.2f, 0.2f, 16.f);   // w = 광택 지수, 0이면 안 됨
 
     D3D11_BUFFER_DESC   VBDesc{}; 
@@ -124,7 +127,7 @@ HRESULT CHill::Initialize_Prototype()
 #endif
     
     if (FAILED(D3DCompileFromFile(
-        L"../Shader/Shader_VtxNorm.hlsl",  
+        L"../Shader/Shader_VtxTex.hlsl",  
         nullptr,                          
         D3D_COMPILE_STANDARD_FILE_INCLUDE,
         "VS_MAIN",                        
@@ -137,7 +140,7 @@ HRESULT CHill::Initialize_Prototype()
         if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
         return E_FAIL;
     }
-    if (FAILED(D3DCompileFromFile(L"../Shader/Shader_VtxNorm.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
+    if (FAILED(D3DCompileFromFile(L"../Shader/Shader_VtxTex.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
         "PS_MAIN", "ps_5_0", iFlags, 0, &pPSBlob, &pErrBlob)))
     {
         if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
@@ -151,10 +154,10 @@ HRESULT CHill::Initialize_Prototype()
         return E_FAIL;
 
     if (FAILED(m_pDevice->CreateInputLayout(VTXNORM::Elements,              
-        VTXNORM::iNumElements,
-        pVSBlob->GetBufferPointer(),    
-        pVSBlob->GetBufferSize(),       
-        &m_pInputLayout)))              
+                                            VTXNORM::iNumElements,
+                                            pVSBlob->GetBufferPointer(),    
+                                            pVSBlob->GetBufferSize(),       
+                                            &m_pInputLayout)))              
         return E_FAIL;
 
     D3D11_RASTERIZER_DESC rsDesc{};
@@ -165,6 +168,19 @@ HRESULT CHill::Initialize_Prototype()
 
     m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
 
+    // 텍스처 로딩 + SRV 설정
+    if (FAILED(CreateDDSTextureFromFile(m_pDevice.Get(), L"../../../Resource/Ex/grass.dds", nullptr, m_pSRV.GetAddressOf())))
+        return E_FAIL;
+    D3D11_SAMPLER_DESC samplerDesc = {};
+
+    // sampler 생성
+    samplerDesc.Filter = D3D11_FILTER_ANISOTROPIC;
+    samplerDesc.MaxAnisotropy = 16;
+    samplerDesc.AddressU = samplerDesc.AddressV = samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+    samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
+    if (FAILED(m_pDevice->CreateSamplerState(&samplerDesc, m_pSampler.GetAddressOf())))
+        return E_FAIL;
 
     return S_OK;
 }
@@ -236,6 +252,12 @@ HRESULT CHill::Render()
         m_pCB.GetAddressOf());
 
     m_pContext->PSSetShader(m_pPS.Get(), nullptr, 0);
+
+    // 텍스처 바인드
+    m_pContext->PSSetShaderResources(0, 1, m_pSRV.GetAddressOf());
+    
+    // 샘플러 바인드
+    m_pContext->PSSetSamplers(0, 1, m_pSampler.GetAddressOf());
 
     m_pContext->RSSetState(m_pRS.Get());
 
