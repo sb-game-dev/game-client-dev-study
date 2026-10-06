@@ -196,7 +196,6 @@ void CWave::Update(f32_t fDeltaTime)
         v[i].vNormal = GetWaveNormal(vPos.x, vPos.z, m_fTime);
         v[i].Tex = float2_t(m_tMeshData.Vertices[i].TexC.x + 0.1f * m_fTime
                           , m_tMeshData.Vertices[i].TexC.y + 0.1f * m_fTime);
-
     }
     m_pContext->Unmap(m_pVB.Get(), 0);
 }
