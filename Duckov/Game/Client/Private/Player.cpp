@@ -278,9 +278,9 @@ void CPlayer::KeyInput(f32_t fDeltaTime)
         MovePos({ 1.f,0.f,0.f }, m_fSpeed, fDeltaTime);
 
     if (GetAsyncKeyState(VK_LSHIFT))
-        m_fSpeed = 4.f;
+        m_fSpeed = 8.f;
     else
-        m_fSpeed = 2.f;
+        m_fSpeed = 4.f;
 }
 void CPlayer::LookAtMouse(f32_t fDeltaTime)
 {

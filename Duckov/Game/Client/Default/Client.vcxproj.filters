@@ -70,6 +70,9 @@
     <Filter Include="03. Camera\00. Orthographic_Cam">
       <UniqueIdentifier>{d92a6047-d85f-4814-833d-4911c27fc992}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObjects\04. Wave">
+      <UniqueIdentifier>{7aaabf08-fd25-4bd8-a2df-28659081e4ab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -134,6 +137,9 @@
     </ClInclude>
     <ClInclude Include="..\public\Orthographic_Cam.h">
       <Filter>03. Camera\00. Orthographic_Cam</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Wave.h">
+      <Filter>02. GameObjects\04. Wave</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -200,6 +206,9 @@
     </ClCompile>
     <ClCompile Include="..\private\Orthographic_Cam.cpp">
       <Filter>03. Camera\00. Orthographic_Cam</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Wave.cpp">
+      <Filter>02. GameObjects\04. Wave</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
