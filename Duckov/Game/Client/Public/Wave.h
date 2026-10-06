@@ -35,6 +35,7 @@ private:
 	}
 	float3_t GetWaveNormal(f32_t x, f32_t z, f32_t t)
 	{
+		// 0.5f * sinf(0.3f * x + 2.f * t) + 0.3f * cosf(0.2f * z + 1.5f * t);
 		f32_t fDhDx = 0.15f * cosf(0.3f * x + 2.f * t);
 		f32_t fDhDz = -0.06f * sinf(0.2f * z + 1.5f * t);
 		float3_t vNormal = { -fDhDx, 1.f, -fDhDz };

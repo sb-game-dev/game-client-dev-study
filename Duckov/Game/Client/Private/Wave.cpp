@@ -61,25 +61,6 @@ HRESULT CWave::Initialize_Prototype()
     }
     m_iIndexCnt = uint32_t(m_tMeshData.Indices.size());
 
-    // 버텍스 버퍼의 SubResource값은 Update에서 채울 예정
-    //vector<VTXCOL> vertices(m_tMeshData.Vertices.size());
-    //for (size_t i = 0; i < m_tMeshData.Vertices.size(); ++i)
-    //{
-    //    float3_t& p = m_tMeshData.Vertices[i].vPosition;
-    //    vertices[i].vPosition = p;
-    //
-    //    //if (p.y < -10.0f)
-    //    //    vertices[i].vColor = XMFLOAT4(1.0f, 0.96f, 0.62f, 1.0f);
-    //    //else if (p.y < 5.0f)
-    //    //    vertices[i].vColor = XMFLOAT4(0.48f, 0.77f, 0.46f, 1.0f);
-    //    //else if (p.y < 12.0f)
-    //    //    vertices[i].vColor = XMFLOAT4(0.1f, 0.48f, 0.19f, 1.0f);
-    //    //else if (p.y < 20.0f)
-    //    //    vertices[i].vColor = XMFLOAT4(0.45f, 0.39f, 0.34f, 1.0f);
-    //    //else
-    //    //    vertices[i].vColor = XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
-    //}
-
     // Material
     m_tMaterial.Ambient = float4_t(1.f, 1.f, 1.f, 1.f);
     m_tMaterial.Diffuse = float4_t(1.f, 1.f, 1.f, 1.f);
@@ -93,9 +74,6 @@ HRESULT CWave::Initialize_Prototype()
     VBDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE; 
     VBDesc.MiscFlags = 0;    
 
-
-    //D3D11_SUBRESOURCE_DATA  VBData{};
-    //VBData.pSysMem = &vertices[0];
     if (FAILED(m_pDevice->CreateBuffer(&VBDesc, nullptr, &m_pVB)))
         return E_FAIL;
 
