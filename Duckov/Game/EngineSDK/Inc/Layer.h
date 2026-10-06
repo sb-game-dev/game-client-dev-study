@@ -10,11 +10,11 @@ public:
 	~CLayer() = default;
 
 public:
-	HRESULT	Add_GameObject(const wstring_t& strGameObjectTag ,shared_ptr<class CGameObject> pGameObject);
-	void	Priority_Update(f32_t fTimeDelta);
-	void	Update(f32_t fTimeDelat);
-	void	Late_Update(f32_t fTimeDelta);
-	HRESULT	Render();
+	HRESULT		Add_GameObject(const wstring_t& strGameObjectTag ,shared_ptr<class CGameObject> pGameObject);
+	void		Priority_Update(f32_t fTimeDelta);
+	void		Update(f32_t fTimeDelat);
+	void		Late_Update(f32_t fTimeDelta);
+	HRESULT		Render();
 
 	shared_ptr<CGameObject>	Find_GameObject(const wstring_t& strGameObjectTag);
 
