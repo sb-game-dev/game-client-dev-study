@@ -22,10 +22,6 @@ public:
 
 private:
 	MESHDATA m_tMeshData = {};
-	MATERIAL m_tMaterial = {};
-
-	ComPtr<ID3D11ShaderResourceView>	m_pSRV;
-	ComPtr<ID3D11SamplerState>			m_pSampler;
 
 private:
 	f32_t m_fTime = { 0.f };

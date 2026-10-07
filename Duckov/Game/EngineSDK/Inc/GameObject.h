@@ -25,11 +25,13 @@ public:
 
 	virtual XMMATRIX	GetWorld();
 
+	virtual RENDERID	GetRenderID() { return m_eRenderID; }
+
 protected:
 	ComPtr<ID3D11Buffer>				m_pVB;				// 버텍스 버퍼
 	ComPtr<ID3D11Buffer>				m_pIB;				// 인덱스 버퍼
-	uint32_t							m_iIndexCnt;		// 인덱스 개수
 	ComPtr<ID3D11Buffer>				m_pCB;				// 변환 정보를 가지고있는 상수버퍼
+	uint32_t							m_iIndexCnt;		// 인덱스 개수
 
 	ComPtr<ID3D11InputLayout>			m_pInputLayout;		// 정점 메모리 해석표(FVF의 역할)
 
@@ -48,6 +50,14 @@ protected:
 	f32_t               m_fRotZ = 0.f;
 
 	f32_t				m_fSpeed = 1.f;
+
+	RENDERID			m_eRenderID = { RENDERID::END };
+
+	MATERIAL m_tMaterial = {};
+
+	ComPtr<ID3D11ShaderResourceView>	m_pSRV;
+	ComPtr<ID3D11SamplerState>			m_pSampler;
+	ComPtr<ID3D11BlendState>			m_pBS;
 
 public:
 	virtual shared_ptr<CPrototype> Clone(void* pArg) PURE;

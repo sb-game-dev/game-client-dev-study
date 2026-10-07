@@ -9,6 +9,7 @@ HRESULT CPlayer::Initialize_Prototype()
 {
     if (FAILED(__super::Initialize_Prototype()))
         return E_FAIL;
+    m_eRenderID = RENDERID::NONALPHA;
 
     // 정점 정보
     VTXCOL vertices[] =
@@ -17,7 +18,7 @@ HRESULT CPlayer::Initialize_Prototype()
         { float3_t(-0.5f, +0.5f, -0.5f), float4_t(Colors::Black)},
         { float3_t(+0.5f, +0.5f, -0.5f), float4_t(Colors::Red)},
         { float3_t(+0.5f, -0.5f, -0.5f), float4_t(Colors::Green)},
-        { float3_t(0.f, 0.f, +0.5f), float4_t(Colors::Blue)},
+        { float3_t(0.f, 0.f, +0.5f),     float4_t(Colors::Blue)},
     };
 
     // 정점 버퍼 생성
@@ -62,7 +63,7 @@ HRESULT CPlayer::Initialize_Prototype()
     CBDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 
     // 상수 버퍼를 초기화 할 때 SubResource는 nullptr로 설정. 나중에 UpdateSubresource 할 예정
-    if (FAILED(m_pDevice->CreateBuffer(&CBDesc, nullptr, &m_pCB)))
+    if (FAILED(m_pDevice->CreateBuffer(&CBDesc, nullptr, m_pCB.GetAddressOf())))
         return E_FAIL;
 
     // Blob은 크기가 정해진 바이트 덩어리를 담는 COM객체
@@ -109,10 +110,10 @@ HRESULT CPlayer::Initialize_Prototype()
 
     // Input Layout 생성 (VS 바이트코드와 대조)
     if (FAILED(m_pDevice->CreateInputLayout(VTXCOL::Elements,               // 정점 구조체를 서술하는 D3D11_INPUT_LEELMENT_DESC들의 배열
-        VTXCOL::iNumElements,           // 배열 원소의 개수
-        pVSBlob->GetBufferPointer(),    // 정점셰이더를 컴파일해서 얻은 바이트코드를 가리키는 포인터
-        pVSBlob->GetBufferSize(),       // 바이트코드의 크기
-        &m_pInputLayout)))              // 생성된 입력 배치를 돌려줄 포인터
+                                            VTXCOL::iNumElements,           // 배열 원소의 개수
+                                            pVSBlob->GetBufferPointer(),    // 정점셰이더를 컴파일해서 얻은 바이트코드를 가리키는 포인터
+                                            pVSBlob->GetBufferSize(),       // 바이트코드의 크기
+                                            &m_pInputLayout)))              // 생성된 입력 배치를 돌려줄 포인터
         return E_FAIL;
 
     // 레스터라이저 설정
@@ -167,6 +168,7 @@ HRESULT CPlayer::Render()
     // HLSL은 기본적으로 열 단위로 데이터를 읽기 때문에 전치를 해야 함
     CB_PER_OBJECT cbData;
     XMStoreFloat4x4(&cbData.WorldMatrix, XMMatrixTranspose(matWorld));
+
 
     // 변환 행렬의 정보를 가지고있는 m_pCB 버퍼로 복사(USAGE_DEFAULT로 생성해서 드라이버를 통해 복사)
     // 아래에서 VS의 b0 레지스터에 꽂을 예정
@@ -313,8 +315,10 @@ shared_ptr<CPlayer> CPlayer::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11D
     auto pInstance = shared_ptr<CPlayer>(new CPlayer(pDevice, pContext));
 
     if (FAILED(pInstance->Initialize_Prototype()))
+    {
+        MSG_BOX("Create Failed : CPlayer");
         pInstance.reset();
-
+    }
     return pInstance;
 }
 
@@ -323,7 +327,9 @@ shared_ptr<CPrototype> CPlayer::Clone(void* pArg)
     auto pInstance = shared_ptr<CPlayer>(new CPlayer(*this));
 
     if (FAILED(pInstance->Initialize(pArg)))
+    {
+        MSG_BOX("Clone Failed : CPlayer");
         pInstance.reset();
-
+    }
     return pInstance;
 }

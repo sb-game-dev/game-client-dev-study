@@ -20,7 +20,6 @@ public:
 	void		Priority_Update(f32_t fDeltaTime);
 	void		Update(f32_t fDeltaTime);
 	void		Late_Update(f32_t fDeltaTime);
-	HRESULT		Render();
 	void		Clear(uint32_t iClearLevelIndex);
 
 	shared_ptr<CGameObject>			Find_GameObject(uint32_t iLayerLevelIndex, const wstring_t& strLayerTag, const wstring_t& strGameObjectTag);

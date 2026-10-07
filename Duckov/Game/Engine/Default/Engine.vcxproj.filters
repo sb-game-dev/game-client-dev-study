@@ -64,6 +64,9 @@
     <Filter Include="08. Light\00. Manager">
       <UniqueIdentifier>{16caa894-e5f1-4ff2-ad29-125f69aec517}</UniqueIdentifier>
     </Filter>
+    <Filter Include="09. Renderer">
+      <UniqueIdentifier>{c68b7599-8680-4b08-8f80-61941eee7b98}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Engine_Defines.h">
@@ -141,6 +144,9 @@
     <ClInclude Include="..\public\SpotLight.h">
       <Filter>08. Light\03. SpotLight</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\Renderer.h">
+      <Filter>09. Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Timer.cpp">
@@ -199,6 +205,9 @@
     </ClCompile>
     <ClCompile Include="..\private\SpotLight.cpp">
       <Filter>08. Light\03. SpotLight</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Renderer.cpp">
+      <Filter>09. Renderer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

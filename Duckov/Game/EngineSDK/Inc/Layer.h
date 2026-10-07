@@ -14,7 +14,6 @@ public:
 	void		Priority_Update(f32_t fTimeDelta);
 	void		Update(f32_t fTimeDelat);
 	void		Late_Update(f32_t fTimeDelta);
-	HRESULT		Render();
 
 	shared_ptr<CGameObject>	Find_GameObject(const wstring_t& strGameObjectTag);
 

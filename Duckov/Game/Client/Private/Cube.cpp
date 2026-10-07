@@ -10,6 +10,7 @@ HRESULT CCube::Initialize_Prototype()
 {
     if (FAILED(__super::Initialize_Prototype()))
         return E_FAIL;
+    m_eRenderID = RENDERID::NONALPHA;
 
     // 정육면체 그리기
     // 정점 정보
@@ -59,28 +60,6 @@ HRESULT CCube::Initialize_Prototype()
     if (FAILED(m_pDevice->CreateBuffer(&VBDesc, &VBData, &m_pVB)))
         return E_FAIL;
 
-    // 인덱스 정보
-    //UINT indices[36] = 
-    //{
-    //    //z-
-    //    0, 1, 2,
-    //    0, 2, 3,
-    //    //x+
-    //    4, 5, 6,
-    //    4, 6, 7,
-    //    //z+
-    //    4, 5, 1,
-    //    4, 1, 0,
-    //    //x-
-    //    3, 2, 6,
-    //    3, 6, 7,
-    //    //y+
-    //    1, 5, 6,
-    //    1, 6, 2,
-    //    //y-
-    //    4, 0, 3,
-    //    4, 3, 7
-    //};
     UINT indices[36] = {};
     uint32_t iVtx = 0;
     for (uint32_t i = 0; i < 36; i += 6)
@@ -172,14 +151,14 @@ HRESULT CCube::Initialize_Prototype()
     // 래스터라이저 설정
     D3D11_RASTERIZER_DESC rsDesc{};
     rsDesc.FillMode = D3D11_FILL_SOLID;         // D3D11_FILL_WIREFRAME , D3D11_FILL_SOLID
-    rsDesc.CullMode = D3D11_CULL_BACK;          // D3D11_CULL_BACK , D3D11_CULL_FRONT
+    rsDesc.CullMode = D3D11_CULL_NONE;          // D3D11_CULL_BACK , D3D11_CULL_FRONT,D3D11_CULL_NONE
     rsDesc.FrontCounterClockwise = false;       // 시계방향이 전면
     rsDesc.DepthClipEnable = true;
 
     m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
 
     // 텍스처 로드
-    if (FAILED(CreateDDSTextureFromFile(m_pDevice.Get(), L"../../../Resource/Ex/WoodCrate01.dds", nullptr, m_pSRV.GetAddressOf())))
+    if (FAILED(CreateDDSTextureFromFile(m_pDevice.Get(), L"../../../Resource/Ex/WireFence.dds", nullptr, m_pSRV.GetAddressOf())))
         return E_FAIL;
 
     // 샘플러 생성

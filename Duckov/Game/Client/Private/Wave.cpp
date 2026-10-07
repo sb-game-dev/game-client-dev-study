@@ -10,6 +10,7 @@ HRESULT CWave::Initialize_Prototype()
 {
     if (FAILED(__super::Initialize_Prototype()))
         return E_FAIL;
+    m_eRenderID = RENDERID::ALPHA;
 
     uint32_t    ivtxCntX = 129;
     uint32_t    ivtxCntZ = 129;
@@ -62,8 +63,8 @@ HRESULT CWave::Initialize_Prototype()
     m_iIndexCnt = uint32_t(m_tMeshData.Indices.size());
 
     // Material
-    m_tMaterial.Ambient = float4_t(1.f, 1.f, 1.f, 1.f);
-    m_tMaterial.Diffuse = float4_t(1.f, 1.f, 1.f, 1.f);
+    m_tMaterial.Ambient = float4_t(1.f, 1.f, 1.f, 1.f); 
+    m_tMaterial.Diffuse = float4_t(1.f, 1.f, 1.f, 0.5f);
     m_tMaterial.Specular = float4_t(0.2f, 0.2f, 0.2f, 16.f);   // w = 광택 지수, 0이면 안 됨
 
     // 버텍스 버퍼를 동적으로 설정하기 위해 Usage, BindFlag, CPUAccessFlag 설정 변경
@@ -160,6 +161,23 @@ HRESULT CWave::Initialize_Prototype()
     samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
 
     if (FAILED(m_pDevice->CreateSamplerState(&samplerDesc, m_pSampler.GetAddressOf())))
+        return E_FAIL;
+
+    // 블렌더 스테이트 생성
+    D3D11_BLEND_DESC blendDesc{};
+    blendDesc.AlphaToCoverageEnable = FALSE;
+    blendDesc.IndependentBlendEnable = FALSE;
+
+    blendDesc.RenderTarget[0].BlendEnable = TRUE;
+    blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+    blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+    blendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+    blendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+    blendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+    blendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+    blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+    if (FAILED(m_pDevice->CreateBlendState(&blendDesc, m_pBS.GetAddressOf())))
         return E_FAIL;
 
     return S_OK;
@@ -259,9 +277,12 @@ HRESULT CWave::Render()
 
     m_pContext->RSSetState(m_pRS.Get());
 
-    m_pContext->DrawIndexed(m_iIndexCnt,
-        0,
-        0);
+    float blendFactor[4] = { 0.f, 0.f, 0.f, 0.f };
+    m_pContext->OMSetBlendState(m_pBS.Get(), blendFactor, 0xffffffff);     // 블렌딩 ON
+
+    m_pContext->DrawIndexed(m_iIndexCnt, 0, 0);
+
+    m_pContext->OMSetBlendState(nullptr, blendFactor, 0xffffffff);         // 복구
 
     return S_OK;
 }

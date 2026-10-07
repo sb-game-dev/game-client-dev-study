@@ -1,5 +1,6 @@
 #include "Layer.h"
 #include "GameObject.h"
+#include "GameInstance.h"
 CLayer::CLayer()
 {
 
@@ -33,18 +34,13 @@ void CLayer::Late_Update(f32_t fTimeDelta)
     for (auto& Pair : m_GameObjects)
     {
         if (nullptr != Pair.second)
+        {
             Pair.second->Late_Update(fTimeDelta);
+            CGameInstance::Get().Add_RenderGroup(Pair.second->GetRenderID(), Pair.second);
+        }
     }
 }
-HRESULT	CLayer::Render()
-{
-    for (auto& Pair : m_GameObjects)
-    {
-        if (nullptr != Pair.second)
-            if (FAILED(Pair.second->Render()))return E_FAIL;
-    }
-    return S_OK;
-}
+
 shared_ptr<CGameObject> CLayer::Find_GameObject(const wstring_t& strGameObjectTag)
 {
     auto iter = m_GameObjects.find(strGameObjectTag);

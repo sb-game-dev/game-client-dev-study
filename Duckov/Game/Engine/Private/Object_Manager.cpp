@@ -72,18 +72,6 @@ void CObject_Manager::Late_Update(f32_t fDeltaTime)
 		}
 	}
 }
-HRESULT	CObject_Manager::Render()
-{
-	for (uint32_t i = 0; i < m_iNumLevels; ++i)
-	{
-		for (auto& Pair : m_pLayers[i])
-		{
-			if (nullptr != Pair.second)
-				if (FAILED(Pair.second->Render())) return E_FAIL;
-		}
-	}
-	return S_OK;
-}
 
 void CObject_Manager::Clear(uint32_t iClearLevelIndex)
 {

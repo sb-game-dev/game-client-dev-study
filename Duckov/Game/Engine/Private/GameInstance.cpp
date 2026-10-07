@@ -34,6 +34,10 @@ HRESULT CGameInstance::Initialize_Engine(const ENGINE_DESC& EngineDesc, _Out_ Co
 	if (m_pLight_Manager == nullptr)
 		return E_FAIL;
 
+	m_pRenderer = CRenderer::Create();
+	if (m_pRenderer == nullptr)
+		return E_FAIL;
+
 	return S_OK;
 }
 
@@ -73,10 +77,9 @@ void CGameInstance::Update_Engine(f32_t fDeltaTime)
 HRESULT CGameInstance::Draw()
 {
 	m_pCamera_Manager->Bind();
-
-	if (FAILED(m_pObject_Manager->Render()))
-		return E_FAIL;
 	
+	m_pRenderer->Render_GameObject();
+
 	if (FAILED(m_pLevel_Manager->Render()))
 		return E_FAIL;
 
@@ -172,10 +175,19 @@ shared_ptr<CLight> CGameInstance::Find_Light(const wstring_t& strLightTag)
 {
 	return m_pLight_Manager->Find_Light(strLightTag);
 }
+
+#pragma endregion
+
+#pragma region RENDERER
+void CGameInstance::Add_RenderGroup(RENDERID eRenderID, shared_ptr<CGameObject> pGameObject)
+{
+	m_pRenderer->Add_RenderGroup(eRenderID, pGameObject);
+}
 #pragma endregion
 
 void CGameInstance::Release_Engine()
 {
+	m_pRenderer.reset();
 	m_pLight_Manager.reset();
 	m_pLevel_Manager.reset();
 	m_pCamera_Manager.reset();

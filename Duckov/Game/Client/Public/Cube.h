@@ -17,10 +17,6 @@ public:
 	virtual	void	Late_Update(f32_t fDeltaTime) override;
 	virtual HRESULT	Render() override;
 
-private:
-	ComPtr<ID3D11ShaderResourceView>	m_pSRV;			//텍스처
-	ComPtr<ID3D11SamplerState>			m_pSampler;		//샘플러
-	MATERIAL							m_tMaterial;	//머티리얼
 
 public:
 	static shared_ptr<CCube> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);

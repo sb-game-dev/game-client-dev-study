@@ -10,6 +10,7 @@ HRESULT CHill::Initialize_Prototype()
 {
     if (FAILED(__super::Initialize_Prototype()))
         return E_FAIL;
+    m_eRenderID = RENDERID::PRIORITY;
 
     uint32_t    ivtxCntX = 129;
     uint32_t    ivtxCntZ = 129;

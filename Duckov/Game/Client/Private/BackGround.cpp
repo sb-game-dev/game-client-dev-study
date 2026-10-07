@@ -10,6 +10,8 @@ HRESULT CBackGround::Initialize_Prototype()
 {
 	if (FAILED(__super::Initialize_Prototype()))
 		return E_FAIL;
+    m_eRenderID = RENDERID::NONALPHA_UI;
+
     VTXNORM vertices[] =
     {
         { float3_t(-0.5f, -0.5f, 0.f), float3_t(0.f, 0.f, -1.f), float2_t(0.f, 1.f) },

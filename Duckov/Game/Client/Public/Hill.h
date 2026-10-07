@@ -25,10 +25,6 @@ public:
 
 private:
 	MESHDATA m_tMeshData = {};
-	MATERIAL m_tMaterial = {};
-
-	ComPtr<ID3D11ShaderResourceView>	m_pSRV;
-	ComPtr<ID3D11SamplerState>			m_pSampler;
 
 public:
 	static shared_ptr<CHill> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);

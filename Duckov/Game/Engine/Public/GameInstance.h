@@ -7,6 +7,7 @@
 #include "Object_Manager.h"
 #include "Camera_Manager.h"
 #include "Light_Manager.h"
+#include "Renderer.h"
 /*
 1. 엔진의 기능을 클라이언트에 보여주는 객체.
 2. 엔진에 정의되어있는 다양한 기능을 하는 객체를 모아서 보관한다.
@@ -74,6 +75,10 @@ public:
 	shared_ptr<CLight> Find_Light(const wstring_t& strLightTag);
 #pragma endregion
 
+#pragma region RENDERER
+	void	Add_RenderGroup(RENDERID eRenderID, shared_ptr<CGameObject> pGameObject);
+#pragma endregion
+
 private:
 	unique_ptr<CGraphic_Device>		m_pGraphic_Device = { nullptr };
 	unique_ptr<CObject_Manager>		m_pObject_Manager = { nullptr };
@@ -82,6 +87,7 @@ private:
 	unique_ptr<CPrototype_Manager>	m_pPrototype_Manager = { nullptr };
 	unique_ptr<CCamera_Manager>		m_pCamera_Manager = { nullptr };
 	unique_ptr<CLight_Manager>		m_pLight_Manager = { nullptr };
+	unique_ptr<CRenderer>			m_pRenderer = { nullptr };
 
 public:
 	void			Release_Engine();

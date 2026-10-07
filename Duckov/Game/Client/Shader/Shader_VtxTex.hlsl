@@ -75,6 +75,7 @@ float4 PS_MAIN(VS_OUT In) : SV_TARGET //몇 번째 렌더타겟에 색을 쓸지
     float4 vAmbientSum, vDiffuseSum, vSpecSum;
     float4 vColor = float4(0.f, 0.f, 0.f, 0.f);
     float4 vTexColor = g_DiffuseTex.Sample(g_Sampler, In.vTexCoord);
+    clip(vTexColor.a - 0.1f);
     
     ComputePointLight(g_Material, g_PointLight, In.vPosW, vNormal, vToEye, vAmbient, vDiffuse, vSpec);
     vAmbientSum = vAmbient;
