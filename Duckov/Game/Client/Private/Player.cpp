@@ -200,8 +200,8 @@ HRESULT CPlayer::Render()
 
     // VS의 상수버퍼슬롯(b0)에 상수버퍼(변환 행렬 버퍼) 꽂기
     m_pContext->VSSetConstantBuffers(0, //register(b0)과 연결됨
-        1,
-        m_pCB.GetAddressOf());
+                                     1,
+                                     m_pCB.GetAddressOf());
 
     // PS(픽셀 셰이더) -> 지금은 색 밖에 없음
     m_pContext->PSSetShader(m_pPS.Get(), nullptr, 0);
@@ -211,8 +211,8 @@ HRESULT CPlayer::Render()
 
     // 그리기
     m_pContext->DrawIndexed(m_iIndexCnt, // IndexCnt: 인덱스 버퍼의 크기
-        0,  // StartIndexLocation : 사용할 인덱스의 위치
-        0); // BaseVERTEXLocation : 정점들을 가져오기 전에 이 호출에서 사용할 인덱스에 더해지는 정수값
+                            0,  // StartIndexLocation : 사용할 인덱스의 위치
+                            0); // BaseVERTEXLocation : 정점들을 가져오기 전에 이 호출에서 사용할 인덱스에 더해지는 정수값
 
     return S_OK;
 }

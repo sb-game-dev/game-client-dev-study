@@ -97,8 +97,7 @@ void CRenderer::Render_Alpha()
 		pObj->Render();
 
 	// º¹±¸
-	m_pContext->OMSetBlendState(nullptr, blendFactor, 0xffffffff);         
-	
+	m_pContext->OMSetBlendState(nullptr, blendFactor, 0xffffffff);
 }
 
 void CRenderer::Render_NonAlpha_UI()
