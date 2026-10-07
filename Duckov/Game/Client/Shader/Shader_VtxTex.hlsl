@@ -78,7 +78,6 @@ float4 PS_MAIN(VS_OUT In) : SV_TARGET //몇 번째 렌더타겟에 색을 쓸지
 {
     float3 vNormal = normalize(In.vNormalW);
     float3 vToEye = normalize(g_vEye - In.vPosW);
-    float distToEye = length(vToEye);
     
     float4 vAmbient, vDiffuse, vSpec;
     float4 vAmbientSum, vDiffuseSum, vSpecSum;
@@ -106,6 +105,7 @@ float4 PS_MAIN(VS_OUT In) : SV_TARGET //몇 번째 렌더타겟에 색을 쓸지
     vColor = vTexColor * (vAmbientSum + vDiffuseSum) + vSpecSum;
     vColor.a = g_Material.Diffuse.a * vTexColor.a;
     
+    float distToEye = length(g_vEye - In.vPosW);
     float fogLerp = saturate((distToEye - g_fFogStart) / g_fFogRange);
     vColor.rgb = lerp(vColor.rgb, g_vFogColor.rgb, fogLerp);
     
