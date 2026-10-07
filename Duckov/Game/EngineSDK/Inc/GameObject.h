@@ -39,6 +39,9 @@ protected:
 	ComPtr<ID3D11PixelShader>			m_pPS;				// 픽셀 셰이더
 	ComPtr<ID3D11RasterizerState>		m_pRS;				// 레스터라이저
 
+	ComPtr<ID3D11ShaderResourceView>	m_pSRV;
+	ComPtr<ID3D11SamplerState>			m_pSampler;
+
 	float4x4_t			m_matWorld;
 
 	float3_t			m_vInfo[static_cast<int>(INFO::END)];
@@ -54,10 +57,6 @@ protected:
 	RENDERID			m_eRenderID = { RENDERID::END };
 
 	MATERIAL m_tMaterial = {};
-
-	ComPtr<ID3D11ShaderResourceView>	m_pSRV;
-	ComPtr<ID3D11SamplerState>			m_pSampler;
-	ComPtr<ID3D11BlendState>			m_pBS;
 
 public:
 	virtual shared_ptr<CPrototype> Clone(void* pArg) PURE;

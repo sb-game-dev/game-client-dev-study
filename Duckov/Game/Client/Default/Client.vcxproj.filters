@@ -73,6 +73,9 @@
     <Filter Include="02. GameObjects\04. Wave">
       <UniqueIdentifier>{7aaabf08-fd25-4bd8-a2df-28659081e4ab}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObjects\05. Fog">
+      <UniqueIdentifier>{68a9e740-f4a5-40d5-8f40-e3dca27baea9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -140,6 +143,9 @@
     </ClInclude>
     <ClInclude Include="..\public\Wave.h">
       <Filter>02. GameObjects\04. Wave</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Fog.h">
+      <Filter>02. GameObjects\05. Fog</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -209,6 +215,9 @@
     </ClCompile>
     <ClCompile Include="..\private\Wave.cpp">
       <Filter>02. GameObjects\04. Wave</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Fog.cpp">
+      <Filter>02. GameObjects\05. Fog</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

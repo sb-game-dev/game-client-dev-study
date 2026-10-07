@@ -163,23 +163,6 @@ HRESULT CWave::Initialize_Prototype()
     if (FAILED(m_pDevice->CreateSamplerState(&samplerDesc, m_pSampler.GetAddressOf())))
         return E_FAIL;
 
-    // 블렌더 스테이트 생성
-    D3D11_BLEND_DESC blendDesc{};
-    blendDesc.AlphaToCoverageEnable = FALSE;
-    blendDesc.IndependentBlendEnable = FALSE;
-
-    blendDesc.RenderTarget[0].BlendEnable = TRUE;
-    blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
-    blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
-    blendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
-    blendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
-    blendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
-    blendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
-    blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
-
-    if (FAILED(m_pDevice->CreateBlendState(&blendDesc, m_pBS.GetAddressOf())))
-        return E_FAIL;
-
     return S_OK;
 }
 
@@ -277,12 +260,8 @@ HRESULT CWave::Render()
 
     m_pContext->RSSetState(m_pRS.Get());
 
-    float blendFactor[4] = { 0.f, 0.f, 0.f, 0.f };
-    m_pContext->OMSetBlendState(m_pBS.Get(), blendFactor, 0xffffffff);     // 블렌딩 ON
+    m_pContext->DrawIndexed(m_iIndexCnt, 0, 0);                          
 
-    m_pContext->DrawIndexed(m_iIndexCnt, 0, 0);
-
-    m_pContext->OMSetBlendState(nullptr, blendFactor, 0xffffffff);         // 복구
 
     return S_OK;
 }

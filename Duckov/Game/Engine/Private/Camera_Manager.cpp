@@ -17,24 +17,25 @@ void CCamera_Manager::Set_MainCamera(const wstring_t& strCameraTag)
 	if (nullptr == pCamera)
 		return;
 	m_pMainCamera = pCamera;
+	Bind();
 }
 
 void CCamera_Manager::Priority_Update(f32_t fDeltaTime)
 {
-	if (m_pMainCamera)
-		m_pMainCamera->Priority_Update(fDeltaTime);
+	for (auto pCam : m_pCameras)
+		pCam.second->Priority_Update(fDeltaTime);
 }
 
 void CCamera_Manager::Update(f32_t fDeltaTime)
 {
-	if (m_pMainCamera)
-		m_pMainCamera->Update(fDeltaTime);
+	for (auto pCam : m_pCameras)
+		pCam.second->Update(fDeltaTime);
 }
 
 void CCamera_Manager::Late_Update(f32_t fDeltaTime)
 {
-	if (m_pMainCamera)
-		m_pMainCamera->Late_Update(fDeltaTime);
+	for (auto pCam : m_pCameras)
+		pCam.second->Late_Update(fDeltaTime);
 }
 
 HRESULT CCamera_Manager::Bind()

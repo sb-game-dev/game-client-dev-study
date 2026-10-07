@@ -139,6 +139,7 @@
     <ClInclude Include="..\Public\Client_Defines.h" />
     <ClInclude Include="..\Public\Cube.h" />
     <ClInclude Include="..\Public\DDSTextureLoader.h" />
+    <ClInclude Include="..\Public\Fog.h" />
     <ClInclude Include="..\public\Orthographic_Cam.h" />
     <ClInclude Include="..\public\SunLight.h" />
     <ClInclude Include="..\public\Hill.h" />
@@ -161,6 +162,7 @@
   <ItemGroup>
     <ClCompile Include="..\private\BackGround.cpp" />
     <ClCompile Include="..\Private\DDSTextureLoader.cpp" />
+    <ClCompile Include="..\private\Fog.cpp" />
     <ClCompile Include="..\private\Orthographic_Cam.cpp" />
     <ClCompile Include="..\private\SunLight.cpp" />
     <ClCompile Include="..\private\Loader.cpp" />

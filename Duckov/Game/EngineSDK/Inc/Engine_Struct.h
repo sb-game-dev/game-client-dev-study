@@ -162,6 +162,13 @@ namespace Engine
 		DirectionalLight			tDirLight;
 	}CB_DIRLIGHT;
 
+	typedef struct tagCBFog
+	{
+		float4_t	FogColor;
+		f32_t		FogStart;	// 카메라에서 이만큼 떨어진 곳부터 안개가 끼기 시작한다 -> 카메라가 이동하면 안개도 같이 이동한다.
+		f32_t		FogRange;	
+		float2_t	Pad;
+	}CB_FOG;
 }
 
 #endif // Engine_Struct_h__

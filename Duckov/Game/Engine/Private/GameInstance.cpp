@@ -34,7 +34,7 @@ HRESULT CGameInstance::Initialize_Engine(const ENGINE_DESC& EngineDesc, _Out_ Co
 	if (m_pLight_Manager == nullptr)
 		return E_FAIL;
 
-	m_pRenderer = CRenderer::Create();
+	m_pRenderer = CRenderer::Create(pDevice,pContext);
 	if (m_pRenderer == nullptr)
 		return E_FAIL;
 
@@ -75,9 +75,7 @@ void CGameInstance::Update_Engine(f32_t fDeltaTime)
 }
 
 HRESULT CGameInstance::Draw()
-{
-	m_pCamera_Manager->Bind();
-	
+{	
 	m_pRenderer->Render_GameObject();
 
 	if (FAILED(m_pLevel_Manager->Render()))

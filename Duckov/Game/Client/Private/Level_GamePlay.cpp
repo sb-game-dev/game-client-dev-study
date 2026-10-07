@@ -59,12 +59,15 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
         ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_Wave"))))
         return E_FAIL;
 
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_GameObject_Fog"),
+        ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_Fog"))))
+        return E_FAIL;
+
     auto pPlayer = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_Player"));
     auto pHill = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_Hill"));
 
     auto m_pCamera = CQuarterView_Cam::Create(m_pDevice, m_pContext);
     CGameInstance::Get().Add_Camera(TEXT("QuarterViewCam"), m_pCamera);
-    CGameInstance::Get().Set_MainCamera(TEXT("QuarterViewCam"));
     
     m_pCamera->SetPlayer(pPlayer);
     static_pointer_cast<CPlayer>(pPlayer)->SetHill(static_pointer_cast<CHill>(pHill));
