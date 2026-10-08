@@ -63,6 +63,10 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
         ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_Fog"))))
         return E_FAIL;
 
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_GameObject_Mirror"),
+        ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_Mirror"))))
+        return E_FAIL;
+
     auto pPlayer = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_Player"));
     auto pHill = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_Hill"));
 

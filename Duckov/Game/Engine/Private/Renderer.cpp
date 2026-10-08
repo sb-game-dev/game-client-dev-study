@@ -9,12 +9,73 @@ CRenderer::CRenderer(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> p
 
 HRESULT CRenderer::Initialize()
 {
+	if (FAILED(Ready_BlendState()))
+		return E_FAIL;
+	if (FAILED(Ready_BlendState_NoColor()))
+		return E_FAIL;
+	if (FAILED(Ready_Mirror_DSS()))
+		return E_FAIL;
+
+	return S_OK;
+}
+
+void CRenderer::Add_RenderGroup(RENDERID eRenderID, shared_ptr<CGameObject> pGameObject)
+{
+	if (eRenderID >= RENDERID::END || nullptr == pGameObject)
+		return;
+
+	m_RenderGroup[ETOUI(eRenderID)].push_back(pGameObject);
+}
+
+void CRenderer::Render_GameObject()
+{
+	CGameInstance::Get().Set_MainCamera(L"QuarterViewCam");
+	Render_Priority();
+	Render_NonAlpha();
+	Render_Mirror();
+	Render_Alpha();
+
+	CGameInstance::Get().Set_MainCamera(L"COrthographic_Cam");
+	Render_NonAlpha_UI();
+	Render_Alpha_UI();
+
+	Clear_RenderGroup();
+ }
+
+void CRenderer::Clear_RenderGroup()
+{
+	for (uint32_t i = 0; i < ETOUI(RENDERID::END); ++i)
+		m_RenderGroup[i].clear();
+}
+
+void CRenderer::Render_Mirror()
+{
+	if (nullptr == m_pMirror)        
+		return;
+	float blendrFactor[4] = { 0.f,0.f,0.f,0.f };
+
+	// 거울을 스텐실에만 그리기
+	m_pContext->OMSetBlendState(m_pBS_NoColorWrite.Get(), blendrFactor, 0xffffffff);
+	m_pContext->OMSetDepthStencilState(m_pDSS_MarkMirror.Get(), 1);
+	
+	m_pMirror->Render();
+
+	XMMATRIX matReflect = XMMatrixReflect(m_pMirror->Get_MirrorPlane());
+	m_pContext->OMSetDepthStencilState(m_pDSS_DrawReflection.Get(), 1);
+
+	for (auto& pObj : m_ReflectObjects)
+		pObj->Render_Reflection(matReflect);
+	m_pContext->OMSetDepthStencilState(nullptr, 0);
+}
+
+HRESULT CRenderer::Ready_BlendState()
+{
 	// 블렌더 스테이트 생성
 	D3D11_BLEND_DESC blendDesc{};
 	blendDesc.AlphaToCoverageEnable = FALSE;      // 픽셀 알파를 MSAA 샘플 커버리지로 변환 (MSAA 사용 시에만 효과, 수업에서는 안 씀)
-	blendDesc.IndependentBlendEnable = FALSE;     // FALSE: 모든 렌더타겟에 RenderTarget[0] 설정 공통 적용 
-												  // TRUE: 렌더타겟별 개별 설정
+	blendDesc.IndependentBlendEnable = FALSE;     // FALSE: 모든 렌더타겟에 RenderTarget[0] 설정 공통 적용
 
+	// TRUE: 렌더타겟별 개별 설정
 	blendDesc.RenderTarget[0].BlendEnable = TRUE;                       // 블렌더 활성화
 	// RGB 블렌드 설정 -> 렌더 타겟에 기록할 최종 RGB 계산
 	blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;         // RGB Src블렌드 계수 : Src.a
@@ -35,33 +96,50 @@ HRESULT CRenderer::Initialize()
 	return S_OK;
 }
 
-void CRenderer::Add_RenderGroup(RENDERID eRenderID, shared_ptr<CGameObject> pGameObject)
+HRESULT CRenderer::Ready_BlendState_NoColor()
 {
-	if (eRenderID >= RENDERID::END || nullptr == pGameObject)
-		return;
-
-	m_RenderGroup[ETOUI(eRenderID)].push_back(pGameObject);
+	D3D11_BLEND_DESC noColorDesc{};
+	noColorDesc.RenderTarget[0].BlendEnable = FALSE;
+	noColorDesc.RenderTarget[0].RenderTargetWriteMask = 0;   // RGBA 아무 채널도 안 씀
+	if (FAILED(m_pDevice->CreateBlendState(&noColorDesc, m_pBS_NoColorWrite.GetAddressOf())))
+		return E_FAIL;
+	return S_OK;
 }
 
-void CRenderer::Render_GameObject()
+HRESULT CRenderer::Ready_Mirror_DSS()
 {
-	CGameInstance::Get().Set_MainCamera(L"QuarterViewCam");
-	Render_Priority();
-	Render_NonAlpha();
-	Render_Alpha();
+	D3D11_DEPTH_STENCIL_DESC markDesc{};
 
-	CGameInstance::Get().Set_MainCamera(L"COrthographic_Cam");
-	Render_NonAlpha_UI();
-	Render_Alpha_UI();
+	markDesc.DepthEnable = TRUE;
+	markDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
+	markDesc.DepthFunc = D3D11_COMPARISON_LESS;
 
-	Clear_RenderGroup();
- }
+	markDesc.StencilEnable = TRUE;
+	markDesc.StencilReadMask = 0xff;
+	markDesc.StencilWriteMask = 0xff;
 
-void CRenderer::Clear_RenderGroup()
-{
-	for (uint32_t i = 0; i < ETOUI(RENDERID::END); ++i)
-		m_RenderGroup[i].clear();
+	markDesc.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+	markDesc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_KEEP;
+	markDesc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_REPLACE;
+	markDesc.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
+
+	markDesc.BackFace = markDesc.FrontFace;
+
+	if (FAILED(m_pDevice->CreateDepthStencilState(&markDesc, m_pDSS_MarkMirror.GetAddressOf())))
+		return E_FAIL;
+
+	D3D11_DEPTH_STENCIL_DESC reflectDesc = markDesc;
+	reflectDesc.DepthEnable = FALSE;
+	reflectDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
+	reflectDesc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
+	reflectDesc.FrontFace.StencilFunc = D3D11_COMPARISON_EQUAL;
+	reflectDesc.BackFace = reflectDesc.FrontFace;
+	if (FAILED(m_pDevice->CreateDepthStencilState(&reflectDesc, m_pDSS_DrawReflection.GetAddressOf())))
+		return E_FAIL;
+
+	return S_OK;
 }
+
 
 void CRenderer::Render_Priority()
 {

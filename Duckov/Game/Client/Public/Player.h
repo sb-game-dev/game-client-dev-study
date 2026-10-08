@@ -16,12 +16,18 @@ public:
 	virtual	void	Priority_Update(f32_t fDeltaTime) override;
 	virtual	void	Update(f32_t fDeltaTime) override;
 	virtual	void	Late_Update(f32_t fDeltaTime) override;
+
 	virtual HRESULT	Render() override;
+	virtual HRESULT	Render_Reflection(const XMMATRIX& matReflect) override;
 
 	virtual void	SetHill(shared_ptr<CHill> pHill) { m_pHill = pHill;}
 	virtual void	AdjustPosY();
+
 private:
 	shared_ptr<CHill>		m_pHill = {nullptr};
+
+	HRESULT			Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS);
+	ComPtr< ID3D11RasterizerState> m_pRS_Reflect = { nullptr };
 
 private:
 	void	KeyInput(f32_t fDeltaTime);

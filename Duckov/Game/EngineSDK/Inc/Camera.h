@@ -25,7 +25,6 @@ protected:
 	ComPtr<ID3D11Device>				m_pDevice = { nullptr };
 	ComPtr<ID3D11DeviceContext>			m_pContext = { nullptr };
 
-	ComPtr<ID3D11VertexShader>			m_pVS = { nullptr };
 	ComPtr<ID3D11Buffer>				m_pCB = { nullptr };
 
 	float4x4_t			m_matView;
@@ -40,8 +39,6 @@ protected:
 	f32_t				m_fNear = 0.1f;
 	f32_t				m_fFar = 1000.f;
 
-public:
-	static	shared_ptr<CCamera>	Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
 };
 
 NS_END

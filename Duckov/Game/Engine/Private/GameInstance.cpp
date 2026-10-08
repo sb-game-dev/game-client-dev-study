@@ -54,6 +54,7 @@ HRESULT CGameInstance::Clear_Resources(int32_t iCurrentLevel)
 {
 	m_pPrototype_Manager->Clear(iCurrentLevel);
 	m_pObject_Manager->Clear(iCurrentLevel);
+	m_pRenderer->Clear_Mirror();
 	return S_OK;
 }
 
@@ -180,6 +181,14 @@ shared_ptr<CLight> CGameInstance::Find_Light(const wstring_t& strLightTag)
 void CGameInstance::Add_RenderGroup(RENDERID eRenderID, shared_ptr<CGameObject> pGameObject)
 {
 	m_pRenderer->Add_RenderGroup(eRenderID, pGameObject);
+}
+void CGameInstance::Set_Mirror(shared_ptr<CGameObject> pMirror)
+{
+	m_pRenderer->Set_Mirror(pMirror);
+}
+void CGameInstance::Add_ReflectObject(shared_ptr<CGameObject> pObject)
+{
+	m_pRenderer->Add_ReflectObject(pObject);
 }
 #pragma endregion
 

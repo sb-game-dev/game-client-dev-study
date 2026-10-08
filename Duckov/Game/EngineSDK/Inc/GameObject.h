@@ -27,6 +27,11 @@ public:
 
 	virtual RENDERID	GetRenderID() { return m_eRenderID; }
 
+	// 거울세상의 객체를 그림
+	virtual HRESULT		Render_Reflection(const XMMATRIX& matReflect) { return S_OK; }
+	// 거울평면의 법선벡터를 a,b,c,d를 반환
+	virtual XMVECTOR	Get_MirrorPlane() { return XMVectorZero(); }
+
 protected:
 	ComPtr<ID3D11Buffer>				m_pVB;				// 버텍스 버퍼
 	ComPtr<ID3D11Buffer>				m_pIB;				// 인덱스 버퍼

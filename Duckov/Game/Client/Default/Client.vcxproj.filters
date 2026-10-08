@@ -76,6 +76,9 @@
     <Filter Include="02. GameObjects\05. Fog">
       <UniqueIdentifier>{68a9e740-f4a5-40d5-8f40-e3dca27baea9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObjects\06. Mirror">
+      <UniqueIdentifier>{788bfbd8-e4e5-4f98-a2f0-8e20abd27620}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -146,6 +149,9 @@
     </ClInclude>
     <ClInclude Include="..\Public\Fog.h">
       <Filter>02. GameObjects\05. Fog</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Mirror.h">
+      <Filter>02. GameObjects\06. Mirror</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -218,6 +224,9 @@
     </ClCompile>
     <ClCompile Include="..\private\Fog.cpp">
       <Filter>02. GameObjects\05. Fog</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Mirror.cpp">
+      <Filter>02. GameObjects\06. Mirror</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

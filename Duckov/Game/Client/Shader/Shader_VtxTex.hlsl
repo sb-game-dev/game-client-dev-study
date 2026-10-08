@@ -39,7 +39,6 @@ cbuffer cbFog : register(b5)
     float g_fFogStart;  // 안개 시작 위치
     float g_fFogRange;  // 안개 범위
     float2 g_vFogPad;   // 패딩용 변수
-    
 }
 
 Texture2D g_DiffuseTex : register(t0);  //SRV

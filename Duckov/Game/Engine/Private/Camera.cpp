@@ -45,12 +45,3 @@ HRESULT CCamera::Bind()
 	m_pContext->PSSetConstantBuffers(1, 1, m_pCB.GetAddressOf());
 	return S_OK;
 }
-
-
-shared_ptr<CCamera> CCamera::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
-{
-	auto pInstance = shared_ptr<CCamera>(new CCamera(pDevice, pContext));
-	if (FAILED(pInstance->Initialize()))
-		pInstance.reset();
-	return pInstance;
-}

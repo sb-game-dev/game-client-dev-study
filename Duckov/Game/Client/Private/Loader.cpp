@@ -6,6 +6,7 @@
 #include "QuarterView_Cam.h"
 #include "Wave.h"
 #include "Fog.h"
+#include "Mirror.h"
 
 CLoader::CLoader(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     : m_pDevice{pDevice}
@@ -140,6 +141,9 @@ HRESULT CLoader::Loading_For_GamePlayLV()
 
     pGameObject = CFog::Create(m_pDevice, m_pContext);
     CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_Fog", pGameObject);
+
+    pGameObject = CMirror::Create(m_pDevice, m_pContext);
+    CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_Mirror", pGameObject);
 
 
     lstrcpy(m_szLoadingText, TEXT("로딩이 완료되었습니다."));

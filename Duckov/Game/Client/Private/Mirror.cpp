@@ -1,24 +1,24 @@
-#include "Player.h"
+#include "Mirror.h"
 
-CPlayer::CPlayer(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
+CMirror::CMirror(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     :CGameObject(pDevice, pContext)
 {
 }
 
-HRESULT CPlayer::Initialize_Prototype()
+HRESULT CMirror::Initialize_Prototype()
 {
     if (FAILED(__super::Initialize_Prototype()))
         return E_FAIL;
-    m_eRenderID = RENDERID::NONALPHA;
-
+    m_eRenderID = RENDERID::ALPHA;
+    const f32_t fHalfW = 3.f, fHalfH = 2.f;
+    const float4_t vMirrorColor = { 0.6f, 0.8f, 1.f, 0.3f };
     // 정점 정보
     VTXCOL vertices[] =
     {
-        { float3_t(-0.5f, -0.5f, -0.5f), float4_t(Colors::White)},
-        { float3_t(-0.5f, +0.5f, -0.5f), float4_t(Colors::Black)},
-        { float3_t(+0.5f, +0.5f, -0.5f), float4_t(Colors::Red)},
-        { float3_t(+0.5f, -0.5f, -0.5f), float4_t(Colors::Green)},
-        { float3_t(0.f, 0.f, +0.5f),     float4_t(Colors::Blue)},
+        { float3_t(-fHalfW, -fHalfH, 0.f), vMirrorColor },  // 0 : 왼쪽 아래
+        { float3_t(-fHalfW, +fHalfH, 0.f), vMirrorColor },  // 1 : 왼쪽 위
+        { float3_t(+fHalfW, +fHalfH, 0.f), vMirrorColor },  // 2 : 오른쪽 위
+        { float3_t(+fHalfW, -fHalfH, 0.f), vMirrorColor },  // 3 : 오른쪽 아래
     };
 
     // 정점 버퍼 생성
@@ -36,11 +36,6 @@ HRESULT CPlayer::Initialize_Prototype()
     UINT indices[] = {
          0, 1, 2,
          0, 2, 3,
-
-         1, 4, 2,
-         2, 4, 3,
-         3, 4, 0,
-         0, 4, 1
     };
 
     // 인덱스 버퍼 생성
@@ -110,10 +105,10 @@ HRESULT CPlayer::Initialize_Prototype()
 
     // Input Layout 생성 (VS 바이트코드와 대조)
     if (FAILED(m_pDevice->CreateInputLayout(VTXCOL::Elements,               // 정점 구조체를 서술하는 D3D11_INPUT_LEELMENT_DESC들의 배열
-                                            VTXCOL::iNumElements,           // 배열 원소의 개수
-                                            pVSBlob->GetBufferPointer(),    // 정점셰이더를 컴파일해서 얻은 바이트코드를 가리키는 포인터
-                                            pVSBlob->GetBufferSize(),       // 바이트코드의 크기
-                                            &m_pInputLayout)))              // 생성된 입력 배치를 돌려줄 포인터
+        VTXCOL::iNumElements,           // 배열 원소의 개수
+        pVSBlob->GetBufferPointer(),    // 정점셰이더를 컴파일해서 얻은 바이트코드를 가리키는 포인터
+        pVSBlob->GetBufferSize(),       // 바이트코드의 크기
+        &m_pInputLayout)))              // 생성된 입력 배치를 돌려줄 포인터
         return E_FAIL;
 
     // 레스터라이저 설정
@@ -125,53 +120,41 @@ HRESULT CPlayer::Initialize_Prototype()
 
     m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
 
-    rsDesc.FrontCounterClockwise = true;   // 반사되면 감기 순서가 뒤집히므로 앞면 기준도 뒤집음
-    m_pDevice->CreateRasterizerState(&rsDesc, m_pRS_Reflect.GetAddressOf());
     return S_OK;
 }
 
-HRESULT CPlayer::Initialize(void* pArg)
+HRESULT CMirror::Initialize(void* pArg)
 {
     if (FAILED(__super::Initialize(pArg)))
         return E_FAIL;
+
+    SetPos({ 0.f,2.f,5.f });
     return S_OK;
 }
 
-void CPlayer::Priority_Update(f32_t fDeltaTime)
+void CMirror::Priority_Update(f32_t fDeltaTime)
 {
     __super::Priority_Update(fDeltaTime);
 }
 
-void CPlayer::Update(f32_t fDeltaTime)
+void CMirror::Update(f32_t fDeltaTime)
 {
     __super::Update(fDeltaTime);
-
-    KeyInput(fDeltaTime);
-    LookAtMouse(fDeltaTime);
-    AdjustPosY();
 }
-void CPlayer::Late_Update(f32_t fDeltaTime)
+void CMirror::Late_Update(f32_t fDeltaTime)
 {
     __super::Late_Update(fDeltaTime);
 }
 
-HRESULT CPlayer::Render()
-{
-    return Render_Mesh(GetWorld(), m_pRS.Get());
-}
-
-HRESULT CPlayer::Render_Reflection(const XMMATRIX& matReflect)
-{
-    return Render_Mesh(GetWorld() * matReflect, m_pRS_Reflect.Get());
-}
-
-HRESULT CPlayer::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS)
+HRESULT CMirror::Render()
 {
     // 변환 행렬 계산 -> 상수 버퍼(변환 행렬) 갱신
     //XMMATRIX matWorld = XMMatrixRotationX(m_fRotX) 
     //                    * XMMatrixRotationY(m_fRotY) 
     //                    * XMMatrixRotationZ(m_fRotZ)
     //                    * XMMatrixTranslation(m_vPosition.x, m_vPosition.y, m_vPosition.z);
+
+    XMMATRIX matWorld = GetWorld();
 
 
     // VS로 전달할 구조체 채우기
@@ -217,7 +200,7 @@ HRESULT CPlayer::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pR
     m_pContext->PSSetShader(m_pPS.Get(), nullptr, 0);
 
     // RS(레스터라이저 설정)
-    m_pContext->RSSetState(pRS);
+    m_pContext->RSSetState(m_pRS.Get());
 
     // 그리기
     m_pContext->DrawIndexed(m_iIndexCnt, // IndexCnt: 인덱스 버퍼의 크기
@@ -226,117 +209,33 @@ HRESULT CPlayer::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pR
 
     return S_OK;
 }
-void CPlayer::AdjustPosY()
+
+XMVECTOR CMirror::Get_MirrorPlane()
 {
-    float3_t  vPos = m_vInfo[static_cast<uint32_t>(INFO::POS)];
-    auto pHill = static_pointer_cast<CHill>(m_pHill);
+    float3_t vPos = GetInfo(INFO::POS);
 
-    const auto& vecIndex = pHill->GetIndex();
-    const auto& vecVtx = pHill->GetVertices();
-
-    for (uint32_t i = 0; i + 2 < vecIndex.size(); i += 3)
-    {
-        float3_t p0 = vecVtx[vecIndex[i]].vPosition;
-        float3_t p1 = vecVtx[vecIndex[i + 1]].vPosition;
-        float3_t p2 = vecVtx[vecIndex[i + 2]].vPosition;
-
-        XMVECTOR vPlane = XMPlaneFromPoints(XMLoadFloat3(&p0), XMLoadFloat3(&p1), XMLoadFloat3(&p2));
-
-        XMVECTOR vRayPos = XMVectorSet(vPos.x, vPos.y + 100.f, vPos.z, 1.f);
-        XMVECTOR vRayDir = XMVectorSet(0.f, -1.f, 0.f, 0.f);   // 아래 방향
-
-        XMVECTOR v0 = XMLoadFloat3(&p0);
-        XMVECTOR v1 = XMLoadFloat3(&p1);
-        XMVECTOR v2 = XMLoadFloat3(&p2);
-
-        f32_t fDist = 0.f;
-        if (TriangleTests::Intersects(vRayPos, vRayDir, v0, v1, v2, fDist))
-        {
-            XMFLOAT4 plane;
-            XMStoreFloat4(&plane, vPlane); // x = a, y = b, z = c, w = d -> ax + by + cz + d = 0
-
-            f32_t fY = -(plane.x * vPos.x + plane.z * vPos.z + plane.w) / plane.y;
-
-            SetPos({ vPos.x,fY + 0.5f,vPos.z });
-            return;
-        }
-    }
+    return XMPlaneFromPointNormal(XMLoadFloat3(&vPos),XMVectorSet(0.f,0.f,-1.f,0.f));
 }
-void CPlayer::KeyInput(f32_t fDeltaTime)
+
+shared_ptr<CMirror> CMirror::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
 {
-    if (GetAsyncKeyState('W'))
-    {
-        if (GetAsyncKeyState('A'))
-            MovePos({ -1 / sqrtf(2),0.f,1 / sqrtf(2) }, m_fSpeed, fDeltaTime);
-        else if (GetAsyncKeyState('D'))
-            MovePos({ 1 / sqrtf(2),0.f,1 / sqrtf(2) }, m_fSpeed, fDeltaTime);
-        else
-            MovePos({ 0.f,0.f,1.f }, m_fSpeed, fDeltaTime);
-    }
-    else if (GetAsyncKeyState('S'))
-    {
-        if (GetAsyncKeyState('A'))
-            MovePos({ -1 / sqrtf(2),0.f,-1 / sqrtf(2) }, m_fSpeed, fDeltaTime);
-        else if (GetAsyncKeyState('D'))
-            MovePos({ 1 / sqrtf(2),0.f,-1 / sqrtf(2) }, m_fSpeed, fDeltaTime);
-        else
-            MovePos({ 0.f,0.f,-1 / sqrtf(2) }, m_fSpeed, fDeltaTime);
-    }
-    else if (GetAsyncKeyState('A'))
-        MovePos({ -1.f, 0.f,0.f }, m_fSpeed, fDeltaTime);
-    else if (GetAsyncKeyState('D'))
-        MovePos({ 1.f,0.f,0.f }, m_fSpeed, fDeltaTime);
-
-    if (GetAsyncKeyState(VK_LSHIFT))
-        m_fSpeed = 8.f;
-    else
-        m_fSpeed = 4.f;
-}
-void CPlayer::LookAtMouse(f32_t fDeltaTime)
-{
-    POINT		pt{};
-
-    GetCursorPos(&pt);
-    ScreenToClient(g_hWnd, &pt);
-
-    uint32_t numVP = 1;
-    D3D11_VIEWPORT  vp;
-    m_pContext->RSGetViewports(&numVP, &vp);
-
-    f32_t x = pt.x - vp.Width / 2;
-    f32_t y = -pt.y + vp.Height / 2;
-
-    XMVECTOR vDir = XMVector3Normalize({ x,0.f,y });
-    XMVECTOR vUp = { 0.f,1.f,0.f };
-
-    XMVECTOR vRight = XMVector3Cross(XMVector3Normalize(vUp), XMVector3Normalize(vDir));
-    
-    XMStoreFloat3(&m_vInfo[static_cast<uint32_t>(INFO::RIGHT)], vRight);
-    XMStoreFloat3(&m_vInfo[static_cast<uint32_t>(INFO::UP)], vUp);
-    XMStoreFloat3(&m_vInfo[static_cast<uint32_t>(INFO::LOOK)], vDir);
-
-    //cout << x << "\t" << y << endl;
-    //cout << XMConvertToDegrees(m_fRotY) << endl;
-}
-shared_ptr<CPlayer> CPlayer::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
-{
-    auto pInstance = shared_ptr<CPlayer>(new CPlayer(pDevice, pContext));
+    auto pInstance = shared_ptr<CMirror>(new CMirror(pDevice, pContext));
 
     if (FAILED(pInstance->Initialize_Prototype()))
     {
-        MSG_BOX("Create Failed : CPlayer");
+        MSG_BOX("Create Failed : CMirror");
         pInstance.reset();
     }
     return pInstance;
 }
 
-shared_ptr<CPrototype> CPlayer::Clone(void* pArg)
+shared_ptr<CPrototype> CMirror::Clone(void* pArg)
 {
-    auto pInstance = shared_ptr<CPlayer>(new CPlayer(*this));
+    auto pInstance = shared_ptr<CMirror>(new CMirror(*this));
 
     if (FAILED(pInstance->Initialize(pArg)))
     {
-        MSG_BOX("Clone Failed : CPlayer");
+        MSG_BOX("Clone Failed : CMirror");
         pInstance.reset();
     }
     return pInstance;
