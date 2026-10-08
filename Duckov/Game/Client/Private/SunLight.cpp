@@ -15,7 +15,7 @@ HRESULT CSunLight::Initialize()
 
 	// 방향성 조명 상수 버퍼 생성
 	D3D11_BUFFER_DESC LightCBDesc{};
-	LightCBDesc.ByteWidth = sizeof(CB_SPOTLIGHT);
+	LightCBDesc.ByteWidth = sizeof(CB_DIRLIGHT);
 	LightCBDesc.Usage = D3D11_USAGE_DEFAULT;
 	LightCBDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 
