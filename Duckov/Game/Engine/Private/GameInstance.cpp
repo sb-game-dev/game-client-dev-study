@@ -159,9 +159,13 @@ void CGameInstance::Set_MainCamera(const wstring_t& strCameraTag)
 {
 	m_pCamera_Manager->Set_MainCamera(strCameraTag);
 }
-shared_ptr<CCamera> CGameInstance::Get_MainCamera(const wstring_t& strCameraTag)
+float4x4_t CGameInstance::GetView()
 {
-	return m_pCamera_Manager->Get_MainCamera(strCameraTag);
+	return m_pCamera_Manager->GetView();
+}
+shared_ptr<CCamera> CGameInstance::Get_MainCamera()
+{
+	return m_pCamera_Manager->Get_MainCamera();
 }
 #pragma endregion
 

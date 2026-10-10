@@ -32,7 +32,7 @@ void CRenderer::Render_GameObject()
 	CGameInstance::Get().Set_MainCamera(L"QuarterViewCam");
 	Render_Priority();
 	Render_NonAlpha();
-
+	Render_AlphaPre();
 	Render_Mirror();
 
 	Render_Alpha();
@@ -180,7 +180,6 @@ HRESULT CRenderer::Ready_Mirror_DSS()
 	// 깊이 테스트 끔 -> 복제본은 거울 뒤(더 먼 곳)에 있어서
 	// 켜 두면 거울 뒤 지형 깊이에 가려짐. 끄면 깊이 쓰기도 같이 꺼짐
 	reflectDesc.DepthEnable = FALSE;
-
 	// Ref == 버퍼값 인 픽셀만 통과 -> 마킹된(1) 거울 영역에만 그려짐
 	// Ref = OMSetDepthStencilState(m_pDSS_DrawReflection, 1)의 두 번째 인자 1
 	reflectDesc.FrontFace.StencilFunc = D3D11_COMPARISON_EQUAL;
@@ -210,7 +209,7 @@ void CRenderer::Render_NonAlpha()
 		pObj->Render();
 }
 
-void CRenderer::Render_Alpha()
+void CRenderer::Render_AlphaPre()
 {
 	// 알파블렌더 설정
 
@@ -222,11 +221,45 @@ void CRenderer::Render_Alpha()
 	// 
 	// => 최종 RGB -> Src.RGB * 0.3f + Dst.RGB * 0.7fs
 	float blendFactor[4] = { 0.f, 0.f, 0.f, 0.f };
-	
+
 	// 블렌딩 ON
 	m_pContext->OMSetBlendState(m_pBS.Get(),	// 블렌더 스테이트 객체의 포인터
-								blendFactor,	// 부동소수점 값 네 개의 배열을 가리키는 포인터
-								0xffffffff);	// SampleMask (0xffffffff -> 모든 샘플을 활성화)
+		blendFactor,	// 부동소수점 값 네 개의 배열을 가리키는 포인터
+		0xffffffff);	// SampleMask (0xffffffff -> 모든 샘플을 활성화)
+
+	for (auto& pObj : m_RenderGroup[ETOUI(RENDERID::ALPHA_PRE)])
+	{
+		pObj->Compute_ViewZ();
+	}
+	m_RenderGroup[ETOUI(RENDERID::ALPHA_PRE)].sort([](shared_ptr<CGameObject> pDst, shared_ptr<CGameObject> pSrc)->bool
+		{
+			return pDst->Get_ViewZ() > pSrc->Get_ViewZ();
+		});
+	// 그리기
+	for (auto& pObj : m_RenderGroup[ETOUI(RENDERID::ALPHA_PRE)])
+		pObj->Render();
+
+	// 복구
+	m_pContext->OMSetBlendState(nullptr, blendFactor, 0xffffffff);
+
+}
+
+void CRenderer::Render_Alpha()
+{
+	float blendFactor[4] = { 0.f, 0.f, 0.f, 0.f };
+
+	// 블렌딩 ON
+	m_pContext->OMSetBlendState(m_pBS.Get(),	// 블렌더 스테이트 객체의 포인터
+		blendFactor,	// 부동소수점 값 네 개의 배열을 가리키는 포인터
+		0xffffffff);	// SampleMask (0xffffffff -> 모든 샘플을 활성화)
+	for (auto& pObj : m_RenderGroup[ETOUI(RENDERID::ALPHA)])
+	{
+		pObj->Compute_ViewZ();
+	}
+	m_RenderGroup[ETOUI(RENDERID::ALPHA)].sort([](shared_ptr<CGameObject> pDst, shared_ptr<CGameObject> pSrc)->bool
+		{
+			return pDst->Get_ViewZ() > pSrc->Get_ViewZ();
+		});
 	// 그리기
 	for (auto& pObj : m_RenderGroup[ETOUI(RENDERID::ALPHA)])
 		pObj->Render();

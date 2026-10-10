@@ -67,7 +67,8 @@ public:
 public:
 	void				Add_Camera(const wstring_t& strCameraTag, shared_ptr<CCamera> pCamera);
 	void				Set_MainCamera(const wstring_t& strCameraTag);
-	shared_ptr<CCamera> Get_MainCamera(const wstring_t& strCameraTag);
+	float4x4_t			GetView();
+	shared_ptr<CCamera> Get_MainCamera();
 #pragma endregion
 
 #pragma region LIGHT_MANAGER

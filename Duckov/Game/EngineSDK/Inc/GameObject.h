@@ -32,6 +32,9 @@ public:
 	// 거울평면의 법선벡터를 a,b,c,d를 반환
 	virtual XMVECTOR	Get_MirrorPlane() { return XMVectorZero(); }
 
+	virtual void		Compute_ViewZ();
+	virtual	f32_t		Get_ViewZ() { return m_fViewZ; }
+
 protected:
 	ComPtr<ID3D11Buffer>				m_pVB;				// 버텍스 버퍼
 	ComPtr<ID3D11Buffer>				m_pIB;				// 인덱스 버퍼
@@ -53,13 +56,15 @@ protected:
 
 	float3_t			m_vScale = { 1.f,1.f,1.f };
 	
-	f32_t               m_fRotX = 0.f;
-	f32_t               m_fRotY = 0.f;
-	f32_t               m_fRotZ = 0.f;
+	f32_t               m_fRotX = { 0.f };
+	f32_t               m_fRotY = { 0.f };
+	f32_t               m_fRotZ = { 0.f };
 
-	f32_t				m_fSpeed = 1.f;
+	f32_t				m_fSpeed = { 1.f };
 
 	RENDERID			m_eRenderID = { RENDERID::END };
+
+	f32_t				m_fViewZ = {};
 
 	MATERIAL m_tMaterial = {};
 

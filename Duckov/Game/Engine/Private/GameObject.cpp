@@ -1,4 +1,6 @@
 #include "GameObject.h"
+#include "GameInstance.h"
+
 
 
 CGameObject::CGameObject(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
@@ -68,4 +70,18 @@ XMMATRIX CGameObject::GetWorld()
 		memcpy(&m_matWorld.m[i][0], &vInfo[i], sizeof(XMVECTOR));
 
 	return XMLoadFloat4x4(&m_matWorld);
+}
+
+void CGameObject::Compute_ViewZ()
+{
+	XMMATRIX matView;
+	float4x4_t f44View = CGameInstance::Get().GetView();
+	matView = XMLoadFloat4x4(&f44View);
+
+	XMVECTOR viewPos;
+	float3_t f3_tPos = GetInfo(INFO::POS);
+	viewPos =XMLoadFloat3(&f3_tPos);
+
+	viewPos = XMVector3TransformCoord(viewPos, matView);
+	m_fViewZ = XMVectorGetZ(viewPos);
 }

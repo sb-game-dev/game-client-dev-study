@@ -1,7 +1,8 @@
 #pragma once
+#include "Camera.h"
 #include "Engine_Defines.h"
 NS_BEGIN(Engine)
-class CCamera;
+
 class CCamera_Manager
 {
 private:
@@ -12,7 +13,8 @@ public:
 public:
 	void				Add_Camera(const wstring_t& strCameraTag, shared_ptr<CCamera> pCamera);
 	void				Set_MainCamera(const wstring_t& strCameraTag);
-	shared_ptr<CCamera> Get_MainCamera(const wstring_t& strCameraTag) { return m_pMainCamera; }
+	shared_ptr<CCamera> Get_MainCamera() { return m_pMainCamera; }
+	float4x4_t			GetView() { return m_pMainCamera->GetView(); }
 
 	void			Priority_Update(f32_t fDeltaTime);
 	void			Update(f32_t fDeltaTime);

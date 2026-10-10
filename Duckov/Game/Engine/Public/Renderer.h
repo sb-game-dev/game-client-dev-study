@@ -35,6 +35,7 @@ private:
 private:
 	void	Render_Priority();
 	void	Render_NonAlpha();
+	void	Render_AlphaPre();
 	void	Render_Alpha();
 	void	Render_NonAlpha_UI();
 	void	Render_Alpha_UI();
