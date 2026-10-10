@@ -10,6 +10,11 @@ CLevel_GamePlay::CLevel_GamePlay(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11Devi
 {
 }
 
+CLevel_GamePlay::~CLevel_GamePlay()
+{
+    CGameInstance::Get().Clear_Mirror();
+}
+
 HRESULT CLevel_GamePlay::Initialize()
 {
     if (FAILED(__super::Initialize()))
@@ -69,6 +74,10 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
 
     auto pPlayer = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_Player"));
     auto pHill = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_Hill"));
+    auto pMirror = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_Mirror"));
+    CGameInstance::Get().Set_Mirror(pMirror);
+    CGameInstance::Get().Add_ReflectObject(pPlayer);
+
 
     auto m_pCamera = CQuarterView_Cam::Create(m_pDevice, m_pContext);
     CGameInstance::Get().Add_Camera(TEXT("QuarterViewCam"), m_pCamera);

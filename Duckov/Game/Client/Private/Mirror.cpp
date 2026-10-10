@@ -11,7 +11,7 @@ HRESULT CMirror::Initialize_Prototype()
         return E_FAIL;
     m_eRenderID = RENDERID::ALPHA;
     const f32_t fHalfW = 3.f, fHalfH = 2.f;
-    const float4_t vMirrorColor = { 0.6f, 0.8f, 1.f, 0.3f };
+    const float4_t vMirrorColor = { 0.75f, 0.75f, 0.75f, 0.15f };
     // 정점 정보
     VTXCOL vertices[] =
     {

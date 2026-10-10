@@ -54,7 +54,7 @@ HRESULT CGameInstance::Clear_Resources(int32_t iCurrentLevel)
 {
 	m_pPrototype_Manager->Clear(iCurrentLevel);
 	m_pObject_Manager->Clear(iCurrentLevel);
-	m_pRenderer->Clear_Mirror();
+	//m_pRenderer->Clear_Mirror();
 	return S_OK;
 }
 
@@ -190,13 +190,17 @@ void CGameInstance::Add_ReflectObject(shared_ptr<CGameObject> pObject)
 {
 	m_pRenderer->Add_ReflectObject(pObject);
 }
+void CGameInstance::Clear_Mirror()
+{
+	m_pRenderer->Clear_Mirror();
+}
 #pragma endregion
 
 void CGameInstance::Release_Engine()
 {
+	m_pLevel_Manager.reset();
 	m_pRenderer.reset();
 	m_pLight_Manager.reset();
-	m_pLevel_Manager.reset();
 	m_pCamera_Manager.reset();
 	m_pObject_Manager.reset();
 	m_pPrototype_Manager.reset();

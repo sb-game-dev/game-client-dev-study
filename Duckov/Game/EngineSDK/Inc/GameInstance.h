@@ -79,6 +79,7 @@ public:
 	void	Add_RenderGroup(RENDERID eRenderID, shared_ptr<CGameObject> pGameObject);
 	void	Set_Mirror(shared_ptr<CGameObject> pMirror);
 	void	Add_ReflectObject(shared_ptr<CGameObject>pObject);
+	void	Clear_Mirror();
 #pragma endregion
 
 private:

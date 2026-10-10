@@ -9,7 +9,7 @@ class CLevel_GamePlay final : public CLevel
 private:
 	CLevel_GamePlay(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
 public:
-	~CLevel_GamePlay() = default;
+	~CLevel_GamePlay();
 
 public:
 	virtual		HRESULT		Initialize() override;

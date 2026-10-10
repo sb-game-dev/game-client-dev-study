@@ -104,9 +104,9 @@ float4 PS_MAIN(VS_OUT In) : SV_TARGET //몇 번째 렌더타겟에 색을 쓸지
     vColor = vTexColor * (vAmbientSum + vDiffuseSum) + vSpecSum;
     vColor.a = g_Material.Diffuse.a * vTexColor.a;
     
-    float distToEye = length(g_vEye - In.vPosW);
-    float fogLerp = saturate((distToEye - g_fFogStart) / g_fFogRange);
-    vColor.rgb = lerp(vColor.rgb, g_vFogColor.rgb, fogLerp);
+    //float distToEye = length(g_vEye - In.vPosW);
+    //float fogLerp = saturate((distToEye - g_fFogStart) / g_fFogRange);
+    //vColor.rgb = lerp(vColor.rgb, g_vFogColor.rgb, fogLerp);
     
     return vColor;
 }

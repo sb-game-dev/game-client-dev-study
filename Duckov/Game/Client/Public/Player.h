@@ -27,7 +27,7 @@ private:
 	shared_ptr<CHill>		m_pHill = {nullptr};
 
 	HRESULT			Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS);
-	ComPtr< ID3D11RasterizerState> m_pRS_Reflect = { nullptr };
+	ComPtr<ID3D11RasterizerState> m_pRS_Reflect = { nullptr };
 
 private:
 	void	KeyInput(f32_t fDeltaTime);
