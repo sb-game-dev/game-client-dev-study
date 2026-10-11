@@ -33,7 +33,9 @@ void CRenderer::Render_GameObject()
 	Render_Priority();
 	Render_NonAlpha();
 	Render_AlphaPre();
+
 	Render_Mirror();
+	Render_Shadow();
 
 	Render_Alpha();
 
@@ -72,6 +74,17 @@ void CRenderer::Render_Mirror()
 		pObj->Render_Reflection(matReflect);
 
 	m_pContext->OMSetDepthStencilState(nullptr, 0);										// 기본 상태(스텐실 : off)
+}
+
+void CRenderer::Render_Shadow()
+{
+	float blendFactor[4] = { 0.f, 0.f, 0.f, 0.f };
+	m_pContext->OMSetBlendState(m_pBS.Get(), blendFactor, 0xffffffff);
+
+	for (auto& pObj : m_ShadowObjects)
+		pObj->Render_Shadow();
+
+	m_pContext->OMSetBlendState(nullptr, blendFactor, 0xffffffff);
 }
 
 HRESULT CRenderer::Ready_BlendState()

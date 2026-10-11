@@ -19,6 +19,7 @@ public:
 
 	virtual HRESULT	Render() override;
 	virtual HRESULT	Render_Reflection(const XMMATRIX& matReflect) override;
+	virtual HRESULT	Render_Shadow() override;
 
 	virtual void	SetHill(shared_ptr<CHill> pHill) { m_pHill = pHill;}
 	virtual void	AdjustPosY();
@@ -26,8 +27,13 @@ public:
 private:
 	shared_ptr<CHill>		m_pHill = {nullptr};
 
-	HRESULT			Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS);
-	ComPtr<ID3D11RasterizerState> m_pRS_Reflect = { nullptr };
+	HRESULT			Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS) override;
+	HRESULT			Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS, ID3D11PixelShader* pPS);
+	
+	ComPtr<ID3D11RasterizerState>	m_pRS_Reflect = { nullptr };
+	ComPtr<ID3D11PixelShader>		m_pPS_Shadow = { nullptr };
+
+	float4_t						m_vGroundPlane = { 0.f, 1.f, 0.f, 0.f };	// ¹ß¹Ø Æò¸é (a,b,c,d)
 
 private:
 	void	KeyInput(f32_t fDeltaTime);

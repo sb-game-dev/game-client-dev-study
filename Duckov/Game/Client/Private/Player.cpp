@@ -70,7 +70,7 @@ HRESULT CPlayer::Initialize_Prototype()
     // 컴파일 결과를 담으면 바이트코드상자(pVSBlob, pPSBlob)
     // 에러메세지를 담으면 문자열 상수가 됨
     // Blob 정보를 이용하여 버텍스 셰이더객체, 픽셀 셰이더 객체를 생성함
-    ComPtr<ID3DBlob> pVSBlob, pPSBlob, pErrBlob;
+    ComPtr<ID3DBlob> pVSBlob, pPSBlob, pPSShadowBlob, pErrBlob;
 
     uint32_t iFlags = 0;
 #ifdef _DEBUG
@@ -99,6 +99,13 @@ HRESULT CPlayer::Initialize_Prototype()
         if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
         return E_FAIL;
     }
+    // 그림자 PS 컴파일
+    if (FAILED(D3DCompileFromFile(L"../Shader/Shader_VtxCol.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
+        "PS_SHADOW", "ps_5_0", iFlags, 0, &pPSShadowBlob, &pErrBlob)))
+    {
+        if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
+        return E_FAIL;
+    }
 
     // 버텍스 셰이더 객체 생성
     if (FAILED(m_pDevice->CreateVertexShader(pVSBlob->GetBufferPointer(), pVSBlob->GetBufferSize(), nullptr, &m_pVS)))
@@ -106,6 +113,10 @@ HRESULT CPlayer::Initialize_Prototype()
 
     // 픽셀 셰이더 객체 생성
     if (FAILED(m_pDevice->CreatePixelShader(pPSBlob->GetBufferPointer(), pPSBlob->GetBufferSize(), nullptr, &m_pPS)))
+        return E_FAIL;
+
+    // 그림자 픽셀 셰이더 객체 생성
+    if (FAILED(m_pDevice->CreatePixelShader(pPSShadowBlob->GetBufferPointer(), pPSShadowBlob->GetBufferSize(), nullptr, &m_pPS_Shadow)))
         return E_FAIL;
 
     // Input Layout 생성 (VS 바이트코드와 대조)
@@ -165,17 +176,32 @@ HRESULT CPlayer::Render_Reflection(const XMMATRIX& matReflect)
     return Render_Mesh(GetWorld() * matReflect, m_pRS_Reflect.Get());
 }
 
+HRESULT CPlayer::Render_Shadow()
+{
+    XMVECTOR vPlane = XMLoadFloat4(&m_vGroundPlane);
+    XMVECTOR vToLight = XMVectorSet(-0.5f, 0.5f, -0.5f, 0.f);   // SunLight Direction의 반대, w=0(평행광)
+
+    XMMATRIX matShadow = XMMatrixShadow(vPlane, vToLight);
+    XMMATRIX matOffset = XMMatrixTranslation(0.f, 0.01f, 0.f);  // 지형과 z-fighting 방지
+
+    return Render_Mesh(GetWorld() * matShadow * matOffset, m_pRS.Get(), m_pPS_Shadow.Get());
+}
+
 HRESULT CPlayer::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS)
 {
+    return Render_Mesh(matWorld, pRS, m_pPS.Get());
+}
+HRESULT CPlayer::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS, ID3D11PixelShader* pPS)
+{
     // 변환 행렬 계산 -> 상수 버퍼(변환 행렬) 갱신
-    //XMMATRIX matWorld = XMMatrixRotationX(m_fRotX) 
-    //                    * XMMatrixRotationY(m_fRotY) 
-    //                    * XMMatrixRotationZ(m_fRotZ)
-    //                    * XMMatrixTranslation(m_vPosition.x, m_vPosition.y, m_vPosition.z);
+   //XMMATRIX matWorld = XMMatrixRotationX(m_fRotX) 
+   //                    * XMMatrixRotationY(m_fRotY) 
+   //                    * XMMatrixRotationZ(m_fRotZ)
+   //                    * XMMatrixTranslation(m_vPosition.x, m_vPosition.y, m_vPosition.z);b
 
 
-    // VS로 전달할 구조체 채우기
-    // HLSL은 기본적으로 열 단위로 데이터를 읽기 때문에 전치를 해야 함
+   // VS로 전달할 구조체 채우기
+   // HLSL은 기본적으로 열 단위로 데이터를 읽기 때문에 전치를 해야 함
     CB_PER_OBJECT cbData;
     XMStoreFloat4x4(&cbData.WorldMatrix, XMMatrixTranspose(matWorld));
 
@@ -214,7 +240,7 @@ HRESULT CPlayer::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pR
         m_pCB.GetAddressOf());
 
     // PS(픽셀 셰이더) -> 지금은 색 밖에 없음
-    m_pContext->PSSetShader(m_pPS.Get(), nullptr, 0);
+    m_pContext->PSSetShader(pPS, nullptr, 0);
 
     // RS(레스터라이저 설정)
     m_pContext->RSSetState(pRS);
@@ -258,6 +284,11 @@ void CPlayer::AdjustPosY()
             f32_t fY = -(plane.x * vPos.x + plane.z * vPos.z + plane.w) / plane.y;
 
             SetPos({ vPos.x,fY + 0.5f,vPos.z });
+
+            XMVECTOR vGround = XMPlaneNormalize(vPlane);
+            if (XMVectorGetY(vGround) < 0.f)        // 법선이 아래를 보면 뒤집기
+                vGround = XMVectorNegate(vGround);
+            XMStoreFloat4(&m_vGroundPlane, vGround);
             return;
         }
     }
@@ -314,9 +345,6 @@ void CPlayer::LookAtMouse(f32_t fDeltaTime)
     XMStoreFloat3(&m_vInfo[static_cast<uint32_t>(INFO::RIGHT)], vRight);
     XMStoreFloat3(&m_vInfo[static_cast<uint32_t>(INFO::UP)], vUp);
     XMStoreFloat3(&m_vInfo[static_cast<uint32_t>(INFO::LOOK)], vDir);
-
-    //cout << x << "\t" << y << endl;
-    //cout << XMConvertToDegrees(m_fRotY) << endl;
 }
 shared_ptr<CPlayer> CPlayer::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
 {

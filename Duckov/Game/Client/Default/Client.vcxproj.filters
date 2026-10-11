@@ -58,9 +58,6 @@
     <Filter Include="04. Light\01. Player_SpotLight">
       <UniqueIdentifier>{19910111-dce3-4e18-9ed1-40f9ccc1019d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04. Light\02. DirLight">
-      <UniqueIdentifier>{e055516c-97bd-41ed-8e3d-99fe0806140b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="97. DDSTextureLoader">
       <UniqueIdentifier>{8cc23d17-baf9-4e7a-b3f9-68324a74e749}</UniqueIdentifier>
     </Filter>
@@ -78,6 +75,9 @@
     </Filter>
     <Filter Include="02. GameObjects\06. Mirror">
       <UniqueIdentifier>{788bfbd8-e4e5-4f98-a2f0-8e20abd27620}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Light\02. SunLight">
+      <UniqueIdentifier>{e055516c-97bd-41ed-8e3d-99fe0806140b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -133,7 +133,7 @@
       <Filter>04. Light\01. Player_SpotLight</Filter>
     </ClInclude>
     <ClInclude Include="..\public\SunLight.h">
-      <Filter>04. Light\02. DirLight</Filter>
+      <Filter>04. Light\02. SunLight</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\DDSTextureLoader.h">
       <Filter>97. DDSTextureLoader</Filter>
@@ -208,7 +208,7 @@
       <Filter>04. Light\01. Player_SpotLight</Filter>
     </ClCompile>
     <ClCompile Include="..\private\SunLight.cpp">
-      <Filter>04. Light\02. DirLight</Filter>
+      <Filter>04. Light\02. SunLight</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\DDSTextureLoader.cpp">
       <Filter>97. DDSTextureLoader</Filter>

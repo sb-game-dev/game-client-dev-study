@@ -18,6 +18,9 @@ public:
 	void	Add_ReflectObject(shared_ptr<CGameObject>pObject) { m_ReflectObjects.push_back(pObject); }
 	void	Clear_Mirror() { m_pMirror.reset(); m_ReflectObjects.clear(); };
 
+	void	Add_ShadowObject(shared_ptr<CGameObject>pObject) { m_ShadowObjects.push_back(pObject); }
+	void	Clear_Shadow() { m_ShadowObjects.clear(); };
+
 private:
 	list<shared_ptr<CGameObject>> m_RenderGroup[ETOUI(RENDERID::END)];
 
@@ -32,17 +35,19 @@ private:
 
 	shared_ptr<CGameObject>				m_pMirror;
 	list<shared_ptr<CGameObject>>		m_ReflectObjects;
+	list<shared_ptr<CGameObject>>		m_ShadowObjects;
 private:
 	void	Render_Priority();
 	void	Render_NonAlpha();
 	void	Render_AlphaPre();
+	void	Render_Mirror();
+	void	Render_Shadow();
 	void	Render_Alpha();
 	void	Render_NonAlpha_UI();
 	void	Render_Alpha_UI();
 
 	void	Clear_RenderGroup();
 
-	void	Render_Mirror();
 
 	HRESULT	Ready_BlendState();
 	HRESULT	Ready_BlendState_NoColor();

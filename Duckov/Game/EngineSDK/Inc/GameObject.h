@@ -14,7 +14,11 @@ public:
 	virtual void		Priority_Update(f32_t fDeltaTime);
 	virtual void		Update(f32_t fDeltaTime);
 	virtual void		Late_Update(f32_t fDeltaTime);
+
+	virtual HRESULT		Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS) { return S_OK; }
 	virtual HRESULT		Render();
+	virtual HRESULT		Render_Reflection(const XMMATRIX& matReflect) { return S_OK; }
+	virtual HRESULT		Render_Shadow() { return S_OK; }
 	
 
 	virtual	void		SetPos(float3_t vPos) { m_vInfo[static_cast<uint32_t>(INFO::POS)] = vPos; }
@@ -27,8 +31,6 @@ public:
 
 	virtual RENDERID	GetRenderID() { return m_eRenderID; }
 
-	// 거울세상의 객체를 그림
-	virtual HRESULT		Render_Reflection(const XMMATRIX& matReflect) { return S_OK; }
 	// 거울평면의 법선벡터를 a,b,c,d를 반환
 	virtual XMVECTOR	Get_MirrorPlane() { return XMVectorZero(); }
 

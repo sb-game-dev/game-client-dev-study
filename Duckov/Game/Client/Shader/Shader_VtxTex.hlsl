@@ -118,3 +118,7 @@ float4 PS_MAIN_NOLIGHT(VS_OUT In) : SV_TARGET
     clip(vTexColor.a - 0.1f);
     return vTexColor;
 }
+float4 PS_SHADOW(VS_OUT In) : SV_TARGET
+{
+    return float4(0.f, 0.f, 0.f, 0.5f);
+}

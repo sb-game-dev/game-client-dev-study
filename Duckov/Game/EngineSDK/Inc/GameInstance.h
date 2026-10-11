@@ -78,6 +78,10 @@ public:
 
 #pragma region RENDERER
 	void	Add_RenderGroup(RENDERID eRenderID, shared_ptr<CGameObject> pGameObject);
+
+	void	Add_ShadowObject(shared_ptr<CGameObject>pObject);
+	void	Clear_Shadow();
+
 	void	Set_Mirror(shared_ptr<CGameObject> pMirror);
 	void	Add_ReflectObject(shared_ptr<CGameObject>pObject);
 	void	Clear_Mirror();

@@ -135,7 +135,6 @@ HRESULT CLoader::Loading_For_GamePlayLV()
     pGameObject = CHill::Create(m_pDevice, m_pContext);
     CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_Hill", pGameObject);
 
-
     pGameObject = CWave::Create(m_pDevice, m_pContext);
     CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_Wave", pGameObject);
 

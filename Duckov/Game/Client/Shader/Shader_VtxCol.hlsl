@@ -44,3 +44,7 @@ float4 PS_MAIN(VS_OUT In) : SV_TARGET   //몇 번째 렌더타겟에 색을 쓸지
 {
     return In.vColor;
 }
+float4 PS_SHADOW(VS_OUT In) : SV_TARGET
+{
+    return float4(0.f, 0.f, 0.f, 0.5f);
+}

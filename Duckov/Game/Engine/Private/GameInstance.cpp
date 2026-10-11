@@ -186,6 +186,14 @@ void CGameInstance::Add_RenderGroup(RENDERID eRenderID, shared_ptr<CGameObject> 
 {
 	m_pRenderer->Add_RenderGroup(eRenderID, pGameObject);
 }
+void CGameInstance::Add_ShadowObject(shared_ptr<CGameObject> pObject)
+{
+	m_pRenderer->Add_ShadowObject(pObject);
+}
+void CGameInstance::Clear_Shadow()
+{
+	m_pRenderer->Clear_Shadow();
+}
 void CGameInstance::Set_Mirror(shared_ptr<CGameObject> pMirror)
 {
 	m_pRenderer->Set_Mirror(pMirror);
