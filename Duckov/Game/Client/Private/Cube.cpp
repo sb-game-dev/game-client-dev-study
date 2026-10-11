@@ -1,5 +1,6 @@
 #include "Cube.h"
 #include "DDSTextureLoader.h"
+#include "Hill.h"
 
 CCube::CCube(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
 	:CGameObject(pDevice,pContext)
@@ -102,7 +103,7 @@ HRESULT CCube::Initialize_Prototype()
     // 컴파일 결과를 담으면 바이트코드상자(pVSBlob, pPSBlob)
     // 에러메세지를 담으면 문자열 상수가 됨
     // Blob 정보를 이용하여 버텍스 셰이더객체, 픽셀 셰이더 객체를 생성함
-    ComPtr<ID3DBlob> pVSBlob, pPSBlob, pErrBlob;
+    ComPtr<ID3DBlob> pVSBlob, pPSBlob, pPSShadowBlob, pErrBlob;
 
     uint32_t iFlags = 0;
 #ifdef _DEBUG
@@ -131,7 +132,13 @@ HRESULT CCube::Initialize_Prototype()
         if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
         return E_FAIL;
     }
-
+    // 그림자 PS 컴파일
+    if (FAILED(D3DCompileFromFile(L"../Shader/Shader_VtxTex.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
+        "PS_SHADOW", "ps_5_0", iFlags, 0, &pPSShadowBlob, &pErrBlob)))
+    {
+        if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
+        return E_FAIL;
+    }
     // 버텍스 셰이더 객체 생성
     if (FAILED(m_pDevice->CreateVertexShader(pVSBlob->GetBufferPointer(), pVSBlob->GetBufferSize(), nullptr, &m_pVS)))
         return E_FAIL;
@@ -140,6 +147,9 @@ HRESULT CCube::Initialize_Prototype()
     if (FAILED(m_pDevice->CreatePixelShader(pPSBlob->GetBufferPointer(), pPSBlob->GetBufferSize(), nullptr, &m_pPS)))
         return E_FAIL;
 
+    // 그림자 픽셀 셰이더 객체 생성
+    if (FAILED(m_pDevice->CreatePixelShader(pPSShadowBlob->GetBufferPointer(), pPSShadowBlob->GetBufferSize(), nullptr, &m_pPS_Shadow)))
+        return E_FAIL;
     // Input Layout 생성 (VS 바이트코드와 대조)
     if (FAILED(m_pDevice->CreateInputLayout(VTXNORM::Elements,               // 정점 구조체를 서술하는 D3D11_INPUT_LEELMENT_DESC들의 배열
                                             VTXNORM::iNumElements,           // 배열 원소의 개수
@@ -184,6 +194,47 @@ HRESULT CCube::Initialize(void* pArg)
 {
     if(FAILED(__super::Initialize(pArg)))
         return E_FAIL;
+
+    auto pHill = static_pointer_cast<CHill>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Hill")));
+
+    float3_t  vPos = m_vInfo[static_cast<uint32_t>(INFO::POS)];
+
+    const auto& vecIndex = pHill->GetIndex();
+    const auto& vecVtx = pHill->GetVertices();
+
+    for (uint32_t i = 0; i + 2 < vecIndex.size(); i += 3)
+    {
+        float3_t p0 = vecVtx[vecIndex[i]].vPosition;
+        float3_t p1 = vecVtx[vecIndex[i + 1]].vPosition;
+        float3_t p2 = vecVtx[vecIndex[i + 2]].vPosition;
+
+        XMVECTOR vPlane = XMPlaneFromPoints(XMLoadFloat3(&p0), XMLoadFloat3(&p1), XMLoadFloat3(&p2));
+
+        XMVECTOR vRayPos = XMVectorSet(vPos.x, vPos.y + 100.f, vPos.z, 1.f);
+        XMVECTOR vRayDir = XMVectorSet(0.f, -1.f, 0.f, 0.f);   // 아래 방향
+
+        XMVECTOR v0 = XMLoadFloat3(&p0);
+        XMVECTOR v1 = XMLoadFloat3(&p1);
+        XMVECTOR v2 = XMLoadFloat3(&p2);
+
+        f32_t fDist = 0.f;
+        if (TriangleTests::Intersects(vRayPos, vRayDir, v0, v1, v2, fDist))
+        {
+            XMFLOAT4 plane;
+            XMStoreFloat4(&plane, vPlane); // x = a, y = b, z = c, w = d -> ax + by + cz + d = 0
+
+            f32_t fY = -(plane.x * vPos.x + plane.z * vPos.z + plane.w) / plane.y;
+
+            SetPos({ vPos.x,fY + 0.5f,vPos.z });
+
+            XMVECTOR vGround = XMPlaneNormalize(vPlane);
+            if (XMVectorGetY(vGround) < 0.f)        // 법선이 아래를 보면 뒤집기
+                vGround = XMVectorNegate(vGround);
+            XMStoreFloat4(&m_vGroundPlane, vGround);
+            return S_OK;
+        }
+    }
+
     return S_OK;
 }
 
@@ -203,13 +254,27 @@ void CCube::Late_Update(f32_t fDeltaTime)
 
 HRESULT CCube::Render()
 {    
+    return Render_Mesh(GetWorld(), m_pRS.Get(), m_pPS.Get());
+}
+
+HRESULT CCube::Render_Shadow()
+{
+    XMVECTOR vPlane = XMLoadFloat4(&m_vGroundPlane);
+    XMVECTOR vToLight = XMVectorSet(-0.5f, 0.5f, -0.5f, 0.f);   // SunLight Direction의 반대, w=0(평행광)
+
+    XMMATRIX matShadow = XMMatrixShadow(vPlane, vToLight);
+    XMMATRIX matOffset = XMMatrixTranslation(0.f, 0.01f, 0.f);  // 지형과 z-fighting 방지
+
+    return Render_Mesh(GetWorld() * matShadow * matOffset, m_pRS.Get(), m_pPS_Shadow.Get());
+}
+
+HRESULT CCube::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS, ID3D11PixelShader* pPS)
+{
     // 변환 행렬 계산 -> 상수 버퍼(변환 행렬) 갱신
     //XMMATRIX matWorld = XMMatrixRotationX(m_fRotX) 
     //                    * XMMatrixRotationY(m_fRotY) 
     //                    * XMMatrixRotationZ(m_fRotZ)
     //                    * XMMatrixTranslation(m_vPosition.x, m_vPosition.y, m_vPosition.z);
-
-    XMMATRIX matWorld = GetWorld();
 
     // 역전치 행렬은 이동 성분을 뺀 복사본으로 계산 (matWorld 자체는 이동 성분 유지)
     XMMATRIX matNoTrans = matWorld;
@@ -225,17 +290,17 @@ HRESULT CCube::Render()
     // 아래에서 VS의 b0 레지스터에 꽂을 예정
     m_pContext->UpdateSubresource(m_pCB.Get(), 0, nullptr, &cbData, 0, 0);
 
-// 파이프라인에 꽂기
-    //IA(입력 조립기 단계)
-    // 정점 하나의 크기와 버퍼의 시작 위치 설정
+    // 파이프라인에 꽂기
+        //IA(입력 조립기 단계)
+        // 정점 하나의 크기와 버퍼의 시작 위치 설정
     uint32_t iStride = sizeof(VTXNORM);
     uint32_t iOffset = 0;
     // 버텍스 버퍼 꽂기
     m_pContext->IASetVertexBuffers(0,                       // 정점 버퍼들을 붙이기 시작할 인덱스
-                                   1,                       // 입력 슬롯에 붙이고자 하는 버퍼의 개수
-                                   m_pVB.GetAddressOf(),    // 버퍼를 담은 배열의 첫 원소를 가리키는 포인터
-                                   &iStride,                // 버퍼의 한 원소의 바이트크기 단위(주소를 넘겨줘야함)
-                                   &iOffset);               // 정점 버퍼의 시작위치에서부터 건너뛸 인덱스
+        1,                       // 입력 슬롯에 붙이고자 하는 버퍼의 개수
+        m_pVB.GetAddressOf(),    // 버퍼를 담은 배열의 첫 원소를 가리키는 포인터
+        &iStride,                // 버퍼의 한 원소의 바이트크기 단위(주소를 넘겨줘야함)
+        &iOffset);               // 정점 버퍼의 시작위치에서부터 건너뛸 인덱스
 
     // 인덱스 버퍼 꽂기
     m_pContext->IASetIndexBuffer(m_pIB.Get(), DXGI_FORMAT_R32_UINT, 0);
@@ -251,11 +316,11 @@ HRESULT CCube::Render()
 
     // VS의 상수버퍼슬롯(b0)에 상수버퍼(변환 행렬 버퍼) 꽂기
     m_pContext->VSSetConstantBuffers(0, //register(b0)과 연결됨
-                                     1,
-                                     m_pCB.GetAddressOf());
+        1,
+        m_pCB.GetAddressOf());
 
     // PS(픽셀 셰이더) -> 지금은 색 밖에 없음
-    m_pContext->PSSetShader(m_pPS.Get(), nullptr, 0);
+    m_pContext->PSSetShader(pPS, nullptr, 0);
 
     m_pContext->PSSetConstantBuffers(0, //register(b0)과 연결됨
         1,
@@ -268,7 +333,7 @@ HRESULT CCube::Render()
     m_pContext->PSSetSamplers(0, 1, m_pSampler.GetAddressOf());
 
     // RS(레스터라이저 설정)
-    m_pContext->RSSetState(m_pRS.Get());
+    m_pContext->RSSetState(pRS);
 
 
     // 그리기
@@ -276,7 +341,7 @@ HRESULT CCube::Render()
         0,  // StartIndexLocation : 사용할 인덱스의 위치
         0); // BaseVERTEXLocation : 정점들을 가져오기 전에 이 호출에서 사용할 인덱스에 더해지는 정수값
 
-	return S_OK;
+    return S_OK;
 }
 
 shared_ptr<CCube> CCube::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)

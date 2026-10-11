@@ -31,7 +31,9 @@ private:
 
 	ComPtr<ID3D11BlendState>			m_pBS_NoColorWrite;
 	ComPtr<ID3D11DepthStencilState>		m_pDSS_MarkMirror;
+	ComPtr<ID3D11DepthStencilState>		m_pDSS_Alpha;
 	ComPtr<ID3D11DepthStencilState>		m_pDSS_DrawReflection;
+	ComPtr<ID3D11DepthStencilState>		m_pDSS_DrawNoDoubleBlend;
 
 	shared_ptr<CGameObject>				m_pMirror;
 	list<shared_ptr<CGameObject>>		m_ReflectObjects;
@@ -51,7 +53,9 @@ private:
 
 	HRESULT	Ready_BlendState();
 	HRESULT	Ready_BlendState_NoColor();
+	HRESULT	Ready_Alpha_DSS();
 	HRESULT	Ready_Mirror_DSS();
+	HRESULT	Ready_Shadow_DSS();
 
 public:
 	static unique_ptr<CRenderer> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);

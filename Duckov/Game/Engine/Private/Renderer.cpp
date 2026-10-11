@@ -15,6 +15,10 @@ HRESULT CRenderer::Initialize()
 		return E_FAIL;
 	if (FAILED(Ready_Mirror_DSS()))
 		return E_FAIL;
+	if (FAILED(Ready_Shadow_DSS()))
+		return E_FAIL;
+	if (FAILED(Ready_Alpha_DSS()))
+		return E_FAIL;
 
 	return S_OK;
 }
@@ -32,10 +36,10 @@ void CRenderer::Render_GameObject()
 	CGameInstance::Get().Set_MainCamera(L"QuarterViewCam");
 	Render_Priority();
 	Render_NonAlpha();
+	Render_Shadow();
 	Render_AlphaPre();
 
 	Render_Mirror();
-	Render_Shadow();
 
 	Render_Alpha();
 
@@ -52,40 +56,7 @@ void CRenderer::Clear_RenderGroup()
 		m_RenderGroup[i].clear();
 }
 
-void CRenderer::Render_Mirror()
-{
-	if (nullptr == m_pMirror)        
-		return;
-	float blendrFactor[4] = { 0.f,0.f,0.f,0.f };
 
-	// 스텐실버퍼에 거울 영역 채우기 (스텐실 1로 표시하기만 함. 거울이 그려지지는 않음)
-	m_pContext->OMSetBlendState(m_pBS_NoColorWrite.Get(), blendrFactor, 0xffffffff);	// 색 없이 그리기
-	m_pContext->OMSetDepthStencilState(m_pDSS_MarkMirror.Get(), 1);						// 쓰기만 하는 상태: 스텐실버퍼에 1값 쓰기
-	
-	m_pMirror->Render();																// 거울 영역 스텐실 버퍼에 1채우기
-
-	// 블랜드 스테이트 초기화
-	m_pContext->OMSetBlendState(nullptr, blendrFactor, 0xffffffff);
-
-	XMMATRIX matReflect = XMMatrixReflect(m_pMirror->Get_MirrorPlane());
-	m_pContext->OMSetDepthStencilState(m_pDSS_DrawReflection.Get(), 1);					// 읽기만 하는 상태: 스텐실버퍼가 1인지 검사만 함
-
-	for (auto& pObj : m_ReflectObjects)
-		pObj->Render_Reflection(matReflect);
-
-	m_pContext->OMSetDepthStencilState(nullptr, 0);										// 기본 상태(스텐실 : off)
-}
-
-void CRenderer::Render_Shadow()
-{
-	float blendFactor[4] = { 0.f, 0.f, 0.f, 0.f };
-	m_pContext->OMSetBlendState(m_pBS.Get(), blendFactor, 0xffffffff);
-
-	for (auto& pObj : m_ShadowObjects)
-		pObj->Render_Shadow();
-
-	m_pContext->OMSetBlendState(nullptr, blendFactor, 0xffffffff);
-}
 
 HRESULT CRenderer::Ready_BlendState()
 {
@@ -121,6 +92,20 @@ HRESULT CRenderer::Ready_BlendState_NoColor()
 	noColorDesc.RenderTarget[0].RenderTargetWriteMask = 0;   // RGBA 아무 채널도 안 씀
 	if (FAILED(m_pDevice->CreateBlendState(&noColorDesc, m_pBS_NoColorWrite.GetAddressOf())))
 		return E_FAIL;
+	return S_OK;
+}
+HRESULT CRenderer::Ready_Alpha_DSS()
+{
+	D3D11_DEPTH_STENCIL_DESC alphaDesc{};
+	alphaDesc.DepthEnable = TRUE;
+	alphaDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
+	alphaDesc.DepthFunc = D3D11_COMPARISON_LESS;
+
+	alphaDesc.StencilEnable = FALSE;
+
+	if (FAILED(m_pDevice->CreateDepthStencilState(&alphaDesc, m_pDSS_Alpha.GetAddressOf())))
+		return E_FAIL;
+
 	return S_OK;
 }
 // 거울 렌더링에 쓰는 DSS 두 개 생성
@@ -209,6 +194,28 @@ HRESULT CRenderer::Ready_Mirror_DSS()
 	return S_OK;
 }
 
+HRESULT CRenderer::Ready_Shadow_DSS()
+{
+	D3D11_DEPTH_STENCIL_DESC noDoubleBlendDesc{};
+
+	noDoubleBlendDesc.DepthEnable		= TRUE;
+	noDoubleBlendDesc.DepthWriteMask	= D3D11_DEPTH_WRITE_MASK_ALL;
+	noDoubleBlendDesc.DepthFunc			= D3D11_COMPARISON_LESS;
+
+	noDoubleBlendDesc.StencilEnable		= TRUE;
+	noDoubleBlendDesc.StencilReadMask	= 0xff;
+	noDoubleBlendDesc.StencilWriteMask	= 0xff;
+
+	noDoubleBlendDesc.FrontFace.StencilFailOp		= D3D11_STENCIL_OP_KEEP;
+	noDoubleBlendDesc.FrontFace.StencilDepthFailOp	= D3D11_STENCIL_OP_KEEP;
+	noDoubleBlendDesc.FrontFace.StencilPassOp		= D3D11_STENCIL_OP_INCR;
+	noDoubleBlendDesc.FrontFace.StencilFunc			= D3D11_COMPARISON_EQUAL;
+
+	noDoubleBlendDesc.BackFace = noDoubleBlendDesc.FrontFace;
+	if (FAILED(m_pDevice->CreateDepthStencilState(&noDoubleBlendDesc, m_pDSS_DrawNoDoubleBlend.GetAddressOf())))
+		return E_FAIL;
+	return S_OK;
+}
 
 void CRenderer::Render_Priority()
 {
@@ -248,15 +255,52 @@ void CRenderer::Render_AlphaPre()
 		{
 			return pDst->Get_ViewZ() > pSrc->Get_ViewZ();
 		});
+	// 깊이 쓰기 끄기
+	//m_pContext->OMSetDepthStencilState(m_pDSS_Alpha.Get(), 0);
 	// 그리기
 	for (auto& pObj : m_RenderGroup[ETOUI(RENDERID::ALPHA_PRE)])
 		pObj->Render();
 
 	// 복구
+	//m_pContext->OMSetDepthStencilState(nullptr, 0);
 	m_pContext->OMSetBlendState(nullptr, blendFactor, 0xffffffff);
 
 }
+void CRenderer::Render_Mirror()
+{
+	if (nullptr == m_pMirror)
+		return;
+	float blendrFactor[4] = { 0.f,0.f,0.f,0.f };
 
+	// 스텐실버퍼에 거울 영역 채우기 (스텐실 1로 표시하기만 함. 거울이 그려지지는 않음)
+	m_pContext->OMSetBlendState(m_pBS_NoColorWrite.Get(), blendrFactor, 0xffffffff);	// 색 없이 그리기
+	m_pContext->OMSetDepthStencilState(m_pDSS_MarkMirror.Get(), 2);						// 쓰기만 하는 상태: 스텐실버퍼에 1값 쓰기
+
+	m_pMirror->Render();																// 거울 영역 스텐실 버퍼에 1채우기
+
+	// 블랜드 스테이트 초기화
+	m_pContext->OMSetBlendState(nullptr, blendrFactor, 0xffffffff);
+
+	XMMATRIX matReflect = XMMatrixReflect(m_pMirror->Get_MirrorPlane());
+	m_pContext->OMSetDepthStencilState(m_pDSS_DrawReflection.Get(), 2);					// 읽기만 하는 상태: 스텐실버퍼가 1인지 검사만 함
+
+	for (auto& pObj : m_ReflectObjects)
+		pObj->Render_Reflection(matReflect);
+
+	m_pContext->OMSetDepthStencilState(nullptr, 0);										// 기본 상태(스텐실 : off)
+}
+
+void CRenderer::Render_Shadow()
+{
+	float blendFactor[4] = { 0.f, 0.f, 0.f, 0.f };
+	m_pContext->OMSetBlendState(m_pBS.Get(), blendFactor, 0xffffffff);
+	m_pContext->OMSetDepthStencilState(m_pDSS_DrawNoDoubleBlend.Get(), 0);
+	for (auto& pObj : m_ShadowObjects)
+		pObj->Render_Shadow();
+
+	m_pContext->OMSetDepthStencilState(nullptr, 0);
+	m_pContext->OMSetBlendState(nullptr, blendFactor, 0xffffffff);
+}
 void CRenderer::Render_Alpha()
 {
 	float blendFactor[4] = { 0.f, 0.f, 0.f, 0.f };
@@ -273,11 +317,14 @@ void CRenderer::Render_Alpha()
 		{
 			return pDst->Get_ViewZ() > pSrc->Get_ViewZ();
 		});
+	// 깊이 쓰기 끄기
+	//m_pContext->OMSetDepthStencilState(m_pDSS_Alpha.Get(), 0);
 	// 그리기
 	for (auto& pObj : m_RenderGroup[ETOUI(RENDERID::ALPHA)])
 		pObj->Render();
 
 	// 복구
+	//m_pContext->OMSetDepthStencilState(nullptr, 0);
 	m_pContext->OMSetBlendState(nullptr, blendFactor, 0xffffffff);
 }
 
