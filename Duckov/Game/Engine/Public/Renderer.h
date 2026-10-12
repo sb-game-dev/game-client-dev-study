@@ -22,10 +22,10 @@ public:
 	void	Clear_Shadow() { m_ShadowObjects.clear(); };
 
 private:
-	list<shared_ptr<CGameObject>> m_RenderGroup[ETOUI(RENDERID::END)];
-
 	ComPtr<ID3D11Device>				m_pDevice;
 	ComPtr<ID3D11DeviceContext>			m_pContext;
+
+	list<shared_ptr<CGameObject>>		m_RenderGroup[ETOUI(RENDERID::END)];
 
 	ComPtr<ID3D11BlendState>			m_pBS;
 

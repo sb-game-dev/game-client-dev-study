@@ -125,7 +125,7 @@ fxgroup
                 //   o1.x <- <VS return value>.PosW.x; o1.y <- <VS return value>.PosW.y; o1.z <- <VS return value>.PosW.z; 
                 //   o0.x <- <VS return value>.PosH.x; o0.y <- <VS return value>.PosH.y; o0.z <- <VS return value>.PosH.z; o0.w <- <VS return value>.PosH.w
                 //
-                #line 63 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 63 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 mov r0.xyz, v0.xyzx
                 mov r0.w, l(1.000000)
                 dp4 r1.x, r0.xyzw, cb0[0].xyzw  // r1.x <- vout.PosW.x
@@ -250,7 +250,7 @@ fxgroup
                 //   v3.x <- pin.Tex.x; v3.y <- pin.Tex.y; 
                 //   o0.x <- <PS return value>.x; o0.y <- <PS return value>.y; o0.z <- <PS return value>.z; o0.w <- <PS return value>.w
                 //
-                #line 78 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 78 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 dp3 r0.x, v2.xyzx, v2.xyzx
                 rsq r0.x, r0.x
                 mul r0.xyz, r0.xxxx, v2.xyzx  // r0.x <- pin.NormalW.x; r0.y <- pin.NormalW.y; r0.z <- pin.NormalW.z
@@ -290,7 +290,7 @@ fxgroup
                 mov r0.xyz, r0.xyzx
                 mov r1.xyz, r1.xyzx
                 
-                #line 66 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\LightHelper.fx"
+                #line 66 "C:\Users\조성범\Documents\game-client-dev-study\07_DX11_1\물방울책 예제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\LightHelper.fx"
                 mov r13.xyz, l(0,0,0,0)  // r13.x <- diffuse.x; r13.y <- diffuse.y; r13.z <- diffuse.z
                 
                 #line 67
@@ -335,7 +335,7 @@ fxgroup
                 movc r0.xyz, r1.wwww, r0.yzwy, r13.xyzx  // r0.x <- diffuse.x; r0.y <- diffuse.y; r0.z <- diffuse.z
                 movc r1.xyz, r1.wwww, r1.xyzx, r14.xyzx
                 
-                #line 128 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 128 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 mov r6.xyz, r6.xyzx  // r6.x <- A.x; r6.y <- A.y; r6.z <- A.z
                 mov r0.xyz, r0.xyzx  // r0.x <- D.x; r0.y <- D.y; r0.z <- D.z
                 mov r1.xyz, r1.xyzx  // r1.x <- S.x; r1.y <- S.y; r1.z <- S.z
@@ -449,7 +449,7 @@ fxgroup
                 //   o1.x <- <VS return value>.PosW.x; o1.y <- <VS return value>.PosW.y; o1.z <- <VS return value>.PosW.z; 
                 //   o0.x <- <VS return value>.PosH.x; o0.y <- <VS return value>.PosH.y; o0.z <- <VS return value>.PosH.z; o0.w <- <VS return value>.PosH.w
                 //
-                #line 63 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 63 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 mov r0.xyz, v0.xyzx
                 mov r0.w, l(1.000000)
                 dp4 r1.x, r0.xyzw, cb0[0].xyzw  // r1.x <- vout.PosW.x
@@ -574,7 +574,7 @@ fxgroup
                 //   v3.x <- pin.Tex.x; v3.y <- pin.Tex.y; 
                 //   o0.x <- <PS return value>.x; o0.y <- <PS return value>.y; o0.z <- <PS return value>.z; o0.w <- <PS return value>.w
                 //
-                #line 78 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 78 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 dp3 r0.x, v2.xyzx, v2.xyzx
                 rsq r0.x, r0.x
                 mul r0.xyz, r0.xxxx, v2.xyzx  // r0.x <- pin.NormalW.x; r0.y <- pin.NormalW.y; r0.z <- pin.NormalW.z
@@ -614,7 +614,7 @@ fxgroup
                 mov r0.xyz, r0.xyzx
                 mov r1.xyz, r1.xyzx
                 
-                #line 66 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\LightHelper.fx"
+                #line 66 "C:\Users\조성범\Documents\game-client-dev-study\07_DX11_1\물방울책 예제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\LightHelper.fx"
                 mov r13.xyz, l(0,0,0,0)  // r13.x <- diffuse.x; r13.y <- diffuse.y; r13.z <- diffuse.z
                 
                 #line 67
@@ -659,7 +659,7 @@ fxgroup
                 movc r7.xyz, r1.wwww, r7.xyzx, r13.xyzx
                 movc r8.xyz, r1.wwww, r8.xyzx, r14.xyzx
                 
-                #line 128 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 128 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 mov r6.xyz, r6.xyzx  // r6.x <- A.x; r6.y <- A.y; r6.z <- A.z
                 mov r7.xyz, r7.xyzx  // r7.x <- D.x; r7.y <- D.y; r7.z <- D.z
                 mov r8.xyz, r8.xyzx  // r8.x <- S.x; r8.y <- S.y; r8.z <- S.z
@@ -683,7 +683,7 @@ fxgroup
                 mov r11.xyz, cb0[6].xyzx
                 mov r12.xyz, cb0[7].xyzx  // r12.x <- L.Direction.x; r12.y <- L.Direction.y; r12.z <- L.Direction.z
                 
-                #line 66 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\LightHelper.fx"
+                #line 66 "C:\Users\조성범\Documents\game-client-dev-study\07_DX11_1\물방울책 예제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\LightHelper.fx"
                 mov r13.xyz, l(0,0,0,0)  // r13.x <- diffuse.x; r13.y <- diffuse.y; r13.z <- diffuse.z
                 
                 #line 67
@@ -728,7 +728,7 @@ fxgroup
                 movc r0.xyz, r1.wwww, r0.yzwy, r13.xyzx  // r0.x <- diffuse.x; r0.y <- diffuse.y; r0.z <- diffuse.z
                 movc r1.xyz, r1.wwww, r1.xyzx, r14.xyzx
                 
-                #line 128 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 128 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 mov r6.xyz, r6.xyzx  // r6.x <- A.x; r6.y <- A.y; r6.z <- A.z
                 mov r0.xyz, r0.xyzx  // r0.x <- D.x; r0.y <- D.y; r0.z <- D.z
                 mov r1.xyz, r1.xyzx  // r1.x <- S.x; r1.y <- S.y; r1.z <- S.z
@@ -842,7 +842,7 @@ fxgroup
                 //   o1.x <- <VS return value>.PosW.x; o1.y <- <VS return value>.PosW.y; o1.z <- <VS return value>.PosW.z; 
                 //   o0.x <- <VS return value>.PosH.x; o0.y <- <VS return value>.PosH.y; o0.z <- <VS return value>.PosH.z; o0.w <- <VS return value>.PosH.w
                 //
-                #line 63 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 63 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 mov r0.xyz, v0.xyzx
                 mov r0.w, l(1.000000)
                 dp4 r1.x, r0.xyzw, cb0[0].xyzw  // r1.x <- vout.PosW.x
@@ -967,7 +967,7 @@ fxgroup
                 //   v3.x <- pin.Tex.x; v3.y <- pin.Tex.y; 
                 //   o0.x <- <PS return value>.x; o0.y <- <PS return value>.y; o0.z <- <PS return value>.z; o0.w <- <PS return value>.w
                 //
-                #line 78 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 78 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\�방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 dp3 r0.x, v2.xyzx, v2.xyzx
                 rsq r0.x, r0.x
                 mul r0.xyz, r0.xxxx, v2.xyzx  // r0.x <- pin.NormalW.x; r0.y <- pin.NormalW.y; r0.z <- pin.NormalW.z
@@ -1007,7 +1007,7 @@ fxgroup
                 mov r0.xyz, r0.xyzx
                 mov r1.xyz, r1.xyzx
                 
-                #line 66 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\LightHelper.fx"
+                #line 66 "C:\Users\조성범\Documents\game-client-dev-study\07_DX11_1\물방울책 예제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\LightHelper.fx"
                 mov r13.xyz, l(0,0,0,0)  // r13.x <- diffuse.x; r13.y <- diffuse.y; r13.z <- diffuse.z
                 
                 #line 67
@@ -1052,7 +1052,7 @@ fxgroup
                 movc r7.xyz, r1.wwww, r7.xyzx, r13.xyzx
                 movc r8.xyz, r1.wwww, r8.xyzx, r14.xyzx
                 
-                #line 128 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 128 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 mov r6.xyz, r6.xyzx  // r6.x <- A.x; r6.y <- A.y; r6.z <- A.z
                 mov r7.xyz, r7.xyzx  // r7.x <- D.x; r7.y <- D.y; r7.z <- D.z
                 mov r8.xyz, r8.xyzx  // r8.x <- S.x; r8.y <- S.y; r8.z <- S.z
@@ -1076,7 +1076,7 @@ fxgroup
                 mov r11.xyz, cb0[6].xyzx
                 mov r12.xyz, cb0[7].xyzx  // r12.x <- L.Direction.x; r12.y <- L.Direction.y; r12.z <- L.Direction.z
                 
-                #line 66 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\LightHelper.fx"
+                #line 66 "C:\Users\조성범\Documents\game-client-dev-study\07_DX11_1\물방울책 예제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\LightHelper.fx"
                 mov r13.xyz, l(0,0,0,0)  // r13.x <- diffuse.x; r13.y <- diffuse.y; r13.z <- diffuse.z
                 
                 #line 67
@@ -1121,7 +1121,7 @@ fxgroup
                 movc r7.xyz, r1.wwww, r7.xyzx, r13.xyzx
                 movc r8.xyz, r1.wwww, r8.xyzx, r14.xyzx
                 
-                #line 128 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 128 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 mov r6.xyz, r6.xyzx  // r6.x <- A.x; r6.y <- A.y; r6.z <- A.z
                 mov r7.xyz, r7.xyzx  // r7.x <- D.x; r7.y <- D.y; r7.z <- D.z
                 mov r8.xyz, r8.xyzx  // r8.x <- S.x; r8.y <- S.y; r8.z <- S.z
@@ -1145,7 +1145,7 @@ fxgroup
                 mov r11.xyz, cb0[10].xyzx
                 mov r12.xyz, cb0[11].xyzx  // r12.x <- L.Direction.x; r12.y <- L.Direction.y; r12.z <- L.Direction.z
                 
-                #line 66 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\LightHelper.fx"
+                #line 66 "C:\Users\조성범\Documents\game-client-dev-study\07_DX11_1\물방울책 예제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\LightHelper.fx"
                 mov r13.xyz, l(0,0,0,0)  // r13.x <- diffuse.x; r13.y <- diffuse.y; r13.z <- diffuse.z
                 
                 #line 67
@@ -1190,7 +1190,7 @@ fxgroup
                 movc r0.xyz, r1.wwww, r0.yzwy, r13.xyzx  // r0.x <- diffuse.x; r0.y <- diffuse.y; r0.z <- diffuse.z
                 movc r1.xyz, r1.wwww, r1.xyzx, r14.xyzx
                 
-                #line 128 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 128 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 mov r6.xyz, r6.xyzx  // r6.x <- A.x; r6.y <- A.y; r6.z <- A.z
                 mov r0.xyz, r0.xyzx  // r0.x <- D.x; r0.y <- D.y; r0.z <- D.z
                 mov r1.xyz, r1.xyzx  // r1.x <- S.x; r1.y <- S.y; r1.z <- S.z
@@ -1304,7 +1304,7 @@ fxgroup
                 //   o1.x <- <VS return value>.PosW.x; o1.y <- <VS return value>.PosW.y; o1.z <- <VS return value>.PosW.z; 
                 //   o0.x <- <VS return value>.PosH.x; o0.y <- <VS return value>.PosH.y; o0.z <- <VS return value>.PosH.z; o0.w <- <VS return value>.PosH.w
                 //
-                #line 63 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 63 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 mov r0.xyz, v0.xyzx
                 mov r0.w, l(1.000000)
                 dp4 r1.x, r0.xyzw, cb0[0].xyzw  // r1.x <- vout.PosW.x
@@ -1412,7 +1412,7 @@ fxgroup
                 //   v3.x <- pin.Tex.x; v3.y <- pin.Tex.y; 
                 //   o0.x <- <PS return value>.x; o0.y <- <PS return value>.y; o0.z <- <PS return value>.z; o0.w <- <PS return value>.w
                 //
-                #line 93 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 93 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 ne r0.x, l(0.000000, 0.000000, 0.000000, 0.000000), cb0[20].x
                 if_nz r0.x
                 
@@ -1528,7 +1528,7 @@ fxgroup
                 //   o1.x <- <VS return value>.PosW.x; o1.y <- <VS return value>.PosW.y; o1.z <- <VS return value>.PosW.z; 
                 //   o0.x <- <VS return value>.PosH.x; o0.y <- <VS return value>.PosH.y; o0.z <- <VS return value>.PosH.z; o0.w <- <VS return value>.PosH.w
                 //
-                #line 63 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 63 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 mov r0.xyz, v0.xyzx
                 mov r0.w, l(1.000000)
                 dp4 r1.x, r0.xyzw, cb0[0].xyzw  // r1.x <- vout.PosW.x
@@ -1636,7 +1636,7 @@ fxgroup
                 //   v3.x <- pin.Tex.x; v3.y <- pin.Tex.y; 
                 //   o0.x <- <PS return value>.x; o0.y <- <PS return value>.y; o0.z <- <PS return value>.z; o0.w <- <PS return value>.w
                 //
-                #line 93 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 93 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 ne r0.x, l(0.000000, 0.000000, 0.000000, 0.000000), cb0[20].x
                 if_nz r0.x
                 
@@ -1752,7 +1752,7 @@ fxgroup
                 //   o1.x <- <VS return value>.PosW.x; o1.y <- <VS return value>.PosW.y; o1.z <- <VS return value>.PosW.z; 
                 //   o0.x <- <VS return value>.PosH.x; o0.y <- <VS return value>.PosH.y; o0.z <- <VS return value>.PosH.z; o0.w <- <VS return value>.PosH.w
                 //
-                #line 63 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 63 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 mov r0.xyz, v0.xyzx
                 mov r0.w, l(1.000000)
                 dp4 r1.x, r0.xyzw, cb0[0].xyzw  // r1.x <- vout.PosW.x
@@ -1860,7 +1860,7 @@ fxgroup
                 //   v3.x <- pin.Tex.x; v3.y <- pin.Tex.y; 
                 //   o0.x <- <PS return value>.x; o0.y <- <PS return value>.y; o0.z <- <PS return value>.z; o0.w <- <PS return value>.w
                 //
-                #line 93 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 93 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 ne r0.x, l(0.000000, 0.000000, 0.000000, 0.000000), cb0[20].x
                 if_nz r0.x
                 
@@ -1976,7 +1976,7 @@ fxgroup
                 //   o1.x <- <VS return value>.PosW.x; o1.y <- <VS return value>.PosW.y; o1.z <- <VS return value>.PosW.z; 
                 //   o0.x <- <VS return value>.PosH.x; o0.y <- <VS return value>.PosH.y; o0.z <- <VS return value>.PosH.z; o0.w <- <VS return value>.PosH.w
                 //
-                #line 63 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 63 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 mov r0.xyz, v0.xyzx
                 mov r0.w, l(1.000000)
                 dp4 r1.x, r0.xyzw, cb0[0].xyzw  // r1.x <- vout.PosW.x
@@ -2084,7 +2084,7 @@ fxgroup
                 //   v3.x <- pin.Tex.x; v3.y <- pin.Tex.y; 
                 //   o0.x <- <PS return value>.x; o0.y <- <PS return value>.y; o0.z <- <PS return value>.z; o0.w <- <PS return value>.w
                 //
-                #line 93 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 93 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 ne r0.x, l(0.000000, 0.000000, 0.000000, 0.000000), cb0[20].x
                 if_nz r0.x
                 
@@ -2200,7 +2200,7 @@ fxgroup
                 //   o1.x <- <VS return value>.PosW.x; o1.y <- <VS return value>.PosW.y; o1.z <- <VS return value>.PosW.z; 
                 //   o0.x <- <VS return value>.PosH.x; o0.y <- <VS return value>.PosH.y; o0.z <- <VS return value>.PosH.z; o0.w <- <VS return value>.PosH.w
                 //
-                #line 63 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 63 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 mov r0.xyz, v0.xyzx
                 mov r0.w, l(1.000000)
                 dp4 r1.x, r0.xyzw, cb0[0].xyzw  // r1.x <- vout.PosW.x
@@ -2308,7 +2308,7 @@ fxgroup
                 //   v3.x <- pin.Tex.x; v3.y <- pin.Tex.y; 
                 //   o0.x <- <PS return value>.x; o0.y <- <PS return value>.y; o0.z <- <PS return value>.z; o0.w <- <PS return value>.w
                 //
-                #line 93 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 93 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 ne r0.x, l(0.000000, 0.000000, 0.000000, 0.000000), cb0[20].x
                 if_nz r0.x
                 
@@ -2424,7 +2424,7 @@ fxgroup
                 //   o1.x <- <VS return value>.PosW.x; o1.y <- <VS return value>.PosW.y; o1.z <- <VS return value>.PosW.z; 
                 //   o0.x <- <VS return value>.PosH.x; o0.y <- <VS return value>.PosH.y; o0.z <- <VS return value>.PosH.z; o0.w <- <VS return value>.PosH.w
                 //
-                #line 63 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 63 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 mov r0.xyz, v0.xyzx
                 mov r0.w, l(1.000000)
                 dp4 r1.x, r0.xyzw, cb0[0].xyzw  // r1.x <- vout.PosW.x
@@ -2532,7 +2532,7 @@ fxgroup
                 //   v3.x <- pin.Tex.x; v3.y <- pin.Tex.y; 
                 //   o0.x <- <PS return value>.x; o0.y <- <PS return value>.y; o0.z <- <PS return value>.z; o0.w <- <PS return value>.w
                 //
-                #line 93 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 93 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 ne r0.x, l(0.000000, 0.000000, 0.000000, 0.000000), cb0[20].x
                 if_nz r0.x
                 
@@ -2648,7 +2648,7 @@ fxgroup
                 //   o1.x <- <VS return value>.PosW.x; o1.y <- <VS return value>.PosW.y; o1.z <- <VS return value>.PosW.z; 
                 //   o0.x <- <VS return value>.PosH.x; o0.y <- <VS return value>.PosH.y; o0.z <- <VS return value>.PosH.z; o0.w <- <VS return value>.PosH.w
                 //
-                #line 63 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 63 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 mov r0.xyz, v0.xyzx
                 mov r0.w, l(1.000000)
                 dp4 r1.x, r0.xyzw, cb0[0].xyzw  // r1.x <- vout.PosW.x
@@ -2756,7 +2756,7 @@ fxgroup
                 //   v3.x <- pin.Tex.x; v3.y <- pin.Tex.y; 
                 //   o0.x <- <PS return value>.x; o0.y <- <PS return value>.y; o0.z <- <PS return value>.z; o0.w <- <PS return value>.w
                 //
-                #line 93 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 93 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 ne r0.x, l(0.000000, 0.000000, 0.000000, 0.000000), cb0[20].x
                 if_nz r0.x
                 
@@ -2872,7 +2872,7 @@ fxgroup
                 //   o1.x <- <VS return value>.PosW.x; o1.y <- <VS return value>.PosW.y; o1.z <- <VS return value>.PosW.z; 
                 //   o0.x <- <VS return value>.PosH.x; o0.y <- <VS return value>.PosH.y; o0.z <- <VS return value>.PosH.z; o0.w <- <VS return value>.PosH.w
                 //
-                #line 63 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 63 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 mov r0.xyz, v0.xyzx
                 mov r0.w, l(1.000000)
                 dp4 r1.x, r0.xyzw, cb0[0].xyzw  // r1.x <- vout.PosW.x
@@ -2980,7 +2980,7 @@ fxgroup
                 //   v3.x <- pin.Tex.x; v3.y <- pin.Tex.y; 
                 //   o0.x <- <PS return value>.x; o0.y <- <PS return value>.y; o0.z <- <PS return value>.z; o0.w <- <PS return value>.w
                 //
-                #line 93 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 93 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 ne r0.x, l(0.000000, 0.000000, 0.000000, 0.000000), cb0[20].x
                 if_nz r0.x
                 
@@ -3096,7 +3096,7 @@ fxgroup
                 //   o1.x <- <VS return value>.PosW.x; o1.y <- <VS return value>.PosW.y; o1.z <- <VS return value>.PosW.z; 
                 //   o0.x <- <VS return value>.PosH.x; o0.y <- <VS return value>.PosH.y; o0.z <- <VS return value>.PosH.z; o0.w <- <VS return value>.PosH.w
                 //
-                #line 63 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 63 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 mov r0.xyz, v0.xyzx
                 mov r0.w, l(1.000000)
                 dp4 r1.x, r0.xyzw, cb0[0].xyzw  // r1.x <- vout.PosW.x
@@ -3204,7 +3204,7 @@ fxgroup
                 //   v3.x <- pin.Tex.x; v3.y <- pin.Tex.y; 
                 //   o0.x <- <PS return value>.x; o0.y <- <PS return value>.y; o0.z <- <PS return value>.z; o0.w <- <PS return value>.w
                 //
-                #line 93 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 93 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 ne r0.x, l(0.000000, 0.000000, 0.000000, 0.000000), cb0[20].x
                 if_nz r0.x
                 
@@ -3320,7 +3320,7 @@ fxgroup
                 //   o1.x <- <VS return value>.PosW.x; o1.y <- <VS return value>.PosW.y; o1.z <- <VS return value>.PosW.z; 
                 //   o0.x <- <VS return value>.PosH.x; o0.y <- <VS return value>.PosH.y; o0.z <- <VS return value>.PosH.z; o0.w <- <VS return value>.PosH.w
                 //
-                #line 63 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 63 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 mov r0.xyz, v0.xyzx
                 mov r0.w, l(1.000000)
                 dp4 r1.x, r0.xyzw, cb0[0].xyzw  // r1.x <- vout.PosW.x
@@ -3428,7 +3428,7 @@ fxgroup
                 //   v3.x <- pin.Tex.x; v3.y <- pin.Tex.y; 
                 //   o0.x <- <PS return value>.x; o0.y <- <PS return value>.y; o0.z <- <PS return value>.z; o0.w <- <PS return value>.w
                 //
-                #line 93 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 93 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 ne r0.x, l(0.000000, 0.000000, 0.000000, 0.000000), cb0[20].x
                 if_nz r0.x
                 
@@ -3544,7 +3544,7 @@ fxgroup
                 //   o1.x <- <VS return value>.PosW.x; o1.y <- <VS return value>.PosW.y; o1.z <- <VS return value>.PosW.z; 
                 //   o0.x <- <VS return value>.PosH.x; o0.y <- <VS return value>.PosH.y; o0.z <- <VS return value>.PosH.z; o0.w <- <VS return value>.PosH.w
                 //
-                #line 63 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 63 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 mov r0.xyz, v0.xyzx
                 mov r0.w, l(1.000000)
                 dp4 r1.x, r0.xyzw, cb0[0].xyzw  // r1.x <- vout.PosW.x
@@ -3652,7 +3652,7 @@ fxgroup
                 //   v3.x <- pin.Tex.x; v3.y <- pin.Tex.y; 
                 //   o0.x <- <PS return value>.x; o0.y <- <PS return value>.y; o0.z <- <PS return value>.z; o0.w <- <PS return value>.w
                 //
-                #line 93 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 93 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 ne r0.x, l(0.000000, 0.000000, 0.000000, 0.000000), cb0[20].x
                 if_nz r0.x
                 
@@ -3768,7 +3768,7 @@ fxgroup
                 //   o1.x <- <VS return value>.PosW.x; o1.y <- <VS return value>.PosW.y; o1.z <- <VS return value>.PosW.z; 
                 //   o0.x <- <VS return value>.PosH.x; o0.y <- <VS return value>.PosH.y; o0.z <- <VS return value>.PosH.z; o0.w <- <VS return value>.PosH.w
                 //
-                #line 63 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 63 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 mov r0.xyz, v0.xyzx
                 mov r0.w, l(1.000000)
                 dp4 r1.x, r0.xyzw, cb0[0].xyzw  // r1.x <- vout.PosW.x
@@ -3876,7 +3876,7 @@ fxgroup
                 //   v3.x <- pin.Tex.x; v3.y <- pin.Tex.y; 
                 //   o0.x <- <PS return value>.x; o0.y <- <PS return value>.y; o0.z <- <PS return value>.z; o0.w <- <PS return value>.w
                 //
-                #line 93 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 93 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 ne r0.x, l(0.000000, 0.000000, 0.000000, 0.000000), cb0[20].x
                 if_nz r0.x
                 
@@ -3992,7 +3992,7 @@ fxgroup
                 //   o1.x <- <VS return value>.PosW.x; o1.y <- <VS return value>.PosW.y; o1.z <- <VS return value>.PosW.z; 
                 //   o0.x <- <VS return value>.PosH.x; o0.y <- <VS return value>.PosH.y; o0.z <- <VS return value>.PosH.z; o0.w <- <VS return value>.PosH.w
                 //
-                #line 63 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 63 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 mov r0.xyz, v0.xyzx
                 mov r0.w, l(1.000000)
                 dp4 r1.x, r0.xyzw, cb0[0].xyzw  // r1.x <- vout.PosW.x
@@ -4100,7 +4100,7 @@ fxgroup
                 //   v3.x <- pin.Tex.x; v3.y <- pin.Tex.y; 
                 //   o0.x <- <PS return value>.x; o0.y <- <PS return value>.y; o0.z <- <PS return value>.z; o0.w <- <PS return value>.w
                 //
-                #line 93 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 93 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 ne r0.x, l(0.000000, 0.000000, 0.000000, 0.000000), cb0[20].x
                 if_nz r0.x
                 
@@ -4216,7 +4216,7 @@ fxgroup
                 //   o1.x <- <VS return value>.PosW.x; o1.y <- <VS return value>.PosW.y; o1.z <- <VS return value>.PosW.z; 
                 //   o0.x <- <VS return value>.PosH.x; o0.y <- <VS return value>.PosH.y; o0.z <- <VS return value>.PosH.z; o0.w <- <VS return value>.PosH.w
                 //
-                #line 63 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 63 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 mov r0.xyz, v0.xyzx
                 mov r0.w, l(1.000000)
                 dp4 r1.x, r0.xyzw, cb0[0].xyzw  // r1.x <- vout.PosW.x
@@ -4324,7 +4324,7 @@ fxgroup
                 //   v3.x <- pin.Tex.x; v3.y <- pin.Tex.y; 
                 //   o0.x <- <PS return value>.x; o0.y <- <PS return value>.y; o0.z <- <PS return value>.z; o0.w <- <PS return value>.w
                 //
-                #line 93 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 93 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 ne r0.x, l(0.000000, 0.000000, 0.000000, 0.000000), cb0[20].x
                 if_nz r0.x
                 
@@ -4440,7 +4440,7 @@ fxgroup
                 //   o1.x <- <VS return value>.PosW.x; o1.y <- <VS return value>.PosW.y; o1.z <- <VS return value>.PosW.z; 
                 //   o0.x <- <VS return value>.PosH.x; o0.y <- <VS return value>.PosH.y; o0.z <- <VS return value>.PosH.z; o0.w <- <VS return value>.PosH.w
                 //
-                #line 63 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 63 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 mov r0.xyz, v0.xyzx
                 mov r0.w, l(1.000000)
                 dp4 r1.x, r0.xyzw, cb0[0].xyzw  // r1.x <- vout.PosW.x
@@ -4548,7 +4548,7 @@ fxgroup
                 //   v3.x <- pin.Tex.x; v3.y <- pin.Tex.y; 
                 //   o0.x <- <PS return value>.x; o0.y <- <PS return value>.y; o0.z <- <PS return value>.z; o0.w <- <PS return value>.w
                 //
-                #line 93 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 93 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 ne r0.x, l(0.000000, 0.000000, 0.000000, 0.000000), cb0[20].x
                 if_nz r0.x
                 
@@ -4664,7 +4664,7 @@ fxgroup
                 //   o1.x <- <VS return value>.PosW.x; o1.y <- <VS return value>.PosW.y; o1.z <- <VS return value>.PosW.z; 
                 //   o0.x <- <VS return value>.PosH.x; o0.y <- <VS return value>.PosH.y; o0.z <- <VS return value>.PosH.z; o0.w <- <VS return value>.PosH.w
                 //
-                #line 63 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 63 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 mov r0.xyz, v0.xyzx
                 mov r0.w, l(1.000000)
                 dp4 r1.x, r0.xyzw, cb0[0].xyzw  // r1.x <- vout.PosW.x
@@ -4772,7 +4772,7 @@ fxgroup
                 //   v3.x <- pin.Tex.x; v3.y <- pin.Tex.y; 
                 //   o0.x <- <PS return value>.x; o0.y <- <PS return value>.y; o0.z <- <PS return value>.z; o0.w <- <PS return value>.w
                 //
-                #line 93 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 93 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 ne r0.x, l(0.000000, 0.000000, 0.000000, 0.000000), cb0[20].x
                 if_nz r0.x
                 
@@ -4888,7 +4888,7 @@ fxgroup
                 //   o1.x <- <VS return value>.PosW.x; o1.y <- <VS return value>.PosW.y; o1.z <- <VS return value>.PosW.z; 
                 //   o0.x <- <VS return value>.PosH.x; o0.y <- <VS return value>.PosH.y; o0.z <- <VS return value>.PosH.z; o0.w <- <VS return value>.PosH.w
                 //
-                #line 63 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 63 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 mov r0.xyz, v0.xyzx
                 mov r0.w, l(1.000000)
                 dp4 r1.x, r0.xyzw, cb0[0].xyzw  // r1.x <- vout.PosW.x
@@ -4996,7 +4996,7 @@ fxgroup
                 //   v3.x <- pin.Tex.x; v3.y <- pin.Tex.y; 
                 //   o0.x <- <PS return value>.x; o0.y <- <PS return value>.y; o0.z <- <PS return value>.z; o0.w <- <PS return value>.w
                 //
-                #line 93 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 93 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 ne r0.x, l(0.000000, 0.000000, 0.000000, 0.000000), cb0[20].x
                 if_nz r0.x
                 
@@ -5112,7 +5112,7 @@ fxgroup
                 //   o1.x <- <VS return value>.PosW.x; o1.y <- <VS return value>.PosW.y; o1.z <- <VS return value>.PosW.z; 
                 //   o0.x <- <VS return value>.PosH.x; o0.y <- <VS return value>.PosH.y; o0.z <- <VS return value>.PosH.z; o0.w <- <VS return value>.PosH.w
                 //
-                #line 63 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 63 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 mov r0.xyz, v0.xyzx
                 mov r0.w, l(1.000000)
                 dp4 r1.x, r0.xyzw, cb0[0].xyzw  // r1.x <- vout.PosW.x
@@ -5220,7 +5220,7 @@ fxgroup
                 //   v3.x <- pin.Tex.x; v3.y <- pin.Tex.y; 
                 //   o0.x <- <PS return value>.x; o0.y <- <PS return value>.y; o0.z <- <PS return value>.z; o0.w <- <PS return value>.w
                 //
-                #line 93 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 93 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 ne r0.x, l(0.000000, 0.000000, 0.000000, 0.000000), cb0[20].x
                 if_nz r0.x
                 
@@ -5336,7 +5336,7 @@ fxgroup
                 //   o1.x <- <VS return value>.PosW.x; o1.y <- <VS return value>.PosW.y; o1.z <- <VS return value>.PosW.z; 
                 //   o0.x <- <VS return value>.PosH.x; o0.y <- <VS return value>.PosH.y; o0.z <- <VS return value>.PosH.z; o0.w <- <VS return value>.PosH.w
                 //
-                #line 63 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 63 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\\방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 mov r0.xyz, v0.xyzx
                 mov r0.w, l(1.000000)
                 dp4 r1.x, r0.xyzw, cb0[0].xyzw  // r1.x <- vout.PosW.x
@@ -5444,7 +5444,7 @@ fxgroup
                 //   v3.x <- pin.Tex.x; v3.y <- pin.Tex.y; 
                 //   o0.x <- <PS return value>.x; o0.y <- <PS return value>.y; o0.z <- <PS return value>.z; o0.w <- <PS return value>.w
                 //
-                #line 93 "C:\Dev\Projects\_VENDOR\FrankDLuna\VS2022\Code\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
+                #line 93 "C:\Users\조성?Documents\game-client-dev-study\07_DX11_1\긤방?책 ?제\FDLuna-master\SelectedCodeSolutions\DepthStencilBolt\FX\Basic.fx"
                 ne r0.x, l(0.000000, 0.000000, 0.000000, 0.000000), cb0[20].x
                 if_nz r0.x
                 
