@@ -135,9 +135,7 @@ float4 PS_MAIN_SKY(VS_OUT In) : SV_TARGET
     //float3 UV = In.vCubeTexUV;
     float4 vTexColor = g_DiffuseTex.Sample(g_Sampler, In.vTexCoord);
     
-    float distToEye = length(g_vEye - In.vPosW);
-    float fogLerp = saturate((distToEye - g_fFogStart) / g_fFogRange);
-    vTexColor.rgb = lerp(vTexColor.rgb, g_vFogColor.rgb, fogLerp);
+    vTexColor.rgb = lerp(vTexColor.rgb, g_vFogColor.rgb, 0.7);
     
     return vTexColor;
 }

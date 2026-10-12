@@ -42,6 +42,7 @@ HRESULT CCamera::Bind()
 
 	m_pContext->UpdateSubresource(m_pCB.Get(), 0, nullptr, &cbData, 0, 0);
 	m_pContext->VSSetConstantBuffers(1, 1, m_pCB.GetAddressOf());
+	m_pContext->GSSetConstantBuffers(1, 1, m_pCB.GetAddressOf());
 	m_pContext->PSSetConstantBuffers(1, 1, m_pCB.GetAddressOf());
 	return S_OK;
 }

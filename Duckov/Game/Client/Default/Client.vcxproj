@@ -140,6 +140,7 @@
     <ClInclude Include="..\Public\Cube.h" />
     <ClInclude Include="..\Public\DDSTextureLoader.h" />
     <ClInclude Include="..\Public\Fog.h" />
+    <ClInclude Include="..\public\Free_Cam.h" />
     <ClInclude Include="..\Public\Mirror.h" />
     <ClInclude Include="..\public\Orthographic_Cam.h" />
     <ClInclude Include="..\public\SkyBox.h" />
@@ -155,6 +156,7 @@
     <ClInclude Include="..\public\Player_PointLight.h" />
     <ClInclude Include="..\public\Player_SpotLight.h" />
     <ClInclude Include="..\public\QuarterView_Cam.h" />
+    <ClInclude Include="..\public\Tree.h" />
     <ClInclude Include="..\public\Wave.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="framework.h" />
@@ -165,6 +167,7 @@
     <ClCompile Include="..\private\BackGround.cpp" />
     <ClCompile Include="..\Private\DDSTextureLoader.cpp" />
     <ClCompile Include="..\private\Fog.cpp" />
+    <ClCompile Include="..\private\Free_Cam.cpp" />
     <ClCompile Include="..\private\Mirror.cpp" />
     <ClCompile Include="..\private\Orthographic_Cam.cpp" />
     <ClCompile Include="..\private\SkyBox.cpp" />
@@ -181,6 +184,7 @@
     <ClCompile Include="..\Private\Level_Loading.cpp" />
     <ClCompile Include="..\private\Level_Logo.cpp" />
     <ClCompile Include="..\Private\MainApp.cpp" />
+    <ClCompile Include="..\private\Tree.cpp" />
     <ClCompile Include="..\private\Wave.cpp" />
     <ClCompile Include="Client.cpp" />
   </ItemGroup>
@@ -192,6 +196,10 @@
     <Image Include="small.ico" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="..\Shader\Shader_TreeSprite.hlsl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </FxCompile>
     <FxCompile Include="..\Shader\Shader_VtxCol.hlsl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>

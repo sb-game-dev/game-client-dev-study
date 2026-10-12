@@ -85,8 +85,6 @@ namespace Engine
 
 	struct DirectionalLight
 	{
-		DirectionalLight() { ZeroMemory(this, sizeof(*this)); }
-
 		float4_t	Ambient;
 		float4_t	Diffuse;
 		float4_t	Specular;
@@ -96,8 +94,6 @@ namespace Engine
 
 	struct PointLight
 	{
-		PointLight() { ZeroMemory(this, sizeof(*this)); }
-
 		float4_t	Ambient;
 		float4_t	Diffuse;
 		float4_t	Specular;
@@ -111,8 +107,6 @@ namespace Engine
 
 	struct SpotLight
 	{
-		SpotLight() { ZeroMemory(this, sizeof(*this)); }
-
 		float4_t	Ambient;
 		float4_t	Diffuse;
 		float4_t	Specular;
@@ -129,8 +123,6 @@ namespace Engine
 
 	typedef struct tagMaterial
 	{
-		tagMaterial() { ZeroMemory(this, sizeof(*this)); }
-
 		float4_t	Ambient;
 		float4_t	Diffuse;
 		float4_t	Specular; // w = SpecPower
@@ -169,6 +161,19 @@ namespace Engine
 		f32_t		FogRange;	
 		float2_t	Pad;
 	}CB_FOG;
+
+	typedef struct tagTreePointSprite
+	{
+		float3_t	vPos;
+		float2_t	Size;
+
+		static constexpr uint32_t iNumElements = 2;
+		static constexpr D3D11_INPUT_ELEMENT_DESC Elements[iNumElements] =
+		{
+			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0,  0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "SIZE",     0, DXGI_FORMAT_R32G32_FLOAT,    0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		};
+	}TREEPOINTSPRITE;
 }
 
 #endif // Engine_Struct_h__
