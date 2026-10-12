@@ -11,6 +11,8 @@ cbuffer cbCamera : register(b1)
 {
     float4x4 g_matView;
     float4x4 g_matProj;
+    float3 g_vEye;
+    float g_Pad;
 }
 
 struct VS_IN
@@ -18,6 +20,14 @@ struct VS_IN
     float3 vPosition : POSITION;
     float4 vColor : COLOR;
 };
+
+cbuffer cbFog : register(b5)
+{
+    float4 g_vFogColor; // 안개 색
+    float g_fFogStart; // 안개 시작 위치
+    float g_fFogRange; // 안개 범위
+    float2 g_vFogPad; // 패딩용 변수
+}
 
 struct VS_OUT
 {
@@ -44,6 +54,7 @@ float4 PS_MAIN(VS_OUT In) : SV_TARGET   //몇 번째 렌더타겟에 색을 쓸지
 {
     return In.vColor;
 }
+
 float4 PS_SHADOW(VS_OUT In) : SV_TARGET
 {
     return float4(0.f, 0.f, 0.f, 0.5f);

@@ -10,7 +10,6 @@ HRESULT CBackGround::Initialize_Prototype()
 {
 	if (FAILED(__super::Initialize_Prototype()))
 		return E_FAIL;
-    m_eRenderID = RENDERID::NONALPHA_UI;
 
     VTXNORM vertices[] =
     {
@@ -152,6 +151,7 @@ void CBackGround::Priority_Update(f32_t fTimeDelta)
 void CBackGround::Update(f32_t fTimeDelta)
 {
 	__super::Update(fTimeDelta);
+    CGameInstance::Get().Add_RenderGroup(RENDERID::NONALPHA_UI, dynamic_pointer_cast<CGameObject>(shared_from_this()));
 }
 
 void CBackGround::Late_Update(f32_t fTimeDelta)

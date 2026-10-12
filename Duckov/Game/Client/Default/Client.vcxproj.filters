@@ -79,6 +79,9 @@
     <Filter Include="04. Light\02. SunLight">
       <UniqueIdentifier>{e055516c-97bd-41ed-8e3d-99fe0806140b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObjects\07. SkyBox">
+      <UniqueIdentifier>{79520db3-dd7f-4e7e-b02d-01177eb9b79d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -152,6 +155,9 @@
     </ClInclude>
     <ClInclude Include="..\Public\Mirror.h">
       <Filter>02. GameObjects\06. Mirror</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\SkyBox.h">
+      <Filter>02. GameObjects\07. SkyBox</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -227,6 +233,9 @@
     </ClCompile>
     <ClCompile Include="..\private\Mirror.cpp">
       <Filter>02. GameObjects\06. Mirror</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\SkyBox.cpp">
+      <Filter>02. GameObjects\07. SkyBox</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

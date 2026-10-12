@@ -9,7 +9,7 @@ HRESULT CMirror::Initialize_Prototype()
 {
     if (FAILED(__super::Initialize_Prototype()))
         return E_FAIL;
-    m_eRenderID = RENDERID::ALPHA;
+
     const f32_t fHalfW = 3.f, fHalfH = 2.f;
     const float4_t vMirrorColor = { 0.75f, 0.75f, 0.75f, 0.15f };
     // 정점 정보
@@ -144,6 +144,7 @@ void CMirror::Update(f32_t fDeltaTime)
 void CMirror::Late_Update(f32_t fDeltaTime)
 {
     __super::Late_Update(fDeltaTime);
+    CGameInstance::Get().Add_RenderGroup(RENDERID::ALPHA, dynamic_pointer_cast<CGameObject>(shared_from_this()));
 }
 
 HRESULT CMirror::Render()

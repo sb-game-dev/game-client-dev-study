@@ -43,6 +43,8 @@ cbuffer cbFog : register(b5)
 
 Texture2D g_DiffuseTex : register(t0);  //SRV
 
+TextureCube g_DiffuseCubeTex : register(t1);  //SRV
+
 SamplerState g_Sampler : register(s0);
 
 struct VS_IN
@@ -58,6 +60,7 @@ struct VS_OUT
     float3 vPosW : POSITION;
     float3 vNormalW : NORMAL;
     float2 vTexCoord : TEXCOORD;    //UV값
+    float3 vCubeTexUV : TEXCOORD1;
 };
 
 VS_OUT VS_MAIN(VS_IN In)
@@ -70,6 +73,7 @@ VS_OUT VS_MAIN(VS_IN In)
     
     Out.vPosition = mul(mul(vPosW, g_matView), g_matProj);
     Out.vTexCoord = In.vTexCoord;
+    Out.vCubeTexUV = In.vPosition;
     return Out;
 }
 
@@ -116,6 +120,7 @@ float4 PS_MAIN_NOLIGHT(VS_OUT In) : SV_TARGET
     float4 vTexColor = g_DiffuseTex.Sample(g_Sampler, In.vTexCoord);
     // 알파 테스트에 해당 알파값이 0.1이하인 경우 픽셀을 탈락시킴
     clip(vTexColor.a - 0.1f);
+    
     return vTexColor;
 }
 float4 PS_SHADOW(VS_OUT In) : SV_TARGET
@@ -123,4 +128,16 @@ float4 PS_SHADOW(VS_OUT In) : SV_TARGET
     float4 vTexColor = g_DiffuseTex.Sample(g_Sampler, In.vTexCoord);
     clip(vTexColor.a - 0.1f);
     return float4(0.f, 0.f, 0.f, 0.5f);
+}
+
+float4 PS_MAIN_SKY(VS_OUT In) : SV_TARGET
+{
+    //float3 UV = In.vCubeTexUV;
+    float4 vTexColor = g_DiffuseTex.Sample(g_Sampler, In.vTexCoord);
+    
+    float distToEye = length(g_vEye - In.vPosW);
+    float fogLerp = saturate((distToEye - g_fFogStart) / g_fFogRange);
+    vTexColor.rgb = lerp(vTexColor.rgb, g_vFogColor.rgb, fogLerp);
+    
+    return vTexColor;
 }

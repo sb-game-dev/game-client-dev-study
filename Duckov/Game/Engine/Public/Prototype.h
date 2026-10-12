@@ -1,7 +1,7 @@
 #pragma once
 #include "Engine_Defines.h"
 NS_BEGIN(Engine)
-class ENGINE_DLL CPrototype abstract
+class ENGINE_DLL CPrototype abstract :public enable_shared_from_this<CPrototype>
 {
 protected:
 	CPrototype(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);

@@ -142,6 +142,7 @@
     <ClInclude Include="..\Public\Fog.h" />
     <ClInclude Include="..\Public\Mirror.h" />
     <ClInclude Include="..\public\Orthographic_Cam.h" />
+    <ClInclude Include="..\public\SkyBox.h" />
     <ClInclude Include="..\public\SunLight.h" />
     <ClInclude Include="..\public\Hill.h" />
     <ClInclude Include="..\Public\Inven.h" />
@@ -166,6 +167,7 @@
     <ClCompile Include="..\private\Fog.cpp" />
     <ClCompile Include="..\private\Mirror.cpp" />
     <ClCompile Include="..\private\Orthographic_Cam.cpp" />
+    <ClCompile Include="..\private\SkyBox.cpp" />
     <ClCompile Include="..\private\SunLight.cpp" />
     <ClCompile Include="..\private\Loader.cpp" />
     <ClCompile Include="..\private\Player.cpp" />

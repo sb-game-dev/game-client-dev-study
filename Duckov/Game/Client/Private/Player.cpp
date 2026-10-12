@@ -9,7 +9,6 @@ HRESULT CPlayer::Initialize_Prototype()
 {
     if (FAILED(__super::Initialize_Prototype()))
         return E_FAIL;
-    m_eRenderID = RENDERID::NONALPHA;
 
     // 정점 정보
     VTXCOL vertices[] =
@@ -164,6 +163,11 @@ void CPlayer::Update(f32_t fDeltaTime)
 void CPlayer::Late_Update(f32_t fDeltaTime)
 {
     __super::Late_Update(fDeltaTime);
+
+
+    CGameInstance::Get().Add_RenderGroup(RENDERID::NONALPHA, dynamic_pointer_cast<CGameObject>(shared_from_this()));
+    CGameInstance::Get().Add_RenderGroup(RENDERID::SHADOW, dynamic_pointer_cast<CGameObject>(shared_from_this()));
+    CGameInstance::Get().Add_RenderGroup(RENDERID::REFLECT, dynamic_pointer_cast<CGameObject>(shared_from_this()));
 }
 
 HRESULT CPlayer::Render()

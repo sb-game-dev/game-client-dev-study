@@ -29,8 +29,6 @@ public:
 
 	virtual XMMATRIX	GetWorld();
 
-	virtual RENDERID	GetRenderID() { return m_eRenderID; }
-
 	// 거울평면의 법선벡터를 a,b,c,d를 반환
 	virtual XMVECTOR	Get_MirrorPlane() { return XMVectorZero(); }
 
@@ -38,23 +36,23 @@ public:
 	virtual	f32_t		Get_ViewZ() { return m_fViewZ; }
 
 protected:
-	ComPtr<ID3D11Buffer>				m_pVB;				// 버텍스 버퍼
-	ComPtr<ID3D11Buffer>				m_pIB;				// 인덱스 버퍼
-	ComPtr<ID3D11Buffer>				m_pCB;				// 변환 정보를 가지고있는 상수버퍼
-	uint32_t							m_iIndexCnt;		// 인덱스 개수
+	ComPtr<ID3D11Buffer>				m_pVB = { nullptr };			// 버텍스 버퍼
+	ComPtr<ID3D11Buffer>				m_pIB = { nullptr };			// 인덱스 버퍼
+	ComPtr<ID3D11Buffer>				m_pCB = { nullptr };			// 변환 정보를 가지고있는 상수버퍼
+	uint32_t							m_iIndexCnt = {};				// 인덱스 개수
 
-	ComPtr<ID3D11InputLayout>			m_pInputLayout;		// 정점 메모리 해석표(FVF의 역할)
+	ComPtr<ID3D11InputLayout>			m_pInputLayout = { nullptr };	// 정점 메모리 해석표(FVF의 역할)
 
-	ComPtr<ID3D11VertexShader>			m_pVS;				// 버텍스 셰이더
-	ComPtr<ID3D11PixelShader>			m_pPS;				// 픽셀 셰이더
-	ComPtr<ID3D11RasterizerState>		m_pRS;				// 레스터라이저
+	ComPtr<ID3D11VertexShader>			m_pVS = { nullptr };			// 버텍스 셰이더
+	ComPtr<ID3D11PixelShader>			m_pPS = { nullptr };			// 픽셀 셰이더
+	ComPtr<ID3D11RasterizerState>		m_pRS = { nullptr };			// 레스터라이저
 
-	ComPtr<ID3D11ShaderResourceView>	m_pSRV;
-	ComPtr<ID3D11SamplerState>			m_pSampler;
+	ComPtr<ID3D11ShaderResourceView>	m_pSRV = { nullptr };
+	ComPtr<ID3D11SamplerState>			m_pSampler = { nullptr };
 
-	float4x4_t			m_matWorld;
+	float4x4_t			m_matWorld{};
 
-	float3_t			m_vInfo[static_cast<int>(INFO::END)];
+	float3_t			m_vInfo[static_cast<int>(INFO::END)] = {};
 
 	float3_t			m_vScale = { 1.f,1.f,1.f };
 	
@@ -64,11 +62,9 @@ protected:
 
 	f32_t				m_fSpeed = { 1.f };
 
-	RENDERID			m_eRenderID = { RENDERID::END };
-
 	f32_t				m_fViewZ = {};
 
-	MATERIAL m_tMaterial = {};
+	MATERIAL			m_tMaterial = {};
 
 public:
 	virtual shared_ptr<CPrototype> Clone(void* pArg) PURE;

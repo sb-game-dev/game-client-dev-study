@@ -13,6 +13,8 @@ HRESULT CRenderer::Initialize()
 		return E_FAIL;
 	if (FAILED(Ready_BlendState_NoColor()))
 		return E_FAIL;
+	if (FAILED(Ready_Priority_DSS()))
+		return E_FAIL;
 	if (FAILED(Ready_Mirror_DSS()))
 		return E_FAIL;
 	if (FAILED(Ready_Shadow_DSS()))
@@ -33,7 +35,6 @@ void CRenderer::Add_RenderGroup(RENDERID eRenderID, shared_ptr<CGameObject> pGam
 
 void CRenderer::Render_GameObject()
 {
-	CGameInstance::Get().Set_MainCamera(L"QuarterViewCam");
 	Render_Priority();
 	Render_NonAlpha();
 	Render_Shadow();
@@ -46,16 +47,9 @@ void CRenderer::Render_GameObject()
 	CGameInstance::Get().Set_MainCamera(L"COrthographic_Cam");
 	Render_NonAlpha_UI();
 	Render_Alpha_UI();
+	CGameInstance::Get().Set_MainCamera(L"QuarterViewCam");
 
-	Clear_RenderGroup();
  }
-
-void CRenderer::Clear_RenderGroup()
-{
-	for (uint32_t i = 0; i < ETOUI(RENDERID::END); ++i)
-		m_RenderGroup[i].clear();
-}
-
 
 
 HRESULT CRenderer::Ready_BlendState()
@@ -91,6 +85,19 @@ HRESULT CRenderer::Ready_BlendState_NoColor()
 	D3D11_BLEND_DESC noColorDesc{};
 	noColorDesc.RenderTarget[0].RenderTargetWriteMask = 0;   // RGBA 아무 채널도 안 씀
 	if (FAILED(m_pDevice->CreateBlendState(&noColorDesc, m_pBS_NoColorWrite.GetAddressOf())))
+		return E_FAIL;
+	return S_OK;
+}
+HRESULT CRenderer::Ready_Priority_DSS()
+{
+	D3D11_DEPTH_STENCIL_DESC priorityDesc{};
+	priorityDesc.DepthEnable = TRUE;
+	priorityDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
+	priorityDesc.DepthFunc = D3D11_COMPARISON_LESS;
+
+	priorityDesc.StencilEnable = FALSE;
+
+	if (FAILED(m_pDevice->CreateDepthStencilState(&priorityDesc, m_pDSS_Priority.GetAddressOf())))
 		return E_FAIL;
 	return S_OK;
 }
@@ -219,14 +226,24 @@ HRESULT CRenderer::Ready_Shadow_DSS()
 
 void CRenderer::Render_Priority()
 {
+	m_pContext->OMSetDepthStencilState(m_pDSS_Priority.Get(), 0);
 	for (auto& pObj : m_RenderGroup[ETOUI(RENDERID::PRIORITY)])
-		pObj->Render();
+	{
+		if (nullptr != pObj)
+			pObj->Render();
+	}
+	m_RenderGroup[ETOUI(RENDERID::PRIORITY)].clear();
+	m_pContext->OMSetDepthStencilState(nullptr, 0);
 }
 
 void CRenderer::Render_NonAlpha()
 {
 	for (auto& pObj : m_RenderGroup[ETOUI(RENDERID::NONALPHA)])
-		pObj->Render();
+	{
+		if (nullptr != pObj)
+			pObj->Render();
+	}
+	m_RenderGroup[ETOUI(RENDERID::NONALPHA)].clear();
 }
 
 void CRenderer::Render_AlphaPre()
@@ -259,7 +276,11 @@ void CRenderer::Render_AlphaPre()
 	//m_pContext->OMSetDepthStencilState(m_pDSS_Alpha.Get(), 0);
 	// 그리기
 	for (auto& pObj : m_RenderGroup[ETOUI(RENDERID::ALPHA_PRE)])
-		pObj->Render();
+	{
+		if (nullptr != pObj)
+			pObj->Render();
+	}
+	m_RenderGroup[ETOUI(RENDERID::ALPHA_PRE)].clear();
 
 	// 복구
 	//m_pContext->OMSetDepthStencilState(nullptr, 0);
@@ -284,8 +305,15 @@ void CRenderer::Render_Mirror()
 	XMMATRIX matReflect = XMMatrixReflect(m_pMirror->Get_MirrorPlane());
 	m_pContext->OMSetDepthStencilState(m_pDSS_DrawReflection.Get(), 2);					// 읽기만 하는 상태: 스텐실버퍼가 1인지 검사만 함
 
-	for (auto& pObj : m_ReflectObjects)
-		pObj->Render_Reflection(matReflect);
+	//for (auto& pObj : m_ReflectObjects)
+	//	pObj->Render_Reflection(matReflect);
+
+	for (auto& pObj : m_RenderGroup[ETOUI(RENDERID::REFLECT)])
+	{
+		if (nullptr != pObj)
+			pObj->Render_Reflection(matReflect);
+	}
+	m_RenderGroup[ETOUI(RENDERID::REFLECT)].clear();
 
 	m_pContext->OMSetDepthStencilState(nullptr, 0);										// 기본 상태(스텐실 : off)
 }
@@ -295,8 +323,13 @@ void CRenderer::Render_Shadow()
 	float blendFactor[4] = { 0.f, 0.f, 0.f, 0.f };
 	m_pContext->OMSetBlendState(m_pBS.Get(), blendFactor, 0xffffffff);
 	m_pContext->OMSetDepthStencilState(m_pDSS_DrawNoDoubleBlend.Get(), 0);
-	for (auto& pObj : m_ShadowObjects)
-		pObj->Render_Shadow();
+
+	for (auto& pObj : m_RenderGroup[ETOUI(RENDERID::SHADOW)])
+	{
+		if (nullptr != pObj)
+			pObj->Render_Shadow();
+	}
+	m_RenderGroup[ETOUI(RENDERID::SHADOW)].clear();
 
 	m_pContext->OMSetDepthStencilState(nullptr, 0);
 	m_pContext->OMSetBlendState(nullptr, blendFactor, 0xffffffff);
@@ -321,7 +354,11 @@ void CRenderer::Render_Alpha()
 	//m_pContext->OMSetDepthStencilState(m_pDSS_Alpha.Get(), 0);
 	// 그리기
 	for (auto& pObj : m_RenderGroup[ETOUI(RENDERID::ALPHA)])
-		pObj->Render();
+	{
+		if (nullptr != pObj)
+			pObj->Render();
+	}
+	m_RenderGroup[ETOUI(RENDERID::ALPHA)].clear();
 
 	// 복구
 	//m_pContext->OMSetDepthStencilState(nullptr, 0);
@@ -331,13 +368,21 @@ void CRenderer::Render_Alpha()
 void CRenderer::Render_NonAlpha_UI()
 {
 	for (auto& pObj : m_RenderGroup[ETOUI(RENDERID::NONALPHA_UI)])
-		pObj->Render();
+	{
+		if (nullptr != pObj)
+			pObj->Render();
+	}
+	m_RenderGroup[ETOUI(RENDERID::NONALPHA_UI)].clear();
 }
 
 void CRenderer::Render_Alpha_UI()
 {
 	for (auto& pObj : m_RenderGroup[ETOUI(RENDERID::ALPHA_UI)])
-		pObj->Render();
+	{
+		if (nullptr != pObj)
+			pObj->Render();
+	}
+	m_RenderGroup[ETOUI(RENDERID::ALPHA_UI)].clear();
 }
 
 unique_ptr<CRenderer> CRenderer::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)

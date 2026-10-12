@@ -36,7 +36,6 @@ void CLayer::Late_Update(f32_t fTimeDelta)
         if (nullptr != Pair.second)
         {
             Pair.second->Late_Update(fTimeDelta);
-            CGameInstance::Get().Add_RenderGroup(Pair.second->GetRenderID(), Pair.second);
         }
     }
 }

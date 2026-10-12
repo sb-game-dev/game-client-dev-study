@@ -7,6 +7,7 @@
 #include "Wave.h"
 #include "Fog.h"
 #include "Mirror.h"
+#include "SkyBox.h"
 
 CLoader::CLoader(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     : m_pDevice{pDevice}
@@ -131,6 +132,9 @@ HRESULT CLoader::Loading_For_GamePlayLV()
         pGameObject->SetPos({ 5 * sinf(fTheta),0.f,5 * cosf(fTheta) });
         CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_Cube" + to_wstring(i), pGameObject);
     }
+
+    pGameObject = CSkyBox::Create(m_pDevice, m_pContext);
+    CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_SkyBox", pGameObject);
 
     pGameObject = CHill::Create(m_pDevice, m_pContext);
     CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_Hill", pGameObject);

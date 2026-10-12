@@ -10,7 +10,6 @@ HRESULT CHill::Initialize_Prototype()
 {
     if (FAILED(__super::Initialize_Prototype()))
         return E_FAIL;
-    m_eRenderID = RENDERID::PRIORITY;
 
     uint32_t    ivtxCntX = 129;
     uint32_t    ivtxCntZ = 129;
@@ -205,6 +204,7 @@ void CHill::Update(f32_t fDeltaTime)
 void CHill::Late_Update(f32_t fDeltaTime)
 {
     __super::Late_Update(fDeltaTime);
+    CGameInstance::Get().Add_RenderGroup(RENDERID::NONALPHA, dynamic_pointer_cast<CGameObject>(shared_from_this()));
 }
 
 HRESULT CHill::Render()

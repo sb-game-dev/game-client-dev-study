@@ -11,7 +11,6 @@ HRESULT CCube::Initialize_Prototype()
 {
     if (FAILED(__super::Initialize_Prototype()))
         return E_FAIL;
-    m_eRenderID = RENDERID::NONALPHA;
 
     // 정육면체 그리기
     // 정점 정보
@@ -250,6 +249,8 @@ void CCube::Update(f32_t fDeltaTime)
 void CCube::Late_Update(f32_t fDeltaTime)
 {
     __super::Late_Update(fDeltaTime);
+    CGameInstance::Get().Add_RenderGroup(RENDERID::NONALPHA, dynamic_pointer_cast<CGameObject>(shared_from_this()));
+    CGameInstance::Get().Add_RenderGroup(RENDERID::SHADOW, dynamic_pointer_cast<CGameObject>(shared_from_this()));
 }
 
 HRESULT CCube::Render()

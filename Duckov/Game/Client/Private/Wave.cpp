@@ -10,7 +10,6 @@ HRESULT CWave::Initialize_Prototype()
 {
     if (FAILED(__super::Initialize_Prototype()))
         return E_FAIL;
-    m_eRenderID = RENDERID::ALPHA_PRE;
 
     uint32_t    ivtxCntX = 129;
     uint32_t    ivtxCntZ = 129;
@@ -203,6 +202,7 @@ void CWave::Update(f32_t fDeltaTime)
 void CWave::Late_Update(f32_t fDeltaTime)
 {
     __super::Late_Update(fDeltaTime);
+    CGameInstance::Get().Add_RenderGroup(RENDERID::ALPHA_PRE, dynamic_pointer_cast<CGameObject>(shared_from_this()));
 }
 
 HRESULT CWave::Render()
