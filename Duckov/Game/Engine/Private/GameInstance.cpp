@@ -54,7 +54,6 @@ HRESULT CGameInstance::Clear_Resources(int32_t iCurrentLevel)
 {
 	m_pPrototype_Manager->Clear(iCurrentLevel);
 	m_pObject_Manager->Clear(iCurrentLevel);
-	//m_pRenderer->Clear_Mirror();
 	return S_OK;
 }
 

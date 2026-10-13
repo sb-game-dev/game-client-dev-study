@@ -67,6 +67,9 @@
     <Filter Include="09. Renderer">
       <UniqueIdentifier>{c68b7599-8680-4b08-8f80-61941eee7b98}</UniqueIdentifier>
     </Filter>
+    <Filter Include="06. Component\00. Transform">
+      <UniqueIdentifier>{570386b8-edae-40dd-9659-21f6c47d2b21}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Engine_Defines.h">
