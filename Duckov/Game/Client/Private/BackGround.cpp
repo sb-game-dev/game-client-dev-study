@@ -144,7 +144,7 @@ HRESULT CBackGround::Initialize(void* pArg)
 	if (FAILED(__super::Initialize(&BackGroundDesc)))
 		return E_FAIL;
     m_pTransform->Set_State(STATE::POSITION, vector_t{ 0.f,0.f,1.f,1.f });
-    m_pTransform->Set_Scale({ g_iWinSizeX, g_iWinSizeY, 1.f });
+    m_pTransform->Set_Scale( g_iWinSizeX, g_iWinSizeY, 1.f );
     return S_OK;
 }
 

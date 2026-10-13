@@ -7,8 +7,8 @@ class ENGINE_DLL CTransform : public CComponent
 public:
 	typedef struct tagTransformDesc
 	{
-		f32_t		fSpeedPerSec;
-		f32_t		fDegreeRotPerSec; 
+		f32_t		fSpeedPerSec = {};
+		f32_t		fDegreeRotPerSec = {};
 		f32_t		fPosX = {};
 		f32_t		fPosY = {};
 		f32_t		fPosZ = {};
@@ -45,7 +45,7 @@ public:
 	void			Set_Speed(f32_t fSpeed) { m_fSpeedPerSec = fSpeed; }
 	void			Set_RotationRadian(f32_t fRadian) { m_fRotationPerSec = fRadian; }
 
-	void			Set_Scale(float3_t vScale);
+	void			Set_Scale(f32_t ScaleX, f32_t ScaleY, f32_t ScaleZ);
 
 private:
 	float4x4_t		m_WorldMatrix = {};

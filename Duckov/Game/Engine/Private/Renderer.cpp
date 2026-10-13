@@ -35,6 +35,7 @@ void CRenderer::Add_RenderGroup(RENDERID eRenderID, shared_ptr<CGameObject> pGam
 
 void CRenderer::Render_GameObject()
 {
+	CGameInstance::Get().Set_MainCamera(L"QuarterViewCam");
 	Render_Priority();
 	Render_NonAlpha();
 	Render_Shadow();

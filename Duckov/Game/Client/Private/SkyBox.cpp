@@ -177,7 +177,7 @@ HRESULT CSkyBox::Initialize(void* pArg)
 {
     if (FAILED(__super::Initialize(pArg)))
         return E_FAIL;
-    m_pTransform->Set_Scale({ 20.f,20.f,20.f });
+    m_pTransform->Set_Scale( 20.f,20.f,20.f );
     return S_OK;
 }
 

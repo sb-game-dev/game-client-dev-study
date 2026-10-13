@@ -87,15 +87,15 @@ void CTransform::Rotation(fvector_t vAxis, f32_t fAngle)
 {
 }
 
-void CTransform::Set_Scale(float3_t vScale)
+void CTransform::Set_Scale(f32_t ScaleX, f32_t ScaleY, f32_t ScaleZ)
 {
 	vector_t	vRight	= XMVector3Normalize(Get_State(STATE::RIGHT));
 	vector_t	vUp		= XMVector3Normalize(Get_State(STATE::UP));
 	vector_t	vLook	= XMVector3Normalize(Get_State(STATE::LOOK));
 
-	Set_State(STATE::RIGHT, vRight* vScale.x);
-	Set_State(STATE::UP,	vUp* vScale.y);
-	Set_State(STATE::LOOK,	vLook* vScale.z);
+	Set_State(STATE::RIGHT, vRight* ScaleX);
+	Set_State(STATE::UP,	vUp* ScaleY);
+	Set_State(STATE::LOOK,	vLook* ScaleZ);
 }
 
 shared_ptr<CTransform> CTransform::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)

@@ -43,12 +43,15 @@ HRESULT CLevel_GamePlay::Ready_Layer_BackGround(const tchar_t* pLayerTag)
 
 HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
 {
+
     if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_GameObject_Hill"),
         ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_Hill"))))
         return E_FAIL;
 
+    CPlayer::PLAYER_DESC Player_Desc{};
+    Player_Desc.fDegreeRotPerSec = 180.f;
     if(FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_GameObject_Player"), 
-        ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_Player"))))
+        ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_Player"), &Player_Desc)))
         return E_FAIL;
 
     for (int i = 0; i < 16; ++i)
