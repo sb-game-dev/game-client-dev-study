@@ -4,6 +4,11 @@
 NS_BEGIN(Client)
 class CTree : public CGameObject
 {
+public:
+	typedef struct tagTreeDesc : public GAMEOBJECT_DESC
+	{
+
+	}TREE_DESC;
 private:
 	CTree(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
 public:

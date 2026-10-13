@@ -1,5 +1,5 @@
 #include "QuarterView_Cam.h"
-
+#include "GameObject.h"
 CQuarterView_Cam::CQuarterView_Cam(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
 	:CCamera{pDevice, pContext}
 {
@@ -22,12 +22,13 @@ void CQuarterView_Cam::Update(f32_t fDeltaTime)
 	__super::Update(fDeltaTime);
 	if (nullptr == m_pPlayer)
 		return;
-	float3_t fPlayerPos = m_pPlayer->GetInfo(INFO::POS);
 
-	XMVECTOR vPlayerPos = XMLoadFloat3(&fPlayerPos);
-	XMVECTOR vCameraEye = vPlayerPos + XMVECTOR({ 0.f, 5.f, -5.f });
-	
-	m_vAt = fPlayerPos;
+	// At 설정
+	vector_t vPlayerPos = m_pPlayer->Get_Transform()->Get_State(STATE::POSITION);
+	XMStoreFloat3(&m_vAt, vPlayerPos);
+
+	// Eye 설정
+	vector_t vCameraEye = vPlayerPos + vector_t({ 0.f, 5.f, -5.f });
 	XMStoreFloat3(&m_vEye,vCameraEye);
 }
 

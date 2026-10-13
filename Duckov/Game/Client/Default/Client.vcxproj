@@ -140,7 +140,6 @@
     <ClInclude Include="..\Public\Cube.h" />
     <ClInclude Include="..\Public\DDSTextureLoader.h" />
     <ClInclude Include="..\Public\Fog.h" />
-    <ClInclude Include="..\public\Free_Cam.h" />
     <ClInclude Include="..\Public\Mirror.h" />
     <ClInclude Include="..\public\Orthographic_Cam.h" />
     <ClInclude Include="..\public\SkyBox.h" />
@@ -167,7 +166,6 @@
     <ClCompile Include="..\private\BackGround.cpp" />
     <ClCompile Include="..\Private\DDSTextureLoader.cpp" />
     <ClCompile Include="..\private\Fog.cpp" />
-    <ClCompile Include="..\private\Free_Cam.cpp" />
     <ClCompile Include="..\private\Mirror.cpp" />
     <ClCompile Include="..\private\Orthographic_Cam.cpp" />
     <ClCompile Include="..\private\SkyBox.cpp" />

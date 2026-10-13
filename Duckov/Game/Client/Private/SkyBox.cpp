@@ -11,15 +11,8 @@ HRESULT CSkyBox::Initialize_Prototype()
     if (FAILED(__super::Initialize_Prototype()))
         return E_FAIL;
 
-    m_vScale = { 20.f,20.f,20.f };
-
-    
-
     // 정육면체 그리기
     // 정점 정보
-   // 아틀라스 칸 경계에서 옆 칸의 검은색이 번지지 않도록 반 픽셀씩 안쪽으로 당김
-    const float du = 0.5f / 1024.f;   // 텍스처 가로 1024
-    const float dv = 0.5f / 768.f;    // 텍스처 세로 768
 
     VTXNORM vertices[] =
     {
@@ -184,17 +177,13 @@ HRESULT CSkyBox::Initialize(void* pArg)
 {
     if (FAILED(__super::Initialize(pArg)))
         return E_FAIL;
+    m_pTransform->Set_Scale({ 20.f,20.f,20.f });
     return S_OK;
 }
 
 void CSkyBox::Priority_Update(f32_t fDeltaTime)
 {
     __super::Priority_Update(fDeltaTime);
-    auto pCamera = CGameInstance::Get().Get_MainCamera();
-
-    auto pCamEye = pCamera->GetEye();
-
-    SetPos(pCamEye);
 }
 
 void CSkyBox::Update(f32_t fDeltaTime)
@@ -204,12 +193,18 @@ void CSkyBox::Update(f32_t fDeltaTime)
 void CSkyBox::Late_Update(f32_t fDeltaTime)
 {
     __super::Late_Update(fDeltaTime);
+
+    auto pCamera = CGameInstance::Get().Get_MainCamera();
+    auto vCamEye = pCamera->GetEye();
+
+    m_pTransform->Set_State(STATE::POSITION, { vCamEye.x,vCamEye.y,vCamEye.z,1.f });
+
     CGameInstance::Get().Add_RenderGroup(RENDERID::PRIORITY, dynamic_pointer_cast<CGameObject>(shared_from_this()));
 }
 
 HRESULT CSkyBox::Render()
 {
-    XMMATRIX matWorld = GetWorld();
+    XMMATRIX matWorld = m_pTransform->Get_World();
 
     // 역전치 행렬은 이동 성분을 뺀 복사본으로 계산 (matWorld 자체는 이동 성분 유지)
     XMMATRIX matNoTrans = matWorld;

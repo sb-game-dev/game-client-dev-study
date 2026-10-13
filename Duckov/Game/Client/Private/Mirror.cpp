@@ -128,7 +128,8 @@ HRESULT CMirror::Initialize(void* pArg)
     if (FAILED(__super::Initialize(pArg)))
         return E_FAIL;
 
-    SetPos({ 0.f,2.f,5.f });
+    m_pTransform->Set_State(STATE::POSITION, vector_t{ 0.f,2.f,5.f,1.f });
+
     return S_OK;
 }
 
@@ -155,7 +156,7 @@ HRESULT CMirror::Render()
     //                    * XMMatrixRotationZ(m_fRotZ)
     //                    * XMMatrixTranslation(m_vPosition.x, m_vPosition.y, m_vPosition.z);
 
-    XMMATRIX matWorld = GetWorld();
+    XMMATRIX matWorld = m_pTransform->Get_World();
 
 
     // VS로 전달할 구조체 채우기
@@ -213,9 +214,9 @@ HRESULT CMirror::Render()
 
 XMVECTOR CMirror::Get_MirrorPlane()
 {
-    float3_t vPos = GetInfo(INFO::POS);
+    vector_t vPos = m_pTransform->Get_State(STATE::POSITION);
 
-    return XMPlaneFromPointNormal(XMLoadFloat3(&vPos),XMVectorSet(0.f,0.f,-1.f,0.f));
+    return XMPlaneFromPointNormal(vPos,XMVectorSet(0.f,0.f,-1.f,0.f));
 }
 
 shared_ptr<CMirror> CMirror::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)

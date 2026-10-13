@@ -196,7 +196,7 @@ HRESULT CCube::Initialize(void* pArg)
 
     auto pHill = static_pointer_cast<CHill>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Hill")));
 
-    float3_t  vPos = m_vInfo[static_cast<uint32_t>(INFO::POS)];
+    vector_t  vPos = m_pTransform->Get_State(STATE::POSITION);
 
     const auto& vecIndex = pHill->GetIndex();
     const auto& vecVtx = pHill->GetVertices();
@@ -207,26 +207,27 @@ HRESULT CCube::Initialize(void* pArg)
         float3_t p1 = vecVtx[vecIndex[i + 1]].vPosition;
         float3_t p2 = vecVtx[vecIndex[i + 2]].vPosition;
 
-        XMVECTOR vPlane = XMPlaneFromPoints(XMLoadFloat3(&p0), XMLoadFloat3(&p1), XMLoadFloat3(&p2));
+        vector_t vPlane = XMPlaneFromPoints(XMLoadFloat3(&p0), XMLoadFloat3(&p1), XMLoadFloat3(&p2));
 
-        XMVECTOR vRayPos = XMVectorSet(vPos.x, vPos.y + 100.f, vPos.z, 1.f);
-        XMVECTOR vRayDir = XMVectorSet(0.f, -1.f, 0.f, 0.f);   // 아래 방향
+        vector_t vRayPos = vPos + vector_t{ 0,100.f,0,0.f };
+        vector_t vRayDir = XMVectorSet(0.f, -1.f, 0.f, 0.f);   // 아래 방향
 
-        XMVECTOR v0 = XMLoadFloat3(&p0);
-        XMVECTOR v1 = XMLoadFloat3(&p1);
-        XMVECTOR v2 = XMLoadFloat3(&p2);
+        vector_t v0 = XMLoadFloat3(&p0);
+        vector_t v1 = XMLoadFloat3(&p1);
+        vector_t v2 = XMLoadFloat3(&p2);
 
         f32_t fDist = 0.f;
         if (TriangleTests::Intersects(vRayPos, vRayDir, v0, v1, v2, fDist))
         {
-            XMFLOAT4 plane;
+            float4_t plane;
             XMStoreFloat4(&plane, vPlane); // x = a, y = b, z = c, w = d -> ax + by + cz + d = 0
 
-            f32_t fY = -(plane.x * vPos.x + plane.z * vPos.z + plane.w) / plane.y;
+            f32_t fY = -(plane.x * XMVectorGetX(vPos) + plane.z * XMVectorGetZ(vPos) + plane.w) / plane.y;
 
-            SetPos({ vPos.x,fY + 0.5f,vPos.z });
+            vPos = XMVectorSetY(vPos, fY + 0.5f);
+            m_pTransform->Set_State(STATE::POSITION, vPos);
 
-            XMVECTOR vGround = XMPlaneNormalize(vPlane);
+            vector_t vGround = XMPlaneNormalize(vPlane);
             if (XMVectorGetY(vGround) < 0.f)        // 법선이 아래를 보면 뒤집기
                 vGround = XMVectorNegate(vGround);
             XMStoreFloat4(&m_vGroundPlane, vGround);
@@ -255,7 +256,7 @@ void CCube::Late_Update(f32_t fDeltaTime)
 
 HRESULT CCube::Render()
 {    
-    return Render_Mesh(GetWorld(), m_pRS.Get(), m_pPS.Get());
+    return Render_Mesh(m_pTransform->Get_World(), m_pRS.Get(), m_pPS.Get());
 }
 
 HRESULT CCube::Render_Shadow()
@@ -266,7 +267,7 @@ HRESULT CCube::Render_Shadow()
     XMMATRIX matShadow = XMMatrixShadow(vPlane, vToLight);
     XMMATRIX matOffset = XMMatrixTranslation(0.f, 0.01f, 0.f);  // 지형과 z-fighting 방지
 
-    return Render_Mesh(GetWorld() * matShadow * matOffset, m_pRS.Get(), m_pPS_Shadow.Get());
+    return Render_Mesh(m_pTransform->Get_World() * matShadow * matOffset, m_pRS.Get(), m_pPS_Shadow.Get());
 }
 
 HRESULT CCube::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS, ID3D11PixelShader* pPS)

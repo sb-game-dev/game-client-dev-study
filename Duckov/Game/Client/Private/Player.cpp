@@ -172,12 +172,12 @@ void CPlayer::Late_Update(f32_t fDeltaTime)
 
 HRESULT CPlayer::Render()
 {
-    return Render_Mesh(GetWorld(), m_pRS.Get());
+    return Render_Mesh(m_pTransform->Get_World(), m_pRS.Get());
 }
 
 HRESULT CPlayer::Render_Reflection(const XMMATRIX& matReflect)
 {
-    return Render_Mesh(GetWorld() * matReflect, m_pRS_Reflect.Get());
+    return Render_Mesh(m_pTransform->Get_World() * matReflect, m_pRS_Reflect.Get());
 }
 
 HRESULT CPlayer::Render_Shadow()
@@ -188,7 +188,7 @@ HRESULT CPlayer::Render_Shadow()
     XMMATRIX matShadow = XMMatrixShadow(vPlane, vToLight);
     XMMATRIX matOffset = XMMatrixTranslation(0.f, 0.01f, 0.f);  // 지형과 z-fighting 방지
 
-    return Render_Mesh(GetWorld() * matShadow * matOffset, m_pRS.Get(), m_pPS_Shadow.Get());
+    return Render_Mesh(m_pTransform->Get_World() * matShadow * matOffset, m_pRS.Get(), m_pPS_Shadow.Get());
 }
 
 HRESULT CPlayer::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS)
@@ -258,8 +258,9 @@ HRESULT CPlayer::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pR
 }
 void CPlayer::AdjustPosY()
 {
-    float3_t  vPos = m_vInfo[static_cast<uint32_t>(INFO::POS)];
-    auto pHill = static_pointer_cast<CHill>(m_pHill);
+    auto pHill = static_pointer_cast<CHill>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Hill")));
+
+    vector_t  vPos = m_pTransform->Get_State(STATE::POSITION);
 
     const auto& vecIndex = pHill->GetIndex();
     const auto& vecVtx = pHill->GetVertices();
@@ -270,26 +271,27 @@ void CPlayer::AdjustPosY()
         float3_t p1 = vecVtx[vecIndex[i + 1]].vPosition;
         float3_t p2 = vecVtx[vecIndex[i + 2]].vPosition;
 
-        XMVECTOR vPlane = XMPlaneFromPoints(XMLoadFloat3(&p0), XMLoadFloat3(&p1), XMLoadFloat3(&p2));
+        vector_t vPlane = XMPlaneFromPoints(XMLoadFloat3(&p0), XMLoadFloat3(&p1), XMLoadFloat3(&p2));
 
-        XMVECTOR vRayPos = XMVectorSet(vPos.x, vPos.y + 100.f, vPos.z, 1.f);
-        XMVECTOR vRayDir = XMVectorSet(0.f, -1.f, 0.f, 0.f);   // 아래 방향
+        vector_t vRayPos = vPos + vector_t{ 0,100.f,0,0.f };
+        vector_t vRayDir = XMVectorSet(0.f, -1.f, 0.f, 0.f);   // 아래 방향
 
-        XMVECTOR v0 = XMLoadFloat3(&p0);
-        XMVECTOR v1 = XMLoadFloat3(&p1);
-        XMVECTOR v2 = XMLoadFloat3(&p2);
+        vector_t v0 = XMLoadFloat3(&p0);
+        vector_t v1 = XMLoadFloat3(&p1);
+        vector_t v2 = XMLoadFloat3(&p2);
 
         f32_t fDist = 0.f;
         if (TriangleTests::Intersects(vRayPos, vRayDir, v0, v1, v2, fDist))
         {
-            XMFLOAT4 plane;
+            float4_t plane;
             XMStoreFloat4(&plane, vPlane); // x = a, y = b, z = c, w = d -> ax + by + cz + d = 0
 
-            f32_t fY = -(plane.x * vPos.x + plane.z * vPos.z + plane.w) / plane.y;
+            f32_t fY = -(plane.x * XMVectorGetX(vPos) + plane.z * XMVectorGetZ(vPos) + plane.w) / plane.y;
 
-            SetPos({ vPos.x,fY + 0.5f,vPos.z });
+            vPos = XMVectorSetY(vPos, fY + 0.5f);
+            m_pTransform->Set_State(STATE::POSITION, vPos);
 
-            XMVECTOR vGround = XMPlaneNormalize(vPlane);
+            vector_t vGround = XMPlaneNormalize(vPlane);
             if (XMVectorGetY(vGround) < 0.f)        // 법선이 아래를 보면 뒤집기
                 vGround = XMVectorNegate(vGround);
             XMStoreFloat4(&m_vGroundPlane, vGround);
@@ -302,30 +304,30 @@ void CPlayer::KeyInput(f32_t fDeltaTime)
     if (GetAsyncKeyState('W'))
     {
         if (GetAsyncKeyState('A'))
-            MovePos({ -1 / sqrtf(2),0.f,1 / sqrtf(2) }, m_fSpeed, fDeltaTime);
+            m_pTransform->Move_Position(vector_t{ -1 / sqrtf(2),0.f,1 / sqrtf(2),0.f }, fDeltaTime);
         else if (GetAsyncKeyState('D'))
-            MovePos({ 1 / sqrtf(2),0.f,1 / sqrtf(2) }, m_fSpeed, fDeltaTime);
+            m_pTransform->Move_Position(vector_t{ 1 / sqrtf(2),0.f,1 / sqrtf(2),0.f }, fDeltaTime);
         else
-            MovePos({ 0.f,0.f,1.f }, m_fSpeed, fDeltaTime);
+            m_pTransform->Move_Position(vector_t{ 0.f,0.f,1.f,0.f }, fDeltaTime);
     }
     else if (GetAsyncKeyState('S'))
     {
         if (GetAsyncKeyState('A'))
-            MovePos({ -1 / sqrtf(2),0.f,-1 / sqrtf(2) }, m_fSpeed, fDeltaTime);
+            m_pTransform->Move_Position(vector_t{ -1 / sqrtf(2),0.f,-1 / sqrtf(2),0.f }, fDeltaTime);
         else if (GetAsyncKeyState('D'))
-            MovePos({ 1 / sqrtf(2),0.f,-1 / sqrtf(2) }, m_fSpeed, fDeltaTime);
+            m_pTransform->Move_Position(vector_t{ 1 / sqrtf(2),0.f,-1 / sqrtf(2),0.f }, fDeltaTime);
         else
-            MovePos({ 0.f,0.f,-1 / sqrtf(2) }, m_fSpeed, fDeltaTime);
+            m_pTransform->Move_Position(vector_t{ 0.f,0.f,-1 / sqrtf(2),0.f }, fDeltaTime);
     }
     else if (GetAsyncKeyState('A'))
-        MovePos({ -1.f, 0.f,0.f }, m_fSpeed, fDeltaTime);
+        m_pTransform->Move_Position(vector_t{ -1.f, 0.f,0.f,0.f }, fDeltaTime);
     else if (GetAsyncKeyState('D'))
-        MovePos({ 1.f,0.f,0.f }, m_fSpeed, fDeltaTime);
+        m_pTransform->Move_Position(vector_t{ 1.f,0.f,0.f,0.f }, fDeltaTime);
 
     if (GetAsyncKeyState(VK_LSHIFT))
-        m_fSpeed = 8.f;
+        m_pTransform->Set_Speed(8.f);
     else
-        m_fSpeed = 4.f;
+        m_pTransform->Set_Speed(4.f);
 }
 void CPlayer::LookAtMouse(f32_t fDeltaTime)
 {
@@ -346,9 +348,9 @@ void CPlayer::LookAtMouse(f32_t fDeltaTime)
 
     XMVECTOR vRight = XMVector3Cross(XMVector3Normalize(vUp), XMVector3Normalize(vDir));
     
-    XMStoreFloat3(&m_vInfo[static_cast<uint32_t>(INFO::RIGHT)], vRight);
-    XMStoreFloat3(&m_vInfo[static_cast<uint32_t>(INFO::UP)], vUp);
-    XMStoreFloat3(&m_vInfo[static_cast<uint32_t>(INFO::LOOK)], vDir);
+    m_pTransform->Set_State(STATE::RIGHT, vRight);
+    m_pTransform->Set_State(STATE::UP,    vUp);
+    m_pTransform->Set_State(STATE::LOOK,  vDir);
 }
 shared_ptr<CPlayer> CPlayer::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
 {

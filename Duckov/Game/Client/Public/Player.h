@@ -5,6 +5,11 @@
 NS_BEGIN(Client)
 class CPlayer : public CGameObject
 {
+public:
+	typedef struct tagPlayerDesc : public GAMEOBJECT_DESC
+	{
+
+	}PLAYER_DESC;
 private:
 	CPlayer(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
 public:
@@ -21,11 +26,9 @@ public:
 	virtual HRESULT	Render_Reflection(const XMMATRIX& matReflect) override;
 	virtual HRESULT	Render_Shadow() override;
 
-	virtual void	SetHill(shared_ptr<CHill> pHill) { m_pHill = pHill;}
 	virtual void	AdjustPosY();
 
 private:
-	shared_ptr<CHill>		m_pHill = {nullptr};
 
 	HRESULT			Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS) override;
 	HRESULT			Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS, ID3D11PixelShader* pPS);

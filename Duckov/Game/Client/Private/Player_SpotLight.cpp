@@ -38,9 +38,11 @@ void CPlayer_SpotLight::Update(f32_t fDeltaTime)
 void CPlayer_SpotLight::Late_Update(f32_t fDeltaTime)
 {
     // 스포트라이트 조명 위치, 방향 초기화
-    float3_t vPos = m_pPlayer->GetInfo(INFO::POS);
-    m_tSpotLight.Position = float3_t(vPos.x, vPos.y + 2.f, vPos.z);
-    m_tSpotLight.Direction = m_pPlayer->GetInfo(INFO::LOOK);
+    vector_t vPos = m_pPlayer->Get_Transform()->Get_State(STATE::POSITION);
+    XMStoreFloat3(&m_tSpotLight.Position, vPos + vector_t{ 0,2.f,0,0 });
+
+    vector_t vLook = m_pPlayer->Get_Transform()->Get_State(STATE::LOOK);
+    XMStoreFloat3(&m_tSpotLight.Direction, vLook);
 
     // 조명 상수 버퍼 채우기
     CB_SPOTLIGHT cbLight;

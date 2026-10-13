@@ -4,6 +4,11 @@
 NS_BEGIN(Client)
 class CHill : public CGameObject
 {
+public:
+	typedef struct tagHillDesc : public GAMEOBJECT_DESC
+	{
+
+	}HILL_DESC;
 private:
 	CHill(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
 public:

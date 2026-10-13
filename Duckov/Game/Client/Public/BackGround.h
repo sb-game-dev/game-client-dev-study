@@ -4,6 +4,11 @@ NS_BEGIN(Client)
 
 class CBackGround : public CGameObject
 {
+public:
+	typedef struct tagBackGroundDesc : public CGameObject::GAMEOBJECT_DESC
+	{
+
+	}BACKGROUND_DESC;
 private:
 	CBackGround(ComPtr<ID3D11Device> pDevice,ComPtr<ID3D11DeviceContext> pContext);
 public:

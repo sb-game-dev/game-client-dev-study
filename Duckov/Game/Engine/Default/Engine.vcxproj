@@ -172,6 +172,7 @@ xcopy "$(SolutionDir)Engine\Bin\Engine.dll" "$(SolutionDir)Client\Bin\" /Y
     <ClInclude Include="..\Public\Engine_Struct.h" />
     <ClInclude Include="..\Public\Engine_Typedef.h" />
     <ClInclude Include="..\Public\Timer_Manager.h" />
+    <ClInclude Include="..\public\Transform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\private\Camera.cpp" />
@@ -194,6 +195,7 @@ xcopy "$(SolutionDir)Engine\Bin\Engine.dll" "$(SolutionDir)Client\Bin\" /Y
     <ClCompile Include="..\private\SpotLight.cpp" />
     <ClCompile Include="..\Private\Timer.cpp" />
     <ClCompile Include="..\Private\Timer_Manager.cpp" />
+    <ClCompile Include="..\private\Transform.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

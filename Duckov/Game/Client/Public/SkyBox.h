@@ -4,6 +4,11 @@ NS_BEGIN(Client)
 
 class CSkyBox : public CGameObject
 {
+public:
+	typedef struct tagSkyBoxDesc : public GAMEOBJECT_DESC
+	{
+
+	}SKYBOX_DESC;
 private:
 	CSkyBox(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
 public:

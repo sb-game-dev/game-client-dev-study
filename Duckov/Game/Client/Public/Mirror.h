@@ -4,6 +4,11 @@
 NS_BEGIN(Client)
 class CMirror : public CGameObject
 {
+public:
+	typedef struct tagMirrorDesc : public GAMEOBJECT_DESC
+	{
+
+	}MIRROR_DESC;
 private:
 	CMirror(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
 public:

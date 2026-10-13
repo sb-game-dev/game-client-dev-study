@@ -126,13 +126,10 @@ HRESULT CLoader::Loading_For_GamePlayLV()
     CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_GameObject_Player"),pPlayer);
 
     shared_ptr<CGameObject> pGameObject = {};
-    for (uint32_t i = 0; i < 16; ++i)
-    {
-        pGameObject = CCube::Create(m_pDevice, m_pContext);
-        f32_t   fTheta = XM_2PI / 16 * i;
-        pGameObject->SetPos({ 5 * sinf(fTheta),0.f,5 * cosf(fTheta) });
-        CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_Cube" + to_wstring(i), pGameObject);
-    }
+
+    pGameObject = CCube::Create(m_pDevice, m_pContext);
+    CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_Cube", pGameObject);
+   
 
     pGameObject = CSkyBox::Create(m_pDevice, m_pContext);
     CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_SkyBox", pGameObject);

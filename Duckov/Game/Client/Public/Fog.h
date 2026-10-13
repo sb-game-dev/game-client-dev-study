@@ -4,6 +4,11 @@
 NS_BEGIN(Client)
 class CFog : public CGameObject
 {
+public:
+	typedef struct tagFogDesc : public GAMEOBJECT_DESC
+	{
+
+	}FOG_DESC;
 private:
 	CFog(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
 public:

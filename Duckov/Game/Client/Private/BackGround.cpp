@@ -131,15 +131,20 @@ HRESULT CBackGround::Initialize_Prototype()
     m_tMaterial.Diffuse = float4_t(1.f, 1.f, 1.f, 1.f);
     m_tMaterial.Specular = float4_t(0.2f, 0.2f, 0.2f, 16.f);   // w = 광택 지수, 0이면 안 됨
 
-    SetPos(float3_t(0.f, 0.f, 1.f));
-    m_vScale = { g_iWinSizeX,g_iWinSizeY,1.f };
+   
+
 	return S_OK;
 }
 
 HRESULT CBackGround::Initialize(void* pArg)
 {
-	if (FAILED(__super::Initialize(pArg)))
+    CBackGround::BACKGROUND_DESC        BackGroundDesc{};
+    BackGroundDesc.fSpeedPerSec = 10.f;
+    BackGroundDesc.fDegreeRotPerSec = 180.f;
+	if (FAILED(__super::Initialize(&BackGroundDesc)))
 		return E_FAIL;
+    m_pTransform->Set_State(STATE::POSITION, vector_t{ 0.f,0.f,1.f,1.f });
+    m_pTransform->Set_Scale({ g_iWinSizeX, g_iWinSizeY, 1.f });
     return S_OK;
 }
 
@@ -162,7 +167,7 @@ HRESULT CBackGround::Render()
 {
 	if (FAILED(__super::Render()))
 		return E_FAIL;
-    XMMATRIX matWorld = GetWorld();
+    XMMATRIX matWorld = m_pTransform->Get_World();
 
     // 역전치 행렬은 이동 성분을 뺀 복사본으로 계산 (matWorld 자체는 이동 성분 유지)
     XMMATRIX matNoTrans = matWorld;

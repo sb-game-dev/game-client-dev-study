@@ -1,8 +1,15 @@
 #pragma once
 #include "Prototype.h"
+#include "Transform.h"
 NS_BEGIN(Engine)
 class ENGINE_DLL CGameObject abstract : public CPrototype
-{
+{ 
+public:
+	typedef struct tagGameObjectDesc : public CTransform::TRANSFORM_DESC
+	{
+
+	}GAMEOBJECT_DESC;
+
 protected:
 	CGameObject(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
 public:
@@ -19,21 +26,14 @@ public:
 	virtual HRESULT		Render();
 	virtual HRESULT		Render_Reflection(const XMMATRIX& matReflect) { return S_OK; }
 	virtual HRESULT		Render_Shadow() { return S_OK; }
-	
-
-	virtual	void		SetPos(float3_t vPos) { m_vInfo[static_cast<uint32_t>(INFO::POS)] = vPos; }
-	virtual	void		MovePos(XMVECTOR vDir, f32_t fSpeed, f32_t fDeltaTime);
-	virtual	void		SetWorld(XMMATRIX matWorld)		{ XMStoreFloat4x4(&m_matWorld, matWorld); }
-	virtual	void		SetWorld(float4x4_t matWorld)	{ m_matWorld = matWorld; }
-	virtual	float3_t	GetInfo(INFO eID)				{ return m_vInfo[static_cast<int>(eID)]; }
-
-	virtual XMMATRIX	GetWorld();
 
 	// 거울평면의 법선벡터를 a,b,c,d를 반환
 	virtual XMVECTOR	Get_MirrorPlane() { return XMVectorZero(); }
 
 	virtual void		Compute_ViewZ();
 	virtual	f32_t		Get_ViewZ() { return m_fViewZ; }
+
+	virtual shared_ptr<CTransform>	Get_Transform() { return m_pTransform; }
 
 protected:
 	ComPtr<ID3D11Buffer>				m_pVB = { nullptr };			// 버텍스 버퍼
@@ -50,17 +50,7 @@ protected:
 	ComPtr<ID3D11ShaderResourceView>	m_pSRV = { nullptr };
 	ComPtr<ID3D11SamplerState>			m_pSampler = { nullptr };
 
-	float4x4_t			m_matWorld{};
-
-	float3_t			m_vInfo[static_cast<int>(INFO::END)] = {};
-
-	float3_t			m_vScale = { 1.f,1.f,1.f };
-	
-	f32_t               m_fRotX = { 0.f };
-	f32_t               m_fRotY = { 0.f };
-	f32_t               m_fRotZ = { 0.f };
-
-	f32_t				m_fSpeed = { 1.f };
+	shared_ptr<CTransform>				m_pTransform = { nullptr };
 
 	f32_t				m_fViewZ = {};
 

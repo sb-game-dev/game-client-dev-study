@@ -150,6 +150,9 @@
     <ClInclude Include="..\public\Renderer.h">
       <Filter>09. Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\Transform.h">
+      <Filter>06. Component\00. Transform</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Timer.cpp">
@@ -211,6 +214,9 @@
     </ClCompile>
     <ClCompile Include="..\private\Renderer.cpp">
       <Filter>09. Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Transform.cpp">
+      <Filter>06. Component\00. Transform</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

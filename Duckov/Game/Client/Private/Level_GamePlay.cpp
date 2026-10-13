@@ -53,8 +53,12 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
 
     for (int i = 0; i < 16; ++i)
     {
-        if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_Cube" + to_wstring(i),
-            ETOUI(LEVEL::GAMEPLAY), pLayerTag, L"GameObject_Cube" + to_wstring(i))))
+        CCube::CUBE_DESC Cube_Desc{};
+        Cube_Desc.fPosX = 5 * sinf(XM_2PI / 16 * i);
+        Cube_Desc.fPosZ = 5 * cosf(XM_2PI / 16 * i);
+
+        if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_Cube",
+            ETOUI(LEVEL::GAMEPLAY), pLayerTag, L"GameObject_Cube" + to_wstring(i), &Cube_Desc)))
             return E_FAIL;
     }
     
@@ -76,7 +80,6 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
         return E_FAIL;
 
     auto pPlayer = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_Player"));
-    auto pHill = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_Hill"));
     auto pMirror = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_Mirror"));
     CGameInstance::Get().Set_Mirror(pMirror);
 
@@ -84,17 +87,14 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
     CGameInstance::Get().Add_Camera(TEXT("QuarterViewCam"), m_pCamera);
     
     m_pCamera->SetPlayer(pPlayer);
-    static_pointer_cast<CPlayer>(pPlayer)->SetHill(static_pointer_cast<CHill>(pHill));
 
     auto pPlayer_PointLight = CPlayer_PointLight::Create(m_pDevice, m_pContext);
     pPlayer_PointLight->SetPlayer(pPlayer);
     CGameInstance::Get().AddLight(L"Player_PointLight", pPlayer_PointLight);
 
-
     auto pPlayer_SpotLight = CPlayer_SpotLight::Create(m_pDevice, m_pContext);
     pPlayer_SpotLight->SetPlayer(pPlayer);
     CGameInstance::Get().AddLight(L"Player_SpotLight", pPlayer_SpotLight);
-
 
     auto SunLight = CSunLight::Create(m_pDevice, m_pContext);
     CGameInstance::Get().AddLight(L"SunLight", SunLight);

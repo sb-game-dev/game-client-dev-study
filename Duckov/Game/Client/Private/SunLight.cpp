@@ -7,7 +7,7 @@ CSunLight::CSunLight(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> p
 
 HRESULT CSunLight::Initialize()
 {
-	// 规氢己 炼搁 备炼眉 积己
+	// 规氢己 炼疙 备炼眉 积己
 	m_tDirectionalLight.Ambient		= XMFLOAT4(0.1f, 0.1f, 0.1f, 1.0f);
 	m_tDirectionalLight.Diffuse		= XMFLOAT4(0.25f, 0.25f, 0.25f, 1.0f);
 	m_tDirectionalLight.Specular	= XMFLOAT4(0.25f, 0.25f, 0.25f, 1.0f);

@@ -79,9 +79,6 @@
     <Filter Include="02. GameObjects\08. Tree">
       <UniqueIdentifier>{0d112b3a-b7ed-49f9-9d50-244024cfb7e6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. Camera\02. Free_Cam">
-      <UniqueIdentifier>{2f0818e7-19f7-4db1-9d47-eb04afd5f7ac}</UniqueIdentifier>
-    </Filter>
     <Filter Include="96. DDSTextureLoader">
       <UniqueIdentifier>{8cc23d17-baf9-4e7a-b3f9-68324a74e749}</UniqueIdentifier>
     </Filter>
@@ -168,9 +165,6 @@
     <ClInclude Include="..\public\Tree.h">
       <Filter>02. GameObjects\08. Tree</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\Free_Cam.h">
-      <Filter>03. Camera\02. Free_Cam</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -251,9 +245,6 @@
     </ClCompile>
     <ClCompile Include="..\private\Tree.cpp">
       <Filter>02. GameObjects\08. Tree</Filter>
-    </ClCompile>
-    <ClCompile Include="..\private\Free_Cam.cpp">
-      <Filter>03. Camera\02. Free_Cam</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
