@@ -260,6 +260,9 @@
     <FxCompile Include="..\Shader\Shader_TreeSprite.hlsl">
       <Filter>97. Shader</Filter>
     </FxCompile>
+    <FxCompile Include="..\Shader\Shader_Blur.hlsl">
+      <Filter>97. Shader</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Shader\LightHelper.hlsli">

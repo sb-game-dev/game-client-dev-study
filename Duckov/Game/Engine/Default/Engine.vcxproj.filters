@@ -70,6 +70,9 @@
     <Filter Include="06. Component\00. Transform">
       <UniqueIdentifier>{570386b8-edae-40dd-9659-21f6c47d2b21}</UniqueIdentifier>
     </Filter>
+    <Filter Include="10. Blur">
+      <UniqueIdentifier>{055b0155-e494-4327-9915-2efca13fab27}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Engine_Defines.h">
@@ -153,6 +156,9 @@
     <ClInclude Include="..\public\Transform.h">
       <Filter>06. Component\00. Transform</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\BlurFilter.h">
+      <Filter>10. Blur</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Timer.cpp">
@@ -217,6 +223,9 @@
     </ClCompile>
     <ClCompile Include="..\private\Transform.cpp">
       <Filter>06. Component\00. Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\BlurFilter.cpp">
+      <Filter>10. Blur</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

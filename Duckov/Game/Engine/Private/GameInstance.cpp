@@ -34,7 +34,7 @@ HRESULT CGameInstance::Initialize_Engine(const ENGINE_DESC& EngineDesc, _Out_ Co
 	if (m_pLight_Manager == nullptr)
 		return E_FAIL;
 
-	m_pRenderer = CRenderer::Create(pDevice,pContext);
+	m_pRenderer = CRenderer::Create(pDevice, pContext, EngineDesc.iWinSizeX, EngineDesc.iWinSizeY);
 	if (m_pRenderer == nullptr)
 		return E_FAIL;
 

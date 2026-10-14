@@ -7,7 +7,9 @@ CRenderer::CRenderer(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> p
 {
 }
 
-HRESULT CRenderer::Initialize()
+
+
+HRESULT CRenderer::Initialize(uint32_t iWinSizeX, uint32_t iWinSizeY)
 {
 	if (FAILED(Ready_BlendState()))
 		return E_FAIL;
@@ -20,6 +22,8 @@ HRESULT CRenderer::Initialize()
 	if (FAILED(Ready_Shadow_DSS()))
 		return E_FAIL;
 	if (FAILED(Ready_Alpha_DSS()))
+		return E_FAIL;
+	if (FAILED(Ready_SceneTarget(iWinSizeX,iWinSizeY)))
 		return E_FAIL;
 
 	return S_OK;
@@ -35,15 +39,26 @@ void CRenderer::Add_RenderGroup(RENDERID eRenderID, shared_ptr<CGameObject> pGam
 
 void CRenderer::Render_GameObject()
 {
+	ComPtr<ID3D11RenderTargetView>	pOldRTV;
+	ComPtr<ID3D11DepthStencilView>	pOldDSV;
+	m_pContext->OMGetRenderTargets(1, pOldRTV.GetAddressOf(), pOldDSV.GetAddressOf());
+
+	float clearColor[4] = { 0.75f, 0.75f, 0.75f, 1.f };
+	m_pContext->OMSetRenderTargets(1, m_pSceneRTV.GetAddressOf(), pOldDSV.Get());
+	m_pContext->ClearRenderTargetView(m_pSceneRTV.Get(), clearColor);
+
 	CGameInstance::Get().Set_MainCamera(L"QuarterViewCam");
 	Render_Priority();
 	Render_NonAlpha();
 	Render_Shadow();
 	Render_AlphaPre();
-
 	Render_Mirror();
-
 	Render_Alpha();
+
+	m_pContext->OMSetRenderTargets(1, pOldRTV.GetAddressOf(), pOldDSV.Get());
+
+	//m_pBlurFilter->BlurInPlace(m_pSceneSRV.Get(), m_pSceneUAV.Get(), 4);
+	Render_FullScreen();
 
 	CGameInstance::Get().Set_MainCamera(L"COrthographic_Cam");
 	Render_NonAlpha_UI();
@@ -225,6 +240,66 @@ HRESULT CRenderer::Ready_Shadow_DSS()
 	return S_OK;
 }
 
+HRESULT CRenderer::Ready_SceneTarget(uint32_t iWinSizeX, uint32_t iWinSizeY)
+{
+	D3D11_TEXTURE2D_DESC desc{};
+	desc.Width = iWinSizeX;
+	desc.Height = iWinSizeY;
+	desc.MipLevels = 1;
+	desc.ArraySize = 1;
+	desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	desc.SampleDesc.Count = 1;
+	desc.Usage = D3D11_USAGE_DEFAULT;
+	desc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS;
+
+	ComPtr<ID3D11Texture2D> pTex;
+	m_pDevice->CreateTexture2D(&desc, nullptr, &pTex);
+	m_pDevice->CreateRenderTargetView(pTex.Get(), nullptr, &m_pSceneRTV);
+	m_pDevice->CreateShaderResourceView(pTex.Get(), nullptr, &m_pSceneSRV);
+	m_pDevice->CreateUnorderedAccessView(pTex.Get(), nullptr, &m_pSceneUAV);
+
+	D3D11_DEPTH_STENCIL_DESC noDepth{};
+
+	noDepth.DepthEnable = FALSE;
+	if (FAILED(m_pDevice->CreateDepthStencilState(&noDepth, m_pDSS_NoDepth.GetAddressOf())))
+		return E_FAIL;
+
+	ComPtr<ID3DBlob> pVSBlob, pPSBlob, pErrBlob;
+
+	uint32_t iFlags = 0;
+#ifdef _DEBUG
+	iFlags = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
+#endif
+	//VS 컴파일
+	if (FAILED(D3DCompileFromFile(L"../Shader/Shader_Blur.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, 
+		"VS_FullScreen", "vs_5_0", iFlags, 0, &pVSBlob, &pErrBlob)))                       
+	{
+		if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
+		return E_FAIL;
+	}
+	// PS 컴파일
+	if (FAILED(D3DCompileFromFile(L"../Shader/Shader_Blur.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
+		"PS_FullScreen", "ps_5_0", iFlags, 0, &pPSBlob, &pErrBlob)))
+	{
+		if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
+		return E_FAIL;
+	}
+	// 버텍스 셰이더 객체 생성
+	if (FAILED(m_pDevice->CreateVertexShader(pVSBlob->GetBufferPointer(), pVSBlob->GetBufferSize(), nullptr, &m_pVS_FullScreen)))
+		return E_FAIL;
+
+	// 픽셀 셰이더 객체 생성
+	if (FAILED(m_pDevice->CreatePixelShader(pPSBlob->GetBufferPointer(), pPSBlob->GetBufferSize(), nullptr, &m_pPS_FullScreen)))
+		return E_FAIL;
+
+	// 블러필터 객체 생성
+	m_pBlurFilter = CBlurFilter::Create(m_pDevice, m_pContext, iWinSizeX, iWinSizeY);
+	if (nullptr == m_pBlurFilter)
+		return E_FAIL;
+
+	return S_OK;
+}
+
 void CRenderer::Render_Priority()
 {
 	m_pContext->OMSetDepthStencilState(m_pDSS_Priority.Get(), 0);
@@ -366,6 +441,22 @@ void CRenderer::Render_Alpha()
 	m_pContext->OMSetBlendState(nullptr, blendFactor, 0xffffffff);
 }
 
+void CRenderer::Render_FullScreen()
+{
+	m_pContext->OMSetDepthStencilState(m_pDSS_NoDepth.Get(), 0);   // 깊이 끄기
+	m_pContext->IASetInputLayout(nullptr);
+	m_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	m_pContext->VSSetShader(m_pVS_FullScreen.Get(), nullptr, 0);
+	m_pContext->PSSetShader(m_pPS_FullScreen.Get(), nullptr, 0);
+	m_pContext->PSSetShaderResources(0, 1, m_pSceneSRV.GetAddressOf());
+	m_pContext->Draw(3, 0);
+
+	ID3D11ShaderResourceView* pNullSRV = { nullptr };
+	m_pContext->PSSetShaderResources(0, 1, &pNullSRV);					// RTV와 같은 텍스처를 가리키기 때문에 SRV 해제, 
+																		// 이중포인터를 매개변수로 사용해야 한다.
+	m_pContext->OMSetDepthStencilState(nullptr, 0);						// UI를 그릴때는 깊이 쓰기를 켜야 하므로 초기화 해야 한다.
+}
+
 void CRenderer::Render_NonAlpha_UI()
 {
 	for (auto& pObj : m_RenderGroup[ETOUI(RENDERID::NONALPHA_UI)])
@@ -386,10 +477,11 @@ void CRenderer::Render_Alpha_UI()
 	m_RenderGroup[ETOUI(RENDERID::ALPHA_UI)].clear();
 }
 
-unique_ptr<CRenderer> CRenderer::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
+
+unique_ptr<CRenderer> CRenderer::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, uint32_t iWinSizeX, uint32_t iWinsizeY)
 {
 	auto pInstance = unique_ptr<CRenderer>(new CRenderer(pDevice, pContext));
-	if (FAILED(pInstance->Initialize()))
+	if (FAILED(pInstance->Initialize(iWinSizeX, iWinsizeY)))
 		pInstance.reset();
 	return pInstance;
 }
