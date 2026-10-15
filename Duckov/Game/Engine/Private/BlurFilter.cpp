@@ -20,46 +20,47 @@ HRESULT CBlurFilter::Initialize(uint32_t iWidth, uint32_t iHeight)
 	if (FAILED(Ready_ComputeShader()))
 		return E_FAIL;
 
+	if (FAILED(Ready_Sampler()))
+		return E_FAIL;
+
 	return S_OK;
 }
 
 void CBlurFilter::BlurInPlace(ID3D11ShaderResourceView* pInputSRV, ID3D11UnorderedAccessView* pInputUAV, uint32_t iBlurCount)
 {
 	/* 바인딩 해제용 */
-	ID3D11ShaderResourceView* pNullSRV = { nullptr };
-	ID3D11UnorderedAccessView* pNullUAV = { nullptr };
+	ID3D11ShaderResourceView* pNullSRV[1] = {nullptr};
+	ID3D11UnorderedAccessView* pNullUAV[1] = {nullptr};
 
 	/* 그룹 수 = 올림(픽셀 수 / 그룹당 스레드 수) */
-	uint32_t iNumGroupsX = (m_iWidth + s_iThreadsPerGroup - 1) / s_iThreadsPerGroup;
-	uint32_t iNumGroupsY = (m_iHeight + s_iThreadsPerGroup - 1) / s_iThreadsPerGroup;
+	uint32_t iNumGroupsX = (m_iWidth + s_iThreadsPerGroup - 1) / s_iThreadsPerGroup; // (1280 + 256 - 1) /256 = 5
+	uint32_t iNumGroupsY = (m_iHeight + s_iThreadsPerGroup - 1) / s_iThreadsPerGroup;// (720 + 256 - 1) / 256 = 4
+
+	m_pContext->CSSetSamplers(0, 1, m_pSampler.GetAddressOf());
 
 	for (uint32_t i = 0; i < iBlurCount; ++i)
 	{
-		/* 가로 블러 : A(SRV) -> B(UAV) */
 		m_pContext->CSSetShader(m_pCS_Horz.Get(), nullptr, 0);
-		m_pContext->CSSetShaderResources(0, 1, &pInputSRV);
-		m_pContext->CSSetUnorderedAccessViews(0, 1, m_pUAV_B.GetAddressOf(), nullptr);
+		m_pContext->CSSetShaderResources(0, 1, &pInputSRV);								// A텍스처의 SRV 바인드
+		m_pContext->CSSetUnorderedAccessViews(0, 1, m_pUAV_B.GetAddressOf(), nullptr);	// B텍스처의 UAV 바인드
 
-		/* 그룹 하나가 가로 256픽셀 한 줄을 맡음 -> 가로 그룹 iNumGroupsX개, 세로는 줄 수만큼 */
-		m_pContext->Dispatch(iNumGroupsX, m_iHeight, 1);
-
-		/* B를 다음 패스에서 SRV로 써야 하므로 해제 (입력/출력 동시 바인딩 불가) */
-		m_pContext->CSSetShaderResources(0, 1, &pNullSRV);
-		m_pContext->CSSetUnorderedAccessViews(0, 1, &pNullUAV, nullptr);
-
-		/* 세로 블러 : B(SRV) -> A(UAV) */
-		m_pContext->CSSetShader(m_pCS_Vert.Get(), nullptr, 0);
-		m_pContext->CSSetShaderResources(0, 1, m_pSRV_B.GetAddressOf());
-		m_pContext->CSSetUnorderedAccessViews(0, 1, &pInputUAV, nullptr);
-
-		/* 그룹 하나가 세로 256픽셀 한 줄을 맡음 */
-		m_pContext->Dispatch(m_iWidth, iNumGroupsY, 1);
-
-		m_pContext->CSSetShaderResources(0, 1, &pNullSRV);
-		m_pContext->CSSetUnorderedAccessViews(0, 1, &pNullUAV, nullptr);
+		m_pContext->Dispatch(iNumGroupsX, m_iHeight, 1); // Dispatch(5, 720, 1)
 	}
 
-	/* 계산 셰이더 해제 */
+	m_pContext->CSSetShaderResources(0, 1, pNullSRV);
+	m_pContext->CSSetUnorderedAccessViews(0, 1, pNullUAV, nullptr);
+
+	for(uint32_t i = 0 ; i < iBlurCount; ++i)
+	{
+		m_pContext->CSSetShader(m_pCS_Vert.Get(), nullptr, 0);
+		m_pContext->CSSetShaderResources(0, 1, m_pSRV_B.GetAddressOf());	// B텍스처의 SRV 바인드
+		m_pContext->CSSetUnorderedAccessViews(0, 1, &pInputUAV, nullptr);	// A텍스처의 UAV 바인드
+
+		m_pContext->Dispatch(m_iWidth, iNumGroupsY, 1);	// Dispatch(1280, 4, 1)
+	}
+	m_pContext->CSSetShaderResources(0, 1, pNullSRV);
+	m_pContext->CSSetUnorderedAccessViews(0, 1, pNullUAV, nullptr);
+
 	m_pContext->CSSetShader(nullptr, nullptr, 0);
 }
 
@@ -74,8 +75,7 @@ HRESULT CBlurFilter::Ready_Texture_B()
 	TextureDesc.SampleDesc.Count = 1;
 	TextureDesc.SampleDesc.Quality = 0;
 	TextureDesc.Usage = D3D11_USAGE_DEFAULT;
-	TextureDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE		// 세로 패스 입력
-		| D3D11_BIND_UNORDERED_ACCESS;	// 가로 패스 출력 (렌더 타겟으로는 안 쓰므로 RTV 불필요)
+	TextureDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS;	
 	TextureDesc.CPUAccessFlags = 0;
 	TextureDesc.MiscFlags = 0;
 
@@ -83,7 +83,7 @@ HRESULT CBlurFilter::Ready_Texture_B()
 	if (FAILED(m_pDevice->CreateTexture2D(&TextureDesc, nullptr, &pTexture_B)))
 		return E_FAIL;
 
-	/* 포맷이 확정된 텍스처라 뷰 desc는 nullptr로 충분 */
+	// 포맷이 확정된 텍스처라 뷰 desc는 nullptr로 설정
 	if (FAILED(m_pDevice->CreateShaderResourceView(pTexture_B.Get(), nullptr, &m_pSRV_B)))
 		return E_FAIL;
 
@@ -121,6 +121,23 @@ HRESULT CBlurFilter::Ready_ComputeShader()
 
 	if (FAILED(m_pDevice->CreateComputeShader(pVertBlob->GetBufferPointer(), pVertBlob->GetBufferSize(), nullptr, &m_pCS_Vert)))
 		return E_FAIL;
+
+	return S_OK;
+}
+
+HRESULT CBlurFilter::Ready_Sampler()
+{
+	// 샘플러 생성
+	D3D11_SAMPLER_DESC samplerDesc{};
+
+	samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
+	samplerDesc.AddressU = samplerDesc.AddressV = samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
+	samplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+	samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
+	if (FAILED(m_pDevice->CreateSamplerState(&samplerDesc, m_pSampler.GetAddressOf())))
+		return E_FAIL;
+
 
 	return S_OK;
 }

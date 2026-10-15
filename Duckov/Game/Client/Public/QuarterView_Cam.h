@@ -18,7 +18,7 @@ public:
     void                SetPlayer(shared_ptr<CGameObject> pPlayer) { m_pPlayer = pPlayer; }
 private:
     shared_ptr<CGameObject>     m_pPlayer = {nullptr};
-
+    f32_t                       m_fTime = {};
 public:
     static shared_ptr<CQuarterView_Cam> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
 

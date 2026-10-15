@@ -26,10 +26,15 @@ void CQuarterView_Cam::Update(f32_t fDeltaTime)
 	// At 설정
 	vector_t vPlayerPos = m_pPlayer->Get_Transform()->Get_State(STATE::POSITION);
 	XMStoreFloat3(&m_vAt, vPlayerPos);
-
+	
 	// Eye 설정
-	vector_t vCameraEye = vPlayerPos + vector_t({ 0.f, 5.f, -5.f });
+	vector_t vCameraEye = vPlayerPos + vector_t({ 0.f, 10.f, -5.f });
 	XMStoreFloat3(&m_vEye,vCameraEye);
+
+	//m_vEye = { 0.f,15.f,0.f };
+	//m_fTime += 5 * fDeltaTime;
+	//m_vAt = { 5 * cosf(XM_2PI / 16 * m_fTime) ,0.f,5 * sinf(XM_2PI / 16 * m_fTime) };
+
 }
 
 void CQuarterView_Cam::Late_Update(f32_t fDeltaTime)
