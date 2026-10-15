@@ -30,9 +30,18 @@ public:
 		XMStoreFloat4(reinterpret_cast<float4_t*>(&m_WorldMatrix.m[ETOUI(eState)][0]), vState);
 	}
 
+	float3_t	Get_Scaled() {
+		return float3_t(
+			XMVectorGetX(XMVector3Length(Get_State(STATE::RIGHT))),
+			XMVectorGetX(XMVector3Length(Get_State(STATE::UP))),
+			XMVectorGetX(XMVector3Length(Get_State(STATE::LOOK)))
+		);
+	}
+
 	matrix_t		Get_World() { return XMLoadFloat4x4(&m_WorldMatrix); }
 
-	void			Move_Position(vector_t vDir, f32_t fDeltaTime);
+	void			Move_Position(fvector_t vDir, f32_t fDeltaTime);
+	void			Move_To(fvector_t vGoal, f32_t fDeltaTime, f32_t fLimitDistance = 0.1f);
 
 	void			Go_Staight(f32_t fDeltaTime);
 	void			Go_Backward(f32_t fDeltaTime);
@@ -41,11 +50,15 @@ public:
 
 	void			Turn(fvector_t vAxis, f32_t fDeltaTime);
 	void			Rotation(fvector_t vAxis, f32_t fAngle);
+	void			Rotation(f32_t fRotationX = 0, f32_t fRotationY = 0, f32_t fRotationZ = 0);
 
 	void			Set_Speed(f32_t fSpeed) { m_fSpeedPerSec = fSpeed; }
-	void			Set_RotationRadian(f32_t fRadian) { m_fRotationPerSec = fRadian; }
+	void			Set_RotationDegree(f32_t fDegree) { m_fRotationPerSec = XMConvertToRadians(fDegree); }
 
-	void			Set_Scale(f32_t ScaleX, f32_t ScaleY, f32_t ScaleZ);
+	void			Set_Scale(f32_t ScaleX = 1, f32_t ScaleY = 1, f32_t ScaleZ = 1);
+	void			Scaling(f32_t ScaleX = 1, f32_t ScaleY = 1, f32_t ScaleZ = 1);
+
+	void			LookAt(fvector_t vAt);
 
 private:
 	float4x4_t		m_WorldMatrix = {};
