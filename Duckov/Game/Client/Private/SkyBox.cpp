@@ -177,7 +177,7 @@ HRESULT CSkyBox::Initialize(void* pArg)
 {
     if (FAILED(__super::Initialize(pArg)))
         return E_FAIL;
-    m_pTransform->Set_Scale( 20.f,20.f,20.f );
+    m_pTransformCom->Set_Scale( 20.f,20.f,20.f );
     return S_OK;
 }
 
@@ -197,14 +197,14 @@ void CSkyBox::Late_Update(f32_t fDeltaTime)
     auto pCamera = CGameInstance::Get().Get_MainCamera();
     auto vCamEye = pCamera->GetEye();
 
-    m_pTransform->Set_State(STATE::POSITION, { vCamEye.x,vCamEye.y,vCamEye.z,1.f });
+    m_pTransformCom->Set_State(STATE::POSITION, { vCamEye.x,vCamEye.y,vCamEye.z,1.f });
 
     CGameInstance::Get().Add_RenderGroup(RENDERID::PRIORITY, dynamic_pointer_cast<CGameObject>(shared_from_this()));
 }
 
 HRESULT CSkyBox::Render()
 {
-    XMMATRIX matWorld = m_pTransform->Get_World();
+    XMMATRIX matWorld = m_pTransformCom->Get_World();
 
     // 역전치 행렬은 이동 성분을 뺀 복사본으로 계산 (matWorld 자체는 이동 성분 유지)
     XMMATRIX matNoTrans = matWorld;

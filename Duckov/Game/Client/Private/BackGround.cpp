@@ -143,8 +143,8 @@ HRESULT CBackGround::Initialize(void* pArg)
     BackGroundDesc.fDegreeRotPerSec = 180.f;
 	if (FAILED(__super::Initialize(&BackGroundDesc)))
 		return E_FAIL;
-    m_pTransform->Set_State(STATE::POSITION, vector_t{ 0.f,0.f,1.f,1.f });
-    m_pTransform->Set_Scale( g_iWinSizeX, g_iWinSizeY, 1.f );
+    m_pTransformCom->Set_State(STATE::POSITION, vector_t{ 0.f,0.f,1.f,1.f });
+    m_pTransformCom->Set_Scale( g_iWinSizeX, g_iWinSizeY, 1.f );
     return S_OK;
 }
 
@@ -167,7 +167,7 @@ HRESULT CBackGround::Render()
 {
 	if (FAILED(__super::Render()))
 		return E_FAIL;
-    XMMATRIX matWorld = m_pTransform->Get_World();
+    XMMATRIX matWorld = m_pTransformCom->Get_World();
 
     // 역전치 행렬은 이동 성분을 뺀 복사본으로 계산 (matWorld 자체는 이동 성분 유지)
     XMMATRIX matNoTrans = matWorld;

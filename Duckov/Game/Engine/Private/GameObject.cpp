@@ -16,13 +16,14 @@ HRESULT CGameObject::Initialize(void* pArg)
 {
 	auto pDesc = static_cast<GAMEOBJECT_DESC*>(pArg);
 
-	m_pTransform = CTransform::Create(m_pDevice, m_pContext);
-	if (nullptr == m_pTransform)
+	m_pTransformCom = CTransform::Create(m_pDevice, m_pContext);
+	if (nullptr == m_pTransformCom)
 		return E_FAIL;
 
-	if (FAILED(m_pTransform->Initialize(pArg)))
+	if (FAILED(m_pTransformCom->Initialize(pArg)))
 		return E_FAIL;
 
+	m_Components.emplace(g_strTransformComTag, m_pTransformCom);
 	return S_OK;
 }
 void CGameObject::Priority_Update(f32_t fDeltaTime)
@@ -44,7 +45,7 @@ void CGameObject::Compute_ViewZ()
 	float4x4_t f44View = CGameInstance::Get().GetView();
 	matrix_t matView = XMLoadFloat4x4(&f44View);
 
-	XMVECTOR viewPos= m_pTransform->Get_State(STATE::POSITION);
+	XMVECTOR viewPos= m_pTransformCom->Get_State(STATE::POSITION);
 
 	viewPos = XMVector3TransformCoord(viewPos, matView);
 	m_fViewZ = XMVectorGetZ(viewPos);

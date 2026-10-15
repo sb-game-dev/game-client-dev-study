@@ -207,7 +207,7 @@ void CWave::Late_Update(f32_t fDeltaTime)
 
 HRESULT CWave::Render()
 {
-    XMMATRIX matWorld = m_pTransform->Get_World();
+    XMMATRIX matWorld = m_pTransformCom->Get_World();
 
     // 역전치 행렬은 이동 성분을 뺀 복사본으로 계산 (matWorld 자체는 이동 성분 유지)
     XMMATRIX matNoTrans = matWorld;

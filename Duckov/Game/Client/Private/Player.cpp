@@ -171,12 +171,12 @@ void CPlayer::Late_Update(f32_t fDeltaTime)
 
 HRESULT CPlayer::Render()
 {
-    return Render_Mesh(m_pTransform->Get_World(), m_pRS.Get());
+    return Render_Mesh(m_pTransformCom->Get_World(), m_pRS.Get());
 }
 
 HRESULT CPlayer::Render_Reflection(const XMMATRIX& matReflect)
 {
-    return Render_Mesh(m_pTransform->Get_World() * matReflect, m_pRS_Reflect.Get());
+    return Render_Mesh(m_pTransformCom->Get_World() * matReflect, m_pRS_Reflect.Get());
 }
 
 HRESULT CPlayer::Render_Shadow()
@@ -187,7 +187,7 @@ HRESULT CPlayer::Render_Shadow()
     XMMATRIX matShadow = XMMatrixShadow(vPlane, vToLight);
     XMMATRIX matOffset = XMMatrixTranslation(0.f, 0.01f, 0.f);  // 지형과 z-fighting 방지
 
-    return Render_Mesh(m_pTransform->Get_World() * matShadow * matOffset, m_pRS.Get(), m_pPS_Shadow.Get());
+    return Render_Mesh(m_pTransformCom->Get_World() * matShadow * matOffset, m_pRS.Get(), m_pPS_Shadow.Get());
 }
 
 HRESULT CPlayer::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS)
@@ -259,7 +259,7 @@ void CPlayer::AdjustPosY()
 {
     auto pHill = static_pointer_cast<CHill>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Hill")));
 
-    vector_t  vPos = m_pTransform->Get_State(STATE::POSITION);
+    vector_t  vPos = m_pTransformCom->Get_State(STATE::POSITION);
 
     const auto& vecIndex = pHill->GetIndex();
     const auto& vecVtx = pHill->GetVertices();
@@ -288,7 +288,7 @@ void CPlayer::AdjustPosY()
             f32_t fY = -(plane.x * XMVectorGetX(vPos) + plane.z * XMVectorGetZ(vPos) + plane.w) / plane.y;
 
             vPos = XMVectorSetY(vPos, fY + 0.5f);
-            m_pTransform->Set_State(STATE::POSITION, vPos);
+            m_pTransformCom->Set_State(STATE::POSITION, vPos);
 
             vector_t vGround = XMPlaneNormalize(vPlane);
             if (XMVectorGetY(vGround) < 0.f)        // 법선이 아래를 보면 뒤집기
@@ -303,59 +303,59 @@ void CPlayer::KeyInput(f32_t fDeltaTime)
     bool_t  bPushShift = false;
     if (GetAsyncKeyState(VK_LSHIFT))
     {
-        m_pTransform->Set_Speed(8.f);
+        m_pTransformCom->Set_Speed(8.f);
         bPushShift = true;
     }
     else
     {
         LookAtMouse(fDeltaTime);
-        m_pTransform->Set_Speed(4.f);
+        m_pTransformCom->Set_Speed(4.f);
     }
 
-    vector_t vLook = m_pTransform->Get_State(STATE::LOOK);
+    vector_t vLook = m_pTransformCom->Get_State(STATE::LOOK);
 
     if (GetAsyncKeyState('W'))
     {
         if (GetAsyncKeyState('A'))
         {
-            m_pTransform->Move_Position(m_vQuad2, fDeltaTime);
+            m_pTransformCom->Move_Position(m_vQuad2, fDeltaTime);
             if (!bPushShift)
                 return;
             f32_t dot = XMVectorGetY(XMVector3Dot(vLook, m_vQuad2));
             if (XMConvertToDegrees(acosf(dot)) > 2.f)
             {
                 if (XMVectorGetZ(vLook) > -XMVectorGetX(vLook))
-                    m_pTransform->Turn(m_vY_Minus, fDeltaTime);
+                    m_pTransformCom->Turn(m_vY_Minus, fDeltaTime);
                 else
-                    m_pTransform->Turn(m_vY_Plus, fDeltaTime);
+                    m_pTransformCom->Turn(m_vY_Plus, fDeltaTime);
             }
         }
         else if (GetAsyncKeyState('D'))
         {
-            m_pTransform->Move_Position(m_vQuad1, fDeltaTime);
+            m_pTransformCom->Move_Position(m_vQuad1, fDeltaTime);
             if (!bPushShift)
                 return;
             f32_t dot = XMVectorGetY(XMVector3Dot(vLook, m_vQuad1));
             if (XMConvertToDegrees(acosf(dot)) > 2.f)
             {
                 if (XMVectorGetZ(vLook) < XMVectorGetX(vLook))
-                    m_pTransform->Turn(m_vY_Minus, fDeltaTime);
+                    m_pTransformCom->Turn(m_vY_Minus, fDeltaTime);
                 else
-                    m_pTransform->Turn(m_vY_Plus, fDeltaTime);
+                    m_pTransformCom->Turn(m_vY_Plus, fDeltaTime);
             }
         }
         else
         {
-            m_pTransform->Move_Position(m_vZ_Plus, fDeltaTime);
+            m_pTransformCom->Move_Position(m_vZ_Plus, fDeltaTime);
             if (!bPushShift)
                 return;
             f32_t dot = XMVectorGetY(XMVector3Dot(vLook, m_vZ_Plus));
             if (XMConvertToDegrees(acosf(dot)) > 2.f)
             {
                 if (XMVectorGetX(vLook) < 0.f)
-                    m_pTransform->Turn(m_vY_Plus, fDeltaTime);
+                    m_pTransformCom->Turn(m_vY_Plus, fDeltaTime);
                 else 
-                    m_pTransform->Turn(m_vY_Minus, fDeltaTime);
+                    m_pTransformCom->Turn(m_vY_Minus, fDeltaTime);
             }
         }
     }
@@ -363,73 +363,73 @@ void CPlayer::KeyInput(f32_t fDeltaTime)
     {
         if (GetAsyncKeyState('A'))
         {
-            m_pTransform->Move_Position(m_vQuad3, fDeltaTime);
+            m_pTransformCom->Move_Position(m_vQuad3, fDeltaTime);
             if (!bPushShift)
                 return;
             f32_t dot = XMVectorGetY(XMVector3Dot(vLook, m_vQuad3));
             if (XMConvertToDegrees(acosf(dot)) > 2.f)
             {
                 if (XMVectorGetZ(vLook) < XMVectorGetX(vLook))
-                    m_pTransform->Turn(m_vY_Plus, fDeltaTime);
+                    m_pTransformCom->Turn(m_vY_Plus, fDeltaTime);
                 else
-                    m_pTransform->Turn(m_vY_Minus, fDeltaTime);
+                    m_pTransformCom->Turn(m_vY_Minus, fDeltaTime);
             }
         }
         else if (GetAsyncKeyState('D'))
         {
-            m_pTransform->Move_Position(m_vQuad4, fDeltaTime);
+            m_pTransformCom->Move_Position(m_vQuad4, fDeltaTime);
             if (!bPushShift)
                 return;
             f32_t dot = XMVectorGetY(XMVector3Dot(vLook, m_vQuad4));
             if (XMConvertToDegrees(acosf(dot)) > 2.f)
             {
                 if (XMVectorGetZ(vLook) > -XMVectorGetX(vLook))
-                    m_pTransform->Turn(m_vY_Plus, fDeltaTime);
+                    m_pTransformCom->Turn(m_vY_Plus, fDeltaTime);
                 else
-                    m_pTransform->Turn(m_vY_Minus, fDeltaTime);
+                    m_pTransformCom->Turn(m_vY_Minus, fDeltaTime);
             }
         }
         else
         {
-            m_pTransform->Move_Position(m_vZ_Minus, fDeltaTime);
+            m_pTransformCom->Move_Position(m_vZ_Minus, fDeltaTime);
             if (!bPushShift)
                 return;
             f32_t dot = XMVectorGetY(XMVector3Dot(vLook, m_vZ_Minus));
             if (XMConvertToDegrees(acosf(dot)) > 2.f)
             {
                 if (XMVectorGetX(vLook) < 0.f)
-                    m_pTransform->Turn(m_vY_Minus, fDeltaTime);
+                    m_pTransformCom->Turn(m_vY_Minus, fDeltaTime);
                 else
-                    m_pTransform->Turn(m_vY_Plus, fDeltaTime);
+                    m_pTransformCom->Turn(m_vY_Plus, fDeltaTime);
             }
         }
     }
     else if (GetAsyncKeyState('A'))
     {
-        m_pTransform->Move_Position(m_vX_Minus, fDeltaTime);
+        m_pTransformCom->Move_Position(m_vX_Minus, fDeltaTime);
         if (!bPushShift)
             return;
         f32_t dot = XMVectorGetY(XMVector3Dot(vLook, m_vX_Minus));
         if (XMConvertToDegrees(acosf(dot)) > 2.f)
         {
             if (XMVectorGetZ(vLook) < 0.f)
-                m_pTransform->Turn(m_vY_Plus, fDeltaTime);
+                m_pTransformCom->Turn(m_vY_Plus, fDeltaTime);
             else
-                m_pTransform->Turn(m_vY_Minus, fDeltaTime);
+                m_pTransformCom->Turn(m_vY_Minus, fDeltaTime);
         }
     }
     else if (GetAsyncKeyState('D'))
     {
-        m_pTransform->Move_Position(m_vX_Plus, fDeltaTime);
+        m_pTransformCom->Move_Position(m_vX_Plus, fDeltaTime);
         if (!bPushShift)
             return;
         f32_t dot = XMVectorGetY(XMVector3Dot(vLook, m_vX_Plus));
         if (XMConvertToDegrees(acosf(dot)) > 2.f)
         {
             if (XMVectorGetZ(vLook) < 0.f)
-                m_pTransform->Turn(m_vY_Minus, fDeltaTime);
+                m_pTransformCom->Turn(m_vY_Minus, fDeltaTime);
             else
-                m_pTransform->Turn(m_vY_Plus, fDeltaTime);
+                m_pTransformCom->Turn(m_vY_Plus, fDeltaTime);
         }
     }
 
@@ -454,9 +454,9 @@ void CPlayer::LookAtMouse(f32_t fDeltaTime)
 
     XMVECTOR vRight = XMVector3Cross(XMVector3Normalize(vUp), XMVector3Normalize(vDir));
     
-    m_pTransform->Set_State(STATE::RIGHT, vRight);
-    m_pTransform->Set_State(STATE::UP,    vUp);
-    m_pTransform->Set_State(STATE::LOOK,  vDir);
+    m_pTransformCom->Set_State(STATE::RIGHT, vRight);
+    m_pTransformCom->Set_State(STATE::UP,    vUp);
+    m_pTransformCom->Set_State(STATE::LOOK,  vDir);
 }
 shared_ptr<CPlayer> CPlayer::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
 {

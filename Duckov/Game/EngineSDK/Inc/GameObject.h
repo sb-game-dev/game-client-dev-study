@@ -33,7 +33,7 @@ public:
 	virtual void		Compute_ViewZ();
 	virtual	f32_t		Get_ViewZ() { return m_fViewZ; }
 
-	virtual shared_ptr<CTransform>	Get_Transform() { return m_pTransform; }
+	virtual shared_ptr<CTransform>	Get_Transform() { return m_pTransformCom; }
 
 protected:
 	ComPtr<ID3D11Buffer>				m_pVB = { nullptr };			// 버텍스 버퍼
@@ -50,7 +50,9 @@ protected:
 	ComPtr<ID3D11ShaderResourceView>	m_pSRV = { nullptr };
 	ComPtr<ID3D11SamplerState>			m_pSampler = { nullptr };
 
-	shared_ptr<CTransform>				m_pTransform = { nullptr };
+	shared_ptr<CTransform>				m_pTransformCom = { nullptr };
+
+	map<const wstring_t, shared_ptr<CComponent>>		m_Components;
 
 	f32_t				m_fViewZ = {};
 

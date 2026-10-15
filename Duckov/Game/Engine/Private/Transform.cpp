@@ -43,10 +43,8 @@ void CTransform::Move_To(fvector_t vGoal, f32_t fDeltaTime, f32_t fLimitDistance
 	f32_t	fMoveDistance = min(XMVectorGetX(XMVector3Length(vDir)), m_fSpeedPerSec * fDeltaTime);
 	vPos += XMVector3Normalize(vDir) * fMoveDistance;
 
-	//if (XMVectorGetX(XMVector3Length(vDir)) > m_fSpeedPerSec * fDeltaTime)
+	//if (XMVectorGetX(XMVector3Length(vDir)) >= fLimitDistance)
 	//	vPos += XMVector3Normalize(vDir) * m_fSpeedPerSec * fDeltaTime;
-	//else
-	//	vPos += XMVector3Normalize(vDir) * XMVectorGetX(XMVector3Length(vDir));
 
 	Set_State(STATE::POSITION, vPos);
 }

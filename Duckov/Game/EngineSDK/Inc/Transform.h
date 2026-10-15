@@ -41,7 +41,7 @@ public:
 	matrix_t		Get_World() { return XMLoadFloat4x4(&m_WorldMatrix); }
 
 	void			Move_Position(fvector_t vDir, f32_t fDeltaTime);
-	void			Move_To(fvector_t vGoal, f32_t fLimitDistance, f32_t fDeltaTime);
+	void			Move_To(fvector_t vGoal, f32_t fDeltaTime, f32_t fLimitDistance = 0.1f);
 
 	void			Go_Staight(f32_t fDeltaTime);
 	void			Go_Backward(f32_t fDeltaTime);

@@ -196,7 +196,7 @@ HRESULT CCube::Initialize(void* pArg)
 
     auto pHill = static_pointer_cast<CHill>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Hill")));
 
-    vector_t  vPos = m_pTransform->Get_State(STATE::POSITION);
+    vector_t  vPos = m_pTransformCom->Get_State(STATE::POSITION);
 
     const auto& vecIndex = pHill->GetIndex();
     const auto& vecVtx = pHill->GetVertices();
@@ -225,7 +225,7 @@ HRESULT CCube::Initialize(void* pArg)
             f32_t fY = -(plane.x * XMVectorGetX(vPos) + plane.z * XMVectorGetZ(vPos) + plane.w) / plane.y;
 
             vPos = XMVectorSetY(vPos, fY + 0.5f);
-            m_pTransform->Set_State(STATE::POSITION, vPos);
+            m_pTransformCom->Set_State(STATE::POSITION, vPos);
 
             vector_t vGround = XMPlaneNormalize(vPlane);
             if (XMVectorGetY(vGround) < 0.f)        // 법선이 아래를 보면 뒤집기
@@ -256,7 +256,7 @@ void CCube::Late_Update(f32_t fDeltaTime)
 
 HRESULT CCube::Render()
 {    
-    return Render_Mesh(m_pTransform->Get_World(), m_pRS.Get(), m_pPS.Get());
+    return Render_Mesh(m_pTransformCom->Get_World(), m_pRS.Get(), m_pPS.Get());
 }
 
 HRESULT CCube::Render_Shadow()
@@ -267,7 +267,7 @@ HRESULT CCube::Render_Shadow()
     XMMATRIX matShadow = XMMatrixShadow(vPlane, vToLight);
     XMMATRIX matOffset = XMMatrixTranslation(0.f, 0.01f, 0.f);  // 지형과 z-fighting 방지
 
-    return Render_Mesh(m_pTransform->Get_World() * matShadow * matOffset, m_pRS.Get(), m_pPS_Shadow.Get());
+    return Render_Mesh(m_pTransformCom->Get_World() * matShadow * matOffset, m_pRS.Get(), m_pPS_Shadow.Get());
 }
 
 HRESULT CCube::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS, ID3D11PixelShader* pPS)

@@ -164,7 +164,7 @@ void CTree::Late_Update(f32_t fDeltaTime)
 
 HRESULT CTree::Render()
 {
-    return Render_Mesh(m_pTransform->Get_World(), m_pRS.Get(), m_pPS.Get());
+    return Render_Mesh(m_pTransformCom->Get_World(), m_pRS.Get(), m_pPS.Get());
 }
 
 HRESULT CTree::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS, ID3D11PixelShader* pPS)
