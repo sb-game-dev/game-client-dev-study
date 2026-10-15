@@ -57,7 +57,7 @@ void CRenderer::Render_GameObject()
 
 	m_pContext->OMSetRenderTargets(1, pOldRTV.GetAddressOf(), pOldDSV.Get());
 
-	//m_pBlurFilter->BlurInPlace(m_pSceneSRV.Get(), m_pSceneUAV.Get(), 4); //<- 이 숫자가 흐리게 하는 횟수인데 달라진건가
+	m_pBlurFilter->BlurInPlace(m_pSceneSRV.Get(), m_pSceneUAV.Get(), 4); //<- 이 숫자가 흐리게 하는 횟수인데 달라진건가
 	Render_FullScreen();
 
 	CGameInstance::Get().Set_MainCamera(L"COrthographic_Cam");
@@ -451,9 +451,8 @@ void CRenderer::Render_FullScreen()
 	m_pContext->PSSetShaderResources(0, 1, m_pSceneSRV.GetAddressOf());
 	m_pContext->Draw(3, 0);
 
-	ID3D11ShaderResourceView* pNullSRV = { nullptr };
-	m_pContext->PSSetShaderResources(0, 1, &pNullSRV);					// RTV와 같은 텍스처를 가리키기 때문에 SRV 해제, 
-																		// 이중포인터를 매개변수로 사용해야 한다.
+	ID3D11ShaderResourceView* pNullSRV[1] = {nullptr};
+	m_pContext->PSSetShaderResources(0, 1, pNullSRV);					// RTV와 같은 텍스처를 가리키기 때문에 SRV 해제																		
 	m_pContext->OMSetDepthStencilState(nullptr, 0);						// UI를 그릴때는 깊이 쓰기를 켜야 하므로 초기화 해야 한다.
 }
 

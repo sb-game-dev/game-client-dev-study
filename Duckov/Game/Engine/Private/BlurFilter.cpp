@@ -20,9 +20,6 @@ HRESULT CBlurFilter::Initialize(uint32_t iWidth, uint32_t iHeight)
 	if (FAILED(Ready_ComputeShader()))
 		return E_FAIL;
 
-	if (FAILED(Ready_Sampler()))
-		return E_FAIL;
-
 	return S_OK;
 }
 
@@ -36,7 +33,6 @@ void CBlurFilter::BlurInPlace(ID3D11ShaderResourceView* pInputSRV, ID3D11Unorder
 	uint32_t iNumGroupsX = (m_iWidth + s_iThreadsPerGroup - 1) / s_iThreadsPerGroup; // (1280 + 256 - 1) /256 = 5
 	uint32_t iNumGroupsY = (m_iHeight + s_iThreadsPerGroup - 1) / s_iThreadsPerGroup;// (720 + 256 - 1) / 256 = 4
 
-	m_pContext->CSSetSamplers(0, 1, m_pSampler.GetAddressOf());
 
 	for (uint32_t i = 0; i < iBlurCount; ++i)
 	{
@@ -121,23 +117,6 @@ HRESULT CBlurFilter::Ready_ComputeShader()
 
 	if (FAILED(m_pDevice->CreateComputeShader(pVertBlob->GetBufferPointer(), pVertBlob->GetBufferSize(), nullptr, &m_pCS_Vert)))
 		return E_FAIL;
-
-	return S_OK;
-}
-
-HRESULT CBlurFilter::Ready_Sampler()
-{
-	// »ùÇÃ·¯ »ý¼º
-	D3D11_SAMPLER_DESC samplerDesc{};
-
-	samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
-	samplerDesc.AddressU = samplerDesc.AddressV = samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
-	samplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
-	samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
-
-	if (FAILED(m_pDevice->CreateSamplerState(&samplerDesc, m_pSampler.GetAddressOf())))
-		return E_FAIL;
-
 
 	return S_OK;
 }
