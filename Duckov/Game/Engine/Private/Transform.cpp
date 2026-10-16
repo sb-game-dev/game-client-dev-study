@@ -164,6 +164,8 @@ void CTransform::LookAt(fvector_t vAt)
 	Set_State(STATE::LOOK,	XMVector3Normalize(vLook) * vScaled.z);
 }
 
+
+
 shared_ptr<CTransform> CTransform::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
 {
 	auto pInstance = shared_ptr<CTransform>(new CTransform(pDevice, pContext));
@@ -175,6 +177,7 @@ shared_ptr<CTransform> CTransform::Create(ComPtr<ID3D11Device> pDevice, ComPtr<I
 	}
 	return pInstance;
 }
+
 
 shared_ptr<CPrototype> CTransform::Clone(void* pArg)
 {

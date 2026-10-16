@@ -16,8 +16,8 @@ HRESULT CPlayer::Initialize_Prototype()
         { float3_t(-0.5f, -0.5f, -0.5f), float4_t(Colors::White)},
         { float3_t(-0.5f, +0.5f, -0.5f), float4_t(Colors::Black)},
         { float3_t(+0.5f, +0.5f, -0.5f), float4_t(Colors::Red)},
-        { float3_t(+0.5f, -0.5f, -0.5f), float4_t(Colors::Green)},
-        { float3_t(0.f, 0.f, +0.5f),     float4_t(Colors::Blue)},
+        { float3_t(+0.5f, -0.5f, -0.5f), float4_t(Colors::Brown)},
+        { float3_t(0.f, 0.f, +0.5f),     float4_t(Colors::Orange)},
     };
 
     // 정점 버퍼 생성
