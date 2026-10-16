@@ -64,7 +64,10 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
             ETOUI(LEVEL::GAMEPLAY), pLayerTag, L"GameObject_Cube" + to_wstring(i), &Cube_Desc)))
             return E_FAIL;
     }
-    
+
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_CubeInstance",
+        ETOUI(LEVEL::GAMEPLAY), pLayerTag, L"GameObject_CubeInstance")))
+        return E_FAIL;
 
     if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_GameObject_Wave"),
         ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_Wave"))))

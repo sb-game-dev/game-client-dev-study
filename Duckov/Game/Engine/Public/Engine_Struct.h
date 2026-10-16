@@ -42,6 +42,23 @@ namespace Engine
 		};
 	}VTXNORM;
 
+	typedef struct tagVtxNormInstance
+	{
+		static	constexpr uint32_t	iNumElements = 7;
+		static constexpr D3D11_INPUT_ELEMENT_DESC Elements[iNumElements] =
+		{
+			// 슬롯0: 정점(기존 VTXNORM과 동일)
+			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT,0,  0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT,0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,   0, 24, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			// 슬롯1: 인스턴스
+			{ "WORLD" , 0, DXGI_FORMAT_R32G32B32A32_FLOAT,1,0, D3D11_INPUT_PER_INSTANCE_DATA,1},
+			{ "WORLD" , 1, DXGI_FORMAT_R32G32B32A32_FLOAT,1,16,D3D11_INPUT_PER_INSTANCE_DATA,1},
+			{ "WORLD" , 2, DXGI_FORMAT_R32G32B32A32_FLOAT,1,32,D3D11_INPUT_PER_INSTANCE_DATA,1},
+			{ "WORLD" , 3, DXGI_FORMAT_R32G32B32A32_FLOAT,1,48,D3D11_INPUT_PER_INSTANCE_DATA,1},
+		};
+	}VTXNORM_INSTANCE;
+
 	typedef struct tagCBPerObject
 	{
 		float4x4_t WorldMatrix;
@@ -139,9 +156,7 @@ namespace Engine
 
 	typedef struct tagCBPointLight
 	{
-		PointLight			tPointLight;	// 점 조명이 여러 개 인 경우 이 구조체를 배열로 선언
-											// 이후 점 조명들을 하나로 모아서 배열의 값을 채워주는 메니저가 필요함
-											// 셰이더 코드에서도 구조체를 배열로 선언한 뒤 PS에서 for문으로 순회하며 조명값 더하기
+		PointLight			tPointLight;	
 	}CB_POINTLIGHT;
 
 	typedef struct tagCBSpotLight

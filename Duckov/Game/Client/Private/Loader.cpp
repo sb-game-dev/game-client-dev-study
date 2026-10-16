@@ -9,6 +9,7 @@
 #include "Mirror.h"
 #include "SkyBox.h"
 #include "Tree.h"
+#include "Cube_Instance.h"
 
 CLoader::CLoader(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     : m_pDevice{pDevice}
@@ -144,8 +145,10 @@ HRESULT CLoader::Loading_For_GamePlayLV()
 
     pGameObject = CCube::Create(m_pDevice, m_pContext);
     CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_Cube", pGameObject);
-   
 
+    pGameObject = CCube_Instance::Create(m_pDevice, m_pContext);
+    CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_CubeInstance", pGameObject);
+   
     pGameObject = CSkyBox::Create(m_pDevice, m_pContext);
     CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_SkyBox", pGameObject);
 

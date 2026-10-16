@@ -138,6 +138,7 @@
     <ClInclude Include="..\public\BackGround.h" />
     <ClInclude Include="..\Public\Client_Defines.h" />
     <ClInclude Include="..\Public\Cube.h" />
+    <ClInclude Include="..\public\Cube_Instance.h" />
     <ClInclude Include="..\Public\Fog.h" />
     <ClInclude Include="..\Public\Mirror.h" />
     <ClInclude Include="..\public\Orthographic_Cam.h" />
@@ -163,6 +164,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\private\BackGround.cpp" />
+    <ClCompile Include="..\private\Cube_Instance.cpp" />
     <ClCompile Include="..\private\Fog.cpp" />
     <ClCompile Include="..\private\Mirror.cpp" />
     <ClCompile Include="..\private\Orthographic_Cam.cpp" />

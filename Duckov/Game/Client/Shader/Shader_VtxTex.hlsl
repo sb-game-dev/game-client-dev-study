@@ -54,6 +54,14 @@ struct VS_IN
     float2 vTexCoord : TEXCOORD; //UV값
 };
 
+struct VS_IN_INST
+{
+    float3 vPosition : POSITION;
+    float3 vNormal : NORMAL;
+    float2 vTexCoord : TEXCOORD; //UV값
+    row_major float4x4 matWorld : WORLD;
+};
+
 struct VS_OUT
 {
     float4 vPosition : SV_POSITION; // 클립 공간 위치 (월드,뷰,투영변환 완료된 위치)
@@ -76,6 +84,22 @@ VS_OUT VS_MAIN(VS_IN In)
     Out.vCubeTexUV = In.vPosition;
     return Out;
 }
+
+VS_OUT VS_MAIN_INST(VS_IN_INST In)
+{
+    VS_OUT Out;
+
+    float4 vPosW = mul(float4(In.vPosition, 1.f), In.matWorld); // g_MatWorld -> In.matWorld
+    Out.vPosW = vPosW.xyz;
+    Out.vNormalW = mul(In.vNormal, (float3x3) g_matWorldInvTranspose);
+    
+    Out.vPosition = mul(mul(vPosW, g_matView), g_matProj);
+    Out.vTexCoord = In.vTexCoord;
+    Out.vCubeTexUV = In.vPosition;
+    return Out;
+}
+
+
 
 float4 PS_MAIN(VS_OUT In) : SV_TARGET //몇 번째 렌더타겟에 색을 쓸지
 {

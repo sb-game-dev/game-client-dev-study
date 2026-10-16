@@ -459,7 +459,7 @@ void CRenderer::Render_Shadow()
 {
 	float blendFactor[4] = { 0.f, 0.f, 0.f, 0.f };
 	m_pContext->OMSetBlendState(m_pBS.Get(), blendFactor, 0xffffffff);
-	m_pContext->OMSetDepthStencilState(m_pDSS_DrawNoDoubleBlend.Get(), 0);
+	m_pContext->OMSetDepthStencilState(m_pDSS_DrawNoDoubleBlend.Get(), 10);
 
 	for (auto& pObj : m_RenderGroup[ETOUI(RENDERID::SHADOW)])
 	{
@@ -468,7 +468,7 @@ void CRenderer::Render_Shadow()
 	}
 	m_RenderGroup[ETOUI(RENDERID::SHADOW)].clear();
 
-	m_pContext->OMSetDepthStencilState(nullptr, 0);
+	m_pContext->OMSetDepthStencilState(nullptr, 10);
 	m_pContext->OMSetBlendState(nullptr, blendFactor, 0xffffffff);
 }
 void CRenderer::Render_Alpha()

@@ -82,6 +82,9 @@
     <Filter Include="95. Inven">
       <UniqueIdentifier>{a7523f95-3773-48f0-8dcf-aab76835a9c5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObjects\02. Cube\Cube_Instanced">
+      <UniqueIdentifier>{3c96a574-3c38-4cd8-ba09-c267ec673173}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -158,6 +161,9 @@
     </ClInclude>
     <ClInclude Include="..\public\Tree.h">
       <Filter>02. GameObjects\08. Tree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Cube_Instance.h">
+      <Filter>02. GameObjects\02. Cube\Cube_Instanced</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -236,6 +242,9 @@
     </ClCompile>
     <ClCompile Include="..\private\Tree.cpp">
       <Filter>02. GameObjects\08. Tree</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Cube_Instance.cpp">
+      <Filter>02. GameObjects\02. Cube\Cube_Instanced</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
