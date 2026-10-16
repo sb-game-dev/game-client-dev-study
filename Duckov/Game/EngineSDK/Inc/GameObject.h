@@ -27,6 +27,7 @@ public:
 	virtual HRESULT		Render();
 	virtual HRESULT		Render_Reflection(const XMMATRIX& matReflect) { return S_OK; }
 	virtual HRESULT		Render_Shadow() { return S_OK; }
+	virtual HRESULT		Render_Occluded() { return S_OK; }
 
 	// 거울평면의 법선벡터를 a,b,c,d를 반환
 	virtual XMVECTOR	Get_MirrorPlane() { return XMVectorZero(); }

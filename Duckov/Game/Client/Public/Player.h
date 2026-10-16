@@ -25,12 +25,14 @@ public:
 	virtual HRESULT	Render() override;
 	virtual HRESULT	Render_Reflection(const XMMATRIX& matReflect) override;
 	virtual HRESULT	Render_Shadow() override;
+	virtual HRESULT	Render_Occluded() override;
 
 	virtual void	AdjustPosY();
 
 private:
-	ComPtr<ID3D11RasterizerState>	m_pRS_Reflect = { nullptr };
-	ComPtr<ID3D11PixelShader>		m_pPS_Shadow = { nullptr };
+	ComPtr<ID3D11RasterizerState>	m_pRS_Reflect	= { nullptr };
+	ComPtr<ID3D11PixelShader>		m_pPS_Shadow	= { nullptr };
+	ComPtr<ID3D11PixelShader>		m_pPS_Occluded	= { nullptr };
 
 	float4_t						m_vGroundPlane = { 0.f, 1.f, 0.f, 0.f };	// ¹ß¹Ø Æò¸é (a,b,c,d)
 

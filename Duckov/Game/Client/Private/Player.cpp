@@ -69,7 +69,7 @@ HRESULT CPlayer::Initialize_Prototype()
     // 컴파일 결과를 담으면 바이트코드상자(pVSBlob, pPSBlob)
     // 에러메세지를 담으면 문자열 상수가 됨
     // Blob 정보를 이용하여 버텍스 셰이더객체, 픽셀 셰이더 객체를 생성함
-    ComPtr<ID3DBlob> pVSBlob, pPSBlob, pPSShadowBlob, pErrBlob;
+    ComPtr<ID3DBlob> pVSBlob, pPSBlob, pPSShadowBlob, pPSOccludedPlayerBlob, pErrBlob;
 
     uint32_t iFlags = 0;
 #ifdef _DEBUG
@@ -78,7 +78,7 @@ HRESULT CPlayer::Initialize_Prototype()
 #endif
     //VS 컴파일
     if (FAILED(D3DCompileFromFile(
-        L"../Shader/Shader_VtxCol.hlsl",  // 파일 경로 (작업 디렉터리 기준)
+        L"../Shader/Shader_VtxCol.hlsl",   // 파일 경로 (작업 디렉터리 기준)
         nullptr,                           // 이 책에서는 사용하지 않는 고급 옵션(항상 NULL 또는 0)
         nullptr,                           // 이 책에서는 사용하지 않는 고급 옵션(항상 NULL 또는 0)
         "VS_MAIN",                         // 진입점 함수 이름
@@ -105,6 +105,13 @@ HRESULT CPlayer::Initialize_Prototype()
         if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
         return E_FAIL;
     }
+    // OCCLUDEDPLAYER PS 컴파일
+    if (FAILED(D3DCompileFromFile(L"../Shader/Shader_VtxCol.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
+        "PS_OCCLUDEDPLAYER", "ps_5_0", iFlags, 0, &pPSOccludedPlayerBlob, &pErrBlob)))
+    {
+        if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
+        return E_FAIL;
+    }
 
     // 버텍스 셰이더 객체 생성
     if (FAILED(m_pDevice->CreateVertexShader(pVSBlob->GetBufferPointer(), pVSBlob->GetBufferSize(), nullptr, &m_pVS)))
@@ -116,6 +123,10 @@ HRESULT CPlayer::Initialize_Prototype()
 
     // 그림자 픽셀 셰이더 객체 생성
     if (FAILED(m_pDevice->CreatePixelShader(pPSShadowBlob->GetBufferPointer(), pPSShadowBlob->GetBufferSize(), nullptr, &m_pPS_Shadow)))
+        return E_FAIL;
+
+    // 그림자 픽셀 셰이더 객체 생성
+    if (FAILED(m_pDevice->CreatePixelShader(pPSOccludedPlayerBlob->GetBufferPointer(), pPSShadowBlob->GetBufferSize(), nullptr, &m_pPS_Occluded)))
         return E_FAIL;
 
     // Input Layout 생성 (VS 바이트코드와 대조)
@@ -163,8 +174,8 @@ void CPlayer::Late_Update(f32_t fDeltaTime)
 {
     __super::Late_Update(fDeltaTime);
 
-
-    CGameInstance::Get().Add_RenderGroup(RENDERID::NONALPHA, dynamic_pointer_cast<CGameObject>(shared_from_this()));
+    CGameInstance::Get().Add_RenderGroup(RENDERID::PLAYER, dynamic_pointer_cast<CGameObject>(shared_from_this()));
+    CGameInstance::Get().Add_RenderGroup(RENDERID::OCCLUDEDPLAYER, dynamic_pointer_cast<CGameObject>(shared_from_this()));
     CGameInstance::Get().Add_RenderGroup(RENDERID::SHADOW, dynamic_pointer_cast<CGameObject>(shared_from_this()));
     CGameInstance::Get().Add_RenderGroup(RENDERID::REFLECT, dynamic_pointer_cast<CGameObject>(shared_from_this()));
 }
@@ -188,6 +199,11 @@ HRESULT CPlayer::Render_Shadow()
     XMMATRIX matOffset = XMMatrixTranslation(0.f, 0.01f, 0.f);  // 지형과 z-fighting 방지
 
     return Render_Mesh(m_pTransformCom->Get_World() * matShadow * matOffset, m_pRS.Get(), m_pPS_Shadow.Get());
+}
+
+HRESULT CPlayer::Render_Occluded()
+{
+    return Render_Mesh(m_pTransformCom->Get_World(), m_pRS.Get(), m_pPS_Occluded.Get());
 }
 
 HRESULT CPlayer::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS)

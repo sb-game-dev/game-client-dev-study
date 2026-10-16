@@ -30,9 +30,11 @@ private:
 	ComPtr<ID3D11DepthStencilState>		m_pDSS_Priority = { nullptr };
 	ComPtr<ID3D11DepthStencilState>		m_pDSS_NoDepth = { nullptr };
 	ComPtr<ID3D11DepthStencilState>		m_pDSS_MarkMirror = { nullptr };
+	ComPtr<ID3D11DepthStencilState>		m_pDSS_MarkOccluder = { nullptr };
 	ComPtr<ID3D11DepthStencilState>		m_pDSS_Alpha = { nullptr };
 	ComPtr<ID3D11DepthStencilState>		m_pDSS_DrawReflection = { nullptr };
 	ComPtr<ID3D11DepthStencilState>		m_pDSS_DrawNoDoubleBlend = { nullptr };
+	ComPtr<ID3D11DepthStencilState>		m_pDSS_DrawOccludePlayer = { nullptr };
 
 	shared_ptr<CGameObject>				m_pMirror;
 
@@ -47,6 +49,8 @@ private:
 private:
 	void	Render_Priority();
 	void	Render_NonAlpha();
+	void	Render_OccludedPlayer();
+	void	Render_Player();
 	void	Render_AlphaPre();
 	void	Render_Mirror();
 	void	Render_Shadow();
@@ -60,6 +64,7 @@ private:
 	HRESULT	Ready_Priority_DSS();
 	HRESULT	Ready_Alpha_DSS();
 	HRESULT	Ready_Mirror_DSS();
+	HRESULT	Ready_Occluder_DSS();
 	HRESULT	Ready_Shadow_DSS();
 	HRESULT	Ready_SceneTarget(uint32_t iWinSizeX, uint32_t iWinsizeY);
 

@@ -25,7 +25,8 @@ HRESULT CRenderer::Initialize(uint32_t iWinSizeX, uint32_t iWinSizeY)
 		return E_FAIL;
 	if (FAILED(Ready_SceneTarget(iWinSizeX,iWinSizeY)))
 		return E_FAIL;
-
+	if (FAILED(Ready_Occluder_DSS()))
+		return E_FAIL;
 	return S_OK;
 }
 
@@ -50,6 +51,8 @@ void CRenderer::Render_GameObject()
 	CGameInstance::Get().Set_MainCamera(L"QuarterViewCam");
 	Render_Priority();
 	Render_NonAlpha();
+	Render_OccludedPlayer();
+	Render_Player();
 	Render_Shadow();
 	Render_AlphaPre();
 	Render_Mirror();
@@ -220,6 +223,33 @@ HRESULT CRenderer::Ready_Mirror_DSS()
 	return S_OK;
 }
 
+HRESULT CRenderer::Ready_Occluder_DSS()
+{
+	// ===== 마킹용 =====
+	D3D11_DEPTH_STENCIL_DESC markDesc{};
+
+	markDesc.DepthEnable = TRUE;
+	markDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	markDesc.DepthFunc = D3D11_COMPARISON_LESS;
+
+	markDesc.StencilEnable = TRUE;
+	markDesc.StencilReadMask = 0xff;
+
+	markDesc.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
+
+	markDesc.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
+	markDesc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_KEEP;
+	markDesc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_REPLACE;
+	markDesc.StencilWriteMask = 0xff;
+
+	markDesc.BackFace = markDesc.FrontFace;
+
+	if (FAILED(m_pDevice->CreateDepthStencilState(&markDesc, m_pDSS_MarkOccluder.GetAddressOf())))
+		return E_FAIL;
+
+	return S_OK;
+}
+
 HRESULT CRenderer::Ready_Shadow_DSS()
 {
 	D3D11_DEPTH_STENCIL_DESC noDoubleBlendDesc{};
@@ -317,12 +347,40 @@ void CRenderer::Render_Priority()
 
 void CRenderer::Render_NonAlpha()
 {
+	m_pContext->OMSetDepthStencilState(m_pDSS_MarkOccluder.Get(), 10); // STENCIL_OCCLUDER : 10
+
 	for (auto& pObj : m_RenderGroup[ETOUI(RENDERID::NONALPHA)])
 	{
 		if (nullptr != pObj)
 			pObj->Render();
 	}
 	m_RenderGroup[ETOUI(RENDERID::NONALPHA)].clear();
+
+	m_pContext->OMSetDepthStencilState(nullptr, 0);   // 복구
+}
+
+void CRenderer::Render_OccludedPlayer()
+{
+	m_pContext->OMSetDepthStencilState(m_pDSS_DrawReflection.Get(), 10); // STENCIL_OCCLUDER : 10
+
+	for (auto& pObj : m_RenderGroup[ETOUI(RENDERID::OCCLUDEDPLAYER)])
+	{
+		if (nullptr != pObj)
+			pObj->Render_Occluded();
+	}
+	m_RenderGroup[ETOUI(RENDERID::OCCLUDEDPLAYER)].clear();
+
+	m_pContext->OMSetDepthStencilState(nullptr, 0);   // 복구
+}
+
+void CRenderer::Render_Player()
+{
+	for (auto& pObj : m_RenderGroup[ETOUI(RENDERID::PLAYER)])
+	{
+		if (nullptr != pObj)
+			pObj->Render();
+	}
+	m_RenderGroup[ETOUI(RENDERID::PLAYER)].clear();
 }
 
 void CRenderer::Render_AlphaPre()

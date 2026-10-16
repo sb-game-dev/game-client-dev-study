@@ -59,3 +59,8 @@ float4 PS_SHADOW(VS_OUT In) : SV_TARGET
 {
     return float4(0.f, 0.f, 0.f, 0.5f);
 }
+
+float4 PS_OCCLUDEDPLAYER(VS_OUT In) : SV_TARGET
+{
+    return float4(0.f, 0.25f, 0.25f, 0.5f);
+}
