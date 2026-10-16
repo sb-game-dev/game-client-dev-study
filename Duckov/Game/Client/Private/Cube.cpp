@@ -1,5 +1,4 @@
 #include "Cube.h"
-#include "DDSTextureLoader.h"
 #include "Hill.h"
 
 CCube::CCube(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
@@ -166,10 +165,6 @@ HRESULT CCube::Initialize_Prototype()
 
     m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
 
-    // 텍스처 로드
-    if (FAILED(CreateDDSTextureFromFile(m_pDevice.Get(), L"../../../Resource/Ex/WireFence.dds", nullptr, m_pSRV.GetAddressOf())))
-        return E_FAIL;
-
     // 샘플러 생성
     D3D11_SAMPLER_DESC samplerDesc{};
 
@@ -192,6 +187,9 @@ HRESULT CCube::Initialize_Prototype()
 HRESULT CCube::Initialize(void* pArg)
 {
     if(FAILED(__super::Initialize(pArg)))
+        return E_FAIL;
+
+    if (FAILED(Ready_Components()))
         return E_FAIL;
 
     auto pHill = static_pointer_cast<CHill>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Hill")));
@@ -270,6 +268,14 @@ HRESULT CCube::Render_Shadow()
     return Render_Mesh(m_pTransformCom->Get_World() * matShadow * matOffset, m_pRS.Get(), m_pPS_Shadow.Get());
 }
 
+HRESULT CCube::Ready_Components()
+{
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_Texture_Cube"),
+        TEXT("Com_Texture"), m_pTextureCom)))
+        return E_FAIL;
+    return S_OK;
+}
+
 HRESULT CCube::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS, ID3D11PixelShader* pPS)
 {
     // 변환 행렬 계산 -> 상수 버퍼(변환 행렬) 갱신
@@ -329,14 +335,13 @@ HRESULT CCube::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS,
         m_pCB.GetAddressOf());
 
     // 텍스처 바인드
-    m_pContext->PSSetShaderResources(0, 1, m_pSRV.GetAddressOf());
+    m_pTextureCom->Set_TexturePS(0, 0);
 
     // 샘플러 바인드
     m_pContext->PSSetSamplers(0, 1, m_pSampler.GetAddressOf());
 
     // RS(레스터라이저 설정)
     m_pContext->RSSetState(pRS);
-
 
     // 그리기
     m_pContext->DrawIndexed(m_iIndexCnt, // IndexCnt: 인덱스 버퍼의 크기

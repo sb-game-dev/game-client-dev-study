@@ -62,7 +62,6 @@ HRESULT CMainApp::Initialize()
 
     if (FAILED(CGameInstance::Get().Initialize_Engine(EngineDesc,m_pDevice,m_pContext)))
         return E_FAIL;
-
     // ¾À »ý¼º
     if (FAILED(Start_Level(LEVEL::GAMEPLAY)))
         return E_FAIL;

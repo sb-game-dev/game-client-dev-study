@@ -1,6 +1,7 @@
 #pragma once
-#include "Prototype.h"
+#include "GameInstance.h"
 #include "Transform.h"
+#include "Prototype.h"
 NS_BEGIN(Engine)
 class ENGINE_DLL CGameObject abstract : public CPrototype
 { 
@@ -57,6 +58,23 @@ protected:
 	f32_t				m_fViewZ = {};
 
 	MATERIAL			m_tMaterial = {};
+
+protected:
+	shared_ptr<CComponent> Find_Component(const wstring_t& strComponentTag);
+
+	template<typename T>
+	HRESULT Add_Component(uint32_t iPrototypeLevelIndex, const wstring_t& strPrototypeTag,
+		const wstring_t& strComponentTag, shared_ptr<T>& pOut, void* pArg = nullptr)
+	{
+		if (nullptr != Find_Component(strComponentTag))
+			return E_FAIL;
+		pOut = dynamic_pointer_cast<T>(CGameInstance::Get().Clone_Prototype(iPrototypeLevelIndex, strPrototypeTag, pArg));
+		if (nullptr == pOut)
+			return E_FAIL;
+
+		m_Components.emplace(strComponentTag, pOut);
+		return S_OK;
+	}
 
 public:
 	virtual shared_ptr<CPrototype> Clone(void* pArg) PURE;

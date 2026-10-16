@@ -174,6 +174,13 @@ namespace Engine
 			{ "SIZE",     0, DXGI_FORMAT_R32G32_FLOAT,    0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 		};
 	}TREEPOINTSPRITE;
+
+	typedef struct tagCbBlurMouseInfo
+	{
+		float2_t	vMousePos;
+		f32_t		fBlurRange;
+		f32_t		Pad;
+	}CB_BLURMOUSEINFO;
 }
 
 #endif // Engine_Struct_h__

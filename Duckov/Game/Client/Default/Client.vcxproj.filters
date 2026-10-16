@@ -79,9 +79,6 @@
     <Filter Include="02. GameObjects\08. Tree">
       <UniqueIdentifier>{0d112b3a-b7ed-49f9-9d50-244024cfb7e6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="96. DDSTextureLoader">
-      <UniqueIdentifier>{8cc23d17-baf9-4e7a-b3f9-68324a74e749}</UniqueIdentifier>
-    </Filter>
     <Filter Include="95. Inven">
       <UniqueIdentifier>{a7523f95-3773-48f0-8dcf-aab76835a9c5}</UniqueIdentifier>
     </Filter>
@@ -140,9 +137,6 @@
     </ClInclude>
     <ClInclude Include="..\public\SunLight.h">
       <Filter>04. Light\02. SunLight</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Public\DDSTextureLoader.h">
-      <Filter>96. DDSTextureLoader</Filter>
     </ClInclude>
     <ClInclude Include="..\public\QuarterView_Cam.h">
       <Filter>03. Camera\01. QuaterView_Cam</Filter>
@@ -221,9 +215,6 @@
     </ClCompile>
     <ClCompile Include="..\private\SunLight.cpp">
       <Filter>04. Light\02. SunLight</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Private\DDSTextureLoader.cpp">
-      <Filter>96. DDSTextureLoader</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\QuarterView_Cam.cpp">
       <Filter>03. Camera\01. QuaterView_Cam</Filter>

@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Engine_Defines.h"
-#include "GameObject.h"
 NS_BEGIN(Engine)
 class ENGINE_DLL CLevel abstract //객체화 되지 않는다(x) 자식객체를 생성해야만 객체화 된다.(O)
 {

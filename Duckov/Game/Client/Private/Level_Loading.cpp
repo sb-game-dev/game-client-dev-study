@@ -4,6 +4,7 @@
 #include "Level_GamePlay.h"
 #include "Orthographic_Cam.h"
 #include "BackGround.h"
+#include "Texture.h"
 
 CLevel_Loading::CLevel_Loading(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     :CLevel{ pDevice,pContext }
@@ -73,6 +74,11 @@ HRESULT CLevel_Loading::Ready_Layer_BackGround()
     auto m_pCamera = COrthographic_Cam::Create(m_pDevice, m_pContext);
     CGameInstance::Get().Add_Camera(TEXT("COrthographic_Cam"), m_pCamera);
     CGameInstance::Get().Set_MainCamera(TEXT("COrthographic_Cam"));
+
+    // 텍스처
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOADING), TEXT("Prototype_Component_Texture_BackGround"),
+        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Logo/Logo_Background_1280x720.dds"), 1))))
+        return E_FAIL;
 
     // 배경 원형
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOADING), TEXT("Prototype_GameObject_BackGround"),

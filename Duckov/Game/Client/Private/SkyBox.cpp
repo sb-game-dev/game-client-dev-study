@@ -1,5 +1,4 @@
 #include "SkyBox.h"
-#include "DDSTextureLoader.h"
 
 CSkyBox::CSkyBox(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     :CGameObject(pDevice, pContext)
@@ -156,8 +155,8 @@ HRESULT CSkyBox::Initialize_Prototype()
     m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
 
     // 텍스처 로드
-    if (FAILED(CreateDDSTextureFromFile(m_pDevice.Get(), L"../../../Resource/Ex/SkyCube.dds", nullptr, m_pSRV.GetAddressOf())))
-        return E_FAIL;
+    //if (FAILED(CreateDDSTextureFromFile(m_pDevice.Get(), L"../../../Resource/Ex/SkyCube.dds", nullptr, m_pSRV.GetAddressOf())))
+    //    return E_FAIL;
 
     // 샘플러 생성
     D3D11_SAMPLER_DESC samplerDesc{};
@@ -178,6 +177,8 @@ HRESULT CSkyBox::Initialize(void* pArg)
     if (FAILED(__super::Initialize(pArg)))
         return E_FAIL;
     m_pTransformCom->Set_Scale( 20.f,20.f,20.f );
+    if (FAILED(Ready_Components()))
+        return E_FAIL;
     return S_OK;
 }
 
@@ -250,7 +251,7 @@ HRESULT CSkyBox::Render()
     m_pContext->PSSetShader(m_pPS.Get(), nullptr, 0);
 
     // 텍스처 바인드
-    m_pContext->PSSetShaderResources(0, 1, m_pSRV.GetAddressOf());
+    m_pTextureCom->Set_TexturePS(0, 0);
 
     // 샘플러 바인드
     m_pContext->PSSetSamplers(0, 1, m_pSampler.GetAddressOf());
@@ -259,6 +260,14 @@ HRESULT CSkyBox::Render()
 
     m_pContext->DrawIndexed(m_iIndexCnt, 0, 0);
 
+    return S_OK;
+}
+
+HRESULT CSkyBox::Ready_Components()
+{
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_Texture_SkyBox"),
+        TEXT("Com_Texture"), m_pTextureCom)))
+        return E_FAIL;
     return S_OK;
 }
 

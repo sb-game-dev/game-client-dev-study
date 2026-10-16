@@ -109,8 +109,23 @@ HRESULT CLoader::Loading_For_LogoLV()
 HRESULT CLoader::Loading_For_GamePlayLV()
 {
     lstrcpy(m_szLoadingText, TEXT("텍스쳐를 준비중입니다."));
-    for (uint32_t i = 0; i < 99999999; i++)
-        uint32_t iData = 10;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_Texture_Cube"),
+        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/WireFence.dds"), 1))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_Texture_Hill"),
+        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/grass.dds"), 1))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_Texture_Wave"),
+        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/water2.dds"), 1))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_Texture_Tree"),
+        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/tree%d.dds"), 4))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_Texture_SkyBox"),
+        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/SkyCube.dds"), 1))))
+        return E_FAIL;
+
 
     lstrcpy(m_szLoadingText, TEXT("모델을 준비중입니다."));
     for (uint32_t i = 0; i < 99999999; i++)

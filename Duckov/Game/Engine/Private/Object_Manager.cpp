@@ -1,6 +1,7 @@
 #include "Object_Manager.h"
 #include "Layer.h"
 #include "GameInstance.h"
+#include "GameObject.h"
 CObject_Manager::CObject_Manager()
 {
 }

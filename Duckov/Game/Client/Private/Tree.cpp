@@ -1,5 +1,4 @@
 #include "Tree.h"
-#include "DDSTextureLoader.h"
 #include "Hill.h"
 
 CTree::CTree(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
@@ -93,8 +92,8 @@ HRESULT CTree::Initialize_Prototype()
     m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
 
     // 텍스처 로드
-    if (FAILED(CreateDDSTextureFromFile(m_pDevice.Get(), L"../../../Resource/Ex/tree0.dds", nullptr, m_pSRV.GetAddressOf())))
-        return E_FAIL;
+    //if (FAILED(CreateDDSTextureFromFile(m_pDevice.Get(), L"../../../Resource/Ex/tree0.dds", nullptr, m_pSRV.GetAddressOf())))
+    //    return E_FAIL;
 
     // 샘플러 생성
     D3D11_SAMPLER_DESC samplerDesc{};
@@ -144,6 +143,8 @@ HRESULT CTree::Initialize(void* pArg)
     vinitData.pSysMem = v;
     if (FAILED(m_pDevice->CreateBuffer(&vbd, &vinitData, &m_pVB)))
         return E_FAIL;
+    if (FAILED(Ready_Components()))
+        return E_FAIL;
     return S_OK;
 }
 
@@ -165,6 +166,14 @@ void CTree::Late_Update(f32_t fDeltaTime)
 HRESULT CTree::Render()
 {
     return Render_Mesh(m_pTransformCom->Get_World(), m_pRS.Get(), m_pPS.Get());
+}
+
+HRESULT CTree::Ready_Components()
+{
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_Texture_Tree"),
+        TEXT("Com_Texture"), m_pTextureCom)))
+        return E_FAIL;
+    return S_OK;
 }
 
 HRESULT CTree::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS, ID3D11PixelShader* pPS)
@@ -208,7 +217,7 @@ HRESULT CTree::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS,
         m_pCB.GetAddressOf());
 
     // 텍스처 바인드
-    m_pContext->PSSetShaderResources(0, 1, m_pSRV.GetAddressOf());
+    m_pTextureCom->Set_TexturePS(0, 0);
 
     // 샘플러 바인드
     m_pContext->PSSetSamplers(0, 1, m_pSampler.GetAddressOf());

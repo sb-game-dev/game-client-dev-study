@@ -8,6 +8,8 @@
 #include "Camera_Manager.h"
 #include "Light_Manager.h"
 #include "Renderer.h"
+#include "Transform.h"
+#include "Texture.h"
 /*
 1. 엔진의 기능을 클라이언트에 보여주는 객체.
 2. 엔진에 정의되어있는 다양한 기능을 하는 객체를 모아서 보관한다.
@@ -36,6 +38,8 @@ public:
 	void			Update_Engine(f32_t fDeltaTime);
 	HRESULT			Draw();
 	HRESULT			Present();
+
+	HWND			GetHWND() { return m_hWND; }
 
 #pragma region PROTOTYPE_MANAGER
 public:
@@ -90,7 +94,7 @@ private:
 	unique_ptr<CCamera_Manager>		m_pCamera_Manager = { nullptr };
 	unique_ptr<CLight_Manager>		m_pLight_Manager = { nullptr };
 	unique_ptr<CRenderer>			m_pRenderer = { nullptr };
-
+	HWND							m_hWND = { nullptr };
 public:
 	void			Release_Engine();
 

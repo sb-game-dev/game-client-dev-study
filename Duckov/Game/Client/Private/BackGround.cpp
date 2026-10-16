@@ -1,5 +1,4 @@
 #include "BackGround.h"
-#include "DDSTextureLoader.h"
 
 CBackGround::CBackGround(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
 	:CGameObject{pDevice,pContext}
@@ -112,10 +111,6 @@ HRESULT CBackGround::Initialize_Prototype()
 
     m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
 
-    // 텍스처 로드
-    if (FAILED(CreateDDSTextureFromFile(m_pDevice.Get(), L"../../../Resource/Logo/Logo_Background_1280x720.dds", nullptr, m_pSRV.GetAddressOf())))
-        return E_FAIL;
-
     // 샘플러 생성
     D3D11_SAMPLER_DESC samplerDesc{};
 
@@ -145,6 +140,10 @@ HRESULT CBackGround::Initialize(void* pArg)
 		return E_FAIL;
     m_pTransformCom->Set_State(STATE::POSITION, vector_t{ 0.f,0.f,1.f,1.f });
     m_pTransformCom->Set_Scale( g_iWinSizeX, g_iWinSizeY, 1.f );
+
+    if (FAILED(Ready_Components()))
+        return E_FAIL;
+
     return S_OK;
 }
 
@@ -220,7 +219,8 @@ HRESULT CBackGround::Render()
         m_pCB.GetAddressOf());
 
     // 텍스처 바인드
-    m_pContext->PSSetShaderResources(0, 1, m_pSRV.GetAddressOf());
+    //m_pContext->PSSetShaderResources(0, 1, m_pSRV.GetAddressOf());
+    m_pTextureCom->Set_TexturePS(0, 0);
 
     // 샘플러 바인드
     m_pContext->PSSetSamplers(0, 1, m_pSampler.GetAddressOf());
@@ -234,6 +234,13 @@ HRESULT CBackGround::Render()
         0,  // StartIndexLocation : 사용할 인덱스의 위치
         0); // BaseVERTEXLocation : 정점들을 가져오기 전에 이 호출에서 사용할 인덱스에 더해지는 정수값
 
+    return S_OK;
+}
+HRESULT CBackGround::Ready_Components()
+{
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::LOADING), TEXT("Prototype_Component_Texture_BackGround"), 
+        TEXT("Com_Texture"), m_pTextureCom)))
+        return E_FAIL;
     return S_OK;
 }
 shared_ptr<CBackGround> CBackGround::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)

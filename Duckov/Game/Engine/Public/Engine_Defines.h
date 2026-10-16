@@ -5,6 +5,10 @@
 
 #include <DirectXMath.h> 
 #include <DirectXColors.h>
+#include "DirectXTK/DDSTextureLoader.h"
+#include "DirectXTK/WICTextureLoader.h"
+
+
 using namespace DirectX;
 
 #include <memory>

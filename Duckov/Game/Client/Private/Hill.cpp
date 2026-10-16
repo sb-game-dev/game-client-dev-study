@@ -1,5 +1,4 @@
 #include "Hill.h"
-#include "DDSTextureLoader.h"
 
 CHill::CHill(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     :CGameObject(pDevice, pContext)
@@ -168,12 +167,9 @@ HRESULT CHill::Initialize_Prototype()
 
     m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
 
-    // 텍스처 로딩 + SRV 설정
-    if (FAILED(CreateDDSTextureFromFile(m_pDevice.Get(), L"../../../Resource/Ex/grass.dds", nullptr, m_pSRV.GetAddressOf())))
-        return E_FAIL;
+    // sampler 생성
     D3D11_SAMPLER_DESC samplerDesc = {};
 
-    // sampler 생성
     samplerDesc.Filter = D3D11_FILTER_ANISOTROPIC;
     samplerDesc.MaxAnisotropy = 16;
     samplerDesc.AddressU = samplerDesc.AddressV = samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
@@ -188,6 +184,8 @@ HRESULT CHill::Initialize_Prototype()
 HRESULT CHill::Initialize(void* pArg)
 {
     if (FAILED(__super::Initialize(pArg)))
+        return E_FAIL;
+    if (FAILED(Ready_Components()))
         return E_FAIL;
     return S_OK;
 }
@@ -255,7 +253,7 @@ HRESULT CHill::Render()
     m_pContext->PSSetShader(m_pPS.Get(), nullptr, 0);
 
     // 텍스처 바인드
-    m_pContext->PSSetShaderResources(0, 1, m_pSRV.GetAddressOf());
+    m_pTextureCom->Set_TexturePS(0, 0);
     
     // 샘플러 바인드
     m_pContext->PSSetSamplers(0, 1, m_pSampler.GetAddressOf());
@@ -277,6 +275,14 @@ float3_t CHill::GetNormal(f32_t x, f32_t z)
     float3_t vNormal = { -fDfDx,1.f,-fDfDz };
     XMStoreFloat3(&vNormal, XMVector3Normalize(XMLoadFloat3(&vNormal)));
     return vNormal;
+}
+
+HRESULT CHill::Ready_Components()
+{
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_Texture_Hill"),
+        TEXT("Com_Texture"), m_pTextureCom)))
+        return E_FAIL;
+    return S_OK;
 }
 
 shared_ptr<CHill> CHill::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)

@@ -1,6 +1,12 @@
 #pragma once
 #include "Client_Defines.h"
 #include "GameObject.h"
+
+NS_BEGIN(Engine)
+class CTexture;
+NS_END
+
+
 NS_BEGIN(Client)
 class CHill : public CGameObject
 {
@@ -29,7 +35,11 @@ public:
 	vector<VERTEX>&		GetVertices()	{ return m_tMeshData.Vertices; }
 
 private:
-	MESHDATA m_tMeshData = {};
+	MESHDATA m_tMeshData = {}; 
+	shared_ptr<CTexture>			m_pTextureCom = { nullptr };
+
+private:
+	HRESULT			Ready_Components();
 
 public:
 	static shared_ptr<CHill> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);

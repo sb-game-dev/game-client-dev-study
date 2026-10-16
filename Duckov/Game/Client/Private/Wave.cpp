@@ -1,5 +1,4 @@
 #include "Wave.h"
-#include "DDSTextureLoader.h"
 
 CWave::CWave(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     :CGameObject(pDevice, pContext)
@@ -148,12 +147,9 @@ HRESULT CWave::Initialize_Prototype()
 
     m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
 
-    // 텍스처 로딩 + SRV 설정
-    if (FAILED(CreateDDSTextureFromFile(m_pDevice.Get(), L"../../../Resource/Ex/water2.dds", nullptr, m_pSRV.GetAddressOf())))
-        return E_FAIL;
+    // sampler 생성
     D3D11_SAMPLER_DESC samplerDesc = {};
 
-    // sampler 생성
     samplerDesc.Filter = D3D11_FILTER_ANISOTROPIC;
     samplerDesc.MaxAnisotropy = 16;
     samplerDesc.AddressU = samplerDesc.AddressV = samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
@@ -168,6 +164,8 @@ HRESULT CWave::Initialize_Prototype()
 HRESULT CWave::Initialize(void* pArg)
 {
     if (FAILED(__super::Initialize(pArg)))
+        return E_FAIL;
+    if (FAILED(Ready_Components()))
         return E_FAIL;
     return S_OK;
 }
@@ -253,7 +251,7 @@ HRESULT CWave::Render()
     m_pContext->PSSetShader(m_pPS.Get(), nullptr, 0);
 
     // 텍스처 바인드
-    m_pContext->PSSetShaderResources(0, 1, m_pSRV.GetAddressOf());
+    m_pTextureCom->Set_TexturePS(0, 0);
 
     // 샘플러 바인드
     m_pContext->PSSetSamplers(0, 1, m_pSampler.GetAddressOf());
@@ -263,6 +261,14 @@ HRESULT CWave::Render()
     m_pContext->DrawIndexed(m_iIndexCnt, 0, 0);                          
 
 
+    return S_OK;
+}
+
+HRESULT CWave::Ready_Components()
+{
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_Texture_Wave"),
+        TEXT("Com_Texture"), m_pTextureCom)))
+        return E_FAIL;
     return S_OK;
 }
 

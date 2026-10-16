@@ -14,9 +14,12 @@ public:
 	HRESULT	Initialize_Prototype(const tchar_t* pTextureFilePath, uint32_t iNumTextures);
 	HRESULT	Initialize(void* pArg) override;
 
+	void	Set_TexturePS(const uint32_t& iIndex, const uint32_t& iStartSlot);
+	void	Set_TextureCS(const uint32_t& iIndex, const uint32_t& iStartSlot);
+
 private:
 	uint32_t									m_iNumTextures = {};
-	vector<ComPtr<ID3D11ShaderResourceView>>	m_SRVs = {nullptr};
+	vector<ComPtr<ID3D11ShaderResourceView>>	m_SRVs;
 
 public:
 	static shared_ptr<CTexture> Create(ComPtr<ID3D11Device> pDevice, 

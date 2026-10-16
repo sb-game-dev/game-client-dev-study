@@ -1,5 +1,10 @@
 #pragma once
 #include "Client_Defines.h"
+#include "GameObject.h"
+NS_BEGIN(Engine)
+class CTexture;
+NS_END
+
 NS_BEGIN(Client)
 
 class CBackGround : public CGameObject
@@ -21,6 +26,12 @@ public:
 	virtual		void		Update(f32_t fTimeDelta)override;
 	virtual		void		Late_Update(f32_t fTimeDelta)override;
 	virtual		HRESULT		Render() override;
+
+private:
+	shared_ptr<CTexture>			m_pTextureCom = { nullptr };
+
+private:
+	HRESULT Ready_Components();
 
 public:
 	static shared_ptr<CBackGround> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);

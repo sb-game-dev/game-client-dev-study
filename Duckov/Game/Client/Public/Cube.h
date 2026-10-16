@@ -1,6 +1,10 @@
 #pragma once
 #include "Client_Defines.h"
 #include "GameObject.h"
+NS_BEGIN(Engine)
+class CTexture;
+NS_END
+
 NS_BEGIN(Client)
 class CCube : public CGameObject
 {
@@ -26,6 +30,10 @@ public:
 private:
 	ComPtr<ID3D11PixelShader>		m_pPS_Shadow = { nullptr };
 	float4_t						m_vGroundPlane = { 0.f, 1.f, 0.f, 0.f };	// ¹ß¹Ø Æò¸é (a,b,c,d)
+	shared_ptr<CTexture>			m_pTextureCom = { nullptr };
+
+private:
+	HRESULT			Ready_Components();
 
 private:
 	HRESULT			Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS, ID3D11PixelShader* pPS);

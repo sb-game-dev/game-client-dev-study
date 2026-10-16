@@ -50,3 +50,12 @@ void CGameObject::Compute_ViewZ()
 	viewPos = XMVector3TransformCoord(viewPos, matView);
 	m_fViewZ = XMVectorGetZ(viewPos);
 }
+
+shared_ptr<CComponent> CGameObject::Find_Component(const wstring_t& strComponentTag)
+{
+	auto iter = m_Components.find(strComponentTag);
+	if (iter == m_Components.end())
+		return nullptr;
+
+	return iter->second;
+}

@@ -1,6 +1,11 @@
 #pragma once
 #include "Client_Defines.h"
 #include "GameObject.h"
+
+NS_BEGIN(Engine)
+class CTexture;
+NS_END
+
 NS_BEGIN(Client)
 class CTree : public CGameObject
 {
@@ -26,7 +31,10 @@ private:
 	ComPtr<ID3D11GeometryShader>	m_pGS = { nullptr };
 	float4_t						m_vGroundPlane = { 0.f, 1.f, 0.f, 0.f };	// ¹ß¹Ø Æò¸é (a,b,c,d)
 	static const uint32_t			m_iTreeCnt = {16};
+	shared_ptr<CTexture>			m_pTextureCom = { nullptr };
+
 private:
+	HRESULT			Ready_Components();
 	HRESULT			Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS, ID3D11PixelShader* pPS);
 
 public:
