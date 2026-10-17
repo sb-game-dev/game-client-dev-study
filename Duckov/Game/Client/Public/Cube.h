@@ -35,9 +35,8 @@ private:
 private:
 	HRESULT			Ready_Components();
 
-private:
 	HRESULT			Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS, ID3D11PixelShader* pPS);
-
+	matrix_t		Get_ShadowWorld();
 public:
 	static shared_ptr<CCube> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
 	virtual shared_ptr<CPrototype> Clone(void* pArg) override;

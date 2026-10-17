@@ -54,6 +54,9 @@ void CCamera::Update_Frustum()
 	matrix_t	matPorj = XMLoadFloat4x4(&m_matProj);
 	BoundingFrustum::CreateFromMatrix(m_tViewFrustum, matPorj); 
 	
+	m_tViewFrustum.RightSlope *= 0.3f;   // 테스트용
+	m_tViewFrustum.LeftSlope *= 0.3f;
+
 	// 절두체를 월드로 보내기 위한 뷰 역행렬 저장
 	matrix_t	matView = XMLoadFloat4x4(&m_matView);
 	XMStoreFloat4x4(&m_MatInvView, XMMatrixInverse(nullptr, matView));

@@ -254,7 +254,13 @@ void CCube::Late_Update(f32_t fDeltaTime)
     __super::Late_Update(fDeltaTime);
     if(Is_InFrustum())
         CGameInstance::Get().Add_RenderGroup(RENDERID::NONALPHA, dynamic_pointer_cast<CGameObject>(shared_from_this()));
-    CGameInstance::Get().Add_RenderGroup(RENDERID::SHADOW, dynamic_pointer_cast<CGameObject>(shared_from_this()));
+
+    // 그림자 : 월드 공간 박스 + 단위 행렬
+    BoundingBox tShadowBox;
+    m_tLocalBox.Transform(tShadowBox, Get_ShadowWorld());   // 그림자를 감싸는 월드 박스
+
+    if (Is_BoxInFrustum(tShadowBox, XMMatrixIdentity()))
+        CGameInstance::Get().Add_RenderGroup(RENDERID::SHADOW, dynamic_pointer_cast<CGameObject>(shared_from_this()));
 }
 
 HRESULT CCube::Render()
@@ -264,13 +270,7 @@ HRESULT CCube::Render()
 
 HRESULT CCube::Render_Shadow()
 {
-    XMVECTOR vPlane = XMLoadFloat4(&m_vGroundPlane);
-    XMVECTOR vToLight = XMVectorSet(-0.5f, 0.5f, -0.5f, 0.f);   // SunLight Direction의 반대, w=0(평행광)
-
-    XMMATRIX matShadow = XMMatrixShadow(vPlane, vToLight);
-    XMMATRIX matOffset = XMMatrixTranslation(0.f, 0.01f, 0.f);  // 지형과 z-fighting 방지
-
-    return Render_Mesh(m_pTransformCom->Get_World() * matShadow * matOffset, m_pRS.Get(), m_pPS_Shadow.Get());
+    return Render_Mesh(Get_ShadowWorld(), m_pRS.Get(), m_pPS_Shadow.Get());
 }
 
 HRESULT CCube::Ready_Components()
@@ -354,6 +354,17 @@ HRESULT CCube::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS,
         0); // BaseVERTEXLocation : 정점들을 가져오기 전에 이 호출에서 사용할 인덱스에 더해지는 정수값
 
     return S_OK;
+}
+
+matrix_t CCube::Get_ShadowWorld()
+{
+    vector_t    vPlane = XMLoadFloat4(&m_vGroundPlane);
+    vector_t    vToLight = vector_t{ -0.5f,0.5f,-0.5f,0.f };
+
+    matrix_t    matShadow = XMMatrixShadow(vPlane, vToLight);
+    matrix_t    matOffset = XMMatrixTranslation(0.f, 0.01f, 0.f);
+
+    return m_pTransformCom->Get_World() * matShadow * matOffset;
 }
 
 shared_ptr<CCube> CCube::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
