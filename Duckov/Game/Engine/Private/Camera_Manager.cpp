@@ -36,6 +36,9 @@ void CCamera_Manager::Late_Update(f32_t fDeltaTime)
 {
 	for (auto pCam : m_pCameras)
 		pCam.second->Late_Update(fDeltaTime);
+
+	if (nullptr != m_pMainCamera)
+		m_pMainCamera->Update_Frustum();
 }
 
 HRESULT CCamera_Manager::Bind()

@@ -46,3 +46,15 @@ HRESULT CCamera::Bind()
 	m_pContext->PSSetConstantBuffers(1, 1, m_pCB.GetAddressOf());
 	return S_OK;
 }
+
+void CCamera::Update_Frustum()
+{
+	// 원근 투영행렬을 이용하여 절두체 생성 (뷰스페이스에 있는 절두체)
+	// 직교투영행렬을 사용하여 그리는 UI들은 절두체 컬링을 사용하지 않아야한다
+	matrix_t	matPorj = XMLoadFloat4x4(&m_matProj);
+	BoundingFrustum::CreateFromMatrix(m_tViewFrustum, matPorj); 
+	
+	// 절두체를 월드로 보내기 위한 뷰 역행렬 저장
+	matrix_t	matView = XMLoadFloat4x4(&m_matView);
+	XMStoreFloat4x4(&m_MatInvView, XMMatrixInverse(nullptr, matView));
+}

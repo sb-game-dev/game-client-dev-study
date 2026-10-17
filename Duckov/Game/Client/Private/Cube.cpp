@@ -48,6 +48,10 @@ HRESULT CCube::Initialize_Prototype()
 
     };
 
+    // 컬링 설정
+    m_bUseCulling = true;
+    BoundingBox::CreateFromPoints(m_tLocalBox, size(vertices), &vertices[0].vPosition, sizeof(VTXNORM));
+
     // 정점 버퍼 생성
     D3D11_BUFFER_DESC   VBDesc{};
     VBDesc.ByteWidth = sizeof(vertices);
@@ -248,7 +252,8 @@ void CCube::Update(f32_t fDeltaTime)
 void CCube::Late_Update(f32_t fDeltaTime)
 {
     __super::Late_Update(fDeltaTime);
-    CGameInstance::Get().Add_RenderGroup(RENDERID::NONALPHA, dynamic_pointer_cast<CGameObject>(shared_from_this()));
+    if(Is_InFrustum())
+        CGameInstance::Get().Add_RenderGroup(RENDERID::NONALPHA, dynamic_pointer_cast<CGameObject>(shared_from_this()));
     CGameInstance::Get().Add_RenderGroup(RENDERID::SHADOW, dynamic_pointer_cast<CGameObject>(shared_from_this()));
 }
 

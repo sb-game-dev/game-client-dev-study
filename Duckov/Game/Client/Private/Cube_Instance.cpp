@@ -47,6 +47,8 @@ HRESULT CCube_Instance::Initialize_Prototype()
         { float3_t(+0.5f, -0.5f, +0.5f), float3_t(0.f, -1.f, 0.f), float2_t(1.f, 1.f) },
 
     };
+    
+    BoundingBox::CreateFromPoints(m_tLocalBox, size(vertices), &vertices[0].vPosition, sizeof(VTXNORM));
 
     // 정점 버퍼 생성
     D3D11_BUFFER_DESC   VBDesc{};
@@ -210,18 +212,22 @@ void CCube_Instance::Update(f32_t fDeltaTime)
 void CCube_Instance::Late_Update(f32_t fDeltaTime)
 {
     __super::Late_Update(fDeltaTime);
-    CGameInstance::Get().Add_RenderGroup(RENDERID::NONALPHA, dynamic_pointer_cast<CGameObject>(shared_from_this()));
-    CGameInstance::Get().Add_RenderGroup(RENDERID::SHADOW, dynamic_pointer_cast<CGameObject>(shared_from_this()));
+    Cull_Instances();
+
+    if(m_iVisibleCnt > 0)
+        CGameInstance::Get().Add_RenderGroup(RENDERID::NONALPHA, dynamic_pointer_cast<CGameObject>(shared_from_this()));
+    if(m_iVisibleShadowCnt > 0)
+        CGameInstance::Get().Add_RenderGroup(RENDERID::SHADOW, dynamic_pointer_cast<CGameObject>(shared_from_this()));
 }
 
 HRESULT CCube_Instance::Render()
 {
-    return Render_Mesh(m_pInstanceVB.Get(), m_pPS.Get());
+    return Render_Mesh(m_pInstanceVB.Get(), m_pPS.Get(),m_iNumInstance);
 }
 
 HRESULT CCube_Instance::Render_Shadow()
 {
-    return Render_Mesh(m_pInstanceVB_Shadow.Get(), m_pPS_Shadow.Get());
+    return Render_Mesh(m_pInstanceVB_Shadow.Get(), m_pPS_Shadow.Get(), m_iVisibleShadowCnt);
 }
 
 HRESULT CCube_Instance::Ready_Components()
@@ -234,9 +240,6 @@ HRESULT CCube_Instance::Ready_Components()
 
 HRESULT CCube_Instance::Ready_InstanceBuffers()
 {
-    float4x4_t  WorldMats[m_iNumInstance];
-    float4x4_t  ShadowMats[m_iNumInstance];
-
     const vector_t  vToLight = vector_t{ -0.5f, 0.5f, -0.5f, 0.f };
     const matrix_t matOffset = XMMatrixTranslation(0.f, 0.01f, 0.f);
 
@@ -247,23 +250,24 @@ HRESULT CCube_Instance::Ready_InstanceBuffers()
         Compute_OnHill(vPos, vPlane);
 
         matrix_t matWorld = XMMatrixTranslationFromVector(vPos);    // XMMatrixTranslation에서 매개변수가 벡터로 바뀐 버전
+        matrix_t matShadow = matWorld * XMMatrixShadow(vPlane, vToLight) * matOffset;
 
-        XMStoreFloat4x4(&WorldMats[i], matWorld);
-        XMStoreFloat4x4(&ShadowMats[i], matWorld * XMMatrixShadow(vPlane, vToLight) * matOffset);
+        XMStoreFloat4x4(&m_WorldMats[i], matWorld);                 
+        XMStoreFloat4x4(&m_ShadowMats[i], matShadow);
+
+        m_tLocalBox.Transform(m_ShadowBoxes[i], matShadow);   // 납작해진 그림자를 감싸는 월드 박스
     }
 
     D3D11_BUFFER_DESC desc{};
     desc.ByteWidth = sizeof(float4x4_t) * m_iNumInstance;
-    desc.Usage = D3D11_USAGE_IMMUTABLE;
+    desc.Usage = D3D11_USAGE_DYNAMIC;
     desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+    desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 
-    D3D11_SUBRESOURCE_DATA Data{};
-    Data.pSysMem = WorldMats;
-    if (FAILED(m_pDevice->CreateBuffer(&desc, &Data, &m_pInstanceVB)))
+    if (FAILED(m_pDevice->CreateBuffer(&desc, nullptr, &m_pInstanceVB)))
         return E_FAIL;
 
-    Data.pSysMem = ShadowMats;
-    if (FAILED(m_pDevice->CreateBuffer(&desc, &Data, &m_pInstanceVB_Shadow)))
+    if (FAILED(m_pDevice->CreateBuffer(&desc, nullptr, &m_pInstanceVB_Shadow)))
         return E_FAIL;
 
     return S_OK;
@@ -303,7 +307,7 @@ bool CCube_Instance::Compute_OnHill(vector_t& vPos, vector_t& vGroundPlane)
 
             vector_t vGround = XMPlaneNormalize(vPlane);
             if (XMVectorGetY(vGround) < 0.f)        // 법선이 아래를 보면 뒤집기
-                vGroundPlane = XMVectorNegate(vGround);
+                vGround = XMVectorNegate(vGround);
             vGroundPlane = vGround;
             return true;
         }
@@ -311,7 +315,41 @@ bool CCube_Instance::Compute_OnHill(vector_t& vPos, vector_t& vGroundPlane)
     return true;
 }
 
-HRESULT CCube_Instance::Render_Mesh(ID3D11Buffer* pInstanceVB, ID3D11PixelShader* pPS)
+void CCube_Instance::Cull_Instances()
+{
+    const matrix_t  matIdentity = XMMatrixIdentity();
+    // 큐브 컬링
+    D3D11_MAPPED_SUBRESOURCE tMapped{};
+
+    if (FAILED(m_pContext->Map(m_pInstanceVB.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &tMapped)))
+        return;
+
+    auto pDst = reinterpret_cast<float4x4_t*>(tMapped.pData);
+    m_iVisibleCnt = 0;
+    for (uint32_t i = 0; i < m_iNumInstance; ++i)
+    {
+        if (Is_BoxInFrustum(m_tLocalBox, XMLoadFloat4x4(&m_WorldMats[i])))
+            pDst[m_iVisibleCnt++] = m_WorldMats[i];
+    }
+    m_pContext->Unmap(m_pInstanceVB.Get(), 0);
+
+    // 그림자 컬링
+    if (FAILED(m_pContext->Map(m_pInstanceVB_Shadow.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &tMapped)))
+        return;
+    pDst = reinterpret_cast<float4x4_t*>(tMapped.pData);
+    m_iVisibleShadowCnt = 0;
+
+    for (uint32_t i = 0; i < m_iNumInstance; ++i)
+    {
+        // 그림자는 로컬스페이스가 없음. 따라서 절두체를 월드까지만 내려야 함.
+        // 따라서 월드 -> 로컬로 이동하기 위한 월드^-1 를 만들때 사용할 월드 행렬 매개변수로 항등행렬을 보낸다.
+        if (Is_BoxInFrustum(m_ShadowBoxes[i], matIdentity)) 
+            pDst[m_iVisibleShadowCnt++] = m_ShadowMats[i];
+    }
+    m_pContext->Unmap(m_pInstanceVB_Shadow.Get(), 0);
+}
+
+HRESULT CCube_Instance::Render_Mesh(ID3D11Buffer* pInstanceVB, ID3D11PixelShader* pPS, uint32_t iInstanceCnt)
 {
     CB_PER_OBJECT_LIT cbData;
     XMStoreFloat4x4(&cbData.mat_World, XMMatrixIdentity());
@@ -326,14 +364,14 @@ HRESULT CCube_Instance::Render_Mesh(ID3D11Buffer* pInstanceVB, ID3D11PixelShader
         //IA(입력 조립기 단계)
         // 정점 하나의 크기와 버퍼의 시작 위치 설정
     ID3D11Buffer* pVBs[] = { m_pVB.Get(),pInstanceVB };
-    uint32_t iStride[] = { sizeof(VTXNORM),sizeof(float4x4_t)};
+    uint32_t iStride[] = { sizeof(VTXNORM),sizeof(float4x4_t) };
     uint32_t iOffset[] = { 0,0 };
     // 버텍스 버퍼 꽂기
     m_pContext->IASetVertexBuffers(0,                       // 정점 버퍼들을 붙이기 시작할 인덱스
         2,                       // 입력 슬롯에 붙이고자 하는 버퍼의 개수
-        pVBs,    // 버퍼를 담은 배열의 첫 원소를 가리키는 포인터
-        iStride,                // 버퍼의 한 원소의 바이트크기 단위(주소를 넘겨줘야함)
-        iOffset);               // 정점 버퍼의 시작위치에서부터 건너뛸 인덱스
+        pVBs,                    // 버퍼를 담은 배열의 첫 원소를 가리키는 포인터
+        iStride,                 // 버퍼의 한 원소의 바이트크기 단위(주소를 넘겨줘야함)
+        iOffset);                // 정점 버퍼의 시작위치에서부터 건너뛸 인덱스
 
     // 인덱스 버퍼 꽂기
     m_pContext->IASetIndexBuffer(m_pIB.Get(), DXGI_FORMAT_R32_UINT, 0);
@@ -367,10 +405,13 @@ HRESULT CCube_Instance::Render_Mesh(ID3D11Buffer* pInstanceVB, ID3D11PixelShader
     // RS(레스터라이저 설정)
     m_pContext->RSSetState(m_pRS.Get());
 
-    // 그리기
-    m_pContext->DrawIndexedInstanced(m_iIndexCnt, // IndexCnt: 인덱스 버퍼의 크기
-                                     m_iNumInstance,
-                                     0,0,0); 
+    // 그리기(DrawIndexedInstanced -> 정점 36개당 인스턴스 1개 적용)
+    // for(m_iNumInstance)
+    //      for(m_iIndexCnt)
+    //
+    m_pContext->DrawIndexedInstanced(m_iIndexCnt,       // IndexCnt: 인덱스 버퍼의 크기
+                                     iInstanceCnt,    // 인스턴스 개수(월드 행렬의 개수) 
+                                     0, 0, 0);
 
     return S_OK;
 }

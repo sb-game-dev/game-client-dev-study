@@ -36,11 +36,18 @@ private:
 	shared_ptr<CTexture>			m_pTextureCom = { nullptr };
 	float4_t						m_vGroundPlane = { 0.f, 1.f, 0.f, 0.f };	// ¹ß¹Ø Æò¸é (a,b,c,d)
 
+	float4x4_t						m_WorldMats[m_iNumInstance] = {};      
+	float4x4_t						m_ShadowMats[m_iNumInstance] = {};
+	BoundingBox						m_ShadowBoxes[m_iNumInstance] = {};    
+	uint32_t						m_iVisibleCnt = {};
+	uint32_t						m_iVisibleShadowCnt = {};
+
 private:
 	HRESULT			Ready_Components();
 	HRESULT			Ready_InstanceBuffers();
 	bool			Compute_OnHill(vector_t& vPos, vector_t& vGroundPlane);
-	HRESULT			Render_Mesh(ID3D11Buffer* pInstanceVB, ID3D11PixelShader* pPS);
+	void            Cull_Instances();
+	HRESULT         Render_Mesh(ID3D11Buffer* pInstanceVB, ID3D11PixelShader* pPS, uint32_t iInstanceCnt);
 
 public:
 	static shared_ptr<CCube_Instance> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);

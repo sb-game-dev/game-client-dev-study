@@ -10,22 +10,29 @@ public:
 	virtual ~CCamera() = default;
 
 public:
-	virtual	HRESULT			Initialize();
-	virtual	void			Priority_Update(f32_t fDeltTime);
-	virtual	void			Update(f32_t fDeltTime);
-	virtual	void			Late_Update(f32_t fDeltTime);
+	virtual	HRESULT				Initialize();
+	virtual	void				Priority_Update(f32_t fDeltTime);
+	virtual	void				Update(f32_t fDeltTime);
+	virtual	void				Late_Update(f32_t fDeltTime);
 
-	const	float4x4_t&		GetView()	{ return m_matView; }
-	const	float4x4_t&		GetProj()	{ return m_matProj; }
-	const	float3_t&		GetEye()	{ return m_vEye; }
+	const	float4x4_t&			GetView()	{ return m_matView; }
+	const	float4x4_t&			GetProj()	{ return m_matProj; }
+	const	float3_t&			GetEye()	{ return m_vEye; }
 
-	virtual HRESULT			Bind();
+	virtual HRESULT				Bind();
+
+	const	BoundingFrustum&	Get_ViewFrustum() { return m_tViewFrustum; }
+	const	float4x4_t&			Get_InvView() { return m_MatInvView; }
+	virtual void				Update_Frustum();
 
 protected:
 	ComPtr<ID3D11Device>				m_pDevice = { nullptr };
 	ComPtr<ID3D11DeviceContext>			m_pContext = { nullptr };
 
 	ComPtr<ID3D11Buffer>				m_pCB = { nullptr };
+
+	BoundingFrustum		m_tViewFrustum = {};
+	float4x4_t			m_MatInvView = {};
 
 	float4x4_t			m_matView;
 	float4x4_t			m_matProj;

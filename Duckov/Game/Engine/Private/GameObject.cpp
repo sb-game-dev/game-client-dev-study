@@ -51,6 +51,29 @@ void CGameObject::Compute_ViewZ()
 	m_fViewZ = XMVectorGetZ(viewPos);
 }
 
+bool_t CGameObject::Is_InFrustum()
+{
+	if (false == m_bUseCulling)
+		return true;
+	return Is_BoxInFrustum(m_tLocalBox, m_pTransformCom->Get_World());
+}
+
+bool_t CGameObject::Is_BoxInFrustum(const BoundingBox& tLocalBox, const matrix_t& matWorld)
+{
+	auto pCam = CGameInstance::Get().Get_MainCamera();
+	matrix_t matInvView = XMLoadFloat4x4(&pCam->Get_InvView());
+	matrix_t matInvWorld = XMMatrixInverse(nullptr, matWorld);
+	matrix_t matToLocal = XMMatrixMultiply(matInvView, matInvWorld);   
+
+	vector_t vScale, vRotQuat, vTrans;
+	XMMatrixDecompose(&vScale, &vRotQuat, &vTrans, matToLocal);
+
+	BoundingFrustum tLocalFrustum;
+	pCam->Get_ViewFrustum().Transform(tLocalFrustum, XMVectorGetX(vScale), vRotQuat, vTrans);
+
+	return tLocalBox.Intersects(tLocalFrustum);
+}
+
 shared_ptr<CComponent> CGameObject::Find_Component(const wstring_t& strComponentTag)
 {
 	auto iter = m_Components.find(strComponentTag);

@@ -37,6 +37,9 @@ public:
 
 	virtual shared_ptr<CTransform>	Get_Transform() { return m_pTransformCom; }
 
+	virtual bool_t		Is_InFrustum();
+
+
 protected:
 	ComPtr<ID3D11Buffer>				m_pVB = { nullptr };			// 버텍스 버퍼
 	ComPtr<ID3D11Buffer>				m_pIB = { nullptr };			// 인덱스 버퍼
@@ -59,6 +62,12 @@ protected:
 	f32_t				m_fViewZ = {};
 
 	MATERIAL			m_tMaterial = {};
+
+	BoundingBox			m_tLocalBox = {};
+	bool_t				m_bUseCulling = { false };
+
+protected:
+	virtual		bool_t		Is_BoxInFrustum(const BoundingBox& tLocalBox, const matrix_t& matWorld);
 
 protected:
 	shared_ptr<CComponent> Find_Component(const wstring_t& strComponentTag);
