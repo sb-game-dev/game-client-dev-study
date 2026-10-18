@@ -76,7 +76,7 @@ void CS_HorzMouseBlur(int3 vGroupThreadID : SV_GroupThreadID, // 그룹 안에서의 �
     g_MouseCache[vGroupThreadID.x] = g_Input[vDispatchThreadID.xy];
     GroupMemoryBarrierWithGroupSync();
     
-    float4 vBlurColor = float4(0.3f, 0.3f, 0.3f, 1.f);
+    float4 vBlurColor = float4(0.4f, 0.4f, 0.4f, 1.f);
     float4 vBlurRedColor = float4(1.f, 0.f, 0.f, 1.f);
     
     float x = vDispatchThreadID.x;
@@ -135,7 +135,7 @@ void CS_VertMouseBlur(int3 vGroupThreadID : SV_GroupThreadID,
     g_MouseCache[vGroupThreadID.y] = g_Input[vDispatchThreadID.xy];
     GroupMemoryBarrierWithGroupSync();
     
-    float4 vBlurColor = float4(0.3f, 0.3f, 0.3f, 1.f);
+    float4 vBlurColor = float4(0.4f, 0.4f, 0.4f, 1.f);
     float4 vBlurRedColor = float4(1.f, 0.f, 0.f, 1.f);
     
     float x = vDispatchThreadID.x;

@@ -76,6 +76,9 @@
     <Filter Include="06. Component\01. Texture">
       <UniqueIdentifier>{f2679b99-ae3f-4bdc-bcf4-c82dda35c955}</UniqueIdentifier>
     </Filter>
+    <Filter Include="06. Component\02. Mesh">
+      <UniqueIdentifier>{648c8e78-3ced-4a78-8055-91fa64eaaac4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Engine_Defines.h">

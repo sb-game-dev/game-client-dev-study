@@ -37,7 +37,7 @@ public:
 
 	virtual shared_ptr<CTransform>	Get_Transform() { return m_pTransformCom; }
 
-	virtual bool_t		Is_InFrustum();
+	
 
 
 protected:
@@ -67,6 +67,7 @@ protected:
 	bool_t				m_bUseCulling = { false };
 
 protected:
+	virtual		bool_t		Is_InFrustum();
 	virtual		bool_t		Is_BoxInFrustum(const BoundingBox& tLocalBox, const matrix_t& matWorld);
 
 protected:

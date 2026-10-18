@@ -54,10 +54,24 @@ void CCamera::Update_Frustum()
 	matrix_t	matPorj = XMLoadFloat4x4(&m_matProj);
 	BoundingFrustum::CreateFromMatrix(m_tViewFrustum, matPorj); 
 	
-	m_tViewFrustum.RightSlope *= 0.3f;   // 테스트용
-	m_tViewFrustum.LeftSlope *= 0.3f;
+	//m_tViewFrustum.RightSlope *= 0.3f;   // 테스트용
+	//m_tViewFrustum.LeftSlope *= 0.3f;
 
 	// 절두체를 월드로 보내기 위한 뷰 역행렬 저장
 	matrix_t	matView = XMLoadFloat4x4(&m_matView);
 	XMStoreFloat4x4(&m_MatInvView, XMMatrixInverse(nullptr, matView));
+}
+
+void CCamera::Compute_PickingRay(POINT pt, vector_t& vRayOriginW, vector_t& vRayDirW)
+{
+	uint32_t numVP = 1;
+	D3D11_VIEWPORT  vp;
+	m_pContext->RSGetViewports(&numVP, &vp);
+
+	f32_t vx = (+2.f * pt.x / vp.Width - 1.f) / m_matProj._11;
+	f32_t vy = (-2.f * pt.y / vp.Height + 1.f) / m_matProj._22;
+
+	matrix_t matInvView = XMMatrixInverse(nullptr, XMLoadFloat4x4(&m_matView));
+	vRayOriginW = XMLoadFloat3(&m_vEye);
+	vRayDirW = XMVector3Normalize(XMVector3TransformNormal({ vx, vy, 1.f, 0.f }, matInvView));
 }

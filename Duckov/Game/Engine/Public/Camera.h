@@ -25,6 +25,8 @@ public:
 	const	float4x4_t&			Get_InvView() { return m_MatInvView; }
 	virtual void				Update_Frustum();
 
+	virtual void				Compute_PickingRay(POINT pt, vector_t& vRayOriginW, vector_t& vRayDirW);
+
 protected:
 	ComPtr<ID3D11Device>				m_pDevice = { nullptr };
 	ComPtr<ID3D11DeviceContext>			m_pContext = { nullptr };

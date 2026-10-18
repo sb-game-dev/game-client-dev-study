@@ -141,6 +141,7 @@
     <ClInclude Include="..\public\Cube_Instance.h" />
     <ClInclude Include="..\Public\Fog.h" />
     <ClInclude Include="..\Public\Mirror.h" />
+    <ClInclude Include="..\public\Mouse.h" />
     <ClInclude Include="..\public\Orthographic_Cam.h" />
     <ClInclude Include="..\public\SkyBox.h" />
     <ClInclude Include="..\public\SunLight.h" />
@@ -167,6 +168,7 @@
     <ClCompile Include="..\private\Cube_Instance.cpp" />
     <ClCompile Include="..\private\Fog.cpp" />
     <ClCompile Include="..\private\Mirror.cpp" />
+    <ClCompile Include="..\private\Mouse.cpp" />
     <ClCompile Include="..\private\Orthographic_Cam.cpp" />
     <ClCompile Include="..\private\SkyBox.cpp" />
     <ClCompile Include="..\private\SunLight.cpp" />

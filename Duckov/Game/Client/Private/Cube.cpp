@@ -252,6 +252,7 @@ void CCube::Update(f32_t fDeltaTime)
 void CCube::Late_Update(f32_t fDeltaTime)
 {
     __super::Late_Update(fDeltaTime);
+
     if(Is_InFrustum())
         CGameInstance::Get().Add_RenderGroup(RENDERID::NONALPHA, dynamic_pointer_cast<CGameObject>(shared_from_this()));
 

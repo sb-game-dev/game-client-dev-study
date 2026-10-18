@@ -44,7 +44,7 @@ namespace Engine
 
 	typedef struct tagVtxNormInstance
 	{
-		static	constexpr uint32_t	iNumElements = 7;
+		static constexpr uint32_t	iNumElements = 7;
 		static constexpr D3D11_INPUT_ELEMENT_DESC Elements[iNumElements] =
 		{
 			// 슬롯0: 정점(기존 VTXNORM과 동일)

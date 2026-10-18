@@ -85,6 +85,9 @@
     <Filter Include="02. GameObjects\02. Cube\Cube_Instanced">
       <UniqueIdentifier>{3c96a574-3c38-4cd8-ba09-c267ec673173}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObjects\09. Mouse">
+      <UniqueIdentifier>{68c60908-b3db-4738-827d-a84f277c4667}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -164,6 +167,9 @@
     </ClInclude>
     <ClInclude Include="..\public\Cube_Instance.h">
       <Filter>02. GameObjects\02. Cube\Cube_Instanced</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Mouse.h">
+      <Filter>02. GameObjects\09. Mouse</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -245,6 +251,9 @@
     </ClCompile>
     <ClCompile Include="..\private\Cube_Instance.cpp">
       <Filter>02. GameObjects\02. Cube\Cube_Instanced</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Mouse.cpp">
+      <Filter>02. GameObjects\09. Mouse</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

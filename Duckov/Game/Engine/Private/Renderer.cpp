@@ -60,7 +60,7 @@ void CRenderer::Render_GameObject()
 
 	m_pContext->OMSetRenderTargets(1, pOldRTV.GetAddressOf(), pOldDSV.Get());
 
-	if (GetAsyncKeyState(VK_RBUTTON) & 0x8000)
+	if (GetAsyncKeyState(VK_RBUTTON) & 0x8000 && !GetAsyncKeyState(VK_LSHIFT))
 	{
 		m_pBlurFilter->BlurInPlace(m_pSceneSRV.Get(), m_pSceneUAV.Get(), 1); //<- 이 숫자가 흐리게 하는 횟수인데 달라진건가
 	}

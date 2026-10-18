@@ -29,31 +29,22 @@ public:
 
 	virtual void	AdjustPosY();
 
+	virtual float4_t Get_WorldMousePos() { return m_vWorldMousePos; }
+
 private:
 	ComPtr<ID3D11RasterizerState>	m_pRS_Reflect	= { nullptr };
 	ComPtr<ID3D11PixelShader>		m_pPS_Shadow	= { nullptr };
 	ComPtr<ID3D11PixelShader>		m_pPS_Occluded	= { nullptr };
 
 	float4_t						m_vGroundPlane = { 0.f, 1.f, 0.f, 0.f };	// ¹ß¹Ø Æò¸é (a,b,c,d)
-
-	vector_t	m_vZ_Plus	= XMVector4Normalize({ 0.f,0.f,+1.f,0.f });
-	vector_t	m_vZ_Minus	= XMVector4Normalize({ 0.f,0.f,-1.f,0.f });
-	vector_t	m_vX_Plus	= XMVector4Normalize({ +1.f,0.f,0.f,0.f });
-	vector_t	m_vX_Minus	= XMVector4Normalize({ -1.f,0.f,0.f,0.f });
-	vector_t	m_vY_Plus	= XMVector4Normalize({ 0.f,+1.f,0.f,0.f });
-	vector_t	m_vY_Minus	= XMVector4Normalize({ 0.f,-1.f,0.f,0.f });
-	vector_t	m_vQuad1	= XMVector4Normalize({ +1.f,0.f,+1.f,0.f });
-	vector_t	m_vQuad2	= XMVector4Normalize({ -1.f,0.f,+1.f,0.f });
-	vector_t	m_vQuad3	= XMVector4Normalize({ -1.f,0.f,-1.f,0.f });
-	vector_t	m_vQuad4	= XMVector4Normalize({ +1.f,0.f,-1.f,0.f });
+	float4_t						m_vWorldMousePos = { 0.f,0.f,0.f,1.f };
 
 private:
 	HRESULT			Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS) override;
 	HRESULT			Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS, ID3D11PixelShader* pPS);
 
-	void	KeyInput(f32_t fDeltaTime);
-	void	LookAtMouse(f32_t fDeltaTime);
-
+	void			KeyInput(f32_t fDeltaTime);
+	void			LookAtMouse(f32_t fDeltaTime);
 
 public:
 	static shared_ptr<CPlayer> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
