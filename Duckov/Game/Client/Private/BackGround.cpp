@@ -119,16 +119,8 @@ HRESULT CBackGround::Initialize_Prototype()
     samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
 
     if (FAILED(m_pDevice->CreateSamplerState(&samplerDesc, m_pSampler.GetAddressOf())))
-        return E_FAIL;
-
-    // Material
-    m_tMaterial.Ambient = float4_t(1.f, 1.f, 1.f, 1.f);
-    m_tMaterial.Diffuse = float4_t(1.f, 1.f, 1.f, 1.f);
-    m_tMaterial.Specular = float4_t(0.2f, 0.2f, 0.2f, 16.f);   // w = ±¤ÅÃ Áö¼ö, 0ÀÌ¸é ¾È µÊ
-
-   
-
-	return S_OK;
+        return E_FAIL; 
+    return S_OK;
 }
 
 HRESULT CBackGround::Initialize(void* pArg)
@@ -155,12 +147,12 @@ void CBackGround::Priority_Update(f32_t fTimeDelta)
 void CBackGround::Update(f32_t fTimeDelta)
 {
 	__super::Update(fTimeDelta);
-    CGameInstance::Get().Add_RenderGroup(RENDERID::NONALPHA_UI, dynamic_pointer_cast<CGameObject>(shared_from_this()));
 }
 
 void CBackGround::Late_Update(f32_t fTimeDelta)
 {
 	__super::Late_Update(fTimeDelta);
+    CGameInstance::Get().Add_RenderGroup(RENDERID::NONALPHA_UI, dynamic_pointer_cast<CGameObject>(shared_from_this()));
 }
 HRESULT CBackGround::Render()
 {

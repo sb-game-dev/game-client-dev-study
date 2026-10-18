@@ -59,7 +59,6 @@ void CQuarterView_Cam::Update(f32_t fDeltaTime)
 	//m_vEye = { 0.f,15.f,0.f };
 	//m_fTime += 5 * fDeltaTime;
 	//m_vAt = { 5 * cosf(XM_2PI / 16 * m_fTime) ,0.f,5 * sinf(XM_2PI / 16 * m_fTime) };
-
 }
 
 void CQuarterView_Cam::Late_Update(f32_t fDeltaTime)

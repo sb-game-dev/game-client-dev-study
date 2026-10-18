@@ -10,6 +10,7 @@
 #include "SkyBox.h"
 #include "Tree.h"
 #include "Cube_Instance.h"
+#include "Client_Mouse.h"
 
 CLoader::CLoader(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     : m_pDevice{pDevice}
@@ -127,6 +128,11 @@ HRESULT CLoader::Loading_For_GamePlayLV()
         CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/SkyCube.dds"), 1))))
         return E_FAIL;
 
+    // 마우스 조준선
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_Texture_Mouse"),
+        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/UI/Mouse/cursor%d.png"), 4))))
+        return E_FAIL;
+
 
     lstrcpy(m_szLoadingText, TEXT("모델을 준비중입니다."));
     for (uint32_t i = 0; i < 99999999; i++)
@@ -167,6 +173,8 @@ HRESULT CLoader::Loading_For_GamePlayLV()
     pGameObject = CTree::Create(m_pDevice, m_pContext);
     CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_Tree", pGameObject);
 
+    pGameObject = CClient_Mouse::Create(m_pDevice, m_pContext);
+    CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_ClientMouse", pGameObject);
 
     lstrcpy(m_szLoadingText, TEXT("로딩이 완료되었습니다."));
 

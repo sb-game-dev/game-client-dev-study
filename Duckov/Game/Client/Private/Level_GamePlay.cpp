@@ -5,6 +5,7 @@
 #include "Player_PointLight.h"
 #include "Player_SpotLight.h"
 #include "SunLight.h"
+
 CLevel_GamePlay::CLevel_GamePlay(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     :CLevel{ pDevice,pContext }
 {
@@ -43,6 +44,9 @@ HRESULT CLevel_GamePlay::Ready_Layer_BackGround(const tchar_t* pLayerTag)
 
 HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
 {
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_GameObject_ClientMouse"),
+        ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_ClientMouse"))))
+        return E_FAIL;
 
     if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_GameObject_Hill"),
         ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_Hill"))))

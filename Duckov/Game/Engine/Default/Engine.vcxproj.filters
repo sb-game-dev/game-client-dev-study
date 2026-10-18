@@ -43,12 +43,6 @@
     <Filter Include="04. Prototypes\Manager">
       <UniqueIdentifier>{d4948aff-7631-40bc-9d04-88fa9c603de6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="05. GameObject\Manager">
-      <UniqueIdentifier>{25557e8e-d744-4c16-99bb-af42888bf9ef}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="05. GameObject\Manager\Layer">
-      <UniqueIdentifier>{47efc82e-da10-48a0-b028-0a42c53d2050}</UniqueIdentifier>
-    </Filter>
     <Filter Include="08. Light">
       <UniqueIdentifier>{2275e296-f666-4f6f-88a7-5ec3bb88b248}</UniqueIdentifier>
     </Filter>
@@ -78,6 +72,15 @@
     </Filter>
     <Filter Include="06. Component\02. Mesh">
       <UniqueIdentifier>{648c8e78-3ced-4a78-8055-91fa64eaaac4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. GameObject\00. Manager">
+      <UniqueIdentifier>{25557e8e-d744-4c16-99bb-af42888bf9ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. GameObject\00. Manager\Layer">
+      <UniqueIdentifier>{47efc82e-da10-48a0-b028-0a42c53d2050}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. GameObject\01. Mouse">
+      <UniqueIdentifier>{ebea8480-d7dc-4347-8aae-a18188101c6f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -133,10 +136,10 @@
       <Filter>06. Component</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Object_Manager.h">
-      <Filter>05. GameObject\Manager</Filter>
+      <Filter>05. GameObject\00. Manager</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Layer.h">
-      <Filter>05. GameObject\Manager\Layer</Filter>
+      <Filter>05. GameObject\00. Manager\Layer</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Camera_Manager.h">
       <Filter>07. Camera\Manager</Filter>
@@ -170,6 +173,9 @@
     </ClInclude>
     <ClInclude Include="..\public\Texture.h">
       <Filter>06. Component\01. Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Mouse.h">
+      <Filter>05. GameObject\01. Mouse</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -207,10 +213,10 @@
       <Filter>06. Component</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Object_Manager.cpp">
-      <Filter>05. GameObject\Manager</Filter>
+      <Filter>05. GameObject\00. Manager</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Layer.cpp">
-      <Filter>05. GameObject\Manager\Layer</Filter>
+      <Filter>05. GameObject\00. Manager\Layer</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Camera_Manager.cpp">
       <Filter>07. Camera\Manager</Filter>
@@ -241,6 +247,9 @@
     </ClCompile>
     <ClCompile Include="..\private\Texture.cpp">
       <Filter>06. Component\01. Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Mouse.cpp">
+      <Filter>05. GameObject\01. Mouse</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
