@@ -29,7 +29,6 @@ public:
 
 	virtual void	AdjustPosY();
 
-	virtual float4_t Get_WorldMousePos() { return m_vWorldMousePos; }
 
 private:
 	ComPtr<ID3D11RasterizerState>	m_pRS_Reflect	= { nullptr };
@@ -37,7 +36,6 @@ private:
 	ComPtr<ID3D11PixelShader>		m_pPS_Occluded	= { nullptr };
 
 	float4_t						m_vGroundPlane = { 0.f, 1.f, 0.f, 0.f };	// ¹ß¹Ø Æò¸é (a,b,c,d)
-	float4_t						m_vWorldMousePos = { 0.f,0.f,0.f,1.f };
 
 private:
 	HRESULT			Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS) override;

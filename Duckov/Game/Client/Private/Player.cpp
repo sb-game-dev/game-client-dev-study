@@ -464,28 +464,8 @@ void CPlayer::KeyInput(f32_t fDeltaTime)
 }
 void CPlayer::LookAtMouse(f32_t fDeltaTime)
 {
-    POINT		pt{};
-
-    GetCursorPos(&pt);
-    ScreenToClient(g_hWnd, &pt);
-    vector_t vRayOrigin = {};
-    vector_t vRayDir = {};
-
-    CGameInstance::Get().Get_MainCamera()->Compute_PickingRay(pt, vRayOrigin,vRayDir);
-
-    float3_t    vPos = {};
-    float3_t    vecOrigin = {};
-    float3_t    vecRayDir = {};
-    XMStoreFloat3(&vPos, m_pTransformCom->Get_State(STATE::POSITION));
-    XMStoreFloat3(&vecOrigin, vRayOrigin);
-    XMStoreFloat3(&vecRayDir, vRayDir);
-
-    // 직선의 방정식 => (x - x`)/a = (y - y`)/b = (z - z`)/c
-
-    f32_t x = (vPos.y - vecOrigin.y)/vecRayDir.y * vecRayDir.x + vecOrigin.x;
-    f32_t z = (vPos.y - vecOrigin.y)/vecRayDir.y * vecRayDir.z + vecOrigin.z;
-    vector_t vTargetPos = { x, vPos.y, z, 1.f };
-    XMStoreFloat4(&m_vWorldMousePos, vTargetPos);
+    auto pMouse = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", L"GameObject_ClientMouse");
+    vector_t vTargetPos = pMouse->Get_Transform()->Get_State(STATE::POSITION);
     m_pTransformCom->LookAt(vTargetPos);
 }
 shared_ptr<CPlayer> CPlayer::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)

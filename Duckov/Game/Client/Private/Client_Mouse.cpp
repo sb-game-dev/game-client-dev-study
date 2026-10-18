@@ -189,13 +189,10 @@ HRESULT CClient_Mouse::Render()
     if (FAILED(__super::Render()))
         return E_FAIL;
 
-    // 직교 카메라는 화면 중앙이 원점, y축이 위쪽 -> 클라이언트 픽셀 좌표(좌상단 원점, y 아래)를 변환
-    // 화살표 커서는 이미지 좌상단이 클릭 지점이라 크기의 절반만큼 우하단으로 밀어준다
     const f32_t fSize = 32.f;
-    matrix_t matWorldVP = XMMatrixScaling(fSize, fSize, 1.f) 
-        * XMMatrixTranslation(m_vPosVP.x - g_iWinSizeX * 0.5f + fSize * 0.5f,
-                              -m_vPosVP.y + g_iWinSizeY * 0.5f - fSize * 0.5f,
-                              m_vPosVP.z);
+    matrix_t matScale = XMMatrixScaling(fSize, fSize, 1.f);
+    matrix_t matTrans = XMMatrixTranslation(m_vPosVP.x - g_iWinSizeX * 0.5f, -m_vPosVP.y + g_iWinSizeY * 0.5f, m_vPosVP.z);
+    matrix_t matWorldVP = matScale * matTrans;
 
     return Render_Mesh(matWorldVP,m_pRS.Get());
 }

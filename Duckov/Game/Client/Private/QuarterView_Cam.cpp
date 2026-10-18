@@ -30,8 +30,8 @@ void CQuarterView_Cam::Update(f32_t fDeltaTime)
 	if (GetAsyncKeyState(VK_RBUTTON) & 0x8000 && !GetAsyncKeyState(VK_LSHIFT))
 	{
 		CGameInstance::Get().Get_MainCamera();
-		float4_t vecWorldMousePos = static_pointer_cast<CPlayer>(m_pPlayer)->Get_WorldMousePos();
-		vector_t vWorldMousePos = XMLoadFloat4(&vecWorldMousePos);
+		auto pMouse = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", L"GameObject_ClientMouse");
+		auto vWorldMousePos = pMouse->Get_Transform()->Get_State(STATE::POSITION);
 
 		XMStoreFloat3(&m_vAt, (vWorldMousePos + vPlayerPos) / 2);
 		// fov º¯°æ
