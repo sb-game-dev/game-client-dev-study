@@ -1,4 +1,7 @@
 #include "Client_Mouse.h"
+const f32_t g_SizeX = 24.f;
+const f32_t g_SizeY = 15.f;
+const f32_t g_RotZ[4] = { 0.f,90.f,180.f,270.f };
 
 CClient_Mouse::CClient_Mouse(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     :CMouse{ pDevice,pContext }
@@ -61,12 +64,11 @@ HRESULT CClient_Mouse::Initialize_Prototype()
     uint32_t iFlags = 0;
 #ifdef _DEBUG
     iFlags = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
-    // 셰이더를 디버그 모드에서 컴파일한다. | 컴파일시 최적화를 사용하지 않는다(디버깅에 유용함)
 #endif
     //VS 컴파일
     if (FAILED(D3DCompileFromFile(
         L"../Shader/Shader_VtxTex.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, 
-        "VS_MAIN", "vs_5_0", iFlags, 0, &pVSBlob, &pErrBlob)))                       
+        "VS_MAIN_INST", "vs_5_0", iFlags, 0, &pVSBlob, &pErrBlob)))                       
     {
         if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
         return E_FAIL;
@@ -88,8 +90,8 @@ HRESULT CClient_Mouse::Initialize_Prototype()
         return E_FAIL;
 
     // Input Layout 생성 (VS 바이트코드와 대조)
-    if (FAILED(m_pDevice->CreateInputLayout(VTXNORM::Elements,               // 정점 구조체를 서술하는 D3D11_INPUT_LEELMENT_DESC들의 배열
-        VTXNORM::iNumElements,           // 배열 원소의 개수
+    if (FAILED(m_pDevice->CreateInputLayout(VTXNORM_INSTANCE::Elements,               // 정점 구조체를 서술하는 D3D11_INPUT_LEELMENT_DESC들의 배열
+        VTXNORM_INSTANCE::iNumElements,           // 배열 원소의 개수
         pVSBlob->GetBufferPointer(),    // 정점셰이더를 컴파일해서 얻은 바이트코드를 가리키는 포인터
         pVSBlob->GetBufferSize(),       // 바이트코드의 크기
         &m_pInputLayout)))              // 생성된 입력 배치를 돌려줄 포인터
@@ -124,6 +126,8 @@ HRESULT CClient_Mouse::Initialize(void* pArg)
 
 
     if (FAILED(Ready_Components()))
+        return E_FAIL;
+    if (FAILED(Ready_InstanceBuffers()))
         return E_FAIL;
 
     return S_OK;
@@ -165,6 +169,13 @@ void CClient_Mouse::Update(f32_t fTimeDelta)
     f32_t x = (vPlayerPos.y - vecOrigin.y) / vecRayDir.y * vecRayDir.x + vecOrigin.x;
     f32_t z = (vPlayerPos.y - vecOrigin.y) / vecRayDir.y * vecRayDir.z + vecOrigin.z;
     m_pTransformCom->Set_State(STATE::POSITION,{ x, vPlayerPos.y, z, 1.f });
+
+    // 
+    if (GetAsyncKeyState(VK_LBUTTON) && m_fRange <= 50.f)
+        m_fRange += 10.f;
+
+    if (m_fRange > 26.f)
+        m_fRange -= 100 * fTimeDelta;
 }
 
 void CClient_Mouse::Late_Update(f32_t fTimeDelta)
@@ -178,14 +189,34 @@ HRESULT CClient_Mouse::Render()
     if (FAILED(__super::Render()))
         return E_FAIL;
 
-    const f32_t fSize = 32.f;
-    matrix_t matScale = XMMatrixScaling(fSize, fSize, 1.f);
-    matrix_t matTrans = XMMatrixTranslation(m_vPosVP.x - g_iWinSizeX * 0.5f, 
-                                            -m_vPosVP.y + g_iWinSizeY * 0.5f, 
-                                            m_vPosVP.z);
-    matrix_t matWorldVP = matScale * matTrans;
+    //const f32_t fSizeX = 20.f;
+    //const f32_t fSizeY = 12.f;
+    //matrix_t matScale = XMMatrixScaling(fSizeX, fSizeY, 1.f);
+    //matrix_t matTrans = XMMatrixTranslation(m_vPosVP.x - g_iWinSizeX * 0.5f, 
+    //                                        -m_vPosVP.y + g_iWinSizeY * 0.5f, 
+    //                                        m_vPosVP.z);
+    //matrix_t matWorldVP = matScale * matTrans;
 
-    return Render_Mesh(matWorldVP,m_pRS.Get());
+    D3D11_MAPPED_SUBRESOURCE tMapped{};
+
+    if (FAILED(m_pContext->Map(m_pInstanceVB.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &tMapped)))
+        return E_FAIL;
+    float3_t vOffsetPos[4] = { {0.f,m_fRange,0.f},{-m_fRange,0.f,0.f} ,{0.f,-m_fRange,0.f} ,{m_fRange,0.f,0.f} };
+
+    auto pDst = reinterpret_cast<float4x4_t*>(tMapped.pData);
+    for (uint32_t i = 0; i < m_iNumInstance; ++i)
+    {
+        matrix_t matScale = XMMatrixScaling(g_SizeX, g_SizeY, 1.f);
+        matrix_t matRotZ  = XMMatrixRotationZ(XMConvertToRadians(g_RotZ[i]));
+        matrix_t matTrans = XMMatrixTranslation(+ m_vPosVP.x - g_iWinSizeX * 0.5f + vOffsetPos[i].x,
+                                                - m_vPosVP.y + g_iWinSizeY * 0.5f + vOffsetPos[i].y, 
+                                                m_vPosVP.z);
+        pDst[i] = m_WorldMats[i];
+        XMStoreFloat4x4(&pDst[i], matScale * matRotZ * matTrans);
+    }
+    m_pContext->Unmap(m_pInstanceVB.Get(), 0);
+
+    return Render_Mesh(m_pInstanceVB.Get(), m_pPS.Get(), m_iNumInstance);
 }
 
 HRESULT CClient_Mouse::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS)
@@ -258,6 +289,79 @@ HRESULT CClient_Mouse::Ready_Components()
     if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_Texture_Mouse"),
         TEXT("Com_Texture"), m_pTextureCom)))
         return E_FAIL;
+    return S_OK;
+}
+HRESULT CClient_Mouse::Ready_InstanceBuffers()
+{
+    D3D11_BUFFER_DESC desc{};
+    desc.ByteWidth = sizeof(float4x4_t) * m_iNumInstance;
+    desc.Usage = D3D11_USAGE_DYNAMIC;
+    desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+    desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+
+    if (FAILED(m_pDevice->CreateBuffer(&desc, nullptr, &m_pInstanceVB)))
+        return E_FAIL;
+}
+HRESULT CClient_Mouse::Render_Mesh(ID3D11Buffer* pInstanceVB, ID3D11PixelShader* pPS, uint32_t iInstanceCnt)
+{
+    CB_PER_OBJECT_LIT cbData;
+    XMStoreFloat4x4(&cbData.mat_World, XMMatrixIdentity());
+    XMStoreFloat4x4(&cbData.mat_WorldInvTranspose, XMMatrixIdentity());
+    cbData.tMaterial = m_tMaterial;
+
+    // 변환 행렬의 정보를 가지고있는 m_pCB 버퍼로 복사(USAGE_DEFAULT로 생성해서 드라이버를 통해 복사)
+    // 아래에서 VS의 b0 레지스터에 꽂을 예정
+    m_pContext->UpdateSubresource(m_pCB.Get(), 0, nullptr, &cbData, 0, 0);
+
+    // 파이프라인에 꽂기
+        //IA(입력 조립기 단계)
+        // 정점 하나의 크기와 버퍼의 시작 위치 설정
+    ID3D11Buffer* pVBs[] = { m_pVB.Get(),pInstanceVB };
+    uint32_t iStride[] = { sizeof(VTXNORM),sizeof(float4x4_t) };
+    uint32_t iOffset[] = { 0,0 };
+    // 버텍스 버퍼 꽂기
+    m_pContext->IASetVertexBuffers(0, 2, pVBs, iStride, iOffset);
+
+    // 인덱스 버퍼 꽂기
+    m_pContext->IASetIndexBuffer(m_pIB.Get(), DXGI_FORMAT_R32_UINT, 0);
+
+    // 삼각형 그리기 설정
+    m_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+    // InputLayout 꽂기(FVF의 역할)
+    m_pContext->IASetInputLayout(m_pInputLayout.Get());
+
+    // VS(버텍스 셰이더 단계) -> 월드변환, 뷰스페이스 변환, 투영 변환 행렬을 전달받아서 버텍스 버퍼에 계산함
+    m_pContext->VSSetShader(m_pVS.Get(), nullptr, 0);
+
+    // VS의 상수버퍼슬롯(b0)에 상수버퍼(변환 행렬 버퍼) 꽂기
+
+    m_pContext->VSSetConstantBuffers(0, 1, m_pCB.GetAddressOf());
+
+    // PS(픽셀 셰이더) -> 지금은 색 밖에 없음
+    m_pContext->PSSetShader(pPS, nullptr, 0);
+
+    m_pContext->PSSetConstantBuffers(0, //register(b0)과 연결됨
+        1,
+        m_pCB.GetAddressOf());
+
+    // 텍스처 바인드
+    m_pTextureCom->Set_TexturePS(3, 0);
+
+    // 샘플러 바인드
+    m_pContext->PSSetSamplers(0, 1, m_pSampler.GetAddressOf());
+
+    // RS(레스터라이저 설정)
+    m_pContext->RSSetState(m_pRS.Get());
+
+    // 그리기(DrawIndexedInstanced -> 정점 36개당 인스턴스 1개 적용)
+    // for(m_iNumInstance)
+    //      for(m_iIndexCnt)
+    //
+    m_pContext->DrawIndexedInstanced(m_iIndexCnt,       // IndexCnt: 인덱스 버퍼의 크기
+        iInstanceCnt,    // 인스턴스 개수(월드 행렬의 개수) 
+        0, 0, 0);
+
     return S_OK;
 }
 shared_ptr<CClient_Mouse> CClient_Mouse::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)

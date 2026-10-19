@@ -28,6 +28,19 @@ namespace Engine
 
 	}VTXCOL;
 
+	typedef struct tagVertexPositionTexcoord
+	{
+		float3_t		vPosition;
+		float2_t		vTexcoord;
+
+		static constexpr uint32_t iNumElements = 2;
+		static constexpr D3D11_INPUT_ELEMENT_DESC Elements[iNumElements] =
+		{
+			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT,    0,  0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,		 0, 24, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		};
+	}VTXPOSTEX;
+
 	typedef struct tagVtxNorm
 	{
 		float3_t	vPosition;

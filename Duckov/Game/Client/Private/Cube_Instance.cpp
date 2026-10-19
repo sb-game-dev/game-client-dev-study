@@ -367,11 +367,7 @@ HRESULT CCube_Instance::Render_Mesh(ID3D11Buffer* pInstanceVB, ID3D11PixelShader
     uint32_t iStride[] = { sizeof(VTXNORM),sizeof(float4x4_t) };
     uint32_t iOffset[] = { 0,0 };
     // 버텍스 버퍼 꽂기
-    m_pContext->IASetVertexBuffers(0,                       // 정점 버퍼들을 붙이기 시작할 인덱스
-        2,                       // 입력 슬롯에 붙이고자 하는 버퍼의 개수
-        pVBs,                    // 버퍼를 담은 배열의 첫 원소를 가리키는 포인터
-        iStride,                 // 버퍼의 한 원소의 바이트크기 단위(주소를 넘겨줘야함)
-        iOffset);                // 정점 버퍼의 시작위치에서부터 건너뛸 인덱스
+    m_pContext->IASetVertexBuffers(0,2, pVBs, iStride, iOffset);                
 
     // 인덱스 버퍼 꽂기
     m_pContext->IASetIndexBuffer(m_pIB.Get(), DXGI_FORMAT_R32_UINT, 0);

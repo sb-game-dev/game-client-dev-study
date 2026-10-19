@@ -21,51 +21,6 @@ HRESULT CPlayer::Initialize_Prototype()
     if (FAILED(__super::Initialize_Prototype()))
         return E_FAIL;
 
-    // 정점 정보
-    VTXCOL vertices[] =
-    {
-        { float3_t(-0.5f, -0.5f, -0.5f), float4_t(Colors::White)},
-        { float3_t(-0.5f, +0.5f, -0.5f), float4_t(Colors::Black)},
-        { float3_t(+0.5f, +0.5f, -0.5f), float4_t(Colors::Red)},
-        { float3_t(+0.5f, -0.5f, -0.5f), float4_t(Colors::Brown)},
-        { float3_t(0.f, 0.f, +0.5f),     float4_t(Colors::Orange)},
-    };
-
-    // 정점 버퍼 생성
-    D3D11_BUFFER_DESC   VBDesc{};
-    VBDesc.ByteWidth = sizeof(vertices);
-    VBDesc.Usage = D3D11_USAGE_IMMUTABLE;
-    VBDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-
-    D3D11_SUBRESOURCE_DATA  VBData{};
-    VBData.pSysMem = vertices;  // 정점 버퍼를 초기화할 자료를 담은 시스템 메모리 배열을 가리키는 포인터
-    if (FAILED(m_pDevice->CreateBuffer(&VBDesc, &VBData, &m_pVB)))
-        return E_FAIL;
-
-    // 인덱스 정보
-    UINT indices[] = {
-         0, 1, 2,
-         0, 2, 3,
-
-         1, 4, 2,
-         2, 4, 3,
-         3, 4, 0,
-         0, 4, 1
-    };
-
-    // 인덱스 버퍼 생성
-    D3D11_BUFFER_DESC IBDesc{};
-    IBDesc.ByteWidth = sizeof(indices);
-    IBDesc.Usage = D3D11_USAGE_IMMUTABLE;
-    IBDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
-
-
-    D3D11_SUBRESOURCE_DATA IBData{};
-    IBData.pSysMem = indices;
-    m_iIndexCnt = size(indices);
-    if (FAILED(m_pDevice->CreateBuffer(&IBDesc, &IBData, &m_pIB)))
-        return E_FAIL;
-
     // 상수 버퍼 생성
     D3D11_BUFFER_DESC CBDesc{};
     CBDesc.ByteWidth = sizeof(CB_PER_OBJECT);
@@ -166,6 +121,8 @@ HRESULT CPlayer::Initialize(void* pArg)
 {
     if (FAILED(__super::Initialize(pArg)))
         return E_FAIL;
+    if (FAILED(Ready_Components()))
+        return E_FAIL;
     return S_OK;
 }
 
@@ -217,6 +174,14 @@ HRESULT CPlayer::Render_Occluded()
     return Render_Mesh(m_pTransformCom->Get_World(), m_pRS.Get(), m_pPS_Occluded.Get());
 }
 
+HRESULT CPlayer::Ready_Components()
+{
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_VIBuffer_Pyramid"),
+        TEXT("Com_Buffer"), m_pBufferCom)))
+        return E_FAIL;
+    return S_OK;
+}
+
 HRESULT CPlayer::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS)
 {
     return Render_Mesh(matWorld, pRS, m_pPS.Get());
@@ -239,24 +204,7 @@ HRESULT CPlayer::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pR
     // 변환 행렬의 정보를 가지고있는 m_pCB 버퍼로 복사(USAGE_DEFAULT로 생성해서 드라이버를 통해 복사)
     // 아래에서 VS의 b0 레지스터에 꽂을 예정
     m_pContext->UpdateSubresource(m_pCB.Get(), 0, nullptr, &cbData, 0, 0);
-
-    // 파이프라인에 꽂기
-        //IA(입력 조립기 단계)
-        // 정점 하나의 크기와 버퍼의 시작 위치 설정
-    uint32_t iStride = sizeof(VTXCOL);
-    uint32_t iOffset = 0;
-    // 버텍스 버퍼 꽂기
-    m_pContext->IASetVertexBuffers(0,                       // 정점 버퍼들을 붙이기 시작할 인덱스
-        1,                       // 입력 슬롯에 붙이고자 하는 버퍼의 개수
-        m_pVB.GetAddressOf(),    // 버퍼를 담은 배열의 첫 원소를 가리키는 포인터
-        &iStride,                // 버퍼의 한 원소의 바이트크기 단위(주소를 넘겨줘야함)
-        &iOffset);               // 정점 버퍼의 시작위치에서부터 건너뛸 인덱스
-
-    // 인덱스 버퍼 꽂기
-    m_pContext->IASetIndexBuffer(m_pIB.Get(), DXGI_FORMAT_R32_UINT, 0);
-
-    // 삼각형 그리기 설정
-    m_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+    m_pBufferCom->Bind_Resources();
 
     // InputLayoyt 꽂기(FVF의 역할)
     m_pContext->IASetInputLayout(m_pInputLayout.Get());
@@ -279,7 +227,7 @@ HRESULT CPlayer::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pR
     m_pContext->DrawIndexed(m_iIndexCnt, // IndexCnt: 인덱스 버퍼의 크기
         0,  // StartIndexLocation : 사용할 인덱스의 위치
         0); // BaseVERTEXLocation : 정점들을 가져오기 전에 이 호출에서 사용할 인덱스에 더해지는 정수값
-
+    m_pBufferCom->Render();
     return S_OK;
 }
 void CPlayer::AdjustPosY()

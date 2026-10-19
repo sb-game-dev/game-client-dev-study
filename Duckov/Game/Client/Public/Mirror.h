@@ -1,6 +1,9 @@
 #pragma once
 #include "Client_Defines.h"
 #include "GameObject.h"
+NS_BEGIN(Engine)
+class CVIBuffer_Rect;
+NS_END
 NS_BEGIN(Client)
 class CMirror : public CGameObject
 {
@@ -22,6 +25,13 @@ public:
 	virtual HRESULT		Render() override;
 
 	virtual XMVECTOR	Get_MirrorPlane()override;
+
+private:
+	shared_ptr<CTexture>			m_pTextureCom = { nullptr };
+	shared_ptr<CVIBuffer_Rect>		m_pBufferCom = { nullptr };
+
+private:
+	HRESULT			Ready_Components();
 
 public:
 	static shared_ptr<CMirror> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);

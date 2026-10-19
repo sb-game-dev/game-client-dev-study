@@ -70,9 +70,6 @@
     <Filter Include="06. Component\01. Texture">
       <UniqueIdentifier>{f2679b99-ae3f-4bdc-bcf4-c82dda35c955}</UniqueIdentifier>
     </Filter>
-    <Filter Include="06. Component\02. Mesh">
-      <UniqueIdentifier>{648c8e78-3ced-4a78-8055-91fa64eaaac4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="05. GameObject\00. Manager">
       <UniqueIdentifier>{25557e8e-d744-4c16-99bb-af42888bf9ef}</UniqueIdentifier>
     </Filter>
@@ -81,6 +78,27 @@
     </Filter>
     <Filter Include="05. GameObject\01. Mouse">
       <UniqueIdentifier>{ebea8480-d7dc-4347-8aae-a18188101c6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component\02. VIBuffer">
+      <UniqueIdentifier>{648c8e78-3ced-4a78-8055-91fa64eaaac4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component\02. VIBuffer\00. Rect">
+      <UniqueIdentifier>{070c6c33-ca12-4b11-8101-842d1342ac70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component\02. VIBuffer\01. Cube">
+      <UniqueIdentifier>{2ef32b0f-2eeb-4f43-9830-9d9c3b056009}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component\02. VIBuffer\02. Terrain">
+      <UniqueIdentifier>{7a16d9c1-c377-4e09-a983-90128aed4bda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component\02. VIBuffer\03. SkyBox">
+      <UniqueIdentifier>{dab11750-bd6b-4a78-b3da-869319e43293}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component\02. VIBuffer\04. Pyramid">
+      <UniqueIdentifier>{a3fc0c3c-3cff-4e13-b610-c87bfaccc170}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component\02. VIBuffer\99. Instance">
+      <UniqueIdentifier>{7d78fab1-d37d-4411-bfa6-3e6f304b4688}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -177,6 +195,24 @@
     <ClInclude Include="..\public\Mouse.h">
       <Filter>05. GameObject\01. Mouse</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\VIBuffer.h">
+      <Filter>06. Component\02. VIBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\VIBuffer_Rect.h">
+      <Filter>06. Component\02. VIBuffer\00. Rect</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\VIBuffer_Cube.h">
+      <Filter>06. Component\02. VIBuffer\01. Cube</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\VIBuffer_SkyBox.h">
+      <Filter>06. Component\02. VIBuffer\03. SkyBox</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\VIBuffer_Pyramid.h">
+      <Filter>06. Component\02. VIBuffer\04. Pyramid</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\VIBuffer_Instance.h">
+      <Filter>06. Component\02. VIBuffer\99. Instance</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Timer.cpp">
@@ -250,6 +286,24 @@
     </ClCompile>
     <ClCompile Include="..\private\Mouse.cpp">
       <Filter>05. GameObject\01. Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\VIBuffer.cpp">
+      <Filter>06. Component\02. VIBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\VIBuffer_Rect.cpp">
+      <Filter>06. Component\02. VIBuffer\00. Rect</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\VIBuffer_Cube.cpp">
+      <Filter>06. Component\02. VIBuffer\01. Cube</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\VIBuffer_SkyBox.cpp">
+      <Filter>06. Component\02. VIBuffer\03. SkyBox</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\VIBuffer_Pyramid.cpp">
+      <Filter>06. Component\02. VIBuffer\04. Pyramid</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\VIBuffer_Instance.cpp">
+      <Filter>06. Component\02. VIBuffer\99. Instance</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

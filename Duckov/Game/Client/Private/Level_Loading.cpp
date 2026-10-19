@@ -5,6 +5,7 @@
 #include "Orthographic_Cam.h"
 #include "BackGround.h"
 #include "Texture.h"
+#include "VIBuffer_Rect.h"
 
 CLevel_Loading::CLevel_Loading(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     :CLevel{ pDevice,pContext }
@@ -79,6 +80,12 @@ HRESULT CLevel_Loading::Ready_Layer_BackGround()
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOADING), TEXT("Prototype_Component_Texture_BackGround"),
         CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Logo/Logo_Background_1280x720.dds"), 1))))
         return E_FAIL;
+
+    // VIBuffer_Rect
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOADING), TEXT("Prototype_Component_VIBuffer_Rect"),
+        CVIBuffer_Rect::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+    
 
     // 배경 원형
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOADING), TEXT("Prototype_GameObject_BackGround"),

@@ -1,9 +1,6 @@
 #pragma once
 #include "Client_Defines.h"
 #include "GameObject.h"
-NS_BEGIN(Engine)
-class CTexture;
-NS_END
 
 NS_BEGIN(Client)
 
@@ -29,6 +26,7 @@ public:
 
 private:
 	shared_ptr<CTexture>			m_pTextureCom = { nullptr };
+	shared_ptr<CVIBuffer_Rect>		m_pBufferCom = { nullptr };
 
 private:
 	HRESULT Ready_Components();

@@ -10,47 +10,6 @@ HRESULT CMirror::Initialize_Prototype()
     if (FAILED(__super::Initialize_Prototype()))
         return E_FAIL;
 
-    const f32_t fHalfW = 3.f, fHalfH = 2.f;
-    const float4_t vMirrorColor = { 0.75f, 0.75f, 0.75f, 0.15f };
-    // 정점 정보
-    VTXCOL vertices[] =
-    {
-        { float3_t(-fHalfW, -fHalfH, 0.f), vMirrorColor },  // 0 : 왼쪽 아래
-        { float3_t(-fHalfW, +fHalfH, 0.f), vMirrorColor },  // 1 : 왼쪽 위
-        { float3_t(+fHalfW, +fHalfH, 0.f), vMirrorColor },  // 2 : 오른쪽 위
-        { float3_t(+fHalfW, -fHalfH, 0.f), vMirrorColor },  // 3 : 오른쪽 아래
-    };
-
-    // 정점 버퍼 생성
-    D3D11_BUFFER_DESC   VBDesc{};
-    VBDesc.ByteWidth = sizeof(vertices);
-    VBDesc.Usage = D3D11_USAGE_IMMUTABLE;
-    VBDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-
-    D3D11_SUBRESOURCE_DATA  VBData{};
-    VBData.pSysMem = vertices;  // 정점 버퍼를 초기화할 자료를 담은 시스템 메모리 배열을 가리키는 포인터
-    if (FAILED(m_pDevice->CreateBuffer(&VBDesc, &VBData, &m_pVB)))
-        return E_FAIL;
-
-    // 인덱스 정보
-    UINT indices[] = {
-         0, 1, 2,
-         0, 2, 3,
-    };
-
-    // 인덱스 버퍼 생성
-    D3D11_BUFFER_DESC IBDesc{};
-    IBDesc.ByteWidth = sizeof(indices);
-    IBDesc.Usage = D3D11_USAGE_IMMUTABLE;
-    IBDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
-
-
-    D3D11_SUBRESOURCE_DATA IBData{};
-    IBData.pSysMem = indices;
-    m_iIndexCnt = size(indices);
-    if (FAILED(m_pDevice->CreateBuffer(&IBDesc, &IBData, &m_pIB)))
-        return E_FAIL;
-
     // 상수 버퍼 생성
     D3D11_BUFFER_DESC CBDesc{};
     CBDesc.ByteWidth = sizeof(CB_PER_OBJECT);
@@ -73,22 +32,14 @@ HRESULT CMirror::Initialize_Prototype()
     // 셰이더를 디버그 모드에서 컴파일한다. | 컴파일시 최적화를 사용하지 않는다(디버깅에 유용함)
 #endif
     //VS 컴파일
-    if (FAILED(D3DCompileFromFile(
-        L"../Shader/Shader_VtxCol.hlsl",  // 파일 경로 (작업 디렉터리 기준)
-        nullptr,                           // 이 책에서는 사용하지 않는 고급 옵션(항상 NULL 또는 0)
-        nullptr,                           // 이 책에서는 사용하지 않는 고급 옵션(항상 NULL 또는 0)
-        "VS_MAIN",                         // 진입점 함수 이름
-        "vs_5_0",                          // 타깃: 버텍스 셰이더, 셰이더 모델 5.0
-        iFlags,                            // 컴파일 옵션
-        0,                                 // 이 책에서는 사용하지 않는 고급 효과 컴파일 옵션(항상 NULL 또는 0)
-        &pVSBlob,                          // 결과: 컴파일된 바이트코드
-        &pErrBlob)))                       // 실패 시 에러 메시지
+    if (FAILED(D3DCompileFromFile( L"../Shader/Shader_VtxTex.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, 
+        "VS_MAIN", "vs_5_0", iFlags, 0, &pVSBlob, &pErrBlob)))                      
     {
         if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
         return E_FAIL;
     }
     // PS 컴파일
-    if (FAILED(D3DCompileFromFile(L"../Shader/Shader_VtxCol.hlsl", nullptr, nullptr,
+    if (FAILED(D3DCompileFromFile(L"../Shader/Shader_VtxTex.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
         "PS_MAIN", "ps_5_0", iFlags, 0, &pPSBlob, &pErrBlob)))
     {
         if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
@@ -104,8 +55,8 @@ HRESULT CMirror::Initialize_Prototype()
         return E_FAIL;
 
     // Input Layout 생성 (VS 바이트코드와 대조)
-    if (FAILED(m_pDevice->CreateInputLayout(VTXCOL::Elements,               // 정점 구조체를 서술하는 D3D11_INPUT_LEELMENT_DESC들의 배열
-        VTXCOL::iNumElements,           // 배열 원소의 개수
+    if (FAILED(m_pDevice->CreateInputLayout(VTXNORM::Elements,               // 정점 구조체를 서술하는 D3D11_INPUT_LEELMENT_DESC들의 배열
+        VTXNORM::iNumElements,           // 배열 원소의 개수
         pVSBlob->GetBufferPointer(),    // 정점셰이더를 컴파일해서 얻은 바이트코드를 가리키는 포인터
         pVSBlob->GetBufferSize(),       // 바이트코드의 크기
         &m_pInputLayout)))              // 생성된 입력 배치를 돌려줄 포인터
@@ -120,6 +71,22 @@ HRESULT CMirror::Initialize_Prototype()
 
     m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
 
+    // sampler 생성
+    D3D11_SAMPLER_DESC samplerDesc = {};
+
+    samplerDesc.Filter = D3D11_FILTER_ANISOTROPIC;
+    samplerDesc.MaxAnisotropy = 16;
+    samplerDesc.AddressU = samplerDesc.AddressV = samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+    samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
+    if (FAILED(m_pDevice->CreateSamplerState(&samplerDesc, m_pSampler.GetAddressOf())))
+        return E_FAIL;
+
+    // Material
+    m_tMaterial.Ambient = float4_t(1.f, 1.f, 1.f, 1.f);
+    m_tMaterial.Diffuse = float4_t(1.f, 1.f, 1.f, 0.5f);
+    m_tMaterial.Specular = float4_t(0.2f, 0.2f, 0.2f, 16.f);   // w = 광택 지수, 0이면 안 됨
+
     return S_OK;
 }
 
@@ -129,6 +96,10 @@ HRESULT CMirror::Initialize(void* pArg)
         return E_FAIL;
 
     m_pTransformCom->Set_State(STATE::POSITION, vector_t{ 0.f,2.f,5.f,1.f });
+    m_pTransformCom->Set_Scale(6.f, 4.f, 1.f);
+
+    if (FAILED(Ready_Components()))
+        return E_FAIL;
 
     return S_OK;
 }
@@ -150,43 +121,18 @@ void CMirror::Late_Update(f32_t fDeltaTime)
 
 HRESULT CMirror::Render()
 {
-    // 변환 행렬 계산 -> 상수 버퍼(변환 행렬) 갱신
-    //XMMATRIX matWorld = XMMatrixRotationX(m_fRotX) 
-    //                    * XMMatrixRotationY(m_fRotY) 
-    //                    * XMMatrixRotationZ(m_fRotZ)
-    //                    * XMMatrixTranslation(m_vPosition.x, m_vPosition.y, m_vPosition.z);
-
     XMMATRIX matWorld = m_pTransformCom->Get_World();
-
 
     // VS로 전달할 구조체 채우기
     // HLSL은 기본적으로 열 단위로 데이터를 읽기 때문에 전치를 해야 함
     CB_PER_OBJECT cbData;
     XMStoreFloat4x4(&cbData.WorldMatrix, XMMatrixTranspose(matWorld));
 
-
     // 변환 행렬의 정보를 가지고있는 m_pCB 버퍼로 복사(USAGE_DEFAULT로 생성해서 드라이버를 통해 복사)
     // 아래에서 VS의 b0 레지스터에 꽂을 예정
     m_pContext->UpdateSubresource(m_pCB.Get(), 0, nullptr, &cbData, 0, 0);
 
-    // 파이프라인에 꽂기
-        //IA(입력 조립기 단계)
-        // 정점 하나의 크기와 버퍼의 시작 위치 설정
-    uint32_t iStride = sizeof(VTXCOL);
-    uint32_t iOffset = 0;
-    // 버텍스 버퍼 꽂기
-    m_pContext->IASetVertexBuffers(0,                       // 정점 버퍼들을 붙이기 시작할 인덱스
-        1,                       // 입력 슬롯에 붙이고자 하는 버퍼의 개수
-        m_pVB.GetAddressOf(),    // 버퍼를 담은 배열의 첫 원소를 가리키는 포인터
-        &iStride,                // 버퍼의 한 원소의 바이트크기 단위(주소를 넘겨줘야함)
-        &iOffset);               // 정점 버퍼의 시작위치에서부터 건너뛸 인덱스
-
-    // 인덱스 버퍼 꽂기
-    m_pContext->IASetIndexBuffer(m_pIB.Get(), DXGI_FORMAT_R32_UINT, 0);
-
-    // 삼각형 그리기 설정
-    m_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
+    m_pBufferCom->Bind_Resources();
     // InputLayoyt 꽂기(FVF의 역할)
     m_pContext->IASetInputLayout(m_pInputLayout.Get());
 
@@ -201,13 +147,13 @@ HRESULT CMirror::Render()
     // PS(픽셀 셰이더) -> 지금은 색 밖에 없음
     m_pContext->PSSetShader(m_pPS.Get(), nullptr, 0);
 
+    m_pTextureCom->Set_TexturePS(0, 0);
+
     // RS(레스터라이저 설정)
     m_pContext->RSSetState(m_pRS.Get());
 
     // 그리기
-    m_pContext->DrawIndexed(m_iIndexCnt, // IndexCnt: 인덱스 버퍼의 크기
-        0,  // StartIndexLocation : 사용할 인덱스의 위치
-        0); // BaseVERTEXLocation : 정점들을 가져오기 전에 이 호출에서 사용할 인덱스에 더해지는 정수값
+    m_pBufferCom->Render();
 
     return S_OK;
 }
@@ -217,6 +163,18 @@ XMVECTOR CMirror::Get_MirrorPlane()
     vector_t vPos = m_pTransformCom->Get_State(STATE::POSITION);
 
     return XMPlaneFromPointNormal(vPos,XMVectorSet(0.f,0.f,-1.f,0.f));
+}
+
+HRESULT CMirror::Ready_Components()
+{
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_Texture_Mirror"),
+        TEXT("Com_Texture"), m_pTextureCom)))
+        return E_FAIL;
+
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_VIBuffer_Rect"),
+        TEXT("Com_Buffer"), m_pBufferCom)))
+        return E_FAIL;
+    return S_OK;
 }
 
 shared_ptr<CMirror> CMirror::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)

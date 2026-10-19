@@ -2,9 +2,6 @@
 #include "Client_Defines.h"
 #include "GameObject.h"
 
-NS_BEGIN(Engine)
-class CTexture;
-NS_END
 
 
 NS_BEGIN(Client)

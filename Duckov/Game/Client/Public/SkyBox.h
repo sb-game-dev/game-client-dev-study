@@ -4,6 +4,7 @@
 
 NS_BEGIN(Engine)
 class CTexture;
+class CVIBuffer_SkyBox;
 NS_END
 
 NS_BEGIN(Client)
@@ -30,7 +31,7 @@ public:
 
 private:
 	shared_ptr<CTexture>			m_pTextureCom = { nullptr };
-
+	shared_ptr<CVIBuffer_SkyBox>	m_pBufferCom = { nullptr };
 private:
 	HRESULT			Ready_Components();
 public:

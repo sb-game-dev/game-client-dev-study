@@ -38,8 +38,17 @@ private:
 	MOUSESTATE						m_eMouseState = {};
 	float3_t						m_vPosVP = {0.f,0.f,2.f};
 
+	static constexpr uint32_t		m_iNumInstance = 4;
+	ComPtr<ID3D11Buffer>			m_pInstanceVB = { nullptr };
+	float4x4_t						m_WorldMats[m_iNumInstance] = {};
+	
+	f32_t							m_fRange = { 25.f };
+	f32_t							m_fTimer = { 0.f };
+
 private:
-	HRESULT Ready_Components();
+	HRESULT					Ready_Components();
+	HRESULT					Ready_InstanceBuffers();
+	HRESULT					Render_Mesh(ID3D11Buffer* pInstanceVB, ID3D11PixelShader* pPS, uint32_t iInstanceCnt);
 
 public:
 	static shared_ptr<CClient_Mouse> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);

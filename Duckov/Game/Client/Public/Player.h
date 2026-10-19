@@ -2,6 +2,7 @@
 #include "Client_Defines.h"
 #include "GameObject.h"
 #include "Hill.h"
+
 NS_BEGIN(Client)
 class CPlayer : public CGameObject
 {
@@ -37,7 +38,10 @@ private:
 
 	float4_t						m_vGroundPlane = { 0.f, 1.f, 0.f, 0.f };	// ¹ß¹Ø Æò¸é (a,b,c,d)
 
+	shared_ptr<CVIBuffer_Pyramid>		m_pBufferCom = { nullptr };
+
 private:
+	HRESULT			Ready_Components();
 	HRESULT			Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS) override;
 	HRESULT			Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS, ID3D11PixelShader* pPS);
 
