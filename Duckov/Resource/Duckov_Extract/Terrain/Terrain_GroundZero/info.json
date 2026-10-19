@@ -1,0 +1,79 @@
+{
+  "name": "Terrain_GroundZero",
+  "source": "sharedassets14.assets",
+  "heightmapResolution": 513,
+  "cellScale": [
+    2.0,
+    600.0,
+    2.0
+  ],
+  "terrainSize_m": [
+    1024.0,
+    600.0,
+    1024.0
+  ],
+  "heightEncoding": "16bit.raw: row-major [z][x] little-endian, 값/65535*terrainSize_m[1] = 높이(m). 8bit_normalized.raw: 0..255 → heightMin_m..heightMax_m (루나 19장 RAW 로더용, HeightScale=heightMax_m-heightMin_m, 오프셋 heightMin_m)",
+  "alphamapResolution": 512,
+  "layers": [
+    {
+      "name": "TL_Grass_02",
+      "diffuse": "T_Tile_Grass_01_C",
+      "normal": "T_Tile_Grass_01_N",
+      "mask": null,
+      "tileSize": [
+        4.0,
+        4.0
+      ],
+      "tileOffset": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "TL_DryMud_01",
+      "diffuse": "T_Tile_DryMud_01_C",
+      "normal": "T_Tile_DryMud_01_N",
+      "mask": null,
+      "tileSize": [
+        4.0,
+        4.0
+      ],
+      "tileOffset": [
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "TL_Asphalt_01",
+      "diffuse": "T_Tile_AsphaltRoad_01_C",
+      "normal": "T_Tile_AsphaltRoad_01_N",
+      "mask": null,
+      "tileSize": [
+        6.0,
+        6.0
+      ],
+      "tileOffset": [
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "splatNote": "splat_N.png RGBA = layers[4N..4N+3] 가중치",
+  "treePrototypes": [
+    "Pfb_Tree_01_1"
+  ],
+  "treeCount": 9955,
+  "placedIn": [
+    {
+      "level": "level14",
+      "gameObject": "Terrain",
+      "position": [
+        0.08799999952316284,
+        -30.0,
+        0.004999999888241291
+      ]
+    }
+  ],
+  "heightMin_m": 21.991,
+  "heightMax_m": 60.957
+}

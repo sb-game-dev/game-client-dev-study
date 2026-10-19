@@ -176,6 +176,8 @@ void CClient_Mouse::Update(f32_t fTimeDelta)
 
     if (m_fRange > 26.f)
         m_fRange -= 100 * fTimeDelta;
+    else
+        m_fRange = 25.f;
 }
 
 void CClient_Mouse::Late_Update(f32_t fTimeDelta)
@@ -207,7 +209,7 @@ HRESULT CClient_Mouse::Render()
     for (uint32_t i = 0; i < m_iNumInstance; ++i)
     {
         matrix_t matScale = XMMatrixScaling(g_SizeX, g_SizeY, 1.f);
-        matrix_t matRotZ  = XMMatrixRotationZ(XMConvertToRadians(g_RotZ[i]));
+        matrix_t matRotZ = XMMatrixRotationZ(XMConvertToRadians(g_RotZ[i]));//+ (rand() % 10 - 5) * 5
         matrix_t matTrans = XMMatrixTranslation(+ m_vPosVP.x - g_iWinSizeX * 0.5f + vOffsetPos[i].x,
                                                 - m_vPosVP.y + g_iWinSizeY * 0.5f + vOffsetPos[i].y, 
                                                 m_vPosVP.z);
