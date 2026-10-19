@@ -1,0 +1,3 @@
+﻿type,r,g,b,intensity,range,spotAngle,px,py,pz,qx,qy,qz,qw,euler_x,euler_y,euler_z,enabled,path
+Directional,1.0,0.9719,0.9387,1.6,10.0,30.0,0.0,3.0,0.0,0.37463,-0.327523,0.855458,0.143432,41.9,47.3,-180.0,1,Directional Light
+Point,1.0,0.7546,0.5613,0.5,3.0,30.0,3.08,-2.86,-2.53,0.291782,0.806495,-0.195462,0.475629,36.359,125.806,20.703,0,Ships/Ships/Point Light

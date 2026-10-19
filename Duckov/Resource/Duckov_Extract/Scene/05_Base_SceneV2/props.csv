@@ -1,0 +1,612 @@
+﻿mesh,kind,materials,px,py,pz,qx,qy,qz,qw,euler_x,euler_y,euler_z,sx,sy,sz,enabled,in_project,path
+Sphere,static,SkillMachine,-31.4452,2.443,-57.5042,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0633,1.0633,1.0633,1,1,Buildings/SkillMachine/Visual/Sphere_1
+Sphere,static,Lit,-4.561,1.045,-40.5918,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.132,0.132,0.132,0,1,Buildings/MapSelect/Sphere
+Cube,static,Lit,4.67,0.52,-79.31,0.0,0.707106,0.0,0.707108,-0.0,90.0,0.0,2.2519,1.0,17.0286,0,1,Fowblocks/Fowblock_4
+Quad,static,DarkFade1m,4.6919,0.0001,-51.3586,0.707107,-0.0,0.0,0.707107,90.0,180.0,180.0,1.6232,2.142,3.5416,1,1,Teleporters/DoorTo/DarkFade
+SM_Computer_01_1_1,static,Mat_Computer_01_01,-8.4045,1.4819,-53.4898,-3e-06,1.0,-3e-06,-4e-06,0.0,-180.0,-0.0,0.5139,0.5139,0.8609,0,1,Buildings/SaleMachine/Visual/Prfb_Computer_01_24/SM_Computer_01_1_8
+Sphere,static,Lit,-1.3464,1.045,4.97,0.0,-0.329572,0.0,0.944131,-0.0,-38.486,0.0,0.132,0.132,0.132,0,1,Go (3)/Sphere
+Quad,static,FakeGlow_Base Storage,-14.84,3.73,-54.37,0.332042,-0.2869,0.154934,0.885117,42.586,-33.371,6.531,14.0446,14.272,324.5826,1,1,FakeGlow_1
+Plane,static,BuildingGrid,-5.9001,0.0,-64.3301,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,3.4092,1.0,3.0013,1,1,BuildingArea/Invoker/BuildingArea/BuildingAreaMesh
+Cube,static,Pink,-1.7055,2.197,4.8656,0.0,-0.329572,0.0,0.944131,-0.0,-38.486,0.0,1.4706,0.2565,0.4067,0,1,Go (3)/Cube (3)
+Cube,static,Pink,2.683,2.197,6.82,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.4706,0.2565,0.4067,0,1,Go (1)/Cube (3)
+Cube,static,MAT_Arcade_Screen 2,-7.75,0.0,-82.44,0.0,1.0,0.0,-0.0,-0.0,-180.0,0.0,0.4785,0.4785,0.4785,0,1,Spawners/TestSpawnHack/Interact_1/Cube
+Cube,static,Lit,-2.0716,0.73,-66.7069,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,6.1748,2.1958,1.0,0,1,TestScene/Cube_3
+pb_Mesh539818(Clone)(Clone),static,Mat_Tile_FloorCement01,-5.0,1.5,-85.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,0,1,Main/Area_2
+Cube,static,Lit,-4.3516,0.73,-69.8069,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,6.1748,2.1958,1.0,0,1,TestScene/Cube_1
+Cube,static,Lit,-6.7316,0.73,-66.7069,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,6.1748,2.1958,1.0,0,1,TestScene/Cube_2
+Quad,static,FakeGlow_Base Storage,15.85,3.0,-49.84,0.445132,0.0,0.0,0.895465,52.864,0.0,0.0,4.7429,4.4678,3.4381,0,1,Glow/Glow_4
+Cube,static,Lit,-4.8,1.2,-71.51,0.0,1.0,0.0,0.0,-0.0,180.0,0.0,15.5452,2.7497,1.0,0,1,Spawners/TestSpawn_Scav/Cube
+Sphere,static,SkillMachine,-31.4452,2.443,-57.5042,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.8601,0.8601,0.8601,1,1,Buildings/SkillMachine/Visual/Sphere
+SM_Computer_01_1_1,static,Mat_Computer_01_01,-8.0931,2.2512,-53.4898,-3e-06,1.0,-3e-06,-4e-06,0.0,-180.0,-0.0,0.5139,0.5139,0.8609,0,1,Buildings/SaleMachine/Visual/Prfb_Computer_01_24/SM_Computer_01_1_12
+SM_Computer_01_1_1,static,Mat_Computer_01_02_2,-8.4045,2.2512,-53.4898,-3e-06,1.0,-3e-06,-4e-06,0.0,-180.0,-0.0,0.5139,0.5139,0.8609,0,1,Buildings/SaleMachine/Visual/Prfb_Computer_01_24/SM_Computer_01_1_13
+Cube,static,Mirror,-7.798,1.792,-80.524,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,1.0,1.0,0.0297,1,1,Enviroment/Prfb_Indoors_WC_5/Cube
+pTorus6,static,Mat_Pipe_01,22.4601,2.4659,-54.9379,0.060009,0.704556,0.704556,0.06001,-80.263,90.0,90.0,0.5599,0.5599,0.5599,1,1,Ship/ShipLife/Built/First_aid_Kit03_1/pTorus6_1
+Cube,static,Lit,-14.74,0.52,-79.31,0.0,0.707106,0.0,0.707108,-0.0,90.0,0.0,2.2519,1.0,17.0286,0,1,Fowblocks/Fowblock_5
+SM_Locker_01_1_1,static,Mat_Locker_SaleMachine 1,-8.0902,-0.08,-52.9982,0.0,4e-06,0.0,1.0,-0.0,0.0,0.0,1.2838,1.2838,1.2838,0,1,Buildings/SaleMachine/Visual/SM_Locker_01_1_2
+Cube,static,Pink,-4.321,1.071,-40.45,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.1542,2.3397,0.3022,0,1,Buildings/MapSelect/Cube (2)
+SM_Computer_01_1_1,static,Mat_Computer_01_Green,-8.106,2.507,-53.3093,-3e-06,1.0,-3e-06,-4e-06,0.0,-180.0,-0.0,1.8538,1.0371,3.1058,0,1,Buildings/SaleMachine/Visual/Prfb_Computer_01_24/SM_Computer_01_1_5
+Quad,static,FakeGlow_Base Storage,0.28,2.05,-92.19,0.445132,0.0,0.0,0.895465,52.864,0.0,0.0,9.704,7.4753,5.7525,0,1,Glow/Glow_8
+Cube,static,Pink,-4.907,2.197,-40.45,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.4706,0.2565,0.4067,0,1,Buildings/MapSelect/Cube (3)
+Cube,static,Pink,3.269,1.071,6.82,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.1542,2.3397,0.3022,0,1,Go (1)/Cube (2)
+SM_Computer_01_1_1,static,Mat_Computer_01_01,-7.7909,2.0028,-53.4898,-3e-06,1.0,-3e-06,-4e-06,0.0,-180.0,-0.0,0.5139,0.5139,0.8609,0,1,Buildings/SaleMachine/Visual/Prfb_Computer_01_24/SM_Computer_01_1_17
+SM_Computer_01_1_1,static,Mat_Computer_01_01 _blue,-0.8839,1.9813,-80.6827,-2e-06,0.984611,-0.174762,-4e-06,20.13,-180.0,-0.0,1.0008,0.5599,0.6757,1,1,BuildingArea/Visual_1/SM_Computer_01_1_5
+pTorus6,static,Mat_Pipe_01,22.4029,2.3968,-57.2999,-0.060007,-0.704556,0.704556,0.060007,80.264,-90.0,90.0,0.5599,0.5599,0.5599,1,1,Ship/ShipLife/Built/First_aid_Kit03/pTorus6_2
+Quad,static,FakeGlow_Base Storage,-0.35,2.76,-91.7,0.445132,0.0,0.0,0.895465,52.864,0.0,0.0,7.7003,5.9318,4.5647,0,1,Glow/Glow_6
+Cube,static,Lit,-24.6,0.52,-75.58,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,3.6248,1.0,9.6232,0,1,Fowblocks/Fowblock_1
+Cube,static,Lit,-10.54,0.92,-65.49,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,9.743,2.0928,1.0,0,1,Spawners/SpawnerGroup_Speedy/Cube_1
+pTorus6,static,Mat_Pipe_01,22.4378,2.5998,-57.2999,-0.060007,-0.704556,0.704556,0.060007,80.264,-90.0,90.0,0.5599,0.5599,0.5599,1,1,Ship/ShipLife/Built/First_aid_Kit03/pTorus6_3
+Cube,static,Pink,2.1,1.071,6.82,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.1542,2.3397,0.3022,0,1,Go (1)/Cube (1)
+Cube,static,Lit,11.98,0.52,-59.21,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,2.5374,1.0,18.1639,0,1,Fowblocks/Fowblock_3
+SM_Computer_01_1_1,static,Mat_Computer_01_01 _2,-7.5592,2.4996,-52.8342,0.707105,1e-06,0.707108,6e-06,0.0,90.0,179.999,0.8977,0.5879,2.061,0,1,Buildings/SaleMachine/Visual/Prfb_Computer_01_24/SM_Computer_01_1_4
+SM_Computer_01_1_1,static,Mat_Computer_01_01 _blue,-1.52,1.8021,-53.1143,-2e-06,0.984611,-0.174762,-4e-06,20.13,-180.0,-0.0,1.3786,0.7713,0.9307,1,1,BuildingArea/Visual/SM_Computer_01_1_5
+Cube,static,Pink,-5.49,1.071,-40.45,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.1542,2.3397,0.3022,0,1,Buildings/MapSelect/Cube (1)
+Cube,static,Lit,-4.3516,0.73,-63.7969,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,6.1748,2.1958,1.0,0,1,TestScene/Cube
+SM_Computer_01_1_1,static,Mat_Computer_01_01,-8.4045,1.7526,-53.4898,-3e-06,1.0,-3e-06,-4e-06,0.0,-180.0,-0.0,0.5139,0.5139,0.8609,0,1,Buildings/SaleMachine/Visual/Prfb_Computer_01_24/SM_Computer_01_1_3
+Quad,static,FakeGlow_Base Storage,13.8,3.0,-62.57,0.445132,0.0,0.0,0.895465,52.864,0.0,0.0,6.9914,4.4678,3.4381,0,1,Glow/Glow_2
+pTorus6,static,Mat_Pipe_01,23.4194,2.2226,-57.2881,-0.704556,0.060009,-0.060009,0.704556,-80.263,90.0,-90.0,0.5599,0.5599,0.5599,1,1,Ship/ShipLife/Built/First_aid_Kit03/pTorus6_1
+Cube,static,Lit,-1.81,0.92,-70.31,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,17.7727,2.0928,1.0,0,1,Spawners/SpawnerGroup_Speedy/Cube
+Quad,static,FakeGlow_Base Storage,13.77,3.0,-49.84,0.445132,0.0,0.0,0.895465,52.864,0.0,0.0,4.7429,4.4678,3.4381,0,1,Glow/Glow_3
+Sphere,static,Lit,3.029,1.045,6.6782,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.132,0.132,0.132,0,1,Go (1)/Sphere
+Cube,static,Lit,-24.6,0.52,-63.58,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,3.6248,1.0,9.6232,0,1,Fowblocks/Fowblock
+pb_Mesh134292(Clone),static,Mat_Tile_FloorCement02 3|Mat_Tile_Wall_06|Mat_Tile_Ceramic_02|Mat_Tile_Ceramic_02|Mat_Tile_FloorCement02|Mat_Tile_FloorWoodBlank03|Mat_Tile_FloorCement03|WorldTile_Garden_MainGround|Mat_Tile_FloorCement02 6|Mat_Tile_FloorCement02|Mat_Tile_Wall_06|Mat_Tile_DoubleColorWall_Nursinghouse,0.0,0.0,0.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,0,1,Main/Area_1
+pTorus6,static,Mat_Pipe_01,23.5114,2.4943,-54.9233,0.704556,-0.060012,-0.060011,0.704556,80.263,-90.0,-90.0,0.5599,0.5599,0.5599,1,1,Ship/ShipLife/Built/First_aid_Kit03_1/pTorus6_3
+SM_Computer_01_1_1,static,Mat_Computer_01_01 _blue,-7.7909,2.2512,-53.4898,-3e-06,1.0,-3e-06,-4e-06,0.0,-180.0,-0.0,0.5139,0.5139,0.8609,0,1,Buildings/SaleMachine/Visual/Prfb_Computer_01_24/SM_Computer_01_1_14
+Cube,static,Pink,-1.2468,1.071,5.2303,0.0,-0.329572,0.0,0.944131,-0.0,-38.486,0.0,0.1542,2.3397,0.3022,0,1,Go (3)/Cube (2)
+pTorus6,static,Mat_Pipe_01,22.4949,2.6687,-54.9379,0.060009,0.704556,0.704556,0.06001,-80.263,90.0,90.0,0.5599,0.5599,0.5599,1,1,Ship/ShipLife/Built/First_aid_Kit03_1/pTorus6
+Cube,static,Pink,-4.9,1.071,-40.45,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0679,2.3397,0.2064,0,1,Buildings/MapSelect/Cube
+Cube,static,Pink,-2.1618,1.071,4.5028,0.0,-0.329572,0.0,0.944131,-0.0,-38.486,0.0,0.1542,2.3397,0.3022,0,1,Go (3)/Cube (1)
+Cube,static,MAT_Arcade_Screen 2,-10.5,0.0,-57.76,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.4785,0.4785,0.4785,0,1,Spawners/SpawnerGroup_GunTurret/Interact/Cube
+Cube,static,Lit,-0.44,0.92,-61.88,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,5.99,2.0928,2.6554,0,1,Spawners/SpawnerGroup_Speedy/Cube_2
+Quad,static,FakeGlow_Base Storage,18.46,3.0,-49.84,0.445132,0.0,0.0,0.895465,52.864,0.0,0.0,8.6292,4.4678,3.4381,0,1,Glow/Glow_5
+SM_Fabric_01,static,Mat_Fabric_01_1 2,-0.8768,1.0034,-80.7045,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.609,0.5672,0.5784,1,1,BuildingArea/Visual_1/SM_Fabric_01_1
+Cube,static,Pink,2.69,1.071,6.82,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0679,2.3397,0.2064,0,1,Go (1)/Cube
+Quad,static,FakeGlow_Base,-4.79,9.06,-42.97,0.141111,-0.300632,-0.045026,0.942168,13.817,-36.617,-10.064,21.7234,36.7273,324.5826,1,1,FakeGlow
+Cube,static,Pink,-1.7,1.071,4.87,0.0,-0.329572,0.0,0.944131,-0.0,-38.486,0.0,1.0679,2.3397,0.2064,0,1,Go (3)/Cube
+SM_Computer_01_1_1,static,Mat_Computer_01_01,-8.4045,2.0084,-53.4898,-3e-06,1.0,-3e-06,-4e-06,0.0,-180.0,-0.0,0.5139,0.5139,0.8609,0,1,Buildings/SaleMachine/Visual/Prfb_Computer_01_24/SM_Computer_01_1_10
+SM_Computer_01_1_1,static,Mat_Computer_01_01 _2,-8.0931,2.0084,-53.4898,-3e-06,1.0,-3e-06,-4e-06,0.0,-180.0,-0.0,0.5139,0.5139,0.8609,0,1,Buildings/SaleMachine/Visual/Prfb_Computer_01_24/SM_Computer_01_1_11
+pTorus6,static,Mat_Pipe_01,23.4766,2.2913,-54.9233,0.704556,-0.060012,-0.060011,0.704556,80.263,-90.0,-90.0,0.5599,0.5599,0.5599,1,1,Ship/ShipLife/Built/First_aid_Kit03_1/pTorus6_2
+Cube,static,Lit,11.98,0.52,-75.42,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,2.5374,1.0,9.6232,0,1,Fowblocks/Fowblock_2
+newspaper,static,newspaper,-0.6501,1.7214,-80.7197,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.325,0.325,0.325,1,1,BuildingArea/Visual_1/newspaper
+newspaper,static,newspaper,-1.198,1.4441,-53.1653,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.4477,0.4477,0.4477,1,1,BuildingArea/Visual/newspaper
+radio,static,radio,-9.031,0.8281,-85.45,0.0,0.833083,0.0,0.553149,0.0,112.833,0.0,0.3725,0.3724,0.3725,1,1,Enviroment/radio
+SodaPointLightMesh,static,ZeroPoint,-1.6731,0.3594,-81.9388,-0.0,0.995291,-0.0,-0.096935,0.0,-168.875,0.0,2.0653,2.0653,2.0653,0,1,Buildings/Character_Heart7/ActiveRoot/CharacterModel_Duck_Heart7/DuckV2_2/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Head/SodaPointLight
+SM_Bags2,static,Mat_Bags_01_1,25.872,0.0,-79.221,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,GardenConstruct/Other/Pfb_Bags_01_2
+SM_Bags2,static,Mat_Bags_01_1,25.872,0.0,-78.65,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,GardenConstruct/Other/Pfb_Bags_01_3
+SM_Bags2,static,Mat_Bags_01_1,25.872,0.25,-79.16,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,GardenConstruct/Other/Pfb_Bags_01_4
+textureEditorIsolateSelectSet_polySurface130,static,SodaShield2 1,23.9688,2.6134,-55.7317,-0.037605,-0.281504,-0.640319,0.713676,-24.468,-22.864,-78.777,1.0,1.0,1.0,1,1,Ship/ShipDir/Built/Dir/Pfb_Soda_Shield2_2/textureEditorIsolateSelectSet_polySurface130
+textureEditorIsolateSelectSet_polySurface130,static,SodaShield2 1,23.9908,2.6254,-56.4737,0.640672,0.71649,0.031107,-0.274251,-23.327,-157.383,78.877,1.0,1.0,1.0,1,1,Ship/ShipDir/Built/Dir/Pfb_Soda_Shield2_1/textureEditorIsolateSelectSet_polySurface130
+textureEditorIsolateSelectSet_polySurface130,static,SodaShield2 1,23.9668,2.8264,-56.118,-0.40178,-0.581873,-0.401774,0.581872,-69.249,-90.001,0.001,1.0,1.0,1.0,1,1,Ship/ShipDir/Built/Dir/Pfb_Soda_Shield2/textureEditorIsolateSelectSet_polySurface130
+SM_Canvas_Ground_1x5_3,static,Mat_Canvas_Ground_Yellow,21.5981,2.3801,-57.1844,-0.51841,-0.480885,0.480888,0.51841,-4.301,-90.0,90.0,0.3465,0.3465,0.3465,1,1,Ship/Main/Pfb_Canvas_Ground_1x5_3
+SM_BoxGroup_01,static,Mat_BoxGroup_01_Gray,9.54,0.0,-51.137,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,1,1,Enviroment/Pfb_BoxGroup_02
+SM_PaperBox_01_2,static,Mat_PaperBox_White,-1.001,0.8931,-53.2013,-0.5,0.499998,-0.5,0.500002,-0.0,90.0,-90.0,0.5372,0.5372,0.5372,1,1,BuildingArea/Visual/SM_PaperBox_01_3
+SM_PaperBox_01_2,static,Mat_PaperBox_White,-1.3645,1.2009,-80.7197,-0.5,0.499998,-0.5,0.500002,-0.0,90.0,-90.0,0.39,0.39,0.39,1,1,BuildingArea/Visual_1/SM_PaperBox_01_2
+SM_PaperBox_01_2,static,Mat_PaperBox_White,-0.939,0.7391,-53.19,-0.5,0.499998,-0.5,0.500002,-0.0,90.0,-90.0,0.5372,0.5372,0.5372,1,1,BuildingArea/Visual/SM_PaperBox_01_4
+SM_PaperBox_01_2,static,Mat_PaperBox_White,-2.182,0.7271,-53.1653,-0.5,0.499998,-0.5,0.500002,-0.0,90.0,-90.0,0.5372,0.5372,0.5372,1,1,BuildingArea/Visual/SM_PaperBox_01_2
+SM_PaperBox_01_2,static,Mat_PaperBox_White,-0.4621,1.2096,-80.7376,-0.5,0.499998,-0.5,0.500002,-0.0,90.0,-90.0,0.39,0.39,0.39,1,1,BuildingArea/Visual_1/SM_PaperBox_01_4
+SM_PaperBox_01_2,static,Mat_PaperBox_White,-0.5071,1.3214,-80.7458,-0.5,0.499998,-0.5,0.500002,-0.0,90.0,-90.0,0.39,0.39,0.39,1,1,BuildingArea/Visual_1/SM_PaperBox_01_3
+SM_Canvas_Ground_2x4_1,static,Mat_Canvas_Ground_Blue,22.2258,2.0301,-51.0104,-0.492662,-0.50723,0.507233,0.492662,1.67,-90.0,90.0,1.7626,1.7626,1.7626,1,1,ShipBuildingFrame/Pfb_Canvas_Ground_2x4_3
+SM_Soda_ExhaustSystem1,static,MAT_Soda_Pipe 1|DarkQuadSolid,23.418,1.446,-55.9125,-0.5,0.499999,0.499999,0.500002,-90.0,31.712,56.782,0.861,0.861,0.861,1,1,Ship/Main/Pfb_Soda_ExhaustSystem1_02
+First_aid_Kit01,static,ColorA Darker,19.3896,1.871,-49.905,-0.092296,-0.701057,0.701057,-0.092296,90.0,169.331,-169.331,0.4608,0.4608,0.4608,0,1,Buildings/Temp/First_aid_Kit01
+SM_Stairs_New_08,static,Mat_Stairs,21.4127,1.7811,-52.2504,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Stairs_New_24
+Cube,static,Lit,27.519,1.0043,-51.7011,0.0,-0.707109,0.0,0.707105,-0.0,-90.0,0.0,1.2796,2.0051,0.1301,0,1,Pfb_PortaPotty_Base/SM_PortaPotty_Base/Cube_6
+SM_Canvas_Ground_2x4_2,static,Mat_Canvas_Ground_Dark,14.8891,0.1301,-56.3304,0.0,-0.010929,0.0,0.99994,-0.0,-1.252,0.0,0.9512,0.9512,0.9512,1,1,ShipBuildingFrame/Pfb_Canvas_Ground_2x4_5
+SM_CleaningHandcart_1,static,MAT_CleaningHandcart_01,15.598,-0.0099,-62.851,0.0,0.909708,0.0,-0.415249,-0.0,-130.93,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_CleaningHandcart_01/SM_CleaningHandcart_1
+SM_PaperBox_01_2,static,Mat_PaperBox_01_01,-7.0411,-0.029,-53.3729,-0.0,-0.662794,2e-06,0.748801,0.0,-83.027,0.0,0.6135,0.6135,0.6135,1,1,Buildings/SaleMachine/Visual/Prfb_PaperBox_01_2
+SM_Stone_01_04,static,Mat_Stone_01,-33.717,-0.011,-75.087,0.032023,0.168612,-0.191776,0.966316,7.271,18.429,-21.269,0.2818,0.2818,0.2818,0,1,HalfObsticles/TestHalfObsticle_1/DeadVisuals/Prfb_Stone_01_4_4
+SM_Stone_01_04,static,Mat_Stone_01,-33.717,-0.011,-71.577,0.032023,0.168612,-0.191776,0.966316,7.271,18.429,-21.269,0.2818,0.2818,0.2818,0,1,HalfObsticles/TestHalfObsticle_1/DeadVisuals/Prfb_Stone_01_4_4
+SM_Stone_01_04,static,Mat_Stone_01,-33.717,-0.011,-68.287,0.032023,0.168612,-0.191776,0.966316,7.271,18.429,-21.269,0.2818,0.2818,0.2818,0,1,HalfObsticles/TestHalfObsticle/DeadVisuals/Prfb_Stone_01_4_4
+SM_Stairs_01,static,OutDoor_NoColor,17.6491,-1.244,-58.237,-0.0,-2e-06,-0.167038,0.98595,-0.0,-0.0,-19.231,0.7525,0.7525,0.7525,1,1,ShipBuildingFrame/Pfb_Stairs_01_02
+OfficeDeskSet02_4,static,OfficeDeskSet02,-2.6604,0.695,-89.5622,0.956603,-0.0,-0.291395,0.0,-0.0,-146.117,-180.0,1.5,1.5,1.5,1,1,Notes/Note_Base_Start/OfficeDeskSet02_4
+OfficeDeskSet02_4,static,OfficeDeskSet02,28.6157,0.66,-60.3382,-0.615867,0.0,0.78785,-0.0,-0.0,-76.03,-180.0,1.5,1.5,1.5,1,1,Notes/Note_Base_CarBuilding/OfficeDeskSet02_4
+OfficeDeskSet02_4,static,OfficeDeskSet02,-30.9424,0.799,-65.7352,0.956603,-0.0,-0.291395,0.0,-0.0,-146.117,-180.0,1.5,1.5,1.5,1,1,Notes/Note_Base_ShootingRange/OfficeDeskSet02_4
+SM_Stairs_New_10,static,Mat_Stairs|Mat_Stairs,21.4126,0.603,-59.399,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Stairs_New_15
+pCube336,static,Mat_WoodBoards_01,18.9769,0.399,-77.99,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,0.7,1.0,0.2375,0,1,GardenConstruct/Built/Garden/ScaledBorder10/Pfb_WoodBoards_01_8
+Sphere,static,Teleporter,-4.96,0.75,-82.38,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.8686,0.8686,0.8686,0,1,SimpleTeleport/r
+Sphere,static,Teleporter,19.58,0.75,-62.96,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.8686,0.8686,0.8686,0,1,SimpleTeleport/r
+SM_Indoors_Books_06,static,Mat_Indoors_Books_01,-1.428,0.577,-88.919,0.703499,0.703499,-0.071342,-0.071342,0.0,-168.419,90.0,2.043,2.043,2.043,1,1,Enviroment/Prfb_Indoors_Books_07
+SM_Indoors_Books_06,static,Mat_Indoors_Books_01,-9.06,0.577,-88.75,0.52105,0.52105,0.478024,0.478024,-0.0,94.932,90.0,2.043,2.043,2.043,1,1,Enviroment/Prfb_Indoors_Books_06
+pCube339,static,Mat_WoodBoards_01,19.477,0.17,-76.99,0.0,-0.0,0.0,1.0,-0.0,-0.0,0.0,0.71,0.9293,0.82,0,1,GardenConstruct/Built/Garden/Corner01/Pfb_WoodBoards_01_5
+SM_Brick02,static,Mat_StreetAssets01_2,-2.914,0.3161,-53.1223,0.0,-0.281575,0.0,0.959539,-0.0,-32.709,0.0,0.7702,0.7702,0.7702,1,1,BuildingArea/Visual/Prfb_Brick02_1
+SM_Brick02,static,Mat_StreetAssets01_2,-2.914,-0.001,-53.1223,0.0,-0.281575,0.0,0.959539,-0.0,-32.709,0.0,0.7702,0.7702,0.7702,1,1,BuildingArea/Visual/Prfb_Brick02
+SM_Brick02,static,Mat_StreetAssets01_2,-2.914,0.6251,-53.1223,0.0,-0.161337,0.0,0.986899,-0.0,-18.569,0.0,0.7702,0.7702,0.7702,1,1,BuildingArea/Visual/Prfb_Brick02_2
+SM_Soda_Pipe_2,static,MAT_Soda_Pipe,21.4952,3.6063,-55.5957,0.700365,0.0,0.713785,-2e-06,-0.0,88.913,-180.0,0.2201,0.1788,0.1788,1,1,Ship/ShipPower/Built/Power/Pfb_Soda_Pipe_2
+SM_Soda_Pipe_2,static,MAT_Soda_Pipe,18.8787,2.5406,-56.6196,-0.689851,-0.12723,0.702458,-0.120293,20.164,-89.033,179.601,0.2774,0.2253,0.2253,1,1,Ship/ShipProtect/Built/Protect/Group/Pfb_Soda_Pipe_8
+SM_Hangclothes_04,static,Mat_Hangclothes_Heart7,-1.9388,0.676,-82.0678,0.060378,0.867252,-0.078446,-0.48793,4.424,-120.869,10.476,0.7927,0.7927,0.7927,0,1,Buildings/Character_Heart7/ActiveRoot/CharacterModel_Duck_Heart7/DuckV2_2/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Prfb_Hangclothes_01_5
+SM_LittleYellowDuck,static,LittleYellowDuck,20.335,3.512,-56.51,0.0,-0.707106,0.0,0.707107,-0.0,-90.0,0.0,0.4798,0.4798,0.4798,1,1,Ship/Main/SM_LittleYellowDuck
+Basement_Area_01,static,Mat_Tile_FloorCement02 3|Mat_Tile_FloorCement02|Mat_Tile_FloorCement02|Mat_Tile_FloorCement02|BasementWall|Mat_Tile_FloorCement02|Mat_Tile_FloorCement02|Mat_Tile_FloorCement02|Mat_Tile_FloorCement02|Mat_Tile_FloorCement02|Mat_Tile_FloorCement02|BaseGround2|Mat_Tile_FloorCement02|Mat_Tile_FloorCement02|Mat_Tile_FloorCement02 3|Mat_Tile_FloorCement02|Mat_Tile_FloorCement02|Mat_Tile_FloorWoodBlank03|WorldTile_Garden_MainGround|Mat_Tile_FloorCement02 6|Mat_Tile_FloorCement02 6|BasementWall,0.0,0.0,0.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,1,1,BaseSkin/MeshV2
+Cube,static,Lit,14.2679,0.8093,-54.3979,0.042564,0.904916,0.093248,-0.413061,-11.767,-130.93,0.0,0.7001,2.413,0.1475,0,1,ShipBuildingFrame/Pfb_Soda_Ladder/Cube
+pCylinder49,static,Radar 1,20.9272,4.0206,-55.793,-0.001722,-0.338846,-0.0015,0.940839,-0.244,-39.613,-0.095,0.0011,0.0011,0.0011,1,1,Ship/ShipGuide/Built/Pfb_Radar_01_Temp/pCylinder49
+SM_Soda_Pipe_10,static,MAT_Soda_Pipe,19.0022,2.171,-57.1986,-0.397833,-0.577764,0.581773,0.411653,20.164,-89.033,89.601,0.2228,0.2228,0.2228,1,1,Ship/ShipProtect/Built/Protect/Group/Pfb_Soda_Pipe_07
+SM_Soda_Pipe_10,static,MAT_Soda_Pipe,21.9371,3.6301,-56.1244,-1e-06,0.999955,2e-06,0.009489,-0.0,178.913,-0.0,0.1833,0.1833,0.1833,1,1,Ship/ShipPower/Built/Power/Pfb_Soda_Pipe_10
+SM_Soda_Pipe_10,static,MAT_Soda_Pipe,21.4884,3.2913,-55.1401,0.495233,0.495233,0.504724,0.504721,-0.0,88.913,90.0,0.1768,0.1768,0.1768,1,1,Ship/ShipPower/Built/Power/Pfb_Soda_Pipe_11
+pCube336,static,Mat_WoodBoards_01,18.9771,-0.102,-76.99,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,0.7,1.0,0.2375,0,1,GardenConstruct/Built/Garden/ScaledBorder01/Pfb_WoodBoards_01_3
+SM_Stairs_New_10,static,Mat_Stairs|Mat_Stairs,16.3421,-0.1599,-60.2424,0.0,-0.70711,0.0,0.707104,-0.0,-90.001,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Stairs_New_23
+SM_Locker_01_3_1,static,Mat_Locker_01_01,-7.6703,1.0579,-53.0022,0.61237,0.353554,0.612373,-0.353555,-60.0,89.999,-180.0,-0.6152,0.8959,0.6152,0,1,Buildings/SaleMachine/Visual/Prfb_Locker_01_4/SM_Locker_01_3_1
+SM_Locker_01_3_1,static,Mat_Locker_01_01,-8.0901,0.1129,-53.4125,0.0,1.0,0.0,-4e-06,-0.0,-180.0,0.0,1.177,1.7141,1.177,0,1,Buildings/SaleMachine/Visual/Prfb_Locker_01_3/SM_Locker_01_3_1
+SM_Locker_01_3_1,static,Mat_Locker_01_01,-7.7777,0.7312,-53.0022,0.61237,0.353554,0.612373,-0.353555,-60.0,89.999,-180.0,0.501,0.7296,0.501,0,1,Buildings/SaleMachine/Visual/Prfb_Locker_01_5/SM_Locker_01_3_1
+SM_PaperBox_01_2,static,Mat_PaperBox_01_01,-9.3259,0.3417,-53.1016,-0.0,-0.662794,2e-06,0.748801,0.0,-83.027,0.0,0.6135,0.6135,0.6135,1,1,Buildings/SaleMachine/Visual/Prfb_PaperBox_01_3
+SM_JALB_WallPart,static,MAT_RoofDark,18.419,1.611,-57.216,0.500001,-0.500001,-0.499999,0.499999,-0.0,-90.0,-90.0,0.5563,0.5563,0.5563,1,1,Ship/ShipProtect/Built/Protect/Pfb_JALB_WallPart
+SM_JALB_WallPart,static,MAT_Roof,22.883,1.392,-56.853,0.707107,-2e-06,1e-06,0.707106,90.0,-135.882,-135.764,0.3744,0.3744,0.3744,1,1,Ship/Main/Pfb_JALB_WallPart_2
+SM_JALB_WallPart,static,MAT_Roof,19.675,1.392,-56.8531,0.707107,-2e-06,1e-06,0.707106,90.0,-135.882,-135.764,0.3744,0.3744,0.3744,1,1,Ship/Main/Pfb_JALB_WallPart_1
+SM_PaperBox_01_1,static,Mat_PaperBox_02,-2.109,0.685,-53.366,0.0,0.997517,0.0,-0.070431,-0.0,-171.923,0.0,0.5742,0.5742,0.5742,0,1,Buildings/StarterKit/Model/SM_PaperBox_01_1
+SM_PaperBox_01_2,static,Mat_PaperBox_01_01,-3.114,0.0,-53.465,0.0,0.714436,0.0,0.699701,-0.0,91.194,0.0,0.5846,0.5846,0.5846,0,1,Buildings/StarterKit/Model/Prfb_PaperBox_01_2
+rose,static,rose,-1.607,0.5082,-82.1685,-0.067221,0.717094,-0.690203,-0.06984,87.811,-168.875,-0.0,0.103,0.103,0.103,0,1,Buildings/Character_Heart7/ActiveRoot/CharacterModel_Duck_Heart7/DuckV2_2/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/rose
+Cube,static,Lit,14.6117,0.865,-54.0998,-0.035127,0.906447,-0.076954,-0.41376,9.705,-130.93,0.0,0.7001,2.413,0.1475,0,1,ShipBuildingFrame/Pfb_Soda_Ladder/Cube_1
+SM_Stairs_New_10,static,Mat_Stairs|Mat_Stairs,16.3421,-0.1599,-52.1034,0.0,-0.70711,0.0,0.707104,-0.0,-90.001,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Stairs_New_27
+JLAB_ProtectiveClothes_Body,static,JLab_ProtectiveClothesOutSpace,21.2252,3.7303,-57.0799,1e-06,0.993729,0.111818,3e-06,-12.84,180.0,0.0,1.0082,1.0082,1.0082,0,1,Ship/Main/DuckV2_2/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Agent_Armor_FireProtect/JLAB_ProtectiveClothes_Body
+Cube,static,Lit,28.78,1.0043,-51.7011,0.0,-0.707109,0.0,0.707105,-0.0,-90.0,0.0,1.2796,2.0051,0.1301,0,1,Pfb_PortaPotty_Base/SM_PortaPotty_Base/Cube_5
+Lv,static,ColorA|ColorC,20.475,3.109,-55.459,-3e-06,1.0,-3e-06,-0.0,0.0,-180.0,-0.0,0.4709,0.4709,0.4709,1,1,Ship/ShipLife/Built/Lv_1
+Lv,static,ColorA|ColorC,20.475,3.109,-56.915,-3e-06,1.0,-3e-06,-0.0,0.0,-180.0,-0.0,0.4709,0.4709,0.4709,1,1,Ship/ShipLife/Built/Lv
+Player_Duck_Head,skinned,Duck Brown,21.2252,3.794,-57.135,-2e-06,0.562317,0.826922,2e-06,-68.432,-0.0,180.0,1.0,1.0,1.0,0,1,Ship/Main/DuckV2_2/Player_Duck_Head
+SM_Stairs_Soda_02,static,Mat_Stairs_Soda,21.7361,3.5701,-56.3564,-1e-06,1.0,2e-06,-1e-06,-0.0,-180.0,-0.0,0.2078,0.2078,0.2078,1,1,Ship/ShipPower/Built/Power/Pfb_Stairs_Soda_02
+SM_Garbage_01_4,static,Mat_Gargabe_Gray,-6.287,-0.0045,-41.619,0.0,-0.707106,0.0,0.707107,-0.0,-90.0,0.0,0.7761,0.7761,0.7761,1,1,Enviroment/Prfb_Garbage_01_4
+SM_Garbage_01_4,static,Mat_Gargabe_Gray,-3.834,0.004,-42.666,0.0,-0.384264,0.0,0.923223,-0.0,-45.196,0.0,0.7437,0.7437,0.7437,1,1,Enviroment/Prfb_Garbage_01_5
+SM_SteelFrame_01_3,static,Mat_SteelFrame_01,24.218,-1.715,-58.758,0.0,-0.707107,0.0,0.707106,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_SteelFrame_01_12
+SM_WoodBox_01_2,static,Mat_WoodBox_01_1,16.729,-1.276,-52.28,0.0,0.70711,0.0,0.707104,-0.0,90.001,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Box_GRP_05/Pfb_WoodBox_01_21
+SM_FabricScroll_2,static,Mat_FabricScroll_White,26.164,0.313,-75.923,0.0,-0.787263,0.0,0.616617,-0.0,-103.861,0.0,0.5757,0.5757,0.5757,1,1,GardenConstruct/Other/Pfb_FabricScroll_2
+polySurface130,static,SodaShield2 1,23.9688,2.6134,-55.7317,-0.037605,-0.281504,-0.640319,0.713676,-24.468,-22.864,-78.777,1.0,1.0,1.0,1,1,Ship/ShipDir/Built/Dir/Pfb_Soda_Shield2_2/polySurface130
+polySurface130,static,SodaShield2 1,23.9908,2.6254,-56.4737,0.640672,0.71649,0.031107,-0.274251,-23.327,-157.383,78.877,1.0,1.0,1.0,1,1,Ship/ShipDir/Built/Dir/Pfb_Soda_Shield2_1/polySurface130
+polySurface130,static,SodaShield2 1,23.9668,2.8264,-56.118,-0.40178,-0.581873,-0.401774,0.581872,-69.249,-90.001,0.001,1.0,1.0,1.0,1,1,Ship/ShipDir/Built/Dir/Pfb_Soda_Shield2/polySurface130
+SM_WoodBox_01_2,static,Mat_WoodBox_01_1,17.4878,-1.276,-51.4977,0.0,0.70711,0.0,0.707104,-0.0,90.001,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Box_GRP_05/Pfb_WoodBox_01_20
+SM_Groundpile3,static,Mat_Tile_Stones_01,-32.837,-0.044,-70.452,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,0.7243,0.1967,0.2575,0,1,HalfObsticles/TestHalfObsticle_1/DeadVisuals/Prfb_Groundpile3
+SM_Groundpile3,static,Mat_Tile_Stones_01,-32.837,-0.044,-67.162,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,0.7243,0.1967,0.2575,0,1,HalfObsticles/TestHalfObsticle/DeadVisuals/Prfb_Groundpile3
+SM_Groundpile3,static,Mat_Tile_Stones_01,-32.837,-0.044,-73.962,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,0.7243,0.1967,0.2575,0,1,HalfObsticles/TestHalfObsticle_1/DeadVisuals/Prfb_Groundpile3
+First_aid_Kit_Bandage,static,ColorA Darker,18.881,2.342,-49.727,0.127046,-0.373788,0.023638,0.918468,14.539,-44.679,-3.053,0.4608,0.4608,0.4608,0,1,Buildings/Temp/First_aid_Kit_Bandage_2
+First_aid_Kit_Bandage,static,ColorA Darker,18.848,2.3166,-49.8779,0.673876,0.006909,-0.219179,0.705552,72.542,-72.205,-90.821,0.4608,0.4608,0.4608,0,1,Buildings/Temp/First_aid_Kit_Bandage
+First_aid_Kit_Bandage,static,ColorA Darker,19.025,2.315,-49.83,0.69486,-0.339567,0.138988,0.618503,72.542,-130.861,-90.821,0.4608,0.4608,0.4608,0,1,Buildings/Temp/First_aid_Kit_Bandage_1
+Generated Mesh,static,MAT_Pipe_01,20.7404,0.04,-62.4008,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pipe
+SM_Indoors_Table_02_3,static,Mat_Indoors_Table_02,-30.704,0.3813,-65.6249,0.0,1.0,0.0,2e-06,-0.0,180.0,0.0,1.2,1.2,1.2,1,1,Enviroment/Pfb_Indoors_Table_04/SM_Indoors_Table_02_3
+SM_Indoors_Table_02_3,static,Mat_Indoors_Table_02,-4.59,0.3813,-89.5671,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.2,1.2,1.2,1,1,Enviroment/Pfb_Indoors_Table_03/SM_Indoors_Table_02_3
+SM_Indoors_Table_02_3,static,Mat_Indoors_Table_02,-0.91,0.3813,-81.0149,0.0,1.0,0.0,1e-06,-0.0,180.0,0.0,1.2,1.2,1.2,1,1,Enviroment/Pfb_Indoors_Table_02/SM_Indoors_Table_02_3
+Sphere,static,Duck BrownMussle,21.1707,4.2118,-57.2215,0.083057,0.880247,0.167658,0.436071,-12.869,125.309,17.456,0.0742,0.1146,0.1325,0,1,Ship/Main/DuckV2_2/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/ArmorSocket/Sphere_3
+Sphere,static,Duck BrownMussle,21.2935,4.2133,-57.2283,0.166842,0.444616,0.084685,0.875961,12.532,55.781,17.696,0.0742,0.1146,0.1325,0,1,Ship/Main/DuckV2_2/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/ArmorSocket/Sphere_2
+Wrench02,static,ColorB|ColorA,28.899,0.699,-60.932,0.0,0.0,-0.707106,0.707108,-0.0,0.0,-90.0,1.1067,1.1067,1.1067,1,1,ShipBuildingFrame/Wrench02
+SM_JLABWall03,static,MAT_JLABWall03 1,18.9656,1.431,-54.9242,1e-06,0.707107,-0.707106,0.0,90.0,-150.461,31.828,1.1597,0.5644,0.6465,1,1,Ship/Main/Pfb_JLABWall03
+pCube339,static,Mat_WoodBoards_01,19.477,0.17,-77.99,0.0,-0.0,0.0,1.0,-0.0,-0.0,0.0,0.71,0.9293,0.82,0,1,GardenConstruct/Built/Garden/Corner10/Pfb_WoodBoards_01_7
+pCube339,static,Mat_WoodBoards_01,18.477,0.17,-77.99,0.0,-0.0,0.0,1.0,-0.0,-0.0,0.0,0.71,0.9293,0.82,0,1,GardenConstruct/Built/Garden/Corner00/Pfb_WoodBoards_01_4
+Sphere,static,Duck BrownMussle,21.1132,4.3054,-57.1111,0.083057,0.880247,0.167658,0.436071,-12.869,125.309,17.456,0.1595,0.2465,0.2849,0,1,Ship/Main/DuckV2_2/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/ArmorSocket/Sphere_1
+SM_Brick01,static,Mat_StreetAssets01_2,18.35,0.315,-80.37,0.0,1.0,0.0,1e-06,-0.0,180.0,0.0,0.7495,0.7495,0.7495,1,1,GardenConstruct/Other/Pfb_Brick01_1
+SM_Brick01,static,Mat_StreetAssets01_2,26.0,0.011,-75.93,0.0,-0.707109,0.0,0.707105,-0.0,-90.0,0.0,0.7495,0.7495,0.7495,1,1,GardenConstruct/Other/Pfb_Brick01_2
+SM_Brick01,static,Mat_StreetAssets01_2,18.35,0.0,-80.37,0.0,1.0,0.0,1e-06,-0.0,180.0,0.0,0.7495,0.7495,0.7495,1,1,GardenConstruct/Other/Pfb_Brick01
+First_aid_Kit_Bandage,static,ColorA,-1.723,0.7648,-53.302,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.5,0.5,0.5,0,1,Buildings/StarterKit/NotPickedGO/First_aid_Kit_Bandage_1
+SM_Starter,static,Mat_Lootbox_02,-3.8262,0.0,-89.7555,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,0,1,LootBox_Starter/Prfb_Starter
+SM_Wood_Billboard,static,Wood,-1.5103,-0.001,-53.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,1,1,BuildingArea/Visual/SM_Roadsign_2
+SM_Wood_Billboard,static,Wood,-0.8768,0.6723,-80.5997,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.726,0.726,0.726,1,1,BuildingArea/Visual_1/SM_Roadsign_2
+SM_Canvas_Ground_2x4_1,static,Mat_Canvas_Ground_Dark,24.98,0.968,-56.5,0.0,-0.028226,0.0,0.999602,-0.0,-3.235,0.0,0.8497,0.8497,0.8497,1,1,ShipBuildingFrame/Pfb_Canvas_Ground_2x4_1
+pCylinder6,static,MAT_LightProp 2,22.7844,2.7843,-56.1194,-1e-06,1.0,2e-06,-1e-06,-0.0,-180.0,-0.0,0.1833,0.1833,0.1833,1,1,Ship/ShipPower/Built/Power/Pfb_Soda_LightProp
+SM_Indoors_Bedroom_Besidetable_01,static,Mat_Indoors_Bedroom_01,-9.204,0.0,-87.165,0.0,0.707106,0.0,0.707108,-0.0,90.0,0.0,0.9,0.9,0.9,1,1,Enviroment/Prfb_Indoors_Bedroom_Besidetable_01
+SM_Indoors_Bedroom_Besidetable_01,static,Mat_Indoors_Bedroom_01,-2.64,-0.0004,-89.54,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,0.9,0.9,0.9,1,1,Enviroment/Prfb_Indoors_Bedroom_Besidetable_02
+pCube339,static,Mat_WoodBoards_01,18.477,0.17,-76.99,0.0,-0.0,0.0,1.0,-0.0,-0.0,0.0,0.71,0.9293,0.82,0,1,GardenConstruct/Built/Garden/Corner11/Pfb_WoodBoards_01_6
+Cube,static,Lit,0.0,-0.5,0.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,1.0,1.0,0,1,BaseSkin/Function/Showcase/Graphics/Altar
+SM_Indoors_Table_02_1,static,Mat_Indoors_Table_02,-4.112,0.2758,-89.1469,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.2,1.2,1.2,1,1,Enviroment/Pfb_Indoors_Table_03/SM_Indoors_Table_02_1
+SM_Indoors_Table_02_1,static,Mat_Indoors_Table_02,-1.388,0.2758,-81.4351,0.0,1.0,0.0,1e-06,-0.0,180.0,0.0,1.2,1.2,1.2,1,1,Enviroment/Pfb_Indoors_Table_02/SM_Indoors_Table_02_1
+SM_Indoors_Table_02_1,static,Mat_Indoors_Table_02,-31.182,0.2758,-66.0451,0.0,1.0,0.0,2e-06,-0.0,180.0,0.0,1.2,1.2,1.2,1,1,Enviroment/Pfb_Indoors_Table_04/SM_Indoors_Table_02_1
+SM_Indoors_Study_Shelf_04,static,Mat_Indoors_Study_01_1,-9.49,-0.0004,-83.88,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,Enviroment/Prfb_Indoors_Study_Shelf_04
+Mesh2_Group3_Group1_Model,static,Glick1,-2.098,0.997,-52.837,0.079168,0.693448,0.081231,0.711522,-0.0,88.526,13.026,8.0,8.0,8.0,0,1,Buildings/StarterKit/NotPickedGO/pistol/Mesh2_Group3_Group1_Model
+SM_PaperBox_01_5,static,Mat_PaperBox_02,1.4334,0.0001,-53.1683,0.0,-0.707107,0.0,0.707106,-0.0,-90.0,0.0,1.0,1.0,1.0,0,1,Buildings/Building_PetHouse/Graphics/SM_PaperBox_01_5
+SM_Soda_ExhaustSystem10,static,MAT_Soda_Pipe 1,23.837,2.375,-55.386,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,0.7172,0.7172,0.7172,1,1,Ship/ShipDir/Built/Dir/Pfb_Soda_ExhaustSystem1_13
+SM_Soda_ExhaustSystem10,static,MAT_Soda_Pipe 1,23.837,2.375,-56.84,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,0.7172,0.7172,0.7172,1,1,Ship/ShipDir/Built/Dir/Pfb_Soda_ExhaustSystem1_11
+SM_Soda_ExhaustSystem10,static,MAT_Soda_Pipe 1,18.494,1.592,-55.601,0.0,0.707106,0.0,0.707108,-0.0,90.0,0.0,0.7365,0.7365,0.7365,1,1,Ship/ShipProtect/Built/Protect/Pfb_Soda_ExhaustSystem1_10
+SM_Soda_ExhaustSystem10,static,MAT_Soda_Pipe 1,18.494,1.592,-56.629,0.0,0.707106,0.0,0.707108,-0.0,90.0,0.0,0.7365,0.7365,0.7365,1,1,Ship/ShipProtect/Built/Protect/Pfb_Soda_ExhaustSystem1_11
+First_aid_Kit_Bandage,static,ColorA,-1.8284,0.7618,-53.1858,0.70927,0.115317,-0.170435,0.674233,84.706,-110.773,-134.113,0.5,0.5,0.5,0,1,Buildings/StarterKit/NotPickedGO/First_aid_Kit_Bandage
+SM_MetalBoard_01_3,static,Mat_MetalBoard_01_1 _Ground,22.34,0.034,-75.59,0.0,0.18777,0.0,0.982213,-0.0,21.645,0.0,1.0,1.0,1.0,1,1,GardenConstruct/NotBuilt/Pfb_MetalBoard_01_5
+SM_MetalBoard_01_3,static,Mat_MetalBoard_01_1 _Ground,17.82,0.034,-77.7,0.0,0.541692,0.0,0.840577,-0.0,65.598,0.0,1.2828,1.2828,1.2828,1,1,GardenConstruct/NotBuilt/Pfb_MetalBoard_01_4
+SM_MetalBoard_01_3,static,Mat_MetalBoard_01_1 _Ground,19.84,0.034,-79.09,0.0,0.947298,0.0,0.320353,-0.0,142.631,0.0,1.0,1.0,1.0,1,1,GardenConstruct/NotBuilt/Pfb_MetalBoard_01_3
+SM_MetalBoard_01_3,static,Mat_MetalBoard_01_1,20.24,2.304,-57.188,-0.496689,-0.503718,0.504097,0.495434,0.899,-90.049,90.093,0.6641,0.6641,0.6641,1,1,Ship/Main/Pfb_MetalBoard_01_3
+SM_MetalBoard_01_3,static,Mat_MetalBoard_01_1 _Ground,23.597,0.034,-77.819,0.0,0.18777,0.0,0.982213,-0.0,21.645,0.0,1.0,1.0,1.0,1,1,GardenConstruct/NotBuilt/Pfb_MetalBoard_01_7
+SM_MetalBoard_01_3,static,Mat_MetalBoard_01_1,20.187,2.293,-55.044,0.097562,-0.699698,0.700924,-0.098025,74.101,89.622,-90.34,0.8935,0.8935,0.8935,1,1,Ship/Main/Pfb_MetalBoard_01_6
+SM_SteelFrame_01_3,static,Mat_SteelFrame_01,20.6961,-1.208,-51.3204,0.0,-0.707107,0.0,0.707106,-0.0,-90.0,0.0,1.0,1.2153,1.0,1,1,ShipBuildingFrame/Pfb_SteelFrame_01_19
+hat,static,hatHeart7,-1.6692,1.0686,-81.9342,0.02594,0.958992,0.266344,-0.093399,-31.043,-168.875,-0.0,0.6745,0.6745,0.6745,0,1,Buildings/Character_Heart7/ActiveRoot/CharacterModel_Duck_Heart7/DuckV2_2/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Head/hat
+SM_Truck_02_Tyre2,static,Mat_Truck_02_01,19.7178,1.4517,-55.3482,-0.579227,0.405579,0.579229,-0.40558,-0.0,-90.0,-110.0,1.0,1.0,1.0,1,1,Ship/ShipDir/Built/Dir/Car_1_Front_Wheel_R/Pfb_Truck_02_Tyre_1
+SM_Truck_02_Tyre2,static,Mat_Truck_02_01,19.7188,1.4568,-56.813,-0.579227,-0.405579,0.579229,0.40558,-0.0,-90.0,110.0,1.0,1.0,1.0,1,1,Ship/ShipDir/Built/Dir/Car_1_Front_Wheel_L/Pfb_Truck_02_Tyre_1
+SM_Truck_02_Tyre2,static,Mat_Truck_02_01,22.8868,1.4568,-56.813,-0.579227,-0.405579,0.579229,0.40558,-0.0,-90.0,110.0,1.0,1.0,1.0,1,1,Ship/ShipDir/Built/Dir/Car_1_Rear_Wheel_L/Pfb_Truck_02_Tyre_1
+SM_Truck_02_Tyre2,static,Mat_Truck_02_01,22.8878,1.4517,-55.3482,-0.579227,0.405579,0.579229,-0.40558,-0.0,-90.0,-110.0,1.0,1.0,1.0,1,1,Ship/ShipDir/Built/Dir/Car_1_Rear_Wheel_R/Pfb_Truck_02_Tyre_1
+SM_Ventilation_Soda1,static,Mat_Ventilation_Soda,-31.4682,0.0,-57.5442,0.0,0.707106,0.0,0.707108,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,Buildings/SkillMachine/Visual/Prfb_Ventilation_Soda1
+SM_Soda_ExhaustSystem16,static,MAT_Soda_Pipe 4,23.7628,3.2644,-56.1245,-3e-06,-0.707107,1e-06,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,Ship/ShipDir/Built/Dir/Pfb_Soda_ExhaustSystem1_16
+SM_Garbage_01_6,static,Mat_Gargabe_01,18.09,0.005,-76.39,0.0,0.47078,0.0,0.882251,-0.0,56.17,0.0,1.0,1.0,1.0,1,1,GardenConstruct/NotBuilt/Pfb_Garbage_01_10
+SM_Garbage_01_6,static,Mat_Gargabe_01,20.86,0.005,-75.62,0.0,0.121304,0.0,0.992615,-0.0,13.935,0.0,1.0,1.0,1.0,1,1,GardenConstruct/NotBuilt/Pfb_Garbage_01_11
+SM_Garbage_01_6,static,Mat_Gargabe_01,19.65,0.066,-77.04,-0.064667,0.405725,0.054689,0.910063,-9.328,47.834,2.734,1.0,1.0,1.0,1,1,GardenConstruct/NotBuilt/Pfb_Garbage_01_7
+SM_Garbage_01_6,static,Mat_Gargabe_01,23.43,0.005,-74.54,0.0,0.976403,0.0,0.215955,-0.0,155.057,0.0,1.0,1.0,1.0,1,1,GardenConstruct/NotBuilt/Pfb_Garbage_01_12
+SM_Garbage_01_6,static,Mat_Gargabe_01,20.765,0.176,-76.944,-0.063278,0.603697,-0.096372,0.788834,0.947,74.744,-13.207,1.0,1.0,1.0,1,1,GardenConstruct/NotBuilt/Pfb_Garbage_01_8
+SM_Garbage_01_6,static,Mat_Gargabe_01,21.79,0.005,-77.97,0.0,0.976403,0.0,0.215955,-0.0,155.057,0.0,1.0,1.0,1.0,1,1,GardenConstruct/NotBuilt/Pfb_Garbage_01_9
+SM_Garbage_01_6,static,Mat_Gargabe_01,19.397,0.005,-75.592,0.0,-0.391255,0.0,0.920282,-0.0,-46.065,0.0,1.0,1.0,1.0,1,1,GardenConstruct/NotBuilt/Pfb_Garbage_01_6
+SM_BarbedWire_01_03,static,Mat_BarbedWire_01,18.3411,0.0,-81.225,-0.0,-0.004248,0.0,0.999991,-0.0,-0.487,0.0,1.0,1.0,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green
+SM_BarbedWire_01_03,static,Mat_BarbedWire_01,16.1689,0.0,-70.1133,0.0,0.706691,0.0,0.707522,-0.0,89.933,0.0,1.0,1.0,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green
+SM_BarbedWire_01_03,static,Mat_BarbedWire_01,18.4528,0.0,-70.1237,0.0,0.999999,0.0,0.001385,-0.0,179.841,0.0,1.0,1.0,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green
+SM_BarbedWire_01_03,static,Mat_BarbedWire_01,27.2604,0.0,-76.8093,0.0,-0.708874,0.0,0.705335,-0.0,-90.287,0.0,1.0,1.0,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green
+SM_BarbedWire_01_03,static,Mat_BarbedWire_01,-28.906,0.0,-68.29,0.0,-0.0,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,1,1,BarbedWire/Prfb_BarbedWire_01_03_2 1
+SM_BarbedWire_01_03,static,Mat_BarbedWire_01,24.9709,0.0,-81.1687,-0.0,-0.004248,0.0,0.999991,-0.0,-0.487,0.0,1.0,1.0,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green
+SM_BarbedWire_01_03,static,Mat_BarbedWire_01,16.1782,-0.0,-78.9533,0.0,0.701995,0.0,0.712181,-0.0,89.175,0.0,1.0,1.0,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green
+SM_BarbedWire_01_03,static,Mat_BarbedWire_01,22.7609,0.0,-81.1874,-0.0,-0.004248,0.0,0.999991,-0.0,-0.487,0.0,1.0,1.0,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green
+SM_BarbedWire_01_03,static,Mat_BarbedWire_01,16.1312,-0.0,-81.2438,-0.0,-0.004248,0.0,0.999991,-0.0,-0.487,0.0,1.0,1.0,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green
+SM_BarbedWire_01_03,static,Mat_BarbedWire_01,-28.906,0.0,-72.76,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,BarbedWire/Prfb_BarbedWire_01_03_2 1_1
+SM_BarbedWire_01_03,static,Mat_BarbedWire_01,27.2604,0.0,-81.2292,-0.0,-0.705452,0.0,0.708758,-0.0,-89.732,0.0,1.0,1.0,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green
+SM_BarbedWire_01_03,static,Mat_BarbedWire_01,-28.906,0.0,-70.503,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,BarbedWire/Prfb_BarbedWire_01_03_2 1_1
+SM_BarbedWire_01_03,static,Mat_BarbedWire_01,20.551,0.0,-81.2062,-0.0,-0.004248,0.0,0.999991,-0.0,-0.487,0.0,1.0,1.0,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green
+SM_BarbedWire_01_03,static,Mat_BarbedWire_01,20.6628,0.0,-70.1176,0.0,0.999999,0.0,0.001385,-0.0,179.841,0.0,1.0,1.0,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green
+SM_BarbedWire_01_03,static,Mat_BarbedWire_01,16.1766,-0.0,-76.7433,0.0,0.706691,0.0,0.707522,0.0,89.933,0.0,1.0,1.0,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green
+SM_BarbedWire_01_03,static,Mat_BarbedWire_01,27.2388,0.0,-72.3893,0.0,-0.711115,0.0,0.703076,-0.0,-90.651,0.0,1.0,1.0,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green
+SM_BarbedWire_01_03,static,Mat_BarbedWire_01,22.8728,0.0,-70.1115,0.0,0.999999,0.0,0.001385,-0.0,179.841,0.0,1.0,1.0,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green
+SM_BarbedWire_01_03,static,Mat_BarbedWire_01,16.1715,0.0,-72.3233,0.0,0.706691,0.0,0.707522,-0.0,89.933,0.0,1.0,1.0,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green
+SM_BarbedWire_01_03,static,Mat_BarbedWire_01,27.2494,0.0,-74.5993,0.0,-0.708874,0.0,0.705335,-0.0,-90.287,0.0,1.0,1.0,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green
+SM_BarbedWire_01_03,static,Mat_BarbedWire_01,27.2928,0.0,-70.0992,0.0,0.999999,0.0,0.001385,-0.0,179.841,0.0,1.0,1.0,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green
+SM_BarbedWire_01_03,static,Mat_BarbedWire_01,27.2715,0.0,-79.0192,0.0,-0.708874,0.0,0.705335,-0.0,-90.287,0.0,1.0,1.0,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green
+SM_BarbedWire_01_03,static,Mat_BarbedWire_01,16.174,0.0,-74.5333,0.0,0.706691,0.0,0.707522,-0.0,89.933,0.0,1.0,1.0,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green
+SM_BarbedWire_01_03,static,Mat_BarbedWire_01,25.0828,0.0,-70.1053,0.0,0.999999,0.0,0.001385,-0.0,179.841,0.0,1.0,1.0,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green
+First_aid_Kit03,static,ColorA,22.98,2.483,-54.856,0.060009,0.704556,0.704556,0.06001,-80.263,90.0,90.0,0.5611,0.5611,0.5611,1,1,Ship/ShipLife/Built/First_aid_Kit03_1
+First_aid_Kit03,static,ColorA Darker,17.976,2.319,-49.81,0.001088,-0.151756,-0.007083,0.988392,0.0,-17.458,-0.821,0.3031,0.3031,0.3031,0,1,Buildings/Temp/First_aid_Kit03_1
+First_aid_Kit03,static,ColorA Darker,17.461,2.319,-49.791,0.0,0.0,-0.007166,0.999974,-0.0,0.0,-0.821,0.3031,0.3031,0.3031,0,1,Buildings/Temp/First_aid_Kit03
+First_aid_Kit03,static,ColorA,22.935,2.412,-57.37,-0.704556,0.060009,-0.060009,0.704556,-80.263,90.0,-90.0,0.5611,0.5611,0.5611,1,1,Ship/ShipLife/Built/First_aid_Kit03
+SM_Stairs_New_10,static,Mat_Stairs|Mat_Stairs,16.3421,-0.1599,-56.1824,0.0,-0.70711,0.0,0.707104,-0.0,-90.001,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Stairs_New_25
+SM_Soda_Instrments_10,static,MAT_Soda_Instruments,22.7901,3.5911,-56.1154,0.707106,0.707108,0.0,-2e-06,-0.0,-180.0,90.0,0.3665,0.3665,0.3665,1,1,Ship/ShipPower/Built/Power/Pfb_Soda_Instruments_10
+pCube336,static,Mat_WoodBoards_01,18.477,-0.102,-77.4899,0.0,-0.0,0.0,1.0,-0.0,-0.0,0.0,0.7,1.0,0.2375,0,1,GardenConstruct/Built/Garden/ScaledBorder00/Pfb_WoodBoards_01_4
+SM_Stairs_New_10,static,Mat_Stairs|Mat_Stairs,24.9126,0.603,-51.2804,0.0,1.0,0.0,-3e-06,-0.0,-180.0,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Stairs_New_18
+SM_Canvas_2_1,static,MAT_Canvas_02_Smooth 1,17.214,-0.507,-51.971,0.0,0.70711,0.0,0.707104,-0.0,90.001,0.0,1.02,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Box_GRP_05/SM_Box_GRP_05
+SM_CleaningHandcart_3,static,MAT_CleaningHandcart_01,15.598,-0.0099,-62.851,0.0,0.909708,0.0,-0.415249,-0.0,-130.93,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_CleaningHandcart_01/SM_CleaningHandcart_3
+SM_Stairs_New_01,static,Mat_Stairs|Mat_Stairs,23.2663,0.6407,-52.2103,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Stairs_New_02
+MachineFBXASC046002,static,MAT_Music,-2.899,0.922,-80.971,0.0,0.971563,0.0,-0.236782,-0.0,-152.607,0.0,0.2841,0.284,0.2841,1,1,BaseBGMSelector/Music/MachineFBXASC046002
+SM_PortaPotty_Door,static,Mat_PortaPotty,27.7447,1.132,-52.3621,0.0,-0.707109,0.0,0.707105,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,Pfb_PortaPotty_Base/SM_PortaPotty_Door
+pTorus6,static,Mat_Pipe_01,23.4542,2.4254,-57.2881,-0.704556,0.060009,-0.060009,0.704556,-80.263,90.0,-90.0,0.5599,0.5599,0.5599,1,1,Ship/ShipLife/Built/First_aid_Kit03/pTorus6
+SM_PaperBox_01_4,static,Mat_PaperBox_01_01,-9.2628,-0.0451,-52.9982,-1e-06,0.970565,-2e-06,-0.240841,0.0,-152.128,-0.0,0.6665,0.6665,0.6665,0,1,Buildings/SaleMachine/Visual/Prfb_PaperBox_01_4
+SM_Stairs_New_10,static,Mat_Stairs|Mat_Stairs,26.8291,-0.1599,-54.0804,0.0,0.707106,0.0,0.707108,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Stairs_New_21
+PlayingCard,static,PlayingCard_Heart7,-1.3206,1.5294,-81.876,0.146847,0.98111,0.038736,0.119825,-2.339,165.717,17.318,0.0843,0.0843,0.0843,0,1,Buildings/Character_Heart7/ActiveRoot/Cards/PlayingCard_Heart7_2
+SM_Ventilation_Soda2,static,Mat_Ventilation_Soda,-31.5982,0.0,-55.1342,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.6288,0.6288,0.6288,1,1,Buildings/SkillMachine/Visual/Prfb_Ventilation_Soda2_1
+SM_Ventilation_Soda2,static,Mat_Ventilation_Soda,-31.5982,0.0,-59.9242,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.6288,0.6288,0.6288,1,1,Buildings/SkillMachine/Visual/Prfb_Ventilation_Soda2
+SM_Soda_Instrments_6,static,MAT_Soda_Instruments,18.912,2.477,-56.1417,0.124951,-0.695979,0.124951,0.695979,20.356,-90.0,0.0,0.3282,0.3282,0.3282,1,1,Ship/ShipProtect/Built/Protect/Pfb_Soda_Instruments_06
+SM_Locker_01_1_1,static,Mat_Locker_SaleMachine,-8.0902,-0.176,-52.9579,0.0,4e-06,0.0,1.0,-0.0,0.0,0.0,1.3432,1.3432,1.3432,0,1,Buildings/SaleMachine/Visual/SM_Locker_01_1_1
+SM_Table_02_1,static,Mat_Table_02_Black,28.845,-0.023,-60.95,0.0,0.70711,0.0,0.707104,-0.0,90.001,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Table_02_1
+SM_Computer_01_1_2,static,Mat_Computer_01_01,-7.9207,1.4467,-53.6418,-2e-06,0.965061,-0.259646,-2e-06,34.053,-180.0,-0.0,1.0004,0.966,0.8933,0,1,Buildings/SaleMachine/Visual/Prfb_Computer_01_24/SM_Computer_01_1_2
+SM_Computer_01_1_2,static,Mat_Computer_01_01,-30.7042,0.349,-57.5441,0.270597,0.653281,-0.270598,0.653283,45.0,90.0,-0.0,1.0,1.0,1.0,1,1,Buildings/SkillMachine/Visual/Prfb_Computer_01_1/SM_Computer_01_1_2
+SM_SteelFrame_01_3,static,Mat_SteelFrame_01,20.368,-1.208,-55.167,0.0,-0.707107,0.0,0.707106,-0.0,-90.0,0.0,1.0,1.2353,1.0,1,1,ShipBuildingFrame/Pfb_SteelFrame_01_6
+SM_SteelFrame_01_3,static,Mat_SteelFrame_01,16.2041,0.0171,-61.3524,0.499999,-0.500001,-0.499999,0.5,-0.0,-90.0,-90.0,1.0,4.1543,1.0,1,1,ShipBuildingFrame/Pfb_SteelFrame_01_15
+SM_Stairs_New_08,static,Mat_Stairs,24.9127,0.753,-56.2103,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Stairs_New_08
+SM_Stairs_New_10,static,Mat_Stairs|Mat_Stairs,26.8291,-0.1599,-60.2204,0.0,0.707106,0.0,0.707108,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Stairs_New_20
+SM_Stairs_New_08,static,Mat_Stairs,19.4127,0.753,-58.4603,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Stairs_New_34
+SM_SteelFrame_01_3,static,Mat_SteelFrame_01,25.792,-1.715,-58.758,0.0,-0.707107,0.0,0.707106,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_SteelFrame_01_13
+SM_SteelFrame_01_4,static,Mat_SteelFrame_01,18.777,-1.288,-70.519,0.499999,-0.500001,-0.5,0.5,-0.0,-90.0,-90.0,1.1554,1.1554,1.1554,1,1,ShipBuildingFrame/Pfb_SteelFrame_01_7
+SodaPointLightMesh,static,ZeroPoint,-31.4782,2.394,-57.5442,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,12.3001,12.3001,12.3001,1,1,Buildings/SkillMachine/Visual/SodaPointLight
+SodaPointLightMesh,static,ZeroPoint,7.341,0.08,-51.805,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,3.4242,3.4242,3.4242,0,1,Buildings/GoToLabyrith/SodaPointLight
+SodaPointLightMesh,static,ZeroPoint,-4.769,5.28,-64.2723,0.0,0.687003,0.0,0.726655,-0.0,86.787,0.0,19.1388,19.1388,19.1388,1,1,Lights_Area1/SodaPointLight_7
+SodaPointLightMesh,static,ZeroPoint,-7.249,2.5635,-82.1723,0.0,0.687003,0.0,0.726655,-0.0,86.787,0.0,3.4582,3.4582,3.4582,1,1,Lights_Area1/SodaPointLight_14
+SodaPointLightMesh,static,ZeroPoint,-1.7,1.2741,-53.7983,0.0,0.687003,0.0,0.726655,-0.0,86.787,0.0,3.0011,3.0011,3.0011,1,1,BuildingArea/Visual/SodaPointLight_7
+SodaPointLightMesh,static,ZeroPoint,-30.5982,0.586,-57.5522,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.6671,0.6671,0.6671,1,1,Buildings/SkillMachine/Visual/SodaPointLight_1
+SodaPointLightMesh,static,ZeroPoint,-1.509,-0.108,-53.356,0.0,0.687003,0.0,0.726655,-0.0,86.787,0.0,3.0011,3.0011,3.0011,1,1,BuildingArea/Visual/SodaPointLight_6
+SodaPointLightMesh,static,ZeroPoint,-4.89,7.87,-41.44,0.0,0.687003,0.0,0.726655,-0.0,86.787,0.0,19.5048,25.5097,10.6586,1,1,Lights_Area1/SodaPointLight_6
+SodaPointLightMesh,static,ZeroPoint,-4.259,4.8435,-85.8523,0.0,0.687003,0.0,0.726655,-0.0,86.787,0.0,8.8028,8.8028,8.8028,1,1,Lights_Area1/SodaPointLight_13
+SodaPointLightMesh,static,ZeroPoint,23.9568,2.4554,-56.1117,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.4914,1.4722,2.6472,1,1,Ship/ShipDir/Built/Dir/SodaPointLight_2
+SodaPointLightMesh,static,ZeroPoint,-0.8759,0.5946,-80.8582,0.0,0.687003,0.0,0.726655,-0.0,86.787,0.0,2.1788,2.1788,2.1788,1,1,BuildingArea/Visual_1/SodaPointLight_6
+SodaPointLightMesh,static,ZeroPoint,-4.89,8.72,-41.44,0.0,0.687003,0.0,0.726655,-0.0,86.787,0.0,3.841,4.9921,4.2039,1,1,Lights_Area1/SodaPointLight_8
+SodaPointLightMesh,static,ZeroPoint,-1.0146,1.598,-81.1793,0.0,0.687003,0.0,0.726655,-0.0,86.787,0.0,2.1788,2.1788,2.1788,1,1,BuildingArea/Visual_1/SodaPointLight_7
+SodaPointLightMesh,static,ZeroPoint,-41.249,1.2535,-70.7523,0.0,0.687003,0.0,0.726655,-0.0,86.787,0.0,15.3879,8.9454,8.9454,1,1,Lights_Area1/SodaPointLight_11
+SodaPointLightMesh,static,ZeroPoint,-8.0808,1.9563,-54.2138,0.0,0.687003,0.0,0.726655,-0.0,86.787,0.0,10.6586,10.6586,10.6586,0,1,Buildings/SaleMachine/Visual/SodaPointLight_9
+SodaPointLightMesh,static,ZeroPoint,19.3116,2.2172,-55.699,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.1579,1.8385,1.6154,1,1,Ship/ShipCompute/Built/Pfb_Soda_Instruments_04/SodaPointLight
+SodaPointLightMesh,static,ZeroPoint,1.561,2.2087,-52.688,0.0,0.687003,0.0,0.726655,-0.0,86.787,0.0,3.0011,3.0011,3.0011,0,1,Steam/SodaPointLight_7
+SodaPointLightMesh,static,ZeroPoint,-30.979,5.28,-70.6623,0.0,0.687003,0.0,0.726655,-0.0,86.787,0.0,17.7277,17.7277,17.7277,1,1,Lights_Area1/SodaPointLight_9
+SodaPointLightMesh,static,ZeroPoint,21.52,2.81,-75.12,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,8.9192,8.5977,11.2154,0,1,GardenConstruct/Built/SodaPointLight
+SodaPointLightMesh,static,ZeroPoint,22.6024,3.6983,-56.8131,0.0,-0.477503,0.0,0.87863,-0.0,-57.045,0.0,0.3579,0.165,0.9257,1,1,Ship/ShipPower/Built/Power/SodaPointLight
+SM_Stairs_New_10,static,Mat_Stairs|Mat_Stairs,26.8291,-0.1599,-58.1834,0.0,0.707106,0.0,0.707108,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Stairs_New_19
+SM_Stairs_New_10,static,Mat_Stairs|Mat_Stairs,25.947,0.603,-58.114,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Stairs_New_16
+SM_PlasticPallet_01_01,static,Mat_PlasticPallet_01,19.2289,1.9584,-49.364,-0.707106,0.0,0.0,0.707108,-90.0,0.0,0.0,1.0,0.9138,1.0,0,1,Buildings/Temp/Prfb_PlasticPallet_01_08
+SM_PlasticPallet_01_01,static,Mat_PlasticPallet_01,17.6927,1.961,-49.367,-0.707106,0.0,0.0,0.707108,-90.0,0.0,0.0,1.0,0.9138,1.0,0,1,Buildings/Temp/Prfb_PlasticPallet_01_07
+SM_WoodBox_01_3_1,static,Mat_WoodBox_01_1,-1.846,0.0,-53.426,0.0,-0.022205,0.0,0.999753,-0.0,-2.545,0.0,0.7614,0.7613,0.7614,0,1,Buildings/StarterKit/Model/Prfb_WoodBox_01_4/SM_WoodBox_01_3_1
+SM_PaperBox_01_4,static,Mat_PaperBox_01_01,-9.342,-0.0451,-53.0586,-1e-06,0.970565,-2e-06,-0.240841,0.0,-152.128,-0.0,0.6665,0.6665,0.6665,1,1,Buildings/SaleMachine/Visual/Prfb_PaperBox_01_4
+SM_SteelFrame_01_3,static,Mat_SteelFrame_01,29.3391,0.0171,-61.3524,0.499999,-0.500001,-0.499999,0.5,-0.0,-90.0,-90.0,1.0,4.1543,1.0,1,1,ShipBuildingFrame/Pfb_SteelFrame_01_16
+SM_Shelf_01_3,static,Mat_Shelf_01_R1,-28.1042,0.0,-55.0612,0.0,0.707106,0.0,0.707108,-0.0,90.0,0.0,0.779,0.779,0.779,1,1,Buildings/SkillMachine/Visual/Prfb_Shelf_01_3/P_Fade/Fade/SM_Shelf_01_3
+SM_Stone_01_04,static,Mat_Stone_01,-31.72,-0.023,-74.402,-0.056136,-0.073114,0.089455,0.991716,-5.639,-8.964,10.751,0.2818,0.2818,0.2818,0,1,HalfObsticles/TestHalfObsticle_1/DeadVisuals/Prfb_Stone_01_4_3
+SM_Stone_01_04,static,Mat_Stone_01,-31.72,-0.023,-70.892,-0.056136,-0.073114,0.089455,0.991716,-5.639,-8.964,10.751,0.2818,0.2818,0.2818,0,1,HalfObsticles/TestHalfObsticle_1/DeadVisuals/Prfb_Stone_01_4_3
+SM_Stone_01_04,static,Mat_Stone_01,-31.72,-0.023,-67.602,-0.056136,-0.073114,0.089455,0.991716,-5.639,-8.964,10.751,0.2818,0.2818,0.2818,0,1,HalfObsticles/TestHalfObsticle/DeadVisuals/Prfb_Stone_01_4_3
+SM_Stairs_New_08,static,Mat_Stairs,24.9127,0.753,-54.2103,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Stairs_New_12
+SM_Stairs_New_10,static,Mat_Stairs|Mat_Stairs,25.947,0.603,-52.238,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Stairs_New_31
+SM_Indoors_Table_02_2,static,Mat_Indoors_Table_02,-31.1738,0.5896,-65.8736,0.0,1.0,0.0,2e-06,-0.0,180.0,0.0,1.2,1.2,1.2,1,1,Enviroment/Pfb_Indoors_Table_04/SM_Indoors_Table_02_2
+SM_Indoors_Table_02_2,static,Mat_Indoors_Table_02,-1.3798,0.5896,-81.2636,0.0,1.0,0.0,1e-06,-0.0,180.0,0.0,1.2,1.2,1.2,1,1,Enviroment/Pfb_Indoors_Table_02/SM_Indoors_Table_02_2
+SM_Indoors_Table_02_2,static,Mat_Indoors_Table_02,-4.1202,0.5896,-89.3184,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.2,1.2,1.2,1,1,Enviroment/Pfb_Indoors_Table_03/SM_Indoors_Table_02_2
+SM_Stairs_New_08,static,Mat_Stairs,24.9127,0.753,-58.2103,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Stairs_New_11
+pCube336,static,Mat_WoodBoards_01,24.0781,-0.008,-79.6955,-0.499999,0.499998,-0.499999,0.500003,-0.0,90.0,-90.0,1.1821,1.1821,1.2034,1,1,GardenConstruct/Other/Pfb_WoodBoards_01_9
+pCube336,static,Mat_WoodBoards_01,26.5788,0.36,-78.1367,-0.707106,-3e-06,-0.0,0.707108,-90.0,-58.315,58.315,1.1821,0.6771,0.2228,1,1,GardenConstruct/Group/Pfb_WoodBoards_01_28
+pCube336,static,Mat_WoodBoards_01,26.81,-0.008,-77.4655,-1e-06,-3e-06,-0.707106,0.707108,-0.0,-0.0,-90.0,1.1821,1.1821,1.1602,1,1,GardenConstruct/Other/Pfb_WoodBoards_01_7
+pCube336,static,Mat_WoodBoards_01,24.2588,0.36,-79.4407,-0.707106,-3e-06,-0.0,0.707108,-90.0,-58.315,58.315,1.1821,0.6771,0.2228,1,1,GardenConstruct/Group/Pfb_WoodBoards_01_13
+pCube336,static,Mat_WoodBoards_01,22.3688,0.36,-79.4407,-0.707106,-3e-06,-0.0,0.707108,-90.0,-58.315,58.315,1.1821,0.6771,0.2228,1,1,GardenConstruct/Group/Pfb_WoodBoards_01_14
+pCube336,static,Mat_WoodBoards_01,16.5788,0.36,-73.5567,-0.707106,-3e-06,-0.0,0.707108,-90.0,-58.315,58.315,1.1821,0.6771,0.2228,1,1,GardenConstruct/Group/Pfb_WoodBoards_01_30
+pCube336,static,Mat_WoodBoards_01,16.5788,0.36,-78.1367,-0.707106,-3e-06,-0.0,0.707108,-90.0,-58.315,58.315,1.1821,0.6771,0.2228,1,1,GardenConstruct/Group/Pfb_WoodBoards_01_33
+pCube336,static,Mat_WoodBoards_01,16.31,-0.008,-77.4655,-1e-06,-3e-06,-0.707106,0.707108,-0.0,-0.0,-90.0,1.1821,1.1821,1.1602,1,1,GardenConstruct/Other/Pfb_WoodBoards_01_6
+pCube336,static,Mat_WoodBoards_01,18.4888,0.36,-70.7027,-0.707106,-3e-06,-0.0,0.707108,-90.0,-58.315,58.315,1.1821,0.6771,0.2228,1,1,GardenConstruct/Group/Pfb_WoodBoards_01_22
+pCube336,static,Mat_WoodBoards_01,16.5788,0.36,-75.1967,-0.707106,-3e-06,-0.0,0.707108,-90.0,-58.315,58.315,1.1821,0.6771,0.2228,1,1,GardenConstruct/Group/Pfb_WoodBoards_01_31
+pCube336,static,Mat_WoodBoards_01,22.3688,0.36,-70.7027,-0.707106,-3e-06,-0.0,0.707108,-90.0,-58.315,58.315,1.1821,0.6771,0.2228,1,1,GardenConstruct/Group/Pfb_WoodBoards_01_20
+pCube336,static,Mat_WoodBoards_01,26.7269,0.64,-72.7949,-1e-06,-3e-06,-0.707106,0.707108,-0.0,-0.0,-90.0,1.1821,0.5609,1.1178,1,1,GardenConstruct/Group/Pfb_WoodBoards_01_8
+pCube336,static,Mat_WoodBoards_01,26.7269,0.64,-77.3712,-1e-06,-3e-06,-0.707106,0.707108,-0.0,-0.0,-90.0,1.1821,0.5609,1.1178,1,1,GardenConstruct/Group/Pfb_WoodBoards_01_11
+pCube336,static,Mat_WoodBoards_01,24.2588,0.36,-70.7027,-0.707106,-3e-06,-0.0,0.707108,-90.0,-58.315,58.315,1.1821,0.6771,0.2228,1,1,GardenConstruct/Group/Pfb_WoodBoards_01_19
+pCube336,static,Mat_WoodBoards_01,19.01,0.64,-70.5628,-0.499999,0.499998,-0.499999,0.500003,-0.0,90.0,-90.0,1.1821,0.4888,1.2034,1,1,GardenConstruct/Group/Pfb_WoodBoards_01_06
+pCube336,static,Mat_WoodBoards_01,18.4888,0.36,-79.4407,-0.707106,-3e-06,-0.0,0.707108,-90.0,-58.315,58.315,1.1821,0.6771,0.2228,1,1,GardenConstruct/Group/Pfb_WoodBoards_01_16
+pCube336,static,Mat_WoodBoards_01,24.0781,-0.008,-70.47,-0.499999,0.499998,-0.499999,0.500003,-0.0,90.0,-90.0,1.1821,1.1821,1.2034,1,1,GardenConstruct/Other/Pfb_WoodBoards_01_11
+pCube336,static,Mat_WoodBoards_01,26.5788,0.36,-70.7027,-0.707106,-3e-06,-0.0,0.707108,-90.0,-58.315,58.315,1.1821,0.6771,0.2228,1,1,GardenConstruct/Group/Pfb_WoodBoards_01_18
+pCube336,static,Mat_WoodBoards_01,4.361,-0.494,-51.558,-0.441437,-0.552389,-0.441438,0.552388,-77.26,-90.0,0.0,0.3826,0.3826,0.3826,1,1,Teleporters/DoorTo/GameObject/Prfb_WoodBoards_01_1
+pCube336,static,Mat_WoodBoards_01,26.5778,0.362,-79.4437,-0.707106,-3e-06,-0.0,0.707108,-90.0,-58.315,58.315,1.1821,0.6771,0.2228,1,1,GardenConstruct/Group/Pfb_WoodBoards_01_12
+pCube336,static,Mat_WoodBoards_01,26.5788,0.36,-72.1287,-0.707106,-3e-06,-0.0,0.707108,-90.0,-58.315,58.315,1.1821,0.6771,0.2228,1,1,GardenConstruct/Group/Pfb_WoodBoards_01_24
+pCube336,static,Mat_WoodBoards_01,16.3782,0.64,-72.7949,-1e-06,-3e-06,-0.707106,0.707108,-0.0,-0.0,-90.0,1.1821,0.6723,1.1178,1,1,GardenConstruct/Group/Pfb_WoodBoards_01_4
+pCube336,static,Mat_WoodBoards_01,16.31,-0.008,-72.72,-1e-06,-3e-06,-0.707106,0.707108,-0.0,-0.0,-90.0,1.1821,1.1821,1.1602,1,1,GardenConstruct/Other/Pfb_WoodBoards_01_4
+pCube336,static,Mat_WoodBoards_01,26.5788,0.36,-75.1967,-0.707106,-3e-06,-0.0,0.707108,-90.0,-58.315,58.315,1.1821,0.6771,0.2228,1,1,GardenConstruct/Group/Pfb_WoodBoards_01_26
+pCube336,static,Mat_WoodBoards_01,16.5788,0.36,-76.6867,-0.707106,-3e-06,-0.0,0.707108,-90.0,-58.315,58.315,1.1821,0.6771,0.2228,1,1,GardenConstruct/Group/Pfb_WoodBoards_01_32
+pCube336,static,Mat_WoodBoards_01,19.01,-0.008,-79.6955,-0.499999,0.499998,-0.499999,0.500003,-0.0,90.0,-90.0,1.1821,1.1821,1.2034,1,1,GardenConstruct/Other/Pfb_WoodBoards_01_8
+pCube336,static,Mat_WoodBoards_01,20.5188,0.36,-79.4407,-0.707106,-3e-06,-0.0,0.707108,-90.0,-58.315,58.315,1.1821,0.6771,0.2228,1,1,GardenConstruct/Group/Pfb_WoodBoards_01_15
+pCube336,static,Mat_WoodBoards_01,4.361,-0.494,-51.1866,-0.441437,-0.552389,-0.441438,0.552388,-77.26,-90.0,0.0,0.3826,0.3826,0.3826,1,1,Teleporters/DoorTo/GameObject/Prfb_WoodBoards_01_6
+pCube336,static,Mat_WoodBoards_01,16.3783,0.64,-77.3712,-1e-06,-3e-06,-0.707106,0.707108,-0.0,-0.0,-90.0,1.1821,0.6723,1.1178,1,1,GardenConstruct/Group/Pfb_WoodBoards_01_9
+pCube336,static,Mat_WoodBoards_01,26.81,-0.008,-72.72,-1e-06,-3e-06,-0.707106,0.707108,-0.0,-0.0,-90.0,1.1821,1.1821,1.1602,1,1,GardenConstruct/Other/Pfb_WoodBoards_01_5
+pCube336,static,Mat_WoodBoards_01,20.5188,0.36,-70.7027,-0.707106,-3e-06,-0.0,0.707108,-90.0,-58.315,58.315,1.1821,0.6771,0.2228,1,1,GardenConstruct/Group/Pfb_WoodBoards_01_21
+pCube336,static,Mat_WoodBoards_01,16.5988,0.36,-79.4407,-0.707106,-3e-06,-0.0,0.707108,-90.0,-58.315,58.315,1.1821,0.6771,0.2228,1,1,GardenConstruct/Group/Pfb_WoodBoards_01_17
+pCube336,static,Mat_WoodBoards_01,24.0899,0.64,-79.618,-0.499999,0.499998,-0.499999,0.500003,-0.0,90.0,-90.0,1.1821,0.5696,1.2081,1,1,GardenConstruct/Group/Pfb_WoodBoards_01_7
+pCube336,static,Mat_WoodBoards_01,19.01,-0.008,-70.47,-0.499999,0.499998,-0.499999,0.500003,-0.0,90.0,-90.0,1.1821,1.1821,1.2034,1,1,GardenConstruct/Other/Pfb_WoodBoards_01_10
+pCube336,static,Mat_WoodBoards_01,16.5788,0.36,-72.1267,-0.707106,-3e-06,-0.0,0.707108,-90.0,-58.315,58.315,1.1821,0.6771,0.2228,1,1,GardenConstruct/Group/Pfb_WoodBoards_01_29
+pCube336,static,Mat_WoodBoards_01,26.5788,0.36,-73.5567,-0.707106,-3e-06,-0.0,0.707108,-90.0,-58.315,58.315,1.1821,0.6771,0.2228,1,1,GardenConstruct/Group/Pfb_WoodBoards_01_25
+pCube336,static,Mat_WoodBoards_01,19.01,0.64,-79.618,-0.499999,0.499998,-0.499999,0.500003,-0.0,90.0,-90.0,1.1821,0.5696,1.2034,1,1,GardenConstruct/Group/Pfb_WoodBoards_01_5
+pCube336,static,Mat_WoodBoards_01,24.08,0.64,-70.5628,-0.499999,0.499998,-0.499999,0.500003,-0.0,90.0,-90.0,1.1821,0.4888,1.2034,1,1,GardenConstruct/Group/Pfb_WoodBoards_01_10
+pCube336,static,Mat_WoodBoards_01,26.5788,0.36,-76.6867,-0.707106,-3e-06,-0.0,0.707108,-90.0,-58.315,58.315,1.1821,0.6771,0.2228,1,1,GardenConstruct/Group/Pfb_WoodBoards_01_27
+pCube336,static,Mat_WoodBoards_01,16.5988,0.36,-70.7027,-0.707106,-3e-06,-0.0,0.707108,-90.0,-58.315,58.315,1.1821,0.6771,0.2228,1,1,GardenConstruct/Group/Pfb_WoodBoards_01_23
+nut,static,nut,29.041,0.661,-61.297,0.577995,0.407339,-0.274412,0.651686,77.661,90.002,31.992,0.1729,0.1729,0.1729,1,1,ShipBuildingFrame/nut
+SM_WoodBox_01_3_2,static,Mat_WoodBox_01_1,-1.5456,0.4096,-53.4126,0.0,-0.022205,0.0,0.999753,-0.0,-2.545,0.0,0.7614,0.7613,0.7614,0,1,Buildings/StarterKit/Model/Prfb_WoodBox_01_4/SM_WoodBox_01_3_2
+Sphere,static,Duck BrownMussle,21.2935,4.1234,-57.2633,0.166842,0.444616,0.084685,0.875961,12.532,55.781,17.696,0.0742,0.1146,0.1325,0,1,Ship/Main/DuckV2_2/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/ArmorSocket/Sphere_4
+SM_BoxGroup_01,static,Mat_BoxGroup_01_Gray,14.185,0.0,-52.18,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_BoxGroup_01
+SM_Wall_01_2,static,Mat_Wall_01,1.4334,-0.0376,-54.0953,0.0,-0.707107,0.0,0.707106,-0.0,-90.0,0.0,0.4432,0.4432,0.4432,0,1,Buildings/Building_PetHouse/Graphics/Prfb_Wall_01_2
+SM_SteelFrame_01_3,static,Mat_SteelFrame_01,20.622,-1.715,-58.758,0.0,-0.707107,0.0,0.707106,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_SteelFrame_01_10
+SM_Computer_01_1_1,static,Mat_Computer_01_01,-30.7523,0.5495,-57.5442,-0.0,0.707106,-1e-06,0.707108,0.0,90.0,-0.0,1.0,1.0,1.0,1,1,Buildings/SkillMachine/Visual/Prfb_Computer_01_1/SM_Computer_01_1_1
+SM_Computer_01_1_1,static,Mat_Computer_01_01,-7.9207,1.5653,-53.5722,-3e-06,1.0,-3e-06,-4e-06,0.0,-180.0,-0.0,1.0004,1.0004,1.6761,0,1,Buildings/SaleMachine/Visual/Prfb_Computer_01_24/SM_Computer_01_1_1
+SM_Soda_Instrments_3,static,MAT_Soda_Instruments,22.9891,2.817,-56.6304,-0.183013,0.683012,-0.183015,0.683013,0.0,90.0,-30.0,1.0,1.0,1.0,1,1,Ship/ShipPower/Built/Power/Pfb_Soda_Instruments_03
+SM_Stairs_New_10,static,Mat_Stairs|Mat_Stairs,24.9126,0.603,-59.1057,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Stairs_New_14
+SM_Stairs_01,static,OutDoor_NoColor,21.1431,0.9821,-58.0574,0.093642,-0.700879,-0.093643,0.700879,-0.0,-90.0,-15.22,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Stairs_01_03
+SM_Hangclothes_04,static,Mat_Hangclothes_Heart7,-1.4387,0.6907,-82.1003,-0.075212,0.950449,-0.031187,0.30003,0.811,144.895,-9.306,0.7927,0.7927,0.7927,0,1,Buildings/Character_Heart7/ActiveRoot/CharacterModel_Duck_Heart7/DuckV2_2/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Prfb_Hangclothes_01_4
+SM_Soda_ExhaustSystem8,static,MAT_Soda_Pipe 1,19.7381,2.4071,-55.2114,-0.0,-0.0,-0.0,1.0,-0.0,-0.0,-0.0,1.0,1.0,1.0,1,1,Ship/ShipCompute/Built/Pfb_Soda_ExhaustSystem1_08
+Sphere,static,Duck BrownMussle,21.3558,4.3014,-57.1032,0.166842,0.444616,0.084685,0.875961,12.532,55.781,17.696,0.1595,0.2465,0.2849,0,1,Ship/Main/DuckV2_2/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/ArmorSocket/Sphere
+SM_MetalBoard_01_6,static,Mat_MetalBoard_01_1,22.115,0.052,-76.667,0.0,0.756025,0.0,0.654543,-0.0,98.23,0.0,0.7614,0.7613,0.7614,1,1,GardenConstruct/NotBuilt/Pfb_MetalBoard_01_6
+SM_MetalBoard_01_6,static,Mat_MetalBoard_01_1,21.2418,3.573,-56.8044,-0.0,-2e-06,-0.001921,0.999998,-0.0,-0.0,-0.22,0.7239,0.7239,0.7239,1,1,Ship/Main/Pfb_MetalBoard_01_6
+SM_Ventilation_Soda3,static,Mat_Ventilation_Soda,20.894,3.55,-55.8,-0.00213,0.001735,-0.000824,0.999996,-0.244,0.199,-0.095,0.92,0.3677,0.92,1,1,Ship/ShipGuide/Built/Pfb_Ventilation_Soda3
+SM_Ventilation_Soda3,static,Mat_Ventilation_Soda,-27.3082,0.0,-60.43,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,1,1,Buildings/SkillMachine/Visual/Prfb_Ventilation_Soda3_1
+SM_Ventilation_Soda3,static,Mat_Ventilation_Soda,-29.7796,0.0,-54.9727,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,1,1,Buildings/SkillMachine/Visual/Prfb_Ventilation_Soda3
+SM_Ventilation_Soda3,static,Mat_Ventilation_Soda,-29.2982,0.0,-60.43,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,1,1,Buildings/SkillMachine/Visual/Prfb_Ventilation_Soda3_2
+First_aid_Kit_Bandage,static,ColorA,-1.85,0.7728,-53.413,0.664963,-0.272371,0.207068,0.663898,84.706,-110.773,-71.096,0.5,0.5,0.5,0,1,Buildings/StarterKit/NotPickedGO/First_aid_Kit_Bandage_2
+SM_BLD_VendingMachine_02,static,MAT_Emissive|MAT_BLD_VendingMachine,-8.0844,0.0,-53.1,0.0,-0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,1,1,Buildings/SaleMachine/Visual/SM_BLD_VendingMachine
+Wood_Fence1,static,Woodboard,21.03,0.005,-75.58,-0.35407,0.345812,0.142854,0.857112,-44.891,43.944,0.0,1.0,1.0,1.0,1,1,GardenConstruct/NotBuilt/Pfb_Wood_Fence1
+SM_Indoors_Study_02_03,static,Mat_Indoors_Table_02,19.187,1.3749,-49.815,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,0.7983,0.4457,0.4457,0,1,Buildings/Temp/Prfb_Indoors_Study_02_13
+SM_Indoors_Study_02_03,static,Mat_Indoors_Table_02,17.745,1.3749,-49.815,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,0.7983,0.4457,0.4457,0,1,Buildings/Temp/Prfb_Indoors_Study_02_12
+SM_Indoors_Study_02_03,static,Mat_Indoors_Table_02,17.745,1.812,-49.758,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,0.7983,0.4457,0.4457,0,1,Buildings/Temp/Prfb_Indoors_Study_02_15
+SM_Indoors_Study_02_03,static,Mat_Indoors_Table_02,19.187,1.812,-49.758,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,0.7983,0.4457,0.4457,0,1,Buildings/Temp/Prfb_Indoors_Study_02_14
+Hammer02,static,ColorA|ColorB,-0.338,1.0717,-80.8504,0.703669,-0.067563,0.705788,-0.046357,1.727,89.967,-170.759,0.9378,0.9378,0.9378,1,1,BuildingArea/Visual_1/Hammer02
+Hammer02,static,ColorA|ColorB,-0.768,0.4061,-53.3453,0.703669,-0.067563,0.705788,-0.046357,1.727,89.967,-170.759,1.2917,1.2917,1.2917,1,1,BuildingArea/Visual/Hammer02
+SM_Canvas_Ground_2x4_3,static,Mat_Canvas_Ground_Dark,16.2691,0.0061,-62.8604,0.0,-0.560358,0.0,0.828251,-0.0,-68.161,0.0,1.1432,1.1432,1.1432,1,1,ShipBuildingFrame/Pfb_Canvas_Ground_2x4_4
+SM_WoodBox_01_3_1,static,Mat_WoodBox_01_1,-2.337,0.0,-53.507,0.0,0.087329,0.0,0.99618,-0.0,10.02,0.0,0.7614,0.7613,0.7614,0,1,Buildings/StarterKit/Model/Prfb_WoodBox_01_3/SM_WoodBox_01_3_1
+driver,static,driver,28.706,0.699,-61.926,0.618423,0.342864,-0.342858,0.618422,89.999,126.686,68.696,0.4874,0.4873,0.4873,1,1,ShipBuildingFrame/driver
+pCube337,static,Mat_WoodBoards_01,4.5815,-0.044,-50.9525,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,Teleporters/DoorTo/Prfb_WoodBoards_01_5
+pCube337,static,Mat_WoodBoards_01,5.002,-0.044,-51.368,0.0,-0.0,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,1,1,Teleporters/DoorTo/Prfb_WoodBoards_01_3
+pCube337,static,Mat_WoodBoards_01,4.166,-0.044,-51.368,0.0,-0.0,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,1,1,Teleporters/DoorTo/Prfb_WoodBoards_01_2
+pCube337,static,Mat_WoodBoards_01,4.3668,-0.5187,-51.368,-0.0,-0.0,0.112974,0.993598,0.0,-0.0,12.974,0.5821,0.5821,0.5821,1,1,Teleporters/DoorTo/GameObject/Prfb_WoodBoards_01_9
+pCube337,static,Mat_WoodBoards_01,4.2885,-0.1821,-51.368,-0.0,-0.0,0.112974,0.993598,0.0,-0.0,12.974,0.5821,0.5821,0.5821,1,1,Teleporters/DoorTo/GameObject/Prfb_WoodBoards_01_8
+pCube337,static,Mat_WoodBoards_01,4.4452,-0.8567,-51.368,-0.0,-0.0,0.112974,0.993598,0.0,-0.0,12.974,0.5821,0.5821,0.5821,1,1,Teleporters/DoorTo/GameObject/Prfb_WoodBoards_01_10
+pCube337,static,Mat_WoodBoards_01,4.5827,-0.0498,-51.7801,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,Teleporters/DoorTo/Prfb_WoodBoards_01_4
+pCube337,static,Mat_WoodBoards_01,4.213,0.1472,-51.368,-0.0,-0.0,0.112974,0.993598,0.0,-0.0,12.974,0.5821,0.5821,0.5821,1,1,Teleporters/DoorTo/GameObject/Prfb_WoodBoards_01_7
+SM_Scarecrow_01,static,OutDoor_02,-3.3102,-0.001,-90.0954,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,0,1,LootBox_Starter/SM_Scarecrow/SM_Scarecrow
+SM_SteelFrame_01_3,static,Mat_SteelFrame_01,21.964,-1.715,-58.758,0.0,-0.707107,0.0,0.707106,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_SteelFrame_01_11
+SM_PaperBox_01_2,static,Mat_PaperBox_01_01,-7.1392,-0.029,-53.4683,-0.0,-0.662794,2e-06,0.748801,0.0,-83.027,0.0,0.6135,0.6135,0.6135,0,1,Buildings/SaleMachine/Visual/Prfb_PaperBox_01_2
+SM_PaperBox_01_2,static,Mat_PaperBox_01_01,-9.2467,0.3417,-53.0412,-0.0,-0.662794,2e-06,0.748801,0.0,-83.027,0.0,0.6135,0.6135,0.6135,0,1,Buildings/SaleMachine/Visual/Prfb_PaperBox_01_3
+SM_Stairs_New_01,static,Mat_Stairs|Mat_Stairs,26.7663,-0.4533,-56.2103,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Stairs_New_01
+SM_CleaningHandcart_5,static,MAT_CleaningHandcart_01,15.598,-0.0243,-62.851,0.0,0.909708,0.0,-0.415249,-0.0,-130.93,0.0,1.0,1.0786,1.0,1,1,ShipBuildingFrame/Pfb_CleaningHandcart_01/SM_CleaningHandcart_5
+SM_BagTile2,static,Mat_Bags_01_1 1,-32.75,0.2541,-70.5,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,0.8851,0.8966,0.8851,1,1,HalfObsticles/TestHalfObsticle_1/DefaultVisuals/Prfb_BagsTile_7
+SM_BagTile2,static,Mat_Bags_01_1 1,-32.75,0.2541,-67.21,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,0.8851,0.8966,0.8851,1,1,HalfObsticles/TestHalfObsticle/DefaultVisuals/Prfb_BagsTile_7
+SM_BagTile2,static,Mat_Bags_01_1 1,-32.75,0.2541,-74.01,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,0.8851,0.8966,0.8851,1,1,HalfObsticles/TestHalfObsticle_1/DefaultVisuals/Prfb_BagsTile_7
+SM_Sofa_1,static,MAT_Sofa_New,21.2558,3.599,-56.8344,0.0,1.0,0.0,-3e-06,-0.0,-180.0,0.0,0.6713,0.6713,0.6713,1,1,Ship/ShipFinal/Built/Pfb_Sofa_3
+SM_Sofa_1,static,MAT_Sofa_Gray,20.371,1.648,-56.592,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,0.6713,0.6713,0.6713,1,1,Ship/Main/Pfb_Sofa_2
+SM_Sofa_1,static,MAT_Sofa_Gray 1,20.371,1.648,-55.65,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,0.6713,0.6713,0.6713,1,1,Ship/Main/Pfb_Sofa_1
+Quad,static,BuildingGridBlocked,-14.5208,0.0,-54.4782,0.707105,0.0,0.0,0.707109,89.999,0.0,0.0,3.95,3.95,1.0,1,1,Buildings/BuildingAreaBlocks/BuildingAreaMeshBlocked_2/t
+Quad,static,BuildingGridBlocked,0.5823,0.0,-52.0855,0.707106,0.0,0.0,0.707108,90.0,0.0,0.0,20.1763,4.7236,1.3432,1,1,Buildings/BuildingAreaBlocks/BuildingAreaMeshBlocked/Quad
+Quad,static,BuildingGridBlocked,-11.4808,0.0,-53.5362,0.707106,0.0,0.0,0.707108,90.0,0.0,0.0,1.95,1.9309,1.3432,1,1,Buildings/BuildingAreaBlocks/BuildingAreaMeshBlocked_1/Quad
+Quad,static,BuildingGridBlocked,-5.0596,0.0,-77.2663,0.707106,0.0,0.0,0.707108,90.0,0.0,0.0,2.9628,1.4989,1.3432,1,1,Buildings/BuildingAreaBlocks/BuildingAreaMeshBlocked_4/Quad
+SM_WoodBox_01_3_2,static,Mat_WoodBox_01_1,-2.0409,0.4096,-53.5593,0.0,0.087329,0.0,0.99618,-0.0,10.02,0.0,0.7614,0.7613,0.7614,0,1,Buildings/StarterKit/Model/Prfb_WoodBox_01_3/SM_WoodBox_01_3_2
+SM_Stairs_New_10,static,Mat_Stairs|Mat_Stairs,16.3421,-0.1599,-54.1414,0.0,-0.70711,0.0,0.707104,-0.0,-90.001,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Stairs_New_26
+SM_WoodBox_01_2,static,Mat_WoodBox_01_1,17.4878,-1.276,-52.28,0.0,0.70711,0.0,0.707104,-0.0,90.001,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Box_GRP_05/Pfb_WoodBox_01_19
+SM_Stairs_New_08,static,Mat_Stairs,21.4127,0.753,-58.4603,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Stairs_New_13
+OfficeTableLamp01,static,OfficeTableLamp01,-30.295,0.765,-65.359,0.0,0.982344,0.0,-0.187085,-0.0,-158.435,0.0,1.2,1.2,1.2,1,1,Enviroment/OfficeTableLamp01
+OfficeTableLamp01,static,OfficeTableLamp01,-9.334,0.662,-86.254,0.0,0.54877,-0.0,0.835973,0.0,66.565,0.0,1.2,1.2,1.2,1,1,Enviroment/OfficeTableLamp01_1
+SM_Stairs_New_10,static,Mat_Stairs|Mat_Stairs,26.8291,-0.1599,-52.0404,0.0,0.707106,0.0,0.707108,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Stairs_New_22
+Car_1_Glass,static,Ship_Glass,21.2678,1.091,-56.1104,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,Ship/Main/SM_Car_02_Frame/Car_1_Glass
+Player_Duck_Head,skinned,Duck_DeathLottery,-1.6731,0.0,-81.9388,0.068543,0.703777,0.703777,-0.068543,-90.0,11.125,180.0,1.0,1.0,1.0,0,1,Buildings/Character_Heart7/ActiveRoot/CharacterModel_Duck_Heart7/DuckV2_2/Player_Duck_Head
+SM_Truck_02_Tyre1,static,Mat_Truck_02_01,1.4334,0.0961,-53.1683,0.707106,0.0,0.707107,-0.0,-0.0,90.0,180.0,0.947,0.947,0.947,0,1,Buildings/Building_PetHouse/Graphics/Prfb_Truck_02_Tyre_2
+SM_SteelFrame_01_3,static,Mat_SteelFrame_01,20.368,-1.208,-57.03,0.0,-0.707107,0.0,0.707106,-0.0,-90.0,0.0,1.0,1.2353,1.0,1,1,ShipBuildingFrame/Pfb_SteelFrame_01_4
+SM_CoatHanger_3,static,MAT_Coathanger_Dark_M,13.644,-0.023,-58.56,0.0,0.70711,0.0,0.707104,-0.0,90.001,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_CoatHanger_03
+SM_Stairs_New_10,static,Mat_Stairs|Mat_Stairs,21.4731,1.6481,-51.2534,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Stairs_New_32
+pCube336,static,Mat_WoodBoards_01,19.477,-0.102,-77.4901,0.0,1.0,0.0,0.0,-0.0,180.0,0.0,0.7,1.0,0.2375,0,1,GardenConstruct/Built/Garden/ScaledBorder11/Pfb_WoodBoards_01_2
+SM_BarbedWire_01_04,static,Mat_BarbedWire_01 2,-7.5395,-0.0631,-53.561,0.0,1.0,0.0,-4e-06,-0.0,-180.0,0.0,1.3659,0.6969,1.3659,0,1,Buildings/SaleMachine/Visual/Prfb_Roadblock_temp_1
+SM_BarbedWire_01_04,static,Mat_BarbedWire_01 2,-8.6718,-0.0631,-53.561,0.0,1.0,0.0,-4e-06,-0.0,-180.0,0.0,1.3659,0.6969,1.3659,0,1,Buildings/SaleMachine/Visual/Prfb_Roadblock_temp_2
+SM_BarbedWire_01_04,static,Mat_BarbedWire_01 2,-8.8383,1.2336,-53.561,0.707107,0.707106,-3e-06,-3e-06,-0.0,-180.0,90.0,1.6671,0.7775,1.6671,0,1,Buildings/SaleMachine/Visual/Prfb_Roadblock_temp_3
+SM_Indoors_Books_01,static,Mat_Indoors_Books_01,-8.918,0.69,-86.184,-0.693116,0.693116,0.139967,-0.139967,-0.0,-157.167,-90.0,0.452,0.452,0.452,1,1,Enviroment/Pfb_Indoors_Books_01
+SM_Stairs_New_03,static,Mat_Stairs|Mat_Stairs,23.899,0.008,-52.2103,0.0,0.707105,0.0,0.707109,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Stairs_New_04
+First_aid_Kit03,static,EnemyLootBox,-24.7947,0.195,-66.0451,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,0.5853,0.5853,0.5853,0,1,LootBox/First_aid_Kit03
+SM_FileCabient_M2,static,Mat_FileCabient,13.644,-0.023,-59.73,0.0,0.70711,0.0,0.707104,-0.0,90.001,0.0,1.0,1.0,0.75,1,1,ShipBuildingFrame/Pfb_FileCabient_M2_1
+Quad,static,WorldTile_Garden,18.977,0.005,-77.49,0.707107,0.0,0.0,0.707107,90.0,-0.0,0.0,1.0,1.0,1.0,0,1,GardenConstruct/Built/Garden/CellLayout/DirtBump/Quad
+Cube,static,Lit,27.6509,1.0043,-52.3584,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,0.3038,2.0051,0.1301,0,1,Pfb_PortaPotty_Base/SM_PortaPotty_Base/Cube_2
+SM_Stairs_New_09,static,Mat_Stairs,21.4226,-0.034,-64.97,0.0,0.707105,0.0,0.707108,-0.0,90.0,0.0,1.0,1.0,8.0465,1,1,ShipBuildingFrame/Pfb_Stairs_New_09
+SM_Soda_Instrments_9,static,MAT_Soda_Instruments,22.7031,3.6721,-56.1324,-0.006708,-0.006709,0.707076,0.707074,0.0,-1.087,90.0,0.3794,0.3794,0.3794,1,1,Ship/ShipPower/Built/Power/Pfb_Soda_Instruments_09
+Bullet03,static,ColorB|ColorA,-2.335,0.757,-53.399,0.0,0.20803,0.0,0.978123,-0.0,24.014,0.0,1.0,1.0,1.0,0,1,Buildings/StarterKit/NotPickedGO/Bullet03
+SM_Stairs_01,static,OutDoor,-4.8908,6.1007,-40.2176,0.0,-0.707103,0.0,0.707111,-0.0,-89.999,0.0,1.0,1.0,1.0,1,1,Enviroment/Prfb_Stairs_01_03
+SM_Stairs_01,static,OutDoor,-4.8904,3.0653,-40.2188,0.0,-0.707103,0.0,0.707111,-0.0,-89.999,0.0,1.0,1.0,1.0,1,1,Enviroment/Prfb_Stairs_01_02
+SM_Stairs_01,static,OutDoor,-4.89,0.03,-40.22,0.0,-0.707103,0.0,0.707111,-0.0,-89.999,0.0,1.0,1.0,1.0,1,1,Enviroment/Prfb_Stairs_01_01
+SM_Groundpile3,static,Mat_Tile_DryMud_01,20.25,0.005,-76.35,0.0,0.595321,0.0,0.803488,-0.0,73.071,0.0,0.4608,0.4608,0.4608,1,1,GardenConstruct/NotBuilt/Pfb_Groundpile3
+SM_Groundpile3,static,Mat_Tile_DryMud_01,19.76,0.005,-77.31,0.0,0.418831,0.0,0.908064,-0.0,49.522,0.0,0.4608,0.1659,0.4608,1,1,GardenConstruct/NotBuilt/Pfb_Groundpile3_1
+polySurface25,static,Radar 1,20.8822,3.7885,-55.829,-0.001722,-0.338846,-0.0015,0.940839,-0.244,-39.613,-0.095,0.0013,0.0013,0.0013,1,1,Ship/ShipGuide/Built/Pfb_Radar_01_Temp/polySurface25
+SM_BarbedWire_01_04,static,Mat_BarbedWire_01,16.1628,0.0,-70.1301,0.0,0.706127,0.0,0.708085,-0.0,89.841,0.0,1.0,1.0,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_BarbedWire_01_04
+OfficeDeskSet02_3,static,OfficeDeskSet02,-2.701,0.702,-89.527,0.0,0.999757,-2e-06,0.022036,0.0,177.475,0.0,1.0,1.0,1.0,1,1,Notes/Note_Base_Start/OfficeDeskSet02_3
+OfficeDeskSet02_3,static,OfficeDeskSet02,-30.983,0.806,-65.7,0.0,0.999757,-2e-06,0.022036,0.0,177.475,0.0,1.0,1.0,1.0,1,1,Notes/Note_Base_ShootingRange/OfficeDeskSet02_3
+OfficeDeskSet02_3,static,OfficeDeskSet02,28.635,0.667,-60.288,1e-06,-0.83117,2e-06,0.556019,0.0,-112.438,0.0,1.0,1.0,1.0,1,1,Notes/Note_Base_CarBuilding/OfficeDeskSet02_3
+SM_Stone_01_04,static,Mat_Stone_01,-33.54,-0.112,-72.437,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,0.3282,0.3282,0.3282,0,1,HalfObsticles/TestHalfObsticle_1/DeadVisuals/Prfb_Stone_01_4_2
+SM_Stone_01_04,static,Mat_Stone_01,-33.54,-0.112,-65.637,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,0.3282,0.3282,0.3282,0,1,HalfObsticles/TestHalfObsticle/DeadVisuals/Prfb_Stone_01_4_2
+SM_Stone_01_04,static,Mat_Stone_01,-33.54,-0.112,-68.927,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,0.3282,0.3282,0.3282,0,1,HalfObsticles/TestHalfObsticle_1/DeadVisuals/Prfb_Stone_01_4_2
+Cube,static,Lit,18.477,0.0,-77.99,0.0,-0.0,0.0,1.0,-0.0,-0.0,0.0,0.2752,1.7905,0.2752,0,1,GardenConstruct/Built/Garden/Sprayer/Cube
+SM_SteelFrame_01_3,static,Mat_SteelFrame_01,26.9391,0.0171,-61.3524,0.499999,-0.500001,-0.499999,0.5,-0.0,-90.0,-90.0,1.0,4.1543,1.0,1,1,ShipBuildingFrame/Pfb_SteelFrame_01_14
+pCube339,static,Mat_WoodBoards_01,19.322,0.021,-78.368,-0.637303,-0.282255,-0.270947,0.663901,-87.658,-46.065,-0.0,1.0,1.0,1.0,1,1,GardenConstruct/NotBuilt/Pfb_WoodBoards_01_4
+SM_Indoors_Table_03,static,Mat_Indoors_Table_02,-2.12,0.0,-53.357,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,0,1,Buildings/StarterKit/Model/Prfb_Indoors_Table_03
+Sphere,static,TeleporterHeart7,-1.6731,0.0,-81.9388,0.0,0.995291,0.0,-0.096935,-0.0,-168.875,0.0,1.0,0.2025,1.0,0,1,Buildings/Character_Heart7/ActiveRoot/Sphere
+SM_SteelFrame_01_3,static,Mat_SteelFrame_01,22.1461,-1.208,-54.5744,0.0,-0.707107,0.0,0.707106,-0.0,-90.0,0.0,1.0,1.1898,1.0,1,1,ShipBuildingFrame/Pfb_SteelFrame_01_20
+Mesh1_Group2_Group1_Model,static,Glick1 1,-2.098,0.997,-52.837,0.079168,0.693448,0.081231,0.711522,-0.0,88.526,13.026,8.0,8.0,8.0,0,1,Buildings/StarterKit/NotPickedGO/pistol/Mesh1_Group2_Group1_Model
+pCube336,static,Mat_WoodBoards_01,18.477,0.399,-77.4899,0.0,-0.0,0.0,1.0,-0.0,-0.0,0.0,0.7,1.0,0.2375,0,1,GardenConstruct/Built/Garden/ScaledBorder00/Pfb_WoodBoards_01_5
+SM_Stairs_New_10,static,Mat_Stairs|Mat_Stairs,16.3421,-0.1599,-58.2034,0.0,-0.70711,0.0,0.707104,-0.0,-90.001,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Stairs_New_28
+SM_Bags7,static,Mat_Bags_01_1,-33.38,-0.212,-73.199,0.0,0.736638,0.0,0.676287,-0.0,94.892,0.0,1.0,0.7491,1.0,0,1,HalfObsticles/TestHalfObsticle_1/DeadVisuals/Prfb_Bags_01_7
+SM_Bags7,static,Mat_Bags_01_1,-33.38,-0.212,-69.689,0.0,0.736638,0.0,0.676287,-0.0,94.892,0.0,1.0,0.7491,1.0,0,1,HalfObsticles/TestHalfObsticle_1/DeadVisuals/Prfb_Bags_01_7
+SM_Bags7,static,Mat_Bags_01_1,-33.38,-0.212,-66.399,0.0,0.736638,0.0,0.676287,-0.0,94.892,0.0,1.0,0.7491,1.0,0,1,HalfObsticles/TestHalfObsticle/DeadVisuals/Prfb_Bags_01_7
+SM_Stairs_New_10,static,Mat_Stairs|Mat_Stairs,20.4121,1.6481,-52.2554,0.0,0.707106,0.0,0.707108,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Stairs_New_29
+SM_WaterButt_03,static,Mat_WaterTankButt_01_R1,-0.111,-0.1,-53.0323,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.8321,0.8321,0.8321,1,1,BuildingArea/Visual/Prfb_WaterButt_03
+SM_Bags7,static,Mat_Bags_01_1,-32.726,-0.091,-72.611,-0.072191,0.874731,-0.054511,0.47609,1.526,122.747,-10.269,0.8321,0.6233,0.8321,0,1,HalfObsticles/TestHalfObsticle_1/DeadVisuals/Prfb_Bags_01_11
+SM_Bags7,static,Mat_Bags_01_1,-32.726,-0.091,-65.811,-0.072191,0.874731,-0.054511,0.47609,1.526,122.747,-10.269,0.8321,0.6233,0.8321,0,1,HalfObsticles/TestHalfObsticle/DeadVisuals/Prfb_Bags_01_11
+SM_Bags7,static,Mat_Bags_01_1,-32.726,-0.091,-69.101,-0.072191,0.874731,-0.054511,0.47609,1.526,122.747,-10.269,0.8321,0.6233,0.8321,0,1,HalfObsticles/TestHalfObsticle_1/DeadVisuals/Prfb_Bags_01_11
+SM_Switch_1_Rod,static,Switcher,13.5391,1.5571,-65.4144,0.500003,-0.499997,0.500001,0.499999,89.999,90.0,180.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Switcher2/RotateCenter/SM_Switch_1_Rod
+polySurface9,static,WarmKeeper_Blue,22.8878,1.3389,-55.0381,0.579229,0.40558,0.579227,0.405579,0.0,90.0,110.0,0.3453,0.2124,0.3453,1,1,Ship/ShipDir/Built/Dir/Car_1_Rear_Wheel_R/Pfb_Soda_WarmKeeper_3
+polySurface9,static,WarmKeeper_Blue,22.8868,1.344,-57.1231,-0.579227,-0.405579,0.579229,0.40558,-0.0,-90.0,110.0,0.3453,0.2124,0.3453,1,1,Ship/ShipDir/Built/Dir/Car_1_Rear_Wheel_L/Pfb_Soda_WarmKeeper_2
+polySurface9,static,WarmKeeper_Blue 1,23.059,3.439,-57.006,-0.0,0.707107,-3e-06,0.707107,0.0,90.0,-0.0,0.0958,0.1114,0.0958,1,1,Ship/ShipPower/Built/Power/Pfb_Soda_WarmKeeper_3
+polySurface9,static,WarmKeeper_Blue,19.7178,1.3389,-55.0381,0.579229,0.40558,0.579227,0.405579,0.0,90.0,110.0,0.3453,0.2124,0.3453,1,1,Ship/ShipDir/Built/Dir/Car_1_Front_Wheel_R/Pfb_Soda_WarmKeeper_1
+polySurface9,static,WarmKeeper_Blue 1,23.051,3.439,-56.831,-0.0,0.707107,-3e-06,0.707107,0.0,90.0,-0.0,0.0958,0.1114,0.0958,1,1,Ship/ShipPower/Built/Power/Pfb_Soda_WarmKeeper_2
+polySurface9,static,WarmKeeper_Blue,19.7188,1.3439,-57.1231,-0.579227,-0.405579,0.579229,0.40558,-0.0,-90.0,110.0,0.3453,0.2124,0.3453,1,1,Ship/ShipDir/Built/Dir/Car_1_Front_Wheel_L/Pfb_Soda_WarmKeeper
+polySurface9,static,WarmKeeper_AsEngine,22.709,2.401,-56.118,0.707108,0.707106,-2e-06,2e-06,0.0,180.0,90.0,0.8738,0.8744,0.8744,1,1,Ship/ShipDir/Built/Dir/Pfb_Soda_WarmKeeper
+SM_Fabric_01,static,Mat_Fabric_01_1 3,19.4561,0.1316,-81.2155,-0.0,-0.004248,0.0,0.999991,-0.0,-0.487,0.0,1.0,0.9806,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green/SM_Fabric_01_1
+SM_Fabric_01,static,Mat_Fabric_01_1 3,17.3378,0.1316,-70.1268,0.0,0.999999,0.0,0.001385,-0.0,179.841,0.0,1.0,0.9806,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green/SM_Fabric_01_1
+SM_Fabric_01,static,Mat_Fabric_01_1 3,16.1702,0.1316,-71.2283,0.0,0.706691,0.0,0.707522,-0.0,89.933,0.0,1.0,0.9806,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green/SM_Fabric_01_1
+SM_Fabric_01,static,Mat_Fabric_01_1 2,-27.78,0.1316,-68.29,0.0,-0.0,0.0,1.0,-0.0,-0.0,0.0,1.0,0.9806,1.0,1,1,BarbedWire/Prfb_BarbedWire_01_03_2 1/SM_Fabric_01_1
+SM_Fabric_01,static,Mat_Fabric_01_1 3,27.2549,0.1316,-75.6943,0.0,-0.708874,0.0,0.705335,-0.0,-90.287,0.0,1.0,0.9806,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green/SM_Fabric_01_1
+SM_Fabric_01,static,Mat_Fabric_01_1 3,26.0858,0.1316,-81.1592,-0.0,-0.004248,0.0,0.999991,-0.0,-0.487,0.0,1.0,0.9806,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green/SM_Fabric_01_1
+SM_Fabric_01,static,Mat_Fabric_01_1 3,16.1942,0.1316,-80.0682,0.0,0.701995,0.0,0.712181,-0.0,89.175,0.0,1.0,0.9806,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green/SM_Fabric_01_1
+SM_Fabric_01,static,Mat_Fabric_01_1 2,-28.906,0.1316,-71.634,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,0.9806,1.0,1,1,BarbedWire/Prfb_BarbedWire_01_03_2 1_1/SM_Fabric_01_1
+SM_Fabric_01,static,Mat_Fabric_01_1 3,17.2461,0.1316,-81.2343,-0.0,-0.004248,0.0,0.999991,-0.0,-0.487,0.0,1.0,0.9806,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green/SM_Fabric_01_1
+SM_Fabric_01,static,Mat_Fabric_01_1 3,23.8759,0.1316,-81.178,-0.0,-0.004248,0.0,0.999991,-0.0,-0.487,0.0,1.0,0.9806,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green/SM_Fabric_01_1
+SM_Fabric_01,static,Mat_Fabric_01_1 3,21.666,0.1316,-81.1967,-0.0,-0.004248,0.0,0.999991,-0.0,-0.487,0.0,1.0,0.9806,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green/SM_Fabric_01_1
+SM_Fabric_01,static,Mat_Fabric_01_1 2,-28.906,0.1316,-69.377,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,0.9806,1.0,1,1,BarbedWire/Prfb_BarbedWire_01_03_2 1_1/SM_Fabric_01_1
+SM_Fabric_01,static,Mat_Fabric_01_1 3,27.2656,0.1316,-80.1142,-0.0,-0.705452,0.0,0.708758,-0.0,-89.732,0.0,1.0,0.9806,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green/SM_Fabric_01_1
+SM_Fabric_01,static,Mat_Fabric_01_1 3,19.5478,0.1316,-70.1207,0.0,0.999999,0.0,0.001385,-0.0,179.841,0.0,1.0,0.9806,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green/SM_Fabric_01_1
+SM_Fabric_01,static,Mat_Fabric_01_1 3,21.7578,0.1316,-70.1146,0.0,0.999999,0.0,0.001385,-0.0,179.841,0.0,1.0,0.9806,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green/SM_Fabric_01_1
+SM_Fabric_01,static,Mat_Fabric_01_1 3,27.2262,0.1316,-71.2744,0.0,-0.711115,0.0,0.703076,-0.0,-90.651,0.0,1.0,0.9806,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green/SM_Fabric_01_1
+SM_Fabric_01,static,Mat_Fabric_01_1 3,16.178,0.1316,-77.8583,0.0,0.706691,0.0,0.707522,0.0,89.933,0.0,1.0,0.9806,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green/SM_Fabric_01_1
+SM_Fabric_01,static,Mat_Fabric_01_1 3,27.2438,0.1316,-73.4843,0.0,-0.708874,0.0,0.705335,-0.0,-90.287,0.0,1.0,0.9806,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green/SM_Fabric_01_1
+SM_Fabric_01,static,Mat_Fabric_01_1 3,16.1728,0.1316,-73.4383,0.0,0.706691,0.0,0.707522,-0.0,89.933,0.0,1.0,0.9806,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green/SM_Fabric_01_1
+SM_Fabric_01,static,Mat_Fabric_01_1 3,27.2659,0.1316,-77.9042,0.0,-0.708874,0.0,0.705335,-0.0,-90.287,0.0,1.0,0.9806,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green/SM_Fabric_01_1
+SM_Fabric_01,static,Mat_Fabric_01_1 3,26.1778,0.1316,-70.1023,0.0,0.999999,0.0,0.001385,-0.0,179.841,0.0,1.0,0.9806,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green/SM_Fabric_01_1
+SM_Fabric_01,static,Mat_Fabric_01_1 3,16.1754,0.1316,-75.6483,0.0,0.706691,0.0,0.707522,-0.0,89.933,0.0,1.0,0.9806,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green/SM_Fabric_01_1
+SM_Fabric_01,static,Mat_Fabric_01_1 3,23.9678,0.1316,-70.1084,0.0,0.999999,0.0,0.001385,-0.0,179.841,0.0,1.0,0.9806,1.0,1,1,GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green/SM_Fabric_01_1
+SM_CleaningHandcart_6,static,MAT_CleaningHandcart_01,15.598,-0.0099,-62.851,0.0,0.909708,0.0,-0.415249,-0.0,-130.93,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_CleaningHandcart_01/SM_CleaningHandcart_6
+SM_PlasticPallet_01_03,static,Mat_PlasticPallet_01,20.458,0.049,-78.194,-0.071075,-0.849072,0.036315,0.522212,-0.72,-116.871,9.128,0.5934,0.5934,0.5934,1,1,GardenConstruct/NotBuilt/Pfb_PlasticPallet_01_03
+polySurface95,static,SodaShieldBoss,18.1968,1.647,-56.6457,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,5.6849,5.6849,5.6849,1,1,Ship/ShipProtect/Built/Protect/Pfb_Soda_Shield_1
+polySurface95,static,SodaShieldBoss,18.1968,1.647,-55.6657,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,5.6849,5.6849,5.6849,1,1,Ship/ShipProtect/Built/Protect/Pfb_Soda_Shield
+SM_Bags7,static,Mat_Bags_01_1,-33.165,-0.188,-71.565,-0.098094,0.716419,-0.102888,0.683034,0.769,92.623,-16.328,1.0,0.7491,1.0,0,1,HalfObsticles/TestHalfObsticle_1/DeadVisuals/Prfb_Bags_01_9
+SM_Bags7,static,Mat_Bags_01_1,-33.165,-0.188,-68.275,-0.098094,0.716419,-0.102888,0.683034,0.769,92.623,-16.328,1.0,0.7491,1.0,0,1,HalfObsticles/TestHalfObsticle/DeadVisuals/Prfb_Bags_01_9
+SM_Bags7,static,Mat_Bags_01_1,-33.165,-0.188,-75.075,-0.098094,0.716419,-0.102888,0.683034,0.769,92.623,-16.328,1.0,0.7491,1.0,0,1,HalfObsticles/TestHalfObsticle_1/DeadVisuals/Prfb_Bags_01_9
+SM_Indoors_WC5,static,Mat_Indoors_WC_01,-7.798,0.0,-80.488,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,1.0,1.0,1.0,1,1,Enviroment/Prfb_Indoors_WC_5
+SM_PaperBox_01_1,static,Mat_PaperBox_02,-2.109,1.761,-52.526,-0.006164,0.70708,-0.70708,-0.006164,90.0,180.0,180.0,0.7171,0.4039,0.3056,0,1,Buildings/StarterKit/Model/SM_PaperBox_01_2
+Hammer01,static,ColorB|ColorA,-0.198,0.974,-53.0105,0.315103,0.315104,0.633016,0.633017,-0.0,52.926,90.0,0.8549,0.8549,0.8549,1,1,BuildingArea/Visual/Hammer01
+Cube,static,Lit,28.689,1.0043,-52.3584,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,0.3038,2.0051,0.1301,0,1,Pfb_PortaPotty_Base/SM_PortaPotty_Base/Cube_3
+SM_GeneratorBox,static,MAT_Street_01_new,14.766,-0.017,-57.596,0.0,0.999996,0.0,-0.002846,-0.0,-179.674,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/SM_GeneratorBox
+SM_Bags7,static,Mat_Bags_01_1,-32.64,-0.153,-74.537,-0.002891,0.553821,-0.097547,0.826897,5.927,67.131,-9.521,1.0,0.7491,1.0,0,1,HalfObsticles/TestHalfObsticle_1/DeadVisuals/Prfb_Bags_01_10
+SM_Bags7,static,Mat_Bags_01_1,-32.64,-0.153,-71.027,-0.002891,0.553821,-0.097547,0.826897,5.927,67.131,-9.521,1.0,0.7491,1.0,0,1,HalfObsticles/TestHalfObsticle_1/DeadVisuals/Prfb_Bags_01_10
+SM_Bags7,static,Mat_Bags_01_1,-32.64,-0.153,-67.737,-0.002891,0.553821,-0.097547,0.826897,5.927,67.131,-9.521,1.0,0.7491,1.0,0,1,HalfObsticles/TestHalfObsticle/DeadVisuals/Prfb_Bags_01_10
+Cube,static,Lit,28.15,0.098,-51.723,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,1.35,0.1924,1.4022,0,1,Pfb_PortaPotty_Base/SM_PortaPotty_Base/Cube
+SM_PortaPotty_Base,static,Mat_PortaPotty|Mat_Indoors_WC_01,28.15,0.0,-51.723,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,1.0,1.0,1.0,1,1,Pfb_PortaPotty_Base/SM_PortaPotty_Base
+SM_Stairs_New_09,static,Mat_Stairs,13.412,2.3829,-64.97,0.499998,0.499999,-0.500001,0.500002,90.0,29.228,-60.772,1.0,1.0,2.3344,1,1,ShipBuildingFrame/Pfb_Stairs_New_10
+SM_WoodenPallet_01,static,Mat_WoodPallet_01_01,4.585,0.444,-50.776,0.814823,-0.0,0.0,0.57971,70.86,180.0,180.0,0.4608,0.4608,0.4608,1,1,Teleporters/DoorTo/Prfb_WoodenPallet_1
+SM_SteelFrame_01_3,static,Mat_SteelFrame_01,22.308,-1.208,-57.03,0.0,-0.707107,0.0,0.707106,-0.0,-90.0,0.0,1.0,1.2353,1.0,1,1,ShipBuildingFrame/Pfb_SteelFrame_01_3
+SM_BagTile2,static,Mat_Bags_01_1 1,-32.75,-0.082,-74.01,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,0.9205,0.9324,0.9205,1,1,HalfObsticles/TestHalfObsticle_1/DefaultVisuals/Prfb_BagsTile_6
+SM_BagTile2,static,Mat_Bags_01_1 1,-32.75,-0.082,-67.21,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,0.9205,0.9324,0.9205,1,1,HalfObsticles/TestHalfObsticle/DefaultVisuals/Prfb_BagsTile_6
+SM_BagTile2,static,Mat_Bags_01_1 1,-32.75,-0.082,-70.5,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,0.9205,0.9324,0.9205,1,1,HalfObsticles/TestHalfObsticle_1/DefaultVisuals/Prfb_BagsTile_6
+SM_Soda_Pipe_1,static,MAT_Soda_Pipe,19.1186,1.8535,-57.2125,0.577764,-0.397833,-0.411653,0.581773,20.165,-89.033,-90.399,0.2228,0.2228,0.2228,1,1,Ship/ShipProtect/Built/Protect/Group/Pfb_Soda_Pipe_6
+SM_Soda_Pipe_1,static,MAT_Soda_Pipe,18.8834,2.499,-57.1002,-0.689851,-0.12723,0.702458,-0.120293,20.164,-89.033,179.601,0.2228,0.2228,0.2228,1,1,Ship/ShipProtect/Built/Protect/Group/Pfb_Soda_Pipe_5
+SM_Soda_Pipe_1,static,MAT_Soda_Pipe,21.4897,3.5692,-55.2147,0.700365,0.0,0.713785,-2e-06,-0.0,88.913,-180.0,0.1768,0.1768,0.1768,1,1,Ship/ShipPower/Built/Power/Pfb_Soda_Pipe_1
+SM_Soda_Pipe_1,static,MAT_Soda_Pipe,21.4882,3.0228,-55.1325,-0.495233,0.495233,-0.504721,0.504724,-0.0,88.913,-90.0,0.1768,0.1768,0.1768,1,1,Ship/ShipPower/Built/Power/Pfb_Soda_Pipe_3
+SM_Canvas_Ground_2x2_2,static,Mat_Canvas_Ground_Dark|Mat_Canvas_Ground_Dark,21.38,0.968,-58.52,0.0,0.004986,0.0,0.999988,-0.0,0.571,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Canvas_Ground_2x2_2
+pCube336,static,Mat_WoodBoards_01,18.9771,0.399,-76.99,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,0.7,1.0,0.2375,0,1,GardenConstruct/Built/Garden/ScaledBorder01/Pfb_WoodBoards_01_6
+Quad,static,FakeAO,-1.6731,0.0,-81.9388,-0.068543,0.703778,-0.703776,-0.068543,90.0,-168.875,0.0,1.5866,1.5866,1.5866,0,1,Buildings/Character_Heart7/ActiveRoot/CharacterModel_Duck_Heart7/FakeAO
+SM_SteelFrame_01_4,static,Mat_SteelFrame_01,23.56,-1.288,-56.101,0.499999,-0.500001,-0.5,0.5,-0.0,-90.0,-90.0,1.1554,1.1554,1.1554,1,1,ShipBuildingFrame/Pfb_SteelFrame_01_8
+SM_MetalBoard_01_2,static,Mat_MetalBoard_01_1,23.1,0.968,-58.5,0.0,-0.066913,0.0,0.997759,-0.0,-7.673,0.0,1.3505,1.3505,1.3505,1,1,ShipBuildingFrame/Pfb_MetalBoard_01_2
+SM_Indoors_Books_08,static,Mat_Indoors_Books_01,-9.443,0.658,-85.746,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,0.6023,0.6022,0.6023,1,1,Enviroment/Prfb_Indoors_Books_09
+SM_Indoors_Books_08,static,Mat_Indoors_Books_01,-9.443,0.658,-85.311,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,0.6023,0.6022,0.6023,1,1,Enviroment/Prfb_Indoors_Books_08
+Box01,static,ColorA,-1.097,0.188,-52.991,0.0,0.841816,0.0,0.539765,-0.0,114.665,0.0,0.4608,0.4608,0.4608,0,1,Buildings/StarterKit/Model/Box01
+Cube,static,Lit,28.15,0.4091,-51.5794,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,0.4901,0.8146,1.115,0,1,Pfb_PortaPotty_Base/SM_PortaPotty_Base/Cube_1
+Cubbbe_pCube1,static,SodaCubbe,21.498,3.837,-56.138,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.3049,0.3049,0.3049,1,1,Ship/ShipPower/Built/Power/Pfb_Soda_Cubbe/Cubbbe_pCube1
+Wrench01,static,ColorB,25.5581,1.242,-52.2274,-0.628369,0.628371,-0.32427,0.324271,0.0,125.408,-90.0,1.1067,1.1067,1.1067,1,1,ShipBuildingFrame/Wrench01
+SM_Indoors_Bedroom_Besidetable_01,static,Mat_Indoors_Bedroom_01,-2.904,0.0,-80.984,0.0,1.0,0.0,1e-06,-0.0,180.0,0.0,1.1147,1.1147,1.1147,1,1,BaseBGMSelector/Prfb_Indoors_Bedroom_Besidetable_03
+First_aid_Kit02,static,ColorA Darker,18.97,2.072,-49.877,-0.0,-0.707106,0.707107,-0.0,90.0,-0.0,180.0,0.4178,0.4178,0.4178,0,1,Buildings/Temp/First_aid_Kit02_1
+First_aid_Kit02,static,ColorA Darker,18.97,1.889,-49.877,-0.0,-0.707106,0.707107,-0.0,90.0,-0.0,180.0,0.4178,0.4178,0.4178,0,1,Buildings/Temp/First_aid_Kit02
+SM_Tools_01,static,Mat_Lootbox_02,15.738,0.0,-77.649,0.0,-0.0,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,GardenConstruct/Built/Garden/LootBox_Test/Prfb_Toolbox_02
+SM_Soda_Pipe_4,static,MAT_Soda_Pipe,22.6601,3.4751,-56.7544,-0.009489,-9.3e-05,0.999908,0.009644,0.0,-1.087,178.895,-0.5674,0.5674,0.5674,1,1,Ship/ShipPower/Built/Power/Pfb_Soda_Pipe_4
+SM_CleaningHandcart_4,static,MAT_CleaningHandcart_01,15.598,-0.0099,-62.851,0.0,0.909708,0.0,-0.415249,-0.0,-130.93,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_CleaningHandcart_01/SM_CleaningHandcart_4
+nut,static,nut,29.208,0.661,-61.387,0.388228,0.6605,-0.508586,0.392885,77.661,144.495,31.992,0.1729,0.1729,0.1729,1,1,ShipBuildingFrame/nut_1
+SM_Cabinet_02_05,static,Kitchen 2,20.371,1.648,-56.122,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,0.2862,0.6999,0.5,1,1,Ship/Main/SM_Cabinet_02_05
+Plane,static,WorldTile_Garden,18.977,0.0,-77.49,-0.707107,0.0,-0.0,0.707107,-90.0,180.0,180.0,96.0,96.0,59.6285,0,1,GardenConstruct/Built/Garden/CellLayout/DirtBump/DirtBump
+SM_SteelFrame_01_3,static,Mat_SteelFrame_01,13.6191,0.0171,-61.3524,0.499999,-0.500001,-0.499999,0.5,-0.0,-90.0,-90.0,1.0,4.1543,1.0,1,1,ShipBuildingFrame/Pfb_SteelFrame_01_17
+SM_CleaningHandcart_2,static,MAT_CleaningHandcart_01,15.6244,-0.0099,-62.8281,0.0,0.909708,0.0,-0.415249,-0.0,-130.93,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_CleaningHandcart_01/SM_CleaningHandcart_2
+SM_Switch_1_Base,static,Switcher,13.5391,1.5571,-65.4144,0.0,0.707106,0.0,0.707108,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Switcher2/SM_Switch_1_Base
+SM_FileCabient_M2,static,Mat_FileCabient,13.644,-0.023,-60.45,0.0,0.70711,0.0,0.707104,-0.0,90.001,0.0,1.0,1.0,0.75,1,1,ShipBuildingFrame/Pfb_FileCabient_M2
+SodaPointLightMesh,static,ZeroPoint,-8.0808,1.9563,-54.2138,0.0,0.687003,0.0,0.726655,-0.0,86.787,0.0,10.6586,10.6586,10.6586,1,1,Buildings/SaleMachine/Visual/SodaPointLight_9
+SM_ExhaustFan_01,static,OutDoor_New,-31.5482,2.19,-54.3852,0.0,0.707106,0.0,0.707108,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,Buildings/SkillMachine/Visual/SM_ExhaustFan_01_02
+SM_ExhaustFan_01,static,OutDoor_New,5.51,2.2241,-50.592,-0.0,0.707107,-0.0,0.707107,-0.0,90.0,-0.0,1.0,1.0,1.0,1,1,SM_ExhaustFan_01_02
+SM_Stairs_New_03,static,Mat_Stairs|Mat_Stairs,27.399,-1.086,-56.2103,0.0,0.707105,0.0,0.707109,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Stairs_New_03
+SodaPointLightMesh,static,ZeroPoint,-2.7371,0.854,-89.5937,0.0,0.999757,0.0,0.022036,-0.0,177.475,0.0,0.9119,0.9119,0.9119,0,1,Notes/Note_Base_Start/SodaPointLight
+SodaPointLightMesh,static,ZeroPoint,28.56,0.819,-60.2768,0.0,-0.83117,0.0,0.556019,-0.0,-112.438,0.0,0.9119,0.9119,0.9119,0,1,Notes/Note_Base_CarBuilding/SodaPointLight
+SodaPointLightMesh,static,ZeroPoint,-31.0191,0.958,-65.7667,0.0,0.999757,0.0,0.022036,-0.0,177.475,0.0,0.9119,0.9119,0.9119,0,1,Notes/Note_Base_ShootingRange/SodaPointLight
+SodaPointLightMesh,static,ZeroPoint,22.501,7.03,-57.3123,0.0,0.687003,0.0,0.726655,-0.0,86.787,0.0,11.3034,11.3034,11.3034,0,1,ShipBuildingFrame/Switcher2/ActiveOnOpen/ShipFrameLights/SodaPointLight_12
+SM_Soda_Ironframe2,static,MAT_Soda_Ironfame,23.477,3.476,-56.965,0.44811,0.546992,0.448109,0.546988,-0.0,90.0,78.651,0.167,0.0867,0.2487,1,1,Ship/ShipPower/Built/Power/Pfb_Soda_Ironframe_04
+SM_Soda_Ironframe2,static,MAT_Soda_Ironfame,23.54,2.973,-57.1,0.498417,-0.501574,0.501581,0.498417,89.999,46.599,136.919,0.167,0.2814,0.2487,1,1,Ship/ShipPower/Built/Power/Pfb_Soda_Ironframe_06
+SM_Soda_Ironframe2,static,MAT_Soda_Ironfame,23.4906,3.0273,-57.1021,0.106228,0.699084,0.106225,0.699081,0.0,90.0,17.28,0.167,0.1235,0.2115,1,1,Ship/ShipPower/Built/Power/Pfb_Soda_Ironframe_05
+SM_Soda_Ironframe2,static,MAT_Soda_Ironfame,22.478,3.476,-56.965,0.448109,-0.546988,-0.44811,0.546992,0.0,-90.0,-78.651,-0.167,0.0867,0.2422,1,1,Ship/ShipPower/Built/Power/Pfb_Soda_Ironframe_07
+SM_Soda_Ironframe2,static,MAT_Soda_Ironfame,22.478,3.0235,-57.091,0.106225,-0.699081,-0.106228,0.699084,-0.0,-90.0,-17.28,-0.167,0.1237,0.2422,1,1,Ship/ShipPower/Built/Power/Pfb_Soda_Ironframe_08
+SM_Soda_Ironframe2,static,MAT_Soda_Ironfame,23.54,3.546,-56.565,1e-06,3e-06,0.709338,0.704868,-0.0,0.0,90.362,0.167,0.2745,0.2487,1,1,Ship/ShipPower/Built/Power/Pfb_Soda_Ironframe_03
+SM_MetalBoard_01_9,static,Mat_MetalBoard_01_1 _Ground,18.436,0.034,-75.06,0.0,0.887325,0.0,0.461145,-0.0,125.078,0.0,1.2828,1.2828,1.2828,1,1,GardenConstruct/NotBuilt/Pfb_MetalBoard_01_9
+SM_MetalBoard_01_9,static,Mat_MetalBoard_01_1,20.081,2.478,-57.178,0.503143,0.510285,-0.497447,-0.488878,0.901,-91.552,90.07,0.592,0.592,0.592,1,1,Ship/Main/Pfb_MetalBoard_01_9
+SM_MetalBoard_01_9,static,Mat_MetalBoard_01_1 _Ground,17.508,0.034,-76.838,0.0,0.887325,0.0,0.461145,-0.0,125.078,0.0,0.954,0.954,0.954,1,1,GardenConstruct/NotBuilt/Pfb_MetalBoard_01_10
+JLAB_ProtectiveClothes_Head,static,JLab_ProtectiveClothesOutSpace,21.2252,3.6191,-57.0476,0.0,0.998065,0.062173,3e-06,-7.129,180.0,0.0,1.0477,1.0477,1.0477,0,1,Ship/Main/DuckV2_2/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Head/HelmatSocket/Agent_HelmatFireProtect/JLAB_ProtectiveClothes_Head
+SM_Table_02_1,static,Mat_Table_02_Black,25.4421,0.84,-52.2004,0.0,0.70711,0.0,0.707104,-0.0,90.001,0.0,0.5757,0.5757,0.5757,1,1,ShipBuildingFrame/Pfb_Table_02_2
+SM_Hangclothes_04,static,Mat_Hangclothes_Heart7,-1.6268,0.6898,-81.673,-0.075643,0.3496,0.251195,0.899422,-18.162,38.452,24.828,1.7006,0.9888,0.9888,0,1,Buildings/Character_Heart7/ActiveRoot/CharacterModel_Duck_Heart7/DuckV2_2/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Prfb_Hangclothes_01_6
+SM_Canvas_Ground_1x5_1,static,Mat_Canvas_Ground_White,25.5858,2.5511,-51.1594,-0.707031,-0.010303,0.010304,0.707033,-88.33,-89.994,89.994,0.83,0.83,0.83,1,1,ShipBuildingFrame/Pfb_Canvas_Ground_1x5_2
+SM_CementMold3,static,Mat_CementMold_1,-1.7135,1.4344,-80.451,-0.5,-0.500001,0.499999,0.500001,-0.0,-90.0,90.0,0.3896,0.0712,3.4421,0,1,Enviroment/Prfb_CementMold_10
+SM_CementMold3,static,Mat_CementMold_1,-26.609,-0.0833,-57.508,-0.499999,-0.5,-0.5,0.500001,-90.0,-50.835,-39.165,0.2689,0.2339,0.2832,1,1,Enviroment/Group_3/Prfb_CementMold_12
+SM_CementMold3,static,Mat_CementMold_1,13.319,2.998,-69.492,-0.499999,-0.5,-0.5,0.500001,-90.0,-50.835,-39.165,0.3292,0.3812,0.2832,1,1,Enviroment/Group_1/Prfb_CementMold_11
+SM_CementMold3,static,Mat_CementMold_1,-3.91,1.463,-80.348,-0.5,-0.500001,0.499999,0.500001,-0.0,-90.0,90.0,0.3825,0.3812,0.2832,1,1,Enviroment/Group/Prfb_CementMold_09
+SM_CementMold3,static,Mat_CementMold_1,13.342,-0.0833,-69.492,-0.499999,-0.5,-0.5,0.500001,-90.0,-50.835,-39.165,0.2689,0.2339,0.2832,1,1,Enviroment/Group_1/Prfb_CementMold_12
+SM_CementMold3,static,Mat_CementMold_1,-6.061,1.5,-52.295,-0.5,-0.500001,0.499999,0.500001,-0.0,-90.0,90.0,0.3825,0.3812,0.2832,1,1,Enviroment/Prfb_CementMold_04
+SM_CementMold3,static,Mat_CementMold_1,13.28,1.463,-70.567,0.707106,0.707108,0.0,-0.0,-0.0,180.0,90.0,0.3825,0.3812,0.2832,1,1,Enviroment/Group_1/Prfb_CementMold_08
+SM_CementMold3,static,Mat_CementMold_1,-4.96,2.811,-52.324,-0.707106,0.0,-0.0,0.707108,-90.0,8.758,-8.759,0.2819,0.3283,0.4584,1,1,Enviroment/Prfb_CementMold_06
+SM_CementMold3,static,Mat_CementMold_1,-3.939,1.5,-52.295,-0.5,-0.500001,0.499999,0.500001,-0.0,-90.0,90.0,0.3825,0.3812,0.2832,1,1,Enviroment/Prfb_CementMold_05
+SM_CementMold3,static,Mat_CementMold_1,13.28,1.4627,-68.419,0.707106,0.707108,0.0,-0.0,-0.0,180.0,90.0,0.3825,0.3812,0.2832,1,1,Enviroment/Group_1/Prfb_CementMold_09
+SM_CementMold3,static,Mat_CementMold_1,-6.078,1.463,-80.348,-0.5,-0.500001,0.499999,0.500001,-0.0,-90.0,90.0,0.3825,0.3812,0.2832,1,1,Enviroment/Group/Prfb_CementMold_08
+SM_CementMold3,static,Mat_CementMold_1,-5.003,-0.005,-43.653,-0.707106,1e-06,-1e-06,0.707108,-90.0,39.165,-39.165,0.2547,0.3812,0.1028,1,1,Enviroment/Prfb_CementMold_11
+SM_CementMold3,static,Mat_CementMold_1,-26.841,-0.0833,-69.492,-0.499999,-0.5,-0.5,0.500001,-90.0,-50.835,-39.165,0.2689,0.2339,0.2832,1,1,Enviroment/Group_2/Prfb_CementMold_12
+SM_CementMold3,static,Mat_CementMold_1,-5.003,2.998,-80.387,-0.707106,1e-06,-1e-06,0.707108,-90.0,39.165,-39.165,0.3292,0.3812,0.2832,1,1,Enviroment/Group/Prfb_CementMold_11
+SM_Indoors_Stool_02,static,Mat_Indoors_Table_02,-0.235,-0.0004,-81.908,0.0,0.746927,0.0,0.664905,-0.0,96.65,0.0,1.0,1.0,1.0,1,1,Enviroment/Prfb_Indoors_Stool_03
+SM_Indoors_Stool_02,static,Mat_Indoors_Table_02,-8.877,-0.0004,-85.188,0.0,0.827325,0.0,0.561724,-0.0,111.65,0.0,1.0,1.0,1.0,1,1,Enviroment/Prfb_Indoors_Stool_02
+SM_Stairs_New_08,static,Mat_Stairs,21.4311,1.7401,-53.7904,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Stairs_New_33
+SM_Stairs_New_10,static,Mat_Stairs|Mat_Stairs,19.4126,0.603,-59.399,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Stairs_New_35
+SM_SteelFrame_01_3,static,Mat_SteelFrame_01,20.6961,-1.208,-53.0004,0.0,-0.707107,0.0,0.707106,-0.0,-90.0,0.0,1.0,1.2153,1.0,1,1,ShipBuildingFrame/Pfb_SteelFrame_01_18
+SM_Canvas_Ground_1x5_1,static,Mat_Canvas_Ground_White,18.7391,2.3501,-51.1594,0.010304,-0.707031,0.707033,-0.010306,88.33,89.994,-90.006,0.83,0.83,0.83,1,1,ShipBuildingFrame/Pfb_Canvas_Ground_1x5_4
+SM_SteelFrame_01_3,static,Mat_SteelFrame_01,22.308,-1.208,-55.167,0.0,-0.707107,0.0,0.707106,-0.0,-90.0,0.0,1.0,1.2353,1.0,1,1,ShipBuildingFrame/Pfb_SteelFrame_01_5
+pen,static,pen,-30.939,0.827,-65.8342,-0.505246,0.494699,0.494698,0.505246,-90.0,103.527,-10.986,0.1,0.1,0.1,1,1,Notes/Note_Base_ShootingRange/pen
+pen,static,pen,28.5238,0.688,-60.375,-0.129597,0.695129,0.695129,0.129597,-90.0,173.615,-10.986,0.1,0.1,0.1,1,1,Notes/Note_Base_CarBuilding/pen
+pen,static,pen,-2.657,0.723,-89.6612,-0.505246,0.494699,0.494698,0.505246,-90.0,103.527,-10.986,0.1,0.1,0.1,1,1,Notes/Note_Base_Start/pen
+SM_Indoors_Bedroom_Bed_01,static,Mat_Indoors_Bedroom_01,-1.157,-0.0004,-88.426,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,1,1,Enviroment/Prfb_Indoors_Bedroom_Bed_02
+SM_Indoors_Bedroom_Bed_01,static,Mat_Indoors_Bedroom_01,-8.0,-0.0004,-88.485,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,Enviroment/Prfb_Indoors_Bedroom_Bed_01
+Basket,static,BasketballBasket,-4.874,2.86,-40.97,0.0,1.0,0.0,-1e-06,-0.0,-180.0,-0.0,1.0,1.0,1.0,0,1,Basket_Pfb/Basket
+SM_WoodBox_01_2,static,Mat_WoodBox_01_1,16.729,-1.276,-51.4977,0.0,0.70711,0.0,0.707104,-0.0,90.001,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Box_GRP_05/Pfb_WoodBox_01_18
+PlayingCard,static,PlayingCard_Heart7,-1.9956,1.4454,-82.056,-0.004285,-0.125857,0.195265,0.972632,2.339,-14.283,22.41,0.0843,0.0843,0.0843,0,1,Buildings/Character_Heart7/ActiveRoot/Cards/PlayingCard_Heart7
+SM_Stairs_New_10,static,Mat_Stairs|Mat_Stairs,25.947,0.603,-54.238,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Stairs_New_17
+Can01,static,ColorA Darker,19.519,2.285,-49.808,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.6022,0.6022,0.6022,0,1,Buildings/Temp/Can01
+Can01,static,ColorA Darker,19.527,2.374,-49.782,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.6022,0.6022,0.6022,0,1,Buildings/Temp/Can01_1
+Cube,static,Lit,28.1439,1.0043,-51.098,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,1.394,2.0051,0.1301,0,1,Pfb_PortaPotty_Base/SM_PortaPotty_Base/Cube_4
+SM_Indoors_Table_03,static,Mat_Indoors_Table_02,-2.12,0.82,-52.124,-0.617753,0.0,0.0,0.786372,-76.305,0.0,0.0,1.0,1.0,1.0,0,1,Buildings/StarterKit/Model/Prfb_Indoors_Table_04
+SM_Fabric_01,static,Mat_Fabric_01_1 2,-1.5103,0.455,-53.1443,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.8388,0.7813,0.7967,1,1,BuildingArea/Visual/SM_Fabric_01_1
+pCube336,static,Mat_WoodBoards_01,18.9769,-0.102,-77.99,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,0.7,1.0,0.2375,0,1,GardenConstruct/Built/Garden/ScaledBorder10/Pfb_WoodBoards_01_1
+pCube336,static,Mat_WoodBoards_01,19.477,0.399,-77.4901,0.0,1.0,0.0,0.0,-0.0,180.0,0.0,0.7,1.0,0.2375,0,1,GardenConstruct/Built/Garden/ScaledBorder11/Pfb_WoodBoards_01_7
+SM_Canvas_Ground_1x5_1,static,Mat_Canvas_Ground_White,22.2258,3.8001,-51.1104,-0.492662,-0.50723,0.507233,0.492662,1.67,-90.0,90.0,0.9302,1.4199,1.4199,1,1,ShipBuildingFrame/Pfb_Canvas_Ground_1x5_1
+SM_Indoors_Study_Shelf_01,static,Mat_Indoors_Study_01_1,-9.57,-0.0004,-85.789,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,Enviroment/Prfb_Indoors_Study_Shelf_01
+Car_1_Base,static,Mat_Car_01,21.2678,1.091,-56.1104,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,Ship/Main/SM_Car_02_Frame/Car_1_Base
+SM_Soda_Ladder,static,MAT_Soda_Instruments,14.45,0.104,-54.24,0.0,0.909708,0.0,-0.415249,-0.0,-130.93,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Soda_Ladder
+Bullet07,static,ColorB|ColorA Darker,18.011,1.909,-49.835,0.0,0.19412,0.0,0.980978,-0.0,22.387,0.0,0.7879,0.7879,0.7879,0,1,Buildings/Temp/Bullet07
+Bullet03,static,ColorB|ColorA,17.41,1.869,-49.849,0.0,0.997585,0.0,-0.069463,-0.0,-172.034,0.0,1.0,1.0,1.0,0,1,Buildings/Temp/Bullet03
+Bullet03,static,ColorB|ColorA,17.672,1.869,-49.867,0.0,0.999941,0.0,0.010829,-0.0,178.759,0.0,1.0,1.0,1.0,0,1,Buildings/Temp/Bullet03_1
+PlayingCard,static,PlayingCard_Heart7,-1.6566,1.6334,-81.927,-0.021247,0.991812,0.017906,0.124651,-2.339,165.717,-2.161,0.0843,0.0843,0.0843,0,1,Buildings/Character_Heart7/ActiveRoot/Cards/PlayingCard_Heart7_1
+SM_Canvas_Ground_2x4_2,static,Mat_Canvas_Ground_Dark,17.4391,-1.23,-55.51,0.0,0.000367,0.0,1.0,-0.0,0.042,0.0,0.957,0.957,0.957,1,1,ShipBuildingFrame/Pfb_Canvas_Ground_2x4_2
+SM_Stairs_New_08,static,Mat_Stairs,24.9127,0.753,-52.2103,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,ShipBuildingFrame/Pfb_Stairs_New_30
+SM_SteelFrame_01_4,static,Mat_SteelFrame_01,25.56,-1.288,-56.101,0.499999,-0.500001,-0.5,0.5,-0.0,-90.0,-90.0,1.1554,1.1554,1.1554,1,1,ShipBuildingFrame/Pfb_SteelFrame_01_9
+SM_Soda_Instrments_4,static,MAT_Soda_Instruments,19.422,1.6549,-55.699,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.8055,0.8055,1.0338,1,1,Ship/ShipCompute/Built/Pfb_Soda_Instruments_04
+Net,skinned,MAT_BasketNet,-4.874,2.86,-40.97,1e-06,0.707107,0.707107,-1e-06,-90.0,0.0,-180.0,1.0,1.0,1.0,0,1,Basket_Pfb/BasketNet/Net
+Sphere,static,Duck BrownMussle,21.1707,4.1219,-57.2566,0.083057,0.880247,0.167658,0.436071,-12.869,125.309,17.456,0.0742,0.1146,0.1325,0,1,Ship/Main/DuckV2_2/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/ArmorSocket/Sphere_5
+Shelves_model02,static,MAT_Shelves,21.583,2.347,-57.163,-2e-06,0.730143,-0.683294,-0.0,86.203,179.999,-0.001,0.2543,0.2543,0.2543,1,1,Ship/Main/Pfb_Soda_Shelves_model02_1
+Shelves_model02,static,MAT_Shelves,22.158,3.269,-55.201,0.0,0.823657,0.567088,-2e-06,-69.095,-180.0,-0.0,0.2543,0.2543,0.2543,1,1,Ship/Main/Pfb_Soda_Shelves_model02
+SM_Shelf_01_2,static,Mat_Shelf_01_03,-1.3463,0.0143,-85.07,0.0,0.707106,0.0,0.707108,-0.0,90.0,0.0,0.4049,0.4049,0.4049,0,1,Enviroment/Prfb_Shelf_01_16/P_Fade/Fade/SM_Shelf_01_2

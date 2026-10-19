@@ -1,0 +1,27 @@
+﻿type,r,g,b,intensity,range,spotAngle,px,py,pz,qx,qy,qz,qw,euler_x,euler_y,euler_z,enabled,path
+Point,1.0,1.0,1.0,11.45,7.66,30.0,472.76,3.7845,241.71,0.0,0.955687,0.0,0.294386,-0.0,145.759,0.0,1,Scene/Prfb_House_02/Light/Point Light
+Point,0.8019,0.6654,0.4577,9.98,10.0,30.0,335.901,2.776,278.8,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1,Lights_1/Point Light_1
+Directional,1.0,0.9024,0.7972,2.5,10.0,30.0,0.0,3.0,0.0,0.242481,0.757519,-0.428584,0.428584,59.0,121.0,-0.0,1,Lights_1/Directional Light
+Point,1.0,0.9561,0.8821,0.18,3.0,30.0,466.2408,1.3625,196.7219,0.0,-0.661091,0.0,0.750305,-0.0,-82.766,0.0,1,Scene/Prfb_House05/Point Light_1
+Point,0.7755,0.1274,1.0,215.6,13.34,30.0,267.8685,3.705,53.6034,0.0,-0.795554,0.0,0.605883,-0.0,-105.415,0.0,1,Scene/Hole_2/Point Light
+Point,0.7755,0.1274,1.0,70.0,6.42,30.0,273.1858,1.905,54.3331,0.0,-0.795554,0.0,0.605883,-0.0,-105.415,0.0,1,Scene/Hole_2/Point Light_1
+Point,1.0,0.6993,0.4104,56.0,10.0,30.0,461.5829,4.3153,103.7251,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0,Scene/Group_BaseStart/Point Light
+Point,1.0,0.9561,0.8821,11.0,7.84,30.0,466.2408,4.9335,196.7219,0.0,-0.661091,0.0,0.750305,-0.0,-82.766,0.0,1,Scene/Prfb_House05/Point Light
+Point,1.0,0.9184,0.75,16.01,10.0,30.0,340.463,3.844,281.387,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1,Lights_1/Point Light
+Point,1.0,0.9593,0.8627,15.14,10.19,30.0,466.1007,3.5615,196.7215,0.0,-0.661091,0.0,0.750305,-0.0,-82.766,0.0,1,Scene/Prfb_House05/Lights/Point Light
+Point,1.0,1.0,1.0,300.0,300.0,30.0,474.7,25.3,312.8,-1e-06,0.136341,-0.0,0.990662,-0.0,15.672,-0.0,0,LevelElements/GroundZero_01_TaskObjective/Firework/FireworkdParticles/Fireworks_Sparks/Sparks/Point Light
+Point,1.0,0.5448,0.1368,999.0,138.4,30.0,425.19,21.27,290.14,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0,LevelElements/GroundZero_01_TaskObjective/Firework/FireworkdParticles/PointLights/Point Light
+Point,1.0,1.0,1.0,300.0,300.0,30.0,465.9,0.0,306.1,-0.707107,0.0,0.0,0.707107,-90.0,0.0,0.0,0,LevelElements/GroundZero_01_TaskObjective/Firework/FireworkdParticles/Fireworks_Middle/Point Light
+Point,1.0,1.0,1.0,300.0,300.0,30.0,410.3,-3.4,311.3,-0.707107,0.0,0.0,0.707107,-90.0,0.0,0.0,0,LevelElements/GroundZero_01_TaskObjective/Firework/FireworkdParticles/Fireworks_Left/Point Light
+Point,0.4481,0.727,1.0,2.61,2.05,30.0,234.57,0.5046,203.01,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0,Teleports/TeleporterBubblePair/SimpleTeleport_1/r/Point Light
+Point,1.0,0.5448,0.1368,999.0,138.4,30.0,360.2,21.27,242.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0,LevelElements/GroundZero_01_TaskObjective/Firework/FireworkdParticles/PointLights/Point Light_1
+Point,0.4292,0.8808,1.0,8.01,4.01,30.0,458.4491,-0.5555,103.7732,0.0,0.057804,0.0,0.998328,-0.0,6.628,0.0,0,Scene/BunkerDoorExit/Root/Point Light
+Point,1.0,1.0,1.0,300.0,300.0,30.0,474.7,0.0,312.8,-0.0,0.136341,-0.0,0.990662,-0.0,15.672,-0.0,0,LevelElements/GroundZero_01_TaskObjective/Firework/FireworkdParticles/Fireworks_Line/Point Light
+Point,0.2217,0.7738,1.0,1.0,1.96,30.0,450.28,1.8235,288.12,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1,LevelElements/GroundZero_01_SpecialElement/TeleportMarker/Particle System/Point Light
+Point,1.0,1.0,1.0,300.0,300.0,30.0,508.7,-3.4,287.8,-0.707107,0.0,0.0,0.707107,-90.0,0.0,0.0,0,LevelElements/GroundZero_01_TaskObjective/Firework/FireworkdParticles/Fireworks_Right/Point Light
+Point,1.0,1.0,1.0,300.0,300.0,30.0,476.9,0.0,336.1,-0.707107,0.0,0.0,0.707107,-90.0,0.0,0.0,0,LevelElements/GroundZero_01_TaskObjective/Firework/FireworkdParticles/Fireworks_Single/Point Light
+Point,0.4481,0.727,1.0,2.61,2.05,30.0,430.55,0.3426,123.97,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0,Teleports/TeleporterBubblePair/SimpleTeleport/r/Point Light
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,464.9525,1.0918,136.8945,-0.704416,0.061625,0.061625,0.704416,-90.0,-170.001,180.0,1,Scene/Group_SignalTower/Prfb_Campingfire_Temp/FireSmoke/Point Light
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,287.9026,1.0435,117.5952,0.441545,0.552303,0.552303,-0.441545,-90.0,77.282,180.0,1,Scene/Group_Simple/Prfb_Campingfire_Temp/FireSmoke/Point Light
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,323.8812,16.0458,223.2309,0.027278,0.70658,0.70658,-0.027278,-90.0,4.422,180.0,1,Scene/Prfb_Campingfire_Temp/FireSmoke/Point Light
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,275.8973,1.0045,259.9002,0.292736,0.643666,0.643666,-0.292736,-90.0,48.912,180.0,1,Scene/Group_Simple_1/Prfb_Campingfire_Temp/FireSmoke/Point Light

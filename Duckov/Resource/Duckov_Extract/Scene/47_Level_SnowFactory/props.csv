@@ -1,0 +1,822 @@
+﻿mesh,kind,materials,px,py,pz,qx,qy,qz,qw,euler_x,euler_y,euler_z,sx,sy,sz,enabled,in_project,path
+Quad,static,CloneJarFog,-35.5,-1.15,7.44,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,36.9377,40.5276,1.0,1,1,Fx/Quad
+Bottom_Stairs 1,static,MAT_WT_JLAB_GroundTile_Floor,-20.53,0.0,-44.043,-0.0,0.707107,-0.0,0.707107,-0.0,90.0,-0.0,1.3937,1.0,1.0,1,1,Bottom_Stairs 1
+SM_Soda_ExhaustSystem9,static,MAT_Soda_Pipe 1|DarkQuadSolid,-47.83,-0.63,-3.49,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,4.5797,4.5797,4.5797,1,1,Pfb_Soda_ExhaustSystem1_09
+SM_Bulletbox_02,static,Mat_Bulletbox,311.5691,0.3084,275.3009,0.0,-0.700983,0.0,0.713178,-0.0,-89.012,0.0,1.1,1.1,1.1,0,1,LevelElements/SnowFactory_LootBox/Bullet/LootBox_Bullet_12/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Bulletbox_02,static,Mat_Bulletbox,313.5589,0.3084,263.557,0.0,-0.283229,0.0,0.959052,-0.0,-32.906,0.0,1.1,1.1,1.1,0,1,LevelElements/SnowFactory_LootBox/Bullet/LootBox_Bullet_10/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Lootbox_03_1,static,Mat_Lootbox_03,278.9096,0.5219,237.1487,-0.0,1.0,0.0,3e-06,-0.0,180.0,-0.0,1.0,1.0,1.0,0,1,LevelElements/SnowFactory_LootBox/Weapon2/LootBox_WeaponEquip_02/Prfb_Lootbox_03/SM_Lootbox_03_1
+BigJarLow1,static,JarFrame,-38.137,-3.1177,-6.4934,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine_2/Group/CloneJar
+BigJarLow1,static,JarFrame,-38.1413,-3.1177,-0.5831,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine_2/Group/CloneJar_1
+BigJarLow1,static,JarFrame,-24.7513,-3.1177,11.2659,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine_3/Group/CloneJar_3
+BigJarLow1,static,JarFrame,-24.7513,-3.1177,17.1296,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine_3/Group/CloneJar_4
+BigJarLow1,static,JarFrame,-38.1413,-3.1177,11.2659,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine_2/Group/CloneJar_3
+BigJarLow1,static,JarFrame,-38.1413,-3.1177,5.3848,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine_2/Group/CloneJar_2
+BigJarLow1,static,JarFrame,-18.8213,-3.1177,-0.5831,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine_5/Group/CloneJar_1
+BigJarLow1,static,JarFrame,-29.757,-3.1177,-6.4934,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine_4/Group/CloneJar
+BigJarLow1,static,JarFrame,-24.747,-3.1177,-6.4934,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine_3/Group/CloneJar
+BigJarLow1,static,JarFrame,-44.0713,-3.1177,17.1296,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine_1/Group/CloneJar_4
+BigJarLow1,static,JarFrame,-18.817,-3.1177,-6.4934,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine_5/Group/CloneJar
+BigJarLow1,static,JarFrame,-18.8213,-3.1177,22.3428,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine_5/Group/CloneJar_5
+BigJarLow1,static,JarFrame,-49.0813,-3.1177,11.2659,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine/Group/CloneJar_3
+BigJarLow1,static,JarFrame,-29.7613,-3.1177,17.1296,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine_4/Group/CloneJar_4
+BigJarLow1,static,JarFrame,-29.7613,-3.1177,5.3847,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine_4/Group/CloneJar_2
+BigJarLow1,static,JarFrame,-18.8213,-3.1177,17.1296,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine_5/Group/CloneJar_4
+BigJarLow1,static,JarFrame,-18.8213,-3.1177,5.3847,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine_5/Group/CloneJar_2
+BigJarLow1,static,JarFrame,-49.0813,-3.1177,5.3848,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine/Group/CloneJar_2
+BigJarLow1,static,JarFrame,-24.7513,-3.1177,22.3428,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine_3/Group/CloneJar_5
+BigJarLow1,static,JarFrame,-44.067,-3.1177,-6.4934,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine_1/Group/CloneJar
+BigJarLow1,static,JarFrame,-49.0813,-3.1177,17.1296,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine/Group/CloneJar_4
+BigJarLow1,static,JarFrame,-38.1413,-3.1177,17.1296,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine_2/Group/CloneJar_4
+BigJarLow1,static,JarFrame,-29.7613,-3.1177,11.2659,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine_4/Group/CloneJar_3
+BigJarLow1,static,JarFrame,-44.0713,-3.1177,22.3428,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine_1/Group/CloneJar_5
+BigJarLow1,static,JarFrame,-24.7513,-3.1177,-0.5831,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine_3/Group/CloneJar_1
+BigJarLow1,static,JarFrame,-24.7513,-3.1177,5.3847,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine_3/Group/CloneJar_2
+BigJarLow1,static,JarFrame,-29.7613,-3.1177,-0.5831,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine_4/Group/CloneJar_1
+BigJarLow1,static,JarFrame,-44.0713,-3.1177,11.2659,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine_1/Group/CloneJar_3
+BigJarLow1,static,JarFrame,-44.0713,-3.1177,-0.5831,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine_1/Group/CloneJar_1
+BigJarLow1,static,JarFrame,-44.0713,-3.1177,5.3848,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine_1/Group/CloneJar_2
+BigJarLow1,static,JarFrame,-49.0813,-3.1177,22.3428,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine/Group/CloneJar_5
+BigJarLow1,static,JarFrame,-29.7613,-3.1177,22.3428,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine_4/Group/CloneJar_5
+BigJarLow1,static,JarFrame,-18.8213,-3.1177,11.2658,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine_5/Group/CloneJar_3
+BigJarLow1,static,JarFrame,-38.1413,-3.1177,22.3428,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine_2/Group/CloneJar_5
+BigJarLow1,static,JarFrame,-49.0813,-3.1177,-0.5831,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine/Group/CloneJar_1
+SM_Soda_ExhaustSystem1,static,MAT_Soda_Pipe 1|DarkQuadSolid,-47.79,-1.37,23.79,0.0,-0.0,-0.0,1.0,-0.0,-0.0,-0.0,1.0,1.0,1.0,1,1,Pfb_Soda_ExhaustSystem1_01
+SM_Soda_ExhaustSystem1,static,MAT_Soda_Pipe 1|DarkQuadSolid,-47.79,-5.63,23.79,0.0,-0.0,-0.0,1.0,-0.0,-0.0,-0.0,1.0,1.0,1.0,1,1,Pfb_Soda_ExhaustSystem1_02
+SM_Safe_01_2,static,Mat_Safe_02,290.1735,0.3642,315.1958,0.0,1.0,0.0,2e-06,-0.0,180.0,0.0,1.1,1.1,1.1,0,1,LevelElements/SnowFactory_LootBox/Lux/LootBox_Lux/Prfb_Safe_01/SM_Safe_01_2
+SM_Lootbox_03_2,static,Mat_Lootbox_03,278.9096,0.2794,236.7345,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,1.0,1.0,1.0,0,1,LevelElements/SnowFactory_LootBox/Weapon2/LootBox_WeaponEquip_02/Prfb_Lootbox_03/SM_Lootbox_03_2
+SM_Bulletbox_02,static,Mat_Bulletbox,235.2515,0.1844,97.6108,0.0,-0.235928,0.0,0.97177,-0.0,-27.293,0.0,1.1,1.1,1.1,0,1,LevelElements/SnowFactory_LootBox/Bullet/LootBox_Bullet_4/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Safe_01_1,static,Mat_Safe_Gold,323.3573,0.3642,315.8671,0.0,1.0,0.0,2e-06,-0.0,180.0,0.0,1.1,1.1,1.1,0,1,LevelElements/SnowFactory_LootBox/Lux_1/LootBox_Lux_Gold/Prfb_Safe_01/SM_Safe_01_1
+SM_Lootbox_03_2,static,Mat_Lootbox_03,230.3256,0.2794,265.4485,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,1.0,1.0,1.0,0,1,LevelElements/SnowFactory_LootBox/Weapon2/LootBox_WeaponEquip_08/Prfb_Lootbox_03/SM_Lootbox_03_2
+Cube,static,MAT_WT_Brick 2,-22.0,1.5,-46.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-38.0,1.5,-14.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-42.0,1.5,26.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-42.0,1.5,38.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-26.0,1.5,54.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-26.0,1.5,-10.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-46.0,1.5,26.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-38.0,1.5,-22.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-30.0,1.5,34.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-30.0,1.5,-30.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-50.0,1.5,-6.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-38.0,1.5,-38.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-50.0,1.5,18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-38.0,1.5,54.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-50.0,1.5,-2.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-50.0,1.5,2.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-30.0,1.5,30.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-14.0,1.5,-46.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-26.0,1.5,-38.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-38.0,1.5,-10.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-30.0,1.5,-10.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-30.0,1.5,-26.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-30.0,1.5,-22.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-50.0,1.5,14.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-30.0,1.5,-34.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-22.0,1.5,-10.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-38.0,1.5,-26.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-30.0,1.5,54.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-38.0,1.5,-18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-26.0,1.5,38.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-38.0,1.5,38.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-42.0,1.5,50.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-46.0,1.5,-10.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-38.0,1.5,26.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-30.0,1.5,-38.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-18.0,1.5,26.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-50.0,1.5,6.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-38.0,1.5,-34.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-50.0,1.5,10.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-26.0,1.5,42.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-18.0,1.5,-10.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-18.0,1.5,-38.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-34.0,1.5,54.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-50.0,1.5,-10.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-30.0,1.5,-46.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-26.0,1.5,26.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-38.0,1.5,-42.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-42.0,1.5,-10.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-30.0,1.5,26.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-18.0,1.5,-2.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-26.0,1.5,46.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-18.0,1.5,-6.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-18.0,1.5,22.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-30.0,1.5,38.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-26.0,1.5,50.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-50.0,1.5,22.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-18.0,1.5,6.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-14.0,1.5,-42.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-30.0,1.5,-14.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-38.0,1.5,34.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-18.0,1.5,18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-22.0,1.5,26.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-38.0,1.5,-46.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-18.0,1.5,14.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-42.0,1.5,54.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-34.0,1.5,-46.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-18.0,1.5,2.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-50.0,1.5,26.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-38.0,1.5,-30.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-14.0,1.5,-38.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-26.0,1.5,-46.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-18.0,1.5,-46.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-42.0,1.5,42.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-18.0,1.5,10.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-38.0,1.5,30.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-42.0,1.5,46.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-22.0,1.5,-38.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+Cube,static,MAT_WT_Brick 2,-30.0,1.5,-18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Cube_1
+SM_Lootbox_03_2,static,Mat_Lootbox_03,325.0476,0.2794,225.3965,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,1.0,1.0,1.0,0,1,LevelElements/SnowFactory_LootBox/Weapon2/LootBox_WeaponEquip_03/Prfb_Lootbox_03/SM_Lootbox_03_2
+SM_MedicalBag_02_2,static,Mat_ExplorBox,-33.7918,0.0109,47.5153,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.7077,1.7077,1.7077,1,1,LevelElements/SnowFactory_LootBox/SpecialExp/LootBox_Formula_Print_Special_Melee_LightSaber_1/Prfb_Normal/SM_Normal_2
+SM_Lootbox_03_2,static,Mat_Lootbox_03,267.0805,0.2794,252.7965,0.0,0.707106,0.0,0.707108,-0.0,90.0,0.0,1.0,1.0,1.0,0,1,LevelElements/SnowFactory_LootBox/Weapon2/LootBox_WeaponEquip_07/Prfb_Lootbox_03/SM_Lootbox_03_2
+SM_Lootbox_03_1,static,Mat_Lootbox_03,230.3256,0.5219,265.8627,-0.0,1.0,0.0,3e-06,-0.0,180.0,-0.0,1.0,1.0,1.0,0,1,LevelElements/SnowFactory_LootBox/Weapon2/LootBox_WeaponEquip_08/Prfb_Lootbox_03/SM_Lootbox_03_1
+SM_Lootbox_03_1,static,Mat_Lootbox_03,325.0476,0.5219,225.8107,-0.0,1.0,0.0,3e-06,-0.0,180.0,-0.0,1.0,1.0,1.0,0,1,LevelElements/SnowFactory_LootBox/Weapon2/LootBox_WeaponEquip_03/Prfb_Lootbox_03/SM_Lootbox_03_1
+SM_Bulletbox_02,static,Mat_Bulletbox,326.6189,0.3084,243.1604,0.0,0.023623,0.0,0.999721,-0.0,2.707,0.0,1.1,1.1,1.1,0,1,LevelElements/SnowFactory_LootBox/Bullet/LootBox_Bullet_9/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Bulletbox_02,static,Mat_Bulletbox,288.9616,0.3084,284.6134,0.0,0.008622,0.0,0.999963,-0.0,0.988,0.0,1.1,1.1,1.1,0,1,LevelElements/SnowFactory_LootBox/Bullet/LootBox_Bullet_13/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_SteelFrame_01_6,static,Mat_SteelFrame_01,-21.13,-3.38,25.47,0.0,-0.0,-0.0,1.0,-0.0,-0.0,-0.0,1.4508,1.4508,1.4508,1,1,Pfb_SteelFrame_01_18
+SM_SteelFrame_01_6,static,Mat_SteelFrame_01,-46.36,-3.38,-9.02,0.0,-0.0,-0.0,1.0,-0.0,-0.0,-0.0,1.4508,1.4508,1.4508,1,1,Pfb_SteelFrame_01_7
+SM_SteelFrame_01_6,static,Mat_SteelFrame_01,-40.83,-3.38,-9.02,0.0,-0.0,-0.0,1.0,-0.0,-0.0,-0.0,1.4508,1.4508,1.4508,1,1,Pfb_SteelFrame_01_6
+SM_SteelFrame_01_6,static,Mat_SteelFrame_01,-22.21,-3.38,-9.02,0.0,-0.0,-0.0,1.0,-0.0,-0.0,-0.0,1.4508,1.4508,1.4508,1,1,Pfb_SteelFrame_01_9
+SM_SteelFrame_01_6,static,Mat_SteelFrame_01,-27.74,-3.38,-9.02,0.0,-0.0,-0.0,1.0,-0.0,-0.0,-0.0,1.4508,1.4508,1.4508,1,1,Pfb_SteelFrame_01_8
+SM_SteelFrame_01_6,static,Mat_SteelFrame_01,-40.99,-3.38,25.47,0.0,-0.0,-0.0,1.0,-0.0,-0.0,-0.0,1.4508,1.4508,1.4508,1,1,Pfb_SteelFrame_01_16
+SM_SteelFrame_01_6,static,Mat_SteelFrame_01,-46.54,-3.38,25.47,0.0,-0.0,-0.0,1.0,-0.0,-0.0,-0.0,1.4508,1.4508,1.4508,1,1,Pfb_SteelFrame_01_15
+SM_SteelFrame_01_6,static,Mat_SteelFrame_01,-27.14,-3.38,25.47,0.0,-0.0,-0.0,1.0,-0.0,-0.0,-0.0,1.4508,1.4508,1.4508,1,1,Pfb_SteelFrame_01_17
+Quad,static,DarkQuad1m,-18.0,3.0,-10.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-26.0,3.0,42.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-50.0,3.0,10.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-38.0,3.0,-34.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-50.0,3.0,6.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-18.0,3.0,26.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-30.0,3.0,-38.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-38.0,3.0,26.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-18.0,3.0,-2.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-26.0,3.0,46.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-30.0,3.0,26.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-42.0,3.0,-10.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-38.0,3.0,-42.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-26.0,3.0,26.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-30.0,3.0,-46.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-50.0,3.0,-10.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-34.0,3.0,54.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-18.0,3.0,-38.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-14.0,3.0,-38.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-38.0,3.0,-30.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-50.0,3.0,26.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-34.0,3.0,-46.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-18.0,3.0,2.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-42.0,3.0,54.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-18.0,3.0,14.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-22.0,3.0,26.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-38.0,3.0,-46.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-38.0,3.0,34.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-18.0,3.0,18.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-30.0,3.0,-14.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-14.0,3.0,-42.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-18.0,3.0,6.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-50.0,3.0,22.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-26.0,3.0,50.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-30.0,3.0,38.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-18.0,3.0,22.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-18.0,3.0,-6.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-22.0,3.0,-38.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-30.0,3.0,-18.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-42.0,3.0,46.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-38.0,3.0,30.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-18.0,3.0,10.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-42.0,3.0,42.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-18.0,3.0,-46.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-26.0,3.0,-46.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-46.0,3.0,26.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-26.0,3.0,-10.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-26.0,3.0,54.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-42.0,3.0,26.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-42.0,3.0,38.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-22.0,3.0,-46.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-38.0,3.0,-14.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-38.0,3.0,54.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-50.0,3.0,18.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-38.0,3.0,-38.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-50.0,3.0,-6.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-30.0,3.0,-30.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-38.0,3.0,-22.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-30.0,3.0,34.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-30.0,3.0,-26.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-30.0,3.0,-10.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-38.0,3.0,-10.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-14.0,3.0,-46.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-26.0,3.0,-38.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-30.0,3.0,30.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-50.0,3.0,2.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-50.0,3.0,-2.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-46.0,3.0,-10.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-38.0,3.0,38.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-42.0,3.0,50.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-26.0,3.0,38.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-30.0,3.0,54.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-38.0,3.0,-18.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-38.0,3.0,-26.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-22.0,3.0,-10.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-30.0,3.0,-34.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-50.0,3.0,14.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+Quad,static,DarkQuad1m,-30.0,3.0,-22.0,0.707107,0.0,0.0,0.707107,90.0,180.0,180.0,4.0,4.0,1.0,1,1,Grid/Tilemap/Tile_FrozenStorage_F1_6x6/Quad
+SM_Lootbox_03_1,static,Mat_Lootbox_03,266.6664,0.5219,252.7965,-0.0,0.707106,0.0,0.707108,-0.0,90.0,-0.0,1.0,1.0,1.0,0,1,LevelElements/SnowFactory_LootBox/Weapon2/LootBox_WeaponEquip_07/Prfb_Lootbox_03/SM_Lootbox_03_1
+SM_Bulletbox_02,static,Mat_Bulletbox,209.6202,1.081,202.6134,0.0,-0.74107,0.0,0.671427,-0.0,-95.645,0.0,1.3,1.3,1.3,0,1,LevelElements/SnowFactory_LootBox/Food/LootBox_Food/Prfb_Daily
+SM_Lootbox_03_2,static,Mat_Lootbox_03,238.1528,0.2794,185.7676,0.0,0.629465,0.0,0.777029,-0.0,78.021,0.0,1.0,1.0,1.0,0,1,LevelElements/SnowFactory_LootBox/Weapon2/LootBox_WeaponEquip_04/Prfb_Lootbox_03/SM_Lootbox_03_2
+SM_Safe_01_1,static,Mat_Safe_02,262.1893,0.3642,197.7272,0.0,1.0,0.0,2e-06,-0.0,180.0,0.0,1.1,1.1,1.1,0,1,LevelElements/SnowFactory_LootBox/Lux/LootBox_Lux_1/Prfb_Safe_01/SM_Safe_01_1
+SM_Locker_01_1_1,static,Mat_Locker_01_01,249.5981,0.0089,198.0724,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,1.0,1.0,1.0,0,1,LevelElements/SnowFactory_LootBox/Locker/LootBox_Locker/Prfb_Locker_01_1/SM_Locker_01_1_1
+Sphere,static,Lit,323.451,-0.3191,240.158,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.4103,1.4103,1.4103,0,1,LevelElements/SnowFactory_SpecialElements/Bonefire/Pfb_Campingfire_NotBurning_1/FireSmoke/DamageZone
+BigJarLow1,static,JarFrame,-49.077,-3.1177,-6.4934,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.8674,0.682,0.8674,1,1,Group/JarLine/Group/CloneJar
+Sphere,static,Lit,176.161,-0.3191,161.298,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.4103,1.4103,1.4103,0,1,LevelElements/SnowFactory_SpecialElements/Bonefire/Pfb_Campingfire_NotBurning_2/FireSmoke/DamageZone
+SM_Lootbox_03_1,static,Mat_Lootbox_03,237.7477,0.5219,185.6816,-0.0,0.629465,0.0,0.777029,-0.0,78.021,-0.0,1.0,1.0,1.0,0,1,LevelElements/SnowFactory_LootBox/Weapon2/LootBox_WeaponEquip_04/Prfb_Lootbox_03/SM_Lootbox_03_1
+SodaPointLightMesh,static,ZeroPoint,-33.7918,1.0254,47.5374,-0.0,0.0,0.0,1.0,-0.0,0.0,0.0,2.5905,1.9526,2.5905,1,1,LevelElements/SnowFactory_LootBox/SpecialExp/LootBox_Formula_Print_Special_Melee_LightSaber_1/Particle System/SodaPointLight_1
+SM_Bulletbox_01,static,Mat_Bulletbox,229.2065,0.1836,209.2479,0.0,0.023623,0.0,0.999721,-0.0,2.707,0.0,1.1,1.1,1.1,0,1,LevelElements/SnowFactory_LootBox/Bullet/LootBox_Bullet_7/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Locker_01_1_2,static,Mat_Locker_01_01,249.9231,1.044,197.7048,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,1.0,1.0,1.0,0,1,LevelElements/SnowFactory_LootBox/Locker/LootBox_Locker/Prfb_Locker_01_1/SM_Locker_01_1_2
+SM_Bulletbox_02,static,Mat_Bulletbox,180.0455,0.3084,183.983,0.0,0.281564,0.0,0.959542,-0.0,32.707,0.0,1.1,1.1,1.1,0,1,LevelElements/SnowFactory_LootBox/Bullet/LootBox_Bullet_6/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Bulletbox_01,static,Mat_Bulletbox,192.6308,0.1836,149.925,0.0,-0.235928,0.0,0.97177,-0.0,-27.293,0.0,1.1,1.1,1.1,0,1,LevelElements/SnowFactory_LootBox/Bullet/LootBox_Bullet_5/Prfb_Bulletbox_01/SM_Bulletbox_01
+Sphere,static,Lit,272.071,-0.3191,246.068,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.4103,1.4103,1.4103,0,1,LevelElements/SnowFactory_SpecialElements/Bonefire/Pfb_Campingfire_NotBurning_3/FireSmoke/DamageZone
+SM_Lootbox_03_1,static,Mat_Lootbox_03,310.4076,0.5219,270.5667,-0.0,1.0,0.0,3e-06,-0.0,180.0,-0.0,1.0,1.0,1.0,0,1,LevelElements/SnowFactory_LootBox/Weapon2/LootBox_WeaponEquip_06/Prfb_Lootbox_03/SM_Lootbox_03_1
+Cube,static,DarkQuadSolid,-42.0,1.5,-22.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-50.0,1.5,34.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-14.0,1.5,-6.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-6.0,1.5,18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-42.0,1.5,-42.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-58.0,1.5,2.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-18.0,1.5,34.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-10.0,1.5,-38.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-10.0,1.5,38.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-6.0,1.5,14.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-42.0,1.5,-38.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-18.0,1.5,38.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-14.0,1.5,22.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-10.0,1.5,-34.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-6.0,1.5,38.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-22.0,1.5,54.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-30.0,1.5,-50.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-10.0,1.5,-46.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-22.0,1.5,46.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-10.0,1.5,30.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-26.0,1.5,58.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-18.0,1.5,-50.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-18.0,1.5,-34.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-26.0,1.5,-26.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-10.0,1.5,34.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-58.0,1.5,-10.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-54.0,1.5,6.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-26.0,1.5,-30.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-10.0,1.5,6.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-50.0,1.5,38.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-18.0,1.5,30.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-58.0,1.5,-14.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-46.0,1.5,-18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-38.0,1.5,-50.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-6.0,1.5,-2.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-26.0,1.5,-14.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-42.0,1.5,-18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-46.0,1.5,38.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-38.0,1.5,58.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-10.0,1.5,-18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-6.0,1.5,-10.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-10.0,1.5,18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-10.0,1.5,2.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-14.0,1.5,14.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-58.0,1.5,18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-22.0,1.5,42.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-14.0,1.5,-10.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-58.0,1.5,-2.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-14.0,1.5,-14.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-58.0,1.5,-6.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-54.0,1.5,-6.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-14.0,1.5,-2.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-46.0,1.5,30.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-54.0,1.5,18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-14.0,1.5,-34.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-22.0,1.5,-26.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-58.0,1.5,10.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-42.0,1.5,-30.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-10.0,1.5,-50.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-58.0,1.5,26.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-22.0,1.5,-22.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-22.0,1.5,-14.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-42.0,1.5,-50.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-54.0,1.5,26.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-54.0,1.5,-18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-54.0,1.5,30.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-6.0,1.5,6.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-54.0,1.5,2.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-6.0,1.5,10.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-6.0,1.5,26.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-14.0,1.5,38.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-42.0,1.5,58.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-26.0,1.5,34.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-50.0,1.5,-18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-50.0,1.5,30.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-54.0,1.5,10.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-14.0,1.5,-50.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-46.0,1.5,46.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-46.0,1.5,34.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-18.0,1.5,-18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-14.0,1.5,30.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-22.0,1.5,34.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-22.0,1.5,-18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-58.0,1.5,38.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-22.0,1.5,58.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-10.0,1.5,22.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-22.0,1.5,-30.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-54.0,1.5,-10.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-46.0,1.5,42.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-14.0,1.5,10.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-42.0,1.5,34.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-10.0,1.5,26.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-54.0,1.5,22.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-46.0,1.5,54.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-6.0,1.5,-18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-58.0,1.5,34.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-14.0,1.5,26.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-6.0,1.5,30.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-22.0,1.5,38.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-58.0,1.5,22.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-54.0,1.5,-2.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-58.0,1.5,6.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-54.0,1.5,38.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-54.0,1.5,-14.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-46.0,1.5,50.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-54.0,1.5,14.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-46.0,1.5,-14.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-14.0,1.5,-18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-50.0,1.5,-14.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-14.0,1.5,34.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-10.0,1.5,-42.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-6.0,1.5,-6.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-42.0,1.5,-34.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-6.0,1.5,-14.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-6.0,1.5,34.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-42.0,1.5,-46.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-10.0,1.5,10.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-58.0,1.5,-18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-22.0,1.5,50.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-42.0,1.5,30.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-58.0,1.5,30.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-14.0,1.5,18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-10.0,1.5,-14.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-10.0,1.5,-6.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-34.0,1.5,-50.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-42.0,1.5,-26.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-22.0,1.5,30.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-42.0,1.5,-14.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-6.0,1.5,22.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-10.0,1.5,-2.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-10.0,1.5,14.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-10.0,1.5,-10.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-18.0,1.5,-14.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-54.0,1.5,34.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-58.0,1.5,14.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-34.0,1.5,58.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-26.0,1.5,-18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-6.0,1.5,2.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-26.0,1.5,30.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-30.0,1.5,58.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-26.0,1.5,-22.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-14.0,1.5,2.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-22.0,1.5,-50.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-26.0,1.5,-50.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-46.0,1.5,58.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-26.0,1.5,-34.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-14.0,1.5,6.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+Cube,static,DarkQuadSolid,-22.0,1.5,-34.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Tilemap/Tile_FrozenStorage_6x6 Black 1/Cube_1
+SM_Bulletbox_02,static,Mat_Bulletbox,256.3902,0.672,203.1614,0.0,-0.748264,0.0,0.663401,-0.0,-96.88,0.0,1.3,1.3,1.3,0,1,LevelElements/SnowFactory_LootBox/Food/LootBox_Food_2/Prfb_Daily
+SM_Bulletbox_02,static,Mat_Bulletbox,268.4432,0.4444,236.6275,0.0,-0.243517,0.0,0.969897,-0.0,-28.188,0.0,1.1,1.1,1.1,0,1,LevelElements/SnowFactory_LootBox/Bullet/LootBox_Bullet_8/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Bulletbox_01,static,Mat_Bulletbox,243.4575,0.8636,198.1683,0.0,-0.046752,0.0,0.998907,-0.0,-5.359,0.0,1.1,1.1,1.1,0,1,LevelElements/SnowFactory_LootBox/Bullet/LootBox_Bullet_14/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_MedicalBag_01_1,static,Mat_Medicalbox,261.7052,0.691,202.5794,0.0,-0.782873,0.0,0.622181,-0.0,-103.049,0.0,1.4,1.4,1.4,0,1,LevelElements/SnowFactory_LootBox/Medic/LootBox_Medic/Prfb_MedicalBag_01_1
+SM_Lootbox_03_2,static,Mat_Lootbox_03,310.4076,0.2794,270.1525,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,1.0,1.0,1.0,0,1,LevelElements/SnowFactory_LootBox/Weapon2/LootBox_WeaponEquip_06/Prfb_Lootbox_03/SM_Lootbox_03_2
+SM_Bulletbox_01,static,Mat_Bulletbox,306.784,0.1836,260.5689,0.0,-0.637435,0.0,0.770504,-0.0,-79.202,0.0,1.1,1.1,1.1,0,1,LevelElements/SnowFactory_LootBox/Bullet/LootBox_Bullet_11/Prfb_Bulletbox_01/SM_Bulletbox_01
+SodaPointLightMesh,static,ZeroPoint,323.42,0.6339,240.0503,0.0,-0.0,0.0,1.0,-0.0,-0.0,0.0,8.5203,8.5203,8.5203,0,1,LevelElements/SnowFactory_SpecialElements/Bonefire/Pfb_Campingfire_NotBurning_1/FireSmoke/SodaPointLight
+SM_Soda_Container,static,MAT_Soda_Container_Grey,-19.61,-3.96,2.75,0.0,1.0,0.0,-3e-06,-0.0,-180.0,0.0,1.0,1.0,1.0,1,1,Pfb_Soda_Container_2
+SM_Soda_Container,static,MAT_Soda_Container_Grey,-29.7,-3.96,2.75,0.0,1.0,0.0,-3e-06,-0.0,-180.0,0.0,1.0,1.0,1.0,1,1,Pfb_Soda_Container
+SM_Soda_Container,static,MAT_Soda_Container_Grey,-24.652,-3.96,2.75,0.0,1.0,0.0,-3e-06,-0.0,-180.0,0.0,1.0,1.0,1.0,1,1,Pfb_Soda_Container_1
+SodaPointLightMesh,static,ZeroPoint,176.13,0.6339,161.1903,0.0,-0.0,0.0,1.0,-0.0,-0.0,0.0,8.5203,8.5203,8.5203,0,1,LevelElements/SnowFactory_SpecialElements/Bonefire/Pfb_Campingfire_NotBurning_2/FireSmoke/SodaPointLight
+SM_Bulletbox_02,static,Mat_Bulletbox,253.2272,0.672,194.6074,0.0,-0.748264,0.0,0.663401,-0.0,-96.88,0.0,1.3,1.3,1.3,0,1,LevelElements/SnowFactory_LootBox/Food/LootBox_Food_1/Prfb_Daily
+SM_Bulletbox_01,static,Mat_Bulletbox,180.2313,0.1836,183.8637,0.0,0.281564,0.0,0.959542,-0.0,32.707,0.0,1.1,1.1,1.1,0,1,LevelElements/SnowFactory_LootBox/Bullet/LootBox_Bullet_6/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_02,static,Mat_Bulletbox,228.9859,0.3084,209.2584,0.0,0.023623,0.0,0.999721,-0.0,2.707,0.0,1.1,1.1,1.1,0,1,LevelElements/SnowFactory_LootBox/Bullet/LootBox_Bullet_7/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Weapons_02,static,Mat_Weapons_wood,311.7576,-0.0092,262.3385,0.0,-0.287409,0.0,0.957808,-0.0,-33.406,0.0,1.0,1.0,1.0,0,1,LevelElements/SnowFactory_LootBox/Weapon/LootBox_WeaponEquip_03/Prfb_Weapons_02
+Cylinder,static,CloneJarGlass,-49.0813,-1.7605,-0.5831,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine/Group/CloneJar_1/Cylinder
+Cylinder,static,CloneJarGlass,-38.1413,-1.7605,22.3428,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine_2/Group/CloneJar_5/Cylinder
+Cylinder,static,CloneJarGlass,-18.8213,-1.7605,11.2658,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine_5/Group/CloneJar_3/Cylinder
+Cylinder,static,CloneJarGlass,-29.7613,-1.7605,22.3428,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine_4/Group/CloneJar_5/Cylinder
+Cylinder,static,CloneJarGlass,-49.0813,-1.7605,22.3428,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine/Group/CloneJar_5/Cylinder
+Cylinder,static,CloneJarGlass,-44.0713,-1.7605,5.3848,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine_1/Group/CloneJar_2/Cylinder
+Cylinder,static,CloneJarGlass,-44.0713,-1.7605,-0.5831,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine_1/Group/CloneJar_1/Cylinder
+Cylinder,static,CloneJarGlass,-44.0713,-1.7605,11.2659,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine_1/Group/CloneJar_3/Cylinder
+Cylinder,static,CloneJarGlass,-29.7613,-1.7605,-0.5831,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine_4/Group/CloneJar_1/Cylinder
+Cylinder,static,CloneJarGlass,-24.7513,-1.7605,5.3847,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine_3/Group/CloneJar_2/Cylinder
+Cylinder,static,CloneJarGlass,-24.7513,-1.7605,-0.5831,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine_3/Group/CloneJar_1/Cylinder
+Cylinder,static,CloneJarGlass,-44.0713,-1.7605,22.3428,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine_1/Group/CloneJar_5/Cylinder
+Cylinder,static,CloneJarGlass,-29.7613,-1.7605,11.2659,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine_4/Group/CloneJar_3/Cylinder
+Cylinder,static,CloneJarGlass,-38.1413,-1.7605,17.1296,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine_2/Group/CloneJar_4/Cylinder
+Cylinder,static,CloneJarGlass,-49.0813,-1.7605,17.1296,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine/Group/CloneJar_4/Cylinder
+Cylinder,static,CloneJarGlass,-44.067,-1.7605,-6.4934,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine_1/Group/CloneJar/Cylinder
+Cylinder,static,CloneJarGlass,-24.7513,-1.7605,22.3428,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine_3/Group/CloneJar_5/Cylinder
+Cylinder,static,CloneJarGlass,-49.0813,-1.7605,5.3848,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine/Group/CloneJar_2/Cylinder
+Cylinder,static,CloneJarGlass,-18.8213,-1.7605,5.3847,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine_5/Group/CloneJar_2/Cylinder
+Cylinder,static,CloneJarGlass,-18.8213,-1.7605,17.1296,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine_5/Group/CloneJar_4/Cylinder
+Cylinder,static,CloneJarGlass,-29.7613,-1.7605,5.3847,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine_4/Group/CloneJar_2/Cylinder
+Cylinder,static,CloneJarGlass,-49.0813,-1.7605,11.2659,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine/Group/CloneJar_3/Cylinder
+Cylinder,static,CloneJarGlass,-29.7613,-1.7605,17.1296,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine_4/Group/CloneJar_4/Cylinder
+Cylinder,static,CloneJarGlass,-18.817,-1.7605,-6.4934,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine_5/Group/CloneJar/Cylinder
+Cylinder,static,CloneJarGlass,-18.8213,-1.7605,22.3428,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine_5/Group/CloneJar_5/Cylinder
+Cylinder,static,CloneJarGlass,-44.0713,-1.7605,17.1296,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine_1/Group/CloneJar_4/Cylinder
+Cylinder,static,CloneJarGlass,-24.747,-1.7605,-6.4934,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine_3/Group/CloneJar/Cylinder
+Cylinder,static,CloneJarGlass,-29.757,-1.7605,-6.4934,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine_4/Group/CloneJar/Cylinder
+Cylinder,static,CloneJarGlass,-18.8213,-1.7605,-0.5831,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine_5/Group/CloneJar_1/Cylinder
+Cylinder,static,CloneJarGlass,-38.1413,-1.7605,5.3848,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine_2/Group/CloneJar_2/Cylinder
+Cylinder,static,CloneJarGlass,-24.7513,-1.7605,17.1296,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine_3/Group/CloneJar_4/Cylinder
+Cylinder,static,CloneJarGlass,-38.1413,-1.7605,11.2659,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine_2/Group/CloneJar_3/Cylinder
+Cylinder,static,CloneJarGlass,-24.7513,-1.7605,11.2659,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine_3/Group/CloneJar_3/Cylinder
+Cylinder,static,CloneJarGlass,-38.137,-1.7605,-6.4934,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine_2/Group/CloneJar/Cylinder
+Cylinder,static,CloneJarGlass,-38.1413,-1.7605,-0.5831,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine_2/Group/CloneJar_1/Cylinder
+SM_Bulletbox_02,static,Mat_Bulletbox,243.2376,0.9884,198.1477,0.0,-0.046752,0.0,0.998907,-0.0,-5.359,0.0,1.1,1.1,1.1,0,1,LevelElements/SnowFactory_LootBox/Bullet/LootBox_Bullet_14/Prfb_Bulletbox_01/SM_Bulletbox_02
+SodaPointLightMesh,static,ZeroPoint,272.04,0.6339,245.9603,0.0,-0.0,0.0,1.0,-0.0,-0.0,0.0,8.5203,8.5203,8.5203,0,1,LevelElements/SnowFactory_SpecialElements/Bonefire/Pfb_Campingfire_NotBurning_3/FireSmoke/SodaPointLight
+SM_Safe_01_2,static,Mat_Safe_Gold,323.6365,0.3642,315.5668,0.0,1.0,0.0,2e-06,-0.0,180.0,0.0,1.1,1.1,1.1,0,1,LevelElements/SnowFactory_LootBox/Lux_1/LootBox_Lux_Gold/Prfb_Safe_01/SM_Safe_01_2
+SM_Bulletbox_01,static,Mat_Bulletbox,268.6378,0.3196,236.7319,0.0,-0.243517,0.0,0.969897,-0.0,-28.188,0.0,1.1,1.1,1.1,0,1,LevelElements/SnowFactory_LootBox/Bullet/LootBox_Bullet_8/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_02,static,Mat_Bulletbox,258.3602,0.717,206.4644,0.0,0.999984,0.0,0.005741,-0.0,179.342,0.0,1.3,1.3,1.3,0,1,LevelElements/SnowFactory_LootBox/Food/LootBox_Food_3/Prfb_Daily
+SM_Bulletbox_02,static,Mat_Bulletbox,192.4345,0.3084,149.8238,0.0,-0.235928,0.0,0.97177,-0.0,-27.293,0.0,1.1,1.1,1.1,0,1,LevelElements/SnowFactory_LootBox/Bullet/LootBox_Bullet_5/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Weapons_02,static,Mat_Weapons_wood,314.9276,-0.0092,238.3885,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,0,1,LevelElements/SnowFactory_LootBox/Weapon/LootBox_WeaponEquip_02/Prfb_Weapons_02
+SM_MedicalBag_02_1,static,Mat_ExplorBox,-33.7918,0.1232,47.1901,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.7077,1.7077,1.7077,1,1,LevelElements/SnowFactory_LootBox/SpecialExp/LootBox_Formula_Print_Special_Melee_LightSaber_1/Prfb_Normal/SM_Normal_1
+SM_Weapons_02,static,Mat_Weapons_wood,276.3032,-0.0092,233.7303,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,0,1,LevelElements/SnowFactory_LootBox/Weapon/LootBox_WeaponEquip_01/Prfb_Weapons_02
+SM_Safe_01_1,static,Mat_Safe_02,289.8943,0.3642,315.4961,0.0,1.0,0.0,2e-06,-0.0,180.0,0.0,1.1,1.1,1.1,0,1,LevelElements/SnowFactory_LootBox/Lux/LootBox_Lux/Prfb_Safe_01/SM_Safe_01_1
+SM_Bulletbox_02,static,Mat_Bulletbox,306.7426,0.3084,260.352,0.0,-0.637435,0.0,0.770504,-0.0,-79.202,0.0,1.1,1.1,1.1,0,1,LevelElements/SnowFactory_LootBox/Bullet/LootBox_Bullet_11/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_MedicalBag_01_1,static,Mat_Medicalbox,242.3051,0.444,203.0514,0.0,0.99972,0.0,0.023647,-0.0,177.29,0.0,1.4,1.4,1.4,0,1,LevelElements/SnowFactory_LootBox/Medic/LootBox_Medic_1/Prfb_MedicalBag_01_1
+SM_Campingfire_01,static,Mat_Stone_01 1|Mat_Tile_Cement_01|Mat_WoodBoards_01 3,272.04,-0.0091,245.96,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,1,1,LevelElements/SnowFactory_SpecialElements/Bonefire/Pfb_Campingfire_NotBurning_3/SM_Campingfire_01
+SM_Bulletbox_01,static,Mat_Bulletbox,313.7443,0.1836,263.677,0.0,-0.283229,0.0,0.959052,-0.0,-32.906,0.0,1.1,1.1,1.1,0,1,LevelElements/SnowFactory_LootBox/Bullet/LootBox_Bullet_10/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_01,static,Mat_Bulletbox,311.5729,0.1836,275.5217,0.0,-0.700983,0.0,0.713178,-0.0,-89.012,0.0,1.1,1.1,1.1,0,1,LevelElements/SnowFactory_LootBox/Bullet/LootBox_Bullet_12/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_01,static,Mat_Bulletbox,235.4478,0.0596,97.712,0.0,-0.235928,0.0,0.97177,-0.0,-27.293,0.0,1.1,1.1,1.1,0,1,LevelElements/SnowFactory_LootBox/Bullet/LootBox_Bullet_4/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Stairs_New_11,static,Mat_Stairs|Mat_Stairs,-31.897,-0.452,20.9189,-0.0,0.707107,-0.0,0.707107,-0.0,90.0,-0.0,1.0,1.0,1.0,1,1,Pfb_Stairs_New_26
+SM_Stairs_New_11,static,Mat_Stairs|Mat_Stairs,-31.897,-0.452,14.9191,-0.0,0.707107,-0.0,0.707107,-0.0,90.0,-0.0,1.0,1.0,1.0,1,1,Pfb_Stairs_New_21
+SM_Stairs_New_11,static,Mat_Stairs|Mat_Stairs,-36.1,-0.452,-5.0801,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,Pfb_Stairs_New_30
+SM_Stairs_New_11,static,Mat_Stairs|Mat_Stairs,-31.897,-0.452,22.9188,-0.0,0.707107,-0.0,0.707107,-0.0,90.0,-0.0,1.0,1.0,1.0,1,1,Pfb_Stairs_New_25
+SM_Stairs_New_11,static,Mat_Stairs|Mat_Stairs,-36.1,-0.452,14.9191,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,Pfb_Stairs_New_36
+SM_Stairs_New_11,static,Mat_Stairs|Mat_Stairs,-36.1,-0.452,2.9196,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,Pfb_Stairs_New_29
+SM_Stairs_New_11,static,Mat_Stairs|Mat_Stairs,-31.897,-0.452,12.9192,-0.0,0.707107,-0.0,0.707107,-0.0,90.0,-0.0,1.0,1.0,1.0,1,1,Pfb_Stairs_New_22
+SM_Stairs_New_11,static,Mat_Stairs|Mat_Stairs,-31.897,-0.452,4.9195,-0.0,0.707107,-0.0,0.707107,-0.0,90.0,-0.0,1.0,1.0,1.0,1,1,Pfb_Stairs_New_18
+SM_Stairs_New_11,static,Mat_Stairs|Mat_Stairs,-31.897,-0.452,-5.0801,-0.0,0.707107,-0.0,0.707107,-0.0,90.0,-0.0,1.0,1.0,1.0,1,1,Pfb_Stairs_New_12
+SM_Stairs_New_11,static,Mat_Stairs|Mat_Stairs,-31.897,-0.452,2.9196,-0.0,0.707107,-0.0,0.707107,-0.0,90.0,-0.0,1.0,1.0,1.0,1,1,Pfb_Stairs_New_16
+SM_Stairs_New_11,static,Mat_Stairs|Mat_Stairs,-36.1,-0.452,-7.08,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,Pfb_Stairs_New_42
+SM_Stairs_New_11,static,Mat_Stairs|Mat_Stairs,-36.1,-0.452,10.9193,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,Pfb_Stairs_New_28
+SM_Stairs_New_11,static,Mat_Stairs|Mat_Stairs,-36.1,-0.452,0.9197,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,Pfb_Stairs_New_41
+SM_Stairs_New_11,static,Mat_Stairs|Mat_Stairs,-31.897,-0.452,0.9197,-0.0,0.707107,-0.0,0.707107,-0.0,90.0,-0.0,1.0,1.0,1.0,1,1,Pfb_Stairs_New_15
+SM_Stairs_New_11,static,Mat_Stairs|Mat_Stairs,-36.1,-0.452,12.9192,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,Pfb_Stairs_New_32
+SM_Stairs_New_11,static,Mat_Stairs|Mat_Stairs,-31.897,-0.452,18.919,-0.0,0.707107,-0.0,0.707107,-0.0,90.0,-0.0,1.0,1.0,1.0,1,1,Pfb_Stairs_New_24
+SM_Stairs_New_11,static,Mat_Stairs|Mat_Stairs,-31.897,-0.452,16.919,-0.0,0.707107,-0.0,0.707107,-0.0,90.0,-0.0,1.0,1.0,1.0,1,1,Pfb_Stairs_New_23
+SM_Stairs_New_11,static,Mat_Stairs|Mat_Stairs,-36.1,-0.452,16.919,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,Pfb_Stairs_New_39
+SM_Stairs_New_11,static,Mat_Stairs|Mat_Stairs,-31.897,-0.452,8.9194,-0.0,0.707107,-0.0,0.707107,-0.0,90.0,-0.0,1.0,1.0,1.0,1,1,Pfb_Stairs_New_19
+SM_Stairs_New_11,static,Mat_Stairs|Mat_Stairs,-31.897,-0.452,-1.0802,-0.0,0.707107,-0.0,0.707107,-0.0,90.0,-0.0,1.0,1.0,1.0,1,1,Pfb_Stairs_New_13
+SM_Stairs_New_11,static,Mat_Stairs|Mat_Stairs,-31.897,-0.452,10.9193,-0.0,0.707107,-0.0,0.707107,-0.0,90.0,-0.0,1.0,1.0,1.0,1,1,Pfb_Stairs_New_20
+SM_Stairs_New_11,static,Mat_Stairs|Mat_Stairs,-36.1,-0.452,6.9194,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,Pfb_Stairs_New_37
+SM_Stairs_New_11,static,Mat_Stairs|Mat_Stairs,-36.1,-0.452,20.9189,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,Pfb_Stairs_New_31
+SM_Stairs_New_11,static,Mat_Stairs|Mat_Stairs,-36.1,-0.452,4.9195,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,Pfb_Stairs_New_33
+SM_Stairs_New_11,static,Mat_Stairs|Mat_Stairs,-36.1,-0.452,22.9188,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,Pfb_Stairs_New_35
+SM_Stairs_New_11,static,Mat_Stairs|Mat_Stairs,-31.897,-0.452,6.9194,-0.0,0.707107,-0.0,0.707107,-0.0,90.0,-0.0,1.0,1.0,1.0,1,1,Pfb_Stairs_New_17
+SM_Stairs_New_11,static,Mat_Stairs|Mat_Stairs,-36.1,-0.452,-3.0802,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,Pfb_Stairs_New_34
+SM_Stairs_New_11,static,Mat_Stairs|Mat_Stairs,-31.897,-0.452,-3.0802,-0.0,0.707107,-0.0,0.707107,-0.0,90.0,-0.0,1.0,1.0,1.0,1,1,Pfb_Stairs_New_14
+SM_Stairs_New_11,static,Mat_Stairs|Mat_Stairs,-36.1,-0.452,-1.0802,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,Pfb_Stairs_New_38
+SM_Stairs_New_11,static,Mat_Stairs|Mat_Stairs,-36.1,-0.452,8.9194,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,Pfb_Stairs_New_40
+SM_Stairs_New_11,static,Mat_Stairs|Mat_Stairs,-36.1,-0.452,18.919,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,1,1,Pfb_Stairs_New_27
+SM_Stairs_New_11,static,Mat_Stairs|Mat_Stairs,-31.897,-0.452,-7.08,-0.0,0.707107,-0.0,0.707107,-0.0,90.0,-0.0,1.0,1.0,1.0,1,1,Pfb_Stairs_New_11
+SM_Campingfire_01,static,Mat_Stone_01 1|Mat_Tile_Cement_01|Mat_WoodBoards_01 3,323.42,-0.0091,240.05,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,1,1,LevelElements/SnowFactory_SpecialElements/Bonefire/Pfb_Campingfire_NotBurning_1/SM_Campingfire_01
+SM_Campingfire_01,static,Mat_Stone_01 1|Mat_Tile_Cement_01|Mat_WoodBoards_01 3,176.13,-0.0091,161.19,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,1,1,LevelElements/SnowFactory_SpecialElements/Bonefire/Pfb_Campingfire_NotBurning_2/SM_Campingfire_01
+Cylinder,static,CloneJarGlass,-49.077,-1.7605,-6.4934,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,1.7848,1.2422,1.7848,1,1,Group/JarLine/Group/CloneJar/Cylinder
+SM_Lootbox_03_2,static,Mat_Lootbox_03,246.8156,0.2794,197.6575,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,1.0,1.0,1.0,0,1,LevelElements/SnowFactory_LootBox/Weapon2/LootBox_WeaponEquip_05/Prfb_Lootbox_03/SM_Lootbox_03_2
+Cube,static,MAT_WT_Brick 5,-34.0,-1.5,14.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-10.0,-1.5,6.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-58.0,-1.5,18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-26.0,-1.5,-18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-34.0,-1.5,18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-10.0,-1.5,-6.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-38.0,-1.5,46.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-58.0,-1.5,-14.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-30.0,-1.5,-42.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-22.0,-1.5,-42.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-54.0,-1.5,34.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-34.0,-1.5,38.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-34.0,-1.5,42.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-30.0,-1.5,34.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-34.0,-1.5,46.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-38.0,-1.5,50.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-34.0,-1.5,-6.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-10.0,-1.5,-18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-30.0,-1.5,42.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-34.0,-1.5,-30.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-34.0,-1.5,-22.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-10.0,-1.5,34.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-58.0,-1.5,-2.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-46.0,-1.5,38.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-50.0,-1.5,34.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-58.0,-1.5,26.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-42.0,-1.5,-18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-38.0,-1.5,42.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-18.0,-1.5,-18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-10.0,-1.5,18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-34.0,-1.5,-10.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-10.0,-1.5,-2.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-34.0,-1.5,-34.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-10.0,-1.5,10.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-34.0,-1.5,26.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-54.0,-1.5,-18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-58.0,-1.5,-18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-58.0,-1.5,22.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-26.0,-1.5,-42.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-38.0,-1.5,-18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-34.0,-1.5,30.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-34.0,-1.5,10.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-10.0,-1.5,26.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-34.0,-1.5,50.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-14.0,-1.5,34.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-30.0,-1.5,50.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-58.0,-1.5,6.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-34.0,-1.5,-14.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-34.0,-1.5,-2.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-30.0,-1.5,-18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-10.0,-1.5,2.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-14.0,-1.5,-18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-10.0,-1.5,22.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-38.0,-1.5,-14.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-58.0,-1.5,30.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-34.0,-1.5,34.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-18.0,-1.5,34.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-10.0,-1.5,14.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-34.0,-1.5,-18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-58.0,-1.5,14.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-46.0,-1.5,-18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-50.0,-1.5,-18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-38.0,-1.5,38.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-22.0,-1.5,-18.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-58.0,-1.5,-10.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-34.0,-1.5,-42.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-22.0,-1.5,34.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-34.0,-1.5,2.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-34.0,-1.5,22.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-30.0,-1.5,46.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-42.0,-1.5,38.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-10.0,-1.5,30.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-34.0,-1.5,-26.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-10.0,-1.5,-10.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-26.0,-1.5,34.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-34.0,-1.5,6.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-58.0,-1.5,2.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-10.0,-1.5,-14.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-58.0,-1.5,10.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-58.0,-1.5,34.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-58.0,-1.5,-6.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Cube,static,MAT_WT_Brick 5,-34.0,-1.5,-38.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0,3.0,4.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_F1_6x6 NoTopBlack/Cube_1
+Quad,static,MAT_WT_Asphalt,-50.0,0.0,-6.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-30.0,0.0,-46.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-38.0,0.0,-18.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-14.0,-3.0,-10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-14.0,0.0,2.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-30.0,-3.0,26.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-38.0,-3.0,10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-14.0,0.0,-34.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-14.0,-3.0,6.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-50.0,-3.0,14.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-22.0,-3.0,26.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-18.0,-3.0,-2.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-54.0,0.0,2.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-22.0,-3.0,30.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-22.0,-3.0,2.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-18.0,0.0,14.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-38.0,0.0,-26.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-42.0,-3.0,-10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-14.0,-3.0,2.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-42.0,-3.0,14.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-54.0,-3.0,10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-54.0,0.0,22.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-38.0,-3.0,22.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-30.0,0.0,-30.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-38.0,-3.0,34.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-10.0,0.0,-46.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-54.0,0.0,30.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-50.0,-3.0,18.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-10.0,0.0,-50.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-50.0,0.0,26.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-14.0,0.0,18.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-14.0,0.0,22.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-18.0,0.0,-42.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-42.0,-3.0,26.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-18.0,-3.0,-14.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-14.0,0.0,-10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-54.0,0.0,-2.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-54.0,-3.0,30.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-26.0,-3.0,22.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-22.0,-3.0,6.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-50.0,-3.0,-14.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-54.0,-3.0,6.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-26.0,0.0,30.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-18.0,-3.0,6.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-30.0,0.0,-34.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-22.0,0.0,-38.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-46.0,-3.0,34.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-54.0,-3.0,14.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-18.0,-3.0,22.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-18.0,-3.0,10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-46.0,-3.0,-10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-30.0,-3.0,18.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-30.0,0.0,-38.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-26.0,0.0,-30.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-54.0,0.0,-6.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-42.0,0.0,-46.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-18.0,0.0,6.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-50.0,0.0,2.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-30.0,-3.0,-2.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-38.0,0.0,30.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-54.0,-3.0,-10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-26.0,-3.0,26.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-50.0,0.0,-2.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-26.0,0.0,-10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-42.0,-3.0,30.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-30.0,-3.0,22.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-22.0,-3.0,14.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-30.0,-3.0,2.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-46.0,0.0,26.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-14.0,0.0,10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-38.0,-3.0,14.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-54.0,0.0,10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-42.0,0.0,30.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-46.0,0.0,-14.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-42.0,-3.0,6.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-50.0,0.0,-14.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-14.0,0.0,-14.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-42.0,-3.0,-6.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-50.0,-3.0,22.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-10.0,0.0,-38.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-34.0,0.0,-46.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-14.0,-3.0,10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-42.0,-3.0,34.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-38.0,-3.0,-2.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-54.0,0.0,-14.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-30.0,-3.0,14.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-18.0,-3.0,-6.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-30.0,0.0,-14.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-10.0,0.0,-34.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-30.0,0.0,-18.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-30.0,-3.0,-14.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-22.0,-3.0,-14.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-26.0,0.0,-34.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-26.0,-3.0,-6.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-38.0,0.0,-38.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-18.0,0.0,30.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-38.0,0.0,-50.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-54.0,-3.0,-2.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-22.0,0.0,-14.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-26.0,0.0,-38.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-46.0,-3.0,6.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-14.0,-3.0,26.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-18.0,0.0,-2.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-46.0,-3.0,-14.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-26.0,0.0,26.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-54.0,0.0,6.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-50.0,0.0,30.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-42.0,0.0,-18.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-14.0,0.0,-38.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-50.0,-3.0,30.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-54.0,-3.0,26.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-18.0,0.0,2.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-38.0,0.0,-42.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-38.0,0.0,-46.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-18.0,-3.0,2.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-18.0,0.0,-34.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-30.0,0.0,-50.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-14.0,0.0,14.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-42.0,-3.0,22.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-26.0,0.0,-18.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-38.0,0.0,-10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-50.0,0.0,-10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-22.0,-3.0,18.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-30.0,0.0,-26.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-42.0,0.0,-34.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-18.0,0.0,10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-38.0,-3.0,6.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-54.0,0.0,14.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-30.0,0.0,26.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-14.0,0.0,-50.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-26.0,-3.0,-2.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-38.0,0.0,-22.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-30.0,-3.0,30.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-18.0,0.0,26.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-22.0,0.0,30.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-54.0,-3.0,-6.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-14.0,-3.0,14.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-46.0,0.0,-10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-30.0,-3.0,6.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-22.0,-3.0,-2.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-54.0,0.0,18.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-26.0,-3.0,2.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-14.0,0.0,30.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-42.0,0.0,-42.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-30.0,-3.0,10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-26.0,0.0,-26.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-30.0,0.0,-10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-50.0,0.0,10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-54.0,-3.0,18.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-42.0,0.0,-14.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-46.0,-3.0,-6.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-54.0,0.0,26.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-14.0,0.0,-6.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-42.0,0.0,-10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-10.0,0.0,-42.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-42.0,-3.0,-14.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-18.0,0.0,-50.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-50.0,0.0,22.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-38.0,0.0,-14.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-42.0,-3.0,18.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-34.0,0.0,-50.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-18.0,-3.0,-10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-26.0,-3.0,14.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-46.0,-3.0,2.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-38.0,-3.0,26.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-38.0,-3.0,-10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-30.0,-3.0,-10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-14.0,0.0,6.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-26.0,-3.0,-10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-46.0,-3.0,14.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-14.0,-3.0,-14.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-42.0,0.0,26.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-50.0,0.0,6.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-22.0,0.0,-34.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-22.0,-3.0,-6.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-42.0,0.0,-50.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-46.0,-3.0,26.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-14.0,0.0,-2.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-26.0,0.0,-22.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-22.0,-3.0,22.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-38.0,0.0,-30.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-18.0,-3.0,30.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-22.0,0.0,-10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-46.0,-3.0,30.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-42.0,-3.0,2.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-50.0,-3.0,26.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-42.0,0.0,-22.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-18.0,-3.0,14.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-14.0,0.0,26.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-46.0,0.0,30.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-14.0,0.0,-42.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-50.0,-3.0,-10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-30.0,0.0,30.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-46.0,-3.0,10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-22.0,0.0,-46.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-50.0,0.0,14.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-42.0,0.0,-30.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-46.0,-3.0,18.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-50.0,-3.0,-2.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-50.0,-3.0,10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-18.0,0.0,-6.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-22.0,-3.0,10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-54.0,0.0,-10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-14.0,-3.0,30.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-38.0,0.0,-34.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-38.0,-3.0,-6.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-30.0,0.0,-22.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-22.0,0.0,26.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-46.0,-3.0,-2.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-14.0,-3.0,18.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-26.0,0.0,-14.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-50.0,-3.0,2.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-22.0,-3.0,-10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-26.0,-3.0,6.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-50.0,-3.0,6.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-26.0,-3.0,10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-18.0,0.0,-46.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-18.0,-3.0,26.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-18.0,0.0,-38.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-54.0,-3.0,2.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-18.0,0.0,-10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-22.0,0.0,-50.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-38.0,-3.0,2.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-18.0,0.0,-14.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-26.0,-3.0,30.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-42.0,0.0,-38.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-42.0,0.0,-26.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-18.0,0.0,18.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-38.0,0.0,26.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-26.0,-3.0,-14.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-18.0,0.0,22.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-26.0,0.0,-50.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-30.0,-3.0,-6.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-38.0,-3.0,18.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-14.0,-3.0,-6.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-42.0,-3.0,10.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-50.0,0.0,18.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-14.0,-3.0,22.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-54.0,-3.0,22.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-54.0,-3.0,-14.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-38.0,-3.0,30.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-26.0,0.0,-46.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-46.0,-3.0,22.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-18.0,-3.0,18.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-14.0,-3.0,-2.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-26.0,-3.0,18.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-42.0,0.0,42.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-42.0,-3.0,-2.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-14.0,0.0,-46.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground/Tile_FrozenStorage_Ground_01/Quad
+Quad,static,MAT_WT_Asphalt,-50.0,-3.0,-6.0,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,4.0,4.0,1.0,1,1,Grid/Ground_Under/Tile_FrozenStorage_Ground_01/Quad
+SM_Bulletbox_01,static,Mat_Bulletbox,326.8395,0.1836,243.1499,0.0,0.023623,0.0,0.999721,-0.0,2.707,0.0,1.1,1.1,1.1,0,1,LevelElements/SnowFactory_LootBox/Bullet/LootBox_Bullet_9/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_01,static,Mat_Bulletbox,289.1825,0.1836,284.6096,0.0,0.008622,0.0,0.999963,-0.0,0.988,0.0,1.1,1.1,1.1,0,1,LevelElements/SnowFactory_LootBox/Bullet/LootBox_Bullet_13/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Safe_01_2,static,Mat_Safe_02,262.4685,0.3642,197.4268,0.0,1.0,0.0,2e-06,-0.0,180.0,0.0,1.1,1.1,1.1,0,1,LevelElements/SnowFactory_LootBox/Lux/LootBox_Lux_1/Prfb_Safe_01/SM_Safe_01_2
+SM_Lootbox_03_1,static,Mat_Lootbox_03,246.8156,0.5219,198.0717,-0.0,1.0,0.0,3e-06,-0.0,180.0,-0.0,1.0,1.0,1.0,0,1,LevelElements/SnowFactory_LootBox/Weapon2/LootBox_WeaponEquip_05/Prfb_Lootbox_03/SM_Lootbox_03_1

@@ -1,0 +1,86 @@
+﻿type,r,g,b,intensity,range,spotAngle,px,py,pz,qx,qy,qz,qw,euler_x,euler_y,euler_z,enabled,path
+Directional,1.0,0.9024,0.7972,2.5,10.0,30.0,0.19,3.0,0.31,0.242481,0.757519,-0.428584,0.428584,59.0,121.0,-0.0,1,Lights/Directional Light
+Point,0.7453,0.7183,0.7066,67.3,15.819,30.0,689.04,5.9845,505.9101,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1,Pfb_House_Warehouse_01_2/Lights/Point Light_2
+Point,1.0,0.9593,0.8627,15.14,10.19,30.0,180.8889,3.567,786.951,0.0,0.958987,0.0,0.283449,-0.0,147.068,0.0,1,Env/Zone_Poor/Pfb_House05/Lights/Point Light
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,637.0856,1.054,181.8193,-0.707107,0.0,0.0,0.707107,-90.0,180.0,180.0,0,LevelElements/SnowMilltaryBase_SpecialElements/Bonefire/Pfb_Campingfire_NotBurning_15/FireSmoke/Point Light
+Point,1.0,0.8353,0.4292,42.22,12.9,30.0,591.5316,5.1998,509.374,0.0,0.0,0.0,1.0,-0.0,-0.0,0.0,1,Pfb_Repairbay/Lights/Point Light
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,353.4685,1.0485,415.1105,-0.707107,0.0,0.0,0.707107,-90.0,180.0,180.0,1,LevelElements/SnowMilltaryBase_SpecialElements/Campfire/Pfb_Campingfire/FireSmoke/Point Light
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,305.1856,1.026,567.3193,-0.707107,0.0,0.0,0.707107,-90.0,180.0,180.0,0,LevelElements/SnowMilltaryBase_SpecialElements/Bonefire/Pfb_Campingfire_NotBurning_8/FireSmoke/Point Light
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,137.78,1.566,598.63,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1,LevelElements/SnowMilltaryBase_SpecialElements/CamFire2/Pfb_Campingfire 1_3/FireSmoke/Point Light
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,81.2685,-1.9909,391.7505,-0.707107,0.0,0.0,0.707107,-90.0,180.0,180.0,1,LevelElements/SnowMilltaryBase_SpecialElements/Campfire/Pfb_Campingfire_2/FireSmoke/Point Light
+Point,0.9529,0.862,0.7686,6.0,3.382,30.0,130.1009,2.3719,598.6594,0.0,0.99994,0.0,-0.010934,-0.0,-178.747,0.0,1,Env/Zone_Hunters/Pfb_House_06_2_Hunter/Light/Point Light_3
+Point,1.0,0.9346,0.8549,30.0,8.7,30.0,509.65,4.03,546.5401,0.0,0.707106,0.0,0.707108,-0.0,90.0,0.0,1,Pfb_MilitaryBase/Lights/Point Light_3
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,825.3856,1.034,379.3193,-0.707107,0.0,0.0,0.707107,-90.0,180.0,180.0,0,LevelElements/SnowMilltaryBase_SpecialElements/Bonefire/Pfb_Campingfire_NotBurning_5/FireSmoke/Point Light
+Point,1.0,0.8654,0.6549,12.0,7.335,30.0,844.0892,2.2563,556.7719,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,1,Env/WhetherStation/Prfb_WhetherStationBuilding/Light/Point Light_3
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,405.0356,0.172,145.5893,-0.707107,0.0,0.0,0.707107,-90.0,180.0,180.0,0,LevelElements/SnowMilltaryBase_SpecialElements/Bonefire/Pfb_Campingfire_NotBurning_3/FireSmoke/Point Light
+Point,1.0,0.9227,0.7882,7.17,5.091,30.0,514.8131,1.9814,738.6794,0.0,1.0,0.0,8e-06,-0.0,179.999,0.0,1,Env/Zone_MB/Pfb_House_06_3_ALEX/Light/Point Light_1
+Point,0.9057,0.7926,0.6365,19.1,5.16,30.0,673.0,5.6935,521.13,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1,Pfb_House_Warehouse_01_2/Lights/Point Light_4
+Point,1.0,0.9005,0.8349,12.0,5.655,30.0,519.3293,2.2563,445.5515,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,1,Env/Zone_MB/Prfb_ControllerHouse2/Light/Point Light_3
+Point,0.9529,0.862,0.7686,6.0,4.787,30.0,124.1596,2.1449,599.5796,0.0,0.99994,0.0,-0.010934,-0.0,-178.747,0.0,1,Env/Zone_Hunters/Pfb_House_06_2_Hunter/Light/Point Light_2
+Point,0.7686,0.87,0.9529,6.0,4.787,30.0,183.4184,2.4349,836.7921,0.0,0.911762,0.0,-0.410718,-0.0,-131.5,0.0,1,Env/Zone_Poor/Pfb_House_06/Light/Point Light_2
+Point,0.8538,0.9615,1.0,21.1,9.5,30.0,695.0592,5.0608,558.4117,0.0,1.0,0.0,1e-06,-0.0,180.0,0.0,1,Env/Zone_MB/Pfb_LabBuilding/Lights/Point Light
+Point,1.0,1.0,1.0,20.26,8.08,30.0,789.1015,3.8945,224.2929,0.0,0.00205,0.0,0.999998,-0.0,0.235,0.0,1,Pfb_SnowHotel/Light/Point Light_2
+Point,0.6549,0.7983,1.0,12.0,5.655,30.0,512.4993,2.2563,468.4915,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,1,Env/Zone_MB/Prfb_ControllerHouse2/Light/Point Light_2
+Point,0.9057,0.7926,0.6365,67.3,15.819,30.0,672.52,5.9845,509.39,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1,Pfb_House_Warehouse_01_2/Lights/Point Light_1
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,226.7856,-1.751,138.4673,-0.707107,0.0,0.0,0.707107,-90.0,180.0,180.0,0,LevelElements/SnowMilltaryBase_SpecialElements/Bonefire/Pfb_Campingfire_NotBurning_1/FireSmoke/Point Light
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,442.2856,1.054,362.5193,-0.707107,0.0,0.0,0.707107,-90.0,180.0,180.0,0,LevelElements/SnowMilltaryBase_SpecialElements/Bonefire/Pfb_Campingfire_NotBurning_13/FireSmoke/Point Light
+Point,1.0,0.8523,0.7123,13.15,10.0,30.0,501.79,2.86,806.928,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,1,Env/Zone_Villa/Pfb_House_Villa_01/Lights/Point Light_1
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,652.2856,-4.876,63.9193,-0.707107,0.0,0.0,0.707107,-90.0,180.0,180.0,1,LevelElements/SnowMilltaryBase_SpecialElements/Campfire/Pfb_Campingfire/FireSmoke/Point Light
+Point,0.3538,0.8144,1.0,0.21,0.83,30.0,434.4991,1.3449,569.3505,0.0,0.707101,0.0,0.707113,-0.0,89.999,0.0,0,Pfb_MilitaryBase/Indoor/Pfb_Controller_02_JLAB/Prfb_Computer_01_3/Point Light
+Point,0.8538,0.954,1.0,30.0,14.07,30.0,438.63,4.03,549.1499,0.0,0.707106,0.0,0.707108,-0.0,90.0,0.0,1,Pfb_MilitaryBase/Lights/Point Light
+Point,0.6549,0.7983,1.0,12.0,5.655,30.0,843.1793,2.2563,535.8319,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,1,Env/WhetherStation/Prfb_WhetherStationBuilding/Light/Point Light_1
+Point,1.0,0.8353,0.4292,42.22,12.9,30.0,598.4416,5.1998,559.324,0.0,0.0,0.0,1.0,-0.0,-0.0,0.0,1,Pfb_Repairbay/Lights/Point Light_1
+Point,1.0,1.0,1.0,20.26,7.2,30.0,810.8201,3.8945,233.664,0.0,0.00205,0.0,0.999998,-0.0,0.235,0.0,1,Pfb_SnowHotel/Light/Point Light_1
+Point,0.8538,0.954,1.0,30.0,8.7,30.0,440.8199,4.03,569.4999,0.0,0.707106,0.0,0.707108,-0.0,90.0,0.0,1,Pfb_MilitaryBase/Lights/Point Light_1
+Point,0.6549,0.7983,1.0,12.0,7.335,30.0,851.2092,2.2563,548.662,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,1,Env/WhetherStation/Prfb_WhetherStationBuilding/Light/Point Light_2
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,208.79,1.566,742.84,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1,LevelElements/SnowMilltaryBase_SpecialElements/CamFire2/Pfb_Campingfire 1_2/FireSmoke/Point Light
+Point,1.0,0.2028,0.9355,21.1,9.5,30.0,660.3092,3.4608,544.9487,0.0,1.0,0.0,1e-06,-0.0,180.0,0.0,1,Env/Zone_MB/Pfb_LabBuilding/Lights/Point Light_2
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,920.8856,1.054,834.8193,-0.707107,0.0,0.0,0.707107,-90.0,180.0,180.0,0,LevelElements/SnowMilltaryBase_SpecialElements/Bonefire/Pfb_Campingfire_NotBurning_17/FireSmoke/Point Light
+Point,0.8538,0.954,1.0,30.0,8.7,30.0,507.1599,4.03,568.6601,0.0,0.707106,0.0,0.707108,-0.0,90.0,0.0,1,Pfb_MilitaryBase/Lights/Point Light_2
+Point,1.0,0.8664,0.684,32.47,10.0,30.0,405.615,3.637,436.369,0.0,0.707102,0.0,0.707112,-0.0,89.999,0.0,1,Env/Materials/Pfb_Tent_3_11/Lights/Point Light
+Point,1.0,0.8664,0.684,32.47,10.0,30.0,445.615,3.637,469.9342,0.0,0.707102,0.0,0.707112,-0.0,89.999,0.0,1,Env/Materials/Pfb_Tent_3_9/Lights/Point Light
+Point,1.0,0.8664,0.684,32.47,10.0,30.0,464.8868,3.637,436.369,0.0,0.707102,0.0,0.707112,-0.0,89.999,0.0,1,Env/Materials/Pfb_Tent_3_14/Lights/Point Light
+Point,1.0,0.8664,0.684,32.47,10.0,30.0,425.615,3.637,436.369,0.0,0.707102,0.0,0.707112,-0.0,89.999,0.0,1,Env/Materials/Pfb_Tent_3_7/Lights/Point Light
+Point,0.8824,0.9777,1.0,11.0,3.196,30.0,226.2133,2.73,830.3996,0.0,-0.685184,0.0,0.72837,-0.0,-86.5,0.0,1,Env/Zone_Poor/Pfb_House_05_Snow/Light/Point Light_1
+Point,0.9057,0.7926,0.6365,19.1,5.16,30.0,672.46,5.6935,495.387,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1,Pfb_House_Warehouse_01_2/Lights/Point Light_3
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,805.4385,1.084,660.0705,-0.707107,0.0,0.0,0.707107,-90.0,180.0,180.0,1,LevelElements/SnowMilltaryBase_SpecialElements/Campfire/Pfb_Campingfire/FireSmoke/Point Light
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,946.4156,1.016,549.9293,-0.707107,0.0,0.0,0.707107,-90.0,180.0,180.0,0,LevelElements/SnowMilltaryBase_SpecialElements/Bonefire/Pfb_Campingfire_NotBurning_9/FireSmoke/Point Light
+Point,0.3538,0.8144,1.0,0.21,0.83,30.0,842.1193,1.077,550.7599,0.0,1.0,0.0,1e-06,-0.0,180.0,0.0,0,Env/WhetherStation/Prfb_WhetherStationBuilding/Indoor/Prfb_Computer_01_3/Point Light
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,908.6856,1.016,309.8193,-0.707107,0.0,0.0,0.707107,-90.0,180.0,180.0,0,LevelElements/SnowMilltaryBase_SpecialElements/Bonefire/Pfb_Campingfire_NotBurning_6/FireSmoke/Point Light
+Point,0.8538,0.9615,1.0,21.1,9.5,30.0,695.0592,5.0608,545.5517,0.0,1.0,0.0,1e-06,-0.0,180.0,0.0,1,Env/Zone_MB/Pfb_LabBuilding/Lights/Point Light_1
+Point,1.0,0.9448,0.8549,26.7,13.3,30.0,628.0328,4.32,332.7913,0.0,0.866024,0.0,0.500002,-0.0,120.0,0.0,0,Env/ReserachStation/Pfb_SnowReserachWarehouse/Lights/PointLight
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,235.26,-1.4627,193.96,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1,LevelElements/SnowMilltaryBase_SpecialElements/CamFire2/Pfb_Campingfire 1_4/FireSmoke/Point Light
+Point,1.0,0.9448,0.8549,26.7,13.3,30.0,641.1618,4.32,325.2113,0.0,0.866024,0.0,0.500002,-0.0,120.0,0.0,0,Env/ReserachStation/Pfb_SnowReserachWarehouse/Lights/PointLight
+Point,1.0,0.8899,0.7877,12.0,3.908,30.0,524.3189,2.8563,745.9415,0.0,1.0,0.0,8e-06,-0.0,179.999,0.0,1,Env/Zone_MB/Pfb_House_06_3_ALEX/Light/Point Light
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,91.5185,-0.7839,501.4525,-0.707107,0.0,0.0,0.707107,-90.0,180.0,180.0,1,LevelElements/SnowMilltaryBase_SpecialElements/Campfire/Pfb_Campingfire_1/FireSmoke/Point Light
+Point,1.0,1.0,1.0,20.26,7.2,30.0,799.4987,4.7545,194.3201,0.0,0.00205,0.0,0.999998,-0.0,0.235,0.0,1,Pfb_SnowHotel/Light/Point Light_4
+Point,0.6549,0.7983,1.0,12.0,5.655,30.0,519.1693,2.2563,454.3515,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,1,Env/Zone_MB/Prfb_ControllerHouse2/Light/Point Light_1
+Point,0.8443,0.9715,1.0,15.72,8.601,30.0,580.46,2.3335,828.85,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1,Pfb_Restraunt_01_Shop_snow/Lights/Point Light_4
+Point,0.7453,0.7183,0.7066,67.3,15.819,30.0,655.02,5.9845,509.17,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1,Pfb_House_Warehouse_01_2/Lights/Point Light
+Point,1.0,0.9753,0.8821,15.0,4.0,30.0,226.5603,2.85,823.2951,0.0,-0.685184,0.0,0.72837,-0.0,-86.5,0.0,1,Env/Zone_Poor/Pfb_House_05_Snow/Light/Point Light_2
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,875.27,1.536,658.67,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1,LevelElements/SnowMilltaryBase_SpecialElements/CamFire2/Pfb_Campingfire 1_5/FireSmoke/Point Light
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,471.3856,1.054,679.9193,-0.707107,0.0,0.0,0.707107,-90.0,180.0,180.0,0,LevelElements/SnowMilltaryBase_SpecialElements/Bonefire/Pfb_Campingfire_NotBurning_7/FireSmoke/Point Light
+Point,1.0,0.9277,0.8066,15.0,5.406,30.0,124.1877,2.2619,589.8866,0.0,0.99994,0.0,-0.010934,-0.0,-178.747,0.0,1,Env/Zone_Hunters/Pfb_House_06_2_Hunter/Light/Point Light
+Point,0.816,0.9307,1.0,15.72,8.601,30.0,587.16,2.1645,816.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1,Pfb_Restraunt_01_Shop_snow/Lights/Point Light
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,101.9756,-1.946,326.1993,-0.707107,0.0,0.0,0.707107,-90.0,180.0,180.0,0,LevelElements/SnowMilltaryBase_SpecialElements/Bonefire/Pfb_Campingfire_NotBurning_14/FireSmoke/Point Light
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,727.1956,0.965,405.7393,-0.707107,0.0,0.0,0.707107,-90.0,180.0,180.0,0,LevelElements/SnowMilltaryBase_SpecialElements/Bonefire/Pfb_Campingfire_NotBurning_11/FireSmoke/Point Light
+Point,1.0,1.0,1.0,20.26,7.2,30.0,809.1519,3.8945,241.4209,0.0,0.00205,0.0,0.999998,-0.0,0.235,0.0,1,Pfb_SnowHotel/Light/Point Light
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,182.8856,-1.926,177.4193,-0.707107,0.0,0.0,0.707107,-90.0,180.0,180.0,0,LevelElements/SnowMilltaryBase_SpecialElements/Bonefire/Pfb_Campingfire_NotBurning_2/FireSmoke/Point Light
+Point,0.8821,0.9786,1.0,7.11,7.88,30.0,579.67,0.808,272.82,0.0,0.866025,0.0,0.500001,-0.0,120.0,0.0,1,Env/ReserachStation/Pfb_SteelHouse_9/Lights/Point Light
+Point,1.0,0.9753,0.8821,12.0,4.0,30.0,233.4575,2.85,827.9528,0.0,-0.685184,0.0,0.72837,-0.0,-86.5,0.0,1,Env/Zone_Poor/Pfb_House_05_Snow/Light/Point Light_3
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,512.4856,1.054,266.4193,-0.707107,0.0,0.0,0.707107,-90.0,180.0,180.0,0,LevelElements/SnowMilltaryBase_SpecialElements/Bonefire/Pfb_Campingfire_NotBurning_4/FireSmoke/Point Light
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,841.1856,1.054,869.5193,-0.707107,0.0,0.0,0.707107,-90.0,180.0,180.0,0,LevelElements/SnowMilltaryBase_SpecialElements/Bonefire/Pfb_Campingfire_NotBurning_16/FireSmoke/Point Light
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,862.8856,0.965,135.1193,-0.707107,0.0,0.0,0.707107,-90.0,180.0,180.0,0,LevelElements/SnowMilltaryBase_SpecialElements/Bonefire/Pfb_Campingfire_NotBurning_10/FireSmoke/Point Light
+Point,1.0,0.8336,0.5425,1.32,5.9,106.036,663.8107,-4.8387,36.6165,0.564287,0.426123,-0.426123,0.564287,90.0,74.0,-0.047,1,Env/Zone_MB/Prfb_BoatBetweenBaseAndFarm_1/Point Light_19
+Point,1.0,0.9346,0.8549,33.9,16.955,30.0,474.2,6.17,549.57,0.0,0.707106,0.0,0.707108,-0.0,90.0,0.0,1,Pfb_MilitaryBase/Lights/Point Light_4
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,766.1856,1.019,619.8193,-0.707107,0.0,0.0,0.707107,-90.0,180.0,180.0,0,LevelElements/SnowMilltaryBase_SpecialElements/Bonefire/Pfb_Campingfire_NotBurning_12/FireSmoke/Point Light
+Spot,1.0,0.9461,0.8349,40.0,15.269,132.275,58.4574,1.5527,332.2969,0.707059,-0.008254,0.008254,0.707059,90.0,178.662,180.0,0,Storm01/SM_StreetLight_LightOn_38/Spot Light
+Spot,1.0,0.9461,0.8349,40.0,15.269,132.275,545.5166,4.65,330.7365,0.146614,-0.69174,0.69174,0.146614,90.0,23.933,180.0,1,SM_StreetLight_LightOn/Spot Light
+Spot,1.0,0.9461,0.8349,40.0,15.269,132.275,585.7436,3.13,264.6423,0.065052,-0.704108,0.704108,0.065052,90.0,10.557,180.0,1,Env/ReserachStation/SM_StreetLight_LightOn_1/Spot Light
+Point,1.0,0.8523,0.7123,13.15,10.0,30.0,503.17,2.86,799.06,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,1,Env/Zone_Villa/Pfb_House_Villa_01/Lights/Point Light
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,155.7885,1.084,569.2004,-0.707107,0.0,0.0,0.707107,-90.0,180.0,180.0,1,LevelElements/SnowMilltaryBase_SpecialElements/Campfire/Pfb_Campingfire/FireSmoke/Point Light
+Point,1.0,0.8353,0.4292,42.22,12.9,30.0,598.4416,5.1998,577.394,0.0,0.0,0.0,1.0,-0.0,-0.0,0.0,1,Pfb_Repairbay/Lights/Point Light_2
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,332.18,-1.464,152.3,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1,LevelElements/SnowMilltaryBase_SpecialElements/CamFire2/Pfb_Campingfire 1_1/FireSmoke/Point Light
+Point,0.2217,0.7738,1.0,1.0,1.96,30.0,326.65,-1.1965,167.48,0.0,0.258819,0.0,0.965926,-0.0,30.0,0.0,1,LevelElements/SnowMilltaryBase_SpecialElements/TeleportMarker/Particle System/Point Light
+Point,1.0,0.94,0.8632,5.65,5.142,30.0,311.4081,-0.689,154.9561,0.0,0.966332,0.0,-0.257299,-0.0,-150.18,0.0,1,Pfb_Shop_03_Alex/Light/Point Light
+Point,1.0,1.0,1.0,26.08,18.89,30.0,799.5241,4.4345,205.39,0.0,0.00205,0.0,0.999998,-0.0,0.235,0.0,1,Pfb_SnowHotel/Light/Point Light_3

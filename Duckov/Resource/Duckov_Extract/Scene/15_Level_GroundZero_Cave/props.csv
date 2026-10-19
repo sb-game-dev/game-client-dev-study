@@ -1,0 +1,469 @@
+﻿mesh,kind,materials,px,py,pz,qx,qy,qz,qw,euler_x,euler_y,euler_z,sx,sy,sz,enabled,in_project,path
+Quad,static,DarkBackground,561.32,0.03,546.87,0.6956,-0.127049,0.127049,0.695599,90.0,-179.257,-159.064,8.4751,10.343,1.0,0,1,DarkBackground/Group/Quad_3
+Plane,static,WaterInCave,585.2,-0.64,577.2783,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,6.3994,1.0,5.2692,1,1,Water
+SM_Rock_03,static,Mat_Rock_03,553.3626,-3.3678,509.4258,0.009861,-0.721809,-0.026555,0.691512,-1.415,-92.42,-2.922,4.5194,6.7931,4.5194,1,1,ShadowCasters/ShadowCaster_2
+Quad,static,FakeGlow_GroundZero_Cave 1,582.84,10.5467,555.98,0.35585,0.0,0.0,0.934543,41.691,0.0,0.0,50.2145,60.3823,4.9101,1,1,Glow/Glow_Main
+Quad,static,DarkBackground,590.39,0.03,530.81,-0.009463,0.707044,-0.707043,-0.009463,90.0,174.271,-8.351,8.4751,10.2017,1.0,0,1,DarkBackground/Group/Quad_13
+Quad,static,DarkBackground,598.5052,0.03,571.7874,0.352292,0.6131,-0.613099,0.352291,90.0,174.123,58.095,12.7051,14.0137,1.0,0,1,DarkBackground/Group/Quad_8
+Quad,static,DarkBackground,585.41,0.03,572.61,0.473793,0.524901,-0.5249,0.473793,90.0,175.708,82.418,8.4751,14.0137,1.0,0,1,DarkBackground/Group/Quad_7
+Quad,static,DarkBackground,563.17,0.03,563.28,0.649212,0.280223,-0.280223,0.649211,90.0,179.924,136.286,8.4751,14.0137,1.0,0,1,DarkBackground/Group/Quad_5
+Quad,static,DarkBackground,592.46,0.03,537.36,-0.250702,0.661173,-0.661172,-0.250701,90.0,170.809,-55.291,8.4751,10.2017,1.0,0,1,DarkBackground/Group/Quad_12
+SodaPointLightMesh,static,ZeroPoint,580.91,2.13,537.94,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,11.2003,10.2746,19.7481,1,1,Lights_1/SodaPointLight_3
+Quad,static,DarkBackground,607.8955,0.03,563.732,0.14322,0.692451,-0.69245,0.14322,90.0,170.693,14.441,13.4763,14.0137,1.0,0,1,DarkBackground/Group/Quad_9
+SodaPointLightMesh,static,ZeroPoint,582.42,5.21,558.09,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,11.2003,10.2746,11.5972,1,1,Lights_1/SodaPointLight_5
+SM_Rock_03,static,Mat_Rock_03,580.8026,4.9822,592.4658,0.50775,0.470195,0.517369,0.503423,1.415,87.58,92.922,4.5194,25.9346,19.8725,1,1,ShadowCasters/ShadowCaster_5
+Quad,static,DarkBackground,616.9862,1.49,550.3614,0.305982,0.680364,-0.381296,0.545979,58.535,102.507,-0.0,48.1133,13.2401,1.0,0,1,DarkBackground/Group/Quad_18
+SM_Rock_03,static,Mat_Rock_03,608.3526,-4.7278,511.7458,0.009861,-0.721809,-0.026555,0.691512,-1.415,-92.42,-2.922,4.5194,6.7931,4.5194,1,1,ShadowCasters/ShadowCaster_1
+Quad,static,DarkBackground,598.98,0.03,541.6,-0.331332,0.624676,-0.624675,-0.331331,90.0,168.078,-71.937,8.4751,12.4205,1.0,0,1,DarkBackground/Group/Quad_11
+Quad,static,DarkBackground,564.69,0.03,540.72,0.635901,-0.309242,0.309241,0.6359,90.0,-179.391,-129.139,8.4751,10.343,1.0,0,1,DarkBackground/Group/Quad_2
+SodaPointLightMesh,static,ZeroPoint,595.4,5.21,552.62,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,11.2003,10.2746,11.5972,1,1,Lights_1/SodaPointLight_7
+Quad,static,DarkBackground,559.59,0.03,554.98,0.70651,0.029062,-0.029062,0.706509,90.0,-179.342,176.131,8.4751,10.343,1.0,0,1,DarkBackground/Group/Quad_4
+Plane,static,Water,192.799,-0.64,202.9488,0.0,-0.075507,0.0,0.997145,-0.0,-8.661,0.0,6.3976,1.0,2.7528,0,1,Water
+Plane,static,WaterInCave,585.2,-0.64,532.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,6.3994,1.0,3.7864,1,1,Water_1
+SodaPointLightMesh,static,ZeroPoint,575.23,0.83,545.7,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.0708,4.0708,4.0708,1,1,Lights_1/SodaPointLight_6
+Sphere,static,DarkFade4m_Blue,322.99,0.79,199.43,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,31.4409,11.1516,11.5317,1,1,DarkFade
+Quad,static,DarkBackground,570.91,0.03,535.78,0.68164,-0.188062,0.188061,0.681639,90.0,-177.102,-147.346,8.4751,10.343,1.0,0,1,DarkBackground/Group/Quad_1
+Quad,static,FakeGlow_GroundZero_Cave,582.84,5.47,566.4419,0.231691,0.0,0.0,0.972789,26.793,0.0,0.0,129.0538,50.9147,4.3696,1,1,Glow/Glow_Fog
+Quad,static,DarkBackground,590.78,0.03,525.91,0.004094,0.707095,-0.707094,0.004094,90.0,173.868,-5.691,8.4751,10.2017,1.0,0,1,DarkBackground/Group/Quad_14
+Quad,static,DarkBackground,583.8662,1.49,577.2114,0.488196,-0.04642,0.026015,0.87111,58.535,-6.101,-0.0,48.1133,13.2401,1.0,0,1,DarkBackground/Group/Quad_16
+SM_Rock_03,static,Mat_Rock_03,584.3526,14.1722,506.6158,0.50775,0.470195,0.517369,0.503423,1.415,87.58,92.922,4.5194,25.9346,19.8725,1,1,ShadowCasters/ShadowCaster_3
+Quad,static,DarkBackground,573.25,0.03,569.73,0.567151,0.422303,-0.422303,0.56715,90.0,176.67,106.967,8.4751,14.0137,1.0,0,1,DarkBackground/Group/Quad_6
+Quad,static,DarkBackground,571.3524,0.03,528.7299,0.705508,0.047523,-0.047523,0.705508,90.0,-179.457,173.263,8.4751,10.343,1.0,0,1,DarkBackground/Group/Quad
+Quad,static,DarkBackground,604.75,0.03,550.94,-0.083896,0.702113,-0.702112,-0.083896,90.0,169.603,-26.517,8.4751,14.0137,1.0,0,1,DarkBackground/Group/Quad_10
+Quad,static,DarkBackground,557.3462,1.49,557.8814,0.442548,-0.370711,0.207757,0.789659,58.535,-50.296,-0.0,48.1133,13.2401,1.0,0,1,DarkBackground/Group/Quad_15
+SM_Rock_03,static,Mat_Rock_03,582.7426,8.9222,514.9258,0.50775,0.470195,0.517369,0.503423,1.415,87.58,92.922,4.5194,4.5194,4.5194,1,1,ShadowCasters/ShadowCaster_4
+SodaPointLightMesh,static,ZeroPoint,580.97,-1.75,529.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,9.9114,9.9114,9.9114,1,1,Lights_1/SodaPointLight_4
+Quad,static,FakeGlow_GroundZero_UnderWater,582.84,-0.1833,561.16,0.687045,0.0,0.0,0.726615,86.793,0.0,0.0,61.9768,57.7118,4.3696,1,1,Glow/Glow_UnderWater
+Quad,static,DarkBackground,606.8262,1.49,570.2814,0.450276,0.339791,-0.190429,0.803449,58.535,45.849,-0.0,48.1133,13.2401,1.0,0,1,DarkBackground/Group/Quad_17
+SM_Starter,static,Mat_Lootbox_02,360.06,0.01,368.84,0.0,-0.514676,0.0,0.857385,-0.0,-61.952,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_14/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,368.521,-0.031,561.9219,0.0,0.603352,0.0,0.797475,-0.0,74.221,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_17/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,575.2,0.2727,737.2,0.0,0.703621,0.0,0.710575,-0.0,89.437,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_25/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,619.4877,0.0,523.1263,0.0,-0.779234,0.0,0.626733,-0.0,-102.381,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_21/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,410.3323,0.01,482.1134,0.0,0.969525,0.0,-0.244993,-0.0,-151.637,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_28/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,909.5582,0.0,658.1528,0.0,0.336872,0.0,0.94155,-0.0,39.373,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_35/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,424.2426,0.01,483.633,0.0,-0.533869,0.0,0.845567,-0.0,-64.534,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_29/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,132.3966,0.2597,490.5973,0.0,0.884151,0.0,0.467201,-0.0,124.295,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_31/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,380.47,-0.033,580.4799,0.0,0.999365,0.0,-0.035636,-0.0,-175.916,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_12/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,-93.5408,0.2597,580.7031,0.0,0.93969,0.0,-0.342027,-0.0,-139.999,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_15/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,393.65,-0.036,554.1199,0.0,0.999365,0.0,-0.035636,-0.0,-175.916,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_13/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,898.3156,0.01,619.2324,0.0,0.031202,0.0,0.999513,-0.0,3.576,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_1/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,436.5,0.01,345.8,0.0,0.254493,0.0,0.967075,-0.0,29.487,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_8/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,537.4,0.0,483.2,0.0,-0.771874,0.0,0.635775,-0.0,-101.045,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_33/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,890.1949,0.01,671.2706,0.0,-0.321918,0.0,0.946767,-0.0,-37.558,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_34/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,497.5187,0.01,318.8035,0.0,0.238771,0.0,0.971076,-0.0,27.628,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_5/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,116.5,0.0,639.2,0.0,0.603352,0.0,0.797475,-0.0,74.221,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_16/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,255.1235,0.7097,493.6755,0.0,0.885551,0.0,-0.464542,-0.0,-124.639,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_26/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,404.02,-0.03,587.3099,0.0,0.999365,0.0,-0.035636,-0.0,-175.916,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_11/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,434.7758,0.01,325.1649,0.0,1.0,0.0,-0.000187,-0.0,-179.979,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_4/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,542.835,0.0,566.623,0.0,-0.705437,0.0,0.708773,-0.0,-89.73,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_30/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,623.2,0.0,558.5,0.0,0.708772,0.0,0.705437,-0.0,90.27,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_22/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,-84.1026,0.2597,591.4054,0.0,-0.480723,0.0,0.876872,-0.0,-57.465,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_27/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,466.8,0.01,470.4,0.0,0.97413,0.0,-0.225987,-0.0,-153.878,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_23/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,-58.1384,0.2597,583.9006,0.0,-0.765342,0.0,0.643624,-0.0,-99.875,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_6/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,912.9447,0.01,632.5649,0.0,-0.73214,0.0,0.681155,-0.0,-94.132,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_3/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,392.1,0.2597,609.6,0.0,0.999365,0.0,-0.035636,-0.0,-175.916,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_10/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,883.0799,0.01,652.0046,0.0,0.647438,0.0,0.762118,-0.0,80.697,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,547.955,0.0,483.1884,0.0,-0.771874,0.0,0.635775,-0.0,-101.045,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_20/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,569.51,0.0,426.18,0.0,0.603352,0.0,0.797475,-0.0,74.221,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_19/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,444.1,0.0,602.9,0.0,-0.09631,0.0,0.995351,-0.0,-11.053,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_18/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,142.159,0.2597,501.0047,0.0,0.356417,0.0,0.934327,-0.0,41.761,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_32/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,342.288,0.01,353.1619,0.0,0.859048,0.0,0.511896,-0.0,118.42,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_9/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,626.2227,0.7097,826.6819,0.0,0.378136,0.0,0.92575,-0.0,44.437,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_24/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02,922.5677,0.01,629.6293,0.0,0.038027,0.0,0.999277,-0.0,4.359,0.0,1.0,1.0,1.0,0,1,LootBox/Darily/LootBox_Darily_2/Prfb_Starter
+SM_Dumpster_01_1_2,static,Mat_Dumpster_01_01,421.586,1.1656,267.9967,0.0,0.999936,0.0,0.011307,-0.0,178.704,0.0,0.8,0.8,0.8,0,1,LootBox/TrashBin/LootBox_TrashBin 1_1/Prfb_Dumpster_01_1/SM_Dumpster_01_1_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,416.53,-0.03,302.89,0.0,0.733367,0.0,0.679833,-0.0,94.339,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_23/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,409.48,-0.03,291.16,0.0,0.733367,0.0,0.679833,-0.0,94.339,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_13/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,428.68,-0.04,312.34,0.0,0.744723,0.0,0.667373,-0.0,96.271,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_26/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,477.5,-0.03,229.6,0.0,0.800894,0.0,0.598806,-0.0,106.431,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_11/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,326.68,-8.028,169.21,0.0,0.671433,0.0,0.741065,-0.0,84.356,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_3/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,320.48,14.967,226.04,0.0,0.995811,0.0,0.091433,-0.0,169.508,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_2/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,282.33,0.16,260.51,0.0,0.671433,0.0,0.741065,-0.0,84.356,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_1/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,288.72,-0.03,113.17,0.0,0.926492,0.0,-0.376314,-0.0,-135.789,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_18/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,275.9,-0.03,128.87,0.0,-0.778793,0.0,0.627281,-0.0,-102.3,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_19/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,483.72,-0.0385,155.6,0.0,0.725835,0.0,0.687869,-0.0,93.077,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_7/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,459.85,-0.976,192.76,0.0,0.966,0.0,0.258542,-0.0,150.033,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_8/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,467.08,-0.07,301.66,0.0,0.959824,0.0,0.280603,-0.0,147.408,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_25/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,287.19,-8.038,151.8,0.0,-0.539025,0.0,0.84229,-0.0,-65.235,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_4/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,414.267,3.99,163.449,0.0,0.87807,0.0,0.478532,-0.0,122.821,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_6/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,272.1,0.16,265.06,0.0,0.081551,0.0,0.996669,-0.0,9.355,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,281.26,-0.028,265.42,0.0,-0.542246,0.0,0.84022,-0.0,-65.673,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_28/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,369.21,-0.03,286.22,0.0,-0.304521,0.0,0.952506,-0.0,-35.459,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_14/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,355.6,-0.12,122.08,0.0,0.094556,0.0,0.99552,-0.0,10.852,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_5/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,409.05,3.99,148.66,0.0,0.673104,0.0,0.739548,-0.0,84.614,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_33/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,432.81,-0.036,158.1,0.0,-0.023646,0.0,0.99972,-0.0,-2.71,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_30/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,378.9,-0.04,307.7,0.0,0.592934,0.0,0.805251,-0.0,72.731,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_27/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,256.08,-0.03,242.45,0.0,-0.035174,0.0,0.999381,-0.0,-4.032,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_16/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,239.38,-0.03,135.9,0.0,0.990332,0.0,-0.138715,-0.0,-164.053,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_20/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,438.24,-0.023,135.26,0.0,0.172738,0.0,0.984968,-0.0,19.894,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_31/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,358.3,-0.03,263.3,0.0,0.043894,0.0,0.999036,-0.0,5.032,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_12/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,417.226,3.99,148.88,0.0,0.711735,0.0,0.702448,-0.0,90.753,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_34/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,259.27,-0.03,129.43,0.0,-0.516676,0.0,0.856181,-0.0,-62.219,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_17/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,362.32,-0.12,116.89,0.0,-0.023646,0.0,0.99972,-0.0,-2.71,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_29/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,219.15,-0.03,224.44,0.0,0.990332,0.0,-0.138715,-0.0,-164.053,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_22/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,232.24,-0.03,202.47,0.0,0.990332,0.0,-0.138715,-0.0,-164.053,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_21/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,469.47,-0.03,249.34,0.0,0.959824,0.0,0.280603,-0.0,147.408,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_24/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,437.56,-0.03,229.11,0.0,0.800894,0.0,0.598806,-0.0,106.431,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_9/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,314.87,-0.03,279.91,0.0,-0.035174,0.0,0.999381,-0.0,-4.032,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_15/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,409.25,3.99,170.23,0.0,0.673104,0.0,0.739548,-0.0,84.614,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_32/Prfb_Toolbox_2
+SM_Toolbox_02,static,Mat_SteelFrame_01|Mat_StreetAssets01_2,412.967,0.08,221.48,0.0,0.800894,0.0,0.598806,-0.0,106.431,0.0,0.85,0.85,0.85,0,1,LootBox/Tool_03/LootBox_Tools3_10/Prfb_Toolbox_2
+SM_Suitcase_01_2,static,Mat_Suitcase_2,430.6223,0.7396,284.7406,0.0,0.314034,0.0,0.949412,-0.0,36.605,0.0,1.2,1.2,1.2,0,1,LootBox/SuitCase/LootBox_Suitcase_03/Prfb_Suitcase_01/SM_Suitcase_01_2
+SM_Suitcase_01_2,static,Mat_Suitcase_2,323.9392,15.6526,226.6526,0.0,-0.202096,0.0,0.979366,-0.0,-23.319,0.0,1.2,1.2,1.2,0,1,LootBox/SuitCase/LootBox_Suitcase_01/Prfb_Suitcase_01/SM_Suitcase_01_2
+SM_Rock_03,static,Mat_Rock_03,575.3678,1.2969,526.3918,-0.074827,0.987657,0.045604,-0.129824,-4.052,-164.697,-9.21,1.0265,1.0265,1.0265,1,1,Enviroment/CAveRocks_1/Prfb_Rock_06
+SM_Rock_03,static,Mat_Rock_03,573.9677,-0.76,579.1161,-0.017318,-0.835216,0.051056,0.547273,3.803,-113.369,4.876,1.8839,1.8839,1.8839,1,1,Enviroment/CAveRocks/Prfb_Rock_20
+SM_Rock_03,static,Mat_Rock_03,590.1802,0.9243,508.0091,0.449142,-0.50615,-0.471274,0.565673,1.78,-85.169,-81.233,1.0265,1.0265,1.0265,1,1,Enviroment/CAveRocks_1/Prfb_Rock_32
+SM_Rock_03,static,Mat_Rock_03,577.04,-0.667,533.24,-0.07736,0.99355,0.04116,-0.071973,-4.052,-171.387,-9.21,1.0,1.0,1.0,1,1,Enviroment/CAveRocks/Prfb_Rock_05
+SM_Rock_03,static,Mat_Rock_03,589.8231,4.1577,522.3621,-0.028042,-0.090434,-0.08302,0.99204,-4.052,-10.091,-9.21,1.0265,1.0265,1.0265,1,1,Enviroment/CAveRocks_1/Prfb_Rock_19
+SM_Rock_03,static,Mat_Rock_03,589.8082,1.2969,517.1821,-0.028042,-0.090434,-0.08302,0.99204,-4.052,-10.091,-9.21,1.0265,1.0265,1.0265,1,1,Enviroment/CAveRocks_1/Prfb_Rock_25
+SM_Rock_03,static,Mat_Rock_03,579.9768,0.2776,508.0328,0.43175,-0.520233,-0.45568,0.579056,1.484,-85.071,-77.762,1.0265,1.0265,1.0265,1,1,Enviroment/CAveRocks_1/Prfb_Rock_33
+SM_Rock_03,static,Mat_Rock_03,572.3023,4.3561,518.9724,-0.074827,0.987657,0.045604,-0.129824,-4.052,-164.697,-9.21,1.0265,1.0265,1.0265,1,1,Enviroment/CAveRocks_1/Prfb_Rock_16
+SM_Rock_03,static,Mat_Rock_03,569.9823,4.3561,513.9423,-0.063498,0.937911,0.060388,-0.335624,-4.052,-140.295,-9.21,1.0265,1.0265,1.0265,1,1,Enviroment/CAveRocks_1/Prfb_Rock_17
+SM_Rock_03,static,Mat_Rock_03,560.2565,7.31,561.8898,0.221076,0.97334,-0.021042,0.057372,3.803,174.111,25.397,1.8839,1.8839,1.8839,1,1,Enviroment/CAveRocks/Prfb_Rock_11
+SM_Rock_03,static,Mat_Rock_03,571.7161,1.2969,515.1468,-0.063498,0.937911,0.060388,-0.335624,-4.052,-140.295,-9.21,1.0265,1.0265,1.0265,1,1,Enviroment/CAveRocks_1/Prfb_Rock_26
+SM_Rock_03,static,Mat_Rock_03,567.5812,-0.76,574.1756,0.033914,0.972988,-0.04191,-0.224472,3.803,-153.856,4.876,1.8839,1.8839,1.8839,1,1,Enviroment/CAveRocks/Prfb_Rock_19
+SM_Rock_03,static,Mat_Rock_03,588.4044,4.1577,533.5459,-0.042822,0.093424,-0.076453,0.991763,-4.052,11.089,-9.21,1.0265,1.0265,1.0265,1,1,Enviroment/CAveRocks_1/Prfb_Rock_30
+SM_Rock_03,static,Mat_Rock_03,585.39,-0.667,533.57,-0.042822,0.093424,-0.076453,0.991763,-4.052,11.089,-9.21,1.0,1.0,1.0,1,1,Enviroment/CAveRocks/Prfb_Rock_04
+SM_Rock_03,static,Mat_Rock_03,574.7109,1.2969,538.8016,-0.086378,0.965791,0.014749,0.244066,-4.052,151.962,-9.21,1.0265,1.0265,1.0265,1,1,Enviroment/CAveRocks_1/Prfb_Rock_07
+SM_Rock_03,static,Mat_Rock_03,590.6003,4.1402,539.8572,-0.018905,0.35275,0.05008,0.934185,-4.052,41.21,4.613,1.0265,1.0265,1.0265,1,1,Enviroment/CAveRocks_1/Prfb_Rock_29
+SM_Rock_03,static,Mat_Rock_03,594.2362,-1.0451,543.7033,-0.012791,0.554796,0.045479,0.830644,-4.112,67.352,3.527,1.1768,1.1768,1.1768,1,1,Enviroment/CAveRocks/Prfb_Rock_21
+SM_Rock_03,static,Mat_Rock_03,588.7191,-0.6841,539.7184,-0.018905,0.35275,0.05008,0.934185,-4.052,41.21,4.613,1.0,1.0,1.0,1,1,Enviroment/CAveRocks/Prfb_Rock_08
+SM_Rock_03,static,Mat_Rock_03,570.1989,-0.6702,542.899,-0.082731,0.884926,-0.00278,0.458317,-4.066,125.545,-8.589,1.0,1.0,1.0,1,1,Enviroment/CAveRocks/Prfb_Rock_09
+SM_Rock_03,static,Mat_Rock_03,574.4432,4.3561,532.0027,-0.07736,0.99355,0.04116,-0.071973,-4.052,-171.387,-9.21,1.0265,1.0265,1.0265,1,1,Enviroment/CAveRocks_1/Prfb_Rock_10
+SM_Rock_03,static,Mat_Rock_03,574.9199,-0.667,520.3856,-0.074827,0.987657,0.045604,-0.129824,-4.052,-164.697,-9.21,1.0,1.0,1.0,1,1,Enviroment/CAveRocks/Prfb_Rock_22
+SM_Rock_03,static,Mat_Rock_03,572.5999,-0.667,515.3556,-0.063498,0.937911,0.060388,-0.335624,-4.052,-140.295,-9.21,1.0,1.0,1.0,1,1,Enviroment/CAveRocks/Prfb_Rock_25
+SM_Rock_03,static,Mat_Rock_03,601.2199,-0.45,544.9956,-0.020617,0.692701,0.042507,0.719676,-5.081,87.728,1.877,1.1768,1.1768,1.1768,1,1,Enviroment/CAveRocks/Prfb_Rock_26
+SM_Rock_03,static,Mat_Rock_03,569.8545,1.2935,543.1221,-0.082731,0.884926,-0.00278,0.458317,-4.066,125.545,-8.589,1.0265,1.0265,1.0265,1,1,Enviroment/CAveRocks_1/Prfb_Rock_09
+SM_Rock_03,static,Mat_Rock_03,601.5483,1.5122,545.0663,-0.020617,0.692701,0.042507,0.719676,-5.081,87.728,1.877,1.208,1.208,1.208,1,1,Enviroment/CAveRocks_1/Prfb_Rock_27
+SM_Rock_03,static,Mat_Rock_03,561.7439,3.6508,544.7004,-0.081922,0.790115,0.011869,0.607344,-6.792,105.298,-6.653,1.0265,1.0265,1.0265,1,1,Enviroment/CAveRocks_1/Prfb_Rock_14
+SM_Rock_03,static,Mat_Rock_03,596.2636,3.7696,543.9477,-0.012791,0.554796,0.045479,0.830644,-4.112,67.352,3.527,1.208,1.208,1.208,1,1,Enviroment/CAveRocks_1/Prfb_Rock_22
+SM_Rock_03,static,Mat_Rock_03,563.4777,0.5916,545.9049,-0.081922,0.790115,0.011869,0.607344,-6.792,105.298,-6.653,1.0265,1.0265,1.0265,1,1,Enviroment/CAveRocks_1/Prfb_Rock_11
+SM_Rock_03,static,Mat_Rock_03,586.7999,-0.667,522.5656,-0.028042,-0.090434,-0.08302,0.99204,-4.052,-10.091,-9.21,1.0,1.0,1.0,1,1,Enviroment/CAveRocks/Prfb_Rock_23
+SM_Rock_03,static,Mat_Rock_03,588.7431,4.1577,526.5965,-0.028042,-0.090434,-0.08302,0.99204,-4.052,-10.091,-9.21,1.0265,1.0265,1.0265,1,1,Enviroment/CAveRocks_1/Prfb_Rock_18
+SM_Rock_03,static,Mat_Rock_03,585.72,-0.667,526.8,-0.028042,-0.090434,-0.08302,0.99204,-4.052,-10.091,-9.21,1.0,1.0,1.0,1,1,Enviroment/CAveRocks/Prfb_Rock_03
+SM_Rock_03,static,Mat_Rock_03,586.6696,1.2969,533.5459,-0.042822,0.093424,-0.076453,0.991763,-4.052,11.089,-9.21,1.0265,1.0265,1.0265,1,1,Enviroment/CAveRocks_1/Prfb_Rock_04
+SM_Rock_03,static,Mat_Rock_03,562.9299,0.29,550.2556,0.033211,0.969112,-0.042469,-0.240655,3.803,-151.946,4.876,1.8839,1.8839,1.8839,1,1,Enviroment/CAveRocks/Prfb_Rock_14
+SM_Rock_03,static,Mat_Rock_03,572.9772,4.3561,537.5971,-0.086378,0.965791,0.014749,0.244066,-4.052,151.962,-9.21,1.0265,1.0265,1.0265,1,1,Enviroment/CAveRocks_1/Prfb_Rock_12
+SM_Rock_03,static,Mat_Rock_03,586.2692,0.1544,508.0328,0.43175,-0.520233,-0.45568,0.579056,1.484,-85.071,-77.762,1.0265,1.0265,1.0265,1,1,Enviroment/CAveRocks_1/Prfb_Rock_34
+SM_Rock_03,static,Mat_Rock_03,573.5201,0.9243,508.0091,0.449142,-0.50615,-0.471274,0.565673,1.78,-85.169,-81.233,1.0265,1.0265,1.0265,1,1,Enviroment/CAveRocks_1/Prfb_Rock_31
+SM_Rock_03,static,Mat_Rock_03,588.0883,1.2969,522.3621,-0.028042,-0.090434,-0.08302,0.99204,-4.052,-10.091,-9.21,1.0265,1.0265,1.0265,1,1,Enviroment/CAveRocks_1/Prfb_Rock_24
+SM_Rock_03,static,Mat_Rock_03,588.5199,-0.667,517.3856,-0.028042,-0.090434,-0.08302,0.99204,-4.052,-10.091,-9.21,1.0,1.0,1.0,1,1,Enviroment/CAveRocks/Prfb_Rock_24
+SM_Rock_03,static,Mat_Rock_03,603.2831,4.373,545.0663,-0.020617,0.692701,0.042507,0.719676,-5.081,87.728,1.877,1.208,1.208,1.208,1,1,Enviroment/CAveRocks_1/Prfb_Rock_28
+SM_Rock_03,static,Mat_Rock_03,576.2516,-0.667,526.6006,-0.074827,0.987657,0.045604,-0.129824,-4.052,-164.697,-9.21,1.0,1.0,1.0,1,1,Enviroment/CAveRocks/Prfb_Rock_06
+SM_Rock_03,static,Mat_Rock_03,573.634,4.3561,525.1873,-0.074827,0.987657,0.045604,-0.129824,-4.052,-164.697,-9.21,1.0265,1.0265,1.0265,1,1,Enviroment/CAveRocks_1/Prfb_Rock_15
+SM_Rock_03,static,Mat_Rock_03,568.1207,4.3528,541.9176,-0.082731,0.884926,-0.00278,0.458317,-4.066,125.545,-8.589,1.0265,1.0265,1.0265,1,1,Enviroment/CAveRocks_1/Prfb_Rock_13
+SM_Rock_03,static,Mat_Rock_03,574.0361,1.2969,520.1768,-0.074827,0.987657,0.045604,-0.129824,-4.052,-164.697,-9.21,1.0265,1.0265,1.0265,1,1,Enviroment/CAveRocks_1/Prfb_Rock_23
+SM_Rock_03,static,Mat_Rock_03,576.8213,7.31,580.8745,-0.165816,-0.818774,0.147724,0.529427,3.803,-113.369,25.397,1.8839,1.8839,1.8839,1,1,Enviroment/CAveRocks/Prfb_Rock_18
+SM_Rock_03,static,Mat_Rock_03,563.9499,-1.35,545.7256,-0.081922,0.790115,0.011869,0.607344,-6.792,105.298,-6.653,1.0,1.0,1.0,1,1,Enviroment/CAveRocks/Prfb_Rock_10
+SM_Rock_03,static,Mat_Rock_03,561.0765,-0.76,558.6398,0.044161,0.997154,-0.030925,0.052706,3.803,174.111,4.876,1.8839,1.8839,1.8839,1,1,Enviroment/CAveRocks/Prfb_Rock_12
+SM_Rock_03,static,Mat_Rock_03,576.177,1.2969,533.2071,-0.07736,0.99355,0.04116,-0.071973,-4.052,-171.387,-9.21,1.0265,1.0265,1.0265,1,1,Enviroment/CAveRocks_1/Prfb_Rock_05
+SM_Rock_03,static,Mat_Rock_03,574.93,-0.667,538.69,-0.086378,0.965791,0.014749,0.244066,-4.052,151.962,-9.21,1.0,1.0,1.0,1,1,Enviroment/CAveRocks/Prfb_Rock_07
+SM_Rock_03,static,Mat_Rock_03,562.6934,-0.76,566.2156,0.030732,0.953796,-0.044295,-0.295578,3.803,-145.402,4.876,1.8839,1.8839,1.8839,1,1,Enviroment/CAveRocks/Prfb_Rock_16
+SM_Rock_03,static,Mat_Rock_03,561.1608,6.64,552.2528,0.200173,0.933168,-0.096167,-0.28263,3.803,-145.443,25.397,1.8839,1.8839,1.8839,1,1,Enviroment/CAveRocks/Prfb_Rock_13
+SM_Rock_03,static,Mat_Rock_03,587.0083,1.2969,526.5965,-0.028042,-0.090434,-0.08302,0.99204,-4.052,-10.091,-9.21,1.0265,1.0265,1.0265,1,1,Enviroment/CAveRocks_1/Prfb_Rock_03
+SM_Rock_03,static,Mat_Rock_03,588.8655,1.2793,539.8572,-0.018905,0.35275,0.05008,0.934185,-4.052,41.21,4.613,1.0265,1.0265,1.0265,1,1,Enviroment/CAveRocks_1/Prfb_Rock_08
+SM_Rock_03,static,Mat_Rock_03,594.5288,0.9088,543.9477,-0.012791,0.554796,0.045479,0.830644,-4.112,67.352,3.527,1.208,1.208,1.208,1,1,Enviroment/CAveRocks_1/Prfb_Rock_21
+SM_Rock_03,static,Mat_Rock_03,568.6099,7.31,577.3656,0.206688,0.951386,-0.081224,-0.213417,3.803,-153.856,25.397,1.8839,1.8839,1.8839,1,1,Enviroment/CAveRocks/Prfb_Rock_17
+SM_Rock_03,static,Mat_Rock_03,591.543,4.1577,517.1821,-0.028042,-0.090434,-0.08302,0.99204,-4.052,-10.091,-9.21,1.0265,1.0265,1.0265,1,1,Enviroment/CAveRocks_1/Prfb_Rock_20
+SM_Rock_03,static,Mat_Rock_03,564.1799,7.31,569.2198,0.200139,0.933068,-0.096238,-0.28296,3.803,-145.402,25.397,1.8839,1.8839,1.8839,1,1,Enviroment/CAveRocks/Prfb_Rock_15
+SM_MedicalBag_02_2,static,Mat_ExplorBox,582.14,0.0007,562.7979,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.7077,1.7077,1.7077,1,1,InStorm2LootBoxs/Parent/LootBox_Formula_BP_AR_AK47_Fire/Prfb_Normal/SM_Normal_2
+SM_Dumpster_01_1_3,static,Mat_Dumpster_01_01|Mat_Dumpster_01_01,421.0798,0.0172,267.4888,0.0,0.999936,0.0,0.011307,-0.0,178.704,0.0,0.8,0.8,0.8,0,1,LootBox/TrashBin/LootBox_TrashBin 1_1/Prfb_Dumpster_01_1/SM_Dumpster_01_1_3
+SM_Safe_01_1,static,Mat_Safe_02,1021.2504,0.3256,235.4956,0.0,0.68111,0.0,0.732181,-0.0,85.861,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_19/Prfb_Safe_01/SM_Safe_01_1
+SM_Safe_01_1,static,Mat_Safe_02,756.3837,0.3256,207.1596,0.0,0.999977,0.0,-0.006754,-0.0,-179.226,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_23/Prfb_Safe_01/SM_Safe_01_1
+SM_Safe_01_1,static,Mat_Safe_02,756.4291,0.3256,210.7194,0.0,0.999977,0.0,-0.006754,-0.0,-179.226,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_22/Prfb_Safe_01/SM_Safe_01_1
+SM_Safe_01_1,static,Mat_Safe_02,395.8307,0.3256,591.1929,0.0,0.660875,0.0,0.750496,-0.0,82.733,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_15/Prfb_Safe_01/SM_Safe_01_1
+SM_Safe_01_1,static,Mat_Safe_02,548.0973,0.3256,193.5158,0.0,1.0,0.0,-0.000386,-0.0,-179.956,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_18/Prfb_Safe_01/SM_Safe_01_1
+SM_Safe_01_1,static,Mat_Safe_02,-277.5157,0.3256,292.1506,0.0,0.298789,0.0,0.954319,-0.0,34.77,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_4/Prfb_Safe_01/SM_Safe_01_1
+SM_Safe_01_1,static,Mat_Safe_02,705.9748,0.6186,680.0455,0.0,0.279762,0.0,0.960069,-0.0,32.492,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_9/Prfb_Safe_01/SM_Safe_01_1
+SM_Safe_01_1,static,Mat_Safe_02,454.7971,0.3256,321.4343,0.0,-0.681693,0.0,0.731639,-0.0,-85.952,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_2/Prfb_Safe_01/SM_Safe_01_1
+SM_Safe_01_1,static,Mat_Safe_02,377.2714,0.3256,368.9532,0.0,0.706041,0.0,0.708171,-0.0,89.827,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_24/Prfb_Safe_01/SM_Safe_01_1
+SM_Safe_01_1,static,Mat_Safe_02,455.9117,0.3256,322.5736,0.0,0.998568,0.0,-0.0535,-0.0,-173.866,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_3/Prfb_Safe_01/SM_Safe_01_1
+SM_Safe_01_1,static,Mat_Safe_02,766.7357,0.3256,678.4395,0.0,0.983564,0.0,0.18056,-0.0,159.195,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_13/Prfb_Safe_01/SM_Safe_01_1
+SM_Safe_01_1,static,Mat_Safe_02,462.6562,0.3256,457.2563,0.0,0.983551,0.0,-0.180631,-0.0,-159.187,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_11/Prfb_Safe_01/SM_Safe_01_1
+SM_Safe_01_1,static,Mat_Safe_02,622.2801,0.3256,522.219,0.0,0.866994,0.0,0.498318,-0.0,120.222,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_6/Prfb_Safe_01/SM_Safe_01_1
+SM_Safe_01_1,static,Mat_Safe_02,490.4953,0.3256,440.1146,0.0,0.998313,0.0,-0.05806,-0.0,-173.343,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_10/Prfb_Safe_01/SM_Safe_01_1
+SM_Safe_01_1,static,Mat_Safe_02,906.8035,0.3256,657.1365,0.0,-0.754846,0.0,0.655902,-0.0,-98.024,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_8/Prfb_Safe_01/SM_Safe_01_1
+SM_Safe_01_1,static,Mat_Safe_02,403.3993,0.3256,287.1381,0.0,0.754961,0.0,0.65577,-0.0,98.044,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_16/Prfb_Safe_01/SM_Safe_01_1
+SM_Safe_01_1,static,Mat_Safe_02,739.6352,0.3256,449.3095,0.0,0.998148,0.0,-0.060838,-0.0,-173.024,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_12/Prfb_Safe_01/SM_Safe_01_1
+SM_Safe_01_1,static,Mat_Safe_02,709.3099,0.6186,680.2433,0.0,0.703534,0.0,0.710661,-0.0,89.422,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_17/Prfb_Safe_01/SM_Safe_01_1
+SM_Safe_01_1,static,Mat_Safe_02,593.3908,0.3256,437.2022,0.0,0.655901,0.0,0.754847,-0.0,81.976,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_14/Prfb_Safe_01/SM_Safe_01_1
+SM_Safe_01_1,static,Mat_Safe_02,1045.9668,0.3256,235.4886,0.0,0.68111,0.0,0.732181,-0.0,85.861,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_20/Prfb_Safe_01/SM_Safe_01_1
+SM_Safe_01_1,static,Mat_Safe_02,353.3787,0.3256,722.276,0.0,0.89866,0.0,-0.438646,-0.0,-127.965,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_7/Prfb_Safe_01/SM_Safe_01_1
+SM_Safe_01_1,static,Mat_Safe_02,1021.5832,0.3256,220.8006,0.0,0.68111,0.0,0.732181,-0.0,85.861,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_21/Prfb_Safe_01/SM_Safe_01_1
+SM_Rock_02_01,static,Mat_Rock_02,572.9599,-3.88,547.8656,0.0,0.872326,0.0,-0.488925,-0.0,-121.46,0.0,2.7362,2.7362,2.7362,1,1,Enviroment/CAveRocks/Prfb_Rock_02_1
+SM_Rock_02_01,static,Mat_Rock_02,584.3899,-2.5226,551.1956,0.0,0.098522,0.0,0.995135,-0.0,11.308,0.0,1.695,1.695,1.695,1,1,Enviroment/CAveRocks/Prfb_Rock_02_6
+SM_Rock_02_01,static,Mat_Rock_02,595.7299,-4.69,554.7156,0.0,0.567978,0.0,0.823044,-0.0,69.219,0.0,2.398,2.398,2.398,1,1,Enviroment/CAveRocks/Prfb_Rock_02_2
+SM_Computer_01_3_4,static,Mat_Computer_01_01,449.3739,0.9361,287.6703,0.0,-0.804405,0.0,0.594081,-0.0,-107.106,0.0,1.0,0.8333,1.0,0,1,LootBox/Computer/Prfb_Computer_01_3/SM_Computer_01_3_4
+SM_Computer_01_3_2,static,Mat_Computer_01_01,449.6275,0.9344,286.9748,0.0,-0.804405,0.0,0.594081,-0.0,-107.106,0.0,1.0,0.8333,1.0,0,1,LootBox/Computer/Prfb_Computer_01_3/SM_Computer_01_3_2
+SM_Weapons_02,static,Mat_Weapons_wood,449.52,0.007,296.54,0.0,-0.003409,0.0,0.999994,-0.0,-0.391,0.0,1.0,1.0,1.0,0,1,LootBox/WeaponEquip_2/LootBox_WeaponEquip/Prfb_Weapons_02
+SM_Weapons_02,static,Mat_Weapons_wood,353.26,0.007,115.03,0.0,-0.003409,0.0,0.999994,-0.0,-0.391,0.0,1.0,1.0,1.0,0,1,LootBox/WeaponEquip_2/LootBox_WeaponEquip_2/Prfb_Weapons_02
+SM_Weapons_02,static,Mat_Weapons_wood,440.39,0.007,285.84,0.0,-0.502949,0.0,0.864316,-0.0,-60.391,0.0,1.0,1.0,1.0,0,1,LootBox/WeaponEquip_2/LootBox_WeaponEquip_1/Prfb_Weapons_02
+SM_Weapons_02,static,Mat_Weapons_wood,272.03,0.007,262.13,0.0,-0.574013,0.0,0.818846,-0.0,-70.061,0.0,1.0,1.0,1.0,0,1,LootBox/WeaponEquip_2/LootBox_WeaponEquip_3/Prfb_Weapons_02
+SM_Weapons_02,static,Mat_Weapons_wood,303.65,-7.956,166.03,0.0,-0.359407,0.0,0.933181,-0.0,-42.128,0.0,1.0,1.0,1.0,0,1,LootBox/WeaponEquip_2/LootBox_WeaponEquip_4/Prfb_Weapons_02
+SodaPointLightMesh,static,ZeroPoint,581.4,1.29,517.71,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,19.1166,9.4525,18.82,1,1,Lights_1/SodaPointLight_1
+Quad,static,FakeGlow_Base Storage,449.39,1.5378,287.6989,0.489463,0.493122,-0.368477,0.63287,72.175,72.894,0.0,2.7855,2.2692,1.9386,0,1,LootBox/Computer/Prfb_Computer_01_3/Quad
+SM_Rock_01_02,static,Mat_Rock_01_2,589.0799,3.18,516.5356,0.063827,-0.736208,0.053913,0.671578,9.504,-95.361,-1.253,1.0,1.0,1.0,1,1,Enviroment/CAveRocks/Prfb_Rock_01_5
+SM_Rock_01_02,static,Mat_Rock_01_2,573.8299,3.29,515.1377,0.146542,0.504988,0.024322,0.850248,12.981,62.694,11.206,1.0,1.0,1.0,1,1,Enviroment/CAveRocks/Prfb_Rock_01_2
+SM_Bulletbox_02,static,Mat_Bulletbox,1192.8734,0.6104,851.0233,0.0,0.931756,0.0,-0.363085,-0.0,-137.42,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_15/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Bulletbox_02,static,Mat_Bulletbox,759.139,0.3288,673.5474,0.0,0.762957,0.0,0.64645,-0.0,99.451,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_13/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Bulletbox_02,static,Mat_Bulletbox,246.0666,0.3288,483.5317,0.0,0.924227,0.0,-0.381843,-0.0,-135.104,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_11/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Bulletbox_02,static,Mat_Bulletbox,597.0771,0.6223,683.5915,0.0,-0.199305,0.0,0.979937,-0.0,-22.993,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_25/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Bulletbox_02,static,Mat_Bulletbox,1191.9583,0.6104,856.5662,0.0,0.92667,0.0,0.375875,-0.0,135.843,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_16/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Bulletbox_02,static,Mat_Bulletbox,580.0823,0.3066,560.0954,0.0,0.430441,0.0,0.902619,-0.0,50.991,0.0,1.1,1.1,1.1,1,1,LootBox_Bullet/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Bulletbox_02,static,Mat_Bulletbox,470.8815,0.3288,760.8771,0.0,0.998844,0.0,0.048064,-0.0,174.49,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_22/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Bulletbox_02,static,Mat_Bulletbox,771.168,0.3288,663.7031,0.0,0.998619,0.0,0.052539,-0.0,173.977,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_29/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Bulletbox_02,static,Mat_Bulletbox,304.9338,0.3288,767.2261,0.0,0.742363,0.0,0.669998,-0.0,95.866,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_24/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Bulletbox_02,static,Mat_Bulletbox,-331.7969,0.6075,263.4564,0.0,-0.30621,0.0,0.951964,-0.0,-35.662,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_4/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Bulletbox_02,static,Mat_Bulletbox,469.1593,0.3084,609.871,0.0,-0.6422,0.0,0.766537,-0.0,-79.912,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_18/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Bulletbox_02,static,Mat_Bulletbox,798.3847,0.3288,693.58,0.0,0.991515,0.0,0.129995,-0.0,165.061,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_14/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Bulletbox_02,static,Mat_Bulletbox,567.5852,0.3084,584.2817,0.0,-0.6422,0.0,0.766537,-0.0,-79.912,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_37/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Bulletbox_02,static,Mat_Bulletbox,562.6593,0.3084,442.9711,0.0,-0.6422,0.0,0.766537,-0.0,-79.912,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_19/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Bulletbox_02,static,Mat_Bulletbox,147.6111,0.3084,632.5644,0.0,-0.30621,0.0,0.951964,-0.0,-35.662,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_5/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Bulletbox_02,static,Mat_Bulletbox,423.2515,0.3288,764.9551,0.0,0.998844,0.0,0.048064,-0.0,174.49,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_23/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Bulletbox_02,static,Mat_Bulletbox,778.4538,0.7084,367.2513,0.0,0.742363,0.0,0.669998,-0.0,95.866,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_31/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Bulletbox_02,static,Mat_Bulletbox,774.0938,0.7084,344.3913,0.0,0.742363,0.0,0.669998,-0.0,95.866,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_30/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Bulletbox_02,static,Mat_Bulletbox,506.7404,0.3084,281.8616,0.0,0.721736,0.0,0.692168,-0.0,92.396,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_3/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Bulletbox_02,static,Mat_Bulletbox,392.4383,0.3084,590.672,0.0,-0.6422,0.0,0.766537,-0.0,-79.912,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_17/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Bulletbox_02,static,Mat_Bulletbox,891.4471,0.6288,420.8056,0.0,0.829073,0.0,0.55914,-0.0,112.007,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_8/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Bulletbox_02,static,Mat_Bulletbox,584.9273,0.3066,560.3178,0.0,-0.687569,0.0,0.726119,-0.0,-86.876,0.0,1.1,1.1,1.1,1,1,LootBox_Bullet_2/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Bulletbox_02,static,Mat_Bulletbox,534.9881,0.3084,194.5736,0.0,-0.035175,0.0,0.999381,-0.0,-4.032,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_1/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Bulletbox_02,static,Mat_Bulletbox,580.5907,0.3066,564.3428,0.0,-0.168448,0.0,0.98571,-0.0,-19.395,0.0,1.1,1.1,1.1,1,1,LootBox_Bullet_1/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Bulletbox_02,static,Mat_Bulletbox,-258.3379,0.6075,213.4544,0.0,-0.30621,0.0,0.951964,-0.0,-35.662,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_2/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Bulletbox_02,static,Mat_Bulletbox,698.0481,0.3084,437.1536,0.0,-0.035175,0.0,0.999381,-0.0,-4.032,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_6/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Bulletbox_02,static,Mat_Bulletbox,868.315,0.3084,394.4686,0.0,-0.035175,0.0,0.999381,-0.0,-4.032,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_7/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Bulletbox_02,static,Mat_Bulletbox,472.2015,0.3288,732.6971,0.0,0.998844,0.0,0.048064,-0.0,174.49,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_28/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Bulletbox_02,static,Mat_Bulletbox,716.4153,0.6057,680.7782,0.0,0.995331,0.0,-0.096523,-0.0,-168.922,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_21/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_Bulletbox_02,static,Mat_Bulletbox,462.9211,0.3084,723.8392,0.0,-0.30621,0.0,0.951964,-0.0,-35.662,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_27/Prfb_Bulletbox_01/SM_Bulletbox_02
+SM_MedicalBag_02_1,static,Mat_ExplorBox,581.43,0.113,561.3499,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.7077,1.7077,1.7077,1,1,LootBox_Formula_BP_CubeGun/Prfb_Normal/SM_Normal_1
+SM_MedicalBag_02_1,static,Mat_ExplorBox,582.7619,0.113,561.3567,0.0,0.098499,0.0,0.995137,-0.0,11.305,0.0,1.7077,1.7077,1.7077,1,1,LootBox_Formula_BP_Bullet_Energy_S/Prfb_Normal/SM_Normal_1
+SM_Rock_01_03,static,Mat_Rock_01_2,575.228,1.06,514.3456,-0.194195,-0.602578,-0.113703,0.765676,-25.748,-77.277,3.814,1.0,1.0,1.0,1,1,Enviroment/CAveRocks/Prfb_Rock_01_3
+SM_Rock_01_03,static,Mat_Rock_01_2,586.4599,-0.1506,514.9856,0.065742,-0.391729,-0.024492,0.917402,5.822,-46.528,-5.563,1.1414,1.1414,1.1414,1,1,Enviroment/CAveRocks/Prfb_Rock_01_4
+SM_Rock_02_04,static,Mat_Rock_02_2,582.92,-1.95,567.78,0.0,0.608263,0.0,0.793735,-0.0,74.928,0.0,0.9296,0.9296,0.9296,1,1,Enviroment/Prfb_Rock_02_12
+SM_Rock_02_04,static,Mat_Rock_02_2,568.24,-4.78,557.21,0.0,0.140813,0.0,0.990036,-0.0,16.19,0.0,1.743,1.743,1.743,1,1,Enviroment/Prfb_Rock_02_5
+SM_Rock_02_04,static,Mat_Rock_02_2,577.79,-2.01,562.98,0.0,0.999519,0.0,0.031017,-0.0,176.445,0.0,0.9296,0.9296,0.9296,1,1,Enviroment/Prfb_Rock_02_7
+SM_Rock_02_04,static,Mat_Rock_02_2,588.2899,1.21,514.3656,-0.00409,-0.360183,-0.087533,0.928757,-4.052,-42.067,-9.21,1.0,1.0,1.0,1,1,Enviroment/CAveRocks/Prfb_Rock_02_5
+SM_Rock_02_04,static,Mat_Rock_02_2,587.39,-2.01,562.85,0.0,0.987845,0.0,0.155443,-0.0,162.115,0.0,0.9296,0.9296,0.9296,1,1,Enviroment/Prfb_Rock_02_9
+SM_Rock_02_04,static,Mat_Rock_02_2,579.67,-1.95,566.33,0.0,0.343544,0.0,0.939137,-0.0,40.186,0.0,0.9296,0.9296,0.9296,1,1,Enviroment/Prfb_Rock_02_11
+SM_Rock_02_04,static,Mat_Rock_02_2,585.34,-2.01,558.69,0.0,0.967552,0.0,-0.252672,-0.0,-150.729,0.0,0.9296,0.9296,0.9296,1,1,Enviroment/Prfb_Rock_02_8
+SM_Rock_02_04,static,Mat_Rock_02_2,572.8305,1.3772,515.7866,0.029718,-0.688185,-0.082435,0.720224,-4.052,-87.067,-9.21,1.3595,1.3595,1.3595,1,1,Enviroment/CAveRocks/Prfb_Rock_02_7
+SM_Rock_02_04,static,Mat_Rock_02_2,585.86,-1.95,566.18,0.0,0.904607,0.0,0.426246,-0.0,129.541,0.0,0.9296,0.9296,0.9296,1,1,Enviroment/Prfb_Rock_02_10
+SM_Rock_02_04,static,Mat_Rock_02_2,589.2799,-0.04,518.3956,-0.078275,0.632479,-0.039392,0.769605,-4.052,79.155,-9.21,1.3595,1.3595,1.3595,1,1,Enviroment/CAveRocks/Prfb_Rock_02_8
+SM_Rock_02_04,static,Mat_Rock_02_2,578.69,-2.41,559.22,0.0,0.931759,0.0,0.363078,-0.0,137.421,0.0,0.9296,0.9296,0.9296,1,1,Enviroment/Prfb_Rock_02_6
+SM_Rock_02_04,static,Mat_Rock_02_2,573.4999,1.22,512.7956,0.029718,-0.688185,-0.082435,0.720224,-4.052,-87.067,-9.21,1.0,1.0,1.0,1,1,Enviroment/CAveRocks/Prfb_Rock_02_4
+SM_Rock_02_04,static,Mat_Rock_02_2,592.78,-2.43,578.14,0.0,-0.434231,0.0,0.900801,-0.0,-51.473,0.0,1.743,1.743,1.743,1,1,Enviroment/Prfb_Rock_02_14
+SM_Computer_01_3_3,static,Mat_Computer_01_01 _2,449.8296,0.9344,287.8313,0.0,-0.804405,0.0,0.594081,-0.0,-107.106,0.0,1.0,0.8333,1.0,0,1,LootBox/Computer/Prfb_Computer_01_3/SM_Computer_01_3_3
+SM_Lootbox_03_1,static,Mat_Lootbox_03,437.5917,0.531,279.6883,-0.0,0.868874,0.0,0.495033,-0.0,120.656,-0.0,1.0,1.0,1.0,0,1,LootBox/WeaponEquip_1/LootBox_WeaponEquip 2/Prfb_Lootbox_03/SM_Lootbox_03_1
+SM_Lootbox_03_1,static,Mat_Lootbox_03,583.559,0.5292,563.0033,-0.0,0.191548,0.0,0.981483,-0.0,22.086,-0.0,1.0,1.0,1.0,1,1,LootBox_WeaponEquip_02/Prfb_Lootbox_03/SM_Lootbox_03_1
+SM_Lootbox_03_1,static,Mat_Lootbox_03,429.9249,0.531,294.9781,-0.0,0.999984,0.0,-0.005726,-0.0,-179.344,-0.0,1.0,1.0,1.0,0,1,LootBox/WeaponEquip_1/LootBox_WeaponEquip 2_1/Prfb_Lootbox_03/SM_Lootbox_03_1
+SM_Suitcase_01_1,static,Mat_Suitcase_2,323.9392,15.4802,226.6526,0.0,-0.202096,0.0,0.979366,-0.0,-23.319,0.0,1.2,1.2,1.2,0,1,LootBox/SuitCase/LootBox_Suitcase_01/Prfb_Suitcase_01/SM_Suitcase_01_1
+SM_Suitcase_01_1,static,Mat_Suitcase_2,430.6223,0.5672,284.7406,0.0,0.314034,0.0,0.949412,-0.0,36.605,0.0,1.2,1.2,1.2,0,1,LootBox/SuitCase/LootBox_Suitcase_03/Prfb_Suitcase_01/SM_Suitcase_01_1
+SodaPointLightMesh,static,ZeroPoint,581.43,1.0152,561.6972,-0.0,0.0,0.0,1.0,-0.0,0.0,0.0,2.5905,1.9526,2.5905,1,1,LootBox_Formula_BP_CubeGun/Particle System/SodaPointLight_1
+SodaPointLightMesh,static,ZeroPoint,582.83,1.0152,561.6972,-0.0,0.098499,0.0,0.995137,-0.0,11.305,0.0,2.5905,1.9526,2.5905,1,1,LootBox_Formula_BP_Bullet_Energy_S/Particle System/SodaPointLight_1
+SM_Suitcase_02,static,Mat_Suitcase_2,430.98,0.009,268.545,0.0,0.314034,0.0,0.949412,-0.0,36.605,0.0,1.1,1.1,1.1,0,1,LootBox/SuitCase/LootBox_Suitcase_04/Prfb_Suitcase_02
+SM_Suitcase_02,static,Mat_Suitcase_2,453.44,-1.512,107.02,0.0,-0.373173,0.0,0.927762,-0.0,-43.823,0.0,1.1,1.1,1.1,0,1,LootBox/SuitCase/LootBox_Suitcase_05/Prfb_Suitcase_02
+SM_Computer_01_3_1,static,Mat_Computer_01_01,450.0597,0.9344,287.2456,0.0,-0.804405,0.0,0.594081,-0.0,-107.106,0.0,1.1856,0.988,1.1856,0,1,LootBox/Computer/Prfb_Computer_01_3/LootBox_Console/SM_Computer_01_3_1
+SM_Lootbox_03_2,static,Mat_Lootbox_03,429.9202,0.2885,294.564,0.0,0.999984,0.0,-0.005726,-0.0,-179.344,0.0,1.0,1.0,1.0,0,1,LootBox/WeaponEquip_1/LootBox_WeaponEquip 2_1/Prfb_Lootbox_03/SM_Lootbox_03_2
+SM_Lootbox_03_2,static,Mat_Lootbox_03,583.7147,0.2867,563.387,0.0,0.191548,0.0,0.981483,-0.0,22.086,0.0,1.0,1.0,1.0,1,1,LootBox_WeaponEquip_02/Prfb_Lootbox_03/SM_Lootbox_03_2
+SM_Lootbox_03_2,static,Mat_Lootbox_03,437.9479,0.2885,279.4771,0.0,0.868874,0.0,0.495033,-0.0,120.656,0.0,1.0,1.0,1.0,0,1,LootBox/WeaponEquip_1/LootBox_WeaponEquip 2/Prfb_Lootbox_03/SM_Lootbox_03_2
+SM_Safe_01_2,static,Mat_Safe_02,353.3137,0.3256,721.8712,0.0,0.89866,0.0,-0.438646,-0.0,-127.965,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_7/Prfb_Safe_01/SM_Safe_01_2
+SM_Safe_01_2,static,Mat_Safe_02,1046.2462,0.3256,235.7888,0.0,0.68111,0.0,0.732181,-0.0,85.861,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_20/Prfb_Safe_01/SM_Safe_01_2
+SM_Safe_01_2,static,Mat_Safe_02,1021.8626,0.3256,221.1008,0.0,0.68111,0.0,0.732181,-0.0,85.861,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_21/Prfb_Safe_01/SM_Safe_01_2
+SM_Safe_01_2,static,Mat_Safe_02,593.6493,0.3256,437.5206,0.0,0.655901,0.0,0.754847,-0.0,81.976,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_14/Prfb_Safe_01/SM_Safe_01_2
+SM_Safe_01_2,static,Mat_Safe_02,709.6074,0.6186,680.5255,0.0,0.703534,0.0,0.710661,-0.0,89.422,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_17/Prfb_Safe_01/SM_Safe_01_2
+SM_Safe_01_2,static,Mat_Safe_02,739.8759,0.3256,448.9775,0.0,0.998148,0.0,-0.060838,-0.0,-173.024,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_12/Prfb_Safe_01/SM_Safe_01_2
+SM_Safe_01_2,static,Mat_Safe_02,403.7357,0.3256,287.3725,0.0,0.754961,0.0,0.65577,-0.0,98.044,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_16/Prfb_Safe_01/SM_Safe_01_2
+SM_Safe_01_2,static,Mat_Safe_02,906.5451,0.3256,656.8181,0.0,-0.754846,0.0,0.655902,-0.0,-98.024,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_8/Prfb_Safe_01/SM_Safe_01_2
+SM_Safe_01_2,static,Mat_Safe_02,490.7378,0.3256,439.7839,0.0,0.998313,0.0,-0.05806,-0.0,-173.343,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_10/Prfb_Safe_01/SM_Safe_01_2
+SM_Safe_01_2,static,Mat_Safe_02,622.6802,0.3256,522.3091,0.0,0.866994,0.0,0.498318,-0.0,120.222,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_6/Prfb_Safe_01/SM_Safe_01_2
+SM_Safe_01_2,static,Mat_Safe_02,462.8105,0.3256,456.8764,0.0,0.983551,0.0,-0.180631,-0.0,-159.187,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_11/Prfb_Safe_01/SM_Safe_01_2
+SM_Safe_01_2,static,Mat_Safe_02,767.1033,0.3256,678.2579,0.0,0.983564,0.0,0.18056,-0.0,159.195,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_13/Prfb_Safe_01/SM_Safe_01_2
+SM_Safe_01_2,static,Mat_Safe_02,456.1572,0.3256,322.2451,0.0,0.998568,0.0,-0.0535,-0.0,-173.866,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_3/Prfb_Safe_01/SM_Safe_01_2
+SM_Safe_01_2,static,Mat_Safe_02,377.5709,0.3256,369.2333,0.0,0.706041,0.0,0.708171,-0.0,89.827,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_24/Prfb_Safe_01/SM_Safe_01_2
+SM_Safe_01_2,static,Mat_Safe_02,454.4777,0.3256,321.177,0.0,-0.681693,0.0,0.731639,-0.0,-85.952,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_2/Prfb_Safe_01/SM_Safe_01_2
+SM_Safe_01_2,static,Mat_Safe_02,705.9006,0.6186,680.4488,0.0,0.279762,0.0,0.960069,-0.0,32.492,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_9/Prfb_Safe_01/SM_Safe_01_2
+SM_Safe_01_2,static,Mat_Safe_02,-277.5737,0.3256,292.5566,0.0,0.298789,0.0,0.954319,-0.0,34.77,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_4/Prfb_Safe_01/SM_Safe_01_2
+SM_Safe_01_2,static,Mat_Safe_02,396.0934,0.3256,591.5078,0.0,0.660875,0.0,0.750496,-0.0,82.733,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_15/Prfb_Safe_01/SM_Safe_01_2
+SM_Safe_01_2,static,Mat_Safe_02,548.3762,0.3256,193.2152,0.0,1.0,0.0,-0.000386,-0.0,-179.956,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_18/Prfb_Safe_01/SM_Safe_01_2
+SM_Safe_01_2,static,Mat_Safe_02,756.7042,0.3256,210.4153,0.0,0.999977,0.0,-0.006754,-0.0,-179.226,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_22/Prfb_Safe_01/SM_Safe_01_2
+SM_Safe_01_2,static,Mat_Safe_02,756.6588,0.3256,206.8556,0.0,0.999977,0.0,-0.006754,-0.0,-179.226,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_23/Prfb_Safe_01/SM_Safe_01_2
+SM_Safe_01_2,static,Mat_Safe_02,1021.5298,0.3256,235.7957,0.0,0.68111,0.0,0.732181,-0.0,85.861,0.0,1.1,1.1,1.1,0,1,LootBox/Lux/LootBox_Lux_19/Prfb_Safe_01/SM_Safe_01_2
+SM_MedicalBag_02_1,static,Mat_ExplorBox,582.14,0.113,562.4728,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.7077,1.7077,1.7077,1,1,InStorm2LootBoxs/Parent/LootBox_Formula_BP_AR_AK47_Fire/Prfb_Normal/SM_Normal_1
+SM_RopeFence_03_2,static,Mat_Rope_Temp|Mat_WoodBoards_01 3,584.8993,-0.0018,522.6569,-0.0,-0.209089,-0.0,0.977897,-0.0,-24.138,-0.0,1.0,1.0,1.0,1,1,Fence3_Short_Line_1/Prfb_RopeFence_03_2
+SM_RopeFence_03_2,static,Mat_Rope_Temp|Mat_WoodBoards_01 3,583.0494,-0.0381,549.3449,0.002975,0.039853,-0.000119,0.999201,0.341,4.568,-0.0,1.0,1.0,1.0,1,1,Fence3_Short_Line_1/Prfb_RopeFence_03_2
+SM_RopeFence_03_2,static,Mat_Rope_Temp|Mat_WoodBoards_01 3,583.5296,-0.0018,530.1166,-0.0,0.029044,0.0,0.999578,-0.0,3.329,0.0,1.0,1.0,1.0,1,1,Fence3_Short_Line_1/Prfb_RopeFence_03_2
+SM_RopeFence_03_2,static,Mat_Rope_Temp|Mat_WoodBoards_01 3,579.2835,-0.0018,535.284,0.0,0.026632,-0.0,0.999645,0.0,3.052,-0.0,1.0,1.0,1.0,1,1,Fence3_Short_Line/Prfb_RopeFence_03_2
+SM_RopeFence_03_2,static,Mat_Rope_Temp|Mat_WoodBoards_01 3,583.306,-0.0018,526.2731,-0.0,0.029044,0.0,0.999578,-0.0,3.329,0.0,1.0,1.0,1.0,1,1,Fence3_Short_Line_1/Prfb_RopeFence_03_2
+SM_RopeFence_03_2,static,Mat_Rope_Temp|Mat_WoodBoards_01 3,583.7529,-0.0018,533.9377,0.0,-0.021702,0.0,0.999764,0.0,-2.487,-0.0,1.0,1.0,1.0,1,1,Fence3_Short_Line_1/Prfb_RopeFence_03_2
+SM_RopeFence_03_2,static,Mat_Rope_Temp|Mat_WoodBoards_01 3,583.2723,-0.0018,541.6248,0.0,-0.013684,0.0,0.999906,0.0,-1.568,0.0,1.0,1.0,1.0,1,1,Fence3_Short_Line_1/Prfb_RopeFence_03_2
+SM_RopeFence_03_2,static,Mat_Rope_Temp|Mat_WoodBoards_01 3,582.6193,-0.0018,515.4881,0.0,0.182959,-0.0,0.98312,0.0,21.084,-0.0,1.0,1.0,1.0,1,1,Fence3_Short_Line_1/Prfb_RopeFence_03_2
+SM_RopeFence_03_2,static,Mat_Rope_Temp|Mat_WoodBoards_01 3,583.3555,-0.061,553.1747,-0.006678,0.021625,0.000144,0.999744,-0.765,2.478,0.0,1.0,1.0,1.0,1,1,Fence3_Short_Line_1/Prfb_RopeFence_03_2
+SM_RopeFence_03_2,static,Mat_Rope_Temp|Mat_WoodBoards_01 3,583.5864,-0.0018,537.7757,0.0,-0.040748,0.0,0.999169,0.0,-4.671,-0.0,1.0,1.0,1.0,1,1,Fence3_Short_Line_1/Prfb_RopeFence_03_2
+SM_RopeFence_03_2,static,Mat_Rope_Temp|Mat_WoodBoards_01 3,579.6905,-0.0018,542.9614,0.0,-0.000172,0.0,1.0,-0.0,-0.02,0.0,1.0,1.0,1.0,1,1,Fence3_Short_Line/Prfb_RopeFence_03_2
+SM_RopeFence_03_2,static,Mat_Rope_Temp|Mat_WoodBoards_01 3,579.7479,-0.0042,550.6652,0.000371,0.00935,-3e-06,0.999956,0.042,1.071,0.0,1.0,1.0,1.0,1,1,Fence3_Short_Line/Prfb_RopeFence_03_2
+SM_RopeFence_03_2,static,Mat_Rope_Temp|Mat_WoodBoards_01 3,583.9956,-0.0018,519.0522,0.0,0.116434,-0.0,0.993198,0.0,13.373,-0.0,1.0,1.0,1.0,1,1,Fence3_Short_Line_1/Prfb_RopeFence_03_2
+SM_RopeFence_03_2,static,Mat_Rope_Temp|Mat_WoodBoards_01 3,579.4886,-0.0018,539.1284,0.0,0.026269,-0.0,0.999655,0.0,3.011,-0.0,1.0,1.0,1.0,1,1,Fence3_Short_Line/Prfb_RopeFence_03_2
+SM_RopeFence_03_2,static,Mat_Rope_Temp|Mat_WoodBoards_01 3,578.7823,-0.0018,531.484,-0.0,0.065441,0.0,0.997856,-0.0,7.504,0.0,1.0,1.0,1.0,1,1,Fence3_Short_Line/Prfb_RopeFence_03_2
+SM_RopeFence_03_2,static,Mat_Rope_Temp|Mat_WoodBoards_01 3,578.257,-0.0018,527.6713,-0.0,0.068398,0.0,0.997658,-0.0,7.844,-0.0,1.0,1.0,1.0,1,1,Fence3_Short_Line/Prfb_RopeFence_03_2
+SM_RopeFence_03_2,static,Mat_Rope_Temp|Mat_WoodBoards_01 3,579.8198,-0.007,554.5145,0.000371,0.00935,-3e-06,0.999956,0.042,1.071,0.0,1.0,1.0,1.0,1,1,Fence3_Short_Line/Prfb_RopeFence_03_2
+SM_RopeFence_03_2,static,Mat_Rope_Temp|Mat_WoodBoards_01 3,577.7752,-0.0018,516.3486,0.0,-0.090841,0.0,0.995865,0.0,-10.424,0.0,1.0,1.0,1.0,1,1,Fence3_Short_Line/Prfb_RopeFence_03_2
+SM_RopeFence_03_2,static,Mat_Rope_Temp|Mat_WoodBoards_01 3,579.6891,-0.0018,546.8148,0.000304,0.007624,-2e-06,0.999971,0.035,0.874,0.0,1.0,1.0,1.0,1,1,Fence3_Short_Line/Prfb_RopeFence_03_2
+SM_RopeFence_03_2,static,Mat_Rope_Temp|Mat_WoodBoards_01 3,577.0751,-0.0018,520.1671,0.0,-0.017419,0.0,0.999848,-0.0,-1.996,0.0,1.0,1.0,1.0,1,1,Fence3_Short_Line/Prfb_RopeFence_03_2
+SM_RopeFence_03_2,static,Mat_Rope_Temp|Mat_WoodBoards_01 3,576.954,-0.0018,524.0976,-0.0,0.173293,0.0,0.98487,-0.0,19.959,-0.0,1.0,1.0,1.0,1,1,Fence3_Short_Line/Prfb_RopeFence_03_2
+SM_RopeFence_03_2,static,Mat_Rope_Temp|Mat_WoodBoards_01 3,583.1669,-0.0018,545.4727,0.004705,-0.015338,7.2e-05,0.999871,0.539,-1.758,0.0,1.0,1.0,1.0,1,1,Fence3_Short_Line_1/Prfb_RopeFence_03_2
+SM_RopeFence_03_1,static,Mat_WoodBoards_01 3|Mat_Rope_Temp,583.5485,-0.0076,557.1697,-0.000144,0.999744,-0.006678,-0.021625,0.765,-177.522,-0.0,1.0,1.0,1.0,1,1,Fence3_Short_Line_1/Prfb_RopeFence_03_1
+SM_RopeFence_03_1,static,Mat_WoodBoards_01 3|Mat_Rope_Temp,579.9147,-0.01,558.5134,3e-06,0.999956,0.000371,-0.00935,-0.042,-178.929,-0.0,1.0,1.0,1.0,1,1,Fence3_Short_Line/Prfb_RopeFence_03_1
+SM_Dumpster_01_1_1,static,Mat_Dumpster_01_01,420.5015,1.1656,267.9722,0.0,0.999936,0.0,0.011307,-0.0,178.704,0.0,0.8,0.8,0.8,0,1,LootBox/TrashBin/LootBox_TrashBin 1_1/Prfb_Dumpster_01_1/SM_Dumpster_01_1_1
+SM_MedicalBag_01_1,static,Mat_Medicalbox,333.36,14.9418,231.6,0.0,0.386597,0.0,0.922249,-0.0,45.486,0.0,1.4,1.4,1.4,0,1,LootBox/Medic_01/LootBox_Medic_2/Prfb_MedicalBag_01_1
+SM_MedicalBag_01_1,static,Mat_Medicalbox,384.33,0.01,302.54,0.0,-0.024277,0.0,0.999705,-0.0,-2.782,0.0,1.4,1.4,1.4,0,1,LootBox/Medic_01/LootBox_Medic_1/Prfb_MedicalBag_01_1
+SM_MedicalBag_01_1,static,Mat_Medicalbox,422.28,0.01,278.59,0.0,0.333995,0.0,0.942575,-0.0,39.023,0.0,1.4,1.4,1.4,0,1,LootBox/Medic_01/LootBox_Medic/Prfb_MedicalBag_01_1
+SodaPointLightMesh,static,ZeroPoint,582.14,1.1282,562.82,-0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.4667,2.1486,1.5498,1,1,InStorm2LootBoxs/Parent/LootBox_Formula_BP_AR_AK47_Fire/Particle System/SodaPointLight
+SM_Bulletbox_01,static,Mat_Bulletbox,392.477,0.1836,590.8894,0.0,-0.6422,0.0,0.766537,-0.0,-79.912,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_17/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_01,static,Mat_Bulletbox,147.7905,0.1836,632.6932,0.0,-0.30621,0.0,0.951964,-0.0,-35.662,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_5/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_01,static,Mat_Bulletbox,506.7312,0.1836,281.6409,0.0,0.721736,0.0,0.692168,-0.0,92.396,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_3/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_01,static,Mat_Bulletbox,423.0316,0.204,764.9339,0.0,0.998844,0.0,0.048064,-0.0,174.49,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_23/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_01,static,Mat_Bulletbox,774.0712,0.5836,344.1716,0.0,0.742363,0.0,0.669998,-0.0,95.866,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_30/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_01,static,Mat_Bulletbox,778.4312,0.5836,367.0316,0.0,0.742363,0.0,0.669998,-0.0,95.866,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_31/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_01,static,Mat_Bulletbox,716.1986,0.4809,680.8206,0.0,0.995331,0.0,-0.096523,-0.0,-168.922,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_21/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_01,static,Mat_Bulletbox,463.1005,0.1836,723.968,0.0,-0.30621,0.0,0.951964,-0.0,-35.662,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_27/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_01,static,Mat_Bulletbox,891.3644,0.504,420.6008,0.0,0.829073,0.0,0.55914,-0.0,112.007,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_8/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_01,static,Mat_Bulletbox,584.9394,0.1818,560.5383,0.0,-0.687569,0.0,0.726119,-0.0,-86.876,0.0,1.1,1.1,1.1,1,1,LootBox_Bullet_2/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_01,static,Mat_Bulletbox,868.5353,0.1836,394.4842,0.0,-0.035175,0.0,0.999381,-0.0,-4.032,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_7/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_01,static,Mat_Bulletbox,698.2684,0.1836,437.1692,0.0,-0.035175,0.0,0.999381,-0.0,-4.032,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_6/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_01,static,Mat_Bulletbox,471.9817,0.204,732.6759,0.0,0.998844,0.0,0.048064,-0.0,174.49,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_28/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_01,static,Mat_Bulletbox,535.2084,0.1836,194.5892,0.0,-0.035175,0.0,0.999381,-0.0,-4.032,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_1/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_01,static,Mat_Bulletbox,580.799,0.1818,564.4161,0.0,-0.168448,0.0,0.98571,-0.0,-19.395,0.0,1.1,1.1,1.1,1,1,LootBox_Bullet_1/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_01,static,Mat_Bulletbox,-258.1585,0.4827,213.5832,0.0,-0.30621,0.0,0.951964,-0.0,-35.662,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_2/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_01,static,Mat_Bulletbox,1191.7999,0.4856,856.4124,0.0,0.92667,0.0,0.375875,-0.0,135.843,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_16/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_01,static,Mat_Bulletbox,470.6616,0.204,760.8559,0.0,0.998844,0.0,0.048064,-0.0,174.49,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_22/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_01,static,Mat_Bulletbox,580.2213,0.1818,559.9238,0.0,0.430441,0.0,0.902619,-0.0,50.991,0.0,1.1,1.1,1.1,1,1,LootBox_Bullet/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_01,static,Mat_Bulletbox,770.9483,0.204,663.6799,0.0,0.998619,0.0,0.052539,-0.0,173.977,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_29/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_01,static,Mat_Bulletbox,759.1027,0.204,673.3295,0.0,0.762957,0.0,0.64645,-0.0,99.451,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_13/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_01,static,Mat_Bulletbox,1192.7108,0.4856,851.1727,0.0,0.931756,0.0,-0.363085,-0.0,-137.42,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_15/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_01,static,Mat_Bulletbox,245.9102,0.204,483.6876,0.0,0.924227,0.0,-0.381843,-0.0,-135.104,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_11/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_01,static,Mat_Bulletbox,597.2804,0.4975,683.6777,0.0,-0.199305,0.0,0.979937,-0.0,-22.993,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_25/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_01,static,Mat_Bulletbox,567.6239,0.1836,584.4991,0.0,-0.6422,0.0,0.766537,-0.0,-79.912,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_37/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_01,static,Mat_Bulletbox,562.698,0.1836,443.1885,0.0,-0.6422,0.0,0.766537,-0.0,-79.912,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_19/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_01,static,Mat_Bulletbox,-331.6175,0.4827,263.5852,0.0,-0.30621,0.0,0.951964,-0.0,-35.662,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_4/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_01,static,Mat_Bulletbox,304.9112,0.204,767.0064,0.0,0.742363,0.0,0.669998,-0.0,95.866,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_24/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_01,static,Mat_Bulletbox,798.1713,0.204,693.523,0.0,0.991515,0.0,0.129995,-0.0,165.061,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_14/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bulletbox_01,static,Mat_Bulletbox,469.198,0.1836,610.0885,0.0,-0.6422,0.0,0.766537,-0.0,-79.912,0.0,1.1,1.1,1.1,0,1,LootBox/Bullert/LootBox_Bullet_18/Prfb_Bulletbox_01/SM_Bulletbox_01
+SM_Bin02,static,Mat_StreetAssets01_1,741.56,-0.004,370.33,0.0,-0.025258,0.0,0.999681,-0.0,-2.895,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_3/Prfb_Bin_01/SM_Bin02
+SM_Bin02,static,Mat_StreetAssets01_1,371.515,-0.004,508.0909,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_16/Prfb_Bin_01/SM_Bin02
+SM_Bin02,static,Mat_StreetAssets01_1,482.006,-0.004,340.1018,0.0,-0.834193,0.0,0.551472,-0.0,-113.064,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_40/Prfb_Bin_01/SM_Bin02
+SM_Bin02,static,Mat_StreetAssets01_1,546.4,-0.004,462.36,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_12/Prfb_Bin_01/SM_Bin02
+SM_Bin02,static,Mat_StreetAssets01_1,590.6663,0.004,408.9941,3e-05,0.981278,0.000114,0.192595,-0.012,157.792,0.006,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_8/Prfb_Bin_01/SM_Bin02
+SM_Bin02,static,Mat_StreetAssets01_1,433.0,-0.004,565.8,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_17/Prfb_Bin_01/SM_Bin02
+SM_Bin02,static,Mat_StreetAssets01_1,413.503,-0.004,493.384,0.0,0.002277,0.0,0.999997,-0.0,0.261,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_15/Prfb_Bin_01/SM_Bin02
+SM_Bin02,static,Mat_StreetAssets01_1,623.44,-0.004,448.98,0.0,-0.1817,0.0,0.983354,-0.0,-20.938,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_7/Prfb_Bin_01/SM_Bin02
+SM_Bin02,static,Mat_StreetAssets01_1,433.0,-0.004,610.8,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_18/Prfb_Bin_01/SM_Bin02
+SM_Bin02,static,Mat_StreetAssets01_1,572.0939,-0.004,508.551,0.0,-0.01494,0.0,0.999888,-0.0,-1.712,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_11/Prfb_Bin_01/SM_Bin02
+SM_Bin02,static,Mat_StreetAssets01_1,473.9104,-0.004,444.0266,0.0,-0.149802,0.0,0.988716,-0.0,-17.231,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_14/Prfb_Bin_01/SM_Bin02
+SM_Bin02,static,Mat_StreetAssets01_1,-66.0053,-0.004,573.5449,0.0,0.998673,0.0,-0.051503,-0.0,-174.096,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_38/Prfb_Bin_01/SM_Bin02
+SM_Bin02,static,Mat_StreetAssets01_1,-376.458,-0.004,316.592,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_21/Prfb_Bin_01/SM_Bin02
+SM_Bin02,static,Mat_StreetAssets01_1,270.1739,0.051,506.6199,0.0,-0.334802,0.0,0.942289,-0.0,-39.121,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_6/Prfb_Bin_01/SM_Bin02
+SM_Bin02,static,Mat_StreetAssets01_1,290.0916,0.051,508.574,0.0,-0.334802,0.0,0.942289,-0.0,-39.121,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_25/Prfb_Bin_01/SM_Bin02
+SM_Bin02,static,Mat_StreetAssets01_1,-92.654,-0.004,611.7415,0.0,1.0,0.0,1e-06,-0.0,180.0,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_26/Prfb_Bin_01/SM_Bin02
+SM_Bin02,static,Mat_StreetAssets01_1,543.92,-0.004,445.46,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_10/Prfb_Bin_01/SM_Bin02
+SM_Bin02,static,Mat_StreetAssets01_1,763.07,-0.004,364.66,0.0,-0.025258,0.0,0.999681,-0.0,-2.895,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_2/Prfb_Bin_01/SM_Bin02
+SM_Bin02,static,Mat_StreetAssets01_1,-292.338,-0.004,277.302,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_24/Prfb_Bin_01/SM_Bin02
+SM_Bin02,static,Mat_StreetAssets01_1,473.3866,-0.004,461.2443,0.0,-0.149802,0.0,0.988716,-0.0,-17.231,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_13/Prfb_Bin_01/SM_Bin02
+SM_Bin02,static,Mat_StreetAssets01_1,-357.568,-0.004,294.482,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_22/Prfb_Bin_01/SM_Bin02
+SM_Bin02,static,Mat_StreetAssets01_1,489.8,-0.004,594.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_19/Prfb_Bin_01/SM_Bin02
+SM_Bin02,static,Mat_StreetAssets01_1,170.8378,-0.004,504.9371,0.0,0.020853,0.0,0.999783,-0.0,2.39,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_41/Prfb_Bin_01/SM_Bin02
+SM_Bin02,static,Mat_StreetAssets01_1,-327.758,-0.004,286.852,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_23/Prfb_Bin_01/SM_Bin02
+SM_Bin02,static,Mat_StreetAssets01_1,831.2128,-0.004,434.0948,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan/Prfb_Bin_01/SM_Bin02
+SM_Bin02,static,Mat_StreetAssets01_1,551.9691,-0.004,716.2697,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_9/Prfb_Bin_01/SM_Bin02
+SM_Bin02,static,Mat_StreetAssets01_1,-391.358,-0.004,318.312,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_20/Prfb_Bin_01/SM_Bin02
+SM_Starter,static,Mat_Lootbox_02 Normal,714.2729,0.0,830.472,0.0,0.17882,0.0,0.983882,-0.0,20.602,0.0,0.8,0.8,0.8,0,1,LootBox/Normal/LootBox_Normal_30/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02 Normal,343.17,0.0,780.7848,0.0,0.028512,0.0,0.999593,-0.0,3.268,0.0,0.8,0.8,0.8,0,1,LootBox/Normal/LootBox_Normal_28/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02 Normal,478.9985,0.0,439.9456,0.0,0.003039,0.0,0.999995,-0.0,0.348,0.0,0.8,0.8,0.8,0,1,LootBox/Normal/LootBox_Normal_16/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02 Normal,428.9,0.0,730.4548,0.0,0.943936,0.0,0.330127,-0.0,141.447,0.0,0.8,0.8,0.8,0,1,LootBox/Normal/LootBox_Normal_26/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02 Normal,-275.0,0.0,302.0,0.0,0.983882,0.0,-0.178819,-0.0,-159.398,0.0,0.8,0.8,0.8,0,1,LootBox/Normal/LootBox_Normal_6/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02 Normal,641.9545,0.9057,877.9962,0.0,-0.494002,0.0,0.869461,-0.0,-59.208,0.0,0.8,0.8,0.8,0,1,LootBox/Normal/LootBox_Normal_21/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02 Normal,-308.038,0.0,305.542,0.0,0.983882,0.0,-0.178819,-0.0,-159.398,0.0,0.8,0.8,0.8,0,1,LootBox/Normal/LootBox_Normal_7/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02 Normal,731.06,0.38,350.62,0.0,0.991445,0.0,-0.130526,-0.0,-165.0,0.0,0.8,0.8,0.8,0,1,LootBox/Normal/LootBox_Normal_11/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02 Normal,370.38,0.0,767.3448,0.0,0.043442,0.0,0.999056,-0.0,4.98,0.0,0.8,0.8,0.8,0,1,LootBox/Normal/LootBox_Normal_19/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02 Normal,423.82,0.0,224.92,0.0,0.999691,0.0,-0.024858,-0.0,-177.151,0.0,0.8,0.8,0.8,0,1,LootBox/Normal/LootBox_Normal_2/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02 Normal,392.66,0.0,766.8647,0.0,0.028512,0.0,0.999593,-0.0,3.268,0.0,0.8,0.8,0.8,0,1,LootBox/Normal/LootBox_Normal_27/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02 Normal,922.9515,0.0,635.1989,0.0,0.99716,0.0,-0.075308,-0.0,-171.362,0.0,0.8,0.8,0.8,0,1,LootBox/Normal/LootBox_Normal_4/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02 Normal,403.724,0.0,219.76,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.8,0.8,0.8,0,1,LootBox/Normal/LootBox_Normal_33/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02 Normal,896.129,0.2796,416.822,0.0,-0.0,0.0,1.0,-0.0,-0.0,0.0,0.8,0.8,0.8,0,1,LootBox/Normal/LootBox_Normal_15/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02 Normal,537.0607,0.0,286.4392,0.0,0.999691,0.0,-0.024858,-0.0,-177.151,0.0,0.8,0.8,0.8,0,1,LootBox/Normal/LootBox_Normal_3/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02 Normal,462.58,0.0,199.21,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.8,0.8,0.8,0,1,LootBox/Normal/LootBox_Normal/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02 Normal,729.41,1.4,356.1159,0.0,0.991445,0.0,-0.130526,-0.0,-165.0,0.0,0.8,0.8,0.8,0,1,LootBox/Normal/LootBox_Normal_10/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02 Normal,316.25,0.0,783.2848,0.0,0.043442,0.0,0.999056,-0.0,4.98,0.0,0.8,0.8,0.8,0,1,LootBox/Normal/LootBox_Normal_31/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02 Normal,550.325,0.0,241.303,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.8,0.8,0.8,0,1,LootBox/Normal/LootBox_Normal_1/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02 Normal,647.6161,0.0,197.373,0.0,0.765306,0.0,0.643667,-0.0,99.868,0.0,0.8,0.8,0.8,0,1,LootBox/Normal/LootBox_Normal_5/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02 Normal,866.97,-0.0204,373.44,0.0,0.991445,0.0,-0.130526,-0.0,-165.0,0.0,0.8,0.8,0.8,0,1,LootBox/Normal/LootBox_Normal_13/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02 Normal,-379.3979,0.003,276.752,0.0,0.991445,0.0,-0.130526,-0.0,-165.0,0.0,0.8,0.8,0.8,0,1,LootBox/Normal/LootBox_Normal_8/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02 Normal,496.4656,0.0,453.2562,0.0,-0.00604,0.0,0.999982,-0.0,-0.692,0.0,0.8,0.8,0.8,0,1,LootBox/Normal/LootBox_Normal_17/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02 Normal,875.586,-0.0204,414.395,0.0,-0.637092,0.0,0.770788,-0.0,-79.151,0.0,0.8,0.8,0.8,0,1,LootBox/Normal/LootBox_Normal_14/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02 Normal,482.8748,0.0,439.3828,0.0,0.899696,0.0,0.436518,-0.0,128.236,0.0,0.8,0.8,0.8,0,1,LootBox/Normal/LootBox_Normal_18/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02 Normal,736.64,0.39,345.92,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.8,0.8,0.8,0,1,LootBox/Normal/LootBox_Normal_9/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02 Normal,767.3309,0.4,368.515,0.0,0.991445,0.0,-0.130526,-0.0,-165.0,0.0,0.8,0.8,0.8,0,1,LootBox/Normal/LootBox_Normal_12/Prfb_Starter
+SM_Starter,static,Mat_Lootbox_02 Normal,477.9432,0.0,645.7,0.0,0.043442,0.0,0.999056,-0.0,4.98,0.0,0.8,0.8,0.8,0,1,LootBox/Normal/LootBox_Normal_32/Prfb_Starter
+SM_Toolbox1,static,Mat_Toolbox,328.4558,15.177,226.9813,0.0,0.958592,0.0,-0.284784,-0.0,-146.908,0.0,1.2,1.2,1.2,0,1,LootBox/Tool_02/LootBox_Tools2/Prfb_Toolbox/SM_Toolbox1
+SM_Toolbox1,static,Mat_Toolbox,449.2567,0.193,267.8624,0.0,0.999611,0.0,-0.027877,-0.0,-176.805,0.0,1.2,1.2,1.2,0,1,LootBox/Tool_02/LootBox_Tools2_2/Prfb_Toolbox/SM_Toolbox1
+SM_Toolbox1,static,Mat_Toolbox,425.3138,0.193,294.7274,0.0,0.999754,0.0,-0.022161,-0.0,-177.46,0.0,1.2,1.2,1.2,0,1,LootBox/Tool_02/LootBox_Tools2_1/Prfb_Toolbox/SM_Toolbox1
+SM_Computer_01_3_1,static,Mat_Computer_01_01,903.6187,0.02,634.1684,0.0,0.991002,0.0,-0.133847,-0.0,-164.616,0.0,1.1856,1.1856,1.1856,0,1,LootBox/Console/LootBox_Console/SM_Computer_01_3_1
+SM_Computer_01_3_1,static,Mat_Computer_01_01,422.6943,0.02,287.3066,0.0,0.984318,0.0,0.176402,-0.0,159.68,0.0,1.1856,1.1856,1.1856,0,1,LootBox/Console/LootBox_Console_2/SM_Computer_01_3_1
+SM_Bulletbox_02,static,Mat_Bulletbox,446.1,0.0074,116.3,9.1e-05,0.68405,7.6e-05,0.729435,0.002,86.322,0.013,1.3,1.3,1.3,0,1,LootBox/Food/LootBox_Food_24/Prfb_Daily
+SM_Toolbox2,static,Mat_Toolbox,328.5737,15.3606,227.1659,0.0,0.958592,0.0,-0.284784,-0.0,-146.908,0.0,1.2,1.2,1.2,0,1,LootBox/Tool_02/LootBox_Tools2/Prfb_Toolbox/SM_Toolbox2
+SM_Toolbox2,static,Mat_Toolbox,449.2669,0.3766,268.0812,0.0,0.999611,0.0,-0.027877,-0.0,-176.805,0.0,1.2,1.2,1.2,0,1,LootBox/Tool_02/LootBox_Tools2_2/Prfb_Toolbox/SM_Toolbox2
+SM_Toolbox2,static,Mat_Toolbox,425.3215,0.3766,294.9463,0.0,0.999754,0.0,-0.022161,-0.0,-177.46,0.0,1.2,1.2,1.2,0,1,LootBox/Tool_02/LootBox_Tools2_1/Prfb_Toolbox/SM_Toolbox2
+SM_Toolbox_02,static,Mat_Lootbox_01,564.157,0.9109,737.714,0.0,0.857722,0.0,0.514114,-0.0,118.123,0.0,0.9,0.9,0.9,0,1,LootBox/Medic_02/LootBox_Medic_16/Prfb_Medicalbox_02
+SM_Toolbox_02,static,Mat_Lootbox_01,622.49,-0.0277,831.66,0.0,-0.146744,0.0,0.989175,-0.0,-16.877,0.0,0.9,0.9,0.9,0,1,LootBox/Medic_02/LootBox_Medic_15/Prfb_Medicalbox_02
+SM_Toolbox_02,static,Mat_Lootbox_01,619.1966,0.0,468.3311,0.0,0.016564,0.0,0.999863,-0.0,1.898,0.0,0.9,0.9,0.9,0,1,LootBox/Medic_02/LootBox_Medic_23/Prfb_Medicalbox_02
+SM_Toolbox_02,static,Mat_Lootbox_01,458.0,0.01,332.9613,0.0,0.571496,0.0,0.820605,-0.0,69.709,0.0,0.9,0.9,0.9,0,1,LootBox/Medic_02/LootBox_Medic_04/Prfb_Medicalbox_02
+SM_Toolbox_02,static,Mat_Lootbox_01,424.1844,0.0,475.6151,0.0,-0.439579,0.0,0.898204,-0.0,-52.154,0.0,0.9,0.9,0.9,0,1,LootBox/Medic_02/LootBox_Medic_21/Prfb_Medicalbox_02
+SM_Toolbox_02,static,Mat_Lootbox_01,-278.678,0.271,288.152,0.0,0.807597,0.0,0.589735,-0.0,107.724,0.0,0.9,0.9,0.9,0,1,LootBox/Medic_02/LootBox_Medic_25/Prfb_Medicalbox_02
+SM_Toolbox_02,static,Mat_Lootbox_01,738.16,0.3982,374.91,0.0,-0.318663,0.0,0.947868,-0.0,-37.164,0.0,0.9,0.9,0.9,0,1,LootBox/Medic_02/LootBox_Medic_12/Prfb_Medicalbox_02
+SM_Toolbox_02,static,Mat_Lootbox_01,891.88,0.0,524.12,0.0,-0.318663,0.0,0.947868,-0.0,-37.164,0.0,0.9,0.9,0.9,0,1,LootBox/Medic_02/LootBox_Medic_10/Prfb_Medicalbox_02
+SM_Toolbox_02,static,Mat_Lootbox_01,479.46,0.0,783.8448,0.0,0.857722,0.0,0.514114,-0.0,118.123,0.0,0.9,0.9,0.9,0,1,LootBox/Medic_02/LootBox_Medic_19/Prfb_Medicalbox_02
+SM_Toolbox_02,static,Mat_Lootbox_01,639.1091,0.01,201.6344,0.0,0.163292,0.0,0.986578,-0.0,18.796,0.0,0.9,0.9,0.9,0,1,LootBox/Medic_02/LootBox_Medic_02/Prfb_Medicalbox_02
+SM_Toolbox_02,static,Mat_Lootbox_01,560.8335,0.0,521.3242,0.0,-0.705957,0.0,0.708255,-0.0,-89.814,0.0,0.9,0.9,0.9,0,1,LootBox/Medic_02/LootBox_Medic_28/Prfb_Medicalbox_02
+SM_Toolbox_02,static,Mat_Lootbox_01,734.89,0.3982,360.17,0.0,-0.318663,0.0,0.947868,-0.0,-37.164,0.0,0.9,0.9,0.9,0,1,LootBox/Medic_02/LootBox_Medic_13/Prfb_Medicalbox_02
+SM_Toolbox_02,static,Mat_Lootbox_01,904.2479,0.01,622.2294,0.0,-0.270391,0.0,0.962751,-0.0,-31.375,0.0,0.9,0.9,0.9,0,1,LootBox/Medic_02/LootBox_Medic_07/Prfb_Medicalbox_02
+SM_Toolbox_02,static,Mat_Lootbox_01,896.738,0.2801,422.306,0.0,-0.318663,0.0,0.947868,-0.0,-37.164,0.0,0.9,0.9,0.9,0,1,LootBox/Medic_02/LootBox_Medic_09/Prfb_Medicalbox_02
+SM_Toolbox_02,static,Mat_Lootbox_01,582.6,0.0,744.9,0.0,0.857722,0.0,0.514114,-0.0,118.123,0.0,0.9,0.9,0.9,0,1,LootBox/Medic_02/LootBox_Medic_20/Prfb_Medicalbox_02
+SM_Toolbox_02,static,Mat_Lootbox_01,419.6,0.0,659.7,0.0,-0.514114,0.0,0.857722,-0.0,-61.877,0.0,0.9,0.9,0.9,0,1,LootBox/Medic_02/LootBox_Medic_18/Prfb_Medicalbox_02
+SM_Toolbox_02,static,Mat_Lootbox_01,488.5838,0.01,339.2213,0.0,0.99703,0.0,0.077015,-0.0,171.166,0.0,0.9,0.9,0.9,0,1,LootBox/Medic_02/LootBox_Medic_03/Prfb_Medicalbox_02
+SM_Toolbox_02,static,Mat_Lootbox_01,327.91,0.0,739.6147,0.0,0.857722,0.0,0.514114,-0.0,118.123,0.0,0.9,0.9,0.9,0,1,LootBox/Medic_02/LootBox_Medic_17/Prfb_Medicalbox_02
+SM_Toolbox_02,static,Mat_Lootbox_01,481.1082,0.132,666.331,0.0,0.046897,0.0,0.9989,-0.0,5.376,0.0,0.9,0.9,0.9,0,1,LootBox/Medic_02/LootBox_Medic_29/Prfb_Medicalbox_02
+SM_Toolbox_02,static,Mat_Lootbox_01,585.1984,0.0,524.2961,0.0,-0.705957,0.0,0.708255,-0.0,-89.814,0.0,0.9,0.9,0.9,0,1,LootBox/Medic_02/LootBox_Medic_27/Prfb_Medicalbox_02
+SM_Toolbox_02,static,Mat_Lootbox_01,-402.828,0.01,294.942,0.0,-0.318663,0.0,0.947868,-0.0,-37.164,0.0,0.9,0.9,0.9,0,1,LootBox/Medic_02/LootBox_Medic_05/Prfb_Medicalbox_02
+SM_Toolbox_02,static,Mat_Lootbox_01,-356.468,0.271,266.712,0.0,0.857722,0.0,0.514114,-0.0,118.123,0.0,0.9,0.9,0.9,0,1,LootBox/Medic_02/LootBox_Medic_06/Prfb_Medicalbox_02
+SM_Toolbox_02,static,Mat_Lootbox_01,616.954,0.0,492.7737,0.0,0.016564,0.0,0.999863,-0.0,1.898,0.0,0.9,0.9,0.9,0,1,LootBox/Medic_02/LootBox_Medic_24/Prfb_Medicalbox_02
+SM_Toolbox_02,static,Mat_Lootbox_01,609.1859,0.0,492.9279,0.0,0.016564,0.0,0.999863,-0.0,1.898,0.0,0.9,0.9,0.9,0,1,LootBox/Medic_02/LootBox_Medic_22/Prfb_Medicalbox_02
+SM_Toolbox_02,static,Mat_Lootbox_01,560.9115,0.0,513.555,0.0,-0.705957,0.0,0.708255,-0.0,-89.814,0.0,0.9,0.9,0.9,0,1,LootBox/Medic_02/LootBox_Medic_26/Prfb_Medicalbox_02
+SM_Toolbox_02,static,Mat_Lootbox_01,434.5564,0.01,333.2481,0.0,0.571496,0.0,0.820605,-0.0,69.709,0.0,0.9,0.9,0.9,0,1,LootBox/Medic_02/LootBox_Medic_08/Prfb_Medicalbox_02
+SM_Toolbox_02,static,Mat_Lootbox_01,793.01,0.0,690.99,0.0,-0.835669,0.0,0.549233,-0.0,-113.371,0.0,0.9,0.9,0.9,0,1,LootBox/Medic_02/LootBox_Medic_11/Prfb_Medicalbox_02
+SM_Locker_01_1_1,static,Mat_Locker_01_01,550.1941,0.0033,262.6212,0.0,0.972307,0.0,0.233706,-0.0,152.969,0.0,1.0,1.0,1.0,0,1,LootBox/Locker/LootBox_Locker_5/Prfb_Locker_01_1/SM_Locker_01_1_1
+SM_MedicalBag_02_2,static,Mat_ExplorBox,582.8257,0.0007,561.6755,0.0,0.098499,0.0,0.995137,-0.0,11.305,0.0,1.7077,1.7077,1.7077,1,1,LootBox_Formula_BP_Bullet_Energy_S/Prfb_Normal/SM_Normal_2
+SM_MedicalBag_02_2,static,Mat_ExplorBox,581.43,0.0007,561.6751,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.7077,1.7077,1.7077,1,1,LootBox_Formula_BP_CubeGun/Prfb_Normal/SM_Normal_2
+SM_Locker_01_1_2,static,Mat_Locker_01_01,550.6506,1.0383,262.4414,0.0,0.972307,0.0,0.233706,-0.0,152.969,0.0,1.0,1.0,1.0,0,1,LootBox/Locker/LootBox_Locker_5/Prfb_Locker_01_1/SM_Locker_01_1_2
+SM_Bin01,static,Mat_StreetAssets01_1,551.9691,0.6538,716.2697,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_9/Prfb_Bin_01/SM_Bin01
+SM_Bin01,static,Mat_StreetAssets01_1,-391.358,0.6538,318.312,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_20/Prfb_Bin_01/SM_Bin01
+SM_Bin01,static,Mat_StreetAssets01_1,489.8,0.6538,594.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_19/Prfb_Bin_01/SM_Bin01
+SM_Bin01,static,Mat_StreetAssets01_1,170.8378,0.6538,504.9371,0.0,0.020853,0.0,0.999783,-0.0,2.39,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_41/Prfb_Bin_01/SM_Bin01
+SM_Bin01,static,Mat_StreetAssets01_1,-327.758,0.6538,286.852,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_23/Prfb_Bin_01/SM_Bin01
+SM_Bin01,static,Mat_StreetAssets01_1,831.2128,0.6538,434.0948,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan/Prfb_Bin_01/SM_Bin01
+SM_Bin01,static,Mat_StreetAssets01_1,473.3866,0.6538,461.2443,0.0,-0.149802,0.0,0.988716,-0.0,-17.231,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_13/Prfb_Bin_01/SM_Bin01
+SM_Bin01,static,Mat_StreetAssets01_1,-357.568,0.6538,294.482,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_22/Prfb_Bin_01/SM_Bin01
+SM_Bin01,static,Mat_StreetAssets01_1,543.92,0.6538,445.46,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_10/Prfb_Bin_01/SM_Bin01
+SM_Bin01,static,Mat_StreetAssets01_1,763.07,0.6538,364.66,0.0,-0.025258,0.0,0.999681,-0.0,-2.895,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_2/Prfb_Bin_01/SM_Bin01
+SM_Bin01,static,Mat_StreetAssets01_1,-292.338,0.6538,277.302,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_24/Prfb_Bin_01/SM_Bin01
+SM_Bin01,static,Mat_StreetAssets01_1,270.1739,0.7088,506.6199,0.0,-0.334802,0.0,0.942289,-0.0,-39.121,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_6/Prfb_Bin_01/SM_Bin01
+SM_Bin01,static,Mat_StreetAssets01_1,290.0916,0.7088,508.574,0.0,-0.334802,0.0,0.942289,-0.0,-39.121,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_25/Prfb_Bin_01/SM_Bin01
+SM_Bin01,static,Mat_StreetAssets01_1,-92.654,0.6538,611.7415,0.0,1.0,0.0,1e-06,-0.0,180.0,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_26/Prfb_Bin_01/SM_Bin01
+SM_Bin01,static,Mat_StreetAssets01_1,-376.458,0.6538,316.592,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_21/Prfb_Bin_01/SM_Bin01
+SM_Bin01,static,Mat_StreetAssets01_1,433.0,0.6538,565.8,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_17/Prfb_Bin_01/SM_Bin01
+SM_Bin01,static,Mat_StreetAssets01_1,413.503,0.6538,493.384,0.0,0.002277,0.0,0.999997,-0.0,0.261,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_15/Prfb_Bin_01/SM_Bin01
+SM_Bin01,static,Mat_StreetAssets01_1,623.44,0.6538,448.98,0.0,-0.1817,0.0,0.983354,-0.0,-20.938,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_7/Prfb_Bin_01/SM_Bin01
+SM_Bin01,static,Mat_StreetAssets01_1,433.0,0.6538,610.8,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_18/Prfb_Bin_01/SM_Bin01
+SM_Bin01,static,Mat_StreetAssets01_1,572.0939,0.6538,508.551,0.0,-0.01494,0.0,0.999888,-0.0,-1.712,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_11/Prfb_Bin_01/SM_Bin01
+SM_Bin01,static,Mat_StreetAssets01_1,473.9104,0.6538,444.0266,0.0,-0.149802,0.0,0.988716,-0.0,-17.231,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_14/Prfb_Bin_01/SM_Bin01
+SM_Bin01,static,Mat_StreetAssets01_1,-66.0053,0.6538,573.5449,0.0,0.998673,0.0,-0.051503,-0.0,-174.096,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_38/Prfb_Bin_01/SM_Bin01
+SM_Bin01,static,Mat_StreetAssets01_1,741.56,0.6538,370.33,0.0,-0.025258,0.0,0.999681,-0.0,-2.895,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_3/Prfb_Bin_01/SM_Bin01
+SM_Bin01,static,Mat_StreetAssets01_1,371.515,0.6538,508.0909,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_16/Prfb_Bin_01/SM_Bin01
+SM_Bin01,static,Mat_StreetAssets01_1,482.006,0.6538,340.1018,0.0,-0.834193,0.0,0.551472,-0.0,-113.064,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_40/Prfb_Bin_01/SM_Bin01
+SM_Bin01,static,Mat_StreetAssets01_1,546.4,0.6538,462.36,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_12/Prfb_Bin_01/SM_Bin01
+SM_Bin01,static,Mat_StreetAssets01_1,590.6663,0.6618,408.9943,3e-05,0.981278,0.000114,0.192595,-0.012,157.792,0.006,1.125,1.125,1.125,0,1,LootBox/TrashCan/LootBox_TrashCan_8/Prfb_Bin_01/SM_Bin01

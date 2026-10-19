@@ -1,0 +1,750 @@
+﻿mesh,kind,materials,px,py,pz,qx,qy,qz,qw,euler_x,euler_y,euler_z,sx,sy,sz,enabled,in_project,path
+Cube,static,Floor,60.281,0.697,-66.6091,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,0.2163,0.1013,1.8568,0,1,Buildings/QuestGiver_Jeff/Visual/Cube_1
+Cube,static,Lit,111.64,0.6,-0.32,0.0,-0.707107,0.0,0.707106,-0.0,-90.0,0.0,1.0,1.5797,8.7668,0,1,TestGround/Cube_2
+Sphere,static,Lit,58.2681,1.045,-45.0783,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.3729,0.132,0.0914,0,1,Buildings/Go (2)/Sphere
+Cube,static,Lit,111.65,0.6,-3.16,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.5797,5.1862,0,1,TestGround/Cube_1
+Quad,static,FakeGlow_Base,53.869,2.259,-85.622,0.287781,-0.578924,0.339595,0.683158,51.85,-74.598,12.223,7.1979,6.3237,4.8662,0,1,Buildings/Workbench/Built/Visual/Glow
+Quad,static,BuildingInteractRing,57.33,0.009,-66.31,0.707106,0.0,0.0,0.707108,90.0,0.0,0.0,1.4419,1.4419,1.4419,0,1,Buildings/PerkTreeInvoker/Interact_Build/Visual/Quad
+Quad,static,BuildingInteractRing,53.877,0.009,-68.99,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,1.4419,1.4419,1.4419,0,1,Buildings/Merchant_Equipment/Interact_Build/Visual/Quad
+Quad,static,BuildingInteractRing,58.53,0.009,-88.17,0.707106,-0.0,0.0,0.707108,90.0,-0.0,0.0,1.4419,1.4419,1.4419,0,1,Buildings/FoodTable/Interact_Build_1/Visual/Quad
+Cube,static,White,58.97,1.029,-52.569,0.031071,0.706424,0.031071,0.706424,0.0,90.0,5.037,0.0083,0.2998,0.2011,0,1,Buildings/QuestGiver/Built/Visual/Cube_14
+Sphere,static,Lit,60.9536,1.045,4.97,0.0,-0.329572,0.0,0.944131,-0.0,-38.486,0.0,0.132,0.132,0.132,0,1,Go (3)/Sphere
+Cube,static,Pink,60.5945,2.197,4.8656,0.0,-0.329572,0.0,0.944131,-0.0,-38.486,0.0,1.4706,0.2565,0.4067,0,1,Go (3)/Cube (3)
+Cube,static,Pink,64.983,2.197,6.82,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.4706,0.2565,0.4067,0,1,Go (1)/Cube (3)
+Capsule,static,QuestMarker,48.8,1.7778,-55.961,0.0,-0.0,0.0,1.0,-0.0,-0.0,0.0,0.1604,0.1604,0.1604,0,1,Buildings/Merchant_Weapon/Built/Interact/Interact_Quest/Marker/Parent/Capsule
+Cube,static,White,60.079,1.433,-52.628,0.031071,0.706424,0.031071,0.706424,0.0,90.0,5.037,0.0083,0.2998,0.2011,0,1,Buildings/QuestGiver/Built/Visual/Cube_7
+Cube,static,White,59.626,1.371,-52.628,0.031071,0.706424,0.031071,0.706424,0.0,90.0,5.037,0.0083,0.2998,0.2011,0,1,Buildings/QuestGiver/Built/Visual/Cube_11
+Cube,static,White,59.596,1.371,-66.596,0.031071,0.706424,0.031071,0.706424,0.0,90.0,5.037,0.0083,0.2998,0.2011,0,1,Buildings/QuestGiver_Jeff/Visual/Cube_11
+pb_Mesh-65350,static,Mat_Tile_FloorCement01,78.8,1.5,-85.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,1,1,Walls/Area_2
+Quad,static,BuildingInteractRing,53.81,0.009,-55.98,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,1.4419,1.4419,1.4419,0,1,Buildings/Merchant_Weapon/Interact_Build/Visual/Quad
+Cube,static,Lit,105.68,0.6,-21.81,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.5797,50.469,0,1,TestGround/Cube_7
+Quad,static,FakeGlow_Base Storage,78.15,3.0,-49.84,0.445132,0.0,0.0,0.895465,52.864,0.0,0.0,4.7429,4.4678,3.4381,0,1,Glow/Glow_4
+Quad,static,FakeAO,60.76,-0.0004,-67.24,0.683012,0.183013,-0.183012,0.683014,90.0,30.0,-0.0,1.5866,1.5866,1.5866,0,1,Buildings/QuestGiver_Jeff/Duck_First/FakeAO
+Capsule,static,QuestMarker,49.223,1.9788,-68.956,0.0,-0.0,0.0,1.0,-0.0,-0.0,0.0,0.1604,0.1604,0.1604,0,1,Buildings/Merchant_Equipment/Built/Interact/Interact_Quest/Marker/Parent/Capsule
+Sphere,static,QuestMarker,49.223,1.6186,-68.956,0.0,-0.0,0.0,1.0,-0.0,-0.0,0.0,0.1604,0.1604,0.1604,0,1,Buildings/Merchant_Equipment/Built/Interact/Interact_Quest/Marker/Parent/Sphere
+Cube,static,White,59.053,1.165,-52.569,0.031071,0.706424,0.031071,0.706424,0.0,90.0,5.037,0.0083,0.2998,0.2011,0,1,Buildings/QuestGiver/Built/Visual/Cube_13
+Quad,static,Mat_Tile_FloorCement02,60.1429,-0.015,-82.6801,0.707107,0.0,0.0,0.707107,90.0,0.0,0.0,4.3143,4.3143,3.3506,0,1,Buildings/Bathroom/Avaliable_1/Quad_2
+Sphere,static,QuestMarker,48.8,1.4176,-55.961,0.0,-0.0,0.0,1.0,-0.0,-0.0,0.0,0.1604,0.1604,0.1604,0,1,Buildings/Merchant_Weapon/Built/Interact/Interact_Quest/Marker/Parent/Sphere
+Cube,static,Pink,62.929,1.071,6.82,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.1542,2.3397,0.3022,0,1,Go/Cube (2)
+Cube,static,White,60.642,1.27,-52.628,0.031071,0.706424,0.031071,0.706424,0.0,90.0,5.037,0.0083,0.2998,0.2011,0,1,Buildings/QuestGiver/Built/Visual/Cube_9
+Cube,static,White,60.899,1.055,-52.628,0.031071,0.706424,0.031071,0.706424,0.0,90.0,5.037,0.0083,0.2998,0.2011,0,1,Buildings/QuestGiver/Built/Visual/Cube_10
+Capsule,static,Enemy,61.0218,0.583,3.2412,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.5768,0.5768,0.5768,0,1,Test/TestEnemy (2)
+Cube,static,Lit,111.66,0.6,-14.5778,0.0,-0.707107,0.0,0.707106,-0.0,-90.0,0.0,1.0,1.5797,8.7668,0,1,TestGround/Cube_10
+Cube,static,White 2,60.281,1.259,-66.553,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,0.0586,1.0548,1.8224,0,1,Buildings/QuestGiver_Jeff/Visual/Cube
+Quad,static,FakeGlow_Base 2,48.3,3.3,-62.52,0.410726,-0.57559,0.410726,0.57559,71.021,-90.0,0.0,14.923,9.9024,3.4381,0,1,Buildings/Merchant_Normal/Built/Visual/Glow_4
+Capsule,static,Enemy,59.0518,0.583,-4.9388,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.5768,0.5768,0.5768,0,1,Test/TestEnemy (1)
+Cube,static,Lit,107.82,0.6,-8.9978,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.5797,5.1862,0,1,TestGround/Cube_8
+Cube,static,White 2,60.311,1.259,-52.585,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,0.0586,1.0548,1.8224,0,1,Buildings/QuestGiver/Built/Visual/Cube
+Capsule,static,QuestMarker,48.8,1.9438,-62.69,0.0,-0.0,0.0,1.0,-0.0,-0.0,0.0,0.1604,0.1604,0.1604,0,1,Buildings/Merchant_Normal/Built/Interact/Interact_Quest/Marker/Parent/Capsule
+Capsule,static,QuestMarker,60.281,2.4458,-66.685,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,0.1604,0.1604,0.1604,0,1,Buildings/QuestGiver_Jeff/Visual/Marker/Parent/Capsule
+Cube,static,Lit,40.87,0.0,-4.01,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,0,1,Exit
+Quad,static,DarkBackground,88.928,-7.1,-49.0792,0.707106,-0.0,-0.0,0.707108,90.0,-0.0,-0.0,101.3823,144.3442,119.5648,1,1,DarkBackground
+Cube,static,Pink,58.9464,1.071,-44.98,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.4357,2.3397,0.2094,0,1,Buildings/Go (2)/Cube (2)
+Cube,static,White,60.869,1.055,-66.596,0.031071,0.706424,0.031071,0.706424,0.0,90.0,5.037,0.0083,0.2998,0.2011,0,1,Buildings/QuestGiver_Jeff/Visual/Cube_10
+Cube,static,Lit,99.134,0.5015,-50.1903,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,0.3344,1.0,4.6165,0,1,Envir/Pfb_Shed_1/AirWall_1
+Sphere,static,QuestMarker,60.281,2.0856,-66.685,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,0.1604,0.1604,0.1604,0,1,Buildings/QuestGiver_Jeff/Visual/Marker/Parent/Sphere
+pb_Mesh-768070(Clone)(Clone)(Clone),static,Mat_Tile_FloorCement02|Darker,57.3,-0.5,-68.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,0,1,Grounds/Ground
+Cube,static,Lit,103.98,0.6,-3.16,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.5797,5.1862,0,1,TestGround/Cube
+Quad,static,FakeGlow_Base Storage,62.58,2.05,-92.19,0.445132,0.0,0.0,0.895465,52.864,0.0,0.0,9.704,7.4753,5.7525,0,1,Glow/Glow_8
+Quad,static,DarkQuadSolid,62.3,-0.1379,-85.2726,-0.5,0.5,0.5,-0.5,-0.0,-90.0,-90.0,0.2758,9.8306,3.3506,0,1,Buildings/Bathroom/Avaliable_1/Darker
+Cube,static,Pink,57.2902,2.197,-44.98,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.156,0.2565,0.2818,0,1,Buildings/Go (2)/Cube (3)
+Cube,static,Floor,61.058,0.3383,-66.553,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,0.0842,0.712,0.0842,0,1,Buildings/QuestGiver_Jeff/Visual/Cube_3
+Quad,static,Water Base,103.3018,-0.58,-53.4554,0.707107,0.0,0.0,0.707107,90.0,0.0,0.0,13.733,68.7751,1.0,1,1,Walls/Water
+Cube,static,Pink,65.569,1.071,6.82,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.1542,2.3397,0.3022,0,1,Go (1)/Cube (2)
+Quad,static,BuildingInteractRing,53.84,0.009,-62.72,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,1.4419,1.4419,1.4419,0,1,Buildings/Merchant_Normal/Interact_Build/Visual/Quad
+Cube,static,Pink,61.76,1.071,6.82,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.1542,2.3397,0.3022,0,1,Go/Cube (1)
+Quad,static,BuildingInteractRing,60.311,0.009,-55.685,0.707106,0.0,-0.0,0.707108,90.0,0.0,0.0,1.4419,1.4419,1.4419,0,1,Buildings/QuestGiver/Interact_Build/Visual/Quad
+Cube,static,Floor,59.545,0.3383,-66.553,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,0.0842,0.712,0.0842,0,1,Buildings/QuestGiver_Jeff/Visual/Cube_2
+Quad,static,Mat_Tile_FloorCement02,60.1429,-0.015,-82.6801,0.707107,0.0,0.0,0.707107,90.0,0.0,0.0,4.3143,4.3143,3.3506,0,1,Buildings/Bathroom/Unavaliable_1/Quad
+Cube,static,Lit,113.0299,0.6,-5.4778,0.0,-0.707107,0.0,0.707106,-0.0,-90.0,0.0,1.0,1.5797,4.0064,0,1,TestGround/Cube_9
+Quad,static,FakeGlow_Base Storage,61.95,2.76,-91.7,0.445132,0.0,0.0,0.895465,52.864,0.0,0.0,7.7003,5.9318,4.5647,0,1,Glow/Glow_6
+Cube,static,Lit,112.39,0.6,-9.7678,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,2.5046,1.5797,1.842,0,1,TestGround/Cube_11
+Cube,static,Blue,59.646,0.7666,-52.7,0.0,0.81593,0.0,0.578151,-0.0,109.359,0.0,0.0861,0.0385,0.1475,0,1,Buildings/QuestGiver/Built/Visual/Cube_5
+Cube,static,Red,60.198,1.066,-52.628,0.031071,0.706424,0.031071,0.706424,0.0,90.0,5.037,0.0083,0.2998,0.2011,0,1,Buildings/QuestGiver/Built/Visual/Cube_12
+Cube,static,Pink,64.4,1.071,6.82,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.1542,2.3397,0.3022,0,1,Go (1)/Cube (1)
+Cube,static,Pink,62.35,1.071,6.82,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0679,2.3397,0.2064,0,1,Go/Cube
+Cube,static,White,60.612,1.27,-66.596,0.031071,0.706424,0.031071,0.706424,0.0,90.0,5.037,0.0083,0.2998,0.2011,0,1,Buildings/QuestGiver_Jeff/Visual/Cube_9
+Cube,static,Pink,62.343,2.197,6.82,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.4706,0.2565,0.4067,0,1,Go/Cube (3)
+Quad,static,FakeGlow_Base Red,50.34,1.33,-55.2,0.500778,-0.49922,0.500778,0.49922,89.821,90.0,180.0,11.2906,10.7082,4.4056,0,1,Buildings/Merchant_Weapon/Built/Visual/Glow_3
+Sphere,static,Lit,62.689,1.045,6.6782,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.132,0.132,0.132,0,1,Go/Sphere
+Cube,static,Yellow,60.751,1.433,-52.628,0.031071,0.706424,0.031071,0.706424,0.0,90.0,5.037,0.0083,0.2998,0.2011,0,1,Buildings/QuestGiver/Built/Visual/Cube_8
+Quad,static,FakeAO,61.201,-0.0004,-67.323,0.688724,0.16018,-0.16018,0.688726,90.0,26.186,-0.0,1.5866,1.5866,1.5866,0,1,Buildings/QuestGiver_Jeff/Visual/DuckV2_4/FakeAO
+Quad,static,DarkQuadSolid,62.3,-0.1379,-85.2726,-0.5,0.5,0.5,-0.5,-0.0,-90.0,-90.0,0.2758,9.8306,3.3506,0,1,Buildings/Bathroom/Unavaliable_1/Darker_1
+Cube,static,Floor,60.311,1.763,-52.6073,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,0.1489,0.1013,1.8568,0,1,Buildings/QuestGiver/Built/Visual/Cube_4
+Cube,static,White,59.89,1.262,-66.596,0.031071,0.706424,0.031071,0.706424,0.0,90.0,5.037,0.0083,0.2998,0.2011,0,1,Buildings/QuestGiver_Jeff/Visual/Cube_6
+Quad,static,DarkQuad005,62.3,1.3562,-80.4719,-0.5,0.5,0.5,-0.5,-0.0,-90.0,-90.0,3.264,0.0817,3.3506,0,1,Buildings/Bathroom/Avaliable_1/DarkQuad
+Quad,static,DarkQuad005,120.4136,3.0,-74.5019,0.707106,0.0,0.0,0.707108,90.0,0.0,0.0,8.757,2.6572,119.5648,0,1,DarkQuads/DarkQuad
+Cube,static,Pink,55.6426,1.071,-44.98,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.4357,2.3397,0.2094,0,1,Buildings/Go (2)/Cube (1)
+Cube,static,Lit,101.324,0.5015,-51.4463,0.0,1.0,0.0,0.0,-0.0,180.0,0.0,0.3344,1.0,2.782,0,1,Envir/Pfb_Shed_1/AirWall_2
+Sphere,static,QuestMarker,60.311,2.0856,-52.717,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,0.1604,0.1604,0.1604,0,1,Buildings/QuestGiver/Built/Visual/Marker/Parent/Sphere
+Cube,static,White,60.8,2.114,-65.995,0.00539,0.0,0.0,0.999985,0.618,0.0,0.0,0.0083,0.2998,0.2011,0,1,Buildings/QuestGiver_Jeff/Visual/Cube_13
+Quad,static,FakeGlow_Base Storage,76.1,3.0,-62.57,0.445132,0.0,0.0,0.895465,52.864,0.0,0.0,6.9914,4.4678,3.4381,0,1,Glow/Glow_2
+pb_Mesh-768070(Clone)(Clone)(Clone),static,Mat_Tile_FloorCement02|Darker,57.3,-0.5,-74.0,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,0,1,Grounds/Ground
+Cube,static,Floor,61.088,0.3383,-52.585,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,0.0842,0.712,0.0842,0,1,Buildings/QuestGiver/Built/Visual/Cube_3
+Quad,static,FakeGlow_Base Storage,76.07,3.0,-49.84,0.445132,0.0,0.0,0.895465,52.864,0.0,0.0,4.7429,4.4678,3.4381,0,1,Glow/Glow_3
+Sphere,static,Lit,65.329,1.045,6.6782,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.132,0.132,0.132,0,1,Go (1)/Sphere
+Quad,static,FakeAO,48.783,-0.0004,-55.977,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,-0.0,1.5866,1.5866,1.5866,0,1,Buildings/Merchant_Weapon/Built/Visual/DuckV2_2/FakeAO
+Quad,static,FakeAO,49.19,-0.0004,-68.98,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,-0.0,1.5866,1.5866,1.5866,0,1,Buildings/Merchant_Equipment/Built/Visual/DuckV2_3/FakeAO
+Cube,static,Lit,128.68,0.6,0.16,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.5797,50.469,0,1,TestGround/Cube_5
+Sphere,static,QuestMarker,48.8,1.5836,-62.69,0.0,-0.0,0.0,1.0,-0.0,-0.0,0.0,0.1604,0.1604,0.1604,0,1,Buildings/Merchant_Normal/Built/Interact/Interact_Quest/Marker/Parent/Sphere
+Cube,static,Floor,60.281,1.763,-66.5753,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,0.1489,0.1013,1.8568,0,1,Buildings/QuestGiver_Jeff/Visual/Cube_4
+Cube,static,White,59.92,1.262,-52.628,0.031071,0.706424,0.031071,0.706424,0.0,90.0,5.037,0.0083,0.2998,0.2011,0,1,Buildings/QuestGiver/Built/Visual/Cube_6
+Quad,static,FakeAO,48.783,-0.0004,-62.717,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,-0.0,1.5866,1.5866,1.5866,0,1,Buildings/Merchant_Normal/Built/Visual/DuckV2_2/FakeAO
+Cube,static,White,60.7881,1.9794,-66.0795,0.00539,0.0,0.0,0.999985,0.618,0.0,0.0,0.0083,0.2998,0.2011,0,1,Buildings/QuestGiver_Jeff/Visual/Cube_14
+Quad,static,FakeGlow_Base Storage,48.3,3.3,-56.02,0.410726,-0.57559,0.410726,0.57559,71.021,-90.0,0.0,14.923,9.9024,3.4381,0,1,Buildings/Merchant_Weapon/Built/Visual/Glow_2
+Capsule,static,QuestMarker,60.311,2.4458,-52.717,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,0.1604,0.1604,0.1604,0,1,Buildings/QuestGiver/Built/Visual/Marker/Parent/Capsule
+Cube,static,Blue,59.616,0.7666,-66.668,0.0,0.81593,0.0,0.578151,-0.0,109.359,0.0,0.0861,0.0385,0.1475,0,1,Buildings/QuestGiver_Jeff/Visual/Cube_5
+Quad,static,BuildingInteractRing,60.682,0.009,-83.581,0.707106,-0.0,0.0,0.707108,90.0,-0.0,0.0,1.4419,1.4419,1.4419,0,1,Buildings/Bathroom/Interact_Build_1/Visual/Quad
+Cube,static,Lit,99.1378,0.5015,-52.6813,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,0.3344,1.0,4.6165,0,1,Envir/Pfb_Shed_1/AirWall
+Cube,static,Lit,84.28,0.6,0.16,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.5797,50.469,0,1,TestGround/Cube_4
+Cube,static,Pink,61.0532,1.071,5.2303,0.0,-0.329572,0.0,0.944131,-0.0,-38.486,0.0,0.1542,2.3397,0.3022,0,1,Go (3)/Cube (2)
+Quad,static,FakeAO,61.231,-0.0004,-53.355,0.688724,0.16018,-0.16018,0.688726,90.0,26.186,-0.0,1.5866,1.5866,1.5866,0,1,Buildings/QuestGiver/Built/Visual/DuckV2_4/FakeAO
+Cube,static,Pink,57.31,1.071,-44.98,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,3.0181,2.3397,0.143,0,1,Buildings/Go (2)/Cube
+Quad,static,FakeGlow_Base Storage,48.3,3.13,-69.05,0.400478,-0.582767,0.400479,0.582767,68.994,-90.0,0.0,19.2589,9.4938,3.4381,0,1,Buildings/Merchant_Equipment/Built/Visual/Glow_1
+Cube,static,Pink,60.1382,1.071,4.5028,0.0,-0.329572,0.0,0.944131,-0.0,-38.486,0.0,0.1542,2.3397,0.3022,0,1,Go (3)/Cube (1)
+Quad,static,Mat_Tile_BrickWall03,60.6698,1.5,-80.523,-1e-06,0.0,-0.0,1.0,-0.0,0.0,0.0,3.2603,3.0,2.3299,0,1,Buildings/Bathroom/Unavaliable_1/Quad_1
+Cube,static,Floor,59.575,0.3383,-52.585,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,0.0842,0.712,0.0842,0,1,Buildings/QuestGiver/Built/Visual/Cube_2
+Cube,static,Floor,60.311,0.697,-52.6411,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,0.2163,0.1013,1.8568,0,1,Buildings/QuestGiver/Built/Visual/Cube_1
+Capsule,static,Enemy,58.5618,0.583,-2.6388,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.5768,0.5768,0.5768,0,1,Test/TestEnemy
+Capsule,static,LoadingScreenRock,60.5366,0.9096,-67.317,0.613823,0.613824,-0.351027,-0.351028,0.0,-120.472,90.0,0.0805,0.0805,0.0805,0,1,Buildings/QuestGiver_Jeff/Duck_First/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Head/Capsule
+Cube,static,Lit,104.04,0.6,-6.18,0.0,-0.707107,0.0,0.707106,-0.0,-90.0,0.0,1.0,1.5797,8.7668,0,1,TestGround/Cube_3
+Quad,static,FakeGlow_Base Storage,80.76,3.0,-49.84,0.445132,0.0,0.0,0.895465,52.864,0.0,0.0,8.6292,4.4678,3.4381,0,1,Glow/Glow_5
+Capsule,static,LoadingScreenRock,60.8123,0.9096,-67.4671,0.707101,0.707101,0.002914,0.002914,-0.0,179.528,90.0,0.0805,0.0805,0.0805,0,1,Buildings/QuestGiver_Jeff/Duck_First/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Head/Capsule_1
+Cube,static,Red,60.168,1.066,-66.596,0.031071,0.706424,0.031071,0.706424,0.0,90.0,5.037,0.0083,0.2998,0.2011,0,1,Buildings/QuestGiver_Jeff/Visual/Cube_12
+SM_Locker_01_2_1,static,Mat_Locker_01_01,59.602,1.497,-80.531,0.0,-0.0,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Bathroom/Built/Mirror
+Cube,static,Lit,105.68,0.6,21.92,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.5797,50.469,0,1,TestGround/Cube_6
+Cube,static,White,60.049,1.433,-66.596,0.031071,0.706424,0.031071,0.706424,0.0,90.0,5.037,0.0083,0.2998,0.2011,0,1,Buildings/QuestGiver_Jeff/Visual/Cube_7
+Quad,static,BuildingInteractRing,55.98,0.009,-85.38,0.499999,-0.500001,0.499999,0.500001,90.0,-90.0,0.0,1.4419,1.4419,1.4419,0,1,Buildings/Workbench/Interact_Build/Visual/Quad
+Cube,static,Pink,64.99,1.071,6.82,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0679,2.3397,0.2064,0,1,Go (1)/Cube
+pb_Mesh-869046(Clone),static,Mat_Tile_FloorCement02|New Material 1,52.99,2.61,-74.2431,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,4.5602,1.0,1.424,0,1,ShadowCaster
+Cube,static,Yellow,60.721,1.433,-66.596,0.031071,0.706424,0.031071,0.706424,0.0,90.0,5.037,0.0083,0.2998,0.2011,0,1,Buildings/QuestGiver_Jeff/Visual/Cube_8
+Cube,static,Pink,60.6,1.071,4.87,0.0,-0.329572,0.0,0.944131,-0.0,-38.486,0.0,1.0679,2.3397,0.2064,0,1,Go (3)/Cube
+Quad,static,DarkQuad005,62.3,1.3562,-80.4719,-0.5,0.5,0.5,-0.5,-0.0,-90.0,-90.0,3.264,0.0817,3.3506,0,1,Buildings/Bathroom/Unavaliable_1/DarkQuad_1
+SM_Computer_01_3_3,static,Mat_Computer_01_01,58.0645,1.2549,-61.4951,-0.0,0.997477,-0.07099,3e-06,8.142,180.0,-0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Built/Visual/Prfb_Controller_02/Prfb_Computer_01_3/SM_Computer_01_3_6
+Gun01,static,ColorB|ColorA,48.045,1.6683,-57.202,0.118277,-2e-06,-0.0,0.992981,13.585,-0.0,-0.0,0.7702,0.7702,0.7702,0,1,Buildings/Merchant_Weapon/Built/Visual/Gun01
+Gun01,static,ColorB|ColorA,48.045,1.6683,-56.579,0.118277,-2e-06,-0.0,0.992981,13.585,-0.0,-0.0,0.7702,0.7702,0.7702,0,1,Buildings/Merchant_Weapon/Built/Visual/Gun01_1
+Propane,static,ColorB|ColorA,49.725,1.727,-60.975,1e-06,-0.456512,0.0,0.889717,0.0,-54.325,0.0,0.4962,0.4962,0.4962,0,1,Buildings/Merchant_Normal/Built/Visual/Propane
+Can04,static,ColorA,60.257,0.734,-88.339,0.0,0.923879,0.0,0.382684,-0.0,135.0,0.0,0.6024,0.6024,0.6024,0,1,Buildings/FoodTable/Built/Visual/Can04
+SM_Indoors_Drawer_01_2,static,Mat_Indoors_Wardrobe_01,50.0117,0.2019,-63.6814,0.0,2e-06,0.0,1.0,-0.0,0.0,0.0,0.8232,0.5078,1.0904,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_Indoors_Study_02_10/SM_Indoors_Drawer_01_2
+SM_Indoors_Drawer_01_2,static,Mat_Indoors_Wardrobe_01,50.207,0.0803,-68.4126,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,0.6169,1.3245,0,1,Buildings/Merchant_Equipment/Built/Visual/Prfb_Indoors_Study_02_10/SM_Indoors_Drawer_01_2
+SM_Indoors_Drawer_01_2,static,Mat_Indoors_Wardrobe_01,49.7734,0.2019,-62.1743,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,0.8232,0.5078,1.0904,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_Indoors_Study_02_09/SM_Indoors_Drawer_01_2
+SM_Indoors_Drawer_01_2,static,Mat_Indoors_Wardrobe_01,49.4094,0.0803,-66.857,0.0,2e-06,0.0,1.0,-0.0,0.0,0.0,1.0,0.6169,1.3245,0,1,Buildings/Merchant_Equipment/Built/Visual/Prfb_Indoors_Study_02_11/SM_Indoors_Drawer_01_2
+SM_Indoors_Drawer_01_2,static,Mat_Indoors_Wardrobe_01,49.99,0.1403,-54.4376,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,0.6169,1.3245,0,1,Buildings/Merchant_Weapon/Built/Visual/Prfb_Indoors_Study_02_09/SM_Indoors_Drawer_01_2
+SM_Indoors_Drawer_01_2,static,Mat_Indoors_Wardrobe_01,49.99,0.1403,-56.4776,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,0.6169,1.3245,0,1,Buildings/Merchant_Weapon/Built/Visual/Prfb_Indoors_Study_02_02/SM_Indoors_Drawer_01_2
+Wood_Board_32,static,Woodboard Variant,99.354,-2.8385,-51.4103,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,Envir/Pfb_Shed_1
+Hair_Hat_LV3_1,static,Mat_Helmet_LV3,49.19,-0.0143,-68.98,0.0,0.707106,-0.0,0.707107,0.0,90.0,0.0,0.9746,0.9746,0.9746,0,1,Buildings/Merchant_Equipment/Built/Visual/DuckV2_3/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Head/Items_Helmets_LV3/Hair_Hat_LV3_1
+First_aid_Kit01,static,ColorA Darker,81.6896,1.871,-49.905,-0.092296,-0.701057,0.701057,-0.092296,90.0,169.331,-169.331,0.4608,0.4608,0.4608,0,1,Buildings/Temp/First_aid_Kit01
+First_aid_Kit01,static,ColorA,48.217,2.432,-61.625,0.426471,0.564024,-0.564023,0.426472,90.0,103.831,-1.458,0.6818,0.6818,0.6818,0,1,Buildings/Merchant_Normal/Built/Visual/First_aid_Kit01
+First_aid_Kit01,static,ColorA,48.231,2.432,-62.018,0.478964,0.520186,-0.520185,0.478965,90.0,95.952,1.88,0.6818,0.6818,0.6818,0,1,Buildings/Merchant_Normal/Built/Visual/First_aid_Kit01_1
+SM_Indoors_Drawer_01_5,static,Mat_Indoors_Wardrobe_01,49.9799,0.1413,-57.7033,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,0.6169,1.3245,0,1,Buildings/Merchant_Weapon/Built/Visual/Prfb_Indoors_Study_02_02/SM_Indoors_Drawer_01_5
+SM_Indoors_Drawer_01_5,static,Mat_Indoors_Wardrobe_01,49.9799,0.1413,-55.6633,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,0.6169,1.3245,0,1,Buildings/Merchant_Weapon/Built/Visual/Prfb_Indoors_Study_02_09/SM_Indoors_Drawer_01_5
+SM_Indoors_Drawer_01_5,static,Mat_Indoors_Wardrobe_01,50.1969,0.0813,-69.6383,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,0.6169,1.3245,0,1,Buildings/Merchant_Equipment/Built/Visual/Prfb_Indoors_Study_02_10/SM_Indoors_Drawer_01_5
+SM_Indoors_Drawer_01_5,static,Mat_Indoors_Wardrobe_01,48.1837,0.0813,-66.8469,0.0,2e-06,0.0,1.0,-0.0,0.0,0.0,1.0,0.6169,1.3245,0,1,Buildings/Merchant_Equipment/Built/Visual/Prfb_Indoors_Study_02_11/SM_Indoors_Drawer_01_5
+SM_Indoors_Drawer_01_5,static,Mat_Indoors_Wardrobe_01,49.7651,0.2027,-63.1834,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,0.8232,0.5078,1.0904,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_Indoors_Study_02_09/SM_Indoors_Drawer_01_5
+SM_Indoors_Drawer_01_5,static,Mat_Indoors_Wardrobe_01,49.0026,0.2027,-63.6731,0.0,2e-06,0.0,1.0,-0.0,0.0,0.0,0.8232,0.5078,1.0904,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_Indoors_Study_02_10/SM_Indoors_Drawer_01_5
+pCylinder2,static,Bucket_Metal,98.37,0.283,-50.125,0.707107,0.0,0.707107,-0.0,-0.0,90.0,180.0,0.4898,0.4898,0.4898,0,1,FishingPoint/LootBox_Fishing/Bucket/pCylinder2
+Bottle02,static,ColorA,60.336,0.806,-87.974,0.0,0.564814,0.0,0.825218,-0.0,68.779,0.0,0.4785,0.4785,0.4785,0,1,Buildings/FoodTable/Built/Visual/Bottle02
+SM_Indoors_Table_03,static,Mat_Indoors_Table_02,55.4077,0.0,-63.3531,0.0,0.714474,0.0,0.699662,-0.0,91.2,0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Built/Visual/Prfb_Controller_02/Prfb_Indoors_Study_02_08
+Lantern,static,ColorB|FlashLight_Emi,104.324,0.5135,-58.9225,0.0,0.886784,0.0,-0.462185,-0.0,-124.944,0.0,0.6319,0.6319,0.6319,1,1,Envir/Prfb_BoatBetweenBaseAndFarm/Lantern_1
+pCube347,static,Mat_WoodBoards_01 1,50.51,0.44,-71.12,0.621287,-0.621287,-0.337642,0.337642,0.0,-122.956,-90.0,4.447,3.6201,3.5987,0,1,Buildings/Merchant_Equipment/Unavaliable/Prfb_WoodBoards_01_12
+pCube347,static,Mat_WoodBoards_01 1,51.217,0.14,-69.463,0.419457,-0.419456,-0.569259,0.569259,0.0,-72.769,-90.0,1.7538,1.1554,1.563,0,1,Buildings/Merchant_Equipment/Unavaliable/Prfb_WoodBoards_01_13
+IdentificationTag,static,ColorB,48.616,0.674,-70.229,0.0,-0.756296,0.0,0.65423,-0.0,-98.277,0.0,0.4608,0.4608,0.4608,0,1,Buildings/Merchant_Equipment/Built/Visual/IdentificationTag
+IdentificationTag,static,ColorB,48.576,0.674,-70.039,0.0,0.95077,0.0,-0.309896,-0.0,-143.894,0.0,0.4608,0.4608,0.4608,0,1,Buildings/Merchant_Equipment/Built/Visual/IdentificationTag_2
+IdentificationTag,static,ColorB,48.688,0.674,-70.304,0.0,-0.390962,0.0,0.920407,-0.0,-46.029,0.0,0.4608,0.4608,0.4608,0,1,Buildings/Merchant_Equipment/Built/Visual/IdentificationTag_1
+OfficeDeskSet02_4,static,OfficeDeskSet02,94.3104,1.266,-51.8898,0.081854,0.0,0.996644,-0.0,-0.0,9.39,-180.0,1.5,1.5,1.5,1,1,Notes/Note_Fishing-1/OfficeDeskSet02_4
+Pipe,static,ColorB,47.85,0.504,-69.13,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Built/Visual/Pipe_1
+Pipe,static,ColorB,47.85,0.504,-66.52,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Built/Visual/Pipe
+Pipe,static,ColorB,53.044,1.94,-84.974,0.103081,-0.0,-0.0,0.994673,11.833,-0.0,-0.0,0.7702,0.7702,0.7702,0,1,Buildings/Workbench/Built/Visual/Pipe
+MachineGun02,static,ColorB,48.02,2.312,-55.38,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.7702,0.7702,0.7702,0,1,Buildings/Merchant_Weapon/Built/Visual/MachineGun02
+SM_Computer_01_3_1,static,Mat_Computer_01_01,55.0916,0.6649,-62.5022,0.0,0.999865,0.0,-0.016448,-0.0,-178.115,0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Built/Visual/Prfb_Controller_02/Prfb_Computer_01_3/SM_Computer_01_3_25
+SM_Indoors_Stool_02,static,Mat_Indoors_Table_02,55.881,0.0,-63.485,0.0,0.302989,0.0,0.952994,-0.0,35.274,0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Built/Visual/Prfb_Controller_02/Prfb_Indoors_Stool_03
+SM_Indoors_WC11_1,static,Mat_Tile_Color_07 1|Mat_Tile_Color_07 1,59.2266,0.21,-81.85,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.2888,1.0,1.0,0,1,Buildings/Bathroom/Built/Prfb_Indoors_WC_11/SM_Indoors_WC11_1
+Cylinder,static,Lit,98.37,0.0283,-50.125,-0.0,0.707107,0.0,0.707107,-0.0,90.0,-0.0,-0.4595,0.0113,0.4595,0,1,FishingPoint/LootBox_Fishing/Bucket/Cylinder
+SM_Brick02,static,Mat_StreetAssets01_2,51.762,-0.017,-70.803,-1e-06,0.988339,0.0,-0.152267,-0.0,-162.483,-0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Unavaliable/Prfb_Brick02
+BulletproofJacket02,static,ColorA Darker,48.169,2.2,-68.262,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,0.6039,0.6039,0.4146,0,1,Buildings/Merchant_Equipment/Built/Visual/BulletproofJacket02_1
+BulletproofJacket02,static,ColorA Darker,50.517,0.706,-69.576,0.612372,0.353553,-0.353553,0.612373,90.0,58.343,-3.145,0.6039,0.6039,0.4146,0,1,Buildings/Merchant_Equipment/Built/Visual/BulletproofJacket02_2
+BulletproofJacket02,static,ColorA Darker,48.169,2.2,-70.23,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,0.6039,0.6039,0.4146,0,1,Buildings/Merchant_Equipment/Built/Visual/BulletproofJacket02
+GoggleA,static,ColorA,54.269,0.873,-85.032,0.032677,-0.388913,0.013998,0.920588,4.074,-45.804,0.02,0.6995,0.6995,0.6995,0,1,Buildings/Workbench/Built/Visual/GoggleA
+Clothes_LV2,static,Mat_Clothes_LV2 1,60.7878,0.018,-67.1918,-0.018109,0.963559,-0.067585,-0.258184,8.024,-150.0,-0.0,0.9746,0.9746,0.9746,0,1,Buildings/QuestGiver_Jeff/Duck_First/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Items_Clothes_LV2
+Clothes_LV2,static,Mat_Clothes_LV2,48.7273,0.018,-55.977,0.049475,0.705373,-0.049475,0.705374,8.024,90.0,-0.0,0.9746,0.9746,0.9746,0,1,Buildings/Merchant_Weapon/Built/Visual/DuckV2_2/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Items_Clothes_LV2
+polySurface1861,static,Mat_Clothes_LV4,48.7273,0.018,-62.717,0.049475,0.705373,-0.049475,0.705374,8.024,90.0,-0.0,0.9746,0.9746,0.9746,0,1,Buildings/Merchant_Normal/Built/Visual/DuckV2_2/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Items_Clothes_LV2
+Clothes_LV1,static,Mat_Clothes_LV1 1,61.2483,0.0113,-53.3198,-0.006095,0.973652,-0.026205,-0.226447,3.083,-153.814,-0.0,1.0,1.0,1.0,0,1,Buildings/QuestGiver/Built/Visual/DuckV2_4/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Items_Clothes_LV1
+Clothes_LV1,static,Mat_Clothes_LV1 1,61.2183,0.0113,-67.2878,-0.006095,0.973652,-0.026205,-0.226447,3.083,-153.814,-0.0,1.0,1.0,1.0,0,1,Buildings/QuestGiver_Jeff/Visual/DuckV2_4/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Items_Clothes_LV1
+polySurface1856,static,Mat_Clothes_LV3,49.1508,0.0113,-68.98,0.019024,0.706851,-0.019024,0.706851,3.083,90.0,-0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Built/Visual/DuckV2_3/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Items_Clothes_LV1
+Box03,static,ColorA Smooth,48.176,0.205,-57.591,-0.009806,0.703411,0.001126,0.710715,-0.889,89.414,-0.699,0.3939,0.3939,0.3939,0,1,Buildings/Merchant_Weapon/Built/Visual/Box03
+Box03,static,ColorA Smooth,48.127,0.599,-57.602,-0.009847,0.734289,0.000689,0.678766,-0.824,94.506,-0.775,0.3939,0.3939,0.3939,0,1,Buildings/Merchant_Weapon/Built/Visual/Box03_1
+SM_Indoors_Study_Table_01,static,Mat_Indoors_Study_01_1,60.429,0.0,-88.171,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,0,1,Buildings/FoodTable/Built/Visual/Prfb_Indoors_Study_Table_01
+SodaPointLightMesh,static,ZeroPoint,104.6005,-1.0395,-57.5665,0.0,-0.122523,0.0,0.992466,-0.0,-14.075,0.0,1.9924,1.9924,5.2361,1,1,Envir/Prfb_BoatBetweenBaseAndFarm/SodaPointLight
+SM_PaperBox_01_1,static,Mat_PaperBox_02,55.021,0.685,-53.366,0.0,0.997517,0.0,-0.070431,-0.0,-171.923,0.0,0.5742,0.5742,0.5742,0,1,Buildings/StarterKit/Model/SM_PaperBox_01_1
+SM_PaperBox_01_2,static,Mat_PaperBox_01_01,54.016,0.0,-53.465,0.0,0.714436,0.0,0.699701,-0.0,91.194,0.0,0.5846,0.5846,0.5846,0,1,Buildings/StarterKit/Model/Prfb_PaperBox_01_2
+SM_WoodBox_01_4_2,static,Mat_WoodBox_01_2,48.045,-0.023,-61.829,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_WoodBox_01_4/SM_WoodBox_01_4_2
+SM_BagsTile5,static,Mat_Bags_01_1,94.374,-0.1985,-59.8113,0.0,0.691901,0.0,0.721993,-0.0,87.561,0.0,0.8249,0.5759,1.0,1,1,Envir/Prfb_BagsTile_1
+Helmet01,static,ColorA,49.305,0.711,-67.133,-0.144376,-0.293543,-0.044898,0.943913,-17.392,-34.55,0.0,0.6962,0.6962,0.6962,0,1,Buildings/Merchant_Equipment/Built/Visual/Helmet01
+Lv,static,ColorA|ColorC,49.456,1.283,-61.281,0.0,0.0,0.0,1.0,-0.0,-0.0,0.0,0.6023,0.6022,0.6023,0,1,Buildings/Merchant_Normal/Built/Visual/Lv_1
+Lv,static,ColorA|ColorC,49.041,1.283,-61.281,0.0,0.0,0.0,1.0,-0.0,-0.0,0.0,0.6023,0.6022,0.6023,0,1,Buildings/Merchant_Normal/Built/Visual/Lv
+polySurface1861,static,Mat_Clothes_LV4,103.7856,-0.267,-57.929,0.042821,-0.788918,0.055335,0.610502,8.024,-104.531,-0.0,0.9746,0.9746,0.9746,1,1,Envir/Prfb_BoatBetweenBaseAndFarm/DuckV2_2/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Items_Clothes_LV2
+SM_WoodBox_01_2,static,Mat_WoodBox_01_1,97.414,-0.0395,-75.1703,0.0,0.999711,0.0,-0.024025,-0.0,-177.247,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_WoodBox_01_7
+SM_WoodBox_01_2,static,Mat_WoodBox_01_1,98.924,-0.0395,-69.2503,0.0,0.964902,0.0,-0.26261,-0.0,-149.55,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_WoodBox_01_6
+SM_WoodBox_01_2,static,Mat_WoodBox_01_1,97.845,-0.0395,-68.9423,0.0,0.999638,0.0,0.026922,-0.0,176.915,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_WoodBox_01_5
+SM_WoodBox_01_2,static,Mat_WoodBox_01_1,98.412,-0.0395,-75.1793,0.0,0.99332,0.0,-0.115389,-0.0,-166.748,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_WoodBox_01_8
+SM_Computer_01_3_4,static,Mat_Computer_01_01,60.8966,0.9733,-86.2924,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,1.0,1.0,1.0,0,1,Buildings/MasterKey/Prfb_Computer_01_25/SM_Computer_01_3_4
+"Mat_Bags_01_1_(384;00, 0;00, 384;00)__11_Shadow_On_1108",static,Mat_Bags_01_1,131.8757,-1.5882,-77.6765,0.0,0.913294,0.0,0.407302,-0.0,131.929,0.0,1.0,1.0,1.0,1,1,Prfb_GargabePile_Temp_03/Mat_Bags_01_1
+"Mat_Bags_01_1_(384;00, 0;00, 384;00)__11_Shadow_On_1108",static,Mat_Bags_01_1,124.1073,-1.9282,-35.2324,0.0,0.405819,0.0,0.913953,-0.0,47.885,0.0,1.0,1.0,1.0,1,1,Prfb_GargabePile_Temp_02/Mat_Bags_01_1
+"Mat_Bags_01_1_(384;00, 0;00, 384;00)__11_Shadow_On_1108",static,Mat_Bags_01_1,100.385,-1.5882,-3.806,0.0,0.093651,0.0,0.995605,-0.0,10.747,0.0,1.0,1.0,1.0,1,1,Prfb_GargabePile_Temp_04/Mat_Bags_01_1
+pCube342,static,Mat_WoodBoards_01,93.9955,2.6917,-64.4343,-0.707107,0.707107,1e-06,-1e-06,-0.0,-180.0,-90.0,0.5394,0.7241,0.4042,1,1,NewYear/ChineseLantern_5/Prfb_WoodBoards_01_7
+pCube342,static,Mat_WoodBoards_01,93.9955,2.6917,-43.6143,-0.707107,0.707107,1e-06,-1e-06,-0.0,-180.0,-90.0,0.5394,0.7241,0.4042,1,1,NewYear/ChineseLantern_8/Prfb_WoodBoards_01_7
+pCube342,static,Mat_WoodBoards_01,93.9955,2.6917,-39.3943,-0.707107,0.707107,1e-06,-1e-06,-0.0,-180.0,-90.0,0.5394,0.7241,0.4042,1,1,NewYear/ChineseLantern_9/Prfb_WoodBoards_01_7
+pCube342,static,Mat_WoodBoards_01,94.5555,2.6917,-70.2443,-0.707107,0.707107,1e-06,-1e-06,-0.0,-180.0,-90.0,0.5394,0.7241,0.4042,1,1,NewYear/ChineseLantern_4/Prfb_WoodBoards_01_7
+pCube342,static,Mat_WoodBoards_01,94.5255,2.6917,-48.1843,-0.707107,0.707107,1e-06,-1e-06,-0.0,-180.0,-90.0,0.5394,0.7241,0.4042,1,1,NewYear/ChineseLantern_10/Prfb_WoodBoards_01_7
+pCube342,static,Mat_WoodBoards_01,94.4555,2.6917,-57.8343,-0.707107,0.707107,1e-06,-1e-06,-0.0,-180.0,-90.0,0.5394,0.7241,0.4042,1,1,NewYear/ChineseLantern_7/Prfb_WoodBoards_01_7
+pCube342,static,Mat_WoodBoards_01,93.9955,2.6917,-61.5543,-0.707107,0.707107,1e-06,-1e-06,-0.0,-180.0,-90.0,0.5394,0.7241,0.4042,1,1,NewYear/ChineseLantern_6/Prfb_WoodBoards_01_7
+First_aid_Kit_Bandage,static,ColorA,48.102,2.432,-62.652,0.095869,-0.495014,0.072972,0.860491,13.723,-59.603,1.809,0.7702,0.7702,0.7702,0,1,Buildings/Merchant_Normal/Built/Visual/First_aid_Kit_Bandage
+First_aid_Kit_Bandage,static,ColorA Darker,81.181,2.342,-49.727,0.127046,-0.373788,0.023638,0.918468,14.539,-44.679,-3.053,0.4608,0.4608,0.4608,0,1,Buildings/Temp/First_aid_Kit_Bandage_2
+First_aid_Kit_Bandage,static,ColorA,48.146,2.432,-62.439,0.121535,-0.753126,0.148763,0.629206,22.149,-100.195,0.256,0.7702,0.7702,0.7702,0,1,Buildings/Merchant_Normal/Built/Visual/First_aid_Kit_Bandage_1
+First_aid_Kit_Bandage,static,ColorA Darker,81.148,2.3166,-49.8779,0.673876,0.006909,-0.219179,0.705552,72.542,-72.205,-90.821,0.4608,0.4608,0.4608,0,1,Buildings/Temp/First_aid_Kit_Bandage
+First_aid_Kit_Bandage,static,ColorA Darker,81.325,2.315,-49.83,0.69486,-0.339567,0.138988,0.618503,72.542,-130.861,-90.821,0.4608,0.4608,0.4608,0,1,Buildings/Temp/First_aid_Kit_Bandage_1
+SM_Computer_01_2,static,Mat_Computer_01_01,55.559,0.94,-62.495,0.0,0.913706,0.0,0.406375,-0.0,132.045,0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Built/Visual/Prfb_Controller_02/Prfb_Computer_01_2
+SM_Groundpile,static,Mat_Tile_DryMud_01,98.0844,-2.3019,-66.1325,0.0,0.99657,0.0,-0.082753,-0.0,-170.506,0.0,0.7521,0.7521,0.7521,1,1,Prfb_GargabePile_Temp_02/SingleMesh SM_Groundpile
+SM_Groundpile,static,Mat_Tile_DryMud_01,98.2953,-1.9619,-44.15,0.0,0.971043,0.0,0.238906,-0.0,152.356,0.0,0.7521,0.7521,0.7521,1,1,Prfb_GargabePile_Temp_04/SingleMesh SM_Groundpile
+SM_Groundpile,static,Mat_Tile_DryMud_01,98.4421,-1.9619,-55.0003,0.0,-0.684943,0.0,0.728597,-0.0,-86.462,0.0,0.7521,0.7521,0.7521,1,1,Prfb_GargabePile_Temp_03/SingleMesh SM_Groundpile
+SM_Computer_01_3_3,static,Mat_Computer_01_01 _2,58.0645,1.8389,-61.5651,-0.0,0.990361,-0.138507,3e-06,15.923,180.0,-0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Built/Visual/Prfb_Controller_02/Prfb_Computer_01_3/SM_Computer_01_3_13
+SM_Computer_01_3_1,static,Mat_Computer_01_01,59.0938,0.6699,-62.2264,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,1.1856,1.1856,1.1856,0,1,Buildings/PerkTreeInvoker/Built/Visual/Prfb_Controller_02/Prfb_Computer_01_3/LootBox_Console/SM_Computer_01_3_1
+SM_Indoors_Drawer_01_3,static,Mat_Indoors_Wardrobe_01,50.0058,-0.1052,-56.4775,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,0.6169,1.3245,0,1,Buildings/Merchant_Weapon/Built/Visual/Prfb_Indoors_Study_02_02/SM_Indoors_Drawer_01_3
+SM_Indoors_Drawer_01_3,static,Mat_Indoors_Wardrobe_01,50.0058,-0.1052,-54.4375,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,0.6169,1.3245,0,1,Buildings/Merchant_Weapon/Built/Visual/Prfb_Indoors_Study_02_09/SM_Indoors_Drawer_01_3
+SM_Indoors_Drawer_01_3,static,Mat_Indoors_Wardrobe_01,49.4095,-0.1652,-66.8728,0.0,2e-06,0.0,1.0,-0.0,0.0,0.0,1.0,0.6169,1.3245,0,1,Buildings/Merchant_Equipment/Built/Visual/Prfb_Indoors_Study_02_11/SM_Indoors_Drawer_01_3
+SM_Indoors_Drawer_01_3,static,Mat_Indoors_Wardrobe_01,49.7864,-0.0002,-62.1743,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,0.8232,0.5078,1.0904,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_Indoors_Study_02_09/SM_Indoors_Drawer_01_3
+SM_Indoors_Drawer_01_3,static,Mat_Indoors_Wardrobe_01,50.2228,-0.1652,-68.4125,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,0.6169,1.3245,0,1,Buildings/Merchant_Equipment/Built/Visual/Prfb_Indoors_Study_02_10/SM_Indoors_Drawer_01_3
+SM_Indoors_Drawer_01_3,static,Mat_Indoors_Wardrobe_01,50.0117,-0.0002,-63.6944,0.0,2e-06,0.0,1.0,-0.0,0.0,0.0,0.8232,0.5078,1.0904,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_Indoors_Study_02_10/SM_Indoors_Drawer_01_3
+WD40,static,ColorA,60.8624,0.3433,-67.5641,-0.078399,0.284568,0.042159,0.954514,-10.001,33.019,2.087,0.3471,0.2796,0.3471,0,1,Buildings/QuestGiver_Jeff/Duck_First/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Items_Clothes_LV2/WD40
+WD40,static,ColorA,53.331,1.051,-84.873,-0.010291,0.375408,-0.004169,0.926793,-0.914,44.109,-0.886,0.7702,0.7702,0.7702,0,1,Buildings/Workbench/Built/Visual/WD40
+SM_Brick01,static,Mat_StreetAssets01_2,49.645,0.629,-71.453,-0.09827,-0.197049,0.24554,0.944047,-5.093,-24.959,30.286,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Unavaliable/Prfb_Brick01
+First_aid_Kit_Bandage,static,ColorA,55.407,0.7648,-53.302,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.5,0.5,0.5,0,1,Buildings/StarterKit/NotPickedGO/First_aid_Kit_Bandage_1
+SM_PaperBox_01_6,static,Mat_PaperBox_02,50.458,0.363,-63.766,0.593192,0.805061,-4e-06,5e-06,0.001,180.0,72.768,1.0,1.0,1.0,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_PaperBox_01_6
+SM_CementMold4,static,Mat_CementMold_1,51.29,0.0,-61.6,0.0,-0.612936,0.0,0.790133,-0.0,-75.604,0.0,0.452,0.452,0.452,0,1,Buildings/Merchant_Normal/Unavaliable/Prfb_CementMold_03
+SM_Starter,static,Mat_Lootbox_02,99.3936,-0.048,-65.0745,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,0,1,LootBox_Starter/Prfb_Starter
+SM_Tyre_02,static,OutDoor,102.8251,-0.433,-60.9712,-0.163862,-0.064607,0.731339,0.658877,-6.975,-19.101,97.142,1.0,1.0,1.0,1,1,Envir/Prfb_BoatBetweenBaseAndFarm/Inside/Prfb_Tyre_04
+SM_Locker_01_1_2,static,Mat_Locker_01_04 noMetal,56.0921,1.0352,-81.2994,0.0,1.0,0.0,-3e-06,-0.0,-180.0,0.0,1.0,1.0,1.0,0,1,Buildings/PlayerStorage/Prfb_Locker_01_5/SM_Locker_01_1_2
+SM_Locker_01_1_2,static,Mat_Locker_01_04 noMetal,55.1821,1.0352,-81.2989,0.0,1.0,0.0,-3e-06,-0.0,-180.0,0.0,1.0,1.0,1.0,0,1,Buildings/PlayerStorage/Prfb_Locker_01_2/SM_Locker_01_1_2
+Mesh2_Group3_Group1_Model,static,Glick1,55.032,0.997,-52.837,0.079168,0.693448,0.081231,0.711522,-0.0,88.526,13.026,8.0,8.0,8.0,0,1,Buildings/StarterKit/NotPickedGO/pistol/Mesh2_Group3_Group1_Model
+Rifle03,static,ColorA|ColorB,50.363,0.661,-56.347,0.139242,0.139242,0.693262,0.693262,0.0,22.713,90.0,0.6545,0.6545,0.6545,0,1,Buildings/Merchant_Weapon/Built/Visual/Rifle03_1
+First_aid_Kit_Bandage,static,ColorA,55.3016,0.7618,-53.1858,0.70927,0.115317,-0.170435,0.674233,84.706,-110.773,-134.113,0.5,0.5,0.5,0,1,Buildings/StarterKit/NotPickedGO/First_aid_Kit_Bandage
+"Mat_Bags_01_4_(384;00, 0;00, 384;00)__10_Shadow_On_2000",static,Mat_Bags_01_4,131.8757,-1.5882,-77.6765,0.0,0.913294,0.0,0.407302,-0.0,131.929,0.0,1.0,1.0,1.0,1,1,Prfb_GargabePile_Temp_03/Mat_Bags_01_4
+"Mat_Bags_01_4_(384;00, 0;00, 384;00)__10_Shadow_On_2000",static,Mat_Bags_01_4,124.1073,-1.9282,-35.2324,0.0,0.405819,0.0,0.913953,-0.0,47.885,0.0,1.0,1.0,1.0,1,1,Prfb_GargabePile_Temp_02/Mat_Bags_01_4
+"Mat_Bags_01_4_(384;00, 0;00, 384;00)__10_Shadow_On_2000",static,Mat_Bags_01_4,100.385,-1.5882,-3.806,0.0,0.093651,0.0,0.995605,-0.0,10.747,0.0,1.0,1.0,1.0,1,1,Prfb_GargabePile_Temp_04/Mat_Bags_01_4
+SM_Tyre_02,static,OutDoor,104.3352,-0.4953,-60.9389,0.754998,0.62403,-0.108603,-0.169616,-6.925,-157.763,99.488,1.0,1.0,1.0,1,1,Envir/Prfb_BoatBetweenBaseAndFarm/Inside/Prfb_Tyre_05
+SM_Truck_02_Tyre1,static,Mat_Truck_02_01,61.406,0.122,-85.675,1.0,0.0,0.0,-1e-06,-0.0,180.0,180.0,0.947,0.947,0.947,0,1,Buildings/PetHouse/Prfb_Truck_02_Tyre_2
+SM_Computer_01_3_3,static,Mat_Computer_01_01 _2,57.4705,0.6649,-61.5101,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Built/Visual/Prfb_Controller_02/Prfb_Computer_01_3/SM_Computer_01_3_10
+SM_WoodBox_01_3_1,static,Mat_WoodBox_01_1,103.8964,0.2692,-60.7808,-0.005952,0.985132,0.052119,-0.163595,-5.782,-161.059,-1.658,1.0,1.0,1.0,1,1,Envir/Prfb_BoatBetweenBaseAndFarm/Inside/Prfb_WoodBox_01_3/SM_WoodBox_01_3_1
+SM_BarbedWire_01_03,static,Mat_BarbedWire_01,50.737,0.841,-54.999,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,0.4914,1.0,0,1,Buildings/Merchant_Weapon/Built/Visual/Prfb_BarbedWire_01_10
+SM_BarbedWire_01_03,static,Mat_BarbedWire_01,49.99,-0.06,-58.91,0.0,1.0,0.0,-2e-06,-0.0,-180.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Built/Visual/Prfb_BarbedWire_01_03
+SM_BarbedWire_01_03,static,Mat_BarbedWire_01,50.755,0.841,-56.51,0.0,0.707108,0.0,0.707105,-0.0,90.0,0.0,1.0,0.4914,1.0,0,1,Buildings/Merchant_Weapon/Built/Visual/Prfb_BarbedWire_01_09
+SM_BarbedWire_01_03,static,Mat_BarbedWire_01,49.99,-0.06,-52.69,0.0,1.0,0.0,-2e-06,-0.0,-180.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Built/Visual/Prfb_BarbedWire_01_04
+SM_BarbedWire_01_03,static,Mat_BarbedWire_01,52.25,-0.06,-58.91,0.0,1.0,0.0,-2e-06,-0.0,-180.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Built/Visual/Prfb_BarbedWire_01_06
+SM_BarbedWire_01_03,static,Mat_BarbedWire_01,52.234,-0.06,-52.69,0.0,1.0,0.0,-2e-06,-0.0,-180.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Built/Visual/Prfb_BarbedWire_01_05
+First_aid_Kit03,static,ColorA,48.669,0.52,-61.046,0.0,-0.0,0.0,1.0,-0.0,0.0,0.0,0.6111,0.6111,0.6111,0,1,Buildings/Merchant_Normal/Built/Visual/First_aid_Kit03
+First_aid_Kit03,static,ColorA Darker,80.276,2.319,-49.81,0.001088,-0.151756,-0.007083,0.988392,0.0,-17.458,-0.821,0.3031,0.3031,0.3031,0,1,Buildings/Temp/First_aid_Kit03_1
+First_aid_Kit03,static,ColorA Darker,79.761,2.319,-49.791,0.0,0.0,-0.007166,0.999974,-0.0,0.0,-0.821,0.3031,0.3031,0.3031,0,1,Buildings/Temp/First_aid_Kit03
+SM_Computer_01_3_1,static,Mat_Computer_01_01 _2,55.2396,0.8019,-62.8092,0.707001,0.707003,-0.012157,-0.012153,0.0,-178.03,90.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Built/Visual/Prfb_Controller_02/Prfb_Computer_01_3/SM_Computer_01_3_22
+SM_Computer_01_3_2,static,Mat_Computer_01_01,61.636,0.9713,-86.2545,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,1.0,1.0,1.0,0,1,Buildings/MasterKey/Prfb_Computer_01_25/SM_Computer_01_3_2
+SM_BagTile3,static,Mat_Bags_01_1,48.51,-0.017,-69.35,0.0,-0.691409,-1e-06,0.722464,-0.0,-87.483,-0.0,1.0,0.8744,1.0,0,1,Buildings/Merchant_Equipment/Unavaliable/Prfb_BagsTile_7
+Bottle04,static,ColorA,50.328,0.87,-68.347,0.0,-0.756296,0.0,0.65423,-0.0,-98.277,0.0,0.7348,0.7348,0.7348,0,1,Buildings/Merchant_Equipment/Built/Visual/Bottle04
+Quad,static,SunFogTD2023,72.5887,26.4044,-106.3448,0.329833,-0.280017,0.102977,0.895654,40.429,-34.73,-0.019,4.8023,3.5,3.4497,0,1,LookDevCamera/Fx/SunFog
+Quad,static,FishingRingStatic,103.85,-0.642,-48.19,0.707107,0.0,0.0,0.707107,90.0,0.0,0.0,1.2,1.2,1.2,1,1,FishingPoint/TargetPoint/RingParent/Static
+SM_Indoors_Stool_01,static,Mat_Indoors_Table_02,60.21,-0.0004,-86.79,0.0,0.952111,0.0,-0.305752,-0.0,-144.393,0.0,1.0,1.0,1.0,0,1,Buildings/MasterKey/Prfb_Indoors_Study_02_06
+SM_PaperBox_01_4,static,Mat_PaperBox_01_01,50.214,0.899,-53.257,0.0,-0.508642,0.0,0.860978,-0.0,-61.147,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Unavaliable/Prfb_PaperBox_01_5
+SM_PaperBox_01_4,static,Mat_PaperBox_01_01,48.0295,-0.018,-63.6199,0.0,1.0,0.0,0.0,-0.0,180.0,0.0,0.4468,0.4468,0.4468,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_PaperBox_01_04
+SM_PaperBox_01_4,static,Mat_PaperBox_01_01,51.3,0.0,-53.057,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Unavaliable/Prfb_PaperBox_01_4
+SM_Locker_01_1_1,static,Mat_Locker_01_04 noMetal,55.7672,0.0002,-80.9318,0.0,1.0,0.0,-3e-06,-0.0,-180.0,0.0,1.0,1.0,1.0,0,1,Buildings/PlayerStorage/Prfb_Locker_01_5/SM_Locker_01_1_1
+SM_Locker_01_1_1,static,Mat_Locker_01_04 noMetal,54.8572,0.0002,-80.9313,0.0,1.0,0.0,-3e-06,-0.0,-180.0,0.0,1.0,1.0,1.0,0,1,Buildings/PlayerStorage/Prfb_Locker_01_2/SM_Locker_01_1_1
+SM_Roadblock12,static,Mat_Roadblocks01,104.194,0.0005,-72.1973,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,0.7684,1.0,1.0,1,1,Envir/Prfb_Roadblock_12
+SM_Computer_01_1_2,static,Mat_Computer_01_01,60.8402,0.6361,-87.9811,0.0,0.978842,0.0,-0.204616,-0.0,-156.386,0.0,1.0,1.0,1.0,0,1,Buildings/FoodTable/Built/Visual/Prfb_Computer_01_1/SM_Computer_01_1_2
+SM_Computer_01_1_2,static,Mat_Computer_01_02,55.7889,1.234,-81.2558,-0.0,0.707108,-0.707106,-2e-06,90.0,-132.391,47.609,1.0,0.8543,1.0,0,1,Buildings/PlayerStorage/Prfb_Locker_01_5/Prfb_Computer_01_24/SM_Computer_01_1_2
+SM_Computer_01_1_2,static,Mat_Computer_01_01,50.3512,0.622,-55.142,0.0,0.991445,0.0,-0.130526,-0.0,-165.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Built/Visual/Prfb_Computer_01_1/SM_Computer_01_1_2
+SM_Computer_01_1_2,static,Mat_Computer_01_02,54.8788,1.234,-81.2554,-0.0,0.707108,-0.707106,-2e-06,90.0,-132.391,47.609,1.0,0.8543,1.0,0,1,Buildings/PlayerStorage/Prfb_Locker_01_2/Prfb_Computer_01_24/SM_Computer_01_1_2
+SM_Tyre_02,static,OutDoor,104.6732,-0.4825,-59.8593,0.758002,0.64573,-0.017326,-0.090368,-6.582,-171.725,98.669,1.0,1.0,1.0,1,1,Envir/Prfb_BoatBetweenBaseAndFarm/Inside/Prfb_Tyre_06
+Sunglass01,static,ColorA,48.8434,0.8609,-55.977,0.0,-0.707107,-0.0,0.707106,0.0,-90.0,0.0,0.9746,0.9746,0.9746,0,1,Buildings/Merchant_Weapon/Built/Visual/DuckV2_2/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Head/Sunglass01
+SM_WoodBox_01_3_2,static,Mat_WoodBox_01_1,103.5254,0.7929,-60.5974,-0.005952,0.985132,0.052119,-0.163595,-5.782,-161.059,-1.658,1.0,1.0,1.0,1,1,Envir/Prfb_BoatBetweenBaseAndFarm/Inside/Prfb_WoodBox_01_3/SM_WoodBox_01_3_2
+SM_Indoors_Table_03,static,Mat_Indoors_Table_02,58.681,0.0,-62.1315,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Built/Visual/Prfb_Controller_02/Prfb_Indoors_Study_02_07
+SM_Computer_01_3_3,static,Mat_Computer_01_01,56.8445,1.8389,-61.6472,0.018078,0.981888,-0.137322,0.129271,15.923,165.0,-0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Built/Visual/Prfb_Controller_02/Prfb_Computer_01_3/SM_Computer_01_3_18
+Sphere,static,NewYearLat,94.1174,2.1967,-39.3943,0.0,1.0,0.0,-1e-06,-0.0,-180.0,0.0,0.673,0.673,0.673,0,1,NewYear/ChineseLantern_9/ChineseLantern_1
+Sphere,static,NewYearLat,94.1174,2.1967,-43.6143,0.0,1.0,0.0,-1e-06,-0.0,-180.0,0.0,0.673,0.673,0.673,0,1,NewYear/ChineseLantern_8/ChineseLantern_1
+Sphere,static,NewYearLat,94.1174,2.1967,-64.4343,0.0,1.0,0.0,-1e-06,-0.0,-180.0,0.0,0.673,0.673,0.673,0,1,NewYear/ChineseLantern_5/ChineseLantern_1
+Sphere,static,NewYearLat,94.5774,2.1967,-57.8343,0.0,1.0,0.0,-1e-06,-0.0,-180.0,0.0,0.673,0.673,0.673,0,1,NewYear/ChineseLantern_7/ChineseLantern_1
+Sphere,static,NewYearLat,94.6774,2.1967,-70.2443,0.0,1.0,0.0,-1e-06,-0.0,-180.0,0.0,0.673,0.673,0.673,0,1,NewYear/ChineseLantern_4/ChineseLantern_1
+Sphere,static,NewYearLat,94.6474,2.1967,-48.1843,0.0,1.0,0.0,-1e-06,-0.0,-180.0,0.0,0.673,0.673,0.673,0,1,NewYear/ChineseLantern_10/ChineseLantern_1
+Sphere,static,NewYearLat,94.1174,2.1967,-61.5543,0.0,1.0,0.0,-1e-06,-0.0,-180.0,0.0,0.673,0.673,0.673,0,1,NewYear/ChineseLantern_6/ChineseLantern_1
+SM_Indoors_Table_03,static,Mat_Indoors_Table_02,58.681,0.0,-61.215,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Built/Visual/Prfb_Controller_02/Prfb_Indoors_Study_02_03
+Sphere,static,FishingLine,99.71,0.319,-51.44,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.1,0.1,0.1,1,1,FishingPoint/BaitVisual/Sphere
+Biscuit03,static,ColorA,60.878,0.686,-88.429,0.0,0.993494,0.0,0.113888,-0.0,166.921,0.0,0.4785,0.4785,0.4785,0,1,Buildings/FoodTable/Built/Visual/Biscuit03
+SodaPointLightMesh,static,ZeroPoint,94.4014,2.3197,-61.5543,0.0,1.0,0.0,-1e-06,-0.0,-180.0,0.0,5.5,5.0,5.5,1,1,NewYear/ChineseLantern_6/SodaPointLight
+SodaPointLightMesh,static,ZeroPoint,94.4014,2.3197,-64.4343,0.0,1.0,0.0,-1e-06,-0.0,-180.0,0.0,5.5,5.0,5.5,1,1,NewYear/ChineseLantern_5/SodaPointLight
+SodaPointLightMesh,static,ZeroPoint,94.4014,2.3197,-39.3943,0.0,1.0,0.0,-1e-06,-0.0,-180.0,0.0,5.5,5.0,5.5,1,1,NewYear/ChineseLantern_9/SodaPointLight
+SodaPointLightMesh,static,ZeroPoint,94.4014,2.3197,-43.6143,0.0,1.0,0.0,-1e-06,-0.0,-180.0,0.0,5.5,5.0,5.5,1,1,NewYear/ChineseLantern_8/SodaPointLight
+SodaPointLightMesh,static,ZeroPoint,94.9314,2.3197,-48.1843,0.0,1.0,0.0,-1e-06,-0.0,-180.0,0.0,5.5,5.0,5.5,1,1,NewYear/ChineseLantern_10/SodaPointLight
+SodaPointLightMesh,static,ZeroPoint,94.9614,2.3197,-70.2443,0.0,1.0,0.0,-1e-06,-0.0,-180.0,0.0,5.5,5.0,5.5,1,1,NewYear/ChineseLantern_4/SodaPointLight
+SodaPointLightMesh,static,ZeroPoint,94.8614,2.3197,-57.8343,0.0,1.0,0.0,-1e-06,-0.0,-180.0,0.0,5.5,5.0,5.5,1,1,NewYear/ChineseLantern_7/SodaPointLight
+SodaPointLightMesh,static,ZeroPoint,97.5851,0.9415,-75.3327,0.0,0.886784,0.0,-0.462185,-0.0,-124.944,0.0,0.5047,0.5585,0.5047,1,1,Envir/Lantern/SodaPointLight_1
+SodaPointLightMesh,static,ZeroPoint,97.7399,1.3813,-74.7929,0.0,0.886784,0.0,-0.462185,-0.0,-124.944,0.0,5.7144,4.3566,5.7144,1,1,Envir/Lantern/SodaPointLight
+SM_PlasticPallet_01_01,static,Mat_PlasticPallet_01,47.8,2.21,-63.6,1e-06,-0.707107,1e-06,0.707107,0.0,-90.0,0.0,1.0,0.41,0.7615,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_PlasticPallet_01_08
+SM_PlasticPallet_01_01,static,Mat_PlasticPallet_01,52.791,1.961,-85.42,-0.5,-0.5,-0.499999,0.500001,-90.0,-90.0,-0.0,1.0,0.6397,1.0,0,1,Buildings/Workbench/Built/Visual/Prfb_PlasticPallet_01_09
+SM_PlasticPallet_01_01,static,Mat_PlasticPallet_01,47.737,1.961,-70.0203,-0.499999,-0.500001,-0.499999,0.500001,-90.0,-90.0,0.0,1.0,0.9138,1.0,0,1,Buildings/Merchant_Equipment/Built/Visual/Prfb_PlasticPallet_01_05
+SM_PlasticPallet_01_01,static,Mat_PlasticPallet_01,47.53,1.961,-68.052,-0.499999,-0.500001,-0.499999,0.500001,-90.0,-90.0,0.0,1.0,0.9138,1.0,0,1,Buildings/Merchant_Equipment/Built/Visual/Prfb_PlasticPallet_01_08
+SM_PlasticPallet_01_01,static,Mat_PlasticPallet_01,47.777,1.9613,-55.3573,-0.499999,-0.500001,-0.499999,0.500001,-90.0,-90.0,0.0,1.0,0.6397,1.0,0,1,Buildings/Merchant_Weapon/Built/Visual/Prfb_PlasticPallet_01_04
+SM_PlasticPallet_01_01,static,Mat_PlasticPallet_01,47.8,1.543,-62.1,1e-06,-0.707107,1e-06,0.707107,0.0,-90.0,0.0,1.0,0.41,0.7615,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_PlasticPallet_01_05
+SM_PlasticPallet_01_01,static,Mat_PlasticPallet_01,81.5289,1.9584,-49.364,-0.707106,0.0,0.0,0.707108,-90.0,0.0,0.0,1.0,0.9138,1.0,0,1,Buildings/Temp/Prfb_PlasticPallet_01_08
+SM_PlasticPallet_01_01,static,Mat_PlasticPallet_01,47.777,1.9613,-62.0973,-0.499999,-0.500001,-0.499999,0.500001,-90.0,-90.0,0.0,1.0,0.6397,1.0,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_PlasticPallet_01_04
+SM_PlasticPallet_01_01,static,Mat_PlasticPallet_01,79.9927,1.961,-49.367,-0.707106,0.0,0.0,0.707108,-90.0,0.0,0.0,1.0,0.9138,1.0,0,1,Buildings/Temp/Prfb_PlasticPallet_01_07
+SM_PlasticPallet_01_01,static,Mat_PlasticPallet_01,47.8,2.21,-62.1,1e-06,-0.707107,1e-06,0.707107,0.0,-90.0,0.0,1.0,0.41,0.7615,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_PlasticPallet_01_07
+SM_PlasticPallet_01_01,static,Mat_PlasticPallet_01,47.78,1.9639,-63.6334,-0.499999,-0.500001,-0.499999,0.500001,-90.0,-90.0,0.0,1.0,0.6397,1.0,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_PlasticPallet_01_03
+SM_PlasticPallet_01_01,static,Mat_PlasticPallet_01,47.78,1.9639,-56.8934,-0.499999,-0.500001,-0.499999,0.500001,-90.0,-90.0,0.0,1.0,0.6397,1.0,0,1,Buildings/Merchant_Weapon/Built/Visual/Prfb_PlasticPallet_01_03
+SM_PlasticPallet_01_01,static,Mat_PlasticPallet_01,47.53,1.961,-70.02,-0.499999,-0.500001,-0.499999,0.500001,-90.0,-90.0,0.0,1.0,0.9138,1.0,0,1,Buildings/Merchant_Equipment/Built/Visual/Prfb_PlasticPallet_01_07
+SM_PlasticPallet_01_01,static,Mat_PlasticPallet_01,47.8,1.543,-63.6,1e-06,-0.707107,1e-06,0.707107,0.0,-90.0,0.0,1.0,0.41,0.7615,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_PlasticPallet_01_06
+SM_PlasticPallet_01_01,static,Mat_PlasticPallet_01,47.737,1.961,-68.0523,-0.499999,-0.500001,-0.499999,0.500001,-90.0,-90.0,0.0,1.0,0.9138,1.0,0,1,Buildings/Merchant_Equipment/Built/Visual/Prfb_PlasticPallet_01_06
+Oilcan03,static,ColorA,48.491,0.316,-54.079,-0.009725,0.66143,0.001687,0.749942,-0.964,82.828,-0.592,0.7172,0.7172,0.7172,0,1,Buildings/Merchant_Weapon/Built/Visual/Oilcan03
+SM_WoodBox_01_3_1,static,Mat_WoodBox_01_1,55.284,0.0,-53.426,0.0,-0.022205,0.0,0.999753,-0.0,-2.545,0.0,0.7614,0.7613,0.7614,0,1,Buildings/StarterKit/Model/Prfb_WoodBox_01_4/SM_WoodBox_01_3_1
+SM_Indoors_WC11_2,static,Mat_Indoors_WC_02,59.13,0.21,-81.85,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.2888,1.0,1.0,0,1,Buildings/Bathroom/Built/Prfb_Indoors_WC_11/SM_Indoors_WC11_2/Col_Indoors_WC11_2
+SM_PaperBox_01_3,static,Mat_PaperBox_01_01,50.229,0.0,-53.057,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Unavaliable/Prfb_PaperBox_01_3
+SM_PaperBox_01_3,static,Mat_PaperBox_01_01,48.0366,0.3957,-64.1662,0.0,0.998094,0.0,-0.061713,-0.0,-172.924,0.0,0.4468,0.4468,0.4468,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_PaperBox_01_06
+SM_PaperBox_01_3,static,Mat_PaperBox_01_01,48.051,-0.018,-64.165,0.0,0.998913,0.0,0.046615,-0.0,174.656,0.0,0.4468,0.4468,0.4468,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_PaperBox_01_3
+SM_PaperBox_01_3,static,Mat_PaperBox_01_01,48.051,0.3927,-64.6586,0.0,1.0,0.0,6e-06,-0.0,179.999,0.0,0.4468,0.4468,0.4468,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_PaperBox_01_8
+SM_PaperBox_01_3,static,Mat_PaperBox_01_01,48.0272,-0.018,-64.6765,0.0,0.707104,0.0,0.70711,-0.0,89.999,0.0,0.4468,0.4468,0.4468,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_PaperBox_01_7
+SM_WaterButt_01,static,Mat_WaterTankButt_01_B,94.324,0.0,-65.2863,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_WaterButts_01
+SM_WaterButt_01,static,Mat_WaterTankButt_01_B,94.324,0.0,-51.8903,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_WaterButts_04
+SM_WaterButt_01,static,Mat_WaterTankButt_01_B,94.324,0.0,-66.2463,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_WaterButts_02
+SM_WaterButt_01,static,Mat_WaterTankButt_01_B,94.324,0.0,-67.2463,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_WaterButts_03
+SM_WaterButt_01,static,Mat_WaterTankButt_01_B,96.514,0.4095,-35.9273,-0.71218,0.0,0.0,0.701997,-89.175,180.0,180.0,1.0,1.0,1.0,1,1,Envir/Prfb_WaterButts_05
+pCube336,static,Mat_WoodBoards_01,91.9746,2.3404,-63.187,-0.473234,-0.525404,-0.473234,0.525404,-84.019,-90.0,0.0,0.3826,0.3826,0.3826,1,1,Teleporters/DoorBack/GameObject_1/Prfb_WoodBoards_01_1
+pCube336,static,Mat_WoodBoards_01,92.5314,0.7806,-41.1557,-0.473234,-0.525404,-0.473234,0.525404,-84.019,-90.0,0.0,0.3826,0.3826,0.3826,1,1,ManHole/SmallBridgeNeedFix/Common/GameObject_2/Prfb_WoodBoards_01_6
+pCube336,static,Mat_WoodBoards_01,92.363,2.384,-41.1556,-0.473234,-0.525404,-0.473234,0.525404,-84.019,-90.0,0.0,0.3826,0.3826,0.3826,1,1,ManHole/SmallBridgeNeedFix/Common/GameObject_3/Prfb_WoodBoards_01_6
+pCube336,static,Mat_WoodBoards_01,92.5314,0.7806,-41.527,-0.473234,-0.525404,-0.473234,0.525404,-84.019,-90.0,0.0,0.3826,0.3826,0.3826,1,1,ManHole/SmallBridgeNeedFix/Common/GameObject_2/Prfb_WoodBoards_01_1
+pCube336,static,Mat_WoodBoards_01,91.9746,2.3404,-62.8156,-0.473234,-0.525404,-0.473234,0.525404,-84.019,-90.0,0.0,0.3826,0.3826,0.3826,1,1,Teleporters/DoorBack/GameObject_1/Prfb_WoodBoards_01_6
+pCube336,static,Mat_WoodBoards_01,92.143,0.737,-63.187,-0.473234,-0.525404,-0.473234,0.525404,-84.019,-90.0,0.0,0.3826,0.3826,0.3826,1,1,Teleporters/DoorBack/GameObject/Prfb_WoodBoards_01_1
+pCube336,static,Mat_WoodBoards_01,92.143,0.737,-62.8157,-0.473234,-0.525404,-0.473234,0.525404,-84.019,-90.0,0.0,0.3826,0.3826,0.3826,1,1,Teleporters/DoorBack/GameObject/Prfb_WoodBoards_01_6
+pCube336,static,Mat_WoodBoards_01,92.363,2.384,-41.527,-0.473234,-0.525404,-0.473234,0.525404,-84.019,-90.0,0.0,0.3826,0.3826,0.3826,1,1,ManHole/SmallBridgeNeedFix/Common/GameObject_3/Prfb_WoodBoards_01_1
+Quad,static,FakeGlow_Base Storage,60.874,1.6953,-86.2685,0.608761,-2e-06,2e-06,0.793353,75.0,-0.0,0.0,2.7855,2.2928,2.2928,0,1,Buildings/MasterKey/Prfb_Computer_01_25/Quad
+SM_Computer_01_3_3,static,Mat_Computer_01_01,57.4705,1.8389,-61.5651,-0.0,0.990361,-0.138507,3e-06,15.923,180.0,-0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Built/Visual/Prfb_Controller_02/Prfb_Computer_01_3/SM_Computer_01_3_12
+SM_Computer_01_3_1,static,Mat_Computer_01_01 _2,55.4166,0.8019,-62.4372,0.642362,0.642362,0.295583,0.295588,0.0,130.581,90.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Built/Visual/Prfb_Controller_02/Prfb_Computer_01_3/SM_Computer_01_3_21
+SM_WoodBox_01_3_2,static,Mat_WoodBox_01_1,55.5844,0.4096,-53.4126,0.0,-0.022205,0.0,0.999753,-0.0,-2.545,0.0,0.7614,0.7613,0.7614,0,1,Buildings/StarterKit/Model/Prfb_WoodBox_01_4/SM_WoodBox_01_3_2
+SM_Computer_01_3_3,static,Mat_Computer_01_01 _2,56.8275,1.2549,-61.5802,0.009266,0.988943,-0.070383,0.1302,8.142,165.0,-0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Built/Visual/Prfb_Controller_02/Prfb_Computer_01_3/SM_Computer_01_3_11
+SM_Computer_01_1_1,static,Mat_Computer_01_01,50.3965,0.7298,-54.9722,0.0,0.991445,0.0,-0.130526,-0.0,-165.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Built/Visual/Prfb_Computer_01_1/SM_Computer_01_1_1
+SM_Computer_01_1_1,static,Mat_Computer_01_02,54.8787,1.4098,-81.3195,0.0,1.0,0.0,-3e-06,0.0,-180.0,0.0,1.0,1.0,1.6754,0,1,Buildings/PlayerStorage/Prfb_Locker_01_2/Prfb_Computer_01_24/SM_Computer_01_1_1
+SM_Computer_01_1_1,static,Mat_Computer_01_02,55.7887,1.4098,-81.3199,0.0,1.0,0.0,-3e-06,0.0,-180.0,0.0,1.0,1.0,1.6754,0,1,Buildings/PlayerStorage/Prfb_Locker_01_5/Prfb_Computer_01_24/SM_Computer_01_1_1
+SM_Computer_01_1_1,static,Mat_Computer_01_01,60.9104,0.7439,-87.8199,0.0,0.978842,0.0,-0.204616,-0.0,-156.386,0.0,1.0,1.0,1.0,0,1,Buildings/FoodTable/Built/Visual/Prfb_Computer_01_1/SM_Computer_01_1_1
+SM_Computer_01_3_3,static,Mat_Computer_01_01,56.8315,0.6649,-61.5942,0.0,0.991445,0.0,0.130529,-0.0,165.0,0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Built/Visual/Prfb_Controller_02/Prfb_Computer_01_3/SM_Computer_01_3_8
+MaskA,static,ColorA,48.402,1.687,-71.3,-0.09583,0.196063,0.040886,0.975041,-11.707,22.486,2.467,0.6962,0.6962,0.6962,0,1,Buildings/Merchant_Equipment/Built/Visual/MaskA
+SM_MetalBoard_01_4,static,Mat_MetalBoard_01_1,50.14,0.049,-65.51,0.0,-0.065188,0.0,0.997873,-0.0,-7.475,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Normal/Unavaliable/Prfb_MetalBoard_01_4
+SM_MetalBoard_01_4,static,Mat_MetalBoard_01_1,49.015,0.245,-61.965,0.089216,-0.299065,-0.271589,0.910407,0.0,-36.37,-33.221,1.0,1.0,1.0,0,1,Buildings/Merchant_Normal/Unavaliable/Prfb_MetalBoard_01_5
+Wrench02,static,ColorB|ColorA,53.019,1.729,-85.68,-0.305487,0.0,-0.0,0.952196,-35.575,0.0,-0.0,0.7702,0.7702,0.7702,0,1,Buildings/Workbench/Built/Visual/Wrench02
+SM_Indoors_Stool_02,static,Mat_Indoors_Table_02,57.258,0.0,-62.98,0.0,-0.173606,0.0,0.984815,-0.0,-19.995,0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Built/Visual/Prfb_Controller_02/Prfb_Indoors_Stool_02
+Wrench01,static,ColorB,54.71,0.81,-85.95,0.079002,0.094587,0.700752,0.70268,-1.234,14.105,89.69,0.7702,0.7702,0.7702,0,1,Buildings/Workbench/Built/Visual/Wrench01_1
+Wrench01,static,ColorB,53.018,2.263,-85.205,-0.269529,-0.0,-0.0,0.962992,-31.272,-0.0,-0.0,0.7702,0.7702,0.7702,0,1,Buildings/Workbench/Built/Visual/Wrench01
+Player_Duck_Head,skinned,Duck 1,103.7317,-0.2855,-57.943,0.43275,0.55922,0.55922,-0.43275,-90.0,75.469,180.0,1.0,1.0,1.0,1,1,Envir/Prfb_BoatBetweenBaseAndFarm/DuckV2_2/Player_Duck_Head
+First_aid_Kit_Bandage,static,ColorA,55.28,0.7728,-53.413,0.664963,-0.272371,0.207068,0.663898,84.706,-110.773,-71.096,0.5,0.5,0.5,0,1,Buildings/StarterKit/NotPickedGO/First_aid_Kit_Bandage_2
+SM_Indoors_Table_03,static,Mat_Indoors_Table_02,53.438,-0.0004,-85.413,0.0,0.707106,0.0,0.707108,-0.0,90.0,0.0,1.2031,1.2031,1.2031,0,1,Buildings/Workbench/Built/Visual/Prfb_Indoors_Study_02_07
+,static,Mat_Indoors_Table_02,81.487,1.3749,-49.815,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,0.7983,0.4457,0.4457,0,0,Buildings/Temp/Prfb_Indoors_Study_02_13
+,static,Mat_Indoors_Table_02,61.12,-0.0004,-86.03,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,1.0,1.0,1.0,0,0,Buildings/MasterKey/Prfb_Indoors_Study_02_05
+,static,Mat_Indoors_Table_02,80.045,1.3749,-49.815,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,0.7983,0.4457,0.4457,0,0,Buildings/Temp/Prfb_Indoors_Study_02_12
+SM_Indoors_Table_03,static,Mat_Indoors_Table_02,54.55,-0.0004,-85.413,0.0,0.707106,0.0,0.707108,-0.0,90.0,0.0,1.2031,1.2031,1.2031,0,1,Buildings/Workbench/Built/Visual/Prfb_Indoors_Study_02_08
+,static,Mat_Indoors_Table_02,80.045,1.812,-49.758,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,0.7983,0.4457,0.4457,0,0,Buildings/Temp/Prfb_Indoors_Study_02_15
+,static,Mat_Indoors_Table_02,81.487,1.812,-49.758,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,0.7983,0.4457,0.4457,0,0,Buildings/Temp/Prfb_Indoors_Study_02_14
+Hammer02,static,EdgeLight_build|EdgeLight_build,57.33,0.802,-66.303,0.258819,0.0,0.0,0.965926,30.0,0.0,0.0,1.2574,1.2574,1.2574,0,1,Buildings/PerkTreeInvoker/Interact_Build/Visual/Hammer02
+Hammer02,static,EdgeLight_build|EdgeLight_build,55.973,0.802,-85.38,0.183013,-0.683013,0.183013,0.683013,30.0,-90.0,0.0,1.2574,1.2574,1.2574,0,1,Buildings/Workbench/Interact_Build/Visual/Hammer02
+Hammer02,static,EdgeLight_build|EdgeLight_build,53.87,0.802,-68.99,0.183013,-0.683013,0.183013,0.683013,30.0,-90.0,0.0,1.2574,1.2574,1.2574,0,1,Buildings/Merchant_Equipment/Interact_Build/Visual/Hammer02
+Hammer02,static,EdgeLight_build|EdgeLight_build,53.803,0.802,-55.98,0.183013,-0.683013,0.183013,0.683013,30.0,-90.0,0.0,1.2574,1.2574,1.2574,0,1,Buildings/Merchant_Weapon/Interact_Build/Visual/Hammer02
+Hammer02,static,EdgeLight_build|EdgeLight_build,58.53,0.802,-88.163,0.258819,-0.0,0.0,0.965926,30.0,-0.0,0.0,1.2574,1.2574,1.2574,0,1,Buildings/FoodTable/Interact_Build_1/Visual/Hammer02
+Hammer02,static,EdgeLight_build|EdgeLight_build,53.833,0.802,-62.72,0.183013,-0.683013,0.183013,0.683013,30.0,-90.0,0.0,1.2574,1.2574,1.2574,0,1,Buildings/Merchant_Normal/Interact_Build/Visual/Hammer02
+Hammer02,static,EdgeLight_build|EdgeLight_build,60.682,0.802,-83.574,0.258819,-0.0,0.0,0.965926,30.0,-0.0,0.0,1.2574,1.2574,1.2574,0,1,Buildings/Bathroom/Interact_Build_1/Visual/Hammer02
+Hammer02,static,EdgeLight_build|EdgeLight_build,60.311,0.802,-55.678,0.258819,0.0,-0.0,0.965926,30.0,0.0,0.0,1.2574,1.2574,1.2574,0,1,Buildings/QuestGiver/Interact_Build/Visual/Hammer02
+SM_Bags13,static,Mat_Bags_Totem,101.752,0.0,-72.01,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,0,1,LootBox_Totem/Built/Prfb_Bags_01_13
+SM_Computer_01_3_3,static,Mat_Computer_01_01 _2,60.8767,0.9713,-85.8095,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,1.0,1.0,1.0,0,1,Buildings/MasterKey/Prfb_Computer_01_25/SM_Computer_01_3_3
+SM_Computer_01_3_4,static,Mat_Computer_01_01,57.0688,0.6649,-62.1883,0.0,0.991445,0.0,0.130529,-0.0,165.0,0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Built/Visual/Prfb_Controller_02/Prfb_Computer_01_3/SM_Computer_01_3_4
+SM_WoodBox_01_3_1,static,Mat_WoodBox_01_1,54.793,0.0,-53.507,0.0,0.087329,0.0,0.99618,-0.0,10.02,0.0,0.7614,0.7613,0.7614,0,1,Buildings/StarterKit/Model/Prfb_WoodBox_01_3/SM_WoodBox_01_3_1
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,56.228,2.664,-59.956,1e-06,0.719348,-0.69465,1e-06,87.999,180.0,-0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Constructing/Prfb_RoadblockGRP_27
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,51.15,1.1212,-53.82,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Constructing/Prfb_RoadblockGRP_20
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,51.1386,-0.176,-60.4797,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Normal/Constructing/Prfb_RoadblockGRP_14
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,53.87,1.064,-86.638,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Workbench/Constructing/Prfb_RoadblockGRP_18
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,47.816,2.678,-63.822,0.491193,0.508655,-0.491191,0.508656,87.999,90.0,-0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Normal/Constructing/Prfb_RoadblockGRP_27
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,59.284,-0.1423,-88.132,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,0,1,Buildings/FoodTable/Constructing_1/Prfb_RoadblockGRP_13
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,52.16,1.1371,-70.004,-0.007445,-0.707068,0.007445,0.707068,-0.0,-90.0,1.207,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Constructing/Prfb_RoadblockGRP_17
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,61.452,1.03,-53.69,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,0,1,Buildings/QuestGiver/Constructing/Prfb_RoadblockGRP_20
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,60.642,1.046,-82.593,0.0,-0.0,-0.020426,0.999791,-0.0,-0.0,-2.341,1.0,1.0,1.0,0,1,Buildings/Bathroom/Constructing_1/Prfb_RoadblockGRP_12
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,48.865,1.173,-64.724,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Normal/Constructing/Prfb_RoadblockGRP_19
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,52.2333,-0.1771,-67.8674,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Constructing/Prfb_RoadblockGRP_12
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,51.163,1.0688,-58.17,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Constructing/Prfb_RoadblockGRP_18
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,47.816,2.678,-61.595,0.491193,0.508655,-0.491191,0.508656,87.999,90.0,-0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Normal/Constructing/Prfb_RoadblockGRP_28
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,51.15,1.1548,-71.18,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Constructing/Prfb_RoadblockGRP_18
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,60.552,0.999,-82.621,-0.0,-0.0,0.010529,0.999945,-0.0,-0.0,1.207,1.0,1.0,1.0,0,1,Buildings/Bathroom/Constructing_1/Prfb_RoadblockGRP_17
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,52.16,1.12,-61.57,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Normal/Constructing/Prfb_RoadblockGRP_22
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,54.88,0.999,-85.51,-0.007445,-0.707068,0.007445,0.707068,-0.0,-90.0,1.207,1.0,1.0,1.0,0,1,Buildings/Workbench/Constructing/Prfb_RoadblockGRP_17
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,47.816,2.67,-67.865,0.491193,0.508655,-0.491191,0.508656,87.999,90.0,-0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Constructing/Prfb_RoadblockGRP_28
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,61.821,-0.176,-88.12,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,0,1,Buildings/FoodTable/Constructing_1/Prfb_RoadblockGRP_14
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,47.829,2.663,-57.082,0.491193,0.508655,-0.491191,0.508656,87.999,90.0,-0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Constructing/Prfb_RoadblockGRP_27
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,48.878,1.087,-58.17,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Constructing/Prfb_RoadblockGRP_19
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,61.741,1.03,-88.12,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,0,1,Buildings/FoodTable/Constructing_1/Prfb_RoadblockGRP_20
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,49.891,2.809,-63.354,0.122894,0.703064,-0.694458,0.091249,87.342,-113.926,83.498,1.0,1.0,1.0,0,1,Buildings/Merchant_Normal/Constructing/Prfb_RoadblockGRP_25
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,58.455,2.749,-59.956,1e-06,0.719348,-0.69465,1e-06,87.999,180.0,-0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Constructing/Prfb_RoadblockGRP_28
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,50.788,2.749,-54.855,0.5,0.5,-0.499999,0.500002,90.0,85.41,-5.207,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Constructing/Prfb_RoadblockGRP_24
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,50.791,2.663,-57.082,0.5,0.5,-0.499999,0.500002,90.0,85.41,-5.207,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Constructing/Prfb_RoadblockGRP_23
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,56.316,1.1371,-64.3,0.0,0.0,0.010529,0.999945,-0.0,0.0,1.207,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Constructing/Prfb_RoadblockGRP_17
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,48.8927,1.1393,-66.8301,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Constructing/Prfb_RoadblockGRP_21
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,60.47,0.999,-89.14,-0.0,-0.0,0.010529,0.999945,-0.0,-0.0,1.207,1.0,1.0,1.0,0,1,Buildings/FoodTable/Constructing_1/Prfb_RoadblockGRP_17
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,53.86,1.03,-84.239,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Workbench/Constructing/Prfb_RoadblockGRP_20
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,52.2433,-0.1771,-54.8574,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Constructing/Prfb_RoadblockGRP_12
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,56.16,-0.16,-64.37,0.0,0.0,-0.020426,0.999791,-0.0,0.0,-2.341,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Constructing/Prfb_RoadblockGRP_11
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,53.632,2.715,-85.487,-0.124632,-0.689529,0.707899,-0.08886,86.741,-71.505,125.867,1.0,1.0,1.0,0,1,Buildings/Workbench/Constructing/Prfb_RoadblockGRP_25
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,58.455,2.749,-62.918,1e-06,0.707108,-0.707106,1e-06,90.0,175.41,-5.207,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Constructing/Prfb_RoadblockGRP_24
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,55.14,1.088,-61.005,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Constructing/Prfb_RoadblockGRP_19
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,59.366,-0.1423,-81.613,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,0,1,Buildings/Bathroom/Constructing_1/Prfb_RoadblockGRP_13
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,55.14,1.0698,-63.29,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Constructing/Prfb_RoadblockGRP_18
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,49.6,2.749,-55.14,0.535104,0.459241,-0.445464,0.551655,88.255,79.553,-0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Constructing/Prfb_RoadblockGRP_26
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,51.1486,-0.176,-53.7397,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Constructing/Prfb_RoadblockGRP_14
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,60.56,1.046,-89.112,0.0,-0.0,-0.020426,0.999791,-0.0,-0.0,-2.341,1.0,1.0,1.0,0,1,Buildings/FoodTable/Constructing_1/Prfb_RoadblockGRP_12
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,51.14,1.1212,-60.56,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Normal/Constructing/Prfb_RoadblockGRP_20
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,49.59,2.678,-61.88,0.535104,0.459241,-0.445464,0.551655,88.255,79.553,-0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Normal/Constructing/Prfb_RoadblockGRP_26
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,52.16,1.12,-67.84,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Constructing/Prfb_RoadblockGRP_22
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,55.0815,-0.1423,-63.2922,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Constructing/Prfb_RoadblockGRP_13
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,54.852,1.046,-85.42,0.014444,-0.706959,-0.014444,0.706959,-0.0,-90.0,-2.341,1.0,1.0,1.0,0,1,Buildings/Workbench/Constructing/Prfb_RoadblockGRP_12
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,58.4526,-0.1771,-64.3733,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Constructing/Prfb_RoadblockGRP_12
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,52.24,-0.16,-57.15,0.014444,-0.706959,-0.014444,0.706959,-0.0,-90.0,-2.341,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Constructing/Prfb_RoadblockGRP_11
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,59.5703,-0.176,-63.2786,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Constructing/Prfb_RoadblockGRP_14
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,58.48,1.12,-64.3,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Constructing/Prfb_RoadblockGRP_22
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,48.867,-0.49,-71.116,0.0,-1e-06,0.015834,0.999875,0.0,-0.0,1.814,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Constructing/Prfb_RoadblockGRP_15
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,56.696,2.795,-62.031,0.404157,-0.561664,0.577955,0.432619,87.342,-23.926,83.498,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Constructing/Prfb_RoadblockGRP_25
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,49.898,2.813,-56.615,0.122894,0.703064,-0.694458,0.091249,87.342,-113.926,83.498,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Constructing/Prfb_RoadblockGRP_25
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,60.204,2.715,-53.462,0.412432,-0.550404,0.588688,0.424737,86.741,18.495,125.867,1.0,1.0,1.0,0,1,Buildings/QuestGiver/Constructing/Prfb_RoadblockGRP_25
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,59.053,1.064,-53.7,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,0,1,Buildings/QuestGiver/Constructing/Prfb_RoadblockGRP_18
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,59.5701,-0.1578,-61.0312,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Constructing/Prfb_RoadblockGRP_16
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,48.867,-0.49,-64.66,0.0,-1e-06,0.015834,0.999875,0.0,-0.0,1.814,1.0,1.0,1.0,0,1,Buildings/Merchant_Normal/Constructing/Prfb_RoadblockGRP_15
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,61.532,-0.176,-53.69,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,0,1,Buildings/QuestGiver/Constructing/Prfb_RoadblockGRP_14
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,50.778,2.678,-63.822,0.5,0.5,-0.499999,0.500002,90.0,85.41,-5.207,1.0,1.0,1.0,0,1,Buildings/Merchant_Normal/Constructing/Prfb_RoadblockGRP_23
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,61.823,1.03,-81.601,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,0,1,Buildings/Bathroom/Constructing_1/Prfb_RoadblockGRP_20
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,51.15,1.1548,-64.724,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Normal/Constructing/Prfb_RoadblockGRP_18
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,48.865,1.173,-71.18,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Constructing/Prfb_RoadblockGRP_19
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,54.95,0.33,-85.45,0.014444,-0.706959,-0.014444,0.706959,-0.0,-90.0,-2.341,1.0,1.0,1.0,0,1,Buildings/Workbench/Constructing/Prfb_RoadblockGRP_11
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,53.86,-0.176,-84.159,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Workbench/Constructing/Prfb_RoadblockGRP_14
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,60.181,0.999,-54.71,0.0,0.0,0.010529,0.999945,-0.0,0.0,1.207,1.0,1.0,1.0,0,1,Buildings/QuestGiver/Constructing/Prfb_RoadblockGRP_17
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,58.17,2.749,-61.73,0.063385,0.714811,-0.693366,0.065346,88.255,169.553,-0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Constructing/Prfb_RoadblockGRP_26
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,50.778,2.67,-67.865,0.5,0.5,-0.499999,0.500002,90.0,85.41,-5.207,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Constructing/Prfb_RoadblockGRP_24
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,59.49,1.1212,-63.28,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Constructing/Prfb_RoadblockGRP_20
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,55.204,-0.49,-61.007,0.011196,0.707018,0.011196,0.707019,0.0,90.0,1.814,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Constructing/Prfb_RoadblockGRP_15
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,52.17,1.12,-54.83,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Constructing/Prfb_RoadblockGRP_22
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,47.826,2.749,-54.855,0.491193,0.508655,-0.491191,0.508656,87.999,90.0,-0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Constructing/Prfb_RoadblockGRP_28
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,50.778,2.678,-61.595,0.5,0.5,-0.499999,0.500002,90.0,85.41,-5.207,1.0,1.0,1.0,0,1,Buildings/Merchant_Normal/Constructing/Prfb_RoadblockGRP_24
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,48.8927,1.1393,-60.5602,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Normal/Constructing/Prfb_RoadblockGRP_21
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,51.1522,-0.1423,-64.7825,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Normal/Constructing/Prfb_RoadblockGRP_13
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,51.1622,-0.1423,-58.2285,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Constructing/Prfb_RoadblockGRP_13
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,56.228,2.664,-62.918,1e-06,0.707108,-0.707106,1e-06,90.0,175.41,-5.207,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Constructing/Prfb_RoadblockGRP_23
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,48.8912,-0.1578,-60.4799,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Normal/Constructing/Prfb_RoadblockGRP_16
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,60.815,2.555,-81.073,0.063385,0.714811,-0.693366,0.065346,88.255,169.553,-0.0,1.0,1.0,1.0,0,1,Buildings/Bathroom/Constructing_1/Prfb_RoadblockGRP_26
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,52.23,-0.16,-63.89,0.014444,-0.706959,-0.014444,0.706959,-0.0,-90.0,-2.341,1.0,1.0,1.0,0,1,Buildings/Merchant_Normal/Constructing/Prfb_RoadblockGRP_11
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,60.733,2.555,-87.592,0.063385,0.714811,-0.693366,0.065346,88.255,169.553,-0.0,1.0,1.0,1.0,0,1,Buildings/FoodTable/Constructing_1/Prfb_RoadblockGRP_26
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,59.342,1.064,-88.13,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,0,1,Buildings/FoodTable/Constructing_1/Prfb_RoadblockGRP_18
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,49.891,2.801,-69.624,0.122894,0.703064,-0.694458,0.091249,87.342,-113.926,83.498,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Constructing/Prfb_RoadblockGRP_25
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,48.877,-0.49,-58.106,0.0,-1e-06,0.015834,0.999875,0.0,-0.0,1.814,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Constructing/Prfb_RoadblockGRP_15
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,50.778,2.67,-70.092,0.5,0.5,-0.499999,0.500002,90.0,85.41,-5.207,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Constructing/Prfb_RoadblockGRP_23
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,60.53,0.33,-89.21,0.0,-0.0,-0.020426,0.999791,-0.0,-0.0,-2.341,1.0,1.0,1.0,0,1,Buildings/FoodTable/Constructing_1/Prfb_RoadblockGRP_11
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,49.59,2.67,-68.15,0.535104,0.459241,-0.445464,0.551655,88.255,79.553,-0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Constructing/Prfb_RoadblockGRP_26
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,60.493,2.715,-87.892,0.412432,-0.550404,0.588688,0.424737,86.741,18.495,125.867,1.0,1.0,1.0,0,1,Buildings/FoodTable/Constructing_1/Prfb_RoadblockGRP_25
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,52.23,-0.16,-70.16,0.014444,-0.706959,-0.014444,0.706959,-0.0,-90.0,-2.341,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Constructing/Prfb_RoadblockGRP_11
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,51.1522,-0.1423,-71.2385,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Constructing/Prfb_RoadblockGRP_13
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,52.17,1.1371,-56.994,-0.007445,-0.707068,0.007445,0.707068,-0.0,-90.0,1.207,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Constructing/Prfb_RoadblockGRP_17
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,60.575,2.715,-81.373,0.412432,-0.550404,0.588688,0.424737,86.741,18.495,125.867,1.0,1.0,1.0,0,1,Buildings/Bathroom/Constructing_1/Prfb_RoadblockGRP_25
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,58.995,-0.1423,-53.702,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,0,1,Buildings/QuestGiver/Constructing/Prfb_RoadblockGRP_13
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,53.872,-0.1423,-86.696,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Workbench/Constructing/Prfb_RoadblockGRP_13
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,48.9027,1.1393,-53.8201,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Constructing/Prfb_RoadblockGRP_21
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,53.332,2.555,-85.247,0.535104,0.459241,-0.445464,0.551655,88.255,79.553,-0.0,1.0,1.0,1.0,0,1,Buildings/Workbench/Constructing/Prfb_RoadblockGRP_26
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,60.271,1.046,-54.682,-0.0,0.0,-0.020426,0.999791,-0.0,0.0,-2.341,1.0,1.0,1.0,0,1,Buildings/QuestGiver/Constructing/Prfb_RoadblockGRP_12
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,51.1386,-0.176,-66.7497,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Constructing/Prfb_RoadblockGRP_14
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,60.444,2.555,-53.162,0.063385,0.714811,-0.693366,0.065346,88.255,169.553,-0.0,1.0,1.0,1.0,0,1,Buildings/QuestGiver/Constructing/Prfb_RoadblockGRP_26
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,47.816,2.67,-70.092,0.491193,0.508655,-0.491191,0.508656,87.999,90.0,-0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Constructing/Prfb_RoadblockGRP_27
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,61.903,-0.176,-81.601,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,0,1,Buildings/Bathroom/Constructing_1/Prfb_RoadblockGRP_14
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,54.284,0.523,-87.891,0.10825,0.707514,-0.690417,0.105031,88.59,-178.01,19.339,0.3017,0.3017,0.3017,0,1,Buildings/Workbench/Constructing/Prfb_RoadblockGRP_27
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,60.612,0.33,-82.691,0.0,-0.0,-0.020426,0.999791,-0.0,-0.0,-2.341,1.0,1.0,1.0,0,1,Buildings/Bathroom/Constructing_1/Prfb_RoadblockGRP_11
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,59.4899,1.1393,-61.0327,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Constructing/Prfb_RoadblockGRP_21
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,59.424,1.064,-81.611,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,0,1,Buildings/Bathroom/Constructing_1/Prfb_RoadblockGRP_18
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,51.14,1.1212,-66.83,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Constructing/Prfb_RoadblockGRP_20
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,52.16,1.1371,-63.734,-0.007445,-0.707068,0.007445,0.707068,-0.0,-90.0,1.207,1.0,1.0,1.0,0,1,Buildings/Merchant_Normal/Constructing/Prfb_RoadblockGRP_17
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,48.9012,-0.1578,-53.7399,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Constructing/Prfb_RoadblockGRP_16
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,60.241,0.33,-54.78,-0.0,0.0,-0.020426,0.999791,-0.0,0.0,-2.341,1.0,1.0,1.0,0,1,Buildings/QuestGiver/Constructing/Prfb_RoadblockGRP_11
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,54.74,0.567,-88.354,0.252632,-0.627995,0.683005,0.274416,85.204,0.298,136.496,0.3764,0.3764,0.3764,0,1,Buildings/Workbench/Constructing/Prfb_RoadblockGRP_28
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,48.8912,-0.1578,-66.7499,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Constructing/Prfb_RoadblockGRP_16
+SM_RoadblockGRP11,static,Mat_MetalBoard_01_1|Mat_MetalBoard_01_4|Mat_MetalBoard_01_1|Mat_MetalBoard_01_3|Mat_WoodBoards_01_2,52.2333,-0.1771,-61.5974,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Normal/Constructing/Prfb_RoadblockGRP_12
+pCube337,static,Mat_WoodBoards_01,92.1912,0.3018,-62.9974,0.0,-0.0,0.054202,0.99853,0.0,-0.0,6.214,0.582,0.582,0.582,1,1,Teleporters/DoorBack/GameObject/Prfb_WoodBoards_01_10
+pCube337,static,Mat_WoodBoards_01,92.3277,2.7023,-41.3369,0.0,-0.0,0.054202,0.99853,0.0,-0.0,6.214,0.582,0.582,0.582,1,1,ManHole/SmallBridgeNeedFix/Common/GameObject_3/Prfb_WoodBoards_01_8
+pCube337,static,Mat_WoodBoards_01,92.4039,2.0139,-41.3369,0.0,-0.0,0.054202,0.99853,0.0,-0.0,6.214,0.582,0.582,0.582,1,1,ManHole/SmallBridgeNeedFix/Common/GameObject_3/Prfb_WoodBoards_01_10
+pCube337,static,Mat_WoodBoards_01,92.5021,1.0348,-41.3374,0.0,-0.0,0.054202,0.99853,0.0,-0.0,6.214,0.582,0.582,0.582,1,1,ManHole/SmallBridgeNeedFix/Common/GameObject_2/Prfb_WoodBoards_01_8
+pCube337,static,Mat_WoodBoards_01,92.4335,1.7364,-41.3373,0.0,-0.0,0.054202,0.99853,0.0,-0.0,6.214,0.582,0.582,0.582,1,1,ManHole/SmallBridgeNeedFix/Common/GameObject_3/Prfb_WoodBoards_01_11
+pCube337,static,Mat_WoodBoards_01,91.9775,2.3152,-62.9969,0.0,-0.0,0.054202,0.99853,0.0,-0.0,6.214,0.582,0.582,0.582,1,1,Teleporters/DoorBack/GameObject_1/Prfb_WoodBoards_01_9
+pCube337,static,Mat_WoodBoards_01,92.0155,1.9703,-62.9969,0.0,-0.0,0.054202,0.99853,0.0,-0.0,6.214,0.582,0.582,0.582,1,1,Teleporters/DoorBack/GameObject_1/Prfb_WoodBoards_01_10
+pCube337,static,Mat_WoodBoards_01,92.1137,0.9912,-62.9974,0.0,-0.0,0.054202,0.99853,0.0,-0.0,6.214,0.582,0.582,0.582,1,1,Teleporters/DoorBack/GameObject/Prfb_WoodBoards_01_8
+pCube337,static,Mat_WoodBoards_01,92.5407,0.6914,-41.3374,0.0,-0.0,0.054202,0.99853,0.0,-0.0,6.214,0.582,0.582,0.582,1,1,ManHole/SmallBridgeNeedFix/Common/GameObject_2/Prfb_WoodBoards_01_9
+pCube337,static,Mat_WoodBoards_01,91.9031,2.9946,-62.9969,0.0,-0.0,0.054202,0.99853,0.0,-0.0,6.214,0.582,0.582,0.582,1,1,Teleporters/DoorBack/GameObject_1/Prfb_WoodBoards_01_7
+pCube337,static,Mat_WoodBoards_01,92.0785,1.3269,-62.9974,0.0,-0.0,0.054202,0.99853,0.0,-0.0,6.214,0.582,0.582,0.582,1,1,Teleporters/DoorBack/GameObject/Prfb_WoodBoards_01_7
+pCube337,static,Mat_WoodBoards_01,92.4669,1.3705,-41.3374,0.0,-0.0,0.054202,0.99853,0.0,-0.0,6.214,0.582,0.582,0.582,1,1,ManHole/SmallBridgeNeedFix/Common/GameObject_2/Prfb_WoodBoards_01_7
+pCube337,static,Mat_WoodBoards_01,92.0451,1.6928,-62.9973,0.0,-0.0,0.054202,0.99853,0.0,-0.0,6.214,0.582,0.582,0.582,1,1,Teleporters/DoorBack/GameObject_1/Prfb_WoodBoards_01_11
+pCube337,static,Mat_WoodBoards_01,92.5796,0.3455,-41.3374,0.0,-0.0,0.054202,0.99853,0.0,-0.0,6.214,0.582,0.582,0.582,1,1,ManHole/SmallBridgeNeedFix/Common/GameObject_2/Prfb_WoodBoards_01_10
+pCube337,static,Mat_WoodBoards_01,92.2915,3.0382,-41.3369,0.0,-0.0,0.054202,0.99853,0.0,-0.0,6.214,0.582,0.582,0.582,1,1,ManHole/SmallBridgeNeedFix/Common/GameObject_3/Prfb_WoodBoards_01_7
+pCube337,static,Mat_WoodBoards_01,92.1523,0.6478,-62.9974,0.0,-0.0,0.054202,0.99853,0.0,-0.0,6.214,0.582,0.582,0.582,1,1,Teleporters/DoorBack/GameObject/Prfb_WoodBoards_01_9
+pCube337,static,Mat_WoodBoards_01,91.9393,2.6587,-62.9969,0.0,-0.0,0.054202,0.99853,0.0,-0.0,6.214,0.582,0.582,0.582,1,1,Teleporters/DoorBack/GameObject_1/Prfb_WoodBoards_01_8
+pCube337,static,Mat_WoodBoards_01,92.3659,2.3588,-41.3369,0.0,-0.0,0.054202,0.99853,0.0,-0.0,6.214,0.582,0.582,0.582,1,1,ManHole/SmallBridgeNeedFix/Common/GameObject_3/Prfb_WoodBoards_01_9
+SM_Scarecrow_01,static,OutDoor_02,99.9096,-0.049,-65.4144,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,0,1,LootBox_Starter/SM_Scarecrow/SM_Scarecrow
+SM_Indoors_WC1,static,Mat_Indoors_WC_01,61.449,-0.14,-80.458,0.0,1.0,0.0,0.0,-0.0,180.0,0.0,0.8798,0.8798,0.8798,0,1,Buildings/Bathroom/Built/Prfb_Indoors_WC_1
+SM_Roadblock04,static,Mat_Roadblocks01,60.669,-0.103,-81.158,0.0,-0.0,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Bathroom/Avaliable_1/Prfb_Roadblock_4
+SM_Roadblock04,static,Mat_Roadblocks01,55.03,0.0,-64.75,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Constructing/Prfb_Roadblock_4
+SM_Roadblock04,static,Mat_Roadblocks01,61.617,0.0,-89.59,0.0,-0.0,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/FoodTable/Constructing_1/Prfb_Roadblock_5
+SM_Roadblock04,static,Mat_Roadblocks01,61.699,0.0,-83.071,0.0,-0.0,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Bathroom/Constructing_1/Prfb_Roadblock_5
+SM_Roadblock04,static,Mat_Roadblocks01,48.71,0.0,-53.215,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Constructing/Prfb_Roadblock_7
+SM_Roadblock04,static,Mat_Roadblocks01,48.7,0.0,-59.955,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Normal/Constructing/Prfb_Roadblock_7
+SM_Roadblock04,static,Mat_Roadblocks01,52.61,0.0,-65.02,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Normal/Constructing/Prfb_Roadblock_4
+SM_Roadblock04,static,Mat_Roadblocks01,48.31,0.0,-71.79,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Constructing/Prfb_Roadblock_6
+SM_Roadblock04,static,Mat_Roadblocks01,48.7,0.0,-66.225,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Constructing/Prfb_Roadblock_7
+SM_Roadblock04,static,Mat_Roadblocks01,55.33,0.0,-86.68,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,0,1,Buildings/Workbench/Constructing/Prfb_Roadblock_4
+SM_Roadblock04,static,Mat_Roadblocks01,60.095,0.0,-60.84,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Constructing/Prfb_Roadblock_7
+SM_Roadblock04,static,Mat_Roadblocks01,48.32,0.0,-58.78,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Constructing/Prfb_Roadblock_6
+SM_Roadblock04,static,Mat_Roadblocks01,59.3,0.0,-89.59,0.0,-0.0,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/FoodTable/Constructing_1/Prfb_Roadblock_4
+SM_Roadblock04,static,Mat_Roadblocks01,52.61,0.0,-71.29,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Constructing/Prfb_Roadblock_4
+SM_Roadblock04,static,Mat_Roadblocks01,49.472,0.242,-53.934,-0.764462,-0.171922,-0.227282,0.578259,-74.21,146.884,-180.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Unavaliable/Prfb_Roadblock_9
+SM_Roadblock04,static,Mat_Roadblocks01,52.62,0.0,-53.76,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Constructing/Prfb_Roadblock_5
+SM_Roadblock04,static,Mat_Roadblocks01,60.337,-0.103,-87.777,0.0,-0.0,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/FoodTable/Avaliable_1/Prfb_Roadblock_4
+SM_Roadblock04,static,Mat_Roadblocks01,60.298,0.0,-53.247,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,0,1,Buildings/QuestGiver/Avaliable/Prfb_Roadblock_4
+SM_Roadblock04,static,Mat_Roadblocks01,61.328,0.0,-55.16,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,0,1,Buildings/QuestGiver/Constructing/Prfb_Roadblock_5
+SM_Roadblock04,static,Mat_Roadblocks01,48.31,0.0,-65.52,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Normal/Constructing/Prfb_Roadblock_6
+SM_Roadblock04,static,Mat_Roadblocks01,52.61,0.0,-66.77,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Constructing/Prfb_Roadblock_5
+SM_Roadblock04,static,Mat_Roadblocks01,55.33,0.0,-84.363,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,0,1,Buildings/Workbench/Constructing/Prfb_Roadblock_5
+SM_Roadblock04,static,Mat_Roadblocks01,59.55,0.0,-64.75,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Constructing/Prfb_Roadblock_5
+SM_Roadblock04,static,Mat_Roadblocks01,53.607,0.0,-85.393,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,0,1,Buildings/Workbench/Avaliable/Prfb_Roadblock_4
+SM_Roadblock04,static,Mat_Roadblocks01,48.72,0.0,-53.74,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Unavaliable/Prfb_Roadblock_8
+SM_Roadblock04,static,Mat_Roadblocks01,59.382,0.0,-83.071,0.0,-0.0,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Bathroom/Constructing_1/Prfb_Roadblock_4
+SM_Roadblock04,static,Mat_Roadblocks01,52.61,0.0,-60.5,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Normal/Constructing/Prfb_Roadblock_5
+SM_Roadblock04,static,Mat_Roadblocks01,54.53,0.0,-60.45,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Constructing/Prfb_Roadblock_6
+SM_Roadblock04,static,Mat_Roadblocks01,59.011,0.0,-55.16,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,0,1,Buildings/QuestGiver/Constructing/Prfb_Roadblock_4
+SM_Roadblock04,static,Mat_Roadblocks01,52.62,0.0,-58.28,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Constructing/Prfb_Roadblock_4
+SM_Bags13,static,Mat_Bags_Totem,101.752,0.0,-72.01,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,0,1,LootBox_Totem_1/Built/Prfb_Bags_01_13
+SM_Bags8,static,Mat_Bags_01_3,100.6997,-2.3019,-48.1823,0.0,0.474653,0.0,0.880173,-0.0,56.674,0.0,1.0,1.0,1.0,1,1,Prfb_GargabePile_Temp_01/SingleMesh SM_Bags8
+SM_PaperBox_01_2,static,Mat_PaperBox_01_01,48.0094,0.2524,-63.6315,0.0,-0.793399,0.0,0.608702,-0.0,-105.009,0.0,0.4468,0.4468,0.4468,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_PaperBox_01_05
+SM_PaperBox_01_2,static,Mat_PaperBox_01_01,48.222,0.0,-55.96,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Unavaliable/Prfb_PaperBox_01_2
+SM_PaperBox_01_2,static,Mat_PaperBox_01_01,49.631,0.003,-64.419,0.0,-7.5e-05,0.0,1.0,-0.0,-0.009,0.0,0.4468,0.4468,0.4468,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_PaperBox_01_11
+SM_Indoors_Table_03,static,Mat_Indoors_Table_02,56.8727,0.0,-61.215,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Built/Visual/Prfb_Controller_02/Prfb_Indoors_Study_02_04
+SM_Computer_01_3_1,static,Mat_Computer_01_01,61.5042,0.9713,-85.7617,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,1.1856,1.1856,1.1856,0,1,Buildings/MasterKey/Prfb_Computer_01_25/LootBox_Console/SM_Computer_01_3_1
+SM_WoodBox_01_3_2,static,Mat_WoodBox_01_1,55.0891,0.4096,-53.5593,0.0,0.087329,0.0,0.99618,-0.0,10.02,0.0,0.7614,0.7613,0.7614,0,1,Buildings/StarterKit/Model/Prfb_WoodBox_01_3/SM_WoodBox_01_3_2
+SM_Computer_01_3_4,static,Mat_Computer_01_01,58.4866,0.6649,-62.0881,0.0,0.998313,0.0,-0.058065,-0.0,-173.343,0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Built/Visual/Prfb_Controller_02/Prfb_Computer_01_3/SM_Computer_01_3_14
+Mine,static,ColorA,50.318,0.702,-54.422,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,0.6906,0.6906,0.6906,0,1,Buildings/Merchant_Weapon/Built/Visual/Mine
+Water01,static,ColorA,48.144,1.882,-63.853,0.0,0.0,0.0,1.0,-0.0,-0.0,0.0,0.8232,0.8232,0.8232,0,1,Buildings/Merchant_Normal/Built/Visual/Water01_1
+Water01,static,ColorA,48.144,1.882,-63.643,0.0,0.0,0.0,1.0,-0.0,-0.0,0.0,0.8232,0.8232,0.8232,0,1,Buildings/Merchant_Normal/Built/Visual/Water01
+Water01,static,ColorA,48.144,1.882,-64.07,0.0,0.0,0.0,1.0,-0.0,-0.0,0.0,0.8232,0.8232,0.8232,0,1,Buildings/Merchant_Normal/Built/Visual/Water01_2
+SM_Groundpile,static,Mat_Tile_DryMud_01,98.5594,-2.3019,-48.0035,0.0,0.035373,0.0,0.999374,-0.0,4.054,0.0,0.8851,0.8851,0.8851,1,1,Prfb_GargabePile_Temp_01/SingleMesh SM_Groundpile
+SodaPointLightMesh,static,ZeroPoint,94.7964,2.0937,-70.2443,0.0,1.0,0.0,-1e-06,-0.0,-180.0,0.0,0.4101,0.3852,0.421,1,1,NewYear/ChineseLantern_4/Pfb_Lattern_01/SodaPointLight_1
+SodaPointLightMesh,static,ZeroPoint,94.7664,2.0937,-48.1843,0.0,1.0,0.0,-1e-06,-0.0,-180.0,0.0,0.4101,0.3852,0.421,1,1,NewYear/ChineseLantern_10/Pfb_Lattern_01/SodaPointLight_1
+SodaPointLightMesh,static,ZeroPoint,94.6964,2.0937,-57.8343,0.0,1.0,0.0,-1e-06,-0.0,-180.0,0.0,0.4101,0.3852,0.421,1,1,NewYear/ChineseLantern_7/Pfb_Lattern_01/SodaPointLight_1
+SodaPointLightMesh,static,ZeroPoint,94.2364,2.0937,-39.3943,0.0,1.0,0.0,-1e-06,-0.0,-180.0,0.0,0.4101,0.3852,0.421,1,1,NewYear/ChineseLantern_9/Pfb_Lattern_01/SodaPointLight_1
+SodaPointLightMesh,static,ZeroPoint,94.2364,2.0937,-43.6143,0.0,1.0,0.0,-1e-06,-0.0,-180.0,0.0,0.4101,0.3852,0.421,1,1,NewYear/ChineseLantern_8/Pfb_Lattern_01/SodaPointLight_1
+SodaPointLightMesh,static,ZeroPoint,94.2364,2.0937,-64.4343,0.0,1.0,0.0,-1e-06,-0.0,-180.0,0.0,0.4101,0.3852,0.421,1,1,NewYear/ChineseLantern_5/Pfb_Lattern_01/SodaPointLight_1
+SodaPointLightMesh,static,ZeroPoint,94.2364,2.0937,-61.5543,0.0,1.0,0.0,-1e-06,-0.0,-180.0,0.0,0.4101,0.3852,0.421,1,1,NewYear/ChineseLantern_6/Pfb_Lattern_01/SodaPointLight_1
+SM_Computer_01_3_3,static,Mat_Computer_01_01 _2,58.7075,1.2549,-61.5801,-0.009266,0.988944,-0.070383,-0.130194,8.142,-165.0,-0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Built/Visual/Prfb_Controller_02/Prfb_Computer_01_3/SM_Computer_01_3_5
+Bullet03,static,ColorB|ColorA,54.795,0.757,-53.399,0.0,0.20803,0.0,0.978123,-0.0,24.014,0.0,1.0,1.0,1.0,0,1,Buildings/StarterKit/NotPickedGO/Bullet03
+SM_Computer_01_3_3,static,Mat_Computer_01_01,58.6895,1.8389,-61.6471,-0.018079,0.981889,-0.137322,-0.129265,15.923,-165.0,-0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Built/Visual/Prfb_Controller_02/Prfb_Computer_01_3/SM_Computer_01_3_16
+SM_Railing_01,static,Mat_BarbedWire_01 2,96.832,0.0005,-33.2603,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_Roadblock_temp3_13/SM_Railing
+SM_Railing_01,static,Mat_BarbedWire_01 2,96.834,0.0005,-69.8903,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_Roadblock_temp3_29/SM_Railing
+SM_Railing_01,static,Mat_BarbedWire_01 2,96.834,0.0005,-43.6403,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_Roadblock_temp3_8/SM_Railing
+SM_Railing_01,static,Mat_BarbedWire_01 2,96.834,0.0005,-85.3003,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_Roadblock_temp3_27/SM_Railing
+SM_Railing_01,static,Mat_BarbedWire_01 2,96.834,0.0005,-82.6203,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_Roadblock_temp3_26/SM_Railing
+SM_Railing_01,static,Mat_BarbedWire_01 2,98.175,0.0005,-58.1373,0.0,1.0,0.0,1e-06,-0.0,180.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_Roadblock_temp3_19/SM_Railing
+SM_Railing_01,static,Mat_BarbedWire_01 2,100.724,0.0005,-60.0263,0.0,1.0,0.0,1e-06,-0.0,180.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_Roadblock_temp3_18/SM_Railing
+SM_Railing_01,static,Mat_BarbedWire_01 2,96.832,0.0005,-30.6503,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_Roadblock_temp3_14/SM_Railing
+SM_Railing_01,static,Mat_BarbedWire_01 2,98.092,0.0005,-68.5193,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_Roadblock_temp3_3/SM_Railing
+SM_Railing_01,static,Mat_BarbedWire_01 2,96.836,0.0005,-46.2203,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_Roadblock_temp3_9/SM_Railing
+SM_Railing_01,static,Mat_BarbedWire_01 2,96.836,0.0005,-56.6103,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_Roadblock_temp3_7/SM_Railing
+SM_Railing_01,static,Mat_BarbedWire_01 2,96.832,0.0005,-61.6203,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_Roadblock_temp3_1/SM_Railing
+SM_Railing_01,static,Mat_BarbedWire_01 2,96.834,0.0005,-77.4603,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_Roadblock_temp3_21/SM_Railing
+SM_Railing_01,static,Mat_BarbedWire_01 2,96.834,0.0005,-41.0303,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_Roadblock_temp3_10/SM_Railing
+SM_Railing_01,static,Mat_BarbedWire_01 2,96.832,0.0005,-64.2303,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_Roadblock_temp3/SM_Railing
+SM_Railing_01,static,Mat_BarbedWire_01 2,104.206,0.0005,-74.4083,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_Roadblock_temp3_23/SM_Railing
+SM_Railing_01,static,Mat_BarbedWire_01 2,96.834,0.0005,-80.0403,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_Roadblock_temp3_25/SM_Railing
+SM_Railing_01,static,Mat_BarbedWire_01 2,96.836,0.0005,-48.8303,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_Roadblock_temp3_11/SM_Railing
+SM_Railing_01,static,Mat_BarbedWire_01 2,96.834,0.0005,-38.4503,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_Roadblock_temp3_12/SM_Railing
+SM_Railing_01,static,Mat_BarbedWire_01 2,96.834,0.0005,-74.4903,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_Roadblock_temp3_28/SM_Railing
+SM_Railing_01,static,Mat_BarbedWire_01 2,104.206,0.0005,-69.9923,0.0,0.707107,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_Roadblock_temp3_24/SM_Railing
+SM_Railing_01,static,Mat_BarbedWire_01 2,103.264,0.0005,-68.5193,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_Roadblock_temp3_30/SM_Railing
+SM_Railing_01,static,Mat_BarbedWire_01 2,103.264,0.0005,-75.7943,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_Roadblock_temp3_31/SM_Railing
+SM_Railing_01,static,Mat_BarbedWire_01 2,100.724,0.0005,-58.1373,0.0,1.0,0.0,1e-06,-0.0,180.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_Roadblock_temp3_20/SM_Railing
+SM_Railing_01,static,Mat_BarbedWire_01 2,96.834,0.0005,-35.8403,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_Roadblock_temp3_15/SM_Railing
+SM_Railing_01,static,Mat_BarbedWire_01 2,98.092,0.0005,-75.7943,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_Roadblock_temp3_22/SM_Railing
+SM_Railing_01,static,Mat_BarbedWire_01 2,100.704,0.0005,-75.7943,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_Roadblock_temp3_17/SM_Railing
+SM_Railing_01,static,Mat_BarbedWire_01 2,96.834,0.0005,-54.0303,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_Roadblock_temp3_6/SM_Railing
+SM_Railing_01,static,Mat_BarbedWire_01 2,98.175,0.0005,-60.0263,0.0,1.0,0.0,1e-06,-0.0,180.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_Roadblock_temp3_4/SM_Railing
+SM_Railing_01,static,Mat_BarbedWire_01 2,100.704,0.0005,-68.5193,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_Roadblock_temp3_16/SM_Railing
+SM_Railing_01,static,Mat_BarbedWire_01 2,96.834,0.0005,-66.8103,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_Roadblock_temp3_2/SM_Railing
+Mobilephone,static,ColorA,50.296,0.582,-68.643,-0.579752,-0.40483,-0.40483,0.579753,-90.0,-90.0,0.0,0.8763,0.8763,0.8763,0,1,Buildings/Merchant_Equipment/Built/Visual/Mobilephone
+Mobilephone,static,ColorA,54.749,0.818,-84.85,-0.436017,0.556677,0.556677,0.436017,-90.0,90.0,180.0,0.7702,0.7702,0.7702,0,1,Buildings/Workbench/Built/Visual/Mobilephone
+Mobilephone,static,ColorA,49.9,0.61,-62.124,0.370644,0.602182,0.602182,-0.370644,-90.0,-98.786,-18.488,0.8409,0.8409,0.8409,0,1,Buildings/Merchant_Normal/Built/Visual/Mobilephone
+OfficeDeskSet02_3,static,OfficeDeskSet02,94.362,1.273,-51.905,2e-06,-0.233598,1e-06,0.972333,0.0,-27.018,0.0,1.0,1.0,1.0,1,1,Notes/Note_Fishing-1/OfficeDeskSet02_3
+Pot01,static,ColorA Smooth|ColorA,48.7928,1.0188,-62.719,0.029346,-0.098407,0.067423,0.992426,4.101,-11.061,7.376,1.0435,1.0435,1.0435,0,1,Buildings/Merchant_Normal/Built/Visual/DuckV2_2/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Head/Pot01
+SM_BarbedWire_01_05,static,Mat_BarbedWire_01,50.753,-0.06,-58.91,0.0,1.0,0.0,-2e-06,-0.0,-180.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Built/Visual/Prfb_BarbedWire_01_11
+SM_BarbedWire_01_05,static,Mat_BarbedWire_01,50.737,-0.06,-52.69,0.0,1.0,0.0,-2e-06,-0.0,-180.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Built/Visual/Prfb_BarbedWire_01_12
+SM_BarbedWire_01_05,static,Mat_BarbedWire_01,47.84,-0.06,-58.91,0.0,1.0,0.0,-2e-06,-0.0,-180.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Built/Visual/Prfb_BarbedWire_01_07
+SM_BarbedWire_01_05,static,Mat_BarbedWire_01,47.824,-0.06,-52.69,0.0,1.0,0.0,-2e-06,-0.0,-180.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Built/Visual/Prfb_BarbedWire_01_08
+SM_Indoors_Table_03,static,Mat_Indoors_Table_02,55.01,0.0,-53.357,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,0,1,Buildings/StarterKit/Model/Prfb_Indoors_Table_03
+Mesh1_Group2_Group1_Model,static,Glick1 1,55.032,0.997,-52.837,0.079168,0.693448,0.081231,0.711522,-0.0,88.526,13.026,8.0,8.0,8.0,0,1,Buildings/StarterKit/NotPickedGO/pistol/Mesh1_Group2_Group1_Model
+SM_ChineseLantern_01,static,Mat_ChineseLantern_01,94.2364,2.0937,-61.5543,0.0,0.707107,0.0,0.707106,-0.0,90.0,0.0,0.4863,0.4863,0.4863,1,1,NewYear/ChineseLantern_6/Pfb_Lattern_01
+SM_ChineseLantern_01,static,Mat_ChineseLantern_01,94.2364,2.0937,-43.6143,0.0,0.707107,0.0,0.707106,-0.0,90.0,0.0,0.4863,0.4863,0.4863,1,1,NewYear/ChineseLantern_8/Pfb_Lattern_01
+SM_ChineseLantern_01,static,Mat_ChineseLantern_01,94.2364,2.0937,-39.3943,0.0,0.707107,0.0,0.707106,-0.0,90.0,0.0,0.4863,0.4863,0.4863,1,1,NewYear/ChineseLantern_9/Pfb_Lattern_01
+SM_ChineseLantern_01,static,Mat_ChineseLantern_01,94.2364,2.0937,-64.4343,0.0,0.707107,0.0,0.707106,-0.0,90.0,0.0,0.4863,0.4863,0.4863,1,1,NewYear/ChineseLantern_5/Pfb_Lattern_01
+SM_ChineseLantern_01,static,Mat_ChineseLantern_01,94.6964,2.0937,-57.8343,0.0,0.707107,0.0,0.707106,-0.0,90.0,0.0,0.4863,0.4863,0.4863,1,1,NewYear/ChineseLantern_7/Pfb_Lattern_01
+SM_ChineseLantern_01,static,Mat_ChineseLantern_01,94.7664,2.0937,-48.1843,0.0,0.707107,0.0,0.707106,-0.0,90.0,0.0,0.4863,0.4863,0.4863,1,1,NewYear/ChineseLantern_10/Pfb_Lattern_01
+SM_ChineseLantern_01,static,Mat_ChineseLantern_01,94.7964,2.0937,-70.2443,0.0,0.707107,0.0,0.707106,-0.0,90.0,0.0,0.4863,0.4863,0.4863,1,1,NewYear/ChineseLantern_4/Pfb_Lattern_01
+Hat,static,ColorA,48.621,1.143,-71.303,-0.047759,-0.591894,-0.012121,0.804508,-5.232,-72.783,2.131,0.6962,0.6962,0.6962,0,1,Buildings/Merchant_Equipment/Built/Visual/Hat
+"Mat_Bags_01_1_(384;00, 0;00, 384;00)__14_Shadow_On_1449",static,Mat_Bags_01_1,67.2852,-1.93,-73.9127,0.0,0.869362,0.0,-0.494175,-0.0,-120.769,0.0,1.0,1.0,1.0,1,1,Prfb_GargabePile_Temp_01/Mat_Bags_01_1
+SM_PaperBox_01_1,static,Mat_PaperBox_02,55.021,1.761,-52.526,-0.006164,0.70708,-0.70708,-0.006164,90.0,180.0,180.0,0.7171,0.4039,0.3056,0,1,Buildings/StarterKit/Model/SM_PaperBox_01_2
+Honey01,static,ColorA,48.144,1.83,-61.626,0.0,-0.0,0.0,1.0,-0.0,-0.0,0.0,0.7348,0.7348,0.7348,0,1,Buildings/Merchant_Normal/Built/Visual/Honey01
+Quad,static,EdgeLightQuad,72.5887,26.4044,-106.3448,0.329833,-0.280017,0.102977,0.895654,40.429,-34.73,-0.019,4.8023,3.5,3.4497,0,1,LookDevCamera/Fx/EdgeLight
+Hammer01,static,ColorB|ColorA,53.044,2.258,-85.704,-0.312107,0.0,-0.0,0.950047,-36.372,0.0,-0.0,0.7702,0.7702,0.7702,0,1,Buildings/Workbench/Built/Visual/Hammer01
+SM_Wall_01_2,static,Mat_Wall_01,60.479,-0.0117,-85.675,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.4432,0.4432,0.4432,0,1,Buildings/PetHouse/Prfb_Wall_01_2
+Chocolate_Drink,static,ColorA,48.265,1.791,-62.303,0.0,-0.793353,0.0,0.608761,-0.0,-105.0,0.0,0.6376,0.6376,0.6376,0,1,Buildings/Merchant_Normal/Built/Visual/Chocolate_Drink
+Chocolate_Drink,static,ColorA,48.103,1.791,-62.327,0.0,-0.60796,0.0,0.793967,-0.0,-74.884,0.0,0.6376,0.6376,0.6376,0,1,Buildings/Merchant_Normal/Built/Visual/Chocolate_Drink_1
+SM_PaperBox_01_5,static,Mat_PaperBox_02,61.406,0.026,-85.675,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,0,1,Buildings/PetHouse/SM_PaperBox_01_5
+Box01,static,ColorA,56.033,0.188,-52.991,0.0,0.841816,0.0,0.539765,-0.0,114.665,0.0,0.4608,0.4608,0.4608,0,1,Buildings/StarterKit/Model/Box01
+SM_Tyre_02,static,OutDoor,104.761,-0.4295,-58.6818,0.753615,0.654542,0.052693,-0.029362,-6.502,177.636,98.183,1.0,1.0,1.0,1,1,Envir/Prfb_BoatBetweenBaseAndFarm/Inside/Prfb_Tyre_07
+Player_Duck_Head,skinned,Duck 3,48.783,-0.0004,-55.977,-0.5,0.5,0.5,0.5,-90.0,-90.0,180.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Built/Visual/DuckV2_2/Player_Duck_Head
+Player_Duck_Head,skinned,Duck 1,48.783,-0.0004,-62.717,-0.5,0.5,0.5,0.5,-90.0,-90.0,180.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Normal/Built/Visual/DuckV2_2/Player_Duck_Head
+Player_Duck_Head,skinned,Duck 4,61.231,-0.0004,-53.355,0.16018,0.688725,0.688725,-0.16018,-90.0,26.186,180.0,1.0,1.0,1.0,0,1,Buildings/QuestGiver/Built/Visual/DuckV2_4/Player_Duck_Head
+Player_Duck_Head,skinned,Duck 2,49.19,-0.0004,-68.98,-0.5,0.5,0.5,0.5,-90.0,-90.0,180.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Built/Visual/DuckV2_3/Player_Duck_Head
+Player_Duck_Head,skinned,Duck 2,60.76,-0.0004,-67.24,0.183012,0.683013,0.683013,-0.183012,-90.0,30.0,180.0,1.0,1.0,1.0,0,1,Buildings/QuestGiver_Jeff/Duck_First/Player_Duck_Head
+Player_Duck_Head,skinned,Duck 4,61.201,-0.0004,-67.323,0.16018,0.688725,0.688725,-0.16018,-90.0,26.186,180.0,1.0,1.0,1.0,0,1,Buildings/QuestGiver_Jeff/Visual/DuckV2_4/Player_Duck_Head
+SM_Indoors_Table_03,static,Mat_Indoors_Table_02,56.8727,0.0,-62.1315,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Built/Visual/Prfb_Controller_02/Prfb_Indoors_Study_02_06
+Bullet05,static,ColorB|ColorA,48.062,1.545,-70.404,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Built/Visual/Bullet05
+Bullet05,static,ColorB|ColorA,48.062,1.545,-68.436,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Built/Visual/Bullet05_2
+Bullet05,static,ColorB|ColorA,48.062,1.545,-68.107,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Built/Visual/Bullet05_3
+Bullet05,static,ColorB|ColorA,48.062,1.545,-70.075,0.0,-1e-06,0.0,1.0,-0.0,-0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Built/Visual/Bullet05_1
+SM_Indoors_Wardrobe_01_Door_01,static,Mat_Indoors_Wardrobe_01,49.2923,0.2015,-63.5575,0.0,2e-06,0.0,1.0,-0.0,0.0,0.0,0.8232,0.5078,1.0904,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_Indoors_Study_02_10/SM_Indoors_Wardrobe_01_Door_01
+SM_Indoors_Wardrobe_01_Door_01,static,Mat_Indoors_Wardrobe_01,48.5356,0.0798,-66.7065,0.0,2e-06,0.0,1.0,-0.0,0.0,0.0,1.0,0.6169,1.3245,0,1,Buildings/Merchant_Equipment/Built/Visual/Prfb_Indoors_Study_02_11/SM_Indoors_Wardrobe_01_Door_01
+SM_Indoors_Wardrobe_01_Door_01,static,Mat_Indoors_Wardrobe_01,49.6495,0.2015,-62.8937,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,0.8232,0.5078,1.0904,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_Indoors_Study_02_09/SM_Indoors_Wardrobe_01_Door_01
+SM_Indoors_Wardrobe_01_Door_01,static,Mat_Indoors_Wardrobe_01,50.0565,0.0798,-69.2864,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,0.6169,1.3245,0,1,Buildings/Merchant_Equipment/Built/Visual/Prfb_Indoors_Study_02_10/SM_Indoors_Wardrobe_01_Door_01
+SM_Indoors_Wardrobe_01_Door_01,static,Mat_Indoors_Wardrobe_01,49.8395,0.1398,-55.3114,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,0.6169,1.3245,0,1,Buildings/Merchant_Weapon/Built/Visual/Prfb_Indoors_Study_02_09/SM_Indoors_Wardrobe_01_Door_01
+SM_Indoors_Wardrobe_01_Door_01,static,Mat_Indoors_Wardrobe_01,49.8395,0.1398,-57.3514,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,0.6169,1.3245,0,1,Buildings/Merchant_Weapon/Built/Visual/Prfb_Indoors_Study_02_02/SM_Indoors_Wardrobe_01_Door_01
+SM_Computer_01_3_1,static,Mat_Computer_01_01 _2,55.3725,0.8019,-61.3552,0.623919,0.623919,0.332752,0.332756,0.0,123.855,90.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Built/Visual/Prfb_Controller_02/Prfb_Computer_01_3/SM_Computer_01_3_23
+Lantern,static,ColorB|FlashLight_Emi,97.58,0.9895,-75.3363,0.0,0.886784,0.0,-0.462185,-0.0,-124.944,0.0,0.6319,0.6319,0.6319,1,1,Envir/Lantern
+Box02,static,ColorA,48.616,0.311,-70.229,0.0,-0.756296,0.0,0.65423,-0.0,-98.277,0.0,0.7348,0.7348,0.7348,0,1,Buildings/Merchant_Equipment/Built/Visual/Box02
+Zippo,static,ColorA,97.446,0.7235,-74.9883,-0.326516,-0.627206,0.627206,-0.326516,90.0,11.236,-123.633,0.8674,0.8674,0.8674,1,1,Envir/Zippo
+First_aid_Kit02,static,ColorA,48.562,1.035,-61.104,0.353554,0.612372,-0.612372,0.353554,90.0,119.858,5.077,0.5581,0.5581,0.5581,0,1,Buildings/Merchant_Normal/Built/Visual/First_aid_Kit02_1
+First_aid_Kit02,static,ColorA Darker,81.27,2.072,-49.877,-0.0,-0.707106,0.707107,-0.0,90.0,-0.0,180.0,0.4178,0.4178,0.4178,0,1,Buildings/Temp/First_aid_Kit02_1
+First_aid_Kit02,static,ColorA,49.19,0.72,-63.85,0.527818,0.470541,-0.47054,0.527818,90.0,125.503,51.783,0.5581,0.5581,0.5581,0,1,Buildings/Merchant_Normal/Built/Visual/First_aid_Kit02
+First_aid_Kit02,static,ColorA Darker,81.27,1.889,-49.877,-0.0,-0.707106,0.707107,-0.0,90.0,-0.0,180.0,0.4178,0.4178,0.4178,0,1,Buildings/Temp/First_aid_Kit02
+Shovel01,static,ColorA|ColorB,48.454,0.589,-64.553,0.068787,-0.61542,0.11093,0.777316,14.092,-76.097,5.193,1.0,1.0,1.0,0,1,Buildings/Merchant_Normal/Built/Visual/Shovel01
+SM_Computer_01_3_3,static,Mat_Computer_01_01 _2,58.7038,0.6649,-61.5943,0.0,0.991445,0.0,-0.130523,-0.0,-165.0,0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Built/Visual/Prfb_Controller_02/Prfb_Computer_01_3/SM_Computer_01_3_3
+MachineGun01,static,ColorB,50.289,0.674,-57.184,0.299523,0.312109,0.640536,0.634498,-1.131,51.254,90.0,0.7702,0.7702,0.7702,0,1,Buildings/Merchant_Weapon/Built/Visual/MachineGun01_1
+MachineGun01,static,ColorB,48.02,2.307,-56.94,0.0,-2e-06,0.0,1.0,-0.0,-0.0,0.0,0.7702,0.7702,0.7702,0,1,Buildings/Merchant_Weapon/Built/Visual/MachineGun01
+,static,Mat_Indoors_WC_02,59.13,0.21,-81.85,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.2888,1.0,1.0,0,0,Buildings/Bathroom/Built/Prfb_Indoors_WC_11
+SM_Bags8,static,Mat_Bags_01_1,94.583,-0.0305,-57.7383,0.0,0.691901,0.0,0.721993,-0.0,87.561,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_Bags_01_8
+SM_Bags8,static,Mat_Bags_01_1,93.767,0.1415,-56.9323,0.027161,-0.027161,-0.706585,0.706585,0.0,-4.403,-90.0,1.0,1.0,1.0,1,1,Envir/Prfb_Bags_01_9
+SM_Computer_01_3_3,static,Mat_Computer_01_01,58.0645,0.6649,-61.5101,0.0,1.0,0.0,3e-06,-0.0,180.0,0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Built/Visual/Prfb_Controller_02/Prfb_Computer_01_3/SM_Computer_01_3_7
+Helmet03,static,ColorA|ColorC,48.37,0.72,-67.085,-0.0,0.285112,0.0,0.958494,-0.0,33.131,0.0,0.6962,0.6962,0.6962,0,1,Buildings/Merchant_Equipment/Built/Visual/Helmet03
+SM_Tyre_02,static,OutDoor,102.567,-0.479,-59.819,-0.094638,-0.003635,0.745882,0.659311,-6.856,-8.454,97.558,1.0,1.0,1.0,1,1,Envir/Prfb_BoatBetweenBaseAndFarm/Inside/Prfb_Tyre_03
+SM_Indoors_Drawer_01_4,static,Mat_Indoors_Wardrobe_01,49.99,-0.1037,-57.6989,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,0.6169,1.3245,0,1,Buildings/Merchant_Weapon/Built/Visual/Prfb_Indoors_Study_02_02/SM_Indoors_Drawer_01_4
+SM_Indoors_Drawer_01_4,static,Mat_Indoors_Wardrobe_01,49.99,-0.1037,-55.6589,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,0.6169,1.3245,0,1,Buildings/Merchant_Weapon/Built/Visual/Prfb_Indoors_Study_02_09/SM_Indoors_Drawer_01_4
+SM_Indoors_Drawer_01_4,static,Mat_Indoors_Wardrobe_01,48.1882,-0.1637,-66.857,0.0,2e-06,0.0,1.0,-0.0,0.0,0.0,1.0,0.6169,1.3245,0,1,Buildings/Merchant_Equipment/Built/Visual/Prfb_Indoors_Study_02_11/SM_Indoors_Drawer_01_4
+SM_Indoors_Drawer_01_4,static,Mat_Indoors_Wardrobe_01,49.7734,0.001,-63.1797,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,0.8232,0.5078,1.0904,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_Indoors_Study_02_09/SM_Indoors_Drawer_01_4
+SM_Indoors_Drawer_01_4,static,Mat_Indoors_Wardrobe_01,50.207,-0.1637,-69.6338,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,0.6169,1.3245,0,1,Buildings/Merchant_Equipment/Built/Visual/Prfb_Indoors_Study_02_10/SM_Indoors_Drawer_01_4
+SM_Indoors_Drawer_01_4,static,Mat_Indoors_Wardrobe_01,49.0063,0.001,-63.6814,0.0,2e-06,0.0,1.0,-0.0,0.0,0.0,0.8232,0.5078,1.0904,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_Indoors_Study_02_10/SM_Indoors_Drawer_01_4
+Cylinder,static,Water_Bucket,98.37,0.3962,-50.125,-0.0,0.707107,0.0,0.707107,-0.0,90.0,-0.0,-0.4785,0.0117,0.4785,0,1,FishingPoint/LootBox_Fishing/Bucket/Cylinder_1
+SodaPointLightMesh,static,ZeroPoint,94.3672,1.425,-51.8294,0.0,-0.233598,0.0,0.972333,-0.0,-27.018,0.0,0.9119,0.9119,0.9119,0,1,Notes/Note_Fishing-1/SodaPointLight
+SM_Computer_01_1_1,static,Mat_Computer_01_01,55.338,0.7718,-63.5624,0.0,0.545736,0.0,0.837957,-0.0,66.15,0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Built/Visual/Prfb_Controller_02/Prfb_Computer_01_1/SM_Computer_01_1_1
+"Mat_Bags_01_5_(384;00, 0;00, 384;00)__12_Shadow_On_595",static,Mat_Bags_01_5,131.8757,-1.5882,-77.6765,0.0,0.913294,0.0,0.407302,-0.0,131.929,0.0,1.0,1.0,1.0,1,1,Prfb_GargabePile_Temp_03/Mat_Bags_01_5
+"Mat_Bags_01_5_(384;00, 0;00, 384;00)__12_Shadow_On_595",static,Mat_Bags_01_5,124.1073,-1.9282,-35.2324,0.0,0.405819,0.0,0.913953,-0.0,47.885,0.0,1.0,1.0,1.0,1,1,Prfb_GargabePile_Temp_02/Mat_Bags_01_5
+"Mat_Bags_01_5_(384;00, 0;00, 384;00)__12_Shadow_On_595",static,Mat_Bags_01_5,100.385,-1.5882,-3.806,0.0,0.093651,0.0,0.995605,-0.0,10.747,0.0,1.0,1.0,1.0,1,1,Prfb_GargabePile_Temp_04/Mat_Bags_01_5
+Grenade01,static,ColorA Darker,48.089,2.507,-67.62,0.275272,-0.651326,-0.275272,0.651326,-0.0,-90.0,-45.821,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Built/Visual/Grenade01_4
+Grenade01,static,ColorA Darker,48.089,2.507,-69.588,0.275272,-0.651326,-0.275272,0.651326,-0.0,-90.0,-45.821,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Built/Visual/Grenade01
+Grenade01,static,ColorA Darker,48.089,1.596,-67.62,0.275272,-0.651326,-0.275272,0.651326,-0.0,-90.0,-45.821,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Built/Visual/Grenade01_7
+Grenade01,static,ColorA Darker,48.089,1.896,-69.588,0.275272,-0.651326,-0.275272,0.651326,-0.0,-90.0,-45.821,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Built/Visual/Grenade01_1
+Grenade01,static,ColorA,48.089,2.207,-69.588,0.275272,-0.651326,-0.275272,0.651326,-0.0,-90.0,-45.821,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Built/Visual/Grenade01_2
+Grenade01,static,ColorA Darker,48.089,1.596,-69.588,0.275272,-0.651326,-0.275272,0.651326,-0.0,-90.0,-45.821,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Built/Visual/Grenade01_3
+Grenade01,static,ColorA,48.089,2.207,-67.62,0.275272,-0.651326,-0.275272,0.651326,-0.0,-90.0,-45.821,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Built/Visual/Grenade01_5
+Grenade01,static,ColorA Darker,48.089,1.896,-67.62,0.275272,-0.651326,-0.275272,0.651326,-0.0,-90.0,-45.821,1.0,1.0,1.0,0,1,Buildings/Merchant_Equipment/Built/Visual/Grenade01_6
+SM_CementMold3,static,Mat_CementMold_1,49.51,0.0,-63.23,0.0,0.915247,0.0,-0.402893,-0.0,-132.482,0.0,0.4608,0.4608,0.4608,0,1,Buildings/Merchant_Normal/Unavaliable/Prfb_CementMold_04
+SM_CementMold3,static,Mat_CementMold_1,94.044,1.4315,-48.4303,0.5,0.5,0.5,0.5,0.0,90.0,90.0,0.3903,0.7667,0.5917,1,1,Envir/Prfb_CementMold_05
+SM_CementMold3,static,Mat_CementMold_1,94.044,1.4315,-32.2903,0.5,0.5,0.5,0.5,0.0,90.0,90.0,0.3903,0.7667,0.5917,1,1,Envir/Prfb_CementMold_07
+SM_CementMold3,static,Mat_CementMold_1,94.041,1.4315,-58.1103,0.5,0.5,0.5,0.5,0.0,90.0,90.0,0.3903,0.7667,0.5917,1,1,Envir/Prfb_CementMold_04
+SM_CementMold3,static,Mat_CementMold_1,94.044,1.4315,-70.5503,0.5,0.5,0.5,0.5,0.0,90.0,90.0,0.3903,0.7667,0.5917,1,1,Envir/Prfb_CementMold_06
+SM_Indoors_Stool_02,static,Mat_Indoors_Table_02,73.66,-1.5,-85.4001,0.0,0.382684,0.0,0.923879,-0.0,45.0,0.0,1.0,1.0,1.0,0,1,Buildings/Workbench/Built/Prfb_Indoors_Study_02_05
+SM_Indoors_Stool_02,static,Mat_Indoors_Table_02,60.81,0.0,-89.18,0.0,0.923879,0.0,0.382684,-0.0,135.0,0.0,1.0,1.0,1.0,0,1,Buildings/FoodTable/Built/Visual/Prfb_Indoors_Study_02_06
+SM_Indoors_Table_03,static,Mat_Indoors_Table_02,55.4455,0.0,-61.5451,0.0,0.714474,0.0,0.699662,-0.0,91.2,0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Built/Visual/Prfb_Controller_02/Prfb_Indoors_Study_02_09
+Quad,static,FakeGlow_Base Storage,58.6775,1.7299,-62.0151,0.608761,-2e-06,2e-06,0.793353,75.0,-0.0,0.0,2.7855,2.2928,2.2928,0,1,Buildings/PerkTreeInvoker/Built/Visual/Prfb_Controller_02/Prfb_Computer_01_3/Quad
+pen,static,pen,94.2664,1.294,-51.8011,0.376271,0.598682,0.598682,-0.376271,-90.0,-100.965,-10.986,0.1,0.1,0.1,1,1,Notes/Note_Fishing-1/pen
+SodaPointLightMesh,static,ZeroPoint,104.2966,0.9045,-58.9324,0.0,-0.122523,0.0,0.992466,-0.0,-14.075,0.0,2.8498,2.8498,3.1797,1,1,Envir/Prfb_BoatBetweenBaseAndFarm/SodaPointLight_1
+SM_Indoors_Drawer_01_1,static,Mat_Indoors_Wardrobe_01,49.7675,0.4108,-62.166,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,0.8232,0.5078,1.0904,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_Indoors_Study_02_09/SM_Indoors_Drawer_01_1
+SM_Indoors_Drawer_01_1,static,Mat_Indoors_Wardrobe_01,49.4195,0.3341,-66.8497,0.0,2e-06,0.0,1.0,-0.0,0.0,0.0,1.0,0.6169,1.3245,0,1,Buildings/Merchant_Equipment/Built/Visual/Prfb_Indoors_Study_02_11/SM_Indoors_Drawer_01_1
+SM_Indoors_Drawer_01_1,static,Mat_Indoors_Wardrobe_01,50.1997,0.3341,-68.4025,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,0.6169,1.3245,0,1,Buildings/Merchant_Equipment/Built/Visual/Prfb_Indoors_Study_02_10/SM_Indoors_Drawer_01_1
+SM_Indoors_Drawer_01_1,static,Mat_Indoors_Wardrobe_01,50.02,0.4108,-63.6755,0.0,2e-06,0.0,1.0,-0.0,0.0,0.0,0.8232,0.5078,1.0904,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_Indoors_Study_02_10/SM_Indoors_Drawer_01_1
+SM_Indoors_Drawer_01_1,static,Mat_Indoors_Wardrobe_01,49.9827,0.3941,-56.4675,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,0.6169,1.3245,0,1,Buildings/Merchant_Weapon/Built/Visual/Prfb_Indoors_Study_02_02/SM_Indoors_Drawer_01_1
+SM_Indoors_Drawer_01_1,static,Mat_Indoors_Wardrobe_01,49.9827,0.3941,-54.4275,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,0.6169,1.3245,0,1,Buildings/Merchant_Weapon/Built/Visual/Prfb_Indoors_Study_02_09/SM_Indoors_Drawer_01_1
+SM_WaterTank_01,static,Mat_WaterTankButt_01_R1,95.334,0.0005,-75.9903,0.0,0.352218,0.0,0.935918,-0.0,41.246,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_WaterTank_03
+SM_WaterTank_01,static,Mat_WaterTankButt_01_R1,94.984,0.0315,-36.5903,0.0,-0.238808,0.0,0.971067,-0.0,-27.632,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_WaterTank_04
+SM_WoodBox_01_4_1,static,Mat_WoodBox_01_2,48.045,0.3491,-62.082,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1.0,1.0,1.0,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_WoodBox_01_4/SM_WoodBox_01_4_1
+Hair_Hat_LV3_2,static,Mat_Helmet_LV3,49.19,-0.0143,-68.98,0.0,0.707106,-0.0,0.707107,0.0,90.0,0.0,0.9746,0.9746,0.9746,0,1,Buildings/Merchant_Equipment/Built/Visual/DuckV2_3/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Head/Items_Helmets_LV3/Hair_Hat_LV3_2
+Gun02,static,ColorB|ColorA,48.045,1.6733,-55.7311,0.118277,-2e-06,-0.0,0.992981,13.585,-0.0,-0.0,0.7702,0.7702,0.7702,0,1,Buildings/Merchant_Weapon/Built/Visual/Gun02
+Gun02,static,ColorB|ColorA,48.045,1.6733,-54.9991,0.118277,-2e-06,-0.0,0.992981,13.585,-0.0,-0.0,0.7702,0.7702,0.7702,0,1,Buildings/Merchant_Weapon/Built/Visual/Gun02_1
+SM_Computer_01_3_2,static,Mat_Computer_01_01,58.4468,0.6649,-62.4233,0.0,0.987012,0.0,0.160649,-0.0,161.511,0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Built/Visual/Prfb_Controller_02/Prfb_Computer_01_3/SM_Computer_01_3_2
+SM_Computer_01_3_1,static,Mat_Computer_01_01,55.5205,0.9399,-61.1662,0.0,0.934223,0.0,0.356689,-0.0,138.206,0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Built/Visual/Prfb_Controller_02/Prfb_Computer_01_3/SM_Computer_01_3_24
+Pot01,static,ColorA Smooth|ColorA,103.7218,0.7337,-57.9436,0.070593,0.972012,-0.020583,0.223128,4.101,154.408,7.376,1.0435,1.0435,1.0435,1,1,Envir/Prfb_BoatBetweenBaseAndFarm/DuckV2_2/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Head/Pot01
+Goggle,static,ColorA|ColorC,49.915,1.687,-71.303,-0.047759,-0.591894,-0.012121,0.804508,-5.232,-72.783,2.131,0.6962,0.6962,0.6962,0,1,Buildings/Merchant_Equipment/Built/Visual/Goggle
+Can01,static,ColorA Darker,81.819,2.285,-49.808,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.6022,0.6022,0.6022,0,1,Buildings/Temp/Can01
+Can01,static,ColorA Darker,81.827,2.374,-49.782,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,0.6022,0.6022,0.6022,0,1,Buildings/Temp/Can01_1
+SM_Indoors_Table_03,static,Mat_Indoors_Table_02,55.01,0.82,-52.124,-0.617753,0.0,0.0,0.786372,-76.305,0.0,0.0,1.0,1.0,1.0,0,1,Buildings/StarterKit/Model/Prfb_Indoors_Table_04
+"Mat_Bags_01_4_(384;00, 0;00, 384;00)__13_Shadow_On_2298",static,Mat_Bags_01_4,67.2852,-1.93,-73.9127,0.0,0.869362,0.0,-0.494175,-0.0,-120.769,0.0,1.0,1.0,1.0,1,1,Prfb_GargabePile_Temp_01/Mat_Bags_01_4
+Quad,static,FishingRing,103.85,-0.642,-48.19,0.707107,0.0,0.0,0.707107,90.0,0.0,0.0,1.248,1.248,1.248,1,1,FishingPoint/TargetPoint/RingParent/Scale
+SM_Indoors_Wardrobe_01_1,static,Mat_Indoors_Wardrobe_NoWood,57.9512,-1.5428,-61.3704,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,0.6169,1.3245,0,1,Buildings/Merchant_Weapon/Built/Visual/Prfb_Indoors_Study_02_02/SM_Indoors_Wardrobe_01_1
+SM_Indoors_Wardrobe_01_1,static,Mat_Indoors_Wardrobe_NoWood,57.9512,-1.5428,-59.3304,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,0.6169,1.3245,0,1,Buildings/Merchant_Weapon/Built/Visual/Prfb_Indoors_Study_02_09/SM_Indoors_Wardrobe_01_1
+SM_Indoors_Wardrobe_01_1,static,Mat_Indoors_Wardrobe_NoWood,58.1682,-1.6028,-73.3054,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,0.6169,1.3245,0,1,Buildings/Merchant_Equipment/Built/Visual/Prfb_Indoors_Study_02_10/SM_Indoors_Wardrobe_01_1
+SM_Indoors_Wardrobe_01_1,static,Mat_Indoors_Wardrobe_01,56.3272,-1.1837,-66.2022,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,0.8232,0.5078,1.0904,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_Indoors_Study_02_09/SM_Indoors_Wardrobe_01_1
+SM_Indoors_Wardrobe_01_1,static,Mat_Indoors_Wardrobe_NoWood,44.5166,-1.6028,-74.8182,0.0,2e-06,0.0,1.0,-0.0,0.0,0.0,1.0,0.6169,1.3245,0,1,Buildings/Merchant_Equipment/Built/Visual/Prfb_Indoors_Study_02_11/SM_Indoors_Wardrobe_01_1
+SM_Indoors_Wardrobe_01_1,static,Mat_Indoors_Wardrobe_01,45.9838,-1.1837,-70.2352,0.0,2e-06,0.0,1.0,-0.0,0.0,0.0,0.8232,0.5078,1.0904,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_Indoors_Study_02_10/SM_Indoors_Wardrobe_01_1
+SM_Computer_01_3_3,static,Mat_Computer_01_01,57.4705,1.2549,-61.4951,-0.0,0.997477,-0.07099,3e-06,8.142,180.0,-0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Built/Visual/Prfb_Controller_02/Prfb_Computer_01_3/SM_Computer_01_3_9
+SM_PaperBox_01_4,static,Mat_PaperBox_02,59.248,1.41,-81.791,-0.696481,0.711311,0.067602,0.066193,-10.858,180.0,-88.793,0.8474,0.8474,1.6984,0,1,Buildings/Bathroom/Constructing_1/SM_PaperBox_01_7
+SM_PaperBox_01_4,static,Mat_PaperBox_02,60.133,2.005,-54.96,-0.007444,-0.707066,0.707069,-0.007447,90.0,55.379,-125.872,2.4818,2.4818,2.4818,0,1,Buildings/QuestGiver/Constructing/SM_PaperBox_01_4
+SM_PaperBox_01_4,static,Mat_PaperBox_02,54.0,0.55,-89.04,-0.009652,-0.123557,-0.035999,0.991637,-1.607,-14.149,-3.959,0.8474,0.8474,1.6984,0,1,Buildings/Workbench/Constructing/SM_PaperBox_01_8
+SM_PaperBox_01_4,static,Mat_PaperBox_02,52.41,1.497,-67.633,0.106717,0.104491,-0.691776,0.706498,17.179,-0.0,-88.794,0.8733,0.8733,0.8733,0,1,Buildings/Merchant_Equipment/Constructing/SM_PaperBox_01_5
+SM_PaperBox_01_4,static,Mat_PaperBox_02,60.504,2.005,-82.871,-0.007444,-0.707066,0.707069,-0.007447,90.0,55.379,-125.872,2.4818,2.4818,2.4818,0,1,Buildings/Bathroom/Constructing_1/SM_PaperBox_01_4
+SM_PaperBox_01_4,static,Mat_PaperBox_02,51.329,1.426,-64.904,-0.540288,0.456167,-0.444685,0.549778,-10.858,90.0,-88.793,0.8474,0.8474,1.6984,0,1,Buildings/Merchant_Normal/Constructing/SM_PaperBox_01_7
+SM_PaperBox_01_4,static,Mat_PaperBox_02,58.877,1.41,-53.88,-0.696481,0.711311,0.067602,0.066193,-10.858,180.0,-88.793,0.8474,0.8474,1.6984,0,1,Buildings/QuestGiver/Constructing/SM_PaperBox_01_7
+SM_PaperBox_01_4,static,Mat_PaperBox_02,54.96,1.426,-63.469,-0.696481,0.711311,0.067602,0.066193,-10.858,180.0,-88.793,0.8474,0.8474,1.6984,0,1,Buildings/PerkTreeInvoker/Constructing/SM_PaperBox_01_7
+SM_PaperBox_01_4,static,Mat_PaperBox_02,59.166,1.41,-88.31,-0.696481,0.711311,0.067602,0.066193,-10.858,180.0,-88.793,0.8474,0.8474,1.6984,0,1,Buildings/FoodTable/Constructing_1/SM_PaperBox_01_7
+SM_PaperBox_01_4,static,Mat_PaperBox_02,57.152,2.005,-64.55,-0.007444,-0.707066,0.707069,-0.007447,90.0,55.379,-125.872,2.4818,2.4818,2.4818,0,1,Buildings/PerkTreeInvoker/Constructing/SM_PaperBox_01_4
+SM_PaperBox_01_4,static,Mat_PaperBox_02 1,53.727,0.829,-85.454,0.008903,0.81633,-0.008991,0.577447,1.43,109.454,0.238,1.2938,0.5444,1.8356,0,1,Buildings/Workbench/Built/Visual/SM_PaperBox_01_6
+SM_PaperBox_01_4,static,Mat_PaperBox_02,52.41,2.005,-62.898,0.505237,0.494706,-0.49471,0.505237,90.0,-34.621,-125.872,2.4818,2.4818,2.4818,0,1,Buildings/Merchant_Normal/Constructing/SM_PaperBox_01_4
+SM_PaperBox_01_4,static,Mat_PaperBox_02,51.339,1.426,-58.35,-0.540288,0.456167,-0.444685,0.549778,-10.858,90.0,-88.793,0.8474,0.8474,1.6984,0,1,Buildings/Merchant_Weapon/Constructing/SM_PaperBox_01_7
+SM_PaperBox_01_4,static,Mat_PaperBox_02,54.935,0.849,-61.28,-0.67866,0.734315,0.009873,0.010241,-1.627,179.906,-85.487,2.1639,2.1639,2.1639,0,1,Buildings/PerkTreeInvoker/Constructing/SM_PaperBox_01_6
+SM_PaperBox_01_4,static,Mat_PaperBox_02,49.14,0.849,-71.385,-0.486866,0.511998,-0.472904,0.52648,-1.627,89.906,-85.487,2.1639,2.1639,2.1639,0,1,Buildings/Merchant_Equipment/Constructing/SM_PaperBox_01_6
+SM_PaperBox_01_4,static,Mat_PaperBox_02 yellowWhite,53.727,0.824,-85.454,0.008903,0.81633,-0.008991,0.577447,1.43,109.454,0.238,1.371,0.5696,2.0518,0,1,Buildings/Workbench/Built/Visual/SM_PaperBox_01_5
+SM_PaperBox_01_4,static,Mat_PaperBox_02,51.329,1.426,-71.36,-0.540288,0.456167,-0.444685,0.549778,-10.858,90.0,-88.793,0.8474,0.8474,1.6984,0,1,Buildings/Merchant_Equipment/Constructing/SM_PaperBox_01_7
+SM_PaperBox_01_4,static,Mat_PaperBox_02,52.41,1.497,-61.363,0.106717,0.104491,-0.691776,0.706498,17.179,-0.0,-88.794,0.8733,0.8733,0.8733,0,1,Buildings/Merchant_Normal/Constructing/SM_PaperBox_01_5
+SM_PaperBox_01_4,static,Mat_PaperBox_02,52.42,2.005,-56.158,0.505237,0.494706,-0.49471,0.505237,90.0,-34.621,-125.872,2.4818,2.4818,2.4818,0,1,Buildings/Merchant_Weapon/Constructing/SM_PaperBox_01_4
+SM_PaperBox_01_4,static,Mat_PaperBox_02,49.14,0.849,-64.929,-0.486866,0.511998,-0.472904,0.52648,-1.627,89.906,-85.487,2.1639,2.1639,2.1639,0,1,Buildings/Merchant_Normal/Constructing/SM_PaperBox_01_6
+SM_PaperBox_01_4,static,Mat_PaperBox_02,58.687,1.497,-64.55,-0.413699,0.573456,-0.564619,0.425684,17.179,90.0,-88.794,0.8733,0.8733,0.8733,0,1,Buildings/PerkTreeInvoker/Constructing/SM_PaperBox_01_5
+SM_PaperBox_01_4,static,Mat_PaperBox_02,52.42,1.497,-54.623,0.106717,0.104491,-0.691776,0.706498,17.179,-0.0,-88.794,0.8733,0.8733,0.8733,0,1,Buildings/Merchant_Weapon/Constructing/SM_PaperBox_01_5
+SM_PaperBox_01_4,static,Mat_PaperBox_02,55.13,2.005,-85.558,0.505237,0.494706,-0.49471,0.505237,90.0,-34.621,-125.872,2.4818,2.4818,2.4818,0,1,Buildings/Workbench/Constructing/SM_PaperBox_01_4
+SM_PaperBox_01_4,static,Mat_PaperBox_02,52.41,2.005,-69.168,0.505237,0.494706,-0.49471,0.505237,90.0,-34.621,-125.872,2.4818,2.4818,2.4818,0,1,Buildings/Merchant_Equipment/Constructing/SM_PaperBox_01_4
+SM_PaperBox_01_4,static,Mat_PaperBox_02,49.15,0.849,-58.375,-0.486866,0.511998,-0.472904,0.52648,-1.627,89.906,-85.487,2.1639,2.1639,2.1639,0,1,Buildings/Merchant_Weapon/Constructing/SM_PaperBox_01_6
+SM_PaperBox_01_4,static,Mat_PaperBox_02,60.422,2.005,-89.39,-0.007444,-0.707066,0.707069,-0.007447,90.0,55.379,-125.872,2.4818,2.4818,2.4818,0,1,Buildings/FoodTable/Constructing_1/SM_PaperBox_01_4
+SM_PaperBox_01_4,static,Mat_PaperBox_02,54.05,1.41,-86.814,-0.540288,0.456167,-0.444685,0.549778,-10.858,90.0,-88.793,0.8474,0.8474,1.6984,0,1,Buildings/Workbench/Constructing/SM_PaperBox_01_7
+Bullet07,static,ColorB|ColorA,49.834,1.627,-53.193,-0.004324,-0.220888,0.008873,0.975249,-0.259,-25.526,1.101,1.0,1.0,1.0,0,1,Buildings/Merchant_Weapon/Built/Visual/Bullet07
+Bullet07,static,ColorB|ColorA Darker,80.311,1.909,-49.835,0.0,0.19412,0.0,0.980978,-0.0,22.387,0.0,0.7879,0.7879,0.7879,0,1,Buildings/Temp/Bullet07
+Bullet03,static,ColorB|ColorA,48.386,1.541,-53.273,-0.006392,0.028215,0.007521,0.999553,-0.757,3.228,0.841,1.1503,1.1503,1.1503,0,1,Buildings/Merchant_Weapon/Built/Visual/Bullet03
+Bullet03,static,ColorB|ColorA,48.769,1.547,-53.223,-0.004324,-0.220888,0.008873,0.975249,-0.259,-25.526,1.101,1.1503,1.1503,1.1503,0,1,Buildings/Merchant_Weapon/Built/Visual/Bullet03_1
+Bullet03,static,ColorB|ColorA,79.71,1.869,-49.849,0.0,0.997585,0.0,-0.069463,-0.0,-172.034,0.0,1.0,1.0,1.0,0,1,Buildings/Temp/Bullet03
+Bullet03,static,ColorB|ColorA,79.972,1.869,-49.867,0.0,0.999941,0.0,0.010829,-0.0,178.759,0.0,1.0,1.0,1.0,0,1,Buildings/Temp/Bullet03_1
+Box01,static,ColorA,48.496,1.109,-53.221,-0.001045,-0.539741,0.009815,0.841773,0.506,-65.331,1.011,0.5139,0.5139,0.5139,0,1,Buildings/Merchant_Weapon/Built/Visual/Box01
+SM_Ammeter_01,static,OutDoor_New,93.764,-0.1985,-54.9503,0.0,0.99991,0.0,-0.013396,-0.0,-178.465,0.0,0.8321,0.8321,0.8321,1,1,Envir/SM_Ammeter_01_02
+SM_Indoors_WC11_2,static,Mat_Indoors_WC_02,59.13,0.21,-81.85,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,1.2888,1.0,1.0,0,1,Buildings/Bathroom/Built/Prfb_Indoors_WC_11/SM_Indoors_WC11_2
+SM_Woodenboat_02,static,Mat_WoodBoards_01|Mat_WoodBoards_01 3,103.674,-1.0395,-58.7103,0.0,0.020027,0.0,0.999799,-0.0,2.295,0.0,1.0,1.0,1.0,1,1,Envir/Prfb_BoatBetweenBaseAndFarm
+SM_Computer_01_1_2,static,Mat_Computer_01_01,55.4988,0.664,-63.4911,0.0,0.545736,0.0,0.837957,-0.0,66.15,0.0,1.0,1.0,1.0,0,1,Buildings/PerkTreeInvoker/Built/Visual/Prfb_Controller_02/Prfb_Computer_01_1/SM_Computer_01_1_2
+"Mat_Bags_01_5_(384;00, 0;00, 384;00)__15_Shadow_On_850",static,Mat_Bags_01_5,67.2852,-1.93,-73.9127,0.0,0.869362,0.0,-0.494175,-0.0,-120.769,0.0,1.0,1.0,1.0,1,1,Prfb_GargabePile_Temp_01/Mat_Bags_01_5
+SM_Tyre_02,static,OutDoor,102.6054,-0.4915,-58.7035,0.015941,0.092352,0.755569,0.648331,-6.828,8.329,98.238,1.0,1.0,1.0,1,1,Envir/Prfb_BoatBetweenBaseAndFarm/Inside/Prfb_Tyre_02
+SM_Indoors_Drawer_01_6,static,Mat_Indoors_Wardrobe_01,49.9981,0.3978,-57.7022,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,0.6169,1.3245,0,1,Buildings/Merchant_Weapon/Built/Visual/Prfb_Indoors_Study_02_02/SM_Indoors_Drawer_01_6
+SM_Indoors_Drawer_01_6,static,Mat_Indoors_Wardrobe_01,49.9981,0.3978,-55.6622,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,0.6169,1.3245,0,1,Buildings/Merchant_Weapon/Built/Visual/Prfb_Indoors_Study_02_09/SM_Indoors_Drawer_01_6
+SM_Indoors_Drawer_01_6,static,Mat_Indoors_Wardrobe_01,50.2151,0.3378,-69.6372,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,1.0,0.6169,1.3245,0,1,Buildings/Merchant_Equipment/Built/Visual/Prfb_Indoors_Study_02_10/SM_Indoors_Drawer_01_6
+SM_Indoors_Drawer_01_6,static,Mat_Indoors_Wardrobe_01,48.1848,0.3378,-66.8651,0.0,2e-06,0.0,1.0,-0.0,0.0,0.0,1.0,0.6169,1.3245,0,1,Buildings/Merchant_Equipment/Built/Visual/Prfb_Indoors_Study_02_11/SM_Indoors_Drawer_01_6
+SM_Indoors_Drawer_01_6,static,Mat_Indoors_Wardrobe_01,49.7801,0.4139,-63.1825,0.0,-0.707106,0.0,0.707108,-0.0,-90.0,0.0,0.8232,0.5078,1.0904,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_Indoors_Study_02_09/SM_Indoors_Drawer_01_6
+SM_Indoors_Drawer_01_6,static,Mat_Indoors_Wardrobe_01,49.0035,0.4139,-63.6881,0.0,2e-06,0.0,1.0,-0.0,0.0,0.0,0.8232,0.5078,1.0904,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_Indoors_Study_02_10/SM_Indoors_Drawer_01_6
+SM_Shelf_01_2,static,Mat_Shelf_01_03,49.15,-0.023,-60.96,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,0.4236,0.4236,0.4236,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_Shelf_01_8/P_Fade/Fade/SM_Shelf_01_2
+SM_Shelf_01_2,static,Mat_Shelf_01_03,49.17,0.01,-71.278,0.0,-0.707107,0.0,0.707107,-0.0,-90.0,0.0,0.4432,0.4432,0.4432,0,1,Buildings/Merchant_Equipment/Built/Visual/Prfb_Shelf_01_2/P_Fade/Fade/SM_Shelf_01_2
+SM_Shelf_01_2,static,Mat_Shelf_01_03,49.15,-0.023,-53.23,0.0,0.707106,0.0,0.707107,-0.0,90.0,0.0,0.4236,0.4236,0.4236,0,1,Buildings/Merchant_Normal/Built/Visual/Prfb_Shelf_01_9/P_Fade/Fade/SM_Shelf_01_2
+SM_Indoors_WC4,static,Mat_Indoors_WC_01,59.929,-0.138,-80.87,0.0,1.0,0.0,0.0,-0.0,180.0,0.0,0.8798,0.8798,0.8798,0,1,Buildings/Bathroom/Built/Prfb_Indoors_WC_4

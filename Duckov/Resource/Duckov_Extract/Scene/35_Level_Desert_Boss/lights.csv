@@ -1,0 +1,2 @@
+﻿type,r,g,b,intensity,range,spotAngle,px,py,pz,qx,qy,qz,qw,euler_x,euler_y,euler_z,enabled,path
+Directional,1.0,0.9569,0.8392,1.0,10.0,30.0,0.0,3.0,0.0,0.408218,-0.23457,0.109382,0.875426,50.0,-30.0,-0.0,1,Directional Light

@@ -1,0 +1,14 @@
+﻿type,r,g,b,intensity,range,spotAngle,px,py,pz,qx,qy,qz,qw,euler_x,euler_y,euler_z,enabled,path
+Point,0.2972,0.7963,1.0,31.39,11.957,30.0,-41.17,2.46,0.77,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1,Lights/Point Light_9
+Point,0.2972,0.7963,1.0,31.39,11.957,30.0,-26.79,2.46,16.69,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1,Lights/Point Light_10
+Point,0.7311,0.9209,1.0,46.6,16.55,30.0,-33.92,4.63,-13.24,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1,Lights/Point Light_2
+Point,0.7311,0.9209,1.0,46.6,16.55,30.0,-33.92,4.63,27.44,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1,Lights/Point Light_3
+Point,0.7311,0.9209,1.0,46.6,16.55,30.0,-33.92,4.63,46.14,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1,Lights/Point Light_4
+Point,0.2972,0.7963,1.0,31.39,11.957,30.0,-26.79,2.46,0.77,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1,Lights/Point Light_11
+Directional,0.4037,0.4242,0.4528,3.42,10.0,30.0,0.19,3.0,0.31,0.215624,0.721658,-0.605543,0.256971,80.0,140.8,-0.0,1,Lights/Directional Light
+Point,0.7311,0.9209,1.0,46.6,16.55,30.0,-33.92,4.63,-34.56,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1,Lights/Point Light_1
+Point,0.2972,0.7963,1.0,31.39,11.957,30.0,-41.17,2.46,16.69,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1,Lights/Point Light_8
+Point,0.7311,0.9209,1.0,22.61,16.55,30.0,-14.85,6.56,-41.36,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1,Lights/Point Light
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,272.0256,1.0449,245.8793,-0.707107,0.0,0.0,0.707107,-90.0,180.0,180.0,0,LevelElements/SnowFactory_SpecialElements/Bonefire/Pfb_Campingfire_NotBurning_3/FireSmoke/Point Light
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,176.1156,1.0449,161.1093,-0.707107,0.0,0.0,0.707107,-90.0,180.0,180.0,0,LevelElements/SnowFactory_SpecialElements/Bonefire/Pfb_Campingfire_NotBurning_2/FireSmoke/Point Light
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,323.4056,1.0449,239.9693,-0.707107,0.0,0.0,0.707107,-90.0,180.0,180.0,0,LevelElements/SnowFactory_SpecialElements/Bonefire/Pfb_Campingfire_NotBurning_1/FireSmoke/Point Light

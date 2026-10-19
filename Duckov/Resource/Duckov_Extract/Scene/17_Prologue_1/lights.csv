@@ -1,0 +1,2 @@
+﻿type,r,g,b,intensity,range,spotAngle,px,py,pz,qx,qy,qz,qw,euler_x,euler_y,euler_z,enabled,path
+Spot,1.0,0.9709,0.9104,7.0,8.42,79.882,-1.35,3.187,-5.18,0.435361,-0.666366,0.306395,0.522053,59.644,-121.915,-31.004,0,CustomFace/ActivePart/Spot Light

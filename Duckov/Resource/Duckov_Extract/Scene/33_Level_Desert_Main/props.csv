@@ -1,0 +1,51 @@
+﻿mesh,kind,materials,px,py,pz,qx,qy,qz,qw,euler_x,euler_y,euler_z,sx,sy,sz,enabled,in_project,path
+Quad,static,mapDamgerQuad 1,786.6,106.2,333.6,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadGreen/DamgerQuad_39
+Quad,static,mapDamgerQuad 1,862.2,106.2,329.3,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,198.7564,198.7564,198.7564,0,1,MiniMapShooter/DangerQuadGreen/DamgerQuad_45
+Quad,static,mapDamgerQuad 1,936.7,106.2,297.4,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadGreen/DamgerQuad_29
+Quad,static,mapDamgerQuad,640.4,106.2,570.6,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadRed/DamgerQuad_1
+Quad,static,mapDamgerQuad 1,779.8,106.2,359.2,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadGreen/DamgerQuad_38
+Quad,static,mapDamgerQuad,622.2,106.2,524.6,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadRed/DamgerQuad_6
+Quad,static,mapDamgerQuad 1,820.7,106.2,357.0,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadGreen/DamgerQuad_36
+Quad,static,mapDamgerQuad,889.0,106.2,440.8,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadRed/DamgerQuad_16
+Quad,static,mapDamgerQuad 1,782.5,106.2,326.0,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadGreen/DamgerQuad_18
+Quad,static,mapDamgerQuad,521.6,106.0,841.4,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadRed/DamgerQuad_8
+Quad,static,mapDamgerQuad 1,775.5,106.2,292.5,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadGreen/DamgerQuad_19
+Quad,static,mapDamgerQuad,631.2,106.2,553.3,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadRed/DamgerQuad
+Quad,static,mapDamgerQuad,590.3,106.2,534.5,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadRed/DamgerQuad_5
+Quad,static,mapDamgerQuad 1,938.1,106.2,309.5,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadGreen/DamgerQuad_28
+Quad,static,mapDamgerQuad 1,926.7,106.2,319.4,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadGreen/DamgerQuad_30
+Quad,static,mapDamgerQuad 1,789.2,106.2,354.5,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadGreen/DamgerQuad_17
+Quad,static,mapDamgerQuad 1,809.7,106.2,360.9,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadGreen/DamgerQuad_22
+Quad,static,mapDamgerQuad,631.8,106.2,517.8,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadRed/DamgerQuad_3
+Quad,static,mapDamgerQuad,629.7,106.2,537.2,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadRed/DamgerQuad_2
+Quad,static,mapDamgerQuad 1,900.5,106.2,338.5,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadGreen/DamgerQuad_26
+Quad,static,mapDamgerQuad 1,806.3,106.2,344.9,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,124.1451,124.1451,124.1451,0,1,MiniMapShooter/DangerQuadGreen/DamgerQuad_44
+Quad,static,mapDamgerQuad,502.9,106.0,838.0,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadRed/DamgerQuad_10
+Quad,static,mapDamgerQuad 1,775.1,106.2,332.2,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadGreen/DamgerQuad_20
+Quad,static,mapDamgerQuad 1,914.2,106.2,332.8,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadGreen/DamgerQuad_27
+Quad,static,mapDamgerQuad 1,855.3,106.2,356.2,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadGreen/DamgerQuad_24
+Quad,static,mapDamgerQuad,501.3,106.0,828.2,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadRed/DamgerQuad_9
+Quad,static,mapDamgerQuad 1,869.2,106.2,333.2,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadGreen/DamgerQuad_25
+Quad,static,mapDamgerQuad 1,788.9,106.2,341.7,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadGreen/DamgerQuad_43
+Quad,static,mapDamgerQuad 1,790.4,106.2,302.8,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadGreen/DamgerQuad_42
+Quad,static,mapDamgerQuad 1,874.6,106.2,330.0,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadGreen/DamgerQuad_33
+Quad,static,mapDamgerQuad 1,871.1,106.2,342.1,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadGreen/DamgerQuad_32
+Quad,static,mapDamgerQuad,898.4,106.2,438.0,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadRed/DamgerQuad_15
+Quad,static,mapDamgerQuad 1,842.3,106.2,345.6,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadGreen/DamgerQuad_37
+Quad,static,mapDamgerQuad 1,781.3,106.2,312.0,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,161.1194,161.1193,161.1193,0,1,MiniMapShooter/DangerQuadGreen/DamgerQuad_21
+Quad,static,mapDamgerQuad,873.9,106.2,446.4,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadRed/DamgerQuad_11
+Quad,static,mapDamgerQuad 1,817.0,106.2,335.3,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadGreen/DamgerQuad_35
+Quad,static,mapDamgerQuad,905.9,106.2,433.7,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadRed/DamgerQuad_12
+Quad,static,mapDamgerQuad 1,829.3,106.2,348.4,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadGreen/DamgerQuad_23
+Quad,static,mapDamgerQuad,892.0,106.2,425.8,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadRed/DamgerQuad_13
+Quad,static,mapDamgerQuad 1,764.9,106.2,322.7,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadGreen/DamgerQuad_40
+Quad,static,mapDamgerQuad 1,790.4,106.2,302.8,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadGreen/DamgerQuad_41
+Quad,static,mapDamgerQuad 1,877.8,106.2,317.3,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadGreen/DamgerQuad_34
+Quad,static,mapDamgerQuad,622.0,106.2,556.1,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadRed/DamgerQuad_4
+Quad,static,mapDamgerQuad,898.9,106.2,446.1,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadRed/DamgerQuad_14
+Quad,static,mapDamgerQuad 1,910.9,106.2,325.7,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadGreen/DamgerQuad_31
+Quad,static,mapDamgerQuad,503.0,106.0,850.0,0.707106,0.0,0.0,0.707107,90.0,0.0,0.0,87.1622,87.1622,87.1622,0,1,MiniMapShooter/DangerQuadRed/DamgerQuad_7
+Quad,static,SunFogTD2023,479.4152,35.448,70.9427,0.446015,-0.229575,0.119509,0.856787,55.0,-30.0,0.0,8.8807,4.8335,3.4497,1,1,LookDevCamera/Main Camera/Fx/SunFog
+Quad,static,,478.715,35.3825,70.5915,0.446015,-0.229575,0.119509,0.856787,55.0,-30.0,0.0,4.8023,3.5,3.4497,0,1,LookDevCamera/Main Camera/Fx/CloudShadow
+Quad,static,ZeroPoint,479.3922,35.3825,70.9824,0.446015,-0.229575,0.119509,0.856787,55.0,-30.0,0.0,8.8807,4.8335,3.4497,1,1,LookDevCamera/Main Camera/Fx/FullScreenFx
+Quad,static,EdgeLightQuad,479.3922,35.3825,70.9824,0.446015,-0.229575,0.119509,0.856787,55.0,-30.0,0.0,8.8807,4.8335,3.4497,0,1,LookDevCamera/Main Camera/Fx/EdgeLight

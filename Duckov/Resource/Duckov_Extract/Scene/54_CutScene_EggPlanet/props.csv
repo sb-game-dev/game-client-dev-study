@@ -1,0 +1,14 @@
+﻿mesh,kind,materials,px,py,pz,qx,qy,qz,qw,euler_x,euler_y,euler_z,sx,sy,sz,enabled,in_project,path
+Sphere,static,EggCloud,0.2496,-1.2968,0.0,0.0,0.0,0.152382,0.988322,-0.0,0.0,17.53,1.0,1.0,1.0,1,1,EggPlanet/Cloud
+Sphere,static,EggPlanetAtms 1,0.2496,-1.2968,0.0,0.0,0.0,0.152382,0.988322,-0.0,0.0,17.53,1.0,1.0,1.0,1,1,EggPlanet/Air2
+Sphere,static,EggCloudShadow,0.2496,-1.2968,0.0,0.0,0.0,0.152382,0.988322,-0.0,0.0,17.53,1.0,1.0,1.0,1,1,EggPlanet/Cloud/Cloud_shadow
+Sphere,static,EggCloudThickBright,0.2496,-1.2968,0.0,0.0,0.0,0.152382,0.988322,-0.0,0.0,17.53,1.0,1.0,1.0,0,1,EggPlanet/Cloud/Cloud_Thick_Bright
+Sphere,static,EggCloudThick,0.2496,-1.2968,0.0,0.0,0.0,0.152382,0.988322,-0.0,0.0,17.53,1.0,1.0,1.0,0,1,EggPlanet/Cloud/Cloud_Thick
+Sphere,static,EggPlanet,0.2496,-1.2968,0.0,0.0,0.0,0.152382,0.988322,-0.0,0.0,17.53,1.0,1.0,1.0,1,1,EggPlanet/EggPlanet
+Sphere,static,EggPlanetAtms,0.2496,-1.2968,0.0,0.0,0.0,0.152382,0.988322,-0.0,0.0,17.53,1.0,1.0,1.0,1,1,EggPlanet/Air
+SodaPointLightMesh,static,ZeroPoint,-2.404,1.4934,-5.64,0.0,0.0,0.152382,0.988322,-0.0,0.0,17.53,11.1335,11.1335,11.1335,0,1,EggPlanet/SodaPointLight
+SodaPointLightMesh,static,ZeroPoint,2.9796,-4.7866,-0.38,0.0,-0.0,0.432809,0.901486,0.0,-0.0,51.292,14.9683,3.2609,3.2609,1,1,EggPlanet/Cracks/SodaPointLight_1
+SodaPointLightMesh,static,ZeroPoint,3.9387,-3.5902,-0.38,0.0,-0.0,0.432809,0.901486,0.0,-0.0,51.292,2.13,1.9062,1.9062,1,1,EggPlanet/Cracks/SodaPointLight_2
+Quad,static,EdgeLightQuad,-0.0,0.3201,-42.97,-1.8e-05,-1.4e-05,-2.4e-05,1.0,-0.002,-0.002,-0.003,8.8807,4.8335,3.4497,1,1,Main Camera/Fx/EdgeLight
+Quad,static,SunFogEggPlanet,-0.0,0.3201,-42.97,-1.8e-05,-1.4e-05,-2.4e-05,1.0,-0.002,-0.002,-0.003,8.8807,4.8335,3.4497,1,1,Main Camera/Fx/SunFog
+Quad,static,,-0.782,0.3201,-42.97,-1.8e-05,-1.4e-05,-2.4e-05,1.0,-0.002,-0.002,-0.003,4.8023,3.5,3.4497,0,1,Main Camera/Fx/CloudShadow

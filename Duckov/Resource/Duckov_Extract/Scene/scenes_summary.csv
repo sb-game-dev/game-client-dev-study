@@ -1,0 +1,60 @@
+﻿level,scene,objects,unique_meshes,enabled_objects,lights
+0,Startup,4,2,3,0
+1,MainMenu,344,44,5,4
+3,Base,59,23,43,6
+4,Base_Scene,532,101,440,26
+5,Base_SceneV2,611,170,423,38
+6,Base_SceneV2_Sub_01,749,147,151,67
+8,LoadingScreen_Getout,8,5,7,1
+9,LoadingScreen 1,25,7,24,1
+10,Level_Farm_01,35929,1108,29985,112
+11,Level_Farm_Main,50,1,2,0
+12,Level_Farm_JLab_Facility,2336,216,1217,15
+13,Level_GroundZero_Main,4,1,2,0
+14,Level_GroundZero_1,5221,392,3795,26
+15,Level_GroundZero_Cave,468,39,134,5
+16,Prologue_Main,4,1,2,1
+17,Prologue_1,42,10,39,1
+18,Level_HiddenWarehouse_Main,50,1,2,0
+19,Level_HiddenWarehouse,6929,457,6116,18
+20,LoadingScreen Evacuate,31,11,8,1
+22,Level_HiddenWarehouse_CellarUnderGround,1000,137,693,25
+23,Level_Guide_1,1942,191,1356,27
+24,Level_Guide_2,1337,107,596,6
+25,Level_Guide_Main,8,1,0,0
+27,LoadingScreen Wakeup,31,11,1,1
+28,LoadingScreen Move,30,11,4,1
+29,LoadingScreen_Black,30,11,0,1
+30,Level_JLab_Main,53,2,2,0
+31,Level_JLab_1,15292,555,13305,154
+32,Level_JLab_2,9696,383,7892,83
+33,Level_Desert_Main,50,1,2,0
+34,Level_Desert,19982,1121,13875,70
+35,Level_Desert_Boss,0,0,0,1
+36,Level_DemoChallenge_1,580,50,191,1
+37,Level_DemoChallenge_Main,53,2,2,0
+38,Level_ChallengeSnow_Main,50,1,2,0
+39,Level_ChallengeSnow,4342,264,3767,9
+40,Level_StormZone_Main,4,1,2,0
+41,Level_StormZone_1,9897,440,9147,136
+42,Level_StormZone_B0,7825,257,6496,76
+43,Level_StormZone_B1,2511,183,1951,25
+44,Level_StormZone_B2,2312,150,1775,22
+45,Level_StormZone_B3,2341,168,1810,41
+46,Level_StormZone_B4,2285,178,1871,27
+47,Level_SnowFactory,821,25,762,13
+48,Level_SnowMilitaryBase,23760,1119,19408,85
+49,Level_SnowMilitaryBase_Main,50,1,2,0
+50,Level_SnowMilitaryBase_ColdStorage,3371,223,2686,144
+51,Level_SnowMilitaryBase_ColdStorage_Main,50,1,2,0
+52,LoadingScreen ToStormZone,30,11,2,1
+53,LoadingScreen Dream,31,11,1,1
+54,CutScene_EggPlanet,13,3,9,2
+55,Cutscene_Ending,3460,368,2995,53
+56,Level_Zombie_Main,53,2,2,0
+57,Level_Zombie_1,397,39,23,1
+58,Level_StormPast_Main,4,1,2,0
+59,Level_StormPast_1,9731,432,8999,132
+60,Level_SurivalChallenge,8648,528,7307,56
+61,Level_SurivalChallenge_Main,51,2,2,0
+62,LoadingScreen_Duckry,31,11,1,1

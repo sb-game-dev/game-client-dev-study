@@ -1,0 +1,10 @@
+﻿type,r,g,b,intensity,range,spotAngle,px,py,pz,qx,qy,qz,qw,euler_x,euler_y,euler_z,enabled,path
+Directional,1.0,0.9024,0.7972,2.5,10.0,30.0,0.19,3.0,0.31,0.242481,0.757519,-0.428584,0.428584,59.0,121.0,-0.0,1,Lights_1/Directional Light
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,323.4056,1.0449,239.9693,-0.707107,0.0,0.0,0.707107,-90.0,180.0,180.0,0,LevelElements/ChallengeSnow_SpecialElements/Bonefire/Pfb_Campingfire_NotBurning_1/FireSmoke/Point Light
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,176.1156,1.0449,161.1093,-0.707107,0.0,0.0,0.707107,-90.0,180.0,180.0,0,LevelElements/ChallengeSnow_SpecialElements/Bonefire/Pfb_Campingfire_NotBurning_2/FireSmoke/Point Light
+Point,1.0,0.9343,0.8726,123.97,26.209,30.0,235.19,11.2661,302.95,0.0,-4e-06,0.0,1.0,-0.0,-0.001,0.0,0,Env/Pfb_Lumberhouse_02/Lights/Point Light
+Point,0.9529,0.9338,0.8235,5.0,5.863,30.0,257.15,1.5361,205.0601,0.0,0.707103,0.0,0.707111,-0.0,89.999,0.0,1,Env/Pfb_Dormit_01_2_Snow_Challenge_1/Light/w_19
+Point,0.9528,0.9207,0.8225,5.0,3.0,30.0,253.8801,1.8061,194.09,0.0,0.707103,0.0,0.707111,-0.0,89.999,0.0,1,Env/Pfb_Dormit_01_2_Snow_Challenge_1/Light/w_16
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,240.4716,0.924,102.172,-0.135298,0.694042,0.694042,0.135298,-90.0,-22.062,180.0,1,Env/Pfb_Campingfire/FireSmoke/Point Light
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,310.8456,1.054,126.1997,0.110816,0.698369,0.698369,-0.110816,-90.0,18.033,180.0,1,Env/Pfb_Campingfire_1/FireSmoke/Point Light
+Point,1.0,0.6496,0.3066,3.86,10.0,30.0,272.0256,1.0449,245.8793,-0.707107,0.0,0.0,0.707107,-90.0,180.0,180.0,0,LevelElements/ChallengeSnow_SpecialElements/Bonefire/Pfb_Campingfire_NotBurning_3/FireSmoke/Point Light

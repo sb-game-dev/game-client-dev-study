@@ -1,0 +1,26 @@
+﻿mesh,kind,materials,px,py,pz,qx,qy,qz,qw,euler_x,euler_y,euler_z,sx,sy,sz,enabled,in_project,path
+Quad,static,EdgeLightQuad,-21.2963,0.1252,0.5,-0.035466,0.706217,0.035466,0.706217,-5.75,90.0,0.0,4.8023,3.5,3.4497,1,1,Main Camera/EdgeLight
+Sphere,static,Black,-0.153,0.8652,1.9281,0.0,-0.0,0.0,1.0,0.0,-0.0,0.0,0.0324,0.0324,0.0324,1,1,Timeline/DuckV2_2/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Head/Sphere
+Capsule,static,Black,-0.2406,0.578,0.0155,0.325488,0.763628,-0.394977,-0.393603,20.304,-113.778,59.493,0.0367,0.0706,0.0367,1,1,Timeline/DuckV2_2 Lay/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Head/Capsule (3)
+Capsule,static,Black,0.0059,0.7878,0.0063,-0.269093,-0.301858,0.68631,0.604524,5.105,-47.498,95.003,0.0359,0.0653,0.0359,1,1,Timeline/DuckV2_2 Lay/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Head/Capsule (2)
+Cube,static,Black,2.8378,-3.5288,4.4393,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,23.9639,7.0309,62.5067,1,1,Cube
+Sphere,static,Black,0.1622,0.8652,1.9242,0.0,-0.0,0.0,1.0,0.0,-0.0,0.0,0.0311,0.0311,0.0311,1,1,Timeline/DuckV2_2/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Head/Sphere (1)
+Cylinder,static,Black,0.2895,0.321,0.2904,-0.702309,-0.0,-0.0,0.711872,-89.225,-0.0,0.0,0.0942,1.7322,0.0942,1,1,Timeline/DuckV2_2/Duck_Armature/Root/Hip/Cylinder (1)
+Cylinder,static,Black,-0.2563,0.321,0.2904,-0.702309,-0.0,-0.0,0.711872,-89.225,-0.0,0.0,0.0942,1.7322,0.0942,1,1,Timeline/DuckV2_2/Duck_Armature/Root/Hip/Cylinder
+Cylinder,static,Black,-0.2563,0.332,-0.5151,-0.702309,-0.0,-0.0,0.711872,-89.225,-0.0,0.0,0.1072,0.0618,0.1072,1,1,Timeline/DuckV2_2/Duck_Armature/Root/Hip/Cylinder (4)
+Capsule,static,Black,-0.2406,0.578,0.0155,-0.550632,-0.099765,0.784878,0.266115,-7.843,-67.838,147.82,0.0367,0.0706,0.0367,1,1,Timeline/DuckV2_2 Lay/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Head/Capsule
+Sphere,static,Black,0.1622,0.8652,-0.8238,0.0,-0.0,0.0,1.0,0.0,-0.0,0.0,0.0311,0.0311,0.0311,1,1,Timeline/DuckV2_2 (1)/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Head/Sphere (1)
+Quad,static,SunFogTD2023,-21.0674,0.1483,0.5,-0.035466,0.706217,0.035466,0.706217,-5.75,90.0,0.0,2.2446,2.2446,2.2446,0,1,Main Camera/Quad
+Sphere,static,Black,-0.153,0.8652,-0.8199,0.0,-0.0,0.0,1.0,0.0,-0.0,0.0,0.0324,0.0324,0.0324,1,1,Timeline/DuckV2_2 (1)/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Head/Sphere
+Cylinder,static,Black,0.2895,0.322,0.2351,-0.702309,-0.0,-0.0,0.711872,-89.225,-0.0,0.0,0.1072,0.0618,0.1072,1,1,Timeline/DuckV2_2/Duck_Armature/Root/Hip/Cylinder (7)
+Cylinder,static,Black,0.2895,0.3097,1.112,-0.702309,-0.0,-0.0,0.711872,-89.225,-0.0,0.0,0.1072,0.0618,0.1072,1,1,Timeline/DuckV2_2/Duck_Armature/Root/Hip/Cylinder (3)
+Capsule,static,Black,0.0059,0.7878,0.0063,0.185436,0.2133,0.718778,0.635196,-4.075,32.61,95.873,0.0359,0.0653,0.0359,1,1,Timeline/DuckV2_2 Lay/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Head/Capsule (1)
+Cube,static,Black,0.0331,0.321,0.2904,-0.702309,-0.0,-0.0,0.711872,-89.225,-0.0,0.0,0.5584,2.0161,0.0441,1,1,Timeline/DuckV2_2/Duck_Armature/Root/Hip/Cube
+Cylinder,static,Black,0.2895,0.332,-0.5151,-0.702309,-0.0,-0.0,0.711872,-89.225,-0.0,0.0,0.1072,0.0618,0.1072,1,1,Timeline/DuckV2_2/Duck_Armature/Root/Hip/Cylinder (5)
+Cylinder,static,Black,-0.2563,0.322,0.2351,-0.702309,-0.0,-0.0,0.711872,-89.225,-0.0,0.0,0.1072,0.0618,0.1072,1,1,Timeline/DuckV2_2/Duck_Armature/Root/Hip/Cylinder (6)
+Cylinder,static,Black,-0.2563,0.3097,1.112,-0.702309,-0.0,-0.0,0.711872,-89.225,-0.0,0.0,0.1072,0.0618,0.1072,1,1,Timeline/DuckV2_2/Duck_Armature/Root/Hip/Cylinder (2)
+Hair_Hat_LV2,static,Black,-0.0468,1.0114,-1.0119,-0.01423,-0.146845,0.17474,0.973499,1.353,-16.916,20.151,0.9746,0.9746,0.9746,1,1,Timeline/DuckV2_2 (1)/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Head/Hair_Hat_LV2
+Hair_Hat_LV2,static,Black,-0.0,1.0572,1.7508,0.0,-0.0,0.0,1.0,0.0,-0.0,0.0,0.9746,0.9746,0.9746,1,1,Timeline/DuckV2_2/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Head/Hair_Hat_LV2
+Player_Duck_Head,skinned,Black,0.0,0.0,1.7381,-0.707107,0.0,0.0,0.707107,-90.0,180.0,180.0,1.0,1.0,1.0,1,1,Timeline/DuckV2_2/Player_Duck_Head
+Player_Duck_Head,skinned,Black,0.0,0.5421,0.868,1.0,-0.0,0.0,0.0,0.0,180.0,-180.0,1.0,1.0,1.0,1,1,Timeline/DuckV2_2 Lay/Player_Duck_Head
+Player_Duck_Head,skinned,Black,0.0,0.0,-1.0099,-0.707107,0.0,0.0,0.707107,-90.0,180.0,180.0,1.0,1.0,1.0,1,1,Timeline/DuckV2_2 (1)/Player_Duck_Head

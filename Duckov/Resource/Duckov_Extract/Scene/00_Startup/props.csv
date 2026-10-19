@@ -1,0 +1,5 @@
+﻿mesh,kind,materials,px,py,pz,qx,qy,qz,qw,euler_x,euler_y,euler_z,sx,sy,sz,enabled,in_project,path
+Quad,static,EdgeLightQuad,-17.9548,45.7323,-141.3519,0.356915,-0.351508,0.147042,0.852896,45.414,-44.8,-0.008,11.7628,7.2009,3.4497,1,1,GameManager (from Startup)/DevCam/Root/Camera/Fx/EdgeLight
+Quad,static,SunFogTD2023,-17.9548,45.7323,-141.3519,0.356915,-0.351508,0.147042,0.852896,45.414,-44.8,-0.008,11.7628,7.2009,3.4497,1,1,GameManager (from Startup)/DevCam/Root/Camera/Fx/SunFog
+Quad,static,,-18.6703,45.957,-141.7411,0.356915,-0.351508,0.147042,0.852896,45.414,-44.8,-0.008,4.8023,3.5,3.4497,0,1,GameManager (from Startup)/DevCam/Root/Camera/Fx/CloudShadow
+SodaPointLightMesh,static,ZeroPoint,-2.0705,-6.9536,-84.0517,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,18.0,18.0,18.0,1,1,GameManager (from Startup)/NightVisionVisual/SodaPointLight

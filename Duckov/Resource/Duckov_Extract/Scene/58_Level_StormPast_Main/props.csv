@@ -1,0 +1,5 @@
+﻿mesh,kind,materials,px,py,pz,qx,qy,qz,qw,euler_x,euler_y,euler_z,sx,sy,sz,enabled,in_project,path
+Quad,static,SunFogTD2023,-913.7848,35.448,-165.1573,0.446015,-0.229575,0.119509,0.856787,55.0,-30.0,0.0,8.8807,4.8335,3.4497,1,1,LookDevCamera/Main Camera/Fx/SunFog
+Quad,static,,-914.485,35.3825,-165.5085,0.446015,-0.229575,0.119509,0.856787,55.0,-30.0,0.0,4.8023,3.5,3.4497,0,1,LookDevCamera/Main Camera/Fx/CloudShadow
+Quad,static,ZeroPoint,-913.8078,35.3825,-165.1176,0.446015,-0.229575,0.119509,0.856787,55.0,-30.0,0.0,8.8807,4.8335,3.4497,1,1,LookDevCamera/Main Camera/Fx/FullScreenFx
+Quad,static,EdgeLightQuad,-913.8078,35.3825,-165.1176,0.446015,-0.229575,0.119509,0.856787,55.0,-30.0,0.0,8.8807,4.8335,3.4497,0,1,LookDevCamera/Main Camera/Fx/EdgeLight

@@ -1,0 +1,9 @@
+﻿mesh,kind,materials,px,py,pz,qx,qy,qz,qw,euler_x,euler_y,euler_z,sx,sy,sz,enabled,in_project,path
+Quad,static,SunFogTD2023,383.0151,35.448,115.2427,0.446015,-0.229575,0.119509,0.856787,55.0,-30.0,0.0,8.8807,4.8335,3.4497,0,1,LookDevCamera/Main Camera/Fx/SunFog
+Quad,static,SunFogTD2023,390.8085,41.2204,126.4595,0.445277,-0.234805,0.122232,0.855368,55.0,-30.7,0.0,8.8807,4.8335,3.4497,0,1,LookDevCamera/Main Camera/Fx/SunFog
+Quad,static,,390.1127,41.1549,126.0997,0.445277,-0.234805,0.122232,0.855368,55.0,-30.7,0.0,4.8023,3.5,3.4497,0,1,LookDevCamera/Main Camera/Fx/CloudShadow
+Quad,static,,382.315,35.3825,114.8914,0.446015,-0.229575,0.119509,0.856787,55.0,-30.0,0.0,4.8023,3.5,3.4497,0,1,LookDevCamera/Main Camera/Fx/CloudShadow
+Quad,static,ZeroPoint,382.9922,35.3825,115.2824,0.446015,-0.229575,0.119509,0.856787,55.0,-30.0,0.0,8.8807,4.8335,3.4497,0,1,LookDevCamera/Main Camera/Fx/FullScreenFx
+Quad,static,ZeroPoint,390.7851,41.1549,126.4989,0.445277,-0.234805,0.122232,0.855368,55.0,-30.7,0.0,8.8807,4.8335,3.4497,0,1,LookDevCamera/Main Camera/Fx/FullScreenFx
+Quad,static,EdgeLightQuad,382.9922,35.3825,115.2824,0.446015,-0.229575,0.119509,0.856787,55.0,-30.0,0.0,8.8807,4.8335,3.4497,0,1,LookDevCamera/Main Camera/Fx/EdgeLight
+Quad,static,EdgeLightQuad,390.7851,41.1549,126.4989,0.445277,-0.234805,0.122232,0.855368,55.0,-30.7,0.0,8.8807,4.8335,3.4497,0,1,LookDevCamera/Main Camera/Fx/EdgeLight

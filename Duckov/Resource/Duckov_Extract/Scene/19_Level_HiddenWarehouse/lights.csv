@@ -1,0 +1,19 @@
+﻿type,r,g,b,intensity,range,spotAngle,px,py,pz,qx,qy,qz,qw,euler_x,euler_y,euler_z,enabled,path
+Point,1.0,0.9132,0.7594,63.2,20.0,30.0,73.864,7.27,215.6586,0.0,-0.006821,0.0,0.999977,-0.0,-0.782,0.0,1,ENV/Prfb_House_Warehouse_03/Lights/Point Light
+Directional,1.0,0.9024,0.7972,2.5,10.0,30.0,0.0,3.0,0.0,0.242481,0.757519,-0.428584,0.428584,59.0,121.0,-0.0,1,Lights_1/Directional Light
+Point,0.8078,0.996,1.0,12.0,5.406,30.0,403.812,2.5519,174.6639,0.0,0.938167,0.0,-0.346184,-0.0,-139.492,0.0,1,ENV/Prfb_House_06/Light/Point Light_1
+Point,1.0,0.9132,0.7594,63.2,20.0,30.0,73.4584,7.27,245.3859,0.0,-0.006821,0.0,0.999977,-0.0,-0.782,0.0,1,ENV/Prfb_House_Warehouse_03/Lights/Point Light_1
+Point,1.0,0.8626,0.6462,80.59,14.898,30.0,73.2021,7.95,160.011,0.0,-0.006821,0.0,0.999977,-0.0,-0.782,0.0,1,ENV/Prfb_House_Warehouse_01/Lights/Point Light_1
+Point,1.0,0.8626,0.6462,80.59,14.898,30.0,73.196,7.95,139.1989,0.0,-0.006821,0.0,0.999977,-0.0,-0.782,0.0,1,ENV/Prfb_House_Warehouse_01/Lights/Point Light
+Point,0.4471,1.0,0.5882,1.0,2.36,30.0,322.3888,2.4944,323.7471,0.0,4e-06,0.0,1.0,-0.0,0.0,0.0,1,MingSaleMachine/Visual/Point Light
+Point,1.0,0.9593,0.8627,15.14,10.19,30.0,240.94,3.567,118.01,0.0,0.999998,0.0,-0.001898,-0.0,-179.783,0.0,1,ENV/Prfb_House05/Lights/Point Light
+Point,1.0,0.6345,0.3255,5.0,20.0,30.0,43.888,2.38,183.8254,-0.0,0.999798,-0.0,-0.020082,0.0,-177.699,-0.0,0,LevelElement_HiddenWarehouse/HiddenWarehouse_01_LevelSpecialElement/BreakRockToFarm/ConstructFinishFX_1/ExplosionFx/ExpLight/Point Light
+Point,0.7686,0.87,0.9529,6.0,4.787,30.0,399.2114,2.4349,171.1934,0.0,0.908173,0.0,0.418595,-0.0,130.508,0.0,1,ENV/Prfb_House_06/Light/Point Light_2
+Point,0.7686,0.87,0.9529,6.0,4.787,30.0,173.8552,2.433,334.8184,0.0,-0.774052,0.0,0.633122,-0.0,-101.438,0.0,1,ENV/Pfb_House_Hid/Light/Point Light_2
+Point,0.7686,0.87,0.9529,6.0,4.787,30.0,442.7535,2.4349,237.4606,0.0,-0.630584,0.0,0.776121,-0.0,-78.186,0.0,1,ENV/Prfb_House_07/Light/Point Light_2
+Point,0.3538,0.8144,1.0,0.21,0.83,30.0,336.1192,1.301,243.6936,0.0,0.900389,0.0,-0.435087,-0.0,-128.418,0.0,0,ENV/Prfb_House_04/Inside/Prfb_Controller_01/Prfb_Computer_01_6/Point Light
+Point,0.3538,0.8144,1.0,0.21,0.83,30.0,59.8805,1.114,147.9362,0.0,0.022911,0.0,0.999738,-0.0,2.626,0.0,0,LevelElement_HiddenWarehouse/HiddenWarehouse_01_LootBox/Computer/Prfb_Computer_01_5/Point Light
+Point,0.3538,0.8144,1.0,0.21,0.83,30.0,364.1554,0.984,305.0011,0.0,-0.671747,0.0,0.740781,-0.0,-84.404,0.0,0,LevelElement_HiddenWarehouse/HiddenWarehouse_01_LootBox/Computer/Prfb_Computer_01_3/Point Light
+Point,0.3538,0.8144,1.0,0.21,0.83,30.0,166.0334,1.343,328.7286,0.0,0.595249,0.0,0.803542,-0.0,73.061,0.0,0,LevelElement_HiddenWarehouse/HiddenWarehouse_01_LootBox/Computer/Prfb_Computer_01_6/Point Light
+Point,0.2217,0.7738,1.0,1.0,1.96,30.0,383.2132,2.7544,305.6488,0.0,0.0,0.0,1.0,-0.0,0.0,0.0,1,LevelElement_HiddenWarehouse/HiddenWarehouse_01_LevelSpecialElement/TeleportMarker/Particle System/Point Light
+Point,0.3538,0.8144,1.0,0.21,0.83,30.0,58.179,1.114,226.8945,0.0,0.689134,0.0,0.724634,-0.0,87.123,0.0,0,LevelElement_HiddenWarehouse/HiddenWarehouse_01_LootBox/Computer/Prfb_Computer_01_4/Point Light
