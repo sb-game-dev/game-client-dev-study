@@ -25,7 +25,7 @@ HRESULT CClient_Mouse::Initialize_Prototype()
     VBDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 
     D3D11_SUBRESOURCE_DATA  VBData{};
-    VBData.pSysMem = vertices;  // 정점 버퍼를 초기화할 자료를 담은 시스템 메모리 배열을 가리키는 포인터
+    VBData.pSysMem = vertices;  
     if (FAILED(m_pDevice->CreateBuffer(&VBDesc, &VBData, &m_pVB)))
         return E_FAIL;
     // 인덱스 정보
@@ -65,15 +65,8 @@ HRESULT CClient_Mouse::Initialize_Prototype()
 #endif
     //VS 컴파일
     if (FAILED(D3DCompileFromFile(
-        L"../Shader/Shader_VtxTex.hlsl",   // 파일 경로 (작업 디렉터리 기준)
-        nullptr,                           // 이 책에서는 사용하지 않는 고급 옵션(항상 NULL 또는 0)
-        D3D_COMPILE_STANDARD_FILE_INCLUDE, // 이 책에서는 사용하지 않는 고급 옵션(항상 NULL 또는 0)
-        "VS_MAIN",                         // 진입점 함수 이름
-        "vs_5_0",                          // 타깃: 버텍스 셰이더, 셰이더 모델 5.0
-        iFlags,                            // 컴파일 옵션
-        0,                                 // 이 책에서는 사용하지 않는 고급 효과 컴파일 옵션(항상 NULL 또는 0)
-        &pVSBlob,                          // 결과: 컴파일된 바이트코드
-        &pErrBlob)))                       // 실패 시 에러 메시지
+        L"../Shader/Shader_VtxTex.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, 
+        "VS_MAIN", "vs_5_0", iFlags, 0, &pVSBlob, &pErrBlob)))                       
     {
         if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
         return E_FAIL;
@@ -126,13 +119,9 @@ HRESULT CClient_Mouse::Initialize_Prototype()
 HRESULT CClient_Mouse::Initialize(void* pArg)
 {
     CClient_Mouse::CLIENT_MOUSE_DESC MouseDesc{};
-    MouseDesc.fSpeedPerSec = 10.f;
-    MouseDesc.fDegreeRotPerSec = 180.f;
     if (FAILED(__super::Initialize(&MouseDesc)))
         return E_FAIL;
 
-    m_pTransformCom->Set_State(STATE::POSITION, vector_t{ 0.f,0.f,2.f,1.f });
-    m_pTransformCom->Set_Scale(128, 128, 1.f);
 
     if (FAILED(Ready_Components()))
         return E_FAIL;
@@ -164,18 +153,18 @@ void CClient_Mouse::Update(f32_t fTimeDelta)
     if (nullptr == pPlayer)
         return;
 
-    float3_t    vPos = {};
+    float3_t    vPlayerPos = {};
     float3_t    vecOrigin = {};
     float3_t    vecRayDir = {};
-    XMStoreFloat3(&vPos, pPlayer->Get_Transform()->Get_State(STATE::POSITION));
+    XMStoreFloat3(&vPlayerPos, pPlayer->Get_Transform()->Get_State(STATE::POSITION));
     XMStoreFloat3(&vecOrigin, vRayOrigin);
     XMStoreFloat3(&vecRayDir, vRayDir);
 
     // 직선의 방정식 => (x - x`)/a = (y - y`)/b = (z - z`)/c
 
-    f32_t x = (vPos.y - vecOrigin.y) / vecRayDir.y * vecRayDir.x + vecOrigin.x;
-    f32_t z = (vPos.y - vecOrigin.y) / vecRayDir.y * vecRayDir.z + vecOrigin.z;
-    m_pTransformCom->Set_State(STATE::POSITION,{ x, vPos.y, z, 1.f });
+    f32_t x = (vPlayerPos.y - vecOrigin.y) / vecRayDir.y * vecRayDir.x + vecOrigin.x;
+    f32_t z = (vPlayerPos.y - vecOrigin.y) / vecRayDir.y * vecRayDir.z + vecOrigin.z;
+    m_pTransformCom->Set_State(STATE::POSITION,{ x, vPlayerPos.y, z, 1.f });
 }
 
 void CClient_Mouse::Late_Update(f32_t fTimeDelta)
@@ -191,7 +180,9 @@ HRESULT CClient_Mouse::Render()
 
     const f32_t fSize = 32.f;
     matrix_t matScale = XMMatrixScaling(fSize, fSize, 1.f);
-    matrix_t matTrans = XMMatrixTranslation(m_vPosVP.x - g_iWinSizeX * 0.5f, -m_vPosVP.y + g_iWinSizeY * 0.5f, m_vPosVP.z);
+    matrix_t matTrans = XMMatrixTranslation(m_vPosVP.x - g_iWinSizeX * 0.5f, 
+                                            -m_vPosVP.y + g_iWinSizeY * 0.5f, 
+                                            m_vPosVP.z);
     matrix_t matWorldVP = matScale * matTrans;
 
     return Render_Mesh(matWorldVP,m_pRS.Get());
@@ -199,7 +190,6 @@ HRESULT CClient_Mouse::Render()
 
 HRESULT CClient_Mouse::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS)
 {
-    // 역전치 행렬은 이동 성분을 뺀 복사본으로 계산 (matWorld 자체는 이동 성분 유지)
     XMMATRIX matNoTrans = matWorld;
     matNoTrans.r[3] = XMVectorSet(0.f, 0.f, 0.f, 1.f);
     XMMATRIX matWorldInvTranspos = XMMatrixTranspose(XMMatrixInverse(nullptr, matNoTrans));
@@ -209,13 +199,8 @@ HRESULT CClient_Mouse::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerSta
     XMStoreFloat4x4(&cbData.mat_WorldInvTranspose, XMMatrixTranspose(matWorldInvTranspos));
     cbData.tMaterial = m_tMaterial;
 
-    // 변환 행렬의 정보를 가지고있는 m_pCB 버퍼로 복사(USAGE_DEFAULT로 생성해서 드라이버를 통해 복사)
-    // 아래에서 VS의 b0 레지스터에 꽂을 예정
     m_pContext->UpdateSubresource(m_pCB.Get(), 0, nullptr, &cbData, 0, 0);
 
-    // 파이프라인에 꽂기
-        //IA(입력 조립기 단계)
-        // 정점 하나의 크기와 버퍼의 시작 위치 설정
     uint32_t iStride = sizeof(VTXNORM);
     uint32_t iOffset = 0;
     // 버텍스 버퍼 꽂기

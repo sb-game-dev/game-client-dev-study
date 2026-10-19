@@ -379,7 +379,7 @@ HRESULT CCube_Instance::Render_Mesh(ID3D11Buffer* pInstanceVB, ID3D11PixelShader
     // 삼각형 그리기 설정
     m_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-    // InputLayoyt 꽂기(FVF의 역할)
+    // InputLayout 꽂기(FVF의 역할)
     m_pContext->IASetInputLayout(m_pInputLayout.Get());
 
     // VS(버텍스 셰이더 단계) -> 월드변환, 뷰스페이스 변환, 투영 변환 행렬을 전달받아서 버텍스 버퍼에 계산함
