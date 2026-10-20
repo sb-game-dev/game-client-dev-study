@@ -100,6 +100,21 @@
     <Filter Include="06. Component\02. VIBuffer\99. Instance">
       <UniqueIdentifier>{7d78fab1-d37d-4411-bfa6-3e6f304b4688}</UniqueIdentifier>
     </Filter>
+    <Filter Include="06. Component\03. Shader">
+      <UniqueIdentifier>{c632cf2a-bc48-4d19-8440-6614946a00fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component\03. Shader\00. VertexShader">
+      <UniqueIdentifier>{7c4489c7-cfcc-40f3-b076-b4deb3988bc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component\03. Shader\01. PixelShader">
+      <UniqueIdentifier>{68f50efe-56d1-4085-9931-e006d16beb5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component\03. Shader\03. ComputeShader">
+      <UniqueIdentifier>{3de5724d-a1a8-46cc-a20c-3d05037a08e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component\03. Shader\02. GeometryShader">
+      <UniqueIdentifier>{66454443-49c1-43a1-be91-9321c5d84540}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Engine_Defines.h">

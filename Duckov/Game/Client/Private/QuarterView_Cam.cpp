@@ -46,11 +46,13 @@ void CQuarterView_Cam::Update(f32_t fDeltaTime)
 		{
 			vAt += XMVector3Normalize(vDir) * 50.f * fDeltaTime;
 			XMStoreFloat3(&m_vAt, vAt);
+			// fov 복구
 		}
 		else
 		{
 			XMStoreFloat3(&m_vAt, vPlayerPos);
 		}
+
 	}
 	// Eye 설정
 	vector_t vCameraEye = vector_t{ m_vAt.x, m_vAt.y + 10.f, m_vAt.z - 5.f };
