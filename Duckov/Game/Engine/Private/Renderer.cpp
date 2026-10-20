@@ -60,9 +60,9 @@ void CRenderer::Render_GameObject()
 
 	m_pContext->OMSetRenderTargets(1, pOldRTV.GetAddressOf(), pOldDSV.Get());
 
-	if (GetAsyncKeyState(VK_RBUTTON) & 0x8000 && !GetAsyncKeyState(VK_LSHIFT))
+	if (m_bUseBlur)
 	{
-		m_pBlurFilter->BlurInPlace(m_pSceneSRV.Get(), m_pSceneUAV.Get(), 1); //<- 이 숫자가 흐리게 하는 횟수인데 달라진건가
+		m_pBlurFilter->BlurInPlace(m_pSceneSRV.Get(), m_pSceneUAV.Get(), 4); //<- 이 숫자가 흐리게 하는 횟수인데 달라진건가
 	}
 	Render_FullScreen();
 
@@ -304,14 +304,14 @@ HRESULT CRenderer::Ready_SceneTarget(uint32_t iWinSizeX, uint32_t iWinSizeY)
 	iFlags = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
 #endif
 	//VS 컴파일
-	if (FAILED(D3DCompileFromFile(L"../Shader/Shader_Blur.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, 
+	if (FAILED(D3DCompileFromFile(L"../Bin/Shader/Shader_Blur.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE, 
 		"VS_FullScreen", "vs_5_0", iFlags, 0, &pVSBlob, &pErrBlob)))                       
 	{
 		if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
 		return E_FAIL;
 	}
 	// PS 컴파일
-	if (FAILED(D3DCompileFromFile(L"../Shader/Shader_Blur.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
+	if (FAILED(D3DCompileFromFile(L"../Bin/Shader/Shader_Blur.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
 		"PS_FullScreen", "ps_5_0", iFlags, 0, &pPSBlob, &pErrBlob)))
 	{
 		if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());

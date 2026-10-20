@@ -4,13 +4,6 @@ SamplerState        g_Sampler   : register(s0); // Sampler
 
 static const int g_iBlurRadius = 5;
 
-cbuffer cbMouseInfo : register(b0)
-{
-    float2  g_MousePos;
-    float   g_BlurRange;
-    float   Pad;
-};
-
 static const float g_Weights[11] =
 {
     0.05f, 0.05f, 0.1f, 0.1f, 0.1f, 0.2f, 0.1f, 0.1f, 0.1f, 0.05f, 0.05f
@@ -19,8 +12,6 @@ static const float g_Weights[11] =
 #define N 256
 #define CacheSize (N + 2 * g_iBlurRadius)
 groupshared float4 g_Cache[CacheSize];
-groupshared float4 g_MouseCache[256];
-
 
 [numthreads(N, 1, 1)]
 void CS_HorzBlur(int3 vGroupThreadID : SV_GroupThreadID,// 그룹 안에서의 번호
@@ -69,34 +60,7 @@ void CS_HorzBlur(int3 vGroupThreadID : SV_GroupThreadID,// 그룹 안에서의 번호
     g_Output[vDispatchThreadID.xy] = vBlurColor;
 }
 
-[numthreads(256, 1, 1)]
-void CS_HorzMouseBlur(int3 vGroupThreadID : SV_GroupThreadID, // 그룹 안에서의 번호
-                 int3 vDispatchThreadID : SV_DispatchThreadID) // 전체 번호
-{
-    g_MouseCache[vGroupThreadID.x] = g_Input[vDispatchThreadID.xy];
-    GroupMemoryBarrierWithGroupSync();
-    
-    float4 vBlurColor = float4(0.4f, 0.4f, 0.4f, 1.f);
-    float4 vBlurRedColor = float4(1.f, 0.f, 0.f, 1.f);
-    
-    float x = vDispatchThreadID.x;
-    float y = vDispatchThreadID.y;
-    float a = g_MousePos.x;
-    float b = g_MousePos.y;
-    if ((x - a) * (x - a) + (y - b) * (y - b) <= g_BlurRange * g_BlurRange)
-    {
-        if ((x - a) * (x - a) + (y - b) * (y - b) <= g_BlurRange * g_BlurRange * 0.001)
-            g_Output[vDispatchThreadID.xy] = vBlurRedColor;
-        else if (abs(x - a) < g_BlurRange * 0.01f || abs(y - b) < g_BlurRange * 0.01f)
-            g_Output[vDispatchThreadID.xy] = g_Input[vDispatchThreadID.xy] * vBlurColor;
-        else    
-            g_Output[vDispatchThreadID.xy] = g_Input[vDispatchThreadID.xy];
-    }
-    else
-    {
-        g_Output[vDispatchThreadID.xy] = g_Input[vDispatchThreadID.xy] * vBlurColor;
-    }
-}
+
 
 [numthreads(1, N, 1)]
 void CS_VertBlur(int3 vGroupThreadID : SV_GroupThreadID,
@@ -128,34 +92,6 @@ void CS_VertBlur(int3 vGroupThreadID : SV_GroupThreadID,
     g_Output[vDispatchThreadID.xy] = vBlurColor;
 }
 
-[numthreads(1, 256, 1)]
-void CS_VertMouseBlur(int3 vGroupThreadID : SV_GroupThreadID, 
-                 int3 vDispatchThreadID : SV_DispatchThreadID)
-{
-    g_MouseCache[vGroupThreadID.y] = g_Input[vDispatchThreadID.xy];
-    GroupMemoryBarrierWithGroupSync();
-    
-    float4 vBlurColor = float4(0.4f, 0.4f, 0.4f, 1.f);
-    float4 vBlurRedColor = float4(1.f, 0.f, 0.f, 1.f);
-    
-    float x = vDispatchThreadID.x;
-    float y = vDispatchThreadID.y;
-    float a = g_MousePos.x;
-    float b = g_MousePos.y;
-    if ((x - a) * (x - a) + (y - b) * (y - b) <= g_BlurRange * g_BlurRange)
-    {
-        if ((x - a) * (x - a) + (y - b) * (y - b) <= g_BlurRange * g_BlurRange * 0.001)
-            g_Output[vDispatchThreadID.xy] = vBlurRedColor;
-        else if (abs(x - a) < g_BlurRange * 0.01f || abs(y - b) < g_BlurRange * 0.01f)
-            g_Output[vDispatchThreadID.xy] = g_Input[vDispatchThreadID.xy] * vBlurColor;
-        else
-            g_Output[vDispatchThreadID.xy] = g_Input[vDispatchThreadID.xy];
-    }
-    else
-    {
-        g_Output[vDispatchThreadID.xy] = g_Input[vDispatchThreadID.xy] * vBlurColor;
-    }
-}
 // 풀스크린 출력
 //  정점 버퍼 없이 Draw(3, 0) 호출
 //  화면을 덮는 큰 삼각형 하나 : (-1,1) (3,1) (-1,-3)

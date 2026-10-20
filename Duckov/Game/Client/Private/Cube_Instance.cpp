@@ -194,17 +194,20 @@ HRESULT CCube_Instance::Ready_Components()
 HRESULT CCube_Instance::Ready_InstanceBuffers()
 {
     const vector_t  vToLight = vector_t{ -0.5f, 0.5f, -0.5f, 0.f };
-    const matrix_t matOffset = XMMatrixTranslation(0.f, 0.01f, 0.f);
+    const matrix_t matOffset = XMMatrixTranslation(0.f, 0.01f, 0.0f);
 
     for (uint32_t i = 0; i < m_iNumInstance; ++i)
     {
-        vector_t vPos = vector_t{10 * sinf(XM_2PI / 16 * i), 0.f, 10 * cosf(XM_2PI / 16 * i), 1.f};
+        vector_t vPos = vector_t{ 38.2f + 5 * sinf(XM_2PI / 16 * i), 0.f, -207.2f + 5 * cosf(XM_2PI / 16 * i), 1.f};
         vector_t vPlane = vector_t{ 0.f, 1.f, 0.f, 0.f };
         Compute_OnHill(vPos, vPlane);
 
         matrix_t matWorld = XMMatrixTranslationFromVector(vPos);    // XMMatrixTranslation에서 매개변수가 벡터로 바뀐 버전
-        matrix_t matShadow = matWorld * XMMatrixShadow(vPlane, vToLight) * matOffset;
+        matrix_t matShadow = matWorld * XMMatrixShadow(vPlane, vToLight);
 
+        matShadow = matShadow * (1.f / XMVectorGetW(matShadow.r[3]));
+        matShadow = matShadow * matOffset;
+        
         XMStoreFloat4x4(&m_WorldMats[i], matWorld);                 
         XMStoreFloat4x4(&m_ShadowMats[i], matShadow);
 
@@ -230,41 +233,13 @@ bool CCube_Instance::Compute_OnHill(vector_t& vPos, vector_t& vGroundPlane)
 {
     auto pHill = static_pointer_cast<CHill>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Hill")));
 
-    const auto& vecIndex = pHill->GetIndex();
-    const auto& vecVtx = pHill->GetVertices();
+    f32_t x = XMVectorGetX(vPos);
+    f32_t z = XMVectorGetZ(vPos);
+    vPos = XMVectorSetY(vPos, pHill->GetHeight(x, z) + 0.5f);
 
-    for (uint32_t i = 0; i + 2 < vecIndex.size(); i += 3)
-    {
-        float3_t p0 = vecVtx[vecIndex[i]].vPosition;
-        float3_t p1 = vecVtx[vecIndex[i + 1]].vPosition;
-        float3_t p2 = vecVtx[vecIndex[i + 2]].vPosition;
+    float4_t tempPlane = pHill->GetPlane(x, z);
+    vGroundPlane = XMLoadFloat4(&tempPlane);
 
-        vector_t vPlane = XMPlaneFromPoints(XMLoadFloat3(&p0), XMLoadFloat3(&p1), XMLoadFloat3(&p2));
-
-        vector_t vRayPos = vPos + vector_t{ 0,100.f,0,0.f };
-        vector_t vRayDir = XMVectorSet(0.f, -1.f, 0.f, 0.f);   // 아래 방향
-
-        vector_t v0 = XMLoadFloat3(&p0);
-        vector_t v1 = XMLoadFloat3(&p1);
-        vector_t v2 = XMLoadFloat3(&p2);
-
-        f32_t fDist = 0.f;
-        if (TriangleTests::Intersects(vRayPos, vRayDir, v0, v1, v2, fDist))
-        {
-            float4_t plane;
-            XMStoreFloat4(&plane, vPlane); // x = a, y = b, z = c, w = d -> ax + by + cz + d = 0
-
-            f32_t fY = -(plane.x * XMVectorGetX(vPos) + plane.z * XMVectorGetZ(vPos) + plane.w) / plane.y;
-
-            vPos = XMVectorSetY(vPos, fY + 0.5f);
-
-            vector_t vGround = XMPlaneNormalize(vPlane);
-            if (XMVectorGetY(vGround) < 0.f)        // 법선이 아래를 보면 뒤집기
-                vGround = XMVectorNegate(vGround);
-            vGroundPlane = vGround;
-            return true;
-        }
-    }
     return true;
 }
 

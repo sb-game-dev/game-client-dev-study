@@ -157,7 +157,7 @@ void CWave::Update(f32_t fDeltaTime)
 void CWave::Late_Update(f32_t fDeltaTime)
 {
     __super::Late_Update(fDeltaTime);
-    CGameInstance::Get().Add_RenderGroup(RENDERID::ALPHA_PRE, dynamic_pointer_cast<CGameObject>(shared_from_this()));
+    //CGameInstance::Get().Add_RenderGroup(RENDERID::ALPHA_PRE, dynamic_pointer_cast<CGameObject>(shared_from_this()));
 }
 
 HRESULT CWave::Render()

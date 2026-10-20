@@ -19,26 +19,11 @@ HRESULT CBlurFilter::Initialize(uint32_t iWidth, uint32_t iHeight)
 
 	if (FAILED(Ready_ComputeShader()))
 		return E_FAIL;
-	if (FAILED(Ready_MouseBuffer()))
-		return E_FAIL;
 	return S_OK;
 }
 
 void CBlurFilter::BlurInPlace(ID3D11ShaderResourceView* pInputSRV, ID3D11UnorderedAccessView* pInputUAV, uint32_t iBlurCount)
 {
-	// 마우스 상수버퍼 채우기
-	POINT		pt{};
-
-	GetCursorPos(&pt);
-	ScreenToClient(CGameInstance::Get().GetHWND(), &pt);
-	CB_BLURMOUSEINFO cbData;
-	cbData.vMousePos = float2_t(f32_t(pt.x), f32_t(pt.y));
-	cbData.fBlurRange = 150.f;
-
-	m_pContext->UpdateSubresource(m_pCB_Mouse.Get(), 0, nullptr, &cbData, 0, 0);
-	m_pContext->CSSetConstantBuffers(0, 1, m_pCB_Mouse.GetAddressOf());
-
-
 	// 바인딩 해제용 
 	ID3D11ShaderResourceView* pNullSRV[1] = {nullptr};
 	ID3D11UnorderedAccessView* pNullUAV[1] = {nullptr};
@@ -54,21 +39,17 @@ void CBlurFilter::BlurInPlace(ID3D11ShaderResourceView* pInputSRV, ID3D11Unorder
 		m_pContext->CSSetUnorderedAccessViews(0, 1, m_pUAV_B.GetAddressOf(), nullptr);	// B텍스처의 UAV 바인드
 
 		m_pContext->Dispatch(iNumGroupsX, m_iHeight, 1); // Dispatch(5, 720, 1)
-	}
+		m_pContext->CSSetShaderResources(0, 1, pNullSRV);
+		m_pContext->CSSetUnorderedAccessViews(0, 1, pNullUAV, nullptr);
 
-	m_pContext->CSSetShaderResources(0, 1, pNullSRV);
-	m_pContext->CSSetUnorderedAccessViews(0, 1, pNullUAV, nullptr);
-
-	for(uint32_t i = 0 ; i < iBlurCount; ++i)
-	{
 		m_pContext->CSSetShader(m_pCS_Vert.Get(), nullptr, 0);
 		m_pContext->CSSetShaderResources(0, 1, m_pSRV_B.GetAddressOf());	// B텍스처의 SRV 바인드
 		m_pContext->CSSetUnorderedAccessViews(0, 1, &pInputUAV, nullptr);	// A텍스처의 UAV 바인드
 	
 		m_pContext->Dispatch(m_iWidth, iNumGroupsY, 1);	// Dispatch(1280, 4, 1)
+		m_pContext->CSSetShaderResources(0, 1, pNullSRV);
+		m_pContext->CSSetUnorderedAccessViews(0, 1, pNullUAV, nullptr);
 	}
-	m_pContext->CSSetShaderResources(0, 1, pNullSRV);
-	m_pContext->CSSetUnorderedAccessViews(0, 1, pNullUAV, nullptr);
 
 	m_pContext->CSSetShader(nullptr, nullptr, 0);
 }
@@ -111,15 +92,15 @@ HRESULT CBlurFilter::Ready_ComputeShader()
 	iFlags = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
 #endif
 
-	if (FAILED(D3DCompileFromFile(L"../Shader/Shader_Blur.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
-		"CS_HorzMouseBlur", "cs_5_0", iFlags, 0, &pHorzBlob, &pErrBlob)))
+	if (FAILED(D3DCompileFromFile(L"../Bin/Shader/Shader_Blur.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
+		"CS_HorzBlur", "cs_5_0", iFlags, 0, &pHorzBlob, &pErrBlob)))
 	{
 		if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
 		return E_FAIL;
 	}
 
-	if (FAILED(D3DCompileFromFile(L"../Shader/Shader_Blur.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
-		"CS_VertMouseBlur", "cs_5_0", iFlags, 0, &pVertBlob, &pErrBlob)))
+	if (FAILED(D3DCompileFromFile(L"../Bin/Shader/Shader_Blur.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
+		"CS_VertBlur", "cs_5_0", iFlags, 0, &pVertBlob, &pErrBlob)))
 	{
 		if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
 		return E_FAIL;
@@ -131,19 +112,6 @@ HRESULT CBlurFilter::Ready_ComputeShader()
 	if (FAILED(m_pDevice->CreateComputeShader(pVertBlob->GetBufferPointer(), pVertBlob->GetBufferSize(), nullptr, &m_pCS_Vert)))
 		return E_FAIL;
 
-	return S_OK;
-}
-
-HRESULT CBlurFilter::Ready_MouseBuffer()
-{
-	// 상수 버퍼 생성
-	D3D11_BUFFER_DESC CBDesc{};
-	CBDesc.ByteWidth = sizeof(CB_BLURMOUSEINFO);
-	CBDesc.Usage = D3D11_USAGE_DEFAULT;
-	CBDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-
-	if (FAILED(m_pDevice->CreateBuffer(&CBDesc, nullptr, m_pCB_Mouse.GetAddressOf())))
-		return E_FAIL;
 	return S_OK;
 }
 

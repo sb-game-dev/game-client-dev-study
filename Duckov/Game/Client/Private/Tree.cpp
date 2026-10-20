@@ -34,7 +34,7 @@ HRESULT CTree::Initialize_Prototype()
 #endif
     //VS 컴파일
     if (FAILED(D3DCompileFromFile(
-        L"../Shader/Shader_TreeSprite.hlsl",   // 파일 경로 (작업 디렉터리 기준)
+        L"../Bin/Shader/Shader_TreeSprite.hlsl",   // 파일 경로 (작업 디렉터리 기준)
         nullptr,                           // 이 책에서는 사용하지 않는 고급 옵션(항상 NULL 또는 0)
         D3D_COMPILE_STANDARD_FILE_INCLUDE, // 이 책에서는 사용하지 않는 고급 옵션(항상 NULL 또는 0)
         "VS_MAIN",                         // 진입점 함수 이름
@@ -48,14 +48,14 @@ HRESULT CTree::Initialize_Prototype()
         return E_FAIL;
     }
     // GS 컴파일
-    if (FAILED(D3DCompileFromFile(L"../Shader/Shader_TreeSprite.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
+    if (FAILED(D3DCompileFromFile(L"../Bin/Shader/Shader_TreeSprite.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
         "GS_MAIN", "gs_5_0", iFlags, 0, &pGSBlob, &pErrBlob)))
     {
         if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
         return E_FAIL;
     }
     // PS 컴파일
-    if (FAILED(D3DCompileFromFile(L"../Shader/Shader_TreeSprite.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
+    if (FAILED(D3DCompileFromFile(L"../Bin/Shader/Shader_TreeSprite.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
         "PS_MAIN", "ps_5_0", iFlags, 0, &pPSBlob, &pErrBlob)))
     {
         if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
@@ -122,8 +122,8 @@ HRESULT CTree::Initialize(void* pArg)
     auto pHill = static_pointer_cast<CHill>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Hill")));
     for (UINT i = 0; i < m_iTreeCnt; ++i)
     {
-        float x = f32_t(rand() % 41 - 20.f);
-        float z = f32_t(rand() % 41 - 20.f);
+        float x = f32_t(38.2f + (rand() % 10 - 5.f) * 10);
+        float z = f32_t(-207.2f + (rand() % 10 - 5.f) * 10);
 
         float y = pHill->GetHeight(x, z);
 

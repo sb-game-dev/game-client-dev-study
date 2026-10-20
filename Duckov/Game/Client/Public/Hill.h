@@ -25,17 +25,32 @@ public:
 	virtual	void		Late_Update(f32_t fDeltaTime) override;
 	virtual HRESULT		Render() override;
 
-	virtual f32_t		GetHeight(f32_t x, f32_t z) { return 0.3f * (z * sinf(0.1f * x) + x * cosf(0.1f * z)); }
-	virtual float3_t	GetNormal(f32_t x, f32_t z);
+	virtual f32_t		GetHeight(f32_t x, f32_t z);
+	virtual float4_t	GetPlane(f32_t x, f32_t z);
+	virtual float3_t	GetNormal(uint32_t i, uint32_t j);
 
 	vector<UINT>&		GetIndex()		{ return m_tMeshData.Indices; }
 	vector<VERTEX>&		GetVertices()	{ return m_tMeshData.Vertices; }
 
+	void	LoadHeightMap(const tchar_t* pHightMapPath);
+
 private:
 	MESHDATA m_tMeshData = {}; 
-	shared_ptr<CTexture>			m_pTextureCom = { nullptr };
+	shared_ptr<CTexture>			m_pBlendCom = { nullptr };
+	shared_ptr<CTexture>			m_pLayerCom = { nullptr };
 	shared_ptr<CVertexShader>		m_pVS = { nullptr };
 	shared_ptr<CPixelShader>		m_pPS = { nullptr };
+
+
+
+	vector<f32_t>					m_vHeightmap;
+
+	uint32_t    m_ivtxCntX = { 321 };
+	uint32_t    m_ivtxCntZ = { 321 }; 
+	f32_t       m_fDx = { 2.f };
+	f32_t       m_fDz = { 2.f };
+	f32_t       m_fHalfWidth = { 0.f };
+	f32_t       m_fHalfDepth = { 0.f };
 
 private:
 	HRESULT			Ready_Components();

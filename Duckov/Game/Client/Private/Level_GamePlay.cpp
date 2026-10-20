@@ -54,6 +54,9 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
 
     CPlayer::PLAYER_DESC Player_Desc{};
     Player_Desc.fDegreeRotPerSec = 180.f;
+    Player_Desc.fPosX = 38.2f;     
+    Player_Desc.fPosZ = -207.2f;
+
     if(FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_GameObject_Player"), 
         ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_Player"), &Player_Desc)))
         return E_FAIL;
@@ -61,8 +64,8 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
     for (int i = 0; i < 16; ++i)
     {
         CCube::CUBE_DESC Cube_Desc{};
-        Cube_Desc.fPosX = 5 * sinf(XM_2PI / 16 * i);
-        Cube_Desc.fPosZ = 5 * cosf(XM_2PI / 16 * i);
+        Cube_Desc.fPosX = 38.2f + 10 * sinf(XM_2PI / 16 * i);
+        Cube_Desc.fPosZ = -207.2f + 10 * cosf(XM_2PI / 16 * i);
 
         if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_Cube",
             ETOUI(LEVEL::GAMEPLAY), pLayerTag, L"GameObject_Cube" + to_wstring(i), &Cube_Desc)))

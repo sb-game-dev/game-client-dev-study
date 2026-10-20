@@ -16,6 +16,7 @@ public:
 	void	Render_GameObject();
 
 	void	Set_Mirror(shared_ptr<CGameObject> pMirror) { m_pMirror = pMirror; }
+	void	SetBlurUse(bool_t bUseBlur)					{ m_bUseBlur = bUseBlur; }
 
 private:
 	ComPtr<ID3D11Device>				m_pDevice = { nullptr };
@@ -45,6 +46,7 @@ private:
 	ComPtr<ID3D11PixelShader>			m_pPS_FullScreen;
 
 	unique_ptr<CBlurFilter>				m_pBlurFilter;
+	bool_t								m_bUseBlur = { false };
 
 private:
 	void	Render_Priority();

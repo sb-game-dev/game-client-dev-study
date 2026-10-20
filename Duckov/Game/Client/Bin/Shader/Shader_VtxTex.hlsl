@@ -4,6 +4,24 @@
 
 #include "LightHelper.hlsli"
 
+// 텍스처 개별 텍스처
+Texture2D g_LayerMap0 : register(t2); // 잔디     (blend.r)
+Texture2D g_LayerMap1 : register(t3); // 흙       (blend.g)
+Texture2D g_LayerMap2 : register(t4); // 아스팔트 (blend.b)
+Texture2D g_BlendMap : register(t5);
+
+// 지형 전체에 레이어를 반복할 횟수 (지형 크기 : 320(정점 수) * 2(간격) / 잔디 크기 tileSize 4m)
+static const float2 g_vTexScale = float2(160.f, 160.f);
+
+struct VS_OUT_TERRAIN
+{
+    float4 vPosition : SV_POSITION;
+    float3 vPosW : POSITION;
+    float3 vNormalW : NORMAL;
+    float2 vTex : TEXCOORD0; // 혼합맵용 0~1    (책: Tex)
+    float2 vTiledTex : TEXCOORD1; // 레이어용 반복   (책: TiledTex)
+};
+
 cbuffer cbPerObject : register(b0)
 {
     float4x4 g_matWorld;
@@ -161,4 +179,68 @@ float4 PS_MAIN_SKY(VS_OUT In) : SV_TARGET
     vTexColor.rgb = lerp(vTexColor.rgb, g_vFogColor.rgb, 0.7);
     
     return vTexColor;
+}
+
+VS_OUT_TERRAIN VS_TERRAIN(VS_IN In)
+{
+    VS_OUT_TERRAIN Out;
+
+    float4 vPosW = mul(float4(In.vPosition, 1.f), g_matWorld);
+    Out.vPosW = vPosW.xyz;
+    Out.vNormalW = mul(In.vNormal, (float3x3) g_matWorldInvTranspose);
+    Out.vPosition = mul(mul(vPosW, g_matView), g_matProj);
+
+    Out.vTex = In.vTexCoord;
+    Out.vTiledTex = In.vTexCoord * g_vTexScale; // Tile layer textures over terrain.
+    return Out;
+}
+
+float4 PS_TERRAIN(VS_OUT_TERRAIN In) : SV_TARGET
+{
+    float3 vNormal = normalize(In.vNormalW);
+    float3 vToEye = normalize(g_vEye - In.vPosW);
+
+    //
+    // Texturing
+    //
+    // Sample layers.
+    float4 c0 = g_LayerMap0.Sample(g_Sampler, In.vTiledTex);
+    float4 c1 = g_LayerMap1.Sample(g_Sampler, In.vTiledTex);
+    float4 c2 = g_LayerMap2.Sample(g_Sampler, In.vTiledTex);
+
+    // Sample the blend map.
+    float4 t = g_BlendMap.Sample(g_Sampler, In.vTex);
+    
+    // 잔디 x R + 흙 x G + 아스팔트 x B
+    float4 vTexColor = c0 * t.r + c1 * t.g + c2 * t.b;
+
+    //
+    // Lighting 
+    //
+    float4 vAmbient, vDiffuse, vSpec;
+    float4 vAmbientSum, vDiffuseSum, vSpecSum;
+
+    ComputePointLight(g_Material, g_PointLight, In.vPosW, vNormal, vToEye, vAmbient, vDiffuse, vSpec);
+    vAmbientSum = vAmbient;
+    vDiffuseSum = vDiffuse;
+    vSpecSum = vSpec;
+
+    ComputeDirectionalLight(g_Material, g_DirLight, vNormal, vToEye, vAmbient, vDiffuse, vSpec);
+    vAmbientSum += vAmbient;
+    vDiffuseSum += vDiffuse;
+    vSpecSum += vSpec;
+
+    ComputeSpotLight(g_Material, g_SpotLight, In.vPosW, vNormal, vToEye, vAmbient, vDiffuse, vSpec);
+    vAmbientSum += vAmbient;
+    vDiffuseSum += vDiffuse;
+    vSpecSum += vSpec;
+
+    float4 vColor = vTexColor * (vAmbientSum + vDiffuseSum) + vSpecSum;
+    vColor.a = 1.f;
+
+    float distToEye = length(g_vEye - In.vPosW);
+    float fogLerp = saturate((distToEye - g_fFogStart) / g_fFogRange);
+    vColor.rgb = lerp(vColor.rgb, g_vFogColor.rgb, fogLerp);
+
+    return vColor;
 }

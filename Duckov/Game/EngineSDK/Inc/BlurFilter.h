@@ -21,7 +21,6 @@ private:
 	uint32_t	m_iWidth = {};
 	uint32_t	m_iHeight = {};
 
-	ComPtr<ID3D11Buffer>				m_pCB_Mouse = { nullptr };
 	ComPtr<ID3D11ShaderResourceView>	m_pSRV_B = { nullptr };
 	ComPtr<ID3D11UnorderedAccessView>	m_pUAV_B = { nullptr };
 
@@ -30,7 +29,6 @@ private:
 private:
 	HRESULT	Ready_Texture_B();
 	HRESULT	Ready_ComputeShader();
-	HRESULT	Ready_MouseBuffer();
 public:
 	static unique_ptr<CBlurFilter> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, uint32_t iWidth, uint32_t iHeight);
 };

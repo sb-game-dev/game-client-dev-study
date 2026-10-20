@@ -15,7 +15,18 @@ HRESULT CQuarterView_Cam::Initialize()
 {
 	if (FAILED(__super::Initialize()))
 		return E_FAIL;
+
+	auto pPlayer = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Player"));
+	if (nullptr != pPlayer)
+	{
+		vector_t vPlayerPos = pPlayer->Get_Transform()->Get_State(STATE::POSITION);
+		XMStoreFloat3(&m_vAt, vPlayerPos);
+
+		vector_t vCameraEye = vector_t{ m_vAt.x, m_vAt.y - 120.f, m_vAt.z - 10.f };
+		XMStoreFloat3(&m_vEye, vCameraEye);
+	}
 	m_vUp = { 0.f,0.f,1.f };
+
 	return S_OK;
 }
 
@@ -55,7 +66,7 @@ void CQuarterView_Cam::Update(f32_t fDeltaTime)
 
 	}
 	// Eye ¼³Á¤
-	vector_t vCameraEye = vector_t{ m_vAt.x, m_vAt.y + 10.f, m_vAt.z - 5.f };
+	vector_t vCameraEye = vector_t{ m_vAt.x, m_vAt.y + 20.f, m_vAt.z - 10.f };
 	XMStoreFloat3(&m_vEye,vCameraEye);
 
 	//m_vEye = { 0.f,15.f,0.f };

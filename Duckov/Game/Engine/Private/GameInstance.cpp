@@ -186,6 +186,10 @@ void CGameInstance::Add_RenderGroup(RENDERID eRenderID, shared_ptr<CGameObject> 
 {
 	m_pRenderer->Add_RenderGroup(eRenderID, pGameObject);
 }
+void CGameInstance::SetBlurUse(bool_t bUseBlur)
+{
+	m_pRenderer->SetBlurUse(bUseBlur);
+}
 void CGameInstance::Set_Mirror(shared_ptr<CGameObject> pMirror)
 {
 	m_pRenderer->Set_Mirror(pMirror);

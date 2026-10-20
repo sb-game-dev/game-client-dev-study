@@ -31,7 +31,7 @@ HRESULT CFog::Initialize(void* pArg)
     CB_FOG cbFog{};
     cbFog.FogColor = { 0.75, 0.75, 0.75, 1 };
     cbFog.FogStart = 10.f;
-    cbFog.FogRange = 20.f;
+    cbFog.FogRange = 1750.f;
 
     m_pContext->UpdateSubresource(m_pCBFog.Get(), 0, nullptr, &cbFog, 0, 0);
 

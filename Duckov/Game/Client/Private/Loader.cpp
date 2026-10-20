@@ -131,6 +131,14 @@ HRESULT CLoader::Loading_For_GamePlayLV()
         CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/ice.dds"), 1))))
         return E_FAIL;
 
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_Texture_Terrain_Blend"),
+        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/splat_0.png"), 1))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_Texture_Terrain_Layer"),
+        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/Layer%d.png"), 3))))
+        return E_FAIL;
+
     // 마우스 조준선
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_Texture_Mouse"),
         CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/UI/Mouse/cursor%d.png"), 4))))
@@ -199,7 +207,13 @@ HRESULT CLoader::Loading_For_GamePlayLV()
         CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_VtxTex.hlsl", "PS_MAIN_NOLIGHT"))))
         return E_FAIL;
 
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_VS_TERRAIN"),
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_VtxTex.hlsl", "VS_TERRAIN", VTXNORM::Elements, VTXNORM::iNumElements))))
+        return E_FAIL;
 
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_PS_TERRAIN"),
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_VtxTex.hlsl", "PS_TERRAIN"))))
+        return E_FAIL;
 
     lstrcpy(m_szLoadingText, TEXT("객체원형 준비중입니다."));
 

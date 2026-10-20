@@ -178,58 +178,62 @@ HRESULT CPlayer::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pR
 void CPlayer::AdjustPosY()
 {
     auto pHill = static_pointer_cast<CHill>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Hill")));
-
+    
     vector_t  vPos = m_pTransformCom->Get_State(STATE::POSITION);
-
-    const auto& vecIndex = pHill->GetIndex();
-    const auto& vecVtx = pHill->GetVertices();
-
-    for (uint32_t i = 0; i + 2 < vecIndex.size(); i += 3)
-    {
-        float3_t p0 = vecVtx[vecIndex[i]].vPosition;
-        float3_t p1 = vecVtx[vecIndex[i + 1]].vPosition;
-        float3_t p2 = vecVtx[vecIndex[i + 2]].vPosition;
-
-        vector_t vPlane = XMPlaneFromPoints(XMLoadFloat3(&p0), XMLoadFloat3(&p1), XMLoadFloat3(&p2));
-
-        vector_t vRayPos = vPos + vector_t{ 0,100.f,0,0.f };
-        vector_t vRayDir = XMVectorSet(0.f, -1.f, 0.f, 0.f);   // 아래 방향
-
-        vector_t v0 = XMLoadFloat3(&p0);
-        vector_t v1 = XMLoadFloat3(&p1);
-        vector_t v2 = XMLoadFloat3(&p2);
-
-        f32_t fDist = 0.f;
-        if (TriangleTests::Intersects(vRayPos, vRayDir, v0, v1, v2, fDist))
-        {
-            float4_t plane;
-            XMStoreFloat4(&plane, vPlane); // x = a, y = b, z = c, w = d -> ax + by + cz + d = 0
-
-            f32_t fY = -(plane.x * XMVectorGetX(vPos) + plane.z * XMVectorGetZ(vPos) + plane.w) / plane.y;
-
-            vPos = XMVectorSetY(vPos, fY + 0.5f);
-            m_pTransformCom->Set_State(STATE::POSITION, vPos);
-
-            vector_t vGround = XMPlaneNormalize(vPlane);
-            if (XMVectorGetY(vGround) < 0.f)        // 법선이 아래를 보면 뒤집기
-                vGround = XMVectorNegate(vGround);
-            XMStoreFloat4(&m_vGroundPlane, vGround);
-            return;
-        }
-    }
+    f32_t x = XMVectorGetX(vPos);
+    f32_t z = XMVectorGetZ(vPos);
+    vPos = XMVectorSetY(vPos, pHill->GetHeight(x, z) + 0.5f);
+    m_pTransformCom->Set_State(STATE::POSITION, vPos);
+    m_vGroundPlane = pHill->GetPlane(x, z);
+    //const auto& vecIndex = pHill->GetIndex();
+    //const auto& vecVtx = pHill->GetVertices();
+    //
+    //for (uint32_t i = 0; i + 2 < vecIndex.size(); i += 3)
+    //{
+    //    float3_t p0 = vecVtx[vecIndex[i]].vPosition;
+    //    float3_t p1 = vecVtx[vecIndex[i + 1]].vPosition;
+    //    float3_t p2 = vecVtx[vecIndex[i + 2]].vPosition;
+    //
+    //    vector_t vPlane = XMPlaneFromPoints(XMLoadFloat3(&p0), XMLoadFloat3(&p1), XMLoadFloat3(&p2));
+    //
+    //    vector_t vRayPos = vPos + vector_t{ 0,100.f,0,0.f };
+    //    vector_t vRayDir = XMVectorSet(0.f, -1.f, 0.f, 0.f);   // 아래 방향
+    //
+    //    vector_t v0 = XMLoadFloat3(&p0);
+    //    vector_t v1 = XMLoadFloat3(&p1);
+    //    vector_t v2 = XMLoadFloat3(&p2);
+    //
+    //    f32_t fDist = 0.f;
+    //    if (TriangleTests::Intersects(vRayPos, vRayDir, v0, v1, v2, fDist))
+    //    {
+    //        float4_t plane;
+    //        XMStoreFloat4(&plane, vPlane); // x = a, y = b, z = c, w = d -> ax + by + cz + d = 0
+    //
+    //        f32_t fY = -(plane.x * XMVectorGetX(vPos) + plane.z * XMVectorGetZ(vPos) + plane.w) / plane.y;
+    //
+    //        vPos = XMVectorSetY(vPos, fY + 0.5f);
+    //        m_pTransformCom->Set_State(STATE::POSITION, vPos);
+    //
+    //        vector_t vGround = XMPlaneNormalize(vPlane);
+    //        if (XMVectorGetY(vGround) < 0.f)        // 법선이 아래를 보면 뒤집기
+    //            vGround = XMVectorNegate(vGround);
+    //        XMStoreFloat4(&m_vGroundPlane, vGround);
+    //        return;
+    //    }
+    //}
 }
 void CPlayer::KeyInput(f32_t fDeltaTime)
 {
     bool_t  bPushShift = false;
     if (GetAsyncKeyState(VK_LSHIFT))
     {
-        m_pTransformCom->Set_Speed(8.f);
+        m_pTransformCom->Set_Speed(16.f);
         bPushShift = true;
     }
     else
     {
         LookAtMouse(fDeltaTime);
-        m_pTransformCom->Set_Speed(4.f);
+        m_pTransformCom->Set_Speed(8.f);
     }
 
     vector_t vLook = m_pTransformCom->Get_State(STATE::LOOK);
