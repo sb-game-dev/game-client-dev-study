@@ -158,42 +158,91 @@ HRESULT CLoader::Loading_For_GamePlayLV()
     
 
     lstrcpy(m_szLoadingText, TEXT("셰이더를 준비중입니다."));
-    for (uint32_t i = 0; i < 99999999; i++)
-        uint32_t iData = 10;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_VS_VTXCOL"),
+        CVertexShader::Create(m_pDevice, m_pContext,L"../Bin/Shader/Shader_VtxCol.hlsl", "VS_MAIN",VTXCOL::Elements,VTXCOL::iNumElements))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_PS_VTXCOL"),
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_VtxCol.hlsl", "PS_MAIN"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_PS_VTXCOL_SHADOW"),
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_VtxCol.hlsl", "PS_SHADOW"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_PS_VTXCOL_OCCLUDEDPLAYER"),
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_VtxCol.hlsl", "PS_OCCLUDEDPLAYER"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_VS_VTXTEX"),
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_VtxTex.hlsl", "VS_MAIN", VTXNORM::Elements, VTXNORM::iNumElements))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_VS_VTXTEX_INSTANCE"),
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_VtxTex.hlsl", "VS_MAIN_INST", VTXNORM_INSTANCE::Elements, VTXNORM_INSTANCE::iNumElements))))
+        return E_FAIL;
+    
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_PS_VTXTEX"),
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_VtxTex.hlsl", "PS_MAIN"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_PS_VTXTEX_SHADOW"),
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_VtxTex.hlsl", "PS_SHADOW"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_PS_VTXTEX_SKYBOX"),
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_VtxTex.hlsl", "PS_MAIN_SKY"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_PS_VTXTEX_NoLight"),
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_VtxTex.hlsl", "PS_MAIN_NOLIGHT"))))
+        return E_FAIL;
+
+
 
     lstrcpy(m_szLoadingText, TEXT("객체원형 준비중입니다."));
 
-    auto pPlayer = CPlayer::Create(m_pDevice, m_pContext);
-    CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_GameObject_Player"),pPlayer);
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_GameObject_Player"), 
+        CPlayer::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
 
-    shared_ptr<CGameObject> pGameObject = {};
 
-    pGameObject = CCube::Create(m_pDevice, m_pContext);
-    CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_Cube", pGameObject);
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_Cube", 
+        CCube::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
 
-    pGameObject = CCube_Instance::Create(m_pDevice, m_pContext);
-    CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_CubeInstance", pGameObject);
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_CubeInstance", 
+        CCube_Instance::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
    
-    pGameObject = CSkyBox::Create(m_pDevice, m_pContext);
-    CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_SkyBox", pGameObject);
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_SkyBox",
+        CSkyBox::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
 
-    pGameObject = CHill::Create(m_pDevice, m_pContext);
-    CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_Hill", pGameObject);
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_Hill",
+        CHill::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
 
-    pGameObject = CWave::Create(m_pDevice, m_pContext);
-    CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_Wave", pGameObject);
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_Wave",
+        CWave::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
 
-    pGameObject = CFog::Create(m_pDevice, m_pContext);
-    CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_Fog", pGameObject);
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_Fog",
+        CFog::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
 
-    pGameObject = CMirror::Create(m_pDevice, m_pContext);
-    CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_Mirror", pGameObject);
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_Mirror",
+        CMirror::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
 
-    pGameObject = CTree::Create(m_pDevice, m_pContext);
-    CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_Tree", pGameObject);
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_Tree",
+        CTree::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
 
-    pGameObject = CClient_Mouse::Create(m_pDevice, m_pContext);
-    CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_ClientMouse", pGameObject);
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_ClientMouse",
+        CClient_Mouse::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
 
     lstrcpy(m_szLoadingText, TEXT("로딩이 완료되었습니다."));
 

@@ -228,6 +228,18 @@
     <ClInclude Include="..\public\VIBuffer_Instance.h">
       <Filter>06. Component\02. VIBuffer\99. Instance</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\Shader.h">
+      <Filter>06. Component\03. Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\VertexShader.h">
+      <Filter>06. Component\03. Shader\00. VertexShader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\PixelShader.h">
+      <Filter>06. Component\03. Shader\01. PixelShader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\ComputeShader.h">
+      <Filter>06. Component\03. Shader\03. ComputeShader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Timer.cpp">
@@ -319,6 +331,18 @@
     </ClCompile>
     <ClCompile Include="..\private\VIBuffer_Instance.cpp">
       <Filter>06. Component\02. VIBuffer\99. Instance</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Shader.cpp">
+      <Filter>06. Component\03. Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\VertexShader.cpp">
+      <Filter>06. Component\03. Shader\00. VertexShader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\PixelShader.cpp">
+      <Filter>06. Component\03. Shader\01. PixelShader</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\ComputeShader.cpp">
+      <Filter>06. Component\03. Shader\03. ComputeShader</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

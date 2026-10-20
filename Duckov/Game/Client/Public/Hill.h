@@ -34,6 +34,8 @@ public:
 private:
 	MESHDATA m_tMeshData = {}; 
 	shared_ptr<CTexture>			m_pTextureCom = { nullptr };
+	shared_ptr<CVertexShader>		m_pVS = { nullptr };
+	shared_ptr<CPixelShader>		m_pPS = { nullptr };
 
 private:
 	HRESULT			Ready_Components();

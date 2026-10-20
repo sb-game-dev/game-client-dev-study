@@ -153,6 +153,7 @@ xcopy "$(SolutionDir)Engine\Bin\Engine.dll" "$(SolutionDir)Client\Bin\" /Y
     <ClInclude Include="..\public\Camera.h" />
     <ClInclude Include="..\public\Camera_Manager.h" />
     <ClInclude Include="..\public\Component.h" />
+    <ClInclude Include="..\public\ComputeShader.h" />
     <ClInclude Include="..\public\DirectionalLight.h" />
     <ClInclude Include="..\Public\Engine_Global.h" />
     <ClInclude Include="..\Public\GameInstance.h" />
@@ -164,11 +165,14 @@ xcopy "$(SolutionDir)Engine\Bin\Engine.dll" "$(SolutionDir)Client\Bin\" /Y
     <ClInclude Include="..\public\Light.h" />
     <ClInclude Include="..\Public\Light_Manager.h" />
     <ClInclude Include="..\public\Mouse.h" />
+    <ClInclude Include="..\public\PixelShader.h" />
     <ClInclude Include="..\public\PointLight.h" />
     <ClInclude Include="..\public\Object_Manager.h" />
     <ClInclude Include="..\Public\Prototype.h" />
     <ClInclude Include="..\public\Prototype_Manager.h" />
     <ClInclude Include="..\public\Renderer.h" />
+    <ClInclude Include="..\public\Shader.h" />
+    <ClInclude Include="..\public\VertexShader.h" />
     <ClInclude Include="..\public\VIBuffer_Instance.h" />
     <ClInclude Include="..\public\VIBuffer_Pyramid.h" />
     <ClInclude Include="..\public\VIBuffer_SkyBox.h" />
@@ -192,6 +196,7 @@ xcopy "$(SolutionDir)Engine\Bin\Engine.dll" "$(SolutionDir)Client\Bin\" /Y
     <ClCompile Include="..\private\Camera.cpp" />
     <ClCompile Include="..\private\Camera_Manager.cpp" />
     <ClCompile Include="..\private\Component.cpp" />
+    <ClCompile Include="..\private\ComputeShader.cpp" />
     <ClCompile Include="..\Private\DirectionalLight.cpp" />
     <ClCompile Include="..\Private\GameInstance.cpp" />
     <ClCompile Include="..\Private\GameObject.cpp" />
@@ -202,11 +207,14 @@ xcopy "$(SolutionDir)Engine\Bin\Engine.dll" "$(SolutionDir)Client\Bin\" /Y
     <ClCompile Include="..\private\Light.cpp" />
     <ClCompile Include="..\Private\Light_Manager.cpp" />
     <ClCompile Include="..\private\Mouse.cpp" />
+    <ClCompile Include="..\private\PixelShader.cpp" />
     <ClCompile Include="..\private\PointLight.cpp" />
     <ClCompile Include="..\private\Object_Manager.cpp" />
     <ClCompile Include="..\private\Prototype.cpp" />
     <ClCompile Include="..\private\Prototype_Manager.cpp" />
     <ClCompile Include="..\private\Renderer.cpp" />
+    <ClCompile Include="..\private\Shader.cpp" />
+    <ClCompile Include="..\private\VertexShader.cpp" />
     <ClCompile Include="..\private\VIBuffer_Instance.cpp" />
     <ClCompile Include="..\private\VIBuffer_Pyramid.cpp" />
     <ClCompile Include="..\private\VIBuffer_SkyBox.cpp" />

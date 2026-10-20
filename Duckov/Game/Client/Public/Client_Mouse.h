@@ -35,6 +35,9 @@ public:
 
 private:
 	shared_ptr<CTexture>			m_pTextureCom = { nullptr };
+	shared_ptr<CVertexShader>		m_pVS = { nullptr };
+	shared_ptr<CPixelShader>		m_pPS = { nullptr };
+
 	MOUSESTATE						m_eMouseState = {};
 	float3_t						m_vPosVP = {0.f,0.f,2.f};
 

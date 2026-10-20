@@ -31,78 +31,6 @@ HRESULT CPlayer::Initialize_Prototype()
     if (FAILED(m_pDevice->CreateBuffer(&CBDesc, nullptr, m_pCB.GetAddressOf())))
         return E_FAIL;
 
-    // Blob은 크기가 정해진 바이트 덩어리를 담는 COM객체
-    // 컴파일 결과를 담으면 바이트코드상자(pVSBlob, pPSBlob)
-    // 에러메세지를 담으면 문자열 상수가 됨
-    // Blob 정보를 이용하여 버텍스 셰이더객체, 픽셀 셰이더 객체를 생성함
-    ComPtr<ID3DBlob> pVSBlob, pPSBlob, pPSShadowBlob, pPSOccludedPlayerBlob, pErrBlob;
-
-    uint32_t iFlags = 0;
-#ifdef _DEBUG
-    iFlags = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
-    // 셰이더를 디버그 모드에서 컴파일한다. | 컴파일시 최적화를 사용하지 않는다(디버깅에 유용함)
-#endif
-    //VS 컴파일
-    if (FAILED(D3DCompileFromFile(
-        L"../Shader/Shader_VtxCol.hlsl",   // 파일 경로 (작업 디렉터리 기준)
-        nullptr,                           // 이 책에서는 사용하지 않는 고급 옵션(항상 NULL 또는 0)
-        nullptr,                           // 이 책에서는 사용하지 않는 고급 옵션(항상 NULL 또는 0)
-        "VS_MAIN",                         // 진입점 함수 이름
-        "vs_5_0",                          // 타깃: 버텍스 셰이더, 셰이더 모델 5.0
-        iFlags,                            // 컴파일 옵션
-        0,                                 // 이 책에서는 사용하지 않는 고급 효과 컴파일 옵션(항상 NULL 또는 0)
-        &pVSBlob,                          // 결과: 컴파일된 바이트코드
-        &pErrBlob)))                       // 실패 시 에러 메시지
-    {
-        if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
-        return E_FAIL;
-    }
-    // PS 컴파일
-    if (FAILED(D3DCompileFromFile(L"../Shader/Shader_VtxCol.hlsl", nullptr, nullptr,
-        "PS_MAIN", "ps_5_0", iFlags, 0, &pPSBlob, &pErrBlob)))
-    {
-        if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
-        return E_FAIL;
-    }
-    // 그림자 PS 컴파일
-    if (FAILED(D3DCompileFromFile(L"../Shader/Shader_VtxCol.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
-        "PS_SHADOW", "ps_5_0", iFlags, 0, &pPSShadowBlob, &pErrBlob)))
-    {
-        if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
-        return E_FAIL;
-    }
-    // OCCLUDEDPLAYER PS 컴파일
-    if (FAILED(D3DCompileFromFile(L"../Shader/Shader_VtxCol.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
-        "PS_OCCLUDEDPLAYER", "ps_5_0", iFlags, 0, &pPSOccludedPlayerBlob, &pErrBlob)))
-    {
-        if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
-        return E_FAIL;
-    }
-
-    // 버텍스 셰이더 객체 생성
-    if (FAILED(m_pDevice->CreateVertexShader(pVSBlob->GetBufferPointer(), pVSBlob->GetBufferSize(), nullptr, &m_pVS)))
-        return E_FAIL;
-
-    // 픽셀 셰이더 객체 생성
-    if (FAILED(m_pDevice->CreatePixelShader(pPSBlob->GetBufferPointer(), pPSBlob->GetBufferSize(), nullptr, &m_pPS)))
-        return E_FAIL;
-
-    // 그림자 픽셀 셰이더 객체 생성
-    if (FAILED(m_pDevice->CreatePixelShader(pPSShadowBlob->GetBufferPointer(), pPSShadowBlob->GetBufferSize(), nullptr, &m_pPS_Shadow)))
-        return E_FAIL;
-
-    // 그림자 픽셀 셰이더 객체 생성
-    if (FAILED(m_pDevice->CreatePixelShader(pPSOccludedPlayerBlob->GetBufferPointer(), pPSShadowBlob->GetBufferSize(), nullptr, &m_pPS_Occluded)))
-        return E_FAIL;
-
-    // Input Layout 생성 (VS 바이트코드와 대조)
-    if (FAILED(m_pDevice->CreateInputLayout(VTXCOL::Elements,               // 정점 구조체를 서술하는 D3D11_INPUT_LEELMENT_DESC들의 배열
-                                            VTXCOL::iNumElements,           // 배열 원소의 개수
-                                            pVSBlob->GetBufferPointer(),    // 정점셰이더를 컴파일해서 얻은 바이트코드를 가리키는 포인터
-                                            pVSBlob->GetBufferSize(),       // 바이트코드의 크기
-                                            &m_pInputLayout)))              // 생성된 입력 배치를 돌려줄 포인터
-        return E_FAIL;
-
     // 레스터라이저 설정
     D3D11_RASTERIZER_DESC rsDesc{};
     rsDesc.FillMode = D3D11_FILL_SOLID;         //D3D11_FILL_WIREFRAME , D3D11_FILL_SOLID
@@ -160,18 +88,18 @@ HRESULT CPlayer::Render_Reflection(const XMMATRIX& matReflect)
 
 HRESULT CPlayer::Render_Shadow()
 {
-    XMVECTOR vPlane = XMLoadFloat4(&m_vGroundPlane);
-    XMVECTOR vToLight = XMVectorSet(-0.5f, 0.5f, -0.5f, 0.f);   // SunLight Direction의 반대, w=0(평행광)
+    XMVECTOR vPlane     = XMLoadFloat4(&m_vGroundPlane);
+    XMVECTOR vToLight   = XMVectorSet(-0.5f, 0.5f, -0.5f, 0.f);   // SunLight Direction의 반대, w=0(평행광)
 
-    XMMATRIX matShadow = XMMatrixShadow(vPlane, vToLight);
-    XMMATRIX matOffset = XMMatrixTranslation(0.f, 0.01f, 0.f);  // 지형과 z-fighting 방지
+    XMMATRIX matShadow  = XMMatrixShadow(vPlane, vToLight);
+    XMMATRIX matOffset  = XMMatrixTranslation(0.f, 0.01f, 0.f);  // 지형과 z-fighting 방지
 
-    return Render_Mesh(m_pTransformCom->Get_World() * matShadow * matOffset, m_pRS.Get(), m_pPS_Shadow.Get());
+    return Render_Mesh(m_pTransformCom->Get_World() * matShadow * matOffset, m_pRS.Get(), m_pPS_Shadow->Get_Shader().Get());
 }
 
 HRESULT CPlayer::Render_Occluded()
 {
-    return Render_Mesh(m_pTransformCom->Get_World(), m_pRS.Get(), m_pPS_Occluded.Get());
+    return Render_Mesh(m_pTransformCom->Get_World(), m_pRS.Get(), m_pPS_Occluded->Get_Shader().Get());
 }
 
 HRESULT CPlayer::Ready_Components()
@@ -179,12 +107,29 @@ HRESULT CPlayer::Ready_Components()
     if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_VIBuffer_Pyramid"),
         TEXT("Com_Buffer"), m_pBufferCom)))
         return E_FAIL;
+
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_VS_VTXCOL"),
+        TEXT("Com_VS"), m_pVS)))
+        return E_FAIL;
+
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_PS_VTXCOL"),
+        TEXT("Com_PS"), m_pPS)))
+        return E_FAIL;
+
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_PS_VTXCOL_SHADOW"),
+        TEXT("Com_PS_SHADOW"), m_pPS_Shadow)))
+        return E_FAIL;
+
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_PS_VTXCOL_OCCLUDEDPLAYER"),
+        TEXT("Com_PS_OCCLUDEDPLAYER"), m_pPS_Occluded)))
+        return E_FAIL;
+
     return S_OK;
 }
 
 HRESULT CPlayer::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS)
 {
-    return Render_Mesh(matWorld, pRS, m_pPS.Get());
+    return Render_Mesh(matWorld, pRS, m_pPS->Get_Shader().Get());
 }
 HRESULT CPlayer::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS, ID3D11PixelShader* pPS)
 {
@@ -207,10 +152,10 @@ HRESULT CPlayer::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pR
     m_pBufferCom->Bind_Resources();
 
     // InputLayoyt 꽂기(FVF의 역할)
-    m_pContext->IASetInputLayout(m_pInputLayout.Get());
+    m_pContext->IASetInputLayout(m_pVS->Get_InputLayout().Get());
 
     // VS(버텍스 셰이더 단계) -> 월드변환, 뷰스페이스 변환, 투영 변환 행렬을 전달받아서 버텍스 버퍼에 계산함
-    m_pContext->VSSetShader(m_pVS.Get(), nullptr, 0);
+    m_pContext->VSSetShader(m_pVS->Get_Shader().Get(), nullptr, 0);
 
     // VS의 상수버퍼슬롯(b0)에 상수버퍼(변환 행렬 버퍼) 꽂기
     m_pContext->VSSetConstantBuffers(0, //register(b0)과 연결됨

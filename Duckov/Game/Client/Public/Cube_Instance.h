@@ -32,9 +32,10 @@ private:
 	ComPtr<ID3D11Buffer>			m_pInstanceVB = { nullptr };
 	ComPtr<ID3D11Buffer>			m_pInstanceVB_Shadow = { nullptr };
 
-	ComPtr<ID3D11PixelShader>		m_pPS_Shadow = { nullptr };
 	shared_ptr<CTexture>			m_pTextureCom = { nullptr };
-	float4_t						m_vGroundPlane = { 0.f, 1.f, 0.f, 0.f };	// ¹ß¹Ø Æò¸é (a,b,c,d)
+	shared_ptr<CVertexShader>		m_pVS = { nullptr };
+	shared_ptr<CPixelShader>		m_pPS = { nullptr };
+	shared_ptr<CPixelShader>		m_pPS_Shadow = { nullptr };
 
 	float4x4_t						m_WorldMats[m_iNumInstance] = {};      
 	float4x4_t						m_ShadowMats[m_iNumInstance] = {};

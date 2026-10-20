@@ -85,7 +85,15 @@ HRESULT CLevel_Loading::Ready_Layer_BackGround()
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOADING), TEXT("Prototype_Component_VIBuffer_Rect"),
         CVIBuffer_Rect::Create(m_pDevice, m_pContext))))
         return E_FAIL;
-    
+
+    // VS
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOADING), TEXT("Prototype_Component_VS_VTXTEX"),
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_VtxTex.hlsl", "VS_MAIN", VTXNORM::Elements, VTXNORM::iNumElements))))
+        return E_FAIL;
+    // PS
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOADING), TEXT("Prototype_Component_PS_VTXTEX_NoLight"),
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_VtxTex.hlsl", "PS_MAIN_NOLIGHT"))))
+        return E_FAIL;
 
     // 배경 원형
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOADING), TEXT("Prototype_GameObject_BackGround"),

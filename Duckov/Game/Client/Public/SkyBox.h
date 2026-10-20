@@ -32,6 +32,8 @@ public:
 private:
 	shared_ptr<CTexture>			m_pTextureCom = { nullptr };
 	shared_ptr<CVIBuffer_SkyBox>	m_pBufferCom = { nullptr };
+	shared_ptr<CVertexShader>		m_pVS = { nullptr };
+	shared_ptr<CPixelShader>		m_pPS = { nullptr };
 private:
 	HRESULT			Ready_Components();
 public:

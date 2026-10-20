@@ -116,49 +116,6 @@ HRESULT CHill::Initialize_Prototype()
     if (FAILED(m_pDevice->CreateBuffer(&CBDesc, nullptr, &m_pCB)))
         return E_FAIL;
 
-
-    ComPtr<ID3DBlob> pVSBlob, pPSBlob, pErrBlob;
-
-    uint32_t iFlags = 0;
-#ifdef _DEBUG
-    iFlags = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
-    
-#endif
-    
-    if (FAILED(D3DCompileFromFile(
-        L"../Shader/Shader_VtxTex.hlsl",  
-        nullptr,                          
-        D3D_COMPILE_STANDARD_FILE_INCLUDE,
-        "VS_MAIN",                        
-        "vs_5_0",                         
-        iFlags,                           
-        0,                                
-        &pVSBlob,                         
-        &pErrBlob)))                      
-    {
-        if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
-        return E_FAIL;
-    }
-    if (FAILED(D3DCompileFromFile(L"../Shader/Shader_VtxTex.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
-        "PS_MAIN", "ps_5_0", iFlags, 0, &pPSBlob, &pErrBlob)))
-    {
-        if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
-        return E_FAIL;
-    }
-
-    if (FAILED(m_pDevice->CreateVertexShader(pVSBlob->GetBufferPointer(), pVSBlob->GetBufferSize(), nullptr, &m_pVS)))
-        return E_FAIL;
-
-    if (FAILED(m_pDevice->CreatePixelShader(pPSBlob->GetBufferPointer(), pPSBlob->GetBufferSize(), nullptr, &m_pPS)))
-        return E_FAIL;
-
-    if (FAILED(m_pDevice->CreateInputLayout(VTXNORM::Elements,              
-                                            VTXNORM::iNumElements,
-                                            pVSBlob->GetBufferPointer(),    
-                                            pVSBlob->GetBufferSize(),       
-                                            &m_pInputLayout)))              
-        return E_FAIL;
-
     D3D11_RASTERIZER_DESC rsDesc{};
     rsDesc.FillMode = D3D11_FILL_SOLID;         
     rsDesc.CullMode = D3D11_CULL_BACK;          
@@ -234,23 +191,23 @@ HRESULT CHill::Render()
 
     m_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-    m_pContext->IASetInputLayout(m_pInputLayout.Get());
+    m_pContext->IASetInputLayout(m_pVS->Get_InputLayout().Get());
 
-    m_pContext->VSSetShader(m_pVS.Get(), nullptr, 0);
+    m_pContext->VSSetShader(m_pVS->Get_Shader().Get(), nullptr, 0);
 
     // 월드 변환을 위한 상수 버퍼
     // Position, Normal 계산을 위해 matWorld, matWorldInvTranspose만 사용
     m_pContext->VSSetConstantBuffers(0, //레지스터 슬롯 번호
-        1,
-        m_pCB.GetAddressOf());
+                                     1,
+                                     m_pCB.GetAddressOf());
 
     // 조명 계산을 위한 상수 버퍼
     // 조명 계산에 필요한 Material만 사용
     m_pContext->PSSetConstantBuffers(0, //레지스터 슬롯 번호
-        1,
-        m_pCB.GetAddressOf());
+                                     1,
+                                     m_pCB.GetAddressOf());
 
-    m_pContext->PSSetShader(m_pPS.Get(), nullptr, 0);
+    m_pContext->PSSetShader(m_pPS->Get_Shader().Get(), nullptr, 0);
 
     // 텍스처 바인드
     m_pTextureCom->Set_TexturePS(0, 0);
@@ -282,6 +239,15 @@ HRESULT CHill::Ready_Components()
     if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_Texture_Hill"),
         TEXT("Com_Texture"), m_pTextureCom)))
         return E_FAIL;
+
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_VS_VTXTEX"),
+        TEXT("Com_VS"), m_pVS)))
+        return E_FAIL;
+
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_PS_VTXTEX"),
+        TEXT("Com_PS"), m_pPS)))
+        return E_FAIL;
+
     return S_OK;
 }
 

@@ -10,10 +10,18 @@
 #include "Renderer.h"
 #include "Transform.h"
 #include "Texture.h"
+
+// 버퍼
 #include "VIBuffer_Rect.h"
 #include "VIBuffer_Cube.h"
 #include "VIBuffer_SkyBox.h"
 #include "VIBuffer_Pyramid.h"
+
+// 셰이더
+#include "VertexShader.h"
+#include "PixelShader.h"
+#include "ComputeShader.h"
+
 /*
 1. 엔진의 기능을 클라이언트에 보여주는 객체.
 2. 엔진에 정의되어있는 다양한 기능을 하는 객체를 모아서 보관한다.
