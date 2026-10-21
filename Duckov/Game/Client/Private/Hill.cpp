@@ -341,7 +341,7 @@ void CHill::LoadHeightMap(const tchar_t* pHightMapPath)
     {
         // read(char* s, streamsize count);
         // s: 읽은 데이터를 채울 메모리 시작 주소
-        // count: 읽을 바이트 수 -> 백터 개수 * 벡터 자료형의 크기
+        // count: 읽을 바이트 수 -> 백터 길이 * 벡터 자료형의 크기
 
         inFile.read(
             (char*)&in[0], 
