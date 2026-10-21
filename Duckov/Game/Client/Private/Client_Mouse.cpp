@@ -132,10 +132,9 @@ void CClient_Mouse::Update(f32_t fTimeDelta)
     f32_t z = (vPlayerPos.y - vecOrigin.y) / vecRayDir.y * vecRayDir.z + vecOrigin.z;
     m_pTransformCom->Set_State(STATE::POSITION,{ x, vPlayerPos.y, z, 1.f });
 
-    // 
     if (GetAsyncKeyState(VK_LBUTTON) && m_fRange <= 50.f)
         m_fRange += 10.f;
-
+    
     if (m_fRange > 26.f)
         m_fRange -= 100 * fTimeDelta;
     else
@@ -242,8 +241,8 @@ HRESULT CClient_Mouse::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerSta
 
     // 그리기
     m_pContext->DrawIndexed(m_iIndexCnt, // IndexCnt: 인덱스 버퍼의 크기
-        0,  // StartIndexLocation : 사용할 인덱스의 위치
-        0); // BaseVERTEXLocation : 정점들을 가져오기 전에 이 호출에서 사용할 인덱스에 더해지는 정수값
+                            0,  // StartIndexLocation : 사용할 인덱스의 위치
+                            0); // BaseVERTEXLocation : 정점들을 가져오기 전에 이 호출에서 사용할 인덱스에 더해지는 정수값
 
     return S_OK;
 }

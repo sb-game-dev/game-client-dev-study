@@ -488,7 +488,7 @@ void CRenderer::Render_Alpha()
 			return pDst->Get_ViewZ() > pSrc->Get_ViewZ();
 		});
 	// 깊이 쓰기 끄기
-	//m_pContext->OMSetDepthStencilState(m_pDSS_Alpha.Get(), 0);
+	m_pContext->OMSetDepthStencilState(m_pDSS_Alpha.Get(), 0);
 	// 그리기
 	for (auto& pObj : m_RenderGroup[ETOUI(RENDERID::ALPHA)])
 	{
@@ -498,7 +498,7 @@ void CRenderer::Render_Alpha()
 	m_RenderGroup[ETOUI(RENDERID::ALPHA)].clear();
 
 	// 복구
-	//m_pContext->OMSetDepthStencilState(nullptr, 0);
+	m_pContext->OMSetDepthStencilState(nullptr, 0);
 	m_pContext->OMSetBlendState(nullptr, blendFactor, 0xffffffff);
 }
 
@@ -529,12 +529,34 @@ void CRenderer::Render_NonAlpha_UI()
 
 void CRenderer::Render_Alpha_UI()
 {
+	float blendFactor[4] = { 0.f, 0.f, 0.f, 0.f };
+
+	// 블렌딩 ON
+	m_pContext->OMSetBlendState(m_pBS.Get(),	// 블렌더 스테이트 객체의 포인터
+		blendFactor,	// 부동소수점 값 네 개의 배열을 가리키는 포인터
+		0xffffffff);	// SampleMask (0xffffffff -> 모든 샘플을 활성화)
+
+	m_RenderGroup[ETOUI(RENDERID::ALPHA_UI)].sort([](shared_ptr<CGameObject> pDst, shared_ptr<CGameObject> pSrc)->bool
+		{
+			f32_t fDstZ = XMVectorGetZ(pDst->Get_Transform()->Get_State(STATE::POSITION));
+			f32_t fSrcZ = XMVectorGetZ(pSrc->Get_Transform()->Get_State(STATE::POSITION));
+			return fDstZ > fSrcZ;
+		});
+	// 깊이 쓰기 끄기
+	m_pContext->OMSetDepthStencilState(m_pDSS_Alpha.Get(), 0);
+	// 그리기
+
 	for (auto& pObj : m_RenderGroup[ETOUI(RENDERID::ALPHA_UI)])
 	{
 		if (nullptr != pObj)
 			pObj->Render();
 	}
 	m_RenderGroup[ETOUI(RENDERID::ALPHA_UI)].clear();
+
+	// 복구
+	m_pContext->OMSetDepthStencilState(nullptr, 0);
+	m_pContext->OMSetBlendState(nullptr, blendFactor, 0xffffffff);
+
 }
 
 

@@ -15,6 +15,13 @@ cbuffer cbCamera : register(b1)
     float g_Pad;
 }
 
+cbuffer cbMousePos : register(b2)
+{
+    float2 g_MousePos;
+    float g_fRange;
+    float Pad2;
+}
+
 struct VS_IN
 {
     float3 vPosition : POSITION;
@@ -63,4 +70,21 @@ float4 PS_SHADOW(VS_OUT In) : SV_TARGET
 float4 PS_OCCLUDEDPLAYER(VS_OUT In) : SV_TARGET
 {
     return float4(0.f, 0.25f, 0.25f, 0.5f);
+}
+
+float4 PS_SCOPE(VS_OUT In) : SV_TARGET
+{
+    if ((g_MousePos.x - In.vPosition.x) * (g_MousePos.x - In.vPosition.x) + (g_MousePos.y - In.vPosition.y) * (g_MousePos.y - In.vPosition.y) < g_fRange * g_fRange)
+    {
+        if ((g_MousePos.x - In.vPosition.x) * (g_MousePos.x - In.vPosition.x) + (g_MousePos.y - In.vPosition.y) * (g_MousePos.y - In.vPosition.y) < 5.f * 5.f)
+            return float4(0.6f, 0.f, 0.f, 0.6f);
+        else if(abs(g_MousePos.x - In.vPosition.x) < 2.f || abs(g_MousePos.y - In.vPosition.y) < 2.f)
+            return float4(0.f, 0.f, 0.f, 0.6f);
+        else
+            return float4(0.f, 0.f, 0.f, 0.f);        
+    }
+    else
+    {
+        return float4(0.f, 0.f, 0.f, 0.6f);  
+    }
 }
