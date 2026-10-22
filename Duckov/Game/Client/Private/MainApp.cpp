@@ -1,8 +1,8 @@
 #include "MainApp.h"
-#include "Engine_Defines.h"
 #include "Client_Defines.h"
 #include "Level_Loading.h"
 #include "Inven.h"
+#include "Client_Mouse.h"
 
 CMainApp::CMainApp()
 {
@@ -65,7 +65,8 @@ HRESULT CMainApp::Initialize()
     // ¾À »ý¼º
     if (FAILED(Start_Level(LEVEL::GAMEPLAY)))
         return E_FAIL;
-
+    if (FAILED(Ready_Prototype_For_StaticLV()))
+        return E_FAIL;
 
     return S_OK;
 }
@@ -95,6 +96,11 @@ HRESULT CMainApp::Start_Level(LEVEL eStartLevelID)
     if(FAILED(CGameInstance::Get().Change_Level(static_cast<int>(LEVEL::LOADING), 
                                                 CLevel_Loading::Create(m_pDevice, m_pContext, eStartLevelID))))
         return E_FAIL;
+    return S_OK;
+}
+
+HRESULT CMainApp::Ready_Prototype_For_StaticLV()
+{
     return S_OK;
 }
 
