@@ -18,8 +18,8 @@ struct VS_OUT_TERRAIN
     float4 vPosition : SV_POSITION;
     float3 vPosW : POSITION;
     float3 vNormalW : NORMAL;
-    float2 vTex : TEXCOORD0; // È¥ÇÕ¸Ê¿ë 0~1    (Ã¥: Tex)
-    float2 vTiledTex : TEXCOORD1; // ·¹ÀÌ¾î¿ë ¹Ýº¹   (Ã¥: TiledTex)
+    float2 vTex : TEXCOORD0; // È¥ÇÕ¸Ê¿ë 0~1   
+    float2 vTiledTex : TEXCOORD1; // ·¹ÀÌ¾î¿ë ¹Ýº¹   
 };
 
 cbuffer cbPerObject : register(b0)
@@ -203,10 +203,11 @@ float4 PS_TERRAIN(VS_OUT_TERRAIN In) : SV_TARGET
     //
     // Texturing
     //
+    
     // Sample layers.
-    float4 c0 = g_LayerMap0.Sample(g_Sampler, In.vTiledTex);
-    float4 c1 = g_LayerMap1.Sample(g_Sampler, In.vTiledTex);
-    float4 c2 = g_LayerMap2.Sample(g_Sampler, In.vTiledTex);
+    float4 c0 = g_LayerMap0.Sample(g_Sampler, In.vTiledTex);    // ÀÜµð
+    float4 c1 = g_LayerMap1.Sample(g_Sampler, In.vTiledTex);    // Èë
+    float4 c2 = g_LayerMap2.Sample(g_Sampler, In.vTiledTex);    // ¾Æ½ºÆÈÆ®
 
     // Sample the blend map.
     float4 t = g_BlendMap.Sample(g_Sampler, In.vTex);

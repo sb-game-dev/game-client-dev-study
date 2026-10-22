@@ -16,9 +16,14 @@ public:
     virtual void        Late_Update(f32_t fDeltaTime) override;
 
     void                SetPlayer(shared_ptr<CGameObject> pPlayer) { m_pPlayer = pPlayer; }
+    void                AddShakeTime(f32_t fDeltaTime) { m_fShakeTime += fDeltaTime; }
 private:
     shared_ptr<CGameObject>     m_pPlayer = {nullptr};
-    f32_t                       m_fTime = {};
+    f32_t                       m_fShakeTime = {};
+    f32_t                       m_fShakeDistance = { 1.f };
+    float3_t                    m_vShakeOffset = {};
+private:
+    void                Shake(f32_t fDeltaTime);
 public:
     static shared_ptr<CQuarterView_Cam> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
 

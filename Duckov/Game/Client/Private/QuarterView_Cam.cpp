@@ -65,18 +65,33 @@ void CQuarterView_Cam::Update(f32_t fDeltaTime)
 		}
 
 	}
+	
+	Shake(fDeltaTime);
+
 	// Eye ¼³Á¤
 	vector_t vCameraEye = vector_t{ m_vAt.x, m_vAt.y + 20.f, m_vAt.z - 10.f };
-	XMStoreFloat3(&m_vEye,vCameraEye);
-
-	//m_vEye = { 0.f,15.f,0.f };
-	//m_fTime += 5 * fDeltaTime;
-	//m_vAt = { 5 * cosf(XM_2PI / 16 * m_fTime) ,0.f,5 * sinf(XM_2PI / 16 * m_fTime) };
+	XMStoreFloat3(&m_vEye, vCameraEye);
 }
 
 void CQuarterView_Cam::Late_Update(f32_t fDeltaTime)
 {
 	__super::Late_Update(fDeltaTime);
+}
+
+void CQuarterView_Cam::Shake(f32_t fDeltaTime)
+{
+	if (m_fShakeTime <= 0.f)
+	{
+		m_fShakeTime = 0.f;
+		m_vShakeOffset = {};
+		return;
+	}
+	m_fShakeTime -= fDeltaTime;
+	m_vShakeOffset.x = (rand() % 5 - 2) * fDeltaTime;
+	m_vShakeOffset.z = (rand() % 5 - 2) * fDeltaTime;
+
+	m_vAt.x += m_vShakeOffset.x;
+	m_vAt.z += m_vShakeOffset.z;
 }
 
 shared_ptr<CQuarterView_Cam> CQuarterView_Cam::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)

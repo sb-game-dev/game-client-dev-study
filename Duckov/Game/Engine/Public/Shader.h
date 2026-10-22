@@ -16,6 +16,9 @@ public:
 	virtual HRESULT Initialize_Prototype() override;
 	virtual HRESULT Initialize(void* pArg) override;
 
+protected:
+	ComPtr<ID3DBlob>						m_pShaderByteCode = { nullptr };
+
 public:
 	virtual shared_ptr<CPrototype> Clone(void* pArg) = 0;
 };

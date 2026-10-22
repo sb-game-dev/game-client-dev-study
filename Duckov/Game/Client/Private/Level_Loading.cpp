@@ -88,7 +88,7 @@ HRESULT CLevel_Loading::Ready_Layer_BackGround()
 
     // VS
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOADING), TEXT("Prototype_Component_VS_VTXTEX"),
-        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_VtxTex.hlsl", "VS_MAIN", VTXNORM::Elements, VTXNORM::iNumElements))))
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_VtxTex.hlsl", VTXNORM::Elements, VTXNORM::iNumElements, "VS_MAIN"))))
         return E_FAIL;
     // PS
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOADING), TEXT("Prototype_Component_PS_VTXTEX_NoLight"),

@@ -8,7 +8,7 @@ private:
 public:
 	~CComputeShader() = default;
 public:
-	virtual HRESULT Initialize_Prototype(const tchar_t* pShaderFilePath, const char_t* pMainName);
+	virtual HRESULT Initialize_Prototype(const tchar_t* pShaderFilePath, const char_t* pEntryPoint, const char_t* pTarget);
 	virtual HRESULT Initialize(void* pArg) override;
 
 	virtual void	Bind_Shader() { m_pContext->CSSetShader(m_pCS.Get(), nullptr, 0); }
@@ -18,7 +18,7 @@ private:
 
 public:
 	static shared_ptr<CComputeShader> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext,
-											 const tchar_t* pShaderFilePath, const char_t* pMainName);
+											 const tchar_t* pShaderFilePath, const char_t* pEntryPoint = "main", const char_t* pTarget = "cs_5_0");
 	virtual shared_ptr<CPrototype> Clone(void* pArg) override;
 
 };

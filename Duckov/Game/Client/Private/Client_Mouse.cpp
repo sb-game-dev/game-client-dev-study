@@ -1,4 +1,5 @@
 #include "Client_Mouse.h"
+#include "QuarterView_Cam.h"
 const f32_t g_SizeX = 24.f;
 const f32_t g_SizeY = 15.f;
 const f32_t g_RotZ[4] = { 0.f,90.f,180.f,270.f };
@@ -133,7 +134,10 @@ void CClient_Mouse::Update(f32_t fTimeDelta)
     m_pTransformCom->Set_State(STATE::POSITION,{ x, vPlayerPos.y, z, 1.f });
 
     if (GetAsyncKeyState(VK_LBUTTON) && m_fRange <= 50.f)
+    {
         m_fRange += 10.f;
+        static_pointer_cast<CQuarterView_Cam>(CGameInstance::Get().Get_MainCamera())->AddShakeTime(fTimeDelta * 2);
+    }
     
     if (m_fRange > 26.f)
         m_fRange -= 100 * fTimeDelta;
