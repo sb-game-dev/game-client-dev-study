@@ -18,7 +18,7 @@ HRESULT CVertexShader::Initialize_Prototype(const tchar_t* pShaderFilePath, cons
     if (FAILED(D3DCompileFromFile(
         pShaderFilePath,                   // 파일 경로 (작업 디렉터리 기준)
         nullptr,                           // 이 책에서는 사용하지 않는 고급 옵션(항상 NULL 또는 0)
-        D3D_COMPILE_STANDARD_FILE_INCLUDE, // 헤더파일 인클루드  
+        D3D_COMPILE_STANDARD_FILE_INCLUDE, // 헤더파일 Include
         pMainName,                         // 진입점 함수 이름
         "vs_5_0",                          // 타깃: 버텍스 셰이더, 셰이더 모델 5.0
         iFlags,                            // 컴파일 옵션
