@@ -1,0 +1,1733 @@
+# LevelManager/GameplayUICanvas/Tabs/ViewArea/InventoryView
+# a[anchorMin]-[anchorMax] pos=anchoredPosition size=sizeDelta pv=pivot  (유니티 UI 좌표, y-up, 단위 = 캔버스 픽셀)
+
+(off) InventoryView  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, -60.0] size[0.0, -120.0] pv[0.5, 0.5]
+    · Image[none Simple #FFFFFF00]
+    · FadeGroup
+    · InventoryView
+    · CloseViewOnPointerClick
+  Content  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 45.0] size[-160.0, -150.0] pv[0.5, 0.5]
+      · CanvasGroup[alpha=1.0]
+      · CanvasGroupFade
+    ShortcutEditor  a[0.0, 0.0]-[1.0, 0.0] pos[0.0, 0.0] size[-2290.0, 176.76] pv[0.5, 0.0]
+        · LayoutElement[FlexibleWidth=1.0]
+        · ItemShortcutEditorPanel
+        · VerticalLayout[spacing=8.0 pad(L8 R8 T8 B8) align=1 ctrl(w1 h1) expand(w0 h0)]
+        · ContentSizeFitter[h=2 v=0]
+        · TranslucentImage[블러 배경 #325978FF vibrancy=1.0 brightness=0.0 flatten=0.299]
+        · TrueShadow[drop size=8.0 spread=0.0 #00000099 angle=45.0 dist=8.0 blend=0]
+        · ContentSizeFitter[h=2 v=0]
+      Text (TMP)  a[0.0, 1.0]-[0.0, 1.0] pos[49.69, -21.38] size[99.37, 42.76] pv[0.5, 0.5]
+          · Text["将物品拖动到栏位内以设置快捷栏" size=24.0 #FFFFFF80 font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=512 autoSize=1]
+          · TextLocalizor[UI_Loot_QuickMenu_Instruction]
+      Layout  a[0.0, 1.0]-[0.0, 1.0] pos[55.0, -97.76] size[110.0, 110.0] pv[0.5, 0.5]
+          · LayoutElement[FlexibleWidth=1.0]
+          · HorizontalLayout[spacing=16.0 pad(L0 R0 T0 B0) align=0 ctrl(w1 h1) expand(w0 h0)]
+        Entry  a[0.0, 1.0]-[0.0, 1.0] pos[55.0, -55.0] size[110.0, 110.0] pv[0.5, 0.5]
+            · ItemShortcutEditorEntry
+            · Image[none Simple #FFFFFF00]
+            · LayoutElement[PreferredWidth=110.0 PreferredHeight=110.0]
+          Hovering  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+              · ProceduralImage[filled #FFFFFF0D falloff=1.0]
+              ·   └ 모서리 radius=16.0
+          ItemDisplay  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+              · ItemDisplay
+              · Image[none Simple #FFFFFF00]
+            BG  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                · ProceduralImage[filled #00000033 falloff=1.0]
+                ·   └ 모서리 radius=16.0
+            Frame  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                · ProceduralImage[outline 2px #FFFFFF4C falloff=1.0]
+                ·   └ 모서리 radius=16.0
+            SelectionIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                · ProceduralImage[outline 3px #FF9E3AFF falloff=1.0]
+                ·   └ 모서리 radius=16.0
+                · TrueShadow[drop size=8.0 spread=0.0 #00000099 angle=45.0 dist=2.0 blend=0]
+                · ProceduralImageHashProvider
+            Icon  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                · Image[Sprite:scissors Simple #FFFFFFFF preserveAspect]
+                · TrueShadow[drop size=3.0 spread=0.5 #000000B8 angle=42.2737 dist=8.0 blend=0]
+            DurabilityZeroIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                · ProceduralImage[filled #FF000033 falloff=1.0]
+                ·   └ 모서리 radius=16.0
+            SlotIndicators  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                · HorizontalLayout[spacing=2.0 pad(L0 R0 T0 B0) align=0 ctrl(w1 h1) expand(w0 h0)]
+              SlotIndicator  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                  · SlotIndicator
+                  · ProceduralImage[filled #000000FF falloff=1.0]
+                  ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                  · LayoutElement[PreferredWidth=12.0 PreferredHeight=12.0]
+                  · TrueShadow[drop size=1.0 spread=0.0 #FFFFFFFF angle=90.0 dist=0.0 blend=0]
+                HasItem  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-6.0, -6.0] pv[0.5, 0.5]
+                    · ProceduralImage[filled #FFFFFFFF falloff=1.0]
+                    ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                    · LayoutElement[PreferredWidth=12.0 PreferredHeight=12.0]
+            WishlistInfo  a[1.0, 1.0]-[1.0, 1.0] pos[0.0, 0.0] size[72.0, 24.0] pv[1.0, 1.0]
+                · HorizontalLayout[spacing=0.0 pad(L0 R0 T0 B0) align=2 ctrl(w1 h1) expand(w0 h0)]
+              Wishlisted  a[0.0, 1.0]-[0.0, 1.0] pos[12.0, -12.0] size[24.0, 24.0] pv[0.5, 0.5]
+                  · Image[Sprite:heart Simple #F85566FF]
+                  · TrueShadow[drop size=2.0 spread=0.0 #FFFFFF99 angle=90.0 dist=0.0 blend=0]
+                  · LayoutElement[PreferredWidth=24.0 PreferredHeight=24.0]
+              BuildingRequired  a[0.0, 1.0]-[0.0, 1.0] pos[36.0, -12.0] size[24.0, 24.0] pv[0.5, 0.5]
+                  · Image[Sprite:Tools Simple #C2FF99FF]
+                  · TrueShadow[drop size=2.0 spread=0.0 #FFFFFF99 angle=90.0 dist=0.0 blend=0]
+                  · LayoutElement[PreferredWidth=24.0 PreferredHeight=24.0]
+              QuestRequired  a[0.0, 1.0]-[0.0, 1.0] pos[60.0, -12.0] size[24.0, 24.0] pv[0.5, 0.5]
+                  · Image[Sprite:priority_high_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48 Simple #FFE999FF]
+                  · TrueShadow[drop size=2.0 spread=0.0 #FFFFFF99 angle=90.0 dist=0.0 blend=0]
+                  · LayoutElement[PreferredWidth=24.0 PreferredHeight=24.0]
+            InspectioningIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+              Stripes  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                  · ProceduralImage[filled #666666BF falloff=1.0]
+                  ·   └ 모서리 radius=16.0
+              Magnifier  a[0.5, 0.5]-[0.5, 0.5] pos[0.0, 8.0] size[40.0, 40.0] pv[0.5, 0.5]
+                  · Image[Sprite:PictoIcon_Magnifier Simple #FFFFFFFF]
+                  · Revolver
+                  · TrueShadow[drop size=6.0 spread=0.0 #00000099 angle=90.0 dist=3.0 blend=0]
+            Layout  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                · VerticalLayout[spacing=0.0 pad(L0 R0 T0 B0) align=8 ctrl(w1 h1) expand(w0 h0)]
+              DurabilityContainer  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[1.0, 1.0]
+                  · ProceduralImage[filled #414141FF falloff=1.0]
+                  ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                  · LayoutElement[PreferredWidth=40.0 PreferredHeight=12.0]
+                Fill  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-8.0, -8.0] pv[0.5, 0.5]
+                    · ProceduralImage[filled #CCED98FF falloff=1.0 fill=0.745 method=0 origin=0]
+                    ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                Loss  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-8.0, -8.0] pv[0.5, 0.5]
+                    · ProceduralImage[filled #D04F6DFF falloff=1.0 fill=0.745 method=0 origin=1]
+                    ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+              CountContainer  a[0.0, 1.0]-[0.0, 1.0] pos[110.0, -65.66] size[34.2, 26.97] pv[1.0, 1.0]
+                  · ContentSizeFitter[h=2 v=2]
+                  · HorizontalLayout[spacing=0.0 pad(L5 R5 T-2 B0) align=8 ctrl(w1 h1) expand(w0 h0)]
+                  · ProceduralImage[filled #585F66FF falloff=1.0]
+                  ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                Count  a[0.0, 1.0]-[0.0, 1.0] pos[17.1, -12.48] size[24.2, 28.97] pv[0.5, 0.5]
+                    · Text["64\n" size=16.0 #F8F2EAFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=512 autoSize=1]
+              NameContainer  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.0]
+                  · ProceduralImage[filled #000000BF falloff=1.0]
+                  ·   └ 모서리 radius=4.0
+                  · HorizontalLayout[spacing=0.0 pad(L4 R4 T0 B0) align=0 ctrl(w1 h1) expand(w0 h0)]
+                Text (TMP)  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                    · Text["物品名称" size=16.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=512 autoSize=0]
+          InputIndicator  a[0.5, 0.0]-[0.5, 0.0] pos[0.0, 0.0] size[32.0, 32.0] pv[0.5, 1.0]
+              · InputIndicator
+              · HorizontalLayout[spacing=0.0 pad(L0 R0 T0 B0) align=4 ctrl(w1 h1) expand(w0 h0)]
+            TextContainer  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                · HorizontalLayout[spacing=0.0 pad(L12 R12 T4 B4) align=4 ctrl(w1 h1) expand(w0 h0)]
+                · ProceduralImage[filled #FFFFFFC8 falloff=1.0]
+                ·   └ 모서리 radius=10.0
+                · TrueShadow[drop size=3.0 spread=0.0 #000000CC angle=90.0 dist=2.0 blend=0]
+                · Shadow[#7E878CFF 0x-4]
+              Text (TMP)  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                  · Text["" size=20.0 #1E272EFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=512 autoSize=0]
+            (off) Icon  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                · Image[Sprite:Kenney_Stick_L Simple #FFFFFFFF preserveAspect]
+                · LayoutElement[FlexibleWidth=1.0 FlexibleHeight=1.0]
+    EquipmentAndInventory  a[0.0, 0.0]-[0.0, 1.0] pos[0.0, 0.0] size[588.0, 0.0] pv[0.0, 0.5]
+      Title  a[0.0, 1.0]-[1.0, 1.0] pos[0.0, 0.0] size[-10.0, 74.0] pv[0.5, 1.0]
+          · HorizontalLayout[spacing=20.0 pad(L0 R0 T0 B0) align=6 ctrl(w1 h1) expand(w0 h0)]
+          · LayoutElement[FlexibleWidth=1.0]
+          · RectTransformFade
+        ButtonContainer  a[0.0, 1.0]-[0.0, 1.0] pos[29.0, -45.0] size[58.0, 58.0] pv[0.5, 0.5]
+            · LayoutElement[PreferredWidth=58.0 PreferredHeight=58.0]
+          ExitButton  a[0.5, 0.5]-[0.5, 0.5] pos[0.0, 0.0] size[103.8, 103.8] pv[0.5, 0.5]
+              · ProceduralImage[filled #FFFFFF00 falloff=1.0]
+              ·   └ 모서리 radius=0.0
+              · LayoutElement[PreferredWidth=58.0 PreferredHeight=58.0]
+              · Button
+              · PointerDownUpEvents
+              · PunchReceiver
+            Graphics  a[0.5, 0.5]-[0.5, 0.5] pos[-0.0, 0.0] size[70.0, 70.0] pv[0.5, 0.5]
+                · ProceduralImage[filled #181818D4 falloff=1.0]
+                ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                · TrueShadow[drop size=10.0 spread=0.0 #FF6B6B7F angle=45.0 dist=0.0 blend=0]
+              Icon  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-32.0, -32.0] pv[0.5, 0.5]
+                  · Image[Sprite:pictoicon_arrow_line_prev Simple #FFF1DAFF preserveAspect]
+                  · TrueShadow[drop size=3.0 spread=0.0 #FFFFFF41 angle=45.0 dist=4.01 blend=0]
+            (off) Frame  a[0.0, 0.0]-[1.0, 1.0] pos[-0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                · ProceduralImage[outline 2px #FFF1DAFF falloff=1.0]
+                ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+        Space  a[0.0, 1.0]-[0.0, 1.0] pos[187.67, -74.0] size[219.33, 0.0] pv[0.5, 0.5]
+            · LayoutElement[FlexibleWidth=1.0]
+        MoneyDisplay  a[0.0, 1.0]-[0.0, 1.0] pos[317.33, -14.0] size[260.67, 60.0] pv[0.0, 1.0]
+            · HorizontalLayout[spacing=4.0 pad(L0 R0 T0 B0) align=3 ctrl(w1 h1) expand(w0 h0)]
+            · MoneyDisplay
+            · ContextualMoneyAndCash
+          Money  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+              · TranslucentImage[블러 배경 #5491B7FF vibrancy=1.0 brightness=0.0 flatten=0.15]
+              · HorizontalLayout[spacing=0.0 pad(L16 R16 T0 B0) align=3 ctrl(w1 h1) expand(w0 h0)]
+            Image  a[0.0, 1.0]-[0.0, 1.0] pos[30.0, -30.0] size[60.0, 60.0] pv[0.5, 0.5]
+                · Image[Sprite:Cash Simple #FFFFFFFF preserveAspect]
+                · LayoutElement[PreferredWidth=60.0 PreferredHeight=60.0]
+                · TrueShadow[drop size=5.0 spread=0.0 #000000D0 angle=45.0 dist=3.0 blend=0]
+            Text  a[0.0, 1.0]-[0.0, 1.0] pos[152.33, -30.0] size[184.67, 52.13] pv[0.5, 0.5]
+                · Text["123456789" size=36.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=8192 autoSize=1]
+          CashDisplay  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[1.0, 1.0]
+              · HorizontalLayout[spacing=4.0 pad(L16 R16 T0 B0) align=3 ctrl(w1 h1) expand(w0 h0)]
+              · CashDisplay
+            Image_1  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                · LayoutElement[IgnoreLayout=1]
+                · TranslucentImage[블러 배경 #5491B7FF vibrancy=1.0 brightness=0.0 flatten=0.15]
+            Image  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                · Image[Sprite:Banknote Simple #FFFFFFFF preserveAspect]
+                · LayoutElement[PreferredWidth=60.0 PreferredHeight=60.0]
+                · TrueShadow[drop size=5.0 spread=0.0 #000000D0 angle=45.0 dist=3.0 blend=0]
+            Text  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                · Text["123456789" size=17.5 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=8192 autoSize=1]
+        (off) Text (TMP)  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+            · Text["你的东西" size=34.9 #F8F2EAFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=4 vAlign=512 autoSize=1]
+      Content  a[0.0, 0.0]-[0.0, 1.0] pos[5.0, -84.0] size[578.0, -1012.48] pv[0.0, 1.0]
+          · TranslucentImage[블러 배경 #000000FF vibrancy=1.0 brightness=0.0 flatten=0.299]
+          · TrueShadow[drop size=8.0 spread=0.0 #00000099 angle=45.0 dist=8.0 blend=0]
+          · RectTransformFade
+          · ContentSizeFitter[h=0 v=2]
+          · VerticalLayout[spacing=0.0 pad(L8 R8 T8 B8) align=0 ctrl(w1 h1) expand(w0 h0)]
+        Scroll View  a[0.0, 1.0]-[0.0, 1.0] pos[289.0, -78.76] size[562.0, 141.52] pv[0.5, 0.5]
+            · ScrollRect[h=0 v=1]
+            · ScrollViewBorderFrame
+            · ScrollViewMaxHeight
+            · LayoutElement[FlexibleWidth=1.0]
+          Viewport  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.0, 1.0]
+              · ProceduralImage[filled #FFFFFFFF falloff=1.0]
+              ·   └ 모서리 radius=16.0
+              · Mask
+            Content  a[0.0, 1.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 141.52] pv[0.0, 1.0]
+                · VerticalLayout[spacing=0.0 pad(L0 R0 T10 B0) align=0 ctrl(w1 h1) expand(w0 h0)]
+                · ContentSizeFitter[h=0 v=2]
+                · RectTransformChangeEventEmitter
+              TitleBar  a[0.0, 1.0]-[0.0, 1.0] pos[281.0, -32.38] size[562.0, 44.76] pv[0.5, 0.5]
+                  · HorizontalLayout[spacing=0.0 pad(L20 R0 T5 B5) align=0 ctrl(w1 h1) expand(w0 h0)]
+                  · LayoutElement[FlexibleWidth=1.0]
+                  · Image[Sprite:Rect16 Sliced #00000089]
+                TitleBar  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                    · HorizontalLayout[spacing=0.0 pad(L20 R0 T5 B5) align=0 ctrl(w1 h1) expand(w0 h0)]
+                    · LayoutElement[IgnoreLayout=1 FlexibleWidth=1.0]
+                    · Image[Sprite:Rect16 Sliced #0000002D mat=Material:RollingStripes_InventoryTitleBar]
+                Text (TMP)  a[0.0, 1.0]-[0.0, 1.0] pos[44.85, -22.38] size[49.69, 34.76] pv[0.5, 0.5]
+                    · Text["装备" size=24.0 #FFFFFF80 font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=512 autoSize=1]
+                    · TextLocalizor[UI_Loot_Equipment]
+              ItemSlotsDisplay  a[0.0, 1.0]-[0.0, 1.0] pos[281.0, -60.76] size[562.0, 12.0] pv[0.5, 0.5]
+                  · VerticalLayout[spacing=0.0 pad(L0 R0 T0 B0) align=0 ctrl(w1 h1) expand(w0 h0)]
+                  · ItemSlotCollectionDisplay
+                NotEditableIndicator  a[0.5, 1.0]-[0.5, 1.0] pos[0.0, 8.0] size[392.01, 68.13] pv[0.5, 0.0]
+                    · Image[Sprite:Rect16 Sliced #F85566FF]
+                    · LayoutElement[IgnoreLayout=1]
+                    · HorizontalLayout[spacing=0.0 pad(L16 R16 T8 B8) align=0 ctrl(w1 h1) expand(w0 h0)]
+                    · ContentSizeFitter[h=2 v=2]
+                    · CanvasGroup[alpha=0.0]
+                  Text (TMP)  a[0.0, 1.0]-[0.0, 1.0] pos[196.01, -34.07] size[360.01, 52.13] pv[0.5, 0.5]
+                      · Text["需要在工作台进行改装" size=36.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=256 autoSize=0]
+                      · TextLocalizor[UI_WorkbenchRequired]
+                GridLayout  a[0.0, 1.0]-[0.0, 1.0] pos[281.0, -6.0] size[562.0, 12.0] pv[0.5, 0.5]
+                    · Grid[cell=90x120 spacing=25x8 pad(L0 R0 T16 B4) constraint=0:4 startCorner=0 startAxis=0 align=1]
+                    · LayoutElement[FlexibleWidth=1.0]
+                  (off) SlotDisplay  a[0.0, 1.0]-[0.0, 1.0] pos[78.5, -91.0] size[110.0, 150.0] pv[0.5, 0.5]
+                      · SlotDisplay
+                      · VerticalLayout[spacing=2.0 pad(L0 R0 T0 B0) align=1 ctrl(w1 h1) expand(w0 h0)]
+                      · Image[none Simple #FFFFFF00]
+                    ItemDisplayContainer  a[0.0, 1.0]-[0.0, 1.0] pos[55.0, -54.27] size[110.0, 108.53] pv[0.5, 0.5]
+                        · LayoutElement[PreferredWidth=110.0 PreferredHeight=110.0]
+                      Hovering  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · ProceduralImage[filled #FFFFFF0D falloff=1.0]
+                          ·   └ 모서리 radius=16.0
+                      BG  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · ProceduralImage[filled #00000033 falloff=1.0]
+                          ·   └ 모서리 radius=16.0
+                      SlotIcon  a[0.5, 0.5]-[0.5, 0.5] pos[0.0, 0.0] size[60.0, 60.0] pv[0.5, 0.5]
+                          · Image[Sprite:minus Simple #FFFFFF33 preserveAspect]
+                          · LayoutElement[PreferredWidth=30.0 PreferredHeight=30.0]
+                      PluggableIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-4.0, -4.0] pv[0.5, 0.5]
+                          · ProceduralImage[outline 2.5px #FFFFFFFF falloff=1.0]
+                          ·   └ 모서리 radius=16.0
+                          · CanvasGroup[alpha=1.0]
+                          · CanvasGroupFade
+                          · FadeGroup
+                        Glow  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · ProceduralImage[filled #79FF7500 falloff=1.0]
+                            ·   └ 모서리 radius=16.0
+                            · TrueShadow[inset(안쪽 글로우) size=17.85 spread=0.0 #79FF9EFF angle=90.0 dist=0.0 blend=1]
+                            · ProceduralImageHashProvider
+                      ItemDisplay  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · ItemDisplay
+                          · Image[none Simple #FFFFFF00]
+                        BG  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · ProceduralImage[filled #00000033 falloff=1.0]
+                            ·   └ 모서리 radius=16.0
+                        Frame  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · ProceduralImage[outline 2px #FFFFFF4C falloff=1.0]
+                            ·   └ 모서리 radius=16.0
+                        SelectionIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · ProceduralImage[outline 3px #FF9E3AFF falloff=1.0]
+                            ·   └ 모서리 radius=16.0
+                            · TrueShadow[drop size=8.0 spread=0.0 #00000099 angle=45.0 dist=2.0 blend=0]
+                            · ProceduralImageHashProvider
+                        Icon  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · Image[Sprite:scissors Simple #FFFFFFFF preserveAspect]
+                            · TrueShadow[drop size=3.0 spread=0.5 #000000B8 angle=42.2737 dist=8.0 blend=0]
+                        (off) DurabilityZeroIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · ProceduralImage[filled #FF000033 falloff=1.0]
+                            ·   └ 모서리 radius=16.0
+                        SlotIndicators  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · HorizontalLayout[spacing=2.0 pad(L0 R0 T0 B0) align=0 ctrl(w1 h1) expand(w0 h0)]
+                          SlotIndicator  a[0.0, 1.0]-[0.0, 1.0] pos[6.0, -6.0] size[12.0, 12.0] pv[0.5, 0.5]
+                              · SlotIndicator
+                              · ProceduralImage[filled #000000FF falloff=1.0]
+                              ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                              · LayoutElement[PreferredWidth=12.0 PreferredHeight=12.0]
+                              · TrueShadow[drop size=1.0 spread=0.0 #FFFFFFFF angle=90.0 dist=0.0 blend=0]
+                            HasItem  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-6.0, -6.0] pv[0.5, 0.5]
+                                · ProceduralImage[filled #FFFFFFFF falloff=1.0]
+                                ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                                · LayoutElement[PreferredWidth=12.0 PreferredHeight=12.0]
+                        WishlistInfo  a[1.0, 1.0]-[1.0, 1.0] pos[0.0, 0.0] size[72.0, 24.0] pv[1.0, 1.0]
+                            · HorizontalLayout[spacing=0.0 pad(L0 R0 T0 B0) align=2 ctrl(w1 h1) expand(w0 h0)]
+                          Wishlisted  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                              · Image[Sprite:heart Simple #F85566FF]
+                              · TrueShadow[drop size=2.0 spread=0.0 #FFFFFF99 angle=90.0 dist=0.0 blend=0]
+                              · LayoutElement[PreferredWidth=24.0 PreferredHeight=24.0]
+                          BuildingRequired  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                              · Image[Sprite:Tools Simple #C2FF99FF]
+                              · TrueShadow[drop size=2.0 spread=0.0 #FFFFFF99 angle=90.0 dist=0.0 blend=0]
+                              · LayoutElement[PreferredWidth=24.0 PreferredHeight=24.0]
+                          QuestRequired  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                              · Image[Sprite:priority_high_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48 Simple #FFE999FF]
+                              · TrueShadow[drop size=2.0 spread=0.0 #FFFFFF99 angle=90.0 dist=0.0 blend=0]
+                              · LayoutElement[PreferredWidth=24.0 PreferredHeight=24.0]
+                        (off) InspectioningIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          Stripes  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                              · ProceduralImage[filled #666666BF falloff=1.0]
+                              ·   └ 모서리 radius=16.0
+                          Magnifier  a[0.5, 0.5]-[0.5, 0.5] pos[0.0, 8.0] size[40.0, 40.0] pv[0.5, 0.5]
+                              · Image[Sprite:PictoIcon_Magnifier Simple #FFFFFFFF]
+                              · Revolver
+                              · TrueShadow[drop size=6.0 spread=0.0 #00000099 angle=90.0 dist=3.0 blend=0]
+                        Layout  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · VerticalLayout[spacing=0.0 pad(L0 R0 T0 B0) align=8 ctrl(w1 h1) expand(w0 h0)]
+                          DurabilityContainer  a[0.0, 1.0]-[0.0, 1.0] pos[90.0, -30.19] size[40.0, 12.0] pv[1.0, 1.0]
+                              · ProceduralImage[filled #414141FF falloff=1.0]
+                              ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                              · LayoutElement[PreferredWidth=40.0 PreferredHeight=12.0]
+                            Fill  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-8.0, -8.0] pv[0.5, 0.5]
+                                · ProceduralImage[filled #CCED98FF falloff=1.0 fill=0.745 method=0 origin=0]
+                                ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                            Loss  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-8.0, -8.0] pv[0.5, 0.5]
+                                · ProceduralImage[filled #D04F6DFF falloff=1.0 fill=0.745 method=0 origin=1]
+                                ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                          CountContainer  a[0.0, 1.0]-[0.0, 1.0] pos[90.0, -42.19] size[29.36, 21.17] pv[1.0, 1.0]
+                              · ContentSizeFitter[h=2 v=2]
+                              · HorizontalLayout[spacing=0.0 pad(L5 R5 T-2 B0) align=8 ctrl(w1 h1) expand(w0 h0)]
+                              · ProceduralImage[filled #585F66FF falloff=1.0]
+                              ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                            Count  a[0.0, 1.0]-[0.0, 1.0] pos[14.68, -9.59] size[19.36, 23.17] pv[0.5, 0.5]
+                                · Text["64\n" size=16.0 #F8F2EAFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=512 autoSize=1]
+                          NameContainer  a[0.0, 1.0]-[0.0, 1.0] pos[53.99, -86.53] size[18.01, 23.17] pv[0.5, 0.0]
+                              · ProceduralImage[filled #000000BF falloff=1.0]
+                              ·   └ 모서리 radius=4.0
+                              · HorizontalLayout[spacing=0.0 pad(L4 R4 T0 B0) align=0 ctrl(w1 h1) expand(w0 h0)]
+                            Text (TMP)  a[0.0, 1.0]-[0.0, 1.0] pos[64.01, -16.0] size[96.01, 32.0] pv[0.5, 0.5]
+                                · Text["物品名称" size=16.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=512 autoSize=0]
+                    LabelContainer  a[0.0, 1.0]-[0.0, 1.0] pos[55.0, -130.27] size[110.0, 39.47] pv[0.5, 0.5]
+                        · LayoutElement[PreferredHeight=40.0 FlexibleWidth=1.0]
+                      Label  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · Text["Freno de boca" size=13.15 #F8F2EAFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=256 autoSize=1]
+                  (off) SlotDisplay (1)  a[0.0, 1.0]-[0.0, 1.0] pos[213.5, -91.0] size[110.0, 150.0] pv[0.5, 0.5]
+                      · SlotDisplay
+                      · VerticalLayout[spacing=2.0 pad(L0 R0 T0 B0) align=1 ctrl(w1 h1) expand(w0 h0)]
+                      · Image[none Simple #FFFFFF00]
+                    ItemDisplayContainer  a[0.0, 1.0]-[0.0, 1.0] pos[55.0, -54.27] size[110.0, 108.53] pv[0.5, 0.5]
+                        · LayoutElement[PreferredWidth=110.0 PreferredHeight=110.0]
+                      Hovering  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · ProceduralImage[filled #FFFFFF0D falloff=1.0]
+                          ·   └ 모서리 radius=16.0
+                      BG  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · ProceduralImage[filled #00000033 falloff=1.0]
+                          ·   └ 모서리 radius=16.0
+                      SlotIcon  a[0.5, 0.5]-[0.5, 0.5] pos[0.0, 0.0] size[60.0, 60.0] pv[0.5, 0.5]
+                          · Image[Sprite:minus Simple #FFFFFF33 preserveAspect]
+                          · LayoutElement[PreferredWidth=30.0 PreferredHeight=30.0]
+                      PluggableIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-4.0, -4.0] pv[0.5, 0.5]
+                          · ProceduralImage[outline 2.5px #FFFFFFFF falloff=1.0]
+                          ·   └ 모서리 radius=16.0
+                          · CanvasGroup[alpha=1.0]
+                          · CanvasGroupFade
+                          · FadeGroup
+                        Glow  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · ProceduralImage[filled #79FF7500 falloff=1.0]
+                            ·   └ 모서리 radius=16.0
+                            · TrueShadow[inset(안쪽 글로우) size=17.85 spread=0.0 #79FF9EFF angle=90.0 dist=0.0 blend=1]
+                            · ProceduralImageHashProvider
+                      ItemDisplay  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · ItemDisplay
+                          · Image[none Simple #FFFFFF00]
+                        BG  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · ProceduralImage[filled #00000033 falloff=1.0]
+                            ·   └ 모서리 radius=16.0
+                        Frame  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · ProceduralImage[outline 2px #FFFFFF4C falloff=1.0]
+                            ·   └ 모서리 radius=16.0
+                        SelectionIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · ProceduralImage[outline 3px #FF9E3AFF falloff=1.0]
+                            ·   └ 모서리 radius=16.0
+                            · TrueShadow[drop size=8.0 spread=0.0 #00000099 angle=45.0 dist=2.0 blend=0]
+                            · ProceduralImageHashProvider
+                        Icon  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · Image[Sprite:scissors Simple #FFFFFFFF preserveAspect]
+                            · TrueShadow[drop size=3.0 spread=0.5 #000000B8 angle=42.2737 dist=8.0 blend=0]
+                        (off) DurabilityZeroIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · ProceduralImage[filled #FF000033 falloff=1.0]
+                            ·   └ 모서리 radius=16.0
+                        SlotIndicators  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · HorizontalLayout[spacing=2.0 pad(L0 R0 T0 B0) align=0 ctrl(w1 h1) expand(w0 h0)]
+                          SlotIndicator  a[0.0, 1.0]-[0.0, 1.0] pos[6.0, -6.0] size[12.0, 12.0] pv[0.5, 0.5]
+                              · SlotIndicator
+                              · ProceduralImage[filled #000000FF falloff=1.0]
+                              ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                              · LayoutElement[PreferredWidth=12.0 PreferredHeight=12.0]
+                              · TrueShadow[drop size=1.0 spread=0.0 #FFFFFFFF angle=90.0 dist=0.0 blend=0]
+                            HasItem  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-6.0, -6.0] pv[0.5, 0.5]
+                                · ProceduralImage[filled #FFFFFFFF falloff=1.0]
+                                ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                                · LayoutElement[PreferredWidth=12.0 PreferredHeight=12.0]
+                        WishlistInfo  a[1.0, 1.0]-[1.0, 1.0] pos[0.0, 0.0] size[72.0, 24.0] pv[1.0, 1.0]
+                            · HorizontalLayout[spacing=0.0 pad(L0 R0 T0 B0) align=2 ctrl(w1 h1) expand(w0 h0)]
+                          Wishlisted  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                              · Image[Sprite:heart Simple #F85566FF]
+                              · TrueShadow[drop size=2.0 spread=0.0 #FFFFFF99 angle=90.0 dist=0.0 blend=0]
+                              · LayoutElement[PreferredWidth=24.0 PreferredHeight=24.0]
+                          BuildingRequired  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                              · Image[Sprite:Tools Simple #C2FF99FF]
+                              · TrueShadow[drop size=2.0 spread=0.0 #FFFFFF99 angle=90.0 dist=0.0 blend=0]
+                              · LayoutElement[PreferredWidth=24.0 PreferredHeight=24.0]
+                          QuestRequired  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                              · Image[Sprite:priority_high_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48 Simple #FFE999FF]
+                              · TrueShadow[drop size=2.0 spread=0.0 #FFFFFF99 angle=90.0 dist=0.0 blend=0]
+                              · LayoutElement[PreferredWidth=24.0 PreferredHeight=24.0]
+                        (off) InspectioningIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          Stripes  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                              · ProceduralImage[filled #666666BF falloff=1.0]
+                              ·   └ 모서리 radius=16.0
+                          Magnifier  a[0.5, 0.5]-[0.5, 0.5] pos[0.0, 8.0] size[40.0, 40.0] pv[0.5, 0.5]
+                              · Image[Sprite:PictoIcon_Magnifier Simple #FFFFFFFF]
+                              · Revolver
+                              · TrueShadow[drop size=6.0 spread=0.0 #00000099 angle=90.0 dist=3.0 blend=0]
+                        Layout  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · VerticalLayout[spacing=0.0 pad(L0 R0 T0 B0) align=8 ctrl(w1 h1) expand(w0 h0)]
+                          DurabilityContainer  a[0.0, 1.0]-[0.0, 1.0] pos[90.0, -30.19] size[40.0, 12.0] pv[1.0, 1.0]
+                              · ProceduralImage[filled #414141FF falloff=1.0]
+                              ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                              · LayoutElement[PreferredWidth=40.0 PreferredHeight=12.0]
+                            Fill  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-8.0, -8.0] pv[0.5, 0.5]
+                                · ProceduralImage[filled #CCED98FF falloff=1.0 fill=0.745 method=0 origin=0]
+                                ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                            Loss  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-8.0, -8.0] pv[0.5, 0.5]
+                                · ProceduralImage[filled #D04F6DFF falloff=1.0 fill=0.745 method=0 origin=1]
+                                ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                          CountContainer  a[0.0, 1.0]-[0.0, 1.0] pos[90.0, -42.19] size[29.36, 21.17] pv[1.0, 1.0]
+                              · ContentSizeFitter[h=2 v=2]
+                              · HorizontalLayout[spacing=0.0 pad(L5 R5 T-2 B0) align=8 ctrl(w1 h1) expand(w0 h0)]
+                              · ProceduralImage[filled #585F66FF falloff=1.0]
+                              ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                            Count  a[0.0, 1.0]-[0.0, 1.0] pos[14.68, -9.59] size[19.36, 23.17] pv[0.5, 0.5]
+                                · Text["64\n" size=16.0 #F8F2EAFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=512 autoSize=1]
+                          NameContainer  a[0.0, 1.0]-[0.0, 1.0] pos[53.99, -86.53] size[18.01, 23.17] pv[0.5, 0.0]
+                              · ProceduralImage[filled #000000BF falloff=1.0]
+                              ·   └ 모서리 radius=4.0
+                              · HorizontalLayout[spacing=0.0 pad(L4 R4 T0 B0) align=0 ctrl(w1 h1) expand(w0 h0)]
+                            Text (TMP)  a[0.0, 1.0]-[0.0, 1.0] pos[64.01, -16.0] size[96.01, 32.0] pv[0.5, 0.5]
+                                · Text["物品名称" size=16.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=512 autoSize=0]
+                    LabelContainer  a[0.0, 1.0]-[0.0, 1.0] pos[55.0, -130.27] size[110.0, 39.47] pv[0.5, 0.5]
+                        · LayoutElement[PreferredHeight=40.0 FlexibleWidth=1.0]
+                      Label  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · Text["Freno de boca" size=13.15 #F8F2EAFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=256 autoSize=1]
+                  (off) SlotDisplay (2)  a[0.0, 1.0]-[0.0, 1.0] pos[348.5, -91.0] size[110.0, 150.0] pv[0.5, 0.5]
+                      · SlotDisplay
+                      · VerticalLayout[spacing=2.0 pad(L0 R0 T0 B0) align=1 ctrl(w1 h1) expand(w0 h0)]
+                      · Image[none Simple #FFFFFF00]
+                    ItemDisplayContainer  a[0.0, 1.0]-[0.0, 1.0] pos[55.0, -54.27] size[110.0, 108.53] pv[0.5, 0.5]
+                        · LayoutElement[PreferredWidth=110.0 PreferredHeight=110.0]
+                      Hovering  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · ProceduralImage[filled #FFFFFF0D falloff=1.0]
+                          ·   └ 모서리 radius=16.0
+                      BG  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · ProceduralImage[filled #00000033 falloff=1.0]
+                          ·   └ 모서리 radius=16.0
+                      SlotIcon  a[0.5, 0.5]-[0.5, 0.5] pos[0.0, 0.0] size[60.0, 60.0] pv[0.5, 0.5]
+                          · Image[Sprite:minus Simple #FFFFFF33 preserveAspect]
+                          · LayoutElement[PreferredWidth=30.0 PreferredHeight=30.0]
+                      PluggableIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-4.0, -4.0] pv[0.5, 0.5]
+                          · ProceduralImage[outline 2.5px #FFFFFFFF falloff=1.0]
+                          ·   └ 모서리 radius=16.0
+                          · CanvasGroup[alpha=1.0]
+                          · CanvasGroupFade
+                          · FadeGroup
+                        Glow  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · ProceduralImage[filled #79FF7500 falloff=1.0]
+                            ·   └ 모서리 radius=16.0
+                            · TrueShadow[inset(안쪽 글로우) size=17.85 spread=0.0 #79FF9EFF angle=90.0 dist=0.0 blend=1]
+                            · ProceduralImageHashProvider
+                      ItemDisplay  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · ItemDisplay
+                          · Image[none Simple #FFFFFF00]
+                        BG  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · ProceduralImage[filled #00000033 falloff=1.0]
+                            ·   └ 모서리 radius=16.0
+                        Frame  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · ProceduralImage[outline 2px #FFFFFF4C falloff=1.0]
+                            ·   └ 모서리 radius=16.0
+                        SelectionIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · ProceduralImage[outline 3px #FF9E3AFF falloff=1.0]
+                            ·   └ 모서리 radius=16.0
+                            · TrueShadow[drop size=8.0 spread=0.0 #00000099 angle=45.0 dist=2.0 blend=0]
+                            · ProceduralImageHashProvider
+                        Icon  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · Image[Sprite:scissors Simple #FFFFFFFF preserveAspect]
+                            · TrueShadow[drop size=3.0 spread=0.5 #000000B8 angle=42.2737 dist=8.0 blend=0]
+                        (off) DurabilityZeroIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · ProceduralImage[filled #FF000033 falloff=1.0]
+                            ·   └ 모서리 radius=16.0
+                        SlotIndicators  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · HorizontalLayout[spacing=2.0 pad(L0 R0 T0 B0) align=0 ctrl(w1 h1) expand(w0 h0)]
+                          SlotIndicator  a[0.0, 1.0]-[0.0, 1.0] pos[6.0, -6.0] size[12.0, 12.0] pv[0.5, 0.5]
+                              · SlotIndicator
+                              · ProceduralImage[filled #000000FF falloff=1.0]
+                              ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                              · LayoutElement[PreferredWidth=12.0 PreferredHeight=12.0]
+                              · TrueShadow[drop size=1.0 spread=0.0 #FFFFFFFF angle=90.0 dist=0.0 blend=0]
+                            HasItem  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-6.0, -6.0] pv[0.5, 0.5]
+                                · ProceduralImage[filled #FFFFFFFF falloff=1.0]
+                                ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                                · LayoutElement[PreferredWidth=12.0 PreferredHeight=12.0]
+                        WishlistInfo  a[1.0, 1.0]-[1.0, 1.0] pos[0.0, 0.0] size[72.0, 24.0] pv[1.0, 1.0]
+                            · HorizontalLayout[spacing=0.0 pad(L0 R0 T0 B0) align=2 ctrl(w1 h1) expand(w0 h0)]
+                          Wishlisted  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                              · Image[Sprite:heart Simple #F85566FF]
+                              · TrueShadow[drop size=2.0 spread=0.0 #FFFFFF99 angle=90.0 dist=0.0 blend=0]
+                              · LayoutElement[PreferredWidth=24.0 PreferredHeight=24.0]
+                          BuildingRequired  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                              · Image[Sprite:Tools Simple #C2FF99FF]
+                              · TrueShadow[drop size=2.0 spread=0.0 #FFFFFF99 angle=90.0 dist=0.0 blend=0]
+                              · LayoutElement[PreferredWidth=24.0 PreferredHeight=24.0]
+                          QuestRequired  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                              · Image[Sprite:priority_high_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48 Simple #FFE999FF]
+                              · TrueShadow[drop size=2.0 spread=0.0 #FFFFFF99 angle=90.0 dist=0.0 blend=0]
+                              · LayoutElement[PreferredWidth=24.0 PreferredHeight=24.0]
+                        (off) InspectioningIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          Stripes  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                              · ProceduralImage[filled #666666BF falloff=1.0]
+                              ·   └ 모서리 radius=16.0
+                          Magnifier  a[0.5, 0.5]-[0.5, 0.5] pos[0.0, 8.0] size[40.0, 40.0] pv[0.5, 0.5]
+                              · Image[Sprite:PictoIcon_Magnifier Simple #FFFFFFFF]
+                              · Revolver
+                              · TrueShadow[drop size=6.0 spread=0.0 #00000099 angle=90.0 dist=3.0 blend=0]
+                        Layout  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · VerticalLayout[spacing=0.0 pad(L0 R0 T0 B0) align=8 ctrl(w1 h1) expand(w0 h0)]
+                          DurabilityContainer  a[0.0, 1.0]-[0.0, 1.0] pos[90.0, -30.19] size[40.0, 12.0] pv[1.0, 1.0]
+                              · ProceduralImage[filled #414141FF falloff=1.0]
+                              ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                              · LayoutElement[PreferredWidth=40.0 PreferredHeight=12.0]
+                            Fill  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-8.0, -8.0] pv[0.5, 0.5]
+                                · ProceduralImage[filled #CCED98FF falloff=1.0 fill=0.745 method=0 origin=0]
+                                ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                            Loss  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-8.0, -8.0] pv[0.5, 0.5]
+                                · ProceduralImage[filled #D04F6DFF falloff=1.0 fill=0.745 method=0 origin=1]
+                                ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                          CountContainer  a[0.0, 1.0]-[0.0, 1.0] pos[90.0, -42.19] size[29.36, 21.17] pv[1.0, 1.0]
+                              · ContentSizeFitter[h=2 v=2]
+                              · HorizontalLayout[spacing=0.0 pad(L5 R5 T-2 B0) align=8 ctrl(w1 h1) expand(w0 h0)]
+                              · ProceduralImage[filled #585F66FF falloff=1.0]
+                              ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                            Count  a[0.0, 1.0]-[0.0, 1.0] pos[14.68, -9.59] size[19.36, 23.17] pv[0.5, 0.5]
+                                · Text["64\n" size=16.0 #F8F2EAFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=512 autoSize=1]
+                          NameContainer  a[0.0, 1.0]-[0.0, 1.0] pos[53.99, -86.53] size[18.01, 23.17] pv[0.5, 0.0]
+                              · ProceduralImage[filled #000000BF falloff=1.0]
+                              ·   └ 모서리 radius=4.0
+                              · HorizontalLayout[spacing=0.0 pad(L4 R4 T0 B0) align=0 ctrl(w1 h1) expand(w0 h0)]
+                            Text (TMP)  a[0.0, 1.0]-[0.0, 1.0] pos[64.01, -16.0] size[96.01, 32.0] pv[0.5, 0.5]
+                                · Text["物品名称" size=16.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=512 autoSize=0]
+                    LabelContainer  a[0.0, 1.0]-[0.0, 1.0] pos[55.0, -130.27] size[110.0, 39.47] pv[0.5, 0.5]
+                        · LayoutElement[PreferredHeight=40.0 FlexibleWidth=1.0]
+                      Label  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · Text["Freno de boca" size=13.15 #F8F2EAFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=256 autoSize=1]
+                  (off) SlotDisplay (3)  a[0.0, 1.0]-[0.0, 1.0] pos[483.5, -91.0] size[110.0, 150.0] pv[0.5, 0.5]
+                      · SlotDisplay
+                      · VerticalLayout[spacing=2.0 pad(L0 R0 T0 B0) align=1 ctrl(w1 h1) expand(w0 h0)]
+                      · Image[none Simple #FFFFFF00]
+                    ItemDisplayContainer  a[0.0, 1.0]-[0.0, 1.0] pos[55.0, -54.27] size[110.0, 108.53] pv[0.5, 0.5]
+                        · LayoutElement[PreferredWidth=110.0 PreferredHeight=110.0]
+                      Hovering  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · ProceduralImage[filled #FFFFFF0D falloff=1.0]
+                          ·   └ 모서리 radius=16.0
+                      BG  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · ProceduralImage[filled #00000033 falloff=1.0]
+                          ·   └ 모서리 radius=16.0
+                      SlotIcon  a[0.5, 0.5]-[0.5, 0.5] pos[0.0, 0.0] size[60.0, 60.0] pv[0.5, 0.5]
+                          · Image[Sprite:minus Simple #FFFFFF33 preserveAspect]
+                          · LayoutElement[PreferredWidth=30.0 PreferredHeight=30.0]
+                      PluggableIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-4.0, -4.0] pv[0.5, 0.5]
+                          · ProceduralImage[outline 2.5px #FFFFFFFF falloff=1.0]
+                          ·   └ 모서리 radius=16.0
+                          · CanvasGroup[alpha=1.0]
+                          · CanvasGroupFade
+                          · FadeGroup
+                        Glow  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · ProceduralImage[filled #79FF7500 falloff=1.0]
+                            ·   └ 모서리 radius=16.0
+                            · TrueShadow[inset(안쪽 글로우) size=17.85 spread=0.0 #79FF9EFF angle=90.0 dist=0.0 blend=1]
+                            · ProceduralImageHashProvider
+                      ItemDisplay  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · ItemDisplay
+                          · Image[none Simple #FFFFFF00]
+                        BG  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · ProceduralImage[filled #00000033 falloff=1.0]
+                            ·   └ 모서리 radius=16.0
+                        Frame  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · ProceduralImage[outline 2px #FFFFFF4C falloff=1.0]
+                            ·   └ 모서리 radius=16.0
+                        SelectionIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · ProceduralImage[outline 3px #FF9E3AFF falloff=1.0]
+                            ·   └ 모서리 radius=16.0
+                            · TrueShadow[drop size=8.0 spread=0.0 #00000099 angle=45.0 dist=2.0 blend=0]
+                            · ProceduralImageHashProvider
+                        Icon  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · Image[Sprite:scissors Simple #FFFFFFFF preserveAspect]
+                            · TrueShadow[drop size=3.0 spread=0.5 #000000B8 angle=42.2737 dist=8.0 blend=0]
+                        (off) DurabilityZeroIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · ProceduralImage[filled #FF000033 falloff=1.0]
+                            ·   └ 모서리 radius=16.0
+                        SlotIndicators  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · HorizontalLayout[spacing=2.0 pad(L0 R0 T0 B0) align=0 ctrl(w1 h1) expand(w0 h0)]
+                          SlotIndicator  a[0.0, 1.0]-[0.0, 1.0] pos[6.0, -6.0] size[12.0, 12.0] pv[0.5, 0.5]
+                              · SlotIndicator
+                              · ProceduralImage[filled #000000FF falloff=1.0]
+                              ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                              · LayoutElement[PreferredWidth=12.0 PreferredHeight=12.0]
+                              · TrueShadow[drop size=1.0 spread=0.0 #FFFFFFFF angle=90.0 dist=0.0 blend=0]
+                            HasItem  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-6.0, -6.0] pv[0.5, 0.5]
+                                · ProceduralImage[filled #FFFFFFFF falloff=1.0]
+                                ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                                · LayoutElement[PreferredWidth=12.0 PreferredHeight=12.0]
+                        WishlistInfo  a[1.0, 1.0]-[1.0, 1.0] pos[0.0, 0.0] size[72.0, 24.0] pv[1.0, 1.0]
+                            · HorizontalLayout[spacing=0.0 pad(L0 R0 T0 B0) align=2 ctrl(w1 h1) expand(w0 h0)]
+                          Wishlisted  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                              · Image[Sprite:heart Simple #F85566FF]
+                              · TrueShadow[drop size=2.0 spread=0.0 #FFFFFF99 angle=90.0 dist=0.0 blend=0]
+                              · LayoutElement[PreferredWidth=24.0 PreferredHeight=24.0]
+                          BuildingRequired  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                              · Image[Sprite:Tools Simple #C2FF99FF]
+                              · TrueShadow[drop size=2.0 spread=0.0 #FFFFFF99 angle=90.0 dist=0.0 blend=0]
+                              · LayoutElement[PreferredWidth=24.0 PreferredHeight=24.0]
+                          QuestRequired  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                              · Image[Sprite:priority_high_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48 Simple #FFE999FF]
+                              · TrueShadow[drop size=2.0 spread=0.0 #FFFFFF99 angle=90.0 dist=0.0 blend=0]
+                              · LayoutElement[PreferredWidth=24.0 PreferredHeight=24.0]
+                        (off) InspectioningIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          Stripes  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                              · ProceduralImage[filled #666666BF falloff=1.0]
+                              ·   └ 모서리 radius=16.0
+                          Magnifier  a[0.5, 0.5]-[0.5, 0.5] pos[0.0, 8.0] size[40.0, 40.0] pv[0.5, 0.5]
+                              · Image[Sprite:PictoIcon_Magnifier Simple #FFFFFFFF]
+                              · Revolver
+                              · TrueShadow[drop size=6.0 spread=0.0 #00000099 angle=90.0 dist=3.0 blend=0]
+                        Layout  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · VerticalLayout[spacing=0.0 pad(L0 R0 T0 B0) align=8 ctrl(w1 h1) expand(w0 h0)]
+                          DurabilityContainer  a[0.0, 1.0]-[0.0, 1.0] pos[90.0, -30.19] size[40.0, 12.0] pv[1.0, 1.0]
+                              · ProceduralImage[filled #414141FF falloff=1.0]
+                              ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                              · LayoutElement[PreferredWidth=40.0 PreferredHeight=12.0]
+                            Fill  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-8.0, -8.0] pv[0.5, 0.5]
+                                · ProceduralImage[filled #CCED98FF falloff=1.0 fill=0.745 method=0 origin=0]
+                                ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                            Loss  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-8.0, -8.0] pv[0.5, 0.5]
+                                · ProceduralImage[filled #D04F6DFF falloff=1.0 fill=0.745 method=0 origin=1]
+                                ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                          CountContainer  a[0.0, 1.0]-[0.0, 1.0] pos[90.0, -42.19] size[29.36, 21.17] pv[1.0, 1.0]
+                              · ContentSizeFitter[h=2 v=2]
+                              · HorizontalLayout[spacing=0.0 pad(L5 R5 T-2 B0) align=8 ctrl(w1 h1) expand(w0 h0)]
+                              · ProceduralImage[filled #585F66FF falloff=1.0]
+                              ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                            Count  a[0.0, 1.0]-[0.0, 1.0] pos[14.68, -9.59] size[19.36, 23.17] pv[0.5, 0.5]
+                                · Text["64\n" size=16.0 #F8F2EAFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=512 autoSize=1]
+                          NameContainer  a[0.0, 1.0]-[0.0, 1.0] pos[53.99, -86.53] size[18.01, 23.17] pv[0.5, 0.0]
+                              · ProceduralImage[filled #000000BF falloff=1.0]
+                              ·   └ 모서리 radius=4.0
+                              · HorizontalLayout[spacing=0.0 pad(L4 R4 T0 B0) align=0 ctrl(w1 h1) expand(w0 h0)]
+                            Text (TMP)  a[0.0, 1.0]-[0.0, 1.0] pos[64.01, -16.0] size[96.01, 32.0] pv[0.5, 0.5]
+                                · Text["物品名称" size=16.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=512 autoSize=0]
+                    LabelContainer  a[0.0, 1.0]-[0.0, 1.0] pos[55.0, -130.27] size[110.0, 39.47] pv[0.5, 0.5]
+                        · LayoutElement[PreferredHeight=40.0 FlexibleWidth=1.0]
+                      Label  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · Text["Freno de boca" size=13.15 #F8F2EAFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=256 autoSize=1]
+                  (off) SlotDisplay (4)  a[0.0, 1.0]-[0.0, 1.0] pos[78.5, -249.0] size[110.0, 150.0] pv[0.5, 0.5]
+                      · SlotDisplay
+                      · VerticalLayout[spacing=2.0 pad(L0 R0 T0 B0) align=1 ctrl(w1 h1) expand(w0 h0)]
+                      · Image[none Simple #FFFFFF00]
+                    ItemDisplayContainer  a[0.0, 1.0]-[0.0, 1.0] pos[55.0, -54.27] size[110.0, 108.53] pv[0.5, 0.5]
+                        · LayoutElement[PreferredWidth=110.0 PreferredHeight=110.0]
+                      Hovering  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · ProceduralImage[filled #FFFFFF0D falloff=1.0]
+                          ·   └ 모서리 radius=16.0
+                      BG  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · ProceduralImage[filled #00000033 falloff=1.0]
+                          ·   └ 모서리 radius=16.0
+                      SlotIcon  a[0.5, 0.5]-[0.5, 0.5] pos[0.0, 0.0] size[60.0, 60.0] pv[0.5, 0.5]
+                          · Image[Sprite:minus Simple #FFFFFF33 preserveAspect]
+                          · LayoutElement[PreferredWidth=30.0 PreferredHeight=30.0]
+                      PluggableIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-4.0, -4.0] pv[0.5, 0.5]
+                          · ProceduralImage[outline 2.5px #FFFFFFFF falloff=1.0]
+                          ·   └ 모서리 radius=16.0
+                          · CanvasGroup[alpha=1.0]
+                          · CanvasGroupFade
+                          · FadeGroup
+                        Glow  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · ProceduralImage[filled #79FF7500 falloff=1.0]
+                            ·   └ 모서리 radius=16.0
+                            · TrueShadow[inset(안쪽 글로우) size=17.85 spread=0.0 #79FF9EFF angle=90.0 dist=0.0 blend=1]
+                            · ProceduralImageHashProvider
+                      ItemDisplay  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · ItemDisplay
+                          · Image[none Simple #FFFFFF00]
+                        BG  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · ProceduralImage[filled #00000033 falloff=1.0]
+                            ·   └ 모서리 radius=16.0
+                        Frame  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · ProceduralImage[outline 2px #FFFFFF4C falloff=1.0]
+                            ·   └ 모서리 radius=16.0
+                        SelectionIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · ProceduralImage[outline 3px #FF9E3AFF falloff=1.0]
+                            ·   └ 모서리 radius=16.0
+                            · TrueShadow[drop size=8.0 spread=0.0 #00000099 angle=45.0 dist=2.0 blend=0]
+                            · ProceduralImageHashProvider
+                        Icon  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · Image[Sprite:scissors Simple #FFFFFFFF preserveAspect]
+                            · TrueShadow[drop size=3.0 spread=0.5 #000000B8 angle=42.2737 dist=8.0 blend=0]
+                        (off) DurabilityZeroIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · ProceduralImage[filled #FF000033 falloff=1.0]
+                            ·   └ 모서리 radius=16.0
+                        SlotIndicators  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · HorizontalLayout[spacing=2.0 pad(L0 R0 T0 B0) align=0 ctrl(w1 h1) expand(w0 h0)]
+                          SlotIndicator  a[0.0, 1.0]-[0.0, 1.0] pos[6.0, -6.0] size[12.0, 12.0] pv[0.5, 0.5]
+                              · SlotIndicator
+                              · ProceduralImage[filled #000000FF falloff=1.0]
+                              ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                              · LayoutElement[PreferredWidth=12.0 PreferredHeight=12.0]
+                              · TrueShadow[drop size=1.0 spread=0.0 #FFFFFFFF angle=90.0 dist=0.0 blend=0]
+                            HasItem  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-6.0, -6.0] pv[0.5, 0.5]
+                                · ProceduralImage[filled #FFFFFFFF falloff=1.0]
+                                ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                                · LayoutElement[PreferredWidth=12.0 PreferredHeight=12.0]
+                        WishlistInfo  a[1.0, 1.0]-[1.0, 1.0] pos[0.0, 0.0] size[72.0, 24.0] pv[1.0, 1.0]
+                            · HorizontalLayout[spacing=0.0 pad(L0 R0 T0 B0) align=2 ctrl(w1 h1) expand(w0 h0)]
+                          Wishlisted  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                              · Image[Sprite:heart Simple #F85566FF]
+                              · TrueShadow[drop size=2.0 spread=0.0 #FFFFFF99 angle=90.0 dist=0.0 blend=0]
+                              · LayoutElement[PreferredWidth=24.0 PreferredHeight=24.0]
+                          BuildingRequired  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                              · Image[Sprite:Tools Simple #C2FF99FF]
+                              · TrueShadow[drop size=2.0 spread=0.0 #FFFFFF99 angle=90.0 dist=0.0 blend=0]
+                              · LayoutElement[PreferredWidth=24.0 PreferredHeight=24.0]
+                          QuestRequired  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                              · Image[Sprite:priority_high_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48 Simple #FFE999FF]
+                              · TrueShadow[drop size=2.0 spread=0.0 #FFFFFF99 angle=90.0 dist=0.0 blend=0]
+                              · LayoutElement[PreferredWidth=24.0 PreferredHeight=24.0]
+                        (off) InspectioningIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          Stripes  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                              · ProceduralImage[filled #666666BF falloff=1.0]
+                              ·   └ 모서리 radius=16.0
+                          Magnifier  a[0.5, 0.5]-[0.5, 0.5] pos[0.0, 8.0] size[40.0, 40.0] pv[0.5, 0.5]
+                              · Image[Sprite:PictoIcon_Magnifier Simple #FFFFFFFF]
+                              · Revolver
+                              · TrueShadow[drop size=6.0 spread=0.0 #00000099 angle=90.0 dist=3.0 blend=0]
+                        Layout  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                            · VerticalLayout[spacing=0.0 pad(L0 R0 T0 B0) align=8 ctrl(w1 h1) expand(w0 h0)]
+                          DurabilityContainer  a[0.0, 1.0]-[0.0, 1.0] pos[90.0, -30.19] size[40.0, 12.0] pv[1.0, 1.0]
+                              · ProceduralImage[filled #414141FF falloff=1.0]
+                              ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                              · LayoutElement[PreferredWidth=40.0 PreferredHeight=12.0]
+                            Fill  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-8.0, -8.0] pv[0.5, 0.5]
+                                · ProceduralImage[filled #CCED98FF falloff=1.0 fill=0.745 method=0 origin=0]
+                                ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                            Loss  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-8.0, -8.0] pv[0.5, 0.5]
+                                · ProceduralImage[filled #D04F6DFF falloff=1.0 fill=0.745 method=0 origin=1]
+                                ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                          CountContainer  a[0.0, 1.0]-[0.0, 1.0] pos[90.0, -42.19] size[29.36, 21.17] pv[1.0, 1.0]
+                              · ContentSizeFitter[h=2 v=2]
+                              · HorizontalLayout[spacing=0.0 pad(L5 R5 T-2 B0) align=8 ctrl(w1 h1) expand(w0 h0)]
+                              · ProceduralImage[filled #585F66FF falloff=1.0]
+                              ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                            Count  a[0.0, 1.0]-[0.0, 1.0] pos[14.68, -9.59] size[19.36, 23.17] pv[0.5, 0.5]
+                                · Text["64\n" size=16.0 #F8F2EAFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=512 autoSize=1]
+                          NameContainer  a[0.0, 1.0]-[0.0, 1.0] pos[53.99, -86.53] size[18.01, 23.17] pv[0.5, 0.0]
+                              · ProceduralImage[filled #000000BF falloff=1.0]
+                              ·   └ 모서리 radius=4.0
+                              · HorizontalLayout[spacing=0.0 pad(L4 R4 T0 B0) align=0 ctrl(w1 h1) expand(w0 h0)]
+                            Text (TMP)  a[0.0, 1.0]-[0.0, 1.0] pos[64.01, -16.0] size[96.01, 32.0] pv[0.5, 0.5]
+                                · Text["物品名称" size=16.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=512 autoSize=0]
+                    LabelContainer  a[0.0, 1.0]-[0.0, 1.0] pos[55.0, -130.27] size[110.0, 39.47] pv[0.5, 0.5]
+                        · LayoutElement[PreferredHeight=40.0 FlexibleWidth=1.0]
+                      Label  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · Text["Freno de boca" size=13.15 #F8F2EAFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=256 autoSize=1]
+              InventoryDisplay  a[0.0, 1.0]-[0.0, 1.0] pos[281.0, -104.14] size[562.0, 74.76] pv[0.5, 0.5]
+                  · VerticalLayout[spacing=0.0 pad(L0 R0 T0 B0) align=1 ctrl(w1 h1) expand(w0 h0)]
+                  · InventoryDisplay[entryPrefab=InventoryEntry:, displayNameText=TextMeshProUGUI:, capacityText=TextMeshProUGUI:, capacityTextFormat=({1}/{0}), loadingIndcator=FadeGroup:, contentFadeGroup=FadeGroup:, contentLayout=GridLayoutGroup:, gridLayoutElement=LayoutElement:, placeHolder=GameObject:LevelManager/GameplayUICanvas/]
+                TitleBar (1)  a[0.0, 1.0]-[0.0, 1.0] pos[281.0, -22.38] size[562.0, 44.76] pv[0.5, 0.5]
+                    · HorizontalLayout[spacing=8.0 pad(L16 R16 T16 B16) align=3 ctrl(w1 h1) expand(w0 h0)]
+                    · LayoutElement[FlexibleWidth=1.0]
+                    · Image[Sprite:Rect16 Sliced #00000089]
+                  TitleBar  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                      · HorizontalLayout[spacing=0.0 pad(L20 R0 T5 B5) align=0 ctrl(w1 h1) expand(w0 h0)]
+                      · LayoutElement[IgnoreLayout=1 FlexibleWidth=1.0]
+                      · Image[Sprite:Rect16 Sliced #0000002D mat=Material:RollingStripes_InventoryTitleBar]
+                  Text (TMP)  a[0.0, 1.0]-[0.0, 1.0] pos[44.85, -22.38] size[49.69, 34.76] pv[0.5, 0.5]
+                      · Text["物品" size=24.0 #FFFFFF80 font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=512 autoSize=0]
+                  Text (TMP)_1  a[0.0, 1.0]-[0.0, 1.0] pos[115.61, -22.38] size[75.84, 34.76] pv[0.5, 0.5]
+                      · Text["(5/13)" size=24.0 #FFFFFF80 font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=512 autoSize=0]
+                  space  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                      · LayoutElement[PreferredHeight=48.0 FlexibleWidth=1.0]
+                  SortButton  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[1.0, 1.0]
+                      · LayoutElement[PreferredWidth=150.0 PreferredHeight=48.0]
+                      · Button
+                      · Image[Sprite:Rect16 Sliced #FFFFFF00]
+                      · ButtonAnimation
+                    btn open formula index  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · SizeDeltaToggle
+                        · ProceduralImage[filled #E1F5FFFF falloff=1.0]
+                        ·   └ 모서리 radius=12.0
+                        · TrueShadow[drop size=16.0 spread=0.0 #3AB8FFFF angle=90.0 dist=0.0 blend=1]
+                        · ProceduralImageHashProvider
+                      Hover  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · ProceduralImage[filled #FFFFFF1A falloff=1.0]
+                          ·   └ 모서리 radius=12.0
+                      Text (TMP)  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-16.0, 0.0] pv[0.5, 0.5]
+                          · Text["整理" size=24.0 #376F89FF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=512 autoSize=0]
+                          · TextLocalizor[UI_Sort]
+                Container  a[0.0, 1.0]-[0.0, 1.0] pos[281.0, -59.76] size[562.0, 30.0] pv[0.5, 0.5]
+                    · VerticalLayout[spacing=0.0 pad(L0 R0 T0 B0) align=0 ctrl(w1 h1) expand(w0 h0)]
+                  Layout  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                      · Grid[cell=120x120 spacing=0x0 pad(L4 R4 T8 B8) constraint=1:5 startCorner=0 startAxis=0 align=1]
+                      · LayoutElement[PreferredHeight=40.0 FlexibleWidth=1.0]
+                      · FadeGroup
+                      · CanvasGroup[alpha=1.0]
+                      · CanvasGroupFade
+                  LoadingIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                      · LayoutElement[IgnoreLayout=1]
+                      · FadeGroup
+                      · CanvasGroup[alpha=1.0]
+                      · CanvasGroupFade
+                      ·   └ 모서리 radius(좌상,우상,우하,좌하)=(0,0,0,0)
+                      · Image[Sprite:Rect16 Sliced #00000038 mat=Material:RollingStripes_InventoryLoading]
+                    Container  a[0.5, 0.5]-[0.5, 0.5] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · ContentSizeFitter[h=2 v=2]
+                        · ProceduralImage[filled #00000080 falloff=1.0]
+                        ·   └ 모서리 radius=16.0
+                        · HorizontalLayout[spacing=0.0 pad(L16 R16 T4 B4) align=0 ctrl(w1 h1) expand(w0 h0)]
+                      (off) Rotator  a[0.0, 1.0]-[0.0, 1.0] pos[34.0, -22.0] size[36.0, 36.0] pv[0.5, 0.5]
+                          · LayoutElement[PreferredWidth=36.0 PreferredHeight=36.0]
+                        Image  a[0.5, 0.5]-[0.5, 0.5] pos[0.0, 0.0] size[30.0, 30.0] pv[0.5, 0.5]
+                            · Image[Sprite:Rotator Simple #FFFFFFFF]
+                            · RotationLooper
+                            · LooperClock
+                      (off) Text (TMP)  a[0.0, 1.0]-[0.0, 1.0] pos[98.73, -21.38] size[93.46, 34.76] pv[0.5, 0.5]
+                          · Text["载入中..." size=24.0 #FFFFFF80 font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=256 autoSize=0]
+                          · TextLocalizor[Loading]
+                    Container_1  a[0.5, 1.0]-[0.5, 1.0] pos[0.0, -16.0] size[0.0, 0.0] pv[0.5, 1.0]
+                        · ContentSizeFitter[h=2 v=2]
+                        · ProceduralImage[filled #00000000 falloff=1.0]
+                        ·   └ 모서리 radius=16.0
+                        · HorizontalLayout[spacing=0.0 pad(L16 R16 T4 B4) align=0 ctrl(w1 h1) expand(w0 h0)]
+                      Rotator  a[0.0, 1.0]-[0.0, 1.0] pos[34.0, -22.0] size[36.0, 36.0] pv[0.5, 0.5]
+                          · LayoutElement[PreferredWidth=36.0 PreferredHeight=36.0]
+                        Image  a[0.5, 0.5]-[0.5, 0.5] pos[0.0, 0.0] size[30.0, 30.0] pv[0.5, 0.5]
+                            · Image[Sprite:Rotator Simple #FFFFFFFF]
+                            · RotationLooper
+                            · LooperClock
+                      (off) Text (TMP)  a[0.0, 1.0]-[0.0, 1.0] pos[98.73, -21.38] size[93.46, 34.76] pv[0.5, 0.5]
+                          · Text["载入中..." size=24.0 #FFFFFF80 font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=256 autoSize=0]
+                          · TextLocalizor[Loading]
+                  PlaceHolder  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                      · LayoutElement[PreferredHeight=120.0 FlexibleWidth=1.0]
+                    Text (TMP)  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · Text["什么也没有..." size=36.0 #FFFFFF80 font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=512 autoSize=0]
+                        · TextLocalizor[Inventory_PlaceHolder]
+              (off) Empty  a[0.0, 1.0]-[0.0, 1.0] pos[0.0, -1150.72] size[0.0, 1000.0] pv[0.5, 0.5]
+                  · LayoutElement[MinHeight=1000.0]
+              (off) Bound  a[0.0, 1.0]-[1.0, 1.0] pos[0.0, 16.0] size[0.0, 4.0] pv[0.5, 0.0]
+                  · LayoutElement[IgnoreLayout=1]
+                  · ProceduralImage[filled #00000033 falloff=0.0]
+                  ·   └ 모서리 radius(좌상,우상,우하,좌하)=(0,0,0,0)
+            (off) TopMask  a[0.0, 1.0]-[1.0, 1.0] pos[0.0, 1.0] size[2.0, 5.0] pv[0.5, 1.0]
+                · ProceduralImage[filled #FFFFFFFF falloff=0.0]
+                ·   └ 모서리 radius(좌상,우상,우하,좌하)=(0,0,0,0)
+                · UIGradient[blendMode=0, intensity=1.0, gradientType=0, linearColor1=#F8F2EAFF, linearColor2=#F8F2EA00, cornerColorUpperLeft=#FF0000FF, cornerColorUpperRight=#FFEB04FF, cornerColorLowerRight=#00FF00FF, cornerColo]
+            (off) DownMask  a[0.0, 0.0]-[1.0, 0.0] pos[0.0, -1.0] size[2.0, 5.0] pv[0.5, 0.0]
+                · ProceduralImage[filled #FFFFFFFF falloff=0.0]
+                ·   └ 모서리 radius(좌상,우상,우하,좌하)=(0,0,0,0)
+                · UIGradient[blendMode=0, intensity=1.0, gradientType=0, linearColor1=#F8F2EAFF, linearColor2=#F8F2EA00, cornerColorUpperLeft=#FF0000FF, cornerColorUpperRight=#FFEB04FF, cornerColorLowerRight=#00FF00FF, cornerColo]
+            UpFrame  a[0.0, 1.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 46.5] pv[0.5, 1.0]
+                · Image[Sprite:UpFrameMask16 Sliced #FFFFFF94]
+                · TrueShadow[drop size=3.4 spread=0.197 #FFFFFFFF angle=90.0 dist=2.0 blend=0]
+            DownFrame  a[0.0, 0.0]-[1.0, 0.0] pos[0.0, 0.0] size[0.0, 46.5] pv[0.5, 0.0]
+                · Image[Sprite:DownFrameMask16 Sliced #FFFFFF94]
+                · TrueShadow[drop size=3.4 spread=0.197 #FFFFFFFF angle=270.0 dist=2.0 blend=0]
+          (off) Scrollbar Horizontal  a[0.0, 0.0]-[1.0, 0.0] pos[0.0, 0.0] size[-17.0, 20.0] pv[0.0, 0.0]
+              · Image[Sprite:Background Sliced #FFFFFFFF]
+              · Scrollbar
+            Sliding Area  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-20.0, -20.0] pv[0.5, 0.5]
+              Handle  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[20.0, 20.0] pv[0.5, 0.5]
+                  · Image[Sprite:UISprite Sliced #FFFFFFFF]
+          Scrollbar Vertical  a[1.0, 0.0]-[1.0, 1.0] pos[10.0, 0.0] size[20.0, 0.0] pv[0.0, 1.0]
+              · Scrollbar
+            (off) Sliding Area  a[0.5, 0.0]-[0.5, 1.0] pos[0.0, 0.0] size[15.0, -20.0] pv[0.5, 0.5]
+                · Image[Sprite:Slider01 Sliced #D4C2B3FF ppuMul=1.5]
+                · TrueShadow[inset(안쪽 글로우) size=2.0 spread=0.0 #00000091 angle=79.6342 dist=1.52 blend=0]
+              (off) Handle  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-8.0, -8.0] pv[0.5, 0.5]
+                  · Image[Sprite:Slider01 Sliced #F8F2EAFF ppuMul=2.0]
+                  · TrueShadow[drop size=5.0 spread=0.0 #000000FF angle=90.0 dist=0.0 blend=0]
+        WeightBar  a[1.0, 0.0]-[1.0, 1.0] pos[8.0, 0.0] size[100.0, 0.0] pv[0.0, 0.5] scale[0.903, 0.903, 0.903]
+            · WeightBarComplex
+            · LayoutElement[IgnoreLayout=1]
+            · CanvasGroup[alpha=1.0]
+            · CanvasGroupFade
+          BarArea  a[0.0, 0.0]-[1.0, 1.0] pos[-0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+              · ProceduralImage[filled #00000079 falloff=1.0]
+              ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+            BGAndMAsk  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-8.0, -8.0] pv[0.5, 0.5]
+                · ProceduralImage[filled #00000096 falloff=1.0]
+                ·   └ 모서리 radius=15.0
+                · Mask
+                · ProceduralImageHashProvider
+                · TrueShadow[drop size=32.0 spread=0.0 #00000099 angle=90.0 dist=12.0 blend=0]
+              MainBar  a[0.0, 0.0]-[0.0, 1.0] pos[0.0, 0.0] size[438.97, 0.0] pv[0.0, 0.5]
+                  · ProceduralImage[filled #FFFFFFFF falloff=0.0]
+                  ·   └ 한쪽 변만 둥글게 radius=128.0 side=2
+                Positive  a[1.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[20.0, 0.0] pv[0.0, 0.5]
+                    · ProceduralImage[filled #F85566FF falloff=0.0]
+                    ·   └ 모서리 radius=0.0
+                  Image  a[0.0, 0.0]-[1.0, 1.0] pos[-0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                      · Image[none Simple #00000080 mat=Material:RollingStripes_InventoryWeightBar]
+                Negative  a[1.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[20.0, 0.0] pv[1.0, 0.5]
+                    · ProceduralImage[filled #CCED98FF falloff=0.0]
+                    ·   └ 모서리 radius=0.0
+                  Image  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                      · Image[none Simple #00000080 mat=Material:RollingStripes_InventoryWeightBar]
+            LightMark  a[0.0, 0.0]-[0.0, 0.0] pos[31.0, 0.0] size[41.53, 35.85] pv[0.5, 1.0]
+                · ToggleAnimation
+                · ChangeGraphicsColorToggle
+              Arrow  a[0.5, 1.0]-[0.5, 1.0] pos[0.0, 0.0] size[24.0, 24.0] pv[0.5, 1.0]
+                  · Image[Sprite:triangle_up Simple #A9B7C4FF preserveAspect]
+            SuperHeavyMark  a[0.0, 0.0]-[0.0, 0.0] pos[31.0, 0.0] size[41.53, 35.85] pv[0.5, 1.0]
+                · ToggleAnimation
+                · ChangeGraphicsColorToggle
+              Arrow  a[0.5, 1.0]-[0.5, 1.0] pos[0.0, 0.0] size[24.0, 24.0] pv[0.5, 1.0]
+                  · Image[Sprite:triangle_up Simple #A9B7C4FF preserveAspect]
+            WeightBar  a[1.0, 0.0]-[1.0, 1.0] pos[16.0, 0.0] size[121.45, 0.0] pv[0.0, 0.5]
+                · ProceduralImage[filled #00000096 falloff=1.0 (disabled)]
+                ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                · TrueShadow[drop size=8.8 spread=0.142 #000000FF angle=45.0 dist=5.8 blend=0]
+                · WeightBarHUD
+                · LayoutElement[PreferredWidth=200.0 PreferredHeight=66.4]
+              Fill  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-10.0, -10.0] pv[0.5, 0.5]
+                  · ProceduralImage[filled #FFFFFFFF falloff=1.0 fill=1.0 method=0 origin=0 (disabled)]
+                  ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                  · TrueShadow[drop size=32.0 spread=0.0 #00000099 angle=90.0 dist=12.0 blend=0]
+              Text (TMP)  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                  · Text["35/50KG" size=20.0 #FFFFFF96 font=TMP_FontAsset:Number_EN hAlign=1 vAlign=256 autoSize=0]
+      (off) Bottom  a[0.0, 1.0]-[0.0, 1.0] pos[294.0, -815.0] size[578.0, 40.0] pv[0.5, 0.5]
+          · ProceduralImage[filled #FF9E3AFF falloff=1.0]
+          ·   └ 모서리 radius=12.0
+          · LayoutElement[MinHeight=40.0 FlexibleWidth=1.0]
+    ItemDetails  a[0.5, 0.0]-[0.5, 1.0] pos[0.0, 0.0] size[588.0, 0.0] pv[0.5, 0.5]
+        · FadeGroup
+        · CanvasGroup[alpha=1.0]
+        · CanvasGroupFade
+        · ItemDetailsDisplay
+      Panel  a[0.5, 0.0]-[0.5, 1.0] pos[0.0, -85.0] size[750.0, -868.8] pv[0.5, 1.0]
+          · TranslucentImage[블러 배경 #000000FF vibrancy=1.0 brightness=0.0 flatten=0.299]
+          · TrueShadow[drop size=8.0 spread=0.0 #00000099 angle=45.0 dist=8.0 blend=0]
+          · RectTransformFade
+          · CanvasGroup[alpha=1.0]
+          · CanvasGroupFade
+          · ContentSizeFitter[h=0 v=2]
+          · VerticalLayout[spacing=0.0 pad(L8 R8 T8 B8) align=0 ctrl(w1 h1) expand(w0 h0)]
+        ItemDisplayCore  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+            · VerticalLayout[spacing=0.0 pad(L0 R0 T0 B0) align=0 ctrl(w1 h1) expand(w0 h0)]
+          Name  a[0.0, 1.0]-[0.0, 1.0] pos[289.0, -8.0] size[562.0, 57.93] pv[0.5, 1.0]
+              · HorizontalLayout[spacing=0.0 pad(L0 R0 T0 B0) align=0 ctrl(w1 h1) expand(w1 h0)]
+            ItemNameText  a[0.0, 1.0]-[0.0, 1.0] pos[281.0, -28.97] size[562.0, 57.93] pv[0.5, 0.5]
+                · Text["橡果" size=40.0 #F8F2EAFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=512 autoSize=1]
+          Extra  a[0.0, 1.0]-[0.0, 1.0] pos[289.0, -84.42] size[562.0, 36.97] pv[0.5, 0.5]
+              · LayoutElement[FlexibleWidth=1.0]
+              · HorizontalLayout[spacing=16.0 pad(L0 R0 T4 B4) align=4 ctrl(w1 h1) expand(w0 h0)]
+            Weight  a[0.0, 1.0]-[0.0, 1.0] pos[281.0, -18.49] size[78.36, 28.97] pv[0.5, 0.5]
+                · HorizontalLayout[spacing=8.0 pad(L0 R0 T0 B0) align=4 ctrl(w1 h1) expand(w0 h0)]
+              Image  a[0.0, 1.0]-[0.0, 1.0] pos[14.0, -14.49] size[28.0, 28.97] pv[0.5, 0.5]
+                  · Image[Sprite:Anvil Simple #FFFFFFFF preserveAspect]
+                  · LayoutElement[PreferredWidth=28.0 PreferredHeight=28.0 FlexibleHeight=1.0]
+              WeightText  a[0.0, 1.0]-[0.0, 1.0] pos[53.18, -14.49] size[50.36, 28.97] pv[0.5, 0.5]
+                  · Text[" 32kg" size=20.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=256 autoSize=0]
+            UsableIndicator  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[1.0, 1.0]
+                · HorizontalLayout[spacing=0.0 pad(L8 R8 T4 B4) align=0 ctrl(w1 h1) expand(w0 h0)]
+              Procedural Image  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-4.0, -4.0] pv[0.5, 0.5]
+                  · ProceduralImage[outline 1.27px #FFFFFFFF falloff=1.0]
+                  ·   └ 모서리 radius=14.39
+                  · LayoutElement[IgnoreLayout=1]
+              Text (TMP)  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                  · Text["可使用" size=18.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=512 autoSize=0]
+                  · TextLocalizor[Usable]
+            RegisteredIndicator  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[1.0, 1.0]
+                · HorizontalLayout[spacing=0.0 pad(L8 R8 T4 B4) align=0 ctrl(w1 h1) expand(w0 h0)]
+              Procedural Image  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-4.0, -4.0] pv[0.5, 0.5]
+                  · ProceduralImage[outline 1.27px #FFFFFFFF falloff=1.0]
+                  ·   └ 모서리 radius=14.39
+                  · LayoutElement[IgnoreLayout=1]
+              Text (TMP)  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                  · Text["已录入" size=18.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=512 autoSize=0]
+                  · TextLocalizor[UI_Registered]
+          Basics  a[0.0, 1.0]-[0.0, 1.0] pos[570.0, -102.9] size[562.0, 162.3] pv[1.0, 1.0]
+              · LayoutElement[PreferredWidth=562.0 PreferredHeight=162.3 FlexibleWidth=1.0]
+            IconContainer  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[160.0, 160.0] pv[0.0, 0.0]
+                · LayoutElement[MinWidth=128.0 MinHeight=128.0 PreferredWidth=128.0 PreferredHeight=128.0]
+              BG  a[0.0, 0.0]-[1.0, 1.0] pos[-0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                  · ProceduralImage[filled #00000033 falloff=1.0]
+                  ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+              Icon  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                  · Image[none Simple #FFFFFFFF]
+                  · TrueShadow[drop size=15.0 spread=0.0 #000000B8 angle=42.2737 dist=8.0 blend=0]
+                  · PointerDownUpEvents
+                  · PunchReceiver
+              CountContainer  a[1.0, 0.0]-[1.0, 0.0] pos[0.0, 0.0] size[47.04, 32.76] pv[1.0, 0.0]
+                  · ContentSizeFitter[h=2 v=2]
+                  · HorizontalLayout[spacing=0.0 pad(L5 R5 T-2 B0) align=8 ctrl(w1 h1) expand(w0 h0)]
+                  · ProceduralImage[filled #A9B7C4FF falloff=1.0]
+                  ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                Count  a[0.0, 1.0]-[0.0, 1.0] pos[23.52, -15.38] size[37.04, 34.76] pv[0.5, 0.5]
+                    · Text["64\n" size=24.0 #F8F2EAFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=512 autoSize=1]
+              DurabilityDisplay  a[1.0, 0.0]-[1.0, 0.0] pos[0.0, 0.0] size[115.94, 32.0] pv[1.0, 0.0]
+                  · ProceduralImage[filled #414141FF falloff=1.0]
+                  ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                  · TooltipsProvider
+                  · TrueShadow[drop size=5.0 spread=0.0 #00000099 angle=45.0 dist=5.0 blend=0]
+                Fill  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-12.0, -12.0] pv[0.5, 0.5]
+                    · ProceduralImage[filled #7AE58FFF falloff=1.0 fill=0.71 method=0 origin=0]
+                    ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                Loss  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-12.0, -12.0] pv[0.5, 0.5]
+                    · ProceduralImage[filled #D04F6DFF falloff=1.0 fill=0.71 method=0 origin=1]
+                    ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                DurabilityText  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                    · Text["64\n" size=18.0 #F8F2EAFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=512 autoSize=0]
+            Texts  a[0.0, 0.0]-[1.0, 0.0] pos[84.0, 0.0] size[-168.0, 160.07] pv[0.5, 0.0]
+              Scroll View  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                  · ScrollRect[h=0 v=1]
+                  · ScrollViewBorderFrame
+                  · LayoutElement[]
+                Viewport  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.0, 1.0]
+                    · ProceduralImage[filled #FFFFFFFF falloff=1.0]
+                    ·   └ 모서리 radius=16.0
+                    · Mask
+                  Content  a[0.0, 1.0]-[1.0, 1.0] pos[0.0, -0.0] size[0.0, 202.73] pv[0.0, 1.0]
+                      · VerticalLayout[spacing=30.0 pad(L8 R8 T0 B0) align=0 ctrl(w1 h1) expand(w0 h0)]
+                      · ContentSizeFitter[h=0 v=2]
+                    ItemDescriptionText  a[0.0, 1.0]-[0.0, 1.0] pos[197.0, -101.36] size[378.0, 202.73] pv[0.5, 0.5]
+                        · Text["栎树的果实，由于富含单宁酸，尝起来非常苦涩，无法直接食用。经过适当处理，比如曝晒" size=20.0 #F8F2EAFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=512 autoSize=0]
+                  (off) TopMask  a[0.0, 1.0]-[1.0, 1.0] pos[0.0, 1.0] size[2.0, 5.0] pv[0.5, 1.0]
+                      · ProceduralImage[filled #FFFFFFFF falloff=0.0]
+                      ·   └ 모서리 radius(좌상,우상,우하,좌하)=(0,0,0,0)
+                      · UIGradient[blendMode=0, intensity=1.0, gradientType=0, linearColor1=#F8F2EAFF, linearColor2=#F8F2EA00, cornerColorUpperLeft=#FF0000FF, cornerColorUpperRight=#FFEB04FF, cornerColorLowerRight=#00FF00FF, cornerColo]
+                  (off) DownMask  a[0.0, 0.0]-[1.0, 0.0] pos[0.0, -1.0] size[2.0, 5.0] pv[0.5, 0.0]
+                      · ProceduralImage[filled #FFFFFFFF falloff=0.0]
+                      ·   └ 모서리 radius(좌상,우상,우하,좌하)=(0,0,0,0)
+                      · UIGradient[blendMode=0, intensity=1.0, gradientType=0, linearColor1=#F8F2EAFF, linearColor2=#F8F2EA00, cornerColorUpperLeft=#FF0000FF, cornerColorUpperRight=#FFEB04FF, cornerColorLowerRight=#00FF00FF, cornerColo]
+                  UpFrame  a[0.0, 1.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 46.5] pv[0.5, 1.0]
+                      · Image[Sprite:UpFrameMask16 Sliced #FFFFFF94]
+                      · TrueShadow[drop size=3.4 spread=0.197 #FFFFFFFF angle=90.0 dist=2.0 blend=0]
+                  DownFrame  a[0.0, 0.0]-[1.0, 0.0] pos[0.0, 0.0] size[0.0, 46.5] pv[0.5, 0.0]
+                      · Image[Sprite:DownFrameMask16 Sliced #FFFFFF94]
+                      · TrueShadow[drop size=3.4 spread=0.197 #FFFFFFFF angle=270.0 dist=2.0 blend=0]
+                (off) Scrollbar Horizontal  a[0.0, 0.0]-[1.0, 0.0] pos[0.0, 0.0] size[-17.0, 20.0] pv[0.0, 0.0]
+                    · Image[Sprite:Background Sliced #FFFFFFFF]
+                    · Scrollbar
+                  Sliding Area  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-20.0, -20.0] pv[0.5, 0.5]
+                    Handle  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[20.0, 20.0] pv[0.5, 0.5]
+                        · Image[Sprite:UISprite Sliced #FFFFFFFF]
+                Scrollbar Vertical  a[1.0, 0.0]-[1.0, 1.0] pos[10.0, 0.0] size[20.0, 0.0] pv[0.0, 1.0]
+                    · Scrollbar
+                  (off) Sliding Area  a[0.5, 0.0]-[0.5, 1.0] pos[0.0, 0.0] size[15.0, -20.0] pv[0.5, 0.5]
+                      · Image[Sprite:Slider01 Sliced #D4C2B3FF ppuMul=1.5]
+                      · TrueShadow[inset(안쪽 글로우) size=2.0 spread=0.0 #00000091 angle=79.6342 dist=1.52 blend=0]
+                    (off) Handle  a[0.0, 0.21]-[1.0, 1.0] pos[0.0, 0.0] size[-8.0, -8.0] pv[0.5, 0.5]
+                        · Image[Sprite:Slider01 Sliced #F8F2EAFF ppuMul=2.0]
+                        · TrueShadow[drop size=5.0 spread=0.0 #000000FF angle=90.0 dist=0.0 blend=0]
+          Tags  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+              · HorizontalLayout[spacing=8.0 pad(L0 R0 T8 B8) align=0 ctrl(w1 h1) expand(w0 h0)]
+              · TagsDisplay
+            Tag  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                · ProceduralImage[filled #69A7C4FF falloff=1.0]
+                ·   └ 모서리 radius=16.0
+                · HorizontalLayout[spacing=0.0 pad(L8 R8 T4 B4) align=0 ctrl(w1 h1) expand(w0 h0)]
+                · TagsDisplayEntry
+                · TrueShadow[drop size=10.0 spread=0.0 #00000099 angle=45.0 dist=5.0 blend=0]
+              Text (TMP)  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                  · Text["标签" size=16.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=512 autoSize=0]
+          ItemSlotsDisplay  a[0.0, 1.0]-[0.0, 1.0] pos[289.0, -271.2] size[562.0, 12.0] pv[0.5, 0.5]
+              · VerticalLayout[spacing=0.0 pad(L0 R0 T0 B0) align=0 ctrl(w1 h1) expand(w0 h0)]
+              · ItemSlotCollectionDisplay
+            NotEditableIndicator  a[0.5, 1.0]-[0.5, 1.0] pos[0.0, 8.0] size[392.01, 68.13] pv[0.5, 0.0]
+                · Image[Sprite:Rect16 Sliced #F85566FF]
+                · LayoutElement[IgnoreLayout=1]
+                · HorizontalLayout[spacing=0.0 pad(L16 R16 T8 B8) align=0 ctrl(w1 h1) expand(w0 h0)]
+                · ContentSizeFitter[h=2 v=2]
+                · CanvasGroup[alpha=0.0]
+              Text (TMP)  a[0.0, 1.0]-[0.0, 1.0] pos[196.01, -34.07] size[360.01, 52.13] pv[0.5, 0.5]
+                  · Text["需要在工作台进行改装" size=36.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=256 autoSize=0]
+                  · TextLocalizor[UI_WorkbenchRequired]
+            GridLayout  a[0.0, 1.0]-[0.0, 1.0] pos[281.0, -6.0] size[562.0, 12.0] pv[0.5, 0.5]
+                · Grid[cell=100x140 spacing=25x8 pad(L0 R0 T16 B4) constraint=0:4 startCorner=0 startAxis=0 align=1]
+                · LayoutElement[FlexibleWidth=1.0]
+              (off) SlotDisplay  a[0.0, 1.0]-[0.0, 1.0] pos[78.5, -91.0] size[110.0, 150.0] pv[0.5, 0.5]
+                  · SlotDisplay
+                  · VerticalLayout[spacing=2.0 pad(L0 R0 T0 B0) align=1 ctrl(w1 h1) expand(w0 h0)]
+                  · Image[none Simple #FFFFFF00]
+                ItemDisplayContainer  a[0.0, 1.0]-[0.0, 1.0] pos[55.0, -54.27] size[110.0, 108.53] pv[0.5, 0.5]
+                    · LayoutElement[PreferredWidth=110.0 PreferredHeight=110.0]
+                  Hovering  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                      · ProceduralImage[filled #FFFFFF0D falloff=1.0]
+                      ·   └ 모서리 radius=16.0
+                  BG  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                      · ProceduralImage[filled #00000033 falloff=1.0]
+                      ·   └ 모서리 radius=16.0
+                  SlotIcon  a[0.5, 0.5]-[0.5, 0.5] pos[0.0, 0.0] size[60.0, 60.0] pv[0.5, 0.5]
+                      · Image[Sprite:minus Simple #FFFFFF33 preserveAspect]
+                      · LayoutElement[PreferredWidth=30.0 PreferredHeight=30.0]
+                  PluggableIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-4.0, -4.0] pv[0.5, 0.5]
+                      · ProceduralImage[outline 2.5px #FFFFFFFF falloff=1.0]
+                      ·   └ 모서리 radius=16.0
+                      · CanvasGroup[alpha=1.0]
+                      · CanvasGroupFade
+                      · FadeGroup
+                    Glow  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · ProceduralImage[filled #79FF7500 falloff=1.0]
+                        ·   └ 모서리 radius=16.0
+                        · TrueShadow[inset(안쪽 글로우) size=17.85 spread=0.0 #79FF9EFF angle=90.0 dist=0.0 blend=1]
+                        · ProceduralImageHashProvider
+                  ItemDisplay  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                      · ItemDisplay
+                      · Image[none Simple #FFFFFF00]
+                    BG  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · ProceduralImage[filled #00000033 falloff=1.0]
+                        ·   └ 모서리 radius=16.0
+                    Frame  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · ProceduralImage[outline 2px #FFFFFF4C falloff=1.0]
+                        ·   └ 모서리 radius=16.0
+                    SelectionIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · ProceduralImage[outline 3px #FF9E3AFF falloff=1.0]
+                        ·   └ 모서리 radius=16.0
+                        · TrueShadow[drop size=8.0 spread=0.0 #00000099 angle=45.0 dist=2.0 blend=0]
+                        · ProceduralImageHashProvider
+                    Icon  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · Image[Sprite:scissors Simple #FFFFFFFF preserveAspect]
+                        · TrueShadow[drop size=3.0 spread=0.5 #000000B8 angle=42.2737 dist=8.0 blend=0]
+                    (off) DurabilityZeroIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · ProceduralImage[filled #FF000033 falloff=1.0]
+                        ·   └ 모서리 radius=16.0
+                    SlotIndicators  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · HorizontalLayout[spacing=2.0 pad(L0 R0 T0 B0) align=0 ctrl(w1 h1) expand(w0 h0)]
+                      SlotIndicator  a[0.0, 1.0]-[0.0, 1.0] pos[6.0, -6.0] size[12.0, 12.0] pv[0.5, 0.5]
+                          · SlotIndicator
+                          · ProceduralImage[filled #000000FF falloff=1.0]
+                          ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                          · LayoutElement[PreferredWidth=12.0 PreferredHeight=12.0]
+                          · TrueShadow[drop size=1.0 spread=0.0 #FFFFFFFF angle=90.0 dist=0.0 blend=0]
+                        HasItem  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-6.0, -6.0] pv[0.5, 0.5]
+                            · ProceduralImage[filled #FFFFFFFF falloff=1.0]
+                            ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                            · LayoutElement[PreferredWidth=12.0 PreferredHeight=12.0]
+                    WishlistInfo  a[1.0, 1.0]-[1.0, 1.0] pos[0.0, 0.0] size[72.0, 24.0] pv[1.0, 1.0]
+                        · HorizontalLayout[spacing=0.0 pad(L0 R0 T0 B0) align=2 ctrl(w1 h1) expand(w0 h0)]
+                      Wishlisted  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · Image[Sprite:heart Simple #F85566FF]
+                          · TrueShadow[drop size=2.0 spread=0.0 #FFFFFF99 angle=90.0 dist=0.0 blend=0]
+                          · LayoutElement[PreferredWidth=24.0 PreferredHeight=24.0]
+                      BuildingRequired  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · Image[Sprite:Tools Simple #C2FF99FF]
+                          · TrueShadow[drop size=2.0 spread=0.0 #FFFFFF99 angle=90.0 dist=0.0 blend=0]
+                          · LayoutElement[PreferredWidth=24.0 PreferredHeight=24.0]
+                      QuestRequired  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · Image[Sprite:priority_high_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48 Simple #FFE999FF]
+                          · TrueShadow[drop size=2.0 spread=0.0 #FFFFFF99 angle=90.0 dist=0.0 blend=0]
+                          · LayoutElement[PreferredWidth=24.0 PreferredHeight=24.0]
+                    (off) InspectioningIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                      Stripes  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · ProceduralImage[filled #666666BF falloff=1.0]
+                          ·   └ 모서리 radius=16.0
+                      Magnifier  a[0.5, 0.5]-[0.5, 0.5] pos[0.0, 8.0] size[40.0, 40.0] pv[0.5, 0.5]
+                          · Image[Sprite:PictoIcon_Magnifier Simple #FFFFFFFF]
+                          · Revolver
+                          · TrueShadow[drop size=6.0 spread=0.0 #00000099 angle=90.0 dist=3.0 blend=0]
+                    Layout  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · VerticalLayout[spacing=0.0 pad(L0 R0 T0 B0) align=8 ctrl(w1 h1) expand(w0 h0)]
+                      DurabilityContainer  a[0.0, 1.0]-[0.0, 1.0] pos[110.0, -52.19] size[40.0, 12.0] pv[1.0, 1.0]
+                          · ProceduralImage[filled #414141FF falloff=1.0]
+                          ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                          · LayoutElement[PreferredWidth=40.0 PreferredHeight=12.0]
+                        Fill  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-8.0, -8.0] pv[0.5, 0.5]
+                            · ProceduralImage[filled #CCED98FF falloff=1.0 fill=0.745 method=0 origin=0]
+                            ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                        Loss  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-8.0, -8.0] pv[0.5, 0.5]
+                            · ProceduralImage[filled #D04F6DFF falloff=1.0 fill=0.745 method=0 origin=1]
+                            ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                      CountContainer  a[0.0, 1.0]-[0.0, 1.0] pos[110.0, -64.19] size[29.36, 21.17] pv[1.0, 1.0]
+                          · ContentSizeFitter[h=2 v=2]
+                          · HorizontalLayout[spacing=0.0 pad(L5 R5 T-2 B0) align=8 ctrl(w1 h1) expand(w0 h0)]
+                          · ProceduralImage[filled #585F66FF falloff=1.0]
+                          ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                        Count  a[0.0, 1.0]-[0.0, 1.0] pos[14.68, -9.59] size[19.36, 23.17] pv[0.5, 0.5]
+                            · Text["64\n" size=16.0 #F8F2EAFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=512 autoSize=1]
+                      NameContainer  a[0.0, 1.0]-[0.0, 1.0] pos[73.99, -108.53] size[18.01, 23.17] pv[0.5, 0.0]
+                          · ProceduralImage[filled #000000BF falloff=1.0]
+                          ·   └ 모서리 radius=4.0
+                          · HorizontalLayout[spacing=0.0 pad(L4 R4 T0 B0) align=0 ctrl(w1 h1) expand(w0 h0)]
+                        Text (TMP)  a[0.0, 1.0]-[0.0, 1.0] pos[64.01, -16.0] size[96.01, 32.0] pv[0.5, 0.5]
+                            · Text["物品名称" size=16.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=512 autoSize=0]
+                LabelContainer  a[0.0, 1.0]-[0.0, 1.0] pos[55.0, -130.27] size[110.0, 39.47] pv[0.5, 0.5]
+                    · LayoutElement[PreferredHeight=40.0 FlexibleWidth=1.0]
+                  Label  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                      · Text["Freno de boca" size=13.15 #F8F2EAFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=256 autoSize=1]
+              (off) SlotDisplay (1)  a[0.0, 1.0]-[0.0, 1.0] pos[213.5, -91.0] size[110.0, 150.0] pv[0.5, 0.5]
+                  · SlotDisplay
+                  · VerticalLayout[spacing=2.0 pad(L0 R0 T0 B0) align=1 ctrl(w1 h1) expand(w0 h0)]
+                  · Image[none Simple #FFFFFF00]
+                ItemDisplayContainer  a[0.0, 1.0]-[0.0, 1.0] pos[55.0, -54.27] size[110.0, 108.53] pv[0.5, 0.5]
+                    · LayoutElement[PreferredWidth=110.0 PreferredHeight=110.0]
+                  Hovering  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                      · ProceduralImage[filled #FFFFFF0D falloff=1.0]
+                      ·   └ 모서리 radius=16.0
+                  BG  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                      · ProceduralImage[filled #00000033 falloff=1.0]
+                      ·   └ 모서리 radius=16.0
+                  SlotIcon  a[0.5, 0.5]-[0.5, 0.5] pos[0.0, 0.0] size[60.0, 60.0] pv[0.5, 0.5]
+                      · Image[Sprite:minus Simple #FFFFFF33 preserveAspect]
+                      · LayoutElement[PreferredWidth=30.0 PreferredHeight=30.0]
+                  PluggableIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-4.0, -4.0] pv[0.5, 0.5]
+                      · ProceduralImage[outline 2.5px #FFFFFFFF falloff=1.0]
+                      ·   └ 모서리 radius=16.0
+                      · CanvasGroup[alpha=1.0]
+                      · CanvasGroupFade
+                      · FadeGroup
+                    Glow  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · ProceduralImage[filled #79FF7500 falloff=1.0]
+                        ·   └ 모서리 radius=16.0
+                        · TrueShadow[inset(안쪽 글로우) size=17.85 spread=0.0 #79FF9EFF angle=90.0 dist=0.0 blend=1]
+                        · ProceduralImageHashProvider
+                  ItemDisplay  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                      · ItemDisplay
+                      · Image[none Simple #FFFFFF00]
+                    BG  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · ProceduralImage[filled #00000033 falloff=1.0]
+                        ·   └ 모서리 radius=16.0
+                    Frame  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · ProceduralImage[outline 2px #FFFFFF4C falloff=1.0]
+                        ·   └ 모서리 radius=16.0
+                    SelectionIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · ProceduralImage[outline 3px #FF9E3AFF falloff=1.0]
+                        ·   └ 모서리 radius=16.0
+                        · TrueShadow[drop size=8.0 spread=0.0 #00000099 angle=45.0 dist=2.0 blend=0]
+                        · ProceduralImageHashProvider
+                    Icon  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · Image[Sprite:scissors Simple #FFFFFFFF preserveAspect]
+                        · TrueShadow[drop size=3.0 spread=0.5 #000000B8 angle=42.2737 dist=8.0 blend=0]
+                    (off) DurabilityZeroIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · ProceduralImage[filled #FF000033 falloff=1.0]
+                        ·   └ 모서리 radius=16.0
+                    SlotIndicators  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · HorizontalLayout[spacing=2.0 pad(L0 R0 T0 B0) align=0 ctrl(w1 h1) expand(w0 h0)]
+                      SlotIndicator  a[0.0, 1.0]-[0.0, 1.0] pos[6.0, -6.0] size[12.0, 12.0] pv[0.5, 0.5]
+                          · SlotIndicator
+                          · ProceduralImage[filled #000000FF falloff=1.0]
+                          ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                          · LayoutElement[PreferredWidth=12.0 PreferredHeight=12.0]
+                          · TrueShadow[drop size=1.0 spread=0.0 #FFFFFFFF angle=90.0 dist=0.0 blend=0]
+                        HasItem  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-6.0, -6.0] pv[0.5, 0.5]
+                            · ProceduralImage[filled #FFFFFFFF falloff=1.0]
+                            ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                            · LayoutElement[PreferredWidth=12.0 PreferredHeight=12.0]
+                    WishlistInfo  a[1.0, 1.0]-[1.0, 1.0] pos[0.0, 0.0] size[72.0, 24.0] pv[1.0, 1.0]
+                        · HorizontalLayout[spacing=0.0 pad(L0 R0 T0 B0) align=2 ctrl(w1 h1) expand(w0 h0)]
+                      Wishlisted  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · Image[Sprite:heart Simple #F85566FF]
+                          · TrueShadow[drop size=2.0 spread=0.0 #FFFFFF99 angle=90.0 dist=0.0 blend=0]
+                          · LayoutElement[PreferredWidth=24.0 PreferredHeight=24.0]
+                      BuildingRequired  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · Image[Sprite:Tools Simple #C2FF99FF]
+                          · TrueShadow[drop size=2.0 spread=0.0 #FFFFFF99 angle=90.0 dist=0.0 blend=0]
+                          · LayoutElement[PreferredWidth=24.0 PreferredHeight=24.0]
+                      QuestRequired  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · Image[Sprite:priority_high_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48 Simple #FFE999FF]
+                          · TrueShadow[drop size=2.0 spread=0.0 #FFFFFF99 angle=90.0 dist=0.0 blend=0]
+                          · LayoutElement[PreferredWidth=24.0 PreferredHeight=24.0]
+                    (off) InspectioningIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                      Stripes  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · ProceduralImage[filled #666666BF falloff=1.0]
+                          ·   └ 모서리 radius=16.0
+                      Magnifier  a[0.5, 0.5]-[0.5, 0.5] pos[0.0, 8.0] size[40.0, 40.0] pv[0.5, 0.5]
+                          · Image[Sprite:PictoIcon_Magnifier Simple #FFFFFFFF]
+                          · Revolver
+                          · TrueShadow[drop size=6.0 spread=0.0 #00000099 angle=90.0 dist=3.0 blend=0]
+                    Layout  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · VerticalLayout[spacing=0.0 pad(L0 R0 T0 B0) align=8 ctrl(w1 h1) expand(w0 h0)]
+                      DurabilityContainer  a[0.0, 1.0]-[0.0, 1.0] pos[110.0, -52.19] size[40.0, 12.0] pv[1.0, 1.0]
+                          · ProceduralImage[filled #414141FF falloff=1.0]
+                          ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                          · LayoutElement[PreferredWidth=40.0 PreferredHeight=12.0]
+                        Fill  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-8.0, -8.0] pv[0.5, 0.5]
+                            · ProceduralImage[filled #CCED98FF falloff=1.0 fill=0.745 method=0 origin=0]
+                            ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                        Loss  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-8.0, -8.0] pv[0.5, 0.5]
+                            · ProceduralImage[filled #D04F6DFF falloff=1.0 fill=0.745 method=0 origin=1]
+                            ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                      CountContainer  a[0.0, 1.0]-[0.0, 1.0] pos[110.0, -64.19] size[29.36, 21.17] pv[1.0, 1.0]
+                          · ContentSizeFitter[h=2 v=2]
+                          · HorizontalLayout[spacing=0.0 pad(L5 R5 T-2 B0) align=8 ctrl(w1 h1) expand(w0 h0)]
+                          · ProceduralImage[filled #585F66FF falloff=1.0]
+                          ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                        Count  a[0.0, 1.0]-[0.0, 1.0] pos[14.68, -9.59] size[19.36, 23.17] pv[0.5, 0.5]
+                            · Text["64\n" size=16.0 #F8F2EAFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=512 autoSize=1]
+                      NameContainer  a[0.0, 1.0]-[0.0, 1.0] pos[73.99, -108.53] size[18.01, 23.17] pv[0.5, 0.0]
+                          · ProceduralImage[filled #000000BF falloff=1.0]
+                          ·   └ 모서리 radius=4.0
+                          · HorizontalLayout[spacing=0.0 pad(L4 R4 T0 B0) align=0 ctrl(w1 h1) expand(w0 h0)]
+                        Text (TMP)  a[0.0, 1.0]-[0.0, 1.0] pos[64.01, -16.0] size[96.01, 32.0] pv[0.5, 0.5]
+                            · Text["物品名称" size=16.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=512 autoSize=0]
+                LabelContainer  a[0.0, 1.0]-[0.0, 1.0] pos[55.0, -130.27] size[110.0, 39.47] pv[0.5, 0.5]
+                    · LayoutElement[PreferredHeight=40.0 FlexibleWidth=1.0]
+                  Label  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                      · Text["Freno de boca" size=13.15 #F8F2EAFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=256 autoSize=1]
+              (off) SlotDisplay (2)  a[0.0, 1.0]-[0.0, 1.0] pos[348.5, -91.0] size[110.0, 150.0] pv[0.5, 0.5]
+                  · SlotDisplay
+                  · VerticalLayout[spacing=2.0 pad(L0 R0 T0 B0) align=1 ctrl(w1 h1) expand(w0 h0)]
+                  · Image[none Simple #FFFFFF00]
+                ItemDisplayContainer  a[0.0, 1.0]-[0.0, 1.0] pos[55.0, -54.27] size[110.0, 108.53] pv[0.5, 0.5]
+                    · LayoutElement[PreferredWidth=110.0 PreferredHeight=110.0]
+                  Hovering  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                      · ProceduralImage[filled #FFFFFF0D falloff=1.0]
+                      ·   └ 모서리 radius=16.0
+                  BG  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                      · ProceduralImage[filled #00000033 falloff=1.0]
+                      ·   └ 모서리 radius=16.0
+                  SlotIcon  a[0.5, 0.5]-[0.5, 0.5] pos[0.0, 0.0] size[60.0, 60.0] pv[0.5, 0.5]
+                      · Image[Sprite:minus Simple #FFFFFF33 preserveAspect]
+                      · LayoutElement[PreferredWidth=30.0 PreferredHeight=30.0]
+                  PluggableIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-4.0, -4.0] pv[0.5, 0.5]
+                      · ProceduralImage[outline 2.5px #FFFFFFFF falloff=1.0]
+                      ·   └ 모서리 radius=16.0
+                      · CanvasGroup[alpha=1.0]
+                      · CanvasGroupFade
+                      · FadeGroup
+                    Glow  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · ProceduralImage[filled #79FF7500 falloff=1.0]
+                        ·   └ 모서리 radius=16.0
+                        · TrueShadow[inset(안쪽 글로우) size=17.85 spread=0.0 #79FF9EFF angle=90.0 dist=0.0 blend=1]
+                        · ProceduralImageHashProvider
+                  ItemDisplay  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                      · ItemDisplay
+                      · Image[none Simple #FFFFFF00]
+                    BG  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · ProceduralImage[filled #00000033 falloff=1.0]
+                        ·   └ 모서리 radius=16.0
+                    Frame  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · ProceduralImage[outline 2px #FFFFFF4C falloff=1.0]
+                        ·   └ 모서리 radius=16.0
+                    SelectionIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · ProceduralImage[outline 3px #FF9E3AFF falloff=1.0]
+                        ·   └ 모서리 radius=16.0
+                        · TrueShadow[drop size=8.0 spread=0.0 #00000099 angle=45.0 dist=2.0 blend=0]
+                        · ProceduralImageHashProvider
+                    Icon  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · Image[Sprite:scissors Simple #FFFFFFFF preserveAspect]
+                        · TrueShadow[drop size=3.0 spread=0.5 #000000B8 angle=42.2737 dist=8.0 blend=0]
+                    (off) DurabilityZeroIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · ProceduralImage[filled #FF000033 falloff=1.0]
+                        ·   └ 모서리 radius=16.0
+                    SlotIndicators  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · HorizontalLayout[spacing=2.0 pad(L0 R0 T0 B0) align=0 ctrl(w1 h1) expand(w0 h0)]
+                      SlotIndicator  a[0.0, 1.0]-[0.0, 1.0] pos[6.0, -6.0] size[12.0, 12.0] pv[0.5, 0.5]
+                          · SlotIndicator
+                          · ProceduralImage[filled #000000FF falloff=1.0]
+                          ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                          · LayoutElement[PreferredWidth=12.0 PreferredHeight=12.0]
+                          · TrueShadow[drop size=1.0 spread=0.0 #FFFFFFFF angle=90.0 dist=0.0 blend=0]
+                        HasItem  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-6.0, -6.0] pv[0.5, 0.5]
+                            · ProceduralImage[filled #FFFFFFFF falloff=1.0]
+                            ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                            · LayoutElement[PreferredWidth=12.0 PreferredHeight=12.0]
+                    WishlistInfo  a[1.0, 1.0]-[1.0, 1.0] pos[0.0, 0.0] size[72.0, 24.0] pv[1.0, 1.0]
+                        · HorizontalLayout[spacing=0.0 pad(L0 R0 T0 B0) align=2 ctrl(w1 h1) expand(w0 h0)]
+                      Wishlisted  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · Image[Sprite:heart Simple #F85566FF]
+                          · TrueShadow[drop size=2.0 spread=0.0 #FFFFFF99 angle=90.0 dist=0.0 blend=0]
+                          · LayoutElement[PreferredWidth=24.0 PreferredHeight=24.0]
+                      BuildingRequired  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · Image[Sprite:Tools Simple #C2FF99FF]
+                          · TrueShadow[drop size=2.0 spread=0.0 #FFFFFF99 angle=90.0 dist=0.0 blend=0]
+                          · LayoutElement[PreferredWidth=24.0 PreferredHeight=24.0]
+                      QuestRequired  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · Image[Sprite:priority_high_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48 Simple #FFE999FF]
+                          · TrueShadow[drop size=2.0 spread=0.0 #FFFFFF99 angle=90.0 dist=0.0 blend=0]
+                          · LayoutElement[PreferredWidth=24.0 PreferredHeight=24.0]
+                    (off) InspectioningIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                      Stripes  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · ProceduralImage[filled #666666BF falloff=1.0]
+                          ·   └ 모서리 radius=16.0
+                      Magnifier  a[0.5, 0.5]-[0.5, 0.5] pos[0.0, 8.0] size[40.0, 40.0] pv[0.5, 0.5]
+                          · Image[Sprite:PictoIcon_Magnifier Simple #FFFFFFFF]
+                          · Revolver
+                          · TrueShadow[drop size=6.0 spread=0.0 #00000099 angle=90.0 dist=3.0 blend=0]
+                    Layout  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · VerticalLayout[spacing=0.0 pad(L0 R0 T0 B0) align=8 ctrl(w1 h1) expand(w0 h0)]
+                      DurabilityContainer  a[0.0, 1.0]-[0.0, 1.0] pos[110.0, -52.19] size[40.0, 12.0] pv[1.0, 1.0]
+                          · ProceduralImage[filled #414141FF falloff=1.0]
+                          ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                          · LayoutElement[PreferredWidth=40.0 PreferredHeight=12.0]
+                        Fill  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-8.0, -8.0] pv[0.5, 0.5]
+                            · ProceduralImage[filled #CCED98FF falloff=1.0 fill=0.745 method=0 origin=0]
+                            ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                        Loss  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-8.0, -8.0] pv[0.5, 0.5]
+                            · ProceduralImage[filled #D04F6DFF falloff=1.0 fill=0.745 method=0 origin=1]
+                            ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                      CountContainer  a[0.0, 1.0]-[0.0, 1.0] pos[110.0, -64.19] size[29.36, 21.17] pv[1.0, 1.0]
+                          · ContentSizeFitter[h=2 v=2]
+                          · HorizontalLayout[spacing=0.0 pad(L5 R5 T-2 B0) align=8 ctrl(w1 h1) expand(w0 h0)]
+                          · ProceduralImage[filled #585F66FF falloff=1.0]
+                          ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                        Count  a[0.0, 1.0]-[0.0, 1.0] pos[14.68, -9.59] size[19.36, 23.17] pv[0.5, 0.5]
+                            · Text["64\n" size=16.0 #F8F2EAFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=512 autoSize=1]
+                      NameContainer  a[0.0, 1.0]-[0.0, 1.0] pos[73.99, -108.53] size[18.01, 23.17] pv[0.5, 0.0]
+                          · ProceduralImage[filled #000000BF falloff=1.0]
+                          ·   └ 모서리 radius=4.0
+                          · HorizontalLayout[spacing=0.0 pad(L4 R4 T0 B0) align=0 ctrl(w1 h1) expand(w0 h0)]
+                        Text (TMP)  a[0.0, 1.0]-[0.0, 1.0] pos[64.01, -16.0] size[96.01, 32.0] pv[0.5, 0.5]
+                            · Text["物品名称" size=16.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=512 autoSize=0]
+                LabelContainer  a[0.0, 1.0]-[0.0, 1.0] pos[55.0, -130.27] size[110.0, 39.47] pv[0.5, 0.5]
+                    · LayoutElement[PreferredHeight=40.0 FlexibleWidth=1.0]
+                  Label  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                      · Text["Freno de boca" size=13.15 #F8F2EAFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=256 autoSize=1]
+              (off) SlotDisplay (3)  a[0.0, 1.0]-[0.0, 1.0] pos[483.5, -91.0] size[110.0, 150.0] pv[0.5, 0.5]
+                  · SlotDisplay
+                  · VerticalLayout[spacing=2.0 pad(L0 R0 T0 B0) align=1 ctrl(w1 h1) expand(w0 h0)]
+                  · Image[none Simple #FFFFFF00]
+                ItemDisplayContainer  a[0.0, 1.0]-[0.0, 1.0] pos[55.0, -54.27] size[110.0, 108.53] pv[0.5, 0.5]
+                    · LayoutElement[PreferredWidth=110.0 PreferredHeight=110.0]
+                  Hovering  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                      · ProceduralImage[filled #FFFFFF0D falloff=1.0]
+                      ·   └ 모서리 radius=16.0
+                  BG  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                      · ProceduralImage[filled #00000033 falloff=1.0]
+                      ·   └ 모서리 radius=16.0
+                  SlotIcon  a[0.5, 0.5]-[0.5, 0.5] pos[0.0, 0.0] size[60.0, 60.0] pv[0.5, 0.5]
+                      · Image[Sprite:minus Simple #FFFFFF33 preserveAspect]
+                      · LayoutElement[PreferredWidth=30.0 PreferredHeight=30.0]
+                  PluggableIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-4.0, -4.0] pv[0.5, 0.5]
+                      · ProceduralImage[outline 2.5px #FFFFFFFF falloff=1.0]
+                      ·   └ 모서리 radius=16.0
+                      · CanvasGroup[alpha=1.0]
+                      · CanvasGroupFade
+                      · FadeGroup
+                    Glow  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · ProceduralImage[filled #79FF7500 falloff=1.0]
+                        ·   └ 모서리 radius=16.0
+                        · TrueShadow[inset(안쪽 글로우) size=17.85 spread=0.0 #79FF9EFF angle=90.0 dist=0.0 blend=1]
+                        · ProceduralImageHashProvider
+                  ItemDisplay  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                      · ItemDisplay
+                      · Image[none Simple #FFFFFF00]
+                    BG  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · ProceduralImage[filled #00000033 falloff=1.0]
+                        ·   └ 모서리 radius=16.0
+                    Frame  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · ProceduralImage[outline 2px #FFFFFF4C falloff=1.0]
+                        ·   └ 모서리 radius=16.0
+                    SelectionIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · ProceduralImage[outline 3px #FF9E3AFF falloff=1.0]
+                        ·   └ 모서리 radius=16.0
+                        · TrueShadow[drop size=8.0 spread=0.0 #00000099 angle=45.0 dist=2.0 blend=0]
+                        · ProceduralImageHashProvider
+                    Icon  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · Image[Sprite:scissors Simple #FFFFFFFF preserveAspect]
+                        · TrueShadow[drop size=3.0 spread=0.5 #000000B8 angle=42.2737 dist=8.0 blend=0]
+                    (off) DurabilityZeroIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · ProceduralImage[filled #FF000033 falloff=1.0]
+                        ·   └ 모서리 radius=16.0
+                    SlotIndicators  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · HorizontalLayout[spacing=2.0 pad(L0 R0 T0 B0) align=0 ctrl(w1 h1) expand(w0 h0)]
+                      SlotIndicator  a[0.0, 1.0]-[0.0, 1.0] pos[6.0, -6.0] size[12.0, 12.0] pv[0.5, 0.5]
+                          · SlotIndicator
+                          · ProceduralImage[filled #000000FF falloff=1.0]
+                          ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                          · LayoutElement[PreferredWidth=12.0 PreferredHeight=12.0]
+                          · TrueShadow[drop size=1.0 spread=0.0 #FFFFFFFF angle=90.0 dist=0.0 blend=0]
+                        HasItem  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-6.0, -6.0] pv[0.5, 0.5]
+                            · ProceduralImage[filled #FFFFFFFF falloff=1.0]
+                            ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                            · LayoutElement[PreferredWidth=12.0 PreferredHeight=12.0]
+                    WishlistInfo  a[1.0, 1.0]-[1.0, 1.0] pos[0.0, 0.0] size[72.0, 24.0] pv[1.0, 1.0]
+                        · HorizontalLayout[spacing=0.0 pad(L0 R0 T0 B0) align=2 ctrl(w1 h1) expand(w0 h0)]
+                      Wishlisted  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · Image[Sprite:heart Simple #F85566FF]
+                          · TrueShadow[drop size=2.0 spread=0.0 #FFFFFF99 angle=90.0 dist=0.0 blend=0]
+                          · LayoutElement[PreferredWidth=24.0 PreferredHeight=24.0]
+                      BuildingRequired  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · Image[Sprite:Tools Simple #C2FF99FF]
+                          · TrueShadow[drop size=2.0 spread=0.0 #FFFFFF99 angle=90.0 dist=0.0 blend=0]
+                          · LayoutElement[PreferredWidth=24.0 PreferredHeight=24.0]
+                      QuestRequired  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · Image[Sprite:priority_high_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48 Simple #FFE999FF]
+                          · TrueShadow[drop size=2.0 spread=0.0 #FFFFFF99 angle=90.0 dist=0.0 blend=0]
+                          · LayoutElement[PreferredWidth=24.0 PreferredHeight=24.0]
+                    (off) InspectioningIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                      Stripes  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · ProceduralImage[filled #666666BF falloff=1.0]
+                          ·   └ 모서리 radius=16.0
+                      Magnifier  a[0.5, 0.5]-[0.5, 0.5] pos[0.0, 8.0] size[40.0, 40.0] pv[0.5, 0.5]
+                          · Image[Sprite:PictoIcon_Magnifier Simple #FFFFFFFF]
+                          · Revolver
+                          · TrueShadow[drop size=6.0 spread=0.0 #00000099 angle=90.0 dist=3.0 blend=0]
+                    Layout  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · VerticalLayout[spacing=0.0 pad(L0 R0 T0 B0) align=8 ctrl(w1 h1) expand(w0 h0)]
+                      DurabilityContainer  a[0.0, 1.0]-[0.0, 1.0] pos[110.0, -52.19] size[40.0, 12.0] pv[1.0, 1.0]
+                          · ProceduralImage[filled #414141FF falloff=1.0]
+                          ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                          · LayoutElement[PreferredWidth=40.0 PreferredHeight=12.0]
+                        Fill  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-8.0, -8.0] pv[0.5, 0.5]
+                            · ProceduralImage[filled #CCED98FF falloff=1.0 fill=0.745 method=0 origin=0]
+                            ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                        Loss  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-8.0, -8.0] pv[0.5, 0.5]
+                            · ProceduralImage[filled #D04F6DFF falloff=1.0 fill=0.745 method=0 origin=1]
+                            ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                      CountContainer  a[0.0, 1.0]-[0.0, 1.0] pos[110.0, -64.19] size[29.36, 21.17] pv[1.0, 1.0]
+                          · ContentSizeFitter[h=2 v=2]
+                          · HorizontalLayout[spacing=0.0 pad(L5 R5 T-2 B0) align=8 ctrl(w1 h1) expand(w0 h0)]
+                          · ProceduralImage[filled #585F66FF falloff=1.0]
+                          ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                        Count  a[0.0, 1.0]-[0.0, 1.0] pos[14.68, -9.59] size[19.36, 23.17] pv[0.5, 0.5]
+                            · Text["64\n" size=16.0 #F8F2EAFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=512 autoSize=1]
+                      NameContainer  a[0.0, 1.0]-[0.0, 1.0] pos[73.99, -108.53] size[18.01, 23.17] pv[0.5, 0.0]
+                          · ProceduralImage[filled #000000BF falloff=1.0]
+                          ·   └ 모서리 radius=4.0
+                          · HorizontalLayout[spacing=0.0 pad(L4 R4 T0 B0) align=0 ctrl(w1 h1) expand(w0 h0)]
+                        Text (TMP)  a[0.0, 1.0]-[0.0, 1.0] pos[64.01, -16.0] size[96.01, 32.0] pv[0.5, 0.5]
+                            · Text["物品名称" size=16.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=512 autoSize=0]
+                LabelContainer  a[0.0, 1.0]-[0.0, 1.0] pos[55.0, -130.27] size[110.0, 39.47] pv[0.5, 0.5]
+                    · LayoutElement[PreferredHeight=40.0 FlexibleWidth=1.0]
+                  Label  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                      · Text["Freno de boca" size=13.15 #F8F2EAFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=256 autoSize=1]
+              (off) SlotDisplay (4)  a[0.0, 1.0]-[0.0, 1.0] pos[78.5, -249.0] size[110.0, 150.0] pv[0.5, 0.5]
+                  · SlotDisplay
+                  · VerticalLayout[spacing=2.0 pad(L0 R0 T0 B0) align=1 ctrl(w1 h1) expand(w0 h0)]
+                  · Image[none Simple #FFFFFF00]
+                ItemDisplayContainer  a[0.0, 1.0]-[0.0, 1.0] pos[55.0, -54.27] size[110.0, 108.53] pv[0.5, 0.5]
+                    · LayoutElement[PreferredWidth=110.0 PreferredHeight=110.0]
+                  Hovering  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                      · ProceduralImage[filled #FFFFFF0D falloff=1.0]
+                      ·   └ 모서리 radius=16.0
+                  BG  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                      · ProceduralImage[filled #00000033 falloff=1.0]
+                      ·   └ 모서리 radius=16.0
+                  SlotIcon  a[0.5, 0.5]-[0.5, 0.5] pos[0.0, 0.0] size[60.0, 60.0] pv[0.5, 0.5]
+                      · Image[Sprite:minus Simple #FFFFFF33 preserveAspect]
+                      · LayoutElement[PreferredWidth=30.0 PreferredHeight=30.0]
+                  PluggableIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-4.0, -4.0] pv[0.5, 0.5]
+                      · ProceduralImage[outline 2.5px #FFFFFFFF falloff=1.0]
+                      ·   └ 모서리 radius=16.0
+                      · CanvasGroup[alpha=1.0]
+                      · CanvasGroupFade
+                      · FadeGroup
+                    Glow  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · ProceduralImage[filled #79FF7500 falloff=1.0]
+                        ·   └ 모서리 radius=16.0
+                        · TrueShadow[inset(안쪽 글로우) size=17.85 spread=0.0 #79FF9EFF angle=90.0 dist=0.0 blend=1]
+                        · ProceduralImageHashProvider
+                  ItemDisplay  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                      · ItemDisplay
+                      · Image[none Simple #FFFFFF00]
+                    BG  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · ProceduralImage[filled #00000033 falloff=1.0]
+                        ·   └ 모서리 radius=16.0
+                    Frame  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · ProceduralImage[outline 2px #FFFFFF4C falloff=1.0]
+                        ·   └ 모서리 radius=16.0
+                    SelectionIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · ProceduralImage[outline 3px #FF9E3AFF falloff=1.0]
+                        ·   └ 모서리 radius=16.0
+                        · TrueShadow[drop size=8.0 spread=0.0 #00000099 angle=45.0 dist=2.0 blend=0]
+                        · ProceduralImageHashProvider
+                    Icon  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · Image[Sprite:scissors Simple #FFFFFFFF preserveAspect]
+                        · TrueShadow[drop size=3.0 spread=0.5 #000000B8 angle=42.2737 dist=8.0 blend=0]
+                    (off) DurabilityZeroIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · ProceduralImage[filled #FF000033 falloff=1.0]
+                        ·   └ 모서리 radius=16.0
+                    SlotIndicators  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · HorizontalLayout[spacing=2.0 pad(L0 R0 T0 B0) align=0 ctrl(w1 h1) expand(w0 h0)]
+                      SlotIndicator  a[0.0, 1.0]-[0.0, 1.0] pos[6.0, -6.0] size[12.0, 12.0] pv[0.5, 0.5]
+                          · SlotIndicator
+                          · ProceduralImage[filled #000000FF falloff=1.0]
+                          ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                          · LayoutElement[PreferredWidth=12.0 PreferredHeight=12.0]
+                          · TrueShadow[drop size=1.0 spread=0.0 #FFFFFFFF angle=90.0 dist=0.0 blend=0]
+                        HasItem  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-6.0, -6.0] pv[0.5, 0.5]
+                            · ProceduralImage[filled #FFFFFFFF falloff=1.0]
+                            ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                            · LayoutElement[PreferredWidth=12.0 PreferredHeight=12.0]
+                    WishlistInfo  a[1.0, 1.0]-[1.0, 1.0] pos[0.0, 0.0] size[72.0, 24.0] pv[1.0, 1.0]
+                        · HorizontalLayout[spacing=0.0 pad(L0 R0 T0 B0) align=2 ctrl(w1 h1) expand(w0 h0)]
+                      Wishlisted  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · Image[Sprite:heart Simple #F85566FF]
+                          · TrueShadow[drop size=2.0 spread=0.0 #FFFFFF99 angle=90.0 dist=0.0 blend=0]
+                          · LayoutElement[PreferredWidth=24.0 PreferredHeight=24.0]
+                      BuildingRequired  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · Image[Sprite:Tools Simple #C2FF99FF]
+                          · TrueShadow[drop size=2.0 spread=0.0 #FFFFFF99 angle=90.0 dist=0.0 blend=0]
+                          · LayoutElement[PreferredWidth=24.0 PreferredHeight=24.0]
+                      QuestRequired  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · Image[Sprite:priority_high_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48 Simple #FFE999FF]
+                          · TrueShadow[drop size=2.0 spread=0.0 #FFFFFF99 angle=90.0 dist=0.0 blend=0]
+                          · LayoutElement[PreferredWidth=24.0 PreferredHeight=24.0]
+                    (off) InspectioningIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                      Stripes  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                          · ProceduralImage[filled #666666BF falloff=1.0]
+                          ·   └ 모서리 radius=16.0
+                      Magnifier  a[0.5, 0.5]-[0.5, 0.5] pos[0.0, 8.0] size[40.0, 40.0] pv[0.5, 0.5]
+                          · Image[Sprite:PictoIcon_Magnifier Simple #FFFFFFFF]
+                          · Revolver
+                          · TrueShadow[drop size=6.0 spread=0.0 #00000099 angle=90.0 dist=3.0 blend=0]
+                    Layout  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · VerticalLayout[spacing=0.0 pad(L0 R0 T0 B0) align=8 ctrl(w1 h1) expand(w0 h0)]
+                      DurabilityContainer  a[0.0, 1.0]-[0.0, 1.0] pos[110.0, -52.19] size[40.0, 12.0] pv[1.0, 1.0]
+                          · ProceduralImage[filled #414141FF falloff=1.0]
+                          ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                          · LayoutElement[PreferredWidth=40.0 PreferredHeight=12.0]
+                        Fill  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-8.0, -8.0] pv[0.5, 0.5]
+                            · ProceduralImage[filled #CCED98FF falloff=1.0 fill=0.745 method=0 origin=0]
+                            ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                        Loss  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-8.0, -8.0] pv[0.5, 0.5]
+                            · ProceduralImage[filled #D04F6DFF falloff=1.0 fill=0.745 method=0 origin=1]
+                            ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                      CountContainer  a[0.0, 1.0]-[0.0, 1.0] pos[110.0, -64.19] size[29.36, 21.17] pv[1.0, 1.0]
+                          · ContentSizeFitter[h=2 v=2]
+                          · HorizontalLayout[spacing=0.0 pad(L5 R5 T-2 B0) align=8 ctrl(w1 h1) expand(w0 h0)]
+                          · ProceduralImage[filled #585F66FF falloff=1.0]
+                          ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                        Count  a[0.0, 1.0]-[0.0, 1.0] pos[14.68, -9.59] size[19.36, 23.17] pv[0.5, 0.5]
+                            · Text["64\n" size=16.0 #F8F2EAFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=512 autoSize=1]
+                      NameContainer  a[0.0, 1.0]-[0.0, 1.0] pos[73.99, -108.53] size[18.01, 23.17] pv[0.5, 0.0]
+                          · ProceduralImage[filled #000000BF falloff=1.0]
+                          ·   └ 모서리 radius=4.0
+                          · HorizontalLayout[spacing=0.0 pad(L4 R4 T0 B0) align=0 ctrl(w1 h1) expand(w0 h0)]
+                        Text (TMP)  a[0.0, 1.0]-[0.0, 1.0] pos[64.01, -16.0] size[96.01, 32.0] pv[0.5, 0.5]
+                            · Text["物品名称" size=16.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=512 autoSize=0]
+                LabelContainer  a[0.0, 1.0]-[0.0, 1.0] pos[55.0, -130.27] size[110.0, 39.47] pv[0.5, 0.5]
+                    · LayoutElement[PreferredHeight=40.0 FlexibleWidth=1.0]
+                  Label  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                      · Text["Freno de boca" size=13.15 #F8F2EAFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=256 autoSize=1]
+          Stats And Effects (Scroll View)  a[0.0, 1.0]-[0.0, 1.0] pos[289.0, -285.2] size[562.0, 16.0] pv[0.5, 0.5]
+              · ScrollRect[h=0 v=1]
+              · ScrollViewBorderFrame
+              · ScrollViewMaxHeight
+              · LayoutElement[FlexibleWidth=1.0]
+            Viewport  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.0, 1.0]
+                · ProceduralImage[filled #FFFFFFFF falloff=1.0]
+                ·   └ 모서리 radius=16.0
+                · Mask
+              Content  a[0.0, 1.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 16.0] pv[0.0, 1.0]
+                  · VerticalLayout[spacing=8.0 pad(L8 R8 T8 B8) align=0 ctrl(w1 h1) expand(w0 h0)]
+                  · ContentSizeFitter[h=0 v=2]
+                  · RectTransformChangeEventEmitter
+                UsageUtilitiesDisplay  a[0.0, 1.0]-[0.0, 1.0] pos[167.41, -54.76] size[318.83, 93.52] pv[0.5, 0.5]
+                    · UsageUtilitiesDisplay
+                    · VerticalLayout[spacing=8.0 pad(L0 R0 T8 B8) align=0 ctrl(w1 h1) expand(w0 h0)]
+                  Title  a[0.0, 1.0]-[0.0, 1.0] pos[24.84, -25.38] size[49.69, 34.76] pv[0.5, 0.5]
+                      · Text["效果" size=24.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=256 autoSize=1]
+                      · TextLocalizor[UsageUtilities_Title]
+                  Entry  a[0.0, 1.0]-[0.0, 1.0] pos[159.41, -68.14] size[318.83, 34.76] pv[0.5, 0.5]
+                      · UsageUtilitiesDisplay_Entry
+                      · HorizontalLayout[spacing=8.0 pad(L0 R0 T0 B0) align=3 ctrl(w1 h1) expand(w0 h0)]
+                    Dot  a[0.0, 1.0]-[0.0, 1.0] pos[4.0, -17.38] size[8.0, 8.0] pv[0.5, 0.5]
+                        · Image[Sprite:Knob Simple #FFFFFFFF preserveAspect]
+                        · LayoutElement[MinWidth=8.0 MinHeight=8.0 PreferredWidth=8.0 PreferredHeight=8.0]
+                    Text  a[0.0, 1.0]-[0.0, 1.0] pos[167.41, -17.38] size[302.83, 34.76] pv[0.5, 0.5]
+                        · Text["Usage Utilities Description" size=24.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=256 autoSize=1]
+                (off) BulletDisplay  a[0.0, 1.0]-[0.0, 1.0] pos[367.0, -134.9] size[718.0, 50.76] pv[0.5, 0.5]
+                    · ProceduralImage[filled #FFFFFFFF falloff=1.0]
+                    ·   └ 모서리 radius=16.0
+                    · HorizontalLayout[spacing=0.0 pad(L32 R32 T8 B8) align=0 ctrl(w1 h1) expand(w1 h0)]
+                    · BulletTypeDisplay
+                  Text (TMP)  a[0.0, 1.0]-[0.0, 1.0] pos[359.0, -25.38] size[702.0, 34.76] pv[0.5, 0.5]
+                      · Text["未指定子弹" size=24.0 #000000FF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=2 vAlign=256 autoSize=0]
+                (off) ItemVariableEntry  a[0.0, 1.0]-[0.0, 1.0] pos[281.0, -28.0] size[546.0, 40.0] pv[0.5, 0.5]
+                    · HorizontalLayout[spacing=32.0 pad(L32 R32 T0 B0) align=3 ctrl(w1 h1) expand(w0 h0)]
+                    · LayoutElement[PreferredHeight=40.0 FlexibleWidth=1.0]
+                    · ProceduralImage[filled #0000004C falloff=1.0]
+                    ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                    · ItemVariableEntry
+                  LabelContainer  a[0.0, 1.0]-[0.0, 1.0] pos[124.5, -20.0] size[233.0, 40.0] pv[0.5, 0.5]
+                      · LayoutElement[PreferredHeight=40.0 FlexibleWidth=1.0]
+                    StatName  a[0.0, 0.0]-[1.0, 1.0] pos[-0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · Text["剩余使用次数" size=27.6 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=4 vAlign=4096 autoSize=1]
+                  StatValue  a[0.0, 1.0]-[0.0, 1.0] pos[328.98, -20.0] size[15.96, 40.0] pv[0.5, 0.5]
+                      · Text["7" size=28.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=4096 autoSize=0]
+                      · LayoutElement[PreferredWidth=256.0]
+                (off) ItemStatEntry  a[0.0, 1.0]-[0.0, 1.0] pos[281.0, -76.0] size[546.0, 40.0] pv[0.5, 0.5]
+                    · HorizontalLayout[spacing=32.0 pad(L32 R32 T0 B0) align=3 ctrl(w1 h1) expand(w0 h0)]
+                    · LayoutElement[PreferredHeight=40.0 FlexibleWidth=1.0]
+                    · ProceduralImage[filled #0000004C falloff=1.0]
+                    ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                    · ItemStatEntry
+                  LabelContainer  a[0.0, 1.0]-[0.0, 1.0] pos[124.5, -20.0] size[233.0, 40.0] pv[0.5, 0.5]
+                      · LayoutElement[PreferredHeight=40.0 FlexibleWidth=1.0]
+                    StatName  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · Text["攻击力" size=27.6 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=4 vAlign=4096 autoSize=1]
+                  StatValue  a[0.0, 1.0]-[0.0, 1.0] pos[336.96, -20.0] size[31.92, 40.0] pv[0.5, 0.5]
+                      · Text["32" size=28.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=4096 autoSize=0]
+                      · LayoutElement[PreferredWidth=256.0]
+                (off) ItemModifierEntry  a[0.0, 1.0]-[0.0, 1.0] pos[281.0, -124.0] size[546.0, 40.0] pv[0.5, 0.5]
+                    · HorizontalLayout[spacing=32.0 pad(L32 R32 T0 B0) align=3 ctrl(w1 h1) expand(w0 h0)]
+                    · LayoutElement[PreferredHeight=40.0 FlexibleWidth=1.0]
+                    · ProceduralImage[filled #0000004C falloff=1.0]
+                    ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                    · ItemModifierEntry
+                  LabelContainer  a[0.0, 1.0]-[0.0, 1.0] pos[124.5, -20.0] size[233.0, 40.0] pv[0.5, 0.5]
+                      · LayoutElement[PreferredHeight=40.0 FlexibleWidth=1.0]
+                    StatName  a[0.0, 0.0]-[1.0, 1.0] pos[-0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+                        · Text["攻击力" size=27.6 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=4 vAlign=4096 autoSize=1]
+                  StatValue  a[0.0, 1.0]-[0.0, 1.0] pos[336.96, -20.0] size[31.92, 40.0] pv[0.5, 0.5]
+                      · Text["+5" size=28.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=4096 autoSize=0]
+                      · LayoutElement[PreferredWidth=256.0]
+                (off) ItemEffectEntry  a[0.0, 1.0]-[0.0, 1.0] pos[281.0, -172.0] size[546.0, 40.0] pv[0.5, 0.5]
+                    · HorizontalLayout[spacing=80.0 pad(L32 R32 T0 B0) align=1 ctrl(w1 h1) expand(w0 h0)]
+                    · LayoutElement[PreferredHeight=40.0 FlexibleWidth=1.0]
+                    · ProceduralImage[filled #0000004C falloff=1.0]
+                    ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+                    · ItemEffectEntry
+                  Effect Description  a[0.0, 1.0]-[0.0, 1.0] pos[273.0, -20.0] size[323.96, 40.0] pv[0.5, 0.5]
+                      · Text["击杀敌人时恢复5点生命值" size=28.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=512 autoSize=0]
+              UpFrame  a[0.0, 1.0]-[1.0, 1.0] pos[0.0, 1.0] size[0.0, 50.0] pv[0.5, 1.0]
+                  · Image[Sprite:UpFrameMask16 Sliced #FFFFFF94]
+                  · TrueShadow[drop size=3.4 spread=0.197 #FFFFFFFF angle=90.0 dist=2.0 blend=0]
+              DownFrame  a[0.0, 0.0]-[1.0, 0.0] pos[0.0, -1.0] size[0.0, 50.0] pv[0.5, 0.0]
+                  · Image[Sprite:DownFrameMask16 Sliced #FFFFFF94]
+                  · TrueShadow[drop size=3.4 spread=0.197 #FFFFFFFF angle=270.0 dist=2.0 blend=0]
+            (off) Scrollbar Horizontal  a[0.0, 0.0]-[1.0, 0.0] pos[0.0, 0.0] size[-17.0, 20.0] pv[0.0, 0.0]
+                · Image[Sprite:Background Sliced #FFFFFFFF]
+                · Scrollbar
+              Sliding Area  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-20.0, -20.0] pv[0.5, 0.5]
+                Handle  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[20.0, 20.0] pv[0.5, 0.5]
+                    · Image[Sprite:UISprite Sliced #FFFFFFFF]
+            Scrollbar Vertical  a[1.0, 0.0]-[1.0, 1.0] pos[10.0, 0.0] size[20.0, 0.0] pv[0.0, 1.0]
+                · Scrollbar
+              (off) Sliding Area  a[0.5, 0.0]-[0.5, 1.0] pos[0.0, 0.0] size[15.0, -20.0] pv[0.5, 0.5]
+                  · Image[Sprite:Slider01 Sliced #D4C2B3FF ppuMul=1.5]
+                  · TrueShadow[inset(안쪽 글로우) size=2.0 spread=0.0 #00000091 angle=79.6342 dist=1.52 blend=0]
+                (off) Handle  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-8.0, -8.0] pv[0.5, 0.5]
+                    · Image[Sprite:Slider01 Sliced #F8F2EAFF ppuMul=2.0]
+                    · TrueShadow[drop size=5.0 spread=0.0 #000000FF angle=90.0 dist=0.0 blend=0]
+          ItemID  a[0.0, 1.0]-[0.0, 1.0] pos[8.0, 16.0] size[82.81, 49.72] pv[0.0, 0.0]
+              · Text["123" size=16.0 #FFFFFF80 font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=1024 autoSize=1]
+              · LayoutElement[IgnoreLayout=1]

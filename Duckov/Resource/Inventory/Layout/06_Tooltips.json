@@ -1,0 +1,313 @@
+{
+ "name": "Tooltips",
+ "active": true,
+ "rect": {
+  "anchorMin": [
+   0.0,
+   0.0
+  ],
+  "anchorMax": [
+   1.0,
+   1.0
+  ],
+  "pos": [
+   0.0,
+   0.0
+  ],
+  "size": [
+   0.0,
+   0.0
+  ],
+  "pivot": [
+   0.5,
+   0.5
+  ]
+ },
+ "components": [
+  {
+   "type": "Tooltips",
+   "ns": "Duckov.UI",
+   "m_Enabled": 1,
+   "m_Name": "",
+   "rectTransform": null,
+   "contents": "Transform:LevelManager/GameplayUICanvas/Tooltips/Contents",
+   "fadeGroup": "FadeGroup:",
+   "text": "TextMeshProUGUI:"
+  }
+ ],
+ "children": [
+  {
+   "name": "Contents",
+   "active": true,
+   "rect": {
+    "anchorMin": [
+     0.0,
+     1.0
+    ],
+    "anchorMax": [
+     0.0,
+     1.0
+    ],
+    "pos": [
+     0.0,
+     0.0
+    ],
+    "size": [
+     0.0,
+     0.0
+    ],
+    "pivot": [
+     0.0,
+     1.0
+    ]
+   },
+   "components": [
+    {
+     "type": "ProceduralImage",
+     "ns": "UnityEngine.UI.ProceduralImage",
+     "m_Enabled": 1,
+     "m_Name": "",
+     "m_Material": null,
+     "m_Color": {
+      "r": 0.0,
+      "g": 0.0,
+      "b": 0.0,
+      "a": 0.749
+     },
+     "m_RaycastTarget": 1,
+     "m_RaycastPadding": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "w": 0.0
+     },
+     "m_Maskable": 1,
+     "m_Sprite": "Sprite:procedural_ui_image_default_sprite",
+     "m_Type": 0,
+     "m_PreserveAspect": 0,
+     "m_FillCenter": 1,
+     "m_FillMethod": 4,
+     "m_FillAmount": 1.0,
+     "m_FillClockwise": 1,
+     "m_FillOrigin": 0,
+     "m_UseSpriteMesh": 0,
+     "m_PixelsPerUnitMultiplier": 1.0,
+     "borderWidth": 0.0,
+     "falloffDistance": 1.0
+    },
+    {
+     "type": "UniformModifier",
+     "ns": "",
+     "m_Enabled": 1,
+     "m_Name": "",
+     "radius": 8.0
+    },
+    {
+     "type": "VerticalLayoutGroup",
+     "ns": "UnityEngine.UI",
+     "m_Enabled": 1,
+     "m_Name": "",
+     "m_Padding": {
+      "m_Left": 8,
+      "m_Right": 8,
+      "m_Top": 8,
+      "m_Bottom": 8
+     },
+     "m_ChildAlignment": 0,
+     "m_Spacing": 0.0,
+     "m_ChildForceExpandWidth": 0,
+     "m_ChildForceExpandHeight": 0,
+     "m_ChildControlWidth": 1,
+     "m_ChildControlHeight": 1,
+     "m_ChildScaleWidth": 1,
+     "m_ChildScaleHeight": 1,
+     "m_ReverseArrangement": 0
+    },
+    {
+     "type": "ContentSizeFitter",
+     "ns": "UnityEngine.UI",
+     "m_Enabled": 1,
+     "m_Name": "",
+     "m_HorizontalFit": 2,
+     "m_VerticalFit": 2
+    },
+    {
+     "type": "FadeGroup",
+     "ns": "Duckov.UI.Animations",
+     "m_Enabled": 1,
+     "m_Name": "",
+     "fadeElements": [],
+     "skipHideOnStart": 1,
+     "showOnEnable": 0,
+     "skipHideBeforeShow": 1,
+     "manageGameObjectActive": 1,
+     "debug": 0
+    },
+    {
+     "type": "CanvasGroup",
+     "m_Enabled": 1,
+     "m_Alpha": 1.0,
+     "m_Interactable": false,
+     "m_BlocksRaycasts": false,
+     "m_IgnoreParentGroups": false
+    }
+   ],
+   "children": [
+    {
+     "name": "Text",
+     "active": true,
+     "rect": {
+      "anchorMin": [
+       0.0,
+       0.0
+      ],
+      "anchorMax": [
+       0.0,
+       0.0
+      ],
+      "pos": [
+       0.0,
+       0.0
+      ],
+      "size": [
+       0.0,
+       0.0
+      ],
+      "pivot": [
+       0.5,
+       0.5
+      ]
+     },
+     "components": [
+      {
+       "type": "TextMeshProUGUI",
+       "ns": "TMPro",
+       "m_Enabled": 1,
+       "m_Name": "",
+       "m_Material": null,
+       "m_Color": {
+        "r": 1.0,
+        "g": 1.0,
+        "b": 1.0,
+        "a": 1.0
+       },
+       "m_RaycastTarget": 1,
+       "m_RaycastPadding": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+       },
+       "m_Maskable": 1,
+       "m_text": "Tooltips",
+       "m_isRightToLeft": 0,
+       "m_fontAsset": "TMP_FontAsset:ResourceHanRoundedCN-Medium SDF",
+       "m_sharedMaterial": "Material:ResourceHanRoundedCN-Medium Atlas Material",
+       "m_fontMaterial": null,
+       "m_fontColor32": {
+        "rgba": 4294967295
+       },
+       "m_fontColor": {
+        "r": 1.0,
+        "g": 1.0,
+        "b": 1.0,
+        "a": 1.0
+       },
+       "m_enableVertexGradient": 0,
+       "m_colorMode": 3,
+       "m_fontColorGradient": {
+        "topLeft": {
+         "r": 1.0,
+         "g": 1.0,
+         "b": 1.0,
+         "a": 1.0
+        },
+        "topRight": {
+         "r": 1.0,
+         "g": 1.0,
+         "b": 1.0,
+         "a": 1.0
+        },
+        "bottomLeft": {
+         "r": 1.0,
+         "g": 1.0,
+         "b": 1.0,
+         "a": 1.0
+        },
+        "bottomRight": {
+         "r": 1.0,
+         "g": 1.0,
+         "b": 1.0,
+         "a": 1.0
+        }
+       },
+       "m_fontColorGradientPreset": null,
+       "m_spriteAsset": null,
+       "m_tintAllSprites": 0,
+       "m_StyleSheet": null,
+       "m_TextStyleHashCode": -1183493901,
+       "m_overrideHtmlColors": 0,
+       "m_faceColor": {
+        "rgba": 4294967295
+       },
+       "m_fontSize": 16.0,
+       "m_fontSizeBase": 16.0,
+       "m_fontWeight": 400,
+       "m_enableAutoSizing": 0,
+       "m_fontSizeMin": 18.0,
+       "m_fontSizeMax": 72.0,
+       "m_fontStyle": 0,
+       "m_HorizontalAlignment": 1,
+       "m_VerticalAlignment": 256,
+       "m_textAlignment": 65535,
+       "m_characterSpacing": 0.0,
+       "m_wordSpacing": 0.0,
+       "m_lineSpacing": 0.0,
+       "m_lineSpacingMax": 0.0,
+       "m_paragraphSpacing": 0.0,
+       "m_charWidthMaxAdj": 0.0,
+       "m_enableWordWrapping": 0,
+       "m_wordWrappingRatios": 0.4,
+       "m_overflowMode": 0,
+       "m_linkedTextComponent": null,
+       "parentLinkedComponent": null,
+       "m_enableKerning": 1,
+       "m_enableExtraPadding": 0,
+       "checkPaddingRequired": 0,
+       "m_isRichText": 1,
+       "m_parseCtrlCharacters": 1,
+       "m_isOrthographic": 1,
+       "m_isCullingEnabled": 0,
+       "m_horizontalMapping": 0,
+       "m_verticalMapping": 0,
+       "m_uvLineOffset": 0.0,
+       "m_geometrySortingOrder": 0,
+       "m_IsTextObjectScaleStatic": 0,
+       "m_VertexBufferAutoSizeReduction": 0,
+       "m_useMaxVisibleDescender": 1,
+       "m_pageToDisplay": 1,
+       "m_margin": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+       },
+       "m_isUsingLegacyAnimationComponent": 0,
+       "m_isVolumetricText": 0,
+       "m_hasFontAssetChanged": 0,
+       "m_baseMaterial": null,
+       "m_maskOffset": {
+        "x": 0.0,
+        "y": 0.0,
+        "z": 0.0,
+        "w": 0.0
+       }
+      }
+     ],
+     "children": []
+    }
+   ]
+  }
+ ],
+ "_path": "LevelManager/GameplayUICanvas/Tooltips"
+}

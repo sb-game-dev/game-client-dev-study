@@ -1,0 +1,51 @@
+# LevelManager/GameplayUICanvas
+# a[anchorMin]-[anchorMax] pos=anchoredPosition size=sizeDelta pv=pivot  (유니티 UI 좌표, y-up, 단위 = 캔버스 픽셀)
+
+GameplayUICanvas  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.0, 0.0] scale[0.0, 0.0, 0.0]
+    · Canvas
+    · CanvasScaler[mode=1 ref=2560x1440 match=1.0]
+    · GraphicRaycaster
+    · GameplayUIManager
+    · CanvasGroup[alpha=1.0]
+    · CanvasGroupFade
+    · FadeGroup
+    · CanvasScalerController
+  Tabs  (하위 생략)
+  StorageDock  (하위 생략)
+  CraftView  (하위 생략)
+  StockShopView  (하위 생략)
+  ItemDetails  (하위 생략)
+  QuestGiverView  (하위 생략)
+  ItemPicker  (하위 생략)
+  ItemCustomizeSelectionView  (하위 생략)
+  ItemDecomposeView  (하위 생략)
+  ItemCustomizeView  (하위 생략)
+  ItemRepairView  (하위 생략)
+  PerkTreeView  (하위 생략)
+  MasterKeysRegisterView  (하위 생략)
+  FormulaRegisterView  (하위 생략)
+  ShowcaseView  (하위 생략)
+  FormulasIndexView  (하위 생략)
+  ExtraBuffView  (하위 생략)
+  BitcoinView  (하위 생략)
+  DeathLotteryView  (하위 생략)
+  DestinationSelectionView  (하위 생략)
+  BuilderView  (하위 생략)
+  FishingHUD  (하위 생략)
+  BlackMarketView  (하위 생략)
+  SleepView  (하위 생략)
+  ATMView  (하위 생략)
+  GamingConsoleView  (하위 생략)
+  GardenView  (하위 생략)
+  EndowmentSelection  (하위 생략)
+  FishingUI  (하위 생략)
+  ItemSplitDialogue  (하위 생략)
+  ItemDraggingUI  (하위 생략)
+  ItemHoveringUI  (하위 생략)
+  Tooltips  (하위 생략)
+  ItemOperationMenu  (하위 생략)
+  ClosureView  (하위 생략)
+  StrongNotification  (하위 생략)
+  ItemUnlockNotification  (하위 생략)
+  NotificationText  (하위 생략)
+  GamingConsoleHUD  (하위 생략)

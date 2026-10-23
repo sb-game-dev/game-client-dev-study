@@ -1,0 +1,17 @@
+﻿name,w,h,border_L,border_B,border_R,border_T,pivot_x,pivot_y,ppu,source
+Background,32,32,10.0,10.0,10.0,10.0,0.5,0.5,200.0,sharedassets0.assets#101
+Ceiling,8,8,3.0,4.0,3.0,3.0,0.5,0.5,100.0,resources.assets#5504
+DownFrameMask16,126,11,18.0,11.0,18.0,0.0,0.5,0.5,100.0,sharedassets0.assets#98
+Frame_Basic_Rectangle,59,61,29.0,31.0,30.0,30.0,0.5,0.5,100.0,resources.assets#5836
+HorizontalFrameMask_16_Left,11,126,0.0,18.0,0.0,18.0,0.5,0.5,100.0,resources.assets#5180
+HorizontalFrameMask_16_Right,12,126,0.0,18.0,0.0,18.0,0.5,0.5,100.0,resources.assets#6442
+Panel,64,64,8.0,8.0,8.0,8.0,0.5,0.5,100.0,resources.assets#6043
+Rect16,64,64,17.0,17.0,17.0,17.0,0.5,0.5,100.0,sharedassets0.assets#107
+Rounded Rect,128,128,63.0,63.0,63.0,63.0,0.5,0.5,100.0,resources.assets#6022
+Rounded Rect small,16,16,5.0,5.0,5.0,5.0,0.5,0.5,100.0,resources.assets#5234
+Slider01,18,30,9.0,15.0,9.0,15.0,0.5,0.5,100.0,sharedassets0.assets#116
+Terrain,64,64,6.0,5.0,6.0,8.0,0.5,0.5,1.0,resources.assets#5617
+UIElement8px,8,8,0.0,2.0,0.0,0.0,0.5,0.5,100.0,resources.assets#6235
+UIMask,32,32,10.0,10.0,10.0,10.0,0.5,0.5,200.0,sharedassets0.assets#102
+UISprite,32,32,10.0,10.0,10.0,10.0,0.5,0.5,200.0,sharedassets0.assets#100
+UpFrameMask16,126,11,18.0,0.0,18.0,11.0,0.5,0.5,100.0,sharedassets0.assets#97

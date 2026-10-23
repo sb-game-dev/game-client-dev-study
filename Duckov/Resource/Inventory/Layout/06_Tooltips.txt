@@ -1,0 +1,14 @@
+# LevelManager/GameplayUICanvas/Tooltips
+# a[anchorMin]-[anchorMax] pos=anchoredPosition size=sizeDelta pv=pivot  (유니티 UI 좌표, y-up, 단위 = 캔버스 픽셀)
+
+Tooltips  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+    · Tooltips
+  Contents  a[0.0, 1.0]-[0.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.0, 1.0]
+      · ProceduralImage[filled #000000BF falloff=1.0]
+      ·   └ 모서리 radius=8.0
+      · VerticalLayout[spacing=0.0 pad(L8 R8 T8 B8) align=0 ctrl(w1 h1) expand(w0 h0)]
+      · ContentSizeFitter[h=2 v=2]
+      · FadeGroup
+      · CanvasGroup[alpha=1.0]
+    Text  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+        · Text["Tooltips" size=16.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=256 autoSize=0]

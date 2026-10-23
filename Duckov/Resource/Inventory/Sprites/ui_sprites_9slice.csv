@@ -1,0 +1,63 @@
+﻿file,name,w,h,border_L,border_B,border_R,border_T,pivot_x,pivot_y,ppu,used_count,used_at(예시),source
+Anvil.png,Anvil,340,340,0.0,0.0,0.0,0.0,0.5,0.5,66.41,4,Extra/Weight/Image | ItemInfo/Weight/Image,resources.assets#5175
+Helmet.png,Helmet,340,340,0.0,0.0,0.0,0.0,0.5,0.5,66.41,1,Tabs/ViewArea/MiniMapView,resources.assets#5178
+HorizontalFrameMask_16_Left.png,HorizontalFrameMask_16_Left,11,126,0.0,18.0,0.0,18.0,0.5,0.5,100.0,1,Scroll View/Viewport/Left,resources.assets#5180
+pictoicon_share.png,pictoicon_share,47,55,0.0,0.0,0.0,0.0,0.5,0.5,100.0,1,Layout/Btn_Split/Icon,resources.assets#5202
+PictoIcon_Lock_2.png,PictoIcon_Lock_2,128,128,0.0,0.0,0.0,0.0,0.5,0.5,25.0,2,InventoryEntry Trading Selling/Main/Locked | InventoryEntry/Main/Locked,resources.assets#5261
+swords.png,swords,256,256,0.0,0.0,0.0,0.0,0.5,0.5,100.0,1,Tabs/ViewArea/MiniMapView,resources.assets#5303
+raven.png,raven,256,256,0.0,0.0,0.0,0.0,0.5,0.5,100.0,1,Tabs/ViewArea/MiniMapView,resources.assets#5336
+memory_256dp_FFFFFF_FILL0_wght400_GRAD0_opsz48.png,memory_256dp_FFFFFF_FILL0_wght400_GRAD0_opsz48,256,256,0.0,0.0,0.0,0.0,0.5,0.5,100.0,1,Viewport/Content/Image,resources.assets#5353
+acorn1.png,acorn1,256,256,0.0,0.0,0.0,0.0,0.5,0.5,50.0,1,FilterEntry/ButtonShape/Icon,resources.assets#5417
+point_scan.png,point_scan,256,256,0.0,0.0,0.0,0.0,0.5,0.5,100.0,1,Tabs/ViewArea/MiniMapView,resources.assets#5423
+Gradient128.png,Gradient128,128,128,0.0,0.0,0.0,0.0,0.5,0.5,100.0,4,GameplayUICanvas/Tabs/Bottom | GameplayUICanvas/Tabs/Top | Scroll View/Viewport/Bottom | Scroll View/Viewport/Top,resources.assets#5442
+key_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48.png,key_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48,256,256,0.0,0.0,0.0,0.0,0.5,0.5,100.0,3,Content/KeyEntry/Icon | ViewButtons/KeyButton/Icon | Viewport/Content/KeyEntry,resources.assets#5447
+package.png,package,256,256,0.0,0.0,0.0,0.0,0.5,0.5,100.0,1,Tabs/ViewArea/MiniMapView,resources.assets#5448
+personal_bag_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48.png,personal_bag_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48,256,256,0.0,0.0,0.0,0.0,0.5,0.5,100.0,1,ViewButtons/BackpackButton/Icon,resources.assets#5499
+triangle_up.png,triangle_up,128,128,0.0,0.0,0.0,0.0,0.5,0.5,100.0,4,BarArea/LightMark/Arrow | BarArea/SuperHeavyMark/Arrow,resources.assets#5593
+pictoicon_arrow_line_prev.png,pictoicon_arrow_line_prev,49,39,0.0,0.0,0.0,0.0,0.5,0.5,100.0,6,ExitButton/Graphics/Icon | ExitButton_1/Graphics/Icon,resources.assets#5615
+Knob.png,Knob,64,64,0.0,0.0,0.0,0.0,0.5,0.5,100.0,2,UsageUtilitiesDisplay/Entry/Dot,resources.assets#5649
+pictoicon_refresh.png,pictoicon_refresh,49,61,0.0,0.0,0.0,0.0,0.5,0.5,100.0,1,Layout/Btn_Use/Icon,resources.assets#5763
+Filled Circle Head.png,Filled Circle Head,256,256,0.0,0.0,0.0,0.0,0.5,0.5,100.0,2,Entry/Layout/NotRead | Viewport/MiniMapDIsplay/TeleporterSplines,resources.assets#5765
+accessibility_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48.png,accessibility_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48,256,256,0.0,0.0,0.0,0.0,0.5,0.5,100.0,1,ViewButtons/PlayerStatsButton/Icon,resources.assets#5791
+heart.png,heart,256,256,0.0,0.0,0.0,0.0,0.5,0.5,100.0,33,ItemDisplay/WishlistInfo/Wishlisted | Tabs/ViewArea/MiniMapView,resources.assets#5796
+PictoIcon_Magnifier.png,PictoIcon_Magnifier,64,64,0.0,0.0,0.0,0.0,0.5,0.5,100.0,33,Handle Slide Area/Handle/Image | ItemDisplay/InspectioningIndicator/Magnifier,resources.assets#5800
+map_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48.png,map_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48,256,256,0.0,0.0,0.0,0.0,0.5,0.5,100.0,1,ViewButtons/MapButton/Icon,resources.assets#5810
+bone.png,bone,256,256,0.0,0.0,0.0,0.0,0.5,0.5,100.0,1,Tabs/ViewArea/MiniMapView,resources.assets#5830
+paw.png,paw,256,256,0.0,0.0,0.0,0.0,0.5,0.5,100.0,1,Tabs/ViewArea/MiniMapView,resources.assets#5833
+Frame_Basic_Rectangle.png,Frame_Basic_Rectangle,59,61,29.0,31.0,30.0,30.0,0.5,0.5,100.0,15,Content/EquipmentAndInventory/Content | Content/InventoryDisplay_Pet/GameObject | Content/ItemDetails/Panel | Content/TreeMapPanel/Buffs,resources.assets#5836
+arrow_drop_down_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48.png,arrow_drop_down_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48,64,64,0.0,0.0,0.0,0.0,0.5,0.5,100.0,1,PagesControl/Inputs/arrow_1,resources.assets#5865
+PictoIcon_Symbol_X.png,PictoIcon_Symbol_X,64,64,0.0,0.0,0.0,0.0,0.5,0.5,100.0,2,ExitButtonContainer/ExitButton/Icon | Layout/Btn_Unload/Icon,resources.assets#5901
+sort_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48.png,sort_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48,64,64,0.0,0.0,0.0,0.0,0.5,0.5,100.0,1,Btn_Sort/Graphics/Image,resources.assets#5934
+minus.png,minus,128,128,0.0,0.0,0.0,0.0,0.5,0.5,100.0,52,ItemSlotsDisplay/GridLayout/SlotDisplay | ItemSlotsDisplay/GridLayout/SlotDisplay (1) | ItemSlotsDisplay/GridLayout/SlotDisplay (2) | ItemSlotsDisplay/GridLayout/SlotDisplay (3),resources.assets#5942
+scissors.png,scissors,256,256,0.0,0.0,0.0,0.0,0.5,0.5,50.0,32,Entry/ItemDisplay/Icon | ItemDisplay/Icon | ItemDisplayContainer/ItemDisplay/Icon | ItemPickerEntry/ItemDisplay/Icon,resources.assets#5959
+priority_high_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48.png,priority_high_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48,256,256,0.0,0.0,0.0,0.0,0.5,0.5,100.0,32,ItemDisplay/WishlistInfo/QuestRequired,resources.assets#5961
+PictoIcon_Map_Pin_1.png,PictoIcon_Map_Pin_1,128,128,0.0,0.0,0.0,0.0,0.5,0.5,25.0,2,IconContainer/Layout/Icon | Viewport/MiniMapDIsplay/POIEntry,resources.assets#5969
+Cash.png,Cash,256,256,0.0,0.0,0.0,0.0,0.5,0.5,12.5,3,InventoryEntry Trading Selling/Price/Image | MoneyDisplay/Money/Image,resources.assets#5970
+GradientSym256.png,GradientSym256,256,256,0.0,0.0,0.0,0.0,0.5,0.5,100.0,1,Tabs/ViewButtons/line,resources.assets#6012
+MarkerBeacon.png,MarkerBeacon,256,256,0.0,0.0,0.0,0.0,0.5,0.5,50.0,1,ItemRequirementIndicator/ItemRequireEntry/Icon,resources.assets#6024
+Stripes.png,Stripes,512,512,0.0,0.0,0.0,0.0,0.5,0.5,100.0,34,ItemDisplay/InspectioningIndicator/Stripes | Main/ItemDisplay/DisabledIndicator,resources.assets#6094
+target.png,target,256,256,0.0,0.0,0.0,0.0,0.5,0.5,100.0,1,Tabs/ViewArea/MiniMapView,resources.assets#6101
+bookmark_star_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48.png,bookmark_star_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48,256,256,0.0,0.0,0.0,0.0,0.5,0.5,100.0,1,ViewButtons/QuestsButton/Icon,resources.assets#6110
+star.png,star,256,256,0.0,0.0,0.0,0.0,0.5,0.5,100.0,2,MarkerToolBox/Icons/IconBtn | Tabs/ViewArea/MiniMapView,resources.assets#6128
+letter.png,letter,256,256,0.0,0.0,0.0,0.0,0.5,0.5,50.0,1,Viewport/MiniMapDIsplay/MapEntry,resources.assets#6135
+Rotator.png,Rotator,128,128,0.0,0.0,0.0,0.0,0.5,0.5,25.0,8,Container/Rotator/Image | Container_1/Rotator/Image,resources.assets#6153
+arrow_drop_up_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48.png,arrow_drop_up_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48,64,64,0.0,0.0,0.0,0.0,0.5,0.5,100.0,1,PagesControl/Inputs/arrow,resources.assets#6205
+pets_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48.png,pets_64dp_FFFFFF_FILL1_wght400_GRAD0_opsz48,256,256,0.0,0.0,0.0,0.0,0.5,0.5,100.0,1,Content/InventoryDisplay_Pet/Image,resources.assets#6255
+toolbox.png,toolbox,256,256,0.0,0.0,0.0,0.0,0.5,0.5,100.0,1,Tabs/ViewArea/MiniMapView,resources.assets#6274
+book.png,book,256,256,0.0,0.0,0.0,0.0,0.5,0.5,100.0,1,Tabs/ViewArea/MiniMapView,resources.assets#6290
+key.png,key,256,256,0.0,0.0,0.0,0.0,0.5,0.5,50.0,1,Inspector/Layout/Icon,resources.assets#6319
+PictoIcon_Paper_3.png,PictoIcon_Paper_3,128,128,0.0,0.0,0.0,0.0,0.5,0.5,25.0,1,ViewButtons/NoteIndexButton/Icon,resources.assets#6364
+pictoicon_arrow_up.png,pictoicon_arrow_up,41,51,0.0,0.0,0.0,0.0,0.5,0.5,100.0,1,Layout/Btn_Equip/Icon,resources.assets#6381
+Banknote.png,Banknote,256,256,0.0,0.0,0.0,0.0,0.5,0.5,50.0,2,MoneyDisplay/CashDisplay/Image,resources.assets#6387
+pictoicon_delete.png,pictoicon_delete,53,56,0.0,0.0,0.0,0.0,0.5,0.5,100.0,1,Layout/Btn_Dump/Icon,resources.assets#6419
+HorizontalFrameMask_16_Right.png,HorizontalFrameMask_16_Right,12,126,0.0,18.0,0.0,18.0,0.5,0.5,100.0,1,Scroll View/Viewport/Right,resources.assets#6442
+Tools.png,Tools,340,340,0.0,0.0,0.0,0.0,0.5,0.5,66.41,33,ItemDisplay/WishlistInfo/BuildingRequired | Layout/Btn_Modify/Icon,resources.assets#6461
+UISprite.png,UISprite,32,32,10.0,10.0,10.0,10.0,0.5,0.5,200.0,18,Scrollbar Horizontal/Sliding Area/Handle | Slider/Fill Area/Fill,sharedassets0.assets#100
+Background.png,Background,32,32,10.0,10.0,10.0,10.0,0.5,0.5,200.0,17,Buffs/Scroll View/Scrollbar Horizontal | Content/Scroll View/Scrollbar Horizontal | Inspector/Scroll View/Scrollbar Horizontal | ItemDisplayCore/Stats And Effects (Scroll View)/Scrollbar Horizontal,sharedassets0.assets#101
+Rect16.png,Rect16,64,64,17.0,17.0,17.0,17.0,0.5,0.5,100.0,37,Content/BuffsDisplay/BuffDetailsOverlay | Content/Content/Inspector | Content/InventoryDisplay/TitleBar (1) | Content/InventoryDisplay_Pet/TitleBar (1),sharedassets0.assets#107
+procedural_ui_image_default_sprite.png,procedural_ui_image_default_sprite,4,4,0.0,0.0,0.0,0.0,0.5,0.5,4000.0,758,BGAndMAsk/MainBar/Negative | BGAndMAsk/MainBar/Positive | BackpackButton/WeightBar/Fill | Bar/Values/BG,sharedassets0.assets#109
+Slider01.png,Slider01,18,30,9.0,15.0,9.0,15.0,0.5,0.5,100.0,34,Entries Scroll View/Scrollbar Vertical/Sliding Area | Scroll View/Scrollbar Vertical/Sliding Area | Scrollbar Vertical/Sliding Area/Handle | Stats And Effects (Scroll View)/Scrollbar Vertical/Sliding Area,sharedassets0.assets#116
+Kenney_Stick_L.png,Kenney_Stick_L,16,16,0.0,0.0,0.0,0.0,0.5,0.5,32.0,4,Entry/InputIndicator/Icon | Inputs/InputIndicator/Icon | Inputs/InputIndicator_1/Icon,sharedassets0.assets#123
+CompassArrow.png,CompassArrow,512,512,0.0,0.0,0.0,0.0,0.5,0.5,25.0,1,Compass/Arrow/Arrow_1,sharedassets0.assets#124
+UpFrameMask16.png,UpFrameMask16,126,11,18.0,0.0,18.0,11.0,0.5,0.5,100.0,17,Entries Scroll View/Viewport/UpFrame | Scroll View/Viewport/UpFrame | Stats And Effects (Scroll View)/Viewport/UpFrame,sharedassets0.assets#97
+DownFrameMask16.png,DownFrameMask16,126,11,18.0,11.0,18.0,0.0,0.5,0.5,100.0,17,Entries Scroll View/Viewport/DownFrame | Scroll View/Viewport/DownFrame | Stats And Effects (Scroll View)/Viewport/DownFrame,sharedassets0.assets#98

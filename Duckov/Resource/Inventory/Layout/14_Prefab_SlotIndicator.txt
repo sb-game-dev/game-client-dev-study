@@ -1,0 +1,13 @@
+# SlotIndicator
+# a[anchorMin]-[anchorMax] pos=anchoredPosition size=sizeDelta pv=pivot  (유니티 UI 좌표, y-up, 단위 = 캔버스 픽셀)
+
+(off) SlotIndicator  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[12.0, 12.0] pv[0.5, 0.5]
+    · SlotIndicator
+    · ProceduralImage[filled #000000FF falloff=1.0]
+    ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+    · LayoutElement[PreferredWidth=12.0 PreferredHeight=12.0]
+    · TrueShadow[drop size=1.0 spread=0.0 #FFFFFFFF angle=90.0 dist=0.0 blend=0]
+  HasItem  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[-6.0, -6.0] pv[0.5, 0.5]
+      · ProceduralImage[filled #FFFFFFFF falloff=1.0]
+      ·   └ 모서리 radius=짧은 변/2 (알약 모양)
+      · LayoutElement[PreferredWidth=12.0 PreferredHeight=12.0]

@@ -1,0 +1,206 @@
+{
+ "name": "SlotIndicator",
+ "active": false,
+ "rect": {
+  "anchorMin": [
+   0.0,
+   0.0
+  ],
+  "anchorMax": [
+   0.0,
+   0.0
+  ],
+  "pos": [
+   0.0,
+   0.0
+  ],
+  "size": [
+   12.0,
+   12.0
+  ],
+  "pivot": [
+   0.5,
+   0.5
+  ]
+ },
+ "components": [
+  {
+   "type": "SlotIndicator",
+   "ns": "Duckov.UI",
+   "m_Enabled": 1,
+   "m_Name": "",
+   "contentIndicator": "GameObject:SlotIndicator/HasItem"
+  },
+  {
+   "type": "ProceduralImage",
+   "ns": "UnityEngine.UI.ProceduralImage",
+   "m_Enabled": 1,
+   "m_Name": "",
+   "m_Material": null,
+   "m_Color": {
+    "r": 0.0,
+    "g": 0.0,
+    "b": 0.0,
+    "a": 1.0
+   },
+   "m_RaycastTarget": 1,
+   "m_RaycastPadding": {
+    "x": 0.0,
+    "y": 0.0,
+    "z": 0.0,
+    "w": 0.0
+   },
+   "m_Maskable": 1,
+   "m_Sprite": "Sprite:procedural_ui_image_default_sprite",
+   "m_Type": 0,
+   "m_PreserveAspect": 0,
+   "m_FillCenter": 1,
+   "m_FillMethod": 4,
+   "m_FillAmount": 1.0,
+   "m_FillClockwise": 1,
+   "m_FillOrigin": 0,
+   "m_UseSpriteMesh": 0,
+   "m_PixelsPerUnitMultiplier": 1.0,
+   "borderWidth": 0.0,
+   "falloffDistance": 1.0
+  },
+  {
+   "type": "RoundModifier",
+   "ns": "",
+   "m_Enabled": 1,
+   "m_Name": ""
+  },
+  {
+   "type": "LayoutElement",
+   "ns": "UnityEngine.UI",
+   "m_Enabled": 1,
+   "m_Name": "",
+   "m_IgnoreLayout": 0,
+   "m_MinWidth": -1.0,
+   "m_MinHeight": -1.0,
+   "m_PreferredWidth": 12.0,
+   "m_PreferredHeight": 12.0,
+   "m_FlexibleWidth": -1.0,
+   "m_FlexibleHeight": -1.0,
+   "m_LayoutPriority": 1
+  },
+  {
+   "type": "TrueShadow",
+   "ns": "LeTai.TrueShadow",
+   "m_Enabled": 1,
+   "m_Name": "",
+   "ignoreExternalActive": 0,
+   "size": 1.0,
+   "spread": 0.0,
+   "useGlobalAngle": 0,
+   "offsetAngle": 90.0,
+   "offsetDistance": 0.0,
+   "offset": {
+    "x": 0.0,
+    "y": -0.0
+   },
+   "color": {
+    "r": 1.0,
+    "g": 1.0,
+    "b": 1.0,
+    "a": 1.0
+   },
+   "inset": 0,
+   "blendMode": 0,
+   "useCasterAlpha": 1,
+   "ignoreCasterColor": 1,
+   "colorBleedMode": 2,
+   "disableFitCompensation": 0,
+   "shadowAsSibling": 0,
+   "cutout": 0,
+   "baked": 0,
+   "modifiedFromInspector": 0,
+   "bakedShadows": []
+  }
+ ],
+ "children": [
+  {
+   "name": "HasItem",
+   "active": true,
+   "rect": {
+    "anchorMin": [
+     0.0,
+     0.0
+    ],
+    "anchorMax": [
+     1.0,
+     1.0
+    ],
+    "pos": [
+     0.0,
+     0.0
+    ],
+    "size": [
+     -6.0,
+     -6.0
+    ],
+    "pivot": [
+     0.5,
+     0.5
+    ]
+   },
+   "components": [
+    {
+     "type": "ProceduralImage",
+     "ns": "UnityEngine.UI.ProceduralImage",
+     "m_Enabled": 1,
+     "m_Name": "",
+     "m_Material": null,
+     "m_Color": {
+      "r": 1.0,
+      "g": 1.0,
+      "b": 1.0,
+      "a": 1.0
+     },
+     "m_RaycastTarget": 1,
+     "m_RaycastPadding": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.0,
+      "w": 0.0
+     },
+     "m_Maskable": 1,
+     "m_Sprite": "Sprite:procedural_ui_image_default_sprite",
+     "m_Type": 0,
+     "m_PreserveAspect": 0,
+     "m_FillCenter": 1,
+     "m_FillMethod": 4,
+     "m_FillAmount": 1.0,
+     "m_FillClockwise": 1,
+     "m_FillOrigin": 0,
+     "m_UseSpriteMesh": 0,
+     "m_PixelsPerUnitMultiplier": 1.0,
+     "borderWidth": 0.0,
+     "falloffDistance": 1.0
+    },
+    {
+     "type": "RoundModifier",
+     "ns": "",
+     "m_Enabled": 1,
+     "m_Name": ""
+    },
+    {
+     "type": "LayoutElement",
+     "ns": "UnityEngine.UI",
+     "m_Enabled": 1,
+     "m_Name": "",
+     "m_IgnoreLayout": 0,
+     "m_MinWidth": -1.0,
+     "m_MinHeight": -1.0,
+     "m_PreferredWidth": 12.0,
+     "m_PreferredHeight": 12.0,
+     "m_FlexibleWidth": -1.0,
+     "m_FlexibleHeight": -1.0,
+     "m_LayoutPriority": 1
+    }
+   ],
+   "children": []
+  }
+ ],
+ "_path": "SlotIndicator"
+}

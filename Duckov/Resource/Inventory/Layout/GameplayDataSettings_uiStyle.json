@@ -1,0 +1,198 @@
+{
+ "displayQualityLooks": [
+  {
+   "quality": 1,
+   "shadowOffset": 0.0,
+   "shadowColor": {
+    "r": 1.0,
+    "g": 1.0,
+    "b": 1.0,
+    "a": 1.0
+   },
+   "innerGlow": 0
+  },
+  {
+   "quality": 2,
+   "shadowOffset": 0.0,
+   "shadowColor": {
+    "r": 0.5453892350196838,
+    "g": 0.9150943160057068,
+    "b": 0.07338021695613861,
+    "a": 1.0
+   },
+   "innerGlow": 0
+  },
+  {
+   "quality": 3,
+   "shadowOffset": 0.0,
+   "shadowColor": {
+    "r": 0.06674972176551819,
+    "g": 0.7226816415786743,
+    "b": 0.9433962106704712,
+    "a": 1.0
+   },
+   "innerGlow": 0
+  },
+  {
+   "quality": 4,
+   "shadowOffset": 0.0,
+   "shadowColor": {
+    "r": 0.6009611487388611,
+    "g": 0.059006791561841965,
+    "b": 0.9622641801834106,
+    "a": 1.0
+   },
+   "innerGlow": 0
+  },
+  {
+   "quality": 5,
+   "shadowOffset": 0.0,
+   "shadowColor": {
+    "r": 1.0,
+    "g": 0.4916166663169861,
+    "b": 0.1462264060974121,
+    "a": 1.0
+   },
+   "innerGlow": 0
+  },
+  {
+   "quality": 6,
+   "shadowOffset": 0.0,
+   "shadowColor": {
+    "r": 1.0,
+    "g": 0.18396228551864624,
+    "b": 0.18396228551864624,
+    "a": 1.0
+   },
+   "innerGlow": 0
+  }
+ ],
+ "elementDamagePopTextLook": [
+  {
+   "elementType": 0,
+   "normalSize": 1.0,
+   "critSize": 1.2000000476837158,
+   "color": {
+    "r": 1.0,
+    "g": 1.0,
+    "b": 1.0,
+    "a": 1.0
+   }
+  },
+  {
+   "elementType": 1,
+   "normalSize": 1.0,
+   "critSize": 1.2000000476837158,
+   "color": {
+    "r": 1.0,
+    "g": 0.6453340649604797,
+    "b": 0.49528300762176514,
+    "a": 1.0
+   }
+  },
+  {
+   "elementType": 2,
+   "normalSize": 1.0,
+   "critSize": 1.2000000476837158,
+   "color": {
+    "r": 0.5773476958274841,
+    "g": 1.0,
+    "b": 0.551886796951294,
+    "a": 1.0
+   }
+  },
+  {
+   "elementType": 3,
+   "normalSize": 1.0,
+   "critSize": 1.2000000476837158,
+   "color": {
+    "r": 0.400943398475647,
+    "g": 0.8255494832992554,
+    "b": 1.0,
+    "a": 1.0
+   }
+  },
+  {
+   "elementType": 4,
+   "normalSize": 1.0,
+   "critSize": 1.2000000476837158,
+   "color": {
+    "r": 0.8523420095443726,
+    "g": 0.4292452931404114,
+    "b": 1.0,
+    "a": 1.0
+   }
+  },
+  {
+   "elementType": 5,
+   "normalSize": 1.0,
+   "critSize": 1.2000000476837158,
+   "color": {
+    "r": 0.3690629005432129,
+    "g": 0.35141509771347046,
+    "b": 0.5,
+    "a": 1.0
+   }
+  },
+  {
+   "elementType": 6,
+   "normalSize": 1.0,
+   "critSize": 1.2000000476837158,
+   "color": {
+    "r": 0.09905660152435303,
+    "g": 0.4358806312084198,
+    "b": 1.0,
+    "a": 1.0
+   }
+  }
+ ],
+ "defaultDisplayQualityShadowOffset": 8.0,
+ "defaultDisplayQualityShadowColor": {
+  "r": 0.0,
+  "g": 0.0,
+  "b": 0.0,
+  "a": 0.7215686440467834
+ },
+ "defaultDIsplayQualityShadowInnerGlow": 0,
+ "defaultTeleporterIcon": {
+  "m_FileID": 0,
+  "m_PathID": 5199
+ },
+ "teleporterIconScale": 0.5,
+ "critPopSprite": {
+  "m_FileID": 0,
+  "m_PathID": 5177
+ },
+ "fallbackItemIcon": {
+  "m_FileID": 0,
+  "m_PathID": 6395
+ },
+ "eleteCharacterIcon": {
+  "m_FileID": 0,
+  "m_PathID": 6403
+ },
+ "bossCharacterIcon": {
+  "m_FileID": 0,
+  "m_PathID": 5229
+ },
+ "pmcCharacterIcon": {
+  "m_FileID": 0,
+  "m_PathID": 5489
+ },
+ "merchantCharacterIcon": {
+  "m_FileID": 0,
+  "m_PathID": 5188
+ },
+ "petCharacterIcon": {
+  "m_FileID": 0,
+  "m_PathID": 5833
+ },
+ "defaultFont": {
+  "m_FileID": 2,
+  "m_PathID": 174
+ },
+ "templateTextUGUI": {
+  "m_FileID": 0,
+  "m_PathID": 78314
+ }
+}

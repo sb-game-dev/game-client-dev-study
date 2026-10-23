@@ -1,0 +1,215 @@
+# LevelManager/GameplayUICanvas/ItemOperationMenu
+# a[anchorMin]-[anchorMax] pos=anchoredPosition size=sizeDelta pv=pivot  (유니티 UI 좌표, y-up, 단위 = 캔버스 픽셀)
+
+ItemOperationMenu  a[0.0, 0.0]-[1.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+    · ItemOperationMenu
+    · FadeGroup
+    · CanvasGroup[alpha=1.0]
+    · CanvasGroupFade
+    · Image[none Simple #00000033 (disabled)]
+  MainLayout  a[0.0, 1.0]-[0.0, 1.0] pos[379.37, -456.0] size[0.0, 0.0] pv[0.5, 0.5]
+      · VerticalLayout[spacing=0.0 pad(L0 R0 T0 B0) align=0 ctrl(w1 h1) expand(w0 h0)]
+      · ContentSizeFitter[h=2 v=2]
+      · ProceduralImage[filled #FFFFFF00 falloff=1.0]
+      ·   └ 모서리 radius=15.65
+    (off) ItemInfo  a[0.0, 1.0]-[0.0, 1.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.0, 0.5]
+      Image  a[0.0, 1.0]-[0.0, 1.0] pos[50.0, -50.0] size[100.0, 100.0] pv[0.5, 0.5]
+          · Image[none Simple #FFFFFFFF]
+          · LayoutElement[PreferredWidth=100.0 PreferredHeight=100.0]
+      Text (TMP)  a[0.0, 1.0]-[0.0, 1.0] pos[100.0, -0.0] size[72.01, 52.13] pv[0.0, 1.0]
+          · Text["橡果" size=36.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=1024 autoSize=1]
+      Weight  a[0.0, 1.0]-[0.0, 1.0] pos[172.01, -34.76] size[113.86, 34.76] pv[0.0, 0.0]
+          · HorizontalLayout[spacing=8.0 pad(L0 R0 T0 B0) align=3 ctrl(w1 h1) expand(w0 h0)]
+        Image  a[0.0, 1.0]-[0.0, 1.0] pos[15.0, -17.38] size[30.0, 30.0] pv[0.5, 0.5]
+            · Image[Sprite:Anvil Simple #FFFFFFFF]
+            · LayoutElement[PreferredWidth=30.0 PreferredHeight=30.0]
+        Text (TMP)  a[0.0, 1.0]-[0.0, 1.0] pos[75.93, -17.38] size[75.86, 34.76] pv[0.5, 0.5]
+            · Text["32.5kg" size=24.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=256 autoSize=0]
+    Layout  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+        · VerticalLayout[spacing=4.0 pad(L4 R4 T4 B4) align=0 ctrl(w1 h1) expand(w1 h0)]
+      Btn_Use  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+          · LayoutElement[PreferredHeight=64.0 FlexibleHeight=1.0]
+          · ProceduralImage[filled #00000000 falloff=1.0]
+          ·   └ 모서리 radius=16.0
+          · TrueShadow[drop size=8.0 spread=0.0 #00000099 angle=45.0 dist=2.0 blend=0]
+          · ProceduralImageHashProvider
+          · HorizontalLayout[spacing=16.0 pad(L32 R32 T16 B16) align=3 ctrl(w1 h1) expand(w0 h0)]
+          · Button
+          · PointerDownUpEvents
+        BG  a[0.0, 0.0]-[1.0, 1.0] pos[-0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+            · LayoutElement[IgnoreLayout=1]
+            · ProceduralImage[filled #6EE77BFF falloff=1.0]
+            ·   └ 모서리 radius=16.0
+            · SizeDeltaToggle
+            · TrueShadow[inset(안쪽 글로우) size=32.0 spread=0.0 #1A5429D5 angle=90.0 dist=0.0 blend=0]
+        (off) Icon  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+            · Image[Sprite:pictoicon_refresh Simple #FFFFFFFF preserveAspect]
+            · LayoutElement[PreferredWidth=58.0]
+            · TrueShadow[drop size=3.0 spread=0.0 #39B40099 angle=90.0 dist=0.0 blend=0]
+        Text (TMP)  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+            · Text["使用" size=32.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=512 autoSize=0]
+            · TextLocalizor[UI_Item_Use]
+        NotInteractaleIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[-0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+            · LayoutElement[IgnoreLayout=1]
+            · ProceduralImage[filled #808080FF falloff=0.0]
+            ·   └ 모서리 radius=16.0
+            · PunchReceiver
+      Btn_Equip  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+          · LayoutElement[PreferredHeight=64.0 FlexibleHeight=1.0]
+          · ProceduralImage[filled #00000000 falloff=1.0]
+          ·   └ 모서리 radius=16.0
+          · TrueShadow[drop size=8.0 spread=0.0 #00000099 angle=45.0 dist=2.0 blend=0]
+          · ProceduralImageHashProvider
+          · HorizontalLayout[spacing=16.0 pad(L32 R32 T16 B16) align=3 ctrl(w1 h1) expand(w0 h0)]
+          · Button
+          · PointerDownUpEvents
+        BG  a[0.0, 0.0]-[1.0, 1.0] pos[-0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+            · LayoutElement[IgnoreLayout=1]
+            · ProceduralImage[filled #6EE77BFF falloff=1.0]
+            ·   └ 모서리 radius=16.0
+            · SizeDeltaToggle
+            · TrueShadow[inset(안쪽 글로우) size=32.0 spread=0.0 #1A5429D5 angle=90.0 dist=0.0 blend=0]
+        (off) Icon  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+            · Image[Sprite:pictoicon_arrow_up Simple #FFFFFFFF preserveAspect]
+            · LayoutElement[PreferredWidth=58.0]
+            · TrueShadow[drop size=3.0 spread=0.0 #39B40099 angle=90.0 dist=0.0 blend=0]
+        Text (TMP)  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+            · Text["装备" size=32.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=512 autoSize=0]
+            · TextLocalizor[UI_Item_Equip]
+        NotInteractaleIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[-0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+            · LayoutElement[IgnoreLayout=1]
+            · ProceduralImage[filled #808080FF falloff=0.0]
+            ·   └ 모서리 radius=16.0
+            · PunchReceiver
+      Btn_Modify  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+          · LayoutElement[PreferredHeight=64.0 FlexibleHeight=1.0]
+          · ProceduralImage[filled #00000000 falloff=1.0]
+          ·   └ 모서리 radius=16.0
+          · TrueShadow[drop size=8.0 spread=0.0 #00000099 angle=45.0 dist=2.0 blend=0]
+          · ProceduralImageHashProvider
+          · HorizontalLayout[spacing=16.0 pad(L32 R32 T16 B16) align=3 ctrl(w1 h1) expand(w0 h0)]
+          · Button
+          · PointerDownUpEvents
+        BG  a[0.0, 0.0]-[1.0, 1.0] pos[-0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+            · LayoutElement[IgnoreLayout=1]
+            · ProceduralImage[filled #5BD8F3FF falloff=1.0]
+            ·   └ 모서리 radius=16.0
+            · SizeDeltaToggle
+            · TrueShadow[inset(안쪽 글로우) size=32.0 spread=0.0 #29446C99 angle=90.0 dist=0.0 blend=0]
+        (off) Icon  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+            · Image[Sprite:Tools Simple #FFFFFFFF preserveAspect]
+            · LayoutElement[PreferredWidth=58.0]
+            · TrueShadow[drop size=3.0 spread=0.0 #259FFFCB angle=90.0 dist=0.0 blend=0]
+        Text (TMP)  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+            · Text["改装" size=32.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=512 autoSize=0]
+            · TextLocalizor[UI_Item_Modify]
+        NotInteractaleIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[-0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+            · LayoutElement[IgnoreLayout=1]
+            · ProceduralImage[filled #808080FF falloff=0.0]
+            ·   └ 모서리 radius=16.0
+            · PunchReceiver
+      Btn_Split  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+          · LayoutElement[PreferredHeight=64.0 FlexibleHeight=1.0]
+          · ProceduralImage[filled #00000000 falloff=1.0]
+          ·   └ 모서리 radius=16.0
+          · TrueShadow[drop size=8.0 spread=0.0 #00000099 angle=45.0 dist=2.0 blend=0]
+          · ProceduralImageHashProvider
+          · HorizontalLayout[spacing=16.0 pad(L32 R32 T16 B16) align=3 ctrl(w1 h1) expand(w0 h0)]
+          · Button
+          · PointerDownUpEvents
+        BG  a[0.0, 0.0]-[1.0, 1.0] pos[-0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+            · LayoutElement[IgnoreLayout=1]
+            · ProceduralImage[filled #FFA061FF falloff=1.0]
+            ·   └ 모서리 radius=16.0
+            · SizeDeltaToggle
+            · TrueShadow[inset(안쪽 글로우) size=32.0 spread=0.0 #84432FA3 angle=90.0 dist=0.0 blend=0]
+        (off) Icon  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+            · Image[Sprite:pictoicon_share Simple #FFFFFFFF preserveAspect]
+            · LayoutElement[PreferredWidth=58.0]
+            · TrueShadow[drop size=3.0 spread=0.0 #FF8B2C99 angle=90.0 dist=0.0 blend=0]
+            · DisableShadowCache
+        Text (TMP)  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+            · Text["拆分" size=32.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=512 autoSize=0]
+            · TextLocalizor[UI_Item_Split]
+        NotInteractaleIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[-0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+            · LayoutElement[IgnoreLayout=1]
+            · ProceduralImage[filled #808080FF falloff=0.0]
+            ·   └ 모서리 radius=16.0
+            · PunchReceiver
+      Btn_Unload  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+          · LayoutElement[PreferredHeight=64.0 FlexibleHeight=1.0]
+          · ProceduralImage[filled #00000000 falloff=1.0]
+          ·   └ 모서리 radius=16.0
+          · TrueShadow[drop size=8.0 spread=0.0 #00000099 angle=45.0 dist=2.0 blend=0]
+          · ProceduralImageHashProvider
+          · HorizontalLayout[spacing=16.0 pad(L32 R32 T16 B16) align=3 ctrl(w1 h1) expand(w0 h0)]
+          · Button
+          · PointerDownUpEvents
+        BG  a[0.0, 0.0]-[1.0, 1.0] pos[-0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+            · LayoutElement[IgnoreLayout=1]
+            · ProceduralImage[filled #FFA061FF falloff=1.0]
+            ·   └ 모서리 radius=16.0
+            · SizeDeltaToggle
+            · TrueShadow[inset(안쪽 글로우) size=32.0 spread=0.0 #84432FA3 angle=90.0 dist=0.0 blend=0]
+        (off) Icon  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+            · Image[Sprite:PictoIcon_Symbol_X Simple #FFFFFFFF preserveAspect]
+            · LayoutElement[PreferredWidth=58.0]
+            · TrueShadow[drop size=3.0 spread=0.0 #FF7C5199 angle=90.0 dist=0.0 blend=0]
+        Text (TMP)  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+            · Text["卸载子弹" size=32.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=512 autoSize=0]
+            · TextLocalizor[UI_Item_Unload]
+        NotInteractaleIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[-0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+            · LayoutElement[IgnoreLayout=1]
+            · ProceduralImage[filled #808080FF falloff=0.0]
+            ·   └ 모서리 radius=16.0
+            · PunchReceiver
+      Btn_Dump  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+          · LayoutElement[PreferredHeight=64.0 FlexibleHeight=1.0]
+          · ProceduralImage[filled #00000000 falloff=1.0]
+          ·   └ 모서리 radius=16.0
+          · TrueShadow[drop size=8.0 spread=0.0 #00000099 angle=45.0 dist=2.0 blend=0]
+          · ProceduralImageHashProvider
+          · HorizontalLayout[spacing=16.0 pad(L32 R32 T16 B16) align=3 ctrl(w1 h1) expand(w0 h0)]
+          · Button
+          · PointerDownUpEvents
+        BG  a[0.0, 0.0]-[1.0, 1.0] pos[-0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+            · LayoutElement[IgnoreLayout=1]
+            · ProceduralImage[filled #F56262FF falloff=1.0]
+            ·   └ 모서리 radius=16.0
+            · SizeDeltaToggle
+            · TrueShadow[inset(안쪽 글로우) size=32.0 spread=0.0 #300000CE angle=90.0 dist=0.0 blend=0]
+        (off) Icon  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+            · Image[Sprite:pictoicon_delete Simple #FFFFFFFF preserveAspect]
+            · LayoutElement[PreferredWidth=58.0]
+            · TrueShadow[drop size=3.0 spread=0.0 #00000099 angle=90.0 dist=0.0 blend=0]
+        Text (TMP)  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+            · Text["丢弃" size=32.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=512 autoSize=0]
+            · TextLocalizor[UI_Item_Dump]
+        NotInteractaleIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[-0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+            · LayoutElement[IgnoreLayout=1]
+            · ProceduralImage[filled #808080FF falloff=0.0]
+            ·   └ 모서리 radius=16.0
+            · PunchReceiver
+      Btn_Wishlist  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+          · LayoutElement[PreferredHeight=64.0 FlexibleHeight=1.0]
+          · ProceduralImage[filled #00000000 falloff=1.0]
+          ·   └ 모서리 radius=16.0
+          · TrueShadow[drop size=8.0 spread=0.0 #00000099 angle=45.0 dist=2.0 blend=0]
+          · ProceduralImageHashProvider
+          · HorizontalLayout[spacing=16.0 pad(L32 R32 T16 B16) align=3 ctrl(w1 h1) expand(w0 h0)]
+          · Button
+          · PointerDownUpEvents
+        BG  a[0.0, 0.0]-[1.0, 1.0] pos[-0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+            · LayoutElement[IgnoreLayout=1]
+            · ProceduralImage[filled #D04F6DFF falloff=1.0]
+            ·   └ 모서리 radius=16.0
+            · SizeDeltaToggle
+            · TrueShadow[inset(안쪽 글로우) size=32.0 spread=0.0 #300000CE angle=90.0 dist=0.0 blend=0]
+        Text (TMP)  a[0.0, 0.0]-[0.0, 0.0] pos[0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+            · Text["标记" size=32.0 #FFFFFFFF font=TMP_FontAsset:ResourceHanRoundedCN-Medium SDF hAlign=1 vAlign=512 autoSize=0]
+            · TextLocalizor[UI_Item_Wishlist]
+        NotInteractaleIndicator  a[0.0, 0.0]-[1.0, 1.0] pos[-0.0, 0.0] size[0.0, 0.0] pv[0.5, 0.5]
+            · LayoutElement[IgnoreLayout=1]
+            · ProceduralImage[filled #808080FF falloff=0.0]
+            ·   └ 모서리 radius=16.0
+            · PunchReceiver
