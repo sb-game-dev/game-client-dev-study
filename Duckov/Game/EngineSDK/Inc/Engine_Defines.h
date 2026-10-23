@@ -34,7 +34,7 @@ using namespace std;
 using namespace Microsoft::WRL;
 
 #include <d3dcompiler.h>
-#pragma comment(lib, "d3dcompiler.lib")
+//#pragma comment(lib, "d3dcompiler.lib")
 
 #include "Engine_Enum.h"
 #include "Engine_Macro.h"
