@@ -34,7 +34,7 @@ using namespace std;
 using namespace Microsoft::WRL;
 
 #include <d3dcompiler.h>
-//#pragma comment(lib, "d3dcompiler.lib")
+//#pragma comment(lib, "d3dcompiler.lib") // 속성 -> 링커 -> 입력에 추가
 
 #include "Engine_Enum.h"
 #include "Engine_Macro.h"

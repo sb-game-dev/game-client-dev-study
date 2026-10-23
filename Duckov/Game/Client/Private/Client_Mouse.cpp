@@ -178,8 +178,8 @@ HRESULT CClient_Mouse::Render()
         matrix_t matTrans = XMMatrixTranslation(+ m_vPosVP.x - g_iWinSizeX * 0.5f + vOffsetPos[i].x,
                                                 - m_vPosVP.y + g_iWinSizeY * 0.5f + vOffsetPos[i].y, 
                                                 m_vPosVP.z);
-        pDst[i] = m_WorldMats[i];
         XMStoreFloat4x4(&pDst[i], matScale * matRotZ * matTrans);
+        m_WorldMats[i] = pDst[i];
     }
     m_pContext->Unmap(m_pInstanceVB.Get(), 0);
 

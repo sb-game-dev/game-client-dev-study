@@ -32,25 +32,6 @@ HRESULT CMainApp::Initialize()
 
 #endif // _DEBUG
 
-    shared_ptr<ITEM> pGun_test = shared_ptr<ITEM>(new GUN);
-    pGun_test->strItemName = L"Gun";
-    CInven::Get().AddEquipSlot(EQUIP_SLOT::GUN_1, pGun_test);
-    pGun_test = nullptr;
-
-    shared_ptr<ITEM> pGun_test2 = shared_ptr<ITEM>(new GUN);
-    pGun_test2->strItemName = L"Gun2";
-    CInven::Get().AddEquipSlot(EQUIP_SLOT::GUN_2, pGun_test2);
-    pGun_test2 = nullptr;
-
-    shared_ptr<ITEM> pBag_test = shared_ptr<ITEM>(new BACKPACK);
-    pBag_test->strItemName = L"LV5 BackPack";
-    CInven::Get().AddEquipSlot(EQUIP_SLOT::BACKPACK, pBag_test);
-    pBag_test = nullptr;
-
-    swap(
-        CInven::Get().GetSlot(EQUIP_SLOT::GUN_1),
-        CInven::Get().GetSlot(EQUIP_SLOT::GUN_2)
-    );
 
     ENGINE_DESC EngineDesc{};
     EngineDesc.hWnd = g_hWnd;

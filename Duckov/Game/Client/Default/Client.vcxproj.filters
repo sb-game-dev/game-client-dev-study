@@ -76,9 +76,6 @@
     <Filter Include="02. GameObjects\08. Tree">
       <UniqueIdentifier>{0d112b3a-b7ed-49f9-9d50-244024cfb7e6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="95. Inven">
-      <UniqueIdentifier>{a7523f95-3773-48f0-8dcf-aab76835a9c5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObjects\02. Cube\Cube_Instanced">
       <UniqueIdentifier>{3c96a574-3c38-4cd8-ba09-c267ec673173}</UniqueIdentifier>
     </Filter>
@@ -90,6 +87,12 @@
     </Filter>
     <Filter Include="02. GameObjects\10. Scope">
       <UniqueIdentifier>{4d64e3f2-2c3c-4663-88bf-2d6648a7c34f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObjects\11. UI">
+      <UniqueIdentifier>{0be35556-3562-4fe7-8438-559ee6b50c89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObjects\11. UI\00. Inven">
+      <UniqueIdentifier>{a7523f95-3773-48f0-8dcf-aab76835a9c5}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -112,7 +115,7 @@
       <Filter>99. Define</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Inven.h">
-      <Filter>95. Inven</Filter>
+      <Filter>02. GameObjects\11. UI\00. Inven</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Level_Logo.h">
       <Filter>01. Levels\01. Logo</Filter>
@@ -199,7 +202,7 @@
       <Filter>00. MainApp</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Inven.cpp">
-      <Filter>95. Inven</Filter>
+      <Filter>02. GameObjects\11. UI\00. Inven</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Level_Logo.cpp">
       <Filter>01. Levels\01. Logo</Filter>

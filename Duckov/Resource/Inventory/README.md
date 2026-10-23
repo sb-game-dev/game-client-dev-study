@@ -46,7 +46,11 @@ Escape from Duckov 원본(`Duckov_Data`)에서 UnityPy로 추출한 것과, 프�
 ```
 Inventory/
   README.md                       이 파일
+  GUIDE.md                        DX11 인스턴싱으로 인벤토리 그리기 + 드래그 앤 드롭 구현 가이드 (다른 컴퓨터에서 이어서 할 때 먼저 읽기)
   preview_inventory_grid.png      추출한 값으로 다시 그린 5열 인벤토리 미리보기 (검증용)
+  preview_inventory_tab.png       Tab 인벤토리 창 전체 (LootView, 2560x1440) - _scripts/render_view.py
+  preview_inventory_loot.png      상자를 열었을 때의 루팅 창 전체
+                                  (주의: Tab 인벤토리는 InventoryView가 아니라 LootView를 쓴다. InventoryView는 꺼져 있는 별도 창)
   items.csv                       아이템 1570개 데이터 (아래 설명)
   quality_colors.csv              등급별 아이콘 글로우 색
   Layout/                         UI 계층 덤프 (RectTransform + 컴포넌트)

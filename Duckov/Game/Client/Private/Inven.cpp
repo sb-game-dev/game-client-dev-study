@@ -6,19 +6,17 @@
 CInven::CInven(ComPtr<ID3D11Device>pDevice, ComPtr<ID3D11DeviceContext>pContext)
 	: CGameObject{pDevice,pContext}
 {
-	ZeroMemory(m_pEquipSlots, sizeof(m_pEquipSlots));
-	m_vecBackPack.reserve(10);
-	m_vecStorage.reserve(100);
+	
 }
 
-CInven::~CInven()
-{
-}
 
 HRESULT CInven::Initialize_Prototype()
 {
 	if (FAILED(__super::Initialize_Prototype()))
 		return E_FAIL;
+
+
+
 	return S_OK;
 }
 
@@ -26,6 +24,10 @@ HRESULT CInven::Initialize(void* pArg)
 {
 	if (FAILED(__super::Initialize(pArg)))
 		return E_FAIL;
+
+	m_vecBackPack.resize(10);
+	m_vecStorage.resize(100);
+
 	return S_OK;
 }
 
@@ -42,6 +44,7 @@ void CInven::Update(f32_t fTimeDelta)
 void CInven::Late_Update(f32_t fTimeDelta)
 {
 	__super::Late_Update(fTimeDelta);
+	CGameInstance::Get().Add_RenderGroup(RENDERID::ALPHA_UI, dynamic_pointer_cast<CGameObject>(shared_from_this()));
 }
 
 HRESULT CInven::Render()
