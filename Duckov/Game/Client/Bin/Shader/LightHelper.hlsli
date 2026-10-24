@@ -86,9 +86,9 @@ void ComputePointLight(Material mat, PointLight L, float3 pos, float3 normal, fl
         // -> 빛이 들어오는 방향을 매개변수로 받음 -> -lightVec
         float3 v = reflect(-lightVec, normal);
         float specFactor = pow(max(dot(v, toEye), 0.0f), mat.Specular.w);
-					
-        diffuse = diffuseFactor * mat.Diffuse * L.Diffuse;
         spec = specFactor * mat.Specular * L.Specular;
+        
+        diffuse = diffuseFactor * mat.Diffuse * L.Diffuse;
     }
 
 	// Attenuate

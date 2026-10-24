@@ -12,6 +12,7 @@
 #include "Cube_Instance.h"
 #include "Client_Mouse.h"
 #include "Scope.h"
+#include "Inven.h"
 
 CLoader::CLoader(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     : m_pDevice{pDevice}
@@ -168,6 +169,15 @@ HRESULT CLoader::Loading_For_GamePlayLV()
 
     lstrcpy(m_szLoadingText, TEXT("셰이더를 준비중입니다."));
 
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_VS_UI"),
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_UI.hlsl",
+            VTXUI_INSTANCE::Elements, VTXUI_INSTANCE::iNumElements, "VS_MAIN"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_PS_UI"),
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_UI.hlsl", "PS_MAIN"))))
+        return E_FAIL;
+
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_VS_VTXCOL"),
         CVertexShader::Create(m_pDevice, m_pContext,L"../Bin/Shader/Shader_VtxCol.hlsl",VTXCOL::Elements,VTXCOL::iNumElements, "VS_MAIN"))))
         return E_FAIL;
@@ -265,6 +275,10 @@ HRESULT CLoader::Loading_For_GamePlayLV()
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_Scope",
         CScope::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_Inven",
+        CInven::Create(m_pDevice, m_pContext))))
         return E_FAIL;
 
     lstrcpy(m_szLoadingText, TEXT("로딩이 완료되었습니다."));

@@ -44,6 +44,10 @@ HRESULT CLevel_GamePlay::Ready_Layer_BackGround(const tchar_t* pLayerTag)
 
 HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
 {
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_GameObject_Inven"),
+        ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_Inven"))))
+        return E_FAIL;
+
     if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_GameObject_ClientMouse"),
         ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_ClientMouse"))))
         return E_FAIL;

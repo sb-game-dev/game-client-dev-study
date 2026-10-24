@@ -221,6 +221,26 @@ namespace Engine
 		};
 	}TREEPOINTSPRITE;
 
+	typedef struct tagVtxUIInstance
+	{
+		float4_t    vRect;      // left, top, width, height (화면 픽셀, 좌상단 원점)
+		float4_t    vColor;     // RGBA
+		float4_t    vShape;     // x: 모서리 반지름, y: 테두리 두께(0=채움), z: 0 도형 / 1 아이콘, w: 아이콘 번호
+		float4_t    vUV;        // 아이콘 UV (0,0,1,1)
+
+		static constexpr uint32_t iNumElements = 7;
+		static constexpr D3D11_INPUT_ELEMENT_DESC Elements[iNumElements] =
+		{
+			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT,    0,  0, D3D11_INPUT_PER_VERTEX_DATA,   0 },
+			{ "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT,    0, 12, D3D11_INPUT_PER_VERTEX_DATA,   0 },
+			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,       0, 24, D3D11_INPUT_PER_VERTEX_DATA,   0 },
+			{ "UIRECT",   0, DXGI_FORMAT_R32G32B32A32_FLOAT, 1,  0, D3D11_INPUT_PER_INSTANCE_DATA, 1 },
+			{ "UICOLOR",  0, DXGI_FORMAT_R32G32B32A32_FLOAT, 1, 16, D3D11_INPUT_PER_INSTANCE_DATA, 1 },
+			{ "UISHAPE",  0, DXGI_FORMAT_R32G32B32A32_FLOAT, 1, 32, D3D11_INPUT_PER_INSTANCE_DATA, 1 },
+			{ "UIUV",     0, DXGI_FORMAT_R32G32B32A32_FLOAT, 1, 48, D3D11_INPUT_PER_INSTANCE_DATA, 1 },
+		};
+	}VTXUI_INSTANCE;
+
 	typedef struct tagCbMouseInfo
 	{
 		float2_t	vMousePos;

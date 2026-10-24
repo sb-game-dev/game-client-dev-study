@@ -2,6 +2,9 @@
 #include "GameObject.h"
 #include "Player.h"
 
+const f32_t g_fMaxFov = XMConvertToRadians(60.f);
+const f32_t g_fMinFov = XMConvertToRadians(50.f);
+
 CQuarterView_Cam::CQuarterView_Cam(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
 	:CCamera{pDevice, pContext}
 {
@@ -46,7 +49,10 @@ void CQuarterView_Cam::Update(f32_t fDeltaTime)
 
 		XMStoreFloat3(&m_vAt, (vWorldMousePos + vPlayerPos) / 2);
 		// fov 변경
-
+		//if (m_fFov > g_fMinFov)
+		//	m_fFov -= fDeltaTime;
+		//else
+		m_fFov = g_fMinFov;
 	}
 	else
 	{
@@ -57,13 +63,16 @@ void CQuarterView_Cam::Update(f32_t fDeltaTime)
 		{
 			vAt += XMVector3Normalize(vDir) * 50.f * fDeltaTime;
 			XMStoreFloat3(&m_vAt, vAt);
-			// fov 복구
 		}
 		else
 		{
 			XMStoreFloat3(&m_vAt, vPlayerPos);
 		}
-
+		// fov 복구
+		if (m_fFov < g_fMaxFov)
+			m_fFov += fDeltaTime;
+		else
+			m_fFov = g_fMaxFov;
 	}
 	
 	Shake(fDeltaTime);

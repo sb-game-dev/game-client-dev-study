@@ -289,5 +289,8 @@
     <FxCompile Include="..\Bin\Shader\Shader_VtxTex.hlsl">
       <Filter>97. ShaderFiles</Filter>
     </FxCompile>
+    <FxCompile Include="Shader_UI.hlsl">
+      <Filter>97. ShaderFiles</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
