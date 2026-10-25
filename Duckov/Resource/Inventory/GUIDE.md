@@ -90,7 +90,7 @@
 **사각형 1개 = 인스턴스 1개.** 인벤토리 전체(패널, 칸, 아이콘, 테두리, 드래그 중인 아이콘)를 `DrawIndexedInstanced` **한 번**으로 그린다.
 
 ```
-[Update]       Tab 토글 → 마우스 좌표/버튼 → HitTest → 드래그 상태머신 → 놓기(데이터 이동)
+[Update]       Tab 토글 → 마우스 좌표/버튼 → Find_CollidedSlot → 드래그 상태머신 → 놓기(데이터 이동)
 [Late_Update]  열려 있으면 Add_RenderGroup(RENDERID::ALPHA_UI)
 [Render]       m_Instances를 매 프레임 새로 채움 → Map(WRITE_DISCARD) → DrawIndexedInstanced 1번
 ```
@@ -411,14 +411,14 @@ void CInven::Build_Instances()
 **칸 위치 함수** (히트 테스트와 그리기가 함께 쓴다)
 ```cpp
 enum class INVEN_AREA { NONE, EQUIP, BAG, OUTSIDE };
-struct SLOT_REF
+struct SLOT_POS
 {
     INVEN_AREA eArea = INVEN_AREA::NONE;
     int32_t    iIndex = -1;
-    bool operator==(const SLOT_REF& r) const { return eArea == r.eArea && iIndex == r.iIndex; }
+    bool operator==(const SLOT_POS& r) const { return eArea == r.eArea && iIndex == r.iIndex; }
 };
 
-float4_t CInven::Get_SlotRect(const SLOT_REF& t) const
+float4_t CInven::Get_SlotRect(const SLOT_POS& t) const
 {
     using namespace INVEN_UI;
     if (t.eArea == INVEN_AREA::BAG)
@@ -437,7 +437,7 @@ float4_t CInven::Get_SlotRect(const SLOT_REF& t) const
 using namespace INVEN_UI;
 Push_Rect(PANEL_X, PANEL_Y, PANEL_W, PANEL_H, { 0.20f, 0.35f, 0.47f, 0.9f }, RADIUS);    // 패널
 
-auto Push_Slot = [&](const SLOT_REF& t)
+auto Push_Slot = [&](const SLOT_POS& t)
 {
     float4_t r = Get_SlotRect(t);
     Push_Rect(r.x, r.y, r.z, r.w, { 0.f, 0.f, 0.f, 0.2f }, RADIUS);          // BG
@@ -505,14 +505,14 @@ m_vecBackPack[1] = pHelmet;
 
 **아이콘 그리기**: 칸마다 BG → Frame → 아이콘 순서
 ```cpp
-auto Push_SlotItem = [&](const SLOT_REF& t, const shared_ptr<ITEM>& p, f32_t fAlpha)
+auto Push_SlotItem = [&](const SLOT_POS& t, const shared_ptr<ITEM>& p, f32_t fAlpha)
 {
     if (!p) return;
     float4_t r = Get_SlotRect(t);
     Push_Icon(r.x + 3.f, r.y + 3.f, r.z - 6.f, r.w - 6.f, p->iIconIndex, fAlpha);
 };
 ```
-`Push_Slot` 안에서 Frame 다음에 `Push_SlotItem(t, ItemAt(t), fA)`를 호출한다.
+`Push_Slot` 안에서 Frame 다음에 `Push_SlotItem(t, Get_SlotItem(t), fA)`를 호출한다.
 
 ✅ 가방 첫 칸에 탄환 아이콘이 보인다.
 
@@ -521,7 +521,7 @@ auto Push_SlotItem = [&](const SLOT_REF& t, const shared_ptr<ITEM>& p, f32_t fAl
 ### 7단계: 마우스 위치와 호버
 
 ```cpp
-SLOT_REF CInven::HitTest(POINT pt) const
+CInven::SLOT_POS CInven::Find_CollidedSlot(POINT pt) const
 {
     using namespace INVEN_UI;
     // 가방
@@ -545,12 +545,12 @@ SLOT_REF CInven::HitTest(POINT pt) const
     return { INVEN_AREA::OUTSIDE, -1 };
 }
 
-shared_ptr<ITEM>& CInven::ItemAt(const SLOT_REF& t)
+shared_ptr<ITEM>& CInven::Get_SlotItem(const SLOT_POS& t)
 {
     return (t.eArea == INVEN_AREA::EQUIP) ? m_pEquipSlots[t.iIndex] : m_vecBackPack[t.iIndex];
 }
 
-bool CInven::Is_Slot(const SLOT_REF& t) const
+bool CInven::Is_Slot(const SLOT_POS& t) const
 {
     return t.eArea == INVEN_AREA::EQUIP || t.eArea == INVEN_AREA::BAG;
 }
@@ -562,14 +562,14 @@ POINT pt{};
 GetCursorPos(&pt);
 ScreenToClient(g_hWnd, &pt);
 m_ptMouse = pt;
-m_tHover  = HitTest(pt);
+m_tHoveredSlot  = Find_CollidedSlot(pt);
 ```
 
 **Build_Instances**: 칸을 다 그린 뒤
 ```cpp
-if (Is_Slot(m_tHover))
+if (Is_Slot(m_tHoveredSlot))
 {
-    float4_t r = Get_SlotRect(m_tHover);
+    float4_t r = Get_SlotRect(m_tHoveredSlot);
     Push_Rect(r.x, r.y, r.z, r.w, { 1.f, 1.f, 1.f, 0.08f }, RADIUS);     // 원작은 5%, 잘 보이게 조금 올림
 }
 ```
@@ -600,8 +600,8 @@ PRESSED에서 바로 드래그로 넘기지 않는 이유는 클릭(선택 → �
 enum class DRAG_STATE { IDLE, PRESSED, DRAGGING };
 // 멤버
 bool        m_bPrevLButton = false;
-DRAG_STATE  m_eDrag = DRAG_STATE::IDLE;
-SLOT_REF    m_tHover, m_tSelected, m_tDragFrom;
+DRAG_STATE  m_eDragState = DRAG_STATE::IDLE;
+SLOT_POS    m_tHoveredSlot, m_tSelectedSlot, m_tDragFromSlot;
 POINT       m_ptMouse{}, m_ptPress{};
 float2_t    m_vGrabOffset{};
 ```
@@ -613,44 +613,44 @@ bool bPressed  = bDown && !m_bPrevLButton;     // 눌린 순간
 bool bReleased = !bDown && m_bPrevLButton;     // 뗀 순간
 m_bPrevLButton = bDown;
 
-switch (m_eDrag)
+switch (m_eDragState)
 {
 case DRAG_STATE::IDLE:
     if (bPressed)
     {
-        if (Is_Slot(m_tHover) && ItemAt(m_tHover))
+        if (Is_Slot(m_tHoveredSlot) && Get_SlotItem(m_tHoveredSlot))
         {
-            m_eDrag     = DRAG_STATE::PRESSED;
-            m_tDragFrom = m_tHover;
+            m_eDragState     = DRAG_STATE::PRESSED;
+            m_tDragFromSlot = m_tHoveredSlot;
             m_ptPress   = pt;
-            float4_t r  = Get_SlotRect(m_tHover);
+            float4_t r  = Get_SlotRect(m_tHoveredSlot);
             m_vGrabOffset = { pt.x - r.x, pt.y - r.y };     // 잡은 위치 그대로 따라오게
         }
         else
-            m_tSelected = {};                               // 빈 곳 클릭 → 선택 해제
+            m_tSelectedSlot = {};                               // 빈 곳 클릭 → 선택 해제
     }
     break;
 
 case DRAG_STATE::PRESSED:
     if (bReleased)                                          // 안 움직이고 뗌 = 클릭
     {
-        m_tSelected = m_tDragFrom;
-        m_eDrag = DRAG_STATE::IDLE;
+        m_tSelectedSlot = m_tDragFromSlot;
+        m_eDragState = DRAG_STATE::IDLE;
     }
     else if (abs(pt.x - m_ptPress.x) + abs(pt.y - m_ptPress.y) > 4)
-        m_eDrag = DRAG_STATE::DRAGGING;
+        m_eDragState = DRAG_STATE::DRAGGING;
     break;
 
 case DRAG_STATE::DRAGGING:
     if (bReleased)
     {
-        Drop(m_tDragFrom, m_tHover);                        // 9단계
-        m_eDrag = DRAG_STATE::IDLE;
+        Drop(m_tDragFromSlot, m_tHoveredSlot);                        // 9단계
+        m_eDragState = DRAG_STATE::IDLE;
     }
     break;
 }
 ```
-- Tab으로 닫을 때 `m_eDrag = DRAG_STATE::IDLE`로 초기화한다(드래그 도중 닫으면 원위치).
+- Tab으로 닫을 때 `m_eDragState = DRAG_STATE::IDLE`로 초기화한다(드래그 도중 닫으면 원위치).
 - 입력을 `GetAsyncKeyState`로 폴링하므로 창 밖에서 버튼을 떼도 감지된다. `SetCapture`는 필요 없다.
 
 **Build_Instances 순서** (뒤에 넣을수록 위에 그려짐)
@@ -658,19 +658,19 @@ case DRAG_STATE::DRAGGING:
 // 1) 패널
 // 2) 칸마다 BG → Frame → 아이콘
 //    드래그 중인 원래 칸은 아이콘을 흐리게:
-//    f32_t fA = (m_eDrag == DRAG_STATE::DRAGGING && t == m_tDragFrom) ? 0.3f : 1.f;
+//    f32_t fA = (m_eDragState == DRAG_STATE::DRAGGING && t == m_tDragFromSlot) ? 0.3f : 1.f;
 // 3) 선택 테두리
-if (Is_Slot(m_tSelected))
+if (Is_Slot(m_tSelectedSlot))
 {
-    float4_t r = Get_SlotRect(m_tSelected);
+    float4_t r = Get_SlotRect(m_tSelectedSlot);
     Push_Rect(r.x, r.y, r.z, r.w, { 1.f, 0.62f, 0.23f, 1.f }, RADIUS, 1.5f);
 }
 // 4) 호버 (7단계)
 // 5) 드래그 중: 놓을 수 있는 장비칸 초록 표시 (9단계 끝 참고)
 // 6) 드래그 중인 아이콘 - 반드시 맨 마지막
-if (m_eDrag == DRAG_STATE::DRAGGING)
+if (m_eDragState == DRAG_STATE::DRAGGING)
 {
-    auto& p = ItemAt(m_tDragFrom);
+    auto& p = Get_SlotItem(m_tDragFromSlot);
     Push_Icon(m_ptMouse.x - m_vGrabOffset.x + 3.f, m_ptMouse.y - m_vGrabOffset.y + 3.f, 50.f, 50.f, p->iIconIndex, 0.9f);
 }
 ```
@@ -682,9 +682,9 @@ if (m_eDrag == DRAG_STATE::DRAGGING)
 ### 9단계: 놓기 (데이터 이동)
 
 ```cpp
-void CInven::Drop(const SLOT_REF& tFrom, const SLOT_REF& tTo)
+void CInven::Drop(const SLOT_POS& tFrom, const SLOT_POS& tTo)
 {
-    auto& rFrom = ItemAt(tFrom);
+    auto& rFrom = Get_SlotItem(tFrom);
     if (!rFrom) return;
 
     if (tTo.eArea == INVEN_AREA::OUTSIDE)       // 패널 밖 → 버리기
@@ -696,7 +696,7 @@ void CInven::Drop(const SLOT_REF& tFrom, const SLOT_REF& tTo)
     if (!Is_Slot(tTo) || tTo == tFrom)          // 패널 안 빈 곳, 같은 칸 → 원위치
         return;
 
-    auto& rTo = ItemAt(tTo);
+    auto& rTo = Get_SlotItem(tTo);
     if (!CanPlace(rFrom, tTo))
         return;
 
@@ -716,10 +716,10 @@ void CInven::Drop(const SLOT_REF& tFrom, const SLOT_REF& tTo)
         return;
     swap(rFrom, rTo);
 
-    if (m_tSelected == tFrom) m_tSelected = tTo;    // 선택이 아이템을 따라가게
+    if (m_tSelectedSlot == tFrom) m_tSelectedSlot = tTo;    // 선택이 아이템을 따라가게
 }
 
-bool CInven::CanPlace(const shared_ptr<ITEM>& p, const SLOT_REF& t) const
+bool CInven::CanPlace(const shared_ptr<ITEM>& p, const SLOT_POS& t) const
 {
     if (!p) return true;                                 // 빈 것은 어디든
     if (t.eArea == INVEN_AREA::BAG) return true;
@@ -741,9 +741,9 @@ bool CInven::CanPlace(const shared_ptr<ITEM>& p, const SLOT_REF& t) const
 
 **놓을 수 있는 장비칸 초록 표시** (8단계 Build_Instances의 5번)
 ```cpp
-if (m_eDrag == DRAG_STATE::DRAGGING)
+if (m_eDragState == DRAG_STATE::DRAGGING)
     for (int32_t i = 0; i < static_cast<int32_t>(EQUIP_SLOT::END); ++i)
-        if (CanPlace(ItemAt(m_tDragFrom), { INVEN_AREA::EQUIP, i }))
+        if (CanPlace(Get_SlotItem(m_tDragFromSlot), { INVEN_AREA::EQUIP, i }))
         {
             float4_t r = Get_SlotRect({ INVEN_AREA::EQUIP, i });
             Push_Rect(r.x, r.y, r.z, r.w, { 0.47f, 1.f, 0.62f, 0.9f }, RADIUS, 1.25f);   // 원작 PluggableIndicator
@@ -771,7 +771,7 @@ if (m_eDrag == DRAG_STATE::DRAGGING)
 | 내구도 바 | 칸 하단에 20x6 알약 3개(바탕, 채움, 손실) |
 | 등급 글로우 | 흐린 아이콘 배열을 하나 더 만들어 `vShape.z = 2`로 아이콘 앞에 그림. 색은 등급 색 |
 | 가방 스크롤 | 휠 입력으로 오프셋, 스크리서를 켠 래스터라이저와 `RSSetScissorRects`로 영역 밖 자르기 |
-| 아이템 상세 패널 | 선택 칸(`m_tSelected`)의 아이템을 오른쪽 패널(452, 118, 375x160)에 표시 |
+| 아이템 상세 패널 | 선택 칸(`m_tSelectedSlot`)의 아이템을 오른쪽 패널(452, 118, 375x160)에 표시 |
 | 가방 해제 제한 | 가방을 장비칸에서 뺄 때 가방 칸이 비어 있지 않으면 거부 |
 | 스택 나누기 | 원작에도 있음(`UI_Item_Split`). Shift+드래그 등으로 나중에 |
 

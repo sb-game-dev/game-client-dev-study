@@ -50,21 +50,42 @@ VS_OUT VS_MAIN(VS_IN In)
     return Out;
 }
 
-float SdRoundRect(float2 p, float2 halfSize, float r)
+//p에는 크기만 늘린 로컬 스페이스 좌표가 들어감
+bool InRoundRect(float2 p, float2 vHalf, float r)
 {
-    float2 q = abs(p) - halfSize + r;
-    return length(max(q, 0.f)) + min(max(q.x, q.y), 0.f) - r;
+    p = abs(p);
+
+    if (p.x > vHalf.x || p.y > vHalf.y)
+        return false;
+    
+    if (p.x > (vHalf.x - r) && p.y > (vHalf.y - r))   
+    {
+        float x = p.x - (vHalf.x - r);
+        float y = p.y - (vHalf.y - r);
+        
+        return x*x + y*y <= r*r;
+    }
+    return true;
 }
 
 float4 PS_MAIN(VS_OUT In) : SV_TARGET
 {
-    if (In.vShape.z > 0.5f)    
+    // 아이콘인 경우
+    if (In.vShape.z > 0.5f)
         return g_IconArray.Sample(g_Sampler, float3(In.vTexCoord, In.vShape.w)) * In.vColor;
 
-    float r = min(In.vShape.x, min(In.vSize.x, In.vSize.y) * 0.5f);
-    float d = SdRoundRect(In.vLocal, In.vSize * 0.5f, r);
-    float a = saturate(0.5f - d);
-    if (In.vShape.y > 0.f)
-        a *= saturate(d + In.vShape.y + 0.5f);
-    return float4(In.vColor.rgb, In.vColor.a * a);
+    float2 vHalf = In.vSize * 0.5f;
+    float fRadius = min(In.vShape.x, min(vHalf.x, vHalf.y)); // 너무 크면 알약 모양
+    float fBorder = In.vShape.y;
+
+    // 테두리 밖인지 확인
+    if (!InRoundRect(In.vLocal, vHalf, fRadius))
+        discard;
+
+    // 테두리 안쪽인지 확인
+    if (fBorder > 0.f && 
+        InRoundRect(In.vLocal, vHalf - fBorder, max(fRadius - fBorder, 0.f)))
+        discard; 
+
+    return In.vColor;
 }

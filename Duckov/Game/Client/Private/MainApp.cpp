@@ -39,7 +39,7 @@ HRESULT CMainApp::Initialize()
     EngineDesc.iWinSizeY = g_iWinSizeY;
     EngineDesc.eWinMode = WINMODE::WIN;
     EngineDesc.iNumLevels = ETOUI(LEVEL::END);
-
+    EngineDesc.hInstance = hInst;
 
     if (FAILED(CGameInstance::Get().Initialize_Engine(EngineDesc,m_pDevice,m_pContext)))
         return E_FAIL;
@@ -65,7 +65,6 @@ HRESULT CMainApp::Render()
     CGameInstance::Get().Clear_DepthStencil_View();
 
     CGameInstance::Get().Draw();
-    //CInven::Get().RenderEquipSlot();
 
     CGameInstance::Get().Present();
     return S_OK;

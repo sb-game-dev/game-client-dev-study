@@ -39,6 +39,10 @@ HRESULT CGameInstance::Initialize_Engine(const ENGINE_DESC& EngineDesc, _Out_ Co
 	if (m_pRenderer == nullptr)
 		return E_FAIL;
 
+	m_pInput_Device = CInput_Device::Create(EngineDesc.hInstance, EngineDesc.hWnd);
+	if (nullptr == m_pInput_Device)
+		return E_FAIL;
+
 	return S_OK;
 }
 
@@ -60,6 +64,8 @@ HRESULT CGameInstance::Clear_Resources(int32_t iCurrentLevel)
 
 void CGameInstance::Update_Engine(f32_t fDeltaTime)
 {
+	m_pInput_Device->Update();
+
 	m_pObject_Manager->Priority_Update(fDeltaTime);
 	m_pCamera_Manager->Priority_Update(fDeltaTime);
 	m_pLight_Manager->Priority_Update(fDeltaTime);
@@ -194,10 +200,55 @@ void CGameInstance::Set_Mirror(shared_ptr<CGameObject> pMirror)
 {
 	m_pRenderer->Set_Mirror(pMirror);
 }
+
+#pragma endregion
+
+#pragma region INPUTDEVICE
+int8_t CGameInstance::Get_DIKeyState(uint8_t byKeyID)
+{
+	return m_pInput_Device->Get_DIKeyState(byKeyID);
+}
+int8_t CGameInstance::Get_DIMouseState(DIM eMouse)
+{
+	return m_pInput_Device->Get_DIMouseState(eMouse);
+}
+int32_t CGameInstance::Get_DIMouseMove(DIMM eMouseState)
+{
+	return m_pInput_Device->Get_DIMouseMove(eMouseState);
+}
+bool_t CGameInstance::Key_Down(uint8_t byKey)
+{
+	return m_pInput_Device->Key_Down(byKey);
+}
+bool_t CGameInstance::Key_Up(uint8_t byKey)
+{
+	return m_pInput_Device->Key_Up(byKey);
+}
+bool_t CGameInstance::Key_Pressing(uint8_t byKey)
+{
+	return m_pInput_Device->Key_Pressing(byKey);
+}
+bool_t CGameInstance::Mouse_Down(DIM eMouse)
+{
+	return m_pInput_Device->Mouse_Down(eMouse);
+}
+bool_t CGameInstance::Mouse_Up(DIM eMouse)
+{
+	return m_pInput_Device->Mouse_Up(eMouse);
+}
+bool_t CGameInstance::Mouse_Pressing(DIM eMouse)
+{
+	return m_pInput_Device->Mouse_Pressing(eMouse);
+}
+POINT CGameInstance::Get_MousePos()
+{
+	return m_pInput_Device->Get_MousePos();
+}
 #pragma endregion
 
 void CGameInstance::Release_Engine()
 {
+	m_pInput_Device.reset();
 	m_pLevel_Manager.reset();
 	m_pRenderer.reset();
 	m_pLight_Manager.reset();

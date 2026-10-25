@@ -8,6 +8,11 @@ namespace Engine
 	enum class STATE { RIGHT, UP, LOOK, POSITION, END };
 
 	enum class MODEL { NONANIM, ANIM, END };
+
+	enum class DIM { LB, RB, WHEEL, END };    
+
+	enum class DIMM { X, Y, WHEEL, END };   
+
 	//// Dynamic 컴포넌트 경우 매 프레임마다 갱신해야하는 컴포넌트 집단
 	//enum COMPONENTID { ID_DYNAMIC, ID_STATIC, ID_END };
 	//
@@ -18,10 +23,5 @@ namespace Engine
 	//enum TEXTUREID { TEX_NORMAL, TEX_CUBE, TEX_END };
 	//
 	enum class RENDERID { PRIORITY, NONALPHA, OCCLUDEDPLAYER, PLAYER, ALPHA_PRE, SHADOW, REFLECT, ALPHA, NONALPHA_UI, ALPHA_UI, END };
-	//
-	//enum MOUSEKEYSTATE { DIM_LB, DIM_RB, DIM_MB, DIM_END };
-	//
-	//enum MOUSEMOVESTATE {	DIMS_X, DIMS_Y, DIMS_Z, DIMS_END };
-
 }
 #endif // Engine_Enum_h__

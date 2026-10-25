@@ -1,5 +1,6 @@
 #include "Client_Mouse.h"
 #include "QuarterView_Cam.h"
+#include "Inven.h"
 const f32_t g_SizeX = 24.f;
 const f32_t g_SizeY = 15.f;
 const f32_t g_RotZ[4] = { 0.f,90.f,180.f,270.f };
@@ -104,10 +105,7 @@ void CClient_Mouse::Priority_Update(f32_t fTimeDelta)
 void CClient_Mouse::Update(f32_t fTimeDelta)
 {
     __super::Update(fTimeDelta);
-    POINT		pt{};
-
-    GetCursorPos(&pt);
-    ScreenToClient(g_hWnd, &pt);
+    POINT		pt = CGameInstance::Get().Get_MousePos();
 
     m_vPosVP = { (f32_t)pt.x,(f32_t)pt.y,1.f };
 
@@ -133,7 +131,11 @@ void CClient_Mouse::Update(f32_t fTimeDelta)
     f32_t z = (vPlayerPos.y - vecOrigin.y) / vecRayDir.y * vecRayDir.z + vecOrigin.z;
     m_pTransformCom->Set_State(STATE::POSITION,{ x, vPlayerPos.y, z, 1.f });
 
-    if (GetAsyncKeyState(VK_LBUTTON) && m_fRange <= 50.f)
+    auto pInven = static_pointer_cast<CInven>(CGameInstance::Get().Find_GameObject(
+        ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", L"GameObject_Inven"));
+    bool_t bInvenOpen = (nullptr != pInven && pInven->Is_Open());
+
+    if (!bInvenOpen && CGameInstance::Get().Mouse_Pressing(DIM::LB) && m_fRange <= 50.f)
     {
         m_fRange += 10.f;
         static_pointer_cast<CQuarterView_Cam>(CGameInstance::Get().Get_MainCamera())->AddShakeTime(fTimeDelta * 2);
@@ -155,14 +157,6 @@ HRESULT CClient_Mouse::Render()
 {
     if (FAILED(__super::Render()))
         return E_FAIL;
-
-    //const f32_t fSizeX = 20.f;
-    //const f32_t fSizeY = 12.f;
-    //matrix_t matScale = XMMatrixScaling(fSizeX, fSizeY, 1.f);
-    //matrix_t matTrans = XMMatrixTranslation(m_vPosVP.x - g_iWinSizeX * 0.5f, 
-    //                                        -m_vPosVP.y + g_iWinSizeY * 0.5f, 
-    //                                        m_vPosVP.z);
-    //matrix_t matWorldVP = matScale * matTrans;
 
     D3D11_MAPPED_SUBRESOURCE tMapped{};
 

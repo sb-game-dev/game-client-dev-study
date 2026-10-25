@@ -7,6 +7,7 @@
 #include "Object_Manager.h"
 #include "Camera_Manager.h"
 #include "Light_Manager.h"
+#include "Input_Device.h"
 #include "Renderer.h"
 #include "Transform.h"
 #include "Texture.h"
@@ -98,6 +99,20 @@ public:
 	void	Set_Mirror(shared_ptr<CGameObject> pMirror);
 #pragma endregion
 
+#pragma region INPUT_DEVICE
+	int8_t      Get_DIKeyState(uint8_t byKeyID);
+	int8_t      Get_DIMouseState(DIM eMouse);
+	int32_t     Get_DIMouseMove(DIMM eMouseState);
+
+	bool_t      Key_Down(uint8_t byKey);        
+	bool_t      Key_Up(uint8_t byKey);          
+	bool_t      Key_Pressing(uint8_t byKey);    
+	bool_t      Mouse_Down(DIM eMouse);         
+	bool_t		Mouse_Up(DIM eMouse);
+	bool_t      Mouse_Pressing(DIM eMouse);     
+	POINT       Get_MousePos();                 
+#pragma endregion
+
 private:
 	unique_ptr<CGraphic_Device>		m_pGraphic_Device = { nullptr };
 	unique_ptr<CObject_Manager>		m_pObject_Manager = { nullptr };
@@ -107,6 +122,7 @@ private:
 	unique_ptr<CCamera_Manager>		m_pCamera_Manager = { nullptr };
 	unique_ptr<CLight_Manager>		m_pLight_Manager = { nullptr };
 	unique_ptr<CRenderer>			m_pRenderer = { nullptr };
+	unique_ptr<CInput_Device>       m_pInput_Device = { nullptr };
 	HWND							m_hWND = { nullptr };
 public:
 	void			Release_Engine();

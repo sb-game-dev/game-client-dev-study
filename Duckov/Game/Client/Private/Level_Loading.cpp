@@ -38,7 +38,7 @@ void CLevel_Loading::Update(f32_t fDeltaTime)
 {
     __super::Update(fDeltaTime);
     if (true == m_pLoader->isFinished() &&
-        GetAsyncKeyState(VK_SPACE) & 0x8000)
+        CGameInstance::Get().Key_Pressing(DIK_SPACE))
     {
         shared_ptr<CLevel> pNewLevel = { nullptr };
         switch (m_eNextLevelID)

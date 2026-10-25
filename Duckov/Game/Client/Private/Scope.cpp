@@ -1,4 +1,5 @@
 #include "Scope.h"
+#include "Inven.h"
 
 CScope::CScope(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     :CGameObject{ pDevice,pContext }
@@ -80,8 +81,11 @@ void CScope::Update(f32_t fTimeDelta)
 void CScope::Late_Update(f32_t fTimeDelta)
 {
     __super::Late_Update(fTimeDelta);
+    auto pInven = static_pointer_cast<CInven>(CGameInstance::Get().Find_GameObject(
+        ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", L"GameObject_Inven"));
+    bool_t bInvenOpen = (nullptr != pInven && pInven->Is_Open());
 
-    if (GetAsyncKeyState(VK_RBUTTON))
+    if (!bInvenOpen && CGameInstance::Get().Mouse_Pressing(DIM::RB))
         CGameInstance::Get().Add_RenderGroup(RENDERID::ALPHA_UI, dynamic_pointer_cast<CGameObject>(shared_from_this()));
 }
 HRESULT CScope::Render()
@@ -105,10 +109,7 @@ HRESULT CScope::Render()
     // 아래에서 VS의 b0 레지스터에 꽂을 예정
     m_pContext->UpdateSubresource(m_pCB.Get(), 0, nullptr, &cbData, 0, 0);
 
-    POINT		pt{};
-
-    GetCursorPos(&pt);
-    ScreenToClient(g_hWnd, &pt);
+    POINT		pt = CGameInstance::Get().Get_MousePos();
 
     CB_MOUSEINFO cbMouseData;
     cbMouseData.vMousePos = { f32_t(pt.x) , f32_t(pt.y) };

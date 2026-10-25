@@ -1,6 +1,7 @@
 #include "QuarterView_Cam.h"
 #include "GameObject.h"
 #include "Player.h"
+#include <Inven.h>
 
 const f32_t g_fMaxFov = XMConvertToRadians(60.f);
 const f32_t g_fMinFov = XMConvertToRadians(50.f);
@@ -40,8 +41,14 @@ void CQuarterView_Cam::Update(f32_t fDeltaTime)
 		return;
 
 	vector_t vPlayerPos = m_pPlayer->Get_Transform()->Get_State(STATE::POSITION);
+
+	auto pInven = static_pointer_cast<CInven>(CGameInstance::Get().Find_GameObject(
+		ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", L"GameObject_Inven"));
+
+	bool_t bInvenOpen = (nullptr != pInven && pInven->Is_Open());
+	
 	// At 설정
-	if (GetAsyncKeyState(VK_RBUTTON) & 0x8000 && !GetAsyncKeyState(VK_LSHIFT))
+	if (!bInvenOpen && CGameInstance::Get().Mouse_Pressing(DIM::RB) && !CGameInstance::Get().Key_Pressing(DIK_LSHIFT))
 	{
 		CGameInstance::Get().Get_MainCamera();
 		auto pMouse = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", L"GameObject_ClientMouse");
@@ -70,12 +77,13 @@ void CQuarterView_Cam::Update(f32_t fDeltaTime)
 		}
 		// fov 복구
 		if (m_fFov < g_fMaxFov)
-			m_fFov += fDeltaTime;
+			m_fFov += fDeltaTime * 0.5f;
 		else
 			m_fFov = g_fMaxFov;
 	}
-	
-	Shake(fDeltaTime);
+
+	if(!bInvenOpen)
+		Shake(fDeltaTime);
 
 	// Eye 설정
 	vector_t vCameraEye = vector_t{ m_vAt.x, m_vAt.y + 20.f, m_vAt.z - 10.f };

@@ -146,6 +146,10 @@ HRESULT CLoader::Loading_For_GamePlayLV()
         CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/UI/Mouse/cursor%d.png"), 4))))
         return E_FAIL;
 
+    // 아이템 아이콘
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_Texture_ItemIcons"),
+        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Inventory/IconArray/icons_test_128.dds"), 1))))
+        return E_FAIL;
 
     lstrcpy(m_szLoadingText, TEXT("모델을 준비중입니다."));
 

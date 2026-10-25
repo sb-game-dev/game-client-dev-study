@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "Inven.h"
 
 const vector_t	g_vZ_Plus = XMVector4Normalize({ 0.f,0.f,+1.f,0.f });
 const vector_t	g_vZ_Minus = XMVector4Normalize({ 0.f,0.f,-1.f,0.f });
@@ -63,8 +64,14 @@ void CPlayer::Update(f32_t fDeltaTime)
 {
     __super::Update(fDeltaTime);
 
-    KeyInput(fDeltaTime);
-    AdjustPosY();
+    auto pInven = static_pointer_cast<CInven>(CGameInstance::Get().Find_GameObject(
+        ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", L"GameObject_Inven"));
+    bool_t bInvenOpen = (nullptr != pInven && pInven->Is_Open());
+    if (!bInvenOpen)
+    {
+        KeyInput(fDeltaTime);
+        AdjustPosY();
+    }
 }
 void CPlayer::Late_Update(f32_t fDeltaTime)
 {
@@ -225,7 +232,7 @@ void CPlayer::AdjustPosY()
 void CPlayer::KeyInput(f32_t fDeltaTime)
 {
     bool_t  bPushShift = false;
-    if (GetAsyncKeyState(VK_LSHIFT))
+    if (CGameInstance::Get().Key_Pressing(DIK_LSHIFT))
     {
         m_pTransformCom->Set_Speed(16.f);
         bPushShift = true;
@@ -238,9 +245,9 @@ void CPlayer::KeyInput(f32_t fDeltaTime)
 
     vector_t vLook = m_pTransformCom->Get_State(STATE::LOOK);
 
-    if (GetAsyncKeyState('W'))
+    if (CGameInstance::Get().Key_Pressing(DIK_W))
     {
-        if (GetAsyncKeyState('A'))
+        if (CGameInstance::Get().Key_Pressing(DIK_A))
         {
             m_pTransformCom->Move_Position(g_vQuad2, fDeltaTime);
             if (!bPushShift)
@@ -254,7 +261,7 @@ void CPlayer::KeyInput(f32_t fDeltaTime)
                     m_pTransformCom->Turn(g_vY_Plus, fDeltaTime);
             }
         }
-        else if (GetAsyncKeyState('D'))
+        else if (CGameInstance::Get().Key_Pressing(DIK_D))
         {
             m_pTransformCom->Move_Position(g_vQuad1, fDeltaTime);
             if (!bPushShift)
@@ -283,9 +290,9 @@ void CPlayer::KeyInput(f32_t fDeltaTime)
             }
         }
     }
-    else if (GetAsyncKeyState('S'))
+    else if (CGameInstance::Get().Key_Pressing(DIK_S))
     {
-        if (GetAsyncKeyState('A'))
+        if (CGameInstance::Get().Key_Pressing(DIK_A))
         {
             m_pTransformCom->Move_Position(g_vQuad3, fDeltaTime);
             if (!bPushShift)
@@ -299,7 +306,7 @@ void CPlayer::KeyInput(f32_t fDeltaTime)
                     m_pTransformCom->Turn(g_vY_Minus, fDeltaTime);
             }
         }
-        else if (GetAsyncKeyState('D'))
+        else if (CGameInstance::Get().Key_Pressing(DIK_D))
         {
             m_pTransformCom->Move_Position(g_vQuad4, fDeltaTime);
             if (!bPushShift)
@@ -328,7 +335,7 @@ void CPlayer::KeyInput(f32_t fDeltaTime)
             }
         }
     }
-    else if (GetAsyncKeyState('A'))
+    else if (CGameInstance::Get().Key_Pressing(DIK_A))
     {
         m_pTransformCom->Move_Position(g_vX_Minus, fDeltaTime);
         if (!bPushShift)
@@ -342,7 +349,7 @@ void CPlayer::KeyInput(f32_t fDeltaTime)
                 m_pTransformCom->Turn(g_vY_Minus, fDeltaTime);
         }
     }
-    else if (GetAsyncKeyState('D'))
+    else if (CGameInstance::Get().Key_Pressing(DIK_D))
     {
         m_pTransformCom->Move_Position(g_vX_Plus, fDeltaTime);
         if (!bPushShift)

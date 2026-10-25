@@ -121,6 +121,9 @@
     <Filter Include="06. Component\04. Model\00. Material">
       <UniqueIdentifier>{24489452-8f01-4243-b38f-2ada973ae376}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Device\InputDevice">
+      <UniqueIdentifier>{0cbf2a7f-b959-4fde-89ac-bd7a5991ed19}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Engine_Defines.h">
@@ -249,6 +252,9 @@
     <ClInclude Include="..\public\Material.h">
       <Filter>06. Component\04. Model\00. Material</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Input_Device.h">
+      <Filter>02. Device\InputDevice</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Timer.cpp">
@@ -355,6 +361,9 @@
     </ClCompile>
     <ClCompile Include="..\private\Material.cpp">
       <Filter>06. Component\04. Model\00. Material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Input_Device.cpp">
+      <Filter>02. Device\InputDevice</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
