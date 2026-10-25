@@ -3,6 +3,7 @@
 #include <iostream>
 
 
+
 CInven::CInven(ComPtr<ID3D11Device>pDevice, ComPtr<ID3D11DeviceContext>pContext)
 	: CGameObject{pDevice,pContext}
 {
@@ -88,8 +89,10 @@ HRESULT CInven::Initialize(void* pArg)
 	if (FAILED(__super::Initialize(pArg)))
 		return E_FAIL;
 
-	m_vecBackPack.resize(10);
+	m_vecBackPack.resize(30);
 	m_vecStorage.resize(100);
+	if (FAILED(Ready_Components()))
+		return E_FAIL;
 
 	return S_OK;
 }
@@ -148,8 +151,40 @@ HRESULT CInven::Render()
 
 void CInven::Build_Instances()
 {
-	Push_Rect(100.f, 100.f, 200.f, 120.f, { 1.f, 0.f, 0.f, 0.8f }, 16.f);       // 테스트
-	Push_Rect(100.f, 260.f, 200.f, 120.f, { 1.f, 1.f, 1.f, 1.f }, 16.f, 3.f);   // 테두리만
+	using namespace INVEN_UI;
+	//Push_Rect(PANEL_LEFT, PANEL_TOP, PANEL_WIDTH, PANEL_HEIGHT, { 0.20f, 0.35f, 0.47f, 0.3f }, RADIUS);    
+	Push_Rect(PANEL_LEFT, PANEL_TOP, PANEL_WIDTH, PANEL_HEIGHT, { 0.08f, 0.14f, 0.22f, 0.6f }, RADIUS);
+	auto Push_Slot = [&](const SLOT_REF& t)
+		{
+			float4_t r = Get_SlotRect(t);
+			Push_Rect(r.x, r.y, r.z, r.w, { 0.f, 0.f, 0.f, 0.2f }, RADIUS);          // BG    #00000033
+			Push_Rect(r.x, r.y, r.z, r.w, { 1.f, 1.f, 1.f, 0.3f }, RADIUS, 1.f);     // Frame #FFFFFF4C, 2px→1px
+		};
+
+	for (int32_t i = 0; i < ETOI(EQUIP_SLOT::END); ++i)        
+		Push_Slot({ INVEN_AREA::EQUIP, i });
+	for (int32_t i = 0; i < (int32_t)m_vecBackPack.size(); ++i) 
+		Push_Slot({ INVEN_AREA::BAG, i });
+}
+
+HRESULT CInven::Ready_Components()
+{
+	if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_VS_UI"),
+		TEXT("Com_VS"), m_pVSCom)))
+		return E_FAIL;
+	if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_PS_UI"),
+		TEXT("Com_PS"), m_pPSCom)))
+		return E_FAIL;
+
+	D3D11_BUFFER_DESC desc{};
+	desc.ByteWidth = sizeof(VTXUI_INSTANCE) * m_iMaxInstance;
+	desc.Usage = D3D11_USAGE_DYNAMIC;
+	desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	if (FAILED(m_pDevice->CreateBuffer(&desc, nullptr, &m_pInstanceVB)))
+		return E_FAIL;
+	m_Instances.reserve(m_iMaxInstance);
+
 }
 
 void CInven::AddEquipSlot(EQUIP_SLOT eSlotID, shared_ptr<ITEM> pItem)
@@ -182,13 +217,13 @@ void CInven::RenderStorage()
 void CInven::RenderBag()
 {
 }
-void CInven::Push_Rect(f32_t x, f32_t y, f32_t w, f32_t h, float4_t vColor, f32_t fRadius, f32_t fBorder)
+void CInven::Push_Rect(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, float4_t vColor, f32_t fRadius , f32_t fBorder )
 {
-	m_Instances.push_back({ { x, y, w, h }, vColor, { fRadius, fBorder, 0.f, 0.f }, { 0.f, 0.f, 1.f, 1.f } });
+	m_Instances.push_back({ { fLeft, fTop, fWidth, fHeight }, vColor, { fRadius, fBorder, 0.f, 0.f }, { 0.f, 0.f, 1.f, 1.f } });
 }
-void CInven::Push_Icon(f32_t x, f32_t y, f32_t w, f32_t h, int32_t iIcon, f32_t fAlpha)
+void CInven::Push_Icon(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, int32_t iIcon, f32_t fAlpha )
 {
-	m_Instances.push_back({ { x, y, w, h }, { 1.f, 1.f, 1.f, fAlpha }, { 0.f, 0.f, 1.f, (f32_t)iIcon }, { 0.f, 0.f, 1.f, 1.f } });
+	m_Instances.push_back({ { fLeft, fTop, fWidth, fHeight }, { 1.f, 1.f, 1.f, fAlpha }, { 0.f, 0.f, 1.f, (f32_t)iIcon }, { 0.f, 0.f, 1.f, 1.f } });
 }
 shared_ptr<CInven> CInven::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
 {
