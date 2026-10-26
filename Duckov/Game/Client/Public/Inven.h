@@ -7,18 +7,37 @@ NS_BEGIN(INVEN_UI)
 constexpr f32_t PANEL_LEFT = 42.f, PANEL_TOP = 117.f, PANEL_WIDTH = 320.f, PANEL_HEIGHT = 543.f;
 
 // 장비 10칸 (2행 x 5열)
-constexpr f32_t EQUIP_LEFT = 65.f, EQUIP_TOP = 151.4f;
-constexpr f32_t EQUIP_WIDTH = 45.f, EQUIP_HEIGHT = 43.3f;
-constexpr f32_t EQUIP_STEP_X = 57.5f, EQUIP_STEP_Y = 64.f;
+constexpr f32_t EQUIP_LEFT = 65.f, EQUIP_TOP = 151.f;         
+constexpr f32_t EQUIP_WIDTH = 45.f, EQUIP_HEIGHT = 43.f;      
+constexpr f32_t EQUIP_STEP_X = 58.f, EQUIP_STEP_Y = 64.f;     
 constexpr int32_t EQUIP_COLS = 5;
 
 // 가방 그리드
-constexpr f32_t BAG_LEFT = 52.5f, BAG_TOP = 326.4f;
+constexpr f32_t BAG_LEFT = 52.f, BAG_TOP = 326.f;             
 constexpr f32_t BAG_SIZE = 56.f;
 constexpr f32_t BAG_STEP = 60.f;
-constexpr int32_t BAG_COLS = 5;            
+constexpr int32_t BAG_COLS = 5;
 
-constexpr f32_t RADIUS = 8.f;	// 모서리를 둥글게 깎는 반지름
+// 모서리를 둥글게 깎는 반지름
+constexpr f32_t RADIUS = 8.f;
+
+// 색상
+constexpr float4_t COLOR_PANEL = { 0.08f, 0.14f, 0.22f, 0.6f };				// 패널 판
+constexpr float4_t COLOR_SLOT_BG = { 0.f, 0.f, 0.f, 0.2f };					// 칸 바탕      
+constexpr float4_t COLOR_SLOT_FRAME = { 1.f, 1.f, 1.f, 0.3f };				// 칸 테두리 
+constexpr float4_t COLOR_SELECTED = { 1.f, 0.62f, 0.23f, 1.f };				// 선택 테두리  
+constexpr float4_t COLOR_HOVER = { 1.f, 1.f, 1.f, 0.08f };					// 호버   
+constexpr float4_t COLOR_PLACEABLE_GLOW = { 0.47f, 1.f, 0.62f, 0.35f };		// 놓을 수 있는 칸 안쪽 배경
+constexpr float4_t COLOR_PLACEABLE_LINE = { 1.f, 1.f, 1.f, 0.9f };			// 놓을 수 있는 칸 테두리
+
+// 테두리 두께 
+constexpr f32_t BORDER_FRAME = 1.f;			// 칸 테두리     
+constexpr f32_t BORDER_SELECTED = 1.5f;		// 선택 테두리   
+constexpr f32_t BORDER_PLACEABLE = 1.5f;    // 놓을 수 있는 칸
+
+// 아이콘 알파
+constexpr f32_t ALPHA_DRAG_SOURCE = 0.3f;   // 끌고 있는 아이템의 원래 칸
+constexpr f32_t ALPHA_DRAGGED = 0.9f;		// 커서를 따라오는 아이콘
 NS_END
 
 NS_BEGIN(Client)
@@ -71,11 +90,12 @@ private:
 	POINT						m_ptMouse = {};				// 마우스 위치 (뷰포트 좌표, 좌상단 원점)
 	SLOT_POS					m_tHoveredSlot = {};		// 마우스 아래의 슬롯 칸 정보
 	SLOT_POS					m_tSelectedSlot = {};       // 클릭된 칸 (주황 테두리)
-	SLOT_POS					m_tDraggedItemSlot = {};       // 집어 든 칸
+	SLOT_POS					m_tDraggedItemSlot = {};    // 집어 든 칸
 	POINT						m_ptPress = {};             // 누른 위치 (4px 판정용)
 
 private:
 	HRESULT					Ready_Components();
+	HRESULT					Ready_InstanceBuffer();
 	void					Build_Instances();
 
 	float4_t				Get_SlotRect(const SLOT_POS& t);

@@ -1,6 +1,4 @@
 #include "Inven.h"
-#include <io.h>
-#include <iostream>
 
 using namespace INVEN_UI;
 
@@ -94,6 +92,8 @@ HRESULT CInven::Initialize(void* pArg)
 	m_vecStorage.resize(100);
 	if (FAILED(Ready_Components()))
 		return E_FAIL;
+	if (FAILED(Ready_InstanceBuffer()))
+		return E_FAIL;
 	
 	// 테스트용
 	// 가방
@@ -154,7 +154,6 @@ void CInven::Late_Update(f32_t fTimeDelta)
 
 HRESULT CInven::Render()
 {
-	m_Instances.clear();
 	Build_Instances();
 	if (m_Instances.empty())
 		return S_OK;
@@ -212,32 +211,39 @@ shared_ptr<ITEM>& CInven::Get_SlotItem(const SLOT_POS& t)
 }
 
 void CInven::Build_Instances()
-{ 
-	// 패널 그리기
-	Push_Rect(PANEL_LEFT, PANEL_TOP, PANEL_WIDTH, PANEL_HEIGHT, { 0.08f, 0.14f, 0.22f, 0.6f }, RADIUS);
+{
+	// 0. 인스턴스 초기화
+	m_Instances.clear();
+
+	// 1. 패널 그리기
+	Push_Rect(PANEL_LEFT, PANEL_TOP, PANEL_WIDTH, PANEL_HEIGHT, COLOR_PANEL, RADIUS);
 	
-	// 장비칸 그리기
+	// 2. 장비칸 그리기
 	for (int32_t i = 0; i < ETOI(EQUIP_SLOT::END); ++i)        
 		Push_Slot({ INVEN_AREA::EQUIP, i });
 	
-	// 가방칸 그리기
+	// 3. 가방칸 그리기
 	for (int32_t i = 0; i < (int32_t)m_vecBackPack.size(); ++i) 
 		Push_Slot({ INVEN_AREA::BAG, i });
 
-	// 선택된 칸 주황 테두리 강조
+	// 4. 선택된 칸 주황 테두리 강조
 	if (Is_Slot(m_tSelectedSlot))
 	{
 		float4_t r = Get_SlotRect(m_tSelectedSlot);
-		Push_Rect(r.x, r.y, r.z, r.w, { 1.f, 0.62f, 0.23f, 1.f }, RADIUS, 1.5f);
+		Push_Rect(r.x, r.y, r.z, r.w, COLOR_SELECTED, RADIUS, BORDER_SELECTED);
 	}
 
-	// 마우스 호버 칸 강조
+	// 5. 마우스 호버 칸 강조
 	if (Is_Slot(m_tHoveredSlot))
 	{
 		float4_t r = Get_SlotRect(m_tHoveredSlot);
-		Push_Rect(r.x, r.y, r.z, r.w, { 1.f, 1.f, 1.f, 0.08f }, RADIUS);
+		Push_Rect(r.x, r.y, r.z, r.w, COLOR_HOVER, RADIUS);
 	}
 
+	// 6. 드래그 중인경우
+	// 6-1. 마우스에 아이콘을 그린다.
+	// 6-2. 드래그중인 아이템이 장비칸에 장착 가능한 아이템이라면 
+	// 장착 가능한 부위를 확인 후 장비칸에 초록색 테두리로 표현
 	if (m_eDragState == DRAG_STATE::DRAGGING)
 	{
 		// 마우스가 잡고 있는 아이템 아이콘
@@ -245,7 +251,7 @@ void CInven::Build_Instances()
 		float4_t rDraggedIcon = { m_ptMouse.x - rFromSlot.z * 0.5f,     
 								  m_ptMouse.y - rFromSlot.w * 0.5f,
 								  rFromSlot.z, rFromSlot.w };			
-		Push_ItemIcon(rDraggedIcon, Get_SlotItem(m_tDraggedItemSlot), 0.9f);
+		Push_ItemIcon(rDraggedIcon, Get_SlotItem(m_tDraggedItemSlot), ALPHA_DRAGGED);
 
 		// 이 아이템이 들어갈 수 있는 장비 칸을 초록 테두리로 표현
 		const shared_ptr<ITEM>& pDraggedItem = Get_SlotItem(m_tDraggedItemSlot);
@@ -256,8 +262,8 @@ void CInven::Build_Instances()
 				continue;
 
 			float4_t r = Get_SlotRect(tDstEquipSlot);
-			Push_Rect(r.x, r.y, r.z, r.w, { 0.47f, 1.f, 0.62f, 0.35f }, RADIUS);          
-			Push_Rect(r.x, r.y, r.z, r.w, { 1.f, 1.f, 1.f, 0.9f }, RADIUS, 1.5f);         
+			Push_Rect(r.x, r.y, r.z, r.w, COLOR_PLACEABLE_GLOW, RADIUS);
+			Push_Rect(r.x, r.y, r.z, r.w, COLOR_PLACEABLE_LINE, RADIUS, BORDER_PLACEABLE);
 		}
 	}
 }
@@ -276,6 +282,12 @@ HRESULT CInven::Ready_Components()
 			TEXT("Com_IconTex"), m_pIconTexCom)))
 		return E_FAIL;
 
+	
+	return S_OK;
+}
+
+HRESULT CInven::Ready_InstanceBuffer()
+{
 	D3D11_BUFFER_DESC desc{};
 	desc.ByteWidth = sizeof(VTXUI_INSTANCE) * m_iMaxInstance;
 	desc.Usage = D3D11_USAGE_DYNAMIC;
@@ -298,7 +310,7 @@ void CInven::Push_Rect(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, flo
 	m_Instances.push_back({ { fSnapLeft, fSnapTop, fSnapRight - fSnapLeft, fSnapBottom - fSnapTop },
 							vColor, { fRadius, fBorder, 0.f, 0.f }, { 0.f, 0.f, 1.f, 1.f } });
 }
-void CInven::Push_Icon(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, int32_t iIcon, f32_t fAlpha)
+void CInven::Push_Icon(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, int32_t iIconIndex, f32_t fAlpha)
 {
 	f32_t fSnapLeft = floorf(fLeft + 0.5f);
 	f32_t fSnapTop = floorf(fTop + 0.5f);
@@ -306,7 +318,7 @@ void CInven::Push_Icon(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, int
 	f32_t fSnapBottom = floorf(fTop + fHeight + 0.5f);
 
 	m_Instances.push_back({ { fSnapLeft, fSnapTop, fSnapRight - fSnapLeft, fSnapBottom - fSnapTop },
-							{ 1.f, 1.f, 1.f, fAlpha }, { 0.f, 0.f, 1.f, (f32_t)iIcon }, { 0.f, 0.f, 1.f, 1.f } });
+							{ 1.f, 1.f, 1.f, fAlpha }, { 0.f, 0.f, 1.f, (f32_t)iIconIndex }, { 0.f, 0.f, 1.f, 1.f } });
 }
 void CInven::Push_Slot(const SLOT_POS& t)
 {
@@ -314,14 +326,14 @@ void CInven::Push_Slot(const SLOT_POS& t)
 
 	// 칸 그리기
 	float4_t r = Get_SlotRect(t);
-	Push_Rect(r.x, r.y, r.z, r.w, { 0.f, 0.f, 0.f, 0.2f }, RADIUS);			// 어두운 배경
-	Push_Rect(r.x, r.y, r.z, r.w, { 1.f, 1.f, 1.f, 0.3f }, RADIUS, 1.f);	// 밝은 흰색 테두리
+	Push_Rect(r.x, r.y, r.z, r.w, COLOR_SLOT_BG, RADIUS);			// 어두운 배경
+	Push_Rect(r.x, r.y, r.z, r.w, COLOR_SLOT_FRAME, RADIUS, BORDER_FRAME);	// 밝은 흰색 테두리
 
 	// 아이템 그리기
 	// 드래그를 한 상태이고 현재 위치가 드래그를 시작한 위치라면 알파값을 0.3으로 설정하여 살짝 투명하게 그림
 	// 드래그를 한 상태가 아니라면 현재 위치에 있는 아이템을 알파값 1로 설정하여 그린다.
 	bool_t bDragSource = (m_eDragState == DRAG_STATE::DRAGGING && t == m_tDraggedItemSlot);
-	Push_ItemIcon(r, Get_SlotItem(t), bDragSource ? 0.3f : 1.f);
+	Push_ItemIcon(r, Get_SlotItem(t), bDragSource ? ALPHA_DRAG_SOURCE : 1.f);
 }
 
 CInven::SLOT_POS CInven::Find_CollidedSlot(POINT pt)
@@ -381,13 +393,14 @@ void CInven::Update_DragState()
 	case DRAG_STATE::PRESSED:
 		if (bReleased)
 		{
-			// 안 움직이고 뗌 = 클릭 -> 선택
+			// 안 움직이고 뗌 = 클릭 -> m_tDraggedItemSlot을 선택했다고 판정 + 누르기 종료
 			m_tSelectedSlot = m_tDraggedItemSlot;
+			m_tDraggedItemSlot = {};
 			m_eDragState = DRAG_STATE::IDLE;
 		}
 		else if (labs(m_ptMouse.x - m_ptPress.x) + labs(m_ptMouse.y - m_ptPress.y) > 4)
 		{
-			// 누른 채로 4px 넘게 움직임 = 드래그 시작
+			// 누른 채로 4픽셀 넘게 움직임 = 드래그 시작
 			m_eDragState = DRAG_STATE::DRAGGING;
 		}
 		break;
@@ -395,7 +408,8 @@ void CInven::Update_DragState()
 	case DRAG_STATE::DRAGGING:
 		if (bReleased)
 		{
-			Drop(m_tDraggedItemSlot, m_tHoveredSlot);            // 마우스 아래 칸에 놓기
+			// 마우스 아래 칸에 놓기
+			Drop(m_tDraggedItemSlot, m_tHoveredSlot);
 			m_eDragState = DRAG_STATE::IDLE;
 		}
 		break;
@@ -414,6 +428,7 @@ void CInven::Drop(const SLOT_POS& tSrcSlot, const SLOT_POS& tDstSlot)
 	{
 		// 나중에 월드에 아이템 오브젝트를 떨어뜨리기
 		rSrcItem = nullptr;
+		// 선택한 슬롯의 아이템을 떨어트릴 수 있으니 m_tSelectedSlot 초기화하여 주황색 표시 없애기
 		if (m_tSelectedSlot == tSrcSlot)
 			m_tSelectedSlot = {};
 		return;
@@ -423,23 +438,24 @@ void CInven::Drop(const SLOT_POS& tSrcSlot, const SLOT_POS& tDstSlot)
 	if (false == Is_Slot(tDstSlot) || tDstSlot == tSrcSlot)
 		return;
 
-	shared_ptr<ITEM>& rDstItem = Get_SlotItem(tDstSlot);
 
 	// 3. 집은 아이템이 놓은 칸에 못 들어감 -> 원위치
 	if (false == CanPlace(rSrcItem, tDstSlot))
 		return;
 
 	// 4. 같은 아이템 + 겹치기 가능 -> 합치기
+	shared_ptr<ITEM>& rDstItem = Get_SlotItem(tDstSlot);
+	// 목적지 슬롯에 아이템이 있다 && 목적지 아이템이 겹칠 수 있다 && 목적지 아이템과 소스 아이템의 아이템 타입이 같다.
 	if (nullptr != rDstItem && rDstItem->bStackable && rDstItem->iTypeID == rSrcItem->iTypeID)
 	{
-		int32_t iSpace = rDstItem->iMaxStack - rDstItem->iCount;        // 놓은 칸에 남은 자리
+		int32_t iSpace = rDstItem->iMaxStack - rDstItem->iCount;        // 놓을 칸에 남은 자리
 		int32_t iItemCnt = min(rSrcItem->iCount, iSpace);				// 실제로 옮길 개수
 
 		if (iItemCnt > 0)
 		{
 			rDstItem->iCount += iItemCnt;
 			rSrcItem->iCount -= iItemCnt;
-			if (rSrcItem->iCount <= 0)                             // 다 옮겼으면 집은 칸 비우기
+			if (rSrcItem->iCount <= 0)									// Src의 개수를 다 옮겼으면 Src 칸 비우기
 				rSrcItem = nullptr;
 			return;
 		}
