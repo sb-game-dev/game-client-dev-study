@@ -110,8 +110,8 @@ private:
 	static bool_t			Is_InRect(POINT pt, const float4_t& vRect);
 	static bool_t			Is_Slot(const SLOT_POS& t);
 
-	void					Update_DragState();                                        // 드래그 상태 머신 + 선택된 아이템 정보 + 위치 저장
-	void					Drop(const SLOT_POS& tSrcSlot, const SLOT_POS& tDstSlot);     // 놓기 
+	void					Update_DragState();												// 드래그 상태 머신 + 선택된 아이템 정보 + 위치 저장
+	void					Drop(const SLOT_POS& tSrcSlot, const SLOT_POS& tDstSlot);		// 놓기 
 
 	bool_t					CanPlace(const shared_ptr<ITEM>& pItem, const SLOT_POS& tDstSlot);
 

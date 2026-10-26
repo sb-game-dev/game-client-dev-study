@@ -51,7 +51,7 @@ void CQuarterView_Cam::Update(f32_t fDeltaTime)
 	if (!bInvenOpen && CGameInstance::Get().Mouse_Pressing(DIM::RB) && !CGameInstance::Get().Key_Pressing(DIK_LSHIFT))
 	{
 		CGameInstance::Get().Get_MainCamera();
-		auto pMouse = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", L"GameObject_ClientMouse");
+		auto pMouse = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", GO::Client_Mouse);
 		auto vWorldMousePos = pMouse->Get_Transform()->Get_State(STATE::POSITION);
 
 		XMStoreFloat3(&m_vAt, (vWorldMousePos + vPlayerPos) / 2);

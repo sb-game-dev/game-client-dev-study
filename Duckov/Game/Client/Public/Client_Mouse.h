@@ -50,7 +50,7 @@ private:
 private:
 	HRESULT					Ready_Components();
 	HRESULT					Ready_InstanceBuffers();
-	HRESULT					Render_Mesh(ID3D11Buffer* pInstanceVB, ID3D11PixelShader* pPS, uint32_t iInstanceCnt);
+	HRESULT					Render_Mesh(ID3D11Buffer* pInstanceVB, shared_ptr<CPixelShader> pPS, uint32_t iInstanceCnt);
 
 public:
 	static shared_ptr<CClient_Mouse> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);

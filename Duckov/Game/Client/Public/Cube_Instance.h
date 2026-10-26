@@ -48,7 +48,7 @@ private:
 	HRESULT			Ready_InstanceBuffers();
 	bool			Compute_OnHill(vector_t& vPos, vector_t& vGroundPlane);
 	void            Cull_Instances();
-	HRESULT         Render_Mesh(ID3D11Buffer* pInstanceVB, ID3D11PixelShader* pPS, uint32_t iInstanceCnt);
+	HRESULT         Render_Mesh(ID3D11Buffer* pInstanceVB, shared_ptr<CPixelShader> pPS, uint32_t iInstanceCnt);
 
 public:
 	static shared_ptr<CCube_Instance> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);

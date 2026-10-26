@@ -248,6 +248,15 @@ namespace Engine
 		f32_t		fRange;
 		f32_t		Pad;
 	}CB_MOUSEINFO;
+
+	typedef struct tagPipeLineDesc
+	{
+		XMFLOAT4X4						PerspectiveTransformMatrices[ETOI(D3DTS::END)];
+		XMFLOAT4X4						OrthoTransformMatrices[ETOI(D3DTS::END)];
+		XMFLOAT4X4						PerspectiveTransformInverseMatrices[ETOI(D3DTS::END)];
+		XMFLOAT4X4						OrthoTransformInverseMatrices[ETOI(D3DTS::END)];
+		XMFLOAT4						vCamPosition;
+	}PIPELINE_DESC;
 }
 
 #endif // Engine_Struct_h__

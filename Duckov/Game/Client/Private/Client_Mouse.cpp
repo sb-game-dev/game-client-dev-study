@@ -170,12 +170,12 @@ HRESULT CClient_Mouse::Render()
         m_eMouseState = MOUSESTATE::CURSOR;
         auto pDst = reinterpret_cast<float4x4_t*>(tMapped.pData);
         matrix_t matScale = XMMatrixScaling(g_SizeX, g_SizeY, 1.f);
-        matrix_t matTrans = XMMatrixTranslation(+m_vPosVP.x - g_iWinSizeX * 0.5f + g_SizeX * 0.5,
-                                                -m_vPosVP.y + g_iWinSizeY * 0.5f - g_SizeY * 0.5,
+        matrix_t matTrans = XMMatrixTranslation(+m_vPosVP.x - g_iWinSizeX * 0.5f + g_SizeX * 0.5f,
+                                                -m_vPosVP.y + g_iWinSizeY * 0.5f - g_SizeY * 0.5f,
                                                 m_vPosVP.z);
         XMStoreFloat4x4(pDst, matScale * matTrans);        
         m_pContext->Unmap(m_pInstanceVB.Get(), 0);
-        return Render_Mesh(m_pInstanceVB.Get(), m_pPS->Get_Shader().Get(), 1);
+        return Render_Mesh(m_pInstanceVB.Get(), m_pPS, 1);
     }
     else
     {
@@ -192,7 +192,7 @@ HRESULT CClient_Mouse::Render()
             XMStoreFloat4x4(&pDst[i], matScale * matRotZ * matTrans);
         }
         m_pContext->Unmap(m_pInstanceVB.Get(), 0);
-        return Render_Mesh(m_pInstanceVB.Get(), m_pPS->Get_Shader().Get(), 4);
+        return Render_Mesh(m_pInstanceVB.Get(), m_pPS, 4);
     }
 }
 
@@ -225,7 +225,7 @@ HRESULT CClient_Mouse::Ready_InstanceBuffers()
         return E_FAIL;
     return S_OK;
 }
-HRESULT CClient_Mouse::Render_Mesh(ID3D11Buffer* pInstanceVB, ID3D11PixelShader* pPS, uint32_t iInstanceCnt)
+HRESULT CClient_Mouse::Render_Mesh(ID3D11Buffer* pInstanceVB, shared_ptr<CPixelShader> pPS, uint32_t iInstanceCnt)
 {
     CB_PER_OBJECT_LIT cbData;
     XMStoreFloat4x4(&cbData.mat_World, XMMatrixIdentity());
@@ -251,25 +251,22 @@ HRESULT CClient_Mouse::Render_Mesh(ID3D11Buffer* pInstanceVB, ID3D11PixelShader*
     // 삼각형 그리기 설정
     m_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-    // InputLayout 꽂기(FVF의 역할)
-    m_pContext->IASetInputLayout(m_pVS->Get_InputLayout().Get());
-
-    // VS(버텍스 셰이더 단계) -> 월드변환, 뷰스페이스 변환, 투영 변환 행렬을 전달받아서 버텍스 버퍼에 계산함
-    m_pContext->VSSetShader(m_pVS->Get_Shader().Get(), nullptr, 0);
-
     // VS의 상수버퍼슬롯(b0)에 상수버퍼(변환 행렬 버퍼) 꽂기
 
     m_pContext->VSSetConstantBuffers(0, 1, m_pCB.GetAddressOf());
 
-    // PS(픽셀 셰이더) -> 지금은 색 밖에 없음
-    m_pContext->PSSetShader(pPS, nullptr, 0);
 
     m_pContext->PSSetConstantBuffers(0, //register(b0)과 연결됨
         1,
         m_pCB.GetAddressOf());
 
-    // 텍스처 바인드
-    m_pTextureCom->Set_TexturePS(ETOUI(m_eMouseState), 0);
+    if (FAILED(m_pVS->Begin()))
+        return E_FAIL;
+    if (FAILED(pPS->Begin()))
+        return E_FAIL;
+
+    if (FAILED(m_pTextureCom->Set_TexturePS(ETOUI(m_eMouseState), 0)))
+        return E_FAIL;
 
     // 샘플러 바인드
     m_pContext->PSSetSamplers(0, 1, m_pSampler.GetAddressOf());
@@ -277,10 +274,6 @@ HRESULT CClient_Mouse::Render_Mesh(ID3D11Buffer* pInstanceVB, ID3D11PixelShader*
     // RS(레스터라이저 설정)
     m_pContext->RSSetState(m_pRS.Get());
 
-    // 그리기(DrawIndexedInstanced -> 정점 36개당 인스턴스 1개 적용)
-    // for(m_iNumInstance)
-    //      for(m_iIndexCnt)
-    //
     m_pContext->DrawIndexedInstanced(m_iIndexCnt,       // IndexCnt: 인덱스 버퍼의 크기
         iInstanceCnt,    // 인스턴스 개수(월드 행렬의 개수) 
         0, 0, 0);

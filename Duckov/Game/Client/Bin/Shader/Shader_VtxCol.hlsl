@@ -4,13 +4,13 @@
 
 cbuffer cbPerObject : register(b0)
 {
-    float4x4 g_matWorld;
+    row_major float4x4 g_matWorld;
 };
 
 cbuffer cbCamera : register(b1)
 {
-    float4x4 g_matView;
-    float4x4 g_matProj;
+    row_major float4x4 g_matView;
+    row_major float4x4 g_matProj;
     float3 g_vEye;
     float g_Pad;
 }

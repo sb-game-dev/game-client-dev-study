@@ -41,8 +41,6 @@ private:
 	shared_ptr<CVertexShader>		m_pVS = { nullptr };
 	shared_ptr<CPixelShader>		m_pPS = { nullptr };
 
-
-
 	vector<f32_t>					m_vHeightmap;
 
 	uint32_t    m_ivtxCntX = { 321 };

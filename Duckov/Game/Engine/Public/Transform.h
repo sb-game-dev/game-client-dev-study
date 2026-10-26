@@ -64,6 +64,7 @@ private:
 	float4x4_t		m_WorldMatrix = {};
 	f32_t			m_fSpeedPerSec = {};
 	f32_t			m_fRotationPerSec = {};
+
 public:
 	static shared_ptr<CTransform> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
 	virtual shared_ptr<CPrototype> Clone(void* pArg) override;

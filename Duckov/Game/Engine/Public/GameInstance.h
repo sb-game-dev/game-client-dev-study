@@ -11,12 +11,16 @@
 #include "Renderer.h"
 #include "Transform.h"
 #include "Texture.h"
+#include "Pipeline.h"
 
 // 버퍼
 #include "VIBuffer_Rect.h"
 #include "VIBuffer_Cube.h"
 #include "VIBuffer_SkyBox.h"
 #include "VIBuffer_Pyramid.h"
+
+// 상수 버퍼
+#include "ConstantBuffer.h"
 
 // 셰이더
 #include "VertexShader.h"
@@ -104,13 +108,27 @@ public:
 	int8_t      Get_DIMouseState(DIM eMouse);
 	int32_t     Get_DIMouseMove(DIMM eMouseState);
 
-	bool_t      Key_Down(uint8_t byKey);        
-	bool_t      Key_Up(uint8_t byKey);          
-	bool_t      Key_Pressing(uint8_t byKey);    
-	bool_t      Mouse_Down(DIM eMouse);         
+	bool_t      Key_Down(uint8_t byKey);
+	bool_t      Key_Up(uint8_t byKey);
+	bool_t      Key_Pressing(uint8_t byKey);
+	bool_t      Mouse_Down(DIM eMouse);
 	bool_t		Mouse_Up(DIM eMouse);
-	bool_t      Mouse_Pressing(DIM eMouse);     
+	bool_t      Mouse_Pressing(DIM eMouse);
 	POINT       Get_MousePos();                 
+#pragma endregion
+
+
+#pragma region PIPELINE
+	void Set_Perspective_Transform(D3DTS eState, fmatrix_t TransformMatrix);
+	void Set_Ortho_Transform(D3DTS eState, fmatrix_t TransformMatrix);
+	matrix_t Get_Perspective_Transform(D3DTS eState) const;
+	matrix_t Get_Ortho_Transform(D3DTS eState) const;
+	matrix_t Get_Perspective_Transform_Inverse(D3DTS eState) const;
+	matrix_t Get_Ortho_Transform_Inverse(D3DTS eState) const;
+	vector_t Get_CamPosition() const;
+
+	HRESULT Bind_PipeLine_Vertex_ShaderResource(uint32_t iSlot);
+	HRESULT Bind_PipeLine_Pixel_ShaderResource(uint32_t iSlot);
 #pragma endregion
 
 private:
@@ -123,6 +141,7 @@ private:
 	unique_ptr<CLight_Manager>		m_pLight_Manager = { nullptr };
 	unique_ptr<CRenderer>			m_pRenderer = { nullptr };
 	unique_ptr<CInput_Device>       m_pInput_Device = { nullptr };
+	unique_ptr<CPipeLine>				m_pPipeLine = { nullptr };
 	HWND							m_hWND = { nullptr };
 public:
 	void			Release_Engine();

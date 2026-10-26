@@ -168,8 +168,8 @@ HRESULT CHill::Render()
     XMMATRIX matWorldInvTranspos = XMMatrixTranspose(XMMatrixInverse(nullptr, matNoTrans));
 
     CB_PER_OBJECT_LIT cbData;
-    XMStoreFloat4x4(&cbData.mat_World, XMMatrixTranspose(matWorld));
-    XMStoreFloat4x4(&cbData.mat_WorldInvTranspose, XMMatrixTranspose(matWorldInvTranspos));
+    XMStoreFloat4x4(&cbData.mat_World, (matWorld));
+    XMStoreFloat4x4(&cbData.mat_WorldInvTranspose, (matWorldInvTranspos));
     cbData.tMaterial = m_tMaterial;    
 
     m_pContext->UpdateSubresource(m_pCB.Get(), 0, nullptr, &cbData, 0, 0);
@@ -189,7 +189,6 @@ HRESULT CHill::Render()
 
     m_pContext->IASetInputLayout(m_pVS->Get_InputLayout().Get());
 
-    m_pContext->VSSetShader(m_pVS->Get_Shader().Get(), nullptr, 0);
 
     // 월드 변환을 위한 상수 버퍼
     // Position, Normal 계산을 위해 matWorld, matWorldInvTranspose만 사용
@@ -203,17 +202,25 @@ HRESULT CHill::Render()
                                      1,
                                      m_pCB.GetAddressOf());
 
-    m_pContext->PSSetShader(m_pPS->Get_Shader().Get(), nullptr, 0);
-
-    // 텍스처 바인드
-    m_pLayerCom->Set_TexturePS(0, 2);    // Layer0 잔디     → t2
-    m_pLayerCom->Set_TexturePS(1, 3);    // Layer1 흙       → t3
-    m_pLayerCom->Set_TexturePS(2, 4);    // Layer2 아스팔트 → t4
-    m_pBlendCom->Set_TexturePS(0, 5);    // 혼합맵          → t5
+    if (FAILED(m_pVS->Begin()))
+        return E_FAIL;
     
+    if (FAILED(m_pPS->Begin()))
+        return E_FAIL;
+    
+    // 텍스처 바인드
+    if (FAILED(m_pLayerCom->Set_TexturePS(0, 2))) // Layer0 잔디     → t2
+        return E_FAIL;                            
+    if (FAILED(m_pLayerCom->Set_TexturePS(1, 3))) // Layer1 흙       → t3
+        return E_FAIL;                            
+    if (FAILED(m_pLayerCom->Set_TexturePS(2, 4))) // Layer2 아스팔트 → t4
+        return E_FAIL;                            
+    if (FAILED(m_pBlendCom->Set_TexturePS(0, 5))) // 혼합맵          → t5
+        return E_FAIL;
     // 샘플러 바인드
     m_pContext->PSSetSamplers(0, 1, m_pSampler.GetAddressOf());
 
+    // 레스터라이즈 설정
     m_pContext->RSSetState(m_pRS.Get());
 
     m_pContext->DrawIndexed(m_iIndexCnt, 

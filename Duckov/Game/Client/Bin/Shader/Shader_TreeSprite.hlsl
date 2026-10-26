@@ -6,15 +6,15 @@
 
 cbuffer cbPerObject : register(b0)
 {
-    float4x4 g_matWorld;
-    float4x4 g_matWorldInvTranspose;
+    row_major float4x4 g_matWorld;
+    row_major float4x4 g_matWorldInvTranspose;
     Material g_Material;
 };
 
 cbuffer cbCamera : register(b1)
 {
-    float4x4 g_matView;
-    float4x4 g_matProj;
+    row_major float4x4 g_matView;
+    row_major float4x4 g_matProj;
     float3 g_vEye;
     float g_Pad;
 }

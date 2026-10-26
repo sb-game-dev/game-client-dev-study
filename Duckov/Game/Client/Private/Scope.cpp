@@ -75,7 +75,6 @@ void CScope::Priority_Update(f32_t fTimeDelta)
 void CScope::Update(f32_t fTimeDelta)
 {
     __super::Update(fTimeDelta); 
-    
 }
 
 void CScope::Late_Update(f32_t fTimeDelta)
@@ -101,8 +100,8 @@ HRESULT CScope::Render()
     XMMATRIX matWorldInvTranspos = XMMatrixTranspose(XMMatrixInverse(nullptr, matNoTrans));
 
     CB_PER_OBJECT_LIT cbData;
-    XMStoreFloat4x4(&cbData.mat_World, XMMatrixTranspose(matWorld));
-    XMStoreFloat4x4(&cbData.mat_WorldInvTranspose, XMMatrixTranspose(matWorldInvTranspos));
+    XMStoreFloat4x4(&cbData.mat_World, (matWorld));
+    XMStoreFloat4x4(&cbData.mat_WorldInvTranspose, (matWorldInvTranspos));
     cbData.tMaterial = m_tMaterial;
 
     // 변환 행렬의 정보를 가지고있는 m_pCB 버퍼로 복사(USAGE_DEFAULT로 생성해서 드라이버를 통해 복사)
@@ -119,30 +118,25 @@ HRESULT CScope::Render()
     // 아래에서 VS의 b0 레지스터에 꽂을 예정
     m_pContext->UpdateSubresource(m_pCBMouse.Get(), 0, nullptr, &cbMouseData, 0, 0);
 
-    m_pBufferCom->Bind_Resources();
-
-    // InputLayoyt 꽂기(FVF의 역할)
-    m_pContext->IASetInputLayout(m_pVS->Get_InputLayout().Get());
-
-    // VS(버텍스 셰이더 단계) -> 월드변환, 뷰스페이스 변환, 투영 변환 행렬을 전달받아서 버텍스 버퍼에 계산함
-    m_pContext->VSSetShader(m_pVS->Get_Shader().Get(), nullptr, 0);
 
     // VS의 상수버퍼슬롯(b0)에 상수버퍼(변환 행렬 버퍼) 꽂기
     m_pContext->VSSetConstantBuffers(0, 1,m_pCB.GetAddressOf());
-
     m_pContext->VSSetConstantBuffers(2, 1,m_pCBMouse.GetAddressOf());
 
-    // PS(픽셀 셰이더) -> 지금은 색 밖에 없음
-    m_pContext->PSSetShader(m_pPS->Get_Shader().Get(), nullptr, 0);
-
     m_pContext->PSSetConstantBuffers(0, 1,m_pCB.GetAddressOf());
-    
     m_pContext->PSSetConstantBuffers(2, 1,m_pCBMouse.GetAddressOf());
 
     // RS(레스터라이저 설정)
     m_pContext->RSSetState(m_pRS.Get());
 
-    m_pBufferCom->Render();
+    if (FAILED(m_pBufferCom->Bind_Resources()))
+        return E_FAIL;
+    if (FAILED(m_pVS->Begin()))
+        return E_FAIL;
+    if (FAILED(m_pPS->Begin()))
+        return E_FAIL;
+    if (FAILED(m_pBufferCom->Render()))
+        return E_FAIL;
 
     return S_OK;
 }

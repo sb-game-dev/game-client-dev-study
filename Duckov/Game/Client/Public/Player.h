@@ -24,12 +24,11 @@ public:
 	virtual	void	Late_Update(f32_t fDeltaTime) override;
 
 	virtual HRESULT	Render() override;
-	virtual HRESULT	Render_Reflection(const XMMATRIX& matReflect) override;
+	virtual HRESULT	Render_Reflection(const matrix_t& matReflect) override;
 	virtual HRESULT	Render_Shadow() override;
 	virtual HRESULT	Render_Occluded() override;
 
 	virtual void	AdjustPosY();
-
 
 private:
 	float4_t						m_vGroundPlane = { 0.f, 1.f, 0.f, 0.f };	// ¹ß¹Ø Æò¸é (a,b,c,d)
@@ -40,12 +39,16 @@ private:
 	shared_ptr<CPixelShader>		m_pPS_Shadow = { nullptr };
 	shared_ptr<CPixelShader>		m_pPS_Occluded = { nullptr };
 
+	shared_ptr<CConstantBuffer>		m_pCB = { nullptr };
+	CB_PER_OBJECT					m_tCBDesc = {};
+
 	ComPtr<ID3D11RasterizerState>	m_pRS_Reflect = { nullptr };
 
 private:
 	HRESULT			Ready_Components();
-	HRESULT			Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS) override;
-	HRESULT			Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS, ID3D11PixelShader* pPS);
+	HRESULT			Ready_ConstantBuffer();
+	HRESULT			Update_ConstantBuffer(const matrix_t& matWorld);
+	HRESULT			Render_Mesh(const matrix_t& matWorld, ID3D11RasterizerState* pRS, shared_ptr<CPixelShader> pPS);
 
 	void			KeyInput(f32_t fDeltaTime);
 	void			LookAtMouse(f32_t fDeltaTime);

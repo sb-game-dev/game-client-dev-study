@@ -172,12 +172,14 @@ HRESULT CInven::Render()
 	m_pContext->IASetIndexBuffer(m_pIB.Get(), DXGI_FORMAT_R32_UINT, 0);
 	m_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-	m_pContext->IASetInputLayout(m_pVSCom->Get_InputLayout().Get());
-	m_pContext->VSSetShader(m_pVSCom->Get_Shader().Get(), nullptr, 0);
-	m_pContext->PSSetShader(m_pPSCom->Get_Shader().Get(), nullptr, 0);
+	if (FAILED(m_pVSCom->Begin()))
+		return E_FAIL;
 
-	if (m_pIconTexCom) 
-		m_pIconTexCom->Set_TexturePS(0, 0);
+	if (FAILED(m_pPSCom->Begin()))
+		return E_FAIL;
+
+	if (FAILED(m_pIconTexCom->Set_TexturePS(0, 0)))
+		return E_FAIL;
 
 	m_pContext->PSSetSamplers(0, 1, m_pSampler.GetAddressOf());
 	m_pContext->RSSetState(m_pRS.Get());

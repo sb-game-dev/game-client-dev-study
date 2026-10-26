@@ -14,8 +14,8 @@ public:
 	HRESULT	Initialize_Prototype(const tchar_t* pTextureFilePath, uint32_t iNumTextures);
 	HRESULT	Initialize(void* pArg) override;
 
-	void	Set_TexturePS(const uint32_t& iIndex, const uint32_t& iStartSlot);
-	void	Set_TextureCS(const uint32_t& iIndex, const uint32_t& iStartSlot);
+	HRESULT	Set_TexturePS(const uint32_t& iIndex, const uint32_t& iStartSlot);
+	HRESULT	Set_TextureCS(const uint32_t& iIndex, const uint32_t& iStartSlot);
 
 private:
 	uint32_t									m_iNumTextures = {};

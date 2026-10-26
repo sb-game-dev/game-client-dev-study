@@ -244,6 +244,56 @@ POINT CGameInstance::Get_MousePos()
 {
 	return m_pInput_Device->Get_MousePos();
 }
+
+#pragma endregion
+
+
+#pragma region PIPELINE
+void CGameInstance::Set_Perspective_Transform(D3DTS eState, fmatrix_t TransformMatrix)
+{
+	m_pPipeLine->Set_Perspective_Transform(eState, TransformMatrix);
+}
+
+void CGameInstance::Set_Ortho_Transform(D3DTS eState, fmatrix_t TransformMatrix)
+{
+	m_pPipeLine->Set_Ortho_Transform(eState, TransformMatrix);
+}
+
+matrix_t CGameInstance::Get_Perspective_Transform(D3DTS eState) const
+{
+	return m_pPipeLine->Get_Perspective_Transform(eState);
+}
+
+matrix_t CGameInstance::Get_Ortho_Transform(D3DTS eState) const
+{
+	return m_pPipeLine->Get_Ortho_Transform(eState);
+}
+
+matrix_t CGameInstance::Get_Perspective_Transform_Inverse(D3DTS eState) const
+{
+	return m_pPipeLine->Get_Perspective_Transform_Inverse(eState);
+}
+
+matrix_t CGameInstance::Get_Ortho_Transform_Inverse(D3DTS eState) const
+{
+	return m_pPipeLine->Get_Ortho_Transform_Inverse(eState);
+}
+
+vector_t CGameInstance::Get_CamPosition() const
+{
+	return m_pPipeLine->Get_CamPosition();
+}
+
+HRESULT CGameInstance::Bind_PipeLine_Vertex_ShaderResource(uint32_t iSlot)
+{
+	return m_pPipeLine->Bind_Vertex_ShaderResource(iSlot);
+}
+
+HRESULT CGameInstance::Bind_PipeLine_Pixel_ShaderResource(uint32_t iSlot)
+{
+	return m_pPipeLine->Bind_Pixel_ShaderResource(iSlot);
+}
+
 #pragma endregion
 
 void CGameInstance::Release_Engine()

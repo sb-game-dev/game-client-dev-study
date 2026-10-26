@@ -1,5 +1,5 @@
 #include "Transform.h"
-
+#include "ConstantBuffer.h"
 CTransform::CTransform(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
 	:CComponent{pDevice, pContext}
 {

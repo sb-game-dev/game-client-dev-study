@@ -83,8 +83,8 @@ HRESULT CBackGround::Render()
     XMMATRIX matWorldInvTranspos = XMMatrixTranspose(XMMatrixInverse(nullptr, matNoTrans));
 
     CB_PER_OBJECT_LIT cbData;
-    XMStoreFloat4x4(&cbData.mat_World, XMMatrixTranspose(matWorld));
-    XMStoreFloat4x4(&cbData.mat_WorldInvTranspose, XMMatrixTranspose(matWorldInvTranspos));
+    XMStoreFloat4x4(&cbData.mat_World, matWorld);
+    XMStoreFloat4x4(&cbData.mat_WorldInvTranspose, matWorldInvTranspos);
     cbData.tMaterial = m_tMaterial;
 
     // 변환 행렬의 정보를 가지고있는 m_pCB 버퍼로 복사(USAGE_DEFAULT로 생성해서 드라이버를 통해 복사)

@@ -163,12 +163,12 @@ void CCube_Instance::Late_Update(f32_t fDeltaTime)
 
 HRESULT CCube_Instance::Render()
 {
-    return Render_Mesh(m_pInstanceVB.Get(), m_pPS->Get_Shader().Get(), m_iNumInstance);
+    return Render_Mesh(m_pInstanceVB.Get(), m_pPS, m_iNumInstance);
 }
 
 HRESULT CCube_Instance::Render_Shadow()
 {
-    return Render_Mesh(m_pInstanceVB_Shadow.Get(), m_pPS_Shadow->Get_Shader().Get(), m_iVisibleShadowCnt);
+    return Render_Mesh(m_pInstanceVB_Shadow.Get(), m_pPS_Shadow, m_iVisibleShadowCnt);
 }
 
 HRESULT CCube_Instance::Ready_Components()
@@ -277,18 +277,9 @@ void CCube_Instance::Cull_Instances()
     m_pContext->Unmap(m_pInstanceVB_Shadow.Get(), 0);
 }
 
-HRESULT CCube_Instance::Render_Mesh(ID3D11Buffer* pInstanceVB, ID3D11PixelShader* pPS, uint32_t iInstanceCnt)
+HRESULT CCube_Instance::Render_Mesh(ID3D11Buffer* pInstanceVB, shared_ptr<CPixelShader> pPS, uint32_t iInstanceCnt)
 {
-    CB_PER_OBJECT_LIT cbData;
-    XMStoreFloat4x4(&cbData.mat_World, XMMatrixIdentity());
-    XMStoreFloat4x4(&cbData.mat_WorldInvTranspose, XMMatrixIdentity());
-    cbData.tMaterial = m_tMaterial;
-
-    // 변환 행렬의 정보를 가지고있는 m_pCB 버퍼로 복사(USAGE_DEFAULT로 생성해서 드라이버를 통해 복사)
-    // 아래에서 VS의 b0 레지스터에 꽂을 예정
-    m_pContext->UpdateSubresource(m_pCB.Get(), 0, nullptr, &cbData, 0, 0);
-
-    // 파이프라인에 꽂기
+// 파이프라인에 꽂기
         //IA(입력 조립기 단계)
         // 정점 하나의 크기와 버퍼의 시작 위치 설정
     ID3D11Buffer* pVBs[] = { m_pVB.Get(),pInstanceVB };
@@ -303,40 +294,25 @@ HRESULT CCube_Instance::Render_Mesh(ID3D11Buffer* pInstanceVB, ID3D11PixelShader
     // 삼각형 그리기 설정
     m_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-    // InputLayout 꽂기(FVF의 역할)
-    m_pContext->IASetInputLayout(m_pVS->Get_InputLayout().Get());
-
-    // VS(버텍스 셰이더 단계) -> 월드변환, 뷰스페이스 변환, 투영 변환 행렬을 전달받아서 버텍스 버퍼에 계산함
-    m_pContext->VSSetShader(m_pVS->Get_Shader().Get(), nullptr, 0);
-
-    // VS의 상수버퍼슬롯(b0)에 상수버퍼(변환 행렬 버퍼) 꽂기
-
-    m_pContext->VSSetConstantBuffers(0, 1, m_pCB.GetAddressOf());
-
-    // PS(픽셀 셰이더) -> 지금은 색 밖에 없음
-    m_pContext->PSSetShader(pPS, nullptr, 0);
-
-    m_pContext->PSSetConstantBuffers(0, //register(b0)과 연결됨
-        1,
-        m_pCB.GetAddressOf());
-
-    // 텍스처 바인드
-    m_pTextureCom->Set_TexturePS(0, 0);
-
     // 샘플러 바인드
     m_pContext->PSSetSamplers(0, 1, m_pSampler.GetAddressOf());
 
     // RS(레스터라이저 설정)
     m_pContext->RSSetState(m_pRS.Get());
 
-    // 그리기(DrawIndexedInstanced -> 정점 36개당 인스턴스 1개 적용)
-    // for(m_iNumInstance)
-    //      for(m_iIndexCnt)
-    //
+    // 텍스처 바인드
+    if (FAILED(m_pTextureCom->Set_TexturePS(0, 0)))
+        return E_FAIL;
+
+    if (FAILED(m_pVS->Begin()))
+        return E_FAIL;
+
+    if (FAILED(pPS->Begin()))
+        return E_FAIL;
+
     m_pContext->DrawIndexedInstanced(m_iIndexCnt,       // IndexCnt: 인덱스 버퍼의 크기
                                      iInstanceCnt,    // 인스턴스 개수(월드 행렬의 개수) 
                                      0, 0, 0);
-
     return S_OK;
 }
 

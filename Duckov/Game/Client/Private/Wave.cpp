@@ -170,8 +170,8 @@ HRESULT CWave::Render()
     XMMATRIX matWorldInvTranspos = XMMatrixTranspose(XMMatrixInverse(nullptr, matNoTrans));
 
     CB_PER_OBJECT_LIT cbData;
-    XMStoreFloat4x4(&cbData.mat_World, XMMatrixTranspose(matWorld));
-    XMStoreFloat4x4(&cbData.mat_WorldInvTranspose, XMMatrixTranspose(matWorldInvTranspos));
+    XMStoreFloat4x4(&cbData.mat_World, (matWorld));
+    XMStoreFloat4x4(&cbData.mat_WorldInvTranspose, (matWorldInvTranspos));
     cbData.tMaterial = m_tMaterial;
 
     m_pContext->UpdateSubresource(m_pCB.Get(), 0, nullptr, &cbData, 0, 0);
@@ -191,8 +191,6 @@ HRESULT CWave::Render()
 
     m_pContext->IASetInputLayout(m_pVS->Get_InputLayout().Get());
 
-    m_pContext->VSSetShader(m_pVS->Get_Shader().Get(), nullptr, 0);
-
     // 월드 변환을 위한 상수 버퍼
     // Position, Normal 계산을 위해 matWorld, matWorldInvTranspose만 사용
     m_pContext->VSSetConstantBuffers(0, //레지스터 슬롯 번호
@@ -205,7 +203,11 @@ HRESULT CWave::Render()
         1,
         m_pCB.GetAddressOf());
 
-    m_pContext->PSSetShader(m_pPS->Get_Shader().Get(), nullptr, 0);
+    if (FAILED(m_pVS->Begin()))
+        return E_FAIL;
+
+    if (FAILED(m_pPS->Begin()))
+        return E_FAIL;
 
     // 텍스처 바인드
     m_pTextureCom->Set_TexturePS(0, 0);

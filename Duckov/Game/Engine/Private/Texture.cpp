@@ -39,19 +39,21 @@ HRESULT CTexture::Initialize(void* pArg)
 	return S_OK;
 }
 
-void CTexture::Set_TexturePS(const uint32_t& iIndex, const uint32_t& iStartSlot)
+HRESULT CTexture::Set_TexturePS(const uint32_t& iIndex, const uint32_t& iStartSlot)
 {
 	if (m_SRVs.size() <= iIndex)
-		return;
+		return E_FAIL;
 
 	m_pContext->PSSetShaderResources(iStartSlot, 1, m_SRVs[iIndex].GetAddressOf());
+	return S_OK;
 }
-void CTexture::Set_TextureCS(const uint32_t& iIndex, const uint32_t& iStartSlot)
+HRESULT CTexture::Set_TextureCS(const uint32_t& iIndex, const uint32_t& iStartSlot)
 {
 	if (m_SRVs.size() <= iIndex)
-		return;
+		return E_FAIL;
 
 	m_pContext->CSSetShaderResources(iStartSlot, 1, m_SRVs[iIndex].GetAddressOf());
+	return S_OK;
 }
 
 shared_ptr<CTexture> CTexture::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, const tchar_t* pTextureFilePath, uint32_t iNumTextures)
