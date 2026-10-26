@@ -52,7 +52,7 @@ void CCamera::Update_Frustum()
 	// 원근 투영행렬을 이용하여 절두체 생성 (뷰스페이스에 있는 절두체)
 	// 직교투영행렬을 사용하여 그리는 UI들은 절두체 컬링을 사용하지 않아야한다
 	matrix_t	matPorj = XMLoadFloat4x4(&m_matProj);
-	BoundingFrustum::CreateFromMatrix(m_tViewFrustum, matPorj); 
+	BoundingFrustum::CreateFromMatrix(m_tViewFrustum, matPorj);
 	
 	//m_tViewFrustum.RightSlope *= 0.3f;   // 테스트용
 	//m_tViewFrustum.LeftSlope *= 0.3f;

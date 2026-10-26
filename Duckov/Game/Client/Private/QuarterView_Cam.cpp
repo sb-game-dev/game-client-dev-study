@@ -1,7 +1,7 @@
 #include "QuarterView_Cam.h"
 #include "GameObject.h"
 #include "Player.h"
-#include <Inven.h>
+#include "Inven.h"
 
 const f32_t g_fMaxFov = XMConvertToRadians(60.f);
 const f32_t g_fMinFov = XMConvertToRadians(50.f);

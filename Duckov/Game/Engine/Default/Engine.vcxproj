@@ -169,6 +169,7 @@ xcopy "$(SolutionDir)Engine\Bin\Engine.dll" "$(SolutionDir)Client\Bin\" /Y
     <ClInclude Include="..\Public\Light_Manager.h" />
     <ClInclude Include="..\public\Material.h" />
     <ClInclude Include="..\public\Mouse.h" />
+    <ClInclude Include="..\public\PipeLine.h" />
     <ClInclude Include="..\public\PixelShader.h" />
     <ClInclude Include="..\public\PointLight.h" />
     <ClInclude Include="..\public\Object_Manager.h" />
@@ -213,6 +214,7 @@ xcopy "$(SolutionDir)Engine\Bin\Engine.dll" "$(SolutionDir)Client\Bin\" /Y
     <ClCompile Include="..\Private\Light_Manager.cpp" />
     <ClCompile Include="..\private\Material.cpp" />
     <ClCompile Include="..\private\Mouse.cpp" />
+    <ClCompile Include="..\private\PipeLine.cpp" />
     <ClCompile Include="..\private\PixelShader.cpp" />
     <ClCompile Include="..\private\PointLight.cpp" />
     <ClCompile Include="..\private\Object_Manager.cpp" />

@@ -124,6 +124,9 @@
     <Filter Include="02. Device\InputDevice">
       <UniqueIdentifier>{0cbf2a7f-b959-4fde-89ac-bd7a5991ed19}</UniqueIdentifier>
     </Filter>
+    <Filter Include="11. PipeLine">
+      <UniqueIdentifier>{750965b9-25dd-41af-9921-dae3482bf926}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Engine_Defines.h">
@@ -255,6 +258,9 @@
     <ClInclude Include="..\Public\Input_Device.h">
       <Filter>02. Device\InputDevice</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\PipeLine.h">
+      <Filter>11. PipeLine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Timer.cpp">
@@ -364,6 +370,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Input_Device.cpp">
       <Filter>02. Device\InputDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\PipeLine.cpp">
+      <Filter>11. PipeLine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

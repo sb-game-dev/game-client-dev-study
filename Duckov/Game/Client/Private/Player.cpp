@@ -58,12 +58,6 @@ HRESULT CPlayer::Initialize(void* pArg)
 void CPlayer::Priority_Update(f32_t fDeltaTime)
 {
     __super::Priority_Update(fDeltaTime);
-}
-
-void CPlayer::Update(f32_t fDeltaTime)
-{
-    __super::Update(fDeltaTime);
-
     auto pInven = static_pointer_cast<CInven>(CGameInstance::Get().Find_GameObject(
         ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", L"GameObject_Inven"));
     bool_t bInvenOpen = (nullptr != pInven && pInven->Is_Open());
@@ -72,6 +66,13 @@ void CPlayer::Update(f32_t fDeltaTime)
         KeyInput(fDeltaTime);
         AdjustPosY();
     }
+}
+
+void CPlayer::Update(f32_t fDeltaTime)
+{
+    __super::Update(fDeltaTime);
+
+    
 }
 void CPlayer::Late_Update(f32_t fDeltaTime)
 {
