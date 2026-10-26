@@ -459,11 +459,12 @@ void CInven::Drop(const SLOT_POS& tSrcSlot, const SLOT_POS& tDstSlot)
 				rSrcItem = nullptr;
 			return;
 		}
-		// 놓은 칸이 이미 꽉 차 있으면(iItemCnt == 0) 아래로 내려가서 교환
+		// 놓은 칸이 이미 꽉 차 있어서 못옮긴다면 (iItemCnt == 0) 
+		// 아래로 내려가서 교환 swap(rSrcItem, rDstItem);
 	}
 
 	// 5. 이동 또는 교환
-	//    놓은 칸에 아이템이 있으면, 그게 집은 칸으로 갈 수 있어야 함
+	//    놓은 칸에 아이템이 있으면, 그게 집은 칸으로 갈 수 있어야 함을 확인
 	if (false == CanPlace(rDstItem, tSrcSlot))
 		return;
 	swap(rSrcItem, rDstItem);
