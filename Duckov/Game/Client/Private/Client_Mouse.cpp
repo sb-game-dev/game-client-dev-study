@@ -157,93 +157,45 @@ HRESULT CClient_Mouse::Render()
 {
     if (FAILED(__super::Render()))
         return E_FAIL;
-
+    auto pInven = static_pointer_cast<CInven>(CGameInstance::Get().Find_GameObject(
+        ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", L"GameObject_Inven"));
     D3D11_MAPPED_SUBRESOURCE tMapped{};
 
     if (FAILED(m_pContext->Map(m_pInstanceVB.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &tMapped)))
         return E_FAIL;
-    float3_t vOffsetPos[4] = { {0.f,m_fRange,0.f},{-m_fRange,0.f,0.f} ,{0.f,-m_fRange,0.f} ,{m_fRange,0.f,0.f} };
 
-    auto pDst = reinterpret_cast<float4x4_t*>(tMapped.pData);
-    for (uint32_t i = 0; i < m_iNumInstance; ++i)
+    bool_t bInvenOpen = (nullptr != pInven && pInven->Is_Open());
+    if (bInvenOpen)
     {
+        m_eMouseState = MOUSESTATE::CURSOR;
+        auto pDst = reinterpret_cast<float4x4_t*>(tMapped.pData);
         matrix_t matScale = XMMatrixScaling(g_SizeX, g_SizeY, 1.f);
-        matrix_t matRotZ = XMMatrixRotationZ(XMConvertToRadians(g_RotZ[i]));//+ (rand() % 10 - 5) * 5
-        matrix_t matTrans = XMMatrixTranslation(+ m_vPosVP.x - g_iWinSizeX * 0.5f + vOffsetPos[i].x,
-                                                - m_vPosVP.y + g_iWinSizeY * 0.5f + vOffsetPos[i].y, 
+        matrix_t matTrans = XMMatrixTranslation(+m_vPosVP.x - g_iWinSizeX * 0.5f + g_SizeX * 0.5,
+                                                -m_vPosVP.y + g_iWinSizeY * 0.5f - g_SizeY * 0.5,
                                                 m_vPosVP.z);
-        XMStoreFloat4x4(&pDst[i], matScale * matRotZ * matTrans);
-        m_WorldMats[i] = pDst[i];
+        XMStoreFloat4x4(pDst, matScale * matTrans);        
+        m_pContext->Unmap(m_pInstanceVB.Get(), 0);
+        return Render_Mesh(m_pInstanceVB.Get(), m_pPS->Get_Shader().Get(), 1);
     }
-    m_pContext->Unmap(m_pInstanceVB.Get(), 0);
-
-    return Render_Mesh(m_pInstanceVB.Get(), m_pPS->Get_Shader().Get(), m_iNumInstance);
+    else
+    {
+        m_eMouseState = MOUSESTATE::ARROW;
+        float3_t vOffsetPos[4] = { {0.f,m_fRange,0.f},{-m_fRange,0.f,0.f} ,{0.f,-m_fRange,0.f} ,{m_fRange,0.f,0.f} };
+        auto pDst = reinterpret_cast<float4x4_t*>(tMapped.pData);
+        for (uint32_t i = 0; i < 4; ++i)
+        {
+            matrix_t matScale = XMMatrixScaling(g_SizeX, g_SizeY, 1.f);
+            matrix_t matRotZ = XMMatrixRotationZ(XMConvertToRadians(g_RotZ[i]));//+ (rand() % 10 - 5) * 5
+            matrix_t matTrans = XMMatrixTranslation(+m_vPosVP.x - g_iWinSizeX * 0.5f + vOffsetPos[i].x,
+                -m_vPosVP.y + g_iWinSizeY * 0.5f + vOffsetPos[i].y,
+                m_vPosVP.z);
+            XMStoreFloat4x4(&pDst[i], matScale * matRotZ * matTrans);
+        }
+        m_pContext->Unmap(m_pInstanceVB.Get(), 0);
+        return Render_Mesh(m_pInstanceVB.Get(), m_pPS->Get_Shader().Get(), 4);
+    }
 }
 
-HRESULT CClient_Mouse::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS)
-{
-    XMMATRIX matNoTrans = matWorld;
-    matNoTrans.r[3] = XMVectorSet(0.f, 0.f, 0.f, 1.f);
-    XMMATRIX matWorldInvTranspos = XMMatrixTranspose(XMMatrixInverse(nullptr, matNoTrans));
-
-    CB_PER_OBJECT_LIT cbData;
-    XMStoreFloat4x4(&cbData.mat_World, XMMatrixTranspose(matWorld));
-    XMStoreFloat4x4(&cbData.mat_WorldInvTranspose, XMMatrixTranspose(matWorldInvTranspos));
-    cbData.tMaterial = m_tMaterial;
-
-    m_pContext->UpdateSubresource(m_pCB.Get(), 0, nullptr, &cbData, 0, 0);
-
-    uint32_t iStride = sizeof(VTXNORM);
-    uint32_t iOffset = 0;
-    // 버텍스 버퍼 꽂기
-    m_pContext->IASetVertexBuffers(0,                       // 정점 버퍼들을 붙이기 시작할 인덱스
-        1,                       // 입력 슬롯에 붙이고자 하는 버퍼의 개수
-        m_pVB.GetAddressOf(),    // 버퍼를 담은 배열의 첫 원소를 가리키는 포인터
-        &iStride,                // 버퍼의 한 원소의 바이트크기 단위(주소를 넘겨줘야함)
-        &iOffset);               // 정점 버퍼의 시작위치에서부터 건너뛸 인덱스
-
-    // 인덱스 버퍼 꽂기
-    m_pContext->IASetIndexBuffer(m_pIB.Get(), DXGI_FORMAT_R32_UINT, 0);
-
-    // 삼각형 그리기 설정
-    m_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-    // InputLayoyt 꽂기(FVF의 역할)
-    m_pContext->IASetInputLayout(m_pVS->Get_InputLayout().Get());
-
-    // VS(버텍스 셰이더 단계) -> 월드변환, 뷰스페이스 변환, 투영 변환 행렬을 전달받아서 버텍스 버퍼에 계산함
-    m_pContext->VSSetShader(m_pVS->Get_Shader().Get(), nullptr, 0);
-
-    // VS의 상수버퍼슬롯(b0)에 상수버퍼(변환 행렬 버퍼) 꽂기
-    m_pContext->VSSetConstantBuffers(0, //register(b0)과 연결됨
-        1,
-        m_pCB.GetAddressOf());
-
-    // PS(픽셀 셰이더) -> 지금은 색 밖에 없음
-    m_pContext->PSSetShader(m_pPS->Get_Shader().Get(), nullptr, 0);
-
-    m_pContext->PSSetConstantBuffers(0, //register(b0)과 연결됨
-        1,
-        m_pCB.GetAddressOf());
-
-    // 텍스처 바인드
-    //m_pContext->PSSetShaderResources(0, 1, m_pSRV.GetAddressOf());
-    m_pTextureCom->Set_TexturePS(0, 0);
-
-    // 샘플러 바인드
-    m_pContext->PSSetSamplers(0, 1, m_pSampler.GetAddressOf());
-
-    // RS(레스터라이저 설정)
-    m_pContext->RSSetState(m_pRS.Get());
-
-
-    // 그리기
-    m_pContext->DrawIndexed(m_iIndexCnt, // IndexCnt: 인덱스 버퍼의 크기
-                            0,  // StartIndexLocation : 사용할 인덱스의 위치
-                            0); // BaseVERTEXLocation : 정점들을 가져오기 전에 이 호출에서 사용할 인덱스에 더해지는 정수값
-
-    return S_OK;
-}
 HRESULT CClient_Mouse::Ready_Components()
 {
     //StaticLevel로 변경해야 할 듯
@@ -264,7 +216,7 @@ HRESULT CClient_Mouse::Ready_Components()
 HRESULT CClient_Mouse::Ready_InstanceBuffers()
 {
     D3D11_BUFFER_DESC desc{};
-    desc.ByteWidth = sizeof(float4x4_t) * m_iNumInstance;
+    desc.ByteWidth = sizeof(float4x4_t) * 5;
     desc.Usage = D3D11_USAGE_DYNAMIC;
     desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
     desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
@@ -317,7 +269,7 @@ HRESULT CClient_Mouse::Render_Mesh(ID3D11Buffer* pInstanceVB, ID3D11PixelShader*
         m_pCB.GetAddressOf());
 
     // 텍스처 바인드
-    m_pTextureCom->Set_TexturePS(3, 0);
+    m_pTextureCom->Set_TexturePS(ETOUI(m_eMouseState), 0);
 
     // 샘플러 바인드
     m_pContext->PSSetSamplers(0, 1, m_pSampler.GetAddressOf());
@@ -335,6 +287,7 @@ HRESULT CClient_Mouse::Render_Mesh(ID3D11Buffer* pInstanceVB, ID3D11PixelShader*
 
     return S_OK;
 }
+
 shared_ptr<CClient_Mouse> CClient_Mouse::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
 {
     auto pInstance = shared_ptr<CClient_Mouse>(new CClient_Mouse(pDevice, pContext));

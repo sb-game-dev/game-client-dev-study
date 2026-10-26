@@ -28,7 +28,7 @@ public:
 	virtual		void		Update(f32_t fTimeDelta)override;
 	virtual		void		Late_Update(f32_t fTimeDelta)override;
 	virtual		HRESULT		Render() override;
-	virtual		HRESULT		Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS)override;
+	virtual		HRESULT		Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS) { return S_OK; }
 
 	MOUSESTATE				GetMouseState() { return m_eMouseState; }
 	void					SetMouseState(MOUSESTATE eMouseState) { m_eMouseState = eMouseState; }
@@ -41,9 +41,8 @@ private:
 	MOUSESTATE						m_eMouseState = {};
 	float3_t						m_vPosVP = {0.f,0.f,2.f};
 
-	static constexpr uint32_t		m_iNumInstance = 4;
 	ComPtr<ID3D11Buffer>			m_pInstanceVB = { nullptr };
-	float4x4_t						m_WorldMats[m_iNumInstance] = {};
+	vector<float4x4_t>				m_WorldMats;
 	
 	f32_t							m_fRange = { 25.f };
 	f32_t							m_fTimer = { 0.f };

@@ -83,6 +83,7 @@ private:
 
 	void					Push_Rect(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, float4_t vColor, f32_t fRadius = 0.f, f32_t fBorder = 0.f);// fBorder : 외곽선 두께
 	void					Push_Icon(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, int32_t iIcon, f32_t fAlpha = 1.f);
+	void					Push_ItemIcon(const float4_t& vRect, const shared_ptr<ITEM>& pItem, f32_t fAlpha);
 	void					Push_Slot(const SLOT_POS& t);
 
 	SLOT_POS				Find_CollidedSlot(POINT pt);
@@ -91,7 +92,6 @@ private:
 
 	void					Update_DragState();                                        // 드래그 상태 머신 + 선택된 아이템 정보 + 위치 저장
 	void					Drop(const SLOT_POS& tSrcSlot, const SLOT_POS& tDstSlot);     // 놓기 
-	void					Push_ItemIcon(const float4_t& vRect, const shared_ptr<ITEM>& pItem, f32_t fAlpha);
 
 	bool_t					CanPlace(const shared_ptr<ITEM>& pItem, const SLOT_POS& tDstSlot);
 
