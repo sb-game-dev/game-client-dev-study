@@ -148,15 +148,15 @@ HRESULT CScope::Render()
 }
 HRESULT CScope::Ready_Components()
 {
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_VIBuffer_Rect"),
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VIBuffer_Rect,
         TEXT("Com_Buffer"), m_pBufferCom)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_VS_VTXTEX"),
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VS_VTXTEX,
         TEXT("Com_VS"), m_pVS)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_PS_VTXCOL_SCOPE"),
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_VTXCOL_SCOPE,
         TEXT("Com_PS"), m_pPS)))
         return E_FAIL;
     return S_OK;

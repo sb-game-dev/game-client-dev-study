@@ -124,7 +124,10 @@
     <Filter Include="02. Device\InputDevice">
       <UniqueIdentifier>{0cbf2a7f-b959-4fde-89ac-bd7a5991ed19}</UniqueIdentifier>
     </Filter>
-    <Filter Include="11. PipeLine">
+    <Filter Include="11. ConstantBuffer">
+      <UniqueIdentifier>{f23d5061-d18d-4de7-a48b-1d6eb725d7dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="12. PipeLine">
       <UniqueIdentifier>{750965b9-25dd-41af-9921-dae3482bf926}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -259,7 +262,10 @@
       <Filter>02. Device\InputDevice</Filter>
     </ClInclude>
     <ClInclude Include="..\public\PipeLine.h">
-      <Filter>11. PipeLine</Filter>
+      <Filter>12. PipeLine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\ConstantBuffer.h">
+      <Filter>11. ConstantBuffer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -372,7 +378,10 @@
       <Filter>02. Device\InputDevice</Filter>
     </ClCompile>
     <ClCompile Include="..\private\PipeLine.cpp">
-      <Filter>11. PipeLine</Filter>
+      <Filter>12. PipeLine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\ConstantBuffer.cpp">
+      <Filter>11. ConstantBuffer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

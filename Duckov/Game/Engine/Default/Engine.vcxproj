@@ -156,6 +156,7 @@ xcopy "$(SolutionDir)Engine\Bin\Engine.dll" "$(SolutionDir)Client\Bin\" /Y
     <ClInclude Include="..\public\Camera_Manager.h" />
     <ClInclude Include="..\public\Component.h" />
     <ClInclude Include="..\public\ComputeShader.h" />
+    <ClInclude Include="..\public\ConstantBuffer.h" />
     <ClInclude Include="..\public\DirectionalLight.h" />
     <ClInclude Include="..\Public\Engine_Global.h" />
     <ClInclude Include="..\Public\GameInstance.h" />
@@ -202,6 +203,7 @@ xcopy "$(SolutionDir)Engine\Bin\Engine.dll" "$(SolutionDir)Client\Bin\" /Y
     <ClCompile Include="..\private\Camera_Manager.cpp" />
     <ClCompile Include="..\private\Component.cpp" />
     <ClCompile Include="..\private\ComputeShader.cpp" />
+    <ClCompile Include="..\private\ConstantBuffer.cpp" />
     <ClCompile Include="..\Private\DirectionalLight.cpp" />
     <ClCompile Include="..\Private\GameInstance.cpp" />
     <ClCompile Include="..\Private\GameObject.cpp" />

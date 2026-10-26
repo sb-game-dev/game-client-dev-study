@@ -223,15 +223,15 @@ HRESULT CWave::Render()
 
 HRESULT CWave::Ready_Components()
 {
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_Texture_Wave"),
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::Texture_Wave,
         TEXT("Com_Texture"), m_pTextureCom)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_VS_VTXTEX"),
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VS_VTXTEX,
         TEXT("Com_VS"), m_pVS)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_PS_VTXTEX"),
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_VTXTEX,
         TEXT("Com_PS"), m_pPS)))
         return E_FAIL;
 

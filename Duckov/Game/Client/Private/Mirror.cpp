@@ -53,8 +53,8 @@ HRESULT CMirror::Initialize(void* pArg)
     if (FAILED(__super::Initialize(pArg)))
         return E_FAIL;
 
-    m_pTransformCom->Set_State(STATE::POSITION, vector_t{ 0.f,2.f,5.f,1.f });
-    m_pTransformCom->Set_Scale(6.f, 4.f, 1.f);
+    //m_pTransformCom->Set_State(STATE::POSITION, vector_t{ 0.f,2.f,5.f,1.f });
+    m_pTransformCom->Set_Scale(6.f, 10.f, 1.f);
 
     if (FAILED(Ready_Components()))
         return E_FAIL;
@@ -125,19 +125,19 @@ XMVECTOR CMirror::Get_MirrorPlane()
 
 HRESULT CMirror::Ready_Components()
 {
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_Texture_Mirror"),
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::Texture_Mirror,
         TEXT("Com_Texture"), m_pTextureCom)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_VIBuffer_Rect"),
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VIBuffer_Rect,
         TEXT("Com_Buffer"), m_pBufferCom)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_VS_VTXTEX"),
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VS_VTXTEX,
         TEXT("Com_VS"), m_pVS)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_PS_VTXTEX"),
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_VTXTEX,
         TEXT("Com_PS"), m_pPS)))
         return E_FAIL;
     return S_OK;

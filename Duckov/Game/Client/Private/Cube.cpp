@@ -143,23 +143,23 @@ HRESULT CCube::Render_Shadow()
 
 HRESULT CCube::Ready_Components()
 {
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_Texture_Cube"),
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::Texture_Cube,
         TEXT("Com_Texture"), m_pTextureCom)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_VIBuffer_Cube"),
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VIBuffer_Cube,
         TEXT("Com_Buffer"), m_pBufferCom)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_VS_VTXTEX"),
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VS_VTXTEX,
         TEXT("Com_VS"), m_pVS)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_PS_VTXTEX"),
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_VTXTEX,
         TEXT("Com_PS"), m_pPS)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_PS_VTXTEX_SHADOW"),
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_VTXTEX_SHADOW,
         TEXT("Com_PS_SHADOW"), m_pPS_Shadow)))
         return E_FAIL;
 

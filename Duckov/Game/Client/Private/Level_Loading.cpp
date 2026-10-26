@@ -77,32 +77,32 @@ HRESULT CLevel_Loading::Ready_Layer_BackGround()
     CGameInstance::Get().Set_MainCamera(TEXT("COrthographic_Cam"));
 
     // 텍스처
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOADING), TEXT("Prototype_Component_Texture_BackGround"),
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOADING), Proto::Texture_BackGround,
         CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Logo/Logo_Background_1280x720.dds"), 1))))
         return E_FAIL;
 
     // VIBuffer_Rect
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOADING), TEXT("Prototype_Component_VIBuffer_Rect"),
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOADING), Proto::VIBuffer_Rect,
         CVIBuffer_Rect::Create(m_pDevice, m_pContext))))
         return E_FAIL;
 
     // VS
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOADING), TEXT("Prototype_Component_VS_VTXTEX"),
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOADING), Proto::VS_VTXTEX,
         CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_VtxTex.hlsl", VTXNORM::Elements, VTXNORM::iNumElements, "VS_MAIN"))))
         return E_FAIL;
     // PS
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOADING), TEXT("Prototype_Component_PS_VTXTEX_NoLight"),
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOADING), Proto::PS_VTXTEX_NOLIGHT,
         CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_VtxTex.hlsl", "PS_MAIN_NOLIGHT"))))
         return E_FAIL;
 
     // 배경 원형
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOADING), TEXT("Prototype_GameObject_BackGround"),
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOADING), Proto::Obj_BackGround,
         CBackGround::Create(m_pDevice, m_pContext))))
         return E_FAIL;
 
     // 배경 복제본
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOI(LEVEL::LOADING), TEXT("Prototype_GameObject_BackGround"),
-        ETOUI(LEVEL::LOADING), L"Layer_BackGround", TEXT("GameObject_BackGround"))))
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOI(LEVEL::LOADING), Proto::Obj_BackGround,
+        ETOUI(LEVEL::LOADING), L"Layer_BackGround", GO::BackGround)))
         return E_FAIL;
 
     return S_OK;

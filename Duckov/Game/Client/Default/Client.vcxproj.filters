@@ -180,6 +180,9 @@
     <ClInclude Include="..\public\Scope.h">
       <Filter>02. GameObjects\10. Scope</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Client_Tags.h">
+      <Filter>99. Define</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">

@@ -126,19 +126,19 @@ HRESULT CBackGround::Render()
 }
 HRESULT CBackGround::Ready_Components()
 {
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::LOADING), TEXT("Prototype_Component_Texture_BackGround"), 
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::LOADING), Proto::Texture_BackGround, 
         TEXT("Com_Texture"), m_pTextureCom)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::LOADING), TEXT("Prototype_Component_VIBuffer_Rect"), 
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::LOADING), Proto::VIBuffer_Rect, 
         TEXT("Com_Buffer"), m_pBufferCom)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::LOADING), TEXT("Prototype_Component_VS_VTXTEX"),
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::LOADING), Proto::VS_VTXTEX,
         TEXT("Com_VS"), m_pVS)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::LOADING), TEXT("Prototype_Component_PS_VTXTEX_NoLight"),
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::LOADING), Proto::PS_VTXTEX_NOLIGHT,
         TEXT("Com_PS"), m_pPS)))
         return E_FAIL;
     return S_OK;

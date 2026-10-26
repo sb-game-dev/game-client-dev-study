@@ -270,19 +270,17 @@ void CInven::Build_Instances()
 
 HRESULT CInven::Ready_Components()
 {
-	if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_VS_UI"),
+	if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VS_UI,
 		TEXT("Com_VS"), m_pVSCom)))
 		return E_FAIL;
 
-	if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_PS_UI"),
+	if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_UI,
 		TEXT("Com_PS"), m_pPSCom)))
 		return E_FAIL; 
 
-	if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_Texture_ItemIcons"),
+	if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::Texture_ItemIcons,
 			TEXT("Com_IconTex"), m_pIconTexCom)))
-		return E_FAIL;
-
-	
+		return E_FAIL;	
 	return S_OK;
 }
 

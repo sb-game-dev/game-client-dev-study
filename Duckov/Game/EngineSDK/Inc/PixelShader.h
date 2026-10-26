@@ -11,7 +11,7 @@ public:
 	virtual HRESULT Initialize_Prototype(const tchar_t* pShaderFilePath, const char_t* pEntryPoint, const char_t* pTarget);
 	virtual HRESULT Initialize(void* pArg) override;
 
-	virtual void	Bind_Shader() { m_pContext->PSSetShader(m_pPS.Get(), nullptr, 0); }
+	virtual HRESULT 			Begin();
 	ComPtr<ID3D11PixelShader>	Get_Shader() { return m_pPS; }
 private:
 	ComPtr<ID3D11PixelShader>				m_pPS = { nullptr };

@@ -199,15 +199,15 @@ HRESULT CClient_Mouse::Render()
 HRESULT CClient_Mouse::Ready_Components()
 {
     //StaticLevel로 변경해야 할 듯
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_Texture_Mouse"),
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::Texture_Mouse,
         TEXT("Com_Texture"), m_pTextureCom)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_VS_VTXTEX_INSTANCE"),
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VS_VTXTEX_INSTANCE,
         TEXT("Com_VS"), m_pVS)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_PS_VTXTEX_NoLight"),
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_VTXTEX_NOLIGHT,
         TEXT("Com_PS"), m_pPS)))
         return E_FAIL;
 

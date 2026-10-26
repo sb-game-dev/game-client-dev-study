@@ -37,6 +37,13 @@ HRESULT CPixelShader::Initialize(void* pArg)
     return S_OK;
 }
 
+HRESULT CPixelShader::Begin()
+{
+    m_pContext->PSSetShader(m_pPS.Get(), nullptr, 0);
+
+    return S_OK;
+}
+
 shared_ptr<CPixelShader> CPixelShader::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, const tchar_t* pShaderFilePath, const char_t* pEntryPoint, const char_t* pTarget)
 {
     auto pInstance = shared_ptr<CPixelShader>(new CPixelShader(pDevice, pContext));

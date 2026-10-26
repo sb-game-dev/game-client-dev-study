@@ -170,7 +170,7 @@ HRESULT CTree::Render()
 
 HRESULT CTree::Ready_Components()
 {
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_Texture_Tree"),
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::Texture_Tree,
         TEXT("Com_Texture"), m_pTextureCom)))
         return E_FAIL;
     return S_OK;

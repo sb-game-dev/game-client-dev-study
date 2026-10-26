@@ -11,7 +11,7 @@ public:
 	virtual HRESULT				Initialize_Prototype(const tchar_t* pShaderFilePath, const D3D11_INPUT_ELEMENT_DESC* pElements, uint32_t iNumElements, const char_t* pEntryPoint, const char_t* pTarget);
 	virtual HRESULT				Initialize(void* pArg) override;
 
-	virtual void				Bind_Shader()		{ m_pContext->VSSetShader(m_pVS.Get(), nullptr, 0); }
+	virtual HRESULT 			Begin();
 	ComPtr<ID3D11VertexShader>	Get_Shader()		{ return m_pVS; }
 	ComPtr<ID3D11InputLayout>	Get_InputLayout()	{ return m_pInputLayout; }
 

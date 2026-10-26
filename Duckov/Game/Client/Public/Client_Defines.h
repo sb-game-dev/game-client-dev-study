@@ -6,6 +6,7 @@
 #include <process.h> 
 #include "Engine_Defines.h"
 #include "GameInstance.h"
+#include "Client_Tags.h"
 namespace Client
 {
 	static constexpr uint32_t g_iWinSizeX = 1280;

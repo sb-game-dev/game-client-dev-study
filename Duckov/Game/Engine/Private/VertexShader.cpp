@@ -45,6 +45,14 @@ HRESULT CVertexShader::Initialize(void* pArg)
 	return S_OK;
 }
 
+HRESULT CVertexShader::Begin()
+{
+    m_pContext->VSSetShader(m_pVS.Get(), nullptr, 0);
+
+    m_pContext->IASetInputLayout(m_pInputLayout.Get());
+    return S_OK;
+}
+
 shared_ptr<CVertexShader> CVertexShader::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, const tchar_t* pShaderFilePath, const D3D11_INPUT_ELEMENT_DESC* pElements, uint32_t iNumElements, const char_t* pEntryPoint, const char_t* pTarget)
 {
     auto pInstance = shared_ptr<CVertexShader>(new CVertexShader(pDevice, pContext));

@@ -112,24 +112,24 @@ HRESULT CPlayer::Render_Occluded()
 
 HRESULT CPlayer::Ready_Components()
 {
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_VIBuffer_Pyramid"),
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VIBuffer_Pyramid,
         TEXT("Com_Buffer"), m_pBufferCom)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_VS_VTXCOL"),
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VS_VTXCOL,
         TEXT("Com_VS"), m_pVS)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_PS_VTXCOL"),
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_VTXCOL,
         TEXT("Com_PS"), m_pPS)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_PS_VTXCOL_SHADOW"),
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_VTXCOL_SHADOW,
         TEXT("Com_PS_SHADOW"), m_pPS_Shadow)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_PS_VTXCOL_OCCLUDEDPLAYER"),
-        TEXT("Com_PS_OCCLUDEDPLAYER"), m_pPS_Occluded)))
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_VTXCOL_OCCLUDED,
+        TEXT("Com_PS_OCCLUDED"), m_pPS_Occluded)))
         return E_FAIL;
 
     return S_OK;
@@ -364,12 +364,10 @@ void CPlayer::KeyInput(f32_t fDeltaTime)
                 m_pTransformCom->Turn(g_vY_Plus, fDeltaTime);
         }
     }
-
-    
 }
 void CPlayer::LookAtMouse(f32_t fDeltaTime)
 {
-    auto pMouse = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", L"GameObject_ClientMouse");
+    auto pMouse = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", GO::Client_Mouse);
     vector_t vTargetPos = pMouse->Get_Transform()->Get_State(STATE::POSITION);
     m_pTransformCom->LookAt(vTargetPos);
 }

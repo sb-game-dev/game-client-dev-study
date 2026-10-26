@@ -5,6 +5,7 @@
 #include "Player_PointLight.h"
 #include "Player_SpotLight.h"
 #include "SunLight.h"
+#include "Mirror.h"
 
 CLevel_GamePlay::CLevel_GamePlay(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     :CLevel{ pDevice,pContext }
@@ -36,24 +37,24 @@ HRESULT CLevel_GamePlay::Render()
 }
 HRESULT CLevel_GamePlay::Ready_Layer_BackGround(const tchar_t* pLayerTag)
 {
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_GameObject_SkyBox"),
-        ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_SkyBox"))))
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_SkyBox,
+        ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::SkyBox)))
         return E_FAIL;
     return S_OK;
 }
 
 HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
 {
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_GameObject_Inven"),
-        ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_Inven"))))
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Inven,
+        ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Inven)))
         return E_FAIL;
 
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_GameObject_ClientMouse"),
-        ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_ClientMouse"))))
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Client_Mouse,
+        ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Client_Mouse)))
         return E_FAIL;
 
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_GameObject_Hill"),
-        ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_Hill"))))
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Hill,
+        ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Hill)))
         return E_FAIL;
 
     CPlayer::PLAYER_DESC Player_Desc{};
@@ -61,8 +62,8 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
     Player_Desc.fPosX = 38.2f;     
     Player_Desc.fPosZ = -207.2f;
 
-    if(FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_GameObject_Player"), 
-        ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_Player"), &Player_Desc)))
+    if(FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Player, 
+        ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Player, &Player_Desc)))
         return E_FAIL;
 
     for (int i = 0; i < 16; ++i)
@@ -71,37 +72,42 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
         Cube_Desc.fPosX = 38.2f + 10 * sinf(XM_2PI / 16 * i);
         Cube_Desc.fPosZ = -207.2f + 10 * cosf(XM_2PI / 16 * i);
 
-        if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_Cube",
-            ETOUI(LEVEL::GAMEPLAY), pLayerTag, L"GameObject_Cube" + to_wstring(i), &Cube_Desc)))
+        if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Cube,
+            ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Cube + to_wstring(i), &Cube_Desc)))
             return E_FAIL;
     }
 
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Prototype_GameObject_CubeInstance",
-        ETOUI(LEVEL::GAMEPLAY), pLayerTag, L"GameObject_CubeInstance")))
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Cube_Instance,
+        ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Cube_Instance)))
         return E_FAIL;
 
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_GameObject_Wave"),
-        ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_Wave"))))
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Wave,
+        ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Wave)))
         return E_FAIL;
 
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_GameObject_Fog"),
-        ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_Fog"))))
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Fog,
+        ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Fog)))
         return E_FAIL;
 
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_GameObject_Mirror"),
-        ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_Mirror"))))
+    CMirror::MIRROR_DESC Mirror_Desc{};
+    Mirror_Desc.fPosX = 50.2f;
+    Mirror_Desc.fPosY = 0.f;
+    Mirror_Desc.fPosZ = -180.2f;
+
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Mirror,
+        ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Mirror, &Mirror_Desc)))
         return E_FAIL;
 
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_GameObject_Tree"),
-        ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_Tree"))))
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Tree,
+        ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Tree)))
         return E_FAIL;
 
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_GameObject_Scope"),
-        ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_Scope"))))
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Scope,
+        ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Scope)))
         return E_FAIL;
 
-    auto pPlayer = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_Player"));
-    auto pMirror = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), pLayerTag, TEXT("GameObject_Mirror"));
+    auto pPlayer = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Player);
+    auto pMirror = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Mirror);
     CGameInstance::Get().Set_Mirror(pMirror);
 
     auto m_pCamera = CQuarterView_Cam::Create(m_pDevice, m_pContext);
