@@ -130,6 +130,12 @@
     <Filter Include="11. ConstantBuffer">
       <UniqueIdentifier>{f23d5061-d18d-4de7-a48b-1d6eb725d7dd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="13. Sampler">
+      <UniqueIdentifier>{ad591800-0c19-42e4-9521-d05c56f489fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="13. Sampler\Manager">
+      <UniqueIdentifier>{d8944a1e-d9a1-4ef9-883c-6d7b40468c20}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Engine_Defines.h">
@@ -270,6 +276,9 @@
     <ClInclude Include="..\public\VIBuffer_Terrain.h">
       <Filter>06. Component\02. VIBuffer\02. Terrain</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\Sampler_Manager.h">
+      <Filter>13. Sampler\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Timer.cpp">
@@ -388,6 +397,9 @@
     </ClCompile>
     <ClCompile Include="..\private\VIBuffer_Terrain.cpp">
       <Filter>06. Component\02. VIBuffer\02. Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Sampler_Manager.cpp">
+      <Filter>13. Sampler\Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

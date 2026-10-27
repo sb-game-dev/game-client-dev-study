@@ -104,16 +104,6 @@ HRESULT CWave::Initialize_Prototype()
 
     m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
 
-    // sampler 생성
-    D3D11_SAMPLER_DESC samplerDesc = {};
-
-    samplerDesc.Filter = D3D11_FILTER_ANISOTROPIC;
-    samplerDesc.MaxAnisotropy = 16;
-    samplerDesc.AddressU = samplerDesc.AddressV = samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
-    samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
-
-    if (FAILED(m_pDevice->CreateSamplerState(&samplerDesc, m_pSampler.GetAddressOf())))
-        return E_FAIL;
 
     return S_OK;
 }
@@ -157,7 +147,7 @@ void CWave::Update(f32_t fDeltaTime)
 void CWave::Late_Update(f32_t fDeltaTime)
 {
     __super::Late_Update(fDeltaTime);
-    //CGameInstance::Get().Add_RenderGroup(RENDERID::ALPHA_PRE, dynamic_pointer_cast<CGameObject>(shared_from_this()));
+    CGameInstance::Get().Add_RenderGroup(RENDERID::ALPHA_PRE, dynamic_pointer_cast<CGameObject>(shared_from_this()));
 }
 
 HRESULT CWave::Render()
@@ -210,10 +200,12 @@ HRESULT CWave::Render()
         return E_FAIL;
 
     // 텍스처 바인드
-    m_pTextureCom->Set_TexturePS(0, 0);
+    if (FAILED(m_pTextureCom->Bind_Pixel_ShaderResource(0, 0)))
+        return E_FAIL;
 
     // 샘플러 바인드
-    m_pContext->PSSetSamplers(0, 1, m_pSampler.GetAddressOf());
+    if (FAILED(CGameInstance::Get().Bind_Sampler_Pixel_Shader(g_strSampler_Linear, 0)))
+        return E_FAIL;
 
     m_pContext->RSSetState(m_pRS.Get());
 

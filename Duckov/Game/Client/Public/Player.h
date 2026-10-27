@@ -40,7 +40,7 @@ private:
 	shared_ptr<CPixelShader>		m_pPS_Occluded = { nullptr };
 
 	shared_ptr<CConstantBuffer>		m_pCB = { nullptr };
-	CB_PER_OBJECT					m_tCBDesc = {};
+	CB_PER_OBJECT					m_tCBData = {};
 
 	ComPtr<ID3D11RasterizerState>	m_pRS_Reflect = { nullptr };
 
@@ -49,6 +49,9 @@ private:
 	HRESULT			Ready_ConstantBuffer();
 	HRESULT			Update_ConstantBuffer(const matrix_t& matWorld);
 	HRESULT			Render_Mesh(const matrix_t& matWorld, ID3D11RasterizerState* pRS, shared_ptr<CPixelShader> pPS);
+
+	virtual			HRESULT Bind_Shader(shared_ptr<CVertexShader> pVS = nullptr, shared_ptr<CPixelShader> pPS = nullptr);
+	virtual			HRESULT Bind_ShaderResources(const matrix_t& matWorld);
 
 	void			KeyInput(f32_t fDeltaTime);
 	void			LookAtMouse(f32_t fDeltaTime);

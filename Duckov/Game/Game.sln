@@ -10,6 +10,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Client", "Client\Default\Cl
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Default\Engine.vcxproj", "{BBED5210-6EEA-4C47-A2F5-1CBF2F1D0653}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MapTool", "MapTool\Default\Default.vcxproj", "{89E06563-C950-4324-BC23-907E7DF13B0E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BBED5210-6EEA-4C47-A2F5-1CBF2F1D0653} = {BBED5210-6EEA-4C47-A2F5-1CBF2F1D0653}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -34,6 +39,14 @@ Global
 		{BBED5210-6EEA-4C47-A2F5-1CBF2F1D0653}.Release|x64.Build.0 = Release|x64
 		{BBED5210-6EEA-4C47-A2F5-1CBF2F1D0653}.Release|x86.ActiveCfg = Release|Win32
 		{BBED5210-6EEA-4C47-A2F5-1CBF2F1D0653}.Release|x86.Build.0 = Release|Win32
+		{89E06563-C950-4324-BC23-907E7DF13B0E}.Debug|x64.ActiveCfg = Debug|x64
+		{89E06563-C950-4324-BC23-907E7DF13B0E}.Debug|x64.Build.0 = Debug|x64
+		{89E06563-C950-4324-BC23-907E7DF13B0E}.Debug|x86.ActiveCfg = Debug|Win32
+		{89E06563-C950-4324-BC23-907E7DF13B0E}.Debug|x86.Build.0 = Debug|Win32
+		{89E06563-C950-4324-BC23-907E7DF13B0E}.Release|x64.ActiveCfg = Release|x64
+		{89E06563-C950-4324-BC23-907E7DF13B0E}.Release|x64.Build.0 = Release|x64
+		{89E06563-C950-4324-BC23-907E7DF13B0E}.Release|x86.ActiveCfg = Release|Win32
+		{89E06563-C950-4324-BC23-907E7DF13B0E}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

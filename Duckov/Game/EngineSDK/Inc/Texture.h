@@ -13,8 +13,11 @@ public:
 public:
 	HRESULT	Initialize_Prototype(const tchar_t* pTextureFilePath, uint32_t iNumTextures);
 	HRESULT	Initialize(void* pArg) override;
+public:
+	HRESULT	Bind_Pixel_ShaderResource(const uint32_t& iSlot, const uint32_t& iIndex);
+	HRESULT	Bind_Pixel_ShaderResources(const uint32_t& iSlot);
 
-	HRESULT	Set_TexturePS(const uint32_t& iIndex, const uint32_t& iStartSlot);
+	HRESULT	Set_TexturePS(const uint32_t& iIndex, const uint32_t& iStartSlot); //Bind_Pixel_ShaderResource(Slot,Index)
 	HRESULT	Set_TextureCS(const uint32_t& iIndex, const uint32_t& iStartSlot);
 
 private:

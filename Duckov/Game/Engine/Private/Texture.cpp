@@ -39,6 +39,34 @@ HRESULT CTexture::Initialize(void* pArg)
 	return S_OK;
 }
 
+HRESULT CTexture::Bind_Pixel_ShaderResource(const uint32_t& iSlot, const uint32_t& iIndex)
+{
+	if (m_SRVs.size() <= iIndex)
+		return E_FAIL;
+
+	m_pContext->PSSetShaderResources(iSlot, 1, m_SRVs[iIndex].GetAddressOf());
+	return S_OK;
+}
+
+HRESULT CTexture::Bind_Pixel_ShaderResources(const uint32_t& iSlot)
+{
+	if (m_iNumTextures >= D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT)
+		return E_FAIL;
+
+	ID3D11ShaderResourceView* pSRVs[D3D11_COMMONSHADER_INPUT_RESOURCE_SLOT_COUNT] = {};
+
+	uint32_t        iNumTextures = {};
+
+	for (auto& pSRV : m_SRVs)
+	{
+		pSRVs[iNumTextures++] = pSRV.Get();
+	}
+
+	m_pContext->PSSetShaderResources(iSlot, iNumTextures, pSRVs);
+
+	return S_OK;
+}
+
 HRESULT CTexture::Set_TexturePS(const uint32_t& iIndex, const uint32_t& iStartSlot)
 {
 	if (m_SRVs.size() <= iIndex)

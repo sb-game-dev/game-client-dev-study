@@ -24,17 +24,6 @@ HRESULT CHill::Initialize_Prototype()
 
     m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
 
-    // sampler 생성
-    D3D11_SAMPLER_DESC samplerDesc = {};
-
-    samplerDesc.Filter = D3D11_FILTER_ANISOTROPIC;
-    samplerDesc.MaxAnisotropy = 16;
-    samplerDesc.AddressU = samplerDesc.AddressV = samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
-    samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
-
-    if (FAILED(m_pDevice->CreateSamplerState(&samplerDesc, m_pSampler.GetAddressOf())))
-        return E_FAIL;
-
     return S_OK;
 }
 
@@ -66,33 +55,13 @@ void CHill::Late_Update(f32_t fDeltaTime)
 
 HRESULT CHill::Render()
 {
-    if (FAILED(m_pVS->Begin()))
-        return E_FAIL;
-    
-    if (FAILED(m_pPS->Begin()))
-        return E_FAIL;
-
     // 레스터라이즈 설정
     m_pContext->RSSetState(m_pRS.Get());
-
-    // 샘플러 바인드
-    m_pContext->PSSetSamplers(0, 1, m_pSampler.GetAddressOf());
     
-    // 텍스처 바인드
-    if (FAILED(m_pLayerCom->Set_TexturePS(0, 2)))   // Layer0 잔디     -> t2
-        return E_FAIL;                                                 
-    if (FAILED(m_pLayerCom->Set_TexturePS(1, 3)))   // Layer1 흙       -> t3
-        return E_FAIL;                                                 
-    if (FAILED(m_pLayerCom->Set_TexturePS(2, 4)))   // Layer2 아스팔트 -> t4
-        return E_FAIL;                                                 
-    if (FAILED(m_pBlendCom->Set_TexturePS(0, 5)))   // 혼합맵          -> t5
+    if (FAILED(Bind_Shader(m_pVS, m_pPS)))
         return E_FAIL;
 
-    // 상수버퍼 바인드
-    if(FAILED(m_pCB->Bind_Vertex_ShaderResource(0, &m_tCBDesc)))
-        return E_FAIL;
-
-    if (FAILED(m_pCB->Bind_Pixel_ShaderResource(0, &m_tCBDesc)))
+    if (FAILED(Bind_ShaderResources()))
         return E_FAIL;
 
     if (FAILED(m_pBufferCom->Bind_Resources()))
@@ -146,12 +115,47 @@ HRESULT CHill::Ready_ConstantBuffer()
     matNoTrans.r[3] = XMVectorSet(0.f, 0.f, 0.f, 1.f);
     matrix_t matWorldInvTranspos = XMMatrixTranspose(XMMatrixInverse(nullptr, matNoTrans));
 
-    XMStoreFloat4x4(&m_tCBDesc.mat_World, (matWorld));
-    XMStoreFloat4x4(&m_tCBDesc.mat_WorldInvTranspose, (matWorldInvTranspos));
-    m_tCBDesc.tMaterial = m_tMaterial;
+    XMStoreFloat4x4(&m_tCBData.mat_World, (matWorld));
+    XMStoreFloat4x4(&m_tCBData.mat_WorldInvTranspose, (matWorldInvTranspos));
+    m_tCBData.tMaterial = m_tMaterial;
 
-    m_pCB = CConstantBuffer::Create(m_pDevice, m_pContext, &m_tCBDesc, sizeof(m_tCBDesc));
+    m_pCB = CConstantBuffer::Create(m_pDevice, m_pContext, &m_tCBData, sizeof(m_tCBData));
     if (nullptr == m_pCB)
+        return E_FAIL;
+    return S_OK;
+}
+
+HRESULT CHill::Bind_Shader(shared_ptr<CVertexShader> pVS, shared_ptr<CPixelShader> pPS)
+{
+    if (FAILED(m_pVS->Begin()))
+        return E_FAIL;
+
+    if (FAILED(m_pPS->Begin()))
+        return E_FAIL;
+    return S_OK;
+}
+
+HRESULT CHill::Bind_ShaderResources(const matrix_t& matWorld)
+{
+    // 샘플러 바인드
+    if (FAILED(CGameInstance::Get().Bind_Sampler_Pixel_Shader(g_strSampler_Linear, 0)))
+        return E_FAIL;
+
+    // 텍스처 바인드
+    if (FAILED(m_pLayerCom->Set_TexturePS(0, 2)))   // Layer0 잔디     -> t2
+        return E_FAIL;
+    if (FAILED(m_pLayerCom->Set_TexturePS(1, 3)))   // Layer1 흙       -> t3
+        return E_FAIL;
+    if (FAILED(m_pLayerCom->Set_TexturePS(2, 4)))   // Layer2 아스팔트 -> t4
+        return E_FAIL;
+    if (FAILED(m_pBlendCom->Set_TexturePS(0, 5)))   // 혼합맵          -> t5
+        return E_FAIL;
+
+    // 상수버퍼 바인드
+    if (FAILED(m_pCB->Bind_Vertex_ShaderResource(0, &m_tCBData)))
+        return E_FAIL;
+
+    if (FAILED(m_pCB->Bind_Pixel_ShaderResource(0, &m_tCBData)))
         return E_FAIL;
     return S_OK;
 }

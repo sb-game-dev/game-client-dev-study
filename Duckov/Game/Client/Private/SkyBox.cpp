@@ -10,15 +10,6 @@ HRESULT CSkyBox::Initialize_Prototype()
     if (FAILED(__super::Initialize_Prototype()))
         return E_FAIL;
 
-    // 상수 버퍼 생성
-    D3D11_BUFFER_DESC CBDesc{};
-    CBDesc.ByteWidth = sizeof(CB_PER_OBJECT_LIT);
-    CBDesc.Usage = D3D11_USAGE_DEFAULT;
-    CBDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-
-    // 상수 버퍼를 초기화 할 때 SubResource는 nullptr로 설정. 나중에 UpdateSubresource 할 예정
-    if (FAILED(m_pDevice->CreateBuffer(&CBDesc, nullptr, &m_pCB)))
-        return E_FAIL;
     // 래스터라이저 설정
     D3D11_RASTERIZER_DESC rsDesc{};
     rsDesc.FillMode = D3D11_FILL_SOLID;         // D3D11_FILL_WIREFRAME , D3D11_FILL_SOLID
@@ -27,17 +18,6 @@ HRESULT CSkyBox::Initialize_Prototype()
     rsDesc.DepthClipEnable = true;
 
     m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
-
-    // 샘플러 생성
-    D3D11_SAMPLER_DESC samplerDesc{};
-
-    samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
-    samplerDesc.AddressU = samplerDesc.AddressV = samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
-    samplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
-    samplerDesc.MaxLOD = 0.f;
-
-    if (FAILED(m_pDevice->CreateSamplerState(&samplerDesc, m_pSampler.GetAddressOf())))
-        return E_FAIL;
 
     return S_OK;
 }
@@ -48,6 +28,8 @@ HRESULT CSkyBox::Initialize(void* pArg)
         return E_FAIL;
     m_pTransformCom->Set_Scale( 20.f,20.f,20.f );
     if (FAILED(Ready_Components()))
+        return E_FAIL;
+    if (FAILED(Ready_ConstantBuffer()))
         return E_FAIL;
     return S_OK;
 }
@@ -75,46 +57,13 @@ void CSkyBox::Late_Update(f32_t fDeltaTime)
 
 HRESULT CSkyBox::Render()
 {
-    XMMATRIX matWorld = m_pTransformCom->Get_World();
-
-    // 역전치 행렬은 이동 성분을 뺀 복사본으로 계산 (matWorld 자체는 이동 성분 유지)
-    XMMATRIX matNoTrans = matWorld;
-    matNoTrans.r[3] = XMVectorSet(0.f, 0.f, 0.f, 1.f);
-    XMMATRIX matWorldInvTranspos = XMMatrixTranspose(XMMatrixInverse(nullptr, matNoTrans));
-
-    CB_PER_OBJECT_LIT cbData;
-    XMStoreFloat4x4(&cbData.mat_World, (matWorld));
-    XMStoreFloat4x4(&cbData.mat_WorldInvTranspose, (matWorldInvTranspos));
-    cbData.tMaterial = m_tMaterial;
-
-    m_pContext->UpdateSubresource(m_pCB.Get(), 0, nullptr, &cbData, 0, 0);
-
-    // 월드 변환을 위한 상수 버퍼
-    // Position, Normal 계산을 위해 matWorld, matWorldInvTranspose만 사용
-    m_pContext->VSSetConstantBuffers(0, //레지스터 슬롯 번호
-        1,
-        m_pCB.GetAddressOf());
-
-    // 조명 계산을 위한 상수 버퍼
-    // 조명 계산에 필요한 Material만 사용
-    m_pContext->PSSetConstantBuffers(0, //레지스터 슬롯 번호
-        1,
-        m_pCB.GetAddressOf());
-
-    // 샘플러 바인드
-    m_pContext->PSSetSamplers(0, 1, m_pSampler.GetAddressOf());
-
     // 레스터라이즈 설정
     m_pContext->RSSetState(m_pRS.Get());
-
-    // 텍스처 바인드
-    if (FAILED(m_pTextureCom->Set_TexturePS(0, 0)))
+    
+    if (FAILED(Bind_Shader(m_pVS,m_pPS)))
         return E_FAIL;
 
-    if (FAILED(m_pVS->Begin()))
-        return E_FAIL;
-
-    if (FAILED(m_pPS->Begin()))
+    if (FAILED(Bind_ShaderResources(m_pTransformCom->Get_World())))
         return E_FAIL;
 
     if (FAILED(m_pBufferCom->Bind_Resources()))
@@ -141,6 +90,50 @@ HRESULT CSkyBox::Ready_Components()
 
     if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_VTXTEX_SKYBOX,
         TEXT("Com_PS"), m_pPS)))
+        return E_FAIL;
+    return S_OK;
+}
+
+HRESULT CSkyBox::Ready_ConstantBuffer()
+{
+    m_pCB = CConstantBuffer::Create(m_pDevice, m_pContext, &m_tCBData, sizeof(m_tCBData));
+    if (nullptr == m_pCB)
+        return E_FAIL;
+    return S_OK;
+}
+
+HRESULT CSkyBox::Update_ConstantBuffer(const matrix_t& matWorld)
+{
+    XMStoreFloat4x4(&m_tCBData.mat_World, matWorld);
+    return S_OK;
+}
+
+HRESULT CSkyBox::Bind_Shader(shared_ptr<CVertexShader> pVS, shared_ptr<CPixelShader> pPS)
+{
+    if (FAILED(pVS->Begin()))
+        return E_FAIL;
+
+    if (FAILED(pPS->Begin()))
+        return E_FAIL;
+    return S_OK;
+}
+
+HRESULT CSkyBox::Bind_ShaderResources(const matrix_t& matWorld)
+{
+    if (FAILED(Update_ConstantBuffer(matWorld)))
+        return E_FAIL;
+
+    if (FAILED(m_pCB->Bind_Vertex_ShaderResource(0, &m_tCBData)))
+        return E_FAIL;
+
+    if (FAILED(m_pCB->Bind_Pixel_ShaderResource(0, &m_tCBData)))
+        return E_FAIL;
+
+    // 샘플러 바인드
+    if (FAILED(CGameInstance::Get().Bind_Sampler_Pixel_Shader(g_strSampler_Linear, 0)))
+        return E_FAIL;
+    // 텍스처 바인드
+    if (FAILED(m_pTextureCom->Bind_Pixel_ShaderResource(0, 0)))
         return E_FAIL;
     return S_OK;
 }

@@ -43,6 +43,14 @@ HRESULT CGameInstance::Initialize_Engine(const ENGINE_DESC& EngineDesc, _Out_ Co
 	if (nullptr == m_pInput_Device)
 		return E_FAIL;
 
+	m_pPipeLine = CPipeLine::Create(pDevice, pContext);
+	if (nullptr == m_pPipeLine)
+		return E_FAIL;
+
+	m_pSampler_Manager = CSampler_Manager::Create(pDevice, pContext);
+	if (nullptr == m_pSampler_Manager)
+		return E_FAIL;
+
 	return S_OK;
 }
 
@@ -296,8 +304,23 @@ HRESULT CGameInstance::Bind_PipeLine_Pixel_ShaderResource(uint32_t iSlot)
 
 #pragma endregion
 
+#pragma region SAMPLER_MANAGER
+HRESULT CGameInstance::Add_Sampler(const wstring_t& strSamplerTag, const D3D11_SAMPLER_DESC& SamplerDesc)
+{
+	return m_pSampler_Manager->Add_Sampler(strSamplerTag, SamplerDesc);
+}
+
+HRESULT CGameInstance::Bind_Sampler_Pixel_Shader(const wstring_t& strSamplerTag, uint32_t iSlot)
+{
+	return m_pSampler_Manager->Bind_Sampler_Pixel_Shader(strSamplerTag, iSlot);
+}
+
+#pragma endregion
+
 void CGameInstance::Release_Engine()
 {
+	m_pSampler_Manager.reset();
+	m_pPipeLine.reset();
 	m_pInput_Device.reset();
 	m_pLevel_Manager.reset();
 	m_pRenderer.reset();

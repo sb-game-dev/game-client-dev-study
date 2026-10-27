@@ -32,9 +32,16 @@ private:
 	shared_ptr<CVertexShader>		m_pVS = { nullptr };
 	shared_ptr<CPixelShader>		m_pPS = { nullptr };
 	shared_ptr<CPixelShader>		m_pPS_Shadow = { nullptr };
+	shared_ptr<CConstantBuffer>		m_pCB = { nullptr };
+	CB_PER_OBJECT_LIT				m_tCBData = {};
 
 private:
 	HRESULT			Ready_Components();
+	HRESULT			Ready_ConstantBuffer();
+	HRESULT			Update_ConstantBuffer(const matrix_t& matWorld);
+
+	virtual			HRESULT Bind_Shader(shared_ptr<CVertexShader> pVS = nullptr, shared_ptr<CPixelShader> pPS = nullptr);
+	virtual			HRESULT Bind_ShaderResources(const matrix_t& matWorld);
 
 	HRESULT			Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS, shared_ptr<CPixelShader> pPS);
 	matrix_t		Get_ShadowWorld();

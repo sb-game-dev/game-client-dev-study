@@ -10,16 +10,6 @@ HRESULT CMirror::Initialize_Prototype()
     if (FAILED(__super::Initialize_Prototype()))
         return E_FAIL;
 
-    // 상수 버퍼 생성
-    D3D11_BUFFER_DESC CBDesc{};
-    CBDesc.ByteWidth = sizeof(CB_PER_OBJECT);
-    CBDesc.Usage = D3D11_USAGE_DEFAULT;
-    CBDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-
-    // 상수 버퍼를 초기화 할 때 SubResource는 nullptr로 설정. 나중에 UpdateSubresource 할 예정
-    if (FAILED(m_pDevice->CreateBuffer(&CBDesc, nullptr, m_pCB.GetAddressOf())))
-        return E_FAIL;
-
     // 레스터라이저 설정
     D3D11_RASTERIZER_DESC rsDesc{};
     rsDesc.FillMode = D3D11_FILL_SOLID;         //D3D11_FILL_WIREFRAME , D3D11_FILL_SOLID
@@ -28,17 +18,6 @@ HRESULT CMirror::Initialize_Prototype()
     rsDesc.DepthClipEnable = true;
 
     m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
-
-    // sampler 생성
-    D3D11_SAMPLER_DESC samplerDesc = {};
-
-    samplerDesc.Filter = D3D11_FILTER_ANISOTROPIC;
-    samplerDesc.MaxAnisotropy = 16;
-    samplerDesc.AddressU = samplerDesc.AddressV = samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
-    samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
-
-    if (FAILED(m_pDevice->CreateSamplerState(&samplerDesc, m_pSampler.GetAddressOf())))
-        return E_FAIL;
 
     // Material
     m_tMaterial.Ambient = float4_t(1.f, 1.f, 1.f, 1.f);
@@ -56,6 +35,9 @@ HRESULT CMirror::Initialize(void* pArg)
     m_pTransformCom->Set_Scale(6.f, 10.f, 1.f);
 
     if (FAILED(Ready_Components()))
+        return E_FAIL;
+
+    if (FAILED(Ready_ConstantBuffer()))
         return E_FAIL;
 
     return S_OK;
@@ -78,35 +60,13 @@ void CMirror::Late_Update(f32_t fDeltaTime)
 
 HRESULT CMirror::Render()
 {
-    XMMATRIX matWorld = m_pTransformCom->Get_World();
-
-    // VS로 전달할 구조체 채우기
-    // HLSL은 기본적으로 열 단위로 데이터를 읽기 때문에 전치를 해야 함
-    CB_PER_OBJECT cbData;
-    XMStoreFloat4x4(&cbData.WorldMatrix, (matWorld));
-
-    // 변환 행렬의 정보를 가지고있는 m_pCB 버퍼로 복사(USAGE_DEFAULT로 생성해서 드라이버를 통해 복사)
-    // 아래에서 VS의 b0 레지스터에 꽂을 예정
-    m_pContext->UpdateSubresource(m_pCB.Get(), 0, nullptr, &cbData, 0, 0);
-
-    // VS의 상수버퍼슬롯(b0)에 상수버퍼(변환 행렬 버퍼) 꽂기
-    m_pContext->VSSetConstantBuffers(0, //register(b0)과 연결됨
-        1,
-        m_pCB.GetAddressOf());
-
     // RS(레스터라이저 설정)
     m_pContext->RSSetState(m_pRS.Get());
 
-    // 샘플러  설정
-    m_pContext->PSSetSamplers(0, 1, m_pSampler.GetAddressOf());
-
-    if (FAILED(m_pTextureCom->Set_TexturePS(0, 0)))
+    if (FAILED(Bind_Shader(m_pVS, m_pPS)))
         return E_FAIL;
 
-    if (FAILED(m_pVS->Begin()))
-        return E_FAIL;
-
-    if (FAILED(m_pPS->Begin()))
+    if (FAILED(Bind_ShaderResources()))
         return E_FAIL;
 
     if (FAILED(m_pBufferCom->Bind_Resources()))
@@ -141,6 +101,38 @@ HRESULT CMirror::Ready_Components()
 
     if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_VTXTEX,
         TEXT("Com_PS"), m_pPS)))
+        return E_FAIL;
+    return S_OK;
+}
+
+HRESULT CMirror::Ready_ConstantBuffer()
+{
+    XMStoreFloat4x4(&m_tCBData.WorldMatrix, m_pTransformCom->Get_World());
+    m_pCB = CConstantBuffer::Create(m_pDevice, m_pContext,&m_tCBData,sizeof(m_tCBData));
+    if (nullptr == m_pCB)
+        return E_FAIL;
+    return S_OK;
+}
+
+HRESULT CMirror::Bind_Shader(shared_ptr<CVertexShader> pVS, shared_ptr<CPixelShader> pPS)
+{
+    if (FAILED(pVS->Begin()))
+        return E_FAIL;
+
+    if (FAILED(pPS->Begin()))
+        return E_FAIL;
+    return S_OK;
+}
+
+HRESULT CMirror::Bind_ShaderResources(const matrix_t& matWorld)
+{
+    if (FAILED(CGameInstance::Get().Bind_Sampler_Pixel_Shader(g_strSampler_Linear, 0)))
+        return E_FAIL;
+
+    if (FAILED(m_pCB->Bind_Vertex_ShaderResource(0, &m_tCBData)))
+        return E_FAIL;
+
+    if (FAILED(m_pTextureCom->Set_TexturePS(0, 0)))
         return E_FAIL;
     return S_OK;
 }

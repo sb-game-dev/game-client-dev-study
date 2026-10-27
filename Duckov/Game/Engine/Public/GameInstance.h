@@ -12,6 +12,7 @@
 #include "Transform.h"
 #include "Texture.h"
 #include "Pipeline.h"
+#include "Sampler_Manager.h"
 
 // ¹öÆÛ
 #include "VIBuffer_Rect.h"
@@ -132,6 +133,11 @@ public:
 	HRESULT Bind_PipeLine_Pixel_ShaderResource(uint32_t iSlot);
 #pragma endregion
 
+#pragma region SAMPLER_MANAGER
+	HRESULT Add_Sampler(const wstring_t& strSamplerTag, const D3D11_SAMPLER_DESC& SamplerDesc);
+	HRESULT Bind_Sampler_Pixel_Shader(const wstring_t& strSamplerTag, uint32_t iSlot);
+#pragma endregion
+
 private:
 	unique_ptr<CGraphic_Device>		m_pGraphic_Device = { nullptr };
 	unique_ptr<CObject_Manager>		m_pObject_Manager = { nullptr };
@@ -142,7 +148,8 @@ private:
 	unique_ptr<CLight_Manager>		m_pLight_Manager = { nullptr };
 	unique_ptr<CRenderer>			m_pRenderer = { nullptr };
 	unique_ptr<CInput_Device>       m_pInput_Device = { nullptr };
-	unique_ptr<CPipeLine>				m_pPipeLine = { nullptr };
+	unique_ptr<CPipeLine>			m_pPipeLine = { nullptr };
+	unique_ptr<CSampler_Manager>	m_pSampler_Manager = { nullptr };
 	HWND							m_hWND = { nullptr };
 public:
 	void			Release_Engine();

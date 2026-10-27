@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="99. Default">
+      <UniqueIdentifier>{aa051d50-96fd-413a-8795-84f1be6279ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98. Client_Shared">
+      <UniqueIdentifier>{6c1f0d2e-3b7a-4f59-9a1e-2d8c4b5e7f10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="97. ImGui">
+      <UniqueIdentifier>{35d19600-144f-4c11-b19f-199fda6ec4e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Tool">
+      <UniqueIdentifier>{4efbeba7-80a0-4b60-ab00-5d01f11339fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00. Tool\Manager">
+      <UniqueIdentifier>{704006c0-dc47-458f-8d20-c54dc968e243}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Default.h">
+      <Filter>99. Default</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>99. Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>99. Default</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>99. Default</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ImGui\imconfig.h">
+      <Filter>97. ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ImGui\imgui.h">
+      <Filter>97. ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ImGui\imgui_impl_dx11.h">
+      <Filter>97. ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ImGui\imgui_impl_win32.h">
+      <Filter>97. ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ImGui\imgui_internal.h">
+      <Filter>97. ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ImGui\imstb_rectpack.h">
+      <Filter>97. ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ImGui\imstb_textedit.h">
+      <Filter>97. ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ImGui\imstb_truetype.h">
+      <Filter>97. ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\ImGui_Manager.h">
+      <Filter>00. Tool\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Tool.h">
+      <Filter>00. Tool</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Default.ico">
+      <Filter>99. Default</Filter>
+    </Image>
+    <Image Include="small.ico">
+      <Filter>99. Default</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Default.cpp">
+      <Filter>99. Default</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\BackGround.cpp">
+      <Filter>98. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Client_Mouse.cpp">
+      <Filter>98. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Cube.cpp">
+      <Filter>98. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Cube_Instance.cpp">
+      <Filter>98. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Fog.cpp">
+      <Filter>98. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Hill.cpp">
+      <Filter>98. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Inven.cpp">
+      <Filter>98. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Level_GamePlay.cpp">
+      <Filter>98. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Level_Loading.cpp">
+      <Filter>98. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Level_Logo.cpp">
+      <Filter>98. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Loader.cpp">
+      <Filter>98. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Mirror.cpp">
+      <Filter>98. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Orthographic_Cam.cpp">
+      <Filter>98. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Player.cpp">
+      <Filter>98. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Player_PointLight.cpp">
+      <Filter>98. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Player_SpotLight.cpp">
+      <Filter>98. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\QuarterView_Cam.cpp">
+      <Filter>98. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Scope.cpp">
+      <Filter>98. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\SkyBox.cpp">
+      <Filter>98. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\SunLight.cpp">
+      <Filter>98. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Tree.cpp">
+      <Filter>98. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Wave.cpp">
+      <Filter>98. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ImGui\imgui.cpp">
+      <Filter>97. ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ImGui\imgui_demo.cpp">
+      <Filter>97. ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ImGui\imgui_draw.cpp">
+      <Filter>97. ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ImGui\imgui_impl_dx11.cpp">
+      <Filter>97. ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ImGui\imgui_impl_win32.cpp">
+      <Filter>97. ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ImGui\imgui_tables.cpp">
+      <Filter>97. ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ImGui\imgui_widgets.cpp">
+      <Filter>97. ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\ImGui_Manager.cpp">
+      <Filter>00. Tool\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Tool.cpp">
+      <Filter>00. Tool</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Default.rc">
+      <Filter>99. Default</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\ImGui\LICENSE.txt">
+      <Filter>97. ImGui</Filter>
+    </Text>
+  </ItemGroup>
+</Project>

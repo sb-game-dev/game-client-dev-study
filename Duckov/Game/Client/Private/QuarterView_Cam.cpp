@@ -86,8 +86,8 @@ void CQuarterView_Cam::Update(f32_t fDeltaTime)
 		Shake(fDeltaTime);
 
 	// Eye ¼³Á¤
-	vector_t vCameraEye = vector_t{ m_vAt.x, m_vAt.y + 20.f, m_vAt.z - 10.f };
-	//vector_t vCameraEye = vector_t{ m_vAt.x, m_vAt.y + 5.f, m_vAt.z - 10.f };
+	//vector_t vCameraEye = vector_t{ m_vAt.x, m_vAt.y + 20.f, m_vAt.z - 10.f };
+	vector_t vCameraEye = vector_t{ m_vAt.x, m_vAt.y + 5.f, m_vAt.z - 10.f };
 	XMStoreFloat3(&m_vEye, vCameraEye);
 }
 

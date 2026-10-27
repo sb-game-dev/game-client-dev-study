@@ -125,7 +125,7 @@
       <Command>xcopy "$(SolutionDir)Engine\Public\*.h" "$(SolutionDir)EngineSDK\Inc\" /Y
 xcopy "$(SolutionDir)Engine\Bin\Engine.lib" "$(SolutionDir)EngineSDK\Lib\" /Y
 xcopy "$(SolutionDir)Engine\Bin\Engine.dll" "$(SolutionDir)Client\Bin\" /Y
-</Command>
+xcopy "$(SolutionDir)Engine\Bin\Engine.dll" "$(SolutionDir)MapTool\Bin\" /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -177,6 +177,7 @@ xcopy "$(SolutionDir)Engine\Bin\Engine.dll" "$(SolutionDir)Client\Bin\" /Y
     <ClInclude Include="..\Public\Prototype.h" />
     <ClInclude Include="..\public\Prototype_Manager.h" />
     <ClInclude Include="..\public\Renderer.h" />
+    <ClInclude Include="..\public\Sampler_Manager.h" />
     <ClInclude Include="..\public\Shader.h" />
     <ClInclude Include="..\public\VIBuffer_Terrain.h" />
     <ClInclude Include="..\public\VertexShader.h" />
@@ -224,6 +225,7 @@ xcopy "$(SolutionDir)Engine\Bin\Engine.dll" "$(SolutionDir)Client\Bin\" /Y
     <ClCompile Include="..\private\Prototype.cpp" />
     <ClCompile Include="..\private\Prototype_Manager.cpp" />
     <ClCompile Include="..\private\Renderer.cpp" />
+    <ClCompile Include="..\private\Sampler_Manager.cpp" />
     <ClCompile Include="..\private\Shader.cpp" />
     <ClCompile Include="..\private\VIBuffer_Terrain.cpp" />
     <ClCompile Include="..\private\VertexShader.cpp" />

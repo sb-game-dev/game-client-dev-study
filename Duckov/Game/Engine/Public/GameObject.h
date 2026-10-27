@@ -37,7 +37,6 @@ public:
 
 	virtual shared_ptr<CTransform>	Get_Transform() { return m_pTransformCom; }
 
-	
 
 
 protected:
@@ -69,6 +68,9 @@ protected:
 protected:
 	virtual		bool_t		Is_InFrustum();
 	virtual		bool_t		Is_BoxInFrustum(const BoundingBox& tLocalBox, const matrix_t& matWorld);
+
+	virtual		HRESULT		Bind_Shader() { return S_OK; }
+	virtual		HRESULT		Bind_ShaderResources() { return S_OK; }
 
 protected:
 	shared_ptr<CComponent> Find_Component(const wstring_t& strComponentTag);

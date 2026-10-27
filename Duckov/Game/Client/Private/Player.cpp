@@ -127,7 +127,7 @@ HRESULT CPlayer::Ready_Components()
 
 HRESULT CPlayer::Ready_ConstantBuffer()
 {
-    m_pCB = CConstantBuffer::Create(m_pDevice, m_pContext, &m_tCBDesc, sizeof m_tCBDesc);
+    m_pCB = CConstantBuffer::Create(m_pDevice, m_pContext, &m_tCBData, sizeof m_tCBData);
     if (nullptr == m_pCB)
         return E_FAIL;
     return S_OK;
@@ -135,7 +135,7 @@ HRESULT CPlayer::Ready_ConstantBuffer()
 
 HRESULT CPlayer::Update_ConstantBuffer(const matrix_t& matWorld)
 {
-    XMStoreFloat4x4(&m_tCBDesc.WorldMatrix, matWorld);
+    XMStoreFloat4x4(&m_tCBData.WorldMatrix, matWorld);
     return S_OK;
 }
 
@@ -148,28 +148,40 @@ HRESULT CPlayer::Render_Mesh(const matrix_t& matWorld, ID3D11RasterizerState* pR
     // RS(레스터라이저 설정)
     m_pContext->RSSetState(pRS);
 
-    // 상수버퍼 바인드
-    Update_ConstantBuffer(matWorld);
-    if (FAILED(m_pCB->Bind_Vertex_ShaderResource(0, &m_tCBDesc)))
-        return E_FAIL;
-    
-    // 버텍스 셰이더
-    if (FAILED(m_pVS->Begin()))
+    if (FAILED(Bind_ShaderResources(matWorld)))
         return E_FAIL;
 
-    // 픽셀 셰이더
-    if (FAILED(pPS->Begin()))
+    if (FAILED(Bind_Shader(m_pVS, pPS)))
         return E_FAIL;
 
-    // 버텍스 버퍼 바인드
     if (FAILED(m_pBufferCom->Bind_Resources()))
         return E_FAIL;
 
-    // 버텍스 버퍼 그리기
     if (FAILED(m_pBufferCom->Render()))
+        return E_FAIL;
+
+    return S_OK;
+}
+
+HRESULT CPlayer::Bind_Shader(shared_ptr<CVertexShader> pVS, shared_ptr<CPixelShader> pPS)
+{
+    if (FAILED(pVS->Begin()))
+        return E_FAIL;
+
+    if (FAILED(pPS->Begin()))
         return E_FAIL;
     return S_OK;
 }
+
+HRESULT CPlayer::Bind_ShaderResources(const matrix_t& matWorld)
+{
+    if (FAILED(Update_ConstantBuffer(matWorld)))
+        return E_FAIL;
+    if (FAILED(m_pCB->Bind_Vertex_ShaderResource(0, &m_tCBData)))
+        return E_FAIL;
+    return S_OK;
+}
+
 void CPlayer::AdjustPosY()
 {
     auto pHill = static_pointer_cast<CHill>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Hill")));
