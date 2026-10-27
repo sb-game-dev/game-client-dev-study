@@ -267,6 +267,9 @@
     <ClInclude Include="..\public\ConstantBuffer.h">
       <Filter>11. ConstantBuffer</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\VIBuffer_Terrain.h">
+      <Filter>06. Component\02. VIBuffer\02. Terrain</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Timer.cpp">
@@ -382,6 +385,9 @@
     </ClCompile>
     <ClCompile Include="..\private\ConstantBuffer.cpp">
       <Filter>11. ConstantBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\VIBuffer_Terrain.cpp">
+      <Filter>06. Component\02. VIBuffer\02. Terrain</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

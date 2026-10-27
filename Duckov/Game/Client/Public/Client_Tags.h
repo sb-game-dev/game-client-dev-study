@@ -25,6 +25,7 @@ namespace Client
 		inline constexpr const wchar_t* VIBuffer_Cube = L"Prototype_Component_VIBuffer_Cube";
 		inline constexpr const wchar_t* VIBuffer_SkyBox = L"Prototype_Component_VIBuffer_SkyBox";
 		inline constexpr const wchar_t* VIBuffer_Pyramid = L"Prototype_Component_VIBuffer_Pyramid";
+		inline constexpr const wchar_t* VIBuffer_Terrain = L"Prototype_Component_VIBuffer_Terrain";
 
 		// ---------- Shader : VtxTex ----------
 		inline constexpr const wchar_t* VS_VTXTEX = L"Prototype_Component_VS_VTXTEX";

@@ -18,6 +18,7 @@
 #include "VIBuffer_Cube.h"
 #include "VIBuffer_SkyBox.h"
 #include "VIBuffer_Pyramid.h"
+#include "VIBuffer_Terrain.h"
 
 // 상수 버퍼
 #include "ConstantBuffer.h"

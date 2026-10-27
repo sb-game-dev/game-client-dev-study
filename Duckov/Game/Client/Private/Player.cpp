@@ -148,19 +148,24 @@ HRESULT CPlayer::Render_Mesh(const matrix_t& matWorld, ID3D11RasterizerState* pR
     // RS(레스터라이저 설정)
     m_pContext->RSSetState(pRS);
 
+    // 상수버퍼 바인드
     Update_ConstantBuffer(matWorld);
     if (FAILED(m_pCB->Bind_Vertex_ShaderResource(0, &m_tCBDesc)))
         return E_FAIL;
     
+    // 버텍스 셰이더
     if (FAILED(m_pVS->Begin()))
         return E_FAIL;
 
+    // 픽셀 셰이더
     if (FAILED(pPS->Begin()))
         return E_FAIL;
 
+    // 버텍스 버퍼 바인드
     if (FAILED(m_pBufferCom->Bind_Resources()))
         return E_FAIL;
 
+    // 버텍스 버퍼 그리기
     if (FAILED(m_pBufferCom->Render()))
         return E_FAIL;
     return S_OK;

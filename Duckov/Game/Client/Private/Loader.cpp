@@ -168,7 +168,10 @@ HRESULT CLoader::Loading_For_GamePlayLV()
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::VIBuffer_Rect,
         CVIBuffer_Rect::Create(m_pDevice, m_pContext))))
         return E_FAIL;
-    
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::VIBuffer_Terrain,
+        CVIBuffer_Terrain::Create(m_pDevice, m_pContext, L"../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/height_321x321_16bit.raw"))))
+        return E_FAIL;
 
     lstrcpy(m_szLoadingText, TEXT("셰이더를 준비중입니다."));
 
