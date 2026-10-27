@@ -8,7 +8,7 @@
 Texture2D g_LayerMap0 : register(t2); // 잔디     (blend.r)
 Texture2D g_LayerMap1 : register(t3); // 흙       (blend.g)
 Texture2D g_LayerMap2 : register(t4); // 아스팔트 (blend.b)
-Texture2D g_BlendMap : register(t5);
+Texture2D g_BlendMap  : register(t5);
 
 // 지형 전체에 레이어를 반복할 횟수 (지형 크기 : 320(정점 수) * 2(간격) / 잔디 크기 tileSize 4m)
 static const float2 g_vTexScale = float2(160.f, 160.f);
