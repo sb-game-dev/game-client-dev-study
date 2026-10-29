@@ -23,8 +23,8 @@ private:
 	uint32_t			m_ivtxCntZ = { 321 };
 	f32_t				m_fDx = { 2.f };
 	f32_t				m_fDz = { 2.f };
-	f32_t				m_fHalfWidth = { 0.f };
-	f32_t				m_fHalfDepth = { 0.f };
+	f32_t				m_fHalfWidth = { (m_ivtxCntX - 1) * 0.5f * m_fDx };
+	f32_t				m_fHalfDepth = { (m_ivtxCntZ - 1) * 0.5f * m_fDz };
 
 private:
 	HRESULT				LoadHeightMap(const tchar_t* pHightMapPath);

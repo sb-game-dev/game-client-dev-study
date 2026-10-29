@@ -86,7 +86,6 @@ struct VS_OUT
     float3 vPosW : POSITION;
     float3 vNormalW : NORMAL;
     float2 vTexCoord : TEXCOORD;    //UV°ª
-    float3 vCubeTexUV : TEXCOORD1;
 };
 
 VS_OUT VS_MAIN(VS_IN In)
@@ -99,7 +98,6 @@ VS_OUT VS_MAIN(VS_IN In)
     
     Out.vPosition = mul(mul(vPosW, g_matView), g_matProj);
     Out.vTexCoord = In.vTexCoord;
-    Out.vCubeTexUV = In.vPosition;
     return Out;
 }
 
@@ -113,7 +111,6 @@ VS_OUT VS_MAIN_INST(VS_IN_INST In)
     
     Out.vPosition = mul(mul(vPosW, g_matView), g_matProj);
     Out.vTexCoord = In.vTexCoord;
-    Out.vCubeTexUV = In.vPosition;
     return Out;
 }
 

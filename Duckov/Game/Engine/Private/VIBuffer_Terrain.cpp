@@ -38,9 +38,6 @@ HRESULT CVIBuffer_Terrain::Initialize_Prototype(const tchar_t* pHeightMapPath)
     f32_t   du = 1.f / (m_ivtxCntX - 1);
     f32_t   dv = 1.f / (m_ivtxCntZ - 1);
 
-    m_fHalfWidth = 0.5f * (m_ivtxCntX - 1) * m_fDx;
-    m_fHalfDepth = 0.5f * (m_ivtxCntZ - 1) * m_fDz;
-
     for (uint32_t i = 0; i < m_ivtxCntZ; ++i)
     {
         float z = m_fHalfDepth - i * m_fDz;
@@ -189,6 +186,27 @@ float4_t CVIBuffer_Terrain::GetPlane(f32_t x, f32_t z)
 
 HRESULT CVIBuffer_Terrain::LoadHeightMap(const tchar_t* pHightMapPath)
 {
+    /*DWORD   dwByte = {};
+    
+    HANDLE  hFile = CreateFile(pHightMapPath, GENERIC_READ, 0, nullptr, OPEN_EXISTING, );
+    if (0 == hFile)
+        return E_FAIL;
+
+    BITMAPFILEHEADER        fh = {};
+    BITMAPINFOHEADER        ih = {};
+
+
+
+    ReadFile(hFile,&fh, sizeof(fh),&dwByte, nullptr);
+    ReadFile(hFile,&ih, sizeof(ih),&dwByte, nullptr);
+
+    ih.bit
+
+    ReadFile();
+
+    CloseHandle(hFile);*/
+
+
     vector<uint16_t> in(m_ivtxCntX * m_ivtxCntZ);
     ifstream inFile;
     inFile.open(pHightMapPath, ios_base::binary); // binary로 읽어야 함
