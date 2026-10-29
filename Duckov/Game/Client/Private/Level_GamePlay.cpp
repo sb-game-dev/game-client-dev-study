@@ -6,6 +6,8 @@
 #include "Player_SpotLight.h"
 #include "SunLight.h"
 #include "Mirror.h"
+#include "Free_Cam.h"
+#include "QuarterView_Cam.h"
 
 CLevel_GamePlay::CLevel_GamePlay(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     :CLevel{ pDevice,pContext }
@@ -110,10 +112,15 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
     auto pMirror = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Mirror);
     CGameInstance::Get().Set_Mirror(pMirror);
 
-    auto m_pCamera = CQuarterView_Cam::Create(m_pDevice, m_pContext);
-    CGameInstance::Get().Add_Camera(TEXT("QuarterViewCam"), m_pCamera);
+    auto pCamera = CQuarterView_Cam::Create(m_pDevice, m_pContext);
+    CGameInstance::Get().Add_Camera(CAMERA::QUARTERVIEW, pCamera);
+    CGameInstance::Get().Set_MainCamera(CAMERA::QUARTERVIEW);
+    pCamera->SetPlayer(pPlayer);
+
+    //auto pCamera = CFree_Cam::Create(m_pDevice, m_pContext);
+    //CGameInstance::Get().Add_Camera(CAMERA::FREE, pCamera);
+    //CGameInstance::Get().Set_MainCamera(CAMERA::FREE);
     
-    m_pCamera->SetPlayer(pPlayer);
 
     auto pPlayer_PointLight = CPlayer_PointLight::Create(m_pDevice, m_pContext);
     pPlayer_PointLight->SetPlayer(pPlayer);

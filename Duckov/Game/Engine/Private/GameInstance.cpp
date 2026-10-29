@@ -165,17 +165,21 @@ shared_ptr<CGameObject> CGameInstance::Find_GameObject(uint32_t iLayerLevelIndex
 #pragma endregion
 
 #pragma region CAMERA_MANAGER
-void CGameInstance::Add_Camera(const wstring_t& strCameraTag, shared_ptr<CCamera> pCamera)
+void CGameInstance::Add_Camera(CAMERA eCameraID, shared_ptr<CCamera> pCamera)
 {
-	m_pCamera_Manager->Add_Camera(strCameraTag, pCamera);
+	m_pCamera_Manager->Add_Camera(eCameraID, pCamera);
 }
-void CGameInstance::Set_MainCamera(const wstring_t& strCameraTag)
+void CGameInstance::Set_MainCamera(CAMERA eCameraID)
 {
-	m_pCamera_Manager->Set_MainCamera(strCameraTag);
+	m_pCamera_Manager->Set_MainCamera(eCameraID);
 }
 float4x4_t CGameInstance::GetView()
 {
 	return m_pCamera_Manager->GetView();
+}
+CAMERA CGameInstance::Get_MainCameraID()
+{
+	return m_pCamera_Manager->Get_MainCameraID();
 }
 shared_ptr<CCamera> CGameInstance::Get_MainCamera()
 {

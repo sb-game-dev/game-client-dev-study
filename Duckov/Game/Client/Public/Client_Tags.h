@@ -108,13 +108,4 @@ namespace Client
 		inline constexpr const wchar_t* PS_Shadow = L"Com_PS_SHADOW";
 		inline constexpr const wchar_t* PS_Occluded = L"Com_PS_OCCLUDEDPLAYER";
 	}
-
-	/* =========================================================
-	*  카메라 태그
-	* ========================================================= */
-	namespace Cam
-	{
-		inline constexpr const wchar_t* Orthographic = L"Orthographic_Cam";
-		inline constexpr const wchar_t* QuarterView = L"QuarterViewCam";
-	}
 }

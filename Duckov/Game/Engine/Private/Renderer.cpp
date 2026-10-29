@@ -48,7 +48,6 @@ void CRenderer::Render_GameObject()
 	m_pContext->OMSetRenderTargets(1, m_pSceneRTV.GetAddressOf(), pOldDSV.Get());
 	m_pContext->ClearRenderTargetView(m_pSceneRTV.Get(), clearColor);
 
-	CGameInstance::Get().Set_MainCamera(L"QuarterViewCam");
 	Render_Priority();
 	Render_NonAlpha();
 	Render_OccludedPlayer();
@@ -65,11 +64,11 @@ void CRenderer::Render_GameObject()
 		m_pBlurFilter->BlurInPlace(m_pSceneSRV.Get(), m_pSceneUAV.Get(), 4); //<- 이 숫자가 흐리게 하는 횟수인데 달라진건가
 	}
 	Render_FullScreen();
-
-	CGameInstance::Get().Set_MainCamera(L"COrthographic_Cam");
+	CAMERA eOldCameraID = CGameInstance::Get().Get_MainCameraID();
+	CGameInstance::Get().Set_MainCamera(CAMERA::ORTHOGRAPHIC);
 	Render_NonAlpha_UI();
 	Render_Alpha_UI();
-	CGameInstance::Get().Set_MainCamera(L"QuarterViewCam");
+	CGameInstance::Get().Set_MainCamera(eOldCameraID);
 
  }
 

@@ -1,5 +1,5 @@
-﻿#include "ImGui_Manager.h"
-#include "imgui.h"
+﻿#include "imgui.h"
+#include "ImGui_Manager.h"
 #include "imgui_impl_win32.h"
 #include "imgui_impl_dx11.h"
 
@@ -31,7 +31,7 @@ HRESULT CImGui_Manager::Initialize(HWND hWnd, ComPtr<ID3D11Device> pDevice, ComP
     // 3. 스타일
     ImGui::StyleColorsDark();
 
-    // 4. 플랫폼/렌더러 백엔드 (영상의 Win32_Init + DX9_Init 자리를 DX11로)
+    // 4. 플랫폼/렌더러 백엔드
     if (!ImGui_ImplWin32_Init(hWnd))
         return E_FAIL;
     if (!ImGui_ImplDX11_Init(pDevice.Get(), pContext.Get()))

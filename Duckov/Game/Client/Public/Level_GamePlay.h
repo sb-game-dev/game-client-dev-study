@@ -1,7 +1,6 @@
 #pragma once
 #include "Client_Defines.h"
 #include "Level.h"
-#include "QuarterView_Cam.h"
 
 NS_BEGIN(Client)
 class CLevel_GamePlay final : public CLevel

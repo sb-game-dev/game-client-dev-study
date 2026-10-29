@@ -88,9 +88,10 @@ public:
 
 #pragma region CAMERA_MANAGER
 public:
-	void				Add_Camera(const wstring_t& strCameraTag, shared_ptr<CCamera> pCamera);
-	void				Set_MainCamera(const wstring_t& strCameraTag);
+	void				Add_Camera(CAMERA eCameraID, shared_ptr<CCamera> pCamera);
+	void				Set_MainCamera(CAMERA eCameraID);
 	float4x4_t			GetView();
+	CAMERA				Get_MainCameraID();
 	shared_ptr<CCamera> Get_MainCamera();
 #pragma endregion
 

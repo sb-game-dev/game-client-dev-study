@@ -94,6 +94,9 @@
     <Filter Include="02. GameObjects\11. UI\00. Inven">
       <UniqueIdentifier>{a7523f95-3773-48f0-8dcf-aab76835a9c5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03. Camera\02. Free_Cam">
+      <UniqueIdentifier>{04e6eebb-9363-4a90-97c1-3263e8421532}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -183,6 +186,9 @@
     <ClInclude Include="..\Public\Client_Tags.h">
       <Filter>99. Define</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\Free_Cam.h">
+      <Filter>03. Camera\02. Free_Cam</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -269,6 +275,9 @@
     </ClCompile>
     <ClCompile Include="..\private\Scope.cpp">
       <Filter>02. GameObjects\10. Scope</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Free_Cam.cpp">
+      <Filter>03. Camera\02. Free_Cam</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

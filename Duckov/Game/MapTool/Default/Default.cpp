@@ -1,12 +1,10 @@
-﻿// Default.cpp : MapTool 진입점
+﻿#include "imgui.h" //ImGui::GetIO()를 사용하기 위해
 #include "framework.h"
 #include "Default.h"
 
 #include "ToolApp.h"
-#include "imgui.h" //ImGui::GetIO()를 사용하기 위해
 
 #define MAX_LOADSTRING 100
-
 // 전역 변수:
 HINSTANCE hInst;            // 현재 인스턴스입니다.
 HWND      g_hWnd;
@@ -53,16 +51,18 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return FALSE;
 
     f32_t fTimeDeltaAcc = {};
-
-    while (true)
+    bool_t bDone = false;
+    while (!bDone)
     {
-        if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
+        while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
             if (WM_QUIT == msg.message)
-                break;
+                bDone = true;
             ::TranslateMessage(&msg);
             ::DispatchMessage(&msg);
         }
+        if (bDone)
+            break;
         CGameInstance::Get().Update_TimeDelta(TEXT("Timer_Default"));
         fTimeDeltaAcc += CGameInstance::Get().Get_TimeDelta(TEXT("Timer_Default"));
         if (fTimeDeltaAcc >= 1.f / 60.f)
@@ -107,13 +107,22 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
     hInst = hInstance;  // 인스턴스 핸들을 전역 변수에 저장합니다.
 
-    RECT rc{ 0, 0, g_iWinSizeX, g_iWinSizeY };              
+    RECT rc{ 0, 0, g_iToolWinSizeX, g_iToolWinSizeY };
     AdjustWindowRect(&rc, WS_OVERLAPPEDWINDOW, FALSE);
 
+    const int iWinW = rc.right - rc.left;
+    const int iWinH = rc.bottom - rc.top;
+    RECT rcWork{};
+    SystemParametersInfoW(SPI_GETWORKAREA, 0, &rcWork, 0);
+    const int iPosX = rcWork.left + ((rcWork.right - rcWork.left) - iWinW) / 2;
+    const int iPosY = rcWork.top + ((rcWork.bottom - rcWork.top) - iWinH) / 2;
 
     HWND hWnd = CreateWindowW(szWindowClass, L"MapTool", WS_OVERLAPPEDWINDOW,
-        CW_USEDEFAULT, 0, rc.right - rc.left, rc.bottom - rc.top,
-        nullptr, nullptr, hInstance, nullptr);
+        iPosX, iPosY, iWinW, iWinH, nullptr, nullptr, hInstance, nullptr);
+
+    //HWND hWnd = CreateWindowW(szWindowClass, L"MapTool", WS_OVERLAPPEDWINDOW,
+    //    CW_USEDEFAULT, 0, rc.right - rc.left, rc.bottom - rc.top,
+    //    nullptr, nullptr, hInstance, nullptr);
 
     ShowWindow(hWnd, nCmdShow);
     UpdateWindow(hWnd);

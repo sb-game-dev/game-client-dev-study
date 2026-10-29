@@ -73,8 +73,8 @@ HRESULT CLevel_Loading::Ready_Layer_BackGround()
 {
     // 직교투영 카메라
     auto m_pCamera = COrthographic_Cam::Create(m_pDevice, m_pContext);
-    CGameInstance::Get().Add_Camera(TEXT("COrthographic_Cam"), m_pCamera);
-    CGameInstance::Get().Set_MainCamera(TEXT("COrthographic_Cam"));
+    CGameInstance::Get().Add_Camera(CAMERA::ORTHOGRAPHIC, m_pCamera);
+    CGameInstance::Get().Set_MainCamera(CAMERA::ORTHOGRAPHIC);
 
     // 텍스처
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOADING), Proto::Texture_BackGround,

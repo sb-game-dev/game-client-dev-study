@@ -4,38 +4,42 @@ CCamera_Manager::CCamera_Manager()
 {
 }
 
-void CCamera_Manager::Add_Camera(const wstring_t& strCameraTag, shared_ptr<CCamera> pCamera)
+void CCamera_Manager::Add_Camera(CAMERA eCameraID, shared_ptr<CCamera> pCamera)
 {
-	if (nullptr != Find_Camera(strCameraTag))
+	if (eCameraID >= CAMERA::END || nullptr == pCamera)
 		return;
-	m_pCameras.emplace(strCameraTag, pCamera);
+	m_Cameras[ETOUI(eCameraID)] = pCamera;
 }
 
-void CCamera_Manager::Set_MainCamera(const wstring_t& strCameraTag)
+void CCamera_Manager::Set_MainCamera(CAMERA eCameraID)
 {
-	auto pCamera = Find_Camera(strCameraTag);
+	auto pCamera = Find_Camera(eCameraID);
 	if (nullptr == pCamera)
 		return;
 	m_pMainCamera = pCamera;
+	m_eMainCamera = eCameraID;
 	Bind();
 }
 
 void CCamera_Manager::Priority_Update(f32_t fDeltaTime)
 {
-	for (auto pCam : m_pCameras)
-		pCam.second->Priority_Update(fDeltaTime);
+	for (auto pCam : m_Cameras)
+		if(nullptr != pCam)
+			pCam->Priority_Update(fDeltaTime);
 }
 
 void CCamera_Manager::Update(f32_t fDeltaTime)
 {
-	for (auto pCam : m_pCameras)
-		pCam.second->Update(fDeltaTime);
+	for (auto pCam : m_Cameras)
+		if (nullptr != pCam)
+			pCam->Update(fDeltaTime);
 }
 
 void CCamera_Manager::Late_Update(f32_t fDeltaTime)
 {
-	for (auto pCam : m_pCameras)
-		pCam.second->Late_Update(fDeltaTime);
+	for (auto pCam : m_Cameras)
+		if (nullptr != pCam)
+			pCam->Late_Update(fDeltaTime);
 
 	if (nullptr != m_pMainCamera)
 		m_pMainCamera->Update_Frustum();
@@ -51,12 +55,11 @@ HRESULT CCamera_Manager::Bind()
 	return S_OK;
 }
 
-shared_ptr<CCamera> CCamera_Manager::Find_Camera(const wstring_t& strCameraTag)
+shared_ptr<CCamera> CCamera_Manager::Find_Camera(CAMERA eCameraID)
 {
-	auto iter = m_pCameras.find(strCameraTag);
-	if (iter == m_pCameras.end())
+	if (eCameraID >= CAMERA::END)
 		return nullptr;
-	return iter->second;
+	return m_Cameras[ETOUI(eCameraID)];
 }
 
 unique_ptr<CCamera_Manager> CCamera_Manager::Create()

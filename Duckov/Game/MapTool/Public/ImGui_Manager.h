@@ -1,10 +1,7 @@
 ﻿#pragma once
-#include "Client_Defines.h"
+#include "MapTool_Defines.h"
 
-// C++20에서 u8"" 리터럴은 char8_t라서 ImGui(const char*)에 바로 못 넘김
-//u8"한글"은 "UTF-8 바이트로 넣어라" 라는 뜻
-#define U8(str) reinterpret_cast<const char*>(u8##str)
-
+NS_BEGIN(MapTool)
 class CImGui_Manager final
 {
 private:
@@ -23,3 +20,5 @@ private:
 public:
     static unique_ptr<CImGui_Manager> Create(HWND hWnd, ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
 };
+
+NS_END
