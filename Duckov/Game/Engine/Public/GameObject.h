@@ -60,7 +60,10 @@ protected:
 
 	f32_t				m_fViewZ = {};
 
-	MATERIAL			m_tMaterial = {};
+	MATERIAL			m_tMaterial = {.Ambient = float4_t(1.f, 1.f, 1.f, 1.f) ,
+									   .Diffuse = float4_t(1.f, 1.f, 1.f, 1.f) ,
+									   .Specular = float4_t(0.2f, 0.2f, 0.2f, 16.f) };
+
 
 	BoundingBox			m_tLocalBox = {};
 	bool_t				m_bUseCulling = { false };

@@ -170,6 +170,7 @@ namespace Engine
 		f32_t		Pad;
 	};
 
+
 	typedef struct tagMaterial
 	{
 		float4_t	Ambient;

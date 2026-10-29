@@ -107,7 +107,11 @@ HRESULT CMirror::Ready_Components()
 
 HRESULT CMirror::Ready_ConstantBuffer()
 {
-    XMStoreFloat4x4(&m_tCBData.WorldMatrix, m_pTransformCom->Get_World());
+    matrix_t    matNoTrans = m_pTransformCom->Get_World();
+    matNoTrans.r[3] = vector_t{ 0.f,0.f,0.f,1.f };
+    XMStoreFloat4x4(&m_tCBData.mat_World, m_pTransformCom->Get_World());
+    XMStoreFloat4x4(&m_tCBData.mat_WorldInvTranspose, XMMatrixTranspose(XMMatrixInverse(nullptr, matNoTrans)));
+    m_tCBData.tMaterial = m_tMaterial;
     m_pCB = CConstantBuffer::Create(m_pDevice, m_pContext,&m_tCBData,sizeof(m_tCBData));
     if (nullptr == m_pCB)
         return E_FAIL;
@@ -130,6 +134,8 @@ HRESULT CMirror::Bind_ShaderResources(const matrix_t& matWorld)
         return E_FAIL;
 
     if (FAILED(m_pCB->Bind_Vertex_ShaderResource(0, &m_tCBData)))
+        return E_FAIL;
+    if (FAILED(m_pCB->Bind_Pixel_ShaderResource(0, &m_tCBData)))
         return E_FAIL;
 
     if (FAILED(m_pTextureCom->Set_TexturePS(0, 0)))
