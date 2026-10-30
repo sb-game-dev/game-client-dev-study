@@ -69,12 +69,12 @@ void CGameInstance::Update_Engine(f32_t fTimeDelta)
 	m_pObject_Manager->Priority_Update(fTimeDelta);
 
 	/* 이전에 이용할 View, Proj에 대한 셋팅을 끝낸다. */
-	m_pPipeLine->Update();
 
 	m_pObject_Manager->Update(fTimeDelta);
 	m_pObject_Manager->Late_Update(fTimeDelta);
 
 	m_pLevel_Manager->Update(fTimeDelta);
+	m_pPipeLine->Update();
 }
 
 HRESULT CGameInstance::Draw()
