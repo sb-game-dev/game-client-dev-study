@@ -36,6 +36,7 @@ HRESULT CLevel_MapTool::Ready_Layer_BackGround(const tchar_t* pLayerTag)
         CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/proc_preview.png"), 1))))
         return E_FAIL;
 
+
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::Obj_SkyBox,
         CSkyBox::Create(m_pDevice, m_pContext))))
         return E_FAIL;
@@ -65,6 +66,28 @@ HRESULT CLevel_MapTool::Ready_Layer_GameObject(const tchar_t* pLayerTag)
     CGameInstance::Get().Add_Camera(CAMERA::FREE, pCamera);
     CGameInstance::Get().Set_MainCamera(CAMERA::FREE);
 
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::Obj_MapToolCam,
+        CMapTool_Cam::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+
+    //-----------------ป็บป-----------------
+    CMapTool_Cam::CAMERA_MAPTOOL_CAM_DESC         CameraDesc{};
+    CameraDesc.fDegreeRotPerSec = 180.f;
+    CameraDesc.fSpeedPerSec = 20.f;
+    CameraDesc.vEye = float4_t(-10.f, 10.f, -10.f, 1.f);
+    CameraDesc.vAt = float4_t(0.f, 0.f, 0.f, 1.f);
+    CameraDesc.fFovy = 60.f;
+    CameraDesc.fNear = 0.1f;
+    CameraDesc.fFar = 1000.f;
+    CameraDesc.fSensor = 0.05f;
+
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::MAPTOOL), Proto::Obj_MapToolCam,
+        ETOUI(LEVEL::MAPTOOL), pLayerTag, GO::MapToolCam, &CameraDesc)))
+        return E_FAIL;
+
+    auto pMapToolCam = dynamic_pointer_cast<CMapTool_Cam>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), pLayerTag, GO::MapToolCam));
+    CGameInstance::Get().Add_Camera(CAMERA::FREE, pMapToolCam);
+    CGameInstance::Get().Set_MainCamera(CAMERA::FREE);
 
     return S_OK;
 }

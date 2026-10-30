@@ -103,6 +103,20 @@ VS_OUT VS_MAIN(VS_IN In)
     return Out;
 }
 
+VS_OUT VS_UI(VS_IN In)
+{
+    VS_OUT Out;
+
+    float4 vPosW = mul(float4(In.vPosition, 1.f), g_matWorld);
+    Out.vPosW = vPosW.xyz;
+    Out.vNormalW = mul(In.vNormal, (float3x3) g_matWorldInvTranspose);
+    
+    Out.vPosition = mul(mul(vPosW, g_OrthoViewMatrix), g_OrthoProjMatrix);
+    Out.vTexCoord = In.vTexCoord;
+    return Out;
+}
+
+
 VS_OUT VS_MAIN_INST(VS_IN_INST In)
 {
     VS_OUT Out;
@@ -116,11 +130,24 @@ VS_OUT VS_MAIN_INST(VS_IN_INST In)
     return Out;
 }
 
+VS_OUT VS_MAIN_INST_UI(VS_IN_INST In)
+{
+    VS_OUT Out;
+
+    float4 vPosW = mul(float4(In.vPosition, 1.f), In.matWorld); // g_MatWorld -> In.matWorld
+    Out.vPosW = vPosW.xyz;
+    Out.vNormalW = mul(In.vNormal, (float3x3) g_matWorldInvTranspose);
+    
+    Out.vPosition = mul(mul(vPosW, g_OrthoViewMatrix), g_OrthoProjMatrix);
+    Out.vTexCoord = In.vTexCoord;
+    return Out;
+}
+
 
 float4 PS_MAIN(VS_OUT In) : SV_TARGET //몇 번째 렌더타겟에 색을 쓸지
 {
     float3 vNormal = normalize(In.vNormalW);
-    float3 vToEye = normalize(g_vEye - In.vPosW);
+    float3 vToEye = normalize(g_vEye.xyz - In.vPosW);
     
     float4 vAmbient, vDiffuse, vSpec;
     float4 vAmbientSum, vDiffuseSum, vSpecSum;
@@ -148,7 +175,7 @@ float4 PS_MAIN(VS_OUT In) : SV_TARGET //몇 번째 렌더타겟에 색을 쓸지
     vColor = vTexColor * (vAmbientSum + vDiffuseSum) + vSpecSum;
     vColor.a = g_Material.Diffuse.a * vTexColor.a;
     
-    float distToEye = length(g_vEye - In.vPosW);
+    float distToEye = length(g_vEye.xyz - In.vPosW);
     float fogLerp = saturate((distToEye - g_fFogStart) / g_fFogRange);
     vColor.rgb = lerp(vColor.rgb, g_vFogColor.rgb, fogLerp);
     
@@ -186,7 +213,7 @@ VS_OUT_TERRAIN VS_TERRAIN(VS_IN In)
     float4 vPosW = mul(float4(In.vPosition, 1.f), g_matWorld);
     Out.vPosW = vPosW.xyz;
     Out.vNormalW = mul(In.vNormal, (float3x3) g_matWorldInvTranspose);
-    Out.vPosition = mul(mul(vPosW, g_matView), g_matProj);
+    Out.vPosition = mul(mul(vPosW, g_ViewMatrix), g_ProjMatrix);
 
     Out.vTex = In.vTexCoord;
     Out.vTiledTex = In.vTexCoord * g_vTexScale; // Tile layer textures over terrain.
@@ -196,7 +223,7 @@ VS_OUT_TERRAIN VS_TERRAIN(VS_IN In)
 float4 PS_TERRAIN(VS_OUT_TERRAIN In) : SV_TARGET
 {
     float3 vNormal = normalize(In.vNormalW);
-    float3 vToEye = normalize(g_vEye - In.vPosW);
+    float3 vToEye = normalize(g_vEye.xyz - In.vPosW);
 
     //
     // Texturing
@@ -237,7 +264,7 @@ float4 PS_TERRAIN(VS_OUT_TERRAIN In) : SV_TARGET
     float4 vColor = vTexColor * (vAmbientSum + vDiffuseSum) + vSpecSum;
     vColor.a = 1.f;
 
-    float distToEye = length(g_vEye - In.vPosW);
+    float distToEye = length(g_vEye.xyz - In.vPosW);
     float fogLerp = saturate((distToEye - g_fFogStart) / g_fFogRange);
     vColor.rgb = lerp(vColor.rgb, g_vFogColor.rgb, fogLerp);
 

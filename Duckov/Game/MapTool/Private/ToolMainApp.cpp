@@ -14,8 +14,20 @@ CToolMainApp::~CToolMainApp()
 }
 
 HRESULT CToolMainApp::Initialize()
-{
+{   
     /* 엔진 프로젝트에 대한 준비 */
+//#ifdef _DEBUG
+//
+//    if (::AllocConsole() == TRUE)
+//    {
+//        FILE* nfp[3];
+//        freopen_s(nfp + 0, "CONOUT$", "rb", stdin);
+//        freopen_s(nfp + 1, "CONOUT$", "wb", stdout);
+//        freopen_s(nfp + 2, "CONOUT$", "wb", stderr);
+//        std::ios::sync_with_stdio();
+//    }
+//
+//#endif // _DEBUG
 
     ENGINE_DESC EngineDesc{};
     EngineDesc.hWnd = g_hWnd;
@@ -49,7 +61,7 @@ void CToolMainApp::Update(f32_t fDeltaTime)
     if (FAILED(Begin_ImGui()))
         return;
     m_pTool->Update(fDeltaTime);
-    //Sync_SceneView();
+    Sync_SceneView();
     CGameInstance::Get().Update_Engine(fDeltaTime);
 }
 
@@ -59,6 +71,10 @@ HRESULT CToolMainApp::Render()
     float4_t    vClearColor = float4_t{ 0.f, 0.f, 0.f, 1.f };
     CGameInstance::Get().Clear_BackBuffer_View(&vClearColor);
     CGameInstance::Get().Clear_DepthStencil_View();
+
+    CGameInstance::Get().Bind_PipeLine_Vertex_ShaderResource(1);
+    CGameInstance::Get().Bind_PipeLine_Pixel_ShaderResource(1);
+    CGameInstance::Get().Bind_PipeLine_Geometry_ShaderResource(1);
 
     CGameInstance::Get().Draw();
     

@@ -96,7 +96,7 @@ void GS_MAIN(point VS_OUT gin[1],
     //look.y = 0.0f; // y-axis aligned, so project to xz-plane
     //look = normalize(look);
     
-    float3 look = float3(g_matView._31, 0, g_matView._33);
+    float3 look = float3(g_ViewMatrix._31, 0, g_ViewMatrix._33);
     look = normalize(-look);
     float3 right = cross(up, look);
     
@@ -117,7 +117,7 @@ void GS_MAIN(point VS_OUT gin[1],
 	[unroll]
     for (int i = 0; i < 4; ++i)
     {
-        gout.PosH = mul(mul(v[i], g_matView),g_matProj);
+        gout.PosH = mul(mul(v[i], g_ViewMatrix),g_ProjMatrix);
         gout.PosW = v[i].xyz;
         gout.NormalW = look;
         gout.Tex = g_TexC[i];
@@ -130,7 +130,7 @@ void GS_MAIN(point VS_OUT gin[1],
 float4 PS_MAIN(GeoOut In) : SV_TARGET //몇 번째 렌더타겟에 색을 쓸지
 {
     float3 vNormal = normalize(In.NormalW);
-    float3 vToEye = normalize(g_vEye - In.PosW);
+    float3 vToEye = normalize(g_vEye.xyz - In.PosW);
     
     float4 vAmbient, vDiffuse, vSpec;
     float4 vAmbientSum, vDiffuseSum, vSpecSum;
@@ -160,7 +160,7 @@ float4 PS_MAIN(GeoOut In) : SV_TARGET //몇 번째 렌더타겟에 색을 쓸지
     vColor = vTexColor * (vAmbientSum + vDiffuseSum) + vSpecSum;
     vColor.a = g_Material.Diffuse.a * vTexColor.a;
     
-    float distToEye = length(g_vEye - In.PosW);
+    float distToEye = length(g_vEye.xyz - In.PosW);
     float fogLerp = saturate((distToEye - g_fFogStart) / g_fFogRange);
     vColor.rgb = lerp(vColor.rgb, g_vFogColor.rgb, fogLerp);
     

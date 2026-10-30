@@ -58,7 +58,7 @@ VS_OUT VS_MAIN(VS_IN In)
     Out.vPosW = vPosW.xyz;
     Out.vNormalW = mul(In.vNormal, (float3x3) g_matWorldInvTranspose);
     
-    Out.vPosition = mul(mul(vPosW, g_matView), g_matProj);
+    Out.vPosition = mul(mul(vPosW, g_ViewMatrix), g_ProjMatrix);
     return Out;
 }
 
@@ -78,7 +78,7 @@ float4 GetHeightColor(float y)
 float4 PS_MAIN(VS_OUT In) : SV_TARGET //몇 번째 렌더타겟에 색을 쓸지
 {
     float3 vNormal = normalize(In.vNormalW);
-    float3 vToEye = normalize(g_vEye - In.vPosW);
+    float3 vToEye = normalize(g_vEye.xyz - In.vPosW);
     
     float4 vAmbient, vDiffuse, vSpec;
     float4 vColor = float4(0.f, 0.f, 0.f, 0.f);

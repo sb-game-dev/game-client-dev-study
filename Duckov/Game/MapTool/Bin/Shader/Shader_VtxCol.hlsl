@@ -51,8 +51,23 @@ VS_OUT VS_MAIN(VS_IN In)
     float4 vPosition = float4(In.vPosition, 1.f);// 행렬 연산을 하기 위해 w = 1 추가(위치니까 1 추가, 방향이면 0 추가)
     //mul(벡터, 행렬) 곱연산
     vPosition = mul(vPosition, g_matWorld);     // 로컬       -> 월드
-    vPosition = mul(vPosition, g_matView);      // 월드       -> 뷰스페이스
-    vPosition = mul(vPosition, g_matProj);      // 뷰스페이스 -> 투영  (z나누기 직전, z나누기는 VS끝나고 레스터라이저에서 수행)
+    vPosition = mul(vPosition, g_ViewMatrix);      // 월드       -> 뷰스페이스
+    vPosition = mul(vPosition, g_ProjMatrix);      // 뷰스페이스 -> 투영  (z나누기 직전, z나누기는 VS끝나고 레스터라이저에서 수행)
+
+    Out.vPosition = vPosition;
+    Out.vColor = In.vColor;
+    return Out;
+}
+
+VS_OUT VS_UI(VS_IN In)
+{
+    VS_OUT Out;
+
+    float4 vPosition = float4(In.vPosition, 1.f); // 행렬 연산을 하기 위해 w = 1 추가(위치니까 1 추가, 방향이면 0 추가)
+    //mul(벡터, 행렬) 곱연산
+    vPosition = mul(vPosition, g_matWorld); // 로컬       -> 월드
+    vPosition = mul(vPosition, g_OrthoViewMatrix); // 월드       -> 뷰스페이스
+    vPosition = mul(vPosition, g_OrthoProjMatrix); // 뷰스페이스 -> 투영  (z나누기 직전, z나누기는 VS끝나고 레스터라이저에서 수행)
 
     Out.vPosition = vPosition;
     Out.vColor = In.vColor;

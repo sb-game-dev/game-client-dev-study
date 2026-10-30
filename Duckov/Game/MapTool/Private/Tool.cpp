@@ -157,7 +157,7 @@ void CTool::Render_Scene()
     m_bHovered      = ImGui::IsItemHovered();       // 카메라 드래그 + 카메라 피킹에 사용
     m_bFocused      = ImGui::IsWindowFocused();     // 마지막으로 클릭된 창일 때 true 카메라 조작 허용 
                                                     // (Begin과 End 사이에서 불려야 이 창에 대한 값이 나옴)
-
+    cout << m_bFocused << endl;
     ImGui::End();
 }
 

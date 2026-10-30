@@ -28,7 +28,6 @@ private:
     f32_t	m_fMouseSensor = {};
 private:
     void    KeyInput(const f32_t fDeltaTime);
-    void    Mouse_Move();
     void    Mouse_Fix();
 
 public:

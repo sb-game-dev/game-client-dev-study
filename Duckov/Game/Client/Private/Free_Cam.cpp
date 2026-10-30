@@ -16,6 +16,8 @@ HRESULT CFree_Cam::Initialize_Prototype()
 
 HRESULT CFree_Cam::Initialize(void* pArg)
 {
+	auto    pDesc = static_cast<CAMERA_FREE_DESC*>(pArg);
+	m_fMouseSensor = pDesc->fSensor;
 	if (FAILED(__super::Initialize(pArg)))
 		return E_FAIL;
 	return S_OK;
@@ -76,6 +78,7 @@ void CFree_Cam::KeyInput(const f32_t fDeltaTime)
 	{
 		m_pTransformCom->Turn(XMVectorSet(0.f, 1.f, 0.f, 0.f), m_fMouseSensor * iMouseMove * fDeltaTime);
 	}
+	Update_PipeLines();
 }
 
 void CFree_Cam::Mouse_Fix()
