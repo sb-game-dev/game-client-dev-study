@@ -9,7 +9,7 @@ HRESULT CMapTool_Cam::Initialize()
 {
 	if (FAILED(__super::Initialize()))
 		return E_FAIL;
-
+	m_fAspect = static_cast<f32_t>(g_iToolWinSizeX) / g_iToolWinSizeY;
 	m_vUp = { 0.f,1.f,0.f };
 	m_vEye = { 0.f,0.f,0.f };
 	m_vAt = { 0.f,0.f,1.f };

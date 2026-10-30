@@ -204,6 +204,14 @@ void CGameInstance::Add_RenderGroup(RENDERID eRenderID, shared_ptr<CGameObject> 
 {
 	m_pRenderer->Add_RenderGroup(eRenderID, pGameObject);
 }
+void CGameInstance::Set_DrawToBackBuffer(bool_t bDraw)
+{
+	m_pRenderer->Set_DrawToBackBuffer(bDraw);
+}
+ID3D11ShaderResourceView* CGameInstance::Get_SceneSRV() const
+{
+	return m_pRenderer->Get_SceneSRV();
+}
 void CGameInstance::SetBlurUse(bool_t bUseBlur)
 {
 	m_pRenderer->SetBlurUse(bUseBlur);

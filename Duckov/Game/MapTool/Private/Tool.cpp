@@ -97,17 +97,48 @@ void CTool::Render_Hierachy()
 
 void CTool::Render_Scene()
 {
+    // 창의 크기와 위치 지정
     Set_NextPanelRect(m_tScene.fX, m_tScene.fY, m_tScene.fW, m_tScene.fH);
 
+    // 창 옵션
     constexpr ImGuiWindowFlags eSceneFlags = g_FixedPanelFlags
-        | ImGuiWindowFlags_NoBackground
-        | ImGuiWindowFlags_NoScrollbar
-        | ImGuiWindowFlags_NoScrollWithMouse
-        | ImGuiWindowFlags_NoBringToFrontOnFocus;
+        | ImGuiWindowFlags_NoScrollbar 
+        | ImGuiWindowFlags_NoScrollWithMouse;
 
+    // 스타일 스택 호출
+    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.f, 0.f));
     ImGui::Begin("Scene", nullptr, eSceneFlags);
-    ImGui::End();
+    // 스타일 스택 복구
+    ImGui::PopStyleVar();
+    const ImVec2 vAvail = ImGui::GetContentRegionAvail();
+    const f32_t fAspect = static_cast<f32_t>(g_iToolWinSizeX) / g_iToolWinSizeY;
+    ImVec2 vSize = vAvail;
+
+    if (vAvail.x <= 0.f || vAvail.y <= 0.f)
+    {
+        ImGui::End();
+        return;
+    }
+    if (vAvail.x / vAvail.y > fAspect)  
+        vSize.x = vAvail.y * fAspect;   
+    else                               
+        vSize.y = vAvail.x / fAspect;   
+
+    const ImVec2 vCursor = ImGui::GetCursorPos();   // 창 기준 좌표
+    ImGui::SetCursorPos(ImVec2(vCursor.x + (vAvail.x - vSize.x) * 0.5f,
+        vCursor.y + (vAvail.y - vSize.y) * 0.5f));
+
     
+    ID3D11ShaderResourceView* pSRV = CGameInstance::Get().Get_SceneSRV();
+    ImGui::Image((ImTextureID)pSRV, vSize);
+
+    //// (6) 나중 단계에서 쓸 정보 저장
+    m_vImageMin     = ImGui::GetItemRectMin();  // 화면 기준 좌상단 좌표
+    m_vImageSize    = vSize;                    // 같은 곳
+    m_bHovered      = ImGui::IsItemHovered();   // 카메라 드래그 + 카메라 피킹
+    m_bFocused      = ImGui::IsWindowFocused(); // 카메라 조작 허용
+
+    ImGui::End();
 }
 
 void CTool::Render_Inspector()

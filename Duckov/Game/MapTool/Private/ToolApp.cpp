@@ -35,7 +35,7 @@ HRESULT CToolApp::Initialize()
     if (FAILED(CGameInstance::Get().Change_Level(static_cast<int>(LEVEL::MAPTOOL),
         CLevel_MapTool::Create(m_pDevice, m_pContext))))
         return E_FAIL;
-
+    CGameInstance::Get().Set_DrawToBackBuffer(false);
 
     return S_OK;
 }
@@ -51,7 +51,7 @@ void CToolApp::Update(f32_t fDeltaTime)
 HRESULT CToolApp::Render()
 {
     // Clear
-    float4_t    vClearColor = float4_t{ 0.75, 0.75, 0.75, 1 };
+    float4_t    vClearColor = float4_t{ 0.f, 0.f, 0.f, 1.f };
     CGameInstance::Get().Clear_BackBuffer_View(&vClearColor);
     CGameInstance::Get().Clear_DepthStencil_View();
 

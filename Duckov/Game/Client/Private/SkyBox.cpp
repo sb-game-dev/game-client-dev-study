@@ -77,20 +77,36 @@ HRESULT CSkyBox::Render()
 
 HRESULT CSkyBox::Ready_Components()
 {
+#ifdef _MAPTOOL
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::MAPTOOL), Proto::Texture_SkyBox,
+        TEXT("Com_Texture"), m_pTextureCom)))
+        return E_FAIL;
+
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::MAPTOOL), Proto::VIBuffer_SkyBox,
+        TEXT("Com_Buffer"), m_pBufferCom)))
+        return E_FAIL;
+
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::MAPTOOL), Proto::VS_VTXTEX,
+        TEXT("Com_VS"), m_pVS)))
+        return E_FAIL;
+
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::MAPTOOL), Proto::PS_VTXTEX_SKYBOX,
+        TEXT("Com_PS"), m_pPS)))
+        return E_FAIL;
+#else
     if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::Texture_SkyBox,
         TEXT("Com_Texture"), m_pTextureCom)))
         return E_FAIL;
     if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VIBuffer_SkyBox,
         TEXT("Com_Buffer"), m_pBufferCom)))
         return E_FAIL;
-
     if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VS_VTXTEX,
         TEXT("Com_VS"), m_pVS)))
         return E_FAIL;
-
     if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_VTXTEX_SKYBOX,
         TEXT("Com_PS"), m_pPS)))
         return E_FAIL;
+#endif // _MAPTOOL
     return S_OK;
 }
 

@@ -30,36 +30,41 @@ HRESULT CVIBuffer_SkyBox::Initialize_Prototype()
 
     shared_ptr<VTXNORM[]> pVertices = make_shared<VTXNORM[]>(m_iNumVertices);
 
+    // 반 텍셀 오프셋 : 면 경계에서 십자 이미지의 빈 칸(배경색)이 선형 필터링으로 섞이지 않게 UV를 안쪽으로 당김
+    // 텍스처 크기가 바뀌면 분모도 같이 바꿀 것 (proc_preview.png = 512 x 384)
+    const float fHU = 0.5f / 512.f;
+    const float fHV = 0.5f / 384.f;
+
     // z-
-    pVertices[0] = { float3_t(-0.5f, -0.5f, -0.5f), float3_t(0.f, 0.f, -1.f), float2_t(1.f, 2.f / 3.f) };
-    pVertices[1] = { float3_t(-0.5f, +0.5f, -0.5f), float3_t(0.f, 0.f, -1.f), float2_t(1.f, 1.f / 3.f) };
-    pVertices[2] = { float3_t(+0.5f, +0.5f, -0.5f), float3_t(0.f, 0.f, -1.f), float2_t(0.75f,  1.f / 3.f) };
-    pVertices[3] = { float3_t(+0.5f, -0.5f, -0.5f), float3_t(0.f, 0.f, -1.f), float2_t(0.75f,  2.f / 3.f) };
+    pVertices[0] = { float3_t(-0.5f, -0.5f, -0.5f), float3_t(0.f, 0.f, -1.f), float2_t(1.f - fHU, 2.f / 3.f - fHV) };
+    pVertices[1] = { float3_t(-0.5f, +0.5f, -0.5f), float3_t(0.f, 0.f, -1.f), float2_t(1.f - fHU, 1.f / 3.f + fHV) };
+    pVertices[2] = { float3_t(+0.5f, +0.5f, -0.5f), float3_t(0.f, 0.f, -1.f), float2_t(0.75f + fHU, 1.f / 3.f + fHV) };
+    pVertices[3] = { float3_t(+0.5f, -0.5f, -0.5f), float3_t(0.f, 0.f, -1.f), float2_t(0.75f + fHU, 2.f / 3.f - fHV) };
     // x+
-    pVertices[4] = { float3_t(+0.5f, -0.5f, -0.5f), float3_t(+1.f, 0.f, 0.f), float2_t(0.75f,  2.f / 3.f) };
-    pVertices[5] = { float3_t(+0.5f, +0.5f, -0.5f), float3_t(+1.f, 0.f, 0.f), float2_t(0.75f,  1.f / 3.f) };
-    pVertices[6] = { float3_t(+0.5f, +0.5f, +0.5f), float3_t(+1.f, 0.f, 0.f), float2_t(0.5f, 1.f / 3.f) };
-    pVertices[7] = { float3_t(+0.5f, -0.5f, +0.5f), float3_t(+1.f, 0.f, 0.f), float2_t(0.5f, 2.f / 3.f) };
+    pVertices[4] = { float3_t(+0.5f, -0.5f, -0.5f), float3_t(+1.f, 0.f, 0.f), float2_t(0.75f - fHU, 2.f / 3.f - fHV) };
+    pVertices[5] = { float3_t(+0.5f, +0.5f, -0.5f), float3_t(+1.f, 0.f, 0.f), float2_t(0.75f - fHU, 1.f / 3.f + fHV) };
+    pVertices[6] = { float3_t(+0.5f, +0.5f, +0.5f), float3_t(+1.f, 0.f, 0.f), float2_t(0.5f + fHU, 1.f / 3.f + fHV) };
+    pVertices[7] = { float3_t(+0.5f, -0.5f, +0.5f), float3_t(+1.f, 0.f, 0.f), float2_t(0.5f + fHU, 2.f / 3.f - fHV) };
     // z+
-    pVertices[8] = { float3_t(+0.5f, -0.5f, +0.5f), float3_t(0.f, 0.f, +1.f), float2_t(0.5f, 2.f / 3.f) };
-    pVertices[9] = { float3_t(+0.5f, +0.5f, +0.5f), float3_t(0.f, 0.f, +1.f), float2_t(0.5f, 1.f / 3.f) };
-    pVertices[10] ={ float3_t(-0.5f, +0.5f, +0.5f), float3_t(0.f, 0.f, +1.f), float2_t(0.25f,  1.f / 3.f) };
-    pVertices[11] ={ float3_t(-0.5f, -0.5f, +0.5f), float3_t(0.f, 0.f, +1.f), float2_t(0.25f,  2.f / 3.f) };
+    pVertices[8] = { float3_t(+0.5f, -0.5f, +0.5f), float3_t(0.f, 0.f, +1.f), float2_t(0.5f - fHU, 2.f / 3.f - fHV) };
+    pVertices[9] = { float3_t(+0.5f, +0.5f, +0.5f), float3_t(0.f, 0.f, +1.f), float2_t(0.5f - fHU, 1.f / 3.f + fHV) };
+    pVertices[10] = { float3_t(-0.5f, +0.5f, +0.5f), float3_t(0.f, 0.f, +1.f), float2_t(0.25f + fHU, 1.f / 3.f + fHV) };
+    pVertices[11] = { float3_t(-0.5f, -0.5f, +0.5f), float3_t(0.f, 0.f, +1.f), float2_t(0.25f + fHU, 2.f / 3.f - fHV) };
     // x-
-    pVertices[12] = { float3_t(-0.5f, -0.5f, +0.5f), float3_t(-1.f, 0.f, 0.f), float2_t(0.25f,  2.f / 3.f) };
-    pVertices[13] = { float3_t(-0.5f, +0.5f, +0.5f), float3_t(-1.f, 0.f, 0.f), float2_t(0.25f,  1.f / 3.f) };
-    pVertices[14] = { float3_t(-0.5f, +0.5f, -0.5f), float3_t(-1.f, 0.f, 0.f), float2_t(0.f, 1.f / 3.f) };
-    pVertices[15] = { float3_t(-0.5f, -0.5f, -0.5f), float3_t(-1.f, 0.f, 0.f), float2_t(0.f, 2.f / 3.f) };
+    pVertices[12] = { float3_t(-0.5f, -0.5f, +0.5f), float3_t(-1.f, 0.f, 0.f), float2_t(0.25f - fHU, 2.f / 3.f - fHV) };
+    pVertices[13] = { float3_t(-0.5f, +0.5f, +0.5f), float3_t(-1.f, 0.f, 0.f), float2_t(0.25f - fHU, 1.f / 3.f + fHV) };
+    pVertices[14] = { float3_t(-0.5f, +0.5f, -0.5f), float3_t(-1.f, 0.f, 0.f), float2_t(0.f + fHU, 1.f / 3.f + fHV) };
+    pVertices[15] = { float3_t(-0.5f, -0.5f, -0.5f), float3_t(-1.f, 0.f, 0.f), float2_t(0.f + fHU, 2.f / 3.f - fHV) };
     // y+
-    pVertices[16] = { float3_t(-0.5f, +0.5f, -0.5f), float3_t(0.f, +1.f, 0.f), float2_t(0.25f,  0.f / 3.f) };
-    pVertices[17] = { float3_t(-0.5f, +0.5f, +0.5f), float3_t(0.f, +1.f, 0.f), float2_t(0.25f,  1.f / 3.f) };
-    pVertices[18] = { float3_t(+0.5f, +0.5f, +0.5f), float3_t(0.f, +1.f, 0.f), float2_t(0.5f,   1.f / 3.f) };
-    pVertices[19] = { float3_t(+0.5f, +0.5f, -0.5f), float3_t(0.f, +1.f, 0.f), float2_t(0.5f,   0.f / 3.f) };
+    pVertices[16] = { float3_t(-0.5f, +0.5f, -0.5f), float3_t(0.f, +1.f, 0.f), float2_t(0.25f + fHU, 0.f + fHV) };
+    pVertices[17] = { float3_t(-0.5f, +0.5f, +0.5f), float3_t(0.f, +1.f, 0.f), float2_t(0.25f + fHU, 1.f / 3.f - fHV) };
+    pVertices[18] = { float3_t(+0.5f, +0.5f, +0.5f), float3_t(0.f, +1.f, 0.f), float2_t(0.5f - fHU, 1.f / 3.f - fHV) };
+    pVertices[19] = { float3_t(+0.5f, +0.5f, -0.5f), float3_t(0.f, +1.f, 0.f), float2_t(0.5f - fHU, 0.f + fHV) };
     // y-
-    pVertices[20] = { float3_t(-0.5f, -0.5f, +0.5f), float3_t(0.f, -1.f, 0.f), float2_t(0.25f,  2.f / 3.f) };
-    pVertices[21] = { float3_t(-0.5f, -0.5f, -0.5f), float3_t(0.f, -1.f, 0.f), float2_t(0.25f,  3.f / 3.f) };
-    pVertices[22] = { float3_t(+0.5f, -0.5f, -0.5f), float3_t(0.f, -1.f, 0.f), float2_t(0.5f,   3.f / 3.f) };
-    pVertices[23] = { float3_t(+0.5f, -0.5f, +0.5f), float3_t(0.f, -1.f, 0.f), float2_t(0.5f,   2.f / 3.f) };
+    pVertices[20] = { float3_t(-0.5f, -0.5f, +0.5f), float3_t(0.f, -1.f, 0.f), float2_t(0.25f + fHU, 2.f / 3.f + fHV) };
+    pVertices[21] = { float3_t(-0.5f, -0.5f, -0.5f), float3_t(0.f, -1.f, 0.f), float2_t(0.25f + fHU, 1.f - fHV) };
+    pVertices[22] = { float3_t(+0.5f, -0.5f, -0.5f), float3_t(0.f, -1.f, 0.f), float2_t(0.5f - fHU, 1.f - fHV) };
+    pVertices[23] = { float3_t(+0.5f, -0.5f, +0.5f), float3_t(0.f, -1.f, 0.f), float2_t(0.5f - fHU, 2.f / 3.f + fHV) };
 
     D3D11_SUBRESOURCE_DATA VertexInitialData{};
     VertexInitialData.pSysMem = pVertices.get();

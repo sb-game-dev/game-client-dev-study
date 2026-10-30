@@ -63,7 +63,8 @@ void CRenderer::Render_GameObject()
 	{
 		m_pBlurFilter->BlurInPlace(m_pSceneSRV.Get(), m_pSceneUAV.Get(), 4); //<- 이 숫자가 흐리게 하는 횟수인데 달라진건가
 	}
-	Render_FullScreen();
+	if(m_bDrawToBackBuffer)
+		Render_FullScreen();
 	CAMERA eOldCameraID = CGameInstance::Get().Get_MainCameraID();
 	CGameInstance::Get().Set_MainCamera(CAMERA::ORTHOGRAPHIC);
 	Render_NonAlpha_UI();

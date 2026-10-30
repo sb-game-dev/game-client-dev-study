@@ -173,7 +173,7 @@ float4 PS_MAIN_SKY(VS_OUT In) : SV_TARGET
 {
     float4 vTexColor = g_DiffuseTex.Sample(g_Sampler, In.vTexCoord);
     
-    vTexColor.rgb = lerp(vTexColor.rgb, g_vFogColor.rgb, 0.7);
+    //vTexColor.rgb = lerp(vTexColor.rgb, g_vFogColor.rgb, 0.7);
     
     return vTexColor;
 }

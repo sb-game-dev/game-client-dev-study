@@ -27,6 +27,11 @@ private:
 	PANEL_RECT	m_tScene = {};
 	PANEL_RECT	m_tInspector = {};
 
+	ImVec2 m_vImageMin = {};
+	ImVec2 m_vImageSize = {};
+	bool_t m_bHovered = {};
+	bool_t m_bFocused = {};
+
 private:
 	void		Calc_Layout();
 	void		Render_MenuBar();

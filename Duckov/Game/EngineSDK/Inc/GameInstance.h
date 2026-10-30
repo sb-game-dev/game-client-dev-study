@@ -102,6 +102,8 @@ public:
 
 #pragma region RENDERER
 	void	Add_RenderGroup(RENDERID eRenderID, shared_ptr<CGameObject> pGameObject);
+	void	Set_DrawToBackBuffer(bool_t bDraw);
+	ID3D11ShaderResourceView* Get_SceneSRV()const;
 	void	SetBlurUse(bool_t bUseBlur);
 	void	Set_Mirror(shared_ptr<CGameObject> pMirror);
 #pragma endregion
