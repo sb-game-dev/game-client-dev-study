@@ -12,6 +12,7 @@ public:
 	HRESULT	Initialize(const void* pBuffer, uint32_t iBufferLength);
 	HRESULT Bind_Vertex_ShaderResource(uint32_t iSlot, const void* pBuffer);
 	HRESULT Bind_Pixel_ShaderResource(uint32_t iSlot, const void* pBuffer);
+	HRESULT Bind_Geometry_ShaderResource(uint32_t iSlot, const void* pBuffer);
 private:
 	ComPtr<ID3D11Device>		m_pDevice;
 	ComPtr<ID3D11DeviceContext> m_pContext;

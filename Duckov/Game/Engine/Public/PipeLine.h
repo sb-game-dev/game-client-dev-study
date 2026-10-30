@@ -14,9 +14,13 @@ public:
 public:
 	void Set_Perspective_Transform(D3DTS eState, fmatrix_t TransformMatrix) {
 		XMStoreFloat4x4(&m_PipeLineDesc.PerspectiveTransformMatrices[ETOUI(eState)], TransformMatrix);
+		XMStoreFloat4x4(&m_PipeLineDesc.PerspectiveTransformInverseMatrices[ETOUI(eState)], XMMatrixInverse(nullptr, TransformMatrix));
+		if (D3DTS::VIEW == eState)
+			memcpy(&m_PipeLineDesc.vCamPosition, &m_PipeLineDesc.PerspectiveTransformInverseMatrices[ETOUI(D3DTS::VIEW)].m[3], sizeof(float4_t));
 	}
 	void Set_Ortho_Transform(D3DTS eState, fmatrix_t TransformMatrix) {
 		XMStoreFloat4x4(&m_PipeLineDesc.OrthoTransformMatrices[ETOUI(eState)], TransformMatrix);
+		XMStoreFloat4x4(&m_PipeLineDesc.OrthoTransformInverseMatrices[ETOUI(eState)], XMMatrixInverse(nullptr, TransformMatrix));
 	}
 
 public:
@@ -41,11 +45,11 @@ public:
 
 public:
 	HRESULT Initialize();
-	void Update();
 
 public:
 	HRESULT Bind_Vertex_ShaderResource(uint32_t iSlot);
 	HRESULT Bind_Pixel_ShaderResource(uint32_t iSlot);
+	HRESULT Bind_Geometry_ShaderResource(uint32_t iSlot);
 
 private:
 	ComPtr<ID3D11Device>			m_pDevice = { nullptr };

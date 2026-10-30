@@ -1,6 +1,5 @@
-#include "GameObject.h"
 #include "GameInstance.h"
-
+#include "Camera.h"
 
 
 CGameObject::CGameObject(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
@@ -42,8 +41,7 @@ HRESULT	CGameObject::Render()
 
 void CGameObject::Compute_ViewZ()
 {
-	float4x4_t f44View = CGameInstance::Get().GetView();
-	matrix_t matView = XMLoadFloat4x4(&f44View);
+	matrix_t matView = CGameInstance::Get().Get_Perspective_Transform(D3DTS::VIEW);
 
 	XMVECTOR viewPos= m_pTransformCom->Get_State(STATE::POSITION);
 
@@ -61,7 +59,7 @@ bool_t CGameObject::Is_InFrustum()
 bool_t CGameObject::Is_BoxInFrustum(const BoundingBox& tLocalBox, const matrix_t& matWorld)
 {
 	auto pCam = CGameInstance::Get().Get_MainCamera();
-	matrix_t matInvView = XMLoadFloat4x4(&pCam->Get_InvView());
+	matrix_t matInvView = CGameInstance::Get().Get_Perspective_Transform_Inverse(D3DTS::VIEW);
 	matrix_t matInvWorld = XMMatrixInverse(nullptr, matWorld);
 	matrix_t matToLocal = XMMatrixMultiply(matInvView, matInvWorld);   
 
@@ -70,7 +68,6 @@ bool_t CGameObject::Is_BoxInFrustum(const BoundingBox& tLocalBox, const matrix_t
 
 	BoundingFrustum tLocalFrustum;
 	pCam->Get_ViewFrustum().Transform(tLocalFrustum, XMVectorGetX(vScale), vRotQuat, vTrans);
-
 	return tLocalBox.Intersects(tLocalFrustum);
 }
 

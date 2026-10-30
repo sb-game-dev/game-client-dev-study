@@ -1,52 +1,46 @@
 #pragma once
-#include "Engine_Defines.h"
+#include "GameObject.h"
 
 NS_BEGIN(Engine)
-class ENGINE_DLL CCamera
+class ENGINE_DLL CCamera abstract : public CGameObject
 {
+public:
+	typedef struct tagCameraDesc : public CGameObject::GAMEOBJECT_DESC
+	{
+		float4_t		vEye, vAt;
+		f32_t			fFovy, fNear, fFar;
+	}CAMERA_DESC;
+
 protected:
 	CCamera(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
 public:
 	virtual ~CCamera() = default;
 
 public:
-	virtual	HRESULT				Initialize();
-	virtual	void				Priority_Update(f32_t fDeltTime);
-	virtual	void				Update(f32_t fDeltTime);
-	virtual	void				Late_Update(f32_t fDeltTime);
+	virtual HRESULT		Initialize_Prototype() override;
+	virtual HRESULT		Initialize(void* pArg) override;
+	virtual void		Priority_Update(f32_t fTimeDelta);
+	virtual void		Update(f32_t fTimeDelta);
+	virtual void		Late_Update(f32_t fTimeDelta);
+	virtual HRESULT		Render();
 
-	const	float4x4_t&			GetView()	{ return m_matView; }
-	const	float4x4_t&			GetProj()	{ return m_matProj; }
-	const	float3_t&			GetEye()	{ return m_vEye; }
-
-	virtual HRESULT				Bind();
 
 	const	BoundingFrustum&	Get_ViewFrustum() { return m_tViewFrustum; }
-	const	float4x4_t&			Get_InvView() { return m_MatInvView; }
 	virtual void				Update_Frustum();
 
 	virtual void				Compute_PickingRay(POINT pt, vector_t& vRayOriginW, vector_t& vRayDirW);
 
 protected:
-	ComPtr<ID3D11Device>				m_pDevice = { nullptr };
-	ComPtr<ID3D11DeviceContext>			m_pContext = { nullptr };
-
-	ComPtr<ID3D11Buffer>				m_pCB = { nullptr };
-
 	BoundingFrustum		m_tViewFrustum = {};
-	float4x4_t			m_MatInvView = {};
 
-	float4x4_t			m_matView;
-	float4x4_t			m_matProj;
-
-	float3_t			m_vEye = { 0.f,0.f,-3.f };
-	float3_t			m_vAt = { 0.f,0.f,0.f };
-	float3_t			m_vUp = { 0.f,1.f,0.f };
-
-	f32_t				m_fFov = XMConvertToRadians(60.f);
-	f32_t				m_fAspect = (f32_t)1280 / 720;
+	f32_t				m_fFovy = 60.f;
 	f32_t				m_fNear = 0.1f;
-	f32_t				m_fFar = 1000.f;
+	f32_t				m_fFar	= 1000.f;
+
+protected:
+	void				Update_PipeLines();
+public:
+	virtual shared_ptr<CPrototype> Clone(void* pArg) = 0;
 };
 
 NS_END

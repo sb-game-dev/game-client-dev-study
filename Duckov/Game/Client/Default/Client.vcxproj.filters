@@ -52,12 +52,6 @@
     <Filter Include="04. Light\01. Player_SpotLight">
       <UniqueIdentifier>{19910111-dce3-4e18-9ed1-40f9ccc1019d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. Camera\01. QuaterView_Cam">
-      <UniqueIdentifier>{b26241d5-a012-4840-a79b-fddba25685db}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03. Camera\00. Orthographic_Cam">
-      <UniqueIdentifier>{d92a6047-d85f-4814-833d-4911c27fc992}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObjects\04. Wave">
       <UniqueIdentifier>{7aaabf08-fd25-4bd8-a2df-28659081e4ab}</UniqueIdentifier>
     </Filter>
@@ -94,7 +88,10 @@
     <Filter Include="02. GameObjects\11. UI\00. Inven">
       <UniqueIdentifier>{a7523f95-3773-48f0-8dcf-aab76835a9c5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. Camera\02. Free_Cam">
+    <Filter Include="03. Camera\00. QuaterView_Cam">
+      <UniqueIdentifier>{b26241d5-a012-4840-a79b-fddba25685db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Camera\01. Free_Cam">
       <UniqueIdentifier>{04e6eebb-9363-4a90-97c1-3263e8421532}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -154,10 +151,7 @@
       <Filter>04. Light\02. SunLight</Filter>
     </ClInclude>
     <ClInclude Include="..\public\QuarterView_Cam.h">
-      <Filter>03. Camera\01. QuaterView_Cam</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\Orthographic_Cam.h">
-      <Filter>03. Camera\00. Orthographic_Cam</Filter>
+      <Filter>03. Camera\00. QuaterView_Cam</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Wave.h">
       <Filter>02. GameObjects\04. Wave</Filter>
@@ -187,7 +181,7 @@
       <Filter>99. Define</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Free_Cam.h">
-      <Filter>03. Camera\02. Free_Cam</Filter>
+      <Filter>03. Camera\01. Free_Cam</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -247,10 +241,7 @@
       <Filter>04. Light\02. SunLight</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\QuarterView_Cam.cpp">
-      <Filter>03. Camera\01. QuaterView_Cam</Filter>
-    </ClCompile>
-    <ClCompile Include="..\private\Orthographic_Cam.cpp">
-      <Filter>03. Camera\00. Orthographic_Cam</Filter>
+      <Filter>03. Camera\00. QuaterView_Cam</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Wave.cpp">
       <Filter>02. GameObjects\04. Wave</Filter>
@@ -277,7 +268,7 @@
       <Filter>02. GameObjects\10. Scope</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Free_Cam.cpp">
-      <Filter>03. Camera\02. Free_Cam</Filter>
+      <Filter>03. Camera\01. Free_Cam</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

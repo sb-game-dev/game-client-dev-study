@@ -65,6 +65,25 @@ HRESULT CConstantBuffer::Bind_Pixel_ShaderResource(uint32_t iSlot, const void* p
     return S_OK;
 }
 
+HRESULT CConstantBuffer::Bind_Geometry_ShaderResource(uint32_t iSlot, const void* pBuffer)
+{
+    D3D11_MAPPED_SUBRESOURCE        SubResourceData{};
+
+    m_pContext->Map(m_pCB.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &SubResourceData);
+
+    memcpy(SubResourceData.pData, pBuffer, m_iByteLength);
+
+    m_pContext->Unmap(m_pCB.Get(), 0);
+
+    ID3D11Buffer* pCB[] = {
+        m_pCB.Get(),
+    };
+
+    m_pContext->GSSetConstantBuffers(iSlot, 1, pCB);
+
+    return S_OK;
+}
+
 shared_ptr<CConstantBuffer> CConstantBuffer::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, const void* pBuffer, uint32_t iBufferLength)
 {
     auto pInstance = shared_ptr<CConstantBuffer>(new CConstantBuffer(pDevice, pContext));

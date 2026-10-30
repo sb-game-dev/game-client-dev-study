@@ -87,7 +87,7 @@ HRESULT CScope::Ready_Components()
         TEXT("Com_Buffer"), m_pBufferCom)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VS_VTXCOL,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VS_VTXCOL_UI,
         TEXT("Com_VS"), m_pVS)))
         return E_FAIL;
 

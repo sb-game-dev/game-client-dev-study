@@ -127,9 +127,6 @@
     <ClCompile Include="..\..\Client\Private\Mirror.cpp">
       <Filter>97. Client_Shared</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Client\Private\Orthographic_Cam.cpp">
-      <Filter>97. Client_Shared</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Client\Private\Player.cpp">
       <Filter>97. Client_Shared</Filter>
     </ClCompile>

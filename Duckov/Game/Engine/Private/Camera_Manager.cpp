@@ -18,41 +18,6 @@ void CCamera_Manager::Set_MainCamera(CAMERA eCameraID)
 		return;
 	m_pMainCamera = pCamera;
 	m_eMainCamera = eCameraID;
-	Bind();
-}
-
-void CCamera_Manager::Priority_Update(f32_t fDeltaTime)
-{
-	for (auto pCam : m_Cameras)
-		if(nullptr != pCam)
-			pCam->Priority_Update(fDeltaTime);
-}
-
-void CCamera_Manager::Update(f32_t fDeltaTime)
-{
-	for (auto pCam : m_Cameras)
-		if (nullptr != pCam)
-			pCam->Update(fDeltaTime);
-}
-
-void CCamera_Manager::Late_Update(f32_t fDeltaTime)
-{
-	for (auto pCam : m_Cameras)
-		if (nullptr != pCam)
-			pCam->Late_Update(fDeltaTime);
-
-	if (nullptr != m_pMainCamera)
-		m_pMainCamera->Update_Frustum();
-}
-
-HRESULT CCamera_Manager::Bind()
-{
-	if (nullptr == m_pMainCamera)
-		return E_FAIL;
-	if(FAILED(m_pMainCamera->Bind()))
-		return E_FAIL;
-
-	return S_OK;
 }
 
 shared_ptr<CCamera> CCamera_Manager::Find_Camera(CAMERA eCameraID)

@@ -18,7 +18,7 @@ HRESULT CPipeLine::Initialize()
     XMStoreFloat4x4(&m_PipeLineDesc.OrthoTransformMatrices[ETOUI(D3DTS::VIEW)],
         XMMatrixIdentity());
     XMStoreFloat4x4(&m_PipeLineDesc.OrthoTransformMatrices[ETOUI(D3DTS::PROJ)],
-        XMMatrixOrthographicLH(ViewportDesc.Width, ViewportDesc.Height, 0.f, 1.f));
+        XMMatrixOrthographicLH(ViewportDesc.Width, ViewportDesc.Height, 0.f, 100.f));
 
     /* 원근투영용 뷰, 투영행렬. */
     for (auto& Matrix : m_PipeLineDesc.PerspectiveTransformMatrices)
@@ -34,18 +34,6 @@ HRESULT CPipeLine::Initialize()
     return S_OK;
 }
 
-void CPipeLine::Update()
-{
-    for (uint32_t i = 0; i < ETOUI(D3DTS::END); i++)
-    {
-        XMStoreFloat4x4(&m_PipeLineDesc.OrthoTransformInverseMatrices[i],
-            XMMatrixInverse(nullptr, XMLoadFloat4x4(&m_PipeLineDesc.OrthoTransformMatrices[i])));
-        XMStoreFloat4x4(&m_PipeLineDesc.PerspectiveTransformInverseMatrices[i],
-            XMMatrixInverse(nullptr, XMLoadFloat4x4(&m_PipeLineDesc.PerspectiveTransformMatrices[i])));
-    }
-    memcpy(&m_PipeLineDesc.vCamPosition, &m_PipeLineDesc.PerspectiveTransformInverseMatrices[ETOUI(D3DTS::VIEW)].m[3], sizeof float4_t);
-}
-
 HRESULT CPipeLine::Bind_Vertex_ShaderResource(uint32_t iSlot)
 {
     return m_pCB->Bind_Vertex_ShaderResource(iSlot, &m_PipeLineDesc);
@@ -54,6 +42,11 @@ HRESULT CPipeLine::Bind_Vertex_ShaderResource(uint32_t iSlot)
 HRESULT CPipeLine::Bind_Pixel_ShaderResource(uint32_t iSlot)
 {
     return m_pCB->Bind_Pixel_ShaderResource(iSlot, &m_PipeLineDesc);
+}
+
+HRESULT CPipeLine::Bind_Geometry_ShaderResource(uint32_t iSlot)
+{
+    return m_pCB->Bind_Geometry_ShaderResource(iSlot, &m_PipeLineDesc);
 }
 
 

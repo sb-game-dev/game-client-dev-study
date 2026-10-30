@@ -49,7 +49,7 @@ void CTransform::Move_To(fvector_t vGoal, f32_t fDeltaTime, f32_t fLimitDistance
 	Set_State(STATE::POSITION, vPos);
 }
 
-void CTransform::Go_Staight(f32_t fDeltaTime)
+void CTransform::Go_Straight(f32_t fDeltaTime)
 {
 	vector_t	vPosition	= Get_State(STATE::POSITION);
 	vector_t	vLook		= Get_State(STATE::LOOK);

@@ -29,13 +29,15 @@ cbuffer cbPerObject : register(b0)
     Material g_Material;
 };
 
-cbuffer cbCamera : register(b1)
+cbuffer FrameData : register(b1)
 {
-    row_major float4x4 g_matView;
-    row_major float4x4 g_matProj;
-    float3 g_vEye;
-    float g_Pad;
-}
+    row_major matrix g_ViewMatrix, g_ProjMatrix;
+    row_major matrix g_OrthoViewMatrix, g_OrthoProjMatrix;
+    
+    row_major matrix g_ViewInverseMatrix, g_ProjInverseMatrix;
+    row_major matrix g_OrthoViewInverseMatrix, g_OrthoProjInverseMatrix;
+    float4 g_vEye;
+};
 
 cbuffer cbPointLight : register(b2)
 {
@@ -96,7 +98,7 @@ VS_OUT VS_MAIN(VS_IN In)
     Out.vPosW = vPosW.xyz;
     Out.vNormalW = mul(In.vNormal, (float3x3) g_matWorldInvTranspose);
     
-    Out.vPosition = mul(mul(vPosW, g_matView), g_matProj);
+    Out.vPosition = mul(mul(vPosW, g_ViewMatrix), g_ProjMatrix);
     Out.vTexCoord = In.vTexCoord;
     return Out;
 }
@@ -109,11 +111,10 @@ VS_OUT VS_MAIN_INST(VS_IN_INST In)
     Out.vPosW = vPosW.xyz;
     Out.vNormalW = mul(In.vNormal, (float3x3) g_matWorldInvTranspose);
     
-    Out.vPosition = mul(mul(vPosW, g_matView), g_matProj);
+    Out.vPosition = mul(mul(vPosW, g_ViewMatrix), g_ProjMatrix);
     Out.vTexCoord = In.vTexCoord;
     return Out;
 }
-
 
 
 float4 PS_MAIN(VS_OUT In) : SV_TARGET //몇 번째 렌더타겟에 색을 쓸지

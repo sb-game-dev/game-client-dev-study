@@ -11,13 +11,15 @@ cbuffer cbPerObject : register(b0)
     Material g_Material;
 };
 
-cbuffer cbCamera : register(b1)
+cbuffer FrameData : register(b1)
 {
-    row_major float4x4 g_matView;
-    row_major float4x4 g_matProj;
-    float3 g_vEye;
-    float g_Pad;
-}
+    row_major matrix g_ViewMatrix, g_ProjMatrix;
+    row_major matrix g_OrthoViewMatrix, g_OrthoProjMatrix;
+    
+    row_major matrix g_ViewInverseMatrix, g_ProjInverseMatrix;
+    row_major matrix g_OrthoViewInverseMatrix, g_OrthoProjInverseMatrix;
+    float4 g_vEye;
+};
 
 cbuffer cbPointLight : register(b2)
 {

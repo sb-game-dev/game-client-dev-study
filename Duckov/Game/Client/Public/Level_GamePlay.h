@@ -15,7 +15,6 @@ public:
 	virtual		void		Update(f32_t fDeltaTime) override;
 	virtual		HRESULT		Render() override;
 
-
 private:
 	HRESULT Ready_Layer_BackGround(const tchar_t* pLayerTag);
 	HRESULT Ready_Layer_GameObject(const tchar_t* pLayerTag);

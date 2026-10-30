@@ -29,7 +29,9 @@ namespace Client
 
 		// ---------- Shader : VtxTex ----------
 		inline constexpr const wchar_t* VS_VTXTEX = L"Prototype_Component_VS_VTXTEX";
+		inline constexpr const wchar_t* VS_VTXTEX_UI = L"Prototype_Component_VS_VTXTEX_UI";
 		inline constexpr const wchar_t* VS_VTXTEX_INSTANCE = L"Prototype_Component_VS_VTXTEX_INSTANCE";
+		inline constexpr const wchar_t* VS_VTXTEX_INSTANCE_UI = L"Prototype_Component_VS_VTXTEX_INSTANCE_UI";
 		inline constexpr const wchar_t* PS_VTXTEX = L"Prototype_Component_PS_VTXTEX";
 		inline constexpr const wchar_t* PS_VTXTEX_NOLIGHT = L"Prototype_Component_PS_VTXTEX_NOLIGHT";
 		inline constexpr const wchar_t* PS_VTXTEX_SHADOW = L"Prototype_Component_PS_VTXTEX_SHADOW";
@@ -37,6 +39,7 @@ namespace Client
 
 		// ---------- Shader : VtxCol ----------
 		inline constexpr const wchar_t* VS_VTXCOL = L"Prototype_Component_VS_VTXCOL";
+		inline constexpr const wchar_t* VS_VTXCOL_UI = L"Prototype_Component_VS_VTXCOL_UI";
 		inline constexpr const wchar_t* PS_VTXCOL = L"Prototype_Component_PS_VTXCOL";
 		inline constexpr const wchar_t* PS_VTXCOL_SCOPE = L"Prototype_Component_PS_VTXCOL_SCOPE";
 		inline constexpr const wchar_t* PS_VTXCOL_SHADOW = L"Prototype_Component_PS_VTXCOL_SHADOW";
@@ -62,6 +65,9 @@ namespace Client
 		inline constexpr const wchar_t* Obj_Client_Mouse = L"Prototype_GameObject_Client_Mouse";
 		inline constexpr const wchar_t* Obj_Scope = L"Prototype_GameObject_Scope";
 		inline constexpr const wchar_t* Obj_Inven = L"Prototype_GameObject_Inven";
+		inline constexpr const wchar_t* Obj_QuaterViewCam = L"Prototype_GameObject_QuaterViewCam";
+		inline constexpr const wchar_t* Obj_FreeCam = L"Prototype_GameObject_FreeCam";
+
 	}
 
 	/* =========================================================
@@ -82,6 +88,7 @@ namespace Client
 		inline constexpr const wchar_t* Client_Mouse = L"GameObject_Client_Mouse";
 		inline constexpr const wchar_t* Scope = L"GameObject_Scope";
 		inline constexpr const wchar_t* Inven = L"GameObject_Inven";
+		inline constexpr const wchar_t* QuaterViewCam = L"GameObject_QuaterViewCam";
 	}
 
 	/* =========================================================

@@ -25,12 +25,6 @@
     <Filter Include="03. Levels\Manager">
       <UniqueIdentifier>{b77c14db-24be-4a71-8bf6-6b0860f31a12}</UniqueIdentifier>
     </Filter>
-    <Filter Include="07. Camera">
-      <UniqueIdentifier>{7fe7501a-8427-4b61-ab8c-bf82f6654429}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="07. Camera\Manager">
-      <UniqueIdentifier>{e76d5229-a85c-4319-ac10-d604d10d9e8f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="06. Component">
       <UniqueIdentifier>{70cda3ca-5d87-4a93-b1a4-fc0a94e663eb}</UniqueIdentifier>
     </Filter>
@@ -136,6 +130,12 @@
     <Filter Include="13. Sampler\Manager">
       <UniqueIdentifier>{d8944a1e-d9a1-4ef9-883c-6d7b40468c20}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05. GameObject\02. Camera">
+      <UniqueIdentifier>{7fe7501a-8427-4b61-ab8c-bf82f6654429}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. GameObject\02. Camera\Manager">
+      <UniqueIdentifier>{e76d5229-a85c-4319-ac10-d604d10d9e8f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Engine_Defines.h">
@@ -178,7 +178,7 @@
       <Filter>05. GameObject</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Camera.h">
-      <Filter>07. Camera</Filter>
+      <Filter>05. GameObject\02. Camera</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Prototype.h">
       <Filter>04. Prototypes</Filter>
@@ -196,7 +196,7 @@
       <Filter>05. GameObject\00. Manager\Layer</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Camera_Manager.h">
-      <Filter>07. Camera\Manager</Filter>
+      <Filter>05. GameObject\02. Camera\Manager</Filter>
     </ClInclude>
     <ClInclude Include="..\public\PointLight.h">
       <Filter>08. Light\01. PointLight</Filter>
@@ -303,7 +303,7 @@
       <Filter>05. GameObject</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Camera.cpp">
-      <Filter>07. Camera</Filter>
+      <Filter>05. GameObject\02. Camera</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Prototype.cpp">
       <Filter>04. Prototypes</Filter>
@@ -321,7 +321,7 @@
       <Filter>05. GameObject\00. Manager\Layer</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Camera_Manager.cpp">
-      <Filter>07. Camera\Manager</Filter>
+      <Filter>05. GameObject\02. Camera\Manager</Filter>
     </ClCompile>
     <ClCompile Include="..\private\PointLight.cpp">
       <Filter>08. Light\01. PointLight</Filter>

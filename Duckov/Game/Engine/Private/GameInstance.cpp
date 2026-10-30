@@ -77,19 +77,13 @@ void CGameInstance::Update_Engine(f32_t fDeltaTime)
 	m_pInput_Device->Update();
 
 	m_pObject_Manager->Priority_Update(fDeltaTime);
-	m_pCamera_Manager->Priority_Update(fDeltaTime);
 	m_pLight_Manager->Priority_Update(fDeltaTime);
 
 	m_pObject_Manager->Update(fDeltaTime);
-	m_pCamera_Manager->Update(fDeltaTime);
 	m_pLight_Manager->Update(fDeltaTime);
 
-	m_pCamera_Manager->Late_Update(fDeltaTime);
 	m_pObject_Manager->Late_Update(fDeltaTime);
 	m_pLight_Manager->Late_Update(fDeltaTime);
-
-	/* 이전에 이용할 View, Proj에 대한 셋팅을 끝낸다. */
-	m_pPipeLine->Update();
 
 	m_pLevel_Manager->Update(fDeltaTime);
 }
@@ -177,10 +171,6 @@ void CGameInstance::Add_Camera(CAMERA eCameraID, shared_ptr<CCamera> pCamera)
 void CGameInstance::Set_MainCamera(CAMERA eCameraID)
 {
 	m_pCamera_Manager->Set_MainCamera(eCameraID);
-}
-float4x4_t CGameInstance::GetView()
-{
-	return m_pCamera_Manager->GetView();
 }
 CAMERA CGameInstance::Get_MainCameraID()
 {
@@ -317,6 +307,11 @@ HRESULT CGameInstance::Bind_PipeLine_Vertex_ShaderResource(uint32_t iSlot)
 HRESULT CGameInstance::Bind_PipeLine_Pixel_ShaderResource(uint32_t iSlot)
 {
 	return m_pPipeLine->Bind_Pixel_ShaderResource(iSlot);
+}
+
+HRESULT CGameInstance::Bind_PipeLine_Geometry_ShaderResource(uint32_t iSlot)
+{
+	return m_pPipeLine->Bind_Geometry_ShaderResource(iSlot);
 }
 
 #pragma endregion

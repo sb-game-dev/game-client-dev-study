@@ -112,7 +112,10 @@ void CClient_Mouse::Update(f32_t fTimeDelta)
     vector_t vRayOrigin = {};
     vector_t vRayDir = {};
 
-    CGameInstance::Get().Get_MainCamera()->Compute_PickingRay(pt, vRayOrigin, vRayDir);
+    auto pCamera = CGameInstance::Get().Get_MainCamera();
+    if (nullptr == pCamera)
+        return;
+    pCamera->Compute_PickingRay(pt, vRayOrigin, vRayDir);
 
     auto pPlayer = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", L"GameObject_Player");
     if (nullptr == pPlayer)
@@ -203,7 +206,7 @@ HRESULT CClient_Mouse::Ready_Components()
         TEXT("Com_Texture"), m_pTextureCom)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VS_VTXTEX_INSTANCE,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VS_VTXTEX_INSTANCE_UI,
         TEXT("Com_VS"), m_pVS)))
         return E_FAIL;
 

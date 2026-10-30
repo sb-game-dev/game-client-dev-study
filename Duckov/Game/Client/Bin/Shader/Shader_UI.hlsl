@@ -1,9 +1,11 @@
-cbuffer cbCamera : register(b1)
+cbuffer FrameData : register(b1)
 {
-    float4x4 g_matView;
-    float4x4 g_matProj;
-    float3 g_vEye;
-    float g_Pad;
+    row_major matrix g_ViewMatrix, g_ProjMatrix;
+    row_major matrix g_OrthoViewMatrix, g_OrthoProjMatrix;
+    
+    row_major matrix g_ViewInverseMatrix, g_ProjInverseMatrix;
+    row_major matrix g_OrthoViewInverseMatrix, g_OrthoProjInverseMatrix;
+    float4 g_vEye;
 };
 
 static const float2 g_vWinSize = float2(1280.f, 720.f); 
@@ -42,7 +44,7 @@ VS_OUT VS_MAIN(VS_IN In)
                             g_vWinSize.y * 0.5f - vCenter.y) + vLocal;
 
     // 픽셀 셰이더에서 사용하지 않음. 다만 레스터라이즈 단계에서 픽셀의 Local, Color 값을 보간을 하기위해 계산해야함
-    Out.vPosition = mul(mul(float4(vOrtho, 1.f, 1.f), g_matView), g_matProj);
+    Out.vPosition = mul(mul(float4(vOrtho, 1.f, 1.f), g_OrthoViewMatrix), g_OrthoProjMatrix);
     Out.vLocal = vLocal;
     Out.vTexCoord = lerp(In.vUV.xy, In.vUV.zw, In.vTexCoord);
     Out.vColor = In.vColor;

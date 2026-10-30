@@ -2,7 +2,6 @@
 #include "Level_Loading.h"
 #include "Level_Logo.h"
 #include "Level_GamePlay.h"
-#include "Orthographic_Cam.h"
 #include "BackGround.h"
 #include "Texture.h"
 #include "VIBuffer_Rect.h"
@@ -71,11 +70,6 @@ HRESULT CLevel_Loading::Render()
 
 HRESULT CLevel_Loading::Ready_Layer_BackGround()
 {
-    // 직교투영 카메라
-    auto m_pCamera = COrthographic_Cam::Create(m_pDevice, m_pContext);
-    CGameInstance::Get().Add_Camera(CAMERA::ORTHOGRAPHIC, m_pCamera);
-    CGameInstance::Get().Set_MainCamera(CAMERA::ORTHOGRAPHIC);
-
     // 텍스처
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOADING), Proto::Texture_BackGround,
         CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Logo/Logo_Background_1280x720.dds"), 1))))
@@ -87,8 +81,8 @@ HRESULT CLevel_Loading::Ready_Layer_BackGround()
         return E_FAIL;
 
     // VS
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOADING), Proto::VS_VTXTEX,
-        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_VtxTex.hlsl", VTXNORM::Elements, VTXNORM::iNumElements, "VS_MAIN"))))
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOADING), Proto::VS_VTXTEX_UI,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_VtxTex.hlsl", VTXNORM::Elements, VTXNORM::iNumElements, "VS_UI"))))
         return E_FAIL;
     // PS
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOADING), Proto::PS_VTXTEX_NOLIGHT,

@@ -108,14 +108,31 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
         ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Scope)))
         return E_FAIL;
 
+    CQuarterView_Cam::CAMERA_QUATER_DESC         CameraDesc{};
+    CameraDesc.fDegreeRotPerSec = 180.f;
+    CameraDesc.fSpeedPerSec = 20.f;
+    CameraDesc.vEye = float4_t(-10.f, 10.f, -10.f, 1.f);
+    CameraDesc.vAt = float4_t(0.f, 0.f, 0.f, 1.f);
+    CameraDesc.fFovy = 60.f;
+    CameraDesc.fNear = 0.1f;
+    CameraDesc.fFar = 1000.f;
+
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_QuaterViewCam,
+        ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::QuaterViewCam,&CameraDesc)))
+        return E_FAIL;
+
+    auto pQuaterViewCam = dynamic_pointer_cast<CQuarterView_Cam>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::QuaterViewCam));
+    CGameInstance::Get().Add_Camera(CAMERA::QUARTERVIEW, pQuaterViewCam);
+    CGameInstance::Get().Set_MainCamera(CAMERA::QUARTERVIEW); 
+
     auto pPlayer = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Player);
     auto pMirror = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Mirror);
     CGameInstance::Get().Set_Mirror(pMirror);
 
-    auto pCamera = CQuarterView_Cam::Create(m_pDevice, m_pContext);
-    CGameInstance::Get().Add_Camera(CAMERA::QUARTERVIEW, pCamera);
-    CGameInstance::Get().Set_MainCamera(CAMERA::QUARTERVIEW);
-    pCamera->SetPlayer(pPlayer);
+    //auto pCamera = CQuarterView_Cam::Create(m_pDevice, m_pContext);
+    //CGameInstance::Get().Add_Camera(CAMERA::QUARTERVIEW, pCamera);
+    //CGameInstance::Get().Set_MainCamera(CAMERA::QUARTERVIEW);
+    //pCamera->SetPlayer(pPlayer);
 
     //auto pCamera = CFree_Cam::Create(m_pDevice, m_pContext);
     //CGameInstance::Get().Add_Camera(CAMERA::FREE, pCamera);

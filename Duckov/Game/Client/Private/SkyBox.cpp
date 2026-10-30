@@ -47,10 +47,9 @@ void CSkyBox::Late_Update(f32_t fDeltaTime)
 {
     __super::Late_Update(fDeltaTime);
 
-    auto pCamera = CGameInstance::Get().Get_MainCamera();
-    auto vCamEye = pCamera->GetEye();
+    auto vCamEye = CGameInstance::Get().Get_CamPosition();
 
-    m_pTransformCom->Set_State(STATE::POSITION, { vCamEye.x,vCamEye.y,vCamEye.z,1.f });
+    m_pTransformCom->Set_State(STATE::POSITION, vCamEye);
 
     CGameInstance::Get().Add_RenderGroup(RENDERID::PRIORITY, dynamic_pointer_cast<CGameObject>(shared_from_this()));
 }

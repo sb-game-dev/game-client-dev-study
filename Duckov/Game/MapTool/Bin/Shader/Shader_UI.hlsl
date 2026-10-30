@@ -1,9 +1,11 @@
-cbuffer cbCamera : register(b1)
+cbuffer FrameData : register(b1)
 {
-    float4x4 g_matView;
-    float4x4 g_matProj;
-    float3 g_vEye;
-    float g_Pad;
+    row_major matrix g_ViewMatrix, g_ProjMatrix;
+    row_major matrix g_OrthoViewMatrix, g_OrthoProjMatrix;
+    
+    row_major matrix g_ViewInverseMatrix, g_ProjInverseMatrix;
+    row_major matrix g_OrthoViewInverseMatrix, g_OrthoProjInverseMatrix;
+    float4 g_vEye;
 };
 
 static const float2 g_vWinSize = float2(1280.f, 720.f); 

@@ -216,7 +216,6 @@
     <ClCompile Include="..\..\Client\Private\Level_Logo.cpp" />
     <ClCompile Include="..\..\Client\Private\Loader.cpp" />
     <ClCompile Include="..\..\Client\Private\Mirror.cpp" />
-    <ClCompile Include="..\..\Client\Private\Orthographic_Cam.cpp" />
     <ClCompile Include="..\..\Client\Private\Player.cpp" />
     <ClCompile Include="..\..\Client\Private\Player_PointLight.cpp" />
     <ClCompile Include="..\..\Client\Private\Player_SpotLight.cpp" />

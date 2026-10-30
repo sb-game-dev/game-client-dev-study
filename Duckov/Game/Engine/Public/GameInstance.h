@@ -91,7 +91,6 @@ public:
 public:
 	void				Add_Camera(CAMERA eCameraID, shared_ptr<CCamera> pCamera);
 	void				Set_MainCamera(CAMERA eCameraID);
-	float4x4_t			GetView();
 	CAMERA				Get_MainCameraID();
 	shared_ptr<CCamera> Get_MainCamera();
 #pragma endregion
@@ -135,6 +134,7 @@ public:
 
 	HRESULT Bind_PipeLine_Vertex_ShaderResource(uint32_t iSlot);
 	HRESULT Bind_PipeLine_Pixel_ShaderResource(uint32_t iSlot);
+	HRESULT Bind_PipeLine_Geometry_ShaderResource(uint32_t iSlot);
 #pragma endregion
 
 #pragma region SAMPLER_MANAGER
