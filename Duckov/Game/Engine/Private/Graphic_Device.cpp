@@ -141,6 +141,15 @@ HRESULT CGraphic_Device::Present()
 	return m_pSwapChain->Present(0, 0);	
 }
 
+float2_t CGraphic_Device::Compute_ViewportSize()
+{
+	uint32_t			iNumViewPorts = { 1 };
+	D3D11_VIEWPORT		ViewPortDesc{};
+
+	m_pDeviceContext->RSGetViewports(&iNumViewPorts, &ViewPortDesc);
+
+	return float2_t(ViewPortDesc.Width, ViewPortDesc.Height);
+}
 
 HRESULT CGraphic_Device::Ready_SwapChain(HWND hWnd, WINMODE isWindowed, uint32_t iWinCX, uint32_t iWinCY)
 {

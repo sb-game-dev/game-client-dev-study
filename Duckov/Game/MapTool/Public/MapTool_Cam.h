@@ -15,12 +15,15 @@ public:
     virtual void        Update(f32_t fDeltaTime) override;
     virtual void        Late_Update(f32_t fDeltaTime) override;
 
-private:
-    f32_t   m_fMoveSpeed = { 10.f };
+    virtual void        Set_SceneClicked(bool_t bClicked) { m_bSceneClicked = bClicked; }
 
 private:
-    void    KeyInput(const f32_t fDeltaTime);
-    void    Mouse_Move(); 
+    f32_t       m_fMoveSpeed    = { 10.f };
+    bool_t      m_bSceneClicked = { false };
+
+private:
+    void        KeyInput(const f32_t fDeltaTime);
+    void        Mouse_Move(); 
 
 public:
     static shared_ptr<CMapTool_Cam> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);

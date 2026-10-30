@@ -59,6 +59,7 @@ public:
 	HRESULT			Present();
 
 	HWND			GetHWND() { return m_hWND; }
+	float2_t		Get_ViewportSize() { return m_vViewportSize; }
 
 #pragma region PROTOTYPE_MANAGER
 public:
@@ -154,6 +155,10 @@ private:
 	unique_ptr<CPipeLine>			m_pPipeLine = { nullptr };
 	unique_ptr<CSampler_Manager>	m_pSampler_Manager = { nullptr };
 	HWND							m_hWND = { nullptr };
+
+private:
+	float2_t						m_vViewportSize = {};
+
 public:
 	void			Release_Engine();
 

@@ -9,10 +9,12 @@ HRESULT CMapTool_Cam::Initialize()
 {
 	if (FAILED(__super::Initialize()))
 		return E_FAIL;
-	m_fAspect = static_cast<f32_t>(g_iToolWinSizeX) / g_iToolWinSizeY;
+	float2_t vpSize = CGameInstance::Get().Get_ViewportSize();
+	m_fAspect = static_cast<f32_t>(vpSize.x) / vpSize.y;
 	m_vUp = { 0.f,1.f,0.f };
 	m_vEye = { 0.f,0.f,0.f };
 	m_vAt = { 0.f,0.f,1.f };
+
 	return S_OK;
 }
 
@@ -20,9 +22,11 @@ void CMapTool_Cam::Update(f32_t fDeltaTime)
 {
 	__super::Update(fDeltaTime);
 
-	KeyInput(fDeltaTime);
-
-	Mouse_Move();
+	//if (m_bSceneClicked)
+	//{
+		KeyInput(fDeltaTime);
+		Mouse_Move();
+	//}
 }
 
 void CMapTool_Cam::Late_Update(f32_t fDeltaTime)

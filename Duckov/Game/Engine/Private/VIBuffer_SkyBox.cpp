@@ -31,7 +31,7 @@ HRESULT CVIBuffer_SkyBox::Initialize_Prototype()
     shared_ptr<VTXNORM[]> pVertices = make_shared<VTXNORM[]>(m_iNumVertices);
 
     // 반 텍셀 오프셋 : 면 경계에서 십자 이미지의 빈 칸(배경색)이 선형 필터링으로 섞이지 않게 UV를 안쪽으로 당김
-    // 텍스처 크기가 바뀌면 분모도 같이 바꿀 것 (proc_preview.png = 512 x 384)
+    // 텍스처 크기가 바뀌면 분모도 같이 바꿀 것 
     const float fHU = 0.5f / 512.f;
     const float fHV = 0.5f / 384.f;
 

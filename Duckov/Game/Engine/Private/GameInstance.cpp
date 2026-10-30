@@ -51,6 +51,7 @@ HRESULT CGameInstance::Initialize_Engine(const ENGINE_DESC& EngineDesc, _Out_ Co
 	if (nullptr == m_pSampler_Manager)
 		return E_FAIL;
 
+	m_vViewportSize = m_pGraphic_Device->Compute_ViewportSize();
 	return S_OK;
 }
 
@@ -72,6 +73,7 @@ HRESULT CGameInstance::Clear_Resources(int32_t iCurrentLevel)
 
 void CGameInstance::Update_Engine(f32_t fDeltaTime)
 {
+	m_vViewportSize = m_pGraphic_Device->Compute_ViewportSize();
 	m_pInput_Device->Update();
 
 	m_pObject_Manager->Priority_Update(fDeltaTime);
@@ -85,6 +87,9 @@ void CGameInstance::Update_Engine(f32_t fDeltaTime)
 	m_pCamera_Manager->Late_Update(fDeltaTime);
 	m_pObject_Manager->Late_Update(fDeltaTime);
 	m_pLight_Manager->Late_Update(fDeltaTime);
+
+	/* 이전에 이용할 View, Proj에 대한 셋팅을 끝낸다. */
+	m_pPipeLine->Update();
 
 	m_pLevel_Manager->Update(fDeltaTime);
 }

@@ -2,14 +2,13 @@
 #include "MapTool_Defines.h"
 
 NS_BEGIN(MapTool)
-class CImGui_Manager;
 class CTool;
-class CToolApp final
+class CToolMainApp final
 {
 private:
-	CToolApp() = default;
+	CToolMainApp() = default;
 public:
-	~CToolApp();
+	~CToolMainApp();
 
 public:
 	HRESULT		Initialize();
@@ -20,10 +19,19 @@ private:
 	ComPtr<ID3D11Device>				m_pDevice = { nullptr };
 	ComPtr<ID3D11DeviceContext>			m_pContext = { nullptr };
 
-	unique_ptr<CImGui_Manager>			m_pImGui_Manager = { nullptr };
 	unique_ptr<CTool>					m_pTool = { nullptr };
+	bool_t								m_bReadyImGui = { false };
+
+private:
+	HRESULT								Ready_ImGui();
+	HRESULT								Begin_ImGui();
+	HRESULT								Render_ImGui();
+	HRESULT								Shutdown_ImGui();
+
+	void								Sync_SceneView();
+
 public:
-	static		unique_ptr<CToolApp>		Create();
+	static		unique_ptr<CToolMainApp>		Create();
 };
 
 NS_END

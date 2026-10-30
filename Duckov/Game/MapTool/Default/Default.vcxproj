@@ -122,6 +122,9 @@
     <PreBuildEvent>
       <Command>xcopy "$(SolutionDir)Client\Bin\Shader" "$(SolutionDir)MapTool\Bin\Shader\" /E /Y /I</Command>
     </PreBuildEvent>
+    <Manifest>
+      <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -143,6 +146,9 @@
     <PreBuildEvent>
       <Command>xcopy "$(SolutionDir)Client\Bin\Shader" "$(SolutionDir)MapTool\Bin\Shader\" /E /Y /I</Command>
     </PreBuildEvent>
+    <Manifest>
+      <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
+    </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\ImGui\imconfig.h" />
@@ -153,12 +159,11 @@
     <ClInclude Include="..\ImGui\imstb_rectpack.h" />
     <ClInclude Include="..\ImGui\imstb_textedit.h" />
     <ClInclude Include="..\ImGui\imstb_truetype.h" />
-    <ClInclude Include="..\public\ImGui_Manager.h" />
     <ClInclude Include="..\Public\Level_MapTool.h" />
     <ClInclude Include="..\public\MapTool_Cam.h" />
     <ClInclude Include="..\Public\MapTool_Defines.h" />
     <ClInclude Include="..\Public\Tool.h" />
-    <ClInclude Include="..\public\ToolApp.h" />
+    <ClInclude Include="..\public\ToolMainApp.h" />
     <ClInclude Include="Default.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Resource.h" />
@@ -194,11 +199,10 @@
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
-    <ClCompile Include="..\private\ImGui_Manager.cpp" />
     <ClCompile Include="..\private\Level_MapTool.cpp" />
     <ClCompile Include="..\private\MapTool_Cam.cpp" />
     <ClCompile Include="..\Private\Tool.cpp" />
-    <ClCompile Include="..\private\ToolApp.cpp" />
+    <ClCompile Include="..\private\ToolMainApp.cpp" />
     <ClCompile Include="Default.cpp" />
     <ClCompile Include="..\..\Client\Private\BackGround.cpp" />
     <ClCompile Include="..\..\Client\Private\Client_Mouse.cpp" />

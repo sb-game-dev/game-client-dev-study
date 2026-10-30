@@ -47,7 +47,6 @@ protected:
 	f32_t				m_fAspect = (f32_t)1280 / 720;
 	f32_t				m_fNear = 0.1f;
 	f32_t				m_fFar = 1000.f;
-
 };
 
 NS_END
