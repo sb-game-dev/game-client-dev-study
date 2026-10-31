@@ -26,6 +26,7 @@ using namespace DirectX;
 #include <io.h>
 #include <iostream>
 #include <DirectXCollision.h>
+#include <cwctype>
 
 using namespace std;
 

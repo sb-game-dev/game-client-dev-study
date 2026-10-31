@@ -27,6 +27,24 @@ namespace Engine
 			Pointer = nullptr;
 		}
 	}
+
+	constexpr const tchar_t* g_strResourceRoot = TEXT("../../../Resource/");
+	constexpr const tchar_t* g_strBuiltinPrefix = TEXT("builtin/");
+
+	inline wstring_t Normalize_AssetPath(wstring_t strPath)
+	{
+		// 역슬래시 -> 슬래시로 대체
+		replace(strPath.begin(), strPath.end(), L"\\", L"/");
+		
+		// 대문자 -> 소문자
+		transform(strPath.begin(), strPath.end(), strPath.begin(), ::towlower);
+
+		// 앞에 붙은 루트 제거
+		const wstring_t strRoot = L"../../../resource/";
+		if (0 == strPath.rfind(strRoot, 0))
+			strPath.erase(0, strRoot.size());
+		return strPath;
+	}
 }
 
 #endif // Engine_Function_h__

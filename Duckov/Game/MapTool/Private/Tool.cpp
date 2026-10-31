@@ -127,8 +127,11 @@ void CTool::Render_Scene()
     const f32_t fAspect = static_cast<f32_t>(vpSize.x) / vpSize.y;
 
     // 비율 맞추기                            
-    ImVec2 vSize = vAvail;
-    vSize.y = vAvail.x / fAspect;   
+    ImVec2 vSize = vAvail; 
+    if (vAvail.x / fAspect <= vAvail.y) 
+        vSize.y = vAvail.x / fAspect;
+    else                                
+        vSize.x = vAvail.y * fAspect;
 
     // 가운데 정렬
     // ImGui의 "커서"

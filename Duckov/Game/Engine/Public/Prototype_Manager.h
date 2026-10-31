@@ -15,6 +15,7 @@ public:
 public:
 	HRESULT Initialize(uint32_t iNumLevels);
 	HRESULT Add_Prototype(uint32_t iLevelIndex, const wstring_t& strPrototypeTag, shared_ptr<CPrototype> pPrototype);
+	bool_t	Has_Prototype(uint32_t iLevelIndex, const wstring_t& strPrototypeTag);
 	shared_ptr<CPrototype> Clone_Prototype(uint32_t iLevelIndex, const wstring_t& strPrototypeTag, void* pArg);
 	void Clear(uint32_t iClearLevelIndex);
 

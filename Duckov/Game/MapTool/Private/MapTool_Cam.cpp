@@ -51,8 +51,8 @@ HRESULT CMapTool_Cam::Render()
 
 void CMapTool_Cam::KeyInput(const f32_t fDeltaTime)
 {
-	//if (!CGameInstance::Get().Get_DIMouseState(DIM::RB))
-	//	return;
+	if (!CGameInstance::Get().Get_DIMouseState(DIM::RB))
+		return;
 	if (CGameInstance::Get().Get_DIKeyState(DIK_W))
 	{
 		m_pTransformCom->Go_Straight(fDeltaTime);

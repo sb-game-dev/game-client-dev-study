@@ -22,6 +22,13 @@ HRESULT CPrototype_Manager::Add_Prototype(uint32_t iLevelIndex, const wstring_t&
 	return S_OK;
 }
 
+bool_t CPrototype_Manager::Has_Prototype(uint32_t iLevelIndex, const wstring_t& strPrototypeTag)
+{
+	if (iLevelIndex >= m_iNumLevels)
+		return false;
+	return nullptr != Find_Prototype(iLevelIndex, strPrototypeTag);
+}
+
 shared_ptr<CPrototype> CPrototype_Manager::Clone_Prototype(uint32_t iLevelIndex, const wstring_t& strPrototypeTag, void* pArg)
 {
 	auto        pPrototype = Find_Prototype(iLevelIndex, strPrototypeTag);
