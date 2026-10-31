@@ -36,15 +36,19 @@
 
 ---
 
-## 1단계. 모델 하나를 코드로 띄우기
+## 1단계. VIBuffer로 큐브 하나 띄우기 (모델은 나중에)
 
-**목표**: fbx 모델 하나가 툴의 Scene 창에 보인다.
+**목표**: 내장 VIBuffer(Cube) + 텍스처로 그린 객체가 툴의 Scene 창에 보인다.
 
-- [ ] 엔진의 모델 로딩이 어디까지 되어 있는지 확인 (Assimp, `Material.h`)
-- [ ] 메시 / 머티리얼 / 텍스처를 읽어서 그리는 최소 기능 완성
-- [ ] Level_MapTool에서 코드로 모델 하나를 생성해서 확인
+- [ ] `CCube::Render_Mesh`의 순서(상수버퍼 → 셰이더 → 텍스처 → 버퍼)를 참고해서 그리기
+- [ ] 셰이더는 `Shader_VtxTex.hlsl` (VTXNORM용) 사용
+- [ ] 내장 메시는 cube, rect만 사용 (pyramid는 VTXCOL이라 텍스처 셰이더와 맞지 않음)
+- [ ] Level_MapTool에서 코드로 하나 생성해서 확인
 
-**완료 기준**: Scene 창에 모델이 보이고, 카메라로 둘러볼 수 있다.
+**완료 기준**: Scene 창에 큐브가 보이고, 카메라로 둘러볼 수 있다.
+
+> 메시는 처음부터 **경로 문자열**로 다룬다: 지금 `"builtin/cube"` → 나중에 `"model/wall_01.fbx"`.
+> 저장 형식, 툴 UI, 로더는 그대로 두고 StaticProp 내부만 바꾸면 모델로 전환된다 (10단계).
 
 ---
 
@@ -57,7 +61,8 @@ struct MAP_OBJECT_DESC : public CGameObject::GAMEOBJECT_DESC
 {
 	uint32_t  iLevelIndex = {};             // 컴포넌트를 찾을 레벨 (툴: MAPTOOL, Client: GAMEPLAY)
 	float3_t  vPosition = {}, vRotation = {}, vScale = { 1, 1, 1 };   // 회전은 degree
-	wstring_t strModelPath;                 // 모델을 쓰는 클래스만
+	wstring_t strMeshPath;                  // 지금 "builtin/cube", 나중 "model/xxx.fbx"
+	wstring_t strTexturePath;               // builtin 메시용 (모델은 자체 머티리얼 사용)
 	bool_t    bEditorMode = { false };      // true면 로직을 건너뛰고 렌더만
 };
 ```
@@ -73,17 +78,18 @@ struct MAP_OBJECT_DESC : public CGameObject::GAMEOBJECT_DESC
 
 ---
 
-## 3단계. CStaticProp + 모델 캐시
+## 3단계. CStaticProp + 에셋 캐시
 
-**목표**: 클래스 하나로 모든 구조물을 표현한다. 같은 모델은 한 번만 로드한다.
+**목표**: 클래스 하나로 모든 구조물을 표현한다. 같은 메시/텍스처는 한 번만 로드한다.
 
 - [ ] `CStaticProp : CMapObject` 생성 (Client)
-  - [ ] `Initialize`에서 `pDesc->strModelPath`로 모델을 가져옴
+  - [ ] 메시를 만드는 곳은 `Ready_Mesh()` 한 함수로: `"builtin/"`이면 VIBuffer + 텍스처, 아니면 (지금은) 실패
+  - [ ] `Render()`도 분기: `m_pModel`이 있으면 `Render_Model()`(나중), 없으면 `Render_Buffer()`
   - [ ] `Late_Update`에서 `Add_RenderGroup(NONALPHA)` (처음엔 컬링 끄기)
-- [ ] 모델 캐시: "경로로 찾고, 없으면 로드"
+- [ ] 에셋 캐시: "경로로 찾고, 없으면 로드"
   - [ ] `Prototype_Manager`에 `Has_Prototype` 추가 (`Find_Prototype`이 private이라)
   - [ ] 경로 정규화 (`\` → `/`, 소문자, Resource 기준 상대 경로)
-  - [ ] `Get_Or_Load_Model(레벨, 경로)` : 확인 → 없으면 생성 + `Add_Prototype` → Clone
+  - [ ] `Get_Or_Load_Texture(레벨, 경로)`, `Get_Or_Load_Mesh(레벨, "builtin/cube")` : 확인 → 없으면 생성 + `Add_Prototype` → Clone
   - [ ] Device가 필요한 곳 결정 (추천: `CAsset_Manager::Create(pDevice, pContext, Prototype_Manager*)`)
 - [ ] 프로토타입 `Proto::Obj_StaticProp` 등록
 
@@ -101,7 +107,8 @@ struct MAP_OBJECT_DESC : public CGameObject::GAMEOBJECT_DESC
 **목표**: 툴에서 클릭으로 객체를 만들고, 고르고, 지운다.
 
 - [ ] 배치 가능한 목록: `{ 표시 이름, 프로토타입 태그 }` 배열
-- [ ] 모델 목록: Resource/Model 폴더를 훑어서 fbx 파일 목록 만들기
+- [ ] 메시 목록: 지금은 `builtin/cube`, `builtin/rect` (10단계 이후 fbx 추가)
+- [ ] 텍스처 선택: 경로 입력 또는 파일 대화상자
 - [ ] Hierarchy 창
   - [ ] 생성: 목록에서 골라 `Add_GameObject` (StaticProp이면 모델 경로 포함)
   - [ ] 선택: `Selectable`로 목록 표시, 선택 객체 보관 (`weak_ptr`)
@@ -135,7 +142,8 @@ struct MAP_OBJECT_DESC : public CGameObject::GAMEOBJECT_DESC
 [개수]
 [반복]
   프로토타입 태그        (문자열)
-  모델 경로              (문자열, 없으면 빈 문자열)
+  메시 경로              (문자열, "builtin/cube" 또는 "model/xxx.fbx", 없으면 빈 문자열)
+  텍스처 경로            (문자열, builtin 메시용)
   위치 / 회전 / 크기      (float × 9)
   추가 데이터 크기        (uint32)   ← 모르는 클래스면 이만큼 건너뜀
   추가 데이터            (Save_Extra가 쓴 바이트)
@@ -178,6 +186,21 @@ struct MAP_OBJECT_DESC : public CGameObject::GAMEOBJECT_DESC
 - [ ] SkyBox처럼 `#ifdef _MAPTOOL`이 있던 클래스는 분기 제거
 
 **완료 기준**: 옮긴 클래스가 툴과 게임 양쪽에서 같은 코드로 동작한다.
+
+---
+
+## 10단계. 모델(fbx)로 전환 — 모델 로드를 익힌 뒤
+
+**목표**: `strMeshPath`에 fbx 경로를 넣으면 모델이 그려진다. 기존 `builtin/` 맵 파일도 그대로 읽힌다.
+
+- [ ] 엔진의 모델 로딩 확인 (Assimp, `Material.h`)
+- [ ] `Get_Or_Load_Model(레벨, 경로)` 추가 (3단계 캐시와 같은 방식)
+- [ ] `CStaticProp::Ready_Mesh`의 else 블록 채우기
+- [ ] `Render_Model()` 작성 — 모델은 **메시 여러 개 + 메시별 머티리얼**이라 메시 단위로 반복
+- [ ] 모델용 정점 형식(탄젠트 등)에 맞는 셰이더 준비
+- [ ] 툴 메시 목록에 Resource/Model 폴더의 fbx 추가
+
+**완료 기준**: 큐브와 모델이 한 맵에 섞여 있어도 저장/불러오기가 된다.
 
 ---
 
