@@ -151,10 +151,12 @@
     <ClInclude Include="..\public\Cube_Instance.h" />
     <ClInclude Include="..\Public\Fog.h" />
     <ClInclude Include="..\public\Free_Cam.h" />
+    <ClInclude Include="..\public\MapObject.h" />
     <ClInclude Include="..\Public\Mirror.h" />
     <ClInclude Include="..\public\Client_Mouse.h" />
     <ClInclude Include="..\public\Scope.h" />
     <ClInclude Include="..\public\SkyBox.h" />
+    <ClInclude Include="..\public\StaticProp.h" />
     <ClInclude Include="..\public\SunLight.h" />
     <ClInclude Include="..\public\Hill.h" />
     <ClInclude Include="..\Public\Inven.h" />
@@ -179,10 +181,12 @@
     <ClCompile Include="..\private\Cube_Instance.cpp" />
     <ClCompile Include="..\private\Fog.cpp" />
     <ClCompile Include="..\private\Free_Cam.cpp" />
+    <ClCompile Include="..\private\MapObject.cpp" />
     <ClCompile Include="..\private\Mirror.cpp" />
     <ClCompile Include="..\private\Client_Mouse.cpp" />
     <ClCompile Include="..\private\Scope.cpp" />
     <ClCompile Include="..\private\SkyBox.cpp" />
+    <ClCompile Include="..\private\StaticProp.cpp" />
     <ClCompile Include="..\private\SunLight.cpp" />
     <ClCompile Include="..\private\Loader.cpp" />
     <ClCompile Include="..\private\Player.cpp" />

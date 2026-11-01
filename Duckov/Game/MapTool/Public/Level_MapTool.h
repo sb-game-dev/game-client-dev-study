@@ -19,6 +19,7 @@ public:
 private:
 	HRESULT Ready_Layer_BackGround(const tchar_t* pLayerTag);
 	HRESULT Ready_Layer_GameObject(const tchar_t* pLayerTag);
+	HRESULT Ready_Layer_Map(const tchar_t* pLayerTag);
 public:
 	static shared_ptr<CLevel_MapTool> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
 };

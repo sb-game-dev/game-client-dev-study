@@ -94,6 +94,12 @@
     <Filter Include="03. Camera\01. Free_Cam">
       <UniqueIdentifier>{04e6eebb-9363-4a90-97c1-3263e8421532}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObjects\13. StaticProp">
+      <UniqueIdentifier>{de11b3b9-daf9-4d3a-8f0c-b61c6a4436cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObjects\12. MapObject">
+      <UniqueIdentifier>{2bcb1537-a79d-40f2-85b9-8e225c544874}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -183,6 +189,12 @@
     <ClInclude Include="..\public\Free_Cam.h">
       <Filter>03. Camera\01. Free_Cam</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\StaticProp.h">
+      <Filter>02. GameObjects\13. StaticProp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\MapObject.h">
+      <Filter>02. GameObjects\12. MapObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -269,6 +281,12 @@
     </ClCompile>
     <ClCompile Include="..\private\Free_Cam.cpp">
       <Filter>03. Camera\01. Free_Cam</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\StaticProp.cpp">
+      <Filter>02. GameObjects\13. StaticProp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\MapObject.cpp">
+      <Filter>02. GameObjects\12. MapObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

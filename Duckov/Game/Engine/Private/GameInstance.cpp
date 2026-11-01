@@ -50,7 +50,9 @@ HRESULT CGameInstance::Initialize_Engine(const ENGINE_DESC& EngineDesc, _Out_ Co
 	m_pSampler_Manager = CSampler_Manager::Create(pDevice, pContext);
 	if (nullptr == m_pSampler_Manager)
 		return E_FAIL;
-
+	m_pAsset_Manager = CAsset_Manager::Create(pDevice, pContext);
+	if (nullptr == m_pAsset_Manager)
+		return E_FAIL;
 	m_vViewportSize = m_pGraphic_Device->Compute_ViewportSize();
 	return S_OK;
 }
@@ -143,6 +145,11 @@ HRESULT CGameInstance::Add_Prototype(uint32_t iLevelIndex, const wstring_t& strP
 shared_ptr<CPrototype> CGameInstance::Clone_Prototype(uint32_t iLevelIndex, const wstring_t& strPrototypeTag, void* pArg)
 {
 	return m_pPrototype_Manager->Clone_Prototype(iLevelIndex, strPrototypeTag, pArg);
+}
+
+bool_t CGameInstance::Has_Prototype(uint32_t iLevelIndex, const wstring_t& strPrototypeTag)
+{
+	return m_pPrototype_Manager->Has_Prototype(iLevelIndex, strPrototypeTag);
 }
 
 #pragma endregion
@@ -329,8 +336,22 @@ HRESULT CGameInstance::Bind_Sampler_Pixel_Shader(const wstring_t& strSamplerTag,
 
 #pragma endregion
 
+#pragma region ASSET_MANAGER
+HRESULT CGameInstance::Get_Or_Load_Texture(uint32_t iLevelIndex, const wstring_t& strPath, _Out_ wstring_t& strTag)
+{
+	return m_pAsset_Manager->Get_Or_Load_Texture(iLevelIndex, strPath, strTag);
+}
+
+HRESULT CGameInstance::Get_or_Load_Mesh(uint32_t iLevelIndex, const wstring_t& strPath, wstring_t& _Out_ strTag)
+{
+	return m_pAsset_Manager->Get_or_Load_Mesh(iLevelIndex, strPath, strTag);
+}
+
+#pragma endregion
+
 void CGameInstance::Release_Engine()
 {
+	m_pAsset_Manager.reset();
 	m_pSampler_Manager.reset();
 	m_pPipeLine.reset();
 	m_pInput_Device.reset();

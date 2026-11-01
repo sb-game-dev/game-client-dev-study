@@ -151,6 +151,7 @@ xcopy "$(SolutionDir)Engine\Bin\Engine.dll" "$(SolutionDir)MapTool\Bin\" /Y</Com
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\public\Asset_Manager.h" />
     <ClInclude Include="..\public\BlurFilter.h" />
     <ClInclude Include="..\public\Camera.h" />
     <ClInclude Include="..\public\Camera_Manager.h" />
@@ -200,6 +201,7 @@ xcopy "$(SolutionDir)Engine\Bin\Engine.dll" "$(SolutionDir)MapTool\Bin\" /Y</Com
     <ClInclude Include="..\public\VIBuffer_Rect.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\private\Asset_Manager.cpp" />
     <ClCompile Include="..\private\BlurFilter.cpp" />
     <ClCompile Include="..\private\Camera.cpp" />
     <ClCompile Include="..\private\Camera_Manager.cpp" />

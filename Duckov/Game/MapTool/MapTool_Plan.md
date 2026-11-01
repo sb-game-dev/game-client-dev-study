@@ -150,7 +150,11 @@ struct MAP_OBJECT_DESC : public CGameObject::GAMEOBJECT_DESC
 ```
 
 - [ ] 문자열 쓰기/읽기 헬퍼 (길이 + 내용)
-- [ ] `Save_Map(경로)` / `Load_Map(레벨, 경로, 레이어)` — **툴과 Client가 같이 쓰도록** 공용 위치에 두기
+- [ ] `Save_Map(경로)` — **툴과 Client가 같이 쓰도록** 공용 위치에 두기
+- [ ] 불러오기는 **두 함수로 나누기** (7단계에서 Loader 스레드와 메인 스레드로 나눠 쓰기 위해)
+  - [ ] `Parse_Map(경로, vector<MAPOBJECT_DESC>&)` : 파일 읽기 + DESC 목록 만들기 (+ 메시/텍스처 `Get_Or_Load`) — 객체 생성 안 함
+  - [ ] `Spawn_Map(레벨, 레이어, const vector<…>&)` : 목록으로 `Add_GameObject` — 캐시에 있으니 Clone만
+  - [ ] 툴에서는 두 함수를 연달아 호출
 - [ ] 메뉴바 연결: New / Open / Save / Save As
 - [ ] 파일 대화상자 (`GetSaveFileName` / `GetOpenFileName`, `OFN_NOCHANGEDIR` 필수)
 - [ ] 경로는 Resource 기준 상대 경로로 저장 (절대 경로 저장 금지)
@@ -163,9 +167,16 @@ struct MAP_OBJECT_DESC : public CGameObject::GAMEOBJECT_DESC
 
 **목표**: 툴에서 만든 맵이 게임에 그대로 나온다.
 
-- [ ] Level_GamePlay에서 프로토타입 등록 (같은 태그)
-- [ ] `Load_Map(ETOUI(LEVEL::GAMEPLAY), L"…/Stage1.map", L"Layer_Map")`
+- [ ] Loader에서 프로토타입 등록 (같은 태그) — 셰이더, 객체 원형(`Obj_StaticProp` 등)
+- [ ] **Loader 스레드**: `Parse_Map(L"…/Stage1.map", Descs)` → 메시/텍스처가 로딩 화면 동안 캐시에 로드됨
+- [ ] **메인 스레드** (Level_GamePlay::Initialize): `Spawn_Map(ETOUI(LEVEL::GAMEPLAY), L"Layer_Map", Descs)`
 - [ ] 카메라, UI, 조명, 플레이어는 기존처럼 코드에서 생성
+
+**스레드 주의**
+- `Add_GameObject`는 스레드에서 호출 금지 (메인이 매 프레임 레이어를 순회함)
+- Prototype_Manager의 map은 잠금이 없음 → 스레드는 GAMEPLAY 레벨에만 쓰고, 메인은 LOADING 레벨만 읽는 구분 유지
+- `CTexture::Create` 등이 DeviceContext를 쓰면 렌더링과 충돌할 수 있음 → 원인 모를 크래시 시 먼저 의심
+- 이후 Loader의 맵 구조물용 텍스처/버퍼 수동 등록은 8단계에서 클래스를 옮길 때 하나씩 제거
 
 **완료 기준**: 툴에서 본 배치와 게임 화면이 같다. ← **여기까지가 1차 완성**
 

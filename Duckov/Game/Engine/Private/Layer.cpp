@@ -8,6 +8,8 @@ CLayer::CLayer()
 
 HRESULT CLayer::Add_GameObject(const wstring_t& strGameObjectTag, shared_ptr<class CGameObject> pGameObject)
 {
+    if (false == m_GameObjects.emplace(strGameObjectTag, pGameObject).second)
+        return E_FAIL;
     m_GameObjects.emplace(strGameObjectTag, pGameObject);
 
     return S_OK;
@@ -38,6 +40,11 @@ void CLayer::Late_Update(f32_t fTimeDelta)
             Pair.second->Late_Update(fTimeDelta);
         }
     }
+}
+
+HRESULT CLayer::Remove_GameObject(const wstring_t& strGameObjectTag)
+{
+    return 0 < m_GameObjects.erase(strGameObjectTag) ? S_OK : E_FAIL;
 }
 
 shared_ptr<CGameObject> CLayer::Find_GameObject(const wstring_t& strGameObjectTag)

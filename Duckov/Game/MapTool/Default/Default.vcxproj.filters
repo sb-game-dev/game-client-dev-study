@@ -4,9 +4,6 @@
     <Filter Include="02. Level">
       <UniqueIdentifier>{a06888d6-f2ae-45e3-966c-9ab096df39de}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. Camera">
-      <UniqueIdentifier>{58791968-7942-4dab-b145-abcdd852998b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="96. ImGui">
       <UniqueIdentifier>{35d19600-144f-4c11-b19f-199fda6ec4e9}</UniqueIdentifier>
     </Filter>
@@ -24,6 +21,12 @@
     </Filter>
     <Filter Include="00. ToolMainApp">
       <UniqueIdentifier>{d322c9e4-7ce8-4664-b073-d99f62b7abe1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Object">
+      <UniqueIdentifier>{767fcb4a-0273-40a1-8154-d628336104ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Object\00. Camera">
+      <UniqueIdentifier>{58791968-7942-4dab-b145-abcdd852998b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -73,7 +76,7 @@
       <Filter>02. Level</Filter>
     </ClInclude>
     <ClInclude Include="..\public\MapTool_Cam.h">
-      <Filter>03. Camera</Filter>
+      <Filter>03. Object\00. Camera</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\MapTool_Defines.h">
       <Filter>99. Defines</Filter>
@@ -188,7 +191,13 @@
       <Filter>02. Level</Filter>
     </ClCompile>
     <ClCompile Include="..\private\MapTool_Cam.cpp">
-      <Filter>03. Camera</Filter>
+      <Filter>03. Object\00. Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\StaticProp.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\MapObject.cpp">
+      <Filter>97. Client_Shared</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -13,6 +13,7 @@
 #include "Texture.h"
 #include "Pipeline.h"
 #include "Sampler_Manager.h"
+#include "Asset_Manager.h"
 
 // ¹öÆÛ
 #include "VIBuffer_Rect.h"
@@ -65,6 +66,7 @@ public:
 public:
 	HRESULT Add_Prototype(uint32_t iLevelIndex, const wstring_t& strPrototypeTag, shared_ptr<CPrototype> pPrototype);
 	shared_ptr<CPrototype> Clone_Prototype(uint32_t iLevelIndex, const wstring_t& strPrototypeTag, void* pArg = nullptr);
+	bool_t	Has_Prototype(uint32_t iLevelIndex, const wstring_t& strPrototypeTag);
 #pragma endregion
 
 #pragma region LEVEL_MANAGER
@@ -142,6 +144,11 @@ public:
 	HRESULT Bind_Sampler_Pixel_Shader(const wstring_t& strSamplerTag, uint32_t iSlot);
 #pragma endregion
 
+#pragma region ASSET_MANAGER
+	HRESULT	Get_Or_Load_Texture(uint32_t iLevelIndex, const wstring_t& strPath, _Out_ wstring_t& strTag);
+	HRESULT	Get_or_Load_Mesh(uint32_t iLevelIndex, const wstring_t& strPath, _Out_ wstring_t& strTag);
+#pragma endregion
+
 private:
 	unique_ptr<CGraphic_Device>		m_pGraphic_Device = { nullptr };
 	unique_ptr<CObject_Manager>		m_pObject_Manager = { nullptr };
@@ -154,6 +161,7 @@ private:
 	unique_ptr<CInput_Device>       m_pInput_Device = { nullptr };
 	unique_ptr<CPipeLine>			m_pPipeLine = { nullptr };
 	unique_ptr<CSampler_Manager>	m_pSampler_Manager = { nullptr };
+	unique_ptr<CAsset_Manager>		m_pAsset_Manager = { nullptr };
 	HWND							m_hWND = { nullptr };
 
 private:

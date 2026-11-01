@@ -171,6 +171,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Client\Private\Free_Cam.cpp" />
+    <ClCompile Include="..\..\Client\Private\MapObject.cpp" />
+    <ClCompile Include="..\..\Client\Private\StaticProp.cpp" />
     <ClCompile Include="..\ImGui\imgui.cpp">
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/utf-8 %(AdditionalOptions)</AdditionalOptions>

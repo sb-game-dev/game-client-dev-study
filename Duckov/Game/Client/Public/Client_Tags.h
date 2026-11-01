@@ -19,6 +19,7 @@ namespace Client
 		inline constexpr const wchar_t* Texture_Mirror = L"Prototype_Component_Texture_Mirror";
 		inline constexpr const wchar_t* Texture_Terrain_Blend = L"Prototype_Component_Texture_Terrain_Blend";
 		inline constexpr const wchar_t* Texture_Terrain_Layer = L"Prototype_Component_Texture_Terrain_Layer";
+		inline constexpr const wchar_t* Texture_Prop = L"Prototype_Component_Texture_Prop";
 
 		// ---------- VIBuffer ----------
 		inline constexpr const wchar_t* VIBuffer_Rect = L"Prototype_Component_VIBuffer_Rect";
@@ -68,6 +69,7 @@ namespace Client
 		inline constexpr const wchar_t* Obj_QuaterViewCam = L"Prototype_GameObject_QuaterViewCam";
 		inline constexpr const wchar_t* Obj_FreeCam = L"Prototype_GameObject_FreeCam";
 		inline constexpr const wchar_t* Obj_MapToolCam = L"Prototype_GameObject_MapToolCam";
+		inline constexpr const wchar_t* Obj_StaticProp = L"Prototype_GameObject_StaticProp";
 
 	}
 
@@ -92,6 +94,7 @@ namespace Client
 		inline constexpr const wchar_t* QuaterViewCam = L"GameObject_QuaterViewCam";
 		inline constexpr const wchar_t* FreeCam = L"GameObject_FreeCam";
 		inline constexpr const wchar_t* MapToolCam = L"GameObject_MapToolCam";
+		inline constexpr const wchar_t* StaticProp = L"GameObject_StaticProp";
 	}
 
 	/* =========================================================

@@ -136,6 +136,9 @@
     <Filter Include="05. GameObject\02. Camera\Manager">
       <UniqueIdentifier>{e76d5229-a85c-4319-ac10-d604d10d9e8f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="14. AssetManager">
+      <UniqueIdentifier>{145b4ae2-e7fb-4a5a-88ff-eb8c65cb4b77}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Engine_Defines.h">
@@ -279,6 +282,9 @@
     <ClInclude Include="..\public\Sampler_Manager.h">
       <Filter>13. Sampler\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\Asset_Manager.h">
+      <Filter>14. AssetManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Timer.cpp">
@@ -400,6 +406,9 @@
     </ClCompile>
     <ClCompile Include="..\private\Sampler_Manager.cpp">
       <Filter>13. Sampler\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Asset_Manager.cpp">
+      <Filter>14. AssetManager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
