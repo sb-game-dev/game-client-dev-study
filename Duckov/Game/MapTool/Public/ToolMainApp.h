@@ -19,7 +19,7 @@ private:
 	ComPtr<ID3D11Device>				m_pDevice = { nullptr };
 	ComPtr<ID3D11DeviceContext>			m_pContext = { nullptr };
 
-	unique_ptr<CEditorUI>					m_pEditorUI = { nullptr };
+	unique_ptr<CEditorUI>				m_pEditorUI = { nullptr };
 	bool_t								m_bReadyImGui = { false };
 
 private:

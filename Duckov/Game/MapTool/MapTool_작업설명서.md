@@ -41,10 +41,10 @@ Duckov/Game/
    ├─ Default/    Default.cpp(WinMain), Default.vcxproj, imgui.ini
    ├─ ImGui/      imgui 소스 (imgui.cpp, imgui_draw.cpp, imgui_widgets.cpp, imgui_tables.cpp,
    │              imgui_demo.cpp, imgui_impl_win32.cpp, imgui_impl_dx11.cpp + 헤더)
-   ├─ Public/     MapTool_Defines.h, ToolMainApp.h, Level_MapTool.h, MapTool_Cam.h, ImGui_Manager.h,
+   ├─ Public/     MapTool_Defines.h, ToolMainApp.h, Level_MapTool.h, MapTool_Cam.h,
    │              EditorUI.h, EditorUI_Defines.h, EditorUI_Utils.h,
    │              Panel.h, Panel_Hierarchy.h, Panel_Scene.h, Panel_Inspector.h
-   ├─ Private/    ToolMainApp.cpp, Level_MapTool.cpp, MapTool_Cam.cpp, ImGui_Manager.cpp,
+   ├─ Private/    ToolMainApp.cpp, Level_MapTool.cpp, MapTool_Cam.cpp,
    │              EditorUI.cpp, Panel_Hierarchy.cpp, Panel_Scene.cpp, Panel_Inspector.cpp
    └─ Bin/        Engine.dll, Shader/ (Client/Bin/Shader에서 빌드 후 복사)
 ```
@@ -257,6 +257,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 **ToolMainApp.h**
 
 ```cpp
+#pragma once
+#include "MapTool_Defines.h"
+
 NS_BEGIN(MapTool)
 class CEditorUI;
 class CToolMainApp final
@@ -284,6 +287,19 @@ public:
 	static unique_ptr<CToolMainApp> Create();
 };
 NS_END
+```
+
+**ToolMainApp.cpp** — include
+
+```cpp
+#include "imgui.h"
+#include "MapTool_Defines.h"
+#include "ToolMainApp.h"
+#include "imgui_impl_win32.h"
+#include "imgui_impl_dx11.h"
+#include "Level_MapTool.h"
+#include "EditorUI.h"
+#include "MapTool_Cam.h"        // 5-3 Sync_SceneView에서 사용
 ```
 
 **Initialize** — 엔진 → ImGui → CEditorUI → 레벨 순서
@@ -404,7 +420,6 @@ HRESULT CToolMainApp::Render()
 }
 ```
 
-> 참고: `CImGui_Manager` 클래스(Initialize/Begin_Frame/Render)도 같은 내용으로 만들어 두었지만, 현재는 `CToolMainApp`이 직접 처리하고 있다. 둘 중 하나만 쓰면 된다.
 
 **확인**: `View → ImGui Demo`로 데모 창이 뜨고, 클릭/드래그가 된다.
 
@@ -800,6 +815,11 @@ Client와 MapTool이 **같은 Renderer 코드**를 쓰고, 마지막 복사만 `
 ### 4-2. Renderer.h — 멤버 추가
 
 ```cpp
+#pragma once
+#include "Engine_Defines.h"
+#include "BlurFilter.h"         // CBlurFilter (블러용)
+
+// --- class CRenderer 안 ---
 public:
 	void	Set_DrawToBackBuffer(bool_t bDraw)			{ m_bDrawToBackBuffer = bDraw; }
 	ID3D11ShaderResourceView* Get_SceneSRV()const		{ return m_pSceneSRV.Get(); }
@@ -828,6 +848,11 @@ private:
 `CRenderer::Initialize`에서 다른 상태 객체들과 함께 한 번 호출한다.
 
 ```cpp
+// Renderer.cpp
+#include "Renderer.h"
+#include "GameObject.h"
+#include "GameInstance.h"
+
 HRESULT CRenderer::Ready_SceneTarget(uint32_t iWinSizeX, uint32_t iWinSizeY)
 {
 	// 1. 텍스처 생성
@@ -1050,7 +1075,34 @@ struct EDITOR_CONTEXT
 	bool_t		GetSceneCliked() { return m_Context.bSceneFocused; }
 ```
 
-### 4-8. CPanel_Scene::Render
+### 4-8. CPanel_Scene
+
+**Panel_Scene.h**
+
+```cpp
+#pragma once
+#include "Panel.h"
+
+NS_BEGIN(MapTool)
+// 엔진이 그린 씬 텍스처(RTT)를 비율에 맞춰 표시
+// 포커스/hover/이미지 영역을 Context에 기록한다 (카메라, 피킹용)
+class CPanel_Scene final : public CPanel
+{
+private:
+	explicit CPanel_Scene(EDITOR_CONTEXT& Context) : CPanel{ Context } {}
+public:
+	virtual ~CPanel_Scene() = default;
+
+public:
+	virtual void	Render(const PANEL_RECT& tRect) override;
+
+public:
+	static unique_ptr<CPanel_Scene> Create(EDITOR_CONTEXT& Context);
+};
+NS_END
+```
+
+**Panel_Scene.cpp**
 
 ```cpp
 #include "EditorUI_Utils.h"
@@ -1120,6 +1172,11 @@ void CPanel_Scene::Render(const PANEL_RECT& tRect)
 - DESC
 
 ```cpp
+// Camera.h
+#pragma once
+#include "GameObject.h"
+
+// --- class ENGINE_DLL CCamera abstract : public CGameObject 안 ---
 typedef struct tagCameraDesc : public CGameObject::GAMEOBJECT_DESC
 {
 	float4_t		vEye, vAt;
@@ -1131,6 +1188,9 @@ typedef struct tagCameraDesc : public CGameObject::GAMEOBJECT_DESC
 - `Update_PipeLines()`: **View = 월드행렬의 역행렬**, **Proj = PerspectiveFovLH(fovy, 뷰포트 가로/세로, near, far)** 를 파이프라인에 설정
 
 ```cpp
+// Camera.cpp
+#include "Camera.h"
+
 void CCamera::Update_PipeLines()
 {
 	CGameInstance::Get().Set_Perspective_Transform(D3DTS::VIEW,
@@ -1150,6 +1210,16 @@ void CCamera::Update_PipeLines()
 ```cpp
 enum class CAMERA { ORTHOGRAPHIC, QUARTERVIEW, FREE, END };   // Engine_Enum.h
 
+// Camera_Manager.h
+#pragma once
+#include "Engine_Defines.h"
+
+// Camera_Manager.cpp
+#include "Camera_Manager.h"
+#include "Camera.h"
+
+// --- class CCamera_Manager 안 ---
+
 void				Add_Camera(CAMERA eCameraID, shared_ptr<CCamera> pCamera);
 void				Set_MainCamera(CAMERA eCameraID);
 shared_ptr<CCamera> Get_MainCamera() { return m_pMainCamera.lock(); }
@@ -1160,6 +1230,10 @@ shared_ptr<CCamera> Get_MainCamera() { return m_pMainCamera.lock(); }
 **MapTool_Cam.h**
 
 ```cpp
+#pragma once
+#include "Camera.h"
+#include "Client_Defines.h"
+
 NS_BEGIN(Client)
 class CMapTool_Cam : public CCamera
 {
@@ -1196,6 +1270,20 @@ NS_END
 **MapTool_Cam.cpp 핵심**
 
 ```cpp
+#include "MapTool_Cam.h"
+
+CMapTool_Cam::CMapTool_Cam(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
+	:CCamera{ pDevice, pContext }
+{
+}
+
+HRESULT CMapTool_Cam::Initialize_Prototype()
+{
+	if (FAILED(__super::Initialize_Prototype()))
+		return E_FAIL;
+	return S_OK;
+}
+
 HRESULT CMapTool_Cam::Initialize(void* pArg)
 {
 	auto pDesc = static_cast<tagMapToolCamDesc*>(pArg);
@@ -1258,7 +1346,49 @@ void CToolMainApp::Sync_SceneView()
 
 **목표**: 툴 레벨이 시작되면 SkyBox, 카메라, StaticProp 원형이 준비된다. 맵 객체는 `Layer_Map`에 들어간다.
 
+**Level_MapTool.h**
+
 ```cpp
+#pragma once
+#include "MapTool_Defines.h"
+#include "Level.h"
+
+NS_BEGIN(MapTool)
+class CLevel_MapTool final : public CLevel
+{
+private:
+	CLevel_MapTool(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
+public:
+	~CLevel_MapTool() = default;
+
+public:
+	virtual		HRESULT		Initialize() override;
+	virtual		void		Update(f32_t fDeltaTime) override;
+	virtual		HRESULT		Render() override;
+
+private:
+	HRESULT Ready_Layer_BackGround(const tchar_t* pLayerTag);
+	HRESULT Ready_Layer_GameObject(const tchar_t* pLayerTag);
+	HRESULT Ready_Layer_Map(const tchar_t* pLayerTag);
+public:
+	static shared_ptr<CLevel_MapTool> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
+};
+NS_END
+```
+
+**Level_MapTool.cpp**
+
+```cpp
+#include "Level_MapTool.h"
+#include "MapTool_Cam.h"
+#include "SkyBox.h"
+#include "StaticProp.h"
+
+CLevel_MapTool::CLevel_MapTool(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
+    :CLevel{ pDevice,pContext }
+{
+}
+
 HRESULT CLevel_MapTool::Initialize()
 {
     if (FAILED(__super::Initialize()))
@@ -1392,6 +1522,13 @@ NS_END
 ### 7-2. MapObject.cpp
 
 ```cpp
+#include "MapObject.h"
+
+CMapObject::CMapObject(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
+    :CGameObject(pDevice, pContext)
+{
+}
+
 HRESULT CMapObject::Initialize(void* pArg)
 {
     if (nullptr == pArg)
@@ -1431,6 +1568,10 @@ void CMapObject::Apply_Transform()
 현재 크기를 유지한 채 기본 축을 오일러 회전시킨다.
 
 ```cpp
+// Transform.cpp
+#include "Transform.h"
+#include "ConstantBuffer.h"
+
 void CTransform::Rotation(f32_t fDegreeX, f32_t fDegreeY, f32_t fDegreeZ)
 {
 	float3_t	vScaled = Get_Scaled();
@@ -1463,6 +1604,16 @@ void CTransform::Rotation(f32_t fDegreeX, f32_t fDegreeY, f32_t fDegreeZ)
 ### 8-1. Engine_Function.h — 경로 정규화 + 상수
 
 ```cpp
+// Engine_Function.h는 따로 include하지 않는다.
+// Engine_Defines.h가 <algorithm>, <cwctype>, <string> 다음에 이 파일을 include하므로
+// replace / transform / towlower를 그대로 쓸 수 있다.
+#ifndef Engine_Function_h__
+#define Engine_Function_h__
+
+namespace Engine
+{
+// ... 기존 Safe_Delete 등 ...
+
 constexpr const tchar_t* g_strResourceRoot  = TEXT("../../../Resource/");
 constexpr const tchar_t* g_strBuiltinPrefix = TEXT("builtin/");
 
@@ -1478,13 +1629,23 @@ inline wstring_t Normalize_AssetPath(wstring_t strPath)
 		strPath.erase(0, strRoot.size());
 	return strPath;
 }
+}
+
+#endif // Engine_Function_h__
 ```
 - 예: `L"Ex\\WoodCrate01.dds"` → `L"ex/woodcrate01.dds"`
-- `Engine_Defines.h`에 `<algorithm>` 등 필요한 헤더 추가
+- `Engine_Defines.h`에 `<algorithm>`(replace, transform), `<cwctype>`(towlower)이 이 파일보다 먼저 include되어 있어야 함 (없으면 추가). `wstring_t`, `tchar_t`는 바로 앞의 `Engine_Typedef.h`
 
 ### 8-2. Prototype_Manager — Has_Prototype 추가 (`Find_Prototype`이 private이라)
 
 ```cpp
+// Prototype_Manager.h — public에 선언
+	bool_t	Has_Prototype(uint32_t iLevelIndex, const wstring_t& strPrototypeTag);
+
+// Prototype_Manager.cpp
+#include "Prototype_Manager.h"
+#include "Prototype.h"
+
 bool_t CPrototype_Manager::Has_Prototype(uint32_t iLevelIndex, const wstring_t& strPrototypeTag)
 {
 	if (iLevelIndex >= m_iNumLevels)
@@ -1496,7 +1657,12 @@ bool_t CPrototype_Manager::Has_Prototype(uint32_t iLevelIndex, const wstring_t& 
 
 ### 8-3. Asset_Manager.h / .cpp (Engine)
 
+**Asset_Manager.h**
+
 ```cpp
+#pragma once
+#include "Engine_Defines.h"
+
 NS_BEGIN(Engine)
 class CPrototype;
 class CAsset_Manager final
@@ -1520,7 +1686,18 @@ public:
 NS_END
 ```
 
+**Asset_Manager.cpp**
+
 ```cpp
+#include "Asset_Manager.h"
+#include "GameInstance.h"       // Has_Prototype, Add_Prototype, CTexture, CVIBuffer_Cube/Rect
+
+CAsset_Manager::CAsset_Manager(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
+	:m_pDevice{pDevice}
+	,m_pContext{pContext}
+{
+}
+
 HRESULT CAsset_Manager::Get_Or_Load_Texture(uint32_t iLevelIndex, const wstring_t& strPath, _Out_ wstring_t& strTag)
 {
     strTag = Normalize_AssetPath(strPath);                       // 1. 태그 = 정규화 경로
@@ -1619,6 +1796,10 @@ inline constexpr const wchar_t* StaticProp     = L"GameObject_StaticProp";      
 ### 9-3. StaticProp.h
 
 ```cpp
+#pragma once
+#include "Client_Defines.h"
+#include "MapObject.h"
+
 NS_BEGIN(Client)
 class CStaticProp : public CMapObject
 {
@@ -1662,19 +1843,38 @@ NS_END
 
 ### 9-4. StaticProp.cpp
 
+**include + 생성자**
+
+```cpp
+#include "StaticProp.h"
+
+CStaticProp::CStaticProp(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
+    :CMapObject(pDevice, pContext)
+{
+}
+```
+
 **Initialize_Prototype** — 래스터라이저(컬링 없음) + 머티리얼 (원형에서 한 번, 사본은 복사됨)
 
 ```cpp
-D3D11_RASTERIZER_DESC rsDesc{};
-rsDesc.FillMode = D3D11_FILL_SOLID;
-rsDesc.CullMode = D3D11_CULL_NONE;          // 처음엔 컬링 끄기 (rect 뒷면도 보이게)
-rsDesc.FrontCounterClockwise = false;       // 시계 방향이 앞면
-rsDesc.DepthClipEnable = true;
-m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
+HRESULT CStaticProp::Initialize_Prototype()
+{
+    if (FAILED(__super::Initialize_Prototype()))
+        return E_FAIL;
 
-m_tMaterial.Ambient  = float4_t(1.f, 1.f, 1.f, 1.f);
-m_tMaterial.Diffuse  = float4_t(1.f, 1.f, 1.f, 1.f);
-m_tMaterial.Specular = float4_t(0.2f, 0.2f, 0.2f, 16.f);   // w = 반사 강도
+    D3D11_RASTERIZER_DESC rsDesc{};
+    rsDesc.FillMode = D3D11_FILL_SOLID;
+    rsDesc.CullMode = D3D11_CULL_NONE;          // 처음엔 컬링 끄기 (rect 뒷면도 보이게)
+    rsDesc.FrontCounterClockwise = false;       // 시계 방향이 앞면
+    rsDesc.DepthClipEnable = true;
+    m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
+
+    m_tMaterial.Ambient  = float4_t(1.f, 1.f, 1.f, 1.f);
+    m_tMaterial.Diffuse  = float4_t(1.f, 1.f, 1.f, 1.f);
+    m_tMaterial.Specular = float4_t(0.2f, 0.2f, 0.2f, 16.f);   // w = 반사 강도
+
+    return S_OK;
+}
 ```
 
 **Initialize** — 부모(DESC/Transform) → 컴포넌트 → 상수버퍼
@@ -1756,6 +1956,16 @@ HRESULT CStaticProp::Change_Mesh(const wstring_t& strMeshPath)
 **Late_Update / Render** — 그리기 순서: 상수버퍼 → 셰이더 → 텍스처 → 버퍼 (`CCube::Render_Mesh` 참고)
 
 ```cpp
+void CStaticProp::Priority_Update(f32_t fDeltaTime)
+{
+    __super::Priority_Update(fDeltaTime);
+}
+
+void CStaticProp::Update(f32_t fDeltaTime)
+{
+    __super::Update(fDeltaTime);
+}
+
 void CStaticProp::Late_Update(f32_t fDeltaTime)
 {
     __super::Late_Update(fDeltaTime);
@@ -1858,6 +2068,11 @@ protected:
 ```
 
 ```cpp
+// Layer.cpp
+#include "Layer.h"
+#include "GameObject.h"
+#include "GameInstance.h"
+
 // 중복 태그면 실패 (예전에는 조용히 무시됨)
 HRESULT CLayer::Add_GameObject(const wstring_t& strGameObjectTag, shared_ptr<class CGameObject> pGameObject)
 {
@@ -1892,6 +2107,12 @@ void CLayer::Remove_Dead()
 ### 10-3. CObject_Manager
 
 ```cpp
+// Object_Manager.cpp
+#include "Object_Manager.h"
+#include "Layer.h"
+#include "GameInstance.h"
+#include "GameObject.h"
+
 void CObject_Manager::Priority_Update(f32_t fDeltaTime)
 {
 	for (uint32_t i = 0; i < m_iNumLevels; ++i)
@@ -2386,7 +2607,6 @@ unique_ptr<CPanel_Inspector> CPanel_Inspector::Create(EDITOR_CONTEXT& Context)
 ### 알려진 작은 문제
 - `Change_Mesh/Change_Texture`: `Get_Or_Load` 성공 후 `Remove_Component` → `Add_Component`가 실패하면 기존 컴포넌트가 이미 지워진 상태가 됨 (Clone 실패는 드묾. 안전하게 하려면 Add 실패 시 기존 것을 다시 넣기)
 - `CAsset_Manager` 로드 실패 시 `E_FAIL`만 반환 → 호출부(Inspector)에서 `MSG_BOX`로 알림. 생성 시 실패는 `"Create Failed"`
-- `CImGui_Manager`는 현재 미사용 (ToolMainApp이 직접 처리) — 정리 대상
 
 ---
 
