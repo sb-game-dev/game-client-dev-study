@@ -162,7 +162,13 @@
     <ClInclude Include="..\Public\Level_MapTool.h" />
     <ClInclude Include="..\public\MapTool_Cam.h" />
     <ClInclude Include="..\Public\MapTool_Defines.h" />
-    <ClInclude Include="..\Public\Tool.h" />
+    <ClInclude Include="..\Public\EditorUI.h" />
+    <ClInclude Include="..\Public\EditorUI_Defines.h" />
+    <ClInclude Include="..\Public\EditorUI_Utils.h" />
+    <ClInclude Include="..\Public\Panel.h" />
+    <ClInclude Include="..\Public\Panel_Hierarchy.h" />
+    <ClInclude Include="..\Public\Panel_Inspector.h" />
+    <ClInclude Include="..\Public\Panel_Scene.h" />
     <ClInclude Include="..\public\ToolMainApp.h" />
     <ClInclude Include="Default.h" />
     <ClInclude Include="framework.h" />
@@ -203,7 +209,10 @@
     </ClCompile>
     <ClCompile Include="..\private\Level_MapTool.cpp" />
     <ClCompile Include="..\private\MapTool_Cam.cpp" />
-    <ClCompile Include="..\Private\Tool.cpp" />
+    <ClCompile Include="..\Private\EditorUI.cpp" />
+    <ClCompile Include="..\Private\Panel_Hierarchy.cpp" />
+    <ClCompile Include="..\Private\Panel_Inspector.cpp" />
+    <ClCompile Include="..\Private\Panel_Scene.cpp" />
     <ClCompile Include="..\private\ToolMainApp.cpp" />
     <ClCompile Include="Default.cpp" />
     <ClCompile Include="..\..\Client\Private\BackGround.cpp" />

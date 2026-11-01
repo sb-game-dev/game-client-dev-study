@@ -16,16 +16,19 @@
     <Filter Include="99. Defines">
       <UniqueIdentifier>{3eee146f-84b0-4a5e-81ee-c41573f7e101}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Tool">
-      <UniqueIdentifier>{4efbeba7-80a0-4b60-ab00-5d01f11339fa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="00. ToolMainApp">
       <UniqueIdentifier>{d322c9e4-7ce8-4664-b073-d99f62b7abe1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. Object">
-      <UniqueIdentifier>{767fcb4a-0273-40a1-8154-d628336104ec}</UniqueIdentifier>
+    <Filter Include="01. EditorUI">
+      <UniqueIdentifier>{4efbeba7-80a0-4b60-ab00-5d01f11339fa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="03. Object\00. Camera">
+    <Filter Include="01. EditorUI\00. Common">
+      <UniqueIdentifier>{d899d490-1106-45b7-9b21-a24552f920f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. EditorUI\01. Panel">
+      <UniqueIdentifier>{fae4499f-0258-454e-aaf3-41fc2b3dfbc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03. Camera">
       <UniqueIdentifier>{58791968-7942-4dab-b145-abcdd852998b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -66,8 +69,26 @@
     <ClInclude Include="..\ImGui\imstb_truetype.h">
       <Filter>96. ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Tool.h">
-      <Filter>01. Tool</Filter>
+    <ClInclude Include="..\Public\EditorUI.h">
+      <Filter>01. EditorUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\EditorUI_Defines.h">
+      <Filter>01. EditorUI\00. Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\EditorUI_Utils.h">
+      <Filter>01. EditorUI\00. Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Panel.h">
+      <Filter>01. EditorUI\01. Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Panel_Hierarchy.h">
+      <Filter>01. EditorUI\01. Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Panel_Inspector.h">
+      <Filter>01. EditorUI\01. Panel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Panel_Scene.h">
+      <Filter>01. EditorUI\01. Panel</Filter>
     </ClInclude>
     <ClInclude Include="..\public\ToolMainApp.h">
       <Filter>00. ToolMainApp</Filter>
@@ -76,7 +97,7 @@
       <Filter>02. Level</Filter>
     </ClInclude>
     <ClInclude Include="..\public\MapTool_Cam.h">
-      <Filter>03. Object\00. Camera</Filter>
+      <Filter>03. Camera</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\MapTool_Defines.h">
       <Filter>99. Defines</Filter>
@@ -178,8 +199,17 @@
     <ClCompile Include="..\ImGui\imgui_widgets.cpp">
       <Filter>96. ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\Tool.cpp">
-      <Filter>01. Tool</Filter>
+    <ClCompile Include="..\Private\EditorUI.cpp">
+      <Filter>01. EditorUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Panel_Hierarchy.cpp">
+      <Filter>01. EditorUI\01. Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Panel_Inspector.cpp">
+      <Filter>01. EditorUI\01. Panel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Panel_Scene.cpp">
+      <Filter>01. EditorUI\01. Panel</Filter>
     </ClCompile>
     <ClCompile Include="..\private\ToolMainApp.cpp">
       <Filter>00. ToolMainApp</Filter>
@@ -191,7 +221,7 @@
       <Filter>02. Level</Filter>
     </ClCompile>
     <ClCompile Include="..\private\MapTool_Cam.cpp">
-      <Filter>03. Object\00. Camera</Filter>
+      <Filter>03. Camera</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Client\Private\StaticProp.cpp">
       <Filter>97. Client_Shared</Filter>

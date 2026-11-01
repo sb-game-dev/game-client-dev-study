@@ -34,7 +34,7 @@
   - [x] Level_MapTool.cpp 65~67줄 (초기화 안 된 카메라 등록) 삭제
   - [ ] 마우스 회전에서 `fDeltaTime` 곱하기 제거 (감도 `fSensor`도 다시 맞추기)
   - [ ] Scene 이미지 비율을 가로/세로 모두 맞추기 (지금은 세로만 가운데 정렬)
-  - [x] `cout` 제거 (Tool.cpp)
+  - [x] `cout` 제거 (EditorUI.cpp)
   - [ ] (권장) 우클릭을 씬 위에서 시작했을 때만 드래그 / `Update_PipeLines` 매 프레임 / 피치 제한
 
 ---
@@ -282,4 +282,4 @@ Inspector
 - Engine 헤더 수정 → **Engine 빌드 먼저** → MapTool / Client 빌드
 - 툴 전용 코드(ImGui)는 MapTool에만. Engine과 Client 클래스에는 넣지 않기
 - 텍스처 원형 직접 등록이 필요 없는 건 **`Get_Or_Load`를 쓰는 클래스뿐** (지금은 StaticProp). 기존 Client 클래스는 옮기기 전까지 직접 등록
-- 툴 프레임 순서: `Tool::Update`(ImGui) → `Update_Engine`(Remove_Dead → Update…) → `Draw` — ImGui에서 `Set_Dead` 하면 같은 프레임에 사라짐
+- 툴 프레임 순서: `CEditorUI::Update`(ImGui) → `Update_Engine`(Remove_Dead → Update…) → `Draw` — ImGui에서 `Set_Dead` 하면 같은 프레임에 사라짐

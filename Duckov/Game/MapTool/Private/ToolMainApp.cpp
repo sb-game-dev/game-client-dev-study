@@ -4,11 +4,11 @@
 #include "imgui_impl_win32.h"
 #include "imgui_impl_dx11.h"
 #include "Level_MapTool.h"
-#include "Tool.h"
+#include "EditorUI.h"
 #include "MapTool_Cam.h"
 CToolMainApp::~CToolMainApp()
 {
-    m_pTool.reset();
+    m_pEditorUI.reset();
     Shutdown_ImGui();
     CGameInstance::Get().Release_Engine();
 }
@@ -43,8 +43,8 @@ HRESULT CToolMainApp::Initialize()
     if (FAILED(Ready_ImGui()))
         return E_FAIL;
 
-    m_pTool = CTool::Create();
-    if (nullptr == m_pTool)
+    m_pEditorUI = CEditorUI::Create();
+    if (nullptr == m_pEditorUI)
         return E_FAIL;
     
     // ¾À »ý¼º
@@ -60,7 +60,7 @@ void CToolMainApp::Update(f32_t fDeltaTime)
 {
     if (FAILED(Begin_ImGui()))
         return;
-    m_pTool->Update(fDeltaTime);
+    m_pEditorUI->Update(fDeltaTime);
     Sync_SceneView();
     CGameInstance::Get().Update_Engine(fDeltaTime);
 }
@@ -146,7 +146,7 @@ void CToolMainApp::Sync_SceneView()
     auto pCamera = dynamic_pointer_cast<CMapTool_Cam>(CGameInstance::Get().Get_MainCamera());
     if (nullptr == pCamera)
         return;
-    pCamera->Set_SceneClicked(m_pTool->GetSceneCliked());
+    pCamera->Set_SceneClicked(m_pEditorUI->GetSceneCliked());
 
 }
 

@@ -11,7 +11,7 @@
 - [0. 전체 그림](#0-전체-그림)
 - [1단계. MapTool 프로젝트 만들기](#1단계-maptool-프로젝트-만들기-1027)
 - [2단계. ImGui 붙이기 (WinMain / WndProc / 초기화 / 프레임 순서)](#2단계-imgui-붙이기-1027--1029)
-- [3단계. 창 3개 고정 배치 + 메뉴바](#3단계-창-3개-고정-배치--메뉴바-1029)
+- [3단계. 에디터 UI 뼈대 — 메뉴바 + 창 3개](#3단계-에디터-ui-뼈대--메뉴바--창-3개-1029)
 - [4단계. Scene 창에 게임 화면 넣기 (RTT)](#4단계-scene-창에-게임-화면-넣기-rtt-1029--1030)
 - [5단계. 맵툴 카메라 (게임오브젝트 카메라)](#5단계-맵툴-카메라-1030--1031)
 - [6단계. Level_MapTool 구성 (SkyBox, 카메라, 맵 레이어)](#6단계-level_maptool-구성-1030--1101)
@@ -41,8 +41,11 @@ Duckov/Game/
    ├─ Default/    Default.cpp(WinMain), Default.vcxproj, imgui.ini
    ├─ ImGui/      imgui 소스 (imgui.cpp, imgui_draw.cpp, imgui_widgets.cpp, imgui_tables.cpp,
    │              imgui_demo.cpp, imgui_impl_win32.cpp, imgui_impl_dx11.cpp + 헤더)
-   ├─ Public/     MapTool_Defines.h, ToolMainApp.h, Tool.h, Level_MapTool.h, MapTool_Cam.h, ImGui_Manager.h
-   ├─ Private/    ToolMainApp.cpp, Tool.cpp, Level_MapTool.cpp, MapTool_Cam.cpp, ImGui_Manager.cpp
+   ├─ Public/     MapTool_Defines.h, ToolMainApp.h, Level_MapTool.h, MapTool_Cam.h, ImGui_Manager.h,
+   │              EditorUI.h, EditorUI_Defines.h, EditorUI_Utils.h,
+   │              Panel.h, Panel_Hierarchy.h, Panel_Scene.h, Panel_Inspector.h
+   ├─ Private/    ToolMainApp.cpp, Level_MapTool.cpp, MapTool_Cam.cpp, ImGui_Manager.cpp,
+   │              EditorUI.cpp, Panel_Hierarchy.cpp, Panel_Scene.cpp, Panel_Inspector.cpp
    └─ Bin/        Engine.dll, Shader/ (Client/Bin/Shader에서 빌드 후 복사)
 ```
 
@@ -51,8 +54,9 @@ Duckov/Game/
 | 클래스 | 위치 | 역할 |
 |---|---|---|
 | `wWinMain` / `WndProc` | MapTool/Default/Default.cpp | 창 생성, 메시지 루프(60fps), ImGui에 메시지 먼저 전달 |
-| `CToolMainApp` | MapTool | 엔진 초기화, ImGui 초기화/프레임 시작/렌더, `CTool` 소유, 레벨 시작 |
-| `CTool` | MapTool | ImGui 화면 전부 (메뉴바, Hierarchy, Scene, Inspector) |
+| `CToolMainApp` | MapTool | 엔진 초기화, ImGui 초기화/프레임 시작/렌더, `CEditorUI` 소유, 레벨 시작 |
+| `CEditorUI` | MapTool | 에디터 화면 전체: 메뉴바, 레이아웃 계산, 공용 상태(`EDITOR_CONTEXT`) 보관, 패널 3개 소유 |
+| `CPanel_Hierarchy` / `CPanel_Scene` / `CPanel_Inspector` | MapTool | 각 창 하나씩 (`CPanel` 상속, Context를 참조로 공유) |
 | `CLevel_MapTool` | MapTool | 툴 레벨: SkyBox, 맵툴 카메라, StaticProp 원형 등록 |
 | `CMapTool_Cam` | MapTool (namespace Client) | 우클릭+WASD+마우스 자유 카메라 |
 | `CMapObject` | Client | 배치 가능한 모든 객체의 부모. DESC로 위치/회전/크기/메시/텍스처를 받음 |
@@ -66,7 +70,7 @@ Duckov/Game/
 wWinMain 루프 (1/60초마다)
  └ CToolMainApp::Update
      ├ Begin_ImGui()          ImGui_ImplDX11_NewFrame → ImGui_ImplWin32_NewFrame → ImGui::NewFrame
-     ├ CTool::Update()        메뉴바 → 레이아웃 계산 → Hierarchy → Scene → Inspector   (여기서 생성/삭제/편집)
+     ├ CEditorUI::Update()    메뉴바 → 레이아웃 계산 → 패널 Render (Hierarchy → Scene → Inspector)   (여기서 생성/삭제/편집)
      ├ Sync_SceneView()       Scene 창 포커스 여부를 카메라에 전달
      └ Update_Engine()        Priority_Update(Remove_Dead 먼저) → Update → Late_Update(RenderGroup 등록)
  └ CToolMainApp::Render
@@ -254,7 +258,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 ```cpp
 NS_BEGIN(MapTool)
-class CTool;
+class CEditorUI;
 class CToolMainApp final
 {
 private:
@@ -268,7 +272,7 @@ public:
 private:
 	ComPtr<ID3D11Device>				m_pDevice = { nullptr };
 	ComPtr<ID3D11DeviceContext>			m_pContext = { nullptr };
-	unique_ptr<CTool>					m_pTool = { nullptr };
+	unique_ptr<CEditorUI>					m_pEditorUI = { nullptr };
 	bool_t								m_bReadyImGui = { false };
 private:
 	HRESULT		Ready_ImGui();
@@ -282,7 +286,7 @@ public:
 NS_END
 ```
 
-**Initialize** — 엔진 → ImGui → CTool → 레벨 순서
+**Initialize** — 엔진 → ImGui → CEditorUI → 레벨 순서
 
 ```cpp
 HRESULT CToolMainApp::Initialize()
@@ -300,8 +304,8 @@ HRESULT CToolMainApp::Initialize()
     if (FAILED(Ready_ImGui()))
         return E_FAIL;
 
-    m_pTool = CTool::Create();
-    if (nullptr == m_pTool)
+    m_pEditorUI = CEditorUI::Create();
+    if (nullptr == m_pEditorUI)
         return E_FAIL;
 
     if (FAILED(CGameInstance::Get().Change_Level(static_cast<int>(LEVEL::MAPTOOL),
@@ -366,7 +370,7 @@ HRESULT CToolMainApp::Shutdown_ImGui()
 
 CToolMainApp::~CToolMainApp()
 {
-    m_pTool.reset();            // 툴 먼저
+    m_pEditorUI.reset();            // 툴 먼저
     Shutdown_ImGui();           // ImGui 정리
     CGameInstance::Get().Release_Engine();   // 엔진은 마지막
 }
@@ -379,7 +383,7 @@ void CToolMainApp::Update(f32_t fDeltaTime)
 {
     if (FAILED(Begin_ImGui()))
         return;
-    m_pTool->Update(fDeltaTime);      // ImGui 화면 (생성/삭제/편집이 여기서 일어남)
+    m_pEditorUI->Update(fDeltaTime);      // ImGui 화면 (생성/삭제/편집이 여기서 일어남)
     Sync_SceneView();                  // Scene 창 포커스 → 카메라
     CGameInstance::Get().Update_Engine(fDeltaTime);
 }
@@ -410,26 +414,196 @@ HRESULT CToolMainApp::Render()
 
 ---
 
-## 3단계. 창 3개 고정 배치 + 메뉴바 (10/29)
+## 3단계. 에디터 UI 뼈대 — 메뉴바 + 창 3개 (10/29)
 
 **목표**: 위에 메뉴바, 아래에 `Hierarchy | Scene | Inspector` 세 창이 화면을 꽉 채우고 움직이지 않는다. (도킹 없이 직접 좌표 계산)
+창 하나가 클래스 하나가 되도록 구조를 잡고 시작한다.
 
-### 3-1. Tool.h (레이아웃 관련 멤버)
+### 3-1. 구조
+
+```
+CEditorUI  (메뉴바 + 레이아웃 계산 + EDITOR_CONTEXT 보관 + 패널 3개 소유)
+ ├─ CPanel_Hierarchy   객체 목록, 선택, 생성/삭제          (11단계)
+ ├─ CPanel_Scene       씬 텍스처 표시, 포커스/hover 기록    (4단계)
+ └─ CPanel_Inspector   선택 객체의 값 편집                 (12단계)
+       ▲ 모두 CPanel 상속, EDITOR_CONTEXT& 를 참조로 받음
+```
+
+| 파일 | 내용 |
+|---|---|
+| `Public/EditorUI_Defines.h` | `PANEL_RECT`, `EDITOR_CONTEXT`(패널끼리 공유하는 상태) — 단계마다 멤버 추가 |
+| `Public/EditorUI_Utils.h` | 패널들이 같이 쓰는 ImGui 도우미 — 단계마다 함수 추가 |
+| `Public/Panel.h` | `CPanel` (abstract) |
+| `Public/Panel_XXX.h`, `Private/Panel_XXX.cpp` | 창 하나씩 |
+| `Public/EditorUI.h`, `Private/EditorUI.cpp` | `CEditorUI` |
+
+**규칙**
+- 패널끼리는 서로를 직접 부르지 않는다. 주고받을 값(선택, Scene 포커스 등)은 전부 `EDITOR_CONTEXT`를 거친다
+- 창의 위치/크기는 `CEditorUI`가 계산해서 `Render(const PANEL_RECT&)`로 넘긴다
+
+### 3-2. EditorUI_Defines.h
 
 ```cpp
+#pragma once
+#include "MapTool_Defines.h"
+#include "MapObject.h"
+
 NS_BEGIN(MapTool)
-class CTool final
+
+// 창 하나의 위치와 크기 (CEditorUI::Calc_Layout에서 계산)
+struct PANEL_RECT
+{
+	f32_t fX, fY, fW, fH;
+};
+
+// 패널끼리 같이 쓰는 상태
+// CEditorUI가 소유하고, 각 패널은 참조로 받는다.
+struct EDITOR_CONTEXT
+{
+	// 4단계: Scene 창 상태
+	// 11단계: 선택 상태
+};
+
+NS_END
+```
+
+- `MapObject.h`는 11단계에서 선택 객체(`CMapObject`)의 `Is_Dead()`를 부르기 위해 include (완전한 타입 필요)
+
+### 3-3. EditorUI_Utils.h
+
+```cpp
+#pragma once
+#include "imgui.h"
+#include "EditorUI_Defines.h"
+
+// 패널들이 같이 쓰는 ImGui 도우미
+NS_BEGIN(MapTool)
+
+inline constexpr ImGuiWindowFlags g_FixedPanelFlags =
+	ImGuiWindowFlags_NoMove                 // 제목 표시줄을 드래그해도 안 움직임
+	| ImGuiWindowFlags_NoResize             // 모서리를 끌어도 크기 안 바뀜
+	| ImGuiWindowFlags_NoCollapse           // 제목 표시줄의 접기 버튼 제거
+	| ImGuiWindowFlags_NoSavedSettings;     // 창 정보를 imgui.ini에 저장하지 않음
+
+inline void Set_NextPanelRect(const PANEL_RECT& tRect)
+{
+	ImGui::SetNextWindowPos(ImVec2(tRect.fX, tRect.fY), ImGuiCond_Always);
+	ImGui::SetNextWindowSize(ImVec2(tRect.fW, tRect.fH), ImGuiCond_Always);
+}
+
+// 11단계: To_UTF8, To_Wide
+// 12단계: Render_AssetCombo
+
+NS_END
+```
+
+- 헤더에 함수 본문을 두므로 `inline` 필수 (여러 cpp에서 include해도 중복 정의 에러가 안 나게)
+
+### 3-4. Panel.h — 패널 부모
+
+```cpp
+#pragma once
+#include "EditorUI_Defines.h"
+
+NS_BEGIN(MapTool)
+// 에디터 창 하나 (Hierarchy, Scene, Inspector)
+// 위치/크기는 CEditorUI가 계산해서 Render에 넘겨준다.
+class CPanel abstract
+{
+protected:
+	explicit CPanel(EDITOR_CONTEXT& Context) : m_Context{ Context } {}
+public:
+	virtual ~CPanel() = default;
+
+public:
+	virtual void	Render(const PANEL_RECT& tRect) = 0;
+
+protected:
+	EDITOR_CONTEXT&		m_Context;		// CEditorUI가 소유한 공용 상태
+};
+NS_END
+```
+
+### 3-5. 패널 3개 (빈 창)
+
+헤더는 세 개 모두 같은 모양 (이름만 다름). 예: `Panel_Hierarchy.h`
+
+```cpp
+#pragma once
+#include "Panel.h"
+
+NS_BEGIN(MapTool)
+// 객체 이름 목록 + 선택 + 우클릭 생성/삭제
+// 값 편집은 하지 않는다 (Inspector 담당)
+class CPanel_Hierarchy final : public CPanel
 {
 private:
-	CTool() = default;
+	explicit CPanel_Hierarchy(EDITOR_CONTEXT& Context) : CPanel{ Context } {}
 public:
-	~CTool() = default;
+	virtual ~CPanel_Hierarchy() = default;
+
+public:
+	virtual void	Render(const PANEL_RECT& tRect) override;
+
+public:
+	static unique_ptr<CPanel_Hierarchy> Create(EDITOR_CONTEXT& Context);
+};
+NS_END
+```
+
+- `Panel_Scene.h` → `CPanel_Scene` (주석: 엔진이 그린 씬 텍스처(RTT)를 비율에 맞춰 표시)
+- `Panel_Inspector.h` → `CPanel_Inspector` (주석: 선택한 객체의 이름, Transform, 타입별 섹션)
+
+cpp도 지금은 빈 창만 연다. 예: `Panel_Hierarchy.cpp`
+
+```cpp
+#include "EditorUI_Utils.h"
+#include "Panel_Hierarchy.h"
+
+void CPanel_Hierarchy::Render(const PANEL_RECT& tRect)
+{
+    Set_NextPanelRect(tRect);
+    if (ImGui::Begin("Hierarchy", nullptr, g_FixedPanelFlags))   // nullptr: X 버튼 없음
+    {
+        // 11단계에서 채움
+    }
+    ImGui::End();            // Begin의 반환값과 상관없이 항상 호출!
+}
+
+unique_ptr<CPanel_Hierarchy> CPanel_Hierarchy::Create(EDITOR_CONTEXT& Context)
+{
+    // 생성자가 private이라 make_unique 대신 new
+    return unique_ptr<CPanel_Hierarchy>(new CPanel_Hierarchy(Context));
+}
+```
+
+- `Panel_Scene.cpp` → 창 이름 `"Scene"` (본문은 4단계)
+- `Panel_Inspector.cpp` → 창 이름 `"Inspector"` (본문은 12단계)
+
+### 3-6. EditorUI.h
+
+```cpp
+#pragma once
+#include "EditorUI_Defines.h"
+
+NS_BEGIN(MapTool)
+class CPanel_Hierarchy;
+class CPanel_Scene;
+class CPanel_Inspector;
+
+// 에디터 화면 전체
+// 메뉴바, 레이아웃 계산, 공용 상태(EDITOR_CONTEXT) 보관, 패널 3개 소유
+class CEditorUI final
+{
+private:
+	CEditorUI() = default;
+public:
+	~CEditorUI();
+
 public:
 	HRESULT		Initialize();
 	void		Update(const f32_t& fDeltaTime);
-	bool_t		GetSceneCliked() { return m_bFocused; }
-private:
-	struct PANEL_RECT { f32_t fX, fY, fW, fH; };
+
 private:
 	f32_t		m_fMenuBarHeight = {};
 	f32_t		m_fSidePamelWidth = { 280.f };   // 좌우 창 폭
@@ -439,66 +613,67 @@ private:
 	PANEL_RECT	m_tScene = {};
 	PANEL_RECT	m_tInspector = {};
 
-	float2_t	m_vImageMin = {};    // 4단계
-	float2_t	m_vImageSize = {};
-	bool_t		m_bHovered = {};
-	bool_t		m_bFocused = {};
+	EDITOR_CONTEXT					m_Context;		// 패널들이 참조로 공유
+
+	unique_ptr<CPanel_Hierarchy>	m_pHierarchy;
+	unique_ptr<CPanel_Scene>		m_pScene;
+	unique_ptr<CPanel_Inspector>	m_pInspector;
+
 private:
 	void		Calc_Layout();
 	void		Render_MenuBar();
-	void		Render_Hierachy();
-	void		Render_Scene();
-	void		Render_Inspector();
+
 public:
-	static unique_ptr<CTool> Create();
+	static unique_ptr<CEditorUI> Create();
 };
+
 NS_END
 ```
 
-### 3-2. Tool.cpp — 공통 도우미 (익명 네임스페이스)
+### 3-7. EditorUI.cpp
 
 ```cpp
-namespace
+#include "EditorUI_Utils.h"
+#include "EditorUI.h"
+#include "Panel_Hierarchy.h"
+#include "Panel_Scene.h"
+#include "Panel_Inspector.h"
+
+// unique_ptr<CPanel_*>를 지우려면 완전한 타입이 필요해서 cpp에서 정의
+CEditorUI::~CEditorUI() = default;
+
+HRESULT CEditorUI::Initialize()
 {
-    constexpr ImGuiWindowFlags g_FixedPanelFlags =
-        ImGuiWindowFlags_NoMove                 // 제목 표시줄을 드래그해도 안 움직임
-        | ImGuiWindowFlags_NoResize             // 모서리를 끌어도 크기 안 바뀜
-        | ImGuiWindowFlags_NoCollapse           // 제목 표시줄의 접기 버튼 제거
-        | ImGuiWindowFlags_NoSavedSettings;     // 창 정보를 imgui.ini에 저장하지 않음
+    m_pHierarchy = CPanel_Hierarchy::Create(m_Context);
+    m_pScene     = CPanel_Scene::Create(m_Context);
+    m_pInspector = CPanel_Inspector::Create(m_Context);
 
-    void Set_NextPanelRect(f32_t fX, f32_t fY, f32_t fW, f32_t fH)
-    {
-        ImGui::SetNextWindowPos(ImVec2(fX, fY), ImGuiCond_Always);
-        ImGui::SetNextWindowSize(ImVec2(fW, fH), ImGuiCond_Always);
-    }
+    if (nullptr == m_pHierarchy || nullptr == m_pScene || nullptr == m_pInspector)
+        return E_FAIL;
+
+	return S_OK;
 }
-```
 
-### 3-3. Update 순서
-
-```cpp
-void CTool::Update(const f32_t& fDeltaTime)
+void CEditorUI::Update(const f32_t& fDeltaTime)
 {
     Render_MenuBar();     // 메뉴바 높이를 먼저 알아야
     Calc_Layout();        // 그 아래 영역을 나눌 수 있음
 
-    Render_Hierachy();
-    Render_Scene();
-    Render_Inspector();
+    m_pHierarchy->Render(m_tHierarchy);
+    m_pScene->Render(m_tScene);
+    m_pInspector->Render(m_tInspector);
 
     if (m_bShowDemo)
         ImGui::ShowDemoWindow(&m_bShowDemo);
 }
-```
 
-### 3-4. Calc_Layout
-
-```cpp
-void CTool::Calc_Layout()
+void CEditorUI::Calc_Layout()
 {
-    const ImVec2 vDisplay = ImGui::GetIO().DisplaySize;   // 현재 창 영역 크기
+    // 현재 창 영역 크기
+    const ImVec2 vDisplay = ImGui::GetIO().DisplaySize;
 
-    const f32_t fTop    = m_fMenuBarHeight;               // 메뉴바 바로 아래
+    // 메뉴바 바로 아래부터의 시작 좌표
+    const f32_t fTop    = m_fMenuBarHeight;
     const f32_t fHeight = vDisplay.y - fTop;
 
     // 창이 좁아져도 씬이 최소 200은 남게 좌우 폭 보정
@@ -507,57 +682,76 @@ void CTool::Calc_Layout()
     if (vDisplay.x - fSide * 2.f < fMinScene)
         fSide = max(0.f, (vDisplay.x - fMinScene) * 0.5f);
 
-    m_tHierarchy = { 0.f,                fTop, fSide,                      fHeight };
-    m_tScene     = { fSide,              fTop, vDisplay.x - fSide * 2.f,   fHeight };
-    m_tInspector = { vDisplay.x - fSide, fTop, fSide,                      fHeight };
+    // 세 창의 Rect 정보
+    m_tHierarchy    = { 0.f, fTop, fSide, fHeight };
+    m_tScene        = { fSide, fTop, vDisplay.x - fSide * 2.f, fHeight };
+    m_tInspector    = { vDisplay.x - fSide, fTop, fSide, fHeight };
 }
-```
 
-### 3-5. Render_MenuBar
-
-```cpp
-void CTool::Render_MenuBar()
+void CEditorUI::Render_MenuBar()
 {
-    // 일반 창(Begin) 바깥에서 호출. false면 EndMainMenuBar를 호출하지 않고 빠져나감
+    // 화면 맨 위에 꽉 차게 붙는 메뉴 바.
+    // 일반 창(Begin) 안이 아니라 바깥에서 호출한다.
+    // 일반 창(Begin)과는 다르게 false를 반환하면 EndMainMenuBar를 호출하지 않고 빠져나간다.
     if (!ImGui::BeginMainMenuBar())
         return;
 
     m_fMenuBarHeight = ImGui::GetWindowHeight();
 
-    if (ImGui::BeginMenu("File"))               // true일 때만 EndMenu
+    // 펼쳐지는 메뉴
+    // true일 때만 EndMenu를 호출.
+    if (ImGui::BeginMenu("File"))
     {
-        // MenuItem(라벨, 단축키표시, 선택됨, 활성화) — 단축키는 글자일 뿐, 동작은 따로 구현
-        ImGui::MenuItem("New Scene",  nullptr,    false, false);   // 6단계(저장/불러오기)까지 비활성
+        // MenuItem(라벨, 단축키표시, 선택됨, 활성화);
+        // 단축키는 오른쪽에 보이는 글자일 뿐이고 실제 동작은 따로 만들어야 함.
+        ImGui::MenuItem("New Scene", nullptr, false, false);        // 저장/불러오기 전까지 비활성
         ImGui::MenuItem("Open Scene", "Ctrl + O", false, false);
-        ImGui::MenuItem("Save",       "Ctrl + S", false, false);
-        ImGui::MenuItem("Save As",    nullptr,    false, false);
+        ImGui::MenuItem("Save", "Ctrl + S", false, false);
+        ImGui::MenuItem("Save As", nullptr, false, false);
         ImGui::EndMenu();
     }
+
     if (ImGui::BeginMenu("View"))
     {
-        ImGui::MenuItem("ImGui Demo", nullptr, &m_bShowDemo);    // bool* 를 넘기면 체크 토글
+        ImGui::MenuItem("ImGui Demo", nullptr, &m_bShowDemo);       // bool* 를 넘기면 체크 토글
         ImGui::EndMenu();
     }
     ImGui::EndMainMenuBar();
 }
-```
 
-### 3-6. 각 창 기본 틀
-
-```cpp
-Set_NextPanelRect(m_tHierarchy.fX, m_tHierarchy.fY, m_tHierarchy.fW, m_tHierarchy.fH);
-if (ImGui::Begin("Hierarchy", nullptr, g_FixedPanelFlags))   // nullptr: X 버튼 없음
+unique_ptr<CEditorUI> CEditorUI::Create()
 {
-    ...
+    auto pInstance = unique_ptr<CEditorUI>(new CEditorUI());
+    if (FAILED(pInstance->Initialize()))
+    {
+        MSG_BOX("Failed to Created : CEditorUI");
+        pInstance.reset();
+    }
+    return pInstance;
 }
-ImGui::End();            // Begin의 반환값과 상관없이 항상 호출!
 ```
 
-**확인**: 창 크기를 바꿔도 세 창이 화면을 꽉 채우고, 드래그/리사이즈가 안 된다.
+- `CToolMainApp`에서 `#include "EditorUI.h"`, 멤버 `unique_ptr<CEditorUI> m_pEditorUI`, `Initialize`에서 `m_pEditorUI = CEditorUI::Create();`, `Update`에서 `m_pEditorUI->Update(fDeltaTime);` (2-3 참고)
+
+### 3-8. 프로젝트 등록
+- `Default.vcxproj`에 헤더 7개(`EditorUI.h, EditorUI_Defines.h, EditorUI_Utils.h, Panel.h, Panel_Hierarchy.h, Panel_Inspector.h, Panel_Scene.h`), cpp 4개(`EditorUI.cpp, Panel_Hierarchy.cpp, Panel_Inspector.cpp, Panel_Scene.cpp`) 추가
+- `Default.vcxproj.filters` (솔루션 탐색기 폴더)
+
+```
+01. EditorUI
+ ├─ EditorUI.h / EditorUI.cpp
+ ├─ 00. Common       EditorUI_Defines.h, EditorUI_Utils.h
+ └─ 01. Panel        Panel.h, Panel_Hierarchy.h/.cpp, Panel_Inspector.h/.cpp, Panel_Scene.h/.cpp
+```
+- 파일은 **UTF-8 (BOM) + CRLF**로 저장 (BOM이 없으면 MSVC가 CP949로 읽어서 한글 주석이 깨지거나 다음 줄을 먹을 수 있음)
+
+**확인**: 창 크기를 바꿔도 세 창이 화면을 꽉 채우고, 드래그/리사이즈가 안 된다. `View → ImGui Demo`로 데모 창이 뜬다.
 
 **주의**
 - `Begin`은 false여도 `End`를 반드시 호출. 반대로 `BeginMainMenuBar / BeginMenu / BeginPopup / BeginCombo`는 **true일 때만** End 호출
 - `ImGuiCond_Always`로 매 프레임 위치/크기를 강제하므로 `NoSavedSettings`를 같이 써야 ini와 싸우지 않음
+- `CEditorUI` 소멸자를 헤더에서 `= default`로 하면 `CPanel_*`가 전방 선언뿐이라 `unique_ptr` 삭제에서 컴파일 에러 → cpp에서 정의
+- 패널은 `m_Context`를 참조로 들고 있으므로 `CEditorUI`는 복사/이동하면 안 됨 (`unique_ptr`로만 다루므로 문제 없음)
 
 ---
 
@@ -634,13 +828,39 @@ ID3D11ShaderResourceView* Get_SceneSRV()const;      // → m_pRenderer->Get_Scen
 float2_t Get_ViewportSize() { return m_vViewportSize; }   // Initialize_Engine 끝에서 Compute_ViewportSize()
 ```
 
-### 4-2. Tool — Render_Scene
+### 4-2. EditorUI_Defines.h — EDITOR_CONTEXT에 Scene 상태 추가
 
 ```cpp
-void CTool::Render_Scene()
+struct EDITOR_CONTEXT
 {
-    Set_NextPanelRect(m_tScene.fX, m_tScene.fY, m_tScene.fW, m_tScene.fH);
+	// ---------- Scene 창 ----------
+	float2_t	vImageMin = {};					// 화면 기준 씬 이미지 좌상단 (피킹용)
+	float2_t	vImageSize = {};				// 씬 이미지 크기 (피킹에서 NDC로 바꿀 때 나누는 값)
+	bool_t		bSceneHovered = {};				// 씬 이미지 위에 마우스가 있는지
+	bool_t		bSceneFocused = {};				// Scene 창이 포커스인지 → 카메라 조작 허용
 
+	// 11단계: 선택 상태
+};
+```
+
+`EditorUI.h`의 public에 카메라용 조회 함수 추가 (5-3에서 사용)
+
+```cpp
+	bool_t		GetSceneCliked() { return m_Context.bSceneFocused; }
+```
+
+### 4-3. CPanel_Scene::Render
+
+```cpp
+#include "EditorUI_Utils.h"
+#include "Panel_Scene.h"
+
+void CPanel_Scene::Render(const PANEL_RECT& tRect)
+{
+    // 창의 크기와 위치 지정
+    Set_NextPanelRect(tRect);
+
+    // 창 옵션
     constexpr ImGuiWindowFlags eSceneFlags = g_FixedPanelFlags
         | ImGuiWindowFlags_NoScrollbar
         | ImGuiWindowFlags_NoScrollWithMouse;
@@ -666,15 +886,16 @@ void CTool::Render_Scene()
     ImGui::SetCursorPos(vCursor);
 
     // SRV 포인터를 ImTextureID로 넘기면 DX11 백엔드가 PS 0번 슬롯에 바인딩해서 그림
+    // 실제로 그리는 것이 아닌 그리기 명령만 기록한다. Image도 하나의 아이템으로 등록된다.
     ID3D11ShaderResourceView* pSRV = CGameInstance::Get().Get_SceneSRV();
     ImGui::Image((ImTextureID)pSRV, vSize);
 
     // 바로 앞 아이템(Image)에 대한 정보 — 사이에 다른 위젯을 넣지 말 것
-    m_vImageMin  = float2_t(ImGui::GetItemRectMin().x, ImGui::GetItemRectMin().y);  // 화면 기준 좌상단 (피킹용)
-    m_vImageSize = float2_t(vSize.x, vSize.y);
-    m_bHovered   = ImGui::IsItemHovered();
-    m_bFocused   = ImGui::IsWindowFocused();   // 마지막으로 클릭된 창이면 true → 카메라 조작 허용
-                                               // (Begin~End 사이에서 불러야 이 창 값이 나옴)
+    m_Context.vImageMin     = float2_t(ImGui::GetItemRectMin().x, ImGui::GetItemRectMin().y);  // 화면 기준 좌상단 (피킹용)
+    m_Context.vImageSize    = float2_t(vSize.x, vSize.y);
+    m_Context.bSceneHovered = ImGui::IsItemHovered();
+    m_Context.bSceneFocused = ImGui::IsWindowFocused();   // 마지막으로 클릭된 창이면 true → 카메라 조작 허용
+                                                          // (Begin~End 사이에서 불러야 이 창 값이 나옴)
     ImGui::End();
 }
 ```
@@ -820,7 +1041,7 @@ void CToolMainApp::Sync_SceneView()
     auto pCamera = dynamic_pointer_cast<CMapTool_Cam>(CGameInstance::Get().Get_MainCamera());
     if (nullptr == pCamera)
         return;
-    pCamera->Set_SceneClicked(m_pTool->GetSceneCliked());   // = Scene 창 IsWindowFocused
+    pCamera->Set_SceneClicked(m_pEditorUI->GetSceneCliked());   // = Scene 창 IsWindowFocused
 }
 ```
 
@@ -1500,7 +1721,7 @@ const map<const wstring_t, shared_ptr<CGameObject>>* Get_GameObjects(uint32_t iL
 
 **프레임 순서와 삭제 타이밍**
 ```
-Tool::Update (ImGui)  → Set_Dead()           ← 삭제 요청
+CEditorUI::Update (ImGui)  → Set_Dead()           ← 삭제 요청
 Update_Engine         → Priority_Update      ← Remove_Dead로 실제 erase
                       → Update / Late_Update (Dead는 건너뜀)
 Draw                                          ← 이미 없음 → 같은 프레임에 사라짐
@@ -1511,94 +1732,158 @@ Draw                                          ← 이미 없음 → 같은 프�
 ## 11단계. Hierarchy 창 (11/01)
 
 **목표**: Hierarchy 빈 곳 우클릭 → 객체 생성, 이름 목록에서 클릭 → 선택, 항목 우클릭/Delete 키 → 삭제. (Unity 방식)
-Hierarchy는 **이름 + 선택만** 담당하고, 값은 전부 Inspector에서 바꾼다.
+Hierarchy는 **이름 + 선택만** 담당하고, 값은 전부 Inspector(12단계)에서 바꾼다.
 
-### 11-1. Tool.h 추가 멤버
+### 11-1. EditorUI_Defines.h — 선택 상태 + 에셋 목록 추가
+
+선택은 Hierarchy가 바꾸고 Inspector가 읽으므로 `EDITOR_CONTEXT`에 둔다. (나중에 Scene 피킹으로 선택할 때도 여기에 쓴다)
 
 ```cpp
-NS_BEGIN(Client)
-class CMapObject;           // 전방 선언
-NS_END
+struct EDITOR_CONTEXT
+{
+	// ---------- 선택 ----------
+	weak_ptr<CMapObject>	pSelected;			// weak_ptr: 지워지면 자동으로 만료
+	wstring_t				strSelectedTag;
 
-// --- CTool 안 ---
-private:
-	// 배치 가능한 목록 (우클릭 메뉴)
-	struct PLACEABLE
+	// ---------- Scene 창 ---------- (4단계)
+	float2_t	vImageMin = {};
+	float2_t	vImageSize = {};
+	bool_t		bSceneHovered = {};
+	bool_t		bSceneFocused = {};
+
+	void Select(const wstring_t& strTag, shared_ptr<CGameObject> pObject)
 	{
-		const char*    pName;            // 메뉴에 보일 이름
-		const wchar_t* pPrototypeTag;    // Add_GameObject에 넘길 프로토타입 태그
-	};
-	static constexpr PLACEABLE s_Placeables[] = {
-		{ "Add Static_Prop", Proto::Obj_StaticProp },
-	};
+		strSelectedTag = strTag;
+		pSelected = dynamic_pointer_cast<CMapObject>(pObject);
+	}
 
-	// Mesh 콤보 (12단계)
-	struct MESH_ITEM { const char* pName; const wchar_t* pPath; };
-	static constexpr MESH_ITEM s_Meshes[] = {
-		{ "Cube", L"builtin/cube" },
-		{ "Rect", L"builtin/rect" },
-	};
+	void Clear_Selection()
+	{
+		pSelected.reset();
+		strSelectedTag.clear();
+	}
 
-	// Texture 콤보 (12단계)
-	struct TEXTURE_ITEM { const char* pName; const wchar_t* pPath; };   // pPath: Resource 기준 상대 경로
-	static constexpr TEXTURE_ITEM s_Textures[] = {
-		{ "WoodCrate01", L"Ex/WoodCrate01.dds" },
-		{ "WoodCrate02", L"Ex/WoodCrate02.dds" },
-	};
-
-	uint32_t    m_iNextID = {};                  // "Prop_N"의 N
-
-	// 선택
-	weak_ptr<CMapObject>	m_pSelected;         // weak_ptr: 지워지면 자동으로 만료
-	wstring_t				m_strSelectedTag;
-	bool_t					m_bRequestDelete = { false };
-private:
-	void        Create_Object(const wchar_t* pPrototypeTag);
-	void        Delete_Selected();
-	void		Validate_Selection();
+	// 선택한 객체가 지워졌으면 선택 해제
+	void Validate_Selection()
+	{
+		auto pObject = pSelected.lock();
+		if (nullptr == pObject || pObject->Is_Dead())
+			Clear_Selection();
+	}
+};
 ```
 
-- Tool.cpp 맨 위: `#include "imgui.h"`, `#include "Tool.h"`, `#include "StaticProp.h"`
+같은 파일, `EDITOR_CONTEXT` 아래에 메시/텍스처 목록 추가 (생성 기본값 + 12단계 Inspector 콤보가 같이 씀)
 
-### 11-2. 문자열 변환 도우미 (Tool.cpp 익명 네임스페이스)
+```cpp
+// { 표시 이름, 경로 } 목록 (Inspector 콤보, Hierarchy 생성 기본값)
+struct ASSET_ITEM
+{
+	const char*		pName;		// 콤보 표시용
+	const wchar_t*	pPath;		// DESC에 넣을 경로 (텍스처는 Resource 기준 상대 경로)
+};
+
+inline constexpr ASSET_ITEM g_Meshes[] = {
+	{ "Cube", L"builtin/cube" },
+	{ "Rect", L"builtin/rect" },
+};
+
+inline constexpr ASSET_ITEM g_Textures[] = {
+	{ "WoodCrate01", L"Ex/WoodCrate01.dds" },
+	{ "WoodCrate02", L"Ex/WoodCrate02.dds" },
+};
+```
+
+- `inline constexpr` 배열: 헤더에 두어도 여러 cpp에서 중복 정의 에러가 안 남 (C++17)
+
+### 11-2. EditorUI_Utils.h — 문자열 변환 도우미 추가
 
 엔진은 `wstring`, ImGui는 **UTF-8 `char*`** 를 쓴다.
 
 ```cpp
 // wstring → UTF-8 (ImGui에 표시할 때)
-string To_UTF8(const wstring_t& strWide)
+inline string To_UTF8(const wstring_t& strWide)
 {
-    if (strWide.empty())
-        return {};
-    // 1번째 호출: 필요한 버퍼 크기만 구함
-    int32_t iSize = WideCharToMultiByte(CP_UTF8, 0, strWide.c_str(), (int)strWide.size(), nullptr, 0, nullptr, nullptr);
-    string strOut(iSize, '\0');
-    // 2번째 호출: 실제 변환
-    WideCharToMultiByte(CP_UTF8, 0, strWide.c_str(), (int)strWide.size(), strOut.data(), iSize, nullptr, nullptr);
-    return strOut;
+	if (strWide.empty())
+		return {};
+	// 1번째 호출: 필요한 버퍼 크기만 구함
+	int32_t iSize = WideCharToMultiByte(CP_UTF8, 0, strWide.c_str(), (int)strWide.size(), nullptr, 0, nullptr, nullptr);
+	string strOut(iSize, '\0');
+	// 2번째 호출: 실제 변환
+	WideCharToMultiByte(CP_UTF8, 0, strWide.c_str(), (int)strWide.size(), strOut.data(), iSize, nullptr, nullptr);
+	return strOut;
 }
 
 // UTF-8 → wstring (ImGui 입력을 엔진에 넘길 때)
-wstring_t To_Wide(const char* pUTF8)
+inline wstring_t To_Wide(const char* pUTF8)
 {
-    int32_t iSize = MultiByteToWideChar(CP_UTF8, 0, pUTF8, -1, nullptr, 0);   // -1: 널 문자까지 포함
-    if (iSize <= 1)
-        return {};
-    wstring_t strOut(iSize - 1, L'\0');                                        // 널 문자 제외
-    MultiByteToWideChar(CP_UTF8, 0, pUTF8, -1, strOut.data(), iSize);
-    return strOut;
+	int32_t iSize = MultiByteToWideChar(CP_UTF8, 0, pUTF8, -1, nullptr, 0);   // -1: 널 문자까지 포함
+	if (iSize <= 1)
+		return {};
+	wstring_t strOut(iSize - 1, L'\0');                                        // 널 문자 제외
+	MultiByteToWideChar(CP_UTF8, 0, pUTF8, -1, strOut.data(), iSize);
+	return strOut;
 }
 ```
 
-### 11-3. Create_Object — 기본값으로 생성 + 고유 태그 + 바로 선택
+### 11-3. Panel_Hierarchy.h
 
 ```cpp
-void CTool::Create_Object(const wchar_t* pPrototypeTag)
+#pragma once
+#include "Panel.h"
+
+NS_BEGIN(MapTool)
+// 객체 이름 목록 + 선택 + 우클릭 생성/삭제
+// 값 편집은 하지 않는다 (Inspector 담당)
+class CPanel_Hierarchy final : public CPanel
+{
+private:
+	explicit CPanel_Hierarchy(EDITOR_CONTEXT& Context) : CPanel{ Context } {}
+public:
+	virtual ~CPanel_Hierarchy() = default;
+
+public:
+	virtual void	Render(const PANEL_RECT& tRect) override;
+
+private:
+	// 빈 곳 우클릭 메뉴에 보일 배치 가능한 목록
+	struct PLACEABLE
+	{
+		const char*		pName;				// 메뉴에 보일 이름
+		const wchar_t*	pPrototypeTag;		// Add_GameObject에 넘길 프로토타입 태그
+	};
+
+	static constexpr PLACEABLE s_Placeables[] = {
+		{ "Add Static_Prop", Proto::Obj_StaticProp },
+	};
+
+private:
+	uint32_t	m_iNextID = {};						// "Prop_N"의 N
+	bool_t		m_bRequestDelete = { false };		// 목록 루프가 끝난 뒤 삭제
+
+private:
+	void		Create_Object(const wchar_t* pPrototypeTag);
+	void		Delete_Selected();
+
+public:
+	static unique_ptr<CPanel_Hierarchy> Create(EDITOR_CONTEXT& Context);
+};
+NS_END
+```
+
+### 11-4. Panel_Hierarchy.cpp — Create_Object (기본값으로 생성 + 고유 태그 + 바로 선택)
+
+```cpp
+#include "EditorUI_Utils.h"
+#include "Panel_Hierarchy.h"
+#include "StaticProp.h"
+
+void CPanel_Hierarchy::Create_Object(const wchar_t* pPrototypeTag)
 {
     CStaticProp::STATICPROP_DESC Desc{};
     Desc.iLevelIndex    = ETOUI(LEVEL::MAPTOOL);
-    Desc.strMeshPath    = s_Meshes[0].pPath;       // 기본: cube
-    Desc.strTexturePath = s_Textures[0].pPath;     // 기본: 첫 텍스처
+    Desc.strMeshPath    = g_Meshes[0].pPath;       // 기본: cube
+    Desc.strTexturePath = g_Textures[0].pPath;     // 기본: 첫 텍스처
     Desc.bEditorMode    = true;
 
     // 비어 있는 Prop_NN이 나올 때까지 번호 증가 (Dead 대기 중 객체, 불러온 맵과도 안 겹치게)
@@ -1619,42 +1904,30 @@ void CTool::Create_Object(const wchar_t* pPrototypeTag)
     }
 
     // 만든 객체를 바로 선택
-    m_strSelectedTag = strTag;
-    m_pSelected = dynamic_pointer_cast<CMapObject>(
-        CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag));
+    m_Context.Select(strTag, CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag));
 }
 ```
 
-### 11-4. Delete_Selected / Validate_Selection
+### 11-5. Delete_Selected
 
 ```cpp
-void CTool::Delete_Selected()
+void CPanel_Hierarchy::Delete_Selected()
 {
-    auto pSelected = m_pSelected.lock();
+    auto pSelected = m_Context.pSelected.lock();
     if (nullptr == pSelected)
         return;
-    pSelected->Set_Dead();          // 실제 erase는 엔진 Priority_Update에서
-    m_pSelected.reset();            // 선택은 바로 해제 (erase 전까지 weak_ptr가 살아 있으므로)
-    m_strSelectedTag.clear();
-}
 
-void CTool::Validate_Selection()
-{
-    auto pSelected = m_pSelected.lock();
-    if (nullptr == pSelected || pSelected->Is_Dead())
-    {
-        m_pSelected.reset();
-        m_strSelectedTag.clear();
-    }
+    pSelected->Set_Dead();          // 실제 erase는 엔진 Priority_Update에서
+    m_Context.Clear_Selection();    // 선택은 바로 해제 (erase 전까지 weak_ptr가 살아 있으므로)
 }
 ```
 
-### 11-5. Render_Hierachy
+### 11-6. Render
 
 ```cpp
-void CTool::Render_Hierachy()
+void CPanel_Hierarchy::Render(const PANEL_RECT& tRect)
 {
-    Set_NextPanelRect(m_tHierarchy.fX, m_tHierarchy.fY, m_tHierarchy.fW, m_tHierarchy.fH);
+    Set_NextPanelRect(tRect);
     if (ImGui::Begin("Hierarchy", nullptr, g_FixedPanelFlags))
     {
         // ---------- 목록 (이름만) ----------
@@ -1667,18 +1940,14 @@ void CTool::Render_Hierachy()
                     continue;
 
                 // Selectable(라벨, 선택 표시) → 클릭한 프레임에 true
-                if (ImGui::Selectable(To_UTF8(strTag).c_str(), strTag == m_strSelectedTag))
-                {
-                    m_strSelectedTag = strTag;
-                    m_pSelected = dynamic_pointer_cast<CMapObject>(pObject);
-                }
+                if (ImGui::Selectable(To_UTF8(strTag).c_str(), strTag == m_Context.strSelectedTag))
+                    m_Context.Select(strTag, pObject);
 
                 // 항목 우클릭 메뉴 — 반드시 Selectable "바로 다음 줄" (바로 앞 위젯 ID로 항목별 메뉴가 됨)
                 if (ImGui::BeginPopupContextItem())
                 {
                     // 우클릭한 항목을 선택 상태로 (다른 객체가 지워지는 혼동 방지)
-                    m_strSelectedTag = strTag;
-                    m_pSelected = dynamic_pointer_cast<CMapObject>(pObject);
+                    m_Context.Select(strTag, pObject);
 
                     if (ImGui::MenuItem("Delete", "Del"))
                         m_bRequestDelete = true;             // 루프 중엔 플래그만 (map 순회 중)
@@ -1713,6 +1982,11 @@ void CTool::Render_Hierachy()
     }
     ImGui::End();
 }
+
+unique_ptr<CPanel_Hierarchy> CPanel_Hierarchy::Create(EDITOR_CONTEXT& Context)
+{
+    return unique_ptr<CPanel_Hierarchy>(new CPanel_Hierarchy(Context));
+}
 ```
 
 **확인**
@@ -1742,9 +2016,9 @@ Inspector
    Texture [WoodCrate01 ▼]
 ```
 
-### 12-1. 콤보 템플릿 (Tool.cpp 익명 네임스페이스)
+### 12-1. EditorUI_Utils.h — 콤보 템플릿 추가
 
-`{ pName, pPath }` 구조의 정적 배열이면 무엇이든 콤보로 그린다.
+`{ pName, pPath }` 구조의 정적 배열(`g_Meshes`, `g_Textures`)이면 무엇이든 콤보로 그린다. 템플릿이라 헤더에 둔다.
 
 ```cpp
 // strCurrent : 객체가 지금 가진 경로 (정규화된 태그, 소문자)
@@ -1752,53 +2026,82 @@ Inspector
 template<typename ITEM, size_t N, typename FUNC>
 void Render_AssetCombo(const char* pLabel, const ITEM(&Items)[N], const wstring_t& strCurrent, FUNC&& OnChange)
 {
-    // 1. 현재 값이 목록의 몇 번째인지 (목록 경로도 정규화해서 비교 — 객체 경로는 소문자)
-    int32_t iCurrent = -1;
-    for (int32_t i = 0; i < static_cast<int32_t>(N); ++i)
-    {
-        if (Normalize_AssetPath(Items[i].pPath) == strCurrent)
-        {
-            iCurrent = i;
-            break;
-        }
-    }
+	// 1. 현재 값이 목록의 몇 번째인지 (목록 경로도 정규화해서 비교 — 객체 경로는 소문자)
+	int32_t iCurrent = -1;
+	for (int32_t i = 0; i < static_cast<int32_t>(N); ++i)
+	{
+		if (Normalize_AssetPath(Items[i].pPath) == strCurrent)
+		{
+			iCurrent = i;
+			break;
+		}
+	}
 
-    // 2. 닫혀 있을 때 보일 글자 — 목록에 없으면(불러온 맵 등) 경로 그대로
-    const string strPreview = (-1 != iCurrent) ? Items[iCurrent].pName : To_UTF8(strCurrent);
+	// 2. 닫혀 있을 때 보일 글자 — 목록에 없으면(불러온 맵 등) 경로 그대로
+	const string strPreview = (-1 != iCurrent) ? Items[iCurrent].pName : To_UTF8(strCurrent);
 
-    // 3. 콤보
-    if (ImGui::BeginCombo(pLabel, strPreview.c_str()))
-    {
-        for (int32_t i = 0; i < static_cast<int32_t>(N); ++i)
-        {
-            const bool_t bSelected = (i == iCurrent);
-            if (ImGui::Selectable(Items[i].pName, bSelected) && !bSelected)
-                OnChange(Items[i].pPath);
+	// 3. 콤보
+	if (ImGui::BeginCombo(pLabel, strPreview.c_str()))
+	{
+		for (int32_t i = 0; i < static_cast<int32_t>(N); ++i)
+		{
+			const bool_t bSelected = (i == iCurrent);
+			if (ImGui::Selectable(Items[i].pName, bSelected) && !bSelected)
+				OnChange(Items[i].pPath);
 
-            if (bSelected)
-                ImGui::SetItemDefaultFocus();     // 열었을 때 현재 항목으로 스크롤
-        }
-        ImGui::EndCombo();
-    }
+			if (bSelected)
+				ImGui::SetItemDefaultFocus();     // 열었을 때 현재 항목으로 스크롤
+		}
+		ImGui::EndCombo();
+	}
 }
 ```
 
-### 12-2. Render_Inspector
+### 12-2. Panel_Inspector.h
 
 ```cpp
-void CTool::Render_Inspector()
+#pragma once
+#include "Panel.h"
+
+NS_BEGIN(MapTool)
+// 선택한 객체의 이름, Transform, 타입별 섹션(Static Prop: Mesh / Texture)
+// 타입별 섹션은 dynamic_pointer_cast로 분기 (ImGui 코드를 Client 클래스에 넣지 않기)
+class CPanel_Inspector final : public CPanel
 {
-    Set_NextPanelRect(m_tInspector.fX, m_tInspector.fY, m_tInspector.fW, m_tInspector.fH);
+private:
+	explicit CPanel_Inspector(EDITOR_CONTEXT& Context) : CPanel{ Context } {}
+public:
+	virtual ~CPanel_Inspector() = default;
+
+public:
+	virtual void	Render(const PANEL_RECT& tRect) override;
+
+public:
+	static unique_ptr<CPanel_Inspector> Create(EDITOR_CONTEXT& Context);
+};
+NS_END
+```
+
+### 12-3. Panel_Inspector.cpp
+
+```cpp
+#include "EditorUI_Utils.h"
+#include "Panel_Inspector.h"
+#include "StaticProp.h"
+
+void CPanel_Inspector::Render(const PANEL_RECT& tRect)
+{
+    Set_NextPanelRect(tRect);
     if (ImGui::Begin("Inspector", nullptr, g_FixedPanelFlags))
     {
-        Validate_Selection();                       // 지워졌으면 선택 해제
-        auto pSelected = m_pSelected.lock();
+        m_Context.Validate_Selection();             // 지워졌으면 선택 해제
+        auto pSelected = m_Context.pSelected.lock();
         if (nullptr == pSelected)
             ImGui::TextDisabled("No object selected");
         else
         {
             // ---------- 이름 ----------
-            ImGui::TextUnformatted(To_UTF8(m_strSelectedTag).c_str());
+            ImGui::TextUnformatted(To_UTF8(m_Context.strSelectedTag).c_str());
             ImGui::Separator();
 
             // ---------- Transform ----------
@@ -1823,15 +2126,20 @@ void CTool::Render_Inspector()
             {
                 if (ImGui::CollapsingHeader("Static Prop", ImGuiTreeNodeFlags_DefaultOpen))
                 {
-                    Render_AssetCombo("Mesh", s_Meshes, pProp->Get_MeshPath(),
+                    Render_AssetCombo("Mesh", g_Meshes, pProp->Get_MeshPath(),
                         [&](const wchar_t* pPath) { if (FAILED(pProp->Change_Mesh(pPath)))    MSG_BOX("Mesh Change Failed"); });
-                    Render_AssetCombo("Texture", s_Textures, pProp->Get_TexturePath(),
+                    Render_AssetCombo("Texture", g_Textures, pProp->Get_TexturePath(),
                         [&](const wchar_t* pPath) { if (FAILED(pProp->Change_Texture(pPath))) MSG_BOX("Texture Change Failed"); });
                 }
             }
         }
     }
     ImGui::End();
+}
+
+unique_ptr<CPanel_Inspector> CPanel_Inspector::Create(EDITOR_CONTEXT& Context)
+{
+    return unique_ptr<CPanel_Inspector>(new CPanel_Inspector(Context));
 }
 ```
 
@@ -1843,7 +2151,7 @@ void CTool::Render_Inspector()
 
 **주의**
 - `DragFloat3`에 `&vPos.x`를 넘기는 건 `float3_t`(XMFLOAT3)가 float 3개가 연속이라 가능
-- 텍스처/메시 목록을 늘리려면 `s_Meshes` / `s_Textures` 배열에 한 줄 추가하면 끝 (경로는 Resource 기준)
+- 텍스처/메시 목록을 늘리려면 `EditorUI_Defines.h`의 `g_Meshes` / `g_Textures`에 한 줄 추가하면 끝 (경로는 Resource 기준)
 
 ---
 
@@ -1851,7 +2159,7 @@ void CTool::Render_Inspector()
 
 ### 완료
 - [x] MapTool 프로젝트 + ImGui 연동 (한글 폰트, DPI, ESC 처리)
-- [x] 메뉴바 + 3창 고정 레이아웃
+- [x] 메뉴바 + 3창 고정 레이아웃 (`CEditorUI` + `CPanel_Hierarchy / Scene / Inspector`)
 - [x] Scene 창 RTT (비율 유지)
 - [x] 맵툴 카메라 (게임오브젝트, 우클릭 + WASD + 마우스)
 - [x] `CMapObject` + DESC, `CTransform::Rotation(도)`
@@ -1865,7 +2173,7 @@ void CTool::Render_Inspector()
 1. **카메라 정리**
    - 마우스 회전에서 `* fDeltaTime` 제거 후 `fSensor` 재조정
    - Scene 이미지 **가로 가운데 정렬** (`vCursor.x = (vAvail.x - vSize.x) * 0.5f`)
-   - (권장) 우클릭을 Scene 위에서 시작했을 때만 조작(`m_bHovered` 활용), 피치 제한
+   - (권장) 우클릭을 Scene 위에서 시작했을 때만 조작(`m_Context.bSceneHovered` 활용), 피치 제한
 2. **저장 / 불러오기** (계획서 6단계)
    - 파일 형식: 헤더 `"DKMP"` + 버전 → 개수 → [프로토 태그, 메시 경로, 텍스처 경로, 위치/회전/크기 float×9, 추가 데이터 크기, 추가 데이터]
    - `Parse_Map(경로, vector<DESC>&)` / `Spawn_Map(레벨, 레이어, Descs)`로 분리 (Client Loader 스레드 대비)
@@ -1983,7 +2291,7 @@ void CTool::Render_Inspector()
 |---|---|---|
 | 10/27 | `347d306a4` ImGui 추가중 | MapTool 프로젝트 추가, ImGui 소스, Sampler_Manager, Engine.dll 복사 |
 | 10/29 | `d91aaa0b1` 상수버퍼 크기 수정 | Default.cpp 정리 (창 크기/DPI) |
-| 10/29 | `a553b15dc` ImGui 수정중 | ToolApp, Tool(레이아웃/메뉴/Scene), Level_MapTool, MapTool_Cam, Camera_Manager |
+| 10/29 | `a553b15dc` ImGui 수정중 | ToolApp, 에디터 UI(레이아웃/메뉴/Scene), Level_MapTool, MapTool_Cam, Camera_Manager |
 | 10/30 | `a030c72b4` 맵툴 수정 | SkyBox, Renderer(백버퍼 그리기 옵션), Tool Scene 비율 |
 | 10/30 | `0545bc72d` 파이프라인 카메라 적용 완료 | CCamera를 게임오브젝트로, PipeLine/ConstantBuffer, 셰이더 |
 | 10/30 | `7bdfd68df` 맵툴 카메라 게임오브젝트로 변경 | CMapTool_Cam 재작성, ToolMainApp Sync_SceneView |
