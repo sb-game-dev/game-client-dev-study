@@ -1,4 +1,4 @@
-# MapTool 작업 설명서 (2026-10-27 ~ 2026-11-01)
+# MapTool 작업 설명서
 
 > 이 문서만 보고 **지금의 맵툴(Hierarchy + Scene + Inspector, StaticProp 생성/삭제/편집)을 처음부터 똑같이 다시 만들 수 있도록** 작업 순서대로 정리한 설명서입니다.
 > 각 단계는 **목표 → 수정 파일 → 코드 → 확인 방법 → 주의** 순서로 적었습니다.
@@ -9,18 +9,18 @@
 ## 목차
 
 - [0. 전체 그림](#0-전체-그림)
-- [1단계. MapTool 프로젝트 만들기](#1단계-maptool-프로젝트-만들기-1027)
-- [2단계. ImGui 붙이기 (WinMain / WndProc / 초기화 / 프레임 순서)](#2단계-imgui-붙이기-1027--1029)
-- [3단계. 에디터 UI 뼈대 — 메뉴바 + 창 3개](#3단계-에디터-ui-뼈대--메뉴바--창-3개-1029)
-- [4단계. Scene 창에 게임 화면 넣기 (RTT)](#4단계-scene-창에-게임-화면-넣기-rtt-1029--1030)
-- [5단계. 맵툴 카메라 (게임오브젝트 카메라)](#5단계-맵툴-카메라-1030--1031)
-- [6단계. Level_MapTool 구성 (SkyBox, 카메라, 맵 레이어)](#6단계-level_maptool-구성-1030--1101)
-- [7단계. CMapObject + MAPOBJECT_DESC](#7단계-cmapobject--mapobject_desc-1101)
-- [8단계. CAsset_Manager (경로로 찾고, 없으면 로드)](#8단계-casset_manager-1101)
-- [9단계. CStaticProp](#9단계-cstaticprop-1101)
-- [10단계. 엔진: 삭제(Dead)와 객체 목록 조회](#10단계-엔진-삭제dead와-객체-목록-조회-1101)
-- [11단계. Hierarchy 창](#11단계-hierarchy-창-1101)
-- [12단계. Inspector 창](#12단계-inspector-창-1101)
+- [1단계. MapTool 프로젝트 만들기](#1단계-maptool-프로젝트-만들기)
+- [2단계. ImGui 붙이기 (WinMain / WndProc / 초기화 / 프레임 순서)](#2단계-imgui-붙이기)
+- [3단계. 에디터 UI 뼈대 — 메뉴바 + 창 3개](#3단계-에디터-ui-뼈대--메뉴바--창-3개)
+- [4단계. Scene 창에 게임 화면 넣기 (RTT)](#4단계-scene-창에-게임-화면-넣기-rtt)
+- [5단계. 맵툴 카메라 (게임오브젝트 카메라)](#5단계-맵툴-카메라)
+- [6단계. Level_MapTool 구성 (SkyBox, 카메라, 맵 레이어)](#6단계-level_maptool-구성)
+- [7단계. CMapObject + MAPOBJECT_DESC](#7단계-cmapobject--mapobject_desc)
+- [8단계. CAsset_Manager (경로로 찾고, 없으면 로드)](#8단계-casset_manager)
+- [9단계. CStaticProp](#9단계-cstaticprop)
+- [10단계. 엔진: 삭제(Dead)와 객체 목록 조회](#10단계-엔진-삭제dead와-객체-목록-조회)
+- [11단계. Hierarchy 창](#11단계-hierarchy-창)
+- [12단계. Inspector 창](#12단계-inspector-창)
 - [13. 현재 상태와 남은 작업](#13-현재-상태와-남은-작업)
 - [부록 A. 사용한 ImGui 함수/위젯 정리](#부록-a-사용한-imgui-함수위젯-정리)
 - [부록 B. 커밋 기록](#부록-b-커밋-기록)
@@ -91,7 +91,7 @@ wWinMain 루프 (1/60초마다)
 
 ---
 
-## 1단계. MapTool 프로젝트 만들기 (10/27)
+## 1단계. MapTool 프로젝트 만들기
 
 **목표**: 솔루션에 MapTool 실행 프로젝트를 추가하고, Engine.dll과 Client 코드를 가져다 쓸 수 있게 한다.
 
@@ -145,7 +145,7 @@ enum class LEVEL { STATIC, LOADING, LOGO, GAMEPLAY, MAPTOOL, END };
 
 ---
 
-## 2단계. ImGui 붙이기 (10/27 ~ 10/29)
+## 2단계. ImGui 붙이기
 
 **목표**: 툴 창 위에 ImGui가 그려지고 마우스/키보드 입력이 ImGui로 들어간다.
 
@@ -317,7 +317,7 @@ HRESULT CToolMainApp::Initialize()
 }
 ```
 
-**Ready_ImGui** — 컨텍스트 → IO 설정 → 한글 폰트 → 스타일 → 백엔드
+**Ready_ImGui** — 컨텍스트 → IO 설정 → 스타일 → 백엔드 (폰트는 따로 넣지 않으면 ImGui 기본 폰트 사용)
 
 ```cpp
 HRESULT CToolMainApp::Ready_ImGui()
@@ -327,10 +327,6 @@ HRESULT CToolMainApp::Ready_ImGui()
 
     ImGuiIO& io = ImGui::GetIO();                           // 설정, 입력, 출력, 폰트
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;   // 키보드로 위젯 이동
-
-    // 한글 폰트 (1.92 이상은 글리프를 필요할 때 만들기 때문에 범위 지정 불필요)
-    if (nullptr == io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\malgun.ttf", 16.f))
-        io.Fonts->AddFontDefault();                         // 실패하면 기본 폰트 (영문만)
 
     ImGui::StyleColorsDark();
 
@@ -410,11 +406,11 @@ HRESULT CToolMainApp::Render()
 
 > 참고: `CImGui_Manager` 클래스(Initialize/Begin_Frame/Render)도 같은 내용으로 만들어 두었지만, 현재는 `CToolMainApp`이 직접 처리하고 있다. 둘 중 하나만 쓰면 된다.
 
-**확인**: `View → ImGui Demo`로 데모 창이 뜨고, 한글이 깨지지 않으며, 클릭/드래그가 된다.
+**확인**: `View → ImGui Demo`로 데모 창이 뜨고, 클릭/드래그가 된다.
 
 ---
 
-## 3단계. 에디터 UI 뼈대 — 메뉴바 + 창 3개 (10/29)
+## 3단계. 에디터 UI 뼈대 — 메뉴바 + 창 3개
 
 **목표**: 위에 메뉴바, 아래에 `Hierarchy | Scene | Inspector` 세 창이 화면을 꽉 채우고 움직이지 않는다. (도킹 없이 직접 좌표 계산)
 창 하나가 클래스 하나가 되도록 구조를 잡고 시작한다.
@@ -755,70 +751,256 @@ unique_ptr<CEditorUI> CEditorUI::Create()
 
 ---
 
-## 4단계. Scene 창에 게임 화면 넣기 (RTT) (10/29 ~ 10/30)
+## 4단계. Scene 창에 게임 화면 넣기 (RTT)
 
 **목표**: 엔진이 그린 3D 화면을 텍스처로 받아 Scene 창 안에 **비율을 유지하며** 표시한다.
 
-### 4-1. Engine — CRenderer에 씬 타깃 만들기
+### 4-1. 개념 — 렌더 타깃을 바꿔서 그린다 (RTT, Render To Texture)
 
-**Renderer.h**
+**그림은 "지금 묶여 있는 렌더 타깃"에 그려진다**
+- 파이프라인 마지막 단계인 출력 병합기(OM, Output Merger)가 픽셀 셰이더가 낸 색을 **현재 바인딩된 렌더 타깃**에 기록한다
+- 어디에 그릴지는 `OMSetRenderTargets(RTV 개수, RTV 배열, DSV)` 한 줄로 정한다
+- 평소에는 `CGraphic_Device` 초기화 때 **백버퍼 RTV + 깊이 버퍼 DSV**를 묶어 두기 때문에 모든 Draw가 백버퍼로 가고, `Present`로 화면에 나온다
+
+```cpp
+// CGraphic_Device 초기화 (이미 있는 코드)
+ID3D11RenderTargetView* pRTVs[] = { m_pBackBufferRTV.Get() };
+m_pDeviceContext->OMSetRenderTargets(1, pRTVs, m_pDepthStencilView.Get());
+m_pDeviceContext->RSSetViewports(1, &ViewPortDesc);      // 창 크기 뷰포트
+```
+
+**RTT = 백버퍼 대신 내가 만든 텍스처를 묶고 그리기**
+- 직접 만든 텍스처의 RTV를 묶고 그리면 결과가 화면이 아니라 **텍스처에 남는다**
+- 그 텍스처를 다시 **읽기용(SRV)** 으로 쓰면 셰이더나 ImGui에서 이미지처럼 쓸 수 있다
+
+**텍스처 하나에 "뷰"를 여러 개 만든다**
+
+| 뷰 | 용도 | 여기서 쓰는 곳 |
+|---|---|---|
+| RTV (Render Target View) | 그리기 대상 (쓰기) | 씬 오브젝트를 그릴 때 |
+| SRV (Shader Resource View) | 셰이더에서 읽기 | 백버퍼로 복사(Client), `ImGui::Image`(MapTool) |
+| UAV (Unordered Access View) | 컴퓨트 셰이더 읽기/쓰기 | 블러 |
+
+- 뷰를 만들려면 텍스처 생성 때 `BindFlags`에 해당 용도가 들어 있어야 한다 (없으면 `CreateXXXView` 실패)
+- **같은 텍스처를 RTV로 묶은 채 SRV로 읽을 수 없다.** 그래서 항상 "RTV로 그리기 → RTV 풀기(원래 타깃으로 복구) → SRV로 읽기 → 다 읽으면 SRV 풀기" 순서를 지킨다 (어기면 DX11이 한쪽을 강제로 풀고 디버그 출력에 경고를 남긴다)
+
+**전체 흐름**
+
+```
+[평소]   오브젝트 Draw ──▶ 백버퍼 RTV ──────────────────────────────────────────▶ Present
+
+[RTT]    오브젝트 Draw ──▶ SceneRTV (텍스처)
+                              │
+                              ├─ Client  : Render_FullScreen — SceneSRV를 읽어 백버퍼에 그대로 복사 ──▶ Present
+                              └─ MapTool : 복사 안 함. ImGui::Image(SceneSRV)로 Scene 창 안에만 그림 ──▶ Present
+```
+
+Client와 MapTool이 **같은 Renderer 코드**를 쓰고, 마지막 복사만 `m_bDrawToBackBuffer`로 켜고 끈다.
+
+### 4-2. Renderer.h — 멤버 추가
 
 ```cpp
 public:
 	void	Set_DrawToBackBuffer(bool_t bDraw)			{ m_bDrawToBackBuffer = bDraw; }
 	ID3D11ShaderResourceView* Get_SceneSRV()const		{ return m_pSceneSRV.Get(); }
+	void	SetBlurUse(bool_t bUseBlur)					{ m_bUseBlur = bUseBlur; }
 private:
-	ComPtr<ID3D11RenderTargetView>		m_pSceneRTV;
-	ComPtr<ID3D11ShaderResourceView>	m_pSceneSRV;
-	ComPtr<ID3D11UnorderedAccessView>	m_pSceneUAV;     // 블러용
+	// 씬 텍스처 (텍스처 하나에 뷰 3개)
+	ComPtr<ID3D11RenderTargetView>		m_pSceneRTV;      // 그리기
+	ComPtr<ID3D11ShaderResourceView>	m_pSceneSRV;      // 읽기
+	ComPtr<ID3D11UnorderedAccessView>	m_pSceneUAV;      // 블러 (컴퓨트 셰이더)
+
+	// 씬 텍스처 → 백버퍼 복사용
+	ComPtr<ID3D11VertexShader>			m_pVS_FullScreen;
+	ComPtr<ID3D11PixelShader>			m_pPS_FullScreen;
+	ComPtr<ID3D11DepthStencilState>		m_pDSS_NoDepth;   // 복사할 때는 깊이 테스트 끔
+
+	unique_ptr<CBlurFilter>				m_pBlurFilter;
+	bool_t								m_bUseBlur = { false };
 	bool_t								m_bDrawToBackBuffer = { true };   // Client는 true, 툴은 false
+private:
+	void	Render_FullScreen();
 	HRESULT	Ready_SceneTarget(uint32_t iWinSizeX, uint32_t iWinsizeY);
 ```
 
-**Ready_SceneTarget** — 창 크기와 같은 텍스처 1장에 RTV/SRV/UAV를 만든다 (Renderer Initialize에서 호출)
+### 4-3. Ready_SceneTarget — 씬 텍스처 만들기
+
+`CRenderer::Initialize`에서 다른 상태 객체들과 함께 한 번 호출한다.
 
 ```cpp
-D3D11_TEXTURE2D_DESC desc{};
-desc.Width = iWinSizeX;
-desc.Height = iWinSizeY;
-desc.MipLevels = 1;
-desc.ArraySize = 1;
-desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
-desc.SampleDesc.Count = 1;
-desc.Usage = D3D11_USAGE_DEFAULT;
-desc.BindFlags = D3D11_BIND_RENDER_TARGET | D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS;
+HRESULT CRenderer::Ready_SceneTarget(uint32_t iWinSizeX, uint32_t iWinSizeY)
+{
+	// 1. 텍스처 생성
+	D3D11_TEXTURE2D_DESC desc{};
+	desc.Width = iWinSizeX;                         // 창(=백버퍼, 깊이 버퍼)과 같은 크기
+	desc.Height = iWinSizeY;
+	desc.MipLevels = 1;                             // 화면용이라 밉맵 불필요
+	desc.ArraySize = 1;
+	desc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;       // 백버퍼와 같은 색 형식
+	desc.SampleDesc.Count = 1;                      // MSAA 없음 (깊이 버퍼와 같아야 함)
+	desc.Usage = D3D11_USAGE_DEFAULT;               // GPU가 읽고 쓰기
+	desc.BindFlags = D3D11_BIND_RENDER_TARGET       // RTV를 만들려면
+	               | D3D11_BIND_SHADER_RESOURCE     // SRV를 만들려면
+	               | D3D11_BIND_UNORDERED_ACCESS;   // UAV를 만들려면 (블러)
 
-ComPtr<ID3D11Texture2D> pTex;
-m_pDevice->CreateTexture2D(&desc, nullptr, &pTex);
-m_pDevice->CreateRenderTargetView(pTex.Get(), nullptr, &m_pSceneRTV);
-m_pDevice->CreateShaderResourceView(pTex.Get(), nullptr, &m_pSceneSRV);
-m_pDevice->CreateUnorderedAccessView(pTex.Get(), nullptr, &m_pSceneUAV);
+	ComPtr<ID3D11Texture2D> pTex;
+	m_pDevice->CreateTexture2D(&desc, nullptr, &pTex);
+
+	// 2. 같은 텍스처에 뷰 3개
+	m_pDevice->CreateRenderTargetView(pTex.Get(), nullptr, &m_pSceneRTV);
+	m_pDevice->CreateShaderResourceView(pTex.Get(), nullptr, &m_pSceneSRV);
+	m_pDevice->CreateUnorderedAccessView(pTex.Get(), nullptr, &m_pSceneUAV);
+	// pTex는 여기서 사라져도 됨 — 뷰들이 텍스처 참조를 들고 있음
+
+	// 3. 백버퍼로 복사할 때 쓸 "깊이 끔" 상태
+	D3D11_DEPTH_STENCIL_DESC noDepth{};
+	noDepth.DepthEnable = FALSE;
+	if (FAILED(m_pDevice->CreateDepthStencilState(&noDepth, m_pDSS_NoDepth.GetAddressOf())))
+		return E_FAIL;
+
+	// 4. 복사용 셰이더 (Shader_Blur.hlsl의 VS_FullScreen / PS_FullScreen)
+	ComPtr<ID3DBlob> pVSBlob, pPSBlob, pErrBlob;
+	uint32_t iFlags = 0;
+#ifdef _DEBUG
+	iFlags = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
+#endif
+	if (FAILED(D3DCompileFromFile(L"../Bin/Shader/Shader_Blur.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
+		"VS_FullScreen", "vs_5_0", iFlags, 0, &pVSBlob, &pErrBlob)))
+	{
+		if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
+		return E_FAIL;
+	}
+	if (FAILED(D3DCompileFromFile(L"../Bin/Shader/Shader_Blur.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
+		"PS_FullScreen", "ps_5_0", iFlags, 0, &pPSBlob, &pErrBlob)))
+	{
+		if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
+		return E_FAIL;
+	}
+	if (FAILED(m_pDevice->CreateVertexShader(pVSBlob->GetBufferPointer(), pVSBlob->GetBufferSize(), nullptr, &m_pVS_FullScreen)))
+		return E_FAIL;
+	if (FAILED(m_pDevice->CreatePixelShader(pPSBlob->GetBufferPointer(), pPSBlob->GetBufferSize(), nullptr, &m_pPS_FullScreen)))
+		return E_FAIL;
+
+	// 5. 블러 필터 (선택)
+	m_pBlurFilter = CBlurFilter::Create(m_pDevice, m_pContext, iWinSizeX, iWinSizeY);
+	if (nullptr == m_pBlurFilter)
+		return E_FAIL;
+
+	return S_OK;
+}
 ```
 
-**Render_GameObject** — 기존 RTV를 백업 → 씬 RTV로 바꿔 그림 → 복구 → (Client만) 전체 화면 사각형으로 백버퍼에 복사
+- **크기를 창과 같게 하는 이유**: 깊이 버퍼는 새로 만들지 않고 기존 것을 같이 쓰는데, 렌더 타깃과 깊이 버퍼의 크기·샘플 수가 다르면 그려지지 않는다. 뷰포트도 그대로 쓸 수 있다
+- 셰이더 경로 `../Bin/Shader/`는 실행 폴더 기준 → MapTool도 `MapTool/Bin/Shader/`에 `Shader_Blur.hlsl`이 있어야 함 (1-2의 xcopy)
+
+### 4-4. Render_GameObject — 타깃 바꾸기 → 그리기 → 되돌리기
+
+`CGameInstance::Draw()`가 매 프레임 `m_pRenderer->Render_GameObject()`를 부른다.
 
 ```cpp
-ComPtr<ID3D11RenderTargetView>	pOldRTV;
-ComPtr<ID3D11DepthStencilView>	pOldDSV;
-m_pContext->OMGetRenderTargets(1, pOldRTV.GetAddressOf(), pOldDSV.GetAddressOf());
+void CRenderer::Render_GameObject()
+{
+	// 1. 지금 묶여 있는 타깃(백버퍼 RTV + 깊이 DSV)을 백업
+	ComPtr<ID3D11RenderTargetView>	pOldRTV;
+	ComPtr<ID3D11DepthStencilView>	pOldDSV;
+	m_pContext->OMGetRenderTargets(1, pOldRTV.GetAddressOf(), pOldDSV.GetAddressOf());
 
-float clearColor[4] = { 0.75f, 0.75f, 0.75f, 1.f };
-m_pContext->OMSetRenderTargets(1, m_pSceneRTV.GetAddressOf(), pOldDSV.Get());
-m_pContext->ClearRenderTargetView(m_pSceneRTV.Get(), clearColor);
+	// 2. 렌더 타깃만 씬 텍스처로 교체 (깊이 버퍼는 기존 것 그대로)
+	float clearColor[4] = { 0.75f, 0.75f, 0.75f, 1.f };
+	m_pContext->OMSetRenderTargets(1, m_pSceneRTV.GetAddressOf(), pOldDSV.Get());
 
-Render_Priority(); Render_NonAlpha(); ... Render_Alpha();
+	// 3. 씬 텍스처 지우기 (백버퍼 Clear와 별개 — 텍스처는 따로 지워야 지난 프레임이 안 남음)
+	m_pContext->ClearRenderTargetView(m_pSceneRTV.Get(), clearColor);
 
-m_pContext->OMSetRenderTargets(1, pOldRTV.GetAddressOf(), pOldDSV.Get());   // 복구
+	// 4. 오브젝트 그리기 — 각 객체의 Render는 바뀐 게 없다. 타깃만 바뀌었을 뿐
+	Render_Priority();
+	Render_NonAlpha();
+	Render_OccludedPlayer();
+	Render_Player();
+	Render_Shadow();
+	Render_AlphaPre();
+	Render_Mirror();
+	Render_Alpha();
 
-if (m_bUseBlur)
-    m_pBlurFilter->BlurInPlace(m_pSceneSRV.Get(), m_pSceneUAV.Get(), 4);
-if (m_bDrawToBackBuffer)
-    Render_FullScreen();          // 툴에서는 건너뜀 → ImGui::Image가 대신 보여줌
-Render_NonAlpha_UI();
-Render_Alpha_UI();
+	// 5. 원래 타깃(백버퍼)으로 복구 → 이제 씬 텍스처는 RTV에서 풀려서 SRV로 읽을 수 있음
+	m_pContext->OMSetRenderTargets(1, pOldRTV.GetAddressOf(), pOldDSV.Get());
+
+	// 6. (선택) 씬 텍스처에 블러 — UAV로 컴퓨트 셰이더가 직접 수정
+	if (m_bUseBlur)
+		m_pBlurFilter->BlurInPlace(m_pSceneSRV.Get(), m_pSceneUAV.Get(), 4);
+
+	// 7. Client: 씬 텍스처를 백버퍼에 복사 / MapTool: 건너뜀 (ImGui::Image가 대신 보여줌)
+	if (m_bDrawToBackBuffer)
+		Render_FullScreen();
+
+	// 8. UI는 씬 텍스처가 아니라 백버퍼에 바로 그림
+	Render_NonAlpha_UI();
+	Render_Alpha_UI();
+}
 ```
 
-- `Render_FullScreen()`은 그린 뒤 `PSSetShaderResources(0, 1, {nullptr})`로 SRV를 풀어 준다 (다음 프레임 RTV로 쓸 때 경고 방지)
+- **백업을 하는 이유**: Renderer가 백버퍼 RTV를 직접 들고 있지 않아도, 원래 타깃이 무엇이었든 그대로 되돌릴 수 있다
+- `OMGetRenderTargets`는 받은 뷰의 참조 카운트를 올려 준다 → `ComPtr`로 받으면 함수가 끝날 때 자동으로 `Release`
+- 깊이 버퍼는 `CToolMainApp::Render`(Client는 `CMainApp::Render`) 맨 앞의 `Clear_DepthStencil_View()`에서 이미 지워졌으므로 여기서는 색만 지운다
+- 씬 텍스처는 창과 같은 크기라 **뷰포트를 바꿀 필요가 없다** (크기가 다른 텍스처에 그릴 때는 `RSSetViewports`도 같이 바꾸고 복구해야 함)
+- 8번 UI 그룹은 백버퍼에 그려지므로 MapTool에서는 Scene 창 안이 아니라 ImGui 창 뒤에 깔린다 → 맵툴 레벨에서는 UI 객체를 만들지 않는다
+
+### 4-5. Render_FullScreen — 씬 텍스처를 백버퍼에 복사 (Client)
+
+정점 버퍼 없이 **화면을 덮는 삼각형 하나**를 그리고, 픽셀마다 씬 텍스처의 같은 위치 텍셀을 그대로 출력한다.
+
+```cpp
+void CRenderer::Render_FullScreen()
+{
+	m_pContext->OMSetDepthStencilState(m_pDSS_NoDepth.Get(), 0);   // 깊이 테스트 끔 (씬 위에 덮어써야 함)
+	m_pContext->IASetInputLayout(nullptr);                          // 정점 버퍼/입력 레이아웃 없음
+	m_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+	m_pContext->VSSetShader(m_pVS_FullScreen.Get(), nullptr, 0);
+	m_pContext->PSSetShader(m_pPS_FullScreen.Get(), nullptr, 0);
+	m_pContext->PSSetShaderResources(0, 1, m_pSceneSRV.GetAddressOf());   // t0 = 씬 텍스처
+	m_pContext->Draw(3, 0);                                               // 정점 3개 = 삼각형 1개
+
+	ID3D11ShaderResourceView* pNullSRV[1] = { nullptr };
+	m_pContext->PSSetShaderResources(0, 1, pNullSRV);   // SRV 풀기 — 다음 프레임에 RTV로 다시 묶어야 하므로
+	m_pContext->OMSetDepthStencilState(nullptr, 0);     // 기본 깊이 상태로 (UI는 깊이를 다시 써야 함)
+}
+```
+
+**Shader_Blur.hlsl**
+
+```hlsl
+Texture2D g_Input : register(t0);     // PSSetShaderResources(0, ...)로 묶은 씬 텍스처
+
+struct VS_OUT
+{
+    float4 vPosition : SV_POSITION;
+};
+
+// SV_VertexID : 입력 조립기(IA)가 만들어 주는 "몇 번째 정점인지" 값
+// Draw(3, 0) → 이 함수가 세 번 호출되고 iVertexID로 0, 1, 2가 들어감
+VS_OUT VS_FullScreen(uint iVertexID : SV_VertexID)
+{
+    VS_OUT Out;
+    float2 g_vUVs[3] = { float2(0, 0), float2(2, 0), float2(0, 2) };
+    float2 vUV = g_vUVs[iVertexID];
+
+    // UV(0~2) → NDC : x는 -1 ~ 3, y는 뒤집어서 1 ~ -3
+    // → (-1,1) (3,1) (-1,-3) : 화면(-1~1)보다 큰 삼각형. 밖은 클리핑되고 화면 사각형만 남음
+    Out.vPosition = float4(vUV * float2(2.f, -2.f) + float2(-1.f, 1.f), 0.f, 1.f);
+    return Out;
+}
+
+float4 PS_FullScreen(VS_OUT In) : SV_TARGET
+{
+    // PS의 SV_POSITION은 픽셀 좌표 (0.5, 0.5), (1.5, 0.5) ...
+    // 텍스처와 화면 크기가 같으므로 정수로 바꾸면 그대로 텍셀 인덱스 (샘플러 불필요)
+    return g_Input[uint2(In.vPosition.xy)];
+}
+```
+
+- 사각형(삼각형 2개) 대신 큰 삼각형 1개를 쓰면 정점 버퍼도 필요 없고, 대각선 경계에서 픽셀이 두 번 처리되지도 않는다
+
+### 4-6. GameInstance 연결 + 툴에서 끄기
 
 **GameInstance**에 전달 함수 추가
 
@@ -828,7 +1010,26 @@ ID3D11ShaderResourceView* Get_SceneSRV()const;      // → m_pRenderer->Get_Scen
 float2_t Get_ViewportSize() { return m_vViewportSize; }   // Initialize_Engine 끝에서 Compute_ViewportSize()
 ```
 
-### 4-2. EditorUI_Defines.h — EDITOR_CONTEXT에 Scene 상태 추가
+**MapTool**: `CToolMainApp::Initialize` 마지막에 `CGameInstance::Get().Set_DrawToBackBuffer(false);` (2-3)
+
+MapTool 한 프레임에서 렌더 타깃이 바뀌는 순서
+
+```
+CToolMainApp::Render
+ ├ Clear_BackBuffer_View / Clear_DepthStencil_View     백버퍼(검정) + 깊이 지우기
+ ├ Draw() → Render_GameObject
+ │    ├ OMSetRenderTargets(SceneRTV)                    ── 씬 텍스처에 그리기 시작
+ │    ├ Clear(0.75 회색) → 오브젝트 그리기
+ │    ├ OMSetRenderTargets(백버퍼)                       ── 복구
+ │    └ Render_FullScreen 건너뜀 (m_bDrawToBackBuffer = false)
+ ├ Render_ImGui()                                       백버퍼에 ImGui 창들을 그림
+ │    └ Scene 창의 ImGui::Image가 SceneSRV를 읽어서 창 안에 표시
+ └ Present
+```
+
+- ImGui는 그리기 명령을 `ImGui::Image` 호출 시점이 아니라 `ImGui_ImplDX11_RenderDrawData`에서 실행한다 → 그 시점에는 씬 텍스처가 이미 이번 프레임 그림으로 채워져 있다
+
+### 4-7. EditorUI_Defines.h — EDITOR_CONTEXT에 Scene 상태 추가
 
 ```cpp
 struct EDITOR_CONTEXT
@@ -849,7 +1050,7 @@ struct EDITOR_CONTEXT
 	bool_t		GetSceneCliked() { return m_Context.bSceneFocused; }
 ```
 
-### 4-3. CPanel_Scene::Render
+### 4-8. CPanel_Scene::Render
 
 ```cpp
 #include "EditorUI_Utils.h"
@@ -909,7 +1110,7 @@ void CPanel_Scene::Render(const PANEL_RECT& tRect)
 
 ---
 
-## 5단계. 맵툴 카메라 (10/30 ~ 10/31)
+## 5단계. 맵툴 카메라
 
 **목표**: Scene 창을 클릭한 상태에서 **우클릭을 누르고** WASD로 이동, 마우스로 회전한다. (유니티 씬 뷰 방식)
 
@@ -1053,7 +1254,7 @@ void CToolMainApp::Sync_SceneView()
 
 ---
 
-## 6단계. Level_MapTool 구성 (10/30 ~ 11/01)
+## 6단계. Level_MapTool 구성
 
 **목표**: 툴 레벨이 시작되면 SkyBox, 카메라, StaticProp 원형이 준비된다. 맵 객체는 `Layer_Map`에 들어간다.
 
@@ -1128,7 +1329,7 @@ Add_Prototype(MAPTOOL, Proto::Obj_StaticProp, CStaticProp::Create(m_pDevice, m_p
 
 ---
 
-## 7단계. CMapObject + MAPOBJECT_DESC (11/01)
+## 7단계. CMapObject + MAPOBJECT_DESC
 
 **목표**: 배치 가능한 객체가 "레벨 번호 + Transform + 메시/텍스처 경로"를 DESC로 받는다. 툴/게임 어느 레벨이든 같은 코드로 동작.
 
@@ -1254,7 +1455,7 @@ void CTransform::Rotation(f32_t fDegreeX, f32_t fDegreeY, f32_t fDegreeZ)
 
 ---
 
-## 8단계. CAsset_Manager (11/01)
+## 8단계. CAsset_Manager
 
 **목표**: "경로로 원형을 찾고, 없으면 로드해서 등록" — 같은 메시/텍스처는 **한 번만** 로드된다.
 `Proto::Texture_XXX`처럼 태그를 미리 만들지 않고 **정규화된 경로 자체가 프로토타입 태그**가 된다.
@@ -1396,7 +1597,7 @@ m_pAsset_Manager.reset();
 
 ---
 
-## 9단계. CStaticProp (11/01)
+## 9단계. CStaticProp
 
 **목표**: 클래스 하나로 모든 구조물을 표현. 메시/텍스처를 경로로 받고, **생성 후에도 교체**할 수 있다.
 
@@ -1633,7 +1834,7 @@ shared_ptr<CPrototype> CStaticProp::Clone(void* pArg)
 
 ---
 
-## 10단계. 엔진: 삭제(Dead)와 객체 목록 조회 (11/01)
+## 10단계. 엔진: 삭제(Dead)와 객체 목록 조회
 
 **목표**: 툴이 객체를 안전하게 지우고(순회 중 erase 금지), 레이어의 객체 목록을 읽을 수 있다.
 
@@ -1729,7 +1930,7 @@ Draw                                          ← 이미 없음 → 같은 프�
 
 ---
 
-## 11단계. Hierarchy 창 (11/01)
+## 11단계. Hierarchy 창
 
 **목표**: Hierarchy 빈 곳 우클릭 → 객체 생성, 이름 목록에서 클릭 → 선택, 항목 우클릭/Delete 키 → 삭제. (Unity 방식)
 Hierarchy는 **이름 + 선택만** 담당하고, 값은 전부 Inspector(12단계)에서 바꾼다.
@@ -1999,7 +2200,7 @@ unique_ptr<CPanel_Hierarchy> CPanel_Hierarchy::Create(EDITOR_CONTEXT& Context)
 
 ---
 
-## 12단계. Inspector 창 (11/01)
+## 12단계. Inspector 창
 
 **목표**: 선택한 객체의 이름, Transform(위치/회전/크기), Mesh/Texture를 편집하면 Scene에 즉시 반영된다.
 
@@ -2158,7 +2359,7 @@ unique_ptr<CPanel_Inspector> CPanel_Inspector::Create(EDITOR_CONTEXT& Context)
 ## 13. 현재 상태와 남은 작업
 
 ### 완료
-- [x] MapTool 프로젝트 + ImGui 연동 (한글 폰트, DPI, ESC 처리)
+- [x] MapTool 프로젝트 + ImGui 연동 (DPI, ESC 처리)
 - [x] 메뉴바 + 3창 고정 레이아웃 (`CEditorUI` + `CPanel_Hierarchy / Scene / Inspector`)
 - [x] Scene 창 RTT (비율 유지)
 - [x] 맵툴 카메라 (게임오브젝트, 우클릭 + WASD + 마우스)
@@ -2206,8 +2407,6 @@ unique_ptr<CPanel_Inspector> CPanel_Inspector::Create(EDITOR_CONTEXT& Context)
 | `ImGui::CreateContext()` | ImGui 컨텍스트 생성 | Ready_ImGui |
 | `ImGui::GetIO()` | 설정/입력/출력/폰트 구조체 (`ImGuiIO&`) | Ready_ImGui, Calc_Layout, WndProc |
 | `io.ConfigFlags \|= ImGuiConfigFlags_NavEnableKeyboard` | 키보드로 위젯 이동 | Ready_ImGui |
-| `io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\malgun.ttf", 16.f)` | 한글 폰트 (실패 시 nullptr) | Ready_ImGui |
-| `io.Fonts->AddFontDefault()` | 기본 폰트 (영문) | Ready_ImGui |
 | `ImGui::StyleColorsDark()` | 다크 테마 | Ready_ImGui |
 | `ImGui_ImplWin32_EnableDpiAwareness()` | DPI 인식 (창 생성 전) | wWinMain |
 | `ImGui_ImplWin32_Init(hWnd)` | Win32 백엔드 | Ready_ImGui |
@@ -2287,18 +2486,18 @@ unique_ptr<CPanel_Inspector> CPanel_Inspector::Create(EDITOR_CONTEXT& Context)
 
 ## 부록 B. 커밋 기록
 
-| 날짜 | 커밋 | 내용 |
-|---|---|---|
-| 10/27 | `347d306a4` ImGui 추가중 | MapTool 프로젝트 추가, ImGui 소스, Sampler_Manager, Engine.dll 복사 |
-| 10/29 | `d91aaa0b1` 상수버퍼 크기 수정 | Default.cpp 정리 (창 크기/DPI) |
-| 10/29 | `a553b15dc` ImGui 수정중 | ToolApp, 에디터 UI(레이아웃/메뉴/Scene), Level_MapTool, MapTool_Cam, Camera_Manager |
-| 10/30 | `a030c72b4` 맵툴 수정 | SkyBox, Renderer(백버퍼 그리기 옵션), Tool Scene 비율 |
-| 10/30 | `0545bc72d` 파이프라인 카메라 적용 완료 | CCamera를 게임오브젝트로, PipeLine/ConstantBuffer, 셰이더 |
-| 10/30 | `7bdfd68df` 맵툴 카메라 게임오브젝트로 변경 | CMapTool_Cam 재작성, ToolMainApp Sync_SceneView |
-| 10/31 | `b3caf4dd7` / `364bbb3b4` | `Has_Prototype`, `Normalize_AssetPath`, MapTool_Plan.md 작성 |
-| 11/01 | `08436eeff` 맵툴 구현중 | CMapObject, CStaticProp, CAsset_Manager, 중복 태그 E_FAIL |
-| 11/01 | `b4d46a84e` 하이어라키창 수정중 | Dead 삭제, Get_GameObjects, Hierarchy 창 |
-| 11/01 | `41a779582` 하이어라키 + 인스펙터창 구현 완료 | Remove_Component, Change_Mesh/Texture, Inspector 창 |
+| 커밋 | 내용 |
+|---|---|
+| `347d306a4` ImGui 추가중 | MapTool 프로젝트 추가, ImGui 소스, Sampler_Manager, Engine.dll 복사 |
+| `d91aaa0b1` 상수버퍼 크기 수정 | Default.cpp 정리 (창 크기/DPI) |
+| `a553b15dc` ImGui 수정중 | ToolApp, 에디터 UI(레이아웃/메뉴/Scene), Level_MapTool, MapTool_Cam, Camera_Manager |
+| `a030c72b4` 맵툴 수정 | SkyBox, Renderer(백버퍼 그리기 옵션), Scene 창 비율 |
+| `0545bc72d` 파이프라인 카메라 적용 완료 | CCamera를 게임오브젝트로, PipeLine/ConstantBuffer, 셰이더 |
+| `7bdfd68df` 맵툴 카메라 게임오브젝트로 변경 | CMapTool_Cam 재작성, ToolMainApp Sync_SceneView |
+| `b3caf4dd7` / `364bbb3b4` | `Has_Prototype`, `Normalize_AssetPath`, MapTool_Plan.md 작성 |
+| `08436eeff` 맵툴 구현중 | CMapObject, CStaticProp, CAsset_Manager, 중복 태그 E_FAIL |
+| `b4d46a84e` 하이어라키창 수정중 | Dead 삭제, Get_GameObjects, Hierarchy 창 |
+| `41a779582` 하이어라키 + 인스펙터창 구현 완료 | Remove_Component, Change_Mesh/Texture, Inspector 창 |
 
 ---
 
@@ -2309,11 +2508,13 @@ unique_ptr<CPanel_Inspector> CPanel_Inspector::Create(EDITOR_CONTEXT& Context)
 | Engine 헤더를 고쳤는데 MapTool에서 안 보임 | **Engine 먼저 빌드** (EngineSDK/Inc로 복사됨) → MapTool 빌드 |
 | 실행 시 Engine.dll 없음 | `MapTool/Bin/Engine.dll` 복사 확인 |
 | 셰이더 로드 실패 | 빌드 후 이벤트 xcopy로 `MapTool/Bin/Shader/`에 복사됐는지, 작업 디렉터리가 `Bin`인지 |
-| 한글이 `???` | malgun.ttf 로드 실패, 또는 wstring을 `To_UTF8` 없이 넘김 |
+| 객체 이름이 깨져 보임 | wstring을 `To_UTF8` 없이 ImGui에 넘김 |
 | ImGui 창에 입력이 안 들어감 | WndProc 맨 앞에 `ImGui_ImplWin32_WndProcHandler` 호출 누락 |
 | 입력칸에서 ESC 누르면 툴 종료 | `io.WantCaptureKeyboard` 검사 |
 | Scene 창이 까맣다 | `Set_DrawToBackBuffer(false)` 후 `ImGui::Image`에 `Get_SceneSRV()`를 넘겼는지, ImGui Render가 씬 Draw 뒤인지 |
 | 씬이 ImGui 창 뒤 전체 화면에도 보임 | `Set_DrawToBackBuffer(false)` 누락 |
+| 씬 텍스처에 아무것도 안 그려짐 | 씬 텍스처와 깊이 버퍼의 크기/샘플 수가 다름, 또는 `OMSetRenderTargets`로 원래 타깃을 복구하지 않아 이후 그리기가 엉뚱한 곳으로 감 |
+| 디버그 출력에 "still bound on input" 경고 | SRV로 묶인 채 같은 텍스처를 RTV로 묶음 → 읽기가 끝나면 `PSSetShaderResources(0, 1, {nullptr})`로 풀기 |
 | 우클릭 메뉴가 두 개 겹쳐 열림 | 빈 곳 메뉴에 `ImGuiPopupFlags_NoOpenOverItems` |
 | 항목 메뉴가 엉뚱한 항목에 붙음 | `BeginPopupContextItem`을 `Selectable` 바로 다음에 호출 |
 | 삭제 시 크래시 (반복자 무효) | 목록 루프 안에서 지우지 말 것 → 플래그 + 루프 뒤 처리, 실제 erase는 `Remove_Dead` |

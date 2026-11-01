@@ -99,14 +99,10 @@ HRESULT CToolMainApp::Ready_ImGui()
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;   // 키보드로 위젯 이동
     //io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;       // docking 브랜치 기능
 
-    // 2. 한글 폰트 (1.92 이상은 글리프를 필요할 때 만들기 때문에 범위 지정 불필요)
-    if (nullptr == io.Fonts->AddFontFromFileTTF("C:\\Windows\\Fonts\\malgun.ttf", 16.f))
-        io.Fonts->AddFontDefault();                         // 실패하면 기본 폰트 (영문만)
-
-    // 3. 스타일
+    // 2. 스타일
     ImGui::StyleColorsDark();
 
-    // 4. 플랫폼/렌더러 백엔드
+    // 3. 플랫폼/렌더러 백엔드
     if (!ImGui_ImplWin32_Init(g_hWnd))
         return E_FAIL;
     if (!ImGui_ImplDX11_Init(m_pDevice.Get(), m_pContext.Get()))
