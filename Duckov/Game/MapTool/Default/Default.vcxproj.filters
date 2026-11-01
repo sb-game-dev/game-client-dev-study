@@ -90,9 +90,6 @@
     <ClInclude Include="..\Public\MapTool_Defines.h">
       <Filter>99. Defines</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\EditorUI.h">
-      <Filter>01. EditorUI\00. Common</Filter>
-    </ClInclude>
     <ClInclude Include="..\Public\EditorUI_Defines.h">
       <Filter>01. EditorUI\00. Common</Filter>
     </ClInclude>
@@ -110,6 +107,9 @@
     </ClInclude>
     <ClInclude Include="..\Public\Panel_Scene.h">
       <Filter>01. EditorUI\01. Panel\02. Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\EditorUI.h">
+      <Filter>01. EditorUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -226,9 +226,6 @@
     <ClCompile Include="..\..\Client\Private\MapObject.cpp">
       <Filter>97. Client_Shared</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\EditorUI.cpp">
-      <Filter>01. EditorUI\00. Common</Filter>
-    </ClCompile>
     <ClCompile Include="..\Private\Panel_Hierarchy.cpp">
       <Filter>01. EditorUI\01. Panel\00. Hierachy</Filter>
     </ClCompile>
@@ -237,6 +234,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Panel_Scene.cpp">
       <Filter>01. EditorUI\01. Panel\02. Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\EditorUI.cpp">
+      <Filter>01. EditorUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

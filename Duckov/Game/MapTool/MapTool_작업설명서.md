@@ -112,7 +112,7 @@ wWinMain 루프 (1/60초마다)
 - `MapTool/Bin/`에 `Engine.dll`이 있어야 실행됨 (Engine 빌드 후 복사되도록 Engine 쪽 빌드 후 이벤트에 MapTool/Bin 추가)
 - 프로젝트 종속성: MapTool → Engine (Engine이 먼저 빌드되게)
 
-- 빌드 후 xcopy로 `Client/Bin/Shader`가 `MapTool/Bin/Shader`로 복사된다. 엔진 Renderer가 시작할 때 `../Bin/Shader/Shader_Blur.hlsl`을 컴파일하므로 **1단계부터 필요**하다
+- 빌드 후 xcopy로 `Client/Bin/Shader`가 `MapTool/Bin/Shader`로 복사된다. 엔진 Renderer가 시작할 때 `../Bin/Shader/Shader_FullScreen.hlsl`을 컴파일하므로 **1단계부터 필요**하다
 
 ### 1-3. Client 코드 가져오기
 - 맵툴은 Client 클래스를 **소스째로 같이 컴파일**한다 (vcxproj에 `..\..\Client\Private\XXX.cpp`를 추가)
@@ -1283,19 +1283,19 @@ HRESULT CRenderer::Ready_SceneTarget(uint32_t iWinSizeX, uint32_t iWinSizeY)
 	if (FAILED(m_pDevice->CreateDepthStencilState(&noDepth, m_pDSS_NoDepth.GetAddressOf())))
 		return E_FAIL;
 
-	// 4. 복사용 셰이더 (Shader_Blur.hlsl의 VS_FullScreen / PS_FullScreen)
+	// 4. 복사용 셰이더 (Shader_FullScreen.hlsl의 VS_FullScreen / PS_FullScreen)
 	ComPtr<ID3DBlob> pVSBlob, pPSBlob, pErrBlob;
 	uint32_t iFlags = 0;
 #ifdef _DEBUG
 	iFlags = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
 #endif
-	if (FAILED(D3DCompileFromFile(L"../Bin/Shader/Shader_Blur.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
+	if (FAILED(D3DCompileFromFile(L"../Bin/Shader/Shader_FullScreen.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
 		"VS_FullScreen", "vs_5_0", iFlags, 0, &pVSBlob, &pErrBlob)))
 	{
 		if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
 		return E_FAIL;
 	}
-	if (FAILED(D3DCompileFromFile(L"../Bin/Shader/Shader_Blur.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
+	if (FAILED(D3DCompileFromFile(L"../Bin/Shader/Shader_FullScreen.hlsl", nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE,
 		"PS_FullScreen", "ps_5_0", iFlags, 0, &pPSBlob, &pErrBlob)))
 	{
 		if (pErrBlob) OutputDebugStringA((char*)pErrBlob->GetBufferPointer());
@@ -1311,7 +1311,7 @@ HRESULT CRenderer::Ready_SceneTarget(uint32_t iWinSizeX, uint32_t iWinSizeY)
 ```
 
 - **크기를 창과 같게 하는 이유**: 깊이 버퍼는 새로 만들지 않고 기존 것을 같이 쓰는데, 렌더 타깃과 깊이 버퍼의 크기·샘플 수가 다르면 그려지지 않는다. 뷰포트도 그대로 쓸 수 있다
-- 셰이더 경로 `../Bin/Shader/`는 실행 폴더 기준 → MapTool도 `MapTool/Bin/Shader/`에 `Shader_Blur.hlsl`이 있어야 함 (1-2의 xcopy). 파일 이름은 Blur지만 여기서는 그 안의 `VS_FullScreen` / `PS_FullScreen` 두 함수만 쓴다
+- 셰이더 경로 `../Bin/Shader/`는 실행 폴더 기준 → MapTool도 `MapTool/Bin/Shader/`에 `Shader_FullScreen.hlsl`이 있어야 함 (1-2의 xcopy)
 
 ### 4-4. Render_GameObject — 타깃 바꾸기 → 그리기 → 되돌리기
 
@@ -1382,7 +1382,7 @@ void CRenderer::Render_FullScreen()
 }
 ```
 
-**Shader_Blur.hlsl**
+**Shader_FullScreen.hlsl** (`Client/Bin/Shader/`에 새로 만듦)
 
 ```hlsl
 Texture2D g_Input : register(t0);     // PSSetShaderResources(0, ...)로 묶은 씬 텍스처

@@ -14,16 +14,16 @@ struct PANEL_RECT
 // CEditorUI가 소유하고, 각 패널은 참조로 받는다.
 struct EDITOR_CONTEXT
 {
-	// ---------- 선택 ----------
+	// 선택
 	// Hierarchy가 바꾸고 Inspector가 읽는다. (나중에 Scene 피킹도 여기에 쓴다)
 	weak_ptr<CMapObject>	pSelected;			// weak_ptr: 지워지면 자동으로 만료
-	wstring_t				strSelectedTag;
+	wstring_t				strSelectedTag;		// 선택된 객체의 이름 ("Prop_01")
 
-	// ---------- Scene 창 ----------
+	// Scene 창
 	float2_t	vImageMin = {};					// 화면 기준 씬 이미지 좌상단 (피킹용)
 	float2_t	vImageSize = {};				// 씬 이미지 크기 (피킹에서 NDC로 바꿀 때 나누는 값)
 	bool_t		bSceneHovered = {};				// 씬 이미지 위에 마우스가 있는지
-	bool_t		bSceneFocused = {};				// Scene 창이 포커스인지 → 카메라 조작 허용
+	bool_t		bSceneFocused = {};				// Scene 창이 포커스인지 -> 카메라 조작 허용
 
 	void Select(const wstring_t& strTag, shared_ptr<CGameObject> pObject)
 	{
