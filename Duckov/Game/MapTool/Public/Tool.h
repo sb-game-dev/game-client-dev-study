@@ -45,7 +45,7 @@ private:
 	};
 	
 	static constexpr PLACEABLE s_Placeables[] = {
-		{ "Static Prop", Proto::Obj_StaticProp },
+		{ "Add Static_Prop", Proto::Obj_StaticProp },
 	};
 
 	// Mesh 콤보박스
@@ -78,11 +78,12 @@ private:
 	uint32_t    m_iNextID = {};										// "Prop_N"의 N
 
 	// 오브젝트 선택
-	weak_ptr<CMapObject>  m_pSelected;								// 지금 선택한 객체
-	wstring_t             m_strSelectedTag;							// 선택한 객체의 태그
+	weak_ptr<CMapObject>	m_pSelected;								// 지금 선택한 객체
+	wstring_t				m_strSelectedTag;							// 선택한 객체의 태그
+	bool_t					m_bRequestDelete = { false };
 
 private:
-	void        Create_Object();
+	void        Create_Object(const wchar_t* pPrototypeTag);
 	void        Delete_Selected(); 
 	void		Validate_Selection();
 private:

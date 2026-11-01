@@ -67,6 +67,41 @@ HRESULT CStaticProp ::Render()
     return Render_Mesh(m_pTransformCom->Get_World(), m_pRS.Get(), m_pPS);
 }
 
+HRESULT CStaticProp::Change_Texture(const wstring_t& strTexturePath)
+{
+    wstring_t strTexTag;
+    if (FAILED(CGameInstance::Get().Get_Or_Load_Texture(m_iLevelIndex, strTexturePath, strTexTag)))
+        return E_FAIL;                              // 실패 → 기존 텍스처 유지
+
+    shared_ptr<CTexture> pNew;
+    Remove_Component(TEXT("Com_Texture"));
+    if (FAILED(__super::Add_Component(m_iLevelIndex, strTexTag, TEXT("Com_Texture"), pNew)))
+        return E_FAIL;
+
+    m_pTextureCom = pNew;
+    m_strTexturePath = strTexTag;
+    return S_OK;
+}
+
+HRESULT CStaticProp::Change_Mesh(const wstring_t& strMeshPath)
+{
+    wstring_t strMeshTag;
+    if (FAILED(CGameInstance::Get().Get_or_Load_Mesh(m_iLevelIndex, strMeshPath, strMeshTag)))
+        return E_FAIL;
+
+    if (0 != strMeshTag.rfind(g_strBuiltinPrefix, 0))
+        return E_FAIL;                              // 10단계: 모델
+
+    shared_ptr<CVIBuffer> pNew;
+    Remove_Component(TEXT("Com_Buffer"));
+    if (FAILED(__super::Add_Component(m_iLevelIndex, strMeshTag, TEXT("Com_Buffer"), pNew)))
+        return E_FAIL;
+
+    m_pBufferCom = pNew;
+    m_strMeshPath = strMeshTag;
+    return S_OK;
+}
+
 HRESULT CStaticProp ::Ready_Components()
 {
     //if (FAILED(__super::Add_Component(m_iLevelIndex, m_strTexturePath,
@@ -102,28 +137,8 @@ HRESULT CStaticProp ::Ready_ConstantBuffer()
 
 HRESULT CStaticProp::Ready_Mesh()
 {
-    wstring_t strMeshTag;
-    if (FAILED(CGameInstance::Get().Get_or_Load_Mesh(m_iLevelIndex, m_strMeshPath, strMeshTag)))
-        return E_FAIL;
-    m_strMeshPath = strMeshTag;                     // 정규화된 값으로 보관 → 저장도 이 값으로
-
-    if (0 == strMeshTag.rfind(g_strBuiltinPrefix, 0))
-    {
-        if (FAILED(__super::Add_Component(m_iLevelIndex, strMeshTag, TEXT("Com_Buffer"), m_pBufferCom)))
-            return E_FAIL;
-
-        wstring_t strTexTag;
-        if (FAILED(CGameInstance::Get().Get_Or_Load_Texture(m_iLevelIndex, m_strTexturePath, strTexTag)))
-            return E_FAIL;
-        m_strTexturePath = strTexTag;
-
-        if (FAILED(__super::Add_Component(m_iLevelIndex, strTexTag, TEXT("Com_Texture"), m_pTextureCom)))
-            return E_FAIL;
-    }
-    else
-    {
-        return E_FAIL;      // 10단계: 모델
-    }
+    if (FAILED(Change_Mesh(m_strMeshPath)))       return E_FAIL;
+    if (FAILED(Change_Texture(m_strTexturePath))) return E_FAIL;
     return S_OK;
 }
 

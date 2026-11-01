@@ -20,6 +20,9 @@ public:
     virtual	void	Update(f32_t fDeltaTime) override;
     virtual	void	Late_Update(f32_t fDeltaTime) override;
     virtual HRESULT	Render() override;
+
+    HRESULT Change_Texture(const wstring_t& strTexturePath);
+    HRESULT Change_Mesh(const wstring_t& strMeshPath);
 private:
     shared_ptr<CTexture>            m_pTextureCom;
     shared_ptr<CVIBuffer>           m_pBufferCom;

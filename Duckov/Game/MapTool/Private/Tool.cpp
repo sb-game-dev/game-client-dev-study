@@ -38,6 +38,48 @@ namespace
         MultiByteToWideChar(CP_UTF8, 0, pUTF8, -1, strOut.data(), iSize);
         return strOut;
     }
+
+    // ... g_FixedPanelFlags, Set_NextPanelRect, To_UTF8, To_Wide ...
+
+    // { pName, pPath } 구조의 목록을 콤보로 그린다.
+    // strCurrent : 객체가 지금 가진 경로 (정규화된 태그, 소문자)
+    // OnChange   : 다른 항목을 골랐을 때 호출 (고른 항목의 원본 경로를 넘김)
+    template<typename ITEM, size_t N, typename FUNC>
+    void Render_AssetCombo(const char* pLabel, const ITEM(&Items)[N], const wstring_t& strCurrent, FUNC&& OnChange)
+    {
+        // 1. 현재 값이 목록의 몇 번째인지 찾기
+        int32_t iCurrent = -1;
+        for (int32_t i = 0; i < static_cast<int32_t>(N); ++i)
+        {
+            if (Normalize_AssetPath(Items[i].pPath) == strCurrent)
+            {
+                iCurrent = i;
+                break;
+            }
+        }
+
+        // 2. 콤보 닫혀 있을 때 보일 글자
+        //    목록에 없으면 (불러온 맵 등) 경로를 그대로 보여줌
+        const string strPreview = (-1 != iCurrent) ? Items[iCurrent].pName : To_UTF8(strCurrent);
+
+        // 3. 콤보
+        if (ImGui::BeginCombo(pLabel, strPreview.c_str()))
+        {
+            for (int32_t i = 0; i < static_cast<int32_t>(N); ++i)
+            {
+                const bool_t bSelected = (i == iCurrent);
+
+                if (ImGui::Selectable(Items[i].pName, bSelected) && !bSelected)
+                    OnChange(Items[i].pPath);
+
+                // 콤보를 열었을 때 현재 항목으로 스크롤
+                if (bSelected)
+                    ImGui::SetItemDefaultFocus();
+            }
+            ImGui::EndCombo();
+        }
+    }
+  
 }
 
 HRESULT CTool::Initialize()
@@ -58,21 +100,28 @@ void CTool::Update(const f32_t& fDeltaTime)
         ImGui::ShowDemoWindow(&m_bShowDemo);
 }
 
-void CTool::Create_Object()
+void CTool::Create_Object(const wchar_t* pPrototypeTag)
 {
     CStaticProp::STATICPROP_DESC Desc{};
     Desc.iLevelIndex = ETOUI(LEVEL::MAPTOOL);
-    Desc.strMeshPath = s_Meshes[m_iMeshIndex].pPath;
-    Desc.strTexturePath = s_Textures[m_iTextureIndex].pPath;
+    Desc.strMeshPath = s_Meshes[0].pPath;           // 기본: cube
+    Desc.strTexturePath = s_Textures[0].pPath;      // 기본: 첫 텍스처
     Desc.bEditorMode = true;
-    // 위치: 카메라 앞에 두면 편함 (카메라 Position + Look * 5)
 
-    wstring_t strTag = L"Prop_" + to_wstring(m_iNextID++);
+    wstring_t strTag;
 
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::MAPTOOL), s_Placeables[m_iPlaceableIndex].pPrototypeTag,
+    do { 
+        if(m_iNextID < 10)
+            strTag = L"Prop_0" + to_wstring(m_iNextID++); 
+        else
+            strTag = L"Prop_" + to_wstring(m_iNextID++);
+    } 
+    while (nullptr != CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag));
+
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::MAPTOOL), pPrototypeTag,
         ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag, &Desc)))
     {
-        MSG_BOX("Create Failed");   // 텍스처 경로가 틀리면 여기로 옴
+        MSG_BOX("Create Failed");
         return;
     }
 
@@ -160,55 +209,56 @@ void CTool::Render_Hierachy()
     Set_NextPanelRect(m_tHierarchy.fX, m_tHierarchy.fY, m_tHierarchy.fW, m_tHierarchy.fH);
     if (ImGui::Begin("Hierarchy", nullptr, g_FixedPanelFlags))
     {
-        // ---------- 생성 ----------
-        ImGui::Combo("Type", &m_iPlaceableIndex, 
-            [](void*, int i) { return s_Placeables[i].pName; }, nullptr, IM_ARRAYSIZE(s_Placeables));
-
-        // 메시 선택 (s_Meshes가 wchar_t라서 표시할 때 char로 바꿔야 함)
-        ImGui::Combo("Mesh", &m_iMeshIndex,
-            [](void*, int i) { return s_Meshes[i].pName; }, nullptr, IM_ARRAYSIZE(s_Meshes));
-
-        // 텍스처 경로 입력 (Resource 기준 상대 경로)
-        ImGui::Combo("Texture", &m_iTextureIndex,
-            [](void*, int i) { return s_Textures[i].pName; }, nullptr, IM_ARRAYSIZE(s_Textures));
-
-        if (ImGui::Button("Create"))
-            Create_Object();
-
-        ImGui::Separator();
-
+        // ---------- 목록 (이름만) ----------
         auto pObjects = CGameInstance::Get().Get_GameObjects(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"));
-
-        uint32_t iVisibleCount = {};
         if (nullptr != pObjects)
         {
             for (auto& [strTag, pObject] : *pObjects)
             {
                 if (nullptr == pObject || pObject->Is_Dead())
                     continue;
-
-                ++iVisibleCount;
-
-                const bool_t bSelected = (strTag == m_strSelectedTag);
-                string strLabel(strTag.begin(), strTag.end());          // wstring -> string
-
-                if (ImGui::Selectable(strLabel.c_str(), bSelected))
+                if (ImGui::Selectable(To_UTF8(strTag).c_str(), strTag == m_strSelectedTag))
                 {
                     m_strSelectedTag = strTag;
                     m_pSelected = dynamic_pointer_cast<CMapObject>(pObject);
                 }
+
+                // 항목 우클릭 메뉴
+                if (ImGui::BeginPopupContextItem())          // 바로 앞 Selectable 전용
+                {
+                    // 우클릭한 항목을 선택 상태로
+                    m_strSelectedTag = strTag;
+                    m_pSelected = dynamic_pointer_cast<CMapObject>(pObject);
+
+                    if (ImGui::MenuItem("Delete", "Del"))
+                        m_bRequestDelete = true;             // 루프 끝난 뒤 처리
+
+                    ImGui::EndPopup();
+                }
             }
         }
-        if (0 == iVisibleCount)
-            ImGui::TextDisabled("(empty)");
-        Validate_Selection();
-
-        // 삭제버튼
-        ImGui::Separator();
-        ImGui::BeginDisabled(m_pSelected.expired());
-        if (ImGui::Button("Delete"))
+        // 우클릭 삭제
+        if (m_bRequestDelete)
+        {
             Delete_Selected();
-        ImGui::EndDisabled();
+            m_bRequestDelete = false;
+        }
+        // Delete 키 삭제
+        if (ImGui::IsWindowFocused() && ImGui::IsKeyPressed(ImGuiKey_Delete))
+            Delete_Selected();
+
+        // 항목 위가 아닌 창의 빈 곳을 우클릭했을 때만 열림
+        if (ImGui::BeginPopupContextWindow("HierarchyMenu", ImGuiPopupFlags_MouseButtonRight | ImGuiPopupFlags_NoOpenOverItems))
+        {
+            for (auto& Item : s_Placeables)
+            {
+                if (ImGui::MenuItem(Item.pName))      // "Add Static_Prop"
+                    Create_Object(Item.pPrototypeTag);
+            }
+            ImGui::EndPopup();
+        }
+
+        
     }
     ImGui::End();
 }
@@ -286,7 +336,43 @@ void CTool::Render_Inspector()
     Set_NextPanelRect(m_tInspector.fX, m_tInspector.fY, m_tInspector.fW, m_tInspector.fH);
     if (ImGui::Begin("Inspector", nullptr, g_FixedPanelFlags))
     {
-        ImGui::TextDisabled("No object selected");
+        Validate_Selection();
+        auto pSelected = m_pSelected.lock();
+        if (nullptr == pSelected)
+            ImGui::TextDisabled("No object selected");
+        else
+        {
+            // ---------- 이름 ----------
+            ImGui::TextUnformatted(To_UTF8(m_strSelectedTag).c_str());
+            ImGui::Separator();
+
+            // ---------- Transform ----------
+            if (ImGui::CollapsingHeader("Transform", ImGuiTreeNodeFlags_DefaultOpen))
+            {
+                float3_t vPos = pSelected->Get_Position();
+                if (ImGui::DragFloat3("Position", &vPos.x, 0.1f))
+                    pSelected->Set_Position(vPos);
+
+                float3_t vRot = pSelected->Get_Rotation();
+                if (ImGui::DragFloat3("Rotation", &vRot.x, 1.f))
+                    pSelected->Set_Rotation(vRot);
+
+                float3_t vScale = pSelected->Get_Scale();
+                if (ImGui::DragFloat3("Scale", &vScale.x, 0.05f, 0.01f, 100.f))
+                    pSelected->Set_Scale(vScale);
+            }
+
+            if (auto pProp = dynamic_pointer_cast<CStaticProp>(pSelected))
+            {
+                if (ImGui::CollapsingHeader("Static Prop", ImGuiTreeNodeFlags_DefaultOpen))
+                {
+                    Render_AssetCombo("Mesh", s_Meshes, pProp->Get_MeshPath(),
+                        [&](const wchar_t* pPath) { if (FAILED(pProp->Change_Mesh(pPath)))       MSG_BOX("Mesh Change Failed"); });
+                    Render_AssetCombo("Texture", s_Textures, pProp->Get_TexturePath(),
+                        [&](const wchar_t* pPath) { if (FAILED(pProp->Change_Texture(pPath))) MSG_BOX("Texture Change Failed"); });
+                }
+            }
+        }
     }
     ImGui::End();
 }
