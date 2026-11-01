@@ -19,6 +19,7 @@ public:
 	HRESULT		Initialize();
 	void		Update(const f32_t& fDeltaTime);
 	bool_t		GetSceneCliked() { return m_Context.bSceneFocused; }
+	bool_t		GetSceneHovered() { return m_Context.bSceneHovered; }
 
 private:
 	f32_t		m_fMenuBarHeight = {};

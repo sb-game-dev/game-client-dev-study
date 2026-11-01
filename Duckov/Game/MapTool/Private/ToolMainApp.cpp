@@ -142,6 +142,7 @@ void CToolMainApp::Sync_SceneView()
     if (nullptr == pCamera)
         return;
     pCamera->Set_SceneClicked(m_pEditorUI->GetSceneCliked());
+    pCamera->Set_SceneHovered(m_pEditorUI->GetSceneHovered());
 
 }
 

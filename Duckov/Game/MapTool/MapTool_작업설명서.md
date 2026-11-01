@@ -481,6 +481,32 @@ shared_ptr<CLevel_MapTool> CLevel_MapTool::Create(ComPtr<ID3D11Device> pDevice, 
 
 **목표**: 툴 창 위에 ImGui가 그려지고 마우스/키보드 입력이 ImGui로 들어간다. 에디터 UI 클래스(`CEditorUI`)를 만들고 메뉴바부터 띄운다.
 
+### 2-0. ImGui가 동작하는 방식 (먼저 알아 둘 것)
+
+ImGui는 **즉시 모드(Immediate Mode) GUI**다. 일반적인 UI 라이브러리처럼 "버튼 객체를 만들어 두고 이벤트를 연결하는" 방식이 아니다.
+
+| | 일반 UI (유지 모드) | ImGui (즉시 모드) |
+|---|---|---|
+| 위젯 만들기 | 시작할 때 버튼 객체를 한 번 만들어 보관 | **매 프레임** `ImGui::Button("저장")`을 다시 호출 |
+| 클릭 처리 | 클릭 이벤트 콜백을 등록 | 호출한 그 자리에서 **반환값**(`true` = 이번 프레임에 눌림)으로 처리 |
+| 상태(값) | 위젯이 값을 들고 있음 | **우리 변수**를 넘기고, ImGui는 그걸 읽고/바꿀 뿐 |
+
+```cpp
+// 매 프레임 실행되는 코드
+if (ImGui::Button("저장"))        // 1) 버튼을 그리고  2) 이번 프레임에 눌렸으면 true
+    Save();
+ImGui::DragFloat("속도", &m_fSpeed);   // m_fSpeed는 우리 멤버. ImGui는 매 프레임 그 값을 보여 주고, 드래그하면 바꿔 줌
+```
+
+알아 둘 규칙
+1. **한 프레임의 흐름**: `NewFrame()` → (위젯 함수들 호출) → `Render()`. 위젯 함수는 화면에 바로 그리지 않고 **그리기 명령만 쌓는다.** 실제로 GPU에 그리는 건 `Render()` 뒤의 `ImGui_ImplDX11_RenderDrawData()`
+2. **Begin/End 짝**: 창, 메뉴, 팝업, 콤보는 `BeginXXX()` ~ `EndXXX()` 사이에 내용을 넣는다. 짝을 맞추는 규칙이 두 가지라 헷갈리기 쉽다
+   - `Begin()`(창)은 반환값과 **상관없이 항상** `End()`
+   - `BeginMenu / BeginMainMenuBar / BeginPopup* / BeginCombo`는 **`true`일 때만** `EndXXX()`
+3. **라벨 = ID**: `Button("저장")`의 `"저장"`은 화면 글자이면서 ImGui가 위젯을 구분하는 ID다. 같은 창 안에서 라벨이 같으면 서로 헷갈린다 → 글자는 같게 보이고 ID만 다르게 하려면 `"저장##1"`, `"저장##2"`처럼 `##` 뒤에 구분자를 붙인다 (`##` 뒤는 화면에 안 보임)
+4. **"바로 앞 위젯" 함수**: `IsItemHovered()`, `GetItemRectMin()`, `BeginPopupContextItem()`처럼 이름에 `Item`이 들어간 함수는 **바로 앞에 그린 위젯 하나**를 기준으로 답한다. `IsWindowFocused()`처럼 `Window`가 들어간 함수는 **지금 Begin~End 중인 창**을 기준으로 답한다
+5. **문자열은 UTF-8 `const char*`**: 엔진의 `wstring`은 그대로 못 넘기고 변환해야 한다 (7단계 `To_UTF8`)
+
 ### 2-1. ImGui 소스 추가
 
 - `MapTool/ImGui/`에 아래 파일을 넣고 vcxproj에 추가
@@ -540,6 +566,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     return 0;
 }
 ```
+
+**처음 나오는 ImGui 함수 / 값**
+
+| 함수 / 값 | 하는 일 | 자세히 |
+|---|---|---|
+| `ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam)` | 윈도우 메시지를 ImGui에 전달 | 마우스 이동(`WM_MOUSEMOVE`), 버튼(`WM_LBUTTONDOWN/UP`, `WM_RBUTTONDOWN/UP`), 휠, 키보드, 글자 입력(`WM_CHAR`), 포커스 메시지를 받아서 ImGui 입력 상태(`ImGuiIO`)에 쌓는다. ImGui가 메시지를 직접 처리했으면(예: 커서 모양 바꾸기) `0`이 아닌 값을 돌려준다. **헤더에서 `#if 0`으로 막혀 있어서** cpp에 `extern`으로 직접 선언해야 한다 |
+| `ImGui_ImplWin32_EnableDpiAwareness()` | 프로그램을 DPI 인식 모드로 설정 | 윈도우 배율이 125%, 150%일 때 OS가 창을 비트맵으로 늘려서 **흐릿하게** 보이게 하는 것을 막는다. 창을 만들기 **전에** 불러야 효과가 있다 |
+| `ImGui::GetCurrentContext()` | 지금 ImGui 컨텍스트(포인터)를 돌려줌 | `CreateContext()` 전이나 `DestroyContext()` 뒤에는 `nullptr`. WndProc은 ImGui 초기화 **전에도**(창 생성 중) 메시지를 받기 때문에, `GetIO()`를 부르기 전에 컨텍스트가 있는지 먼저 확인한다 |
+| `ImGui::GetIO()` | ImGui 전체의 입출력 정보(`ImGuiIO&`)를 돌려줌 | 설정(`ConfigFlags`, 폰트), 입력(`DisplaySize`, `DeltaTime`, 마우스 위치/버튼, 키), 출력(`WantCaptureKeyboard` 등)이 들어 있는 **게시판**. 창과는 관계없다 |
+| `io.WantCaptureKeyboard` | ImGui가 키보드를 쓰는 중인가 | 입력칸에 글자를 치는 중이거나 키보드 내비게이션 중이면 `true`. 이때는 키 입력을 게임/툴이 쓰지 말라는 신호 → ESC로 툴이 꺼지지 않게 하는 데 사용 |
 
 ### 2-3. CEditorUI — 메뉴바
 
@@ -639,6 +675,19 @@ unique_ptr<CEditorUI> CEditorUI::Create()
     return pInstance;
 }
 ```
+
+**처음 나오는 ImGui 함수**
+
+| 함수 | 하는 일 | 자세히 |
+|---|---|---|
+| `ImGui::BeginMainMenuBar()` | 화면(프로그램 창) 맨 위에 꽉 차는 메뉴바를 시작 | 일반 창(`Begin`) **바깥**에서 부른다. 메뉴바를 그릴 수 있으면 `true` → **`true`일 때만** `EndMainMenuBar()` |
+| `ImGui::EndMainMenuBar()` | 메뉴바 끝 | `BeginMainMenuBar()`가 `true`였을 때만 호출 |
+| `ImGui::GetWindowHeight()` | **지금 그리고 있는 창**의 높이 | 메뉴바도 ImGui 내부에서는 창 하나라서, `BeginMainMenuBar()` 안에서 부르면 메뉴바 높이가 나온다 (기본 폰트 기준 약 19). 3단계에서 세 창을 그 아래부터 놓는 데 사용 |
+| `ImGui::BeginMenu("File")` | 메뉴바의 펼침 메뉴 하나 | 메뉴가 **펼쳐져 있는 동안** `true` → 그 안에 `MenuItem`을 넣고, **`true`일 때만** `EndMenu()` |
+| `ImGui::EndMenu()` | 펼침 메뉴 끝 | `BeginMenu()`가 `true`였을 때만 호출 |
+| `ImGui::MenuItem(라벨, 단축키글자, 선택됨, 활성화)` | 메뉴 항목 하나 | **클릭한 프레임에 `true`.** 두 번째 인자는 오른쪽에 회색으로 보이는 **글자일 뿐** 실제 단축키 동작은 따로 만들어야 한다. 네 번째 인자가 `false`면 회색 비활성(클릭 불가) |
+| `ImGui::MenuItem(라벨, nullptr, &bool변수)` | 체크 표시가 붙는 토글 항목 | `bool*`를 넘기면 클릭할 때마다 ImGui가 그 변수를 `true/false`로 뒤집고, 켜져 있으면 체크 표시를 그린다 |
+| `ImGui::ShowDemoWindow(&bool변수)` | ImGui 데모(예제) 창 | 모든 위젯 예제가 들어 있는 참고용 창. 코드는 `imgui_demo.cpp`. `bool*`를 넘기면 창에 X 버튼이 생기고 누르면 ImGui가 변수를 `false`로 바꾼다 |
 
 ### 2-4. CToolMainApp — ImGui 초기화 / 프레임 / 종료
 
@@ -790,6 +839,25 @@ HRESULT CToolMainApp::Shutdown_ImGui()
 }
 ```
 
+**처음 나오는 ImGui 함수 — 초기화 / 프레임 / 종료**
+
+| 함수 | 하는 일 | 자세히 |
+|---|---|---|
+| `IMGUI_CHECKVERSION()` | 헤더와 컴파일된 ImGui의 버전 검사 (매크로) | `imgui.h`와 `imgui.cpp`의 버전이나 구조체 크기가 다르면 assert. 서로 다른 버전 파일을 섞었을 때 바로 알 수 있다 |
+| `ImGui::CreateContext()` | ImGui 컨텍스트(전체 상태) 생성 | 창 목록, 입력 상태, 폰트, 스타일 등 ImGui의 모든 상태가 여기 들어간다. **다른 ImGui 함수보다 먼저** 불러야 한다 |
+| `io.ConfigFlags \|= ImGuiConfigFlags_NavEnableKeyboard` | 키보드 내비게이션 켜기 | Tab / 방향키로 위젯 사이를 이동하고 Enter / Space로 누를 수 있다 |
+| `ImGui::StyleColorsDark()` | 색 테마를 다크로 | `StyleColorsLight()`, `StyleColorsClassic()`도 있다. 세부 색과 여백은 `ImGui::GetStyle()`로 직접 바꿀 수 있다 |
+| `ImGui_ImplWin32_Init(hWnd)` | Win32 백엔드 초기화 | 이 HWND를 기준으로 화면 크기, 마우스 위치, 커서 모양, 시간을 처리한다 |
+| `ImGui_ImplDX11_Init(Device, Context)` | DX11 백엔드 초기화 | Device/Context를 보관만 하고, 실제 GPU 리소스(폰트 텍스처, 셰이더, 버퍼, 상태)는 **첫 `ImGui_ImplDX11_NewFrame()` 때** 만든다. Device는 리소스 생성용, Context는 매 프레임 그리기 명령용 |
+| `ImGui_ImplDX11_NewFrame()` | DX11 백엔드 프레임 시작 | 아직 GPU 리소스가 없으면 여기서 만든다 |
+| `ImGui_ImplWin32_NewFrame()` | Win32 백엔드 프레임 시작 | `GetClientRect`로 창 크기를 재서 `io.DisplaySize`에 넣고, 지난 프레임부터 흐른 시간(`io.DeltaTime`), 마우스 위치 등을 갱신한다 |
+| `ImGui::NewFrame()` | ImGui 프레임 시작 | 이 다음부터 `Begin`, `Button` 같은 위젯 함수를 부를 수 있다. **백엔드 두 개의 NewFrame 다음**에 불러야 한다 (입력과 화면 크기가 먼저 갱신돼야 하므로) |
+| `ImGui::Render()` | 이번 프레임의 위젯 호출을 마무리 | 쌓인 그리기 명령을 **정점/인덱스/명령 목록(`ImDrawData`)**으로 정리한다. 아직 화면에 그리지는 않는다 |
+| `ImGui::GetDrawData()` | `Render()`가 만든 `ImDrawData*`를 돌려줌 | |
+| `ImGui_ImplDX11_RenderDrawData(ImDrawData*)` | DX11로 실제 그리기 | 정점/인덱스를 GPU 버퍼에 올리고, 창마다 잘라 그리기(Scissor) + 텍스처를 묶어 `DrawIndexed`. 그리기 전에 파이프라인 상태를 백업하고 끝나면 복구한다 |
+| `ImGui_ImplDX11_Shutdown()` / `ImGui_ImplWin32_Shutdown()` | 백엔드 정리 | 초기화의 **반대 순서**로 정리 |
+| `ImGui::DestroyContext()` | 컨텍스트 삭제 | 이후 `GetCurrentContext()`는 `nullptr` |
+
 **Update / Render** — 프레임 순서가 중요
 
 ```cpp
@@ -916,6 +984,19 @@ NS_END
 
 - 헤더에 함수 본문을 두므로 `inline` 필수 (여러 cpp에서 include해도 중복 정의 에러가 안 나게)
 
+**처음 나오는 ImGui 함수 / 값**
+
+| 함수 / 값 | 하는 일 | 자세히 |
+|---|---|---|
+| `ImGui::SetNextWindowPos(위치, 조건)` | **다음에 `Begin`할 창**의 위치 지정 | 화면(프로그램 창 안쪽) 왼쪽 위가 `(0, 0)`인 픽셀 좌표. 반드시 그 창의 `Begin` **전에** 부른다 |
+| `ImGui::SetNextWindowSize(크기, 조건)` | 다음 창의 크기 지정 | 위와 같다 |
+| `ImGuiCond_Always` | "매 프레임 이 값으로 강제" | `ImGuiCond_FirstUseEver`(처음 한 번만, 이후엔 사용자가 옮긴 대로)와 비교된다. 우리는 레이아웃을 직접 계산하므로 Always |
+| `ImGuiWindowFlags_NoMove` | 제목 표시줄을 드래그해도 창이 안 움직임 | |
+| `ImGuiWindowFlags_NoResize` | 모서리를 끌어도 크기가 안 바뀜 | |
+| `ImGuiWindowFlags_NoCollapse` | 제목 표시줄의 접기(▼) 버튼 제거 | 접히면 `Begin()`이 `false`가 되는데 그 경우를 아예 막는다 |
+| `ImGuiWindowFlags_NoSavedSettings` | 창 위치/크기를 `imgui.ini`에 저장하지 않음 | 어차피 매 프레임 강제로 정하므로 저장하면 ini와 값이 엇갈린다 |
+| `ImVec2(x, y)` | ImGui의 2D 벡터 타입 | 위치와 크기에 쓴다. 엔진의 `float2_t`와는 다른 타입이라 필요하면 `.x`, `.y`로 옮겨 담는다 |
+
 ### 3-4. Panel.h — 패널 부모
 
 ```cpp
@@ -996,6 +1077,13 @@ unique_ptr<CPanel_Hierarchy> CPanel_Hierarchy::Create(EDITOR_CONTEXT& Context)
 
 - `Panel_Scene.cpp` → 창 이름 `"Scene"` (본문은 4단계)
 - `Panel_Inspector.cpp` → 창 이름 `"Inspector"` (본문은 9단계)
+
+**처음 나오는 ImGui 함수**
+
+| 함수 | 하는 일 | 자세히 |
+|---|---|---|
+| `ImGui::Begin(이름, p_open, 플래그)` | 창 하나 시작 | `이름`은 제목 표시줄 글자이자 **창의 ID**(같은 이름으로 두 번 Begin하면 같은 창에 이어서 그려진다). `p_open`에 `nullptr`을 주면 닫기(X) 버튼이 없다. 반환값은 "내용을 그릴 필요가 있나"(접혔거나 화면 밖이면 `false`) → `false`면 안쪽 위젯을 건너뛰어도 된다 |
+| `ImGui::End()` | 창 끝 | **`Begin()`의 반환값과 상관없이 항상** 호출. 그래서 `if (Begin(...)) { ... }` 다음, `if` 바깥에 둔다 |
 
 ### 3-6. EditorUI.h (2단계 헤더에 레이아웃·패널 추가)
 
@@ -1147,6 +1235,12 @@ unique_ptr<CEditorUI> CEditorUI::Create()
     return pInstance;
 }
 ```
+
+**처음 나오는 ImGui 값**
+
+| 값 | 하는 일 | 자세히 |
+|---|---|---|
+| `ImGui::GetIO().DisplaySize` | 프로그램 창 안쪽 영역 크기 | `ImGui_ImplWin32_NewFrame()`이 매 프레임 `GetClientRect(hWnd)`로 재서 넣어 둔 값을 읽는다. 처음엔 `(1600, 900)`, 창 크기를 바꾸면 다음 프레임에 바로 바뀐다. **ImGui 창(Hierarchy 등)의 크기가 아니라** 프로그램 창 전체 크기다 |
 
 ### 3-8. 프로젝트 등록
 - `Default.vcxproj`에 헤더 7개(`EditorUI.h, EditorUI_Defines.h, EditorUI_Utils.h, Panel.h, Panel_Hierarchy.h, Panel_Inspector.h, Panel_Scene.h`), cpp 4개(`EditorUI.cpp, Panel_Hierarchy.cpp, Panel_Inspector.cpp, Panel_Scene.cpp`) 추가
@@ -1458,7 +1552,7 @@ struct EDITOR_CONTEXT
 	// ---------- Scene 창 ----------
 	float2_t	vImageMin = {};					// 화면 기준 씬 이미지 좌상단 (피킹용)
 	float2_t	vImageSize = {};				// 씬 이미지 크기 (피킹에서 NDC로 바꿀 때 나누는 값)
-	bool_t		bSceneHovered = {};				// 씬 이미지 위에 마우스가 있는지
+	bool_t		bSceneHovered = {};				// 씬 이미지 위에 마우스가 있는지 → 카메라 조작 허용 (5단계)
 	bool_t		bSceneFocused = {};				// Scene 창이 포커스인지 → 카메라 조작 허용 (5단계)
 
 	// 7단계: 선택 상태
@@ -1542,6 +1636,24 @@ void CPanel_Scene::Render(const PANEL_RECT& tRect)
     ImGui::End();
 }
 ```
+
+**처음 나오는 ImGui 함수 / 값**
+
+| 함수 / 값 | 하는 일 | 자세히 |
+|---|---|---|
+| `ImGuiWindowFlags_NoScrollbar` / `NoScrollWithMouse` | 스크롤바 숨김 / 휠로 스크롤 안 함 | 이미지가 창에 딱 맞으므로 스크롤이 생기지 않게 한다 |
+| `ImGui::PushStyleVar(항목, 값)` | 스타일 값 하나를 **잠깐** 바꿈 | 스택 구조라서 `PopStyleVar()`로 되돌린다. Push한 개수만큼 Pop해야 하고, 안 하면 `End` 때 assert |
+| `ImGuiStyleVar_WindowPadding` | 창 테두리와 내용 사이의 안쪽 여백 (기본 8, 8) | `(0, 0)`으로 바꾸면 이미지가 창 테두리에 딱 붙는다. 창 여백은 **`Begin` 시점에 적용**되므로 Begin 전에 Push, Begin 직후 Pop |
+| `ImGui::PopStyleVar()` | 마지막으로 Push한 스타일을 되돌림 | 인자로 개수를 줄 수 있다 (`PopStyleVar(2)`) |
+| `ImGui::GetContentRegionAvail()` | **현재 커서부터** 창 내용 영역 오른쪽 아래까지 남은 크기 | 제목 표시줄, 여백, 스크롤바를 뺀 실제로 위젯을 놓을 수 있는 공간. Scene 창 기준 약 `(1040, 862)` |
+| `ImGui::SetCursorPos(위치)` | 다음 위젯을 놓을 위치를 지정 | **창 기준 좌표**(창 왼쪽 위 = `(0, 0)`, 제목 표시줄 포함). ImGui는 위젯을 놓을 때마다 커서를 다음 줄로 옮기는데, 그 커서를 직접 옮기는 것. 원래 커서 시작점(`GetCursorPos()`)은 제목 표시줄 아래이므로, 내용 영역 정확히 가운데에 두려면 그 시작점만큼 더해야 한다 (지금 코드는 y만 계산해서 제목 표시줄 높이의 절반쯤 위로 치우침) |
+| `ImGui::Image(텍스처ID, 크기)` | 텍스처를 사각형으로 그림 | DX11 백엔드에서는 `ID3D11ShaderResourceView*`를 `ImTextureID`로 바꿔 넘긴다. 실제로 그릴 때 백엔드가 그 SRV를 픽셀 셰이더 t0에 묶는다. 뒤에 UV 인자(`uv0`, `uv1`)를 주면 텍스처의 일부만 그리거나 뒤집을 수 있다 |
+| `ImTextureID` | ImGui가 텍스처를 가리키는 값 | ImGui 본체는 그 정체를 모르고, 백엔드가 해석한다 (DX11 = SRV 포인터) |
+| `ImGui::GetItemRectMin()` | **바로 앞 위젯**의 왼쪽 위 좌표 | **화면 기준 좌표**(프로그램 창 안쪽 왼쪽 위 = `(0, 0)`). `SetCursorPos`의 창 기준 좌표와 다르니 주의. `GetItemRectMax()`, `GetItemRectSize()`도 있다 |
+| `ImGui::IsItemHovered()` | 마우스가 **바로 앞 위젯** 위에 있나 | 위젯 사각형 안에 마우스가 있고, 팝업이나 다른 창에 가려지지 않았으면 `true`. 매 프레임 마우스 위치로 다시 판단 |
+| `ImGui::IsWindowFocused()` | **지금 그리는 창**이 포커스(마지막으로 클릭해서 활성화된 창)인가 | ImGui는 포커스 창을 딱 하나 기억하고(`g.NavWindow`), 지금 `Begin`~`End` 중인 창과 같은지 비교한다. 다른 창을 **클릭**해야 바뀌고 마우스를 옮기기만 해서는 안 바뀐다. `Begin`~`End` **안에서** 불러야 한다 |
+
+- `IsWindowFocused` vs `IsItemHovered`: 앞의 것은 "Scene 창을 마지막으로 클릭했나"(클릭으로 바뀜), 뒤의 것은 "마우스가 지금 씬 이미지 위에 있나"(움직임으로 바뀜). 5단계 카메라가 둘 다 사용한다
 
 **실행 결과**
 - 1~3단계에서 화면 전체에 깔려 있던 회색이 사라지고, **Scene 창 안에만** 회색(0.75) 씬 이미지가 보인다
@@ -1647,8 +1759,10 @@ public:
     virtual HRESULT Render();
 
     virtual void Set_SceneClicked(bool_t bClicked) { m_bSceneClicked = bClicked; }
+    virtual void Set_SceneHovered(bool_t bHovered) { m_bSceneHovered = bHovered; }
 private:
-    bool_t      m_bSceneClicked = { false };
+    bool_t      m_bSceneClicked = { false };    // Scene 창이 포커스인가
+    bool_t      m_bSceneHovered = { false };    // 마우스가 씬 이미지 위에 있는가
     f32_t	    m_fMouseSensor = {};
 private:
     void        KeyInput(const f32_t fDeltaTime);
@@ -1690,7 +1804,7 @@ void CMapTool_Cam::Update(f32_t fDeltaTime)
 	__super::Update(fDeltaTime);
 	if (!CGameInstance::Get().Get_DIMouseState(DIM::RB))   // 우클릭 중에만
 		return;
-	if (m_bSceneClicked)                                    // Scene 창이 포커스일 때만
+	if (m_bSceneClicked && m_bSceneHovered)                 // Scene 창이 포커스 + 마우스가 씬 이미지 위일 때만
 		KeyInput(fDeltaTime);
 }
 
@@ -1747,53 +1861,95 @@ HRESULT CLevel_MapTool::Initialize()
 **Ready_Layer_BackGround** — SkyBox + 공용 VS
 
 ```cpp
-// 원형
-Add_Prototype(MAPTOOL, Proto::Texture_SkyBox,
-    CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/proc_preview.png"), 1));
-Add_Prototype(MAPTOOL, Proto::Obj_SkyBox, CSkyBox::Create(m_pDevice, m_pContext));
-Add_Prototype(MAPTOOL, Proto::VS_VTXTEX,
-    CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_VtxTex.hlsl",
-                          VTXNORM::Elements, VTXNORM::iNumElements, "VS_MAIN"));
-Add_Prototype(MAPTOOL, Proto::PS_VTXTEX_SKYBOX,
-    CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_VtxTex.hlsl", "PS_MAIN_SKY"));
-Add_Prototype(MAPTOOL, Proto::VIBuffer_SkyBox, CVIBuffer_SkyBox::Create(m_pDevice, m_pContext));
+HRESULT CLevel_MapTool::Ready_Layer_BackGround(const tchar_t* pLayerTag)
+{
+    // ---------- 원형 ----------
+    // SkyBox 텍스처
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::Texture_SkyBox,
+        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/proc_preview.png"), 1))))
+        return E_FAIL;
 
-// 사본
-Add_GameObject(MAPTOOL, Proto::Obj_SkyBox, MAPTOOL, Layer::BackGround, GO::SkyBox);
+    // SkyBox 객체
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::Obj_SkyBox,
+        CSkyBox::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+
+    // 정점 셰이더 (SkyBox와 6단계 StaticProp이 같이 씀)
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::VS_VTXTEX,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_VtxTex.hlsl", VTXNORM::Elements, VTXNORM::iNumElements, "VS_MAIN"))))
+        return E_FAIL;
+
+    // SkyBox 픽셀 셰이더
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::PS_VTXTEX_SKYBOX,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_VtxTex.hlsl", "PS_MAIN_SKY"))))
+        return E_FAIL;
+
+    // SkyBox 정점/인덱스 버퍼
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::VIBuffer_SkyBox,
+        CVIBuffer_SkyBox::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+
+    // ---------- 사본 ----------
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::MAPTOOL), Proto::Obj_SkyBox,
+        ETOUI(LEVEL::MAPTOOL), Layer::BackGround, GO::SkyBox)))
+        return E_FAIL;
+
+    return S_OK;
+}
 ```
-(위 코드의 `MAPTOOL`은 `ETOUI(LEVEL::MAPTOOL)`, 각 호출은 `if (FAILED(...)) return E_FAIL;`로 감쌈)
+
+- 레이어 태그는 인자로 받은 `pLayerTag` 대신 `Client_Tags.h`의 `Layer::BackGround`를 쓴다 (값은 같은 `"Layer_BackGround"`)
 
 **Ready_Layer_GameObject** — 카메라
 
 ```cpp
-Add_Prototype(MAPTOOL, Proto::Obj_MapToolCam, CMapTool_Cam::Create(m_pDevice, m_pContext));
+HRESULT CLevel_MapTool::Ready_Layer_GameObject(const tchar_t* pLayerTag)
+{
+    // 카메라 원형
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::Obj_MapToolCam,
+        CMapTool_Cam::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
 
-CMapTool_Cam::CAMERA_MAPTOOL_CAM_DESC CameraDesc{};
-CameraDesc.fDegreeRotPerSec = 180.f;
-CameraDesc.fSpeedPerSec     = 20.f;
-CameraDesc.vEye  = float4_t(0.f, 0.f, -5.f, 1.f);
-CameraDesc.vAt   = float4_t(0.f, 0.f,  0.f, 1.f);
-CameraDesc.fFovy = 60.f;
-CameraDesc.fNear = 0.1f;
-CameraDesc.fFar  = 1000.f;
-CameraDesc.fSensor = 0.05f;
+    // 카메라 사본
+    CMapTool_Cam::CAMERA_MAPTOOL_CAM_DESC         CameraDesc{};
+    CameraDesc.fDegreeRotPerSec = 180.f;            // 회전 속도 (도/초)
+    CameraDesc.fSpeedPerSec = 20.f;                 // 이동 속도
+    CameraDesc.vEye = float4_t(0.f, 0.f, -5.f, 1.f);  // 카메라 위치
+    CameraDesc.vAt = float4_t(0.f, 0.f, 0.f, 1.f);    // 바라보는 점 (원점)
+    CameraDesc.fFovy = 60.f;
+    CameraDesc.fNear = 0.1f;
+    CameraDesc.fFar = 1000.f;
+    CameraDesc.fSensor = 0.05f;                     // 마우스 감도
 
-Add_GameObject(MAPTOOL, Proto::Obj_MapToolCam, MAPTOOL, pLayerTag, GO::MapToolCam, &CameraDesc);
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::MAPTOOL), Proto::Obj_MapToolCam,
+        ETOUI(LEVEL::MAPTOOL), pLayerTag, GO::MapToolCam, &CameraDesc)))
+        return E_FAIL;
 
-auto pMapToolCam = dynamic_pointer_cast<CMapTool_Cam>(
-    CGameInstance::Get().Find_GameObject(MAPTOOL, pLayerTag, GO::MapToolCam));
-CGameInstance::Get().Add_Camera(CAMERA::FREE, pMapToolCam);
-CGameInstance::Get().Set_MainCamera(CAMERA::FREE);
+    // 카메라 매니저에 등록 + 메인 카메라로 지정
+    auto pMapToolCam = dynamic_pointer_cast<CMapTool_Cam>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), pLayerTag, GO::MapToolCam));
+    CGameInstance::Get().Add_Camera(CAMERA::FREE, pMapToolCam);
+    CGameInstance::Get().Set_MainCamera(CAMERA::FREE);
+
+    return S_OK;
+}
 ```
 
 - vcxproj: `MapTool_Cam.h/.cpp`, `..\..\Client\Private\SkyBox.cpp` 등록
 
-### 5-4. 툴 → 카메라 연결 (Scene 창이 포커스일 때만 조작)
+### 5-4. 툴 → 카메라 연결 (Scene 창 포커스 + 마우스가 씬 위일 때만 조작)
+
+카메라는 ImGui를 모르므로, 툴이 매 프레임 **두 가지**를 알려 준다.
+
+| 값 | 어디서 오나 (4-8 `CPanel_Scene::Render`) | 없으면 생기는 문제 |
+|---|---|---|
+| 포커스 (`bSceneFocused`) | `ImGui::IsWindowFocused()` — Scene 창이 마지막으로 클릭된 창인가 | Hierarchy에서 이름을 고치다 우클릭 + WASD를 눌러도 카메라가 움직임 |
+| 호버 (`bSceneHovered`) | `ImGui::IsItemHovered()` — 마우스가 씬 이미지 위에 있는가 | Scene을 클릭해 둔 채 마우스를 Inspector 위로 옮겨 우클릭해도 카메라가 움직임 |
 
 **EditorUI.h** — public에 조회 함수 추가
 
 ```cpp
 	bool_t		GetSceneCliked() { return m_Context.bSceneFocused; }
+	bool_t		GetSceneHovered() { return m_Context.bSceneHovered; }
 ```
 
 **ToolMainApp.h** — private에 선언 추가
@@ -1812,7 +1968,7 @@ void CToolMainApp::Update(f32_t fDeltaTime)
     if (FAILED(Begin_ImGui()))
         return;
     m_pEditorUI->Update(fDeltaTime);
-    Sync_SceneView();                  // 추가: Scene 창 포커스 → 카메라
+    Sync_SceneView();                  // 추가: Scene 창 포커스/호버 → 카메라
     CGameInstance::Get().Update_Engine(fDeltaTime);
 }
 
@@ -1821,23 +1977,117 @@ void CToolMainApp::Sync_SceneView()
     auto pCamera = dynamic_pointer_cast<CMapTool_Cam>(CGameInstance::Get().Get_MainCamera());
     if (nullptr == pCamera)
         return;
-    pCamera->Set_SceneClicked(m_pEditorUI->GetSceneCliked());   // = Scene 창 IsWindowFocused
+    pCamera->Set_SceneClicked(m_pEditorUI->GetSceneCliked());    // = Scene 창 IsWindowFocused
+    pCamera->Set_SceneHovered(m_pEditorUI->GetSceneHovered());   // = 씬 이미지 IsItemHovered
 }
 ```
 
-- `Sync_SceneView`는 `CEditorUI::Update`(이번 프레임 포커스 갱신) **다음**, `Update_Engine`(카메라 Update) **전**에 불러야 같은 프레임 값이 전달된다
+- `Sync_SceneView`는 `CEditorUI::Update`(이번 프레임 포커스/호버 갱신) **다음**, `Update_Engine`(카메라 Update) **전**에 불러야 같은 프레임 값이 전달된다
+
+**카메라가 움직이는 조건** (`CMapTool_Cam::Update`)
+
+```
+우클릭 누름  AND  Scene 창이 포커스  AND  마우스가 씬 이미지 위
+  (DIM::RB)       (m_bSceneClicked)       (m_bSceneHovered)
+```
 
 **실행 결과**
 - Scene 창에 SkyBox 텍스처(`proc_preview.png`)가 보인다
-- Scene 창을 한 번 클릭 → 우클릭 누른 채 WASD로 이동, 마우스로 회전
+- Scene 창을 한 번 클릭 → 마우스를 씬 이미지 위에 두고 우클릭 누른 채 WASD로 이동, 마우스로 회전
 - Hierarchy/Inspector를 클릭해 포커스를 옮기면 우클릭 + WASD를 해도 안 움직인다
+- Scene 창이 포커스여도 마우스가 Hierarchy/Inspector 위나 씬 이미지 위아래의 빈 띠(비율 맞춤으로 생긴 여백) 위에 있으면 안 움직인다
 
 **주의 / 남은 것**
 - 마우스 이동량은 이미 "이번 프레임 이동 픽셀"이라 `fDeltaTime`을 곱하면 프레임에 따라 감도가 달라짐 → 곱하기 제거 + `fSensor` 재조정 (남은 작업)
 - 피치(위아래) 제한 없음 → 90도 넘으면 뒤집힘 (남은 작업)
+- 호버는 **매 프레임** 검사하므로, 우클릭으로 회전하다가 커서가 씬 이미지 밖으로 나가면 그 순간 멈춘다 (DirectInput 마우스 이동량은 커서가 화면 끝에 닿아도 계속 들어오지만, ImGui 커서 위치는 이미지 밖으로 나감). "우클릭을 **시작한 순간** 씬 위였으면 놓을 때까지 계속 조작"으로 바꾸면 해결 (남은 작업)
+
+### 5-5. (참고) 카메라 매니저가 없는 엔진이라면
+
+이 프로젝트는 엔진에 `CCamera_Manager`가 있어서 5-3, 5-4처럼 **등록(`Add_Camera`) → 메인 지정(`Set_MainCamera`) → 꺼내 쓰기(`Get_MainCamera`)**로 처리한다.
+카메라 매니저가 없는 엔진에서는 `CToolMainApp`이 카메라를 **직접 들고 있으면** 된다. 실행 결과는 5-4와 같다.
+
+| | 카메라 매니저 있음 (5-3, 5-4) | 카메라 매니저 없음 (이 절) |
+|---|---|---|
+| 레벨 | 카메라 생성 + `Add_Camera` + `Set_MainCamera` | 카메라 생성만 |
+| ToolMainApp | 매 프레임 `Get_MainCamera()`로 꺼냄 | 레벨이 만든 카메라를 **한 번 찾아서** `weak_ptr`로 보관 |
+| ToolMainApp이 알아야 하는 것 | 없음 | 카메라가 있는 레벨/레이어/태그 |
+
+**Level_MapTool.cpp** — `Ready_Layer_GameObject`에서 매니저 관련 3줄을 뺀다
+
+```cpp
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::MAPTOOL), Proto::Obj_MapToolCam,
+        ETOUI(LEVEL::MAPTOOL), pLayerTag, GO::MapToolCam, &CameraDesc)))
+        return E_FAIL;
+
+    // 카메라 매니저가 없으므로 아래는 쓰지 않는다
+    // auto pMapToolCam = dynamic_pointer_cast<CMapTool_Cam>(CGameInstance::Get().Find_GameObject(...));
+    // CGameInstance::Get().Add_Camera(CAMERA::FREE, pMapToolCam);
+    // CGameInstance::Get().Set_MainCamera(CAMERA::FREE);
+
+    return S_OK;
+```
+
+**ToolMainApp.h** — 전방 선언과 멤버 추가
+
+```cpp
+#pragma once
+#include "MapTool_Defines.h"
+
+NS_BEGIN(Client)
+class CMapTool_Cam;                     // MapTool_Cam은 Client 네임스페이스
+NS_END
+
+NS_BEGIN(MapTool)
+class CEditorUI;
+class CToolMainApp final
+{
+    // ... 기존 멤버 ...
+private:
+	weak_ptr<CMapTool_Cam>				m_pCamera;      // 주인은 레벨의 레이어 → weak_ptr로 가리키기만
+    // ...
+};
+NS_END
+```
+
+**ToolMainApp.cpp** — 레벨을 만든 뒤 카메라를 찾아 두고, 매 프레임 그걸 쓴다
+
+```cpp
+HRESULT CToolMainApp::Initialize()
+{
+    // ... 엔진, ImGui, CEditorUI ...
+
+    if (FAILED(CGameInstance::Get().Change_Level(static_cast<int>(LEVEL::MAPTOOL),
+        CLevel_MapTool::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+
+    // 레벨이 카메라를 만들었으므로 이제 찾을 수 있다
+    m_pCamera = dynamic_pointer_cast<CMapTool_Cam>(CGameInstance::Get().Find_GameObject(
+        ETOUI(LEVEL::MAPTOOL), TEXT("Layer_GameObject"), GO::MapToolCam));
+    if (m_pCamera.expired())
+        return E_FAIL;
+
+    CGameInstance::Get().Set_DrawToBackBuffer(false);
+    return S_OK;
+}
+
+void CToolMainApp::Sync_SceneView()
+{
+    auto pCamera = m_pCamera.lock();    // 레벨이 바뀌어 카메라가 사라졌으면 nullptr
+    if (nullptr == pCamera)
+        return;
+    pCamera->Set_SceneClicked(m_pEditorUI->GetSceneCliked());
+    pCamera->Set_SceneHovered(m_pEditorUI->GetSceneHovered());
+}
+```
+
+**주의**
+- **`shared_ptr`로 들고 있으면 안 된다.** 카메라의 주인은 레벨의 레이어다. ToolMainApp이 붙잡고 있으면 레벨을 정리해도 카메라가 메모리에서 사라지지 않는다 (`EDITOR_CONTEXT::pSelected`가 `weak_ptr`인 것과 같은 이유)
+- **찾는 시점은 `Change_Level` 다음.** 그 전에는 카메라가 아직 없다. 레이어 태그(`"Layer_GameObject"`)와 GO 태그(`GO::MapToolCam`)가 레벨에서 쓴 값과 같아야 한다
+- View/Proj 행렬은 카메라가 스스로 `Update_PipeLines()`로 파이프라인에 넣으므로, 매니저가 없어도 화면은 똑같이 나온다
+- 엔진의 절두체 컬링(`CGameObject::Is_BoxInFrustum`)은 `Get_MainCamera()`를 쓴다. 매니저가 없는 엔진이라면 컬링에 쓸 카메라도 다른 방법(예: 파이프라인의 View/Proj로 절두체 계산)으로 넘겨줘야 한다. 맵툴의 SkyBox와 StaticProp은 컬링을 끄고 있어서 지금은 영향이 없다
 
 ---
-
 
 ## 6단계. 배치 객체 만들기 — CStaticProp + Hierarchy 생성 메뉴
 
@@ -2475,15 +2725,24 @@ HRESULT CLevel_MapTool::Initialize()
 **Ready_Layer_Map**
 
 ```cpp
-// 픽셀 셰이더 (VS_VTXTEX는 BackGround에서 이미 등록)
-Add_Prototype(MAPTOOL, Proto::PS_VTXTEX_NOLIGHT,
-    CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_VtxTex.hlsl", "PS_MAIN_NOLIGHT"));
-// 객체 원형
-Add_Prototype(MAPTOOL, Proto::Obj_StaticProp, CStaticProp::Create(m_pDevice, m_pContext));
+HRESULT CLevel_MapTool::Ready_Layer_Map(const tchar_t* pLayerTag)
+{
+    // 픽셀 셰이더 (VS_VTXTEX는 Ready_Layer_BackGround에서 이미 등록됨)
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::PS_VTXTEX_NOLIGHT,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_VtxTex.hlsl", "PS_MAIN_NOLIGHT"))))
+        return E_FAIL;
+
+    // Obj_StaticProp 객체 원형
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::Obj_StaticProp,
+        CStaticProp::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+
+    return S_OK;
+}
 ```
 
 - **메시/텍스처 원형은 여기서 등록하지 않는다** — `CAsset_Manager`가 필요할 때 로드 (6-3)
-- 사본은 만들지 않는다. 사본은 Hierarchy에서 만든다 (6-9)
+- 사본은 만들지 않는다. 사본은 Hierarchy가 `Layer_Map`에 만든다 (6-9). 그래서 인자 `pLayerTag`(`"Layer_Map"`)는 이 함수에서 쓰지 않는다
 
 ### 6-8. EditorUI_Defines.h — 메시/텍스처 목록 추가
 
@@ -2591,6 +2850,17 @@ void CPanel_Hierarchy::Render(const PANEL_RECT& tRect)
     ImGui::End();
 }
 ```
+
+**처음 나오는 ImGui 함수 / 값**
+
+| 함수 / 값 | 하는 일 | 자세히 |
+|---|---|---|
+| `ImGui::BeginPopupContextWindow(ID, 플래그)` | **지금 창**을 우클릭하면 열리는 메뉴(팝업) | 안에서 "이번 프레임에 오른쪽 버튼을 뗐고, 마우스가 이 창 위에 있나"를 검사해서 맞으면 팝업을 연다. 팝업이 **열려 있는 동안 매 프레임** `true` → 그 안에 `MenuItem`을 넣고 **`true`일 때만** `EndPopup()`. `ID`(`"HierarchyMenu"`)는 팝업을 구분하는 이름 |
+| `ImGuiPopupFlags_MouseButtonRight` | 오른쪽 버튼으로 열기 | `MouseButtonLeft`, `MouseButtonMiddle`도 있다 |
+| `ImGuiPopupFlags_NoOpenOverItems` | 마우스가 **위젯(항목) 위에 있으면 열지 않음** | 내부적으로 `IsAnyItemHovered()`를 본다. 7·8단계에서 목록 항목에 따로 메뉴를 붙이므로, 이게 없으면 항목을 우클릭했을 때 두 메뉴가 겹친다. 마우스가 항목 위인지 알려면 항목들이 먼저 그려져 있어야 하므로 이 메뉴는 목록 **뒤에** 둔다 |
+| `ImGui::EndPopup()` | 팝업 끝 | `BeginPopup*`이 `true`였을 때만 호출. 팝업 안의 `MenuItem`을 클릭하면 팝업은 자동으로 닫힌다 |
+
+- 비슷한 함수: `BeginPopupContextItem()`(바로 앞 **위젯**을 우클릭, 8단계), `BeginPopupContextVoid()`(어떤 ImGui 창도 없는 **빈 바탕**을 우클릭)
 
 **실행 결과**
 - Hierarchy 빈 곳을 우클릭 → `Add Static_Prop` → Scene 가운데(원점)에 나무상자 텍스처(`WoodCrate01`)를 입힌 큐브가 나타난다 (카메라가 `(0, 0, -5)`에서 원점을 보고 있음)
@@ -2735,6 +3005,16 @@ inline wstring_t To_Wide(const char* pUTF8)
     }
     ImGui::End();
 ```
+
+**처음 나오는 ImGui 함수**
+
+| 함수 | 하는 일 | 자세히 |
+|---|---|---|
+| `ImGui::Selectable(라벨, 선택됨)` | 클릭할 수 있는 한 줄 | 하는 일이 두 가지다. **① 그리기**: 라벨을 한 줄로 그리고, 두 번째 인자가 `true`면 하이라이트(선택 색)로 칠한다. **② 클릭 감지**: 이 줄의 사각형 안에서 왼쪽 클릭이 일어난 **그 한 프레임에만** `true`를 돌려준다 |
+
+- 두 번째 인자 `strTag == m_Context.strSelectedTag`는 **하이라이트로 그릴지**만 정한다. 클릭 감지는 ImGui가 마우스 위치와 버튼으로 직접 한다
+- 인자는 함수 실행 **전에** 계산되므로, 클릭한 프레임에는 이전 선택이 하이라이트되고 **다음 프레임부터** 새 항목이 하이라이트된다 (60fps에서 약 16ms라 눈에는 안 보임)
+- 선택 상태를 기억하는 건 ImGui가 아니라 우리(`m_Context`)라서, 매 프레임 "이 줄이 선택된 줄인가"를 다시 넘겨 줘야 한다
 
 **실행 결과**
 - 객체를 만들 때마다 Hierarchy에 `Prop_00`, `Prop_01` ... 이 순서대로 쌓이고, 방금 만든 항목이 하이라이트된다
@@ -2963,6 +3243,19 @@ void CPanel_Hierarchy::Render(const PANEL_RECT& tRect)
 }
 ```
 
+**처음 나오는 ImGui 함수 / 값**
+
+| 함수 / 값 | 하는 일 | 자세히 |
+|---|---|---|
+| `ImGui::BeginPopupContextItem()` | **바로 앞 위젯**을 우클릭하면 열리는 메뉴 | 인자를 생략하면 오른쪽 버튼이 기본값. 안에서 팝업 ID로 **마지막 위젯의 ID**(`LastItemData.ID`)를 쓰고, "오른쪽 버튼을 뗐고(`IsMouseReleased`) 마우스가 마지막 위젯 위에 있나(`IsItemHovered`)"를 검사해서 팝업을 연다. 그래서 반드시 `Selectable` **바로 다음 줄**에 있어야 줄마다 따로 메뉴가 된다. 열려 있는 동안 매 프레임 `true`, `true`일 때만 `EndPopup()` |
+| `ImGui::IsKeyPressed(키)` | 이 키를 **누른 순간**인가 | 누르고 있으면 일정 간격으로 다시 `true`(키 반복). 반복을 막으려면 두 번째 인자에 `false`. **어느 창에서 눌렀는지는 상관하지 않는다** → 그래서 `IsWindowFocused()`와 같이 써서 Hierarchy가 포커스일 때만 반응하게 한다 |
+| `ImGuiKey_Delete` | Delete 키 | ImGui 키 열거형(`ImGuiKey_A`, `ImGuiKey_Enter`, `ImGuiKey_Escape` …). Win32 백엔드가 가상 키 코드를 이 값으로 바꿔 넣어 준다 |
+
+| | 좌클릭 (`Selectable`) | 우클릭 (`BeginPopupContextItem`) |
+|---|---|---|
+| 대상 | 자기 자신(그 줄) | 바로 앞 위젯(그 줄) |
+| `true`가 되는 때 | 클릭한 **한 프레임** | 메뉴가 **열려 있는 동안 매 프레임** |
+
 **실행 결과**
 - 항목 우클릭 → `Delete` → 그 객체가 Scene과 목록에서 같은 프레임에 사라진다
 - 항목을 클릭해 선택하고 Delete 키를 눌러도 지워진다 (Hierarchy 창이 포커스일 때)
@@ -3064,6 +3357,19 @@ unique_ptr<CPanel_Inspector> CPanel_Inspector::Create(EDITOR_CONTEXT& Context)
 }
 ```
 
+**처음 나오는 ImGui 함수 / 값**
+
+| 함수 / 값 | 하는 일 | 자세히 |
+|---|---|---|
+| `ImGui::TextDisabled(글자)` | 회색(비활성 색) 글자 | `printf`처럼 서식 문자열을 받는다(`TextDisabled("%d개", n)`). 그래서 `%`가 들어갈 수 있는 사용자 문자열은 넘기지 않는다 |
+| `ImGui::TextUnformatted(글자)` | 서식 해석 없이 글자 그대로 | 객체 이름처럼 **임의의 문자열**은 이걸 쓴다 (`%`가 섞여 있어도 안전, 서식 처리도 안 해서 빠름) |
+| `ImGui::Separator()` | 가로 구분선 | |
+| `ImGui::CollapsingHeader(라벨, 플래그)` | 접고 펼 수 있는 섹션 제목 | 펼쳐져 있으면 `true` → 그 안에 위젯을 넣는다. `TreeNode`와 달리 **`End` 함수가 없다** |
+| `ImGuiTreeNodeFlags_DefaultOpen` | 처음에 펼친 상태로 시작 | 이후에는 사용자가 접은 상태를 ImGui가 기억한다 |
+| `ImGui::DragFloat3(라벨, float* v, 속도, 최소, 최대)` | float 3개를 마우스 드래그로 편집 | `v`는 float 3개가 연속된 배열의 시작 주소(`&vPos.x`). 칸을 좌우로 드래그하면 `속도`만큼씩 바뀌고, **더블클릭 / Ctrl+클릭**하면 숫자를 직접 입력한다. `최소`, `최대`를 주면 그 범위로 제한(둘 다 0이면 제한 없음). **값이 바뀐 프레임에 `true`** → 그때만 객체에 반영한다 |
+
+- 라벨(`"Position"`, `"Rotation"`, `"Scale"`)은 칸 **오른쪽**에 표시되고, 같은 창 안에서 서로 달라야 한다 (2-0의 "라벨 = ID")
+
 **실행 결과**
 - 아무것도 선택 안 하면 회색 글씨 `No object selected`
 - 객체를 선택하면 이름(`Prop_00`)과 Transform 값이 보인다
@@ -3128,6 +3434,17 @@ void Render_AssetCombo(const char* pLabel, const ITEM(&Items)[N], const wstring_
 	}
 }
 ```
+
+**처음 나오는 ImGui 함수**
+
+| 함수 | 하는 일 | 자세히 |
+|---|---|---|
+| `ImGui::BeginCombo(라벨, 미리보기글자)` | 드롭다운(콤보) 시작 | 닫혀 있을 때는 `미리보기글자`만 보이고, 클릭해서 **펼쳐져 있는 동안** `true` → 그 안에 `Selectable`로 항목을 넣는다. **`true`일 때만** `EndCombo()` |
+| `ImGui::EndCombo()` | 콤보 끝 | `BeginCombo()`가 `true`였을 때만 호출. 안의 `Selectable`을 클릭하면 콤보는 자동으로 닫힌다 |
+| `ImGui::SetItemDefaultFocus()` | 바로 앞 위젯을 기본 포커스로 | 콤보를 열었을 때 현재 항목으로 **스크롤**되고 키보드 내비게이션이 그 항목에서 시작한다. 콤보 안에서 현재 선택된 `Selectable` 바로 다음에 부른다 |
+
+- 콤보 안의 `Selectable`은 7단계 Hierarchy와 같은 함수다. 두 번째 인자로 현재 항목을 표시하고, 클릭하면 `true`
+- `Selectable(...) && !bSelected`: 이미 선택된 항목을 다시 눌렀을 때는 리소스를 다시 바꾸지 않도록 거른다
 
 ### 10-2. Panel_Inspector.cpp — Static Prop 섹션
 
@@ -3246,7 +3563,7 @@ unique_ptr<CPanel_Inspector> CPanel_Inspector::Create(EDITOR_CONTEXT& Context)
 1. **카메라 정리**
    - 마우스 회전에서 `* fDeltaTime` 제거 후 `fSensor` 재조정
    - Scene 이미지 **가로 가운데 정렬** (`vCursor.x = (vAvail.x - vSize.x) * 0.5f`)
-   - (권장) 우클릭을 Scene 위에서 시작했을 때만 조작(`m_Context.bSceneHovered` 활용), 피치 제한
+   - (권장) 지금은 매 프레임 호버를 검사해서 회전 중 커서가 씬 밖으로 나가면 멈춤 → 우클릭을 **시작한 순간** 씬 위였으면 놓을 때까지 계속 조작, 피치 제한
 2. **저장 / 불러오기** (계획서 6단계)
    - 파일 형식: 헤더 `"DKMP"` + 버전 → 개수 → [프로토 태그, 메시 경로, 텍스처 경로, 위치/회전/크기 float×9, 추가 데이터 크기, 추가 데이터]
    - `Parse_Map(경로, vector<DESC>&)` / `Spawn_Map(레벨, 레이어, Descs)`로 분리 (Client Loader 스레드 대비)

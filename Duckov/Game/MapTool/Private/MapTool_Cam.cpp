@@ -33,7 +33,7 @@ void CMapTool_Cam::Update(f32_t fDeltaTime)
 	__super::Update(fDeltaTime);
 	if (!CGameInstance::Get().Get_DIMouseState(DIM::RB))
 		return;
-	if (m_bSceneClicked)
+	if (m_bSceneClicked && m_bSceneHovered)
 	{
 		KeyInput(fDeltaTime);
 	}

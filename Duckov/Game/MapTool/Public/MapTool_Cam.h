@@ -24,8 +24,10 @@ public:
     virtual HRESULT Render();
 
     virtual void        Set_SceneClicked(bool_t bClicked) { m_bSceneClicked = bClicked; }
+    virtual void        Set_SceneHovered(bool_t bHovered) { m_bSceneHovered = bHovered; }
 private:
     bool_t      m_bSceneClicked = { false };
+    bool_t      m_bSceneHovered = { false };
     f32_t	    m_fMouseSensor = {};
 private:
     void        KeyInput(const f32_t fDeltaTime);
