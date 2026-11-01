@@ -12,13 +12,13 @@ public:
 public:
 	void				Add_Camera(CAMERA eCameraID, shared_ptr<CCamera> pCamera);
 	void				Set_MainCamera(CAMERA eCameraID);
-	shared_ptr<CCamera> Get_MainCamera() { return m_pMainCamera; }
+	shared_ptr<CCamera> Get_MainCamera() { return m_pMainCamera.lock(); }
 	CAMERA				Get_MainCameraID() { return m_eMainCamera; }
 
 
 private:
-	shared_ptr<CCamera>		m_Cameras[ETOUI(CAMERA::END)];
-	shared_ptr<CCamera>		m_pMainCamera = { nullptr };
+	weak_ptr<CCamera>		m_Cameras[ETOUI(CAMERA::END)];
+	weak_ptr<CCamera>		m_pMainCamera ;
 	CAMERA					m_eMainCamera = { CAMERA::END };
 
 private:

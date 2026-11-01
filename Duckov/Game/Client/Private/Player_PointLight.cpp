@@ -37,7 +37,8 @@ void CPlayer_PointLight::Update(f32_t fDeltaTime)
 void CPlayer_PointLight::Late_Update(f32_t fDeltaTime)
 {
     // 점조명 위치 초기화
-    vector_t vPos = m_pPlayer->Get_Transform()->Get_State(STATE::POSITION);
+    auto pPlayer = m_pPlayer.lock();
+    vector_t vPos = pPlayer->Get_Transform()->Get_State(STATE::POSITION);
     XMStoreFloat3(&m_tPointLight.Position, vPos);
 
     // 조명 상수 버퍼 채우기

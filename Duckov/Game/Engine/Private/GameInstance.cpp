@@ -168,6 +168,11 @@ shared_ptr<CGameObject> CGameInstance::Find_GameObject(uint32_t iLayerLevelIndex
 	return m_pObject_Manager->Find_GameObject(iLayerLevelIndex,strLayerTag,strGameObjectTag);
 }
 
+const map<const wstring_t, shared_ptr<CGameObject>>* CGameInstance::Get_GameObjects(uint32_t iLayerLevelIndex, const wstring_t& strLayerTag)
+{
+	return m_pObject_Manager->Get_GameObjects(iLayerLevelIndex,strLayerTag);
+}
+
 #pragma endregion
 
 #pragma region CAMERA_MANAGER

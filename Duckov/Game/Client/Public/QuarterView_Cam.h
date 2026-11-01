@@ -25,7 +25,7 @@ public:
     void                SetPlayer(shared_ptr<CGameObject> pPlayer) { m_pPlayer = pPlayer; }
     void                AddShakeTime(f32_t fDeltaTime) { m_fShakeTime += fDeltaTime; }
 private:
-    shared_ptr<CGameObject>     m_pPlayer = {nullptr};
+    weak_ptr<CGameObject>       m_pPlayer;
     f32_t                       m_fShakeTime = {};
     f32_t                       m_fShakeDistance = { 1.f };
     float3_t                    m_vShakeOffset = {};

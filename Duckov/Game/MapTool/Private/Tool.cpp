@@ -1,5 +1,6 @@
 ﻿#include "imgui.h"
 #include "Tool.h"
+#include "StaticProp.h" 
 namespace
 {
     constexpr ImGuiWindowFlags g_FixedPanelFlags =
@@ -12,6 +13,30 @@ namespace
     {
         ImGui::SetNextWindowPos(ImVec2(fX, fY), ImGuiCond_Always);
         ImGui::SetNextWindowSize(ImVec2(fW, fH), ImGuiCond_Always);
+    }
+
+    // wstring → UTF-8 (ImGui에 표시할 때)
+    string To_UTF8(const wstring_t& strWide)
+    {
+        if (strWide.empty())
+            return {};
+        // 1번째 호출: 필요한 버퍼 크기만 구함
+        int32_t iSize = WideCharToMultiByte(CP_UTF8, 0, strWide.c_str(), (int)strWide.size(), nullptr, 0, nullptr, nullptr);
+        string strOut(iSize, '\0');
+        // 2번째 호출: 실제 변환
+        WideCharToMultiByte(CP_UTF8, 0, strWide.c_str(), (int)strWide.size(), strOut.data(), iSize, nullptr, nullptr);
+        return strOut;
+    }
+
+    // UTF-8 → wstring (ImGui 입력을 엔진에 넘길 때)
+    wstring_t To_Wide(const char* pUTF8)
+    {
+        int32_t iSize = MultiByteToWideChar(CP_UTF8, 0, pUTF8, -1, nullptr, 0);   // -1: 널 문자까지 포함
+        if (iSize <= 1)
+            return {};
+        wstring_t strOut(iSize - 1, L'\0');                                        // 널 문자 제외
+        MultiByteToWideChar(CP_UTF8, 0, pUTF8, -1, strOut.data(), iSize);
+        return strOut;
     }
 }
 
@@ -31,6 +56,51 @@ void CTool::Update(const f32_t& fDeltaTime)
 
     if (m_bShowDemo)
         ImGui::ShowDemoWindow(&m_bShowDemo);
+}
+
+void CTool::Create_Object()
+{
+    CStaticProp::STATICPROP_DESC Desc{};
+    Desc.iLevelIndex = ETOUI(LEVEL::MAPTOOL);
+    Desc.strMeshPath = s_Meshes[m_iMeshIndex].pPath;
+    Desc.strTexturePath = s_Textures[m_iTextureIndex].pPath;
+    Desc.bEditorMode = true;
+    // 위치: 카메라 앞에 두면 편함 (카메라 Position + Look * 5)
+
+    wstring_t strTag = L"Prop_" + to_wstring(m_iNextID++);
+
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::MAPTOOL), s_Placeables[m_iPlaceableIndex].pPrototypeTag,
+        ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag, &Desc)))
+    {
+        MSG_BOX("Create Failed");   // 텍스처 경로가 틀리면 여기로 옴
+        return;
+    }
+
+    // 만든 객체를 바로 선택
+    m_strSelectedTag = strTag;
+    m_pSelected = dynamic_pointer_cast<CMapObject>(
+        CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag));
+}
+
+void CTool::Delete_Selected()
+{
+    auto pSelected = m_pSelected.lock();
+    if (nullptr == pSelected)
+        return;
+
+    pSelected->Set_Dead();          // 실제 erase는 엔진 Priority_Update에서
+    m_pSelected.reset();            // 선택은 바로 해제
+    m_strSelectedTag.clear();
+}
+
+void CTool::Validate_Selection()
+{
+    auto pSelected = m_pSelected.lock();
+    if (nullptr == pSelected || pSelected->Is_Dead())
+    {
+        m_pSelected.reset();
+        m_strSelectedTag.clear();
+    }
 }
 
 void CTool::Calc_Layout()
@@ -90,7 +160,55 @@ void CTool::Render_Hierachy()
     Set_NextPanelRect(m_tHierarchy.fX, m_tHierarchy.fY, m_tHierarchy.fW, m_tHierarchy.fH);
     if (ImGui::Begin("Hierarchy", nullptr, g_FixedPanelFlags))
     {
-        ImGui::TextDisabled("(empty)");
+        // ---------- 생성 ----------
+        ImGui::Combo("Type", &m_iPlaceableIndex, 
+            [](void*, int i) { return s_Placeables[i].pName; }, nullptr, IM_ARRAYSIZE(s_Placeables));
+
+        // 메시 선택 (s_Meshes가 wchar_t라서 표시할 때 char로 바꿔야 함)
+        ImGui::Combo("Mesh", &m_iMeshIndex,
+            [](void*, int i) { return s_Meshes[i].pName; }, nullptr, IM_ARRAYSIZE(s_Meshes));
+
+        // 텍스처 경로 입력 (Resource 기준 상대 경로)
+        ImGui::Combo("Texture", &m_iTextureIndex,
+            [](void*, int i) { return s_Textures[i].pName; }, nullptr, IM_ARRAYSIZE(s_Textures));
+
+        if (ImGui::Button("Create"))
+            Create_Object();
+
+        ImGui::Separator();
+
+        auto pObjects = CGameInstance::Get().Get_GameObjects(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"));
+
+        uint32_t iVisibleCount = {};
+        if (nullptr != pObjects)
+        {
+            for (auto& [strTag, pObject] : *pObjects)
+            {
+                if (nullptr == pObject || pObject->Is_Dead())
+                    continue;
+
+                ++iVisibleCount;
+
+                const bool_t bSelected = (strTag == m_strSelectedTag);
+                string strLabel(strTag.begin(), strTag.end());          // wstring -> string
+
+                if (ImGui::Selectable(strLabel.c_str(), bSelected))
+                {
+                    m_strSelectedTag = strTag;
+                    m_pSelected = dynamic_pointer_cast<CMapObject>(pObject);
+                }
+            }
+        }
+        if (0 == iVisibleCount)
+            ImGui::TextDisabled("(empty)");
+        Validate_Selection();
+
+        // 삭제버튼
+        ImGui::Separator();
+        ImGui::BeginDisabled(m_pSelected.expired());
+        if (ImGui::Button("Delete"))
+            Delete_Selected();
+        ImGui::EndDisabled();
     }
     ImGui::End();
 }
@@ -171,7 +289,6 @@ void CTool::Render_Inspector()
         ImGui::TextDisabled("No object selected");
     }
     ImGui::End();
-    
 }
 
 unique_ptr<CTool> CTool::Create()

@@ -424,7 +424,8 @@ void CRenderer::Render_AlphaPre()
 }
 void CRenderer::Render_Mirror()
 {
-	if (nullptr == m_pMirror)
+	auto pMirror = m_pMirror.lock();
+	if (nullptr == pMirror)
 		return;
 	float blendrFactor[4] = { 0.f,0.f,0.f,0.f };
 
@@ -432,12 +433,12 @@ void CRenderer::Render_Mirror()
 	m_pContext->OMSetBlendState(m_pBS_NoColorWrite.Get(), blendrFactor, 0xffffffff);	// 색 없이 그리기
 	m_pContext->OMSetDepthStencilState(m_pDSS_MarkMirror.Get(), 2);						// 쓰기만 하는 상태: 스텐실버퍼에 1값 쓰기
 
-	m_pMirror->Render();																// 거울 영역 스텐실 버퍼에 1채우기
+	pMirror->Render();																// 거울 영역 스텐실 버퍼에 1채우기
 
 	// 블랜드 스테이트 초기화
 	m_pContext->OMSetBlendState(nullptr, blendrFactor, 0xffffffff);
 
-	XMMATRIX matReflect = XMMatrixReflect(m_pMirror->Get_MirrorPlane());
+	XMMATRIX matReflect = XMMatrixReflect(pMirror->Get_MirrorPlane());
 	m_pContext->OMSetDepthStencilState(m_pDSS_DrawReflection.Get(), 2);					// 읽기만 하는 상태: 스텐실버퍼가 1인지 검사만 함
 
 	//for (auto& pObj : m_ReflectObjects)

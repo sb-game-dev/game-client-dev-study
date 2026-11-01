@@ -10,8 +10,6 @@ HRESULT CLayer::Add_GameObject(const wstring_t& strGameObjectTag, shared_ptr<cla
 {
     if (false == m_GameObjects.emplace(strGameObjectTag, pGameObject).second)
         return E_FAIL;
-    m_GameObjects.emplace(strGameObjectTag, pGameObject);
-
     return S_OK;
 }
 
@@ -27,7 +25,7 @@ void CLayer::Update(f32_t fTimeDelta)
 {
     for (auto& Pair : m_GameObjects)
     {
-        if (nullptr != Pair.second)
+        if (nullptr != Pair.second && !Pair.second->Is_Dead())
             Pair.second->Update(fTimeDelta);
     }
 }
@@ -35,16 +33,21 @@ void CLayer::Late_Update(f32_t fTimeDelta)
 {
     for (auto& Pair : m_GameObjects)
     {
-        if (nullptr != Pair.second)
+        if (nullptr != Pair.second && !Pair.second->Is_Dead())
         {
             Pair.second->Late_Update(fTimeDelta);
         }
     }
 }
-
-HRESULT CLayer::Remove_GameObject(const wstring_t& strGameObjectTag)
+void CLayer::Remove_Dead()
 {
-    return 0 < m_GameObjects.erase(strGameObjectTag) ? S_OK : E_FAIL;
+    for (auto iter = m_GameObjects.begin(); iter != m_GameObjects.end(); )
+    {
+        if (nullptr == iter->second || iter->second->Is_Dead())
+            iter = m_GameObjects.erase(iter);
+        else
+            ++iter;
+    }
 }
 
 shared_ptr<CGameObject> CLayer::Find_GameObject(const wstring_t& strGameObjectTag)

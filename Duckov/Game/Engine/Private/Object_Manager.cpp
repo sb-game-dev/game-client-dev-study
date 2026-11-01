@@ -30,13 +30,15 @@ HRESULT CObject_Manager::Add_GameObject(uint32_t iPrototypeLevelIndex, const wst
 		// 레이어를 생성한다
 		pLayer = CLayer::Create();
 		// 생성한 레이어에 복제본을 추가
-		pLayer->Add_GameObject(strGameObjectTag, pCopyGameObject);
+		if (FAILED(pLayer->Add_GameObject(strGameObjectTag, pCopyGameObject)))
+			return E_FAIL;
 		// 생성한 레이어를 Layers에 등록
 		m_pLayers[iLayerLevelIndex].emplace(strLayerTag, pLayer);
 	}
 	// 레이어가 있다면 생성한 복제본을 레이어에 추가
 	else
-		pLayer->Add_GameObject(strGameObjectTag, pCopyGameObject);
+		if (FAILED(pLayer->Add_GameObject(strGameObjectTag, pCopyGameObject)))
+			return E_FAIL;
 
 	return S_OK;
 }
@@ -47,7 +49,11 @@ void CObject_Manager::Priority_Update(f32_t fDeltaTime)
 		for (auto& Pair : m_pLayers[i])
 		{
 			if (nullptr != Pair.second)
+			{
+				Pair.second->Remove_Dead();
+
 				Pair.second->Priority_Update(fDeltaTime);
+			}
 		}
 	}
 }
@@ -92,6 +98,14 @@ shared_ptr<CGameObject> CObject_Manager::Find_GameObject(uint32_t iLayerLevelInd
 		return nullptr;
 
 	return pGameObject;
+}
+
+const map<const wstring_t, shared_ptr<CGameObject>>* CObject_Manager::Get_GameObjects(uint32_t iLayerLevelIndex, const wstring_t& strLayerTag)
+{
+	auto pLayer = Find_Layer(iLayerLevelIndex, strLayerTag);
+	if (nullptr == pLayer)
+		return nullptr;
+	return &pLayer->Get_GameObjects();
 }
 
 shared_ptr<CLayer> CObject_Manager::Find_Layer(uint32_t iLayerLevelIndex, const wstring_t& strLayerTag)

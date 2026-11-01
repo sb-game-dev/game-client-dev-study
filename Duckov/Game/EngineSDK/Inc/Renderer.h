@@ -38,7 +38,7 @@ private:
 	ComPtr<ID3D11DepthStencilState>		m_pDSS_DrawNoDoubleBlend = { nullptr };
 	ComPtr<ID3D11DepthStencilState>		m_pDSS_DrawOccludePlayer = { nullptr };
 
-	shared_ptr<CGameObject>				m_pMirror;
+	weak_ptr<CGameObject>				m_pMirror;
 
 	ComPtr<ID3D11RenderTargetView>		m_pSceneRTV;
 	ComPtr<ID3D11ShaderResourceView>	m_pSceneSRV;

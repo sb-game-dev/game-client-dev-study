@@ -23,7 +23,7 @@ public:
 	void		Clear(uint32_t iClearLevelIndex);
 
 	shared_ptr<CGameObject>			Find_GameObject(uint32_t iLayerLevelIndex, const wstring_t& strLayerTag, const wstring_t& strGameObjectTag);
-	//vector<shared_ptr<CGameObject>> Find_GameObjects(uint32_t iLayerLevelIndex, const wstring_t& strLayerTag, const wstring_t& strGameObjectTag);
+	const map<const wstring_t, shared_ptr<CGameObject>>* Get_GameObjects(uint32_t iLayerLevelIndex, const wstring_t& strLayerTag);
 private:
 	uint32_t	m_iNumLevels = {};
 	typedef map<const wstring_t, shared_ptr<class CLayer>> LAYERS;

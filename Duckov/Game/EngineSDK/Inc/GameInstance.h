@@ -87,6 +87,7 @@ public:
 		uint32_t iLayerLevelIndex, const wstring_t& strLayerTag, const wstring_t& strGameObjectTag, void* pArg = nullptr);
 
 	shared_ptr<CGameObject>			Find_GameObject(uint32_t iLayerLevelIndex, const wstring_t& strLayerTag, const wstring_t& strGameObjectTag);
+	const map<const wstring_t, shared_ptr<CGameObject>>* Get_GameObjects(uint32_t iLayerLevelIndex, const wstring_t& strLayerTag);
 #pragma endregion
 
 #pragma region CAMERA_MANAGER

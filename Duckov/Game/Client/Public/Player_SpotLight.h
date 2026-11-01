@@ -18,7 +18,7 @@ public:
 	void	SetPlayer(shared_ptr<class CGameObject> pPlayer) { m_pPlayer = pPlayer; }
 
 private:
-	shared_ptr<class CGameObject> m_pPlayer;
+	weak_ptr<class CGameObject> m_pPlayer;
 
 public:
 	static shared_ptr<CPlayer_SpotLight> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext>pContext);

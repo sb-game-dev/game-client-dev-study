@@ -24,7 +24,7 @@ shared_ptr<CCamera> CCamera_Manager::Find_Camera(CAMERA eCameraID)
 {
 	if (eCameraID >= CAMERA::END)
 		return nullptr;
-	return m_Cameras[ETOUI(eCameraID)];
+	return m_Cameras[ETOUI(eCameraID)].lock();
 }
 
 unique_ptr<CCamera_Manager> CCamera_Manager::Create()

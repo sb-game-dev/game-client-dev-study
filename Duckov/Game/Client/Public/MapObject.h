@@ -27,7 +27,6 @@ public:
 public:
     virtual HRESULT Initialize(void* pArg) override;
 
-    // 인스펙터(5단계)와 저장(6단계)에서 사용
     const float3_t& Get_Position() const { return m_vPosition; }
     const float3_t& Get_Rotation() const { return m_vRotation; }
     const float3_t& Get_Scale()    const { return m_vScale; }

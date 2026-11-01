@@ -37,7 +37,8 @@ public:
 
 	virtual shared_ptr<CTransform>	Get_Transform() { return m_pTransformCom; }
 
-
+	virtual void		Set_Dead() { m_bDead = true; }
+	virtual bool_t		Is_Dead()const { return m_bDead; }
 
 protected:
 	ComPtr<ID3D11Buffer>				m_pVB = { nullptr };			// 버텍스 버퍼
@@ -67,6 +68,8 @@ protected:
 
 	BoundingBox			m_tLocalBox = {};
 	bool_t				m_bUseCulling = { false };
+
+	bool_t				m_bDead = { false };
 
 protected:
 	virtual		bool_t		Is_InFrustum();

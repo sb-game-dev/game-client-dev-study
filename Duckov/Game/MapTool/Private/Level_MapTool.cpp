@@ -37,7 +37,7 @@ HRESULT CLevel_MapTool::Render()
 }
 HRESULT CLevel_MapTool::Ready_Layer_BackGround(const tchar_t* pLayerTag)
 {
-    //-----------------원형-----------------
+    // 원형
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::Texture_SkyBox,
         CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/proc_preview.png"), 1))))
         return E_FAIL;
@@ -58,7 +58,8 @@ HRESULT CLevel_MapTool::Ready_Layer_BackGround(const tchar_t* pLayerTag)
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::VIBuffer_SkyBox,
         CVIBuffer_SkyBox::Create(m_pDevice, m_pContext))))
         return E_FAIL;
-    //-----------------사본-----------------
+    
+    // 사본
     if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::MAPTOOL), Proto::Obj_SkyBox,
         ETOUI(LEVEL::MAPTOOL), Layer::BackGround, GO::SkyBox)))
         return E_FAIL;
@@ -68,11 +69,12 @@ HRESULT CLevel_MapTool::Ready_Layer_BackGround(const tchar_t* pLayerTag)
 
 HRESULT CLevel_MapTool::Ready_Layer_GameObject(const tchar_t* pLayerTag)
 {
+    // 카메라 원형
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::Obj_MapToolCam,
         CMapTool_Cam::Create(m_pDevice, m_pContext))))
         return E_FAIL;
 
-    //-----------------사본-----------------
+    // 카메라 사본
     CMapTool_Cam::CAMERA_MAPTOOL_CAM_DESC         CameraDesc{};
     CameraDesc.fDegreeRotPerSec = 180.f;
     CameraDesc.fSpeedPerSec = 20.f;
@@ -96,50 +98,16 @@ HRESULT CLevel_MapTool::Ready_Layer_GameObject(const tchar_t* pLayerTag)
 
 HRESULT CLevel_MapTool::Ready_Layer_Map(const tchar_t* pLayerTag)
 {
-    ////-----------------원본-----------------
-    //// 메시: 경로를 태그로 사용
-    //if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), L"builtin/cube",
-    //    CVIBuffer_Cube::Create(m_pDevice, m_pContext))))
-    //    return E_FAIL;
-    //
-    //// 텍스처: Resource 기준 상대 경로를 태그로, 실제 로드는 전체 경로로
-    //if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), L"Ex/proc_preview.png",
-    //    CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/proc_preview.png"), 1))))
-    //    return E_FAIL;
-
+// 원본
     // 픽셀 셰이더 (VS_VTXTEX는 Ready_Layer_BackGround에서 이미 등록됨)
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::PS_VTXTEX_NOLIGHT,
         CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_VtxTex.hlsl", "PS_MAIN_NOLIGHT"))))
         return E_FAIL;
 
-    // 객체 원본
+    // Obj_StaticProp 객체 원본
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::Obj_StaticProp,
         CStaticProp::Create(m_pDevice, m_pContext))))
-        return E_FAIL;
-
-    //-----------------사본-----------------
-    CStaticProp::STATICPROP_DESC Desc{};
-    Desc.iLevelIndex = ETOUI(LEVEL::MAPTOOL);
-    Desc.strMeshPath = L"builtin/cube";
-    Desc.strTexturePath = L"Ex/WoodCrate01.dds";
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::MAPTOOL), Proto::Obj_StaticProp,
-        ETOUI(LEVEL::MAPTOOL), pLayerTag, L"Prop_0", &Desc)))
-        return E_FAIL;
-
-    Desc.vPosition = { 3.f, 0.f, 0.f };
-    Desc.vRotation = { 0.f, 45.f, 0.f };
-    Desc.strTexturePath = L"Ex/WoodCrate02.dds";  
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::MAPTOOL), Proto::Obj_StaticProp,
-        ETOUI(LEVEL::MAPTOOL), pLayerTag, L"Prop_1", &Desc)))
-        return E_FAIL;
-
-    Desc.vPosition = { -3.f, 1.f, 0.f };
-    Desc.vRotation = { 0.f, 0.f, 0.f };
-    Desc.vScale = { 1.f, 2.f, 1.f };
-    Desc.strTexturePath = L"Ex/WoodCrate02.DdS";
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::MAPTOOL), Proto::Obj_StaticProp,
-        ETOUI(LEVEL::MAPTOOL), pLayerTag, L"Prop_2", &Desc)))
-        return E_FAIL;
+        return E_FAIL;   
     return S_OK;
 }
 

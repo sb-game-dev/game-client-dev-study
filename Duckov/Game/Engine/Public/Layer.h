@@ -14,11 +14,10 @@ public:
 	void		Priority_Update(f32_t fTimeDelta);
 	void		Update(f32_t fTimeDelat);
 	void		Late_Update(f32_t fTimeDelta); 
-	HRESULT		Remove_GameObject(const wstring_t& strGameObjectTag);
+	void		Remove_Dead();
 
 	shared_ptr<CGameObject>	Find_GameObject(const wstring_t& strGameObjectTag);
 	const map<const wstring_t, shared_ptr<CGameObject>>& Get_GameObjects() const { return m_GameObjects; }
-
 private:
 	map<const wstring_t, shared_ptr<CGameObject>>		m_GameObjects;
 
