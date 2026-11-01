@@ -4,8 +4,9 @@
 #include "Panel_Scene.h"
 #include "Panel_Inspector.h"
 
-// unique_ptr<CPanel_*>를 지우려면 완전한 타입이 필요해서 cpp에서 정의
-CEditorUI::~CEditorUI() = default;
+CEditorUI::~CEditorUI()
+{
+}
 
 HRESULT CEditorUI::Initialize()
 {
@@ -29,13 +30,13 @@ void CEditorUI::Update(const f32_t& fDeltaTime)
     m_pInspector->Render(m_tInspector);
 
     if (m_bShowDemo)
-        ImGui::ShowDemoWindow(&m_bShowDemo);
+        ImGui::ShowDemoWindow(&m_bShowDemo); // 예제창 보이기
 }
 
 void CEditorUI::Calc_Layout()
 {
-    // 현재 창 영역 크기
-    const ImVec2 vDisplay = ImGui::GetIO().DisplaySize;
+    // 현재 창 영역 크기 (뷰포트 크기 가져오는 것과 비슷)
+    const ImVec2 vDisplay = ImGui::GetIO().DisplaySize; // <- (1600,900)
 
     // 메뉴바 바로 아래부터의 시작 좌표
     const f32_t fTop    = m_fMenuBarHeight;
@@ -47,7 +48,7 @@ void CEditorUI::Calc_Layout()
     if (vDisplay.x - fSide * 2.f < fMinScene)
         fSide = max(0.f, (vDisplay.x - fMinScene) * 0.5f);
 
-    // 세 창의 Rect 정보
+    // 세 창의 Rect 정보{Left,Top,Width,Height}
     m_tHierarchy    = { 0.f, fTop, fSide, fHeight };
     m_tScene        = { fSide, fTop, vDisplay.x - fSide * 2.f, fHeight };
     m_tInspector    = { vDisplay.x - fSide, fTop, fSide, fHeight };
@@ -69,7 +70,7 @@ void CEditorUI::Render_MenuBar()
     {
         // MenuItem(라벨, 단축키표시, 선택됨, 활성화);
         // 단축키는 오른쪽에 보이는 글자일 뿐이고 실제 동작은 따로 만들어야 함.
-        ImGui::MenuItem("New Scene", nullptr, false, false);
+        ImGui::MenuItem("New Scene", nullptr, false, false);        // 저장/불러오기 전까지 비활성
         ImGui::MenuItem("Open Scene", "Ctrl + O", false, false);
         ImGui::MenuItem("Save", "Ctrl + S", false, false);
         ImGui::MenuItem("Save As", nullptr, false, false);
@@ -78,7 +79,7 @@ void CEditorUI::Render_MenuBar()
 
     if (ImGui::BeginMenu("View"))
     {
-        ImGui::MenuItem("ImGui Demo", nullptr, &m_bShowDemo);
+        ImGui::MenuItem("ImGui Demo", nullptr, &m_bShowDemo);       // bool* 를 넘기면 체크 토글
         ImGui::EndMenu();
     }
     ImGui::EndMainMenuBar();

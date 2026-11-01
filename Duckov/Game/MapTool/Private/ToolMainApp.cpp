@@ -97,7 +97,6 @@ HRESULT CToolMainApp::Ready_ImGui()
     // 설정, 입력, 출력, 폰트가 있음
     ImGuiIO& io = ImGui::GetIO();
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;   // 키보드로 위젯 이동
-    //io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;       // docking 브랜치 기능
 
     // 2. 스타일
     ImGui::StyleColorsDark();

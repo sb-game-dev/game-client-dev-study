@@ -1196,13 +1196,12 @@ m_pDeviceContext->RSSetViewports(1, &ViewPortDesc);      // 창 크기 뷰포트
 - 직접 만든 텍스처의 RTV를 묶고 그리면 결과가 화면이 아니라 **텍스처에 남는다**
 - 그 텍스처를 다시 **읽기용(SRV)** 으로 쓰면 셰이더나 ImGui에서 이미지처럼 쓸 수 있다
 
-**텍스처 하나에 "뷰"를 여러 개 만든다**
+**텍스처 하나에 "뷰"를 두 개 만든다**
 
 | 뷰 | 용도 | 여기서 쓰는 곳 |
 |---|---|---|
 | RTV (Render Target View) | 그리기 대상 (쓰기) | 씬 오브젝트를 그릴 때 |
 | SRV (Shader Resource View) | 셰이더에서 읽기 | 백버퍼로 복사(Client), `ImGui::Image`(MapTool) |
-| UAV (Unordered Access View) | 컴퓨트 셰이더 읽기/쓰기 | 블러 |
 
 - 뷰를 만들려면 텍스처 생성 때 `BindFlags`에 해당 용도가 들어 있어야 한다 (없으면 `CreateXXXView` 실패)
 - **같은 텍스처를 RTV로 묶은 채 SRV로 읽을 수 없다.** 그래서 항상 "RTV로 그리기 → RTV 풀기(원래 타깃으로 복구) → SRV로 읽기 → 다 읽으면 SRV 풀기" 순서를 지킨다 (어기면 DX11이 한쪽을 강제로 풀고 디버그 출력에 경고를 남긴다)
@@ -1225,26 +1224,21 @@ Client와 MapTool이 **같은 Renderer 코드**를 쓰고, 마지막 복사만 `
 ```cpp
 #pragma once
 #include "Engine_Defines.h"
-#include "BlurFilter.h"         // CBlurFilter (블러용)
 
 // --- class CRenderer 안 ---
 public:
 	void	Set_DrawToBackBuffer(bool_t bDraw)			{ m_bDrawToBackBuffer = bDraw; }
 	ID3D11ShaderResourceView* Get_SceneSRV()const		{ return m_pSceneSRV.Get(); }
-	void	SetBlurUse(bool_t bUseBlur)					{ m_bUseBlur = bUseBlur; }
 private:
-	// 씬 텍스처 (텍스처 하나에 뷰 3개)
+	// 씬 텍스처 (텍스처 하나에 뷰 2개)
 	ComPtr<ID3D11RenderTargetView>		m_pSceneRTV;      // 그리기
 	ComPtr<ID3D11ShaderResourceView>	m_pSceneSRV;      // 읽기
-	ComPtr<ID3D11UnorderedAccessView>	m_pSceneUAV;      // 블러 (컴퓨트 셰이더)
 
 	// 씬 텍스처 → 백버퍼 복사용
 	ComPtr<ID3D11VertexShader>			m_pVS_FullScreen;
 	ComPtr<ID3D11PixelShader>			m_pPS_FullScreen;
 	ComPtr<ID3D11DepthStencilState>		m_pDSS_NoDepth;   // 복사할 때는 깊이 테스트 끔
 
-	unique_ptr<CBlurFilter>				m_pBlurFilter;
-	bool_t								m_bUseBlur = { false };
 	bool_t								m_bDrawToBackBuffer = { true };   // Client는 true, 툴은 false
 private:
 	void	Render_FullScreen();
@@ -1273,16 +1267,14 @@ HRESULT CRenderer::Ready_SceneTarget(uint32_t iWinSizeX, uint32_t iWinSizeY)
 	desc.SampleDesc.Count = 1;                      // MSAA 없음 (깊이 버퍼와 같아야 함)
 	desc.Usage = D3D11_USAGE_DEFAULT;               // GPU가 읽고 쓰기
 	desc.BindFlags = D3D11_BIND_RENDER_TARGET       // RTV를 만들려면
-	               | D3D11_BIND_SHADER_RESOURCE     // SRV를 만들려면
-	               | D3D11_BIND_UNORDERED_ACCESS;   // UAV를 만들려면 (블러)
+	               | D3D11_BIND_SHADER_RESOURCE;    // SRV를 만들려면
 
 	ComPtr<ID3D11Texture2D> pTex;
 	m_pDevice->CreateTexture2D(&desc, nullptr, &pTex);
 
-	// 2. 같은 텍스처에 뷰 3개
+	// 2. 같은 텍스처에 뷰 2개
 	m_pDevice->CreateRenderTargetView(pTex.Get(), nullptr, &m_pSceneRTV);
 	m_pDevice->CreateShaderResourceView(pTex.Get(), nullptr, &m_pSceneSRV);
-	m_pDevice->CreateUnorderedAccessView(pTex.Get(), nullptr, &m_pSceneUAV);
 	// pTex는 여기서 사라져도 됨 — 뷰들이 텍스처 참조를 들고 있음
 
 	// 3. 백버퍼로 복사할 때 쓸 "깊이 끔" 상태
@@ -1314,17 +1306,12 @@ HRESULT CRenderer::Ready_SceneTarget(uint32_t iWinSizeX, uint32_t iWinSizeY)
 	if (FAILED(m_pDevice->CreatePixelShader(pPSBlob->GetBufferPointer(), pPSBlob->GetBufferSize(), nullptr, &m_pPS_FullScreen)))
 		return E_FAIL;
 
-	// 5. 블러 필터 (선택)
-	m_pBlurFilter = CBlurFilter::Create(m_pDevice, m_pContext, iWinSizeX, iWinSizeY);
-	if (nullptr == m_pBlurFilter)
-		return E_FAIL;
-
 	return S_OK;
 }
 ```
 
 - **크기를 창과 같게 하는 이유**: 깊이 버퍼는 새로 만들지 않고 기존 것을 같이 쓰는데, 렌더 타깃과 깊이 버퍼의 크기·샘플 수가 다르면 그려지지 않는다. 뷰포트도 그대로 쓸 수 있다
-- 셰이더 경로 `../Bin/Shader/`는 실행 폴더 기준 → MapTool도 `MapTool/Bin/Shader/`에 `Shader_Blur.hlsl`이 있어야 함 (1-2의 xcopy)
+- 셰이더 경로 `../Bin/Shader/`는 실행 폴더 기준 → MapTool도 `MapTool/Bin/Shader/`에 `Shader_Blur.hlsl`이 있어야 함 (1-2의 xcopy). 파일 이름은 Blur지만 여기서는 그 안의 `VS_FullScreen` / `PS_FullScreen` 두 함수만 쓴다
 
 ### 4-4. Render_GameObject — 타깃 바꾸기 → 그리기 → 되돌리기
 
@@ -1358,15 +1345,11 @@ void CRenderer::Render_GameObject()
 	// 5. 원래 타깃(백버퍼)으로 복구 → 이제 씬 텍스처는 RTV에서 풀려서 SRV로 읽을 수 있음
 	m_pContext->OMSetRenderTargets(1, pOldRTV.GetAddressOf(), pOldDSV.Get());
 
-	// 6. (선택) 씬 텍스처에 블러 — UAV로 컴퓨트 셰이더가 직접 수정
-	if (m_bUseBlur)
-		m_pBlurFilter->BlurInPlace(m_pSceneSRV.Get(), m_pSceneUAV.Get(), 4);
-
-	// 7. Client: 씬 텍스처를 백버퍼에 복사 / MapTool: 건너뜀 (ImGui::Image가 대신 보여줌)
+	// 6. Client: 씬 텍스처를 백버퍼에 복사 / MapTool: 건너뜀 (ImGui::Image가 대신 보여줌)
 	if (m_bDrawToBackBuffer)
 		Render_FullScreen();
 
-	// 8. UI는 씬 텍스처가 아니라 백버퍼에 바로 그림
+	// 7. UI는 씬 텍스처가 아니라 백버퍼에 바로 그림
 	Render_NonAlpha_UI();
 	Render_Alpha_UI();
 }
@@ -1376,7 +1359,7 @@ void CRenderer::Render_GameObject()
 - `OMGetRenderTargets`는 받은 뷰의 참조 카운트를 올려 준다 → `ComPtr`로 받으면 함수가 끝날 때 자동으로 `Release`
 - 깊이 버퍼는 `CToolMainApp::Render`(Client는 `CMainApp::Render`) 맨 앞의 `Clear_DepthStencil_View()`에서 이미 지워졌으므로 여기서는 색만 지운다
 - 씬 텍스처는 창과 같은 크기라 **뷰포트를 바꿀 필요가 없다** (크기가 다른 텍스처에 그릴 때는 `RSSetViewports`도 같이 바꾸고 복구해야 함)
-- 8번 UI 그룹은 백버퍼에 그려지므로 MapTool에서는 Scene 창 안이 아니라 ImGui 창 뒤에 깔린다 → 맵툴 레벨에서는 UI 객체를 만들지 않는다
+- 7번 UI 그룹은 백버퍼에 그려지므로 MapTool에서는 Scene 창 안이 아니라 ImGui 창 뒤에 깔린다 → 맵툴 레벨에서는 UI 객체를 만들지 않는다
 
 ### 4-5. Render_FullScreen — 씬 텍스처를 백버퍼에 복사 (Client)
 
