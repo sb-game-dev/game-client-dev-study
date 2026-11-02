@@ -57,7 +57,7 @@ Duckov/Game/
 | `CEditorUI` | MapTool | 에디터 화면 전체: 메뉴바, 레이아웃 계산, 공용 상태(`EDITOR_CONTEXT`) 보관, 패널 3개 소유 |
 | `CPanel_Hierarchy` / `CPanel_Scene` / `CPanel_Inspector` | MapTool | 각 창 하나씩 (`CPanel` 상속, Context를 참조로 공유) |
 | `CLevel_MapTool` | MapTool | 툴 레벨: SkyBox, 맵툴 카메라, StaticProp 원형 등록 |
-| `CMapTool_Cam` | MapTool (namespace Client) | 우클릭+WASD+마우스 자유 카메라 |
+| `CMapTool_Cam` | MapTool (namespace Client) | WASD 이동 + 우클릭 마우스 회전 자유 카메라 |
 | `CMapObject` | Client | 배치 가능한 모든 객체의 부모. DESC로 위치/회전/크기/메시/텍스처를 받음 |
 | `CStaticProp` | Client | 그리기만 하는 구조물. 메시/텍스처를 **경로 문자열**로 받아 교체 가능 |
 | `CAsset_Manager` | Engine | "경로로 원형 찾기 → 없으면 로드해서 등록" 캐시 |
@@ -1646,7 +1646,7 @@ void CPanel_Scene::Render(const PANEL_RECT& tRect)
 
 ## 5단계. 맵툴 카메라 + SkyBox
 
-**목표**: Scene 창에 SkyBox가 보이고, Scene 창을 클릭한 상태에서 **우클릭을 누르고** WASD로 이동, 마우스로 회전한다. (유니티 씬 뷰 방식)
+**목표**: Scene 창에 SkyBox가 보이고, Scene 창을 클릭한 상태에서 WASD로 이동, **우클릭을 누른 채** 마우스로 회전한다.
 
 ### 5-1. Engine — 카메라를 게임오브젝트로
 
@@ -1780,8 +1780,6 @@ HRESULT CMapTool_Cam::Initialize(void* pArg)
 void CMapTool_Cam::Update(f32_t fDeltaTime)
 {
 	__super::Update(fDeltaTime);
-	if (!CGameInstance::Get().Get_DIMouseState(DIM::RB))   // 우클릭 중에만
-		return;
 	if (m_bSceneClicked && m_bSceneHovered)                 // Scene 창이 포커스 + 마우스가 씬 이미지 위일 때만
 		KeyInput(fDeltaTime);
 }
@@ -1806,8 +1804,8 @@ void CMapTool_Cam::KeyInput(const f32_t fDeltaTime)
 }
 ```
 
-- WASD는 `KeyInput` 안에서 우클릭을 다시 검사하지 않는다. `Update`가 우클릭이 아니면 이미 `return` 하므로 `KeyInput`에 들어왔다는 것 자체가 우클릭 중이라는 뜻이다
-- 마우스 회전은 `KeyInput` 안에서도 `DIM::RB`를 한 번 더 감싸 둔다 (나중에 `Update`의 조기 `return`을 없애고 WASD만 따로 허용하더라도, 회전은 계속 우클릭 중에만 되게)
+- `Update`는 포커스 + 호버만 검사한다. 우클릭 검사는 `KeyInput` 안의 **마우스 회전**에만 있다
+- 그래서 WASD 이동은 우클릭 없이도 되고, 마우스 회전은 우클릭을 누르고 있을 때만 된다 (그냥 마우스를 움직여 버튼을 누르러 갈 때 카메라가 돌지 않게)
 
 - `Create`는 `Initialize_Prototype`, `Clone`은 복사 생성 후 `Initialize(pArg)` (프로토타입 패턴 그대로)
 - `Proto::Obj_MapToolCam`, `GO::MapToolCam` 태그를 `Client_Tags.h`에 추가
@@ -1926,8 +1924,8 @@ HRESULT CLevel_MapTool::Ready_Layer_GameObject(const tchar_t* pLayerTag)
 
 | 값 | 어디서 오나 (4-8 `CPanel_Scene::Render`) | 없으면 생기는 문제 |
 |---|---|---|
-| 포커스 (`bSceneFocused`) | `ImGui::IsWindowFocused()` — Scene 창이 마지막으로 클릭된 창인가 | Hierarchy에서 이름을 고치다 우클릭 + WASD를 눌러도 카메라가 움직임 |
-| 호버 (`bSceneHovered`) | `ImGui::IsItemHovered()` — 마우스가 씬 이미지 위에 있는가 | Scene을 클릭해 둔 채 마우스를 Inspector 위로 옮겨 우클릭해도 카메라가 움직임 |
+| 포커스 (`bSceneFocused`) | `ImGui::IsWindowFocused()` — Scene 창이 마지막으로 클릭된 창인가 | Hierarchy에서 이름을 고치다 WASD를 눌러도 카메라가 움직임 |
+| 호버 (`bSceneHovered`) | `ImGui::IsItemHovered()` — 마우스가 씬 이미지 위에 있는가 | Scene을 클릭해 둔 채 마우스를 Inspector 위로 옮겨 WASD / 우클릭 회전을 해도 카메라가 움직임 |
 
 **EditorUI.h** — public에 조회 함수 추가
 
@@ -1968,17 +1966,20 @@ void CToolMainApp::Sync_SceneView()
 
 - `Sync_SceneView`는 `CEditorUI::Update`(이번 프레임 포커스/호버 갱신) **다음**, `Update_Engine`(카메라 Update) **전**에 불러야 같은 프레임 값이 전달된다
 
-**카메라가 움직이는 조건** (`CMapTool_Cam::Update`)
+**카메라가 움직이는 조건** (`CMapTool_Cam::Update` → `KeyInput`)
 
 ```
-우클릭 누름  AND  Scene 창이 포커스  AND  마우스가 씬 이미지 위
-  (DIM::RB)       (m_bSceneClicked)       (m_bSceneHovered)
+WASD 이동  :  Scene 창이 포커스  AND  마우스가 씬 이미지 위
+               (m_bSceneClicked)      (m_bSceneHovered)
+
+마우스 회전 :  위 두 조건  AND  우클릭 누름
+                                 (DIM::RB)
 ```
 
 **실행 결과**
 - Scene 창에 SkyBox 텍스처(`proc_preview.png`)가 보인다
-- Scene 창을 한 번 클릭 → 마우스를 씬 이미지 위에 두고 우클릭 누른 채 WASD로 이동, 마우스로 회전
-- Hierarchy/Inspector를 클릭해 포커스를 옮기면 우클릭 + WASD를 해도 안 움직인다
+- Scene 창을 한 번 클릭 → 마우스를 씬 이미지 위에 두고 WASD로 이동, 우클릭 누른 채 마우스로 회전
+- Hierarchy/Inspector를 클릭해 포커스를 옮기면 WASD / 우클릭 회전을 해도 안 움직인다
 - Scene 창이 포커스여도 마우스가 Hierarchy/Inspector 위나 씬 이미지 위아래의 빈 띠(비율 맞춤으로 생긴 여백) 위에 있으면 안 움직인다
 
 **주의 / 남은 것**
@@ -3608,18 +3609,6 @@ unique_ptr<CPanel_Inspector> CPanel_Inspector::Create(EDITOR_CONTEXT& Context)
 ---
 
 ## 11. 현재 상태와 남은 작업
-
-### 완료
-- [x] MapTool 프로젝트 + ImGui 연동 (DPI, ESC 처리)
-- [x] 메뉴바 + 3창 고정 레이아웃 (`CEditorUI` + `CPanel_Hierarchy / Scene / Inspector`)
-- [x] Scene 창 RTT (비율 유지)
-- [x] 맵툴 카메라 (게임오브젝트, 우클릭 + WASD + 마우스)
-- [x] `CMapObject` + DESC, `CTransform::Rotation(도)`
-- [x] `CAsset_Manager` (경로 정규화, Get_Or_Load, 실패 기록)
-- [x] `CStaticProp` (생성/교체가 같은 `Change_Mesh/Change_Texture` 사용)
-- [x] 엔진 Dead 삭제 방식, `Get_GameObjects`, 중복 태그 `E_FAIL`
-- [x] Hierarchy (우클릭 생성/삭제, Delete 키, 선택)
-- [x] Inspector (Transform, Mesh/Texture 콤보)
 
 ### 남은 작업 (우선순위 순)
 1. **카메라 정리**
