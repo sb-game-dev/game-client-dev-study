@@ -31,6 +31,7 @@ HRESULT CStaticProp::Initialize(void* pArg)
 {
     //auto pDesc = static_cast<STATICPROP_DESC*>(pArg);
 
+    // 메시, 텍스처 Transform에 들어갈 변수(Pos, Rot, Scale) 값을 MapObject로 넘겨줌
     if (FAILED(__super::Initialize(pArg)))
         return E_FAIL;
 
@@ -89,8 +90,8 @@ HRESULT CStaticProp::Change_Mesh(const wstring_t& strMeshPath)
     if (FAILED(CGameInstance::Get().Get_or_Load_Mesh(m_iLevelIndex, strMeshPath, strMeshTag)))
         return E_FAIL;
 
-    if (0 != strMeshTag.rfind(g_strBuiltinPrefix, 0))
-        return E_FAIL;                              // 10단계: 모델
+    if (0 != strMeshTag.rfind(g_strBuiltinPrefix, 0)) // Path로 만든 strMeshTag가 L"biltin/"으로 시작하지 않으면 모델임
+        return E_FAIL;                                
 
     shared_ptr<CVIBuffer> pNew;
     Remove_Component(TEXT("Com_Buffer"));

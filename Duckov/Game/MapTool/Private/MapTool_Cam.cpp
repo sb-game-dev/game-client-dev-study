@@ -31,8 +31,6 @@ void CMapTool_Cam::Priority_Update(f32_t fTimeDelta)
 void CMapTool_Cam::Update(f32_t fDeltaTime)
 {
 	__super::Update(fDeltaTime);
-	if (!CGameInstance::Get().Get_DIMouseState(DIM::RB))
-		return;
 	if (m_bSceneClicked && m_bSceneHovered)
 	{
 		KeyInput(fDeltaTime);
@@ -51,8 +49,7 @@ HRESULT CMapTool_Cam::Render()
 
 void CMapTool_Cam::KeyInput(const f32_t fDeltaTime)
 {
-	if (!CGameInstance::Get().Get_DIMouseState(DIM::RB))
-		return;
+	
 	if (CGameInstance::Get().Get_DIKeyState(DIK_W))
 	{
 		m_pTransformCom->Go_Straight(fDeltaTime);
@@ -70,15 +67,17 @@ void CMapTool_Cam::KeyInput(const f32_t fDeltaTime)
 		m_pTransformCom->Go_Right(fDeltaTime);
 	}
 
-
 	int32_t     iMouseMove = {};
-	if (iMouseMove = CGameInstance::Get().Get_DIMouseMove(DIMM::Y))
+	if (CGameInstance::Get().Get_DIMouseState(DIM::RB))
 	{
-		m_pTransformCom->Turn(m_pTransformCom->Get_State(STATE::RIGHT), m_fMouseSensor * iMouseMove * fDeltaTime);
-	}
-	if (iMouseMove = CGameInstance::Get().Get_DIMouseMove(DIMM::X))
-	{
-		m_pTransformCom->Turn(XMVectorSet(0.f, 1.f, 0.f, 0.f), m_fMouseSensor * iMouseMove * fDeltaTime);
+		if (iMouseMove = CGameInstance::Get().Get_DIMouseMove(DIMM::Y))
+		{
+			m_pTransformCom->Turn(m_pTransformCom->Get_State(STATE::RIGHT), m_fMouseSensor * iMouseMove * fDeltaTime);
+		}
+		if (iMouseMove = CGameInstance::Get().Get_DIMouseMove(DIMM::X))
+		{
+			m_pTransformCom->Turn(XMVectorSet(0.f, 1.f, 0.f, 0.f), m_fMouseSensor * iMouseMove * fDeltaTime);
+		}
 	}
 	Update_PipeLines();
 }

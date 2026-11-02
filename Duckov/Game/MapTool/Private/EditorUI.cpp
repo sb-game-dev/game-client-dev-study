@@ -29,8 +29,7 @@ void CEditorUI::Update(const f32_t& fDeltaTime)
     m_pScene->Render(m_tScene);
     m_pInspector->Render(m_tInspector);
 
-    if (m_bShowDemo)
-        ImGui::ShowDemoWindow(&m_bShowDemo); // 예제창 보이기
+
 }
 
 void CEditorUI::Calc_Layout()
@@ -77,11 +76,6 @@ void CEditorUI::Render_MenuBar()
         ImGui::EndMenu();
     }
 
-    if (ImGui::BeginMenu("View"))
-    {
-        ImGui::MenuItem("ImGui Demo", nullptr, &m_bShowDemo);       // bool* 를 넘기면 체크 토글
-        ImGui::EndMenu();
-    }
     ImGui::EndMainMenuBar();
 }
 

@@ -25,7 +25,7 @@ void CPanel_Scene::Render(const PANEL_RECT& tRect)
     ImGui::PopStyleVar();
 
     // 사용할 수 있는 공간 계산
-    // 현재 커서위치부터 창 오른쪽 아리까지 실제 위젯을 놓을 수 있는 공간 -> vAvail = (1040,854)
+    // 현재 커서위치부터 창 오른쪽 아래까지 실제 위젯을 놓을 수 있는 공간 -> vAvail = (1040,854)
     const ImVec2 vAvail = ImGui::GetContentRegionAvail();
 
     // 씬 텍스처의 가로세로 비율

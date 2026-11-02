@@ -24,7 +24,6 @@ public:
 private:
 	f32_t		m_fMenuBarHeight = {};
 	f32_t		m_fSidePamelWidth = { 280.f };
-	bool_t		m_bShowDemo = { false };
 
 	PANEL_RECT	m_tHierarchy = {};
 	PANEL_RECT	m_tScene = {};

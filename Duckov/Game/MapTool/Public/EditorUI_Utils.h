@@ -41,36 +41,48 @@ inline wstring_t To_Wide(const char* pUTF8)
 	return strOut;
 }
 
-// { pName, pPath } 구조의 목록을 콤보로 그린다.
-// strCurrent : 객체가 지금 가진 경로 (정규화된 태그, 소문자)
-// OnChange   : 다른 항목을 골랐을 때 호출 (고른 항목의 원본 경로를 넘김)
-template<typename ITEM, size_t N, typename FUNC>
-void Render_AssetCombo(const char* pLabel, const ITEM(&Items)[N], const wstring_t& strCurrent, FUNC&& OnChange)
+// { pDisplayName, pPath } 목록을 콤보로 그린다.
+// pItems / iCount : 콤보에 보일 목록 (g_Meshes, _countof(g_Meshes))
+// strCurrent      : 객체가 지금 가진 경로 (정규화된 태그, 소문자)
+// 반환            : 다른 항목을 고른 프레임에만 그 항목의 원본 경로, 아니면 nullptr
+inline const wchar_t* Render_AssetCombo(const char* pLabel, const ASSET_ITEM* pItems, size_t iCount, const wstring_t& strCurrentPath)
 {
 	// 1. 현재 값이 목록의 몇 번째인지 찾기
-	int32_t iCurrent = -1;
-	for (int32_t i = 0; i < static_cast<int32_t>(N); ++i)
+	int32_t iCurrentIIndex = -1;
+	for (int32_t i = 0; i < static_cast<int32_t>(iCount); ++i)
 	{
-		if (Normalize_AssetPath(Items[i].pPath) == strCurrent)
+		if (Normalize_AssetPath(pItems[i].pPath) == strCurrentPath)
 		{
-			iCurrent = i;
+			iCurrentIIndex = i;
 			break;
 		}
 	}
 
-	// 2. 콤보 닫혀 있을 때 보일 글자
+	// 2. 콤보 닫혀 있을 때 보일 글자 -> 현재 선택된 항목의 콤보 표시용 글자가 들어감
 	//    목록에 없으면 (불러온 맵 등) 경로를 그대로 보여줌
-	const string strPreview = (-1 != iCurrent) ? Items[iCurrent].pName : To_UTF8(strCurrent);
+	string strPreview;
+	if (-1 != iCurrentIIndex)
+		strPreview = pItems[iCurrentIIndex].pDisplayName;
+	else
+		strPreview = To_UTF8(strCurrentPath);
 
-	// 3. 콤보
+	// 3. 콤보(토글) — 고른 항목은 기억만 해 두고 EndCombo 뒤에 반환
+	const wchar_t* pPickedPath = nullptr;
+	// 첫 번째 매개변수 : 토글 옆에 보일 문자 (ex. Mesh or Texture)
+	// 두 번째 매개변수 : 토글 안에 보일 미리보기 문자 (위의 2번에서 구한 값)
+	// 토글을 열었을 때만 true 반환
 	if (ImGui::BeginCombo(pLabel, strPreview.c_str()))
 	{
-		for (int32_t i = 0; i < static_cast<int32_t>(N); ++i)
+		for (int32_t i = 0; i < static_cast<int32_t>(iCount); ++i)
 		{
-			const bool_t bSelected = (i == iCurrent);
+			// 현재 이 항목이 객체가 쓰고있는 항목인지 확인
+			const bool_t bSelected = (i == iCurrentIIndex);
 
-			if (ImGui::Selectable(Items[i].pName, bSelected) && !bSelected)
-				OnChange(Items[i].pPath);
+			// 클릭 가능한 Rect 생성
+			// Selectable -> 클릭했을 때 true 반환
+			// && !bSelected 조건을 사용하여 현재 사용하지 않는 항목인데 클릭했다면 선택되었다고 판단 -> pPicked
+			if (ImGui::Selectable(pItems[i].pDisplayName, bSelected) && !bSelected)
+				pPickedPath = pItems[i].pPath;
 
 			// 콤보를 열었을 때 현재 항목으로 스크롤
 			if (bSelected)
@@ -78,6 +90,8 @@ void Render_AssetCombo(const char* pLabel, const ITEM(&Items)[N], const wstring_
 		}
 		ImGui::EndCombo();
 	}
+	return pPickedPath;
 }
+
 
 NS_END

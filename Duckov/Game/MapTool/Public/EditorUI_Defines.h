@@ -49,7 +49,7 @@ struct EDITOR_CONTEXT
 // { 표시 이름, 경로 } 목록 (Inspector 콤보, Hierarchy 생성 기본값)
 struct ASSET_ITEM
 {
-	const char*		pName;		// 콤보 표시용
+	const char*		pDisplayName;	// 콤보 표시용
 	const wchar_t*	pPath;		// DESC에 넣을 경로 (텍스처는 Resource 기준 상대 경로)
 };
 

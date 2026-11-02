@@ -34,10 +34,10 @@
     <Filter Include="01. EditorUI\01. Panel\00. Hierachy">
       <UniqueIdentifier>{cb589f3c-c4a8-439b-bd7c-cec0bb3e319e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. EditorUI\01. Panel\01. Inspector">
+    <Filter Include="01. EditorUI\01. Panel\02. Inspector">
       <UniqueIdentifier>{0ad50b99-78ae-4cfb-8635-cabb0e7da771}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. EditorUI\01. Panel\02. Scene">
+    <Filter Include="01. EditorUI\01. Panel\01. Scene">
       <UniqueIdentifier>{0a8ec675-1e68-46d8-ae3b-6167aa39bef0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -103,10 +103,10 @@
       <Filter>01. EditorUI\01. Panel\00. Hierachy</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Panel_Inspector.h">
-      <Filter>01. EditorUI\01. Panel\01. Inspector</Filter>
+      <Filter>01. EditorUI\01. Panel\02. Inspector</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Panel_Scene.h">
-      <Filter>01. EditorUI\01. Panel\02. Scene</Filter>
+      <Filter>01. EditorUI\01. Panel\01. Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\EditorUI.h">
       <Filter>01. EditorUI</Filter>
@@ -190,9 +190,6 @@
     <ClCompile Include="..\ImGui\imgui.cpp">
       <Filter>96. ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="..\ImGui\imgui_demo.cpp">
-      <Filter>96. ImGui</Filter>
-    </ClCompile>
     <ClCompile Include="..\ImGui\imgui_draw.cpp">
       <Filter>96. ImGui</Filter>
     </ClCompile>
@@ -230,10 +227,10 @@
       <Filter>01. EditorUI\01. Panel\00. Hierachy</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Panel_Inspector.cpp">
-      <Filter>01. EditorUI\01. Panel\01. Inspector</Filter>
+      <Filter>01. EditorUI\01. Panel\02. Inspector</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Panel_Scene.cpp">
-      <Filter>01. EditorUI\01. Panel\02. Scene</Filter>
+      <Filter>01. EditorUI\01. Panel\01. Scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\EditorUI.cpp">
       <Filter>01. EditorUI</Filter>

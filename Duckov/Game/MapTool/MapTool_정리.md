@@ -39,7 +39,7 @@ Duckov/Game/
 └─ MapTool/
    ├─ Default/    Default.cpp(WinMain), Default.vcxproj, imgui.ini
    ├─ ImGui/      imgui 소스 (imgui.cpp, imgui_draw.cpp, imgui_widgets.cpp, imgui_tables.cpp,
-   │              imgui_demo.cpp, imgui_impl_win32.cpp, imgui_impl_dx11.cpp + 헤더)
+   │              imgui_impl_win32.cpp, imgui_impl_dx11.cpp + 헤더)
    ├─ Public/     MapTool_Defines.h, ToolMainApp.h, Level_MapTool.h, MapTool_Cam.h,
    │              EditorUI.h, EditorUI_Defines.h, EditorUI_Utils.h,
    │              Panel.h, Panel_Hierarchy.h, Panel_Scene.h, Panel_Inspector.h
@@ -511,7 +511,7 @@ ImGui::DragFloat("속도", &m_fSpeed);   // m_fSpeed는 우리 멤버. ImGui는 
 ### 2-1. ImGui 소스 추가
 
 - `MapTool/ImGui/`에 아래 파일을 넣고 vcxproj에 추가
-  - `imgui.cpp, imgui_draw.cpp, imgui_widgets.cpp, imgui_tables.cpp, imgui_demo.cpp`
+  - `imgui.cpp, imgui_draw.cpp, imgui_widgets.cpp, imgui_tables.cpp`
   - `imgui_impl_win32.cpp/.h, imgui_impl_dx11.cpp/.h`
   - `imgui.h, imconfig.h, imgui_internal.h, imstb_rectpack.h, imstb_textedit.h, imstb_truetype.h`
 - ImGui cpp 파일들은 **미리 컴파일된 헤더 사용 안 함**으로 설정 (pch를 쓰는 경우)
@@ -603,7 +603,6 @@ public:
 
 private:
 	f32_t		m_fMenuBarHeight = {};
-	bool_t		m_bShowDemo = { false };
 
 private:
 	void		Render_MenuBar();
@@ -629,9 +628,6 @@ HRESULT CEditorUI::Initialize()
 void CEditorUI::Update(const f32_t& fDeltaTime)
 {
     Render_MenuBar();
-
-    if (m_bShowDemo)
-        ImGui::ShowDemoWindow(&m_bShowDemo);
 }
 
 void CEditorUI::Render_MenuBar()
@@ -657,11 +653,6 @@ void CEditorUI::Render_MenuBar()
         ImGui::EndMenu();
     }
 
-    if (ImGui::BeginMenu("View"))
-    {
-        ImGui::MenuItem("ImGui Demo", nullptr, &m_bShowDemo);       // bool* 를 넘기면 체크 토글
-        ImGui::EndMenu();
-    }
     ImGui::EndMainMenuBar();
 }
 
@@ -687,8 +678,6 @@ unique_ptr<CEditorUI> CEditorUI::Create()
 | `ImGui::BeginMenu("File")` | 메뉴바의 펼침 메뉴 하나 | 메뉴가 **펼쳐져 있는 동안** `true` → 그 안에 `MenuItem`을 넣고, **`true`일 때만** `EndMenu()` |
 | `ImGui::EndMenu()` | 펼침 메뉴 끝 | `BeginMenu()`가 `true`였을 때만 호출 |
 | `ImGui::MenuItem(라벨, 단축키글자, 선택됨, 활성화)` | 메뉴 항목 하나 | **클릭한 프레임에 `true`.** 두 번째 인자는 오른쪽에 회색으로 보이는 **글자일 뿐** 실제 단축키 동작은 따로 만들어야 한다. 네 번째 인자가 `false`면 회색 비활성(클릭 불가) |
-| `ImGui::MenuItem(라벨, nullptr, &bool변수)` | 체크 표시가 붙는 토글 항목 | `bool*`를 넘기면 클릭할 때마다 ImGui가 그 변수를 `true/false`로 뒤집고, 켜져 있으면 체크 표시를 그린다 |
-| `ImGui::ShowDemoWindow(&bool변수)` | ImGui 데모(예제) 창 | 모든 위젯 예제가 들어 있는 참고용 창. 코드는 `imgui_demo.cpp`. `bool*`를 넘기면 창에 X 버튼이 생기고 누르면 ImGui가 변수를 `false`로 바꾼다 |
 
 ### 2-4. CToolMainApp — ImGui 초기화 / 프레임 / 종료
 
@@ -893,9 +882,7 @@ HRESULT CToolMainApp::Render()
 - vcxproj: `EditorUI.h/.cpp` 등록
 
 **실행 결과**
-- 회색 화면 맨 위에 `File | View` 메뉴바가 생긴다 (File 항목은 아직 회색 비활성)
-- `View → ImGui Demo`를 누르면 데모 창이 뜨고, 드래그/클릭/입력이 된다 (모든 위젯 예제가 들어 있음)
-- 데모 창의 입력칸에 글자를 넣는 중에 ESC를 눌러도 툴이 꺼지지 않는다. 입력칸 밖에서 누르면 꺼진다
+- 회색 화면 맨 위에 `File` 메뉴바가 생긴다 (File 항목은 아직 회색 비활성)
 
 **주의**
 - ImGui 창에 입력이 안 들어가면 WndProc 맨 앞의 `ImGui_ImplWin32_WndProcHandler` 호출 확인
@@ -1113,7 +1100,6 @@ public:
 private:
 	f32_t		m_fMenuBarHeight = {};
 	f32_t		m_fSidePamelWidth = { 280.f };   // 좌우 창 폭
-	bool_t		m_bShowDemo = { false };
 
 	PANEL_RECT	m_tHierarchy = {};
 	PANEL_RECT	m_tScene = {};
@@ -1168,9 +1154,6 @@ void CEditorUI::Update(const f32_t& fDeltaTime)
     m_pHierarchy->Render(m_tHierarchy);
     m_pScene->Render(m_tScene);
     m_pInspector->Render(m_tInspector);
-
-    if (m_bShowDemo)
-        ImGui::ShowDemoWindow(&m_bShowDemo);
 }
 
 void CEditorUI::Calc_Layout()
@@ -1217,11 +1200,6 @@ void CEditorUI::Render_MenuBar()
         ImGui::EndMenu();
     }
 
-    if (ImGui::BeginMenu("View"))
-    {
-        ImGui::MenuItem("ImGui Demo", nullptr, &m_bShowDemo);       // bool* 를 넘기면 체크 토글
-        ImGui::EndMenu();
-    }
     ImGui::EndMainMenuBar();
 }
 
@@ -1259,7 +1237,6 @@ unique_ptr<CEditorUI> CEditorUI::Create()
 - 메뉴바 아래에 Hierarchy | Scene | Inspector 세 창이 화면을 꽉 채운다 (좌우 창 폭 280)
 - 창 크기를 바꿔도 세 창이 화면을 꽉 채우고, 드래그/리사이즈가 안 된다
 - 세 창 모두 아직 비어 있다 (Scene은 4단계, Hierarchy는 6단계, Inspector는 9단계에서 채움)
-- `View → ImGui Demo`는 그대로 동작
 
 **주의**
 - `Begin`은 false여도 `End`를 반드시 호출. 반대로 `BeginMainMenuBar / BeginMenu / BeginPopup / BeginCombo`는 **true일 때만** End 호출
@@ -1817,14 +1794,20 @@ void CMapTool_Cam::KeyInput(const f32_t fDeltaTime)
 	if (CGameInstance::Get().Get_DIKeyState(DIK_D)) m_pTransformCom->Go_Right(fDeltaTime);
 
 	int32_t iMouseMove = {};
-	if (iMouseMove = CGameInstance::Get().Get_DIMouseMove(DIMM::Y))     // 위아래: 자기 Right 축 기준
-		m_pTransformCom->Turn(m_pTransformCom->Get_State(STATE::RIGHT), m_fMouseSensor * iMouseMove * fDeltaTime);
-	if (iMouseMove = CGameInstance::Get().Get_DIMouseMove(DIMM::X))     // 좌우: 월드 Y축 기준
-		m_pTransformCom->Turn(XMVectorSet(0.f, 1.f, 0.f, 0.f), m_fMouseSensor * iMouseMove * fDeltaTime);
+	if (CGameInstance::Get().Get_DIMouseState(DIM::RB))                  // 우클릭 중에만 마우스 회전
+	{
+		if (iMouseMove = CGameInstance::Get().Get_DIMouseMove(DIMM::Y))     // 위아래: 자기 Right 축 기준
+			m_pTransformCom->Turn(m_pTransformCom->Get_State(STATE::RIGHT), m_fMouseSensor * iMouseMove * fDeltaTime);
+		if (iMouseMove = CGameInstance::Get().Get_DIMouseMove(DIMM::X))     // 좌우: 월드 Y축 기준
+			m_pTransformCom->Turn(XMVectorSet(0.f, 1.f, 0.f, 0.f), m_fMouseSensor * iMouseMove * fDeltaTime);
+	}
 
 	Update_PipeLines();      // 움직였으면 View/Proj 갱신
 }
 ```
+
+- WASD는 `KeyInput` 안에서 우클릭을 다시 검사하지 않는다. `Update`가 우클릭이 아니면 이미 `return` 하므로 `KeyInput`에 들어왔다는 것 자체가 우클릭 중이라는 뜻이다
+- 마우스 회전은 `KeyInput` 안에서도 `DIM::RB`를 한 번 더 감싸 둔다 (나중에 `Update`의 조기 `return`을 없애고 WASD만 따로 허용하더라도, 회전은 계속 우클릭 중에만 되게)
 
 - `Create`는 `Initialize_Prototype`, `Clone`은 복사 생성 후 `Initialize(pArg)` (프로토타입 패턴 그대로)
 - `Proto::Obj_MapToolCam`, `GO::MapToolCam` 태그를 `Client_Tags.h`에 추가
@@ -2542,7 +2525,10 @@ HRESULT CStaticProp::Ready_Mesh()
 HRESULT CStaticProp::Ready_ConstantBuffer()
 {
     m_pCB = CConstantBuffer::Create(m_pDevice, m_pContext, &m_tCBData, sizeof(m_tCBData));
-    return nullptr == m_pCB ? E_FAIL : S_OK;
+    if (nullptr == m_pCB)
+        return E_FAIL;
+
+    return S_OK;
 }
 ```
 
@@ -2753,7 +2739,7 @@ HRESULT CLevel_MapTool::Ready_Layer_Map(const tchar_t* pLayerTag)
 // { 표시 이름, 경로 } 목록 (Inspector 콤보, Hierarchy 생성 기본값)
 struct ASSET_ITEM
 {
-	const char*		pName;		// 콤보 표시용
+	const char*		pDisplayName;	// 콤보 표시용
 	const wchar_t*	pPath;		// DESC에 넣을 경로 (텍스처는 Resource 기준 상대 경로)
 };
 
@@ -2791,7 +2777,7 @@ private:
 	uint32_t	m_iNextID = {};						// "Prop_N"의 N
 
 private:
-	void		Create_Object(const wchar_t* pPrototypeTag);
+	void		Create_Object(const wstring_t& pPrototypeTag);
 ```
 
 **Panel_Hierarchy.cpp** — include 추가 + Create_Object (기본값으로 생성 + 고유 태그)
@@ -2801,7 +2787,7 @@ private:
 #include "Panel_Hierarchy.h"
 #include "StaticProp.h"
 
-void CPanel_Hierarchy::Create_Object(const wchar_t* pPrototypeTag)
+void CPanel_Hierarchy::Create_Object(const wstring_t& pPrototypeTag)
 {
     CStaticProp::STATICPROP_DESC Desc{};
     Desc.iLevelIndex    = ETOUI(LEVEL::MAPTOOL);
@@ -2858,7 +2844,7 @@ void CPanel_Hierarchy::Render(const PANEL_RECT& tRect)
 |---|---|---|
 | `ImGui::BeginPopupContextWindow(ID, 플래그)` | **지금 창**을 우클릭하면 열리는 메뉴(팝업) | 안에서 "이번 프레임에 오른쪽 버튼을 뗐고, 마우스가 이 창 위에 있나"를 검사해서 맞으면 팝업을 연다. 팝업이 **열려 있는 동안 매 프레임** `true` → 그 안에 `MenuItem`을 넣고 **`true`일 때만** `EndPopup()`. `ID`(`"HierarchyMenu"`)는 팝업을 구분하는 이름 |
 | `ImGuiPopupFlags_MouseButtonRight` | 오른쪽 버튼으로 열기 | `MouseButtonLeft`, `MouseButtonMiddle`도 있다 |
-| `ImGuiPopupFlags_NoOpenOverItems` | 마우스가 **위젯(항목) 위에 있으면 열지 않음** | 내부적으로 `IsAnyItemHovered()`를 본다. 7·8단계에서 목록 항목에 따로 메뉴를 붙이므로, 이게 없으면 항목을 우클릭했을 때 두 메뉴가 겹친다. 마우스가 항목 위인지 알려면 항목들이 먼저 그려져 있어야 하므로 이 메뉴는 목록 **뒤에** 둔다 |
+| `ImGuiPopupFlags_NoOpenOverItems` | 마우스가 **위젯(항목) 위에 있으면 열지 않음** | 내부적으로 `IsAnyItemHovered()`를 본다. 7·8단계에서 목록 항목에 따로 메뉴를 붙이므로, 이게 없으면 항목을 우클릭했을 때 두 메뉴가 겹친다. `IsAnyItemHovered()`는 이번 프레임 값(`HoveredId`)뿐 아니라 **이전 프레임 값**(`HoveredIdPreviousFrame`)도 보므로, 이 메뉴를 목록 **앞에** 둬도 항목 위에서는 열리지 않는다 (지금 코드는 `Begin` 바로 다음에 둔다) |
 | `ImGui::EndPopup()` | 팝업 끝 | `BeginPopup*`이 `true`였을 때만 호출. 팝업 안의 `MenuItem`을 클릭하면 팝업은 자동으로 닫힌다 |
 
 - 비슷한 함수: `BeginPopupContextItem()`(바로 앞 **위젯**을 우클릭, 8단계), `BeginPopupContextVoid()`(어떤 ImGui 창도 없는 **빈 바탕**을 우클릭)
@@ -2971,6 +2957,56 @@ inline wstring_t To_Wide(const char* pUTF8)
 }
 ```
 
+#### `""` 와 `L""` 구분하는 법
+
+**기준: 그 문자열을 받는 쪽의 타입.** 문자열이 최종적으로 들어가는 함수/변수의 타입에 맞춘다.
+
+| 받는 쪽 타입 | 리터럴 | 한 글자 |
+|---|---|---|
+| `const char*`, `string` | `""` | 1바이트 (`char`) |
+| `const wchar_t*`, `wstring_t`, `LPCWSTR` | `L""` / `TEXT("")` | 2바이트 (`wchar_t`, Windows에선 UTF-16) |
+
+- 틀리게 넘기면 `const char*` ↔ `const wchar_t*` 변환 불가로 **컴파일 에러**가 난다.
+- 헷갈리면 함수 선언(F12 / 마우스 올리기)에서 매개변수 타입을 확인한다.
+
+**이 프로젝트의 큰 경계 — ImGui vs 엔진/WinAPI**
+
+| 영역 | 타입 | 예 |
+|---|---|---|
+| ImGui | `const char*` (UTF-8) | `ImGui::Begin("Hierarchy", ...)`, `MenuItem("Delete", "Del")`, `DragFloat3("Position", ...)` |
+| 엔진 / DX / WinAPI | `wchar_t` 계열 | `TEXT("Layer_Map")`, `L"Prop_0"`, `L"builtin/cube"`, 셰이더·텍스처 경로 |
+
+`ASSET_ITEM`(6-8)은 한 구조체 안에 두 영역이 같이 있는 예시다.
+
+```cpp
+{ "Cube",  L"builtin/cube" }
+//  ↑ pDisplayName → ImGui::Selectable 로 들어감 → ""
+//            ↑ pPath → STATICPROP_DESC → 엔진으로 들어감 → L""
+```
+
+**두 영역이 만나는 곳 — 변환 함수**
+
+리터럴이 아니라 이미 만들어진 변수일 때는 위의 변환 함수를 거친다.
+
+- 엔진 wstring → ImGui 표시: `To_UTF8(strTag).c_str()` (Hierarchy `Selectable`, Inspector 이름 출력)
+- ImGui 입력(나중에 `InputText` 등) → 엔진: `To_Wide(buf)`
+
+> 리터럴은 **받는 쪽 타입**으로 고르고, 변수는 **영역 경계**에서 `To_UTF8` / `To_Wide`로 변환한다.
+
+**`TEXT("")` vs `L""`**
+
+`TEXT()`는 매크로라서 `UNICODE`가 정의돼 있으면 `L""`, 아니면 `""`가 된다. 지금 프로젝트는 유니코드 설정이라 둘의 결과가 같다. 엔진 코드가 이미 `TEXT()`를 쓰는 곳(레이어 태그 등)은 그대로 따르고, `wstring_t`를 직접 조립할 때(`L"Prop_0" + ...`)는 `L""`을 써도 된다.
+
+**주의 — `""` 안에 한글을 쓸 때**
+
+ImGui는 `char*`를 **UTF-8**로 해석한다. 그런데 소스가 CP949로 저장돼 있거나 MSVC가 CP949로 컴파일하면, `"상자"`의 바이트가 CP949로 들어가 ImGui에서 **깨진다**(`?` 등). 영어만 쓰면 문제없다.
+
+- 프로젝트 속성 → C/C++ → 명령줄에 `/utf-8` 추가 (소스와 실행 문자 집합을 모두 UTF-8로)
+- 또는 `u8"상자"` 사용 (C++20부터는 `const char8_t*`라 `(const char*)` 캐스팅이 필요)
+- ImGui 쪽에서도 한글 글리프가 든 폰트를 `GetGlyphRangesKorean()`으로 로드해야 화면에 나온다
+
+`L"상자"`는 컴파일러가 소스 인코딩만 맞게 해석하면 UTF-16으로 정확히 바뀌므로 엔진 쪽은 상대적으로 덜 문제된다.
+
 ### 7-4. CPanel_Hierarchy — 목록 그리기 + 선택
 
 **Create_Object** 맨 끝에 추가 — 만든 객체를 바로 선택
@@ -2981,11 +3017,14 @@ inline wstring_t To_Wide(const char* pUTF8)
 }
 ```
 
-**Render** — `Begin` 안, 빈 곳 우클릭 메뉴 **앞**에 목록 추가
+**Render** — `Begin` 안, 빈 곳 우클릭 메뉴 **뒤**에 목록 추가
 
 ```cpp
     if (ImGui::Begin("Hierarchy", nullptr, g_FixedPanelFlags))
     {
+        // 빈 곳 우클릭 메뉴 (6단계)
+        ...
+
         // ---------- 목록 (이름만) ----------
         auto pObjects = CGameInstance::Get().Get_GameObjects(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"));
         if (nullptr != pObjects)
@@ -3000,9 +3039,6 @@ inline wstring_t To_Wide(const char* pUTF8)
                     m_Context.Select(strTag, pObject);
             }
         }
-
-        // 빈 곳 우클릭 메뉴 (6단계)
-        ...
     }
     ImGui::End();
 ```
@@ -3159,7 +3195,7 @@ private:
 	bool_t		m_bRequestDelete = { false };		// 목록 루프가 끝난 뒤 삭제
 
 private:
-	void		Create_Object(const wchar_t* pPrototypeTag);
+	void		Create_Object(const wstring_t& pPrototypeTag);
 	void		Delete_Selected();
 
 public:
@@ -3190,6 +3226,18 @@ void CPanel_Hierarchy::Render(const PANEL_RECT& tRect)
     Set_NextPanelRect(tRect);
     if (ImGui::Begin("Hierarchy", nullptr, g_FixedPanelFlags))
     {
+        // 빈 곳 우클릭 메뉴 — 항목 위에서는 안 열림 (두 메뉴가 겹치지 않게)
+        if (ImGui::BeginPopupContextWindow("HierarchyMenu",
+            ImGuiPopupFlags_MouseButtonRight | ImGuiPopupFlags_NoOpenOverItems))
+        {
+            for (auto& Item : s_Placeables)
+            {
+                if (ImGui::MenuItem(Item.pName))      // "Add Static_Prop"
+                    Create_Object(Item.pPrototypeTag);
+            }
+            ImGui::EndPopup();
+        }
+
         // ---------- 목록 (이름만) ----------
         auto pObjects = CGameInstance::Get().Get_GameObjects(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"));
         if (nullptr != pObjects)
@@ -3227,18 +3275,6 @@ void CPanel_Hierarchy::Render(const PANEL_RECT& tRect)
         // Delete 키 삭제 (Hierarchy 창이 포커스일 때만)
         if (ImGui::IsWindowFocused() && ImGui::IsKeyPressed(ImGuiKey_Delete))
             Delete_Selected();
-
-        // 빈 곳 우클릭 메뉴 — 항목 위에서는 안 열림 (두 메뉴가 겹치지 않게)
-        if (ImGui::BeginPopupContextWindow("HierarchyMenu",
-            ImGuiPopupFlags_MouseButtonRight | ImGuiPopupFlags_NoOpenOverItems))
-        {
-            for (auto& Item : s_Placeables)
-            {
-                if (ImGui::MenuItem(Item.pName))      // "Add Static_Prop"
-                    Create_Object(Item.pPrototypeTag);
-            }
-            ImGui::EndPopup();
-        }
     }
     ImGui::End();
 }
@@ -3393,48 +3429,56 @@ unique_ptr<CPanel_Inspector> CPanel_Inspector::Create(EDITOR_CONTEXT& Context)
    Texture [WoodCrate01 ▼]
 ```
 
-### 10-1. EditorUI_Utils.h — 콤보 템플릿 추가
+### 10-1. EditorUI_Utils.h — 콤보 함수 추가
 
-`{ pName, pPath }` 구조의 정적 배열(`g_Meshes`, `g_Textures`)이면 무엇이든 콤보로 그린다. 템플릿이라 헤더에 둔다.
-
-`{ pName, pPath }` 구조의 정적 배열(`g_Meshes`, `g_Textures`)이면 무엇이든 콤보로 그린다. 템플릿이라 헤더에 둔다.
+`ASSET_ITEM`(`{ pDisplayName, pPath }`) 배열(`g_Meshes`, `g_Textures`)을 콤보로 그린다. 고른 결과는 **반환값**으로 돌려주고, 바꾸는 처리는 호출하는 쪽(Inspector)이 한다. `inline` 함수라 헤더에 둔다.
 
 ```cpp
-// strCurrent : 객체가 지금 가진 경로 (정규화된 태그, 소문자)
-// OnChange   : 다른 항목을 골랐을 때 호출 (고른 항목의 원본 경로를 넘김)
-template<typename ITEM, size_t N, typename FUNC>
-void Render_AssetCombo(const char* pLabel, const ITEM(&Items)[N], const wstring_t& strCurrent, FUNC&& OnChange)
+// { pDisplayName, pPath } 목록을 콤보로 그린다.
+// pItems / iCount : 콤보에 보일 목록 (g_Meshes, _countof(g_Meshes))
+// strCurrentPath  : 객체가 지금 가진 경로 (정규화된 태그, 소문자)
+// 반환            : 다른 항목을 고른 프레임에만 그 항목의 원본 경로, 아니면 nullptr
+inline const wchar_t* Render_AssetCombo(const char* pLabel, const ASSET_ITEM* pItems, size_t iCount, const wstring_t& strCurrentPath)
 {
 	// 1. 현재 값이 목록의 몇 번째인지 (목록 경로도 정규화해서 비교 — 객체 경로는 소문자)
-	int32_t iCurrent = -1;
-	for (int32_t i = 0; i < static_cast<int32_t>(N); ++i)
+	int32_t iCurrentIIndex = -1;
+	for (int32_t i = 0; i < static_cast<int32_t>(iCount); ++i)
 	{
-		if (Normalize_AssetPath(Items[i].pPath) == strCurrent)
+		if (Normalize_AssetPath(pItems[i].pPath) == strCurrentPath)
 		{
-			iCurrent = i;
+			iCurrentIIndex = i;
 			break;
 		}
 	}
 
 	// 2. 닫혀 있을 때 보일 글자 — 목록에 없으면(불러온 맵 등) 경로 그대로
-	const string strPreview = (-1 != iCurrent) ? Items[iCurrent].pName : To_UTF8(strCurrent);
+	string strPreview;
+	if (-1 != iCurrentIIndex)
+		strPreview = pItems[iCurrentIIndex].pDisplayName;
+	else
+		strPreview = To_UTF8(strCurrentPath);
 
-	// 3. 콤보
+	// 3. 콤보 — 고른 항목은 기억만 해 두고 EndCombo 뒤에 반환
+	const wchar_t* pPickedPath = nullptr;
 	if (ImGui::BeginCombo(pLabel, strPreview.c_str()))
 	{
-		for (int32_t i = 0; i < static_cast<int32_t>(N); ++i)
+		for (int32_t i = 0; i < static_cast<int32_t>(iCount); ++i)
 		{
-			const bool_t bSelected = (i == iCurrent);
-			if (ImGui::Selectable(Items[i].pName, bSelected) && !bSelected)
-				OnChange(Items[i].pPath);
+			const bool_t bSelected = (i == iCurrentIIndex);
+			if (ImGui::Selectable(pItems[i].pDisplayName, bSelected) && !bSelected)
+				pPickedPath = pItems[i].pPath;
 
 			if (bSelected)
 				ImGui::SetItemDefaultFocus();     // 열었을 때 현재 항목으로 스크롤
 		}
 		ImGui::EndCombo();
 	}
+	return pPickedPath;
 }
 ```
+
+- 처음에는 템플릿(`ITEM(&Items)[N]`) + 콜백 람다(`OnChange`)로 만들었지만, 목록이 `ASSET_ITEM` 하나뿐이라 **포인터 + 개수**를 받고 **고른 경로를 반환**하는 일반 함수로 바꿨다
+- 배열 개수는 호출하는 쪽에서 `_countof(g_Meshes)`로 넘긴다
 
 **처음 나오는 ImGui 함수**
 
@@ -3465,13 +3509,23 @@ include 추가
             {
                 if (ImGui::CollapsingHeader("Static Prop", ImGuiTreeNodeFlags_DefaultOpen))
                 {
-                    Render_AssetCombo("Mesh", g_Meshes, pProp->Get_MeshPath(),
-                        [&](const wchar_t* pPath) { if (FAILED(pProp->Change_Mesh(pPath)))    MSG_BOX("Mesh Change Failed"); });
-                    Render_AssetCombo("Texture", g_Textures, pProp->Get_TexturePath(),
-                        [&](const wchar_t* pPath) { if (FAILED(pProp->Change_Texture(pPath))) MSG_BOX("Texture Change Failed"); });
+                    // 다른 항목을 고른 프레임에만 경로가 나옴 → 그때만 교체
+                    if (auto pPath = Render_AssetCombo("Mesh", g_Meshes, _countof(g_Meshes), pProp->Get_MeshPath()))
+                    {
+                        if (FAILED(pProp->Change_Mesh(pPath)))
+                            MSG_BOX("Mesh Change Failed");
+                    }
+
+                    if (auto pPath = Render_AssetCombo("Texture", g_Textures, _countof(g_Textures), pProp->Get_TexturePath()))
+                    {
+                        if (FAILED(pProp->Change_Texture(pPath)))
+                            MSG_BOX("Texture Change Failed");
+                    }
                 }
             }
 ```
+
+- `if (auto pPath = ...)`: 선언과 검사를 한 줄에. 반환값이 `nullptr`가 아닐 때(= 다른 항목을 고른 프레임)만 안으로 들어간다
 
 **Panel_Inspector.cpp** (최종)
 
@@ -3517,10 +3571,17 @@ void CPanel_Inspector::Render(const PANEL_RECT& tRect)
             {
                 if (ImGui::CollapsingHeader("Static Prop", ImGuiTreeNodeFlags_DefaultOpen))
                 {
-                    Render_AssetCombo("Mesh", g_Meshes, pProp->Get_MeshPath(),
-                        [&](const wchar_t* pPath) { if (FAILED(pProp->Change_Mesh(pPath)))    MSG_BOX("Mesh Change Failed"); });
-                    Render_AssetCombo("Texture", g_Textures, pProp->Get_TexturePath(),
-                        [&](const wchar_t* pPath) { if (FAILED(pProp->Change_Texture(pPath))) MSG_BOX("Texture Change Failed"); });
+                    if (auto pPath = Render_AssetCombo("Mesh", g_Meshes, _countof(g_Meshes), pProp->Get_MeshPath()))
+                    {
+                        if (FAILED(pProp->Change_Mesh(pPath)))
+                            MSG_BOX("Mesh Change Failed");
+                    }
+
+                    if (auto pPath = Render_AssetCombo("Texture", g_Textures, _countof(g_Textures), pProp->Get_TexturePath()))
+                    {
+                        if (FAILED(pProp->Change_Texture(pPath)))
+                            MSG_BOX("Texture Change Failed");
+                    }
                 }
             }
         }
@@ -3621,16 +3682,14 @@ unique_ptr<CPanel_Inspector> CPanel_Inspector::Create(EDITOR_CONTEXT& Context)
 | `ImGui::SetCursorPos(ImVec2)` | 다음 위젯 위치 (창 기준) | Scene |
 | `ImGui::GetWindowHeight()` | 현재 창 높이 | 메뉴바 높이 |
 | `ImGui::IsWindowFocused()` | 현재 창이 포커스인지 (Begin~End 안에서) | Scene(카메라), Hierarchy(Delete 키) |
-| `ImGui::ShowDemoWindow(&bOpen)` | 데모 창 (모든 위젯 예제) | View 메뉴 |
 
 ### A-3. 메뉴바 / 메뉴
 
 | 함수 | 용도 | 쓴 곳 |
 |---|---|---|
 | `ImGui::BeginMainMenuBar()` / `ImGui::EndMainMenuBar()` | 화면 맨 위 메뉴바 (Begin 창 바깥에서) | Render_MenuBar |
-| `ImGui::BeginMenu("File")` / `ImGui::EndMenu()` | 펼쳐지는 메뉴 | File, View |
+| `ImGui::BeginMenu("File")` / `ImGui::EndMenu()` | 펼쳐지는 메뉴 | File |
 | `ImGui::MenuItem(라벨, 단축키글자, bSelected, bEnabled)` | 메뉴 항목, 클릭 시 true. 단축키는 표시만 | File 항목(비활성), Delete, Add |
-| `ImGui::MenuItem(라벨, nullptr, &bValue)` | bool 토글 (체크 표시) | ImGui Demo |
 
 ### A-4. 목록 / 팝업 (Hierarchy)
 

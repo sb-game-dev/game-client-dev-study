@@ -8,6 +8,16 @@ void CPanel_Hierarchy::Render(const PANEL_RECT& tRect)
     Set_NextPanelRect(tRect);
     if (ImGui::Begin("Hierarchy", nullptr, g_FixedPanelFlags))
     {
+        // 항목 위가 아닌 창의 빈 곳을 우클릭했을 때만 열림
+        if (ImGui::BeginPopupContextWindow("HierarchyMenu", ImGuiPopupFlags_MouseButtonRight | ImGuiPopupFlags_NoOpenOverItems))
+        {
+            for (auto& Item : s_Placeables)
+            {
+                if (ImGui::MenuItem(Item.pName))      // "Add Static_Prop"
+                    Create_Object(Item.pPrototypeTag);
+            }
+            ImGui::EndPopup();
+        }
         // 맵 객체목록 가져오기
         auto pObjects = CGameInstance::Get().Get_GameObjects(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"));
         if (nullptr != pObjects)
@@ -52,21 +62,11 @@ void CPanel_Hierarchy::Render(const PANEL_RECT& tRect)
         if (ImGui::IsWindowFocused() && ImGui::IsKeyPressed(ImGuiKey_Delete))
             Delete_Selected();
 
-        // 항목 위가 아닌 창의 빈 곳을 우클릭했을 때만 열림
-        if (ImGui::BeginPopupContextWindow("HierarchyMenu", ImGuiPopupFlags_MouseButtonRight | ImGuiPopupFlags_NoOpenOverItems))
-        {
-            for (auto& Item : s_Placeables)
-            {
-                if (ImGui::MenuItem(Item.pName))      // "Add Static_Prop"
-                    Create_Object(Item.pPrototypeTag);
-            }
-            ImGui::EndPopup();
-        }
     }
     ImGui::End();
 }
 
-void CPanel_Hierarchy::Create_Object(const wchar_t* pPrototypeTag)
+void CPanel_Hierarchy::Create_Object(const wstring_t& pPrototypeTag)
 {
     CStaticProp::STATICPROP_DESC Desc{};
     Desc.iLevelIndex = ETOUI(LEVEL::MAPTOOL);

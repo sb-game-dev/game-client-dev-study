@@ -31,7 +31,7 @@ private:
 	bool_t		m_bRequestDelete = { false };		// 목록 루프가 끝난 뒤 삭제
 
 private:
-	void		Create_Object(const wchar_t* pPrototypeTag);
+	void		Create_Object(const wstring_t& pPrototypeTag);
 	void		Delete_Selected();
 
 public:

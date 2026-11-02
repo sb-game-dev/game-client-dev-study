@@ -190,6 +190,8 @@ float4 PS_MAIN_NOLIGHT(VS_OUT In) : SV_TARGET
     
     return vTexColor;
 }
+
+
 float4 PS_SHADOW(VS_OUT In) : SV_TARGET
 {
     float4 vTexColor = g_DiffuseTex.Sample(g_Sampler, In.vTexCoord);
