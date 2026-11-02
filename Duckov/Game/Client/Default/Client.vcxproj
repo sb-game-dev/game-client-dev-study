@@ -108,7 +108,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../Public;../../EngineSDK/Inc/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../Public;../../EngineSDK/Inc/;../ImGui;../../Client/Public;</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -121,6 +121,9 @@
     <Manifest>
       <EnableDpiAwareness>PerMonitorHighDPIAware</EnableDpiAwareness>
     </Manifest>
+    <PreBuildEvent>
+      <Command>xcopy "$(SolutionDir)Client\Bin\Shader" "$(SolutionDir)MapTool\Bin\Shader\" /E /Y /I</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -130,7 +133,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>../Public;../../EngineSDK/Inc/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../Public;../../EngineSDK/Inc/;../ImGui;../../Client/Public;</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>

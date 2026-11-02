@@ -23,6 +23,7 @@
 - [부록 A. 사용한 ImGui 함수/위젯 정리](#부록-a-사용한-imgui-함수위젯-정리)
 - [부록 B. 커밋 기록](#부록-b-커밋-기록)
 - [부록 C. 자주 겪는 문제](#부록-c-자주-겪는-문제)
+- [부록 D. ImGui 예제 main.cpp와 비교](#부록-d-imgui-예제-maincpp와-비교)
 
 ---
 
@@ -3709,3 +3710,165 @@ unique_ptr<CPanel_Inspector> CPanel_Inspector::Create(EDITOR_CONTEXT& Context)
 | 같은 객체를 두 번 Add하면 실패 | 정상 — 중복 태그는 `E_FAIL`. 태그 생성 루프에서 `Find_GameObject`로 피함 |
 | 콤보 현재 값이 안 잡힘 | 객체 경로는 소문자 정규화됨 → 목록 경로도 `Normalize_AssetPath`해서 비교 |
 | 카메라 감도가 프레임마다 다름 | 마우스 이동량에 `fDeltaTime`을 곱하지 말 것 |
+
+---
+
+## 부록 D. ImGui 예제 main.cpp와 비교
+
+> `imgui-master/examples/example_win32_directx11/main.cpp` 한 함수에 몰려 있던 코드가 이 프로젝트에서 어디로 나뉘었는지 정리한 표입니다.
+> 기준: **Default.cpp** = OS와 맞닿는 부분(창, 메시지, WndProc, 시작과 끝) / **CToolMainApp** = 엔진과 ImGui를 순서대로 돌리는 부분 / **CEditorUI** = 화면에 보여 줄 내용 / **엔진** = 예제가 직접 만들던 D3D11 객체.
+
+### D-1. 큰 그림
+
+```
+예제 main()                          이 프로젝트
+───────────────────────────          ──────────────────────────────────────────
+① DPI 설정                    ──▶    Default.cpp   wWinMain
+② 창 생성                     ──▶    Default.cpp   MyRegisterClass / InitInstance
+③ D3D11 디바이스              ──▶    엔진          Initialize_Engine (ToolMainApp이 호출)
+④ ImGui 초기화                ──▶    ToolMainApp   Ready_ImGui
+⑤ 폰트                        ──▶    (현재 없음)
+⑥ 메인 루프
+   메시지 처리                ──▶    Default.cpp   wWinMain while 루프
+   최소화/리사이즈             ──▶    (현재 없음)
+   NewFrame                   ──▶    ToolMainApp   Begin_ImGui
+   위젯 호출                  ──▶    CEditorUI     Update
+   Render + RenderDrawData    ──▶    ToolMainApp   Render → Render_ImGui
+   클리어 / Present           ──▶    ToolMainApp   Render → 엔진 함수
+⑦ 정리                        ──▶    ToolMainApp   소멸자 → Shutdown_ImGui
+WndProc                       ──▶    Default.cpp   WndProc
+```
+
+### D-2. 항목별 대응
+
+**⓪ include와 전역 변수**
+
+| 예제 | 이 프로젝트 | 위치 |
+|---|---|---|
+| `imgui.h`, `imgui_impl_win32.h` | WndProc, DPI 함수 때문에 include | Default.cpp 맨 위 |
+| `imgui.h`, `imgui_impl_win32.h`, `imgui_impl_dx11.h` | 초기화, 프레임, 정리 때문에 include | ToolMainApp.cpp 맨 위 |
+| `g_pd3dDevice`, `g_pd3dDeviceContext` | `m_pDevice`, `m_pContext` (멤버) | ToolMainApp.h |
+| `g_pSwapChain`, `g_mainRenderTargetView` | 엔진 내부 (`CGraphic_Device`) | 엔진 |
+| `g_SwapChainOccluded`, `g_ResizeWidth/Height` | 없음 | - |
+
+- 두 cpp 모두 `imgui.h`를 **첫 줄**에 둔다. 엔진의 `#define new DBG_NEW` 매크로가 먼저 정의되면 imgui.h의 `operator new` 선언이 깨진다(C2473).
+
+**① DPI 설정**
+
+| 예제 | 이 프로젝트 |
+|---|---|
+| `ImGui_ImplWin32_EnableDpiAwareness()` | wWinMain (창 생성 전) ✅ |
+| `GetDpiScaleForMonitor` → `main_scale` | 없음 |
+| `style.ScaleAllSizes`, `FontScaleDpi` | 없음 |
+
+- DPI 인식은 켰지만 배율 적용은 안 한 상태. 125%·150% 모니터에서는 창이 실제 픽셀 1600x900으로 뜨고 ImGui UI가 상대적으로 작게 보인다(흐려지지는 않음).
+
+**② 창 생성**
+
+| 예제 | 이 프로젝트 |
+|---|---|
+| `RegisterClassExW` | `MyRegisterClass` ✅ (W 버전 → 한글 입력 OK) |
+| `CreateWindowW(1280 × main_scale, ...)` | `InitInstance` |
+| `ShowWindow`, `UpdateWindow` | `InitInstance` ✅ |
+
+- 예제보다 나은 점: `AdjustWindowRectExForDpi`로 **클라이언트 영역을 정확히 1600x900**으로 맞추고, 작업 영역 가운데에 띄운다.
+
+**③ D3D11 초기화**
+
+| 예제 | 이 프로젝트 |
+|---|---|
+| `CreateDeviceD3D` (스왑체인, 디바이스, 컨텍스트) | `Initialize_Engine(EngineDesc, m_pDevice, m_pContext)` |
+| `CreateRenderTarget` (백버퍼 RTV) | 엔진 내부 |
+| (예제에 없음) DSV, 뷰포트 | 엔진 내부 |
+| `CleanupDeviceD3D` | 소멸자의 `Release_Engine()` |
+
+- `EngineDesc`에 `g_iToolWinSizeX/Y`를 넘겨 Client(1280x720)와 다른 크기로 엔진을 만든다.
+
+**④ ImGui 초기화** — `CToolMainApp::Ready_ImGui`
+
+| 예제 | 이 프로젝트 |
+|---|---|
+| `IMGUI_CHECKVERSION`, `CreateContext` | ✅ |
+| `io.ConfigFlags` (키보드, 게임패드 Nav) | 키보드만 ✅ |
+| `StyleColorsDark` | ✅ |
+| `FrameRounding`, `GrabRounding` | 없음 (외형만 다름) |
+| `ImGui_ImplWin32_Init`, `ImGui_ImplDX11_Init` | ✅ 실패하면 `E_FAIL` |
+| (예제에 없음) | `m_bReadyImGui = true` → 초기화 실패 시 `Shutdown_ImGui`가 백엔드를 정리하려다 assert 나는 것 방지 |
+
+- 호출 순서: `Initialize_Engine` → `Ready_ImGui` → `CEditorUI::Create` → `Change_Level`. 디바이스가 생긴 뒤에 ImGui를 초기화한다.
+
+**⑤ 폰트**
+
+| 예제 | 이 프로젝트 |
+|---|---|
+| (주석) `AddFontFromFileTTF` | **없음** |
+
+- 기본 폰트(영문)만 쓰는 상태라 **한글은 표시되지 않는다.** 한글 UI가 필요하면 `Ready_ImGui`에서 `malgun.ttf`를 로드한다.
+
+**⑥ 메인 루프**
+
+| 예제 | 이 프로젝트 | 위치 |
+|---|---|---|
+| (a) 지역 상태 변수 (`show_demo_window` 등) | `CEditorUI` 멤버 변수 | EditorUI |
+| (b) `while (PeekMessage)` + Translate + Dispatch | ✅ 같은 구조 (`bDone` 플래그) | Default.cpp wWinMain |
+| (예제에 없음) 60fps 고정 | 타이머로 1/60초가 쌓였을 때만 Update/Render | Default.cpp wWinMain |
+| (c) Occluded 검사 + `Sleep` | 없음 | - |
+| (d) `WM_SIZE` → `ResizeBuffers` | **없음** | - |
+| (e) `DX11_NewFrame` → `Win32_NewFrame` → `ImGui::NewFrame` | `Begin_ImGui` ✅ 순서 동일, `Update` 맨 앞에서 호출 | ToolMainApp |
+| (f) 위젯 호출 | `m_pEditorUI->Update()` | EditorUI |
+| (예제에 없음) UI 결과 전달 + 엔진 갱신 | `Sync_SceneView` → `Update_Engine` | ToolMainApp Update |
+| (g) `ImGui::Render()` | `Render_ImGui` 안 (RenderDrawData 바로 앞) | ToolMainApp |
+| (g) 클리어 | `Clear_BackBuffer_View`, `Clear_DepthStencil_View` | ToolMainApp Render |
+| (예제에 없음) 3D 씬 | 파이프라인 상수버퍼 바인딩 + `Draw()` | ToolMainApp Render |
+| (g) `RenderDrawData` | `Render_ImGui` 안 | ToolMainApp |
+| (h) `Present(1, 0)` (vsync) | 엔진 `Present()` → 내부 `Present(0, 0)` (속도는 60fps 타이머가 맞춤) | ToolMainApp Render |
+
+- 60fps 블록 안에서 `Update`(NewFrame)와 `Render`(ImGui::Render)가 **항상 짝으로** 불린다.
+- Update 순서: `Begin_ImGui` → `EditorUI Update`(Scene 창 포커스·호버 계산) → `Sync_SceneView`(카메라에 전달) → `Update_Engine`(카메라가 그 값으로 조작).
+- `ImGui::Render()`는 GPU를 건드리지 않으므로 예제처럼 클리어 앞에 두든, 여기처럼 RenderDrawData 바로 앞에 두든 결과는 같다.
+- `Set_DrawToBackBuffer(false)`로 씬은 씬 RT에만 그리고, Scene 창의 `ImGui::Image(Get_SceneSRV())`가 그 텍스처를 보여 준다(예제에 없는 맵툴 구조).
+- 리사이즈 주의: 창 스타일이 `WS_OVERLAPPEDWINDOW`라 크기 조절과 최대화가 되는데, 엔진의 백버퍼·씬 RT·뷰포트는 1600x900에서 바뀌지 않는다. 피킹 좌표가 어긋날 수 있으니 지원하지 않을 거면 `WS_OVERLAPPEDWINDOW & ~WS_THICKFRAME & ~WS_MAXIMIZEBOX`로 막고, `AdjustWindowRectExForDpi`에도 같은 스타일을 넘긴다.
+
+**⑦ 정리** — `CToolMainApp` 소멸자
+
+| 예제 | 이 프로젝트 |
+|---|---|
+| (예제에 없음) UI 정리 | `m_pEditorUI.reset()` |
+| `DX11_Shutdown` → `Win32_Shutdown` → `DestroyContext` | `Shutdown_ImGui()` ✅ 순서 동일 |
+| `CleanupDeviceD3D` | `Release_Engine()` |
+| `DestroyWindow`, `UnregisterClassW` | ESC / X 버튼 → OS가 처리 |
+
+- **UI → ImGui → 엔진** 순서. 소멸자 본문에서 직접 정리하므로 "멤버는 본문 뒤에 파괴된다"는 함정을 피한다.
+- 시작점은 Default.cpp의 `pToolMainApp.reset()`.
+
+**⑧ WndProc** — Default.cpp
+
+| 예제 | 이 프로젝트 |
+|---|---|
+| `extern ImGui_ImplWin32_WndProcHandler` | ✅ |
+| Handler를 맨 앞에서 호출 | ✅ |
+| `WM_SIZE` | 없음 (위 리사이즈 주의 참고) |
+| `WM_SYSCOMMAND` / `SC_KEYMENU` 차단 | **없음** |
+| `WM_DESTROY` → `PostQuitMessage` | ✅ |
+| (예제에 없음) ESC로 종료 | `WantCaptureKeyboard`가 false일 때만 `DestroyWindow` |
+
+- `SC_KEYMENU` 차단이 없어서 Alt를 누르면 창 메뉴 모드로 들어간다(입력이 한 번 끊기고 "띵" 소리). 추가할 때는 그 case에서 `DefWindowProc`를 반환해야 Alt+F4가 계속 동작한다.
+
+### D-3. 체크리스트 기준 현재 상태
+
+| 항목 | 상태 | 위치 |
+|---|---|---|
+| 컨텍스트 생성 + 백엔드 Init | ✅ | ToolMainApp `Ready_ImGui` |
+| NewFrame 3종 (순서) | ✅ | ToolMainApp `Begin_ImGui` |
+| 씬 → RenderDrawData → Present | ✅ | ToolMainApp `Render` |
+| WndProc Handler + extern | ✅ | Default `WndProc` |
+| 입력 사용처에서 포커스·호버 확인 | ✅ (카메라에 전달) | ToolMainApp `Sync_SceneView` |
+| Shutdown 역순, 디바이스보다 먼저 | ✅ | ToolMainApp 소멸자 |
+| TranslateMessage | ✅ | Default wWinMain |
+| PeekMessage를 while로 | ✅ | Default wWinMain |
+| DPI 인식 | ✅ (배율 적용은 없음) | Default wWinMain |
+| 한글 폰트 | ❌ | → `Ready_ImGui` |
+| Alt 메뉴 차단 | ❌ | → `WndProc` |
+| 리사이즈 처리 또는 크기 조절 막기 | ❌ | → `InitInstance` 창 스타일 |
+| 최소화 시 Sleep | ❌ (선택) | - |
+| 디바이스/스왑체인 생성 | 엔진이 담당 | `Initialize_Engine` |
