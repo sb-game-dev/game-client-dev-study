@@ -19,11 +19,6 @@ HRESULT CMirror::Initialize_Prototype()
 
     m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
 
-    // Material
-    m_tMaterial.Ambient = float4_t(1.f, 1.f, 1.f, 1.f);
-    m_tMaterial.Diffuse = float4_t(1.f, 1.f, 1.f, 0.5f);
-    m_tMaterial.Specular = float4_t(0.2f, 0.2f, 0.2f, 16.f);   // w = ±¤ÅÃ Áö¼ö, 0ÀÌ¸é ¾È µÊ
-
     return S_OK;
 }
 
