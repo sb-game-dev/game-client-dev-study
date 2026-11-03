@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="02. Level">
-      <UniqueIdentifier>{a06888d6-f2ae-45e3-966c-9ab096df39de}</UniqueIdentifier>
-    </Filter>
     <Filter Include="96. ImGui">
       <UniqueIdentifier>{35d19600-144f-4c11-b19f-199fda6ec4e9}</UniqueIdentifier>
     </Filter>
@@ -19,26 +16,38 @@
     <Filter Include="00. ToolMainApp">
       <UniqueIdentifier>{d322c9e4-7ce8-4664-b073-d99f62b7abe1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. EditorUI">
-      <UniqueIdentifier>{4efbeba7-80a0-4b60-ab00-5d01f11339fa}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. Camera">
       <UniqueIdentifier>{58791968-7942-4dab-b145-abcdd852998b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. EditorUI\01. Panel">
+    <Filter Include="01. Level">
+      <UniqueIdentifier>{a06888d6-f2ae-45e3-966c-9ab096df39de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Level\00. Level_Loading_MapTool">
+      <UniqueIdentifier>{8d411a8b-6b62-45d8-8135-d0e4370d7328}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Level\00. Level_Loading_MapTool\Loader_MapTool">
+      <UniqueIdentifier>{56f297f9-1b78-42b3-ae49-9e2d78a1317c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Level\01. Level_MapTool">
+      <UniqueIdentifier>{e6129476-d14f-466a-aee1-b9897f3d84c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. EditorUI">
+      <UniqueIdentifier>{4efbeba7-80a0-4b60-ab00-5d01f11339fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. EditorUI\01. Panel">
       <UniqueIdentifier>{e1d622b4-682b-4e98-bbff-3121ffab65d6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. EditorUI\00. Common">
-      <UniqueIdentifier>{252f002d-da97-45f9-a7dc-210a713bc68f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01. EditorUI\01. Panel\00. Hierachy">
+    <Filter Include="02. EditorUI\01. Panel\00. Hierachy">
       <UniqueIdentifier>{cb589f3c-c4a8-439b-bd7c-cec0bb3e319e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. EditorUI\01. Panel\02. Inspector">
+    <Filter Include="02. EditorUI\01. Panel\02. Inspector">
       <UniqueIdentifier>{0ad50b99-78ae-4cfb-8635-cabb0e7da771}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. EditorUI\01. Panel\01. Scene">
+    <Filter Include="02. EditorUI\01. Panel\01. Scene">
       <UniqueIdentifier>{0a8ec675-1e68-46d8-ae3b-6167aa39bef0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. EditorUI\00. Common">
+      <UniqueIdentifier>{252f002d-da97-45f9-a7dc-210a713bc68f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -81,9 +90,6 @@
     <ClInclude Include="..\public\ToolMainApp.h">
       <Filter>00. ToolMainApp</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\Level_MapTool.h">
-      <Filter>02. Level</Filter>
-    </ClInclude>
     <ClInclude Include="..\public\MapTool_Cam.h">
       <Filter>03. Camera</Filter>
     </ClInclude>
@@ -91,25 +97,34 @@
       <Filter>99. Defines</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\EditorUI_Defines.h">
-      <Filter>01. EditorUI\00. Common</Filter>
+      <Filter>02. EditorUI\00. Common</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\EditorUI_Utils.h">
-      <Filter>01. EditorUI\00. Common</Filter>
+      <Filter>02. EditorUI\00. Common</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Panel.h">
-      <Filter>01. EditorUI\01. Panel</Filter>
+      <Filter>02. EditorUI\01. Panel</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Panel_Hierarchy.h">
-      <Filter>01. EditorUI\01. Panel\00. Hierachy</Filter>
+      <Filter>02. EditorUI\01. Panel\00. Hierachy</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Panel_Inspector.h">
-      <Filter>01. EditorUI\01. Panel\02. Inspector</Filter>
+      <Filter>02. EditorUI\01. Panel\02. Inspector</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Panel_Scene.h">
-      <Filter>01. EditorUI\01. Panel\01. Scene</Filter>
+      <Filter>02. EditorUI\01. Panel\01. Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\EditorUI.h">
-      <Filter>01. EditorUI</Filter>
+      <Filter>02. EditorUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Loader_MapTool.h">
+      <Filter>01. Level\00. Level_Loading_MapTool\Loader_MapTool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Level_MapTool.h">
+      <Filter>01. Level\01. Level_MapTool</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Level_Loading_MapTool.h">
+      <Filter>01. Level\00. Level_Loading_MapTool</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -211,9 +226,6 @@
     <ClCompile Include="..\..\Client\Private\Free_Cam.cpp">
       <Filter>97. Client_Shared</Filter>
     </ClCompile>
-    <ClCompile Include="..\private\Level_MapTool.cpp">
-      <Filter>02. Level</Filter>
-    </ClCompile>
     <ClCompile Include="..\private\MapTool_Cam.cpp">
       <Filter>03. Camera</Filter>
     </ClCompile>
@@ -224,16 +236,25 @@
       <Filter>97. Client_Shared</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Panel_Hierarchy.cpp">
-      <Filter>01. EditorUI\01. Panel\00. Hierachy</Filter>
+      <Filter>02. EditorUI\01. Panel\00. Hierachy</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Panel_Inspector.cpp">
-      <Filter>01. EditorUI\01. Panel\02. Inspector</Filter>
+      <Filter>02. EditorUI\01. Panel\02. Inspector</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Panel_Scene.cpp">
-      <Filter>01. EditorUI\01. Panel\01. Scene</Filter>
+      <Filter>02. EditorUI\01. Panel\01. Scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\EditorUI.cpp">
-      <Filter>01. EditorUI</Filter>
+      <Filter>02. EditorUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Level_MapTool.cpp">
+      <Filter>01. Level\01. Level_MapTool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Level_Loading_MapTool.cpp">
+      <Filter>01. Level\00. Level_Loading_MapTool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Loader_MapTool.cpp">
+      <Filter>01. Level\00. Level_Loading_MapTool\Loader_MapTool</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

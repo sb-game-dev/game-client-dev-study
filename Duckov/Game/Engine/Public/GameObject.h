@@ -8,7 +8,7 @@ class ENGINE_DLL CGameObject abstract : public CPrototype
 public:
 	typedef struct tagGameObjectDesc : public CTransform::TRANSFORM_DESC
 	{
-
+		uint32_t		iLevelIndex = {};
 	}GAMEOBJECT_DESC;
 
 protected:
@@ -71,6 +71,8 @@ protected:
 	bool_t				m_bUseCulling = { false };
 
 	bool_t				m_bDead = { false };
+
+	uint32_t			m_iLevelIndex = {};
 
 protected:
 	virtual		bool_t		Is_InFrustum();

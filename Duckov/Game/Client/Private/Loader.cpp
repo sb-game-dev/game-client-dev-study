@@ -50,6 +50,7 @@ HRESULT CLoader::Initialize(LEVEL eNextLevel)
     return S_OK;
 }
 
+
 HRESULT CLoader::Loading()
 {
     //메모리를 공유하는 임계영역에 접근
@@ -84,6 +85,8 @@ HRESULT CLoader::Draw_Debug()
     SetWindowText(g_hWnd, m_szLoadingText);
     return S_OK;
 }
+
+
 
 // 서브 스레드
 HRESULT CLoader::Loading_For_LogoLV()
@@ -134,10 +137,10 @@ HRESULT CLoader::Loading_For_GamePlayLV()
         return E_FAIL;
 
 
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Texture_Terrain_Blend,
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Normalize_AssetPath(L"../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/splat_0.png"),
         CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/splat_0.png"), 1))))
         return E_FAIL;
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Texture_Terrain_Layer,
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Normalize_AssetPath(L"../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/Layer%d.png"),
         CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/Layer%d.png"), 3))))
         return E_FAIL;
 
@@ -169,8 +172,10 @@ HRESULT CLoader::Loading_For_GamePlayLV()
         CVIBuffer_Rect::Create(m_pDevice, m_pContext))))
         return E_FAIL;
 
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::VIBuffer_Terrain,
-        CVIBuffer_Terrain::Create(m_pDevice, m_pContext, L"../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/height_321x321_16bit.raw"))))
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
+        Normalize_AssetPath(TEXT("Duckov_Extract/Terrain/Terrain_GroundZero_Crop/height_321x321_16bit.raw")),  
+        CVIBuffer_Terrain::Create(m_pDevice, m_pContext,
+            TEXT("../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/height_321x321_16bit.raw")))))  
         return E_FAIL;
 
     lstrcpy(m_szLoadingText, TEXT("셰이더를 준비중입니다."));
@@ -311,6 +316,7 @@ shared_ptr<CLoader> CLoader::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11D
         pInstance.reset();
     return pInstance;
 }
+
 void CLoader::Free()
 {
     WaitForSingleObject(m_hThread, INFINITE);

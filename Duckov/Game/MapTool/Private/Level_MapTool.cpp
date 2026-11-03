@@ -1,10 +1,20 @@
+#include "imgui.h" 
+#include "imgui_impl_win32.h"
+#include "imgui_impl_dx11.h"
+
+#include "SunLight.h"
+#include "EditorUI.h"
 #include "Level_MapTool.h"
 #include "MapTool_Cam.h"
-#include "SkyBox.h"
-#include "StaticProp.h"
 CLevel_MapTool::CLevel_MapTool(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     :CLevel{ pDevice,pContext }
 {
+}
+
+CLevel_MapTool::~CLevel_MapTool()
+{
+    m_pEditorUI.reset();
+    Shutdown_ImGui();
 }
 
 HRESULT CLevel_MapTool::Initialize()
@@ -18,7 +28,15 @@ HRESULT CLevel_MapTool::Initialize()
         return E_FAIL;
     if (FAILED(Ready_Layer_GameObject(TEXT("Layer_GameObject"))))
         return E_FAIL;
-    if (FAILED(Ready_Layer_Map(TEXT("Layer_Map"))))
+    if (FAILED(Ready_Lights()))
+        return E_FAIL;
+
+    if (FAILED(Ready_ImGui()))
+        return E_FAIL;
+    if (FAILED(Begin_ImGui()))
+        return E_FAIL;
+    m_pEditorUI = CEditorUI::Create();
+    if (nullptr == m_pEditorUI)
         return E_FAIL;
 
     return S_OK;
@@ -27,53 +45,33 @@ HRESULT CLevel_MapTool::Initialize()
 void CLevel_MapTool::Update(f32_t fDeltaTime)
 {
     __super::Update(fDeltaTime);
+    if (FAILED(Begin_ImGui()))
+        return;
+    m_pEditorUI->Update(fDeltaTime);
+    Sync_SceneView();
 }
 
 HRESULT CLevel_MapTool::Render()
 {
     if (FAILED(__super::Render()))
         return E_FAIL;
+    if (FAILED(Render_ImGui()))
+        return E_FAIL;
     return S_OK;
 }
 HRESULT CLevel_MapTool::Ready_Layer_BackGround(const tchar_t* pLayerTag)
 {
-    // 원형
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::Texture_SkyBox,
-        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/proc_preview.png"), 1))))
-        return E_FAIL;
-
-
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::Obj_SkyBox,
-        CSkyBox::Create(m_pDevice, m_pContext))))
-        return E_FAIL;
-
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::VS_VTXTEX,
-        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_VertexShader.hlsl", VTXNORM::Elements, VTXNORM::iNumElements, "VS_MAIN"))))
-        return E_FAIL;
-
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::PS_VTXTEX_SKYBOX,
-        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_MAIN_SKY"))))
-        return E_FAIL;
-
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::VIBuffer_SkyBox,
-        CVIBuffer_SkyBox::Create(m_pDevice, m_pContext))))
-        return E_FAIL;
-    
-    // 사본
     if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::MAPTOOL), Proto::Obj_SkyBox,
         ETOUI(LEVEL::MAPTOOL), Layer::BackGround, GO::SkyBox)))
         return E_FAIL;
-
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::MAPTOOL), Proto::Obj_Fog,
+        ETOUI(LEVEL::MAPTOOL), Layer::BackGround, GO::Fog)))
+        return E_FAIL;
     return S_OK;
 }
 
 HRESULT CLevel_MapTool::Ready_Layer_GameObject(const tchar_t* pLayerTag)
 {
-    // 카메라 원형
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::Obj_MapToolCam,
-        CMapTool_Cam::Create(m_pDevice, m_pContext))))
-        return E_FAIL;
-
     // 카메라 사본
     CMapTool_Cam::CAMERA_MAPTOOL_CAM_DESC         CameraDesc{};
     CameraDesc.fDegreeRotPerSec = 180.f;
@@ -96,20 +94,74 @@ HRESULT CLevel_MapTool::Ready_Layer_GameObject(const tchar_t* pLayerTag)
     return S_OK;
 }
 
-HRESULT CLevel_MapTool::Ready_Layer_Map(const tchar_t* pLayerTag)
+HRESULT CLevel_MapTool::Ready_Lights()
 {
-// 원본
-    // 픽셀 셰이더 (VS_VTXTEX는 Ready_Layer_BackGround에서 이미 등록됨)
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::PS_VTXTEX_NOLIGHT,
-        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_MAIN_NOLIGHT"))))
+    auto pSunLight = CSunLight::Create(m_pDevice, m_pContext);
+    if (nullptr == pSunLight)
         return E_FAIL;
+    CGameInstance::Get().AddLight(L"SunLight", pSunLight);
 
-    // Obj_StaticProp 객체 원본
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::Obj_StaticProp,
-        CStaticProp::Create(m_pDevice, m_pContext))))
-        return E_FAIL;   
     return S_OK;
 }
+
+HRESULT CLevel_MapTool::Ready_ImGui()
+{
+    // 1. 컨텍스트 생성
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+
+    // ImGui와 애플리케이션이 정보를 주고받는 구조체
+    // 설정, 입력, 출력, 폰트가 있음
+    ImGuiIO& io = ImGui::GetIO();
+    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;   // 키보드로 위젯 이동
+
+    // 2. 스타일
+    ImGui::StyleColorsDark();
+
+    // 3. 플랫폼/렌더러 백엔드
+    if (!ImGui_ImplWin32_Init(g_hWnd))
+        return E_FAIL;
+    if (!ImGui_ImplDX11_Init(m_pDevice.Get(), m_pContext.Get()))
+        return E_FAIL;
+
+    m_bReadyImGui = true;
+    return S_OK;
+}
+
+HRESULT CLevel_MapTool::Begin_ImGui()
+{
+    ImGui_ImplDX11_NewFrame();
+    ImGui_ImplWin32_NewFrame();
+    ImGui::NewFrame();
+    return S_OK;
+}
+
+HRESULT CLevel_MapTool::Render_ImGui()
+{
+    ImGui::Render();
+    ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+    return S_OK;
+}
+
+HRESULT CLevel_MapTool::Shutdown_ImGui()
+{
+    if (!m_bReadyImGui)
+        return E_FAIL;
+    ImGui_ImplDX11_Shutdown();
+    ImGui_ImplWin32_Shutdown();
+    ImGui::DestroyContext();
+    return S_OK;
+}
+
+void CLevel_MapTool::Sync_SceneView()
+{
+    auto pCamera = dynamic_pointer_cast<CMapTool_Cam>(CGameInstance::Get().Get_MainCamera());
+    if (nullptr == pCamera)
+        return;
+    pCamera->Set_SceneClicked(m_pEditorUI->GetSceneCliked());
+    pCamera->Set_SceneHovered(m_pEditorUI->GetSceneHovered());
+}
+
 
 shared_ptr<CLevel_MapTool> CLevel_MapTool::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
 {

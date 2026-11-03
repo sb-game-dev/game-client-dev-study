@@ -159,7 +159,9 @@
     <ClInclude Include="..\ImGui\imstb_rectpack.h" />
     <ClInclude Include="..\ImGui\imstb_textedit.h" />
     <ClInclude Include="..\ImGui\imstb_truetype.h" />
+    <ClInclude Include="..\public\Level_Loading_MapTool.h" />
     <ClInclude Include="..\Public\Level_MapTool.h" />
+    <ClInclude Include="..\Public\Loader_MapTool.h" />
     <ClInclude Include="..\public\MapTool_Cam.h" />
     <ClInclude Include="..\Public\MapTool_Defines.h" />
     <ClInclude Include="..\Public\EditorUI.h" />
@@ -203,7 +205,9 @@
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
+    <ClCompile Include="..\private\Level_Loading_MapTool.cpp" />
     <ClCompile Include="..\private\Level_MapTool.cpp" />
+    <ClCompile Include="..\Private\Loader_MapTool.cpp" />
     <ClCompile Include="..\private\MapTool_Cam.cpp" />
     <ClCompile Include="..\Private\EditorUI.cpp" />
     <ClCompile Include="..\Private\Panel_Hierarchy.cpp" />

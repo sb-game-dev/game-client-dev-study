@@ -1,6 +1,6 @@
 # MapTool 작업 설명서
 
-> 이 문서만 보고 **지금의 맵툴(Hierarchy + Scene + Inspector, StaticProp 생성/삭제/편집)을 처음부터 똑같이 다시 만들 수 있도록** 작업 순서대로 정리한 설명서입니다.
+> 이 문서만 보고 **지금의 맵툴(Hierarchy + Scene + Inspector, StaticProp 생성/삭제/편집, 혼합맵 지형, 방향광 + 안개)을 처음부터 똑같이 다시 만들 수 있도록** 작업 순서대로 정리한 설명서입니다.
 > 각 단계는 **목표 → 수정 파일 → 코드 → 확인 방법 → 주의** 순서로 적었습니다.
 > 마지막에 **사용한 ImGui 함수/위젯 정리**(부록 A)가 있습니다.
 
@@ -19,7 +19,9 @@
 - [8단계. 삭제](#8단계-삭제)
 - [9단계. Inspector — 이름 + Transform](#9단계-inspector--이름--transform)
 - [10단계. Inspector — Static Prop (Mesh / Texture 교체)](#10단계-inspector--static-prop-mesh--texture-교체)
-- [11. 현재 상태와 남은 작업](#11-현재-상태와-남은-작업)
+- [11단계. 혼합맵 지형 — CHill을 CMapObject로](#11단계-혼합맵-지형--chill을-cmapobject로)
+- [12단계. 조명 + 안개 — 지형이 검게 나오는 문제](#12단계-조명--안개--지형이-검게-나오는-문제)
+- [13. 현재 상태와 남은 작업](#13-현재-상태와-남은-작업)
 - [부록 A. 사용한 ImGui 함수/위젯 정리](#부록-a-사용한-imgui-함수위젯-정리)
 - [부록 B. 커밋 기록](#부록-b-커밋-기록)
 - [부록 C. 자주 겪는 문제](#부록-c-자주-겪는-문제)
@@ -35,15 +37,15 @@
 Duckov/Game/
 ├─ Engine/        엔진 DLL (빌드하면 EngineSDK/Inc, EngineSDK/Lib, 각 Bin으로 복사)
 ├─ EngineSDK/     Inc(헤더), Lib(Engine.lib)
-├─ Client/        게임. 맵툴이 Client의 cpp를 같이 컴파일해서 씀 (StaticProp, MapObject, SkyBox ...)
+├─ Client/        게임. 맵툴이 Client의 cpp를 같이 컴파일해서 씀 (StaticProp, MapObject, SkyBox, Hill, Fog, SunLight ...)
 └─ MapTool/
    ├─ Default/    Default.cpp(WinMain), Default.vcxproj, imgui.ini
    ├─ ImGui/      imgui 소스 (imgui.cpp, imgui_draw.cpp, imgui_widgets.cpp, imgui_tables.cpp,
    │              imgui_impl_win32.cpp, imgui_impl_dx11.cpp + 헤더)
-   ├─ Public/     MapTool_Defines.h, ToolMainApp.h, Level_MapTool.h, Loader_MapTool.h, MapTool_Cam.h,
+   ├─ Public/     MapTool_Defines.h, ToolMainApp.h, Level_MapTool.h, Level_Loading_MapTool.h, Loader_MapTool.h, MapTool_Cam.h,
    │              EditorUI.h, EditorUI_Defines.h, EditorUI_Utils.h,
    │              Panel.h, Panel_Hierarchy.h, Panel_Scene.h, Panel_Inspector.h
-   ├─ Private/    ToolMainApp.cpp, Level_MapTool.cpp, Loader_MapTool.cpp, MapTool_Cam.cpp,
+   ├─ Private/    ToolMainApp.cpp, Level_MapTool.cpp, Level_Loading_MapTool.cpp, Loader_MapTool.cpp, MapTool_Cam.cpp,
    │              EditorUI.cpp, Panel_Hierarchy.cpp, Panel_Scene.cpp, Panel_Inspector.cpp
    └─ Bin/        Engine.dll, Shader/ (Client/Bin/Shader에서 빌드 후 복사)
 ```
@@ -53,40 +55,64 @@ Duckov/Game/
 | 클래스 | 위치 | 역할 |
 |---|---|---|
 | `wWinMain` / `WndProc` | MapTool/Default/Default.cpp | 창 생성, 메시지 루프(60fps), ImGui에 메시지 먼저 전달 |
-| `CToolMainApp` | MapTool | 엔진 초기화, ImGui 초기화/프레임 시작/렌더, `CEditorUI` 소유, 레벨 시작 |
+| `CToolMainApp` | MapTool | Client `CMainApp`과 같은 모양: 엔진 초기화, `Start_Level`로 로딩 레벨부터 시작, 매 프레임 `Update_Engine` → 클리어 → `Draw` → `Present` |
+| `CLevel_Loading_MapTool` | MapTool | 툴 시작 레벨(`LEVEL::LOADING`). 화면에 그리는 것 없이 로더를 실행하고, 로딩이 끝나면 스페이스로 `CLevel_MapTool`에 전환 |
+| `CLoader_MapTool` | MapTool | Client `CLoader`와 같은 구조. 서브 스레드에서 MAPTOOL 레벨의 원형(콤보 목록 메시/텍스처, 셰이더, 객체)을 전부 등록 |
+| `CLevel_MapTool` | MapTool | 에디터 레벨: SkyBox·Fog·카메라 사본 생성, 방향광 등록(`Ready_Lights`), **ImGui 초기화/프레임/렌더/종료**, `CEditorUI` 소유, Scene 창 상태를 카메라에 전달(`Sync_SceneView`) |
 | `CEditorUI` | MapTool | 에디터 화면 전체: 메뉴바, 레이아웃 계산, 공용 상태(`EDITOR_CONTEXT`) 보관, 패널 3개 소유 |
 | `CPanel_Hierarchy` / `CPanel_Scene` / `CPanel_Inspector` | MapTool | 각 창 하나씩 (`CPanel` 상속, Context를 참조로 공유) |
-| `CLevel_MapTool` | MapTool | 툴 레벨: SkyBox, 맵툴 카메라, StaticProp 원형 등록, 로더 실행 |
-| `CLoader_MapTool` | MapTool | 툴 시작 시 콤보 목록(`g_Meshes`, `g_Textures`)의 메시/텍스처 원형을 **미리 전부** 등록 |
 | `CMapTool_Cam` | MapTool (namespace Client) | WASD 이동 + 우클릭 마우스 회전 자유 카메라 |
 | `CMapObject` | Client | 배치 가능한 모든 객체의 부모. DESC로 위치/회전/크기/메시/텍스처를 받음 |
 | `CStaticProp` | Client | 그리기만 하는 구조물. 메시/텍스처를 **경로 문자열**로 받아 교체 가능 |
+| `CHill` | Client | 혼합맵 지형. `CMapObject`를 상속해 높이맵·혼합맵·레이어 3장을 경로로 받는다 (11단계) |
+| `CFog` | Client | 안개 상수버퍼(b5)를 만들어 바인딩만 하는 객체. 그리지는 않는다 (12단계) |
+| `CSunLight` | Client | 방향광. 매 프레임 조명 상수버퍼(b3)를 갱신·바인딩한다. GameObject가 아니라 `CLight` (12단계) |
 | `CRenderer` | Engine | 씬을 텍스처(RTT)에 그림 → 툴은 그 SRV를 ImGui::Image로 표시 |
 
-### 한 프레임의 흐름
+### 한 프레임의 흐름 (MAPTOOL 레벨)
 
 ```
 wWinMain 루프 (1/60초마다)
  └ CToolMainApp::Update
-     ├ Begin_ImGui()          ImGui_ImplDX11_NewFrame → ImGui_ImplWin32_NewFrame → ImGui::NewFrame
-     ├ CEditorUI::Update()    메뉴바 → 레이아웃 계산 → 패널 Render (Hierarchy → Scene → Inspector)   (여기서 생성/삭제/편집)
-     ├ Sync_SceneView()       Scene 창 포커스 여부를 카메라에 전달
-     └ Update_Engine()        Priority_Update(Remove_Dead 먼저) → Update → Late_Update(RenderGroup 등록)
+     └ Update_Engine()
+         ├ 객체 Priority_Update(Remove_Dead 먼저) → Update → Late_Update(RenderGroup 등록)
+         ├ 조명 Priority_Update → Update → Late_Update  (CSunLight가 b3에 방향광 상수버퍼를 바인딩)
+         └ CLevel_MapTool::Update
+             ├ Begin_ImGui()          ImGui_ImplDX11_NewFrame → ImGui_ImplWin32_NewFrame → ImGui::NewFrame
+             ├ CEditorUI::Update()    메뉴바 → 레이아웃 계산 → 패널 Render (Hierarchy → Scene → Inspector)   (여기서 생성/삭제/편집)
+             └ Sync_SceneView()       Scene 창 포커스/호버를 카메라에 전달 (카메라는 다음 프레임 Update에서 사용)
  └ CToolMainApp::Render
      ├ Clear 백버퍼/깊이
-     ├ Draw()                 Renderer가 씬을 SceneRTV(텍스처)에 그림. 백버퍼에는 안 그림
-     ├ Render_ImGui()         ImGui::Render → ImGui_ImplDX11_RenderDrawData (Scene 창에 SceneSRV가 보임)
+     ├ Draw()
+     │   ├ Renderer               씬을 SceneRTV(텍스처)에 그림. 백버퍼에는 안 그림
+     │   └ CLevel_MapTool::Render
+     │       └ Render_ImGui()     ImGui::Render → ImGui_ImplDX11_RenderDrawData (Scene 창에 SceneSRV가 보임)
      └ Present
+```
+
+- 로딩 레벨일 때는 `CLevel_MapTool`이 아직 없으므로 ImGui도 없고, 그릴 객체도 없어서 화면은 클리어 색만 보인다. 진행 상황은 창 제목으로 확인한다
+
+### 레벨 흐름 (Client와 같은 구조)
+
+```
+CToolMainApp::Initialize
+ └ Start_Level(LEVEL::MAPTOOL)
+     └ Change_Level(LOADING, CLevel_Loading_MapTool)     그릴 것 없음, 진행 문구는 창 제목 (메인 스레드)
+          └ CLoader_MapTool                              MAPTOOL 원형 전부 등록 (서브 스레드)
+CLevel_Loading_MapTool::Update
+ └ 로딩 완료 + 스페이스 → Change_Level(MAPTOOL, CLevel_MapTool)
+                          SkyBox·Fog·카메라 사본 생성 → 방향광 등록 → ImGui 초기화 → CEditorUI 생성
+                          (LOADING 자원은 Clear_Resources로 정리)
 ```
 
 ### 설계 원칙 (계획서 MapTool_Plan.md 요약)
 
 - **프로토타입 Clone + DESC**: "어떤 클래스인가" = 프로토타입 태그, "어떤 값으로 만들까" = DESC
 - 구조물은 클래스 하나(`CStaticProp`) + **메시 경로 문자열**(`"builtin/cube"` → 나중에 `"model/xxx.fbx"`)
-- 로직 있는 객체는 `CMapObject`를 상속 (나중 단계)
+- 로직 있는 객체는 `CMapObject`를 상속 (11단계의 `CHill`이 첫 번째. 기존 Client 클래스의 부모만 `CMapObject`로 바꿔서 맵툴과 게임이 같이 쓴다)
 - **ImGui 코드는 MapTool에만.** Engine/Client 클래스에는 넣지 않는다 (타입별 UI는 툴에서 `dynamic_pointer_cast`로 분기)
 - 회전은 행렬이 아니라 **각도(도)로 보관** (행렬에서 다시 뽑으면 값이 튐)
-- Engine 헤더 수정 → **Engine 먼저 빌드** → MapTool / Client 빌드
+- Engine 헤더 수정 → **Engine 먼저 빌드** → MapTool / Client 빌드 (Engine 헤더는 `Engine/Public`에서만 고친다. `EngineSDK/Inc`는 빌드 때 덮어써지는 복사본이다)
 
 ---
 
@@ -123,6 +149,8 @@ wWinMain 루프 (1/60초마다)
 |---|---|
 | 5단계 | `SkyBox.cpp` |
 | 6단계 | `MapObject.cpp`, `StaticProp.cpp` |
+| 11단계 | `Hill.cpp` |
+| 12단계 | `Fog.cpp`, `SunLight.cpp` |
 
 - 실제 프로젝트에는 `Free_Cam.cpp`, `BackGround.cpp`, `Cube.cpp` 등 Client 파일이 더 들어 있지만 맵툴 기능에는 필요 없다
 - `_MAPTOOL` 정의로 툴에서만 다르게 동작해야 하는 코드를 분기할 수 있음 (최종 목표는 분기 없이 DESC로 해결)
@@ -680,6 +708,8 @@ unique_ptr<CEditorUI> CEditorUI::Create()
 | `ImGui::MenuItem(라벨, 단축키글자, 선택됨, 활성화)` | 메뉴 항목 하나 | **클릭한 프레임에 `true`.** 두 번째 인자는 오른쪽에 회색으로 보이는 **글자일 뿐** 실제 단축키 동작은 따로 만들어야 한다. 네 번째 인자가 `false`면 회색 비활성(클릭 불가) |
 
 ### 2-4. CToolMainApp — ImGui 초기화 / 프레임 / 종료
+
+> **최종 구조**: 6-10에서 로딩 레벨이 생기면 ImGui 함수 4개(`Ready_ImGui` / `Begin_ImGui` / `Render_ImGui` / `Shutdown_ImGui`)와 `CEditorUI`는 `CLevel_MapTool`로 옮기고, ToolMainApp은 Client `CMainApp`처럼 엔진만 돌린다. 이 단계(로딩 레벨이 없을 때)에서는 아래처럼 ToolMainApp에 먼저 만든다. 함수 본문은 옮길 때 그대로 쓴다.
 
 **ToolMainApp.h** (전체)
 
@@ -1432,6 +1462,7 @@ void CRenderer::Render_GameObject()
 - 깊이 버퍼는 `CToolMainApp::Render`(Client는 `CMainApp::Render`) 맨 앞의 `Clear_DepthStencil_View()`에서 이미 지워졌으므로 여기서는 색만 지운다
 - 씬 텍스처는 창과 같은 크기라 **뷰포트를 바꿀 필요가 없다** (크기가 다른 텍스처에 그릴 때는 `RSSetViewports`도 같이 바꾸고 복구해야 함)
 - 7번 UI 그룹은 백버퍼에 그려지므로 MapTool에서는 Scene 창 안이 아니라 ImGui 창 뒤에 깔린다 → 맵툴 레벨에서는 UI 객체를 만들지 않는다
+- 지금 엔진 코드에는 5번과 6번 사이에 **블러 단계**가 하나 더 있다 (`if (m_bUseBlur) m_pBlurFilter->BlurInPlace(m_pSceneSRV, m_pSceneUAV, 4);`). Client가 `SetBlurUse(true)`로 켜는 기능이고 기본값은 `false`라 맵툴에는 영향이 없다. 블러가 씬 텍스처를 UAV로 직접 고치기 때문에 실제 `Ready_SceneTarget`은 텍스처에 `D3D11_BIND_UNORDERED_ACCESS`도 넣고 UAV(`m_pSceneUAV`)를 하나 더 만든다
 
 ### 4-5. Render_FullScreen — 씬 텍스처를 백버퍼에 복사 (Client)
 
@@ -1920,6 +1951,8 @@ HRESULT CLevel_MapTool::Ready_Layer_GameObject(const tchar_t* pLayerTag)
 
 ### 5-4. 툴 → 카메라 연결 (Scene 창 포커스 + 마우스가 씬 위일 때만 조작)
 
+> **최종 구조**: 6-10에서 `Sync_SceneView`는 `CToolMainApp`이 아니라 `CLevel_MapTool`의 멤버가 되고, `CLevel_MapTool::Update`에서 `CEditorUI::Update` 다음에 부른다. 이 단계에서는 아래처럼 ToolMainApp에 먼저 만든다.
+
 카메라는 ImGui를 모르므로, 툴이 매 프레임 **두 가지**를 알려 준다.
 
 | 값 | 어디서 오나 (4-8 `CPanel_Scene::Render`) | 없으면 생기는 문제 |
@@ -1964,7 +1997,7 @@ void CToolMainApp::Sync_SceneView()
 }
 ```
 
-- `Sync_SceneView`는 `CEditorUI::Update`(이번 프레임 포커스/호버 갱신) **다음**, `Update_Engine`(카메라 Update) **전**에 불러야 같은 프레임 값이 전달된다
+- `Sync_SceneView`는 `CEditorUI::Update`(이번 프레임 포커스/호버 갱신) **다음**, `Update_Engine`(카메라 Update) **전**에 불러야 같은 프레임 값이 전달된다 (6-10 최종 구조에서는 레벨 Update가 `Update_Engine` 끝에 불리므로 카메라는 1프레임 늦은 값을 쓴다. 눈으로는 차이가 없다)
 
 **카메라가 움직이는 조건** (`CMapTool_Cam::Update` → `KeyInput`)
 
@@ -1988,6 +2021,8 @@ WASD 이동  :  Scene 창이 포커스  AND  마우스가 씬 이미지 위
 - 호버는 **매 프레임** 검사하므로, 우클릭으로 회전하다가 커서가 씬 이미지 밖으로 나가면 그 순간 멈춘다 (DirectInput 마우스 이동량은 커서가 화면 끝에 닿아도 계속 들어오지만, ImGui 커서 위치는 이미지 밖으로 나감). "우클릭을 **시작한 순간** 씬 위였으면 놓을 때까지 계속 조작"으로 바꾸면 해결 (남은 작업)
 
 ### 5-5. (참고) 카메라 매니저가 없는 엔진이라면
+
+> **최종 구조**: 6-10에서 `Sync_SceneView`와 `CEditorUI`는 `CLevel_MapTool`로 옮긴다. 아래 방식은 카메라 매니저가 없는 엔진에서 참고용으로만 본다.
 
 이 프로젝트는 엔진에 `CCamera_Manager`가 있어서 5-3, 5-4처럼 **등록(`Add_Camera`) → 메인 지정(`Set_MainCamera`) → 꺼내 쓰기(`Get_MainCamera`)**로 처리한다.
 카메라 매니저가 없는 엔진에서는 `CToolMainApp`이 카메라를 **직접 들고 있으면** 된다. 실행 결과는 5-4와 같다.
@@ -2077,7 +2112,7 @@ void CToolMainApp::Sync_SceneView()
 ## 6단계. 배치 객체 만들기 — CStaticProp + Hierarchy 생성 메뉴
 
 **목표**: Hierarchy 빈 곳을 우클릭해서 `Add Static_Prop`을 누르면 Scene에 텍스처 입힌 큐브가 나타난다.
-이를 위해 배치 가능한 객체의 부모(`CMapObject`), 구조물 클래스(`CStaticProp`), 메시/텍스처 원형을 툴 시작 시 미리 등록하는 로더(`CLoader_MapTool`)를 만든다.
+이를 위해 배치 가능한 객체의 부모(`CMapObject`), 구조물 클래스(`CStaticProp`), 원형을 서브 스레드에서 등록하는 로더(`CLoader_MapTool`)와 툴 시작 로딩 레벨(`CLevel_Loading_MapTool`)을 만든다.
 
 ### 6-1. CMapObject + MAPOBJECT_DESC
 
@@ -2233,8 +2268,7 @@ namespace Engine
 {
 // ... 기존 Safe_Delete 등 ...
 
-constexpr const tchar_t* g_strResourceRoot  = TEXT("../../../Resource/");
-constexpr const tchar_t* g_strBuiltinPrefix = TEXT("builtin/");
+constexpr const tchar_t* g_strBuiltinPrefix = TEXT("builtin/");   // 내장 버퍼(Cube, Rect ...) 경로의 앞부분
 
 inline wstring_t Normalize_AssetPath(wstring_t strPath)
 {
@@ -2252,10 +2286,14 @@ inline wstring_t Normalize_AssetPath(wstring_t strPath)
 
 #endif // Engine_Function_h__
 ```
-- 예: `L"Ex\\WoodCrate01.dds"` → `L"ex/woodcrate01.dds"`
+- 예: `L"Ex\\WoodCrate01.dds"` → `L"ex/woodcrate01.dds"`, `L"../../../Resource/Ex/WoodCrate01.dds"` → `L"ex/woodcrate01.dds"`
+- 같은 파일을 어떻게 적든(대소문자, `\` / `/`, 루트 포함 여부) **같은 태그**가 나온다. 등록(로더)과 찾기(`Change_Mesh` / `Change_Texture`, Inspector 콤보) 모두 이 함수를 거친다
+- `g_strBuiltinPrefix`는 `Change_Mesh`에서 "파일에서 읽는 모델이 아니라 엔진이 코드로 만드는 버퍼"인지 구분할 때 쓴다
 - `Engine_Defines.h`에 `<algorithm>`(replace, transform), `<cwctype>`(towlower)이 이 파일보다 먼저 include되어 있어야 함 (없으면 추가). `wstring_t`, `tchar_t`는 바로 앞의 `Engine_Typedef.h`
 
 **Prototype_Manager — Has_Prototype 추가 (`Find_Prototype`이 private이라)**
+
+`Change_Mesh` / `Change_Texture`(6-5)가 **기존 컴포넌트를 지우기 전에** "그 태그의 원형이 등록돼 있는가"를 확인하는 데 쓴다.
 
 ```cpp
 // Prototype_Manager.h — public에 선언
@@ -2424,7 +2462,7 @@ HRESULT CStaticProp::Ready_ConstantBuffer()
 ```
 
 **Change_Texture / Change_Mesh** — 경로를 정규화해서 태그를 만들고, **원형이 등록돼 있는지 먼저 확인**한 뒤 기존 컴포넌트 제거 → 추가
-원형은 툴 시작 시 로더(6-9)가 전부 등록해 두므로 여기서는 Clone만 한다.
+원형은 툴 시작 로딩 레벨(6-10)에서 로더(6-9)가 전부 등록해 두므로 여기서는 Clone만 한다.
 
 ```cpp
 HRESULT CStaticProp::Change_Texture(const wstring_t& strTexturePath)
@@ -2572,22 +2610,24 @@ HRESULT CLayer::Add_GameObject(const wstring_t& strGameObjectTag, shared_ptr<cla
 
 - `CObject_Manager::Add_GameObject`: `pLayer->Add_GameObject` 실패(중복 태그) 시 `E_FAIL`을 그대로 반환하도록 수정 (새 레이어를 만들 때 / 기존 레이어에 넣을 때 둘 다)
 
-### 6-7. Level_MapTool — StaticProp 원형 등록 + 로더 실행
+### 6-7. Level_MapTool — 사본만 만드는 레벨로 정리
 
-**Level_MapTool.h** — private에 선언 추가
+Client의 `CLevel_GamePlay`처럼 **원형 등록은 전부 로더(6-9)가 하고, 레벨은 사본만 만든다.**
+5단계에서 `Ready_Layer_BackGround` / `Ready_Layer_GameObject`에 넣었던 `Add_Prototype`은 6-9 `Loading_For_MapToolLV`로 옮기고, 레벨에는 `Add_GameObject`만 남긴다.
+
+**Level_MapTool.h** — private (원형 정리 후. ImGui·에디터 UI 멤버는 6-10에서 추가)
 
 ```cpp
-	HRESULT Ready_Layer_Map(const tchar_t* pLayerTag);
+private:
+	HRESULT Ready_Layer_BackGround(const tchar_t* pLayerTag);
+	HRESULT Ready_Layer_GameObject(const tchar_t* pLayerTag);
 ```
 
-**Level_MapTool.cpp** — include와 Initialize (최종)
+**Level_MapTool.cpp** — include와 Initialize (원형 정리 후. 6-10에서 ImGui·에디터 UI 초기화가 뒤에 붙는다)
 
 ```cpp
 #include "Level_MapTool.h"
 #include "MapTool_Cam.h"
-#include "SkyBox.h"
-#include "StaticProp.h"
-#include "Loader_MapTool.h"
 
 HRESULT CLevel_MapTool::Initialize()
 {
@@ -2596,43 +2636,59 @@ HRESULT CLevel_MapTool::Initialize()
 
     SetWindowText(g_hWnd, L"MapTool_Level");
 
-    // 메시/텍스처 원형을 미리 전부 등록 (6-9). 객체가 만들어지기 전이어야 한다
-    if (nullptr == CLoader_MapTool::Create(m_pDevice, m_pContext, ETOUI(LEVEL::MAPTOOL)))
-        return E_FAIL;
-
     if (FAILED(Ready_Layer_BackGround(TEXT("Layer_BackGround")))) return E_FAIL;
     if (FAILED(Ready_Layer_GameObject(TEXT("Layer_GameObject")))) return E_FAIL;
-    if (FAILED(Ready_Layer_Map(TEXT("Layer_Map"))))               return E_FAIL;
     return S_OK;
 }
 ```
 
-**Ready_Layer_Map**
+**Ready_Layer_BackGround** — SkyBox 사본만
 
 ```cpp
-HRESULT CLevel_MapTool::Ready_Layer_Map(const tchar_t* pLayerTag)
+HRESULT CLevel_MapTool::Ready_Layer_BackGround(const tchar_t* pLayerTag)
 {
-    // 픽셀 셰이더 (VS_VTXTEX는 Ready_Layer_BackGround에서 이미 등록됨)
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::PS_VTXTEX_NOLIGHT,
-        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_VtxTex.hlsl", "PS_MAIN_NOLIGHT"))))
-        return E_FAIL;
-
-    // Obj_StaticProp 객체 원형
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::Obj_StaticProp,
-        CStaticProp::Create(m_pDevice, m_pContext))))
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::MAPTOOL), Proto::Obj_SkyBox,
+        ETOUI(LEVEL::MAPTOOL), Layer::BackGround, GO::SkyBox)))
         return E_FAIL;
 
     return S_OK;
 }
 ```
 
-- **메시/텍스처 원형은 이 함수가 아니라 `Initialize` 맨 앞의 로더가 등록한다** (6-9)
-- `CLoader_MapTool::Create`가 돌려준 객체는 받아 두지 않는다. 등록이 끝나면 할 일이 없으므로 그 줄에서 바로 해제된다
-- 사본은 만들지 않는다. 사본은 Hierarchy가 `Layer_Map`에 만든다 (6-10). 그래서 인자 `pLayerTag`(`"Layer_Map"`)는 이 함수에서 쓰지 않는다
+**Ready_Layer_GameObject** — 카메라 사본 + 카메라 매니저 등록
+
+```cpp
+HRESULT CLevel_MapTool::Ready_Layer_GameObject(const tchar_t* pLayerTag)
+{
+    CMapTool_Cam::CAMERA_MAPTOOL_CAM_DESC         CameraDesc{};
+    CameraDesc.fDegreeRotPerSec = 180.f;
+    CameraDesc.fSpeedPerSec = 20.f;
+    CameraDesc.vEye = float4_t(0.f, 0.f, -5.f, 1.f);
+    CameraDesc.vAt = float4_t(0.f, 0.f, 0.f, 1.f);
+    CameraDesc.fFovy = 60.f;
+    CameraDesc.fNear = 0.1f;
+    CameraDesc.fFar = 1000.f;
+    CameraDesc.fSensor = 0.05f;
+
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::MAPTOOL), Proto::Obj_MapToolCam,
+        ETOUI(LEVEL::MAPTOOL), pLayerTag, GO::MapToolCam, &CameraDesc)))
+        return E_FAIL;
+
+    auto pMapToolCam = dynamic_pointer_cast<CMapTool_Cam>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), pLayerTag, GO::MapToolCam));
+    CGameInstance::Get().Add_Camera(CAMERA::FREE, pMapToolCam);
+    CGameInstance::Get().Set_MainCamera(CAMERA::FREE);
+
+    return S_OK;
+}
+```
+
+- `CMapTool_Cam.h`는 `CAMERA_MAPTOOL_CAM_DESC`와 `dynamic_pointer_cast` 때문에 남긴다. `SkyBox.h`는 원형을 만들지 않으므로 필요 없다 (로더가 include)
+- StaticProp은 레벨이 사본을 만들지 않는다. 사본은 Hierarchy가 `Layer_Map`에 만든다 (6-11)
+- 이 레벨은 **로딩 레벨(6-10)에서 로더가 끝난 뒤에** 만들어지므로, 여기서 Clone하는 원형은 전부 이미 등록돼 있다
 
 ### 6-8. EditorUI_Defines.h — 메시/텍스처 목록 추가
 
-`EDITOR_CONTEXT` 아래에 추가. 원형 등록(6-9 로더), 생성 기본값(6-10), Inspector 콤보(10단계)가 **같은 배열**을 같이 쓴다.
+`EDITOR_CONTEXT` 아래에 추가. 생성 기본값(6-11), Inspector 콤보(10단계)가 **같은 배열**을 같이 쓴다. 로더(6-9)는 이 배열의 경로와 같은 문자열을 직접 적어서 원형을 등록한다.
 
 ```cpp
 // { 표시 이름, 경로 } 목록 (Inspector 콤보, Hierarchy 생성 기본값)
@@ -2654,15 +2710,20 @@ inline constexpr ASSET_ITEM g_Textures[] = {
 ```
 
 - `inline constexpr` 배열: 헤더에 두어도 여러 cpp에서 중복 정의 에러가 안 남 (C++17)
+- 지금 프로젝트의 `g_Meshes`에는 세 번째 항목 `{ "ZeroZonTerrain", L"builtin/ZeroZoneterrain" }`이 더 있다. 지형을 StaticProp 메시로 띄워 보던 흔적이고, 11단계에서 지형을 `CHill`로 옮기면서 로더 등록은 빠졌다 (11-1, 13 알려진 문제)
 
-### 6-9. CLoader_MapTool — 메시/텍스처 원형 미리 등록
+### 6-9. CLoader_MapTool — 서브 스레드에서 원형 등록
 
-툴에서 쓸 메시/텍스처는 `g_Meshes`, `g_Textures`에 이미 전부 적혀 있다. 그래서 Client의 `CLoader`처럼 **툴 시작 시 한 번에 원형을 등록**하고, 객체는 Clone만 한다.
+Client의 `CLoader`와 **같은 구조**로 만든다. 로딩 레벨(6-10)이 로더를 만들면, 로더는 서브 스레드에서 MAPTOOL 레벨에 쓸 원형(텍스처, 메시, 셰이더, 객체)을 전부 등록한다.
+콤보 목록(6-8)에 들어가는 메시/텍스처도 여기서 **한 줄씩 직접 적어서** 등록한다.
 
-Client `CLoader`와 다른 점
-- **스레드를 쓰지 않는다.** 맵툴에는 로딩 레벨(진행 상황을 보여 줄 화면)이 없고 `Change_Level(MAPTOOL)` 한 번으로 바로 시작하므로, `CLevel_MapTool::Initialize` 안에서 바로 실행한다
-- 등록할 목록을 코드에 한 줄씩 쓰지 않고 **콤보 목록 배열을 그대로 돈다** → 목록에 한 줄 추가하면 등록도 같이 된다
-- 태그는 `Proto::` 상수가 아니라 **`Normalize_AssetPath(경로)`** (6-3)
+Client와 다른 것은 **이름 세 가지뿐**이다
+
+| Client | MapTool | 이름을 바꾸는 이유 |
+|---|---|---|
+| `Loader.h/.cpp`, `CLoader` | `Loader_MapTool.h/.cpp`, `CLoader_MapTool` | MapTool 프로젝트는 Client의 `Loader.cpp`, `Level_Loading.cpp`도 같이 컴파일한다. 파일 이름이 같으면 Client 쪽 `#include "Loader.h"`가 MapTool의 `../Public/Loader.h`를 먼저 찾고, `MapTool_Defines.h`가 `using namespace Client; using namespace MapTool;`을 둘 다 하므로 클래스 이름이 같으면 모호성 에러가 난다 |
+| `Level_Loading.h/.cpp`, `CLevel_Loading` | `Level_Loading_MapTool.h/.cpp`, `CLevel_Loading_MapTool` | 위와 같음 (6-10) |
+| 전역 함수 `ThreadMain` | 전역 함수 `ThreadMain_MapTool` | Client `Loader.cpp`의 `ThreadMain`이 같은 exe에 링크되므로 이름이 같으면 LNK2005 (중복 정의) |
 
 **Loader_MapTool.h (MapTool/Public)**
 
@@ -2671,130 +2732,594 @@ Client `CLoader`와 다른 점
 #include "MapTool_Defines.h"
 
 NS_BEGIN(MapTool)
-// 콤보 목록(g_Meshes, g_Textures)의 원형을 툴 시작 시 한 번에 등록
-class CLoader_MapTool final
+class CLoader_MapTool
 {
 private:
-	CLoader_MapTool(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
+	CLoader_MapTool(ComPtr<ID3D11Device>pDevice, ComPtr<ID3D11DeviceContext> pContext);
 public:
-	~CLoader_MapTool() = default;
+	~CLoader_MapTool();
 
 public:
-	HRESULT		Initialize(uint32_t iLevelIndex);
+	HRESULT	Initialize(LEVEL eNextLevelID);
+	HRESULT	Loading();
+	bool_t	isFinished() const { return m_isFinished; }
 
+#ifdef _DEBUG
+public:
+	HRESULT Draw_Debug();
+#endif
 private:
-	HRESULT					Loading_Meshes(uint32_t iLevelIndex);
-	HRESULT					Loading_Textures(uint32_t iLevelIndex);
-	shared_ptr<CPrototype>	Create_BuiltinMesh(const wstring_t& strTag);
+	LEVEL				m_eNextLevelID = {};
+	HANDLE				m_hThread = {};
+	CRITICAL_SECTION	m_CriticalSection = {};
+	tchar_t				m_szLoadingText[MAX_PATH] = {};
+	bool_t				m_isFinished = { false };
 
 private:
 	ComPtr<ID3D11Device>		m_pDevice = { nullptr };
-	ComPtr<ID3D11DeviceContext>	m_pContext = { nullptr };
+	ComPtr<ID3D11DeviceContext> m_pContext = { nullptr };
+
+private:
+	HRESULT Loading_For_MapToolLV();
 
 public:
-	static unique_ptr<CLoader_MapTool> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, uint32_t iLevelIndex);
+	static shared_ptr<CLoader_MapTool> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, LEVEL eNextLevelID);
+	void Free();
 };
 NS_END
 ```
 
-- Client `CLoader::Create(..., eNextLevel)`처럼 `Create`에 레벨 번호를 받아서 **만들면서 바로 등록**한다. 실패하면 `nullptr`
+- 멤버 구성은 Client `Loader.h`와 같다. `Loading_For_LogoLV` / `Loading_For_GamePlayLV` 대신 `Loading_For_MapToolLV` 하나
 
 **Loader_MapTool.cpp (MapTool/Private)**
 
-include + 생성자 + Initialize — 메시 → 텍스처 순서로 등록
+include + 생성자/소멸자 + 스레드 함수 + Initialize — `Initialize`가 서브 스레드를 띄우고 바로 돌아온다. 실제 등록은 스레드 안의 `Loading()`
 
 ```cpp
 #include "Loader_MapTool.h"
-#include "EditorUI_Defines.h"       // g_Meshes, g_Textures
+#include "SkyBox.h"
+#include "MapTool_Cam.h"
+#include "StaticProp.h"
 
 CLoader_MapTool::CLoader_MapTool(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
-    : m_pDevice{ pDevice }
+    : m_pDevice{pDevice}
     , m_pContext{ pContext }
 {
 }
 
-HRESULT CLoader_MapTool::Initialize(uint32_t iLevelIndex)
+CLoader_MapTool::~CLoader_MapTool()
 {
-    if (FAILED(Loading_Meshes(iLevelIndex)))
+    Free();
+}
+
+// 서브 스레드
+uint32_t APIENTRY ThreadMain_MapTool(void* pArg)
+{
+    auto       pLoader = static_cast<CLoader_MapTool*>(pArg);
+
+    // 서브 스레드
+    if (FAILED(pLoader->Loading()))
+        return 1;
+
+    return 0;
+}
+
+HRESULT CLoader_MapTool::Initialize(LEVEL eNextLevel)
+{
+    InitializeCriticalSection(&m_CriticalSection);
+
+    m_eNextLevelID = eNextLevel;
+
+    m_hThread = (HANDLE)_beginthreadex(nullptr, 0, ThreadMain_MapTool, this, 0, nullptr);
+    if (0 == m_hThread)
         return E_FAIL;
-    if (FAILED(Loading_Textures(iLevelIndex)))
-        return E_FAIL;
+
     return S_OK;
 }
 ```
 
-Loading_Meshes — 목록의 경로마다 태그를 만들고, 그 태그에 맞는 내장 버퍼를 생성해서 등록
+Loading / Draw_Debug — 다음 레벨 번호로 분기. `Draw_Debug`는 메인 스레드(로딩 레벨의 Render)에서 진행 문구를 창 제목에 표시
 
 ```cpp
-HRESULT CLoader_MapTool::Loading_Meshes(uint32_t iLevelIndex)
+HRESULT CLoader_MapTool::Loading()
 {
-    for (auto& Item : g_Meshes)
+    //메모리를 공유하는 임계영역에 접근
+    EnterCriticalSection(&m_CriticalSection);
+
+    // 현재 스레드에서 COM 라이브러리를 사용할 수 있도록 초기화 (WIC 텍스처 로드에 필요)
+    CoInitializeEx(nullptr, 0);
+
+    HRESULT hr = {};
+    switch (m_eNextLevelID)
     {
-        const wstring_t strTag = Normalize_AssetPath(Item.pPath);   // "builtin/cube"
-
-        auto pMesh = Create_BuiltinMesh(strTag);
-        if (nullptr == pMesh)                                       // Add_Prototype은 nullptr을 검사하지 않으므로 여기서 거름
-            return E_FAIL;
-
-        if (FAILED(CGameInstance::Get().Add_Prototype(iLevelIndex, strTag, pMesh)))
-            return E_FAIL;
+    case Client::LEVEL::MAPTOOL:
+        hr = Loading_For_MapToolLV();
+        break;
     }
+    if (FAILED(hr))
+        return E_FAIL;
+    // 현재 스레드에서 COM 라이브러리를 사용할 수 있도록 초기화 해체
+    CoUninitialize();
+    //메모리를 공유하는 임계영역을 떠남
+    LeaveCriticalSection(&m_CriticalSection);
+
     return S_OK;
 }
 
-// 정규화된 태그(소문자) → 버퍼 생성. 목록에 메시를 추가하면 여기에도 한 줄 추가
-shared_ptr<CPrototype> CLoader_MapTool::Create_BuiltinMesh(const wstring_t& strTag)
+// 메인 스레드
+HRESULT CLoader_MapTool::Draw_Debug()
 {
-    if (strTag == L"builtin/cube") return CVIBuffer_Cube::Create(m_pDevice, m_pContext);
-    if (strTag == L"builtin/rect") return CVIBuffer_Rect::Create(m_pDevice, m_pContext);
-    return nullptr;   // pyramid는 VTXCOL이라 텍스처 셰이더와 안 맞아서 제외
+    SetWindowText(g_hWnd, m_szLoadingText);
+    return S_OK;
 }
 ```
 
-Loading_Textures — 목록의 경로마다 태그를 만들고, Resource 루트를 붙여 파일을 읽어서 등록
+Loading_For_MapToolLV — 텍스처 → 모델 → 셰이더 → 객체 원형 순서. 5·6단계에서 레벨에 있던 `Add_Prototype`이 전부 여기 모인다
 
 ```cpp
-HRESULT CLoader_MapTool::Loading_Textures(uint32_t iLevelIndex)
+HRESULT CLoader_MapTool::Loading_For_MapToolLV()
 {
-    for (auto& Item : g_Textures)
-    {
-        const wstring_t strTag      = Normalize_AssetPath(Item.pPath);              // "ex/woodcrate01.dds"
-        const wstring_t strLoadPath = wstring_t(g_strResourceRoot) + strTag;        // "../../../Resource/ex/woodcrate01.dds"
+    lstrcpy(m_szLoadingText, TEXT("텍스쳐를 준비중입니다."));
 
-        auto pTexture = CTexture::Create(m_pDevice, m_pContext, strLoadPath.c_str(), 1);
-        if (nullptr == pTexture)                                    // 파일이 없으면 툴 시작 단계에서 바로 실패
-            return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::Texture_SkyBox,
+        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/proc_preview.png"), 1))))
+        return E_FAIL;
 
-        if (FAILED(CGameInstance::Get().Add_Prototype(iLevelIndex, strTag, pTexture)))
-            return E_FAIL;
-    }
+    // 콤보 목록 텍스처 — 태그는 Normalize_AssetPath(콤보 목록의 경로)
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Normalize_AssetPath(TEXT("Ex/WoodCrate01.dds")),
+        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/WoodCrate01.dds"), 1))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Normalize_AssetPath(TEXT("Ex/WoodCrate02.dds")),
+        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/WoodCrate02.dds"), 1))))
+        return E_FAIL;
+
+    lstrcpy(m_szLoadingText, TEXT("모델을 준비중입니다."));
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::VIBuffer_SkyBox,
+        CVIBuffer_SkyBox::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+
+    // 콤보 목록 메시 — 태그는 Normalize_AssetPath(콤보 목록의 경로)
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Normalize_AssetPath(TEXT("builtin/cube")),
+        CVIBuffer_Cube::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Normalize_AssetPath(TEXT("builtin/rect")),
+        CVIBuffer_Rect::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+
+    lstrcpy(m_szLoadingText, TEXT("셰이더를 준비중입니다."));
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::VS_VTXTEX,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_VertexShader.hlsl", VTXNORM::Elements, VTXNORM::iNumElements, "VS_MAIN"))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::PS_VTXTEX_SKYBOX,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_MAIN_SKY"))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::PS_VTXTEX_NOLIGHT,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_MAIN_NOLIGHT"))))
+        return E_FAIL;
+
+    lstrcpy(m_szLoadingText, TEXT("객체원형 준비중입니다."));
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::Obj_SkyBox,
+        CSkyBox::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::Obj_MapToolCam,
+        CMapTool_Cam::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::Obj_StaticProp,
+        CStaticProp::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+
+    lstrcpy(m_szLoadingText, TEXT("로딩이 완료되었습니다."));
+
+    m_isFinished = true;
     return S_OK;
 }
 ```
+
+- **콤보 메시/텍스처만 태그가 `Proto::` 상수가 아니라 `Normalize_AssetPath(경로)`** — `Change_Mesh` / `Change_Texture`(6-5)가 객체의 경로를 정규화한 문자열로 원형을 찾기 때문 (6-3). 경로는 콤보 목록(6-8)의 `pPath`와 같은 문자열을 쓴다
+- 콤보에 항목을 추가하면 `g_Meshes` / `g_Textures`(6-8)와 이 함수 **두 곳에 한 줄씩**
+- 셰이더 파일은 현재 `Model_VertexShader.hlsl` / `Model_PixelShader.hlsl` (Client Loader와 같은 파일)
+
+Create / Free — `Free`는 스레드가 끝날 때까지 기다린 뒤 핸들과 임계 영역을 정리한다
+
+```cpp
+shared_ptr<CLoader_MapTool> CLoader_MapTool::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, LEVEL eNextLevelID)
+{
+    auto pInstance = shared_ptr<CLoader_MapTool>(new CLoader_MapTool(pDevice, pContext));
+
+    if (FAILED(pInstance->Initialize(eNextLevelID)))
+        pInstance.reset();
+    return pInstance;
+}
+
+void CLoader_MapTool::Free()
+{
+    WaitForSingleObject(m_hThread, INFINITE);
+
+    CloseHandle(m_hThread);
+
+    DeleteCriticalSection(&m_CriticalSection);
+}
+```
+
+**주의**
+- 원형은 `LEVEL::MAPTOOL`에 등록된다. 객체 DESC의 `iLevelIndex`도 `MAPTOOL`이어야 Clone할 때 찾는다
+- `Loading()` 중간에 실패하면 `m_isFinished`가 켜지지 않아 로딩 레벨에서 넘어가지 않는다 (Client `CLoader`와 같은 동작). 경로가 틀린 텍스처가 있으면 이렇게 된다
+- `Add_Prototype`은 원형이 `nullptr`이어도 그대로 등록한다 (6-3). 파일이 없어 `CTexture::Create`가 실패하면 `nullptr`가 등록되고 Clone할 때 터진다
+
+### 6-10. CLevel_Loading_MapTool — 툴 시작 레벨 + ToolMainApp·Level_MapTool 정리
+
+Client처럼 **로딩 레벨로 시작 → 로더가 끝나면 스페이스로 `CLevel_MapTool`에 전환**한다.
+레벨 번호는 Client와 같은 `LEVEL::LOADING`을 쓴다 (Client도 LOGO/GAMEPLAY 어디로 가든 로딩 레벨은 `LOADING` 하나를 쓰고, 다음 레벨은 `m_eNextLevelID`로 구분한다. 맵툴과 게임은 다른 프로세스라 번호가 같아도 섞이지 않는다). enum은 고치지 않는다.
+
+로딩 레벨은 **화면에 보여 줄 것을 만들지 않는다** (배경, UI 없음). 하는 일은 로더를 실행하고, 끝나면 스페이스로 다음 레벨로 넘기는 것뿐이다. 진행 상황은 창 제목(`Draw_Debug`)으로 확인한다.
+
+**Level_Loading_MapTool.h (MapTool/Public)**
+
+```cpp
+#pragma once
+#include "MapTool_Defines.h"
+#include "Level.h"
+
+NS_BEGIN(MapTool)
+class CLevel_Loading_MapTool final : public CLevel
+{
+private:
+	CLevel_Loading_MapTool(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
+public:
+	~CLevel_Loading_MapTool() = default;
+
+public:
+	virtual HRESULT	Initialize(LEVEL eNextLevel);
+	virtual void	Update(f32_t fDeltaTime) override;
+	virtual HRESULT	Render() override;
+
+private:
+	LEVEL								m_eNextLevelID = { LEVEL::END };
+	shared_ptr<class CLoader_MapTool>	m_pLoader = { nullptr };
+
+public:
+	static shared_ptr<CLevel_Loading_MapTool> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, LEVEL eNextLevel);
+};
+NS_END
+```
+
+- `m_pLoader`는 `shared_ptr<class CLoader_MapTool>` — 헤더에서 로더 헤더를 include하지 않고 이름만 알린다 (Client `Level_Loading.h`와 같은 방식)
+
+**Level_Loading_MapTool.cpp (MapTool/Private)**
+
+include + 생성자 + Initialize — 다음 레벨 번호를 기억하고, 로더를 만들어 자원 준비를 시작(서브 스레드)
+
+```cpp
+#include "Loader_MapTool.h"
+#include "Level_Loading_MapTool.h"
+#include "Level_MapTool.h"
+
+CLevel_Loading_MapTool::CLevel_Loading_MapTool(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
+    :CLevel{ pDevice,pContext }
+{
+}
+
+HRESULT CLevel_Loading_MapTool::Initialize(LEVEL eNextLevel)
+{
+    if (FAILED(__super::Initialize()))
+        return E_FAIL;
+    m_eNextLevelID = eNextLevel;
+
+    /* 다음 레벨을 위한 자원 준비하는 과정*/
+    m_pLoader = CLoader_MapTool::Create(m_pDevice, m_pContext, eNextLevel);
+    if (nullptr == m_pLoader)
+        return E_FAIL;
+
+    return S_OK;
+}
+```
+
+Update / Render — 로더가 끝났고 스페이스를 누르면 `CLevel_MapTool`을 만들어 전환. `Render`는 로딩 문구를 창 제목에 표시
+
+```cpp
+void CLevel_Loading_MapTool::Update(f32_t fDeltaTime)
+{
+    __super::Update(fDeltaTime);
+    if (true == m_pLoader->isFinished() &&
+        CGameInstance::Get().Key_Pressing(DIK_SPACE))
+    {
+        if (FAILED(CGameInstance::Get().Change_Level(ETOI(m_eNextLevelID), CLevel_MapTool::Create(m_pDevice, m_pContext))))
+            return;
+        return;
+    }
+}
+
+HRESULT CLevel_Loading_MapTool::Render()
+{
+    if (FAILED(__super::Render()))
+        return E_FAIL;
+#ifdef _DEBUG
+    m_pLoader->Draw_Debug();
+#endif
+    return S_OK;
+}
+```
+
+- 다음 레벨은 맵툴 레벨 하나뿐이라 Client처럼 `switch (m_eNextLevelID)`로 나누지 않고 `CLevel_MapTool::Create`를 바로 넘긴다
+- `Change_Level`이 이 레벨을 해제하므로, 그 뒤에는 멤버를 건드리지 않고 바로 `return`
 
 Create
 
 ```cpp
-unique_ptr<CLoader_MapTool> CLoader_MapTool::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, uint32_t iLevelIndex)
+shared_ptr<CLevel_Loading_MapTool> CLevel_Loading_MapTool::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, LEVEL eNextLevel)
 {
-    auto pInstance = unique_ptr<CLoader_MapTool>(new CLoader_MapTool(pDevice, pContext));
-    if (FAILED(pInstance->Initialize(iLevelIndex)))
+    auto pInstance = shared_ptr<CLevel_Loading_MapTool>(new CLevel_Loading_MapTool(pDevice, pContext));
+
+    if (FAILED(pInstance->Initialize(eNextLevel)))
     {
-        MSG_BOX("Failed to Created : CLoader_MapTool");
+        MSG_BOX("Failed to Created : CLevel_Loading_MapTool");
+        pInstance.reset();
+    }
+
+    return pInstance;
+}
+```
+
+- 전환 순서: `CLevel_MapTool::Create`(로더가 등록한 원형을 Clone) → `Change_Level`이 로딩 레벨을 해제 + `Clear_Resources(LOADING)` → `m_pLoader`가 해제되며 `Free()`가 스레드 정리
+
+**ToolMainApp — Client `CMainApp`과 같은 모양으로 정리**
+
+로딩 레벨이 생기면서 ToolMainApp이 가지고 있던 ImGui(2-4)와 에디터 UI(3단계), `Sync_SceneView`(5-4)는 **`CLevel_MapTool`로 옮긴다** (바로 아래 "Level_MapTool — ImGui와 에디터 UI 소유").
+- 레벨은 로딩 → MAPTOOL 한 번만 바뀌고, 에디터 화면은 MAPTOOL 레벨에서만 의미가 있다
+- 로딩 중에는 에디터 패널이 아예 없으므로, 로더 스레드가 원형을 등록하는 동안 Hierarchy로 객체를 만드는 일이 생기지 않는다
+- ToolMainApp에는 Client `CMainApp`처럼 **엔진 초기화 → Start_Level → Update_Engine → Draw → Present**만 남는다
+
+ToolMainApp.h (최종)
+
+```cpp
+#pragma once
+#include "MapTool_Defines.h"
+
+NS_BEGIN(MapTool)
+class CToolMainApp final
+{
+private:
+	CToolMainApp() = default;
+public:
+	~CToolMainApp();
+
+public:
+	HRESULT		Initialize();
+	void		Update(f32_t fDeltaTime);
+	HRESULT		Render();
+
+private:
+	ComPtr<ID3D11Device>				m_pDevice = { nullptr };
+	ComPtr<ID3D11DeviceContext>			m_pContext = { nullptr };
+
+private:
+	HRESULT								Start_Level(LEVEL eStartLevelID);
+
+public:
+	static		unique_ptr<CToolMainApp>		Create();
+};
+NS_END
+```
+
+ToolMainApp.cpp (최종) — include는 로딩 레벨 하나만. ImGui / EditorUI / MapTool_Cam / Level_MapTool 헤더는 필요 없다
+
+```cpp
+#include "MapTool_Defines.h"
+#include "ToolMainApp.h"
+#include "Level_Loading_MapTool.h"
+
+CToolMainApp::~CToolMainApp()
+{
+    CGameInstance::Get().Release_Engine();     // 레벨(ImGui 포함)도 여기서 같이 해제된다
+}
+
+HRESULT CToolMainApp::Initialize()
+{
+    ENGINE_DESC EngineDesc{};
+    EngineDesc.hWnd = g_hWnd;
+    EngineDesc.iWinSizeX = g_iToolWinSizeX;
+    EngineDesc.iWinSizeY = g_iToolWinSizeY;
+    EngineDesc.eWinMode = WINMODE::WIN;
+    EngineDesc.iNumLevels = ETOUI(LEVEL::END);
+    EngineDesc.hInstance = hInst;
+
+    if (FAILED(CGameInstance::Get().Initialize_Engine(EngineDesc, m_pDevice, m_pContext)))
+        return E_FAIL;
+
+    // 로딩 레벨로 시작 → 로더가 끝나면 스페이스로 MAPTOOL 레벨
+    if (FAILED(Start_Level(LEVEL::MAPTOOL)))
+        return E_FAIL;
+    CGameInstance::Get().Set_DrawToBackBuffer(false);   // 씬은 Scene 창(씬 텍스처)에만 (4-6)
+
+    return S_OK;
+}
+
+void CToolMainApp::Update(f32_t fDeltaTime)
+{
+    CGameInstance::Get().Update_Engine(fDeltaTime);     // 객체 Update → 레벨 Update (에디터 UI는 레벨 안에서)
+}
+
+HRESULT CToolMainApp::Render()
+{
+    float4_t    vClearColor = float4_t{ 0.f, 0.f, 0.f, 1.f };
+    CGameInstance::Get().Clear_BackBuffer_View(&vClearColor);
+    CGameInstance::Get().Clear_DepthStencil_View();
+
+    CGameInstance::Get().Bind_PipeLine_Vertex_ShaderResource(1);
+    CGameInstance::Get().Bind_PipeLine_Pixel_ShaderResource(1);
+    CGameInstance::Get().Bind_PipeLine_Geometry_ShaderResource(1);
+
+    CGameInstance::Get().Draw();        // 씬 → 레벨 Render (MAPTOOL 레벨이면 여기서 ImGui)
+
+    CGameInstance::Get().Present();
+    return S_OK;
+}
+
+HRESULT CToolMainApp::Start_Level(LEVEL eStartLevelID)
+{
+    if(FAILED(CGameInstance::Get().Change_Level(static_cast<int>(LEVEL::LOADING),
+                                                CLevel_Loading_MapTool::Create(m_pDevice, m_pContext, eStartLevelID))))
+        return E_FAIL;
+    return S_OK;
+}
+
+unique_ptr<CToolMainApp> CToolMainApp::Create()
+{
+    auto    pInstance = unique_ptr<CToolMainApp>(new CToolMainApp());
+
+    if (FAILED(pInstance->Initialize()))
+    {
+        MSG_BOX("Failed to Created : CToolMainApp");
         pInstance.reset();
     }
     return pInstance;
 }
 ```
 
-- MapTool `Default.vcxproj`에 `Loader_MapTool.h/.cpp` 추가
+- `Start_Level`은 Client `CMainApp::Start_Level`과 같은 코드 (로딩 레벨 슬롯 `LEVEL::LOADING`에 로딩 레벨을 넣고, 다음 레벨 번호를 넘긴다)
+- `Set_DrawToBackBuffer(false)`는 4-6처럼 여기(`Start_Level` 다음)에 그대로 둔다. 로딩 레벨은 그리는 것이 없으므로 처음부터 꺼 두어도 상관없다
+
+**Level_MapTool — ImGui와 에디터 UI 소유**
+
+Level_MapTool.h (최종) — 6-7의 헤더에 ImGui 함수 4개, `Sync_SceneView`, `m_pEditorUI`, `m_bReadyImGui`를 추가. 소멸자는 cpp에 정의
+
+```cpp
+#pragma once
+#include "MapTool_Defines.h"
+#include "Level.h"
+
+NS_BEGIN(MapTool)
+class CEditorUI;
+class CLevel_MapTool final : public CLevel
+{
+private:
+	CLevel_MapTool(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
+public:
+	~CLevel_MapTool();
+
+public:
+	virtual		HRESULT		Initialize() override;
+	virtual		void		Update(f32_t fDeltaTime) override;
+	virtual		HRESULT		Render() override;
+
+private:
+	unique_ptr<CEditorUI>	m_pEditorUI = { nullptr };
+	bool_t					m_bReadyImGui = { false };
+
+private:
+	HRESULT		Ready_Layer_BackGround(const tchar_t* pLayerTag);
+	HRESULT		Ready_Layer_GameObject(const tchar_t* pLayerTag);
+
+	HRESULT		Ready_ImGui();
+	HRESULT		Begin_ImGui();
+	HRESULT		Render_ImGui();
+	HRESULT		Shutdown_ImGui();
+	void		Sync_SceneView();
+
+public:
+	static shared_ptr<CLevel_MapTool> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
+};
+NS_END
+```
+
+- `unique_ptr<CEditorUI>`인데 헤더에는 전방 선언만 있으므로, 소멸자를 헤더에서 `= default`로 두면 "불완전한 형식" 에러가 난다 → cpp에서 `EditorUI.h`를 include한 뒤 정의
+
+Level_MapTool.cpp — include + 소멸자 + Initialize
+
+```cpp
+#include "imgui.h"
+#include "imgui_impl_win32.h"
+#include "imgui_impl_dx11.h"
+#include "EditorUI.h"
+#include "Level_MapTool.h"
+#include "MapTool_Cam.h"
+
+CLevel_MapTool::~CLevel_MapTool()
+{
+    m_pEditorUI.reset();        // UI 먼저
+    Shutdown_ImGui();           // 그다음 ImGui
+}
+
+HRESULT CLevel_MapTool::Initialize()
+{
+    if (FAILED(__super::Initialize()))
+        return E_FAIL;
+
+    SetWindowText(g_hWnd, L"MapTool_Level");
+
+    if (FAILED(Ready_Layer_BackGround(TEXT("Layer_BackGround"))))
+        return E_FAIL;
+    if (FAILED(Ready_Layer_GameObject(TEXT("Layer_GameObject"))))
+        return E_FAIL;
+
+    if (FAILED(Ready_ImGui()))
+        return E_FAIL;
+    if (FAILED(Begin_ImGui()))          // 첫 프레임용 NewFrame (아래 설명)
+        return E_FAIL;
+
+    m_pEditorUI = CEditorUI::Create();
+    if (nullptr == m_pEditorUI)
+        return E_FAIL;
+
+    return S_OK;
+}
+```
+
+- **`Initialize`에서 `Begin_ImGui`를 한 번 부르는 이유**: 이 레벨은 로딩 레벨의 `Update` 안에서 만들어진다. 그 프레임에는 새 레벨의 `Update`가 불리지 않고 `Render`만 불린다
+
+```
+로딩 레벨 Update → CLevel_MapTool::Create (Initialize) → Change_Level
+                    (이 프레임에 새 레벨 Update 없음 = NewFrame 없음)
+ToolMainApp::Render → Draw → CLevel_MapTool::Render → ImGui::Render()
+```
+
+  `Initialize`에서 `NewFrame`을 해 두지 않으면 첫 `Render`에서 `Assertion failed: (g.WithinFrameScope) && "Forgot to call ImGui::NewFrame()?"`가 뜬다. 다음 프레임부터는 `Update`(NewFrame) → `Render`(Render) 짝이 매번 맞는다
+
+Update / Render — 레벨 Update에서 ImGui 프레임 시작 + 에디터 UI, 레벨 Render에서 ImGui 그리기
+
+```cpp
+void CLevel_MapTool::Update(f32_t fDeltaTime)
+{
+    __super::Update(fDeltaTime);
+    if (FAILED(Begin_ImGui()))
+        return;
+    m_pEditorUI->Update(fDeltaTime);    // 메뉴바 + 패널 (생성/삭제/편집)
+    Sync_SceneView();                   // Scene 창 포커스/호버 → 카메라
+}
+
+HRESULT CLevel_MapTool::Render()
+{
+    if (FAILED(__super::Render()))
+        return E_FAIL;
+    if (FAILED(Render_ImGui()))         // 씬 다음, ToolMainApp의 Present 전
+        return E_FAIL;
+    return S_OK;
+}
+```
+
+- `CGameInstance::Draw()`는 `Renderer::Render_GameObject()` → `Level_Manager::Render()` 순서라서, 레벨 `Render`에서 ImGui를 그리면 씬 위에 덮이고 그다음 ToolMainApp이 `Present`한다
+- `Ready_ImGui` / `Begin_ImGui` / `Render_ImGui` / `Shutdown_ImGui` / `Sync_SceneView` 본문은 2-4, 5-4의 코드 그대로 (`CToolMainApp::` → `CLevel_MapTool::`). `m_pDevice` / `m_pContext`는 `CLevel`의 멤버를 쓴다
+
+**바뀌는 점**
+- **UI가 객체 Update 뒤로 간다.** 레벨 `Update`는 `Update_Engine` 맨 끝(객체 Priority/Update/Late_Update 다음)에 불린다. 그래서 Hierarchy에서 만든 객체는 다음 프레임부터 그려지고, 카메라는 지난 프레임의 Scene 포커스 값으로 움직인다. 1프레임(1/60초) 차이라 눈으로는 구분되지 않는다
+- **종료 순서**: `Release_Engine`이 레벨 매니저를 그래픽 디바이스보다 먼저 해제하므로, 레벨 소멸자의 `Shutdown_ImGui`는 디바이스가 살아 있을 때 실행된다
+- **컨텍스트가 없는 동안의 WndProc**: 로딩 중에는 ImGui 컨텍스트가 없다. `ImGui_ImplWin32_WndProcHandler`(1.93)는 컨텍스트가 `nullptr`이면 바로 0을 돌려주고, ESC 처리도 `GetCurrentContext()`를 먼저 확인하므로(2-2) 안전하다
+- 나중에 맵툴에 레벨을 하나 더 만들면(예: 플레이 테스트 레벨) ImGui는 다시 ToolMainApp으로 올려야 한다
+
+- vcxproj: `Loader_MapTool.h/.cpp`, `Level_Loading_MapTool.h/.cpp` 등록
+
+**실행 결과**
+- 툴을 켜면 에디터 패널 없이 빈 화면이 뜨고, 창 제목이 `텍스쳐를 준비중입니다.` → … → `로딩이 완료되었습니다.`로 바뀐다
+- 스페이스를 누르면 메뉴바와 Hierarchy / Scene / Inspector가 나타나고, Scene 창에 SkyBox가 보인다 (창 제목 `MapTool_Level`)
 
 **주의**
-- `Create_BuiltinMesh`의 비교 문자열은 **소문자**로 써야 한다. 태그가 `Normalize_AssetPath`로 소문자가 되므로, 목록에 `L"builtin/MyMesh"`처럼 대문자를 써도 비교는 `L"builtin/mymesh"`로 해야 맞는다
-- 원형은 `LEVEL::MAPTOOL`에 등록된다. 객체 DESC의 `iLevelIndex`도 `MAPTOOL`이어야 Clone할 때 찾는다
-- 나중에 Client에서 맵을 불러올 때도 **같은 경로 태그의 원형이 GAMEPLAY 레벨에 있어야** 한다 → Client `CLoader`도 같은 규칙(정규화 경로 태그)으로 등록해야 한다
+- 스페이스 입력은 DirectInput이라 **툴 창에 포커스가 있어야** 받는다
+- 첫 전환 때 `Forgot to call ImGui::NewFrame()?` assert가 뜨면 `CLevel_MapTool::Initialize`의 `Begin_ImGui` 호출이 빠진 것
 
-### 6-10. CPanel_Hierarchy — 빈 곳 우클릭으로 생성
+### 6-11. CPanel_Hierarchy — 빈 곳 우클릭으로 생성
 
 **Panel_Hierarchy.h** — private에 추가
 
@@ -2888,14 +3413,15 @@ void CPanel_Hierarchy::Render(const PANEL_RECT& tRect)
 - 비슷한 함수: `BeginPopupContextItem()`(바로 앞 **위젯**을 우클릭, 8단계), `BeginPopupContextVoid()`(어떤 ImGui 창도 없는 **빈 바탕**을 우클릭)
 
 **실행 결과**
+- 툴을 켜면 빈 화면에서 창 제목에 로딩 문구가 바뀌어 나온다 → `로딩이 완료되었습니다.`가 뜬 뒤 스페이스를 누르면 에디터 화면(SkyBox + 카메라)으로 바뀐다
 - Hierarchy 빈 곳을 우클릭 → `Add Static_Prop` → Scene 가운데(원점)에 나무상자 텍스처(`WoodCrate01`)를 입힌 큐브가 나타난다 (카메라가 `(0, 0, -5)`에서 원점을 보고 있음)
 - 여러 번 누르면 같은 자리에 겹쳐 생긴다 (위치는 9단계 Inspector에서 바꾼다)
-- 텍스처 로드는 툴 시작 시 한 번만 일어난다 (`CLoader_MapTool::Loading_Textures`의 `CTexture::Create` 줄에 중단점을 걸면 시작할 때 목록 개수만큼만 걸리고, 객체를 만들 때는 안 걸림)
+- 텍스처 로드는 로딩 레벨에서 한 번만 일어난다 (`CLoader_MapTool::Loading_For_MapToolLV`의 `CTexture::Create` 줄에 중단점을 걸면 로딩 중에만 걸리고, 객체를 만들거나 콤보로 바꿀 때는 안 걸림)
 
 **주의**
 - Engine 헤더(Prototype_Manager, GameObject, Engine_Function) 수정 → **Engine 먼저 빌드** → MapTool 빌드
 - 생성이 실패하면 `"Create Failed"` 메시지 박스 → 셰이더 원형(`VS_VTXTEX`, `PS_VTXTEX_NOLIGHT`)이 MAPTOOL 레벨에 등록됐는지, 메시/텍스처 원형이 로더에서 등록됐는지 확인
-- 툴이 시작하자마자 `"Failed to Created : CLoader_MapTool"`이 뜨면 목록의 텍스처 파일(`Resource/Ex/WoodCrate01.dds`)이 있는지, `Create_BuiltinMesh`에 해당 메시 분기가 있는지 확인
+- 로딩 문구가 중간에서 멈추고 스페이스를 눌러도 안 넘어가면 `Loading_For_MapToolLV`의 어느 줄에서 실패했는지 확인 (텍스처 경로 `Resource/Ex/WoodCrate01.dds`, 셰이더 경로). 실패하면 `m_isFinished`가 켜지지 않는다 (6-9 주의)
 
 ---
 
@@ -3175,6 +3701,8 @@ Update_Engine              → Priority_Update      ← Remove_Dead로 실제 er
                            → Update / Late_Update (Dead는 건너뜀)
 Draw                                               ← 이미 없음 → 같은 프레임에 사라짐
 ```
+
+- 위 순서는 ImGui가 `Update_Engine` **앞**에서 돌던 이 단계 기준이다. 6-10에서 에디터 UI가 `CLevel_MapTool::Update`(= `Update_Engine` 맨 끝)로 옮겨 가면, `Set_Dead`한 객체는 이미 이번 프레임 `Late_Update`에서 렌더 그룹에 들어간 뒤라 **이번 프레임까지 그려지고 다음 프레임 맨 앞(`Remove_Dead`)에 사라진다** (1/60초 차이라 눈으로는 같음)
 
 ### 8-2. EditorUI_Defines.h — 선택 해제 함수 추가
 
@@ -3642,30 +4170,765 @@ unique_ptr<CPanel_Inspector> CPanel_Inspector::Create(EDITOR_CONTEXT& Context)
 
 **주의**
 - `DragFloat3`에 `&vPos.x`를 넘기는 건 `float3_t`(XMFLOAT3)가 float 3개가 연속이라 가능
-- 텍스처 목록을 늘리려면 `EditorUI_Defines.h`의 `g_Textures`에 한 줄 추가하면 끝 (경로는 Resource 기준). 로더가 같은 배열을 돌기 때문에 원형 등록도 자동으로 된다
-- 메시는 `g_Meshes`에 한 줄 + `CLoader_MapTool::Create_BuiltinMesh`에 분기 한 줄 (비교 문자열은 소문자)
+- 목록을 늘리려면 두 곳에 한 줄씩: `EditorUI_Defines.h`의 `g_Meshes` / `g_Textures` (콤보에 보이게) + `CLoader_MapTool::Loading_For_MapToolLV` (원형 등록, 태그는 `Normalize_AssetPath(같은 경로)`)
+
+여기까지가 "구조물 하나를 놓고, 고르고, 지우고, 고치는" 기본 흐름이다. 다음 단계에서는 이 흐름 위에 **게임에서 쓰던 지형**을 올린다. 새 클래스를 만들지 않고, Client의 `CHill`을 `CMapObject` 자식으로 바꿔서 6~10단계에서 만든 Hierarchy / Inspector / 경로 = 태그 규칙을 그대로 쓰게 한다.
 
 ---
 
-## 11. 현재 상태와 남은 작업
+## 11단계. 혼합맵 지형 — CHill을 CMapObject로
+
+**목표**: Hierarchy 빈 곳 우클릭 → `Add Terrain`을 누르면 게임과 같은 혼합맵 지형(잔디·흙·아스팔트를 혼합맵으로 섞은 지형)이 Scene에 나온다. Client도 같은 `CHill` 클래스를 같은 방식(DESC + 경로)으로 만든다.
+
+### 11-1. 왜 StaticProp이 아니라 CHill인가
+
+처음에는 지형 버퍼를 `builtin/ZeroZoneterrain` 메시로 로더에 등록하고 StaticProp으로 띄워 봤다. 모양은 나오지만 아래 이유로 지형은 따로 다루기로 했다.
+
+| StaticProp으로 띄웠을 때 | 이유 |
+|---|---|
+| 텍스처가 한 장만 붙는다 | `CStaticProp`은 t0에 텍스처 하나만 묶는다. 지형은 레이어 3장(t2~t4) + 혼합맵(t5)이 필요하다 |
+| 조명이 안 들어간다 | 셰이더가 `PS_VTXTEX_NOLIGHT`로 고정. 지형은 `VS_TERRAIN` / `PS_TERRAIN` |
+| 상속해서 고칠 수도 없다 | `CStaticProp`의 버퍼·셰이더·`Bind_ShaderResources`가 전부 `private` |
+| Inspector에서 망가진다 | `dynamic_pointer_cast<CStaticProp>`이 성공해서 Mesh 콤보가 뜨고, Cube를 고르면 지형이 큐브로 바뀐다 |
+
+그래서 게임에서 이미 쓰던 `CHill`의 부모만 `CGameObject` → `CMapObject`로 바꾼다.
+- Hierarchy 목록, 선택, 삭제, Inspector의 Transform 편집은 `CMapObject`라서 그대로 된다
+- 그리는 코드는 `CHill`이 원래 갖고 있던 지형 렌더링을 쓴다
+- 원형은 6-3처럼 **경로 = 태그**로 찾는다. 그래서 같은 클래스를 맵툴(MAPTOOL 레벨)과 게임(GAMEPLAY 레벨)이 같이 쓴다
+
+`g_Meshes`의 `ZeroZonTerrain` 항목(6-8)은 이때 남은 것이다. 로더에서 `builtin/ZeroZoneterrain` 등록을 지웠기 때문에 콤보에서 고르면 `Mesh Change Failed`가 뜬다 (13 알려진 문제).
+
+### 11-2. Engine — GAMEOBJECT_DESC에 iLevelIndex
+
+`CGameObject`도 자기가 어느 레벨 객체인지 알 수 있게 DESC와 멤버에 레벨 번호를 넣었다.
+
+```cpp
+// GameObject.h
+typedef struct tagGameObjectDesc : public CTransform::TRANSFORM_DESC
+{
+	uint32_t		iLevelIndex = {};
+}GAMEOBJECT_DESC;
+
+protected:
+	uint32_t			m_iLevelIndex = {};
+```
+
+```cpp
+// GameObject.cpp
+HRESULT CGameObject::Initialize(void* pArg)
+{
+	m_pTransformCom = CTransform::Create(m_pDevice, m_pContext);
+	if (nullptr == m_pTransformCom)
+		return E_FAIL;
+	if (FAILED(m_pTransformCom->Initialize(pArg)))
+		return E_FAIL;
+
+	m_Components.emplace(g_strTransformComTag, m_pTransformCom);
+
+	// DESC 없이 만드는 객체(SkyBox, Fog ...)도 있으므로 nullptr이면 여기서 끝
+	if (nullptr == pArg)
+		return S_OK;
+
+	auto pDesc = static_cast<GAMEOBJECT_DESC*>(pArg);
+	m_iLevelIndex = pDesc->iLevelIndex;
+	return S_OK;
+}
+```
+
+- `pArg`를 `GAMEOBJECT_DESC*`로 바꾸는 줄을 `nullptr` 검사 **뒤**로 옮겼다. 원래는 맨 앞에서 바꾸기만 하고 쓰지 않았는데, 이제 값을 읽으므로 `nullptr`이면 접근하면 안 된다
+- **주의 1 — 헤더 불일치**: `GAMEOBJECT_DESC`는 `CAMERA_DESC`를 포함한 모든 DESC의 부모다. Engine을 빌드하지 않았거나 `EngineSDK/Inc/GameObject.h`가 옛 내용으로 덮어써지면, 클라이언트와 엔진이 DESC 모양을 다르게 알고 값을 4바이트씩 밀려 읽는다. 카메라의 `fNear`/`fFar`가 0이 되어 `XMMatrixPerspectiveFovLH`에서 `NearZ > 0.f && FarZ > 0.f` assert가 뜬다 (부록 C)
+- **주의 2 — 같은 이름이 두 개**: `CMapObject`(6-1)에도 `MAPOBJECT_DESC::iLevelIndex`와 `m_iLevelIndex`가 따로 있다. 지금은 부모와 자식에 같은 이름이 하나씩 있는 상태다
+  - `Desc.iLevelIndex = ...`는 **자식(`MAPOBJECT_DESC`) 쪽**만 채운다
+  - `CMapObject` 자식 클래스 안의 `m_iLevelIndex`도 **`CMapObject` 쪽**이다. 그래서 `CHill`, `CStaticProp`은 문제없이 동작한다
+  - 대신 `CGameObject::m_iLevelIndex`는 0으로 남는다. 정리하려면 `CMapObject`의 두 줄과 `CMapObject::Initialize`의 `m_iLevelIndex = pDesc->iLevelIndex;`를 지우면 된다 (13 남은 작업)
+
+### 11-3. Hill.h
+
+```cpp
+#pragma once
+#include "Client_Defines.h"
+#include "MapObject.h"                  // GameObject.h 대신
+
+NS_BEGIN(Client)
+class CHill : public CMapObject         // CGameObject → CMapObject
+{
+public:
+	typedef struct tagHillDesc : public MAPOBJECT_DESC
+	{
+		wstring_t strLayerPath = L"Duckov_Extract/Terrain/Terrain_GroundZero_Crop/Layer%d.png";
+	}HILL_DESC;
+private:
+	CHill(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
+public:
+	~CHill() = default;
+
+public:
+	virtual HRESULT		Initialize_Prototype() override;
+	virtual HRESULT		Initialize(void* pArg) override;
+	virtual	void		Priority_Update(f32_t fDeltaTime) override;
+	virtual	void		Update(f32_t fDeltaTime) override;
+	virtual	void		Late_Update(f32_t fDeltaTime) override;
+	virtual HRESULT		Render() override;
+
+	virtual f32_t		GetHeight(f32_t x, f32_t z);
+	virtual float4_t	GetPlane(f32_t x, f32_t z);
+
+public:
+	virtual void Save_Extra(ofstream& Out) const override;            // strLayerPath 저장 (본문은 저장 단계에서)
+	static  void Read_Extra(ifstream& In, HILL_DESC& Desc);           // 불러올 때 DESC 채우기
+	const wstring_t& Get_LayerPath() const { return m_strLayerPath; }
+
+private:
+	wstring_t m_strLayerPath;
+
+private:
+	shared_ptr<CTexture>			m_pBlendCom = { nullptr };     // 혼합맵 (splat)
+	shared_ptr<CTexture>			m_pLayerCom = { nullptr };     // 레이어 3장
+	shared_ptr<CVIBuffer_Terrain>	m_pBufferCom = { nullptr };
+	shared_ptr<CVertexShader>		m_pVS = { nullptr };
+	shared_ptr<CPixelShader>		m_pPS = { nullptr };
+
+	shared_ptr<CConstantBuffer>		m_pCB = { nullptr };
+	CB_PER_OBJECT_LIT				m_tCBData = {};
+
+private:
+	HRESULT			Ready_Components();
+	HRESULT			Ready_ConstantBuffer();
+	HRESULT			Update_ConstantBuffer(const matrix_t& matWorld);
+
+	virtual			HRESULT Bind_Shader(shared_ptr<CVertexShader> pVS = nullptr, shared_ptr<CPixelShader> pPS = nullptr);
+	virtual			HRESULT Bind_ShaderResources(const matrix_t& matWorld = XMMatrixIdentity());
+
+public:
+	static shared_ptr<CHill> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
+	virtual shared_ptr<CPrototype> Clone(void* pArg) override;
+};
+NS_END
+```
+
+**DESC 칸을 어떻게 쓰나** — `MAPOBJECT_DESC`의 칸을 그대로 쓰고, 지형만 필요한 값 하나만 더한다
+
+| 칸 | 지형에서의 의미 | 예 |
+|---|---|---|
+| `strMeshPath` | 높이맵 raw 경로 | `Duckov_Extract/Terrain/Terrain_GroundZero_Crop/height_321x321_16bit.raw` |
+| `strTexturePath` | 혼합맵 경로 | `.../splat_0.png` |
+| `strLayerPath` (추가) | 레이어 텍스처 경로 (`%d` 패턴) | `.../Layer%d.png` → Layer0~2 |
+
+- 경로는 6-3처럼 **Resource 기준 상대 경로**로 넣는다. 원형을 찾을 때 `Normalize_AssetPath`를 거치므로 대소문자나 `../../../Resource/`가 붙어 있어도 같은 태그가 된다
+- 레이어는 `CTexture::Create(..., L"...Layer%d.png", 3)`처럼 **패턴 하나 + 장 수**로 만들기 때문에 경로 3개를 따로 둘 필요가 없다. 장 수(3)는 지금 로더에 고정
+- `strMeshPath` / `strTexturePath`는 `CMapObject`가 이미 들고 있어서 공통 저장 루프에서 같이 저장된다. 지형만의 추가 값(`strLayerPath`)은 `Save_Extra`가 맡는다
+- `Save_Extra` / `Read_Extra`는 선언과 빈 본문만 있다. `Read_Extra`가 `static`인 이유는 13 남은 작업의 "저장 / 불러오기"에서 설명
+
+### 11-4. Hill.cpp
+
+**생성자 / Initialize_Prototype** — 부모만 바뀌고 나머지는 원래 코드 그대로. 지형은 뒷면을 그릴 일이 없어서 `CULL_BACK`
+
+```cpp
+#include "Hill.h"
+#include <fstream>
+
+CHill::CHill(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
+    :CMapObject(pDevice, pContext)              // CGameObject → CMapObject
+{
+}
+
+HRESULT CHill::Initialize_Prototype()
+{
+    if (FAILED(__super::Initialize_Prototype()))
+        return E_FAIL;
+
+    D3D11_RASTERIZER_DESC rsDesc{};
+    rsDesc.FillMode = D3D11_FILL_SOLID;
+    rsDesc.CullMode = D3D11_CULL_BACK;
+    rsDesc.FrontCounterClockwise = false;
+    rsDesc.DepthClipEnable = true;
+    m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
+
+    return S_OK;
+}
+```
+
+- 머티리얼은 따로 정하지 않는다. `CGameObject`의 기본값(Ambient·Diffuse 1, Specular 0.2 / 16)을 그대로 쓴다
+
+**Initialize** — 부모(`CMapObject`)가 공통 칸과 Transform을 처리하고, `CHill`은 레이어 경로만 받는다
+
+```cpp
+HRESULT CHill::Initialize(void* pArg)
+{
+    if (FAILED(__super::Initialize(pArg)))      // CMapObject: 레벨·위치·회전·크기·경로 + Apply_Transform
+        return E_FAIL;
+
+    auto pDesc = static_cast<HILL_DESC*>(pArg);
+    m_strLayerPath = pDesc->strLayerPath;
+
+    if (FAILED(Ready_Components()))
+        return E_FAIL;
+    if (FAILED(Ready_ConstantBuffer()))
+        return E_FAIL;
+    return S_OK;
+}
+```
+
+- `CMapObject::Initialize`는 `pArg`가 `nullptr`이면 `E_FAIL`이다. 그래서 Client도 이제 **DESC를 꼭 넘겨야** 한다 (11-7)
+
+**Ready_Components** — `LEVEL::GAMEPLAY` 고정 → `m_iLevelIndex`, `Proto::` 상수 → 경로 태그
+
+```cpp
+HRESULT CHill::Ready_Components()
+{
+    // 경로로 만든 원형 (6-3 규칙: 등록과 찾기 모두 Normalize_AssetPath)
+    if (FAILED(__super::Add_Component(m_iLevelIndex, Normalize_AssetPath(m_strMeshPath),
+        TEXT("Com_Buffer"), m_pBufferCom)))
+        return E_FAIL;
+
+    if (FAILED(__super::Add_Component(m_iLevelIndex, Normalize_AssetPath(m_strTexturePath),
+        TEXT("Com_Blend"), m_pBlendCom)))
+        return E_FAIL;
+
+    if (FAILED(__super::Add_Component(m_iLevelIndex, Normalize_AssetPath(m_strLayerPath),
+        TEXT("Com_Layer"), m_pLayerCom)))
+        return E_FAIL;
+
+    // 셰이더는 맵마다 바뀌지 않으므로 고정 태그
+    if (FAILED(__super::Add_Component(m_iLevelIndex, Proto::VS_TERRAIN, TEXT("Com_VS"), m_pVS)))
+        return E_FAIL;
+    if (FAILED(__super::Add_Component(m_iLevelIndex, Proto::PS_TERRAIN, TEXT("Com_PS"), m_pPS)))
+        return E_FAIL;
+
+    return S_OK;
+}
+```
+
+- 원래 코드는 다섯 줄 모두 `ETOUI(LEVEL::GAMEPLAY)`였다. 그대로 두면 맵툴은 원형을 MAPTOOL 레벨에 등록하므로 `Add_Component`가 실패한다
+- 원래 코드는 혼합맵을 `Com_Texture`, 레이어를 `Com_Blend`라는 이름으로 넣어서 이름이 서로 뒤바뀌어 있었다. 지금은 `Com_Blend` / `Com_Layer`로 맞췄다
+- 여기서는 원형이 있는지 따로 확인하지 않는다. 경로가 틀리면 `Add_Component`가 실패해서 생성이 실패한다 (`Create Failed`)
+
+**상수버퍼 — 생성은 한 번, 값은 매 프레임** (`CStaticProp`과 같은 방식)
+
+```cpp
+HRESULT CHill::Ready_ConstantBuffer()
+{
+    // 처음 값으로 상수버퍼를 만든다 (실제 값은 Bind_ShaderResources에서 매 프레임 다시 채움)
+    matrix_t matWorld = m_pTransformCom->Get_World();
+    matrix_t matNoTrans = matWorld;
+    matNoTrans.r[3] = XMVectorSet(0.f, 0.f, 0.f, 1.f);
+    matrix_t matWorldInvTranspos = XMMatrixTranspose(XMMatrixInverse(nullptr, matNoTrans));
+
+    XMStoreFloat4x4(&m_tCBData.mat_World, (matWorld));
+    XMStoreFloat4x4(&m_tCBData.mat_WorldInvTranspose, (matWorldInvTranspos));
+    m_tCBData.tMaterial = m_tMaterial;
+
+    m_pCB = CConstantBuffer::Create(m_pDevice, m_pContext, &m_tCBData, sizeof(m_tCBData));
+    if (nullptr == m_pCB)
+        return E_FAIL;
+    return S_OK;
+}
+
+HRESULT CHill::Update_ConstantBuffer(const matrix_t& matWorld)
+{
+    XMMATRIX matNoTrans = matWorld;
+    matNoTrans.r[3] = XMVectorSet(0.f, 0.f, 0.f, 1.f);                                       // 이동 제거
+    XMMATRIX matWorldInvTranspos = XMMatrixTranspose(XMMatrixInverse(nullptr, matNoTrans));  // 노멀용
+
+    XMStoreFloat4x4(&m_tCBData.mat_World, (matWorld));
+    XMStoreFloat4x4(&m_tCBData.mat_WorldInvTranspose, (matWorldInvTranspos));
+    m_tCBData.tMaterial = m_tMaterial;
+    return S_OK;
+}
+```
+
+- 원래 `CHill`은 `Ready_ConstantBuffer`에서 **생성할 때 한 번만** 월드 행렬을 넣었다. 게임에서는 지형이 움직이지 않으니 괜찮았지만, 맵툴에서는 Inspector로 위치·크기를 바꿔도 화면이 그대로다. 그래서 `Update_ConstantBuffer`를 만들어 매 프레임 채운다
+
+**Late_Update / Render / Bind** — 그리는 순서는 원래 코드 그대로. `Render`가 월드 행렬을 넘기게만 바꿨다
+
+```cpp
+void CHill::Late_Update(f32_t fDeltaTime)
+{
+    __super::Late_Update(fDeltaTime);
+    CGameInstance::Get().Add_RenderGroup(RENDERID::NONALPHA, dynamic_pointer_cast<CGameObject>(shared_from_this()));
+}
+
+HRESULT CHill::Render()
+{
+    m_pContext->RSSetState(m_pRS.Get());
+
+    if (FAILED(Bind_Shader(m_pVS, m_pPS)))
+        return E_FAIL;
+    if (FAILED(Bind_ShaderResources(m_pTransformCom->Get_World())))   // 원래는 인자 없이 → 기본값 Identity
+        return E_FAIL;
+    if (FAILED(m_pBufferCom->Bind_Resources()))
+        return E_FAIL;
+    if (FAILED(m_pBufferCom->Render()))
+        return E_FAIL;
+    return S_OK;
+}
+
+HRESULT CHill::Bind_Shader(shared_ptr<CVertexShader> pVS, shared_ptr<CPixelShader> pPS)
+{
+    if (FAILED(m_pVS->Begin()))
+        return E_FAIL;
+    if (FAILED(m_pPS->Begin()))
+        return E_FAIL;
+    return S_OK;
+}
+
+HRESULT CHill::Bind_ShaderResources(const matrix_t& matWorld)
+{
+    // 샘플러 s0
+    if (FAILED(CGameInstance::Get().Bind_Sampler_Pixel_Shader(g_strSampler_Linear, 0)))
+        return E_FAIL;
+
+    // 텍스처 — 레이어 3장 + 혼합맵
+    if (FAILED(m_pLayerCom->Set_TexturePS(0, 2)))   // Layer0 잔디     -> t2
+        return E_FAIL;
+    if (FAILED(m_pLayerCom->Set_TexturePS(1, 3)))   // Layer1 흙       -> t3
+        return E_FAIL;
+    if (FAILED(m_pLayerCom->Set_TexturePS(2, 4)))   // Layer2 아스팔트 -> t4
+        return E_FAIL;
+    if (FAILED(m_pBlendCom->Set_TexturePS(0, 5)))   // 혼합맵          -> t5
+        return E_FAIL;
+
+    // 상수버퍼 b0 — 이번 프레임 월드 행렬로 채운 뒤 바인딩
+    if (FAILED(Update_ConstantBuffer(matWorld)))
+        return E_FAIL;
+    if (FAILED(m_pCB->Bind_Vertex_ShaderResource(0, &m_tCBData)))
+        return E_FAIL;
+    if (FAILED(m_pCB->Bind_Pixel_ShaderResource(0, &m_tCBData)))
+        return E_FAIL;
+    return S_OK;
+}
+```
+
+- 슬롯 번호(t2~t5)는 `Model_PixelShader.hlsl`의 `g_LayerMap0~2`, `g_BlendMap` 레지스터와 같아야 한다. 셰이더는 `PS_TERRAIN`에서 `c0 * t.r + c1 * t.g + c2 * t.b`로 섞는다 (혼합맵의 R=잔디, G=흙, B=아스팔트)
+
+**GetHeight / GetPlane** — 지형 위에 다른 객체를 올릴 때 쓰는 함수
+
+```cpp
+f32_t CHill::GetHeight(f32_t x, f32_t z)
+{
+    // 월드 → 로컬로 바꿔서 버퍼의 높이를 구한 뒤, 다시 월드로 바꿔 y를 얻는다
+    matrix_t matWorld = m_pTransformCom->Get_World();
+    matrix_t matInv = XMMatrixInverse(nullptr, matWorld);
+
+    vector_t vLocal = XMVector3TransformCoord(XMVectorSet(x, 0.f, z, 1.f), matInv);
+
+    f32_t fLocalY = m_pBufferCom->GetHeight(XMVectorGetX(vLocal), XMVectorGetZ(vLocal));
+
+    vector_t vWorld = XMVector3TransformCoord(
+        XMVectorSet(XMVectorGetX(vLocal), fLocalY, XMVectorGetZ(vLocal), 1.f), matWorld);
+    return XMVectorGetY(vWorld);
+}
+
+float4_t CHill::GetPlane(f32_t x, f32_t z)
+{
+    return static_pointer_cast<CVIBuffer_Terrain>(__super::Find_Component(L"Com_Buffer"))->GetPlane(x, z);
+}
+```
+
+- 원래 `GetHeight`는 월드 좌표 (x, z)를 버퍼에 그대로 넘겼다. 지형이 원점에 크기 1로 있을 때만 맞는 값이다. 맵툴에서 지형을 옮기거나 키울 수 있게 됐으니 역행렬로 로컬 좌표를 구한다
+- 회전은 고려하지 않는다. 회전된 지형에서는 `(x, 0, z)`를 로컬로 바꾸는 순간 높이 방향이 섞여서 값이 어긋난다 → Inspector에서 지형 Rotation은 0으로 둔다 (13 남은 작업: Rotation 숨기기)
+- `GetPlane`은 아직 로컬 좌표 그대로다 (13 남은 작업)
+
+**Save_Extra / Read_Extra / Create / Clone**
+
+```cpp
+void CHill::Save_Extra(ofstream& Out) const
+{
+}
+
+void CHill::Read_Extra(ifstream& In, HILL_DESC& Desc)
+{
+}
+
+shared_ptr<CHill> CHill::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
+{
+    auto pInstance = shared_ptr<CHill>(new CHill(pDevice, pContext));
+    if (FAILED(pInstance->Initialize_Prototype()))
+        pInstance.reset();
+    return pInstance;
+}
+
+shared_ptr<CPrototype> CHill::Clone(void* pArg)
+{
+    auto pInstance = shared_ptr<CHill>(new CHill(*this));
+    if (FAILED(pInstance->Initialize(pArg)))
+        pInstance.reset();
+    return pInstance;
+}
+```
+
+### 11-5. CLoader_MapTool — 지형 원형 등록
+
+6-9의 `Loading_For_MapToolLV`에 추가한다. include에 `Hill.h`를 넣는다.
+
+```cpp
+#include "Loader_MapTool.h"
+#include "SkyBox.h"
+#include "MapTool_Cam.h"
+#include "StaticProp.h"
+#include "Hill.h"                       // 추가
+#include "Fog.h"                        // 12단계
+```
+
+**모델** — `builtin/cube`, `builtin/rect` 다음에. 태그는 `Normalize_AssetPath(경로)` (6-3)
+
+```cpp
+    // 지형 높이맵 — CHill의 strMeshPath와 같은 태그
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Normalize_AssetPath(TEXT("../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/height_321x321_16bit.raw")),
+        CVIBuffer_Terrain::Create(m_pDevice, m_pContext, L"../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/height_321x321_16bit.raw"))))
+        return E_FAIL;
+
+    // 혼합맵 — CHill의 strTexturePath
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Normalize_AssetPath(TEXT("../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/splat_0.png")),
+        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/splat_0.png"), 1))))
+        return E_FAIL;
+
+    // 레이어 3장 — CHill의 strLayerPath (패턴 문자열 자체가 태그)
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Normalize_AssetPath(TEXT("../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/Layer%d.png")),
+        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/Layer%d.png"), 3))))
+        return E_FAIL;
+```
+
+- 태그를 만들 때 `../../../Resource/`가 붙은 경로를 넘겨도 `Normalize_AssetPath`가 앞부분을 지우므로, `CHill`이 DESC의 상대 경로(`Duckov_Extract/...`)로 만드는 태그와 같아진다
+- 혼합맵·레이어 텍스처를 "모델을 준비중입니다" 구간에 같이 둔 것은 지형 재료를 한곳에 모으려는 것뿐이다 (순서는 상관없음)
+
+**셰이더** — `PS_VTXTEX_NOLIGHT` 다음에
+
+```cpp
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::VS_TERRAIN,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_VertexShader.hlsl", VTXNORM::Elements, VTXNORM::iNumElements, "VS_TERRAIN"))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::PS_TERRAIN,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_TERRAIN"))))
+        return E_FAIL;
+```
+
+**객체 원형** — `Obj_StaticProp` 다음에
+
+```cpp
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::Obj_Hill,
+        CHill::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+```
+
+- 셰이더 파일은 Client와 같은 파일이다. 1-2의 빌드 후 xcopy가 `Client/Bin/Shader`를 `MapTool/Bin/Shader`로 복사하므로, **셰이더는 Client 쪽 파일을 고친다** (MapTool 쪽을 고치면 다음 빌드에 덮어써짐)
+- 6-9 끝에 있던 `builtin/ZeroZoneterrain` 등록은 지웠다 (11-1)
+
+### 11-6. CPanel_Hierarchy — Add Terrain
+
+**Panel_Hierarchy.h** — 메뉴 항목과 생성 함수 추가
+
+```cpp
+	static constexpr PLACEABLE s_Placeables[] = {
+		{ "Add Static_Prop", Proto::Obj_StaticProp },
+		{ "Add Terrain", Proto::Obj_Hill },           // 추가
+	};
+
+private:
+	void		Create_Object(const wstring_t& pPrototypeTag);
+	void		Create_Terrain();                                     // 추가
+	void		Create_StaticProp(const wstring_t& pPrototypeTag);   // 추가 (6-11의 Create_Object 본문)
+	void		Delete_Selected();
+```
+
+**Panel_Hierarchy.cpp** — include 추가 + `Create_Object`를 타입별로 나눈다
+
+```cpp
+#include "EditorUI_Utils.h"
+#include "Panel_Hierarchy.h"
+#include "StaticProp.h"
+#include "Hill.h"                       // 추가
+
+void CPanel_Hierarchy::Create_Object(const wstring_t& pPrototypeTag)
+{
+    // 메뉴는 그대로 Create_Object(태그)를 부르고, 여기서 DESC 종류에 따라 나눈다
+    if (pPrototypeTag == Proto::Obj_Hill)
+        Create_Terrain();
+    else
+        Create_StaticProp(pPrototypeTag);
+}
+```
+
+- 6-11의 `Create_Object`는 `STATICPROP_DESC`(큐브, `Prop_N`)로 고정돼 있었다. 지형은 DESC 종류도, 기본값도, 이름 규칙도 달라서 함수를 나눴다
+- `Create_StaticProp`의 본문은 6-11, 7-4의 `Create_Object` 그대로다
+
+```cpp
+void CPanel_Hierarchy::Create_Terrain()
+{
+    const wstring_t strTag = L"Terrain";
+
+    // 지형은 맵에 하나만
+    if (nullptr != CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag))
+    {
+        MSG_BOX("Terrain already exists");
+        return;
+    }
+
+    // HILL_DESC 채우기 — 경로 3개는 로더(11-5)가 등록한 것과 같은 파일
+    CHill::HILL_DESC Desc{};
+    Desc.iLevelIndex    = ETOUI(LEVEL::MAPTOOL);
+    Desc.strMeshPath    = L"Duckov_Extract/Terrain/Terrain_GroundZero_Crop/height_321x321_16bit.raw";
+    Desc.strTexturePath = L"Duckov_Extract/Terrain/Terrain_GroundZero_Crop/splat_0.png";
+    Desc.strLayerPath   = L"Duckov_Extract/Terrain/Terrain_GroundZero_Crop/Layer%d.png";
+    Desc.bEditorMode    = true;
+
+    // 생성 + 바로 선택
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::MAPTOOL), Proto::Obj_Hill,
+        ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag, &Desc)))
+    {
+        MSG_BOX("Create Failed");
+        return;
+    }
+    m_Context.Select(strTag, CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag));
+}
+```
+
+- **이름을 `Terrain`으로 고정**하고 `Find_GameObject`로 이미 있는지 먼저 본다. 같은 이름으로 두 번 Add하면 어차피 6-6 때문에 `E_FAIL`이지만, "왜 실패했는지"를 알려 주려고 따로 메시지를 띄운다
+- 지형을 지우면(8단계) Dead 표시만 되고 실제 erase는 다음 프레임 맨 앞이다. 그 사이(같은 프레임)에 `Add Terrain`을 누르면 아직 `Find_GameObject`에 걸려서 `Terrain already exists`가 뜬다
+- 지형도 `Layer_Map`에 들어가므로 Hierarchy 목록·선택·삭제와 Inspector의 Transform이 따로 고치지 않아도 동작한다. Inspector의 Static Prop 섹션은 `CHill`이 `CStaticProp`이 아니라서 나오지 않는다
+
+### 11-7. Client — 같은 CHill을 DESC로 만들기
+
+`CHill`이 `CMapObject`가 되면서 게임 쪽도 두 곳을 맞춘다. 맵툴과 **같은 경로 태그 규칙**을 쓴다.
+
+**Loader.cpp** (`Loading_For_GamePlayLV`) — `Proto::Texture_Terrain_Blend` / `Texture_Terrain_Layer` / `VIBuffer_Terrain` 상수 대신 경로 태그로 등록
+
+```cpp
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Normalize_AssetPath(L"../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/splat_0.png"),
+        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/splat_0.png"), 1))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Normalize_AssetPath(L"../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/Layer%d.png"),
+        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/Layer%d.png"), 3))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
+        Normalize_AssetPath(TEXT("Duckov_Extract/Terrain/Terrain_GroundZero_Crop/height_321x321_16bit.raw")),
+        CVIBuffer_Terrain::Create(m_pDevice, m_pContext,
+            TEXT("../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/height_321x321_16bit.raw"))))
+        return E_FAIL;
+```
+
+- `VS_TERRAIN` / `PS_TERRAIN` / `Obj_Hill` 원형 등록은 원래 코드 그대로
+
+**Level_GamePlay.cpp** (`Ready_Layer_GameObject`) — DESC를 채워서 넘긴다
+
+```cpp
+    CHill::HILL_DESC Hill_Desc{};
+    Hill_Desc.iLevelIndex    = ETOUI(LEVEL::GAMEPLAY);
+    Hill_Desc.strMeshPath    = TEXT("Duckov_Extract/Terrain/Terrain_GroundZero_Crop/height_321x321_16bit.raw");  // 높이맵
+    Hill_Desc.strTexturePath = TEXT("Duckov_Extract/Terrain/Terrain_GroundZero_Crop/splat_0.png");               // 혼합맵
+    Hill_Desc.strLayerPath   = TEXT("Duckov_Extract/Terrain/Terrain_GroundZero_Crop/Layer%d.png");               // 레이어
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Hill,
+        ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Hill, &Hill_Desc)))
+        return E_FAIL;
+```
+
+- 게임에서는 지금처럼 `Layer_GameObject` + `GO::Hill`에 만든다. `Player`, `Cube`, `Cube_Instance`, `Tree`가 `Find_GameObject(GAMEPLAY, L"Layer_GameObject", L"GameObject_Hill")`로 지형을 찾아 `GetHeight`를 부르기 때문에, 위치와 이름이 같으면 그쪽 코드는 고치지 않아도 된다
+- 지금은 경로를 코드에 직접 적는다. 맵 파일 불러오기가 생기면 이 DESC를 파일에서 읽은 값으로 채운다 (13 남은 작업)
+
+**실행 결과**
+- Hierarchy 빈 곳 우클릭 → `Add Terrain` → 목록에 `Terrain`이 생기고 선택된다
+- Scene에 높이맵 모양의 지형이 나온다. 다만 **지형이 검게** 보인다 → 12단계
+- Inspector에서 Position / Scale을 바꾸면 지형이 바로 움직인다 (매 프레임 상수버퍼 갱신)
+- `Add Terrain`을 한 번 더 누르면 `Terrain already exists`
+- Client도 지금까지와 똑같이 지형이 보이고, 플레이어·나무가 지형 높이에 붙는다
+
+**주의**
+- Engine 헤더(`GameObject.h`)를 고쳤으므로 **Engine → Client / MapTool 순서로 다시 빌드**. 하나라도 옛 헤더로 빌드되면 카메라 Near/Far assert (11-2, 부록 C)
+- `Create Failed`가 뜨면: 로더가 지형 원형 3개와 `VS_TERRAIN` / `PS_TERRAIN`을 **MAPTOOL 레벨**에 등록했는지, DESC 경로와 로더 경로가 같은 파일인지 확인
+- 로딩 레벨에서 멈추면 `Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/` 안에 raw, splat_0.png, Layer0~2.png가 있는지 확인
+
+---
+
+## 12단계. 조명 + 안개 — 지형이 검게 나오는 문제
+
+**목표**: 맵툴에서도 게임과 같은 방향광과 안개가 적용돼서, 지형이 클라이언트와 같은 색으로 보인다.
+
+### 12-1. 왜 검게 나오나
+
+`PS_TERRAIN`은 픽셀 하나를 칠할 때 아래 상수버퍼를 읽는다. 게임에서는 각 객체가 채워 주지만, 11단계까지의 맵툴에는 아무도 없다.
+
+| 슬롯 | 내용 | Client에서 채우는 곳 | 11단계 맵툴 |
+|---|---|---|---|
+| b0 | 월드 행렬, 머티리얼 | 각 객체 (`CHill::Bind_ShaderResources`) | 있음 |
+| b1 | View / Proj, 카메라 위치 | `ToolMainApp::Render`의 `Bind_PipeLine_*_ShaderResource(1)` | 있음 |
+| b2 | 점광원 | `CPlayer_PointLight` | 없음 |
+| b3 | 방향광 | `CSunLight` | **없음** |
+| b4 | 스포트라이트 | `CPlayer_SpotLight` | 없음 |
+| b5 | 안개 | `CFog` | **없음** |
+
+D3D11은 바인딩되지 않은 상수버퍼를 읽으면 **전부 0**을 돌려준다. 그래서
+
+- **조명**: 점광원·스포트라이트는 `Range = 0`이라 거리 검사에서 바로 빠지고, 방향광은 Ambient·Diffuse가 0 → 조명 합이 0 → 검정
+- **안개**: `fogLerp = saturate((dist - g_fFogStart) / g_fFogRange)`에서 `g_fFogRange = 0`이라 0으로 나눈다 → 무한대 → `saturate`로 1 → 색이 `g_vFogColor`(0, 0, 0)으로 **완전히 덮인다** → 검정
+
+```hlsl
+// Model_PixelShader.hlsl — PS_TERRAIN 끝부분
+float4 vColor = vTexColor * (vAmbientSum + vDiffuseSum) + vSpecSum;
+...
+float fogLerp = saturate((distToEye - g_fFogStart) / g_fFogRange);
+vColor.rgb = lerp(vColor.rgb, g_vFogColor.rgb, fogLerp);
+```
+
+**조명만 넣어도 안개 때문에 여전히 검다.** 두 개를 같이 넣어야 한다. 점광원·스포트라이트는 플레이어를 따라다니는 조명이라 맵툴에는 넣지 않는다 (기여가 0이라 넣지 않아도 문제없음).
+
+### 12-2. 방향광 — Level_MapTool::Ready_Lights
+
+조명은 GameObject가 아니라 엔진 `CLight_Manager`가 들고 있는 `CLight`다. 원형 등록 없이 **레벨에서 만들어 등록**만 하면 된다 (Client `CLevel_GamePlay`와 같은 방식).
+
+**Level_MapTool.h** — private에 선언 추가
+
+```cpp
+private:
+	HRESULT Ready_Layer_BackGround(const tchar_t* pLayerTag);
+	HRESULT Ready_Layer_GameObject(const tchar_t* pLayerTag);
+	HRESULT Ready_Lights();                 // 추가
+```
+
+**Level_MapTool.cpp** — include, Initialize, 함수 본문
+
+```cpp
+#include "imgui.h"
+#include "imgui_impl_win32.h"
+#include "imgui_impl_dx11.h"
+
+#include "SunLight.h"                       // 추가
+#include "EditorUI.h"
+#include "Level_MapTool.h"
+#include "MapTool_Cam.h"
+
+HRESULT CLevel_MapTool::Initialize()
+{
+    if (FAILED(__super::Initialize()))
+        return E_FAIL;
+
+    SetWindowText(g_hWnd, L"MapTool_Level");
+
+    if (FAILED(Ready_Layer_BackGround(TEXT("Layer_BackGround"))))
+        return E_FAIL;
+    if (FAILED(Ready_Layer_GameObject(TEXT("Layer_GameObject"))))
+        return E_FAIL;
+    if (FAILED(Ready_Lights()))             // 추가
+        return E_FAIL;
+
+    if (FAILED(Ready_ImGui()))
+        return E_FAIL;
+    if (FAILED(Begin_ImGui()))
+        return E_FAIL;
+    m_pEditorUI = CEditorUI::Create();
+    if (nullptr == m_pEditorUI)
+        return E_FAIL;
+
+    return S_OK;
+}
+
+HRESULT CLevel_MapTool::Ready_Lights()
+{
+    auto pSunLight = CSunLight::Create(m_pDevice, m_pContext);
+    if (nullptr == pSunLight)
+        return E_FAIL;
+    CGameInstance::Get().AddLight(L"SunLight", pSunLight);
+
+    return S_OK;
+}
+```
+
+- `CSunLight::Create`: 방향광 값(Ambient·Diffuse·Specular 0.25, 방향 (0.5, -0.5, 0.5))과 상수버퍼를 만든다
+- `AddLight`: `CLight_Manager`에 등록 → `Update_Engine`이 매 프레임 조명의 `Late_Update`를 부르고, 거기서 `UpdateSubresource` + `PSSetConstantBuffers(3, ...)`로 b3에 바인딩한다 (0. 한 프레임의 흐름)
+- `Create` 실패를 확인하는 줄을 넣었다. `CSunLight::Create`는 실패하면 `nullptr`를 돌려주는데, 그대로 `AddLight`하면 매니저가 `nullptr`를 보관한다 (Client 코드는 확인하지 않음)
+
+### 12-3. 안개 — CFog 객체
+
+`CFog`는 GameObject다. `Initialize`에서 안개 상수버퍼(색 0.75 회색, 시작 10, 범위 1750)를 만들고 **b5에 한 번 바인딩**만 하고, 그리지는 않는다.
+
+**Loader_MapTool.cpp** — include에 `Fog.h`(11-5에서 미리 넣음), 객체 원형 맨 끝에 추가
+
+```cpp
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::Obj_Fog,
+        CFog::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+```
+
+**Level_MapTool.cpp** — `Ready_Layer_BackGround`에 사본 추가
+
+```cpp
+HRESULT CLevel_MapTool::Ready_Layer_BackGround(const tchar_t* pLayerTag)
+{
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::MAPTOOL), Proto::Obj_SkyBox,
+        ETOUI(LEVEL::MAPTOOL), Layer::BackGround, GO::SkyBox)))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::MAPTOOL), Proto::Obj_Fog,     // 원형 태그도 Fog!
+        ETOUI(LEVEL::MAPTOOL), Layer::BackGround, GO::Fog)))
+        return E_FAIL;
+    return S_OK;
+}
+```
+
+- **원형 태그와 GO 태그를 둘 다 Fog로**. 실제로 `Proto::Obj_SkyBox` + `GO::Fog`로 적는 실수를 했었다. 그러면 이름만 Fog인 **SkyBox가 하나 더** 생기고 `CFog::Initialize`는 실행되지 않아서, 해를 넣어도 지형이 계속 검다
+- 안개를 BackGround 레이어에 두는 이유: 맵에 저장할 객체(`Layer_Map`)가 아니라 SkyBox처럼 레벨이 항상 깔아 두는 배경이기 때문
+
+**실행 결과**
+- 해와 안개가 들어가서 지형이 클라이언트와 같은 밝기로 보인다 (레이어 3장이 혼합맵대로 섞여 보임)
+- 카메라를 멀리 빼면 지형이 회색 안개 쪽으로 흐려진다
+- StaticProp은 `PS_MAIN_NOLIGHT`라서 조명·안개와 상관없이 그대로다
+
+**주의**
+- 셰이더 상수버퍼는 파이프라인 상태라 **누군가 같은 슬롯을 다시 묶으면 덮어써진다.** 안개는 생성할 때 한 번만 b5를 묶으므로, 나중에 b5를 쓰는 다른 객체가 생기면 안개 값이 사라진다
+- `CLight_Manager`에는 지우는 함수가 없다. 같은 태그로 `AddLight`하면 무시되고, 레벨이 바뀌어도 조명이 남는다 (지금 맵툴은 MAPTOOL 레벨 하나라 문제없음)
+- 조명은 종류마다 **하나만** 의미가 있다. 각 조명이 고정 슬롯(b2/b3/b4)에 직접 바인딩하고 셰이더도 `g_DirLight` 하나만 받기 때문에, 해를 두 개 등록하면 나중에 바인딩한 쪽만 남는다
+
+---
+
+## 13. 현재 상태와 남은 작업
+
+### 지금 되는 것
+- 로딩 레벨 → 스페이스 → 에디터 (메뉴바 + Hierarchy / Scene / Inspector)
+- Scene 창: 씬 텍스처(RTT) 표시, 포커스 + 호버일 때 WASD 이동 / 우클릭 회전
+- Hierarchy: `Add Static_Prop`, `Add Terrain`(하나만), 목록·선택, 우클릭 Delete / Delete 키
+- Inspector: 이름, Transform(위치·회전·크기), Static Prop이면 Mesh / Texture 콤보
+- 지형: 게임과 같은 `CHill`(혼합맵 + 레이어 3장), 방향광 + 안개 적용
 
 ### 남은 작업 (우선순위 순)
 1. **카메라 정리**
    - 마우스 회전에서 `* fDeltaTime` 제거 후 `fSensor` 재조정
    - Scene 이미지 **가로 가운데 정렬** (`vCursor.x = (vAvail.x - vSize.x) * 0.5f`)
    - (권장) 지금은 매 프레임 호버를 검사해서 회전 중 커서가 씬 밖으로 나가면 멈춤 → 우클릭을 **시작한 순간** 씬 위였으면 놓을 때까지 계속 조작, 피치 제한
-2. **저장 / 불러오기** (계획서 6단계)
+2. **Inspector — Terrain 섹션**
+   - `dynamic_pointer_cast<CHill>`이 성공하면 Rotation `DragFloat3`를 그리지 않는다 (회전하면 `GetHeight`가 어긋남, 11-4)
+   - Static Prop 섹션처럼 `"Terrain"` 헤더를 만들어 `Get_MeshPath()`(높이맵), `Get_TexturePath()`(혼합맵), `Get_LayerPath()`(레이어)를 `TextUnformatted`로 보여 준다
+3. **저장 / 불러오기** (계획서 6단계)
    - 파일 형식: 헤더 `"DKMP"` + 버전 → 개수 → [프로토 태그, 메시 경로, 텍스처 경로, 위치/회전/크기 float×9, 추가 데이터 크기, 추가 데이터]
+   - **프로토 태그를 맨 앞에 쓰는 이유**: 파일만 읽어서는 그 항목이 StaticProp인지 Hill인지 모른다. 태그로 `switch`해서 DESC 종류(`STATICPROP_DESC` / `HILL_DESC`)를 고른다
+   - **지형을 맨 앞에 저장**: 게임에서 다른 객체가 생성될 때 `GetHeight`를 쓰므로 지형이 먼저 있어야 한다
+   - `CHill::Save_Extra`에 `strLayerPath`를 쓰고, 불러올 때는 `static CHill::Read_Extra(In, Desc)`로 읽는다. `CMapObject::Load_Extra`는 **인스턴스 함수**라서 쓸 수 없다 (DESC를 다 읽어야 객체를 만들 수 있는데, 읽는 시점에는 아직 객체가 없음)
+   - `wstring`은 길이(uint32) → 내용(`wchar_t` × 길이) 순서로 쓰고 읽는다
    - `Parse_Map(경로, vector<DESC>&)` / `Spawn_Map(레벨, 레이어, Descs)`로 분리 (Client Loader 스레드 대비)
    - 메뉴 New/Open/Save/Save As 활성화, `GetOpenFileName/GetSaveFileName` + `OFN_NOCHANGEDIR`
-3. **Client에서 불러오기** (계획서 7단계) → 1차 완성
-4. 기존 Client 클래스를 `CMapObject`로 옮기기 (계획서 8단계)
-5. 모델(fbx) 전환 (계획서 10단계), 피킹/기즈모/복제/Undo (계획서 9단계)
+4. **Client에서 불러오기** (계획서 7단계) → 1차 완성
+   - `Level_GamePlay`가 코드에 적은 `HILL_DESC` 경로(11-7) 대신 맵 파일에서 읽은 DESC로 지형을 만든다. 게임에서는 지금처럼 `Layer_GameObject` + `GO::Hill`에 만들어야 `Player`·`Tree` 등이 그대로 찾는다
+5. **환경 편집 (해 / 안개)**
+   - `CSunLight`에 `Get/Set_DirectionalLight`, `CFog`에 `Set_Fog(색, 시작, 범위)` 추가 (`CFog`는 Set 안에서 `UpdateSubresource`를 다시 불러야 화면에 반영)
+   - Inspector에서 아무것도 선택하지 않았을 때 `"Environment"` 헤더로 편집, 맵 파일 맨 앞(객체 목록 전)에 환경 섹션으로 저장
+6. 기존 Client 클래스를 `CMapObject`로 옮기기 (계획서 8단계) — `CHill`이 첫 번째 (11단계)
+7. 모델(fbx) 전환 (계획서 10단계), 피킹/기즈모/복제/Undo (계획서 9단계)
+8. (나중에) 점광원 여러 개 배치 — 셰이더를 `PointLight g_PointLights[N]` + 개수로 바꾸고, `CLight_Manager`가 배열로 모아 한 번에 바인딩해야 한다. 그다음 `CMapObject`를 상속한 조명 객체를 만든다
+
+### 정리할 것
+- `CMapObject`의 `MAPOBJECT_DESC::iLevelIndex` / `m_iLevelIndex` 삭제 + `CMapObject::Initialize`의 대입 한 줄 삭제 → `CGameObject`의 것 하나로 (11-2)
+- `g_Meshes`의 `ZeroZonTerrain` 항목 삭제 (로더 등록은 이미 없음, 11-1)
+- `CHill::GetPlane`도 `GetHeight`처럼 월드 ↔ 로컬 변환
+- `CStaticProp::Change_Mesh`에 `builtin/` 검사가 두 번 들어 있음 (Has_Prototype 앞뒤) → 앞의 것 하나만
+- 엔진의 `CAsset_Manager`(`Get_Or_Load_Texture` / `Get_or_Load_Mesh`)는 지금 아무도 쓰지 않는다. `CStaticProp`이 잠깐 썼다가 6-5의 `Has_Prototype` 방식으로 돌아왔다
 
 ### 알려진 작은 문제
 - `Change_Mesh/Change_Texture`: `Has_Prototype` 확인 후 `Remove_Component` → `Add_Component`가 실패하면 기존 컴포넌트가 이미 지워진 상태가 됨 (원형이 있는 걸 확인했으므로 Clone 실패는 드묾. 안전하게 하려면 Add 실패 시 기존 것을 다시 넣기)
 - 등록되지 않은 경로로 교체하면 `E_FAIL`만 반환 → 호출부(Inspector)에서 `MSG_BOX`로 알림. 생성 시 실패는 `"Create Failed"`
-- 목록에 메시를 추가할 때 `g_Meshes`만 고치고 `CLoader_MapTool::Create_BuiltinMesh` 분기를 빠뜨리면 툴 시작이 실패함 (텍스처는 배열만 고치면 됨)
+- 콤보 목록(`g_Meshes` / `g_Textures`)에만 추가하고 로더에 등록을 빠뜨리면 콤보에는 보이지만 고르면 `"... Change Failed"` (원형이 없음)
+- 로더 `Loading()`이 실패하면 로딩 레벨에서 넘어가지 않음 (Client `CLoader`와 같은 동작 — 실패 시 `m_isFinished`가 켜지지 않고 임계 영역도 남음)
+- 에디터 UI가 레벨 `Update`(= `Update_Engine` 맨 끝)에서 돌기 때문에, Hierarchy에서 만든 객체는 다음 프레임부터 그려지고 카메라는 1프레임 늦은 Scene 포커스 값을 쓴다 (눈으로는 차이 없음, 6-10)
+- `g_Meshes`의 `ZeroZonTerrain`을 콤보에서 고르면 `Mesh Change Failed` (원형 없음, 11-1)
+- 지형 Rotation을 바꾸면 화면은 회전하지만 `GetHeight`가 어긋난다 (Inspector에서 아직 막지 않음)
+- 지형을 Delete한 그 프레임에 바로 `Add Terrain`을 누르면 `Terrain already exists` (Dead 객체가 다음 프레임 맨 앞에 지워짐, 11-6)
 
 ---
 
@@ -3718,7 +4981,7 @@ unique_ptr<CPanel_Inspector> CPanel_Inspector::Create(EDITOR_CONTEXT& Context)
 |---|---|---|
 | `ImGui::BeginMainMenuBar()` / `ImGui::EndMainMenuBar()` | 화면 맨 위 메뉴바 (Begin 창 바깥에서) | Render_MenuBar |
 | `ImGui::BeginMenu("File")` / `ImGui::EndMenu()` | 펼쳐지는 메뉴 | File |
-| `ImGui::MenuItem(라벨, 단축키글자, bSelected, bEnabled)` | 메뉴 항목, 클릭 시 true. 단축키는 표시만 | File 항목(비활성), Delete, Add |
+| `ImGui::MenuItem(라벨, 단축키글자, bSelected, bEnabled)` | 메뉴 항목, 클릭 시 true. 단축키는 표시만 | File 항목(비활성), Delete, Add Static_Prop / Add Terrain |
 
 ### A-4. 목록 / 팝업 (Hierarchy)
 
@@ -3775,6 +5038,7 @@ unique_ptr<CPanel_Inspector> CPanel_Inspector::Create(EDITOR_CONTEXT& Context)
 | `08436eeff` 맵툴 구현중 | CMapObject, CStaticProp, 중복 태그 E_FAIL |
 | `b4d46a84e` 하이어라키창 수정중 | Dead 삭제, Get_GameObjects, Hierarchy 창 |
 | `41a779582` 하이어라키 + 인스펙터창 구현 완료 | Remove_Component, Change_Mesh/Texture, Inspector 창 |
+| (아직 커밋 전) | 로딩 레벨·로더(6-9, 6-10), `GAMEOBJECT_DESC::iLevelIndex`, `CHill` → `CMapObject` + Add Terrain(11단계), 방향광 + 안개(12단계) |
 
 ---
 
@@ -3798,13 +5062,25 @@ unique_ptr<CPanel_Inspector> CPanel_Inspector::Create(EDITOR_CONTEXT& Context)
 | 같은 객체를 두 번 Add하면 실패 | 정상 — 중복 태그는 `E_FAIL`. 태그 생성 루프에서 `Find_GameObject`로 피함 |
 | 콤보 현재 값이 안 잡힘 | 객체 경로는 소문자 정규화됨 → 목록 경로도 `Normalize_AssetPath`해서 비교 |
 | 카메라 감도가 프레임마다 다름 | 마우스 이동량에 `fDeltaTime`을 곱하지 말 것 |
+| LNK2005 `ThreadMain` 이미 정의됨 | MapTool은 Client `Loader.cpp`도 컴파일한다 → 맵툴 스레드 함수 이름을 `ThreadMain_MapTool`로 |
+| `CLoader` / `CLevel_Loading` 모호한 기호 | `using namespace Client; using namespace MapTool;`이 둘 다 있음 → 맵툴 쪽 클래스/파일 이름에 `_MapTool`을 붙인다 |
+| 로딩 화면에서 스페이스를 눌러도 안 넘어감 | `Loading_For_MapToolLV` 중간 실패로 `m_isFinished`가 안 켜짐 → 창 제목의 마지막 문구로 어느 단계인지 확인, 경로 확인 |
+| 스페이스로 넘어가는 순간 `Forgot to call ImGui::NewFrame()?` assert | 레벨이 만들어진 프레임에는 새 레벨의 `Update` 없이 `Render`만 불린다 → `CLevel_MapTool::Initialize`에서 `Ready_ImGui` 다음에 `Begin_ImGui`를 한 번 호출 (6-10) |
+| 툴을 켰는데 아무 반응 없이 회색/빈 화면 | 로딩 레벨에서 멈춘 상태. 창 제목이 `로딩이 완료되었습니다.`인지 확인하고, 툴 창을 클릭해 포커스를 준 뒤 스페이스 |
+| 에디터로 넘어갔는데 SkyBox/카메라가 없음 | `CLevel_MapTool`이 Clone하는 원형(`Obj_SkyBox`, `Obj_MapToolCam`)을 로더가 `LEVEL::MAPTOOL`에 등록했는지 |
+| `Assertion failed: NearZ > 0.f && FarZ > 0.f` (DirectXMath) | Engine 헤더와 `EngineSDK/Inc` 헤더가 다름 → DESC 모양이 어긋나 카메라 Near/Far를 엉뚱한 위치에서 읽음. Engine을 **다시 빌드**해서 헤더를 복사하고 Client / MapTool도 다시 빌드. `EngineSDK/Inc`를 직접 고치지 말 것 (11-2) |
+| `Add Terrain` → `Create Failed` | 지형 원형(높이맵·혼합맵·레이어)과 `VS_TERRAIN` / `PS_TERRAIN`이 MAPTOOL 레벨에 있는지, `HILL_DESC` 경로와 로더 경로가 같은 파일인지 (11-5, 11-6) |
+| 지형이 새까맣다 | 방향광(b3)과 안개(b5)가 없음. 안개가 없으면 0으로 나눠서 조명이 있어도 검다 → `Ready_Lights` + `CFog` 사본 (12단계) |
+| 해와 안개를 넣었는데도 지형이 검다 | `Add_GameObject(..., Proto::Obj_SkyBox, ..., GO::Fog)`처럼 **원형 태그가 Fog가 아님** → SkyBox가 하나 더 생길 뿐 `CFog`가 없다 (12-3) |
+| 지형을 옮겼는데 화면이 그대로 | 상수버퍼를 생성할 때 한 번만 채움 → `Bind_ShaderResources`에서 매 프레임 `Update_ConstantBuffer(월드)` (11-4) |
+| MapTool 셰이더를 고쳤는데 다시 원래대로 | MapTool 빌드 후 이벤트가 `Client/Bin/Shader`를 덮어씀 → Client 쪽 셰이더를 고친다 (11-5) |
 
 ---
 
 ## 부록 D. ImGui 예제 main.cpp와 비교
 
 > `imgui-master/examples/example_win32_directx11/main.cpp` 한 함수에 몰려 있던 코드가 이 프로젝트에서 어디로 나뉘었는지 정리한 표입니다.
-> 기준: **Default.cpp** = OS와 맞닿는 부분(창, 메시지, WndProc, 시작과 끝) / **CToolMainApp** = 엔진과 ImGui를 순서대로 돌리는 부분 / **CEditorUI** = 화면에 보여 줄 내용 / **엔진** = 예제가 직접 만들던 D3D11 객체.
+> 기준: **Default.cpp** = OS와 맞닿는 부분(창, 메시지, WndProc, 시작과 끝) / **CToolMainApp** = 엔진을 순서대로 돌리는 부분(클리어, Draw, Present) / **CLevel_MapTool** = ImGui 초기화·프레임·정리 / **CEditorUI** = 화면에 보여 줄 내용 / **엔진** = 예제가 직접 만들던 D3D11 객체.
 
 ### D-1. 큰 그림
 
@@ -3814,16 +5090,16 @@ unique_ptr<CPanel_Inspector> CPanel_Inspector::Create(EDITOR_CONTEXT& Context)
 ① DPI 설정                    ──▶    Default.cpp   wWinMain
 ② 창 생성                     ──▶    Default.cpp   MyRegisterClass / InitInstance
 ③ D3D11 디바이스              ──▶    엔진          Initialize_Engine (ToolMainApp이 호출)
-④ ImGui 초기화                ──▶    ToolMainApp   Ready_ImGui
+④ ImGui 초기화                ──▶    Level_MapTool Initialize → Ready_ImGui
 ⑤ 폰트                        ──▶    (현재 없음)
 ⑥ 메인 루프
    메시지 처리                ──▶    Default.cpp   wWinMain while 루프
    최소화/리사이즈             ──▶    (현재 없음)
-   NewFrame                   ──▶    ToolMainApp   Begin_ImGui
-   위젯 호출                  ──▶    CEditorUI     Update
-   Render + RenderDrawData    ──▶    ToolMainApp   Render → Render_ImGui
+   NewFrame                   ──▶    Level_MapTool Update → Begin_ImGui (첫 프레임은 Initialize에서)
+   위젯 호출                  ──▶    CEditorUI     Update (Level_MapTool Update가 호출)
+   Render + RenderDrawData    ──▶    Level_MapTool Render → Render_ImGui (ToolMainApp Render → Draw 안)
    클리어 / Present           ──▶    ToolMainApp   Render → 엔진 함수
-⑦ 정리                        ──▶    ToolMainApp   소멸자 → Shutdown_ImGui
+⑦ 정리                        ──▶    Level_MapTool 소멸자 → Shutdown_ImGui (Release_Engine이 레벨을 해제할 때)
 WndProc                       ──▶    Default.cpp   WndProc
 ```
 
@@ -3834,8 +5110,8 @@ WndProc                       ──▶    Default.cpp   WndProc
 | 예제 | 이 프로젝트 | 위치 |
 |---|---|---|
 | `imgui.h`, `imgui_impl_win32.h` | WndProc, DPI 함수 때문에 include | Default.cpp 맨 위 |
-| `imgui.h`, `imgui_impl_win32.h`, `imgui_impl_dx11.h` | 초기화, 프레임, 정리 때문에 include | ToolMainApp.cpp 맨 위 |
-| `g_pd3dDevice`, `g_pd3dDeviceContext` | `m_pDevice`, `m_pContext` (멤버) | ToolMainApp.h |
+| `imgui.h`, `imgui_impl_win32.h`, `imgui_impl_dx11.h` | 초기화, 프레임, 정리 때문에 include | Level_MapTool.cpp 맨 위 |
+| `g_pd3dDevice`, `g_pd3dDeviceContext` | `m_pDevice`, `m_pContext` (멤버) | ToolMainApp.h (엔진 초기화용), `CLevel` (ImGui DX11 백엔드용) |
 | `g_pSwapChain`, `g_mainRenderTargetView` | 엔진 내부 (`CGraphic_Device`) | 엔진 |
 | `g_SwapChainOccluded`, `g_ResizeWidth/Height` | 없음 | - |
 
@@ -3872,7 +5148,7 @@ WndProc                       ──▶    Default.cpp   WndProc
 
 - `EngineDesc`에 `g_iToolWinSizeX/Y`를 넘겨 Client(1280x720)와 다른 크기로 엔진을 만든다.
 
-**④ ImGui 초기화** — `CToolMainApp::Ready_ImGui`
+**④ ImGui 초기화** — `CLevel_MapTool::Ready_ImGui`
 
 | 예제 | 이 프로젝트 |
 |---|---|
@@ -3883,7 +5159,7 @@ WndProc                       ──▶    Default.cpp   WndProc
 | `ImGui_ImplWin32_Init`, `ImGui_ImplDX11_Init` | ✅ 실패하면 `E_FAIL` |
 | (예제에 없음) | `m_bReadyImGui = true` → 초기화 실패 시 `Shutdown_ImGui`가 백엔드를 정리하려다 assert 나는 것 방지 |
 
-- 호출 순서: `Initialize_Engine` → `Ready_ImGui` → `CEditorUI::Create` → `Change_Level`. 디바이스가 생긴 뒤에 ImGui를 초기화한다.
+- 호출 순서: `Initialize_Engine` → `Start_Level`(로딩 레벨) → … 스페이스 → `CLevel_MapTool::Initialize`에서 `Ready_ImGui` → `Begin_ImGui` → `CEditorUI::Create`. 디바이스가 생긴 뒤, 그리고 에디터 레벨에 들어올 때 ImGui를 초기화한다. 로딩 중에는 ImGui 컨텍스트가 없다.
 
 **⑤ 폰트**
 
@@ -3902,22 +5178,22 @@ WndProc                       ──▶    Default.cpp   WndProc
 | (예제에 없음) 60fps 고정 | 타이머로 1/60초가 쌓였을 때만 Update/Render | Default.cpp wWinMain |
 | (c) Occluded 검사 + `Sleep` | 없음 | - |
 | (d) `WM_SIZE` → `ResizeBuffers` | **없음** | - |
-| (e) `DX11_NewFrame` → `Win32_NewFrame` → `ImGui::NewFrame` | `Begin_ImGui` ✅ 순서 동일, `Update` 맨 앞에서 호출 | ToolMainApp |
+| (e) `DX11_NewFrame` → `Win32_NewFrame` → `ImGui::NewFrame` | `Begin_ImGui` ✅ 순서 동일, 레벨 `Update`에서 호출 (레벨이 만들어진 첫 프레임은 `Initialize`에서) | Level_MapTool |
 | (f) 위젯 호출 | `m_pEditorUI->Update()` | EditorUI |
-| (예제에 없음) UI 결과 전달 + 엔진 갱신 | `Sync_SceneView` → `Update_Engine` | ToolMainApp Update |
-| (g) `ImGui::Render()` | `Render_ImGui` 안 (RenderDrawData 바로 앞) | ToolMainApp |
+| (예제에 없음) UI 결과 전달 | `Sync_SceneView` (`EditorUI Update` 다음) | Level_MapTool Update |
+| (g) `ImGui::Render()` | `Render_ImGui` 안 (RenderDrawData 바로 앞) | Level_MapTool Render |
 | (g) 클리어 | `Clear_BackBuffer_View`, `Clear_DepthStencil_View` | ToolMainApp Render |
 | (예제에 없음) 3D 씬 | 파이프라인 상수버퍼 바인딩 + `Draw()` | ToolMainApp Render |
-| (g) `RenderDrawData` | `Render_ImGui` 안 | ToolMainApp |
+| (g) `RenderDrawData` | `Render_ImGui` 안 | Level_MapTool Render |
 | (h) `Present(1, 0)` (vsync) | 엔진 `Present()` → 내부 `Present(0, 0)` (속도는 60fps 타이머가 맞춤) | ToolMainApp Render |
 
-- 60fps 블록 안에서 `Update`(NewFrame)와 `Render`(ImGui::Render)가 **항상 짝으로** 불린다.
-- Update 순서: `Begin_ImGui` → `EditorUI Update`(Scene 창 포커스·호버 계산) → `Sync_SceneView`(카메라에 전달) → `Update_Engine`(카메라가 그 값으로 조작).
+- 60fps 블록 안에서 레벨 `Update`(NewFrame)와 레벨 `Render`(ImGui::Render)가 **항상 짝으로** 불린다. 예외는 레벨이 만들어진 첫 프레임(Update 없이 Render만) → `Initialize`에서 `Begin_ImGui`를 한 번 불러 짝을 맞춘다.
+- Update 순서: `Update_Engine`(객체 Update, 카메라 조작) → 레벨 Update: `Begin_ImGui` → `EditorUI Update`(Scene 창 포커스·호버 계산) → `Sync_SceneView`(카메라에 전달, 다음 프레임에 사용).
 - `ImGui::Render()`는 GPU를 건드리지 않으므로 예제처럼 클리어 앞에 두든, 여기처럼 RenderDrawData 바로 앞에 두든 결과는 같다.
 - `Set_DrawToBackBuffer(false)`로 씬은 씬 RT에만 그리고, Scene 창의 `ImGui::Image(Get_SceneSRV())`가 그 텍스처를 보여 준다(예제에 없는 맵툴 구조).
 - 리사이즈 주의: 창 스타일이 `WS_OVERLAPPEDWINDOW`라 크기 조절과 최대화가 되는데, 엔진의 백버퍼·씬 RT·뷰포트는 1600x900에서 바뀌지 않는다. 피킹 좌표가 어긋날 수 있으니 지원하지 않을 거면 `WS_OVERLAPPEDWINDOW & ~WS_THICKFRAME & ~WS_MAXIMIZEBOX`로 막고, `AdjustWindowRectExForDpi`에도 같은 스타일을 넘긴다.
 
-**⑦ 정리** — `CToolMainApp` 소멸자
+**⑦ 정리** — `CLevel_MapTool` 소멸자 + `CToolMainApp` 소멸자
 
 | 예제 | 이 프로젝트 |
 |---|---|
@@ -3926,7 +5202,7 @@ WndProc                       ──▶    Default.cpp   WndProc
 | `CleanupDeviceD3D` | `Release_Engine()` |
 | `DestroyWindow`, `UnregisterClassW` | ESC / X 버튼 → OS가 처리 |
 
-- **UI → ImGui → 엔진** 순서. 소멸자 본문에서 직접 정리하므로 "멤버는 본문 뒤에 파괴된다"는 함정을 피한다.
+- **UI → ImGui → 엔진** 순서. `CToolMainApp` 소멸자의 `Release_Engine()`이 레벨 매니저를 그래픽 디바이스보다 먼저 해제하므로, `CLevel_MapTool` 소멸자(`m_pEditorUI.reset()` → `Shutdown_ImGui()`)가 디바이스가 살아 있을 때 실행된다. 소멸자 본문에서 직접 정리하므로 "멤버는 본문 뒤에 파괴된다"는 함정도 피한다.
 - 시작점은 Default.cpp의 `pToolMainApp.reset()`.
 
 **⑧ WndProc** — Default.cpp
@@ -3946,12 +5222,12 @@ WndProc                       ──▶    Default.cpp   WndProc
 
 | 항목 | 상태 | 위치 |
 |---|---|---|
-| 컨텍스트 생성 + 백엔드 Init | ✅ | ToolMainApp `Ready_ImGui` |
-| NewFrame 3종 (순서) | ✅ | ToolMainApp `Begin_ImGui` |
-| 씬 → RenderDrawData → Present | ✅ | ToolMainApp `Render` |
+| 컨텍스트 생성 + 백엔드 Init | ✅ | Level_MapTool `Ready_ImGui` |
+| NewFrame 3종 (순서) | ✅ | Level_MapTool `Begin_ImGui` |
+| 씬 → RenderDrawData → Present | ✅ | ToolMainApp `Render` → Draw → Level_MapTool `Render` |
 | WndProc Handler + extern | ✅ | Default `WndProc` |
-| 입력 사용처에서 포커스·호버 확인 | ✅ (카메라에 전달) | ToolMainApp `Sync_SceneView` |
-| Shutdown 역순, 디바이스보다 먼저 | ✅ | ToolMainApp 소멸자 |
+| 입력 사용처에서 포커스·호버 확인 | ✅ (카메라에 전달) | Level_MapTool `Sync_SceneView` |
+| Shutdown 역순, 디바이스보다 먼저 | ✅ | Level_MapTool 소멸자 (Release_Engine 안) |
 | TranslateMessage | ✅ | Default wWinMain |
 | PeekMessage를 while로 | ✅ | Default wWinMain |
 | DPI 인식 | ✅ (배율 적용은 없음) | Default wWinMain |

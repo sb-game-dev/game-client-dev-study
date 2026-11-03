@@ -59,8 +59,13 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
         ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Client_Mouse)))
         return E_FAIL;
 
+    CHill::HILL_DESC Hill_Desc{};
+    Hill_Desc.iLevelIndex = ETOUI(LEVEL::GAMEPLAY);
+    Hill_Desc.strMeshPath = TEXT("Duckov_Extract/Terrain/Terrain_GroundZero_Crop/height_321x321_16bit.raw");  // ³ôÀÌ¸Ê
+    Hill_Desc.strTexturePath = TEXT("Duckov_Extract/Terrain/Terrain_GroundZero_Crop/splat_0.png");               // È¥ÇÕ¸Ê
+    Hill_Desc.strLayerPath = TEXT("Duckov_Extract/Terrain/Terrain_GroundZero_Crop/Layer%d.png");               // ·¹ÀÌ¾î
     if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Hill,
-        ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Hill)))
+        ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Hill, &Hill_Desc)))
         return E_FAIL;
 
     CPlayer::PLAYER_DESC Player_Desc{};
@@ -114,17 +119,7 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
 
     auto pPlayer = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Player);
     auto pMirror = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Mirror);
-    CGameInstance::Get().Set_Mirror(pMirror);
-
-    //auto pCamera = CQuarterView_Cam::Create(m_pDevice, m_pContext);
-    //CGameInstance::Get().Add_Camera(CAMERA::QUARTERVIEW, pCamera);
-    //CGameInstance::Get().Set_MainCamera(CAMERA::QUARTERVIEW);
-    //pCamera->SetPlayer(pPlayer);
-
-    //auto pCamera = CFree_Cam::Create(m_pDevice, m_pContext);
-    //CGameInstance::Get().Add_Camera(CAMERA::FREE, pCamera);
-    //CGameInstance::Get().Set_MainCamera(CAMERA::FREE);
-    
+    CGameInstance::Get().Set_Mirror(pMirror);    
 
     auto pPlayer_PointLight = CPlayer_PointLight::Create(m_pDevice, m_pContext);
     pPlayer_PointLight->SetPlayer(pPlayer);

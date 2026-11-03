@@ -13,7 +13,6 @@ HRESULT CGameObject::Initialize_Prototype()
 }
 HRESULT CGameObject::Initialize(void* pArg)
 {
-	auto pDesc = static_cast<GAMEOBJECT_DESC*>(pArg);
 
 	m_pTransformCom = CTransform::Create(m_pDevice, m_pContext);
 	if (nullptr == m_pTransformCom)
@@ -23,6 +22,13 @@ HRESULT CGameObject::Initialize(void* pArg)
 		return E_FAIL;
 
 	m_Components.emplace(g_strTransformComTag, m_pTransformCom);
+
+	if (nullptr == pArg)
+		return S_OK;
+
+	auto pDesc = static_cast<GAMEOBJECT_DESC*>(pArg);
+	m_iLevelIndex = pDesc->iLevelIndex;
+
 	return S_OK;
 }
 void CGameObject::Priority_Update(f32_t fDeltaTime)

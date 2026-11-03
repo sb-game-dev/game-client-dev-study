@@ -1,15 +1,10 @@
-#include "imgui.h" 
 #include "MapTool_Defines.h"
 #include "ToolMainApp.h"
-#include "imgui_impl_win32.h"
-#include "imgui_impl_dx11.h"
-#include "Level_MapTool.h"
-#include "EditorUI.h"
-#include "MapTool_Cam.h"
+
+#include "Level_Loading_MapTool.h"
 CToolMainApp::~CToolMainApp()
 {
-    m_pEditorUI.reset();
-    Shutdown_ImGui();
+
     CGameInstance::Get().Release_Engine();
 }
 
@@ -40,17 +35,11 @@ HRESULT CToolMainApp::Initialize()
     if (FAILED(CGameInstance::Get().Initialize_Engine(EngineDesc, m_pDevice, m_pContext)))
         return E_FAIL;
     
-    if (FAILED(Ready_ImGui()))
+    if (FAILED(Start_Level(LEVEL::MAPTOOL)))
         return E_FAIL;
 
-    m_pEditorUI = CEditorUI::Create();
-    if (nullptr == m_pEditorUI)
-        return E_FAIL;
+
     
-    // 씬 생성
-    if (FAILED(CGameInstance::Get().Change_Level(static_cast<int>(LEVEL::MAPTOOL),
-        CLevel_MapTool::Create(m_pDevice, m_pContext))))
-        return E_FAIL;
     CGameInstance::Get().Set_DrawToBackBuffer(false);
 
     return S_OK;
@@ -58,10 +47,7 @@ HRESULT CToolMainApp::Initialize()
 
 void CToolMainApp::Update(f32_t fDeltaTime)
 {
-    if (FAILED(Begin_ImGui()))
-        return;
-    m_pEditorUI->Update(fDeltaTime);
-    Sync_SceneView();
+    
     CGameInstance::Get().Update_Engine(fDeltaTime);
 }
 
@@ -78,8 +64,7 @@ HRESULT CToolMainApp::Render()
 
     CGameInstance::Get().Draw();
     
-    if (FAILED(Render_ImGui()))
-        return E_FAIL;
+    
 
     CGameInstance::Get().Present();
     return S_OK;
@@ -87,64 +72,16 @@ HRESULT CToolMainApp::Render()
 
 
 
-HRESULT CToolMainApp::Ready_ImGui()
+
+
+HRESULT CToolMainApp::Start_Level(LEVEL eStartLevelID)
 {
-    // 1. 컨텍스트 생성
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-
-    // ImGui와 애플리케이션이 정보를 주고받는 구조체
-    // 설정, 입력, 출력, 폰트가 있음
-    ImGuiIO& io = ImGui::GetIO();
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;   // 키보드로 위젯 이동
-
-    // 2. 스타일
-    ImGui::StyleColorsDark();
-
-    // 3. 플랫폼/렌더러 백엔드
-    if (!ImGui_ImplWin32_Init(g_hWnd))
+    if (FAILED(CGameInstance::Get().Change_Level(static_cast<int>(LEVEL::LOADING),
+        CLevel_Loading_MapTool::Create(m_pDevice, m_pContext, eStartLevelID))))
         return E_FAIL;
-    if (!ImGui_ImplDX11_Init(m_pDevice.Get(), m_pContext.Get()))
-        return E_FAIL;
-
-    m_bReadyImGui = true;
     return S_OK;
 }
 
-HRESULT CToolMainApp::Begin_ImGui()
-{
-    ImGui_ImplDX11_NewFrame();
-    ImGui_ImplWin32_NewFrame();
-    ImGui::NewFrame();
-    return S_OK;
-}
-
-HRESULT CToolMainApp::Render_ImGui()
-{
-    ImGui::Render();
-    ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-    return S_OK;
-}
-
-HRESULT CToolMainApp::Shutdown_ImGui()
-{
-    if (!m_bReadyImGui)
-        return E_FAIL;
-    ImGui_ImplDX11_Shutdown();
-    ImGui_ImplWin32_Shutdown();
-    ImGui::DestroyContext();
-    return S_OK;
-}
-
-void CToolMainApp::Sync_SceneView()
-{
-    auto pCamera = dynamic_pointer_cast<CMapTool_Cam>(CGameInstance::Get().Get_MainCamera());
-    if (nullptr == pCamera)
-        return;
-    pCamera->Set_SceneClicked(m_pEditorUI->GetSceneCliked());
-    pCamera->Set_SceneHovered(m_pEditorUI->GetSceneHovered());
-
-}
 
 unique_ptr<CToolMainApp> CToolMainApp::Create()
 {

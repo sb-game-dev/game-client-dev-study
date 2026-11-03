@@ -2,7 +2,7 @@
 #include "MapTool_Defines.h"
 
 NS_BEGIN(MapTool)
-class CEditorUI;
+
 class CToolMainApp final
 {
 private:
@@ -19,16 +19,8 @@ private:
 	ComPtr<ID3D11Device>				m_pDevice = { nullptr };
 	ComPtr<ID3D11DeviceContext>			m_pContext = { nullptr };
 
-	unique_ptr<CEditorUI>				m_pEditorUI = { nullptr };
-	bool_t								m_bReadyImGui = { false };
-
 private:
-	HRESULT								Ready_ImGui();
-	HRESULT								Begin_ImGui();
-	HRESULT								Render_ImGui();
-	HRESULT								Shutdown_ImGui();
-
-	void								Sync_SceneView();
+	HRESULT								Start_Level(LEVEL eStartLevelID);
 
 public:
 	static		unique_ptr<CToolMainApp>		Create();

@@ -70,9 +70,9 @@ HRESULT CStaticProp ::Render()
 
 HRESULT CStaticProp::Change_Texture(const wstring_t& strTexturePath)
 {
-    wstring_t strTexTag;
-    if (FAILED(CGameInstance::Get().Get_Or_Load_Texture(m_iLevelIndex, strTexturePath, strTexTag)))
-        return E_FAIL;                              // 실패 → 기존 텍스처 유지
+    const wstring_t strTexTag = Normalize_AssetPath(strTexturePath);
+    if (false == CGameInstance::Get().Has_Prototype(m_iLevelIndex, strTexTag))
+        return E_FAIL;                              // 등록 안 된 경로 → 기존 텍스처 유지
 
     shared_ptr<CTexture> pNew;
     Remove_Component(TEXT("Com_Texture"));
@@ -86,9 +86,13 @@ HRESULT CStaticProp::Change_Texture(const wstring_t& strTexturePath)
 
 HRESULT CStaticProp::Change_Mesh(const wstring_t& strMeshPath)
 {
-    wstring_t strMeshTag;
-    if (FAILED(CGameInstance::Get().Get_or_Load_Mesh(m_iLevelIndex, strMeshPath, strMeshTag)))
+    const wstring_t strMeshTag = Normalize_AssetPath(strMeshPath);
+
+    if (0 != strMeshTag.rfind(g_strBuiltinPrefix, 0))
         return E_FAIL;
+
+    if (false == CGameInstance::Get().Has_Prototype(m_iLevelIndex, strMeshTag))
+        return E_FAIL;                              // 등록 안 된 경로 → 기존 메시 유지
 
     if (0 != strMeshTag.rfind(g_strBuiltinPrefix, 0)) // Path로 만든 strMeshTag가 L"biltin/"으로 시작하지 않으면 모델임
         return E_FAIL;                                

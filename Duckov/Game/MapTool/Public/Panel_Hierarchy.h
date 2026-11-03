@@ -24,6 +24,7 @@ private:
 
 	static constexpr PLACEABLE s_Placeables[] = {
 		{ "Add Static_Prop", Proto::Obj_StaticProp },
+		{ "Add Terrain", Proto::Obj_Hill },
 	};
 
 private:
@@ -32,6 +33,8 @@ private:
 
 private:
 	void		Create_Object(const wstring_t& pPrototypeTag);
+	void		Create_Terrain();
+	void		Create_StaticProp(const wstring_t& pPrototypeTag);
 	void		Delete_Selected();
 
 public:

@@ -2,7 +2,7 @@
 #include <fstream>
 
 CHill::CHill(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
-    :CGameObject(pDevice, pContext)
+    :CMapObject(pDevice, pContext)
 {
 }
 
@@ -26,6 +26,10 @@ HRESULT CHill::Initialize(void* pArg)
 {
     if (FAILED(__super::Initialize(pArg)))
         return E_FAIL;
+
+    auto pDesc = static_cast<HILL_DESC*>(pArg);
+    m_strLayerPath = pDesc->strLayerPath;
+
     if (FAILED(Ready_Components()))
         return E_FAIL;
     if (FAILED(Ready_ConstantBuffer()))
@@ -56,7 +60,7 @@ HRESULT CHill::Render()
     if (FAILED(Bind_Shader(m_pVS, m_pPS)))
         return E_FAIL;
 
-    if (FAILED(Bind_ShaderResources()))
+    if (FAILED(Bind_ShaderResources(m_pTransformCom->Get_World())))
         return E_FAIL;
 
     if (FAILED(m_pBufferCom->Bind_Resources()))
@@ -70,34 +74,60 @@ HRESULT CHill::Render()
 
 f32_t CHill::GetHeight(f32_t x, f32_t z)
 {
-    return static_pointer_cast<CVIBuffer_Terrain>(__super::Find_Component(L"Com_Buffer"))->GetHeight(x, z);
+    // 로컬로 변환하여 높이를 구한 뒤 다시 월드로 변환하여 y값을 구한다.
+    matrix_t matWorld = m_pTransformCom->Get_World();
+    matrix_t matInv = XMMatrixInverse(nullptr, matWorld);
+
+    vector_t vLocal = XMVector3TransformCoord(XMVectorSet(x, 0.f, z, 1.f), matInv);
+    
+    f32_t fLocalY = m_pBufferCom->GetHeight(XMVectorGetX(vLocal), XMVectorGetZ(vLocal));
+
+    vector_t vWorld = XMVector3TransformCoord(
+        XMVectorSet(XMVectorGetX(vLocal), fLocalY, XMVectorGetZ(vLocal), 1.f), matWorld);
+    return XMVectorGetY(vWorld);
 }
 
 float4_t CHill::GetPlane(f32_t x, f32_t z)
 {
     return static_pointer_cast<CVIBuffer_Terrain>(__super::Find_Component(L"Com_Buffer"))->GetPlane(x, z);
 }
+HRESULT CHill::Update_ConstantBuffer(const matrix_t& matWorld)
+{
+    XMMATRIX matNoTrans = matWorld;
+    matNoTrans.r[3] = XMVectorSet(0.f, 0.f, 0.f, 1.f);
+    XMMATRIX matWorldInvTranspos = XMMatrixTranspose(XMMatrixInverse(nullptr, matNoTrans));
+
+    XMStoreFloat4x4(&m_tCBData.mat_World, (matWorld));
+    XMStoreFloat4x4(&m_tCBData.mat_WorldInvTranspose, (matWorldInvTranspos));
+    m_tCBData.tMaterial = m_tMaterial;
+
+    return S_OK;
+}
+void CHill::Save_Extra(ofstream& Out) const
+{
+}
+
+void CHill::Read_Extra(ifstream& In, HILL_DESC& Desc)
+{
+}
 
 HRESULT CHill::Ready_Components()
 {
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::Texture_Terrain_Blend,
-        TEXT("Com_Texture"), m_pBlendCom)))
-        return E_FAIL;
-
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::Texture_Terrain_Layer,
-        TEXT("Com_Blend"), m_pLayerCom)))
-        return E_FAIL;
-
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VS_TERRAIN,
-        TEXT("Com_VS"), m_pVS)))
-        return E_FAIL;
-
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_TERRAIN,
-        TEXT("Com_PS"), m_pPS)))
-        return E_FAIL;
-
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VIBuffer_Terrain,
+    if (FAILED(__super::Add_Component(m_iLevelIndex, Normalize_AssetPath(m_strMeshPath),
         TEXT("Com_Buffer"), m_pBufferCom)))
+        return E_FAIL;
+
+    if (FAILED(__super::Add_Component(m_iLevelIndex, Normalize_AssetPath(m_strTexturePath),
+        TEXT("Com_Blend"), m_pBlendCom)))
+        return E_FAIL;
+
+    if (FAILED(__super::Add_Component(m_iLevelIndex, Normalize_AssetPath(m_strLayerPath),
+        TEXT("Com_Layer"), m_pLayerCom)))
+        return E_FAIL;
+
+    if (FAILED(__super::Add_Component(m_iLevelIndex, Proto::VS_TERRAIN, TEXT("Com_VS"), m_pVS)))
+        return E_FAIL;
+    if (FAILED(__super::Add_Component(m_iLevelIndex, Proto::PS_TERRAIN, TEXT("Com_PS"), m_pPS)))
         return E_FAIL;
 
     return S_OK;
@@ -147,6 +177,9 @@ HRESULT CHill::Bind_ShaderResources(const matrix_t& matWorld)
         return E_FAIL;
 
     // 상수버퍼 바인드
+    if (FAILED(Update_ConstantBuffer(matWorld)))
+        return E_FAIL;
+
     if (FAILED(m_pCB->Bind_Vertex_ShaderResource(0, &m_tCBData)))
         return E_FAIL;
 

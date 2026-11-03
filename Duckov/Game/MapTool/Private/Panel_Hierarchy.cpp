@@ -1,6 +1,7 @@
 ﻿#include "EditorUI_Utils.h"
 #include "Panel_Hierarchy.h"
 #include "StaticProp.h"
+#include "Hill.h"
 
 void CPanel_Hierarchy::Render(const PANEL_RECT& tRect)
 {
@@ -68,6 +69,43 @@ void CPanel_Hierarchy::Render(const PANEL_RECT& tRect)
 
 void CPanel_Hierarchy::Create_Object(const wstring_t& pPrototypeTag)
 {
+    if (pPrototypeTag == Proto::Obj_Hill)
+        Create_Terrain();
+    else
+        Create_StaticProp(pPrototypeTag);
+}
+
+void CPanel_Hierarchy::Create_Terrain()
+{
+    const wstring_t strTag = L"Terrain";
+
+    // 지형은 하나만
+    if (nullptr != CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag))
+    {
+        MSG_BOX("Terrain already exists");
+        return;
+    }
+
+    // HILL_DESC 채우기
+    CHill::HILL_DESC Desc{};
+    Desc.iLevelIndex = ETOUI(LEVEL::MAPTOOL);
+    Desc.strMeshPath = L"Duckov_Extract/Terrain/Terrain_GroundZero_Crop/height_321x321_16bit.raw";
+    Desc.strTexturePath = L"Duckov_Extract/Terrain/Terrain_GroundZero_Crop/splat_0.png";
+    Desc.strLayerPath = L"Duckov_Extract/Terrain/Terrain_GroundZero_Crop/Layer%d.png";
+    Desc.bEditorMode = true;
+
+    // 생성 + 선택
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::MAPTOOL), Proto::Obj_Hill,
+        ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag, &Desc)))
+    {
+        MSG_BOX("Create Failed");
+        return;
+    }
+    m_Context.Select(strTag, CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag));
+}
+
+void CPanel_Hierarchy::Create_StaticProp(const wstring_t& pPrototypeTag)
+{
     CStaticProp::STATICPROP_DESC Desc{};
     Desc.iLevelIndex = ETOUI(LEVEL::MAPTOOL);
     Desc.strMeshPath = g_Meshes[0].pPath;           // 기본: cube
@@ -81,8 +119,7 @@ void CPanel_Hierarchy::Create_Object(const wstring_t& pPrototypeTag)
             strTag = L"Prop_0" + to_wstring(m_iNextID++);
         else
             strTag = L"Prop_" + to_wstring(m_iNextID++);
-    }
-    while (nullptr != CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag));
+    } while (nullptr != CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag));
 
     if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::MAPTOOL), pPrototypeTag,
         ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag, &Desc)))
