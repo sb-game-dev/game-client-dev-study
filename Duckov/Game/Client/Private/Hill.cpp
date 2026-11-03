@@ -11,11 +11,6 @@ HRESULT CHill::Initialize_Prototype()
     if (FAILED(__super::Initialize_Prototype()))
         return E_FAIL;
 
-    // Material
-    m_tMaterial.Ambient = float4_t(1.f, 1.f, 1.f, 1.f);
-    m_tMaterial.Diffuse = float4_t(1.f, 1.f, 1.f, 1.f);
-    m_tMaterial.Specular = float4_t(0.2f, 0.2f, 0.2f, 16.f);   // w = ±¤ÅÃ Áö¼ö, 0ÀÌ¸é ¾È µÊ
-
     D3D11_RASTERIZER_DESC rsDesc{};
     rsDesc.FillMode = D3D11_FILL_SOLID;         
     rsDesc.CullMode = D3D11_CULL_BACK;          

@@ -60,11 +60,6 @@ HRESULT CWave::Initialize_Prototype()
     }
     m_iIndexCnt = uint32_t(m_tMeshData.Indices.size());
 
-    // Material
-    m_tMaterial.Ambient = float4_t(1.f, 1.f, 1.f, 1.f); 
-    m_tMaterial.Diffuse = float4_t(1.f, 1.f, 1.f, 0.5f);
-    m_tMaterial.Specular = float4_t(0.2f, 0.2f, 0.2f, 16.f);   // w = 광택 지수, 0이면 안 됨
-
     // 버텍스 버퍼를 동적으로 설정하기 위해 Usage, BindFlag, CPUAccessFlag 설정 변경
     D3D11_BUFFER_DESC   VBDesc{};
     VBDesc.ByteWidth = uint32_t(sizeof(VTXNORM) * m_tMeshData.Vertices.size());
