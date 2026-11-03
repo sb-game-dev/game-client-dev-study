@@ -43,6 +43,7 @@ Layer_Map 객체 ─ 태그 / 이름 / Transform / 경로 / 추가값 ─▶ Sta
 - [x] 1~5단계 (큐브 띄우기, `CMapObject` + DESC, `CStaticProp`, Hierarchy 생성/삭제, Inspector Transform + Mesh/Texture 교체)
 - [x] 지형 — `CHill`을 `CMapObject`로 옮김 (8단계의 첫 번째 클래스, Hierarchy `Add Terrain`)
 - [x] 방향광(`CSunLight`) + 안개(`CFog`) — 지형 셰이더가 b3, b5를 읽으므로 맵툴에도 필요
+- [ ] **다음 작업: 9단계 피킹 + 기즈모** → 그다음 6단계 저장/불러오기
 - [ ] 카메라 정리 (직접 진행 중)
   - [x] `CCamera::Render`에 `return S_OK;` 추가 (Engine/Private/Camera.cpp)
   - [x] Level_MapTool의 초기화 안 된 카메라 등록 삭제
@@ -182,6 +183,89 @@ Inspector
 
 ---
 
+## 9단계. 피킹 + 기즈모 ← 다음 작업 (6단계보다 먼저)
+
+**목표**: Scene 창에서 객체를 클릭해서 고르고, 기즈모로 끌어서 옮기면 Inspector의 Transform이 같이 바뀐다.
+
+> 번호는 9단계지만 모델 로드(10단계)와 상관없고 지금 있는 큐브·지형만으로 테스트할 수 있어서 먼저 한다. 순서: **피킹 → 기즈모 → 6단계 저장/불러오기**
+
+### 9-1. 피킹 — Scene 이미지 좌표를 뷰포트 픽셀로 바꿔서 엔진 함수 그대로 쓰기
+
+엔진의 `CCamera::Compute_PickingRay(POINT, Origin, Dir)`는 **뷰포트 픽셀 좌표**(1600 x 900 기준)를 받는다. 맵툴은 씬 텍스처를 Scene 창 안에 **축소해서** 그리므로 마우스 좌표를 그대로 넘기면 안 되고, 아래처럼 바꿔서 넘긴다. 엔진은 고치지 않는다 (NDC 오버로드 불필요).
+
+```
+씬 텍스처 픽셀 = (마우스 - vImageMin) / vImageSize * 뷰포트 크기
+```
+
+| 단계 | 계산 | 의미 |
+|---|---|---|
+| ① | `마우스 - vImageMin` | 화면 기준 좌표 → 이미지 왼쪽 위 기준 좌표 (둘 다 ImGui 화면 좌표라 바로 뺄 수 있음) |
+| ② | `/ vImageSize` | 0~1 비율 (이미지가 몇 배로 축소됐든 상관없게) |
+| ③ | `* 뷰포트 크기` | 씬 텍스처(= 뷰포트)의 픽셀 좌표 → `Compute_PickingRay`가 기대하는 값 |
+
+**어디서**: `Panel_Scene.cpp`의 `ImGui::Image` 바로 다음 — `vImageMin`, `vImageSize`, `bSceneHovered`를 기록하는 그 자리
+
+```cpp
+ImGui::Image((ImTextureID)pSRV, vSize);
+
+m_Context.vImageMin     = ...;          // 기존 코드
+m_Context.vImageSize    = ...;
+m_Context.bSceneHovered = ImGui::IsItemHovered();
+m_Context.bSceneFocused = ImGui::IsWindowFocused();
+
+// 피킹 요청: 이미지 위에서 왼쪽 버튼을 누른 프레임
+if (m_Context.bSceneHovered && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
+{
+    const ImVec2   vMouse = ImGui::GetIO().MousePos;                  // 화면 기준 (vImageMin과 같은 좌표계)
+    const float2_t vVP    = CGameInstance::Get().Get_ViewportSize();  // 1600 x 900
+
+    const f32_t fU = (vMouse.x - m_Context.vImageMin.x) / m_Context.vImageSize.x;   // ① + ②
+    const f32_t fV = (vMouse.y - m_Context.vImageMin.y) / m_Context.vImageSize.y;
+
+    POINT ptPick{ static_cast<LONG>(fU * vVP.x), static_cast<LONG>(fV * vVP.y) };  // ③
+
+    // 레이 만들기 (엔진 함수 그대로)
+    vector_t vRayOrigin, vRayDir;
+    if (auto pCamera = CGameInstance::Get().Get_MainCamera())
+        pCamera->Compute_PickingRay(ptPick, vRayOrigin, vRayDir);
+
+    // → 이 레이로 Layer_Map 객체들과 충돌 검사 (9-2)
+}
+```
+
+- [ ] 위 코드 추가 (`Panel_Scene.cpp`)
+  - `Get_MainCamera()`는 `shared_ptr<CCamera>`라 함수를 부르려면 `Camera.h`가 필요할 수 있다 (`GameInstance.h`는 `Camera_Manager.h`만 include). 컴파일 에러가 나면 `#include "Camera.h"`
+- [ ] 좌클릭만 쓴다 — 카메라 회전이 우클릭이라 겹치지 않음
+- [ ] `bSceneHovered` 조건 덕분에 비율 맞춤으로 생긴 위아래 빈 띠나 다른 창 위 클릭은 무시됨
+- 왜 이 방식이 맞나: `Compute_PickingRay`는 `RSGetViewports`로 뷰포트(1600 x 900)를 읽고 그 기준으로 NDC를 만든다. 씬 텍스처도 같은 크기로 그려지므로 ③까지 바꾼 값이면 클릭한 픽셀과 레이가 정확히 맞는다
+
+### 9-2. 피킹 — 레이와 객체 충돌
+
+- [ ] **엔진 버그 먼저**: `VIBuffer_Cube.cpp`의 `BoundingBox::CreateFromPoints(m_tLocalBox, m_iVertexStride, …)` → 두 번째 인자는 정점 **개수**(`m_iNumVertices`). 지금은 32개를 읽어서 배열(24개) 밖을 읽는다
+- [ ] `VIBuffer_Rect`도 박스 생성, `CVIBuffer`에 `Get_LocalBox()` getter 추가 (→ Engine 빌드)
+- [ ] `Layer_Map`을 돌면서 객체마다
+  - 레이를 **로컬 공간**으로 (월드 역행렬로 Origin은 `TransformCoord`, Dir은 `TransformNormal` 후 정규화)
+  - 로컬 AABB와 `BoundingBox::Intersects(Origin, Dir, fDist)`
+  - 거리를 월드 기준으로 비교해서 **가장 가까운 객체** 하나
+- [ ] 맞으면 `m_Context.Select(태그, 객체)` → Hierarchy 하이라이트와 Inspector가 같이 바뀜. 빈 곳이면 `Clear_Selection()`
+- [ ] **지형은 박스 피킹에서 제외** (박스가 맵 전체를 덮어서 항상 지형이 먼저 맞음). 지형은 나중에 "레이가 지형과 만나는 점"(`GetHeight`로 레이를 따라가며 찾기)을 구해서 **클릭한 자리에 객체 놓기**에 쓴다
+- [ ] 충돌 검사 함수를 어디에 둘지: Panel_Scene에 피킹 요청(레이)만 `EDITOR_CONTEXT`에 남기고, 검사는 별도 함수(`Pick_Object(레이)`)로 — 패널끼리 직접 부르지 않는 규칙 유지
+
+### 9-3. 기즈모 (ImGuizmo)
+
+- [ ] `ImGuizmo.h/.cpp`를 `MapTool/ImGui/`에 추가 (지금 ImGui 버전에 맞는 것, cpp는 `/utf-8` + pch 안 씀)
+- [ ] Scene 창 `ImGui::Image` 다음에 그리기: `SetDrawlist()`, `SetRect(vImageMin, vImageSize)`, View/Proj는 파이프라인 행렬
+- [ ] `Manipulate`가 바꾼 월드 행렬은 Transform에 바로 넣지 않는다 → `DecomposeMatrixToComponents`로 위치 / 회전(도) / 크기로 나눠 `Set_Position / Set_Rotation / Set_Scale` (회전은 각도로 보관 원칙 → Inspector와 저장이 같은 값을 씀)
+- [ ] Inspector는 고칠 필요 없음 — 매 프레임 `Get_*`를 읽으므로 자동으로 따라옴
+- [ ] **회전 순서 확인**: `CTransform::Rotation`은 `XMQuaternionRotationRollPitchYaw`. ImGuizmo가 분해한 오일러 각과 순서가 다르면 회전 기즈모에서 값이 튐 → X / Y / Z를 하나씩 돌려 보고 확인
+- [ ] **피킹과 겹치지 않게**: `ImGuizmo::IsOver()` 또는 `IsUsing()`이면 9-1의 좌클릭 피킹을 건너뜀 (안 하면 기즈모를 잡는 순간 뒤의 객체가 선택됨)
+- [ ] W / E / R로 이동 / 회전 / 크기 — Scene 창 포커스일 때만, W는 카메라 이동 키와 겹치므로 우클릭 중이 아닐 때만 모드 전환
+- [ ] 지형은 회전 기즈모 막기 (Inspector의 Rotation 숨기기와 같은 이유)
+
+**완료 기준**: Scene에서 큐브를 클릭하면 Hierarchy와 Inspector에서 선택되고, 기즈모로 끌면 Inspector 숫자가 같이 바뀐다. 빈 곳을 클릭하면 선택이 풀린다.
+
+---
+
 ## 6단계. 저장 / 불러오기 (바이너리)
 
 **목표**: 툴에서 만든 배치를 파일로 저장하고 다시 복원한다.
@@ -300,10 +384,8 @@ Inspector
 
 ---
 
-## 9단계. 확장 (선택)
+## 확장 (선택)
 
-- [ ] 피킹 (씬 이미지 좌표 → NDC → 레이, `Compute_PickingRay`에 NDC 오버로드 추가)
-- [ ] 기즈모 (ImGuizmo, W/E/R)
 - [ ] 복제 (Ctrl+D), 실행 취소
 - [ ] 환경 편집 — 해(`CSunLight`) / 안개(`CFog`) 값을 Inspector에서 고치고 맵 파일 앞부분에 환경 섹션으로 저장
 - [ ] 점광원 여러 개 배치 — 셰이더를 배열로, `CLight_Manager`가 모아서 한 번에 바인딩 (지금은 종류별로 하나만 의미 있음)

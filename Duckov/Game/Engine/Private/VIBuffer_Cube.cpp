@@ -101,7 +101,7 @@ HRESULT CVIBuffer_Cube::Initialize_Prototype()
 
 #pragma region CullingAABB
     m_bUseCulling = true;
-    BoundingBox::CreateFromPoints(m_tLocalBox, m_iVertexStride, &pVertices[0].vPosition, sizeof(VTXNORM));
+    BoundingBox::CreateFromPoints(m_tLocalBox, m_iNumVertices, &pVertices[0].vPosition, sizeof(VTXNORM));
 #pragma endregion
     return S_OK;
 }
