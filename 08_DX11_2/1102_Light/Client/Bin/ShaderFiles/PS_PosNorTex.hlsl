@@ -1,0 +1,40 @@
+
+texture2D g_DiffuseTexture : register(t0);
+
+sampler g_PointSampler : register(s0);
+sampler g_LinearSampler : register(s1);
+
+cbuffer LightBuffer : register(b0)
+{
+    float4 g_vLightDirection;
+    float4 g_vLightPosition;
+    float4 g_vLightRange;
+
+    float4 g_vLightDiffuse;
+    float4 g_vLightAmbient;
+    float4 g_vLightSpecular;
+}
+
+struct PS_IN
+{
+    float4 vPosition : SV_POSITION;
+    float4 vNormal : NORMAL;
+    float2 vTexcoord : TEXCOORD0;
+};
+
+struct PS_OUT
+{
+    float4 vColor : SV_TARGET0;
+};
+
+
+PS_OUT main(PS_IN In)
+{
+    PS_OUT Out;
+    
+    vector      vMtrlDiffuse = g_DiffuseTexture.Sample(g_LinearSampler, In.vTexcoord * 50.f);
+    
+    Out.vColor = g_vLightDiffuse * vMtrlDiffuse;
+    
+    return Out;
+}
