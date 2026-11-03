@@ -125,7 +125,9 @@
       <Command>xcopy "$(SolutionDir)Engine\Public\*.h" "$(SolutionDir)EngineSDK\Inc\" /Y
 xcopy "$(SolutionDir)Engine\Bin\Engine.lib" "$(SolutionDir)EngineSDK\Lib\" /Y
 xcopy "$(SolutionDir)Engine\Bin\Engine.dll" "$(SolutionDir)Client\Bin\" /Y
-xcopy "$(SolutionDir)Engine\Bin\Engine.dll" "$(SolutionDir)MapTool\Bin\" /Y</Command>
+xcopy "$(SolutionDir)Engine\Bin\Engine.dll" "$(SolutionDir)MapTool\Bin\" /Y
+xcopy "$(SolutionDir)Engine\Bin\ShaderFiles" "$(SolutionDir)Client\Bin\Shader\" /E /Y /I
+xcopy "$(SolutionDir)Engine\Bin\ShaderFiles" "$(SolutionDir)MapTool\Bin\Shader\" /E /Y /I</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -242,6 +244,10 @@ xcopy "$(SolutionDir)Engine\Bin\Engine.dll" "$(SolutionDir)MapTool\Bin\" /Y</Com
     <ClCompile Include="..\private\VIBuffer.cpp" />
     <ClCompile Include="..\private\VIBuffer_Cube.cpp" />
     <ClCompile Include="..\private\VIBuffer_Rect.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Bin\ShaderFiles\Engine_Pixel_Shader_Defines.hlsli" />
+    <None Include="..\Bin\ShaderFiles\Engine_Vertex_Shader_Defines.hlsli" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

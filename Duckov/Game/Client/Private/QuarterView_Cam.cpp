@@ -46,6 +46,7 @@ void CQuarterView_Cam::Priority_Update(f32_t fTimeDelta)
 void CQuarterView_Cam::Update(f32_t fDeltaTime)
 {
 	__super::Update(fDeltaTime);
+
 	// lock -> shared_ptr을 만들어주는 함수(참조 카운트 + 1)
 	auto pPlayer = m_pPlayer.lock();
 	if (nullptr == pPlayer)
@@ -53,6 +54,7 @@ void CQuarterView_Cam::Update(f32_t fDeltaTime)
 		m_pPlayer = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Player"));
 		if (nullptr == pPlayer)
 			return;
+		m_pPlayer = pPlayer;
 	}
 	vector_t vPlayerPos = pPlayer->Get_Transform()->Get_State(STATE::POSITION);
 

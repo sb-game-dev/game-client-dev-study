@@ -96,7 +96,7 @@ void GS_MAIN(point VS_OUT gin[1],
     //look.y = 0.0f; // y-axis aligned, so project to xz-plane
     //look = normalize(look);
     
-    float3 look = float3(g_ViewMatrix._31, 0, g_ViewMatrix._33);
+    float3 look = float3(g_ViewMatrix._13, 0, g_ViewMatrix._33);
     look = normalize(-look);
     float3 right = cross(up, look);
     

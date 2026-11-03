@@ -201,6 +201,7 @@ float4_t CInven::Get_SlotRect(const SLOT_POS& t)
 				 EQUIP_TOP + (t.iIndex / EQUIP_COLS) * EQUIP_STEP_Y,
 				 EQUIP_WIDTH,
 				 EQUIP_HEIGHT };
+	return float4_t();
 }
 
 shared_ptr<ITEM>& CInven::Get_SlotItem(const SLOT_POS& t)

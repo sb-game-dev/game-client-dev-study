@@ -40,10 +40,10 @@ Duckov/Game/
    ├─ Default/    Default.cpp(WinMain), Default.vcxproj, imgui.ini
    ├─ ImGui/      imgui 소스 (imgui.cpp, imgui_draw.cpp, imgui_widgets.cpp, imgui_tables.cpp,
    │              imgui_impl_win32.cpp, imgui_impl_dx11.cpp + 헤더)
-   ├─ Public/     MapTool_Defines.h, ToolMainApp.h, Level_MapTool.h, MapTool_Cam.h,
+   ├─ Public/     MapTool_Defines.h, ToolMainApp.h, Level_MapTool.h, Loader_MapTool.h, MapTool_Cam.h,
    │              EditorUI.h, EditorUI_Defines.h, EditorUI_Utils.h,
    │              Panel.h, Panel_Hierarchy.h, Panel_Scene.h, Panel_Inspector.h
-   ├─ Private/    ToolMainApp.cpp, Level_MapTool.cpp, MapTool_Cam.cpp,
+   ├─ Private/    ToolMainApp.cpp, Level_MapTool.cpp, Loader_MapTool.cpp, MapTool_Cam.cpp,
    │              EditorUI.cpp, Panel_Hierarchy.cpp, Panel_Scene.cpp, Panel_Inspector.cpp
    └─ Bin/        Engine.dll, Shader/ (Client/Bin/Shader에서 빌드 후 복사)
 ```
@@ -56,11 +56,11 @@ Duckov/Game/
 | `CToolMainApp` | MapTool | 엔진 초기화, ImGui 초기화/프레임 시작/렌더, `CEditorUI` 소유, 레벨 시작 |
 | `CEditorUI` | MapTool | 에디터 화면 전체: 메뉴바, 레이아웃 계산, 공용 상태(`EDITOR_CONTEXT`) 보관, 패널 3개 소유 |
 | `CPanel_Hierarchy` / `CPanel_Scene` / `CPanel_Inspector` | MapTool | 각 창 하나씩 (`CPanel` 상속, Context를 참조로 공유) |
-| `CLevel_MapTool` | MapTool | 툴 레벨: SkyBox, 맵툴 카메라, StaticProp 원형 등록 |
+| `CLevel_MapTool` | MapTool | 툴 레벨: SkyBox, 맵툴 카메라, StaticProp 원형 등록, 로더 실행 |
+| `CLoader_MapTool` | MapTool | 툴 시작 시 콤보 목록(`g_Meshes`, `g_Textures`)의 메시/텍스처 원형을 **미리 전부** 등록 |
 | `CMapTool_Cam` | MapTool (namespace Client) | WASD 이동 + 우클릭 마우스 회전 자유 카메라 |
 | `CMapObject` | Client | 배치 가능한 모든 객체의 부모. DESC로 위치/회전/크기/메시/텍스처를 받음 |
 | `CStaticProp` | Client | 그리기만 하는 구조물. 메시/텍스처를 **경로 문자열**로 받아 교체 가능 |
-| `CAsset_Manager` | Engine | "경로로 원형 찾기 → 없으면 로드해서 등록" 캐시 |
 | `CRenderer` | Engine | 씬을 텍스처(RTT)에 그림 → 툴은 그 SRV를 ImGui::Image로 표시 |
 
 ### 한 프레임의 흐름
@@ -2077,7 +2077,7 @@ void CToolMainApp::Sync_SceneView()
 ## 6단계. 배치 객체 만들기 — CStaticProp + Hierarchy 생성 메뉴
 
 **목표**: Hierarchy 빈 곳을 우클릭해서 `Add Static_Prop`을 누르면 Scene에 텍스처 입힌 큐브가 나타난다.
-이를 위해 배치 가능한 객체의 부모(`CMapObject`), 경로로 리소스를 찾는 캐시(`CAsset_Manager`), 구조물 클래스(`CStaticProp`)를 만든다.
+이를 위해 배치 가능한 객체의 부모(`CMapObject`), 구조물 클래스(`CStaticProp`), 메시/텍스처 원형을 툴 시작 시 미리 등록하는 로더(`CLoader_MapTool`)를 만든다.
 
 ### 6-1. CMapObject + MAPOBJECT_DESC
 
@@ -2214,10 +2214,11 @@ void CTransform::Rotation(f32_t fDegreeX, f32_t fDegreeY, f32_t fDegreeZ)
 
 **확인**: DESC에 위치/회전/크기를 넣어 만든 객체가 그 값대로 놓인다.
 
-### 6-3. CAsset_Manager — 경로로 찾고, 없으면 로드
+### 6-3. 경로 = 프로토타입 태그 (Normalize_AssetPath + Has_Prototype)
 
-"경로로 원형을 찾고, 없으면 로드해서 등록" — 같은 메시/텍스처는 **한 번만** 로드된다.
-`Proto::Texture_XXX`처럼 태그를 미리 만들지 않고 **정규화된 경로 자체가 프로토타입 태그**가 된다.
+메시/텍스처 원형은 `Proto::Texture_XXX`처럼 태그 상수를 따로 만들지 않고 **정규화된 경로 자체를 프로토타입 태그**로 쓴다.
+- 로더(6-9)는 경로를 정규화한 태그로 원형을 등록하고, `CStaticProp`(6-5)은 같은 규칙으로 태그를 만들어 Clone한다
+- 객체가 들고 있는 경로 = 원형 태그라서, 나중에 맵을 저장/불러올 때 경로 문자열만 있으면 바로 `Add_Component`할 수 있다 (상수 ↔ 경로 매핑 표가 필요 없음)
 
 **Engine_Function.h — 경로 정규화 + 상수**
 
@@ -2273,122 +2274,11 @@ bool_t CPrototype_Manager::Has_Prototype(uint32_t iLevelIndex, const wstring_t& 
 ```
 + `GameInstance::Has_Prototype` 전달 함수
 
-**Asset_Manager.h / .cpp (Engine)**
-
-**Asset_Manager.h**
-
-```cpp
-#pragma once
-#include "Engine_Defines.h"
-
-NS_BEGIN(Engine)
-class CPrototype;
-class CAsset_Manager final
-{
-private:
-	CAsset_Manager(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
-public:
-	~CAsset_Manager() = default;
-public:
-	HRESULT	Get_Or_Load_Texture(uint32_t iLevelIndex, const wstring_t& strPath, _Out_ wstring_t& strTag);
-	HRESULT	Get_or_Load_Mesh(uint32_t iLevelIndex, const wstring_t& strPath, _Out_ wstring_t& strTag);
-private:
-	shared_ptr<CPrototype> Create_BuiltinMesh(const wstring_t& strTag);
-private:
-	ComPtr<ID3D11Device>		m_pDevice;
-	ComPtr<ID3D11DeviceContext>	m_pContext;
-	unordered_set<wstring_t>    m_FailedTags;   // 실패한 경로는 다시 시도하지 않도록 기록
-public:
-	static unique_ptr<CAsset_Manager> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
-};
-NS_END
-```
-
-**Asset_Manager.cpp**
-
-```cpp
-#include "Asset_Manager.h"
-#include "GameInstance.h"       // Has_Prototype, Add_Prototype, CTexture, CVIBuffer_Cube/Rect
-
-CAsset_Manager::CAsset_Manager(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
-	:m_pDevice{pDevice}
-	,m_pContext{pContext}
-{
-}
-
-HRESULT CAsset_Manager::Get_Or_Load_Texture(uint32_t iLevelIndex, const wstring_t& strPath, _Out_ wstring_t& strTag)
-{
-    strTag = Normalize_AssetPath(strPath);                       // 1. 태그 = 정규화 경로
-
-    if (CGameInstance::Get().Has_Prototype(iLevelIndex, strTag)) // 2. 이미 있으면 끝
-        return S_OK;
-    if (m_FailedTags.count(strTag))                              // 3. 실패했던 경로면 바로 실패
-        return E_FAIL;
-
-    wstring_t strLoadPath = wstring_t(g_strResourceRoot) + strTag;   // 4. 로드
-    auto pTexture = CTexture::Create(m_pDevice, m_pContext, strLoadPath.c_str(), 1);
-    if (nullptr == pTexture)
-    {
-        m_FailedTags.insert(strTag);
-        return E_FAIL;
-    }
-    return CGameInstance::Get().Add_Prototype(iLevelIndex, strTag, pTexture);   // 5. 등록
-}
-
-HRESULT CAsset_Manager::Get_or_Load_Mesh(uint32_t iLevelIndex, const wstring_t& strPath, _Out_ wstring_t& strTag)
-{
-    strTag = Normalize_AssetPath(strPath);
-    if (CGameInstance::Get().Has_Prototype(iLevelIndex, strTag))
-        return S_OK;
-    if (m_FailedTags.count(strTag))
-        return E_FAIL;
-
-    shared_ptr<CPrototype> pMesh;
-    if (0 == strTag.rfind(g_strBuiltinPrefix, 0))       // "builtin/"으로 시작
-        pMesh = Create_BuiltinMesh(strTag);
-    // else: fbx 모델 로드 (계획서 10단계)
-
-    if (nullptr == pMesh)
-    {
-        m_FailedTags.insert(strTag);
-        return E_FAIL;
-    }
-    return CGameInstance::Get().Add_Prototype(iLevelIndex, strTag, pMesh);
-}
-
-shared_ptr<CPrototype> CAsset_Manager::Create_BuiltinMesh(const wstring_t& strTag)
-{
-    if (strTag == L"builtin/cube") return CVIBuffer_Cube::Create(m_pDevice, m_pContext);
-    if (strTag == L"builtin/rect") return CVIBuffer_Rect::Create(m_pDevice, m_pContext);
-    return nullptr;   // pyramid는 VTXCOL이라 텍스처 셰이더와 안 맞아서 제외
-}
-```
-
-**GameInstance가 소유**
-
-```cpp
-// GameInstance.h
-#include "Asset_Manager.h"
-#pragma region ASSET_MANAGER
-	HRESULT	Get_Or_Load_Texture(uint32_t iLevelIndex, const wstring_t& strPath, _Out_ wstring_t& strTag);
-	HRESULT	Get_or_Load_Mesh(uint32_t iLevelIndex, const wstring_t& strPath, _Out_ wstring_t& strTag);
-#pragma endregion
-	unique_ptr<CAsset_Manager>		m_pAsset_Manager = { nullptr };
-
-// GameInstance.cpp — Initialize_Engine (Sampler_Manager 다음)
-m_pAsset_Manager = CAsset_Manager::Create(pDevice, pContext);
-if (nullptr == m_pAsset_Manager)
-    return E_FAIL;
-
-// Release_Engine — 맨 앞에서 먼저 해제
-m_pAsset_Manager.reset();
-```
-
-- `Engine.vcxproj`에 `Asset_Manager.h/.cpp` 추가 → **Engine 빌드** (EngineSDK/Inc로 헤더 복사됨)
+- `Engine_Function.h`, `Prototype_Manager.h`, `GameInstance.h` 수정 → **Engine 빌드** (EngineSDK/Inc로 헤더 복사됨)
 
 **주의**
-- `Add_Prototype`은 같은 태그가 있으면 `E_FAIL` → 반드시 "확인 → 생성 → 등록" 순서
-- 없는 경로를 매 프레임 요청해도 `m_FailedTags` 덕에 파일을 계속 열지 않음
+- `Add_Prototype`은 같은 태그가 있으면 `E_FAIL`, 그리고 **원형이 `nullptr`이어도 검사하지 않고 그대로 등록**한다 → 등록하는 쪽(6-9 로더)에서 `Create` 결과를 먼저 확인
+- 등록과 Clone이 **같은 함수(`Normalize_AssetPath`)로 태그를 만들어야** 한다. 한쪽만 정규화하면 대소문자/슬래시 차이로 원형을 못 찾는다
 
 ### 6-4. Engine — CGameObject::Remove_Component
 
@@ -2533,14 +2423,15 @@ HRESULT CStaticProp::Ready_ConstantBuffer()
 }
 ```
 
-**Change_Texture / Change_Mesh** — 새 리소스를 **먼저 Get_Or_Load**, 성공하면 기존 컴포넌트 제거 → 추가
+**Change_Texture / Change_Mesh** — 경로를 정규화해서 태그를 만들고, **원형이 등록돼 있는지 먼저 확인**한 뒤 기존 컴포넌트 제거 → 추가
+원형은 툴 시작 시 로더(6-9)가 전부 등록해 두므로 여기서는 Clone만 한다.
 
 ```cpp
 HRESULT CStaticProp::Change_Texture(const wstring_t& strTexturePath)
 {
-    wstring_t strTexTag;
-    if (FAILED(CGameInstance::Get().Get_Or_Load_Texture(m_iLevelIndex, strTexturePath, strTexTag)))
-        return E_FAIL;                              // 실패 시 기존 텍스처 유지
+    const wstring_t strTexTag = Normalize_AssetPath(strTexturePath);   // 로더와 같은 규칙으로 태그 생성
+    if (false == CGameInstance::Get().Has_Prototype(m_iLevelIndex, strTexTag))
+        return E_FAIL;                              // 등록 안 된 경로 → 기존 텍스처 유지 (Remove 전에 거름)
 
     shared_ptr<CTexture> pNew;
     Remove_Component(TEXT("Com_Texture"));
@@ -2554,12 +2445,13 @@ HRESULT CStaticProp::Change_Texture(const wstring_t& strTexturePath)
 
 HRESULT CStaticProp::Change_Mesh(const wstring_t& strMeshPath)
 {
-    wstring_t strMeshTag;
-    if (FAILED(CGameInstance::Get().Get_or_Load_Mesh(m_iLevelIndex, strMeshPath, strMeshTag)))
-        return E_FAIL;
+    const wstring_t strMeshTag = Normalize_AssetPath(strMeshPath);
 
     if (0 != strMeshTag.rfind(g_strBuiltinPrefix, 0))
         return E_FAIL;                              // 모델은 계획서 10단계에서
+
+    if (false == CGameInstance::Get().Has_Prototype(m_iLevelIndex, strMeshTag))
+        return E_FAIL;                              // 등록 안 된 경로 → 기존 메시 유지
 
     shared_ptr<CVIBuffer> pNew;
     Remove_Component(TEXT("Com_Buffer"));
@@ -2680,7 +2572,7 @@ HRESULT CLayer::Add_GameObject(const wstring_t& strGameObjectTag, shared_ptr<cla
 
 - `CObject_Manager::Add_GameObject`: `pLayer->Add_GameObject` 실패(중복 태그) 시 `E_FAIL`을 그대로 반환하도록 수정 (새 레이어를 만들 때 / 기존 레이어에 넣을 때 둘 다)
 
-### 6-7. Level_MapTool — StaticProp 원형 등록
+### 6-7. Level_MapTool — StaticProp 원형 등록 + 로더 실행
 
 **Level_MapTool.h** — private에 선언 추가
 
@@ -2695,6 +2587,7 @@ HRESULT CLayer::Add_GameObject(const wstring_t& strGameObjectTag, shared_ptr<cla
 #include "MapTool_Cam.h"
 #include "SkyBox.h"
 #include "StaticProp.h"
+#include "Loader_MapTool.h"
 
 HRESULT CLevel_MapTool::Initialize()
 {
@@ -2702,6 +2595,10 @@ HRESULT CLevel_MapTool::Initialize()
         return E_FAIL;
 
     SetWindowText(g_hWnd, L"MapTool_Level");
+
+    // 메시/텍스처 원형을 미리 전부 등록 (6-9). 객체가 만들어지기 전이어야 한다
+    if (nullptr == CLoader_MapTool::Create(m_pDevice, m_pContext, ETOUI(LEVEL::MAPTOOL)))
+        return E_FAIL;
 
     if (FAILED(Ready_Layer_BackGround(TEXT("Layer_BackGround")))) return E_FAIL;
     if (FAILED(Ready_Layer_GameObject(TEXT("Layer_GameObject")))) return E_FAIL;
@@ -2729,12 +2626,13 @@ HRESULT CLevel_MapTool::Ready_Layer_Map(const tchar_t* pLayerTag)
 }
 ```
 
-- **메시/텍스처 원형은 여기서 등록하지 않는다** — `CAsset_Manager`가 필요할 때 로드 (6-3)
-- 사본은 만들지 않는다. 사본은 Hierarchy가 `Layer_Map`에 만든다 (6-9). 그래서 인자 `pLayerTag`(`"Layer_Map"`)는 이 함수에서 쓰지 않는다
+- **메시/텍스처 원형은 이 함수가 아니라 `Initialize` 맨 앞의 로더가 등록한다** (6-9)
+- `CLoader_MapTool::Create`가 돌려준 객체는 받아 두지 않는다. 등록이 끝나면 할 일이 없으므로 그 줄에서 바로 해제된다
+- 사본은 만들지 않는다. 사본은 Hierarchy가 `Layer_Map`에 만든다 (6-10). 그래서 인자 `pLayerTag`(`"Layer_Map"`)는 이 함수에서 쓰지 않는다
 
 ### 6-8. EditorUI_Defines.h — 메시/텍스처 목록 추가
 
-`EDITOR_CONTEXT` 아래에 추가. 생성 기본값(이번 단계)과 Inspector 콤보(10단계)가 같이 쓴다.
+`EDITOR_CONTEXT` 아래에 추가. 원형 등록(6-9 로더), 생성 기본값(6-10), Inspector 콤보(10단계)가 **같은 배열**을 같이 쓴다.
 
 ```cpp
 // { 표시 이름, 경로 } 목록 (Inspector 콤보, Hierarchy 생성 기본값)
@@ -2757,7 +2655,146 @@ inline constexpr ASSET_ITEM g_Textures[] = {
 
 - `inline constexpr` 배열: 헤더에 두어도 여러 cpp에서 중복 정의 에러가 안 남 (C++17)
 
-### 6-9. CPanel_Hierarchy — 빈 곳 우클릭으로 생성
+### 6-9. CLoader_MapTool — 메시/텍스처 원형 미리 등록
+
+툴에서 쓸 메시/텍스처는 `g_Meshes`, `g_Textures`에 이미 전부 적혀 있다. 그래서 Client의 `CLoader`처럼 **툴 시작 시 한 번에 원형을 등록**하고, 객체는 Clone만 한다.
+
+Client `CLoader`와 다른 점
+- **스레드를 쓰지 않는다.** 맵툴에는 로딩 레벨(진행 상황을 보여 줄 화면)이 없고 `Change_Level(MAPTOOL)` 한 번으로 바로 시작하므로, `CLevel_MapTool::Initialize` 안에서 바로 실행한다
+- 등록할 목록을 코드에 한 줄씩 쓰지 않고 **콤보 목록 배열을 그대로 돈다** → 목록에 한 줄 추가하면 등록도 같이 된다
+- 태그는 `Proto::` 상수가 아니라 **`Normalize_AssetPath(경로)`** (6-3)
+
+**Loader_MapTool.h (MapTool/Public)**
+
+```cpp
+#pragma once
+#include "MapTool_Defines.h"
+
+NS_BEGIN(MapTool)
+// 콤보 목록(g_Meshes, g_Textures)의 원형을 툴 시작 시 한 번에 등록
+class CLoader_MapTool final
+{
+private:
+	CLoader_MapTool(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
+public:
+	~CLoader_MapTool() = default;
+
+public:
+	HRESULT		Initialize(uint32_t iLevelIndex);
+
+private:
+	HRESULT					Loading_Meshes(uint32_t iLevelIndex);
+	HRESULT					Loading_Textures(uint32_t iLevelIndex);
+	shared_ptr<CPrototype>	Create_BuiltinMesh(const wstring_t& strTag);
+
+private:
+	ComPtr<ID3D11Device>		m_pDevice = { nullptr };
+	ComPtr<ID3D11DeviceContext>	m_pContext = { nullptr };
+
+public:
+	static unique_ptr<CLoader_MapTool> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, uint32_t iLevelIndex);
+};
+NS_END
+```
+
+- Client `CLoader::Create(..., eNextLevel)`처럼 `Create`에 레벨 번호를 받아서 **만들면서 바로 등록**한다. 실패하면 `nullptr`
+
+**Loader_MapTool.cpp (MapTool/Private)**
+
+include + 생성자 + Initialize — 메시 → 텍스처 순서로 등록
+
+```cpp
+#include "Loader_MapTool.h"
+#include "EditorUI_Defines.h"       // g_Meshes, g_Textures
+
+CLoader_MapTool::CLoader_MapTool(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
+    : m_pDevice{ pDevice }
+    , m_pContext{ pContext }
+{
+}
+
+HRESULT CLoader_MapTool::Initialize(uint32_t iLevelIndex)
+{
+    if (FAILED(Loading_Meshes(iLevelIndex)))
+        return E_FAIL;
+    if (FAILED(Loading_Textures(iLevelIndex)))
+        return E_FAIL;
+    return S_OK;
+}
+```
+
+Loading_Meshes — 목록의 경로마다 태그를 만들고, 그 태그에 맞는 내장 버퍼를 생성해서 등록
+
+```cpp
+HRESULT CLoader_MapTool::Loading_Meshes(uint32_t iLevelIndex)
+{
+    for (auto& Item : g_Meshes)
+    {
+        const wstring_t strTag = Normalize_AssetPath(Item.pPath);   // "builtin/cube"
+
+        auto pMesh = Create_BuiltinMesh(strTag);
+        if (nullptr == pMesh)                                       // Add_Prototype은 nullptr을 검사하지 않으므로 여기서 거름
+            return E_FAIL;
+
+        if (FAILED(CGameInstance::Get().Add_Prototype(iLevelIndex, strTag, pMesh)))
+            return E_FAIL;
+    }
+    return S_OK;
+}
+
+// 정규화된 태그(소문자) → 버퍼 생성. 목록에 메시를 추가하면 여기에도 한 줄 추가
+shared_ptr<CPrototype> CLoader_MapTool::Create_BuiltinMesh(const wstring_t& strTag)
+{
+    if (strTag == L"builtin/cube") return CVIBuffer_Cube::Create(m_pDevice, m_pContext);
+    if (strTag == L"builtin/rect") return CVIBuffer_Rect::Create(m_pDevice, m_pContext);
+    return nullptr;   // pyramid는 VTXCOL이라 텍스처 셰이더와 안 맞아서 제외
+}
+```
+
+Loading_Textures — 목록의 경로마다 태그를 만들고, Resource 루트를 붙여 파일을 읽어서 등록
+
+```cpp
+HRESULT CLoader_MapTool::Loading_Textures(uint32_t iLevelIndex)
+{
+    for (auto& Item : g_Textures)
+    {
+        const wstring_t strTag      = Normalize_AssetPath(Item.pPath);              // "ex/woodcrate01.dds"
+        const wstring_t strLoadPath = wstring_t(g_strResourceRoot) + strTag;        // "../../../Resource/ex/woodcrate01.dds"
+
+        auto pTexture = CTexture::Create(m_pDevice, m_pContext, strLoadPath.c_str(), 1);
+        if (nullptr == pTexture)                                    // 파일이 없으면 툴 시작 단계에서 바로 실패
+            return E_FAIL;
+
+        if (FAILED(CGameInstance::Get().Add_Prototype(iLevelIndex, strTag, pTexture)))
+            return E_FAIL;
+    }
+    return S_OK;
+}
+```
+
+Create
+
+```cpp
+unique_ptr<CLoader_MapTool> CLoader_MapTool::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, uint32_t iLevelIndex)
+{
+    auto pInstance = unique_ptr<CLoader_MapTool>(new CLoader_MapTool(pDevice, pContext));
+    if (FAILED(pInstance->Initialize(iLevelIndex)))
+    {
+        MSG_BOX("Failed to Created : CLoader_MapTool");
+        pInstance.reset();
+    }
+    return pInstance;
+}
+```
+
+- MapTool `Default.vcxproj`에 `Loader_MapTool.h/.cpp` 추가
+
+**주의**
+- `Create_BuiltinMesh`의 비교 문자열은 **소문자**로 써야 한다. 태그가 `Normalize_AssetPath`로 소문자가 되므로, 목록에 `L"builtin/MyMesh"`처럼 대문자를 써도 비교는 `L"builtin/mymesh"`로 해야 맞는다
+- 원형은 `LEVEL::MAPTOOL`에 등록된다. 객체 DESC의 `iLevelIndex`도 `MAPTOOL`이어야 Clone할 때 찾는다
+- 나중에 Client에서 맵을 불러올 때도 **같은 경로 태그의 원형이 GAMEPLAY 레벨에 있어야** 한다 → Client `CLoader`도 같은 규칙(정규화 경로 태그)으로 등록해야 한다
+
+### 6-10. CPanel_Hierarchy — 빈 곳 우클릭으로 생성
 
 **Panel_Hierarchy.h** — private에 추가
 
@@ -2853,11 +2890,12 @@ void CPanel_Hierarchy::Render(const PANEL_RECT& tRect)
 **실행 결과**
 - Hierarchy 빈 곳을 우클릭 → `Add Static_Prop` → Scene 가운데(원점)에 나무상자 텍스처(`WoodCrate01`)를 입힌 큐브가 나타난다 (카메라가 `(0, 0, -5)`에서 원점을 보고 있음)
 - 여러 번 누르면 같은 자리에 겹쳐 생긴다 (위치는 9단계 Inspector에서 바꾼다)
-- 텍스처 로드는 한 번만 일어난다 (`CAsset_Manager::Get_Or_Load_Texture`의 `CTexture::Create` 줄에 중단점을 걸면 처음 한 번만 걸림)
+- 텍스처 로드는 툴 시작 시 한 번만 일어난다 (`CLoader_MapTool::Loading_Textures`의 `CTexture::Create` 줄에 중단점을 걸면 시작할 때 목록 개수만큼만 걸리고, 객체를 만들 때는 안 걸림)
 
 **주의**
-- Engine 헤더(Asset_Manager, Prototype_Manager, GameObject, Engine_Function) 수정 → **Engine 먼저 빌드** → MapTool 빌드
-- 생성이 실패하면 `"Create Failed"` 메시지 박스 → 셰이더 원형(`VS_VTXTEX`, `PS_VTXTEX_NOLIGHT`)이 MAPTOOL 레벨에 등록됐는지, 텍스처 경로(`Resource/Ex/WoodCrate01.dds`)가 있는지 확인
+- Engine 헤더(Prototype_Manager, GameObject, Engine_Function) 수정 → **Engine 먼저 빌드** → MapTool 빌드
+- 생성이 실패하면 `"Create Failed"` 메시지 박스 → 셰이더 원형(`VS_VTXTEX`, `PS_VTXTEX_NOLIGHT`)이 MAPTOOL 레벨에 등록됐는지, 메시/텍스처 원형이 로더에서 등록됐는지 확인
+- 툴이 시작하자마자 `"Failed to Created : CLoader_MapTool"`이 뜨면 목록의 텍스처 파일(`Resource/Ex/WoodCrate01.dds`)이 있는지, `Create_BuiltinMesh`에 해당 메시 분기가 있는지 확인
 
 ---
 
@@ -3604,7 +3642,8 @@ unique_ptr<CPanel_Inspector> CPanel_Inspector::Create(EDITOR_CONTEXT& Context)
 
 **주의**
 - `DragFloat3`에 `&vPos.x`를 넘기는 건 `float3_t`(XMFLOAT3)가 float 3개가 연속이라 가능
-- 텍스처/메시 목록을 늘리려면 `EditorUI_Defines.h`의 `g_Meshes` / `g_Textures`에 한 줄 추가하면 끝 (경로는 Resource 기준)
+- 텍스처 목록을 늘리려면 `EditorUI_Defines.h`의 `g_Textures`에 한 줄 추가하면 끝 (경로는 Resource 기준). 로더가 같은 배열을 돌기 때문에 원형 등록도 자동으로 된다
+- 메시는 `g_Meshes`에 한 줄 + `CLoader_MapTool::Create_BuiltinMesh`에 분기 한 줄 (비교 문자열은 소문자)
 
 ---
 
@@ -3624,8 +3663,9 @@ unique_ptr<CPanel_Inspector> CPanel_Inspector::Create(EDITOR_CONTEXT& Context)
 5. 모델(fbx) 전환 (계획서 10단계), 피킹/기즈모/복제/Undo (계획서 9단계)
 
 ### 알려진 작은 문제
-- `Change_Mesh/Change_Texture`: `Get_Or_Load` 성공 후 `Remove_Component` → `Add_Component`가 실패하면 기존 컴포넌트가 이미 지워진 상태가 됨 (Clone 실패는 드묾. 안전하게 하려면 Add 실패 시 기존 것을 다시 넣기)
-- `CAsset_Manager` 로드 실패 시 `E_FAIL`만 반환 → 호출부(Inspector)에서 `MSG_BOX`로 알림. 생성 시 실패는 `"Create Failed"`
+- `Change_Mesh/Change_Texture`: `Has_Prototype` 확인 후 `Remove_Component` → `Add_Component`가 실패하면 기존 컴포넌트가 이미 지워진 상태가 됨 (원형이 있는 걸 확인했으므로 Clone 실패는 드묾. 안전하게 하려면 Add 실패 시 기존 것을 다시 넣기)
+- 등록되지 않은 경로로 교체하면 `E_FAIL`만 반환 → 호출부(Inspector)에서 `MSG_BOX`로 알림. 생성 시 실패는 `"Create Failed"`
+- 목록에 메시를 추가할 때 `g_Meshes`만 고치고 `CLoader_MapTool::Create_BuiltinMesh` 분기를 빠뜨리면 툴 시작이 실패함 (텍스처는 배열만 고치면 됨)
 
 ---
 
@@ -3732,7 +3772,7 @@ unique_ptr<CPanel_Inspector> CPanel_Inspector::Create(EDITOR_CONTEXT& Context)
 | `0545bc72d` 파이프라인 카메라 적용 완료 | CCamera를 게임오브젝트로, PipeLine/ConstantBuffer, 셰이더 |
 | `7bdfd68df` 맵툴 카메라 게임오브젝트로 변경 | CMapTool_Cam 재작성, ToolMainApp Sync_SceneView |
 | `b3caf4dd7` / `364bbb3b4` | `Has_Prototype`, `Normalize_AssetPath`, MapTool_Plan.md 작성 |
-| `08436eeff` 맵툴 구현중 | CMapObject, CStaticProp, CAsset_Manager, 중복 태그 E_FAIL |
+| `08436eeff` 맵툴 구현중 | CMapObject, CStaticProp, 중복 태그 E_FAIL |
 | `b4d46a84e` 하이어라키창 수정중 | Dead 삭제, Get_GameObjects, Hierarchy 창 |
 | `41a779582` 하이어라키 + 인스펙터창 구현 완료 | Remove_Component, Change_Mesh/Texture, Inspector 창 |
 

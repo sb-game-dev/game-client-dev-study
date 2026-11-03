@@ -54,6 +54,8 @@ shared_ptr<CPrototype> CAsset_Manager::Create_BuiltinMesh(const wstring_t& strTa
         return CVIBuffer_Cube::Create(m_pDevice, m_pContext);
     if (strTag == L"builtin/rect")
         return CVIBuffer_Rect::Create(m_pDevice, m_pContext);
+    if (strTag == L"builtin/ZeroZoneterrain")
+        return CVIBuffer_Terrain::Create(m_pDevice, m_pContext, L"../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/height_321x321_16bit.raw");
     return nullptr;
 }
 

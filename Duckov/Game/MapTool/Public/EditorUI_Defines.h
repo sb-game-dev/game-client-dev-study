@@ -56,6 +56,7 @@ struct ASSET_ITEM
 inline constexpr ASSET_ITEM g_Meshes[] = {
 	{ "Cube", L"builtin/cube" },
 	{ "Rect", L"builtin/rect" },
+	{ "ZeroZonTerrain", L"builtin/ZeroZoneterrain" },
 };
 
 inline constexpr ASSET_ITEM g_Textures[] = {

@@ -147,7 +147,7 @@ void CCube_Instance::Late_Update(f32_t fDeltaTime)
 
 HRESULT CCube_Instance::Render()
 {
-    return Render_Mesh(m_pInstanceVB.Get(), m_pPS, m_iNumInstance);
+    return Render_Mesh(m_pInstanceVB.Get(), m_pPS, m_iVisibleShadowCnt);
 }
 
 HRESULT CCube_Instance::Render_Shadow()

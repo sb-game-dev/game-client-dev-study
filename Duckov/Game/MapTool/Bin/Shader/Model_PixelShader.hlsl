@@ -1,0 +1,171 @@
+#include "Engine_Pixel_Shader_Defines.hlsli"
+
+// 텍스처
+Texture2D g_DiffuseTex : register(t0); //SRV
+
+// 혼합맵 전용 텍스처
+Texture2D g_LayerMap0 : register(t2); // 잔디     (blend.r)
+Texture2D g_LayerMap1 : register(t3); // 흙       (blend.g)
+Texture2D g_LayerMap2 : register(t4); // 아스팔트 (blend.b)
+Texture2D g_BlendMap : register(t5);
+
+
+cbuffer cbPointLight : register(b2)
+{
+    PointLight g_PointLight;
+}
+
+cbuffer cbDirLight : register(b3)
+{
+    DirectionalLight g_DirLight;
+}
+
+cbuffer cbSpotLight : register(b4)
+{
+    SpotLight g_SpotLight;
+}
+cbuffer cbFog : register(b5)
+{
+    float4 g_vFogColor; // 안개 색
+    float g_fFogStart; // 안개 시작 위치
+    float g_fFogRange; // 안개 범위
+    float2 g_vFogPad; // 패딩용 변수
+}
+
+struct PS_IN
+{
+    float4 vPosition : SV_POSITION; // 클립 공간 위치 (월드,뷰,투영변환 완료된 위치)
+    float3 vPosW : POSITION;
+    float3 vNormalW : NORMAL;
+    float2 vTexCoord : TEXCOORD; //UV값
+};
+
+struct PS_IN_TERRAIN
+{
+    float4 vPosition : SV_POSITION;
+    float3 vPosW : POSITION;
+    float3 vNormalW : NORMAL;
+    float2 vTex : TEXCOORD0; // 혼합맵용 0~1   
+    float2 vTiledTex : TEXCOORD1; // 레이어용 반복   
+};
+
+float4 PS_MAIN(PS_IN In) : SV_TARGET //몇 번째 렌더타겟에 색을 쓸지
+{
+    float3 vNormal = normalize(In.vNormalW);
+    float3 vToEye = normalize(g_vEye.xyz - In.vPosW);
+    
+    float4 vAmbient, vDiffuse, vSpec;
+    float4 vAmbientSum, vDiffuseSum, vSpecSum;
+    float4 vColor = float4(0.f, 0.f, 0.f, 0.f);
+    float4 vTexColor = g_DiffuseTex.Sample(g_Sampler, In.vTexCoord);
+    
+    // 알파 테스트에 해당 알파값이 0.1이하인 경우 픽셀을 탈락시킴
+    clip(vTexColor.a - 0.1f);
+    
+    ComputePointLight(g_Material, g_PointLight, In.vPosW, vNormal, vToEye, vAmbient, vDiffuse, vSpec);
+    vAmbientSum = vAmbient;
+    vDiffuseSum = vDiffuse;
+    vSpecSum = vSpec;
+    
+    ComputeDirectionalLight(g_Material, g_DirLight, vNormal, vToEye, vAmbient, vDiffuse, vSpec);
+    vAmbientSum += vAmbient;
+    vDiffuseSum += vDiffuse;
+    vSpecSum += vSpec;
+    
+    ComputeSpotLight(g_Material, g_SpotLight, In.vPosW, vNormal, vToEye, vAmbient, vDiffuse, vSpec);
+    vAmbientSum += vAmbient;
+    vDiffuseSum += vDiffuse;
+    vSpecSum += vSpec;
+    
+    vColor = vTexColor * (vAmbientSum + vDiffuseSum) + vSpecSum;
+    vColor.a = g_Material.Diffuse.a * vTexColor.a;
+    
+    float distToEye = length(g_vEye.xyz - In.vPosW);
+    float fogLerp = saturate((distToEye - g_fFogStart) / g_fFogRange);
+    vColor.rgb = lerp(vColor.rgb, g_vFogColor.rgb, fogLerp);
+    
+    return vColor;
+}
+
+
+float4 PS_MAIN_NOLIGHT(PS_IN In) : SV_TARGET
+{
+    float4 vTexColor = g_DiffuseTex.Sample(g_Sampler, In.vTexCoord);
+    // 알파 테스트에 해당 알파값이 0.1이하인 경우 픽셀을 탈락시킴
+    clip(vTexColor.a - 0.1f);
+    
+    return vTexColor;
+}
+
+float4 PS_SHADOW(PS_IN In) : SV_TARGET
+{
+    float4 vTexColor = g_DiffuseTex.Sample(g_Sampler, In.vTexCoord);
+    clip(vTexColor.a - 0.1f);
+    return float4(0.f, 0.f, 0.f, 0.5f);
+}
+
+float4 PS_MAIN_SKY(PS_IN In) : SV_TARGET
+{
+    float4 vTexColor = g_DiffuseTex.Sample(g_Sampler, In.vTexCoord);
+    
+    //vTexColor.rgb = lerp(vTexColor.rgb, g_vFogColor.rgb, 0.7);
+    
+    return vTexColor;
+}
+
+
+float4 PS_TERRAIN(PS_IN_TERRAIN In) : SV_TARGET
+{
+    float3 vNormal = normalize(In.vNormalW);
+    float3 vToEye = normalize(g_vEye.xyz - In.vPosW);
+
+    //
+    // Texturing
+    //
+    
+    // Sample layers.
+    float4 c0 = g_LayerMap0.Sample(g_Sampler, In.vTiledTex); // 잔디
+    float4 c1 = g_LayerMap1.Sample(g_Sampler, In.vTiledTex); // 흙
+    float4 c2 = g_LayerMap2.Sample(g_Sampler, In.vTiledTex); // 아스팔트
+
+    // Sample the blend map.
+    float4 t = g_BlendMap.Sample(g_Sampler, In.vTex);
+    
+    // 잔디 x R + 흙 x G + 아스팔트 x B
+    float4 vTexColor = c0 * t.r + c1 * t.g + c2 * t.b;
+
+    //
+    // Lighting 
+    //
+    float4 vAmbient, vDiffuse, vSpec;
+    float4 vAmbientSum, vDiffuseSum, vSpecSum;
+
+    ComputePointLight(g_Material, g_PointLight, In.vPosW, vNormal, vToEye, vAmbient, vDiffuse, vSpec);
+    vAmbientSum = vAmbient;
+    vDiffuseSum = vDiffuse;
+    vSpecSum = vSpec;
+
+    ComputeDirectionalLight(g_Material, g_DirLight, vNormal, vToEye, vAmbient, vDiffuse, vSpec);
+    vAmbientSum += vAmbient;
+    vDiffuseSum += vDiffuse;
+    vSpecSum += vSpec;
+
+    ComputeSpotLight(g_Material, g_SpotLight, In.vPosW, vNormal, vToEye, vAmbient, vDiffuse, vSpec);
+    vAmbientSum += vAmbient;
+    vDiffuseSum += vDiffuse;
+    vSpecSum += vSpec;
+
+    float4 vColor = vTexColor * (vAmbientSum + vDiffuseSum) + vSpecSum;
+    vColor.a = 1.f;
+
+    float distToEye = length(g_vEye.xyz - In.vPosW);
+    float fogLerp = saturate((distToEye - g_fFogStart) / g_fFogRange);
+    vColor.rgb = lerp(vColor.rgb, g_vFogColor.rgb, fogLerp);
+
+    return vColor;
+}
+
+float4 PS_OCCLUDEDPLAYER(PS_IN In) : SV_TARGET
+{
+    return float4(0.f, 0.25f, 0.25f, 0.5f);
+}

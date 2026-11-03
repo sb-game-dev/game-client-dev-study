@@ -121,9 +121,9 @@ VS_OUT VS_MAIN_INST(VS_IN_INST In)
 {
     VS_OUT Out;
 
-    float4 vPosW = mul(float4(In.vPosition, 1.f), In.matWorld); // g_MatWorld -> In.matWorld
+    float4 vPosW = mul(float4(In.vPosition, 1.f), In.matWorld); 
     Out.vPosW = vPosW.xyz;
-    Out.vNormalW = mul(In.vNormal, (float3x3) g_matWorldInvTranspose);
+    Out.vNormalW = mul(In.vNormal, (float3x3) In.matWorld);
     
     Out.vPosition = mul(mul(vPosW, g_ViewMatrix), g_ProjMatrix);
     Out.vTexCoord = In.vTexCoord;
@@ -134,9 +134,9 @@ VS_OUT VS_MAIN_INST_UI(VS_IN_INST In)
 {
     VS_OUT Out;
 
-    float4 vPosW = mul(float4(In.vPosition, 1.f), In.matWorld); // g_MatWorld -> In.matWorld
+    float4 vPosW = mul(float4(In.vPosition, 1.f), In.matWorld); 
     Out.vPosW = vPosW.xyz;
-    Out.vNormalW = mul(In.vNormal, (float3x3) g_matWorldInvTranspose);
+    Out.vNormalW = mul(In.vNormal, (float3x3) In.matWorld);
     
     Out.vPosition = mul(mul(vPosW, g_OrthoViewMatrix), g_OrthoProjMatrix);
     Out.vTexCoord = In.vTexCoord;

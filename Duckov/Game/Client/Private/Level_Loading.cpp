@@ -82,11 +82,11 @@ HRESULT CLevel_Loading::Ready_Layer_BackGround()
 
     // VS
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOADING), Proto::VS_VTXTEX_UI,
-        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_VtxTex.hlsl", VTXNORM::Elements, VTXNORM::iNumElements, "VS_UI"))))
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/UI_VertexShader.hlsl", VTXNORM::Elements, VTXNORM::iNumElements, "VS_MAIN_UI"))))
         return E_FAIL;
     // PS
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOADING), Proto::PS_VTXTEX_NOLIGHT,
-        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_VtxTex.hlsl", "PS_MAIN_NOLIGHT"))))
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/UI_PixelShader.hlsl", "PS_MAIN"))))
         return E_FAIL;
 
     // 배경 원형

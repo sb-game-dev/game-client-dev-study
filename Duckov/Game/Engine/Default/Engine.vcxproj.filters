@@ -139,6 +139,9 @@
     <Filter Include="14. AssetManager">
       <UniqueIdentifier>{145b4ae2-e7fb-4a5a-88ff-eb8c65cb4b77}</UniqueIdentifier>
     </Filter>
+    <Filter Include="99. Defines\Shader_Files">
+      <UniqueIdentifier>{10e51d94-1661-4935-9a42-f48608afda0f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Engine_Defines.h">
@@ -410,5 +413,13 @@
     <ClCompile Include="..\private\Asset_Manager.cpp">
       <Filter>14. AssetManager</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Bin\ShaderFiles\Engine_Pixel_Shader_Defines.hlsli">
+      <Filter>99. Defines\Shader_Files</Filter>
+    </None>
+    <None Include="..\Bin\ShaderFiles\Engine_Vertex_Shader_Defines.hlsli">
+      <Filter>99. Defines\Shader_Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

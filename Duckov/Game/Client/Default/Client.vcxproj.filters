@@ -290,11 +290,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Bin\Shader\LightHelper.hlsli">
-      <Filter>97. ShaderFiles</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <FxCompile Include="..\Bin\Shader\Shader_Blur.hlsl">
       <Filter>97. ShaderFiles</Filter>
     </FxCompile>
@@ -304,14 +299,25 @@
     <FxCompile Include="..\Bin\Shader\Shader_VtxCol.hlsl">
       <Filter>97. ShaderFiles</Filter>
     </FxCompile>
-    <FxCompile Include="..\Bin\Shader\Shader_VtxNorm.hlsl">
+    <FxCompile Include="..\Bin\Shader\Shader_Inventory.hlsl">
       <Filter>97. ShaderFiles</Filter>
     </FxCompile>
-    <FxCompile Include="..\Bin\Shader\Shader_VtxTex.hlsl">
+    <FxCompile Include="..\Bin\Shader\Model_VertexShader.hlsl">
       <Filter>97. ShaderFiles</Filter>
     </FxCompile>
-    <FxCompile Include="..\Bin\Shader\Shader_UI.hlsl">
+    <FxCompile Include="..\Bin\Shader\UI_VertexShader.hlsl">
       <Filter>97. ShaderFiles</Filter>
     </FxCompile>
+    <FxCompile Include="..\Bin\Shader\Model_PixelShader.hlsl">
+      <Filter>97. ShaderFiles</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Bin\Shader\UI_PixelShader.hlsl">
+      <Filter>97. ShaderFiles</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Bin\Shader\LightHelper.hlsli">
+      <Filter>97. ShaderFiles</Filter>
+    </None>
   </ItemGroup>
 </Project>

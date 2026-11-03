@@ -20,8 +20,12 @@ HRESULT CLevel_GamePlay::Initialize()
         return E_FAIL;
 
     SetWindowText(g_hWnd, L"GamePlay_Level");
-    Ready_Layer_BackGround(TEXT("Layer_BackGround"));
-    Ready_Layer_GameObject(TEXT("Layer_GameObject"));
+    if(FAILED(Ready_Layer_BackGround(TEXT("Layer_BackGround"))))
+        return E_FAIL;
+    if(FAILED(Ready_Layer_GameObject(TEXT("Layer_GameObject"))))
+        return E_FAIL;
+    if (FAILED(Ready_Layer_Camera(TEXT("Layer_Camera"))))
+        return E_FAIL;
 
     return S_OK;
 }
@@ -108,23 +112,6 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
         ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Scope)))
         return E_FAIL;
 
-    CQuarterView_Cam::CAMERA_QUATER_DESC         CameraDesc{};
-    CameraDesc.fDegreeRotPerSec = 180.f;
-    CameraDesc.fSpeedPerSec = 20.f;
-    CameraDesc.vEye = float4_t(-10.f, 10.f, -10.f, 1.f);
-    CameraDesc.vAt = float4_t(0.f, 0.f, 0.f, 1.f);
-    CameraDesc.fFovy = 60.f;
-    CameraDesc.fNear = 0.1f;
-    CameraDesc.fFar = 1000.f;
-
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_QuaterViewCam,
-        ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::QuaterViewCam,&CameraDesc)))
-        return E_FAIL;
-
-    auto pQuaterViewCam = dynamic_pointer_cast<CQuarterView_Cam>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::QuaterViewCam));
-    CGameInstance::Get().Add_Camera(CAMERA::QUARTERVIEW, pQuaterViewCam);
-    CGameInstance::Get().Set_MainCamera(CAMERA::QUARTERVIEW); 
-
     auto pPlayer = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Player);
     auto pMirror = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Mirror);
     CGameInstance::Get().Set_Mirror(pMirror);
@@ -150,6 +137,27 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
     auto SunLight = CSunLight::Create(m_pDevice, m_pContext);
     CGameInstance::Get().AddLight(L"SunLight", SunLight);
 
+    return S_OK;
+}
+
+HRESULT CLevel_GamePlay::Ready_Layer_Camera(const tchar_t* pLayerTag)
+{
+    CQuarterView_Cam::CAMERA_QUATER_DESC         CameraDesc{};
+    CameraDesc.fDegreeRotPerSec = 180.f;
+    CameraDesc.fSpeedPerSec = 20.f;
+    CameraDesc.vEye = float4_t(-10.f, 10.f, -10.f, 1.f);
+    CameraDesc.vAt = float4_t(0.f, 0.f, 0.f, 1.f);
+    CameraDesc.fFovy = 70.f;
+    CameraDesc.fNear = 0.1f;
+    CameraDesc.fFar = 1000.f;
+
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_QuaterViewCam,
+        ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::QuaterViewCam, &CameraDesc)))
+        return E_FAIL;
+
+    auto pQuaterViewCam = dynamic_pointer_cast<CQuarterView_Cam>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::QuaterViewCam));
+    CGameInstance::Get().Add_Camera(CAMERA::QUARTERVIEW, pQuaterViewCam);
+    CGameInstance::Get().Set_MainCamera(CAMERA::QUARTERVIEW);
     return S_OK;
 }
 
