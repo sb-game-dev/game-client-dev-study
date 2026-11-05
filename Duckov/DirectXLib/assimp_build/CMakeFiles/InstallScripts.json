@@ -1,0 +1,9 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Users/\uc870\uc131\ubc94/Documents/game-client-dev-study/Duckov/DirectXLib/assimp_build/cmake_install.cmake",
+		"C:/Users/\uc870\uc131\ubc94/Documents/game-client-dev-study/Duckov/DirectXLib/assimp_build/contrib/zlib/cmake_install.cmake",
+		"C:/Users/\uc870\uc131\ubc94/Documents/game-client-dev-study/Duckov/DirectXLib/assimp_build/code/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

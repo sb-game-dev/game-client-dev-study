@@ -1,0 +1,11 @@
+# CMake generation dependency list for this directory.
+C:/Users/조성범/Downloads/assimp-master/assimp-master/contrib/zlib/CMakeLists.txt
+C:/Users/조성범/Downloads/assimp-master/assimp-master/contrib/zlib/zconf.h.cmakein
+C:/Users/조성범/Downloads/assimp-master/assimp-master/contrib/zlib/zlib.pc.cmakein
+C:/Users/조성범/Downloads/cmake-4.5.0-rc3-windows-x86_64/cmake-4.5.0-rc3-windows-x86_64/share/cmake-4.5/Modules/CheckCSourceCompiles.cmake
+C:/Users/조성범/Downloads/cmake-4.5.0-rc3-windows-x86_64/cmake-4.5.0-rc3-windows-x86_64/share/cmake-4.5/Modules/CheckFunctionExists.cmake
+C:/Users/조성범/Downloads/cmake-4.5.0-rc3-windows-x86_64/cmake-4.5.0-rc3-windows-x86_64/share/cmake-4.5/Modules/CheckIncludeFile.cmake
+C:/Users/조성범/Downloads/cmake-4.5.0-rc3-windows-x86_64/cmake-4.5.0-rc3-windows-x86_64/share/cmake-4.5/Modules/CheckIncludeFileCXX.cmake
+C:/Users/조성범/Downloads/cmake-4.5.0-rc3-windows-x86_64/cmake-4.5.0-rc3-windows-x86_64/share/cmake-4.5/Modules/CheckTypeSize.cmake
+C:/Users/조성범/Downloads/cmake-4.5.0-rc3-windows-x86_64/cmake-4.5.0-rc3-windows-x86_64/share/cmake-4.5/Modules/Internal/CheckCommon.cmake
+C:/Users/조성범/Downloads/cmake-4.5.0-rc3-windows-x86_64/cmake-4.5.0-rc3-windows-x86_64/share/cmake-4.5/Modules/Internal/CheckSourceCompiles.cmake
