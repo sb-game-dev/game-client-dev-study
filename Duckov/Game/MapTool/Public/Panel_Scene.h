@@ -17,7 +17,6 @@ public:
 
 private:
 	ImGuizmo::OPERATION		m_eGizmoOp = ImGuizmo::TRANSLATE;
-	ImGuizmo::MODE			m_eGizmoMode = ImGuizmo::WORLD;
 
 public:
 	static unique_ptr<CPanel_Scene> Create(EDITOR_CONTEXT& Context);

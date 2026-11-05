@@ -1,13 +1,13 @@
 #pragma once
 #include "Client_Defines.h"
-#include "GameObject.h"
+#include "MapObject.h"
 #include "Hill.h"
 
 NS_BEGIN(Client)
-class CPlayer : public CGameObject
+class CPlayer : public CMapObject
 {
 public:
-	typedef struct tagPlayerDesc : public GAMEOBJECT_DESC
+	typedef struct tagPlayerDesc : public MAPOBJECT_DESC
 	{
 
 	}PLAYER_DESC;

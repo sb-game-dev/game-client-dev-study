@@ -30,9 +30,9 @@ void CPanel_Inspector::Render(const PANEL_RECT& tRect)
                 if (ImGui::DragFloat3("Position", &vPos.x, 0.1f))
                     pSelected->Set_Position(vPos);
 
-                float3_t vRot = pSelected->Get_Rotation();
+                float3_t vRot = pSelected->Get_EulerHint();
                 if (ImGui::DragFloat3("Rotation", &vRot.x, 1.f))
-                    pSelected->Set_Rotation(vRot);
+                    pSelected->Set_RotationEuler(vRot);
 
                 float3_t vScale = pSelected->Get_Scale();
                 if (ImGui::DragFloat3("Scale", &vScale.x, 0.05f, 0.01f, 100.f))

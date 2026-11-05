@@ -4,6 +4,12 @@
 
 NS_BEGIN(MapTool)
 
+inline constexpr ImGuiWindowFlags g_FixedPanelFlags =
+ImGuiWindowFlags_NoMove                 // 제목 표시줄을 드래그해도 안 움직임
+| ImGuiWindowFlags_NoResize             // 모서리를 끌어도 크기 안 바뀜
+| ImGuiWindowFlags_NoCollapse           // 제목 표시줄의 접기 버튼 제거
+| ImGuiWindowFlags_NoSavedSettings;     // 창 정보를 저장하지 않음
+
 // 창 하나의 위치와 크기 (CEditorUI::Calc_Layout에서 계산)
 struct PANEL_RECT
 {
@@ -46,6 +52,19 @@ struct EDITOR_CONTEXT
 	}
 };
 
+// 빈 곳 우클릭 메뉴에 보일 배치 가능한 목록
+struct PLACEABLE
+{
+	const char* pName;				// 메뉴에 보일 이름
+	const wchar_t* pPrototypeTag;		// Add_GameObject에 넘길 프로토타입 태그
+};
+
+static constexpr PLACEABLE s_Placeables[] = {
+	{ "Add Static_Prop", Proto::Obj_StaticProp },
+	{ "Add Terrain", Proto::Obj_Hill },
+	{ "Add WireCube", Proto::Obj_Cube },
+};
+
 // { 표시 이름, 경로 } 목록 (Inspector 콤보, Hierarchy 생성 기본값)
 struct ASSET_ITEM
 {
@@ -56,12 +75,12 @@ struct ASSET_ITEM
 inline constexpr ASSET_ITEM g_Meshes[] = {
 	{ "Cube", L"builtin/cube" },
 	{ "Rect", L"builtin/rect" },
-	{ "ZeroZonTerrain", L"builtin/ZeroZoneterrain" },
 };
 
 inline constexpr ASSET_ITEM g_Textures[] = {
 	{ "WoodCrate01", L"Ex/WoodCrate01.dds" },
 	{ "WoodCrate02", L"Ex/WoodCrate02.dds" },
+	{ "WireFence", L"Ex/WireFence.dds" },
 };
 
 NS_END

@@ -26,8 +26,6 @@ HRESULT CGameObject::Initialize(void* pArg)
 	if (nullptr == pArg)
 		return S_OK;
 
-	auto pDesc = static_cast<GAMEOBJECT_DESC*>(pArg);
-	m_iLevelIndex = pDesc->iLevelIndex;
 
 	return S_OK;
 }
@@ -59,7 +57,10 @@ bool_t CGameObject::Is_InFrustum()
 {
 	if (false == m_bUseCulling)
 		return true;
-	return Is_BoxInFrustum(m_tLocalBox, m_pTransformCom->Get_World());
+	auto pBuffer = dynamic_pointer_cast<CVIBuffer>(Find_Component(L"Com_Buffer"));
+	if (nullptr == pBuffer)
+		return false;
+	return Is_BoxInFrustum(pBuffer->GetBoundinBox(), m_pTransformCom->Get_World());
 }
 
 bool_t CGameObject::Is_BoxInFrustum(const BoundingBox& tLocalBox, const matrix_t& matWorld)

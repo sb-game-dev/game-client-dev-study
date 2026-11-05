@@ -140,6 +140,7 @@ HRESULT CLoader::Loading_For_GamePlayLV()
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Normalize_AssetPath(L"../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/splat_0.png"),
         CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/splat_0.png"), 1))))
         return E_FAIL;
+
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Normalize_AssetPath(L"../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/Layer%d.png"),
         CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/Layer%d.png"), 3))))
         return E_FAIL;

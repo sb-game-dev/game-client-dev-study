@@ -5,12 +5,6 @@
 // 패널들이 같이 쓰는 ImGui 도우미
 NS_BEGIN(MapTool)
 
-inline constexpr ImGuiWindowFlags g_FixedPanelFlags =
-	ImGuiWindowFlags_NoMove                 // 제목 표시줄을 드래그해도 안 움직임
-	| ImGuiWindowFlags_NoResize             // 모서리를 끌어도 크기 안 바뀜
-	| ImGuiWindowFlags_NoCollapse           // 제목 표시줄의 접기 버튼 제거
-	| ImGuiWindowFlags_NoSavedSettings;     // 창 정보를 저장하지 않음
-
 inline void Set_NextPanelRect(const PANEL_RECT& tRect)
 {
 	ImGui::SetNextWindowPos(ImVec2(tRect.fX, tRect.fY), ImGuiCond_Always);

@@ -61,17 +61,19 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
 
     CHill::HILL_DESC Hill_Desc{};
     Hill_Desc.iLevelIndex = ETOUI(LEVEL::GAMEPLAY);
-    Hill_Desc.strMeshPath = TEXT("Duckov_Extract/Terrain/Terrain_GroundZero_Crop/height_321x321_16bit.raw");  // ³ôÀÌ¸Ê
-    Hill_Desc.strTexturePath = TEXT("Duckov_Extract/Terrain/Terrain_GroundZero_Crop/splat_0.png");               // È¥ÇÕ¸Ê
-    Hill_Desc.strLayerPath = TEXT("Duckov_Extract/Terrain/Terrain_GroundZero_Crop/Layer%d.png");               // ·¹ÀÌ¾î
+    Hill_Desc.strMeshPath = TEXT("Duckov_Extract/Terrain/Terrain_GroundZero_Crop/height_321x321_16bit.raw");  // ÁöÇü ¹öÆÛ + ³ôÀÌ¸Ê
+    Hill_Desc.strTexturePath = TEXT("Duckov_Extract/Terrain/Terrain_GroundZero_Crop/splat_0.png");            // È¥ÇÕ¸Ê
+    Hill_Desc.strLayerPath = TEXT("Duckov_Extract/Terrain/Terrain_GroundZero_Crop/Layer%d.png");              // ·¹ÀÌ¾î
     if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Hill,
         ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Hill, &Hill_Desc)))
         return E_FAIL;
 
     CPlayer::PLAYER_DESC Player_Desc{};
     Player_Desc.fDegreeRotPerSec = 180.f;
-    Player_Desc.fPosX = 38.2f;     
-    Player_Desc.fPosZ = -207.2f;
+    Player_Desc.iLevelIndex = ETOUI(LEVEL::GAMEPLAY);
+    Player_Desc.vPosition = { 38.2f ,0.f,-207.2f };
+    //Player_Desc.strMeshPath = TEXT("Duckov_Extract/Terrain/Terrain_GroundZero_Crop/height_321x321_16bit.raw");  // Mesh
+    //Player_Desc.strTexturePath = TEXT("Duckov_Extract/Terrain/Terrain_GroundZero_Crop/splat_0.png");            // Texture
 
     if(FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Player, 
         ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Player, &Player_Desc)))
@@ -80,8 +82,10 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
     for (int i = 0; i < 16; ++i)
     {
         CCube::CUBE_DESC Cube_Desc{};
-        Cube_Desc.fPosX = 38.2f + 10 * sinf(XM_2PI / 16 * i);
-        Cube_Desc.fPosZ = -207.2f + 10 * cosf(XM_2PI / 16 * i);
+        f32_t fPosX = 38.2f + 10 * sinf(XM_2PI / 16 * i);
+        f32_t fPosZ = -207.2f + 10 * cosf(XM_2PI / 16 * i);
+
+        Cube_Desc.vPosition = { fPosX ,0.f,fPosZ };
 
         if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Cube,
             ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Cube + to_wstring(i), &Cube_Desc)))

@@ -115,14 +115,17 @@ void CPanel_Scene::Render(const PANEL_RECT& tRect)
         WorldMatrix = *pObject->Get_Transform()->Get_WorldMatrixPtr();
 
         if (ImGuizmo::Manipulate(&ViewMatrix._11, &ProjMatrix._11,
-            m_eGizmoOp, m_eGizmoMode,
+            m_eGizmoOp, ImGuizmo::WORLD,
             &WorldMatrix._11))
         {
-            auto pTransform = pObject->Get_Transform();
-            pTransform->Set_State(STATE::RIGHT, XMLoadFloat4(reinterpret_cast<float4_t*>(&WorldMatrix.m[0])));
-            pTransform->Set_State(STATE::UP, XMLoadFloat4(reinterpret_cast<float4_t*>(&WorldMatrix.m[1])));
-            pTransform->Set_State(STATE::LOOK, XMLoadFloat4(reinterpret_cast<float4_t*>(&WorldMatrix.m[2])));
-            pTransform->Set_State(STATE::POSITION, XMLoadFloat4(reinterpret_cast<float4_t*>(&WorldMatrix.m[3])));
+            vector_t vS, vQ, vT;
+            if (XMMatrixDecompose(&vS, &vQ, &vT, XMLoadFloat4x4(&WorldMatrix)))
+            {
+                float3_t vPos, vScale; 
+                float4_t vQuat;
+                XMStoreFloat3(&vPos, vT); XMStoreFloat3(&vScale, vS); XMStoreFloat4(&vQuat, vQ);
+                pObject->Set_Transform(vPos, vQuat, vScale);
+            }
         }
     }
 

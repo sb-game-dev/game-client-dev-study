@@ -2,7 +2,7 @@
 #include "Hill.h"
 
 CCube::CCube(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
-	:CGameObject(pDevice,pContext)
+	:CMapObject(pDevice,pContext)
 {
 }
 
@@ -34,6 +34,8 @@ HRESULT CCube::Initialize(void* pArg)
     if (FAILED(Ready_ConstantBuffer()))
         return E_FAIL;
 
+    if (m_bEditorMode)
+        return S_OK;
     auto pHill = static_pointer_cast<CHill>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Hill")));
 
     vector_t  vPos = m_pTransformCom->Get_State(STATE::POSITION);
@@ -62,7 +64,8 @@ void CCube::Late_Update(f32_t fDeltaTime)
 
     if(Is_InFrustum())
         CGameInstance::Get().Add_RenderGroup(RENDERID::NONALPHA, dynamic_pointer_cast<CGameObject>(shared_from_this()));
-
+    if (m_bEditorMode)
+        return;
     // 그림자 : 월드 공간 박스 + 단위 행렬
     BoundingBox tShadowBox;
     m_tLocalBox.Transform(tShadowBox, Get_ShadowWorld());   // 그림자를 감싸는 월드 박스
@@ -83,25 +86,35 @@ HRESULT CCube::Render_Shadow()
 
 HRESULT CCube::Ready_Components()
 {
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::Texture_Cube,
+    if (FAILED(__super::Add_Component(m_iLevelIndex, m_strTexturePath,
         TEXT("Com_Texture"), m_pTextureCom)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VIBuffer_Cube,
+    if (FAILED(__super::Add_Component(m_iLevelIndex, m_strMeshPath,
         TEXT("Com_Buffer"), m_pBufferCom)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VS_VTXTEX,
+    if (FAILED(__super::Add_Component(m_iLevelIndex, Proto::VS_VTXTEX,
         TEXT("Com_VS"), m_pVS)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_VTXTEX,
-        TEXT("Com_PS"), m_pPS)))
-        return E_FAIL;
+    if (!m_bEditorMode)
+    {
+        if (FAILED(__super::Add_Component(m_iLevelIndex, Proto::PS_VTXTEX,
+            TEXT("Com_PS"), m_pPS)))
+            return E_FAIL;
+    }
+    else
+    {
+        if (FAILED(__super::Add_Component(m_iLevelIndex, Proto::PS_VTXTEX_NOLIGHT,
+            TEXT("Com_PS"), m_pPS)))
+            return E_FAIL;
+    }
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_VTXTEX_SHADOW,
-        TEXT("Com_PS_SHADOW"), m_pPS_Shadow)))
-        return E_FAIL;
+    if(!m_bEditorMode)
+        if (FAILED(__super::Add_Component(m_iLevelIndex, Proto::PS_VTXTEX_SHADOW,
+            TEXT("Com_PS_SHADOW"), m_pPS_Shadow)))
+            return E_FAIL;
 
     return S_OK;
 }

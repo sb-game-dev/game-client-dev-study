@@ -13,7 +13,7 @@ const vector_t	g_vQuad3 = XMVector4Normalize({ -1.f,0.f,-1.f,0.f });
 const vector_t	g_vQuad4 = XMVector4Normalize({ +1.f,0.f,-1.f,0.f });
 
 CPlayer::CPlayer(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
-    :CGameObject(pDevice, pContext)
+    :CMapObject(pDevice, pContext)
 {
 }
 
@@ -50,6 +50,8 @@ HRESULT CPlayer::Initialize(void* pArg)
 void CPlayer::Priority_Update(f32_t fDeltaTime)
 {
     __super::Priority_Update(fDeltaTime);
+    if (m_bEditorMode)
+        return;
     auto pInven = static_pointer_cast<CInven>(CGameInstance::Get().Find_GameObject(
         ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", L"GameObject_Inven"));
     bool_t bInvenOpen = (nullptr != pInven && pInven->Is_Open());
@@ -81,11 +83,15 @@ HRESULT CPlayer::Render()
 
 HRESULT CPlayer::Render_Reflection(const matrix_t& matReflect)
 {
+    if (m_bEditorMode)
+        return S_OK;
     return Render_Mesh(m_pTransformCom->Get_World() * matReflect, m_pRS_Reflect.Get(), m_pPS);
 }
 
 HRESULT CPlayer::Render_Shadow()
 {
+    if (m_bEditorMode)
+        return S_OK;
     XMVECTOR vPlane     = XMLoadFloat4(&m_vGroundPlane);
     XMVECTOR vToLight   = XMVectorSet(-0.5f, 0.5f, -0.5f, 0.f);   // SunLight Direction의 반대, w=0(평행광)
 
@@ -97,6 +103,8 @@ HRESULT CPlayer::Render_Shadow()
 
 HRESULT CPlayer::Render_Occluded()
 {
+    if (m_bEditorMode)
+        return S_OK;
     return Render_Mesh(m_pTransformCom->Get_World(), m_pRS.Get(), m_pPS_Occluded);
 }
 
@@ -184,6 +192,8 @@ HRESULT CPlayer::Bind_ShaderResources(const matrix_t& matWorld)
 
 void CPlayer::AdjustPosY()
 {
+    if (m_bEditorMode)
+        return;
     auto pHill = static_pointer_cast<CHill>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Hill")));
     
     vector_t  vPos = m_pTransformCom->Get_State(STATE::POSITION);

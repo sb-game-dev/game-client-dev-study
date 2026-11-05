@@ -15,25 +15,13 @@ public:
 	virtual void	Render(const PANEL_RECT& tRect) override;
 
 private:
-	// 빈 곳 우클릭 메뉴에 보일 배치 가능한 목록
-	struct PLACEABLE
-	{
-		const char*		pName;				// 메뉴에 보일 이름
-		const wchar_t*	pPrototypeTag;		// Add_GameObject에 넘길 프로토타입 태그
-	};
-
-	static constexpr PLACEABLE s_Placeables[] = {
-		{ "Add Static_Prop", Proto::Obj_StaticProp },
-		{ "Add Terrain", Proto::Obj_Hill },
-	};
-
-private:
 	uint32_t	m_iNextID = {};						// "Prop_N"의 N
 	bool_t		m_bRequestDelete = { false };		// 목록 루프가 끝난 뒤 삭제
 
 private:
 	void		Create_Object(const wstring_t& pPrototypeTag);
 	void		Create_Terrain();
+	void		Create_Cube();
 	void		Create_StaticProp(const wstring_t& pPrototypeTag);
 	void		Delete_Selected();
 
