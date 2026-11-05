@@ -172,6 +172,7 @@ xcopy "$(SolutionDir)Engine\Bin\ShaderFiles" "$(SolutionDir)MapTool\Bin\Shader\"
     <ClInclude Include="..\public\Light.h" />
     <ClInclude Include="..\Public\Light_Manager.h" />
     <ClInclude Include="..\public\Material.h" />
+    <ClInclude Include="..\public\Model.h" />
     <ClInclude Include="..\public\Mouse.h" />
     <ClInclude Include="..\public\PipeLine.h" />
     <ClInclude Include="..\public\PixelShader.h" />
@@ -221,6 +222,7 @@ xcopy "$(SolutionDir)Engine\Bin\ShaderFiles" "$(SolutionDir)MapTool\Bin\Shader\"
     <ClCompile Include="..\private\Light.cpp" />
     <ClCompile Include="..\Private\Light_Manager.cpp" />
     <ClCompile Include="..\private\Material.cpp" />
+    <ClCompile Include="..\private\Model.cpp" />
     <ClCompile Include="..\private\Mouse.cpp" />
     <ClCompile Include="..\private\PipeLine.cpp" />
     <ClCompile Include="..\private\PixelShader.cpp" />
