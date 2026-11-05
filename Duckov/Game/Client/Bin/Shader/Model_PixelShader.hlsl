@@ -57,7 +57,7 @@ float4 PS_MAIN(PS_IN In) : SV_TARGET //몇 번째 렌더타겟에 색을 쓸지
     float4 vAmbient, vDiffuse, vSpec;
     float4 vAmbientSum, vDiffuseSum, vSpecSum;
     float4 vColor = float4(0.f, 0.f, 0.f, 0.f);
-    float4 vTexColor = g_DiffuseTex.Sample(g_Sampler, In.vTexCoord);
+    float4 vTexColor = g_DiffuseTex.Sample(g_LinearSampler, In.vTexCoord);
     
     // 알파 테스트에 해당 알파값이 0.1이하인 경우 픽셀을 탈락시킴
     clip(vTexColor.a - 0.1f);
@@ -90,7 +90,7 @@ float4 PS_MAIN(PS_IN In) : SV_TARGET //몇 번째 렌더타겟에 색을 쓸지
 
 float4 PS_MAIN_NOLIGHT(PS_IN In) : SV_TARGET
 {
-    float4 vTexColor = g_DiffuseTex.Sample(g_Sampler, In.vTexCoord);
+    float4 vTexColor = g_DiffuseTex.Sample(g_LinearSampler, In.vTexCoord);
     // 알파 테스트에 해당 알파값이 0.1이하인 경우 픽셀을 탈락시킴
     clip(vTexColor.a - 0.1f);
     
@@ -99,14 +99,14 @@ float4 PS_MAIN_NOLIGHT(PS_IN In) : SV_TARGET
 
 float4 PS_SHADOW(PS_IN In) : SV_TARGET
 {
-    float4 vTexColor = g_DiffuseTex.Sample(g_Sampler, In.vTexCoord);
+    float4 vTexColor = g_DiffuseTex.Sample(g_LinearSampler, In.vTexCoord);
     clip(vTexColor.a - 0.1f);
     return float4(0.f, 0.f, 0.f, 0.5f);
 }
 
 float4 PS_MAIN_SKY(PS_IN In) : SV_TARGET
 {
-    float4 vTexColor = g_DiffuseTex.Sample(g_Sampler, In.vTexCoord);
+    float4 vTexColor = g_DiffuseTex.Sample(g_LinearSampler, In.vTexCoord);
     
     //vTexColor.rgb = lerp(vTexColor.rgb, g_vFogColor.rgb, 0.7);
     
@@ -124,12 +124,12 @@ float4 PS_TERRAIN(PS_IN_TERRAIN In) : SV_TARGET
     //
     
     // Sample layers.
-    float4 c0 = g_LayerMap0.Sample(g_Sampler, In.vTiledTex); // 잔디
-    float4 c1 = g_LayerMap1.Sample(g_Sampler, In.vTiledTex); // 흙
-    float4 c2 = g_LayerMap2.Sample(g_Sampler, In.vTiledTex); // 아스팔트
+    float4 c0 = g_LayerMap0.Sample(g_LinearSampler, In.vTiledTex); // 잔디
+    float4 c1 = g_LayerMap1.Sample(g_LinearSampler, In.vTiledTex); // 흙
+    float4 c2 = g_LayerMap2.Sample(g_LinearSampler, In.vTiledTex); // 아스팔트
 
     // Sample the blend map.
-    float4 t = g_BlendMap.Sample(g_Sampler, In.vTex);
+    float4 t = g_BlendMap.Sample(g_LinearSampler, In.vTex);
     
     // 잔디 x R + 흙 x G + 아스팔트 x B
     float4 vTexColor = c0 * t.r + c1 * t.g + c2 * t.b;

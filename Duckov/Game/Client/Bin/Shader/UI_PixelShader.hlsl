@@ -26,7 +26,7 @@ struct PS_IN_POS
 
 float4 PS_MAIN(PS_IN In) : SV_TARGET
 {
-    float4 vTexColor = g_DiffuseTex.Sample(g_Sampler, In.vTexCoord);
+    float4 vTexColor = g_DiffuseTex.Sample(g_LinearSampler, In.vTexCoord);
     // 알파 테스트에 해당 알파값이 0.1이하인 경우 픽셀을 탈락시킴
     clip(vTexColor.a - 0.1f);
     

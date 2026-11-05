@@ -27,5 +27,13 @@ namespace Engine
 	//enum TEXTUREID { TEX_NORMAL, TEX_CUBE, TEX_END };
 	//
 	enum class RENDERID { PRIORITY, NONALPHA, OCCLUDEDPLAYER, PLAYER, ALPHA_PRE, SHADOW, REFLECT, ALPHA, NONALPHA_UI, ALPHA_UI, END };
+
+	enum class VSLOT { WORLD, CAMERA, END };
+
+	enum class PSLOT { LIGHT, CAMERA, END };
+
+	enum class SAMPLER_SLOT { POINT, LINEAR, END };
+
+
 }
 #endif // Engine_Enum_h__

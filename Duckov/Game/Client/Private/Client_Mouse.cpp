@@ -70,15 +70,6 @@ HRESULT CClient_Mouse::Initialize_Prototype()
 
     m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
 
-    // 샘플러 생성
-    D3D11_SAMPLER_DESC samplerDesc{};
-
-    samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
-    samplerDesc.AddressU = samplerDesc.AddressV = samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
-    samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
-
-    if (FAILED(m_pDevice->CreateSamplerState(&samplerDesc, m_pSampler.GetAddressOf())))
-        return E_FAIL;
     return S_OK;
 }
 
@@ -270,9 +261,6 @@ HRESULT CClient_Mouse::Render_Mesh(ID3D11Buffer* pInstanceVB, shared_ptr<CPixelS
 
     if (FAILED(m_pTextureCom->Set_TexturePS(ETOUI(m_eMouseState), 0)))
         return E_FAIL;
-
-    // 샘플러 바인드
-    m_pContext->PSSetSamplers(0, 1, m_pSampler.GetAddressOf());
 
     // RS(레스터라이저 설정)
     m_pContext->RSSetState(m_pRS.Get());

@@ -19,11 +19,6 @@ HRESULT CStaticProp::Initialize_Prototype()
 
     m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
 
-    // Material
-    m_tMaterial.Ambient = float4_t(1.f, 1.f, 1.f, 1.f);
-    m_tMaterial.Diffuse = float4_t(1.f, 1.f, 1.f, 1.f);
-    m_tMaterial.Specular = float4_t(0.2f, 0.2f, 0.2f, 16.f);   // w = ±¤ÅÃ Áö¼ö, 0ÀÌ¸é ¾È µÊ
-
     return S_OK;
 }
 
@@ -179,9 +174,6 @@ HRESULT CStaticProp::Bind_ShaderResources(const matrix_t& matWorld)
         return E_FAIL;
 
     if (FAILED(m_pCB->Bind_Pixel_ShaderResource(0, &m_tCBData)))
-        return E_FAIL;
-
-    if (FAILED(CGameInstance::Get().Bind_Sampler_Pixel_Shader(g_strSampler_Linear, 0)))
         return E_FAIL;
 
     if (FAILED(m_pTextureCom->Bind_Pixel_ShaderResource(0, 0)))

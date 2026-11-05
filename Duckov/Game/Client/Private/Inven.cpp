@@ -69,16 +69,6 @@ HRESULT CInven::Initialize_Prototype()
 
 	m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
 
-	// »ùÇÃ·¯ »ý¼º
-	D3D11_SAMPLER_DESC samplerDesc{};
-
-	samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
-	samplerDesc.AddressU = samplerDesc.AddressV = samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
-	samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
-
-	if (FAILED(m_pDevice->CreateSamplerState(&samplerDesc, m_pSampler.GetAddressOf())))
-		return E_FAIL;
-
 
 	return S_OK;
 }
@@ -181,7 +171,6 @@ HRESULT CInven::Render()
 	if (FAILED(m_pIconTexCom->Set_TexturePS(0, 0)))
 		return E_FAIL;
 
-	m_pContext->PSSetSamplers(0, 1, m_pSampler.GetAddressOf());
 	m_pContext->RSSetState(m_pRS.Get());
 
 	m_pContext->DrawIndexedInstanced(m_iIndexCnt, iCount, 0, 0, 0);

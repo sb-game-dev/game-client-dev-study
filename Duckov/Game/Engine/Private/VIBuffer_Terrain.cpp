@@ -93,8 +93,8 @@ HRESULT CVIBuffer_Terrain::Initialize_Prototype(const tchar_t* pHeightMapPath)
 #pragma endregion
 
 #pragma region CullingAABB
-    m_bUseCulling = false;
-    //BoundingBox::CreateFromPoints(m_tLocalBox, m_iVertexStride, &pVertices[0].vPosition, sizeof(VTXNORM));
+    m_bUseCulling = true;
+    BoundingBox::CreateFromPoints(m_tLocalBox, m_iNumVertices, &pVertices[0].vPosition, sizeof(VTXNORM));
 #pragma endregion
     return S_OK;
 }

@@ -1,5 +1,7 @@
 
-SamplerState g_Sampler : register(s0);
+SamplerState g_PointSampler : register(s0);
+SamplerState g_LinearSampler : register(s1);
+
 struct Material
 {
     float4 Ambient;

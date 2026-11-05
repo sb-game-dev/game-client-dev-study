@@ -1,6 +1,5 @@
 Texture2D           g_Input     : register(t0); // SRV
 RWTexture2D<float4> g_Output    : register(u0); // UAV
-SamplerState        g_Sampler   : register(s0); // Sampler
 
 static const int g_iBlurRadius = 5;
 

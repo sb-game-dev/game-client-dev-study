@@ -16,6 +16,11 @@ public:
 	virtual HRESULT Bind_Resources();
 	virtual HRESULT Render();
 
+	void			SetUseCulling(bool_t bUse) { m_bUseCulling = bUse; }
+	bool_t			IsUseCulling()	{ return m_bUseCulling; }
+
+	BoundingBox		GetBoundinBox()	{ return m_tLocalBox; }
+
 protected:
 	ComPtr<ID3D11Buffer>		m_pVB;
 	ComPtr<ID3D11Buffer>		m_pIB;

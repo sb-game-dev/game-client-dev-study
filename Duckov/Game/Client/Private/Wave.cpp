@@ -198,10 +198,6 @@ HRESULT CWave::Render()
     if (FAILED(m_pTextureCom->Bind_Pixel_ShaderResource(0, 0)))
         return E_FAIL;
 
-    // 샘플러 바인드
-    if (FAILED(CGameInstance::Get().Bind_Sampler_Pixel_Shader(g_strSampler_Linear, 0)))
-        return E_FAIL;
-
     m_pContext->RSSetState(m_pRS.Get());
 
     m_pContext->DrawIndexed(m_iIndexCnt, 0, 0);                          

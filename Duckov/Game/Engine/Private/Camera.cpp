@@ -61,13 +61,11 @@ void CCamera::Update_Frustum()
 
 void CCamera::Compute_PickingRay(POINT pt, vector_t& vRayOriginW, vector_t& vRayDirW)
 {
-	uint32_t numVP = 1;
-	D3D11_VIEWPORT  vp;
-	m_pContext->RSGetViewports(&numVP, &vp);
+	float2_t vpSize = CGameInstance::Get().Get_ViewportSize();
 
 	matrix_t matProj = CGameInstance::Get().Get_Perspective_Transform(D3DTS::PROJ);
-	f32_t vx = (+2.f * pt.x / vp.Width - 1.f) / XMVectorGetX(matProj.r[0]);
-	f32_t vy = (-2.f * pt.y / vp.Height + 1.f) / XMVectorGetY(matProj.r[1]);
+	f32_t vx = (+2.f * pt.x / vpSize.x - 1.f) / XMVectorGetX(matProj.r[0]);
+	f32_t vy = (-2.f * pt.y / vpSize.y + 1.f) / XMVectorGetY(matProj.r[1]);
 
 	matrix_t matInvView = CGameInstance::Get().Get_Perspective_Transform_Inverse(D3DTS::VIEW);
 	vRayOriginW = CGameInstance::Get().Get_CamPosition();

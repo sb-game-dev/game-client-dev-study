@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "Panel.h"
+#include "ImGuizmo.h"
 
 NS_BEGIN(MapTool)
 // 엔진이 그린 씬 텍스처(RTT)를 비율에 맞춰 표시
@@ -13,6 +14,10 @@ public:
 
 public:
 	virtual void	Render(const PANEL_RECT& tRect) override;
+
+private:
+	ImGuizmo::OPERATION		m_eGizmoOp = ImGuizmo::TRANSLATE;
+	ImGuizmo::MODE			m_eGizmoMode = ImGuizmo::WORLD;
 
 public:
 	static unique_ptr<CPanel_Scene> Create(EDITOR_CONTEXT& Context);

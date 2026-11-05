@@ -4,6 +4,9 @@
 
 #include "LightHelper.hlsli"
 
+SamplerState g_PointSampler : register(s0);
+SamplerState g_LinearSampler : register(s1);
+
 cbuffer cbPerObject : register(b0)
 {
     row_major float4x4 g_matWorld;
@@ -44,8 +47,6 @@ cbuffer cbFog : register(b5)
 }
 
 Texture2D g_DiffuseTex : register(t0); //SRV
-
-SamplerState g_Sampler : register(s0);
 
 // 상수로 선언
 static const float2 g_TexC[4] =
@@ -137,7 +138,7 @@ float4 PS_MAIN(GeoOut In) : SV_TARGET //몇 번째 렌더타겟에 색을 쓸지
     float4 vColor = float4(0.f, 0.f, 0.f, 0.f);
     
     //float3 uvw = float3(In.Tex, In.PrimID % 4);
-    float4 vTexColor = g_DiffuseTex.Sample(g_Sampler, In.Tex);
+    float4 vTexColor = g_DiffuseTex.Sample(g_LinearSampler, In.Tex);
     
     // 알파 테스트에 해당 알파값이 0.1이하인 경우 픽셀을 탈락시킴
     clip(vTexColor.a - 0.1f);
@@ -169,7 +170,7 @@ float4 PS_MAIN(GeoOut In) : SV_TARGET //몇 번째 렌더타겟에 색을 쓸지
 
 float4 PS_SHADOW(GeoOut In) : SV_TARGET
 {
-    float4 vTexColor = g_DiffuseTex.Sample(g_Sampler, In.Tex);
+    float4 vTexColor = g_DiffuseTex.Sample(g_LinearSampler, In.Tex);
     clip(vTexColor.a - 0.1f);
     return float4(0.f, 0.f, 0.f, 0.5f);
 }

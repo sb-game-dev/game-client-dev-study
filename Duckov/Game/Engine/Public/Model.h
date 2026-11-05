@@ -7,6 +7,7 @@ class CModel : public CComponent
 {
 private:
 	CModel(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
+	CModel(const CModel& rhs);
 public:
 	~CModel() = default;
 
@@ -19,10 +20,10 @@ private:
 	Assimp::Importer	m_pImporter = {};
 
 private:
-	vector<shared_ptr <class CMesh>> m_Meshs;
+	vector<shared_ptr <class CMesh>> m_Meshes;
 
 private:
-	HRESULT	Ready_Meshs();
+	HRESULT	Ready_Meshes();
 
 public:
 	static shared_ptr<CModel> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, const char_t* pModelFilePath);

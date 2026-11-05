@@ -1,5 +1,23 @@
 ﻿#include "EditorUI_Utils.h"
 #include "Panel_Scene.h"
+#include "Camera.h"
+#include "Hill.h"
+
+namespace
+{
+    struct GIZMO_OP_ITEM
+    {
+        const char* pLabel;         // 글자
+        ImGuizmo::OPERATION eOp;    // 바뀔 모드
+    };
+
+    static constexpr GIZMO_OP_ITEM g_GizmoOps[] =
+    {
+        { "Move",   ImGuizmo::TRANSLATE },
+        { "Rotate", ImGuizmo::ROTATE    },
+        { "Scale",  ImGuizmo::SCALE     },
+    };
+}
 
 void CPanel_Scene::Render(const PANEL_RECT& tRect)
 {
@@ -23,21 +41,13 @@ void CPanel_Scene::Render(const PANEL_RECT& tRect)
 
     // 스타일 스택 복구
     ImGui::PopStyleVar();
-
-    // 사용할 수 있는 공간 계산
-    // 현재 커서위치부터 창 오른쪽 아래까지 실제 위젯을 놓을 수 있는 공간 -> vAvail = (1040,854)
-    const ImVec2 vAvail = ImGui::GetContentRegionAvail();
-
+    
     // 씬 텍스처의 가로세로 비율
     float2_t vpSize = CGameInstance::Get().Get_ViewportSize();
     const f32_t fAspect = static_cast<f32_t>(vpSize.x) / vpSize.y;
 
-    // 비율 맞추기
-    ImVec2 vSize = vAvail;
-    if (vAvail.x / fAspect <= vAvail.y)
-        vSize.y = vAvail.x / fAspect;
-    else
-        vSize.x = vAvail.y * fAspect;
+    ImVec2 vSize = { tRect.fW,tRect.fH };
+    vSize.y = tRect.fW / fAspect;
 
     // 가운데 정렬
     // ImGui의 "커서"
@@ -45,7 +55,7 @@ void CPanel_Scene::Render(const PANEL_RECT& tRect)
 
     // 커서의 위치를 설정한다.
     // 왼쪽 위에서 y좌표만 아래로 내린다.
-    const ImVec2 vCursor = ImVec2(0, (vAvail.y - vSize.y) * 0.5f);
+    const ImVec2 vCursor = ImVec2(0, (tRect.fH - vSize.y) * 0.5f);
     ImGui::SetCursorPos(vCursor);
 
     // 씬 텍스처 그리기
@@ -66,6 +76,122 @@ void CPanel_Scene::Render(const PANEL_RECT& tRect)
     m_Context.bSceneHovered = ImGui::IsItemHovered();       // 카메라 드래그 + 카메라 피킹에 사용
     m_Context.bSceneFocused = ImGui::IsWindowFocused();     // 마지막으로 클릭된 창일 때 true 카메라 조작 허용
                                                             // (Begin과 End 사이에서 불려야 이 창에 대한 값이 나옴)
+    // 카메라 -> 원근투영
+    ImGuizmo::SetOrthographic(false);
+    
+    // Scene에 기즈모를 그리게 한다.
+    ImGuizmo::SetDrawlist();
+
+    // 기즈모가 뷰포트로 생각할 화면 -> Scene의 Rect
+    ImGuizmo::SetRect(m_Context.vImageMin.x, m_Context.vImageMin.y,
+        m_Context.vImageSize.x, m_Context.vImageSize.y);
+
+    ImGui::SetCursorPos(vCursor);
+    ImGui::BeginGroup();
+    for (size_t i = 0; i < 3; ++i)
+    {
+        if (0 != i)
+            ImGui::SameLine();
+        // 현재 그려야 하는 버튼이 선택된 기즈모 방식인지 확인 -> 스타일 변경 후 그리기
+        const bool_t bActive = (m_eGizmoOp == g_GizmoOps[i].eOp);
+        if (bActive)
+            ImGui::PushStyleColor(ImGuiCol_Button, ImGui::GetStyleColorVec4(ImGuiCol_ButtonActive));
+        
+        // 버튼 그리기
+        if (ImGui::Button(g_GizmoOps[i].pLabel))
+            m_eGizmoOp = g_GizmoOps[i].eOp;
+        // 스타일 복구
+        if (bActive)
+            ImGui::PopStyleColor();
+    }
+    ImGui::EndGroup();
+
+    auto pObject = m_Context.pSelected.lock();
+    if (nullptr != pObject && !dynamic_pointer_cast<CHill>(pObject))
+    {
+        float4x4_t ViewMatrix, ProjMatrix, WorldMatrix;
+        XMStoreFloat4x4(&ViewMatrix, CGameInstance::Get().Get_Perspective_Transform(D3DTS::VIEW));
+        XMStoreFloat4x4(&ProjMatrix, CGameInstance::Get().Get_Perspective_Transform(D3DTS::PROJ));
+        WorldMatrix = *pObject->Get_Transform()->Get_WorldMatrixPtr();
+
+        if (ImGuizmo::Manipulate(&ViewMatrix._11, &ProjMatrix._11,
+            m_eGizmoOp, m_eGizmoMode,
+            &WorldMatrix._11))
+        {
+            auto pTransform = pObject->Get_Transform();
+            pTransform->Set_State(STATE::RIGHT, XMLoadFloat4(reinterpret_cast<float4_t*>(&WorldMatrix.m[0])));
+            pTransform->Set_State(STATE::UP, XMLoadFloat4(reinterpret_cast<float4_t*>(&WorldMatrix.m[1])));
+            pTransform->Set_State(STATE::LOOK, XMLoadFloat4(reinterpret_cast<float4_t*>(&WorldMatrix.m[2])));
+            pTransform->Set_State(STATE::POSITION, XMLoadFloat4(reinterpret_cast<float4_t*>(&WorldMatrix.m[3])));
+        }
+    }
+
+    // 피킹 요청: 씬 이미지 위에서 왼쪽 버튼을 누른 프레임
+    if (m_Context.bSceneHovered && ImGui::IsMouseClicked(ImGuiMouseButton_Left) && !ImGuizmo::IsOver() && !ImGuizmo::IsUsing())
+    {
+        // 1. Scene 창에 그려진 이미지의 중심 (ImGui 화면 좌표)
+        const float2_t vImageCenter = {
+            m_Context.vImageMin.x + m_Context.vImageSize.x * 0.5f,
+            m_Context.vImageMin.y + m_Context.vImageSize.y * 0.5f };
+
+        // 2. 실제 Level 화면(뷰포트)의 크기와 중심
+        const float2_t vViewportCenter = { vpSize.x * 0.5f, vpSize.y * 0.5f };
+
+        // 3. 배율: Scene 창에서 1픽셀 움직이면 실제 Level에서는 몇 픽셀인가
+        const f32_t fScaleX = vpSize.x / m_Context.vImageSize.x;
+        const f32_t fScaleY = vpSize.y / m_Context.vImageSize.y;
+
+        // 4. 마우스가 이미지 중심에서 얼마나 떨어져 있나 (맵툴 상의 변화량)
+        const ImVec2 vMouse = ImGui::GetIO().MousePos;
+        const f32_t fDeltaX = vMouse.x - vImageCenter.x;
+        const f32_t fDeltaY = vMouse.y - vImageCenter.y;
+
+        // 5. 실제 Level 좌표 = Level 중심 + 변화량 × 배율
+        POINT ptPick{
+            static_cast<LONG>(vViewportCenter.x + fDeltaX * fScaleX),
+            static_cast<LONG>(vViewportCenter.y + fDeltaY * fScaleY) };
+
+        // 6. 레이 만들기
+        vector_t vRayOrigin, vRayDir;
+        if (auto pCamera = CGameInstance::Get().Get_MainCamera())
+            pCamera->Compute_PickingRay(ptPick, vRayOrigin, vRayDir);
+
+        // 이 레이로 Layer_Map 객체 충돌 검사
+        auto GameObjects = CGameInstance::Get().Get_GameObjects(ETOUI(LEVEL::MAPTOOL), L"Layer_Map");
+        if (nullptr == GameObjects)
+        {
+            ImGui::End();
+            return;
+        }
+        f32_t fMinDist = D3D11_FLOAT32_MAX;
+        wstring_t               strPickedTag = {};
+        shared_ptr<CGameObject> pPicked = { nullptr };
+        for (auto& [strTag, pObject] : *GameObjects)
+        {
+            if (nullptr == pObject || pObject->Is_Dead())
+                continue;
+            if (nullptr != dynamic_pointer_cast<CHill>(pObject))          // 지형 제외 (박스가 맵 전체)
+                continue;
+            auto pBuffer = static_pointer_cast<CVIBuffer>(pObject->Find_Component(L"Com_Buffer"));
+            if (nullptr == pBuffer)
+                continue;
+
+            BoundingOrientedBox tWorldBox;
+            BoundingOrientedBox::CreateFromBoundingBox(tWorldBox, pBuffer->GetBoundinBox());
+            tWorldBox.Transform(tWorldBox, pObject->Get_Transform()->Get_World());
+
+            f32_t fOutDist = {};
+            if (tWorldBox.Intersects(vRayOrigin, vRayDir, fOutDist) && fMinDist > fOutDist)
+            {
+                fMinDist = fOutDist;     
+                strPickedTag = strTag;
+                pPicked = pObject;
+            }
+        }
+        if (nullptr != pPicked)
+            m_Context.Select(strPickedTag, pPicked);
+    }
+    
     ImGui::End();
 }
 

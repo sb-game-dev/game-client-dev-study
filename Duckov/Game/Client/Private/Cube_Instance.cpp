@@ -278,10 +278,6 @@ HRESULT CCube_Instance::Render_Mesh(ID3D11Buffer* pInstanceVB, shared_ptr<CPixel
     // 삼각형 그리기 설정
     m_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-    // 샘플러 바인드
-    if (FAILED(CGameInstance::Get().Bind_Sampler_Pixel_Shader(g_strSampler_Linear, 0)))
-        return E_FAIL;
-
     // RS(레스터라이저 설정)
     m_pContext->RSSetState(m_pRS.Get());
 

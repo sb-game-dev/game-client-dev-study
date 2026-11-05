@@ -77,6 +77,10 @@ HRESULT CVIBuffer_Rect::Initialize_Prototype()
         return E_FAIL;
 #pragma endregion
 
+#pragma region CullingAABB
+    m_bUseCulling = true;
+    BoundingBox::CreateFromPoints(m_tLocalBox, m_iNumVertices, &pVertices[0].vPosition, sizeof(VTXNORM));
+#pragma endregion
 
 	return S_OK;
 }

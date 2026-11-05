@@ -5,6 +5,13 @@ CModel::CModel(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContex
 {
 }
 
+CModel::CModel(const CModel& rhs)
+    : CComponent{rhs}
+    , m_pAiScene{ rhs.m_pAiScene }
+    , m_Meshes{rhs.m_Meshes}
+{
+}
+
 HRESULT CModel::Initialize_Prototype(const char_t* pModelFilePath)
 {
     uint32_t    iFlag = { aiProcess_ConvertToLeftHanded | aiProcessPreset_TargetRealtime_Fast };
@@ -16,8 +23,8 @@ HRESULT CModel::Initialize_Prototype(const char_t* pModelFilePath)
         MSG_BOX("Faile to ReadFile");
         return E_FAIL;
     }
-
-
+    if (FAILED(Ready_Meshes()))
+        return E_FAIL;
 
     return S_OK;
 }
@@ -26,6 +33,11 @@ HRESULT CModel::Initialize(void* pArg)
 {
 
 	return S_OK;
+}
+
+HRESULT CModel::Ready_Meshes()
+{
+    return S_OK;
 }
 
 shared_ptr<CModel> CModel::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, const char_t* pModelFilePath)

@@ -162,10 +162,6 @@ HRESULT CHill::Bind_Shader(shared_ptr<CVertexShader> pVS, shared_ptr<CPixelShade
 
 HRESULT CHill::Bind_ShaderResources(const matrix_t& matWorld)
 {
-    // 샘플러 바인드
-    if (FAILED(CGameInstance::Get().Bind_Sampler_Pixel_Shader(g_strSampler_Linear, 0)))
-        return E_FAIL;
-
     // 텍스처 바인드
     if (FAILED(m_pLayerCom->Set_TexturePS(0, 2)))   // Layer0 잔디     -> t2
         return E_FAIL;

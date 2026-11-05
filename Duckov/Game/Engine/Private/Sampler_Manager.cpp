@@ -12,6 +12,11 @@ HRESULT CSampler_Manager::Initialize()
 		return E_FAIL;
 	if (FAILED(Add_Sampler(g_strSampler_Linear, g_Sampler_Linear_Desc)))
 		return E_FAIL;
+	
+	if (FAILED(Bind_Sampler_Pixel_Shader(g_strSampler_Point, ETOUI(SAMPLER_SLOT::POINT))))
+		return E_FAIL;
+	if (FAILED(Bind_Sampler_Pixel_Shader(g_strSampler_Linear, ETOUI(SAMPLER_SLOT::LINEAR))))
+		return E_FAIL;
 
 	return S_OK;
 }

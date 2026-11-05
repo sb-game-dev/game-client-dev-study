@@ -126,6 +126,9 @@
     <ClInclude Include="..\public\Level_Loading_MapTool.h">
       <Filter>01. Level\00. Level_Loading_MapTool</Filter>
     </ClInclude>
+    <ClInclude Include="..\ImGui\ImGuizmo.h">
+      <Filter>96. ImGui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Default.ico">
@@ -255,6 +258,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Loader_MapTool.cpp">
       <Filter>01. Level\00. Level_Loading_MapTool\Loader_MapTool</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ImGui\ImGuizmo.cpp">
+      <Filter>96. ImGui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,5 @@
 #include "imgui.h" 
+#include "ImGuizmo.h"
 #include "imgui_impl_win32.h"
 #include "imgui_impl_dx11.h"
 
@@ -76,8 +77,8 @@ HRESULT CLevel_MapTool::Ready_Layer_GameObject(const tchar_t* pLayerTag)
     CMapTool_Cam::CAMERA_MAPTOOL_CAM_DESC         CameraDesc{};
     CameraDesc.fDegreeRotPerSec = 180.f;
     CameraDesc.fSpeedPerSec = 20.f;
-    CameraDesc.vEye = float4_t(0.f, 0.f, -5.f, 1.f);
-    CameraDesc.vAt = float4_t(0.f, 0.f, 0.f, 1.f);
+    CameraDesc.vEye = float4_t(0.f, 1.f, -5.f, 1.f);
+    CameraDesc.vAt = float4_t(0.f, 1.f, 0.f, 1.f);
     CameraDesc.fFovy = 60.f;
     CameraDesc.fNear = 0.1f;
     CameraDesc.fFar = 1000.f;
@@ -133,6 +134,7 @@ HRESULT CLevel_MapTool::Begin_ImGui()
     ImGui_ImplDX11_NewFrame();
     ImGui_ImplWin32_NewFrame();
     ImGui::NewFrame();
+    ImGuizmo::BeginFrame();
     return S_OK;
 }
 

@@ -144,9 +144,6 @@ HRESULT CSkyBox::Bind_ShaderResources(const matrix_t& matWorld)
     if (FAILED(m_pCB->Bind_Pixel_ShaderResource(0, &m_tCBData)))
         return E_FAIL;
 
-    // 샘플러 바인드
-    if (FAILED(CGameInstance::Get().Bind_Sampler_Pixel_Shader(g_strSampler_Linear, 0)))
-        return E_FAIL;
     // 텍스처 바인드
     if (FAILED(m_pTextureCom->Bind_Pixel_ShaderResource(0, 0)))
         return E_FAIL;

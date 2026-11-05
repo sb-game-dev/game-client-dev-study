@@ -37,9 +37,10 @@ public:
 
 	virtual shared_ptr<CTransform>	Get_Transform() { return m_pTransformCom; }
 
-	virtual void		Set_Dead() { m_bDead = true; }
-	virtual bool_t		Is_Dead()const { return m_bDead; }
-	virtual void Remove_Component(const wstring_t& strComponentTag) { m_Components.erase(strComponentTag); }
+	virtual void			Set_Dead() { m_bDead = true; }
+	virtual bool_t			Is_Dead()const { return m_bDead; }
+	virtual void			Remove_Component(const wstring_t& strComponentTag) { m_Components.erase(strComponentTag); }
+	shared_ptr<CComponent>	Find_Component(const wstring_t& strComponentTag);
 
 protected:
 	ComPtr<ID3D11Buffer>				m_pVB = { nullptr };			// 버텍스 버퍼
@@ -82,7 +83,6 @@ protected:
 	virtual		HRESULT		Bind_ShaderResources() { return S_OK; }
 
 protected:
-	shared_ptr<CComponent> Find_Component(const wstring_t& strComponentTag);
 
 	template<typename T>
 	HRESULT Add_Component(uint32_t iPrototypeLevelIndex, const wstring_t& strPrototypeTag,

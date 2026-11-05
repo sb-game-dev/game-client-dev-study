@@ -125,9 +125,6 @@ HRESULT CMirror::Bind_Shader(shared_ptr<CVertexShader> pVS, shared_ptr<CPixelSha
 
 HRESULT CMirror::Bind_ShaderResources(const matrix_t& matWorld)
 {
-    if (FAILED(CGameInstance::Get().Bind_Sampler_Pixel_Shader(g_strSampler_Linear, 0)))
-        return E_FAIL;
-
     if (FAILED(m_pCB->Bind_Vertex_ShaderResource(0, &m_tCBData)))
         return E_FAIL;
     if (FAILED(m_pCB->Bind_Pixel_ShaderResource(0, &m_tCBData)))
