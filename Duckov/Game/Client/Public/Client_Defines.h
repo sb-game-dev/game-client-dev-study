@@ -91,3 +91,13 @@ enum class EQUIP_SLOT
 };
 
 
+enum class Quick_SLOT
+{
+	GUN_1, GUN_2,       // 총기 ×2
+	MELEE,              // 근접 무기
+	QUICK_3, QUICK_4, QUICK_5,    // 단축키 3~5
+	QUICK_6, QUICK_7, QUICK_8,    // 단축키 6~8
+	END
+};
+
+

@@ -190,6 +190,13 @@ float4_t CInven::Get_SlotRect(const SLOT_POS& t)
 				 EQUIP_TOP + (t.iIndex / EQUIP_COLS) * EQUIP_STEP_Y,
 				 EQUIP_WIDTH,
 				 EQUIP_HEIGHT };
+
+	if (t.eArea == INVEN_AREA::QUICK)
+		return { EQUIP_LEFT + (t.iIndex % EQUIP_COLS) * EQUIP_STEP_X,
+				 EQUIP_TOP + (t.iIndex / EQUIP_COLS) * EQUIP_STEP_Y,
+				 EQUIP_WIDTH,
+				 EQUIP_HEIGHT };
+
 	return float4_t();
 }
 

@@ -46,10 +46,7 @@ void CQuarterView_Cam::Priority_Update(f32_t fTimeDelta)
 void CQuarterView_Cam::Update(f32_t fDeltaTime)
 {
 	__super::Update(fDeltaTime);
-}
-
-void CQuarterView_Cam::Late_Update(f32_t fDeltaTime)
-{	// lock -> shared_ptr을 만들어주는 함수(참조 카운트 + 1)
+	// lock -> shared_ptr을 만들어주는 함수(참조 카운트 + 1)
 	auto pPlayer = m_pPlayer.lock();
 	if (nullptr == pPlayer)
 	{
@@ -115,6 +112,10 @@ void CQuarterView_Cam::Late_Update(f32_t fDeltaTime)
 	if (!bInvenOpen)
 		Shake(fDeltaTime);
 	Update_PipeLines();
+}
+
+void CQuarterView_Cam::Late_Update(f32_t fDeltaTime)
+{	
 
 	__super::Late_Update(fDeltaTime);
 }

@@ -205,7 +205,7 @@ void CPlayer::AdjustPosY()
     vector_t  vPos = m_pTransformCom->Get_State(STATE::POSITION);
     f32_t x = XMVectorGetX(vPos);
     f32_t z = XMVectorGetZ(vPos);
-    vPos = XMVectorSetY(vPos, pHill->GetHeight(x, z) + 0.5f);
+    vPos = XMVectorSetY(vPos, pHill->GetHeight(x, z) + 0.001f);
     m_pTransformCom->Set_State(STATE::POSITION, vPos);
     m_vGroundPlane = pHill->GetPlane(x, z);
 }

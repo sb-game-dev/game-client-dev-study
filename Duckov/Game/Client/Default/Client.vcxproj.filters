@@ -82,12 +82,6 @@
     <Filter Include="02. GameObjects\10. Scope">
       <UniqueIdentifier>{4d64e3f2-2c3c-4663-88bf-2d6648a7c34f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObjects\11. UI">
-      <UniqueIdentifier>{0be35556-3562-4fe7-8438-559ee6b50c89}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObjects\11. UI\00. Inven">
-      <UniqueIdentifier>{a7523f95-3773-48f0-8dcf-aab76835a9c5}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. Camera\00. QuaterView_Cam">
       <UniqueIdentifier>{b26241d5-a012-4840-a79b-fddba25685db}</UniqueIdentifier>
     </Filter>
@@ -99,6 +93,15 @@
     </Filter>
     <Filter Include="02. GameObjects\12. MapObject">
       <UniqueIdentifier>{2bcb1537-a79d-40f2-85b9-8e225c544874}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObjects\99. UI">
+      <UniqueIdentifier>{0be35556-3562-4fe7-8438-559ee6b50c89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObjects\99. UI\00. Inven">
+      <UniqueIdentifier>{a7523f95-3773-48f0-8dcf-aab76835a9c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObjects\99. UI\01. HUD">
+      <UniqueIdentifier>{7eef2ffd-7f6f-42b2-9c6c-f5289a0ad6a2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -121,7 +124,7 @@
       <Filter>99. Define</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Inven.h">
-      <Filter>02. GameObjects\11. UI\00. Inven</Filter>
+      <Filter>02. GameObjects\99. UI\00. Inven</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Level_Logo.h">
       <Filter>01. Levels\01. Logo</Filter>
@@ -195,6 +198,9 @@
     <ClInclude Include="..\public\MapObject.h">
       <Filter>02. GameObjects\12. MapObject</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\HUD.h">
+      <Filter>02. GameObjects\99. UI\01. HUD</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -217,7 +223,7 @@
       <Filter>00. MainApp</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Inven.cpp">
-      <Filter>02. GameObjects\11. UI\00. Inven</Filter>
+      <Filter>02. GameObjects\99. UI\00. Inven</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Level_Logo.cpp">
       <Filter>01. Levels\01. Logo</Filter>
@@ -287,6 +293,9 @@
     </ClCompile>
     <ClCompile Include="..\private\MapObject.cpp">
       <Filter>02. GameObjects\12. MapObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\HUD.cpp">
+      <Filter>02. GameObjects\99. UI\01. HUD</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

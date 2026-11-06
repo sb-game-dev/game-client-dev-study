@@ -3,6 +3,7 @@
 #include "Client_Defines.h"
 #include "GameObject.h"
 NS_BEGIN(INVEN_UI)
+// ==================== 인벤 ====================
 // 패널 : 왼쪽 장비와 가방을 감싸는 큰 판
 constexpr f32_t PANEL_LEFT = 42.f, PANEL_TOP = 117.f, PANEL_WIDTH = 320.f, PANEL_HEIGHT = 543.f;
 
@@ -38,6 +39,19 @@ constexpr f32_t BORDER_PLACEABLE = 1.5f;    // 놓을 수 있는 칸
 // 아이콘 알파
 constexpr f32_t ALPHA_DRAG_SOURCE = 0.3f;   // 끌고 있는 아이템의 원래 칸
 constexpr f32_t ALPHA_DRAGGED = 0.9f;		// 커서를 따라오는 아이콘
+
+// ==================== 퀵슬롯 ====================
+// 퀵슬롯 패널
+constexpr f32_t QUICK_PANEL_LEFT = 451.f, QUICK_PANEL_TOP = 571.6f, QUICK_PANEL_WIDTH = 378.f, QUICK_PANEL_HEIGHT = 88.4f;
+
+// 퀵슬롯 6칸
+constexpr f32_t QUICK_LEFT = 455.f, QUICK_TOP = 592.f;
+constexpr f32_t QUICK_SIZE = 55.f;
+constexpr f32_t QUICK_STEP = 63.f;
+constexpr int32_t QUICK_COLS = 6;
+
+// 번호 배지
+constexpr f32_t QUICK_BADGE_SIZE = 16.f;
 NS_END
 
 NS_BEGIN(Client)
@@ -45,7 +59,7 @@ NS_BEGIN(Client)
 class CInven : public CGameObject
 {
 public:
-	enum class INVEN_AREA { EQUIP, BAG, OUTSIDE, END };
+	enum class INVEN_AREA { EQUIP, BAG, QUICK, OUTSIDE, END };
 	enum class DRAG_STATE { IDLE, PRESSED, DRAGGING, END };
 	struct SLOT_POS // 칸 하나를 {영역, 번호} 쌍으로 설정. ex) {EQUIP, 2} -> 장비 3번째 칸 == 근접무기
 	{
@@ -83,6 +97,7 @@ private:
 	bool_t						m_bOpen = { false };
 
 	shared_ptr<ITEM>			m_pEquipSlots[ETOUI(EQUIP_SLOT::END)];
+	shared_ptr<ITEM>			m_pQuickSlots[ETOUI(EQUIP_SLOT::END)];
 	vector<shared_ptr<ITEM>>	m_vecBackPack;
 	vector<shared_ptr<ITEM>>	m_vecStorage;
 
