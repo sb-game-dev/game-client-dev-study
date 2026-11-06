@@ -151,7 +151,7 @@ HRESULT CLoader::Loading_For_GamePlayLV()
 
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_Model_Tree"),
-        CModel::Create(m_pDevice, m_pContext, "../Bin/Resources/Models/ForkLift/ForkLift.fbx", PreTransformMatrix))))
+        CModel::Create(m_pDevice, m_pContext, "../Bin/Resources/Models/Tree/ForkLift.fbx", PreTransformMatrix))))
         return E_FAIL;
   
 
