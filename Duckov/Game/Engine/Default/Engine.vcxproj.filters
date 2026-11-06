@@ -294,6 +294,9 @@
     <ClInclude Include="..\public\ComputeShader.h">
       <Filter>06. Component\03. Shader\03. ComputeShader</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\Mesh.h">
+      <Filter>06. Component\04. Model\00. Mesh</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Timer.cpp">
@@ -421,6 +424,9 @@
     </ClCompile>
     <ClCompile Include="..\private\Model.cpp">
       <Filter>06. Component\04. Model</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Mesh.cpp">
+      <Filter>06. Component\04. Model\00. Mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

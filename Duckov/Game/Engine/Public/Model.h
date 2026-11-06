@@ -3,7 +3,7 @@
 #include "Component.h"
 
 NS_BEGIN(Engine)
-class CModel : public CComponent
+class ENGINE_DLL CModel : public CComponent
 {
 private:
 	CModel(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
@@ -14,13 +14,14 @@ public:
 public:
 	virtual	HRESULT Initialize_Prototype(const char_t* pModelFilePath);
 	virtual	HRESULT Initialize(void* pArg)override;
-
+	virtual HRESULT	Render();
 private:
-	const aiScene*		m_pAiScene = { nullptr };
+	const	aiScene*	m_pAiScene = { nullptr };
 	Assimp::Importer	m_pImporter = {};
 
 private:
 	vector<shared_ptr <class CMesh>> m_Meshes;
+	uint32_t	m_iMeshes = {};
 
 private:
 	HRESULT	Ready_Meshes();

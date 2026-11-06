@@ -123,7 +123,9 @@ void CPanel_Scene::Render(const PANEL_RECT& tRect)
             {
                 float3_t vPos, vScale; 
                 float4_t vQuat;
-                XMStoreFloat3(&vPos, vT); XMStoreFloat3(&vScale, vS); XMStoreFloat4(&vQuat, vQ);
+                XMStoreFloat3(&vPos, vT); 
+                XMStoreFloat3(&vScale, vS); 
+                XMStoreFloat4(&vQuat, vQ);
                 pObject->Set_Transform(vPos, vQuat, vScale);
             }
         }

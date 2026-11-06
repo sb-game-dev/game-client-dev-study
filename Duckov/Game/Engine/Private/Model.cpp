@@ -1,4 +1,5 @@
 #include "Model.h"
+#include "Mesh.h"
 
 CModel::CModel(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
 	:CComponent{pDevice,pContext}
@@ -33,6 +34,22 @@ HRESULT CModel::Initialize(void* pArg)
 {
 
 	return S_OK;
+}
+
+HRESULT CModel::Render()
+{
+    for (auto& pMesh : m_Meshes)
+    {
+        if (nullptr != pMesh)
+        {
+            if (FAILED(pMesh->Bind_Resources()))
+                return E_FAIL;
+
+            if (FAILED(pMesh->Render()))
+                return E_FAIL;
+        }
+    }
+    return S_OK;
 }
 
 HRESULT CModel::Ready_Meshes()
