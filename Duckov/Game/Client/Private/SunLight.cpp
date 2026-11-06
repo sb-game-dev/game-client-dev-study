@@ -9,9 +9,11 @@ HRESULT CSunLight::Initialize()
 {
 	// 방향성 조명 구조체 생성
 	m_tDirectionalLight.Ambient		= XMFLOAT4(0.25f, 0.25f, 0.25f, 1.0f);
-	m_tDirectionalLight.Diffuse		= XMFLOAT4(0.25f, 0.25f, 0.25f, 1.0f);
+	m_tDirectionalLight.Diffuse		= XMFLOAT4(0.75f, 0.75f, 0.75f, 1.f);
 	m_tDirectionalLight.Specular	= XMFLOAT4(0.25f, 0.25f, 0.25f, 1.0f);
 	m_tDirectionalLight.Direction	= XMFLOAT3(0.5f, -0.5f, 0.5f);
+
+	//m_tDirectionalLight.Specular = float4_t(1.f, 1.f, 1.f, 1.f);
 
 	// 방향성 조명 상수 버퍼 생성
 	D3D11_BUFFER_DESC LightCBDesc{};

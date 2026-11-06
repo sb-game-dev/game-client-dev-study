@@ -57,10 +57,14 @@ bool_t CGameObject::Is_InFrustum()
 {
 	if (false == m_bUseCulling)
 		return true;
-	auto pBuffer = dynamic_pointer_cast<CVIBuffer>(Find_Component(L"Com_Buffer"));
-	if (nullptr == pBuffer)
-		return false;
-	return Is_BoxInFrustum(pBuffer->GetBoundinBox(), m_pTransformCom->Get_World());
+
+	if (auto pBuffer = dynamic_pointer_cast<CVIBuffer>(Find_Component(L"Com_Buffer")))
+		return Is_BoxInFrustum(pBuffer->GetBoundinBox(), m_pTransformCom->Get_World());
+
+	if (auto pModel = dynamic_pointer_cast<CModel>(Find_Component(L"Com_Model")))
+		return Is_BoxInFrustum(pModel->GetBoundinBox(), m_pTransformCom->Get_World());
+
+	return true;
 }
 
 bool_t CGameObject::Is_BoxInFrustum(const BoundingBox& tLocalBox, const matrix_t& matWorld)

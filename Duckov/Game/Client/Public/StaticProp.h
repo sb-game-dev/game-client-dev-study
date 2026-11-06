@@ -25,7 +25,7 @@ public:
     HRESULT Change_Mesh(const wstring_t& strMeshPath);
 private:
     shared_ptr<CTexture>            m_pTextureCom;
-    shared_ptr<CVIBuffer>           m_pBufferCom;
+    shared_ptr<CModel>              m_pModelCom;
     shared_ptr<CVertexShader>       m_pVS;
     shared_ptr<CPixelShader>        m_pPS;
     shared_ptr<CConstantBuffer>     m_pCB;

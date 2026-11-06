@@ -1,0 +1,624 @@
+{
+ "name": "0_CharacterModel_Boss_Wu",
+ "fbx": "0_CharacterModel_Boss_Wu.fbx",
+ "category": "Characters",
+ "socket_hint": null,
+ "nodes": 52,
+ "renderers": [
+  {
+   "node": "FakeAO",
+   "type": "MeshRenderer",
+   "mesh": "Quad",
+   "enabled": true,
+   "active": false
+  },
+  {
+   "node": "Player_Duck_Head",
+   "type": "SkinnedMeshRenderer",
+   "mesh": "Player_Duck_Head",
+   "bones": 37,
+   "blendshapes": [],
+   "enabled": true,
+   "active": true
+  }
+ ],
+ "sockets": [
+  "RightHandSocket",
+  "MeleeWeaponSocket",
+  "MeleeWeaponSocket",
+  "HelmatSocket",
+  "ArmorSocket",
+  "BackpackSocket",
+  "PopTextSocket"
+ ],
+ "animator": "DuckV2_2",
+ "clips": [
+  {
+   "name": "Duck_Armature|Idle",
+   "fps": 60.0,
+   "frames": 99,
+   "seconds": 1.6333,
+   "loop": true,
+   "unbound_paths": 0
+  },
+  {
+   "name": "Duck_Armature|Walk.Forward",
+   "fps": 60.0,
+   "frames": 33,
+   "seconds": 0.5333,
+   "loop": true,
+   "unbound_paths": 0
+  },
+  {
+   "name": "Duck_Armature|Walk.Backward",
+   "fps": 60.0,
+   "frames": 33,
+   "seconds": 0.5333,
+   "loop": true,
+   "unbound_paths": 0
+  },
+  {
+   "name": "Duck_Armature|Walk.Left",
+   "fps": 60.0,
+   "frames": 33,
+   "seconds": 0.5333,
+   "loop": true,
+   "unbound_paths": 0
+  },
+  {
+   "name": "Duck_Armature|Walk.Right",
+   "fps": 60.0,
+   "frames": 33,
+   "seconds": 0.5333,
+   "loop": true,
+   "unbound_paths": 0
+  },
+  {
+   "name": "Duck_Armature|TPose",
+   "fps": 60.0,
+   "frames": 2,
+   "seconds": 0.0167,
+   "loop": false,
+   "unbound_paths": 0
+  },
+  {
+   "name": "Duck_Armature|Idle.RightHandOut",
+   "fps": 60.0,
+   "frames": 99,
+   "seconds": 1.6333,
+   "loop": true,
+   "unbound_paths": 0
+  },
+  {
+   "name": "Duck_Armature|Walk.Forward.RightHandOut",
+   "fps": 60.0,
+   "frames": 33,
+   "seconds": 0.5333,
+   "loop": true,
+   "unbound_paths": 0
+  },
+  {
+   "name": "Duck_Armature|Walk.Backward.RightHandOut",
+   "fps": 60.0,
+   "frames": 33,
+   "seconds": 0.5333,
+   "loop": true,
+   "unbound_paths": 0
+  },
+  {
+   "name": "Duck_Armature|Walk.Left.RightHandOut",
+   "fps": 60.0,
+   "frames": 33,
+   "seconds": 0.5333,
+   "loop": true,
+   "unbound_paths": 0
+  },
+  {
+   "name": "Duck_Armature|Walk.Right.RightHandOut",
+   "fps": 60.0,
+   "frames": 33,
+   "seconds": 0.5333,
+   "loop": true,
+   "unbound_paths": 0
+  },
+  {
+   "name": "Duck_Armature|Roll",
+   "fps": 60.0,
+   "frames": 73,
+   "seconds": 1.2,
+   "loop": false,
+   "unbound_paths": 10
+  },
+  {
+   "name": "Duck_Armature|Duck_Attack",
+   "fps": 60.0,
+   "frames": 52,
+   "seconds": 0.85,
+   "loop": false,
+   "unbound_paths": 2
+  },
+  {
+   "name": "Duck_Armature|Duck_Attack_L2R",
+   "fps": 60.0,
+   "frames": 55,
+   "seconds": 0.9,
+   "loop": false,
+   "unbound_paths": 2
+  }
+ ],
+ "lod_groups": null,
+ "light_volumes": null,
+ "materials": [
+  {
+   "name": "FakeAO",
+   "shader": "Universal Render Pipeline/Particles/Unlit",
+   "textures": {
+    "_BaseMap": {
+     "texture": "DustParticles.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "colors": {
+    "_AOColor": [
+     0.0,
+     0.0,
+     0.0,
+     0.7215686440467834
+    ],
+    "_BaseColor": [
+     0.0,
+     0.0,
+     0.0,
+     0.4313725531101227
+    ],
+    "_BaseColorAddSubDiff": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "_CameraFadeParams": [
+     0.0,
+     Infinity,
+     0.0,
+     0.0
+    ],
+    "_Color": [
+     0.0,
+     0.0,
+     0.0,
+     0.4313725531101227
+    ],
+    "_EmissionColor": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_SoftParticleFadeParams": [
+     0.0,
+     1.0,
+     0.0,
+     0.0
+    ]
+   },
+   "floats": {
+    "_AlphaClip": 0.0,
+    "_AlphaCutoff": 0.5,
+    "_AlphaToMask": 0.0,
+    "_Blend": 0.0,
+    "_BlendOp": 0.0,
+    "_CameraFadingEnabled": 0.0,
+    "_CameraFarFadeDistance": 2.0,
+    "_CameraNearFadeDistance": 1.0,
+    "_ColorMode": 0.0,
+    "_Cull": 2.0,
+    "_Cutoff": 0.5,
+    "_DistortionBlend": 0.5,
+    "_DistortionEnabled": 0.0,
+    "_DistortionStrength": 1.0,
+    "_DistortionStrengthScaled": 0.10000000149011612,
+    "_DstBlend": 10.0,
+    "_DstBlendAlpha": 10.0,
+    "_FadeDistance": 0.07999999821186066,
+    "_FlipbookBlending": 0.0,
+    "_FlipbookMode": 0.0,
+    "_Mode": 0.0,
+    "_QueueControl": 1.0,
+    "_QueueOffset": 0.0,
+    "_ReceiveShadows": 1.0,
+    "_SoftParticlesEnabled": 1.0,
+    "_SoftParticlesFarFadeDistance": 1.0,
+    "_SoftParticlesNearFadeDistance": 0.0,
+    "_SrcBlend": 5.0,
+    "_SrcBlendAlpha": 1.0,
+    "_Surface": 1.0,
+    "_ZWrite": 0.0
+   },
+   "keywords": [
+    "_FADING_ON",
+    "_SOFTPARTICLES_ON",
+    "_SURFACE_TYPE_TRANSPARENT"
+   ],
+   "fbx_name": "FakeAO"
+  },
+  {
+   "name": "Duck Wu",
+   "shader": "SodaCraft/SodaCharacter",
+   "textures": {
+    "_MainTex": {
+     "texture": "Player_Duck_Tex_AlbedoTint.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_MetallicSmoothness": {
+     "texture": "Player_Duck_Tex_Smoothness.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_NormalMap": {
+     "texture": "Player_Duck_Tex_Normal.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "colors": {
+    "_AlphaMaskTint": [
+     0.09433960914611816,
+     0.09433960914611816,
+     0.09433960914611816,
+     1.0
+    ],
+    "_BaseColor": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_BottomColor": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "_Color": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_EmissionColor": [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ],
+    "_HitColor": [
+     47.937255859375,
+     12.800000190734863,
+     4.015686511993408,
+     0.0
+    ],
+    "_HurtColor": [
+     5.992156505584717,
+     0.0941176488995552,
+     0.0941176488995552,
+     0.0
+    ],
+    "_SpecColor": [
+     0.19999995827674866,
+     0.19999995827674866,
+     0.19999995827674866,
+     1.0
+    ],
+    "_Tint": [
+     1.0,
+     1.0,
+     1.0,
+     0.0
+    ]
+   },
+   "floats": {
+    "_AO_Blend2Albedo": 0.0,
+    "_AlphaClip": 0.0,
+    "_AlphaCutoff": 0.5,
+    "_AlphaMask": 1.0,
+    "_AoStrength": 1.0,
+    "_AoUseUV3": 0.0,
+    "_Blend": 0.0,
+    "_BlendModePreserveSpecular": 1.0,
+    "_BumpScale": 1.0,
+    "_ClearCoatMask": 0.0,
+    "_ClearCoatSmoothness": 0.0,
+    "_Cull": 2.0,
+    "_Cutoff": 0.5,
+    "_Cutout": 0.0,
+    "_DetailAlbedoMapScale": 1.0,
+    "_DetailNormalMapScale": 1.0,
+    "_DstBlend": 0.0,
+    "_DstBlendAlpha": 0.0,
+    "_EnvironmentReflections": 1.0,
+    "_FresnelPower": 3.0,
+    "_GlossMapScale": 0.0,
+    "_Glossiness": 0.0,
+    "_GlossinessSource": 0.0,
+    "_GlossyReflections": 0.0,
+    "_HeightFadeDistance": 0.0,
+    "_HitValue": 0.0,
+    "_HurtValue": 0.0,
+    "_Metallic": 0.0,
+    "_NormalScale": 1.0,
+    "_OcclusionStrength": 1.0,
+    "_Parallax": 0.004999999888241291,
+    "_QueueControl": 0.0,
+    "_QueueOffset": 0.0,
+    "_ReceiveShadows": 1.0,
+    "_Shininess": 0.0,
+    "_Smoothness": 0.25,
+    "_SmoothnessSource": 0.0,
+    "_SmoothnessTextureChannel": 0.0,
+    "_SpecSource": 0.0,
+    "_SpecularHighlights": 1.0,
+    "_SrcBlend": 1.0,
+    "_SrcBlendAlpha": 1.0,
+    "_Surface": 0.0,
+    "_TempratureLerp": 1.0,
+    "_WorkflowMode": 1.0,
+    "_ZWrite": 1.0
+   },
+   "keywords": null,
+   "fbx_name": "Duck Wu"
+  },
+  {
+   "name": "CharacterShowBack",
+   "shader": "CharacterShowBack",
+   "textures": {
+    "_Noise": {
+     "texture": "RGBANoise.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "colors": {
+    "_Color0": [
+     3.999999523162842,
+     0.06282710283994675,
+     0.16970880329608917,
+     0.572549045085907
+    ],
+    "_EmissionColor": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_NoiseTileAndSpeed": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ]
+   },
+   "floats": {
+    "_AlphaCutoff": 0.5,
+    "_Factor": -555.0,
+    "_FadeDistance": 0.30000001192092896,
+    "_HideInThermal": 1.0,
+    "_HurtValue": 0.0,
+    "_NoiseStrength": 0.05999999865889549,
+    "_Power": 1.5,
+    "_QueueControl": 1.0,
+    "_QueueOffset": 0.0,
+    "_ReceiveShadows": 0.0,
+    "_ScanLineTile": 50.0,
+    "_TempratureLerp": 0.0,
+    "_TessEdgeLength": 16.0,
+    "_TessMax": 25.0,
+    "_TessMaxDisp": 25.0,
+    "_TessMin": 10.0,
+    "_TessPhongStrength": 0.5,
+    "_TessValue": 16.0,
+    "_Unit": -144.0
+   },
+   "keywords": null,
+   "fbx_name": "CharacterShowBack"
+  }
+ ],
+ "warnings": [],
+ "node_names_in_fbx": [
+  "0_CharacterModel_Boss_Wu",
+  "FakeAO",
+  "DuckV2_2",
+  "Duck_Armature",
+  "Root",
+  "Hip",
+  "Leg.Upper.L",
+  "Leg.Lower.L",
+  "Foot.L.001",
+  "Foot.L.002",
+  "Leg.Upper.R",
+  "Leg.Lower.R",
+  "Foot.R.001",
+  "Foot.R.002",
+  "Spine.001",
+  "Spine.002",
+  "Spine.003",
+  "Arm.Root.L",
+  "Arm.Upper.L",
+  "Arm.Fore.L",
+  "Hand.L",
+  "Finger.Index.L.001",
+  "Finger.Index.L.002",
+  "Finger.Middle.L.001",
+  "Finger.Middle.L.002",
+  "Finger.Pinky.L.001",
+  "Finger.Pinky.L.002",
+  "Arm.Root.R",
+  "Arm.Upper.R",
+  "Arm.Fore.R",
+  "Hand.R",
+  "Finger.Index.R.001",
+  "Finger.Index.R.002",
+  "Finger.Middle.R.001",
+  "Finger.Middle.R.002",
+  "Finger.Pinky.R.001",
+  "Finger.Pinky.R.002",
+  "RightHandSocket",
+  "MeleeWeaponSocket",
+  "MeleeWeaponSocket_1",
+  "Head",
+  "HairTip",
+  "HelmatSocket",
+  "Orange_Non",
+  "ArmorSocket",
+  "BackpackSocket",
+  "Tail.001",
+  "Tail.002",
+  "Player_Duck_Head",
+  "RunParticle",
+  "Particle System",
+  "PopTextSocket"
+ ],
+ "unity_components": {
+  "CharacterModel": {
+   "m_GameObject": {
+    "m_FileID": 0,
+    "m_PathID": 9157
+   },
+   "m_Enabled": 1,
+   "m_Script": {
+    "m_FileID": 16777216,
+    "m_PathID": 64692944896
+   },
+   "m_Name": "",
+   "damageReceiverRadius": 0.5,
+   "characterRadius": 0.30000001192092896,
+   "attackFxZOffset": 0.0,
+   "vehicleType": 0,
+   "characterMainControl": {
+    "m_FileID": 0,
+    "m_PathID": 0
+   },
+   "invisable": 0,
+   "lefthandSocket": {
+    "m_FileID": 0,
+    "m_PathID": 0
+   },
+   "rightHandSocket": {
+    "m_FileID": 0,
+    "m_PathID": 35832
+   },
+   "hurtVisual": {
+    "m_FileID": 0,
+    "m_PathID": 76813
+   },
+   "armorSocket": {
+    "m_FileID": 0,
+    "m_PathID": 45560
+   },
+   "helmatSocket": {
+    "m_FileID": 0,
+    "m_PathID": 39706
+   },
+   "faceSocket": {
+    "m_FileID": 0,
+    "m_PathID": 0
+   },
+   "backpackSocket": {
+    "m_FileID": 0,
+    "m_PathID": 39950
+   },
+   "meleeWeaponSocket": {
+    "m_FileID": 0,
+    "m_PathID": 43636
+   },
+   "popTextSocket": {
+    "m_FileID": 0,
+    "m_PathID": 33375
+   },
+   "vehicleSocket": {
+    "m_FileID": 0,
+    "m_PathID": 0
+   },
+   "exitVehicleSockets": [],
+   "subVisuals": [],
+   "renderers": [],
+   "customFace": {
+    "m_FileID": 0,
+    "m_PathID": 0
+   },
+   "autoSyncRightHandRotation": 1
+  },
+  "CharacterSubVisuals": {
+   "m_GameObject": {
+    "m_FileID": 0,
+    "m_PathID": 9157
+   },
+   "m_Enabled": 1,
+   "m_Script": {
+    "m_FileID": 16777216,
+    "m_PathID": 36238786560
+   },
+   "m_Name": "",
+   "renderers": [
+    {
+     "m_FileID": 0,
+     "m_PathID": 48328
+    },
+    {
+     "m_FileID": 0,
+     "m_PathID": 52889
+    }
+   ],
+   "particles": [
+    {
+     "m_FileID": 0,
+     "m_PathID": 52963
+    },
+    {
+     "m_FileID": 0,
+     "m_PathID": 53152
+    }
+   ],
+   "lights": [],
+   "sodaPointLights": [],
+   "logWhenSetVisual": 0,
+   "mainModel": {
+    "m_FileID": 0,
+    "m_PathID": 0
+   },
+   "debug": 0
+  }
+ }
+}

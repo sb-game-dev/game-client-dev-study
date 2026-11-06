@@ -86,7 +86,10 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
         f32_t fPosZ = -207.2f + 10 * cosf(XM_2PI / 16 * i);
 
         Cube_Desc.vPosition = { fPosX ,0.f,fPosZ };
-
+        Cube_Desc.iLevelIndex = ETOUI(LEVEL::GAMEPLAY);
+        Cube_Desc.strMeshPath = Proto::VIBuffer_Cube;
+        Cube_Desc.strTexturePath = Proto::Texture_Cube;
+        //Cube_Desc.strTexturePath;
         if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Cube,
             ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Cube + to_wstring(i), &Cube_Desc)))
             return E_FAIL;

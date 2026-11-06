@@ -49,10 +49,10 @@ HRESULT CLevel_GamePlay::Render()
 HRESULT CLevel_GamePlay::Ready_Lights()
 {
     LIGHT_DESC      LightDesc{};
-    LightDesc.vDirection = float4_t(1.f, -1.f, 1.f, 0.f);
-    LightDesc.vDiffuse = float4_t(1.f, 1.f, 1.f, 1.f);
-    LightDesc.vAmbient = float4_t(0.3f, 0.3f, 0.3f, 1.f);
-    LightDesc.vSpecular = float4_t(1.f, 1.f, 1.f, 1.f);
+    LightDesc.vDirection    = float4_t(1.f, -1.f, 1.f, 0.f);
+    LightDesc.vDiffuse      = float4_t(1.f, 1.f, 1.f, 1.f);
+    LightDesc.vAmbient      = float4_t(0.3f, 0.3f, 0.3f, 1.f);
+    LightDesc.vSpecular     = float4_t(1.f, 1.f, 1.f, 1.f);
 
     CGameInstance::Get().Add_Light(LIGHT::DIRECTIONAL, LightDesc);
 

@@ -67,7 +67,7 @@ HRESULT CMonster::Render()
 HRESULT CMonster::Ready_Components()
 {
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_Model_Fiona"),
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_Model_Duck"),
         TEXT("Com_Model"), m_pModelCom)))
         return E_FAIL;
 

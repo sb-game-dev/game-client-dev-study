@@ -77,14 +77,6 @@ HRESULT CLoader_MapTool::Loading_For_MapToolLV()
         CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/proc_preview.png"), 1))))
         return E_FAIL;
 
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Normalize_AssetPath(TEXT("Ex/WoodCrate01.dds")),
-        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/WoodCrate01.dds"), 1))))
-        return E_FAIL;
-
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Normalize_AssetPath(TEXT("Ex/WoodCrate02.dds")),
-        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/WoodCrate02.dds"), 1))))
-        return E_FAIL;
-
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Normalize_AssetPath(TEXT("../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/splat_0.png")),
         CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/splat_0.png"), 1))))
         return E_FAIL;
@@ -103,17 +95,22 @@ HRESULT CLoader_MapTool::Loading_For_MapToolLV()
         CVIBuffer_SkyBox::Create(m_pDevice, m_pContext))))
         return E_FAIL;
 
-    
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Normalize_AssetPath(TEXT("builtin/cube")),
-        CVIBuffer_Cube::Create(m_pDevice, m_pContext))))
-        return E_FAIL;
-
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Normalize_AssetPath(TEXT("builtin/rect")),
-        CVIBuffer_Rect::Create(m_pDevice, m_pContext))))
-        return E_FAIL;
-
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Normalize_AssetPath(TEXT("../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/height_321x321_16bit.raw")),
         CVIBuffer_Terrain::Create(m_pDevice, m_pContext, L"../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/height_321x321_16bit.raw"))))
+        return E_FAIL;
+
+    matrix_t PreTransformMatrix = XMMatrixRotationY(180.f);
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL),
+        Normalize_AssetPath(TEXT("Characters/0_CharacterModel_Boss_Wu/0_CharacterModel_Boss_Wu.fbx")),
+        CModel::Create(m_pDevice, m_pContext,
+            "../../../Resource/Characters/0_CharacterModel_Boss_Wu/0_CharacterModel_Boss_Wu.fbx"))))
+        return E_FAIL;
+
+    PreTransformMatrix = XMMatrixRotationY(180.f);
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL),
+        Normalize_AssetPath(TEXT("Mesh/Tree/Pfb_Tree_01_1.fbx")),
+        CModel::Create(m_pDevice, m_pContext,
+            "../../../Resource/Mesh/Tree/Pfb_Tree_01_1.fbx"))))
         return E_FAIL;
 
 
@@ -134,6 +131,14 @@ HRESULT CLoader_MapTool::Loading_For_MapToolLV()
         return E_FAIL;
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::PS_TERRAIN,
         CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_TERRAIN"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::VS_MODEL,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_VertexShader.hlsl", VTXMESH::Elements, VTXMESH::iNumElements, "VS_MAIN_MODEL"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::PS_MODEL,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_MAIN_MODEL"))))
         return E_FAIL;
 
     lstrcpy(m_szLoadingText, TEXT("객체원형 준비중입니다."));

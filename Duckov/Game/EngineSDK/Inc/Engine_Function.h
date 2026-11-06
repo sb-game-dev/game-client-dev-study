@@ -71,7 +71,7 @@ namespace Engine
 		}
 		else
 		{
-			fYaw = atan2f(-m._13, m._11);		// Áü¹ú¶ô: RollÀ» 0À¸·Î µÎ°í Yaw¿¡ ¸ô¾ÆÁÜ
+			fYaw = atan2f(-m._13, m._11);	// Áü¹ú¶ô: RollÀ» 0À¸·Î µÎ°í Yaw¿¡ ¸ô¾ÆÁÜ
 			fRoll = 0.f;
 		}
 

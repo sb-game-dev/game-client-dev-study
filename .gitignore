@@ -28,3 +28,6 @@ ipch/
 # Build logs
 *.log
 *.zip
+
+# 원작 추출 리소스 전체본 (로컬 전용, Duckov/Resource 에는 게임에서 쓰는 것만)
+Duckov/Extract/

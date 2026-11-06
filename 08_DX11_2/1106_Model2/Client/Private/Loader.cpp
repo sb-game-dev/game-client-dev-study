@@ -146,12 +146,12 @@ HRESULT CLoader::Loading_For_GamePlayLV()
         CModel::Create(m_pDevice, m_pContext, "../Bin/Resources/Models/ForkLift/ForkLift.fbx", PreTransformMatrix))))
         return E_FAIL;
 
-    /* For.Prototype_Component_Model_Tree*/
+    /* For.Prototype_Component_Model_Duck*/
     PreTransformMatrix = XMMatrixScaling(0.01f, 0.01f, 0.01f) * XMMatrixRotationY(XMConvertToRadians(180.f));
 
 
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_Model_Tree"),
-        CModel::Create(m_pDevice, m_pContext, "../Bin/Resources/Models/Tree/ForkLift.fbx", PreTransformMatrix))))
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), TEXT("Prototype_Component_Model_Duck"),
+        CModel::Create(m_pDevice, m_pContext, "../Bin/Resources/Models/Duck/Duck.fbx"))))
         return E_FAIL;
   
 

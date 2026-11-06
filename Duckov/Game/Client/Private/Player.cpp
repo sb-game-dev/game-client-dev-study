@@ -110,15 +110,15 @@ HRESULT CPlayer::Render_Occluded()
 
 HRESULT CPlayer::Ready_Components()
 {
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VIBuffer_Pyramid,
-        TEXT("Com_Buffer"), m_pBufferCom)))
+    if(FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Normalize_AssetPath(TEXT("Characters/0_CharacterModel_Boss_Wu/0_CharacterModel_Boss_Wu.fbx")),
+        TEXT("Com_Model"),m_pModel)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VS_VTXCOL,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VS_MODEL,
         TEXT("Com_VS"), m_pVS)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_VTXCOL,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_MODEL,
         TEXT("Com_PS"), m_pPS)))
         return E_FAIL;
 
@@ -143,7 +143,12 @@ HRESULT CPlayer::Ready_ConstantBuffer()
 
 HRESULT CPlayer::Update_ConstantBuffer(const matrix_t& matWorld)
 {
-    XMStoreFloat4x4(&m_tCBData.WorldMatrix, matWorld);
+    XMMATRIX matNoTrans = matWorld;
+    matNoTrans.r[3] = XMVectorSet(0.f, 0.f, 0.f, 1.f);
+    XMMATRIX matWorldInvTranspos = XMMatrixTranspose(XMMatrixInverse(nullptr, matNoTrans));
+
+    XMStoreFloat4x4(&m_tCBData.mat_World, (matWorld));
+    XMStoreFloat4x4(&m_tCBData.mat_WorldInvTranspose, (matWorldInvTranspos));
     return S_OK;
 }
 
@@ -162,10 +167,7 @@ HRESULT CPlayer::Render_Mesh(const matrix_t& matWorld, ID3D11RasterizerState* pR
     if (FAILED(Bind_Shader(m_pVS, pPS)))
         return E_FAIL;
 
-    if (FAILED(m_pBufferCom->Bind_Resources()))
-        return E_FAIL;
-
-    if (FAILED(m_pBufferCom->Render()))
+    if (FAILED(m_pModel->Render()))
         return E_FAIL;
 
     return S_OK;

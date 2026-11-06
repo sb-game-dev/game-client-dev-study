@@ -177,12 +177,12 @@ void CPanel_Scene::Render(const PANEL_RECT& tRect)
                 continue;
             if (nullptr != dynamic_pointer_cast<CHill>(pObject))          // 지형 제외 (박스가 맵 전체)
                 continue;
-            auto pBuffer = static_pointer_cast<CVIBuffer>(pObject->Find_Component(L"Com_Buffer"));
-            if (nullptr == pBuffer)
+            auto pModel = static_pointer_cast<CModel>(pObject->Find_Component(L"Com_Model"));
+            if (nullptr == pModel)
                 continue;
 
             BoundingOrientedBox tWorldBox;
-            BoundingOrientedBox::CreateFromBoundingBox(tWorldBox, pBuffer->GetBoundinBox());
+            BoundingOrientedBox::CreateFromBoundingBox(tWorldBox, pModel->GetBoundinBox());
             tWorldBox.Transform(tWorldBox, pObject->Get_Transform()->Get_World());
 
             f32_t fOutDist = {};

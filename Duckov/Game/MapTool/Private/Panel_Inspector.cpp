@@ -1,6 +1,7 @@
 ﻿#include "EditorUI_Utils.h"
 #include "Panel_Inspector.h"
 #include "StaticProp.h"
+#include "Hill.h"
 
 void CPanel_Inspector::Render(const PANEL_RECT& tRect)
 {
@@ -18,6 +19,14 @@ void CPanel_Inspector::Render(const PANEL_RECT& tRect)
             // 이름
             ImGui::TextUnformatted(To_UTF8(m_Context.strSelectedTag).c_str());
             ImGui::Separator();
+            if (ImGui::Button("SnapToTerrain"))
+            {
+                if (auto pTerrain = dynamic_pointer_cast<CHill>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), L"Layer_Map", L"Terrain")))
+                {
+                    f32_t fY = pTerrain->GetHeight(pSelected->Get_Position().x, pSelected->Get_Position().z);
+                    pSelected->Set_Position(float3_t(pSelected->Get_Position().x, fY, pSelected->Get_Position().z));
+                }
+            }
 
             // Transform
             // CollapsingHeader: 토글창 생성

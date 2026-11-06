@@ -49,6 +49,16 @@ struct PS_IN_TERRAIN
     float2 vTiledTex : TEXCOORD1; // 레이어용 반복   
 };
 
+struct PS_IN_MODEL
+{
+    float4 vPosition : SV_POSITION;
+    float3 vNormalW : NORMAL;
+    float4 vTangent : TANGENT;
+    float4 vBinormal : BINORMAL;
+    float2 vTexCoord : TEXCOORD0;
+    float3 vPosW : TEXCOORD1;
+};
+
 float4 PS_MAIN(PS_IN In) : SV_TARGET //몇 번째 렌더타겟에 색을 쓸지
 {
     float3 vNormal = normalize(In.vNormalW);
@@ -86,6 +96,40 @@ float4 PS_MAIN(PS_IN In) : SV_TARGET //몇 번째 렌더타겟에 색을 쓸지
     
     return vColor;
 }
+
+float4 PS_MAIN_MODEL(PS_IN_MODEL In) : SV_TARGET //몇 번째 렌더타겟에 색을 쓸지
+{
+    float3 vNormal = normalize(In.vNormalW);
+    float3 vToEye = normalize(g_vEye.xyz - In.vPosW);
+    
+    float4 vAmbient, vDiffuse, vSpec;
+    float4 vAmbientSum, vDiffuseSum, vSpecSum;
+    float4 vColor = float4(0.f, 0.f, 0.f, 0.f);
+    
+    float4 vMtrlDiffuse = 1.f; //g_DiffuseTex.Sample(g_LinearSampler, In.vTexCoord);
+    
+    // 알파 테스트에 해당 알파값이 0.1이하인 경우 픽셀을 탈락시킴
+    //clip(vTexColor.a - 0.1f);
+    float4 vDirLight_Direction = float4(g_DirLight.Direction, 0.f);
+    float4 vNormalW = float4(In.vNormalW, 0.f);
+    float4 vPosW = float4(In.vPosW, 1.f);
+    
+    vector vShade = max(dot(normalize(g_DirLight.Direction) * -1.f, normalize(In.vNormalW)), 0.f)
+        + (g_DirLight.Ambient * 1.f);
+    
+    vector vReflect = reflect(normalize(vDirLight_Direction), normalize(vNormalW));
+    
+    vector vLook = vPosW - g_vEye;
+    
+    float fSpecular = pow(max(dot(normalize(vReflect) * -1.f, normalize(vLook)), 0.f), 50.f);
+    
+    vColor = g_DirLight.Diffuse * vMtrlDiffuse * vShade +
+        (g_DirLight.Specular * g_DirLight.Specular) * fSpecular;
+    
+
+    return vColor;
+}
+
 
 
 float4 PS_MAIN_NOLIGHT(PS_IN In) : SV_TARGET

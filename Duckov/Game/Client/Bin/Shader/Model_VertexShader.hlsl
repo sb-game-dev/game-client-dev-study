@@ -11,6 +11,15 @@ struct VS_IN
     float2 vTexCoord : TEXCOORD; //UV°ª
 };
 
+struct VS_IN_MODEL
+{
+    float3 vPosition : POSITION;
+    float3 vNormal : NORMAL;
+    float3 vTangent : TANGENT;
+    float3 vBinormal : BINORMAL;
+    float2 vTexCoord : TEXCOORD0;
+};
+
 struct VS_IN_INST
 {
     float3 vPosition : POSITION;
@@ -25,6 +34,16 @@ struct VS_OUT
     float3 vPosW : POSITION;
     float3 vNormalW : NORMAL;
     float2 vTexCoord : TEXCOORD; //UV°ª
+};
+
+struct VS_OUT_MODEL
+{
+    float4 vPosition : SV_POSITION;
+    float3 vNormalW : NORMAL;
+    float4 vTangent : TANGENT;
+    float4 vBinormal : BINORMAL;
+    float2 vTexCoord : TEXCOORD0;
+    float3 vPosW : TEXCOORD1;
 };
 
 struct VS_OUT_TERRAIN
@@ -48,7 +67,19 @@ VS_OUT VS_MAIN(VS_IN In)
     Out.vTexCoord = In.vTexCoord;
     return Out;
 }
+VS_OUT_MODEL VS_MAIN_MODEL(VS_IN_MODEL In)
+{
+    VS_OUT_MODEL Out;
 
+    float4 vPosW = mul(float4(In.vPosition, 1.f), g_matWorld);
+    Out.vPosW = vPosW.xyz;
+    Out.vNormalW = mul(In.vNormal, (float3x3) g_matWorldInvTranspose);
+    Out.vTangent = vector(In.vTangent, 0.f);
+    Out.vBinormal = vector(In.vBinormal, 0.f);
+    Out.vPosition = mul(mul(vPosW, g_ViewMatrix), g_ProjMatrix);
+    Out.vTexCoord = In.vTexCoord;
+    return Out;
+}
 
 VS_OUT VS_MAIN_INST(VS_IN_INST In)
 {

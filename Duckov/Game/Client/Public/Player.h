@@ -33,14 +33,14 @@ public:
 private:
 	float4_t						m_vGroundPlane = { 0.f, 1.f, 0.f, 0.f };	// ¹ß¹Ø Æò¸é (a,b,c,d)
 
-	shared_ptr<CVIBuffer_Pyramid>	m_pBufferCom = { nullptr };
+	shared_ptr<CModel>				m_pModel = { nullptr };
 	shared_ptr<CVertexShader>		m_pVS = { nullptr };
 	shared_ptr<CPixelShader>		m_pPS = { nullptr };
 	shared_ptr<CPixelShader>		m_pPS_Shadow = { nullptr };
 	shared_ptr<CPixelShader>		m_pPS_Occluded = { nullptr };
 
 	shared_ptr<CConstantBuffer>		m_pCB = { nullptr };
-	CB_PER_OBJECT					m_tCBData = {};
+	CB_PER_OBJECT_LIT				m_tCBData = {};
 
 	ComPtr<ID3D11RasterizerState>	m_pRS_Reflect = { nullptr };
 

@@ -83,43 +83,29 @@ HRESULT CStaticProp::Change_Mesh(const wstring_t& strMeshPath)
 {
     const wstring_t strMeshTag = Normalize_AssetPath(strMeshPath);
 
-    if (0 != strMeshTag.rfind(g_strBuiltinPrefix, 0))
-        return E_FAIL;
-
     if (false == CGameInstance::Get().Has_Prototype(m_iLevelIndex, strMeshTag))
-        return E_FAIL;                              // 등록 안 된 경로 → 기존 메시 유지
+        return E_FAIL;                              // 등록 안 된 경로 → 기존 메시 유지                             
 
-    if (0 != strMeshTag.rfind(g_strBuiltinPrefix, 0)) // Path로 만든 strMeshTag가 L"biltin/"으로 시작하지 않으면 모델임
-        return E_FAIL;                                
-
-    shared_ptr<CVIBuffer> pNew;
-    Remove_Component(TEXT("Com_Buffer"));
-    if (FAILED(__super::Add_Component(m_iLevelIndex, strMeshTag, TEXT("Com_Buffer"), pNew)))
+    shared_ptr<CModel> pNew;
+    Remove_Component(TEXT("Com_Model"));
+    if (FAILED(__super::Add_Component(m_iLevelIndex, strMeshTag, TEXT("Com_Model"), pNew)))
         return E_FAIL;
 
-    m_pBufferCom = pNew;
+    m_pModelCom = pNew;
     m_strMeshPath = strMeshTag;
     return S_OK;
 }
 
 HRESULT CStaticProp ::Ready_Components()
 {
-    //if (FAILED(__super::Add_Component(m_iLevelIndex, m_strTexturePath,
-    //    TEXT("Com_Texture"), m_pTextureCom)))
-    //    return E_FAIL;
-//
-    //if (FAILED(__super::Add_Component(m_iLevelIndex, m_strMeshPath ,
-    //    TEXT("Com_Buffer"), m_pBufferCom)))
-    //    return E_FAIL;
-
     if (FAILED(Ready_Mesh()))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(m_iLevelIndex, Proto::VS_VTXTEX,
+    if (FAILED(__super::Add_Component(m_iLevelIndex, Proto::VS_MODEL,
         TEXT("Com_VS"), m_pVS)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(m_iLevelIndex, Proto::PS_VTXTEX_NOLIGHT,
+    if (FAILED(__super::Add_Component(m_iLevelIndex, Proto::PS_MODEL,
         TEXT("Com_PS"), m_pPS)))
         return E_FAIL;
 
@@ -138,7 +124,7 @@ HRESULT CStaticProp ::Ready_ConstantBuffer()
 HRESULT CStaticProp::Ready_Mesh()
 {
     if (FAILED(Change_Mesh(m_strMeshPath)))       return E_FAIL;
-    if (FAILED(Change_Texture(m_strTexturePath))) return E_FAIL;
+    //if (FAILED(Change_Texture(m_strTexturePath))) return E_FAIL;
     return S_OK;
 }
 
@@ -176,8 +162,8 @@ HRESULT CStaticProp::Bind_ShaderResources(const matrix_t& matWorld)
     if (FAILED(m_pCB->Bind_Pixel_ShaderResource(0, &m_tCBData)))
         return E_FAIL;
 
-    if (FAILED(m_pTextureCom->Bind_Pixel_ShaderResource(0, 0)))
-        return E_FAIL;
+    //if (FAILED(m_pTextureCom->Bind_Pixel_ShaderResource(0, 0)))
+    //    return E_FAIL;
     return S_OK;
 }
 
@@ -194,10 +180,7 @@ HRESULT CStaticProp::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState
     if (FAILED(Bind_Shader(m_pVS, pPS)))
         return E_FAIL;
 
-    if (FAILED(m_pBufferCom->Bind_Resources()))
-        return E_FAIL;
-
-    if (FAILED(m_pBufferCom->Render()))
+    if (FAILED(m_pModelCom->Render()))
         return E_FAIL;
 
     return S_OK;

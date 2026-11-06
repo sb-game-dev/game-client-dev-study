@@ -62,19 +62,18 @@ struct PLACEABLE
 static constexpr PLACEABLE s_Placeables[] = {
 	{ "Add Static_Prop", Proto::Obj_StaticProp },
 	{ "Add Terrain", Proto::Obj_Hill },
-	{ "Add WireCube", Proto::Obj_Cube },
 };
 
 // { 표시 이름, 경로 } 목록 (Inspector 콤보, Hierarchy 생성 기본값)
 struct ASSET_ITEM
 {
 	const char*		pDisplayName;	// 콤보 표시용
-	const wchar_t*	pPath;		// DESC에 넣을 경로 (텍스처는 Resource 기준 상대 경로)
+	const wchar_t*	pPath;			// DESC에 넣을 경로 (텍스처는 Resource 기준 상대 경로)
 };
 
 inline constexpr ASSET_ITEM g_Meshes[] = {
-	{ "Cube", L"builtin/cube" },
-	{ "Rect", L"builtin/rect" },
+	{ "Duck", L"Characters/0_CharacterModel_Boss_Wu/0_CharacterModel_Boss_Wu.fbx" },
+	{ "ZeroZoneTree", L"Mesh/Tree/Pfb_Tree_01_1.fbx" },
 };
 
 inline constexpr ASSET_ITEM g_Textures[] = {

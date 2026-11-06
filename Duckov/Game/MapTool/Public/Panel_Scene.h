@@ -3,8 +3,6 @@
 #include "ImGuizmo.h"
 
 NS_BEGIN(MapTool)
-// 엔진이 그린 씬 텍스처(RTT)를 비율에 맞춰 표시
-// 포커스/hover/이미지 영역을 Context에 기록한다 (카메라, 피킹용)
 class CPanel_Scene final : public CPanel
 {
 private:

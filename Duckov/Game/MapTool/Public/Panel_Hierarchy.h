@@ -2,8 +2,6 @@
 #include "Panel.h"
 
 NS_BEGIN(MapTool)
-// 객체 이름 목록 + 선택 + 우클릭 생성/삭제
-// 값 편집은 하지 않는다 (Inspector 담당)
 class CPanel_Hierarchy final : public CPanel
 {
 private:
