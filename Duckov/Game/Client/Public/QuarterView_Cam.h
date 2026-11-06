@@ -30,7 +30,7 @@ private:
     f32_t                       m_fShakeDistance = { 1.f };
     float3_t                    m_vShakeOffset = {};
     float4_t                    m_vAt = {};
-    float4_t                    m_vOffset = { 0.f,2.f,-10.f,0.f };
+    float4_t                    m_vOffset = { 0.f,5.f,-10.f,0.f };
 private:
     void                Shake(f32_t fDeltaTime);
 public:

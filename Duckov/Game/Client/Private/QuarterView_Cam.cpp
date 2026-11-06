@@ -46,8 +46,10 @@ void CQuarterView_Cam::Priority_Update(f32_t fTimeDelta)
 void CQuarterView_Cam::Update(f32_t fDeltaTime)
 {
 	__super::Update(fDeltaTime);
+}
 
-	// lock -> shared_ptr을 만들어주는 함수(참조 카운트 + 1)
+void CQuarterView_Cam::Late_Update(f32_t fDeltaTime)
+{	// lock -> shared_ptr을 만들어주는 함수(참조 카운트 + 1)
 	auto pPlayer = m_pPlayer.lock();
 	if (nullptr == pPlayer)
 	{
@@ -62,7 +64,7 @@ void CQuarterView_Cam::Update(f32_t fDeltaTime)
 		ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", L"GameObject_Inven"));
 
 	bool_t bInvenOpen = (nullptr != pInven && pInven->Is_Open());
-	
+
 	// At 설정
 	if (!bInvenOpen && CGameInstance::Get().Mouse_Pressing(DIM::RB) && !CGameInstance::Get().Key_Pressing(DIK_LSHIFT))
 	{
@@ -95,10 +97,12 @@ void CQuarterView_Cam::Update(f32_t fDeltaTime)
 		}
 		else
 		{
+			vAt = vPlayerPos;
 			XMStoreFloat4(&m_vAt, vPlayerPos);
 		}
 		// Eye 설정
 		vector_t vOffset = XMLoadFloat4(&m_vOffset);
+		vAt += XMLoadFloat3(&m_vShakeOffset);
 		m_pTransformCom->Set_State(STATE::POSITION, vAt + vOffset);
 		m_pTransformCom->LookAt(vAt);
 		// fov 복구
@@ -108,13 +112,10 @@ void CQuarterView_Cam::Update(f32_t fDeltaTime)
 			m_fFovy = g_fMaxFov;
 	}
 
-	if(!bInvenOpen)
+	if (!bInvenOpen)
 		Shake(fDeltaTime);
 	Update_PipeLines();
-}
 
-void CQuarterView_Cam::Late_Update(f32_t fDeltaTime)
-{
 	__super::Late_Update(fDeltaTime);
 }
 
@@ -134,9 +135,6 @@ void CQuarterView_Cam::Shake(f32_t fDeltaTime)
 	m_fShakeTime -= fDeltaTime;
 	m_vShakeOffset.x = (rand() % 5 - 2) * fDeltaTime;
 	m_vShakeOffset.z = (rand() % 5 - 2) * fDeltaTime;
-
-	m_vAt.x += m_vShakeOffset.x;
-	m_vAt.z += m_vShakeOffset.z;
 }
 
 shared_ptr<CQuarterView_Cam> CQuarterView_Cam::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
