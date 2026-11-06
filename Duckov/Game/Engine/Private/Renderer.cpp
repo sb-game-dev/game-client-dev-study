@@ -359,6 +359,8 @@ void CRenderer::Render_NonAlpha()
 
 void CRenderer::Render_OccludedPlayer()
 {
+	float blendFactor[4] = { 0.f, 0.f, 0.f, 0.f };
+	m_pContext->OMSetBlendState(m_pBS.Get(), blendFactor, 0xffffffff);
 	m_pContext->OMSetDepthStencilState(m_pDSS_DrawReflection.Get(), 10); // STENCIL_OCCLUDER : 10
 
 	for (auto& pObj : m_RenderGroup[ETOUI(RENDERID::OCCLUDEDPLAYER)])
@@ -369,6 +371,7 @@ void CRenderer::Render_OccludedPlayer()
 	m_RenderGroup[ETOUI(RENDERID::OCCLUDEDPLAYER)].clear();
 
 	m_pContext->OMSetDepthStencilState(nullptr, 0);   // º¹±¸
+	m_pContext->OMSetBlendState(nullptr, blendFactor, 0xffffffff);
 }
 
 void CRenderer::Render_Player()

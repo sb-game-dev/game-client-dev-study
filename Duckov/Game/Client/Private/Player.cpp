@@ -1,16 +1,18 @@
 #include "Player.h"
 #include "Inven.h"
 
-const vector_t	g_vZ_Plus = XMVector4Normalize({ 0.f,0.f,+1.f,0.f });
-const vector_t	g_vZ_Minus = XMVector4Normalize({ 0.f,0.f,-1.f,0.f });
-const vector_t	g_vX_Plus = XMVector4Normalize({ +1.f,0.f,0.f,0.f });
-const vector_t	g_vX_Minus = XMVector4Normalize({ -1.f,0.f,0.f,0.f });
-const vector_t	g_vY_Plus = XMVector4Normalize({ 0.f,+1.f,0.f,0.f });
-const vector_t	g_vY_Minus = XMVector4Normalize({ 0.f,-1.f,0.f,0.f });
-const vector_t	g_vQuad1 = XMVector4Normalize({ +1.f,0.f,+1.f,0.f });
-const vector_t	g_vQuad2 = XMVector4Normalize({ -1.f,0.f,+1.f,0.f });
-const vector_t	g_vQuad3 = XMVector4Normalize({ -1.f,0.f,-1.f,0.f });
-const vector_t	g_vQuad4 = XMVector4Normalize({ +1.f,0.f,-1.f,0.f });
+namespace {
+    vector_t	g_vZ_Plus = XMVector4Normalize({ 0.f,0.f,+1.f,0.f });
+    vector_t	g_vZ_Minus = XMVector4Normalize({ 0.f,0.f,-1.f,0.f });
+    vector_t	g_vX_Plus = XMVector4Normalize({ +1.f,0.f,0.f,0.f });
+    vector_t	g_vX_Minus = XMVector4Normalize({ -1.f,0.f,0.f,0.f });
+    vector_t	g_vY_Plus = XMVector4Normalize({ 0.f,+1.f,0.f,0.f });
+    vector_t	g_vY_Minus = XMVector4Normalize({ 0.f,-1.f,0.f,0.f });
+    vector_t	g_vQuad1 = XMVector4Normalize({ +1.f,0.f,+1.f,0.f });
+    vector_t	g_vQuad2 = XMVector4Normalize({ -1.f,0.f,+1.f,0.f });
+    vector_t	g_vQuad3 = XMVector4Normalize({ -1.f,0.f,-1.f,0.f });
+    vector_t	g_vQuad4 = XMVector4Normalize({ +1.f,0.f,-1.f,0.f });
+}
 
 CPlayer::CPlayer(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     :CMapObject(pDevice, pContext)
@@ -31,7 +33,7 @@ HRESULT CPlayer::Initialize_Prototype()
 
     m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
 
-    rsDesc.FrontCounterClockwise = true;   // 반사되면 감기 순서가 뒤집히므로 앞면 기준도 뒤집음
+    rsDesc.FrontCounterClockwise = true;        // 반사되면 감기 순서가 뒤집히므로 앞면 기준도 뒤집음
     m_pDevice->CreateRasterizerState(&rsDesc, m_pRS_Reflect.GetAddressOf());
     return S_OK;
 }
@@ -138,6 +140,7 @@ HRESULT CPlayer::Ready_ConstantBuffer()
     m_pCB = CConstantBuffer::Create(m_pDevice, m_pContext, &m_tCBData, sizeof m_tCBData);
     if (nullptr == m_pCB)
         return E_FAIL;
+
     return S_OK;
 }
 
@@ -149,6 +152,7 @@ HRESULT CPlayer::Update_ConstantBuffer(const matrix_t& matWorld)
 
     XMStoreFloat4x4(&m_tCBData.mat_World, (matWorld));
     XMStoreFloat4x4(&m_tCBData.mat_WorldInvTranspose, (matWorldInvTranspos));
+
     return S_OK;
 }
 
@@ -161,10 +165,10 @@ HRESULT CPlayer::Render_Mesh(const matrix_t& matWorld, ID3D11RasterizerState* pR
     // RS(레스터라이저 설정)
     m_pContext->RSSetState(pRS);
 
-    if (FAILED(Bind_ShaderResources(matWorld)))
+    if (FAILED(Bind_Shader(m_pVS, pPS)))
         return E_FAIL;
 
-    if (FAILED(Bind_Shader(m_pVS, pPS)))
+    if (FAILED(Bind_ShaderResources(matWorld)))
         return E_FAIL;
 
     if (FAILED(m_pModel->Render()))

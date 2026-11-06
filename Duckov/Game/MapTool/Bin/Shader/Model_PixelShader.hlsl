@@ -209,7 +209,16 @@ float4 PS_TERRAIN(PS_IN_TERRAIN In) : SV_TARGET
     return vColor;
 }
 
-float4 PS_OCCLUDEDPLAYER(PS_IN In) : SV_TARGET
+float4 PS_OCCLUDEDPLAYER(PS_IN_MODEL In) : SV_TARGET
 {
-    return float4(0.f, 0.25f, 0.25f, 0.5f);
+    // 화면 픽셀 가져오기
+    float2 vPix = In.vPosition.xy;
+    
+    // 격자선 -> 알파값으로 구현
+    float2 vCell = frac(vPix / 6.f); // 6픽셀 격자
+    float fLine = (vCell.x < 0.4f || vCell.y < 0.4f) ? 1.f : 0.f; // 선 두께 0.4
+    
+    float fAlpha = (0.2f + fLine * 0.5f);
+    
+    return float4(float3(0.3f, 0.75f, 1.0f), saturate(fAlpha));
 }
