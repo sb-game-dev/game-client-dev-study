@@ -91,7 +91,7 @@ enum class EQUIP_SLOT
 };
 
 
-enum class Quick_SLOT
+enum class QUICK_SLOT
 {
 	GUN_1, GUN_2,       // 총기 ×2
 	MELEE,              // 근접 무기

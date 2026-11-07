@@ -84,7 +84,15 @@ public:
 	virtual		void		Late_Update(f32_t fTimeDelta)override;
 	virtual		HRESULT		Render() override;
 
-	const bool_t&		Is_Open() { return m_bOpen; }
+	const		bool_t&		Is_Open() { return m_bOpen; }
+	const shared_ptr<ITEM>& GetEquipSlot(EQUIP_SLOT eSlot) const
+	{
+		return m_pEquipSlots[ETOUI(eSlot)];
+	}
+	const shared_ptr<ITEM>& GetQuickSlot(QUICK_SLOT eSlot) const
+	{
+		return m_pQuickSlots[ETOUI(eSlot)];
+	}
 
 private:
 	shared_ptr<CVertexShader>   m_pVSCom;
@@ -97,7 +105,7 @@ private:
 	bool_t						m_bOpen = { false };
 
 	shared_ptr<ITEM>			m_pEquipSlots[ETOUI(EQUIP_SLOT::END)];
-	shared_ptr<ITEM>			m_pQuickSlots[ETOUI(EQUIP_SLOT::END)];
+	shared_ptr<ITEM>			m_pQuickSlots[ETOUI(QUICK_SLOT::END)];
 	vector<shared_ptr<ITEM>>	m_vecBackPack;
 	vector<shared_ptr<ITEM>>	m_vecStorage;
 
@@ -109,26 +117,26 @@ private:
 	POINT						m_ptPress = {};             // 누른 위치 (4px 판정용)
 
 private:
-	HRESULT					Ready_Components();
-	HRESULT					Ready_InstanceBuffer();
-	void					Build_Instances();
+	HRESULT						Ready_Components();
+	HRESULT						Ready_InstanceBuffer();
+	void						Build_Instances();
 
-	float4_t				Get_SlotRect(const SLOT_POS& t);
-	shared_ptr<ITEM>&		Get_SlotItem(const SLOT_POS& t);	// 슬롯 정보로 아이템의 주소를 받아오는 함수
+	float4_t					Get_SlotRect(const SLOT_POS& t);
+	shared_ptr<ITEM>&			Get_SlotItem(const SLOT_POS& t);	// 슬롯 정보로 아이템의 주소를 받아오는 함수
 
-	void					Push_Rect(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, float4_t vColor, f32_t fRadius = 0.f, f32_t fBorder = 0.f);// fBorder : 외곽선 두께
-	void					Push_Icon(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, int32_t iIcon, f32_t fAlpha = 1.f);
-	void					Push_ItemIcon(const float4_t& vRect, const shared_ptr<ITEM>& pItem, f32_t fAlpha);
-	void					Push_Slot(const SLOT_POS& t);
+	void						Push_Rect(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, float4_t vColor, f32_t fRadius = 0.f, f32_t fBorder = 0.f);// fBorder : 외곽선 두께
+	void						Push_Icon(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, int32_t iIcon, f32_t fAlpha = 1.f);
+	void						Push_ItemIcon(const float4_t& vRect, const shared_ptr<ITEM>& pItem, f32_t fAlpha);
+	void						Push_Slot(const SLOT_POS& t);
 
-	SLOT_POS				Find_CollidedSlot(POINT pt);
-	static bool_t			Is_InRect(POINT pt, const float4_t& vRect);
-	static bool_t			Is_Slot(const SLOT_POS& t);
+	SLOT_POS					Find_CollidedSlot(POINT pt);
+	static bool_t				Is_InRect(POINT pt, const float4_t& vRect);
+	static bool_t				Is_Slot(const SLOT_POS& t);
 
-	void					Update_DragState();												// 드래그 상태 머신 + 선택된 아이템 정보 + 위치 저장
-	void					Drop(const SLOT_POS& tSrcSlot, const SLOT_POS& tDstSlot);		// 놓기 
+	void						Update_DragState();												// 드래그 상태 머신 + 선택된 아이템 정보 + 위치 저장
+	void						Drop(const SLOT_POS& tSrcSlot, const SLOT_POS& tDstSlot);		// 놓기 
 
-	bool_t					CanPlace(const shared_ptr<ITEM>& pItem, const SLOT_POS& tDstSlot);
+	bool_t						CanPlace(const shared_ptr<ITEM>& pItem, const SLOT_POS& tDstSlot);
 
 	static shared_ptr<ITEM>	Init_TestItem(shared_ptr<ITEM> pItem, ITEM_TYPE eType, const wchar_t* pName,
 										  int32_t iTypeID, int32_t iIconIndex, int32_t iQuality,

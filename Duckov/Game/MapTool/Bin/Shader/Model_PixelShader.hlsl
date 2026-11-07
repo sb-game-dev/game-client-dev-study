@@ -124,9 +124,8 @@ float4 PS_MAIN_MODEL(PS_IN_MODEL In) : SV_TARGET //몇 번째 렌더타겟에 색을 쓸지
     float fSpecular = pow(max(dot(normalize(vReflect) * -1.f, normalize(vLook)), 0.f), 50.f);
     
     vColor = g_DirLight.Diffuse * vMtrlDiffuse * vShade +
-        (g_DirLight.Specular * g_DirLight.Specular) * fSpecular;
+        (g_DirLight.Specular * g_Material.Specular) * fSpecular;
     
-
     return vColor;
 }
 

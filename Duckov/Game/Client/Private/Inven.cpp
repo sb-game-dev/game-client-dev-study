@@ -192,10 +192,10 @@ float4_t CInven::Get_SlotRect(const SLOT_POS& t)
 				 EQUIP_HEIGHT };
 
 	if (t.eArea == INVEN_AREA::QUICK)
-		return { EQUIP_LEFT + (t.iIndex % EQUIP_COLS) * EQUIP_STEP_X,
-				 EQUIP_TOP + (t.iIndex / EQUIP_COLS) * EQUIP_STEP_Y,
-				 EQUIP_WIDTH,
-				 EQUIP_HEIGHT };
+		return { QUICK_LEFT + (t.iIndex % QUICK_COLS) * QUICK_STEP,
+				 QUICK_TOP,
+				 QUICK_SIZE,
+				 QUICK_SIZE };
 
 	return float4_t();
 }
@@ -204,43 +204,53 @@ shared_ptr<ITEM>& CInven::Get_SlotItem(const SLOT_POS& t)
 {
 	if (t.eArea == INVEN_AREA::EQUIP)
 		return m_pEquipSlots[t.iIndex];
-	return m_vecBackPack[t.iIndex];
+	else if (t.eArea == INVEN_AREA::BAG)
+		return m_vecBackPack[t.iIndex];
+	else if (t.eArea == INVEN_AREA::QUICK)
+		return m_pQuickSlots[t.iIndex];
 }
 
 void CInven::Build_Instances()
 {
-	// 0. 인스턴스 초기화
+	// 인스턴스 초기화
 	m_Instances.clear();
 
-	// 1. 패널 그리기
+	// 패널 그리기
 	Push_Rect(PANEL_LEFT, PANEL_TOP, PANEL_WIDTH, PANEL_HEIGHT, COLOR_PANEL, RADIUS);
 	
-	// 2. 장비칸 그리기
+	// 장비칸 그리기
 	for (int32_t i = 0; i < ETOI(EQUIP_SLOT::END); ++i)        
 		Push_Slot({ INVEN_AREA::EQUIP, i });
 	
-	// 3. 가방칸 그리기
+	// 가방칸 그리기
 	for (int32_t i = 0; i < (int32_t)m_vecBackPack.size(); ++i) 
 		Push_Slot({ INVEN_AREA::BAG, i });
 
-	// 4. 선택된 칸 주황 테두리 강조
+	// 퀵슬롯 패널 그리기
+	Push_Rect(QUICK_PANEL_LEFT, QUICK_PANEL_TOP, QUICK_PANEL_WIDTH, QUICK_PANEL_HEIGHT, COLOR_PANEL, RADIUS);
+
+	// 퀵슬롯 그리기
+	for (int32_t i = ETOUI(QUICK_SLOT::QUICK_3); i < ETOUI(QUICK_SLOT::END); ++i)
+		Push_Slot({ INVEN_AREA::QUICK, i });
+
+	// 선택된 칸 주황 테두리 강조
 	if (Is_Slot(m_tSelectedSlot))
 	{
 		float4_t r = Get_SlotRect(m_tSelectedSlot);
 		Push_Rect(r.x, r.y, r.z, r.w, COLOR_SELECTED, RADIUS, BORDER_SELECTED);
 	}
 
-	// 5. 마우스 호버 칸 강조
+	// 마우스 호버 칸 강조
 	if (Is_Slot(m_tHoveredSlot))
 	{
 		float4_t r = Get_SlotRect(m_tHoveredSlot);
 		Push_Rect(r.x, r.y, r.z, r.w, COLOR_HOVER, RADIUS);
 	}
 
-	// 6. 드래그 중인경우
-	// 6-1. 마우스에 아이콘을 그린다.
-	// 6-2. 드래그중인 아이템이 장비칸에 장착 가능한 아이템이라면 
-	// 장착 가능한 부위를 확인 후 장비칸에 초록색 테두리로 표현
+	// 드래그 중인경우
+	// 1. 마우스에 아이콘을 그린다.
+	// 2. 드래그중인 아이템이 장비칸에 장착 가능한 아이템이라면 
+	//    장착 가능한 부위를 확인 후 장비칸에 초록색 테두리로 표현
 	if (m_eDragState == DRAG_STATE::DRAGGING)
 	{
 		// 마우스가 잡고 있는 아이템 아이콘
@@ -263,6 +273,7 @@ void CInven::Build_Instances()
 			Push_Rect(r.x, r.y, r.z, r.w, COLOR_PLACEABLE_LINE, RADIUS, BORDER_PLACEABLE);
 		}
 	}
+
 }
 
 HRESULT CInven::Ready_Components()
@@ -342,6 +353,11 @@ CInven::SLOT_POS CInven::Find_CollidedSlot(POINT pt)
 	{
 		if (Is_InRect(pt, Get_SlotRect({ INVEN_AREA::BAG, i })))
 			return { INVEN_AREA::BAG, i };
+	}	
+	for (int32_t i = ETOI(QUICK_SLOT::QUICK_3); i < ETOI(QUICK_SLOT::END); ++i)
+	{
+		if (Is_InRect(pt, Get_SlotRect({ INVEN_AREA::QUICK, i })))
+			return { INVEN_AREA::QUICK, i };
 	}
 	if (Is_InRect(pt, { PANEL_LEFT, PANEL_TOP, PANEL_WIDTH, PANEL_HEIGHT }))
 	{
@@ -358,7 +374,7 @@ bool_t CInven::Is_InRect(POINT pt, const float4_t& vRect)
 
 bool_t CInven::Is_Slot(const SLOT_POS& t)
 {
-	return t.eArea == INVEN_AREA::EQUIP || t.eArea == INVEN_AREA::BAG;
+	return t.eArea == INVEN_AREA::EQUIP || t.eArea == INVEN_AREA::BAG || t.eArea == INVEN_AREA::QUICK;
 }
 
 void CInven::Update_DragState()
@@ -489,11 +505,19 @@ bool_t CInven::CanPlace(const shared_ptr<ITEM>& pItem, const SLOT_POS& tDstSlot)
 	// 놓을 칸이 비어있다면 비어있는 칸의 pItem은 nullptr이 들어온다 -> CanPlace(nullptr, tSrcSlot)이 불린다.
 	// Drop에서 빈 칸에 놓을 때, 놓은 칸의 "빈 것"이 집은 칸으로 가는지 검사하므로 필요
 	// (예: 장착한 총을 빈 가방 칸으로 → 총 칸이 비게 됨 = 허용)
-	if (nullptr == pItem)                       // 빈 슬롯은 어디든 놓을 수 있음
+	if (nullptr == pItem)                      // 빈 슬롯은 어디든 놓을 수 있음
 		return true;
 
 	if (tDstSlot.eArea == INVEN_AREA::BAG)     // 가방 칸에는 뭐든 들어감
 		return true;
+
+	if (tDstSlot.eArea == INVEN_AREA::QUICK)   // 퀵슬롯에는 사용 아이템만 들어감
+	{
+		if (pItem->eItemType == ITEM_TYPE::FOOD || pItem->eItemType == ITEM_TYPE::MEDICAL)
+			return true;
+		else
+			return false;
+	}
 
 	// 장비 칸의 규칙(장비칸에서의 iIndex -> 장비칸 슬롯 정보)
 	switch (static_cast<EQUIP_SLOT>(tDstSlot.iIndex))  

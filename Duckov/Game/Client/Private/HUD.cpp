@@ -1,6 +1,6 @@
 #include "HUD.h"
-
-using namespace INVEN_UI;
+#include "Inven.h"
+using namespace HUD_UI;
 
 
 CHUD::CHUD(ComPtr<ID3D11Device>pDevice, ComPtr<ID3D11DeviceContext>pContext)
@@ -78,36 +78,10 @@ HRESULT CHUD::Initialize(void* pArg)
 	if (FAILED(__super::Initialize(pArg)))
 		return E_FAIL;
 
-	m_vecBackPack.resize(25);
-	m_vecStorage.resize(100);
 	if (FAILED(Ready_Components()))
 		return E_FAIL;
 	if (FAILED(Ready_InstanceBuffer()))
 		return E_FAIL;
-
-	// 테스트용
-	// 가방
-	m_vecBackPack[0] = Init_TestItem(make_shared<ITEM>(), ITEM_TYPE::BULLET, L"S-일반 탄환", 595, 9, 2, 20, 320);
-	m_vecBackPack[1] = Init_TestItem(make_shared<ITEM>(), ITEM_TYPE::MEDICAL, L"소형 구급상자", 17, 27, 2);
-	m_vecBackPack[2] = Init_TestItem(make_shared<ITEM>(), ITEM_TYPE::FOOD, L"생수", 428, 33, 2);
-	m_vecBackPack[3] = Init_TestItem(make_shared<ITEM>(), ITEM_TYPE::BULLET, L"S-일반 탄환", 595, 9, 2, 300, 320);
-	m_vecBackPack[4] = Init_TestItem(make_shared<ITEM>(), ITEM_TYPE::MEDICAL, L"지혈 붕대", 10, 26, 1, 2, 3);
-
-	auto pHelmet = make_shared<ARMOR>();
-	pHelmet->eSlot = ARMOR_SLOT::HEAD;
-	m_vecBackPack[5] = Init_TestItem(pHelmet, ITEM_TYPE::ARMOR, L"구식 철모", 42, 13, 2);
-
-	auto pVest = make_shared<ARMOR>();
-	pVest->eSlot = ARMOR_SLOT::BODY;
-	m_vecBackPack[6] = Init_TestItem(pVest, ITEM_TYPE::ARMOR, L"Lv.2 방탄복", 33, 16, 2);
-
-	m_vecBackPack[7] = Init_TestItem(make_shared<GUN>(), ITEM_TYPE::GUN, L"PM", 784, 2, 1);
-	m_vecBackPack[8] = Init_TestItem(make_shared<ITEM>(), ITEM_TYPE::TOTEM, L"토템: 갑옷 Ⅰ", 319, 21, 1);
-
-	// 장비 칸
-	m_pEquipSlots[ETOI(EQUIP_SLOT::GUN_1)] = Init_TestItem(make_shared<GUN>(), ITEM_TYPE::GUN, L"AK-74U", 252, 3, 2);
-	m_pEquipSlots[ETOI(EQUIP_SLOT::BACKPACK)] = Init_TestItem(make_shared<BACKPACK>(), ITEM_TYPE::BACKPACK, L"여행 가방", 38, 20, 3);
-
 	return S_OK;
 }
 
@@ -119,26 +93,19 @@ void CHUD::Priority_Update(f32_t fTimeDelta)
 void CHUD::Update(f32_t fTimeDelta)
 {
 	__super::Update(fTimeDelta);
-	if (CGameInstance::Get().Key_Down(DIK_TAB))
-	{
-		m_bOpen = !m_bOpen;
-		m_eDragState = DRAG_STATE::IDLE;
-	}
-	if (false == m_bOpen)
-	{
-		m_tHoveredSlot = {};
+	if (nullptr != m_pInven)
 		return;
-	}
-
-	m_ptMouse = CGameInstance::Get().Get_MousePos();
-	m_tHoveredSlot = Find_CollidedSlot(m_ptMouse);
-	Update_DragState();
+	m_pInven = dynamic_pointer_cast<CInven>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", GO::Inven));
+	if (nullptr == m_pInven)
+		return;
 }
 
 void CHUD::Late_Update(f32_t fTimeDelta)
 {
 	__super::Late_Update(fTimeDelta);
-	if (m_bOpen)
+	if (nullptr == m_pInven)
+		return;
+	if (!m_pInven->Is_Open())
 		CGameInstance::Get().Add_RenderGroup(RENDERID::ALPHA_UI, dynamic_pointer_cast<CGameObject>(shared_from_this()));
 }
 
@@ -177,91 +144,67 @@ HRESULT CHUD::Render()
 	return S_OK;
 }
 
-float4_t CHUD::Get_SlotRect(const SLOT_POS& t)
+
+
+void CHUD::Build_Instances()
 {
-	if (t.eArea == INVEN_AREA::BAG)
-		return { BAG_LEFT + (t.iIndex % BAG_COLS) * BAG_STEP,
-				 BAG_TOP + (t.iIndex / BAG_COLS) * BAG_STEP,
-				 BAG_SIZE,
-				 BAG_SIZE };
+	// 인스턴스 초기화
+	m_Instances.clear();
 
-	if (t.eArea == INVEN_AREA::EQUIP)
-		return { EQUIP_LEFT + (t.iIndex % EQUIP_COLS) * EQUIP_STEP_X,
-				 EQUIP_TOP + (t.iIndex / EQUIP_COLS) * EQUIP_STEP_Y,
-				 EQUIP_WIDTH,
-				 EQUIP_HEIGHT };
+	// 퀵 슬롯 총 2개 칸그리기
+	for (int32_t i = 0; i < 2; ++i)
+		Push_Slot(HUD_AREA::GUN);
 
-	if (t.eArea == INVEN_AREA::QUICK)
-		return { EQUIP_LEFT + (t.iIndex % EQUIP_COLS) * EQUIP_STEP_X,
-				 EQUIP_TOP + (t.iIndex / EQUIP_COLS) * EQUIP_STEP_Y,
-				 EQUIP_WIDTH,
-				 EQUIP_HEIGHT };
+	// 퀵 슬롯 근접무기칸 그리기
+	Push_Slot(HUD_AREA::MELEE);
+
+	// 퀵 슬롯 3 ~ 8 숫자칸 그리기
+	for (int32_t i = 3; i < 9; ++i)
+		Push_Slot({ INVEN_AREA::EQUIP, i });
+}
+
+float4_t CHUD::Get_SlotRect(const HUD_POS& t)
+{
+
+	if (t.eArea == HUD_AREA::GUN)
+		return { WEAPON_LEFT + (t.iIndex % 2) * WEAPON_STEP,
+				 WEAPON_TOP+ (t.iIndex / 2) * WEAPON_STEP,
+				 WEAPON_SIZE,
+				 WEAPON_SIZE };
+
+	if (t.eArea == HUD_AREA::SLOT)
+		return { QUICK_LEFT + (t.iIndex % 6) * QUICK_STEP,
+				 QUICK_TOP + (t.iIndex / 6) * QUICK_STEP,
+				 QUICK_SIZE,
+				 QUICK_SIZE };
 
 	return float4_t();
 }
 
-shared_ptr<ITEM>& CHUD::Get_SlotItem(const SLOT_POS& t)
+shared_ptr<ITEM>& CHUD::Get_SlotItem(const HUD_POS& t)
 {
-	if (t.eArea == INVEN_AREA::EQUIP)
-		return m_pEquipSlots[t.iIndex];
-	return m_vecBackPack[t.iIndex];
-}
-
-void CHUD::Build_Instances()
-{
-	// 0. 인스턴스 초기화
-	m_Instances.clear();
-
-	// 1. 패널 그리기
-	Push_Rect(PANEL_LEFT, PANEL_TOP, PANEL_WIDTH, PANEL_HEIGHT, COLOR_PANEL, RADIUS);
-
-	// 2. 장비칸 그리기
-	for (int32_t i = 0; i < ETOI(EQUIP_SLOT::END); ++i)
-		Push_Slot({ INVEN_AREA::EQUIP, i });
-
-	// 3. 가방칸 그리기
-	for (int32_t i = 0; i < (int32_t)m_vecBackPack.size(); ++i)
-		Push_Slot({ INVEN_AREA::BAG, i });
-
-	// 4. 선택된 칸 주황 테두리 강조
-	if (Is_Slot(m_tSelectedSlot))
+	if (t.eArea == HUD_AREA::GUN)
 	{
-		float4_t r = Get_SlotRect(m_tSelectedSlot);
-		Push_Rect(r.x, r.y, r.z, r.w, COLOR_SELECTED, RADIUS, BORDER_SELECTED);
-	}
-
-	// 5. 마우스 호버 칸 강조
-	if (Is_Slot(m_tHoveredSlot))
-	{
-		float4_t r = Get_SlotRect(m_tHoveredSlot);
-		Push_Rect(r.x, r.y, r.z, r.w, COLOR_HOVER, RADIUS);
-	}
-
-	// 6. 드래그 중인경우
-	// 6-1. 마우스에 아이콘을 그린다.
-	// 6-2. 드래그중인 아이템이 장비칸에 장착 가능한 아이템이라면 
-	// 장착 가능한 부위를 확인 후 장비칸에 초록색 테두리로 표현
-	if (m_eDragState == DRAG_STATE::DRAGGING)
-	{
-		// 마우스가 잡고 있는 아이템 아이콘
-		float4_t rFromSlot = Get_SlotRect(m_tDraggedItemSlot);
-		float4_t rDraggedIcon = { m_ptMouse.x - rFromSlot.z * 0.5f,
-								  m_ptMouse.y - rFromSlot.w * 0.5f,
-								  rFromSlot.z, rFromSlot.w };
-		Push_ItemIcon(rDraggedIcon, Get_SlotItem(m_tDraggedItemSlot), ALPHA_DRAGGED);
-
-		// 이 아이템이 들어갈 수 있는 장비 칸을 초록 테두리로 표현
-		const shared_ptr<ITEM>& pDraggedItem = Get_SlotItem(m_tDraggedItemSlot);
-		for (int32_t i = 0; i < ETOI(EQUIP_SLOT::END); ++i)
+		if (t.iIndex == 0)
 		{
-			SLOT_POS tDstEquipSlot = { INVEN_AREA::EQUIP, i };
-			if (tDstEquipSlot == m_tDraggedItemSlot || false == CanPlace(pDraggedItem, tDstEquipSlot))
-				continue;
-
-			float4_t r = Get_SlotRect(tDstEquipSlot);
-			Push_Rect(r.x, r.y, r.z, r.w, COLOR_PLACEABLE_GLOW, RADIUS);
-			Push_Rect(r.x, r.y, r.z, r.w, COLOR_PLACEABLE_LINE, RADIUS, BORDER_PLACEABLE);
+			auto pItem = m_pInven->GetEquipSlot(EQUIP_SLOT::GUN_1);
+			return pItem;
 		}
+		else if (t.iIndex == 1)
+		{
+			auto pItem = m_pInven->GetEquipSlot(EQUIP_SLOT::GUN_2);
+			return pItem;
+		}
+	}
+	else if (t.eArea == HUD_AREA::MELEE)
+	{
+		auto pItem = m_pInven->GetEquipSlot(EQUIP_SLOT::MELEE);
+		return pItem;
+	}
+	else if (t.eArea == HUD_AREA::SLOT)
+	{
+		auto pItem = m_pInven->GetQuickSlot(QUICK_SLOT(t.iIndex + 3));
+		return pItem;
 	}
 }
 
@@ -315,160 +258,20 @@ void CHUD::Push_Icon(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, int32
 	m_Instances.push_back({ { fSnapLeft, fSnapTop, fSnapRight - fSnapLeft, fSnapBottom - fSnapTop },
 							{ 1.f, 1.f, 1.f, fAlpha }, { 0.f, 0.f, 1.f, (f32_t)iIconIndex }, { 0.f, 0.f, 1.f, 1.f } });
 }
-void CHUD::Push_Slot(const SLOT_POS& t)
+
+void CHUD::Push_Slot(const HUD_POS& t)
 {
 	// 매개변수 t를 통째로 그리는 함수
 
 	// 칸 그리기
 	float4_t r = Get_SlotRect(t);
-	Push_Rect(r.x, r.y, r.z, r.w, COLOR_SLOT_BG, RADIUS);			// 어두운 배경
-	Push_Rect(r.x, r.y, r.z, r.w, COLOR_SLOT_FRAME, RADIUS, BORDER_FRAME);	// 밝은 흰색 테두리
+	Push_Rect(r.x, r.y, r.z, r.w, COLOR_HUD_SLOT_BG_DARK, WEAPON_RADIUS);			// 어두운 배경
+	Push_Rect(r.x, r.y, r.z, r.w, COLOR_HUD_SLOT_BG_LIGHT, WEAPON_RADIUS, BORDER_FRAME);	// 밝은 흰색 테두리
 
 	// 아이템 그리기
 	// 드래그를 한 상태이고 현재 위치가 드래그를 시작한 위치라면 알파값을 0.3으로 설정하여 살짝 투명하게 그림
 	// 드래그를 한 상태가 아니라면 현재 위치에 있는 아이템을 알파값 1로 설정하여 그린다.
-	bool_t bDragSource = (m_eDragState == DRAG_STATE::DRAGGING && t == m_tDraggedItemSlot);
-	Push_ItemIcon(r, Get_SlotItem(t), bDragSource ? ALPHA_DRAG_SOURCE : 1.f);
-}
-
-CHUD::SLOT_POS CHUD::Find_CollidedSlot(POINT pt)
-{
-	for (int32_t i = 0; i < ETOI(EQUIP_SLOT::END); ++i)
-	{
-		if (Is_InRect(pt, Get_SlotRect({ INVEN_AREA::EQUIP, i })))
-			return { INVEN_AREA::EQUIP, i };
-	}
-	for (int32_t i = 0; i < (int32_t)m_vecBackPack.size(); ++i)
-	{
-		if (Is_InRect(pt, Get_SlotRect({ INVEN_AREA::BAG, i })))
-			return { INVEN_AREA::BAG, i };
-	}
-	if (Is_InRect(pt, { PANEL_LEFT, PANEL_TOP, PANEL_WIDTH, PANEL_HEIGHT }))
-	{
-		return { INVEN_AREA::END, -1 };
-	}
-	return { INVEN_AREA::OUTSIDE, -1 };
-}
-
-bool_t CHUD::Is_InRect(POINT pt, const float4_t& vRect)
-{
-	return pt.x >= vRect.x && pt.x < vRect.x + vRect.z
-		&& pt.y >= vRect.y && pt.y < vRect.y + vRect.w;
-}
-
-bool_t CHUD::Is_Slot(const SLOT_POS& t)
-{
-	return t.eArea == INVEN_AREA::EQUIP || t.eArea == INVEN_AREA::BAG;
-}
-
-void CHUD::Update_DragState()
-{
-	bool_t bPressed = CGameInstance::Get().Mouse_Down(DIM::LB);    // 눌린 순간
-	bool_t bReleased = CGameInstance::Get().Mouse_Up(DIM::LB);     // 뗀 순간
-
-	switch (m_eDragState)
-	{
-	case DRAG_STATE::IDLE:
-		if (false == bPressed)
-			break;
-		// 장비 or 가방칸을 눌렀는지 확인 + 아이템이 있는 칸인지 확인
-		if (Is_Slot(m_tHoveredSlot) && nullptr != Get_SlotItem(m_tHoveredSlot))
-		{
-			// 아이템 있는 칸을 누름 -> 아직 클릭인지 드래그인지 모름
-			m_eDragState = DRAG_STATE::PRESSED;
-			m_tDraggedItemSlot = m_tHoveredSlot;
-			m_ptPress = m_ptMouse;
-		}
-		else
-		{
-			m_tSelectedSlot = {};
-		}
-		break;
-
-	case DRAG_STATE::PRESSED:
-		if (bReleased)
-		{
-			// 안 움직이고 뗌 = 클릭 -> m_tDraggedItemSlot을 선택했다고 판정 + 누르기 종료
-			m_tSelectedSlot = m_tDraggedItemSlot;
-			m_tDraggedItemSlot = {};
-			m_eDragState = DRAG_STATE::IDLE;
-		}
-		else if (labs(m_ptMouse.x - m_ptPress.x) + labs(m_ptMouse.y - m_ptPress.y) > 4)
-		{
-			// 누른 채로 4픽셀 넘게 움직임 = 드래그 시작
-			m_eDragState = DRAG_STATE::DRAGGING;
-		}
-		break;
-
-	case DRAG_STATE::DRAGGING:
-		if (bReleased)
-		{
-			// 마우스 아래 칸에 놓기
-			Drop(m_tDraggedItemSlot, m_tHoveredSlot);
-			m_eDragState = DRAG_STATE::IDLE;
-		}
-		break;
-	}
-}
-
-void CHUD::Drop(const SLOT_POS& tSrcSlot, const SLOT_POS& tDstSlot)
-{
-	// 0. 마우스로 잡은 슬롯에 아이템이 없다면(nullptr) return
-	shared_ptr<ITEM>& rSrcItem = Get_SlotItem(tSrcSlot);
-	if (nullptr == rSrcItem)
-		return;
-
-	// 1. 패널 밖 -> 버리기
-	if (tDstSlot.eArea == INVEN_AREA::OUTSIDE)
-	{
-		// 나중에 월드에 아이템 오브젝트를 떨어뜨리기
-		rSrcItem = nullptr;
-		// 선택한 슬롯의 아이템을 떨어트릴 수 있으니 m_tSelectedSlot 초기화하여 주황색 표시 없애기
-		if (m_tSelectedSlot == tSrcSlot)
-			m_tSelectedSlot = {};
-		return;
-	}
-
-	// 2. 칸이 아닌 곳(칸 사이 틈) 또는 같은 칸 -> 원위치
-	if (false == Is_Slot(tDstSlot) || tDstSlot == tSrcSlot)
-		return;
-
-
-	// 3. 집은 아이템이 놓은 칸에 못 들어감 -> 원위치
-	if (false == CanPlace(rSrcItem, tDstSlot))
-		return;
-
-	// 4. 같은 아이템 + 겹치기 가능 -> 합치기
-	shared_ptr<ITEM>& rDstItem = Get_SlotItem(tDstSlot);
-	// 목적지 슬롯에 아이템이 있다 && 목적지 아이템이 겹칠 수 있다 && 목적지 아이템과 소스 아이템의 아이템 타입이 같다.
-	if (nullptr != rDstItem && rDstItem->bStackable && rDstItem->iTypeID == rSrcItem->iTypeID)
-	{
-		int32_t iSpace = rDstItem->iMaxStack - rDstItem->iCount;        // 놓을 칸에 남은 자리
-		int32_t iItemCnt = min(rSrcItem->iCount, iSpace);				// 실제로 옮길 개수
-
-		if (iItemCnt > 0)
-		{
-			rDstItem->iCount += iItemCnt;
-			rSrcItem->iCount -= iItemCnt;
-			if (rSrcItem->iCount <= 0)									// Src의 개수를 다 옮겼으면 Src 칸 비우기
-				rSrcItem = nullptr;
-			return;
-		}
-		// 놓은 칸이 이미 꽉 차 있어서 못옮긴다면 (iItemCnt == 0) 
-		// 아래로 내려가서 교환 swap(rSrcItem, rDstItem);
-	}
-
-	// 5. 이동 또는 교환
-	//    놓은 칸에 아이템이 있으면, 그게 집은 칸으로 갈 수 있어야 함을 확인
-	if (false == CanPlace(rDstItem, tSrcSlot))
-		return;
-	swap(rSrcItem, rDstItem);
-
-	// 선택 테두리가 아이템을 따라가게
-	if (m_tSelectedSlot == tSrcSlot)
-		m_tSelectedSlot = tDstSlot;
-	else if (m_tSelectedSlot == tDstSlot)
-		m_tSelectedSlot = tSrcSlot;
+	Push_ItemIcon(r, Get_SlotItem(t), 1.f);
 }
 
 void CHUD::Push_ItemIcon(const float4_t& vRect, const shared_ptr<ITEM>& pItem, f32_t fAlpha)
@@ -480,49 +283,6 @@ void CHUD::Push_ItemIcon(const float4_t& vRect, const shared_ptr<ITEM>& pItem, f
 	f32_t fIconLeft = vRect.x + (vRect.z - fIconSize) * 0.5f;
 	f32_t fIconTop = vRect.y + (vRect.w - fIconSize) * 0.5f;
 	Push_Icon(fIconLeft, fIconTop, fIconSize, fIconSize, pItem->iIconIndex, fAlpha);
-}
-
-bool_t CHUD::CanPlace(const shared_ptr<ITEM>& pItem, const SLOT_POS& tDstSlot)
-{
-	// CanPlace -> pItem을 tDstSlot에 넣을 수 있는지를 확인하는 함수
-
-	// 놓을 칸이 비어있다면 비어있는 칸의 pItem은 nullptr이 들어온다 -> CanPlace(nullptr, tSrcSlot)이 불린다.
-	// Drop에서 빈 칸에 놓을 때, 놓은 칸의 "빈 것"이 집은 칸으로 가는지 검사하므로 필요
-	// (예: 장착한 총을 빈 가방 칸으로 → 총 칸이 비게 됨 = 허용)
-	if (nullptr == pItem)                       // 빈 슬롯은 어디든 놓을 수 있음
-		return true;
-
-	if (tDstSlot.eArea == INVEN_AREA::BAG)     // 가방 칸에는 뭐든 들어감
-		return true;
-
-	// 장비 칸의 규칙(장비칸에서의 iIndex -> 장비칸 슬롯 정보)
-	switch (static_cast<EQUIP_SLOT>(tDstSlot.iIndex))
-	{
-	case EQUIP_SLOT::GUN_1:
-	case EQUIP_SLOT::GUN_2:
-		return pItem->eItemType == ITEM_TYPE::GUN;
-
-	case EQUIP_SLOT::MELEE:
-		return pItem->eItemType == ITEM_TYPE::MELEE;
-
-	case EQUIP_SLOT::HEAD:
-		return pItem->eItemType == ITEM_TYPE::ARMOR
-			&& static_pointer_cast<ARMOR>(pItem)->eSlot == ARMOR_SLOT::HEAD;
-
-	case EQUIP_SLOT::BODY:
-		return pItem->eItemType == ITEM_TYPE::ARMOR
-			&& static_pointer_cast<ARMOR>(pItem)->eSlot == ARMOR_SLOT::BODY;
-
-	case EQUIP_SLOT::BACKPACK:
-		return pItem->eItemType == ITEM_TYPE::BACKPACK;
-
-	case EQUIP_SLOT::TOTEM_1:
-	case EQUIP_SLOT::TOTEM_2:
-		return pItem->eItemType == ITEM_TYPE::TOTEM;
-
-	default: // FACE, HEADSET: 아직 맞는 아이템 타입이 없음
-		return false;
-	}
 }
 
 shared_ptr<CHUD> CHUD::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
