@@ -262,6 +262,9 @@
     <ClCompile Include="..\ImGui\ImGuizmo.cpp">
       <Filter>96. ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Client\Private\HUD.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Default.rc">

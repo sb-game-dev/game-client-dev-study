@@ -6,9 +6,12 @@ NS_BEGIN(HUD_UI)
 // ¹«±â Ä­ 
 constexpr f32_t WEAPON_LEFT = 480.5f, WEAPON_TOP = 631.f;
 constexpr f32_t WEAPON_SIZE = 64.f, WEAPON_STEP = 74.f;          // ¹«±â1 480.5, ¹«±â2 554.5
+
 constexpr f32_t MELEE_LEFT = 628.5f, MELEE_TOP = 655.f, MELEE_SIZE = 40.f;
+
 constexpr f32_t WEAPON_RADIUS = 16.f;
 constexpr f32_t BORDER_FRAME = 1.f;			// Ä­ Å×µÎ¸® 
+constexpr f32_t BORDER_SELECTED = 2.f;		// ¼±ÅÃ Å×µÎ¸®   
 
 // Äü½½·Ô 3~8 
 constexpr f32_t QUICK_LEFT = 677.5f, QUICK_TOP = 645.f;
@@ -28,7 +31,7 @@ constexpr f32_t HP_SLIDER_LEFT = 236.8f, HP_SLIDER_TOP = 672.2f, HP_SLIDER_WIDTH
 // »ö»ó
 constexpr float4_t COLOR_HUD_SLOT_BG_LIGHT = { 0.f, 0.f, 0.f, 0.3f };  // 1, 2, V (¹«±â Ä­)
 constexpr float4_t COLOR_HUD_SLOT_BG_DARK = { 0.f, 0.f, 0.f, 0.58f }; // 3 ~ 8 (Äü½½·Ô)
-
+constexpr float4_t COLOR_SELECTED = { 1.f, 1.f, 1.f, 1.f };				// ¼±ÅÃ Å×µÎ¸®  
 NS_END
 
 NS_BEGIN(Client)
@@ -68,8 +71,7 @@ private:
 	static constexpr uint32_t   m_iMaxInstance = 1024;
 	vector<VTXUI_INSTANCE>      m_Instances;
 
-	shared_ptr<ITEM>			m_pQuickSlots[ETOUI(EQUIP_SLOT::END)];
-	shared_ptr<class CInven>	m_pInven = { nullptr };
+	weak_ptr<class CInven>		m_pInven;
 
 private:
 	HRESULT					Ready_Components();
@@ -77,15 +79,15 @@ private:
 	void					Build_Instances();
 
 	float4_t				Get_SlotRect(const HUD_POS& t);
-	shared_ptr<ITEM>&		Get_SlotItem(const HUD_POS& t);
+	const shared_ptr<ITEM>&	Get_SlotItem(const HUD_POS& t);
 
 	void					Push_Rect(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, float4_t vColor, f32_t fRadius = 0.f, f32_t fBorder = 0.f);// fBorder : ¿Ü°û¼± µÎ²²
 	void					Push_Icon(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, int32_t iIcon, f32_t fAlpha = 1.f);
 	void					Push_ItemIcon(const float4_t& vRect, const shared_ptr<ITEM>& pItem, f32_t fAlpha);
 	void					Push_Slot(const HUD_POS& t);
 public:
-	static shared_ptr<CHUD>		Create(ComPtr<ID3D11Device>pDevice, ComPtr<ID3D11DeviceContext>pContext);
-	shared_ptr<CPrototype>			Clone(void* pArg) override;
+	static shared_ptr<CHUD>	Create(ComPtr<ID3D11Device>pDevice, ComPtr<ID3D11DeviceContext>pContext);
+	shared_ptr<CPrototype>	Clone(void* pArg) override;
 };
 
 NS_END

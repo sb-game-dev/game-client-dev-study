@@ -123,6 +123,12 @@
     <ClInclude Include="..\Public\Client_Defines.h">
       <Filter>99. Define</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Item_Defines.h">
+      <Filter>99. Define</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\ItemIconTable.h">
+      <Filter>99. Define</Filter>
+    </ClInclude>
     <ClInclude Include="..\Public\Inven.h">
       <Filter>02. GameObjects\99. UI\00. Inven</Filter>
     </ClInclude>

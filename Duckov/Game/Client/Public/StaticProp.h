@@ -23,6 +23,7 @@ public:
 
     HRESULT Change_Texture(const wstring_t& strTexturePath);
     HRESULT Change_Mesh(const wstring_t& strMeshPath);
+
 private:
     shared_ptr<CTexture>            m_pTextureCom;
     shared_ptr<CModel>              m_pModelCom;

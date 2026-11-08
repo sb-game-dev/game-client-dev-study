@@ -93,19 +93,24 @@ void CHUD::Priority_Update(f32_t fTimeDelta)
 void CHUD::Update(f32_t fTimeDelta)
 {
 	__super::Update(fTimeDelta);
-	if (nullptr != m_pInven)
-		return;
-	m_pInven = dynamic_pointer_cast<CInven>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", GO::Inven));
-	if (nullptr == m_pInven)
-		return;
+
+	auto pInven = m_pInven.lock();
+	if (nullptr == pInven)
+	{
+		pInven = dynamic_pointer_cast<CInven>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", GO::Inven));
+		if (nullptr == pInven)
+			return;
+		m_pInven = pInven;
+	}
 }
 
 void CHUD::Late_Update(f32_t fTimeDelta)
 {
 	__super::Late_Update(fTimeDelta);
-	if (nullptr == m_pInven)
+	auto pInven = m_pInven.lock();
+	if (nullptr == pInven)
 		return;
-	if (!m_pInven->Is_Open())
+	if (!pInven->Is_Open())
 		CGameInstance::Get().Add_RenderGroup(RENDERID::ALPHA_UI, dynamic_pointer_cast<CGameObject>(shared_from_this()));
 }
 
@@ -153,14 +158,34 @@ void CHUD::Build_Instances()
 
 	// 퀵 슬롯 총 2개 칸그리기
 	for (int32_t i = 0; i < 2; ++i)
-		Push_Slot(HUD_AREA::GUN);
+		Push_Slot({ HUD_AREA::GUN,i });
 
 	// 퀵 슬롯 근접무기칸 그리기
-	Push_Slot(HUD_AREA::MELEE);
+	Push_Slot({ HUD_AREA::MELEE,0 });
 
+	// 장착한 총, 근접무기 확인 후 테두리
+	if (m_pInven.lock()->Get_ActiveSlot() == EQUIP_SLOT::GUN_1)
+	{
+		// 칸 그리기
+		float4_t r = Get_SlotRect({ HUD_AREA::GUN,0 });
+		Push_Rect(r.x, r.y, r.z, r.w, COLOR_SELECTED, WEAPON_RADIUS, BORDER_SELECTED);	// 밝은 흰색 테두리
+	}
+	else if (m_pInven.lock()->Get_ActiveSlot() == EQUIP_SLOT::GUN_2)
+	{
+		// 칸 그리기
+		float4_t r = Get_SlotRect({ HUD_AREA::GUN,1 });
+		Push_Rect(r.x, r.y, r.z, r.w, COLOR_SELECTED, WEAPON_RADIUS, BORDER_SELECTED);	// 밝은 흰색 테두리
+	}
+	else if (m_pInven.lock()->Get_ActiveSlot() == EQUIP_SLOT::MELEE)
+	{
+		// 칸 그리기
+		float4_t r = Get_SlotRect({ HUD_AREA::MELEE,0 });
+		Push_Rect(r.x, r.y, r.z, r.w, COLOR_SELECTED, WEAPON_RADIUS, BORDER_SELECTED);	// 밝은 흰색 테두리
+	}
+	
 	// 퀵 슬롯 3 ~ 8 숫자칸 그리기
-	for (int32_t i = 3; i < 9; ++i)
-		Push_Slot({ INVEN_AREA::EQUIP, i });
+	for (int32_t i = 0; i < 6; ++i)
+		Push_Slot({ HUD_AREA::SLOT, i });
 }
 
 float4_t CHUD::Get_SlotRect(const HUD_POS& t)
@@ -172,6 +197,12 @@ float4_t CHUD::Get_SlotRect(const HUD_POS& t)
 				 WEAPON_SIZE,
 				 WEAPON_SIZE };
 
+	if (t.eArea == HUD_AREA::MELEE)
+		return { MELEE_LEFT + (t.iIndex % 2),
+				 MELEE_TOP + (t.iIndex / 2), 
+				 MELEE_SIZE,
+				 MELEE_SIZE };
+
 	if (t.eArea == HUD_AREA::SLOT)
 		return { QUICK_LEFT + (t.iIndex % 6) * QUICK_STEP,
 				 QUICK_TOP + (t.iIndex / 6) * QUICK_STEP,
@@ -181,31 +212,24 @@ float4_t CHUD::Get_SlotRect(const HUD_POS& t)
 	return float4_t();
 }
 
-shared_ptr<ITEM>& CHUD::Get_SlotItem(const HUD_POS& t)
+const shared_ptr<ITEM>& CHUD::Get_SlotItem(const HUD_POS& t)
 {
+	auto pInven = m_pInven.lock();
 	if (t.eArea == HUD_AREA::GUN)
 	{
 		if (t.iIndex == 0)
-		{
-			auto pItem = m_pInven->GetEquipSlot(EQUIP_SLOT::GUN_1);
-			return pItem;
-		}
+			return pInven->GetEquipSlot(EQUIP_SLOT::GUN_1);
 		else if (t.iIndex == 1)
-		{
-			auto pItem = m_pInven->GetEquipSlot(EQUIP_SLOT::GUN_2);
-			return pItem;
-		}
+			return pInven->GetEquipSlot(EQUIP_SLOT::GUN_2);
 	}
 	else if (t.eArea == HUD_AREA::MELEE)
-	{
-		auto pItem = m_pInven->GetEquipSlot(EQUIP_SLOT::MELEE);
-		return pItem;
-	}
+		return pInven->GetEquipSlot(EQUIP_SLOT::MELEE);
 	else if (t.eArea == HUD_AREA::SLOT)
-	{
-		auto pItem = m_pInven->GetQuickSlot(QUICK_SLOT(t.iIndex + 3));
-		return pItem;
-	}
+		return pInven->GetQuickSlot(QUICK_SLOT(t.iIndex));
+
+	static const shared_ptr<ITEM> pEmpty = nullptr;
+	return pEmpty;
+	
 }
 
 HRESULT CHUD::Ready_Components()
@@ -265,12 +289,10 @@ void CHUD::Push_Slot(const HUD_POS& t)
 
 	// 칸 그리기
 	float4_t r = Get_SlotRect(t);
-	Push_Rect(r.x, r.y, r.z, r.w, COLOR_HUD_SLOT_BG_DARK, WEAPON_RADIUS);			// 어두운 배경
+	Push_Rect(r.x, r.y, r.z, r.w, COLOR_HUD_SLOT_BG_DARK, WEAPON_RADIUS);					// 어두운 배경
 	Push_Rect(r.x, r.y, r.z, r.w, COLOR_HUD_SLOT_BG_LIGHT, WEAPON_RADIUS, BORDER_FRAME);	// 밝은 흰색 테두리
 
 	// 아이템 그리기
-	// 드래그를 한 상태이고 현재 위치가 드래그를 시작한 위치라면 알파값을 0.3으로 설정하여 살짝 투명하게 그림
-	// 드래그를 한 상태가 아니라면 현재 위치에 있는 아이템을 알파값 1로 설정하여 그린다.
 	Push_ItemIcon(r, Get_SlotItem(t), 1.f);
 }
 
@@ -282,7 +304,7 @@ void CHUD::Push_ItemIcon(const float4_t& vRect, const shared_ptr<ITEM>& pItem, f
 	f32_t fIconSize = min(vRect.z, vRect.w) - 6.f;
 	f32_t fIconLeft = vRect.x + (vRect.z - fIconSize) * 0.5f;
 	f32_t fIconTop = vRect.y + (vRect.w - fIconSize) * 0.5f;
-	Push_Icon(fIconLeft, fIconTop, fIconSize, fIconSize, pItem->iIconIndex, fAlpha);
+	Push_Icon(fIconLeft, fIconTop, fIconSize, fIconSize, pItem->iTypeID, fAlpha);
 }
 
 shared_ptr<CHUD> CHUD::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)

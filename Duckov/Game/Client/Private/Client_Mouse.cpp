@@ -1,10 +1,13 @@
 #include "Client_Mouse.h"
 #include "QuarterView_Cam.h"
 #include "Inven.h"
-const f32_t g_SizeX = 24.f;
-const f32_t g_SizeY = 15.f;
-const f32_t g_RotZ[4] = { 0.f,90.f,180.f,270.f };
-
+namespace {
+    const f32_t g_SizeX = 24.f;
+    const f32_t g_SizeY = 15.f;
+    const f32_t g_CusorSizeX = 24.f;
+    const f32_t g_CusorSizeY = 24.f;
+    const f32_t g_RotZ[4] = { 0.f,90.f,180.f,270.f };
+}
 CClient_Mouse::CClient_Mouse(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     :CMouse{ pDevice,pContext }
 {
@@ -144,7 +147,7 @@ void CClient_Mouse::Update(f32_t fTimeDelta)
 void CClient_Mouse::Late_Update(f32_t fTimeDelta)
 {
     __super::Late_Update(fTimeDelta);
-    CGameInstance::Get().Add_RenderGroup(RENDERID::NONALPHA_UI, dynamic_pointer_cast<CGameObject>(shared_from_this()));
+    CGameInstance::Get().Add_RenderGroup(RENDERID::ALPHA_UI, dynamic_pointer_cast<CGameObject>(shared_from_this()));
 }
 
 HRESULT CClient_Mouse::Render()
@@ -163,9 +166,9 @@ HRESULT CClient_Mouse::Render()
     {
         m_eMouseState = MOUSESTATE::CURSOR;
         auto pDst = reinterpret_cast<float4x4_t*>(tMapped.pData);
-        matrix_t matScale = XMMatrixScaling(g_SizeX, g_SizeY, 1.f);
-        matrix_t matTrans = XMMatrixTranslation(+m_vPosVP.x - g_iWinSizeX * 0.5f + g_SizeX * 0.5f,
-                                                -m_vPosVP.y + g_iWinSizeY * 0.5f - g_SizeY * 0.5f,
+        matrix_t matScale = XMMatrixScaling(g_CusorSizeX, g_CusorSizeY, 1.f);
+        matrix_t matTrans = XMMatrixTranslation(+m_vPosVP.x - g_iWinSizeX * 0.5f + g_CusorSizeX * 0.5f,
+                                                -m_vPosVP.y + g_iWinSizeY * 0.5f - g_CusorSizeY * 0.5f,
                                                 m_vPosVP.z);
         XMStoreFloat4x4(pDst, matScale * matTrans);        
         m_pContext->Unmap(m_pInstanceVB.Get(), 0);

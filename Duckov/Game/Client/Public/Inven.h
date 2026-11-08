@@ -94,6 +94,10 @@ public:
 		return m_pQuickSlots[ETOUI(eSlot)];
 	}
 
+	EQUIP_SLOT					Get_ActiveSlot() { return m_eActiveSlot; }
+	void						Set_ActiveSlot(EQUIP_SLOT eSlot);
+	const shared_ptr<ITEM>&		Get_ActiveItem() { return m_pEquipSlots[ETOUI(m_eActiveSlot)]; }
+
 private:
 	shared_ptr<CVertexShader>   m_pVSCom;
 	shared_ptr<CPixelShader>    m_pPSCom;
@@ -108,6 +112,8 @@ private:
 	shared_ptr<ITEM>			m_pQuickSlots[ETOUI(QUICK_SLOT::END)];
 	vector<shared_ptr<ITEM>>	m_vecBackPack;
 	vector<shared_ptr<ITEM>>	m_vecStorage;
+
+	EQUIP_SLOT					m_eActiveSlot = EQUIP_SLOT::GUN_1;
 
 	DRAG_STATE					m_eDragState = { DRAG_STATE::IDLE };
 	POINT						m_ptMouse = {};				// 마우스 위치 (뷰포트 좌표, 좌상단 원점)
@@ -139,14 +145,13 @@ private:
 	bool_t						CanPlace(const shared_ptr<ITEM>& pItem, const SLOT_POS& tDstSlot);
 
 	static shared_ptr<ITEM>	Init_TestItem(shared_ptr<ITEM> pItem, ITEM_TYPE eType, const wchar_t* pName,
-										  int32_t iTypeID, int32_t iIconIndex, int32_t iQuality,
+										  ITEM_ID eID, int32_t iQuality,
 										  int32_t iCount = 1, int32_t iMaxStack = 1)
 
 	{
 		pItem->eItemType = eType;
 		pItem->strItemName = pName;
-		pItem->iTypeID = iTypeID;
-		pItem->iIconIndex = iIconIndex;
+		pItem->iTypeID = ETOI(eID);
 		pItem->iQuality = iQuality;
 		pItem->iCount = iCount;
 		pItem->iMaxStack = iMaxStack;

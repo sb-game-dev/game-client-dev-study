@@ -191,6 +191,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             EndPaint(hWnd, &ps);
         }
         break;
+    case WM_SETCURSOR:
+        if (LOWORD(lParam) == HTCLIENT)   // 클라이언트 영역일 때만
+        {
+            SetCursor(nullptr);           // 커서 없음
+            return TRUE;                  // 기본 처리 막기 (안 막으면 다시 화살표로 바뀜)
+        }
+        break;
     case WM_KEYDOWN:
 
         switch (wParam)

@@ -50,7 +50,7 @@ void CQuarterView_Cam::Update(f32_t fDeltaTime)
 	auto pPlayer = m_pPlayer.lock();
 	if (nullptr == pPlayer)
 	{
-		m_pPlayer = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Player"));
+		pPlayer = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Player"));
 		if (nullptr == pPlayer)
 			return;
 		m_pPlayer = pPlayer;

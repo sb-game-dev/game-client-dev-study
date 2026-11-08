@@ -1,0 +1,1569 @@
+﻿typeID,file,name_ko
+0,0_Item_Character.png,껍데기
+1,1_Item_0_MeleeWeapon_Template.png,정육칼
+2,2_Item_ArmorLV3.png,Lv.3 방탄복
+3,3_Item_Gem.png,골든 스타
+4,4_Item_1_Rifle-A_template.png,총기 템플릿
+8,8_Item_BatteryR6.png,R6 배터리
+10,10_Item_Bandage.png,지혈 붕대
+11,11_Item_BatteryPP3.png,PP3 배터리
+12,12_Item_BeanCan.png,구운 콩 통조림
+13,13_Item_Biscuit.png,소다 크래커
+14,14_Item_Cola.png,콜라
+15,15_Item_FirstAidKit_L.png,대형 구급상자
+16,16_Item_FirstAidKit_M.png,구급상자
+17,17_Item_FirstAidKit_S.png,소형 구급상자
+18,18_Item_TunaCan_1.png,물참치 통조림
+19,19_Item_TunaCan_2.png,기름참치 통조림
+20,20_Item_Aspirin.png,아스피린
+21,21_Item_Bleach.png,표백제
+22,22_Item_Cigarette.png,빨간 밴드 담배
+23,23_Item_Dynamite.png,파이프 폭탄
+24,24_Item_DynamiteMultiple.png,집속 파이프 폭탄
+25,25_Item_Flashlight.png,플래시
+26,26_Item_GasMask_01.png,방독 마스크
+27,27_Item_Goggle.png,스키 고글
+28,28_Item_Nail.png,못
+29,29_Item_Vodka.png,보드카
+30,30_Item_WD40.png,MD40
+31,31_Item_Wrench.png,스패너
+32,32_Item_ArmorLV1.png,Lv.1 방탄복
+33,33_Item_ArmorLV2.png,Lv.2 방탄복
+34,34_Item_ArmorLV4.png,Lv.4 방탄복
+35,35_Item_ArmorLV5.png,Lv.5 방탄복
+36,36_Item_BackpackLV1.png,화장품 파우치
+37,37_Item_BackpackLV2.png,초등학생 가방
+38,38_Item_BackpackLV3.png,여행 가방
+39,39_Item_BackpackLV4.png,생존자 가방
+40,40_Item_BackpackLV5.png,군인 배낭 MAX
+41,41_Item_HelmatLV1.png,오토바이 헬멧
+42,42_Item_HelmatLV2.png,구식 철모
+43,43_Item_HelmatLV3.png,특공대 헬멧
+44,44_Item_HelmatLV4.png,SightPRO 헬멧
+45,45_Item_HelmatLV5.png,SCIFI 마스크
+46,46_Item_HelmatLV6.png,디바인 용접 헬멧
+47,47_Item_Wrench02.png,자동차 스패너
+48,48_Item_ContinerL.png,대형 확장 상자
+49,49_Item_ContinerM.png,중형 확장 상자
+50,50_Item_ContinerS.png,소형 확장 상자
+51,51_Item_Clock.png,알람 시계
+52,52_Item_Detergent.png,변기 세정제
+53,53_Item_Drum1.png,빨간 드럼통
+54,54_Item_Drum2.png,파란 드럼통
+55,55_Item_Drum3.png,노란 드럼통
+56,56_Item_Drum4.png,금속 연료통
+57,57_Item_GolfClub.png,골프채
+58,58_Item_Ink.png,잉크
+59,59_Item_Pot.png,냄비
+60,60_Item_Tissue.png,두루마리 휴지
+61,61_Item_Zippo.png,Cippo
+62,62_Item_PressionSencer.png,압력 센서
+63,63_Item_uPhone.png,uPhone 스마트폰
+64,64_Item_Walkie_Talkie.png,무전기
+65,65_Item_Walkie_Talkie02.png,군용 무전기
+66,66_Item_FlashGrenade.png,섬광 수류탄
+67,67_Item_Grenade.png,수류탄
+68,68_Item_Chocalate.png,초콜릿
+69,69_Item_EnergyStick.png,에너지 바
+70,70_Item_Honey.png,꿀
+71,71_Item_Ketchup.png,케첩
+72,72_Item_Book.png,책
+73,73_Item_Letter.png,편지
+74,74_Item_Key_BlueHouse.png,세이프하우스 칸막이실 열쇠
+75,75_Item_AirplaneToy.png,비행기 모형
+76,76_Item_Ball.png,축구공
+77,77_Item_BicyleToy.png,자전거 모형
+78,78_Item_Cannon.png,대포
+79,79_Item_Compass.png,나침반
+80,80_Item_Dice_2.png,주사위
+81,81_Item_Dice.png,주사위
+82,82_Item_Fish.png,장난감 물고기
+83,83_Item_Watch.png,회중시계
+84,84_Item_Egg.png,오리알
+85,85_Item_Heat.png,테르밋
+86,86_Item_Propane.png,프로판
+87,87_Item_Rope.png,로프
+88,88_Item_Drugs.png,약통
+89,89_Item_Lv.png,수액제
+90,90_Item_Broom.png,빗자루
+91,91_Item_Driver.png,일자 드라이버
+92,92_Item_ElectricSaw.png,전기톱
+93,93_Item_GasCanL.png,금속 통
+94,94_Item_GasCanS.png,플라스틱 통
+95,95_Item_HammerL.png,대형 망치
+96,96_Item_HammerS.png,망치
+97,97_Item_Lantern.png,등유 램프
+98,98_Item_Shovel.png,삽
+99,99_Item_Telescope.png,망원경
+100,100_Item_Trap.png,포획용 덫
+101,101_Item_Wrench03.png,쇠지렛대
+102,102_Item_1_AccessoryTemplate.png,부품 템플릿
+103,103_Item_CowMask.png,젖소 마스크
+104,104_Item_Hat.png,카우보이 모자
+105,105_Item_CocoMilk.png,코코아 우유
+106,106_Item_Soda.png,탄산수
+107,107_Item_Waterbottle.png,물통
+108,108_Item_Whisky.png,위스키
+109,109_Item_Pen.png,만년필
+110,110_Item_Scissors.png,가위
+111,111_Item_Trophy.png,트로피
+112,112_Item_Mike.png,마이크
+113,113_Item_Radio.png,라디오
+114,114_Item_TOMSUNGPhone.png,TOMSUNG 스마트폰
+115,115_Item_Yogurt.png,요구르트
+116,116_Item_Newspaper.png,신문
+117,117_Item_Note.png,노트
+118,118_Item_Lipstick.png,립스틱
+119,119_Item_Ring.png,금반지
+120,120_Item_RingToy.png,꽃반지
+121,121_Item_Robot.png,스마트 로봇
+122,122_Item_Rocket.png,장난감 로켓
+123,123_Item_Skull.png,두개골 장식품
+124,124_Item_Tambourine.png,탬버린
+125,125_Item_Trumpet.png,트럼펫
+126,126_Item_Xylophone.png,실로폰
+127,127_Item_Wheel.png,타이어
+128,128_Item_Yarn.png,실
+129,129_Item_Pumpkin.png,호박
+130,130_Item_Basket.png,장바구니
+131,131_Item_Cup.png,컵
+132,132_Item_Cake.png,케이크
+133,133_Item_Carrot.png,당근
+134,134_Item_Bone.png,뼈다귀 장난감
+135,135_Item_Heart.png,하트
+136,136_Item_Injection.png,주사기
+137,137_Item_Injection_A.png,노란 주사약
+138,138_Item_HeadLantern.png,헤드랜턴
+139,139_Item_Bullet_Template.png,탄환 템플릿
+140,140_Item_Bullet_AR_L_Normal.png,L-일반 탄환
+141,141_Item_Bullet_AR_L_Burn.png,L-연소탄
+142,142_Item_Bullet_AR_L_Piercing3.png,L-철갑탄
+143,143_Item_Bullet_AR_S_Normal.png,S-일반 탄환
+144,144_Item_Bullet_AR_S_Dumdums.png,S-덤덤탄
+145,145_Item_Bullet_AR_S_Burn.png,S-연소탄
+146,146_Item_Bullet_SHOT_Normal.png,산탄-벅샷탄
+153,153_Item_Quest_Letter_Explorer.png,탐험가의 편지
+154,154_Item_Key_Dormitory103.png,기숙사 103호 열쇠
+155,155_Item_Key_Dormitory106.png,기숙사 106호 열쇠
+157,157_Item_Bullet_AR_L_Poison.png,L-맹독탄
+158,158_Item_Bullet_AR_L_Piercing5.png,L-고급 철갑탄
+159,159_Item_Bullet_AR_S_Piercing2.png,S-철갑탄
+160,160_Item_Bullet_AR_S_Piercing4.png,S-고급 철갑탄
+161,161_Item_Bullet_SHOT_Piranha.png,산탄-피라냐
+162,162_Item_Bullet_SHOT_Burn.png,산탄-드래곤브레스
+163,163_Item_Bullet_SHOT_Piercing4.png,산탄-화살탄
+164,164_Item_Bullet_SHOT_Electric.png,산탄-전기 충격
+165,165_Item_Bullet_Sniper_Normal.png,저격-일반 탄환
+166,166_Item_Bullet_Sniper_Piercing3.png,저격-철갑탄
+167,167_Item_Bullet_Sniper_Electric.png,저격-전기 충격탄
+168,168_Item_Bullet_Sniper_Space.png,저격-공간탄
+169,169_Item_Bullet_Sniper_Piercing5.png,저격-고급 철갑탄
+174,174_Item_Grip_AS_Lv_1.png,돌격 그립 Lv.1
+175,175_Item_Grip_AS_Lv_2.png,돌격 그립 Lv.2
+176,176_Item_Grip_AS_Lv_3.png,돌격 그립 Lv.3
+177,177_Item_Grip_SP_Lv_1.png,신속 분리형 그립 Lv.1
+178,178_Item_Grip_SP_Lv_2.png,신속 분리형 그립 Lv.2
+179,179_Item_Grip_SP_Lv_3.png,신속 분리형 그립 Lv.3
+180,180_Item_Grip_Verticle_Lv_1.png,수직 그립 Lv.1
+181,181_Item_Grip_Verticle_Lv_2.png,수직 그립 Lv.2
+182,182_Item_Grip_Verticle_Lv_3.png,수직 그립 Lv.3
+183,183_Item_Muzzle_L_Type_1.png,대구경 제퇴기 Lv.1
+184,184_Item_Muzzle_L_Type_2.png,대구경 제퇴기 Lv.2
+185,185_Item_Muzzle_L_Type_3.png,대구경 제퇴기 Lv.3
+186,186_Item_Muzzle_Shot_Type_1.png,산탄총 초크 Lv.1
+187,187_Item_Muzzle_Shot_Type_2.png,산탄총 초크 Lv.2
+188,188_Item_Muzzle_Shot_Type_3.png,산탄총 초크 Lv.3
+189,189_Item_Muzzle_Sniper_Type_1.png,저격소총 소음기 Lv.1
+190,190_Item_Muzzle_Sniper_Type_2.png,저격소총 소음기 Lv.2
+191,191_Item_Muzzle_Sniper_Type_3.png,저격소총 소음기 Lv.3
+192,192_Item_Muzzle_S_Type_1.png,소구경 제퇴기 Lv.1
+193,193_Item_Muzzle_S_Type_2.png,소구경 제퇴기 Lv.2
+194,194_Item_Muzzle_S_Type_3.png,소구경 제퇴기 Lv.3
+195,195_Item_Scope_4X_Lv_1.png,4배율 스코프 Lv.1
+196,196_Item_Scope_4X_Lv_2.png,4배율 스코프 Lv.2
+197,197_Item_Scope_4X_Lv_3.png,4배율 스코프 Lv.3
+198,198_Item_Scope_8X_Lv_1.png,8배율 스코프 Lv.1
+199,199_Item_Scope_8X_Lv_2.png,8배율 스코프 Lv.2
+200,200_Item_Scope_8X_Lv_3.png,8배율 스코프 Lv.3
+201,201_Item_Scope_Digit_Lv_1.png,디지털 스코프 Lv.1
+202,202_Item_Scope_Digit_Lv_2.png,디지털 스코프 Lv.2
+203,203_Item_Scope_Digit_Lv_3.png,디지털 스코프 Lv.3
+204,204_Item_Scope_Holo_Lv_1.png,홀로그램 스코프 Lv.1
+205,205_Item_Scope_Holo_Lv_2.png,홀로그램 스코프 Lv.2
+206,206_Item_Scope_Holo_Lv_3.png,홀로그램 스코프 Lv.3
+207,207_Item_Scope_Long_Lv_1.png,퀵 스코프 Lv.1
+208,208_Item_Scope_Long_Lv_2.png,퀵 스코프 Lv.2
+209,209_Item_Scope_Long_Lv_3.png,퀵 스코프 Lv.3
+210,210_Item_Scope_RedDot_Lv_1.png,레드 도트 스코프 Lv.1
+211,211_Item_Scope_RedDot_Lv_2.png,레드 도트 스코프 Lv.2
+212,212_Item_Scope_RedDot_Lv_3.png,레드 도트 스코프 Lv.3
+213,213_Item_Stock_Rifle_Lv_1.png,소총 개머리판 Lv.1
+214,214_Item_Stock_Rifle_Lv_2.png,소총 개머리판 Lv.2
+215,215_Item_Stock_Rifle_Lv_3.png,소총 개머리판 Lv.3
+216,216_Item_Stock_Shot_Lv_1.png,산탄총 개머리판 Lv.1
+217,217_Item_Stock_Shot_Lv_2.png,산탄총 개머리판 Lv.2
+218,218_Item_Stock_Shot_Lv_3.png,산탄총 개머리판 Lv.3
+219,219_Item_Stock_SMG_Lv_1.png,기관단총 개머리판 Lv.1
+220,220_Item_Stock_SMG_Lv_2.png,기관단총 개머리판 Lv.2
+221,221_Item_Stock_SMG_Lv_3.png,기관단총 개머리판 Lv.3
+222,222_Item_Stock_Sniper_Lv_1.png,저격소총 개머리판 Lv.1
+223,223_Item_Stock_Sniper_Lv_2.png,저격소총 개머리판 Lv.2
+224,224_Item_Stock_Sniper_Lv_3.png,저격소총 개머리판 Lv.3
+225,225_Item_Tec_Lazer_Lv_1.png,전술 레이저 Lv.1
+226,226_Item_Tec_Lazer_Lv_2.png,전술 레이저 Lv.2
+227,227_Item_Tec_Lazer_Lv_3.png,전술 레이저 Lv.3
+228,228_Item_Tec_Light_Lv_1.png,전술 플래시 Lv.1
+229,229_Item_Tec_Light_Lv_2.png,전술 플래시 Lv.2
+230,230_Item_Tec_Light_Lv_3.png,전술 플래시 Lv.3
+231,231_Item_Magazine_Rifle_Lv_1.png,대구경 확장 탄창 Lv.1
+232,232_Item_Magazine_Rifle_Lv_2.png,대구경 확장 탄창 Lv.2
+233,233_Item_Magazine_Rifle_Lv_3.png,대구경 확장 탄창 Lv.3
+234,234_Item_Magazine_SMG_Lv_1.png,소구경 확장 탄창 Lv.1
+235,235_Item_Magazine_SMG_Lv_2.png,소구경 확장 탄창 Lv.2
+236,236_Item_Magazine_SMG_Lv_3.png,소구경 확장 탄창 Lv.3
+238,238_Item_L_AK102_Lv_2.png,AK-103
+240,240_Item_L_AK47_Lv_2.png,AK-47
+242,242_Item_L_MF_Lv_2.png,MF
+244,244_Item_L_RPK_Lv_2.png,RPK
+246,246_Item_Sniper_VPO.png,VPO-101
+248,248_Item_Shot_Hand_Lv_2.png,수제 사냥총
+250,250_Item_Shot_MP155_Lv_2.png,MP-155
+252,252_Item_S_AK74_Lv_2.png,AK-74U
+254,254_Item_S_GLick_Lv_2.png,글록
+256,256_Item_S_MMG_Lv_2.png,MMG
+258,258_Item_S_MP7_Lv_2.png,MP7
+260,260_Item_S_UAK45_Lv_2.png,UP-45
+262,262_Item_S_UZI_Lv_2.png,UZI
+263,263_Item_Grip_AS_Lv_4.png,돌격 그립 Lv.4
+264,264_Item_Grip_SP_Lv_4.png,신속 분리형 그립 Lv.4
+265,265_Item_Grip_Verticle_Lv_4.png,수직 그립 Lv.4
+266,266_Item_Magazine_Rifle_Lv_4.png,대구경 확장 탄창 Lv.4
+267,267_Item_Magazine_SMG_Lv_4.png,소구경 확장 탄창 Lv.4
+268,268_Item_Muzzle_L_Type_4.png,대구경 제퇴기 Lv.4
+269,269_Item_Muzzle_Shot_Type_4.png,산탄총 초크 Lv.4
+270,270_Item_Muzzle_Sniper_Type_4.png,저격소총 소음기 Lv.4
+271,271_Item_Muzzle_S_Type_4.png,소구경 제퇴기 Lv.4
+272,272_Item_Scope_4X_Lv_4.png,4배율 스코프 Lv.4
+273,273_Item_Scope_8X_Lv_4.png,8배율 스코프 Lv.4
+274,274_Item_Scope_Digit_Lv_4.png,디지털 스코프 Lv.4
+275,275_Item_Scope_Holo_Lv_4.png,홀로그램 스코프 Lv.4
+276,276_Item_Scope_Long_Lv_4.png,퀵 스코프 Lv.4
+277,277_Item_Scope_RedDot_Lv_4.png,레드 도트 스코프 Lv.4
+278,278_Item_Stock_Rifle_Lv_4.png,소총 개머리판 Lv.4
+279,279_Item_Stock_Shot_Lv_4.png,산탄총 개머리판 Lv.4
+280,280_Item_Stock_SMG_Lv_4.png,기관단총 개머리판 Lv.4
+281,281_Item_Stock_Sniper_Lv_4.png,저격소총 개머리판 Lv.4
+282,282_Item_Tec_Lazer_Lv_4.png,전술 레이저 Lv.4
+283,283_Item_Tec_Light_Lv_4.png,전술 플래시 Lv.4
+284,284_Item_1_Blueprint.png,설계도 템플릿
+285,285_Item_BP_AK102.png,설계도: AK-103
+286,286_Item_BP_AK47.png,설계도: AK-47
+287,287_Item_BP_AK74U.png,설계도: AK-74U
+289,289_Item_BP_HAND.png,설계도: 수제 사냥총
+290,290_Item_BP_MF.png,설계도: MF
+291,291_Item_BP_MMG.png,설계도: MMG
+292,292_Item_BP_MP155.png,설계도: MP-155
+293,293_Item_BP_MP7.png,설계도: MP7
+294,294_Item_BP_RPK.png,설계도: RPK
+295,295_Item_BP_VPO.png,설계도: VPO-101
+296,296_Item_BP_UAK45.png,설계도: UAK-45
+297,297_Item_BP_UZI.png,설계도: UZI
+298,298_Item_HardDrive.png,이동식 하드 드라이브
+299,299_Item_Quest_HardDrive_Dormitory.png,이동식 하드 드라이브: 기숙사
+300,300_Item_Quest_HardDrive_GasStation.png,이동식 하드 드라이브: 주유소 영상
+301,301_Item_FloppyDisk.png,J-Lab 플로피 디스크
+302,302_Item_1_EnemyGun_Template.png,총기
+303,303_Item_EGun_SHOT_Storm_NoGraphic.png,???
+304,304_Item_EGun_AR_Storm_NoGraphic.png,???
+305,305_Item_PigKnife.png,정육칼
+306,306_Item_Axe.png,전투 도끼
+307,307_Item_1_Armor_Template.png,Lv.1 방탄복
+308,308_Item_ColdCore.png,콜드 코어 조각
+309,309_Item_FlamingCore.png,레드 코어 조각
+310,310_Item_EGun_Magic.png,???
+311,311_Item_EGun_SMG_Storm_NoGraphic.png,???
+312,312_Item_Key_Card_Factory.png,공장 출입카드
+313,313_Item_Key_Card_Factory_Uncrack.png,공장 출입카드(암호화)
+314,314_Item_BP_Weapon_0_Basic.png,무기 설계도: 기본
+315,315_Item_BP_Weapon_2_Pro.png,무기 설계도: 베테랑
+316,316_Item_BP_Weapon_1_Advanced.png,무기 설계도: 고급
+317,317_Item_BP_Weapon_3_Ultimate.png,무기 설계도: 얼티메이트
+318,318_Item_Totem_Armor_2.png,토템: 갑옷 Ⅱ
+319,319_Item_Totem_Armor.png,토템: 갑옷 Ⅰ
+320,320_Item_Totem_GunDamage_2.png,토템: 진격 Ⅱ
+321,321_Item_Totem_GunDamage.png,토템: 진격 Ⅰ
+322,322_Item_Totem_MeleeAttack_2.png,토템: 전사 II
+323,323_Item_Totem_MeleeAttack.png,토템: 전사 I
+324,324_Item_Totem_Speed_2.png,토템: 민첩 Ⅱ
+325,325_Item_Totem_Strong_3.png,토템: 건강 Ⅲ
+326,326_Item_Bullet_Rocket.png,로켓탄 Lv.1
+327,327_Item_Rocket_RPG_Lv_1.png,RPG-7
+328,328_Item_GPU.png,그래픽카드
+329,329_Item_PowerBank.png,보조 배터리
+330,330_Item_InformationFiles.png,정보 파일
+331,331_Item_LEDX.png,LEDX스킨 트랜스일루미네이터
+332,332_Item_Bolt.png,볼트
+333,333_Item_Bulb.png,전구
+334,334_Item_Bulb2.png,절전형 전구
+335,335_Item_Nut.png,너트
+336,336_Item_Cable.png,전원 케이블
+337,337_Item_Cables.png,전선
+338,338_Item_CDDriver.png,CD 드라이브
+339,339_Item_CircuitBoard.png,회로 기판
+340,340_Item_ElectricParts.png,전자 소자
+341,341_Item_EnemyGun_Spider_Rifle.png,???
+342,342_Item_EnemyGun_Spider_Ring.png,???
+343,343_Item_FishingRod.png,낡은 낚싯대
+344,344_Item_Bait1.png,
+345,345_Item_Bait2.png,
+346,346_Item_Fish1.png,Lv.1 물고기
+347,347_Item_Fish2.png,Lv.2 물고기
+348,348_Item_Bait3.png,
+349,349_Item_Fish3.png,Lv.3 물고기
+350,350_Item_Bullet_AR_S_Poison.png,S-맹독탄
+351,351_Item_Bullet_AR_S_Electric.png,S-전기 충격탄
+352,352_Item_Bullet_AR_L_Electric.png,L-전기 충격탄
+353,353_Item_Bullet_AR_L_Space.png,L-공간탄
+354,354_Item_Bullet_AR_S_Space.png,S-공간탄
+355,355_Item_Bullet_SHOT_Piercing2.png,산탄-철갑탄
+356,356_Item_AnimalWeapon.png,맨손
+357,357_Item_A_Bow_Lv_1.png,저품질 활
+358,358_Item_Bullet_Arrow_Normal.png,나무 화살
+359,359_Item_Key_GroundZero_GHouse.png,회색 집 열쇠
+360,360_Item_Key_GroundZero_Storage.png,잡동사니 울타리 열쇠
+361,361_Item_Wood.png,목재
+362,362_Item_MetalSlice.png,금속 조각
+363,363_Item_Bullet_AR_L_Rusted.png,L-수명이 다한 탄환
+364,364_Item_Bullet_AR_S_Rusted.png,S-녹슨 탄환
+365,365_Item_WoodStick.png,나무 막대기
+366,366_Item_Quest_Letter_EquipmentMercent.png,옛 친구의 편지
+367,367_Item_WeaponParts.png,무기 부품
+368,368_Item_Feather.png,흐릿한 깃털
+369,369_Item_Totem_PhysicResist.png,토템: 물리 저항 Ⅰ
+370,370_Item_Totem_Marathon.png,토템: 마라톤 I
+371,371_Item_Totem_Hunger.png,토템: 공복의 달인
+372,372_Item_Totem_Stamina.png,토템: 체력
+373,373_Item_Quest_Blueprint_TeleporterMachine.png,텔레포터 설계도
+374,374_Item_Formula_WD40.png,레시피: MD40
+375,375_Item_Quest_GroundZero_Signal.png,농장마을 텔레포트 암호키
+376,376_Item_BP_RPG.png,설계도: RPG 발사기
+377,377_Item_Formula_Trap.png,레시피: 포획용 덫
+378,378_Item_Formula_WD40.png,레시피: MD40
+379,379_Item_Armor_Cai.png,멜빵 옷
+380,380_Item_Basketball.png,T.H 농구공
+381,381_Item_Formula_ArmorCai.png,레시피: 멜빵 옷
+382,382_Item_Formula_Wrench03.png,레시피: 쇠지렛대
+383,383_Item_Formula_Cable.png,레시피: 전원 케이블
+384,384_Item_Key_Machine.png,기계 열쇠
+385,385_Item_Quest_Watch.png,회중시계
+386,386_Item_Quest_List_GroundZeroGoods.png,화물 목록
+387,387_Item_Formula_CircuitBoard.png,레시피: 회로 기판
+388,388_Item_BitCoin.png,0.2BTC
+389,389_Item_Quest_Letter_InShop.png,비밀 메시지
+390,390_Item_Bullet_Energy_S.png,소형 에너지탄
+391,391_Item_Energy_CubeGun.png,큐브건
+392,392_Item_BP_CubeGun.png,설계도: 큐브건
+393,393_Item_BP_Bullet_Energy_S.png,설계도: 소형 에너지 탄약
+394,394_Item_ComputeCore.png,연산 코어
+395,395_Item_Jinitaimei.png,검은 주사약
+396,396_Item_Formula_Jinitaimei.png,레시피: 검은 물약
+397,397_Item_BitcoinMiner.png,비트코인 채굴기
+398,398_Item_Injection_Weight.png,중량 주사약
+399,399_Item_Bullet_Arrow_Explosion.png,폭발 화살
+400,400_Item_BP_ArrowExplosion.png,설계도: 폭발 화살
+401,401_Item_BP_GPU_Potato.png,설계도: 감자 그래픽카드
+402,402_Item_GPU_Potato.png,감자 그래픽카드
+403,403_Item_Potato.png,감자
+404,404_Item_Bullet_SHOT_Rusted.png,낡은 산탄
+405,405_Item_BP_GasMask.png,설계도: 방독 마스크
+406,406_Item_Bullet_Sniper_Rusted.png,저격-저품질 탄환
+407,407_Item_Sniper_Balett.png,M107
+408,408_Item_Injection_ElecResist.png,전기 저항 주사약
+409,409_Item_Injection_PainResist.png,진통제
+410,410_Item_Formula_Injection_ElecResist.png,레시피: 전기 저항 주사약
+411,411_Item_Formula_Injection_PainResist.png,레시피: 진통제
+412,412_Item_Magazine_Sniper_Lv_1.png,저격소총 탄창 Lv.1
+413,413_Item_Magazine_Sniper_Lv_2.png,저격소총 탄창 Lv.2
+414,414_Item_Magazine_Sniper_Lv_3.png,저격소총 탄창 Lv.3
+415,415_Item_Magazine_Sniper_Lv_4.png,저격소총 탄창 Lv.4
+416,416_Item_Muzzle_L_Slience_1.png,대구경 소음기 Lv.1
+417,417_Item_Muzzle_L_Slience_2.png,대구경 소음기 Lv.2
+418,418_Item_Muzzle_L_Slience_3.png,대구경 소음기 Lv.3
+419,419_Item_Muzzle_L_Slience_4.png,대구경 소음기 Lv.4
+420,420_Item_Muzzle_S_Slience_1.png,소구경 소음기 Lv.1
+421,421_Item_Muzzle_S_Slience_2.png,소구경 소음기 Lv.2
+422,422_Item_Muzzle_S_Slience_3.png,소구경 소음기 Lv.3
+423,423_Item_Muzzle_S_Slience_4.png,소구경 소음기 Lv.4
+424,424_Item_Note_BlackMarket.png,블랙마켓 연락 노트
+425,425_Item_UDisk.png,암호화 USB
+426,426_Item_Key_HiddenWarehouse_Cellar.png,지하실 열쇠
+427,427_Item_Quest_Letter_HiddenWarehouse_Explorer.png,은둔자의 편지
+428,428_Item_Water.png,생수
+429,429_Item_PowerOfWishlist.png,찜 목록의 힘
+430,430_Item_Totem_ElecResist_2.png,토템: 전기 저항 Ⅱ
+431,431_Item_Totem_ElecResist.png,토템: 전기 저항 Ⅰ
+432,432_Item_Totem_Efficiency_2.png,토템: 효율 Ⅱ
+433,433_Item_Totem_GunControl_3.png,토템: 총기 제어 Ⅲ
+434,434_Item_Totem_Reload.png,토템: 전술적 재장전
+435,435_Item_Totem_Ninja_2.png,토템: 닌자 Ⅱ
+436,436_Item_Totem_Ninja.png,토템: 닌자 Ⅰ
+437,437_Item_Sniper_VPO_Deng.png,VPO-로든 개조
+438,438_Item_Injection_HotBlood.png,열혈 주사약
+439,439_Item_Formula_Injection_HotBlood.png,레시피: 열혈 주사약
+440,440_Item_Key_GasStation_Warehouse.png,폐기된 주유소 열쇠
+441,441_Item_Key_RedWareHosue_Warehouse.png,공장 사무실 열쇠
+442,442_Item_Key_SmallRoom_HiddenWarehouse.png,작은 칸막이실 열쇠
+443,443_Item_Key_HiddenWarehouse_Cellar_Wire.png,지하실 울타리 열쇠
+444,444_Item_RedBag.png,돈 봉투
+445,445_Item_LuckyNote_1.png,쪽지
+446,446_Item_AncientCoins.png,동전 꿰미
+447,447_Item_ChineseKnot.png,차이나풍 매듭
+448,448_Item_ChineseLantern.png,빨간 등롱
+449,449_Item_Dumpling.png,만두
+450,450_Item_S_GLick_Low.png,망가진 글록
+451,451_Item_Cash.png,현금
+452,452_Item_Grip_ALL_ADS_1.png,퀵 그립 A
+453,453_Item_Grip_ALL_ADS_2.png,퀵 그립 B
+454,454_Item_Grip_ALL_MOV_1.png,
+455,455_Item_Grip_ALL_REC_1.png,수직 그립 I
+456,456_Item_Grip_ALL_REC_2.png,수평 그립 I
+457,457_Item_Grip_ALL_REC_3.png,밸런스 그립
+458,458_Item_Grip_ALL_REC_4.png,수직 그립 II
+459,459_Item_Grip_ALL_REC_5.png,수평 그립 II
+460,460_Item_Grip_ALL_SCA_1.png,지향사격 그립 I
+461,461_Item_Grip_ALL_SCA_2.png,
+462,462_Item_Grip_ALL_SCA_3.png,지향사격 그립 II
+463,463_Item_Muzzle_PST_REC_1.png,권총 제퇴기(밸런스 A형)
+464,464_Item_Muzzle_PST_REC_2.png,권총 제퇴기(밸런스 B형)
+465,465_Item_Muzzle_PST_SIL_1.png,권총 소음기
+466,466_Item_Muzzle_PST_DIS_1.png,권총 연장 총구
+467,467_Item_Muzzle_PST_SCA_1.png,권총 탄퍼짐 제퇴기
+468,468_Item_Muzzle_SMG_REC_1.png,기관단총 제퇴기(밸런스 A형)
+469,469_Item_Muzzle_SMG_REC_2.png,기관단총 제퇴기(밸런스 B형)
+470,470_Item_Muzzle_SMG_REC_3.png,기관단총 수직 제퇴기
+471,471_Item_Muzzle_SMG_REC_4.png,기관단총 수평 제퇴기
+472,472_Item_Muzzle_SMG_SCA_1.png,기관단총 탄퍼짐 제퇴기
+473,473_Item_Muzzle_SMG_SCA_2.png,기관단총 나선형 제퇴기
+474,474_Item_Muzzle_SMG_SIL_1.png,기관단총 소음기
+475,475_Item_Muzzle_AR_DIS_1.png,소총 연장 총구
+476,476_Item_Muzzle_AR_REC_1.png,소총 제퇴기(밸런스 A형)
+477,477_Item_Muzzle_AR_REC_2.png,소총 제퇴기(밸런스 B형)
+478,478_Item_Muzzle_AR_REC_3.png,소총 수직 제퇴기
+479,479_Item_Muzzle_AR_REC_4.png,소총 수평 제퇴기
+480,480_Item_Muzzle_AR_SCA_1.png,소총 탄퍼짐 제퇴기
+481,481_Item_Muzzle_AR_SCA_2.png,소총 나선형 제퇴기
+482,482_Item_Muzzle_AR_SIL_1.png,소총 소음기
+483,483_Item_Muzzle_AR_SIL_2.png,
+484,484_Item_Muzzle_SNP_DIS_1.png,저격소총 연장 총구
+485,485_Item_Muzzle_SNP_REC_1.png,저격소총 제퇴기(밸런스 A형)
+486,486_Item_Muzzle_SNP_REC_2.png,
+487,487_Item_Muzzle_SNP_REC_3.png,저격소총 수평 제퇴기
+488,488_Item_Muzzle_SNP_SCA_1.png,저격소총 탄퍼짐 제퇴기
+489,489_Item_Muzzle_SNP_SCA_2.png,저격소총 기동성 제퇴기
+490,490_Item_Muzzle_SNP_SIL_1.png,저격소총 소음기
+491,491_Item_Muzzle_SNP_SIL_2.png,
+492,492_Item_Muzzle_SNP_SIL_3.png,
+493,493_Item_Muzzle_SHT_REC_1.png,산탄총 제퇴기(밸런스 A형)
+494,494_Item_Muzzle_SHT_REC_2.png,
+495,495_Item_Muzzle_SHT_REC_3.png,
+496,496_Item_Muzzle_SHT_REC_4.png,
+497,497_Item_Muzzle_SHT_SCA_1.png,
+498,498_Item_Stock_PST_MOV_1.png,
+499,499_Item_Stock_PST_REL_1.png,
+500,500_Item_Stock_PST_SCA_1.png,
+501,501_Item_Stock_PST_SCA_2.png,
+502,502_Item_Stock_SMG_MOV_1.png,
+503,503_Item_Stock_SMG_REC_1.png,
+504,504_Item_Stock_SMG_REL_1.png,
+505,505_Item_Stock_SMG_SCA_1.png,
+506,506_Item_Stock_SMG_SCA_2.png,
+507,507_Item_Stock_SMG_SCA_3.png,
+508,508_Item_Stock_AR_MOV_1.png,퀵 개머리판
+509,509_Item_Stock_AR_REC_1.png,밸런스형 개머리판 I
+510,510_Item_Stock_AR_REC_2.png,밸런스형 개머리판 II
+511,511_Item_Stock_AR_REL_1.png,경량형 개머리판
+512,512_Item_Stock_AR_SCA_1.png,
+513,513_Item_Stock_AR_SCA_2.png,
+514,514_Item_Stock_AR_SCA_3.png,지향사격형 개머리판 I
+515,515_Item_Stock_AR_SCA_4.png,제어형 개머리판
+516,516_Item_Stock_AR_SCA_5.png,지향사격형 개머리판 II
+517,517_Item_Stock_AR_SCA_6.png,
+518,518_Item_Stock_SNP_REC_1.png,
+519,519_Item_Stock_SNP_REC_2.png,저격소총 밸런스형 개머리판 II
+520,520_Item_Stock_SNP_SCA_1.png,
+521,521_Item_Stock_SNP_SCA_2.png,저격소총 제어형 개머리판 I
+522,522_Item_Stock_SNP_SCA_3.png,
+523,523_Item_Stock_SNP_SCA_4.png,저격소총 제어형 개머리판 II
+524,524_Item_Stock_SHT_MOV_1.png,
+525,525_Item_Stock_SHT_REC_1.png,
+526,526_Item_Stock_SHT_REL_1.png,
+527,527_Item_Stock_SHT_SCA_1.png,
+528,528_Item_Stock_SHT_SCA_2.png,
+529,529_Item_Stock_SHT_SCA_3.png,
+530,530_Item_Stock_SHT_SCA_4.png,
+531,531_Item_Magazine_PST_ADS_1.png,권총 퀵 드로우 탄창 I
+532,532_Item_Magazine_PST_ADS_2.png,권총 퀵 드로우 탄창 II
+533,533_Item_Magazine_PST_CAP_1.png,권총 확장 탄창 I
+534,534_Item_Magazine_PST_CAP_2.png,권총 확장 탄창 II
+535,535_Item_Magazine_PST_REL_1.png,
+536,536_Item_Magazine_SMG_ADS_1.png,기관단총 퀵 드로우 탄창
+537,537_Item_Magazine_SMG_CAP_1.png,기관단총 확장 탄창 I
+538,538_Item_Magazine_SMG_CAP_2.png,기관단총 확장 탄창 II
+539,539_Item_Magazine_SMG_CAP_3.png,기관단총 확장 탄창 III
+540,540_Item_Magazine_SMG_REL_1.png,
+541,541_Item_Magazine_SMG_REL_2.png,
+542,542_Item_Magazine_SMG_REL_3.png,
+543,543_Item_Magazine_AR_ADS_1.png,소총 퀵 드로우 탄창 I
+544,544_Item_Magazine_AR_ADS_2.png,소총 퀵 드로우 탄창 II
+545,545_Item_Magazine_AR_ADS_3.png,
+546,546_Item_Magazine_AR_CAP_1.png,소총 확장 탄창 I
+547,547_Item_Magazine_AR_CAP_2.png,소총 확장 탄창 II
+548,548_Item_Magazine_AR_CAP_3.png,소총 확장 탄창 III
+549,549_Item_Magazine_AR_CAP_4.png,
+550,550_Item_Magazine_AR_REL_1.png,
+551,551_Item_Magazine_AR_REL_2.png,
+552,552_Item_Magazine_AR_REL_3.png,
+553,553_Item_Magazine_SNP_ADS_1.png,저격소총 퀵 드로우 탄창 I
+554,554_Item_Magazine_SNP_ADS_2.png,저격소총 퀵 드로우 탄창 II
+555,555_Item_Magazine_SNP_ADS_3.png,
+556,556_Item_Magazine_SNP_CAP_1.png,저격소총 확장 탄창 I
+557,557_Item_Magazine_SNP_CAP_2.png,저격소총 확장 탄창 II
+558,558_Item_Magazine_SNP_CAP_3.png,
+559,559_Item_Magazine_SNP_REL_1.png,
+560,560_Item_Magazine_SNP_REL_2.png,
+561,561_Item_Magazine_SHT_CAP_1.png,산탄총 확장 탄창 I
+562,562_Item_Magazine_SHT_CAP_2.png,산탄총 확장 탄창 II
+563,563_Item_Magazine_SHT_CAP_3.png,산탄총 확장 탄창 III
+564,564_Item_Magazine_SHT_CAP_4.png,
+565,565_Item_Magazine_SHT_REL_1.png,
+566,566_Item_Magazine_SHT_REL_2.png,
+567,567_Item_Magazine_SHT_REL_3.png,산탄총 경량 탄창
+568,568_Item_Scope_AR_4X_1.png,소총 4배율 스코프
+569,569_Item_Scope_SNP_8X_1.png,저격소총 8배율 스코프
+570,570_Item_Scope_All_Digit_1.png,디지털 스코프
+571,571_Item_Scope_All_Holo_1.png,홀로그램 스코프
+572,572_Item_Scope_All_Long_1.png,퀵 스코프
+573,573_Item_Scope_All_RedDot_1.png,레드 도트 스코프
+574,574_Item_Scope_All_2X_1.png,2배율 스코프
+575,575_Item_Tec_Laser_NON_1.png,
+576,576_Item_Tec_Laser_ADS_1.png,레이저-기동성
+577,577_Item_Tec_Laser_ADS_2.png,레이저-신속
+578,578_Item_Tec_Laser_SCA_1.png,레이저-기본
+579,579_Item_Tec_Laser_SCA_2.png,레이저-조준
+580,580_Item_Tec_Flashlight_NON_1.png,전술 플래시
+583,583_Item_Muzzle_SHT_SCA_2.png,
+584,584_Item_Muzzle_SHT_SCA_3.png,산탄총 기동성 제퇴기
+594,594_Item_Bullet_SMG_Rusted.png,S-녹슨 탄환
+595,595_Item_Bullet_SMG_Normal.png,S-일반 탄환
+596,596_Item_Bullet_SMG_Burn.png,S-연소탄
+597,597_Item_Bullet_SMG_Piercing3.png,S-철갑탄
+598,598_Item_Bullet_SMG_Piercing5.png,S-고급 철갑탄
+599,599_Item_Bullet_SMG_Poison.png,S-독성탄
+600,600_Item_Bullet_SMG_Electric.png,S-감전탄
+601,601_Item_Bullet_SMG_Space.png,S-공간탄
+602,602_Item_Bullet_SMG_Dumdums.png,S-살상탄
+603,603_Item_Bullet_AR_Rusted.png,AR-녹슨 탄환
+604,604_Item_Bullet_AR_Normal.png,AR-일반 탄환
+605,605_Item_Bullet_AR_Burn.png,AR-연소탄
+606,606_Item_Bullet_AR_Piercing3.png,AR-철갑탄
+607,607_Item_Bullet_AR_Piercing5.png,AR-고급 철갑탄
+608,608_Item_Bullet_AR_Poison.png,AR-독성탄
+609,609_Item_Bullet_AR_Electric.png,AR-감전탄
+610,610_Item_Bullet_AR_Space.png,AR-공간탄
+611,611_Item_Bullet_AR_Dumdums.png,AR-살상탄
+612,612_Item_Bullet_BR_Rusted.png,L-녹슨 탄환
+613,613_Item_Bullet_BR_Normal.png,L-일반 탄환
+614,614_Item_Bullet_BR_Burn.png,L-연소탄
+615,615_Item_Bullet_BR_Piercing3.png,L-철갑탄
+616,616_Item_Bullet_BR_Piercing5.png,L-고급 철갑탄
+617,617_Item_Bullet_BR_Poison.png,L-독성탄
+618,618_Item_Bullet_BR_Electric.png,L-감전탄
+619,619_Item_Bullet_BR_Space.png,L-공간탄
+620,620_Item_Bullet_BR_Dumdums.png,L-살상탄
+621,621_Item_Bullet_SNP_Rusted.png,녹슨 저격탄
+622,622_Item_Bullet_SNP_Normal.png,일반 저격탄
+623,623_Item_Bullet_SNP_Burn.png,화염 저격탄
+624,624_Item_Bullet_SNP_Piercing3.png,중급 철갑 저격탄
+625,625_Item_Bullet_SNP_Piercing5.png,고급 철갑 저격탄
+626,626_Item_Bullet_SNP_Poison.png,독성 저격탄
+627,627_Item_Bullet_SNP_Electric.png,감전 저격탄
+628,628_Item_Bullet_SNP_Space.png,공간 저격탄
+629,629_Item_Bullet_SNP_Dumdums.png,살상 저격탄
+630,630_Item_Bullet_SHT_Rusted.png,녹슨 산탄
+631,631_Item_Bullet_SHT_Normal.png,일반 산탄
+632,632_Item_Bullet_SHT_Burn.png,연소 산탄
+633,633_Item_Bullet_SHT_Piercing3.png,철갑 산탄
+634,634_Item_Bullet_SHT_Piercing5.png,고급 철갑 산탄
+635,635_Item_Bullet_SHT_Poison.png,독성 산탄
+636,636_Item_Bullet_SHT_Electric.png,감전 산탄
+637,637_Item_Bullet_SHT_Space.png,공간 산탄
+638,638_Item_Bullet_SHT_Dumdums.png,살상 산탄
+639,639_Item_Bullet_MAG_Rusted.png,MAG-녹슨 탄환
+640,640_Item_Bullet_MAG_Normal.png,MAG-일반 탄환
+641,641_Item_Bullet_MAG_Burn.png,MAG-연소탄
+642,642_Item_Bullet_MAG_Piercing3.png,MAG-중급 철갑탄
+643,643_Item_Bullet_MAG_Piercing5.png,MAG-고급 철갑탄
+644,644_Item_Bullet_MAG_Poison.png,MAG-독성탄
+645,645_Item_Bullet_MAG_Electric.png,MAG-감전탄
+646,646_Item_Bullet_MAG_Space.png,MAG-공간탄
+647,647_Item_Bullet_MAG_Dumdums.png,MAG-살상탄
+648,648_Item_Bullet_ARR_Normal.png,나무 화살
+649,649_Item_Bullet_ARR_Explosion.png,폭발 화살
+650,650_Item_Bullet_PWS_S.png,소형 에너지탄
+651,651_Item_Tec_Laser_CIT_1.png,레이저-치명타
+652,652_Item_AR_ADAR_Normal.png,ADAR 2-15
+653,653_Item_AR_AUGA1_Normal.png,StG 77
+654,654_Item_AR_AUGA3_Normal.png,StG 77A3
+655,655_Item_SMG_MP5_Normal.png,MP5
+656,656_Item_BR_SKS_Normal.png,SKS-45
+657,657_Item_SHT_TOZ66_Normal.png,TOZ-66
+658,658_Item_SHT_TOZ106_Normal.png,TOZ-106
+659,659_Item_AR_VPO136_Normal.png,VPO-136
+660,660_Item_SmokeGrenade.png,연막탄
+662,662_Item_WeaponPartsLv2.png,중급 무기 부품
+663,663_Item_WeaponPartsLv3.png,고급 무기 부품
+665,665_Item_BP_ADAR.png,설계도: ADAR 2-15
+666,666_Item_BP_AUGA1.png,설계도: StG 77
+667,667_Item_BP_AUGA3.png,설계도: StG 77A3
+668,668_Item_BP_MP5.png,설계도: MP5
+669,669_Item_BP_SKS.png,설계도: SKS
+670,670_Item_BP_TOZ66.png,설계도: TOZ-66
+671,671_Item_BP_TOZ106.png,설계도: TOZ-106
+672,672_Item_BP_VPO136.png,설계도: VPO-136
+675,675_Item_BP_Bullet_BR_Normal.png,설계도: 일반 중형탄
+676,676_Item_BP_Bullet_SNP_Normal.png,설계도: 일반 저격탄
+677,677_Item_BP_Bullet_SHT_Normal.png,설계도: 일반 산탄
+678,678_Item_BP_Bullet_MAG_Normal.png,설계도: MAG-일반 탄환
+679,679_Item_HeadsetLV1.png,헤드폰
+680,680_Item_BR_VSS_Normal.png,VSS
+681,681_Item_AR_ASVAL_Normal.png,AS Val
+682,682_Item_AR_DTMDR556_Normal.png,DT MDR-556
+683,683_Item_BR_DTMDR762_Normal.png,DT MDR-762
+688,688_Item_Bullet_SMG_Piercing2.png,S-기본 철갑탄
+689,689_Item_Bullet_SMG_Piercing4.png,S-중급 철갑탄
+690,690_Item_Bullet_SMG_Piercing6.png,S-고급 철갑탄
+691,691_Item_Bullet_SMG_Break.png,S-특수탄
+692,692_Item_Bullet_AR_Piercing2.png,AR-기본 철갑탄
+693,693_Item_Bullet_AR_Piercing4.png,AR-중급 철갑탄
+694,694_Item_Bullet_AR_Piercing6.png,AR-특수 철갑탄
+695,695_Item_Bullet_AR_Break.png,AR-파괴탄
+696,696_Item_Bullet_BR_Piercing2.png,L-기본 철갑탄
+697,697_Item_Bullet_BR_Piercing4.png,L-중급 철갑탄
+698,698_Item_Bullet_BR_Piercing6.png,L-특수 철갑탄
+699,699_Item_Bullet_BR_Break.png,L-파괴탄
+700,700_Item_Bullet_SNP_Piercing2.png,철갑 저격탄
+701,701_Item_Bullet_SNP_Piercing4.png,고급 철갑 저격탄
+702,702_Item_Bullet_SNP_Piercing6.png,특수 철갑 저격탄
+703,703_Item_Bullet_SNP_Break.png,파괴 저격탄
+704,704_Item_Bullet_SHT_Piercing2.png,기본 철갑 산탄
+705,705_Item_Bullet_SHT_Piercing4.png,중급 철갑 산탄
+706,706_Item_Bullet_SHT_Piercing6.png,고급 철갑 산탄
+707,707_Item_Bullet_SHT_Break.png,특수 산탄
+708,708_Item_Bullet_MAG_Piercing2.png,MAG-철갑탄
+709,709_Item_Bullet_MAG_Piercing4.png,MAG-고급 철갑탄
+710,710_Item_Bullet_MAG_Piercing6.png,MAG-특수 철갑탄
+711,711_Item_Bullet_MAG_Break.png,MAG-파괴탄
+712,712_Item_Muzzle_PST_DAM_1.png,권총 공격 강화 총구
+713,713_Item_Muzzle_SMG_DAM_1.png,기관단총 공격 강화 총구
+714,714_Item_Muzzle_AR_DAM_1.png,소총 공격 강화 총구
+715,715_Item_Muzzle_SNP_DAM_1.png,저격소총 공격 강화 총구
+716,716_Item_Muzzle_SHT_DAM_1.png,산탄총 공격 강화 총구
+717,717_Item_Stock_SMG_SCA_4.png,기관단총 지향사격형 개머리판 II
+718,718_Item_NightVisionGoggles.png,GPNVG-18 야간 투시경
+719,719_Item_ThermalVisionGoggles.png,T-7 열화상 조준경
+733,733_Item_SMG_MP7_Electric.png,전기 MP7
+734,734_Item_SMG_PP19Bizon_Normal.png,Bizon-2
+735,735_Item_SMG_PPSH_Normal.png,PPSh
+736,736_Item_SMG_SR3M_Normal.png,SR-3M
+737,737_Item_SMG_Vector9_Normal.png,Vector
+738,738_Item_Formula_FirstAidKit_M.png,레시피: 구급상자
+740,740_Item_WhiteGown.png,흰색 가운
+741,741_Item_Glass.png,검은색 안경
+742,742_Item_GlassShiny.png,반짝이는 안경
+743,743_Item_fiber.png,유기섬유
+744,744_Item_SunGlass.png,선글라스
+745,745_Item_Quest_Letter_LifeSupportClue.png,생명 유지 시스템 단서
+746,746_Item_Marker.png,마커
+747,747_Item_Quest_AirCirculationUnit.png,공기 순환 유닛
+748,748_Item_ComputingUnit.png,고성능 연산 유닛
+749,749_Item_BP_ComputingUnit.png,설계도: 고성능 연산 유닛
+750,750_Item_Quest_HugeMotherBoard.png,대형 메인보드
+751,751_Item_Quest_DogCollar.png,강아지 목줄
+753,753_Item_Quest_Blueprint_Thrusters_Encrypted.png,우주선 추진기 설계도(암호화)
+754,754_Item_Key_Card_JLabLv1.png,J-Lab 1급 허가증
+755,755_Item_Key_Card_JLabLv2.png,J-Lab 2급 허가증
+756,756_Item_Key_Card_JLabLv3.png,J-Lab 3급 허가증
+757,757_Item_Quest_ResearchDocument_Thrusters.png,벡터 추진기 연구 일지
+758,758_Item_Eyeball_Jlab.png,광산장의 홍채 정보
+759,759_Item_Key_ThrusterResearcherHome.png,건설 창고 열쇠
+760,760_Item_Quest_Blueprint_NavigationSystem.png,내비게이션 시스템 설계도
+761,761_Item_Quest_StarMap1.png,스타맵
+762,762_Item_Quest_StarMap2.png,스타맵 조각 Part2
+763,763_Item_Quest_StarMap3.png,스타맵 조각 Part3
+764,764_Item_Plastics.png,폴리에틸렌 시트
+765,765_Item_DuctTape.png,테이프
+766,766_Item_Quest_Blueprint_DefenceShield_BlackMarket.png,우주급 방어 필드 설계도(암호화)
+767,767_Item_TransformDevice.png,에너지 재구성 장치
+768,768_Item_EnergyBall.png,에너지볼
+769,769_Item_EggWhtieEnergyPieces.png,흰자위 에너지 조각
+772,772_Item_PoliceStick.png,경찰봉
+774,774_Item_Quest_Blueprint_ComputingUnit_Encrypted.png,고성능 연산 유닛 설계도(암호화)
+775,775_Item_Quest_Power_ComputingUnit.png,5000W 전원
+776,776_Item_Muzzle_SHT_SIL_1.png,산탄총 중형 소음기
+777,777_Item_Stock_SNP_MOV_1.png,저격소총 퀵 개머리판
+778,778_Item_Quest_Cooling_ComputingUnit.png,대형 라디에이터
+779,779_Item_Key_Farm_JLabStaffHome.png,집 열쇠 01
+780,780_Item_Sniper_M700_Normal.png,M700
+781,781_Item_Sniper_Mosin_Normal.png,Mosin-Nagant
+782,782_Item_Sniper_SV98_Normal.png,SV98
+783,783_Item_PST_TT33_Normal.png,TT-33
+784,784_Item_PST_PM_Normal.png,PM
+785,785_Item_MAG_Desert_Normal.png,데저트 이글
+786,786_Item_BR_M1A_Normal.png,M1A
+787,787_Item_BR_M14_Normal.png,M14
+788,788_Item_AR_MCXSpear_Normal.png,MCX Spear
+790,790_Item_ArmorLV1Fire.png,Lv.1 방화복
+791,791_Item_Jacket.png,가죽 재킷
+793,793_Item_Formula_Injection_A.png,레시피: 노란 주사약
+794,794_Item_Formula_Injection_Weight.png,레시피: 중량 주사약
+795,795_Item_Key_HiddenWarehouse_RBHouse.png,민가의 집 열쇠
+796,796_Item_BP_ThermalVisionGoggles.png,설계도: T-7 열화상 조준경
+797,797_Item_Injection_StoneSkin.png,강화 주사약
+798,798_Item_Injection_Stamina.png,지속력 주사약
+799,799_Item_UVBulb2.png,자외선램프
+800,800_Item_Injection_MeleeDamage.png,근접 주사약
+801,801_Item_Key_Card_Yellow.png,J-Lab 출입카드(노랑)
+802,802_Item_Key_Card_Red.png,J-Lab 출입카드(빨강)
+803,803_Item_Key_Card_Green.png,J-Lab 출입카드(초록)
+804,804_Item_Key_Card_Blue.png,J-Lab 출입카드(파랑)
+805,805_Item_BP_VSS.png,설계도: VSS
+806,806_Item_BP_ASVAL.png,설계도: AS Val
+807,807_Item_BP_DTMDR556.png,설계도: DT MDR-556
+808,808_Item_BP_DTMDR762.png,설계도: DT MDR-762
+809,809_Item_BP_MP7_Electric.png,설계도: 전기 MP7
+810,810_Item_BP_PP19Bizon.png,설계도: Bizon-2
+811,811_Item_BP_PPSH.png,설계도: PPSh
+812,812_Item_BP_SR3M.png,설계도: SR-3M
+813,813_Item_BP_Vector9.png,설계도: Vector
+814,814_Item_BP_M700.png,설계도: M700
+815,815_Item_BP_Mosin.png,설계도: Mosin-Nagant
+816,816_Item_BP_SV98.png,설계도: SV98
+817,817_Item_BP_TT33.png,설계도: TT-33
+818,818_Item_BP_PM.png,설계도: PM
+819,819_Item_BP_Desert.png,설계도: 데저트 이글
+820,820_Item_BP_M1A.png,설계도: M1A
+821,821_Item_BP_M14.png,설계도: M14
+822,822_Item_BP_MCXSpear.png,설계도: MCX Spear
+823,823_Item_Quest_BlueprintPieces_MF_1.png,MF 설계도 조각 1
+824,824_Item_Quest_BlueprintPieces_MF_2.png,MF 설계도 조각 2
+825,825_Item_Quest_BlueprintPieces_MF_3.png,MF 설계도 조각 3
+826,826_Item_Key_Card_ SouthFactory.png,공장 남쪽 구역 출입카드
+827,827_Item_Key_MysteryX.png,비밀 열쇠 X
+828,828_Item_Key_MysteryO.png,비밀 열쇠 O
+829,829_Item_Key_MysteryZ.png,비밀 열쇠 Z
+830,830_Item_BP_NightVisionGoggles.png,설계도: 야간 투시경
+831,831_Item_Key_Farm_SuperMarketSmallRoom.png,마트 칸막이실 열쇠
+832,832_Item_Key_Farm_RestaurantSmallRoom.png,식당 칸막이실 열쇠
+833,833_Item_UniversalGlueA.png,만능 접착제 A
+834,834_Item_UniversalGlueB.png,만능 접착제 B
+835,835_Item_Quest_DeliverBox_DestoryOnBase.png,택배
+836,836_Item_KeyRing.png,열쇠 지갑
+837,837_Item_Magazine_BR_ADS_1.png,BR 퀵 드로우 탄창 I
+838,838_Item_Magazine_BR_ADS_2.png,BR 퀵 드로우 탄창 II
+839,839_Item_Magazine_BR_CAP_1.png,BR 확장 탄창 I
+840,840_Item_Magazine_BR_CAP_2.png,BR 확장 드럼 탄창 II
+841,841_Item_Xing.png,삼베 두건
+842,842_Item_Formula_UVBulb2.png,레시피: 자외선램프
+843,843_Item_Formula_Drum1.png,레시피: 빨간 드럼통
+844,844_Item_Formula_Drum2.png,레시피: 파란 드럼통
+845,845_Item_Formula_Drum3.png,레시피: 노란 드럼통
+846,846_Item_Formula_Drum4.png,레시피: 금속 연료통
+848,848_Item_Blindfold.png,눈가리개
+849,849_Item_BoatTicket.png,승선표
+850,850_Item_Bullet_Enemy_Piercing1.png,
+851,851_Item_Bullet_Enemy_Piercing2.png,
+852,852_Item_Bullet_Enemy_Piercing3.png,
+853,853_Item_Bullet_Enemy_Piercing4.png,
+854,854_Item_Bullet_Enemy_Piercing5.png,
+855,855_Item_Bullet_Enemy_Piercing6.png,
+856,856_Item_Injection_StormProtection1.png,공간 폭풍 방호 주사약
+857,857_Item_Injection_StormProtection2.png,테스트용 공간 폭풍 방호 주사약
+858,858_Item_ArmorLV4StormProtection.png,공간 방호복
+859,859_Item_HelmatLV3StormProtection.png,공간 방호 헬멧
+860,860_Item_SpaceCrystal.png,공간 결정체
+861,861_Item_WeaponPartsPolluted.png,오염된 무기 부품
+862,862_Item_AR_AK47_Fire.png,불꽃 AK-47
+863,863_BP_AR_AK47_Fire.png,설계도: 불꽃 AK-47
+864,864_Item_GunPowder.png,화약
+865,865_Item_Formula_Dynamite.png,레시피: 파이프 폭탄
+866,866_Item_Formula_DynamiteMultiple.png,레시피: 집속 파이프 폭탄
+867,867_Item_BP_Glick.png,설계도: 글록
+868,868_Item_DemoChallengeTicket.png,챌린지 승선표
+869,869_Item_ARR_BurstBow_Normal.png,연사 활
+870,870_Item_Bullet_ARR_Piercing2.png,기본 철갑 화살
+871,871_Item_Bullet_ARR_Piercing4.png,중급 철갑 화살
+872,872_Item_Injection_RecoilControl.png,날개 강화 주사
+873,873_Item_Formula_WeaponPartsPolluted.png,레시피: 오염된 무기 부품
+874,874_Item_Formula_ContinerL.png,레시피: 대형 확장 상자
+875,875_Item_Injection_Healing.png,회복 주사약
+876,876_Item_SHT_MP155M_Normal.png,MP-155 ULTIMA
+877,877_Item_BP_MP155M.png,설계도: MP-155 ULTIMA
+878,878_Item_mushroom.png,버섯
+879,879_Item_EGun_Magic_Ring.png,???
+880,880_Item_PaperBoxArmor.png,
+881,881_Item_PaperBox.png,종이박스
+882,882_Item_InjectionBag.png,주사기 케이스
+883,883_Item_ProteinPowder.png,단백질 파우더
+884,884_Item_Formula_ProteinPowder.png,레시피: 단백질 파우더
+885,885_Item_ArmorLV6.png,Lv.6 방탄복
+886,886_Item_Key_Card_Black.png,J-Lab 출입카드(검정)
+887,887_Item_Key_Card_Purple.png,J-Lab 출입카드(보라)
+888,888_Item_Apple.png,사과
+889,889_Item_Helmat_Vida.png,비다 헬멧
+890,890_Item_BlackDogTag.png,이름표
+891,891_Item_Helmat_Roadblock.png,바리케이드 헬멧
+892,892_Item_EnemyGun_RoadBlock_Rifle.png,???
+893,893_Item_AnimalWeapon.png,맨손
+894,894_Item_Armor_SBossPhysical_ResPoison.png,푸룽 방탄복
+895,895_Item_Helmat_SBossPhysical_ResPoison.png,푸룽 헬멧
+896,896_Item_Armor_SBossPoison_LowDurResFire.png,구루 방탄복
+897,897_Item_Helmat_SBossPoison_LowDurResFire.png,구루 헬멧
+898,898_Item_EGun_StormBoss_1_BreakArmor.png,???
+899,899_Item_EGun_StormBoss_2_Poison.png,
+900,900_Item_EGun_StormBoss_3_Fire.png,
+901,901_Item_EGun_StormBoss_4_Electric.png,
+902,902_Item_EGun_StormBoss_5_Space.png,???
+908,908_Item_Armor_SBossFire_ResElec.png,팔라 방탄복
+909,909_Item_Armor_SBossElec_ResSpace.png,빌리 방탄복
+910,910_Item_Armor_SBossSpace.png,코코 방탄복
+911,911_Item_Helmat_SBossFire_ResElec.png,팔라 헬멧
+912,912_Item_Helmat_SBossElec_ResSpace.png,빌리 헬멧
+913,913_Item_Helmat_SBossSpace.png,코코 헬멧
+914,914_Item_PST_StormBoss_Poison.png,구루총
+915,915_Item_BR_Storm_Space.png,폭풍 총
+916,916_Item_MG_StormBoss_Fire.png,팔라총
+917,917_Item_SHT_StormBoss_Elec.png,빌리총
+918,918_Item_Bullet_PWL_L.png,대형 에너지탄
+919,919_Item_AppleSeed.png,테스트 씨앗
+920,920_Item_ArmorLV5StormProtection.png,공간 방호복 얼티메이트
+921,921_Item_HelmatLV5StormProtection.png,공간 방호 헬멧 최종 버전
+922,922_Item_Cartridge_Snake.png,스네이크형 포스
+923,923_Item_FutureConsole.png,미래 콘솔
+925,925_Item_MonochromeMonitor.png,흑백 모니터
+926,926_Item_AcceleratorCard.png,액셀러레이터 카드
+927,927_Item_Cartridge_BubblePop.png,카본 데인저덕
+928,928_Item_Cartridge_FactoryPanicShock.png,
+929,929_Item_Cartridge_GoldMiner.png,광부 덕
+930,930_Item_ColorMonitor.png,컬러 모니터
+931,931_Item_EGun_Magic_Ring_Mushroom.png,???
+932,932_Item_Stone.png,조약돌
+933,933_Item_ToxGrenade.png,독가스탄
+934,934_Item_Helmat_Soda_battery1.png,
+935,935_Item_Helmat_Soda_battery2.png,
+936,936_Item_Helmat_Soda_Bucket.png,깡통 헬멧
+937,937_Item_Helmat_Soda_Displayer.png,
+938,938_Item_Shit.png,응가
+939,939_Item_Shit.png,응가
+940,940_Item_Shit.png,응가
+941,941_Item_FireGrenade.png,연소탄
+942,942_Item_ElecGrenade.png,전기 충격 수류탄
+943,943_Item_Poop_ShitGun_Poison.png,뿌직총
+944,944_Item_Bullet_Poop_Normal.png,응가탄
+945,945_Item_Backpack_Fly_Wing.png,파리 날개
+946,946_Item_Poop_ShotShitGun_Poison.png,뿌직 스프레이
+947,947_Item_Totem_Armor_3.png,토템: 갑옷 Ⅲ
+948,948_Item_Totem_Attack_2.png,토템: 공격 II
+949,949_Item_Totem_Attack_3.png,토템: 공격 Ⅲ
+950,950_Item_Totem_Attack.png,토템: 공격 I
+951,951_Item_Totem_ElecResist_3.png,토템: 전기 저항 Ⅲ
+952,952_Item_Totem_Marathon_2.png,토템: 마라톤 Ⅱ
+953,953_Item_Totem_Marathon_3.png,토템: 마라톤 Ⅲ
+954,954_Item_Totem_FireResist_2.png,토템: 화염 저항 Ⅱ
+955,955_Item_Totem_FireResist_3.png,토템: 화염 저항 Ⅲ
+956,956_Item_Totem_FireResist.png,토템: 화염 저항 Ⅰ
+957,957_Item_Totem_GunDamage_3.png,토템: 진격 Ⅲ
+958,958_Item_Totem_Healing_2.png,토템: 회복 Ⅱ
+959,959_Item_Totem_Healing_3.png,토템: 회복 Ⅲ
+960,960_Item_Totem_Healing.png,토템: 회복 Ⅰ
+961,961_Item_Totem_MaxHealth_2.png,토템: 생명력 Ⅱ
+962,962_Item_Totem_MaxHealth_3.png,토템: 생명력 Ⅲ
+963,963_Item_Totem_MaxHealth.png,토템: 생명력 Ⅰ
+964,964_Item_Totem_Ninja_3.png,토템: 닌자 Ⅲ
+965,965_Item_Totem_PhysicResist_2.png,토템: 물리 저항 Ⅱ
+966,966_Item_Totem_PhysicResist_3.png,토템: 물리 저항 Ⅲ
+967,967_Item_Totem_PoisonResist_2.png,토템: 독 저항 Ⅱ
+968,968_Item_Totem_PoisonResist_3.png,토템: 독 저항 Ⅲ
+969,969_Item_Totem_PoisonResist.png,토템: 독 저항 Ⅰ
+970,970_Item_Totem_SpaceResist_2.png,토템: 공간 저항 Ⅱ
+971,971_Item_Totem_SpaceResist_3.png,토템: 공간 저항 Ⅲ
+972,972_Item_Totem_SpaceResist.png,토템: 공간 저항 Ⅰ
+973,973_Item_FaceMask_Fly_Eye.png,파리 안경
+974,974_Item_Totem_Efficiency_3.png,토템: 효율 Ⅲ
+975,975_Item_Totem_Efficiency.png,토템: 효율 Ⅰ
+976,976_Item_Totem_GunControl_2.png,토템: 총기 제어 Ⅱ
+977,977_Item_Totem_GunControl_3.png,토템: 총기 제어 Ⅲ
+978,978_Item_Totem_GunControl.png,토템: 총기 제어 Ⅰ
+979,979_Item_Totem_GunCritDamage_2.png,토템: 헤드샷 Ⅱ
+980,980_Item_Totem_GunCritDamage_3.png,토템: 헤드샷 Ⅲ
+981,981_Item_Totem_GunCritDamage.png,토템: 헤드샷 Ⅰ
+982,982_Item_Totem_GunDistance_2.png,토템: 저격 Ⅱ
+983,983_Item_Totem_GunDistance_3.png,토템: 저격 Ⅲ
+984,984_Item_Totem_GunDistance.png,토템: 저격 Ⅰ
+985,985_Item_Totem_MeleeAttack_3.png,토템: 전사 Ⅲ
+986,986_Item_Totem_MeleeCritRate_2.png,토템: 광전사 Ⅱ
+987,987_Item_Totem_MeleeCritRate_3.png,토템: 광전사 Ⅲ
+988,988_Item_Totem_MeleeCritRate.png,토템: 광전사 Ⅰ
+989,989_Item_Totem_SenseRange_2.png,토템: 감지 Ⅱ
+990,990_Item_Totem_SenseRange_3.png,토템: 감지 Ⅲ
+991,991_Item_Totem_SenseRange.png,토템: 감지 Ⅰ
+992,992_Item_Totem_Speed_3.png,토템: 민첩 Ⅲ
+993,993_Item_Totem_Speed.png,토템: 민첩 Ⅰ
+994,994_Item_Totem_Strong_2.png,토템: 건강 Ⅱ
+995,995_Item_Totem_Strong.png,토템: 건강 Ⅰ
+996,996_Item_Aritichoke.png,아티초크
+997,997_Item_Aubergine.png,가지
+998,998_Item_Banana.png,바나나
+999,999_Item_Cauliflower.png,콜리플라워
+1000,1000_Item_Cherry.png,체리
+1001,1001_Item_Chilli.png,고추
+1002,1002_Item_Coconut.png,코코넛
+1003,1003_Item_Corn.png,옥수수
+1004,1004_Item_Cucumber.png,오이
+1005,1005_Item_Garlic.png,마늘
+1006,1006_Item_Grape.png,포도
+1007,1007_Item_Leek.png,부추
+1008,1008_Item_Lemon.png,레몬
+1009,1009_Item_Mango.png,망고
+1010,1010_Item_Onion.png,양파
+1011,1011_Item_Orange.png,오렌지
+1012,1012_Item_Pear.png,배
+1013,1013_Item_Pineapple.png,파인애플
+1015,1015_Item_Starfruit.png,카람볼라
+1016,1016_Item_Strawberry.png,딸기
+1017,1017_Item_Tomato.png,토마토
+1018,1018_Item_Watermelon.png,수박
+1019,1019_Item_Seed_Apple.png,사과 씨앗
+1020,1020_Item_Seed_Aritichoke.png,아티초크 씨앗
+1021,1021_Item_Seed_Aubergine.png,가지 씨앗
+1022,1022_Item_Seed_Banana.png,바나나 씨앗
+1023,1023_Item_Seed_Carrot.png,당근 씨앗
+1024,1024_Item_Seed_Cauliflower.png,콜리플라워 씨앗
+1025,1025_Item_Seed_Cherry.png,체리 씨앗
+1026,1026_Item_Seed_Chilli.png,고추 씨앗
+1027,1027_Item_Seed_Coconut.png,코코넛 씨앗
+1028,1028_Item_Seed_Corn.png,옥수수 씨앗
+1029,1029_Item_Seed_Cucumber.png,오이 씨앗
+1030,1030_Item_Seed_Garlic.png,마늘 씨앗
+1031,1031_Item_Seed_Grape.png,포도 씨앗
+1032,1032_Item_Seed_Leek.png,부추 씨앗
+1033,1033_Item_Seed_Lemon.png,레몬 씨앗
+1034,1034_Item_Seed_Mango.png,망고 씨앗
+1035,1035_Item_Seed_Onion.png,양파 씨앗
+1036,1036_Item_Seed_Orange.png,오렌지 씨앗
+1037,1037_Item_Seed_Pear.png,배 씨앗
+1038,1038_Item_Seed_Pineapple.png,파인애플 씨앗
+1039,1039_Item_Seed_Potato.png,감자 씨앗
+1040,1040_Item_Seed_Pumpkin.png,호박 씨앗
+1041,1041_Item_Seed_Starfruit.png,카람볼라 씨앗
+1042,1042_Item_Seed_Strawberry.png,딸기 씨앗
+1043,1043_Item_Seed_Tomato.png,토마토 씨앗
+1044,1044_Item_Seed_Watermelon.png,수박 씨앗
+1045,1045_Item_Key_GroundZero_NavigationBoss.png,금고 열쇠
+1046,1046_Item_Quest_DefenceShield.png,방어 필드 생성기
+1047,1047_Item_Quest_DeliverBox_DestoryOnBase.png,택배
+1048,1048_Item_Quest_DeliverBox_DestoryOnBase.png,택배
+1049,1049_Item_Quest_DeliverBox_DestoryOnBase.png,택배
+1050,1050_Item_Quest_DeliverBox_DestoryOnBase.png,택배
+1051,1051_Item_Quest_DeliverBox_DestoryOnBase.png,택배
+1052,1052_Item_Quest_DeliverBox_DestoryOnBase.png,택배
+1053,1053_Item_Quest_DeliverBox_DestoryOnBase.png,택배
+1054,1054_Item_Quest_DeliverBox_DestoryOnBase.png,택배
+1055,1055_Item_AR_AK47_Quest.png,특제 AK47
+1056,1056_Item_AR_AUGA3_Quest.png,특제 StG 77A3
+1057,1057_Item_BR_M14_Quest.png,특제 M14
+1058,1058_Item_PST_Glick_Quest.png,특제 글록
+1059,1059_Item_SHT_MP155_Quest.png,특제 MP-155
+1060,1060_Item_SMG_SR3M_Quest.png,특제 SR-3M
+1061,1061_Item_Sniper_Mosin_Quest.png,특제 Mosin-Nagant
+1062,1062_Item_Quest_Letter_StudentList.png,졸업생 명단
+1063,1063_Item_Key_Farm_HeadMasterRoom.png,교장실 열쇠
+1064,1064_Item_Quest_NBDetergent.png,특수 변기 세정제
+1065,1065_Item_Quest_Farm_SpecialDrugs.png,다리 통증 특효약
+1066,1066_Item_Quest_Farm_SpecialDrugs_2.png,손 통증 특효약
+1067,1067_Item_Quest_Farm_SpecialDrugsQuest_Farm_3.png,두통 특효약
+1068,1068_Item_Quest_Farm_SpecialDrugs_4.png,특효 진통제
+1069,1069_Item_Quest_Farm_SpecialDrugs_5.png,강력한 단백질 파우더
+1070,1070_Item_Injection_FireResist.png,화염 저항 주사약
+1071,1071_Item_Injection_PoisonResist.png,독 저항 주사약
+1072,1072_Item_Injection_SpaceResist.png,공간 저항 주사약
+1073,1073_Item_HeavyWheel.png,무거운 타이어
+1074,1074_Item_bat.png,야구 방망이
+1075,1075_Item_NailBat.png,못 박힌 야구 방망이
+1076,1076_Item_BP_Bullet_Poop_Normal.png,설계도: 응가탄
+1077,1077_Item_Armor_FireLandProtect.png,석면 작업복
+1078,1078_Item_Helmat_FireLandProtect.png,석면 작업 헬멧
+1079,1079_Item_Armor_ElecLandProtect.png,고무 작업복
+1080,1080_Item_Backpack_SBossElec_ResSpace.png,빌리 가방
+1081,1081_Item_Backpack_SBossFire_ResElec.png,팔라 가방
+1082,1082_Item_Backpack_SBossPoison_LowDurResFire.png,구루 가방
+1083,1083_Item_Helmat_Egg.png,깨진 달걀 껍질
+1084,1084_Item_Key_Apartment102.png,직원 숙소 102호 열쇠
+1085,1085_Item_Key_Apartment105.png,직원 숙소 105호 열쇠
+1086,1086_Item_Key_Apartment101.png,직원 숙소 101호 열쇠
+1087,1087_Item_Key_Dormitory101.png,기숙사 101호 열쇠
+1088,1088_Item_FutureConsoleController.png,미래 컨트롤러
+1089,1089_Item_SHT_TOZ66_Fire.png,TOZ-66 드래곤브레스
+1090,1090_Item_GPUSLI.png,그래픽카드 SLI
+1091,1091_Item_BP_GPUSLI.png,그래픽카드 SLI
+1092,1092_Item_Quest_916_ElectricParts_Ming.png,전자 부품들
+1093,1093_Item_Armor_FC.png,마스터의 방어구
+1094,1094_Item_BP_ColorMonitor.png,설계도: 컬러 모니터
+1095,1095_Item_FishingRod_LV2.png,좋은 낚싯대
+1096,1096_Item_FishingRod_LV3.png,명품 낚싯대
+1097,1097_Item_Fish_Black_Snapper.png,초록 도미
+1098,1098_Item_Fish_Blue_Damselfish.png,파란 자라돔
+1099,1099_Item_Fish_Blue_Jack_Mackerel.png,푸른 갤럭시아스
+1100,1100_Item_Fish_Blue_Mackerel.png,푸른 고등어
+1101,1101_Item_Fish_Blue_Marlin.png,청새치
+1102,1102_Item_Fish_Blue_Sailfish.png,푸른 돛새치
+1103,1103_Item_Fish_Blue_Tang.png,블루탱
+1104,1104_Item_Fish_Brown_and_White_Grunt.png,흰줄돔
+1105,1105_Item_Fish_Brown_Mullet.png,갈색 숭어
+1106,1106_Item_Fish_Brown_Sardine.png,갈색 정어리
+1107,1107_Item_Fish_Golden_Fish.png,골든 피쉬
+1108,1108_Item_Fish_Green_Cod.png,초록 망둑어
+1109,1109_Item_Fish_Green_Triggerfish.png,초록등 화련어
+1110,1110_Item_Fish_Green_Yellow_Porcupinefish.png,노랑 초록 복어
+1111,1111_Item_Fish_Grey_Catshark.png,블루 캣샤크
+1112,1112_Item_Fish_Orange_Greenfin_Fish.png,오렌지 그린핀 피쉬
+1113,1113_Item_Fish_Orange_Squirrelfish.png,오렌지 얼게돔
+1114,1114_Item_Fish_Pink_Clownfish.png,분홍 금붕어
+1115,1115_Item_Fish_Purple_Damselfish.png,보라 자라돔
+1116,1116_Item_Fish_Redfin_Flamefish.png,핑크핀 플레임 피쉬
+1117,1117_Item_Fish_Redfin_Snapper.png,붉은 지느러미 도미
+1118,1118_Item_Fish_Red_Banded_Fish.png,레드 밴디드 피쉬
+1119,1119_Item_Fish_Red_Goldfish.png,레드 골드피쉬
+1120,1120_Item_Fish_Red_Grouper.png,큰눈 레드피쉬
+1121,1121_Item_Fish_Red_Spotted_Grouper.png,붉은점 바리
+1122,1122_Item_Fish_White_Angelfish.png,화이트 엔젤피쉬
+1123,1123_Item_Fish_White_Cod.png,큰머리 금붕어
+1124,1124_Item_Fish_White_Perch.png,흰색 납작고기
+1125,1125_Item_Fish_Yellow_Green_Snapper.png,옐로우 그린 도미
+1126,1126_Item_Fish_Yellow_Porcupinefish.png,녹색 가시복어
+1127,1127_Item_BP_SHT_TOZ66_Fire.png,설계도: TOZ-66 드래곤브레스
+1128,1128_Item_PST_Glick_Space.png,공간 글록
+1130,1130_Item_Backpack_FC.png,마스터 가방
+1131,1131_Item_ArtichokeFloret.png,아티초크 꽃잎
+1132,1132_Item_CornKernel.png,옥수수 알갱이
+1133,1133_Item_DicedMango.png,망고 큐브
+1134,1134_Item_Earthworm.png,지렁이
+1135,1135_Item_GrapeGrain.png,포도알
+1136,1136_Item_Helmat_PeakedCap.png,덕빌캡
+1137,1137_Item_ArmorLV5_3.png,Lv.5 중형 방탄복
+1138,1138_Item_ArmorLV4_3.png,Lv.4 중형 방탄복
+1139,1139_Item_ArmorLV3_2.png,Lv.3 중형 방탄복
+1140,1140_Item_ArmorLV4_2.png,Lv.4 작전 방탄복
+1141,1141_Item_ArmorLV5_2.png,Lv.5 작전 방탄복
+1142,1142_Item_ArmorLV3_3.png,Lv.3 작전 방탄복
+1143,1143_Item_HelmatLV1_2.png,탱크 헬멧
+1144,1144_Item_HelmatLV2_2.png,Lv.2 경량 헬멧
+1145,1145_Item_HelmatLV3_2.png,Lv.3 경량 헬멧
+1146,1146_Item_HelmatLV3_UN.png,평화의 헬멧
+1147,1147_Item_HelmatLV4_2.png,Lv.4 방탄 헬멧
+1148,1148_Item_HelmatLV5_1Hear.png,Lv.5 경량 헬멧
+1149,1149_Item_HelmatLV5_2.png,Lv.5 작전 헬멧
+1150,1150_Item_Key_HiddenWarehouse_Cellar_Fork.png,지하실 갈림길 열쇠
+1151,1151_Item_Key_Defense_System.png,방공 시스템 암호키
+1152,1152_Item_Grenade_SpaceBoss.png,???
+1153,1153_Item_Grenade_SpaceBoss.png,???
+1154,1154_Item_FishingBait.png,미끼
+1155,1155_Item_BP_ElecGrenade.png,설계도: 전기 충격 수류탄
+1156,1156_Item_BP_FireGrenade.png,설계도: 연소탄
+1157,1157_Item_BP_ToxGrenade.png,설계도: 독가스탄
+1158,1158_Item_Aquarium.png,수족관
+1159,1159_Item_BP_BR_Storm_Space.png,설계도: 폭풍 총
+1160,1160_Item_Formula_FishingBait.png,레시피: 미끼
+1161,1161_Item_BP_Bullet_PWL_L.png,설계도: 대형 에너지탄
+1162,1162_Item_Bullet_PWS_H.png,강화된 소형 에너지탄
+1163,1163_Item_ArmorLV1StormProtection.png,폭풍 작업복
+1164,1164_Item_Quest_Blueprint_ShipSpace.png,신비한 우주선 설계도
+1165,1165_Item_BlueCube.png,파란 큐브
+1166,1166_Item_Backpack_Cubbe.png,큐브 수집기
+1167,1167_Item_BP_FishingRod_LV2.png,설계도: 좋은 낚싯대
+1168,1168_Item_BP_FishingRod_LV3.png,설계도: 명품 낚싯대
+1169,1169_Item_Key_JLab_MiniGameCartriage.png,J-Lab 상영실 열쇠
+1170,1170_Item_fiber_Lv2.png,고급 유기섬유
+1171,1171_Item_fiber_Lv3.png,최고급 유기섬유
+1172,1172_Item_Knife_01_Blade.png,소형 나이프
+1173,1173_Item_Knife_02_Short.png,나무손잡이 단검
+1174,1174_Item_Knife_03_Knuckle.png,너클 나이프
+1175,1175_Item_Knife_04_Karambit.png,카람빗
+1176,1176_Item_Knife_06_Gurkhakukri.png,쿠크리 칼
+1177,1177_Item_Knife_07_Bayonet.png,바요넷 칼
+1178,1178_Item_KnifeBox.png,전술 나이프 상자
+1179,1179_Item_Formula_KnifeBox.png,레시피: 전술 나이프 상자
+1180,1180_Item_CandyCan.png,수제 사탕
+1181,1181_Item_Candy.png,막대사탕
+1182,1182_Item_PeaceStar.png,평화 행성
+1183,1183_Item_FakePeaceStar.png,평화 행성
+1184,1184_Item_GunPowderLv5.png,고급 화약
+1185,1185_Item_BP_Bullet_AR_Piercing6.png,설계도: AR-특수 철갑탄
+1186,1186_Item_BP_Bullet_BR_Piercing6.png,설계도: L-특수 철갑탄
+1187,1187_Item_BP_Bullet_MAG_Piercing6.png,설계도: MAG-특수 철갑탄
+1188,1188_Item_BP_Bullet_SHT_Break.png,설계도: 특수 산탄
+1189,1189_Item_BP_Bullet_SMG_Break.png,설계도: S-특수탄
+1190,1190_Item_BP_Bullet_SNP_Piercing6.png,특수 철갑 저격탄
+1191,1191_Item_Key_Farm_NorthFactoryRoom.png,북쪽 공장 구역 오두막집 열쇠
+1192,1192_Item_GunPowder_Blue.png,화약통
+1193,1193_Item_GunPowder_Green.png,화약통
+1194,1194_Item_GunPowder_Red.png,화약통
+1195,1195_Item_BP_Bullet_SNP_Piercing2.png,설계도: 철갑 저격탄
+1196,1196_Item_BP_Bullet_AR_Piercing3.png,설계도: AR-철갑탄
+1197,1197_Item_BP_Bullet_AR_Piercing5.png,설계도: AR-고급 철갑탄
+1198,1198_Item_BP_Bullet_BR_Piercing3.png,설계도: L-철갑탄
+1199,1199_Item_BP_Bullet_BR_Piercing5.png,설계도: L-고급 철갑탄
+1200,1200_Item_BP_Bullet_MAG_Piercing2.png,설계도: MAG-철갑탄
+1201,1201_Item_BP_Bullet_MAG_Piercing4.png,설계도: MAG-고급 철갑탄
+1202,1202_Item_BP_Bullet_SHT_Piercing3.png,설계도: 철갑 산탄
+1203,1203_Item_BP_Bullet_SHT_Piercing5.png,설계도: 고급 철갑 산탄
+1204,1204_Item_BP_Bullet_SMG_Piercing3.png,설계도: S-철갑탄
+1205,1205_Item_BP_Bullet_SMG_Piercing5.png,설계도: S-고급 철갑탄
+1206,1206_Item_BP_Bullet_SNP_Piercing4.png,설계도: 고급 철갑 저격탄
+1207,1207_Item_SaltedFish.png,전술 생선
+1208,1208_Item_ButcherKnife.png,돼지고기 정육칼
+1209,1209_Item_SMG_ArcadeGun_Normal.png,장난감 총
+1210,1210_Item_Formula_Cola.png,레시피: 콜라
+1213,1213_Item_HelmatLV1StormProtection.png,폭풍 작업 헬멧
+1214,1214_Item_Quest_DefenceShield_Text.png,방어 필드 조작 설명
+1215,1215_Item_BP_ArmorLV5.png,설계도: Lv.5 방탄복
+1216,1216_Item_BP_ArmorLV5StormProtection.png,설계도: 공간 방호복 얼티메이트
+1217,1217_Item_BP_ArmorLV5_2.png,설계도: Lv.5 작전 방탄복
+1218,1218_Item_BP_ArmorLV5_3.png,설계도: Lv.5 중형 방탄복
+1219,1219_Item_BP_ArmorLV6.png,설계도: Lv.6 방탄복
+1220,1220_Item_BP_BackpackLV5.png,설계도: 군인 배낭 MAX
+1221,1221_Item_BP_HelmatLV5.png,설계도: SCIFI 마스크
+1222,1222_Item_BP_HelmatLV5StormProtection.png,설계도: 공간 방호 헬멧 최종 버전
+1223,1223_Item_BP_HelmatLV5_1Hear.png,설계도: Lv.5 경량 헬멧
+1224,1224_Item_BP_HelmatLV5_2.png,설계도: Lv.5 작전 헬멧
+1225,1225_Item_BP_HelmatLV6.png,설계도: 디바인 용접 헬멧
+1226,1226_Item_Key_Farm_Nursing_Computer.png,요양원 기계실 열쇠
+1227,1227_Item_Key_Farm_Nursing_Restaurant.png,요양원 식당 열쇠
+1228,1228_Item_Key_Farm_Nursing_Room_1.png,요양원 방 열쇠 1
+1229,1229_Item_Key_Farm_Nursing_Room_2.png,요양원 방 열쇠 2
+1230,1230_Item_Accelerator.png,가속기
+1231,1231_Item_ConcentratedSlurry.png,농축액
+1232,1232_Item_CrystalBattery.png,결정체 배터리
+1233,1233_Item_CrystalFiltrationUnit.png,결정체 필터 유닛
+1234,1234_Item_CrystalBooster.png,결정체 부스터
+1235,1235_Item_BulkSpaceCrystal.png,큰 공간 결정체
+1236,1236_Item_SpaceEye.png,폭풍 눈
+1237,1237_Item_Formula_ConcentratedSlurry.png,레시피: 농축액
+1238,1238_Item_AR_MF_Poison.png,MF-독성 액체
+1239,1239_Item_EGun_Magic_Red.png,???
+1240,1240_Item_BP_AR_MF_Poison.png,설계도: MF-독성 액체
+1241,1241_Item_CarBattery.png,자동차 배터리
+1242,1242_Item_RedEye.png,???
+1243,1243_Item_Splint.png,뼈 고정판
+1244,1244_Item_SplintAdv.png,고급 뼈 고정판
+1245,1245_Item_SurgicalKit.png,수술 키트
+1246,1246_Item_SurgicalKitL.png,강화 수술 키트
+1247,1247_Item_Injection_BleedResist.png,지혈 주사약
+1248,1248_Item_SmallAxe.png,도끼
+1249,1249_Item_Armor_Football_1.png,캐주얼룩
+1250,1250_Item_Armor_Football_2.png,스포츠 나시
+1251,1251_Item_FackMask_Football_Glass.png,금테 안경
+1252,1252_Item_HeadsetLV2.png,오렌지 헤드폰
+1253,1253_Item_GoldBadge.png,순금 배지
+1254,1254_Item_Crown.png,왕관
+1255,1255_Item_ToteBag.png,핸드백
+1256,1256_Item_MoonShine.png,영혼의 밀주
+1257,1257_Item_ShitBall.png,응가공
+1258,1258_Item_EGun_AR_Storm_Virus.png,???
+1259,1259_Item_Kazoo.png,카주 피리
+1260,1260_Item_SHT_Candy_Ghost.png,캔디총
+1261,1261_Item_Helmat_PumpkinLight.png,잭 오 랜턴
+1262,1262_Item_Bullet_Candy_Ghost.png,캔디 탄환
+1263,1263_Item_PsychicSubstance.png,영력 물질
+1264,1264_Item_SHT_TOZ106_Ghost.png,영력 총
+1265,1265_Item_BP_Bullet_Candy_Ghost.png,설계도: 캔디 탄환
+1266,1266_Item_ToyBell.png,장난감 벨
+1267,1267_Item_BP_SHT_Candy_Ghost.png,설계도: 캔디총
+1268,1268_Item_BP_SHT_TOZ106_Ghost.png,설계도: 영력 총
+1269,1269_Item_GhostBat.png,영력 방망이
+1270,1270_Item_Backpack_Pumpkin_Jack.png,잭의 가방
+1271,1271_Item_BP_Backpack_Pumpkin_Jack.png,설계도: 잭의 가방
+1272,1272_Item_BP_Helmat_PumpkinLight.png,설계도: 잭 오 랜턴
+1273,1273_Item_Quest_Camera_Jeff.png,제프의 카메라
+1274,1274_Item_CoinBlade.png,동전 검
+1275,1275_Item_BP_CoinBlade.png,설계도: 동전 검
+1276,1276_Item_Helmat_WitchHat.png,마녀 모자
+1277,1277_Item_Armor_WitchCloth.png,마녀 의상
+1278,1278_Item_Wand.png,부지깽이
+1279,1279_Item_GhostBat.png,영력 방망이
+1280,1280_Item_Totem_GhostResist.png,부적
+1281,1281_Item_AnimalWeapon.png,맨손
+1282,1282_Item_GiantSwordFish.png,대형 청새치
+1283,1283_Item_DarkCarrot.png,다크 캐롯
+1284,1284_Item_Formula_DarkCarrot.png,레시피: 다크 캐롯
+1285,1285_Item_MoYuToy.png,아야
+1286,1286_Item_AR_MK47_Normal.png,MK-47
+1287,1287_Item_AR_RPD_Normal.png,RPD
+1288,1288_Item_Helmat_Cone.png,아이스크림 콘
+1289,1289_Item_ARR_CrossBow_Normal.png,석궁
+1290,1290_Item_Special_Energy_CubeGun_1.png,큐브건 스마트 모듈
+1291,1291_Item_Special_AR_AUG_1.png,StG 77 반자동 모듈
+1292,1292_Item_Special_BR_SKS_1.png,SKS-45 정밀 모듈
+1293,1293_Item_Special_PST_Glick_1.png,글록 3점사 모듈
+1294,1294_Item_Special_SMG_ArcadeGun_1.png,장난감 총 대미지 모듈
+1295,1295_Item_Special_SMG_PP19Bizon_1.png,Bizon-2 산탄화 모듈
+1296,1296_Item_Special_SNP_Mosin_1.png,Mosin-Nagant 양각대 모듈
+1297,1297_Item_Special_BR_M14_1.png,M14 전자동 모듈
+1298,1298_Item_ARR_AHBow_Ice.png,툰드라 리커브 보우
+1299,1299_Item_ARR_AHBow_Normal.png,리커브 보우
+1300,1300_Item_AR_RPD_Ice.png,RPD-윈터
+1301,1301_Item_RKT_SnowGun_Ice.png,눈덩이 총
+1302,1302_Item_SMG_SR3M_Ice.png,프로스트 SR-3M
+1303,1303_Item_IceBlade.png,서리검
+1304,1304_Item_Bullet_Snow_Ice.png,눈덩이 탄환
+1305,1305_Item_Special_SHT_Candy_1.png,캔디총 연사 모듈
+1306,1306_Item_Special_ARR_AHBow_1.png,리커브 보우 연사 모듈
+1307,1307_Item_ArmorLV1_Snow.png,패딩
+1308,1308_Item_ArmorLV2_Snow.png,Lv.2 설원 방탄복
+1309,1309_Item_ArmorLV3_Snow.png,Lv.3 설원 방탄복
+1310,1310_Item_ArmorLV4_Snow.png,Lv.4 설원 방탄복
+1311,1311_Item_ArmorLV4_SnowBoss.png,방한 아머
+1312,1312_Item_HelmatLV1_Snow.png,비니
+1313,1313_Item_HelmatLV2_Snow.png,Lv.2 설원 헬멧
+1314,1314_Item_HelmatLV3_Snow.png,Lv.3 설원 헬멧
+1315,1315_Item_HelmatLV4_Snow.png,Lv.4 설원 헬멧
+1316,1316_Item_HelmatLV4_SnowBoss.png,방한 헬멧
+1317,1317_Item_BP_ARR_AHBow_Ice.png,설계도: 툰드라 리커브 보우
+1318,1318_Item_BP_ARR_AHBow_Normal.png,설계도: 리커브 보우
+1319,1319_Item_BP_ARR_CrossBow_Normal.png,설계도: 석궁
+1320,1320_Item_BP_AR_MK47_Normal.png,설계도: MK-47
+1321,1321_Item_BP_AR_RPD_Ice.png,설계도: RPD-윈터
+1322,1322_Item_BP_AR_RPD_Normal.png,설계도: RPD
+1323,1323_Item_BP_IceBlade.png,설계도: 서리검
+1324,1324_Item_BP_RKT_SnowGun_Ice.png,설계도: 눈덩이 총
+1325,1325_Item_BP_SMG_SR3M_Ice.png,설계도: 프로스트 SR-3M
+1326,1326_Item_BP_Bullet_Snow_Ice.png,설계도: 눈덩이 탄환
+1327,1327_Item_BP_ArmorLV1_Snow.png,설계도: 패딩
+1328,1328_Item_BP_ArmorLV2_Snow.png,설계도: Lv.2 설원 방탄복
+1329,1329_Item_BP_ArmorLV3_Snow.png,설계도: Lv.3 설원 방탄복
+1330,1330_Item_BP_ArmorLV4_Snow.png,설계도: Lv.4 설원 방탄복
+1331,1331_Item_BP_ArmorLV4_SnowBoss.png,설계도: 방한 아머
+1332,1332_Item_BP_HelmatLV1_Snow.png,설계도: 비니
+1333,1333_Item_BP_HelmatLV2_Snow.png,설계도: Lv.2 설원 헬멧
+1334,1334_Item_BP_HelmatLV3_Snow.png,설계도: Lv.3 설원 헬멧
+1335,1335_Item_BP_HelmatLV4_Snow.png,설계도: Lv.4 설원 헬멧
+1336,1336_Item_BP_HelmatLV4_SnowBoss.png,설계도: 방한 헬멧
+1337,1337_Item_BP_Special_ARR_AHBow_1.png,설계도: 리커브 보우 연사 모듈
+1338,1338_Item_BP_Special_AR_AUG_1.png,설계도: StG 77 반자동 모듈
+1339,1339_Item_BP_Special_BR_M14_1.png,설계도: M14 전자동 모듈
+1340,1340_Item_BP_Special_BR_SKS_1.png,설계도: SKS-45 정밀 모듈
+1341,1341_Item_BP_Special_Energy_CubeGun_1.png,설계도: 큐브건 스마트 모듈
+1342,1342_Item_BP_Special_PST_Glick_1.png,설계도: 글록 3연발 모듈
+1343,1343_Item_BP_Special_SHT_Candy_1.png,설계도: 캔디총 연사 모듈
+1344,1344_Item_BP_Special_SMG_ArcadeGun_1.png,설계도: 장난감 총 대미지 모듈
+1345,1345_Item_BP_Special_SMG_PP19Bizon_1.png,설계도: Bizon-2 산탄화 모듈
+1346,1346_Item_BP_Special_SNP_Mosin_1.png,설계도: Mosin-Nagant 양각대
+1347,1347_Item_Pelt.png,모피
+1348,1348_Item_Pelt_Lv2.png,고급 모피
+1349,1349_Item_Pelt_Lv3.png,최고급 모피
+1350,1350_Item_IceCrystal.png,서리 결정체
+1351,1351_Item_SnowBall.png,눈덩이
+1352,1352_Item_SnowLandTicket.png,서브제로 챌린지 승선표
+1353,1353_Item_SHT_SnowBoss_Ice.png,BSG-I
+1354,1354_Item_SHT_SnowBoss_Fire.png,BSG-F
+1355,1355_Item_AtomicClock.png,원자 시계
+1356,1356_Item_Matryoshka.png,마트료시카
+1357,1357_Item_Matryoshka.png,마트료시카
+1358,1358_Item_Matryoshka.png,마트료시카
+1359,1359_Item_Matryoshka.png,마트료시카
+1360,1360_Item_Matryoshka.png,마트료시카
+1361,1361_Item_ArmorLV3StormProtection.png,Lv.3 폭풍 작업복
+1362,1362_Item_AR_MMG_Ice.png,MMG-얼음 칼날
+1363,1363_Item_BP_Key_MysteryZ.png,설계도: 비밀 열쇠 Z
+1364,1364_Item_BP_AR_MMG_Ice.png,설계도: MMG-얼음 칼날
+1365,1365_Item_Key_SnowChallenge_TEU.png,컨테이너 열쇠
+1366,1366_Item_IceGrenade.png,서리탄
+1367,1367_Item_ArmorLV3.png,Lv.3 방탄복
+1368,1368_Item_HelmatLV2_Black.png,연탄 두건
+1369,1369_Item_Special_AR_RPD_1.png,RPD 발사 속도 모듈
+1370,1370_Item_BP_Special_AR_RPD_1.png,설계도: RPD 발사 속도 모듈
+1371,1371_Item_FrostbiteOintment.png,동상 연고
+1372,1372_Item_Key_JLab_StormZone.png,연구소 텔레포트존 열쇠
+1373,1373_Item_Bullet_Rocket_H.png,로켓탄 Lv.2
+1374,1374_Item_EGun_Turret_MG.png,기관총 터렛
+1375,1375_Item_BaseDeco_Test.png,기지 장식: 새해
+1376,1376_Item_BaseWallPaper_Test.png,벽지: 아늑한 분위기
+1377,1377_Item_BaseDeco_Halloween.png,기지 장식: 잭오랜턴
+1378,1378_Item_BaseWallPaper_White.png,벽지: JLab
+1379,1379_Item_Helmat_Killa.png,Maska-1SCh KE
+1380,1380_Item_Helmat_Tagilla.png,"""UBEY"""
+1381,1381_Item_ArmorLV5_Killa.png,6B13 킬라
+1382,1382_Item_ArmorLV5_Tagilla.png,AVS TE
+1383,1383_Item_Hammer_Tagilla.png,Superfors DB 2020
+1384,1384_Item_Model_Killa.png,킬라 모형
+1385,1385_Item_Model_Tagilla.png,타길라 모형
+1386,1386_Item_SHT_AA12_Normal.png,AA-12
+1387,1387_Item_Helmat_Tagilla_Basaka.png,"""ZABEY"""
+1388,1388_Item_BaseWallPaper_NewYear.png,벽지: 새해
+1389,1389_Item_BaseWallPaper_Rock.png,벽지: 바위
+1390,1390_Item_BaseWallPaper_Warehouse.png,벽지: 창고
+1391,1391_Item_BaseDeco_Snow.png,기지 장식: 스노우
+1392,1392_Item_BoomCar.png,폭탄 카트
+1393,1393_Item_Shit_Gold.png,골든 응가
+1394,1394_Item_Quest_633_FireWork.png,폭죽
+1395,1395_Item_Hammer_Tagilla.png,Superfors DB 2020
+1396,1396_Item_NM_NMGun_Elec.png,나노총
+1397,1397_Item_Ticket_SnowMilitaryBase.png,실험 구역 승선표
+1398,1398_Item_Special_NM_NMGun_1.png,바이오 나노머신 부품
+1399,1399_Item_Quest_Letter_EquipmentMercent.png,옛 친구의 편지
+1400,1400_Item_Injection_Tagilla.png,타길라의 약품
+1401,1401_Item_Injection_Tagilla_Basaka.png,미노타우로스 약품
+1402,1402_Item_HackerDevice.png,멍텅구리 해킹 장치
+1403,1403_Item_Information_Maze.png,미로 정보
+1404,1404_Item_PrinterHotend.png,프린터 핫엔드
+1405,1405_Item_Quest_613_JlabEmployeeList.png,이동식 하드 드라이브: J-Lab 직원 서류
+1406,1406_Item_Quest_616_ShippingList.png,운송 목록
+1407,1407_Item_Quest_641_VidaNote.png,추적 노트
+1408,1408_Item_Quest_654_BluePaperBox.png,파란 종이박스
+1409,1409_Item_Quest_654_InformationCodeT.png,이동식 하드 드라이브: 코드네임 T
+1410,1410_Item_Quest_656_TradingRecords.png,거래 기록
+1411,1411_Item_Quest_657_BlueBall.png,파란 공
+1412,1412_Item_Quest_657_RedBall.png,빨간 공
+1413,1413_Item_Quest_671_FoPhoto.png,부처 형의 사진
+1414,1414_Item_Key_Card_Maze.png,Labyrinth 출입카드
+1415,1415_Item_Key_SnowMilitary_SenorEngineer.png,엔지니어의 집 열쇠
+1416,1416_Item_Quest_618_MicroCamera.png,소형 카메라
+1417,1417_Item_Key_Farm_Nursing_Toilet.png,요양원 화장실 열쇠
+1418,1418_ArmorLV4_Fleeze.png,프리즈의 방어구
+1419,1419_ArmorLV4_Igny.png,이그니의 방어구
+1420,1420_HelmatLV4_Fleeze.png,프리즈의 헬멧
+1421,1421_HelmatLV4_Igny.png,이그니의 헬멧
+1422,1422_Item_ShitStick.png,응가 스틱
+1423,1423_Item_GoldDumbbell.png,황금 덤벨
+1424,1424_Item_CPU.png,CPU
+1425,1425_Item_RAM.png,램
+1426,1426_Item_SSD.png,M.2 SSD
+1427,1427_Item_GoldShit.png,골든 응가
+1428,1428_Item_AED.png,제세동기
+1429,1429_Item_Ophthalmoscope.png,검안경
+1430,1430_Item_TankBattery.png,탱크 배터리
+1431,1431_Item_SHT_Saiga12_Normal.png,Saiga-12K
+1432,1432_Item_SHT_Saiga12_TagillaB.png,Saiga-12K 타길라 개조
+1433,1433_Item_SMG_AK74_Tagilla.png,AK-74U 타길라 개조
+1434,1434_Item_Bullet_NM_Normal.png,나노 탄환
+1435,1435_Item_AnimalWeapon.png,맨손
+1436,1436_Item_AnimalWeapon.png,맨손
+1437,1437_Item_Hammer_Tagilla_B.png,체인 쌍날 도끼
+1438,1438_Item_Hammer_Tagilla_B.png,체인 쌍날 도끼
+1439,1439_Item_3DMaterial.png,3D 프린터 재료
+1440,1440_Item_Quest_618_Card_Maze_Empty.png,프로토타입 출입카드
+1441,1441_Item_LightSaber.png,라이트세이버
+1442,1442_Item_Armor_ColdProtect.png,방한 작업복
+1443,1443_Item_Helmat_ColdProtect.png,방한 작업 헬멧
+1444,1444_Item_ArmorLV3ColdProtection.png,Lv.3 방한 작업복
+1445,1445_Item_Print_HelmatLV4_SnowBoss.png,설계도: 방한 헬멧
+1446,1446_Item_Print_ArmorLV4_SnowBoss.png,설계도: 방한 아머
+1447,1447_Item_Print_HelmatLV4_Snow.png,설계도: Lv.4 설원 헬멧
+1448,1448_Item_Print_ArmorLV4_Snow.png,설계도: Lv.4 설원 방탄복
+1449,1449_Item_Key_Maze_Interrogation.png,심문실 열쇠
+1450,1450_Item_Key_Maze_IronGate.png,철문 열쇠
+1451,1451_Item_Key_Maze_RestRoom.png,미로 휴게실 열쇠
+1452,1452_Item_Special_NM_NMGun_2.png,나노총 기계 제어 모듈
+1453,1453_Item_Print_Special_NM_NMGun_1.png,설계도: 바이오 나노머신 부품
+1454,1454_Item_RussianBeard.png,커다란 수염
+1455,1455_Item_Print_NM_NMGun_Elec.png,설계도: 나노총
+1456,1456_Item_Print_Bullet_NM_Normal.png,설계도: 나노 탄환
+1457,1457_Item_Print_ARR_AHBow_Ice.png,설계도: 툰드라 리커브 보우
+1458,1458_Item_Print_ARR_AHBow_Normal.png,설계도: 리커브 보우
+1459,1459_Item_Print_Bullet_ARR_Piercing2.png,설계도: 기본 철갑 화살
+1460,1460_Item_Print_Bullet_ARR_Piercing4.png,설계도: 중급 철갑 화살
+1461,1461_Item_Print_Special_ARR_AHBow_1.png,설계도: 리커브 보우 연사 모듈
+1462,1462_Item_EGun_SnowGun_Ice.png,???
+1463,1463_Item_Print_BoomCar.png,설계도: 폭탄 카트
+1464,1464_Item_Print_LightSaber.png,설계도: 라이트세이버
+1465,1465_Item_Print_RKT_SnowGun_Ice.png,설계도: 눈덩이 총
+1466,1466_Item_Print_SHT_AA12_Normal.png,설계도: AA-12
+1467,1467_Item_Print_SHT_Saiga12_Normal.png,설계도: Saiga-12K
+1468,1468_Item_Print_SNP_TecSniper_Elec.png,설계도: TS-128 스마트형 저격소총
+1469,1469_Item_Print_Special_Melee_LightSaber_1.png,설계도: 라이트세이버 반격 모듈
+1470,1470_Item_Print_Special_Poop_ShitGun_1.png,설계도: 응가총 사거리 모듈
+1471,1471_Item_Print_Special_RKT_SnowGun_1.png,설계도: 눈덩이 총 강화 모듈
+1472,1472_Item_Print_Special_SHT_SnowBoss_1.png,설계도: BSG 집속 모듈
+1474,1474_Item_Print_Special_SNP_TecSniper_1.png,설계도: TS-128 브레인컴퓨터 모듈
+1475,1475_Item_Special_Melee_LightSaber_1.png,라이트세이버 반격 모듈
+1476,1476_Item_Special_Poop_ShitGun_1.png,응가총 사거리 모듈
+1477,1477_Item_Special_RKT_SnowGun_1.png,눈덩이 총 강화 모듈
+1478,1478_Item_Special_SHT_SnowBoss_1.png,BSG 집속 모듈
+1479,1479_Item_Special_SNP_TecSniper_1.png,TS-128 브레인컴퓨터 모듈
+1480,1480_Item_SNP_TecSniper_Elec.png,TS-128 스마트형 저격소총
+1481,1481_Item_Key_SnowMilitary_Villa.png,별장 열쇠
+1482,1482_Item_Key_SnowMilitary_StudyRoom.png,2번 공간 연구소 열쇠
+1483,1483_Item_Key_SnowMilitary_SpaceResearch.png,공간 연구소 열쇠
+1484,1484_Item_Key_SnowMilitary_PresidentialSuite.png,프레지덴셜 스위트룸 열쇠
+1485,1485_Item_Key_SnowMilitary_TankRoom.png,탱크룸 열쇠
+1486,1486_Item_Key_SnowMilitary_HunterRoom.png,사냥꾼의 집 열쇠
+1487,1487_Item_Special_SHT_Hand_1.png,수제 사냥총 사신 모듈
+1488,1488_Item_Special_SMG_UZI_1.png,UZI 정밀 사격 모듈
+1489,1489_Item_Special_SNP_Balett_1.png,M107 기동화 모듈
+1490,1490_Item_Print_Special_SHT_Hand_1.png,설계도: 수제 사냥총 사신 모듈
+1491,1491_Item_Print_Special_SMG_UZI_1.png,설계도: UZI 정밀 사격 모듈
+1492,1492_Item_Print_Special_SNP_Balett_1.png,설계도: M107 기동화 모듈
+1493,1493_Item_Totem_WarmStone.png,웜스톤
+1494,1494_Item_BP_Totem_WarmStone.png,설계도: 웜스톤
+1495,1495_Item_Special_SNP_M700_1.png,M700 특화 모듈
+1496,1496_Item_Print_Special_SNP_M700_1.png,설계도: M700 특화 모듈
+1497,1497_Item_MAG_ASh12_Normal.png,ASh-12
+1498,1498_Item_GreenBat.png,그린배트 리튬 전지
+1499,1499_Item_Wireless_Ming.png,무선 모듈
+1500,1500_Item_Shell.png,OFZ 30×160mm 포탄
+1501,1501_Item_SnowBallWithStone.png,강화형 눈덩이
+1502,1502_Item_BP_MAG_ASh12_Normal.png,설계도: ASh-12
+1503,1503_Item_BP_SHT_AA12_Normal.png,설계도: AA-12
+1504,1504_Item_BP_SHT_Saiga12_Normal.png,설계도: Saiga-12
+1505,1505_Item_BP_IceGrenade.png,설계도: 서리탄
+1506,1506_Item_Formula_SnowBallWithStone.png,레시피: 강화형 눈덩이
+1507,1507_Item_BlueEye.png,???
+1508,1508_Item_EGun_Magic_Blue.png,???
+1509,1509_Item_Key_SnowMilitary_SmallControlRoom.png,작은 제어실 열쇠
+1510,1510_Item_ElecStick.png,전기봉
+1511,1511_Item_Print_ElecStick.png,설계도: 전기봉
+1512,1512_Item_Bullet_Poop_Gold.png,골든 응가탄
+1513,1513_Item_BP_Bullet_Poop_Gold.png,설계도: 골든 응가탄
+1514,1514_Item_Figurine_Horse.png,포니 조각상
+1515,1515_Item_Quest_1000_CollectionProof.png,대수집가의 증명
+1516,1516_Item_Figurine_Lion.png,사자 조각상
+1517,1517_Item_Helmat_HorseMask.png,포니머리 가면
+1518,1518_Item_EGun_Magic_Ring_WhiteHorse.png,
+1519,1519_Item_Helmat_LionDance.png,사자머리 모자
+1520,1520_Item_Print_RKT_FireWork_Fire.png,설계도: 폭죽총
+1521,1521_Item_RKT_FireWork_Fire.png,폭죽총
+1522,1522_Item_Print_Helmat_LionDance.png,설계도: 사자머리 모자
+1523,1523_Item_Bullet_FireWorks_Normal.png,폭죽 탄환
+1524,1524_Print_Bullet_FireWorks_Normal.png,설계도: 폭죽 탄환
+1525,1525_Item_Bullet_Plant_AR.png,
+1526,1526_Item_Plant_AR_Normal.png,
+1527,1527_Item_Bullet_Plant_BR.png,
+1528,1528_Item_Plant_BR_Normal.png,
+1529,1529_Item_Plant_PST_Normal.png,
+1530,1530_Item_Plant_SHT_Fire.png,
+1531,1531_Item_Plant_SHT_Normal.png,
+1532,1532_Item_Plant_SMG_Normal.png,
+1533,1533_Item_EGun_AR_Zombie.png,
+1534,1534_Item_AnimalWeapon.png,맨손
+1535,1535_Item_AnimalWeapon.png,맨손
+1536,1536_Item_Cabbage.png,
+1537,1537_Item_Hazelnut.png,
+1538,1538_Item_Meat.png,
+1539,1539_Item_Pea.png,
+1540,1540_Item_Sunflower.png,
+1541,1541_Item_Wheat.png,
+1542,1542_Item_Seed_Cabbage.png,
+1543,1543_Item_Seed_Hazelnut.png,
+1544,1544_Item_Seed_Pea.png,
+1545,1545_Item_Seed_Sunflower.png,
+1546,1546_Item_Seed_Wheat.png,
+1547,1547_Item_SNP_GunFire_Normal.png,
+1548,1548_Item_SMG_GunFire_Normal.png,
+1549,1549_BP_SMG_GunFire_Normal.png,
+1550,1550_BP_SNP_GunFire_Normal.png,
+1551,1551_Quest_Box_GunFire_2002.png,
+1552,1552_Item_Figurine_TaiZi.png,
+1553,1553_Item_Bullet_EnemyEX_Piercing1.png,
+1554,1554_Item_Bullet_EnemyEX_Piercing2.png,
+1555,1555_Item_Bullet_EnemyEX_Piercing3.png,
+1556,1556_Item_Bullet_EnemyEX_Piercing4.png,
+1557,1557_Item_Bullet_EnemyEX_Piercing5.png,
+1558,1558_Item_Bullet_EnemyEX_Piercing6.png,
+1559,1559_Item_BarbedWire_NPC_Mud.png,???
+1560,1560_Item_Armor_LifeRing.png,원형 튜브
+1561,1561_Item_PST_MingChao_Carletta.png,죽음과 춤
+1562,1562_Item_PST_MingChao_Lynae.png,스펙트럼 블래스터
+1563,1563_Item_SNP_MingChao_Carletta.png,
+1564,1564_Item_Quest_DeliverBox_2102.png,특별한 상자
+1565,1565_Item_Quest_2103_PaintCan.png,페인트통
+1566,1566_Item_Quest_2105_MoldableCrystal.png,가소성 결정체
+1567,1567_Item_BP_PST_MingChao_Carletta.png,설계도: 죽음과 춤
+1568,1568_Item_BP_PST_MingChao_Lynae.png,설계도: 스펙트럼 블래스터
+1569,1569_BP_SNP_MingChao_Carletta.png,
+1570,1570_Item_Cartridge_Island.png,아일랜드 챌린지
+1571,1571_Item_VehicleGun_Spider_Rifle.png,???
+1572,1572_Item_Cartridge_MouseDodger.png,D-Max
+1573,1573_Item_Key_Island_SafeBox.png,황금 열쇠
+1574,1574_Item_Key_Card_Island_TrainingBase.png,섬 시설 출입카드
+1575,1575_Item_PP_WalkSpeed.png,강화: 가벼운 걸음
+1576,1576_Item_PP_ArmorSet.png,강화: 철벽
+1577,1577_Item_PP_BallisticControl.png,강화: 안정적 탄도
+1578,1578_Item_PP_BleedImmunity.png,강화: 혈액 응고
+1579,1579_Item_PP_BodyArmor.png,강화: 가죽 갑옷
+1580,1580_Item_PP_CarrySet.png,강화: 원행
+1581,1581_Item_PP_ChargedHeadshot.png,강화: 차지 저격
+1582,1582_Item_PP_DashSpeed.png,강화: 구르기
+1583,1583_Item_PP_ElementPhysics.png,강화: 충격 저항
+1584,1584_Item_PP_ElementResist.png,강화: 위험 회피
+1585,1585_Item_PP_Endurance.png,강화: 지구력
+1586,1586_Item_PP_EnergyCost_WaterCost.png,강화: 절감
+1587,1587_Item_PP_FocusedHeadshot.png,강화: 정신 집중
+1588,1588_Item_PP_FoodGain_HealGain.png,강화: 자양
+1589,1589_Item_PP_GrowingArmor.png,강화: 방어구 중첩
+1590,1590_Item_PP_Guardian.png,강화: 수호
+1591,1591_Item_PP_GunCore.png,강화: 화력
+1592,1592_Item_PP_GunDamageMultiplier.png,강화: 총기 화력
+1593,1593_Item_PP_GunDamage_GunCrit.png,강화: 헤드샷
+1594,1594_Item_PP_GunDistance_BulletSpeed.png,강화: 탄도
+1595,1595_Item_PP_GunMaster.png,강화: 명사수
+1596,1596_Item_PP_GunShoot_GunScatter.png,강화: 속사
+1597,1597_Item_PP_HeadArmor.png,강화: 머리 방어구
+1598,1598_Item_PP_HearingAbility.png,강화: 청취
+1599,1599_Item_PP_InventoryCapacity.png,강화: 배낭
+1600,1600_Item_PP_Inventory_MaxWeight.png,강화: 운반
+1601,1601_Item_PP_MaxEnergy_MaxWater.png,강화: 감로수
+1602,1602_Item_PP_MaxHealth.png,강화: 생명력
+1603,1603_Item_PP_MaxHealth_Stamina.png,강화: 체력 단련
+1604,1604_Item_PP_MaxWeight.png,강화: 소지 중량
+1605,1605_Item_PP_MeleeCore.png,강화: 용맹
+1606,1606_Item_PP_MeleeCrit.png,강화: 참격
+1607,1607_Item_PP_MeleeDamageMultiplier.png,강화: 투지
+1608,1608_Item_PP_Moveability.png,강화: 동작술
+1609,1609_Item_PP_NightVisionScout.png,강화: 야간 순찰
+1610,1610_Item_PP_PainImmunity.png,강화: 통증 완화
+1611,1611_Item_PP_PetCapcity.png,강화: 동료
+1612,1612_Item_PP_PoisonImmunity.png,강화: 독성 면역
+1613,1613_Item_PP_QuietRecovery.png,강화: 요양
+1614,1614_Item_PP_ReloadSpeed_RecoilControl.png,강화: 안정적 장전
+1615,1615_Item_PP_RunningFury.png,강화: 돌진
+1616,1616_Item_PP_RunSpeed.png,강화: 질주
+1617,1617_Item_PP_RunSpeed_RunAcc.png,강화: 전력 질주
+1618,1618_Item_PP_SoundRange.png,강화: 은신
+1619,1619_Item_PP_Stamina.png,강화: 차지
+1620,1620_Item_PP_StaminaCore.png,강화: 활력
+1621,1621_Item_PP_SustainedFire.png,강화: 연사
+1622,1622_Item_PP_ViewAngle_ViewDistance.png,강화: 원거리 시야
+1623,1623_Item_PP_ViewSense.png,강화: 감지
+1624,1624_Item_PP_WalkSpeed_WalkAcc.png,강화: 질풍
+1625,1625_Item_PP_WoundTempering.png,강화: 상처 치유
+1626,1626_Item_Key_Card_Island_Exit.png,클리어 출입카드
+1627,1627_Item_AR_QBZ191_Normal.png,QBZ-191
+1628,1628_Item_RKT_WaterGun_Ice.png,물풍선 총
+1629,1629_Item_SMG_MPX_Normal.png,MPX
+1630,1630_Item_WaterBall.png,물풍선
+1631,1631_Item_Armor_Island_Blue.png,비치웨어(눈꽃)
+1632,1632_Item_Armor_Island_Coconut.png,비치웨어(코코넛)
+1633,1633_Item_Armor_Island_Pineapple.png,비치웨어(파인애플)
+1634,1634_Item_Helmat_Island_Banana.png,바나나 껍질
+1635,1635_Item_Helmat_Island_Headscarf.png,두건
+1636,1636_Item_Helmat_Island_Straw.png,밀짚모자
+1637,1637_Item_BP_AR_QBZ191_Normal.png,설계도: QBZ-191
+1638,1638_Item_BaseWallPaper_Island.png,벽지: 아일랜드
+1639,1639_Item_BP_SMG_MPX_Normal.png,설계도: MPX
+1640,1640_Item_Formula_WaterBall.png,레시피: 물풍선
+1644,1644_Item_Quest_DeliverBox_2201.png,자료 한 상자
+1645,1645_Item_Quest_DeliverBox_2202.png,종이박스
+1646,1646_Item_SeaShell.png,조개껍데기
+1647,1647_Item_Key_Island_SpeedyRoom.png,산꼭대기 집 열쇠
+1648,1648_Item_BP_RKT_WaterGun_Ice.png,설계도: 물풍선 총
+1649,1649_Item_IslandShop.png,휴대용 자판기
+1650,1650_Item_FaceMask_MinionGoggles.png,고글
