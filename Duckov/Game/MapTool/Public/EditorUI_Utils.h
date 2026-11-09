@@ -36,7 +36,7 @@ inline wstring_t To_Wide(const char* pUTF8)
 }
 
 // { pDisplayName, pPath } 목록을 콤보로 그린다.
-// pItems / iCount : 콤보에 보일 목록 (g_Meshes, _countof(g_Meshes))
+// pItems / iCount : 콤보에 보일 목록 (g_Models, _countof(g_Meshes))
 // strCurrent      : 객체가 지금 가진 경로 (정규화된 태그, 소문자)
 // 반환            : 다른 항목을 고른 프레임에만 그 항목의 원본 경로, 아니면 nullptr
 inline const wchar_t* Render_AssetCombo(const char* pLabel, const vector<ASSET_ENTRY>& Items, const wstring_t& strCurrentPath)

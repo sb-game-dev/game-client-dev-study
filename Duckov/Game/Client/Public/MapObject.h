@@ -42,7 +42,6 @@ public:
     virtual void Load_Extra(ifstream& In, MAPOBJECT_DESC& Desc) {}
 
     const wstring_t& Get_MeshPath() const { return m_strMeshPath; }
-    const wstring_t& Get_TexturePath() const { return m_strTexturePath; }
 
 protected:
     void Apply_Transform();

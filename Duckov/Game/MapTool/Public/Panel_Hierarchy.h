@@ -18,7 +18,6 @@ private:
 private:
 	void		Create_Object(const wstring_t& pPrototypeTag);
 	void		Create_Terrain();
-	void		Create_Cube();
 	void		Create_StaticProp(const wstring_t& pPrototypeTag);
 	void		Delete_Selected();
 

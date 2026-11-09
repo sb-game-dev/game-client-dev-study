@@ -19,7 +19,6 @@ namespace Client
 		inline constexpr const wchar_t* Texture_Mirror = L"Prototype_Component_Texture_Mirror";
 		inline constexpr const wchar_t* Texture_Terrain_Blend = L"Prototype_Component_Texture_Terrain_Blend";
 		inline constexpr const wchar_t* Texture_Terrain_Layer = L"Prototype_Component_Texture_Terrain_Layer";
-		inline constexpr const wchar_t* Texture_Prop = L"Prototype_Component_Texture_Prop";
 
 		// ---------- VIBuffer ----------
 		inline constexpr const wchar_t* VIBuffer_Rect = L"Prototype_Component_VIBuffer_Rect";

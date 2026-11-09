@@ -3,8 +3,8 @@
 #include "MapTool_Cam.h"
 #include "StaticProp.h"
 #include "Hill.h"
-#include "Cube.h"
 #include "Fog.h"
+
 CLoader_MapTool::CLoader_MapTool(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     : m_pDevice{ pDevice }
     , m_pContext{ pContext }
@@ -83,10 +83,6 @@ HRESULT CLoader_MapTool::Loading_For_MapToolLV()
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Normalize_AssetPath(TEXT("../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/Layer%d.png")),
         CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/Layer%d.png"), 3))))
-        return E_FAIL;
-
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Normalize_AssetPath(TEXT("Ex/WireFence.dds")),
-        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/WireFence.dds"), 1))))
         return E_FAIL;
 
     lstrcpy(m_szLoadingText, TEXT("모델을 준비중입니다."));
@@ -185,10 +181,6 @@ HRESULT CLoader_MapTool::Loading_For_MapToolLV()
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::Obj_Hill,
         CHill::Create(m_pDevice, m_pContext))))
-        return E_FAIL;
-
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::Obj_Cube,
-        CCube::Create(m_pDevice, m_pContext))))
         return E_FAIL;
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::Obj_Fog,

@@ -22,15 +22,16 @@ public:
     virtual void Late_Update(f32_t fTimeDelta);
     virtual HRESULT Render();
 
-    void                SetPlayer(shared_ptr<CGameObject> pPlayer) { m_pPlayer = pPlayer; }
     void                AddShakeTime(f32_t fDeltaTime) { m_fShakeTime += fDeltaTime; }
 private:
-    weak_ptr<CGameObject>       m_pPlayer;
-    f32_t                       m_fShakeTime = {};
-    f32_t                       m_fShakeDistance = { 1.f };
-    float3_t                    m_vShakeOffset = {};
-    float4_t                    m_vAt = {};
-    float4_t                    m_vOffset = { 0.f,15.f,-10.f,0.f };
+    weak_ptr<class CPlayer>         m_pPlayer;
+    weak_ptr<class CClient_Mouse>   m_pClientMouse;
+    f32_t                           m_fShakeTime = {};
+    f32_t                           m_fShakeDistance = { 1.f };
+    float3_t                        m_vShakeOffset = {};
+    float4_t                        m_vAt = {};
+    float4_t                        m_vOffset = { 0.f,15.f,-10.f,0.f };
+
 private:
     void                Shake(f32_t fDeltaTime);
 public:

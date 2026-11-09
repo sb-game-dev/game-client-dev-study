@@ -63,21 +63,6 @@ HRESULT CStaticProp ::Render()
     return Render_Mesh(m_pTransformCom->Get_World(), m_pRS.Get(), m_pPS);
 }
 
-HRESULT CStaticProp::Change_Texture(const wstring_t& strTexturePath)
-{
-    const wstring_t strTexTag = Normalize_AssetPath(strTexturePath);
-    if (false == CGameInstance::Get().Has_Prototype(m_iLevelIndex, strTexTag))
-        return E_FAIL;                              // 등록 안 된 경로 → 기존 텍스처 유지
-
-    shared_ptr<CTexture> pNew;
-    Remove_Component(TEXT("Com_Texture"));
-    if (FAILED(__super::Add_Component(m_iLevelIndex, strTexTag, TEXT("Com_Texture"), pNew)))
-        return E_FAIL;
-
-    m_pTextureCom = pNew;
-    m_strTexturePath = strTexTag;
-    return S_OK;
-}
 
 HRESULT CStaticProp::Change_Mesh(const wstring_t& strMeshPath)
 {
@@ -124,7 +109,6 @@ HRESULT CStaticProp ::Ready_ConstantBuffer()
 HRESULT CStaticProp::Ready_Mesh()
 {
     if (FAILED(Change_Mesh(m_strMeshPath)))       return E_FAIL;
-    //if (FAILED(Change_Texture(m_strTexturePath))) return E_FAIL;
     return S_OK;
 }
 
@@ -162,8 +146,6 @@ HRESULT CStaticProp::Bind_ShaderResources(const matrix_t& matWorld)
     if (FAILED(m_pCB->Bind_Pixel_ShaderResource(0, &m_tCBData)))
         return E_FAIL;
 
-    //if (FAILED(m_pTextureCom->Bind_Pixel_ShaderResource(0, 0)))
-    //    return E_FAIL;
     return S_OK;
 }
 

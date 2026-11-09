@@ -11,7 +11,7 @@ HRESULT CPanel_Inspector::Initialize()
     {
         wchar_t szFileName[MAX_PATH] = {};
         _wsplitpath_s(ModelTag.c_str(), nullptr, 0, nullptr, 0, szFileName, MAX_PATH, nullptr, 0);
-        g_Meshes.push_back({ To_UTF8(szFileName), ModelTag });
+        g_Models.push_back({ To_UTF8(szFileName), ModelTag });
     }
     return S_OK;
 }
@@ -66,17 +66,11 @@ void CPanel_Inspector::Render(const PANEL_RECT& tRect)
                 if (ImGui::CollapsingHeader("Components", ImGuiTreeNodeFlags_DefaultOpen))
                 {
 
-                    if (auto pPath = Render_AssetCombo("Model", g_Meshes, pProp->Get_MeshPath()))
+                    if (auto pPath = Render_AssetCombo("Model", g_Models, pProp->Get_MeshPath()))
                     {
                         if (FAILED(pProp->Change_Mesh(pPath)))
                             MSG_BOX("Mesh Change Failed");
                     }
-
-                    //if (auto pPath = Render_AssetCombo("Texture", g_Textures, _countof(g_Textures), pProp->Get_TexturePath()))
-                    //{
-                    //    if (FAILED(pProp->Change_Texture(pPath)))
-                    //        MSG_BOX("Texture Change Failed");
-                    //}
                 }
             }
         }

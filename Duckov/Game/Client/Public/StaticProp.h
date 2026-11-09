@@ -21,11 +21,9 @@ public:
     virtual	void	Late_Update(f32_t fDeltaTime) override;
     virtual HRESULT	Render() override;
 
-    HRESULT Change_Texture(const wstring_t& strTexturePath);
     HRESULT Change_Mesh(const wstring_t& strMeshPath);
 
 private:
-    shared_ptr<CTexture>            m_pTextureCom;
     shared_ptr<CModel>              m_pModelCom;
     shared_ptr<CVertexShader>       m_pVS;
     shared_ptr<CPixelShader>        m_pPS;

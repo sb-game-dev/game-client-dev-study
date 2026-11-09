@@ -2,7 +2,7 @@
 #include "GameObject.h"
 #include "Player.h"
 #include "Inven.h"
-
+#include "Client_Mouse.h"
 const f32_t g_fMaxFov = 60.f;
 const f32_t g_fMinFov = 50.f;
 
@@ -50,23 +50,25 @@ void CQuarterView_Cam::Update(f32_t fDeltaTime)
 	auto pPlayer = m_pPlayer.lock();
 	if (nullptr == pPlayer)
 	{
-		pPlayer = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Player"));
+		pPlayer = dynamic_pointer_cast<CPlayer>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Player")));
 		if (nullptr == pPlayer)
 			return;
 		m_pPlayer = pPlayer;
 	}
 	vector_t vPlayerPos = pPlayer->Get_Transform()->Get_State(STATE::POSITION);
 
-	auto pInven = static_pointer_cast<CInven>(CGameInstance::Get().Find_GameObject(
-		ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", L"GameObject_Inven"));
-
-	bool_t bInvenOpen = (nullptr != pInven && pInven->Is_Open());
-
 	// At ¼³Á¤
-	if (!bInvenOpen && CGameInstance::Get().Mouse_Pressing(DIM::RB) && !CGameInstance::Get().Key_Pressing(DIK_LSHIFT))
+	bool_t bAiming = pPlayer->Is_Aiming();
+	if (bAiming)
 	{
-		CGameInstance::Get().Get_MainCamera();
-		auto pMouse = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", GO::Client_Mouse);
+		auto pMouse = m_pClientMouse.lock();
+		if (nullptr == pMouse)
+		{
+			pMouse = dynamic_pointer_cast<CClient_Mouse>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", GO::Client_Mouse));
+			if (nullptr == pMouse)
+				return;
+			m_pClientMouse = pMouse;
+		}
 		auto vWorldMousePos = pMouse->Get_Transform()->Get_State(STATE::POSITION);
 
 		XMStoreFloat4(&m_vAt, (vWorldMousePos + vPlayerPos) / 2);
@@ -109,14 +111,12 @@ void CQuarterView_Cam::Update(f32_t fDeltaTime)
 			m_fFovy = g_fMaxFov;
 	}
 
-	if (!bInvenOpen)
-		Shake(fDeltaTime);
+	Shake(fDeltaTime);
 	Update_PipeLines();
 }
 
 void CQuarterView_Cam::Late_Update(f32_t fDeltaTime)
-{	
-
+{
 	__super::Late_Update(fDeltaTime);
 }
 

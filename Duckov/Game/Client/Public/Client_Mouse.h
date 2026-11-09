@@ -34,6 +34,9 @@ public:
 	void					SetMouseState(MOUSESTATE eMouseState) { m_eMouseState = eMouseState; }
 
 private:
+	weak_ptr<class CPlayer>			m_pPlayer;
+	weak_ptr<class CInven>			m_pInven;
+
 	shared_ptr<CTexture>			m_pTextureCom = { nullptr };
 	shared_ptr<CVertexShader>		m_pVS = { nullptr };
 	shared_ptr<CPixelShader>		m_pPS = { nullptr };

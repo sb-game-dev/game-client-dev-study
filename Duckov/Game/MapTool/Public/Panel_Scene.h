@@ -18,7 +18,6 @@ private:
 	float3_t m_vPickPos = {};
 private:
 	void		Create_Object(const wstring_t& pPrototypeTag, float3_t vPickPos);
-	void		Create_StaticProp(const wstring_t& pPrototypeTag);
 
 public:
 	static unique_ptr<CPanel_Scene> Create(EDITOR_CONTEXT& Context);

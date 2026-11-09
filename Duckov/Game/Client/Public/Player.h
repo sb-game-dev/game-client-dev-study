@@ -29,6 +29,8 @@ public:
 	virtual HRESULT	Render_Occluded() override;
 
 	virtual void	AdjustPosY();
+	virtual bool_t	Is_Aiming() const { return m_bAiming; }
+	virtual bool_t	Is_Firing() const { return m_bFiring; }
 
 private:
 	float4_t						m_vGroundPlane = { 0.f, 1.f, 0.f, 0.f };	// ¹ß¹Ø Æò¸é (a,b,c,d)
@@ -45,6 +47,8 @@ private:
 	ComPtr<ID3D11RasterizerState>	m_pRS_Reflect = { nullptr };
 
 	weak_ptr<class CInven>			m_pInven;
+	bool_t							m_bAiming = { false };
+	bool_t							m_bFiring = { false };
 
 private:
 	HRESULT			Ready_Components();

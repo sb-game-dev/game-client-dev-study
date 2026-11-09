@@ -247,8 +247,7 @@ void CPanel_Scene::Create_Object(const wstring_t& pPrototypeTag, float3_t vPickP
 {
     CStaticProp::STATICPROP_DESC Desc{};
     Desc.iLevelIndex = ETOUI(LEVEL::MAPTOOL);
-    Desc.strMeshPath = g_Meshes[0].strPath;           // 기본: cube
-    Desc.strTexturePath = g_Textures[0].pPath;      // 기본: 첫 텍스처
+    Desc.strMeshPath = g_Models[0].strPath;        
     Desc.bEditorMode = true;
     Desc.vPosition = vPickPos;
     wstring_t strTag;
@@ -271,9 +270,7 @@ void CPanel_Scene::Create_Object(const wstring_t& pPrototypeTag, float3_t vPickP
     m_Context.Select(strTag, CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag));
 }
 
-void CPanel_Scene::Create_StaticProp(const wstring_t& pPrototypeTag)
-{
-}
+
 
 unique_ptr<CPanel_Scene> CPanel_Scene::Create(EDITOR_CONTEXT& Context)
 {

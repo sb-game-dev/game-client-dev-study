@@ -1,5 +1,6 @@
 #include "Scope.h"
 #include "Inven.h"
+#include "Player.h"
 
 CScope::CScope(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     :CGameObject{ pDevice,pContext }
@@ -53,10 +54,25 @@ void CScope::Update(f32_t fTimeDelta)
 void CScope::Late_Update(f32_t fTimeDelta)
 {
     __super::Late_Update(fTimeDelta);
-    auto pInven = static_pointer_cast<CInven>(CGameInstance::Get().Find_GameObject(
-        ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", L"GameObject_Inven"));
+
+    auto pInven = m_pInven.lock();
     if (nullptr == pInven)
-        return;
+    {
+        m_pInven = dynamic_pointer_cast<CInven>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", L"GameObject_Inven"));
+        if (nullptr == pInven)
+            return;
+        m_pInven = pInven;
+    }
+
+    auto pPlayer = m_pPlayer.lock();
+    if (nullptr == pPlayer)
+    {
+        pPlayer = dynamic_pointer_cast<CPlayer>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Player")));
+        if (nullptr == pPlayer)
+            return;
+        m_pPlayer = pPlayer;
+    }
+
     if (pInven->Is_Open())
         return;
 
@@ -67,7 +83,7 @@ void CScope::Late_Update(f32_t fTimeDelta)
     //    || pActiveGun->pAttachments[ETOUI(ATTACH_SLOT::SCOPE)]->fZoom < 2.f)
     //    return;
 
-    if (CGameInstance::Get().Mouse_Pressing(DIM::RB))
+    if (pPlayer->Is_Aiming())
         CGameInstance::Get().Add_RenderGroup(RENDERID::ALPHA_UI, dynamic_pointer_cast<CGameObject>(shared_from_this()));
 }
 HRESULT CScope::Render()

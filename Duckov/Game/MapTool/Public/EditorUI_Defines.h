@@ -66,29 +66,13 @@ static constexpr PLACEABLE s_Placeables[] = {
 };
 
 // { 표시 이름, 경로 } 목록 (Inspector 콤보, Hierarchy 생성 기본값)
-struct ASSET_ITEM
-{
-	const char*		pDisplayName;	// 콤보 표시용
-	const wchar_t*	pPath;			// DESC에 넣을 경로 (텍스처는 Resource 기준 상대 경로)
-};
-
 struct ASSET_ENTRY
 {
 	string    strDisplayName;  // 콤보에 보일 이름 (ImGui용 UTF-8)
 	wstring_t strPath;         // 프로토타입 태그 (정규화된 경로)
 };
 
-inline vector<ASSET_ENTRY> g_Meshes;
+inline vector<ASSET_ENTRY> g_Models;
 
-//inline constexpr ASSET_ITEM g_Meshes[] = {
-//	{ "Duck", L"Characters/0_CharacterModel_Boss_Wu/0_CharacterModel_Boss_Wu.fbx" },
-//	{ "ZeroZoneTree", L"Mesh/Tree/Pfb_Tree_01_1.fbx" },
-//};
-
-inline constexpr ASSET_ITEM g_Textures[] = {
-	{ "WoodCrate01", L"Ex/WoodCrate01.dds" },
-	{ "WoodCrate02", L"Ex/WoodCrate02.dds" },
-	{ "WireFence", L"Ex/WireFence.dds" },
-};
 
 NS_END

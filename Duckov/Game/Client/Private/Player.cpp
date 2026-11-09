@@ -55,6 +55,9 @@ void CPlayer::Priority_Update(f32_t fDeltaTime)
     if (m_bEditorMode)
         return;
 
+    m_bAiming = false;
+    m_bFiring = false;
+
     auto pInven = m_pInven.lock();
     if (nullptr == pInven)
     {
@@ -65,6 +68,7 @@ void CPlayer::Priority_Update(f32_t fDeltaTime)
         m_pInven = pInven;
     }
     bool_t bInvenOpen = (nullptr != pInven && pInven->Is_Open());
+
     if (!bInvenOpen)
     {
         KeyInput(fDeltaTime);
@@ -235,9 +239,13 @@ void CPlayer::KeyInput(f32_t fDeltaTime)
     }
     else
     {
+        m_bAiming = CGameInstance::Get().Mouse_Pressing(DIM::RB);
+        m_bFiring = CGameInstance::Get().Mouse_Pressing(DIM::LB);
         LookAtMouse(fDeltaTime);
         m_pTransformCom->Set_Speed(8.f);
     }
+
+
     auto pInven = m_pInven.lock();
     if (pInven)
     {
@@ -248,6 +256,7 @@ void CPlayer::KeyInput(f32_t fDeltaTime)
         if (CGameInstance::Get().Key_Down(DIK_V))
             pInven->Set_ActiveSlot(EQUIP_SLOT::MELEE);
     }
+    
     vector_t vLook = m_pTransformCom->Get_State(STATE::LOOK);
 
     if (CGameInstance::Get().Key_Pressing(DIK_W))

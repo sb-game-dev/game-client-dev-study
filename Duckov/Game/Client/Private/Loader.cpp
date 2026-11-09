@@ -166,10 +166,6 @@ HRESULT CLoader::Loading_For_GamePlayLV()
         CVIBuffer_SkyBox::Create(m_pDevice, m_pContext))))
         return E_FAIL;
 
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::VIBuffer_Pyramid,
-        CVIBuffer_Pyramid::Create(m_pDevice, m_pContext))))
-        return E_FAIL;
-
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::VIBuffer_Rect,
         CVIBuffer_Rect::Create(m_pDevice, m_pContext))))
         return E_FAIL;
@@ -198,15 +194,8 @@ HRESULT CLoader::Loading_For_GamePlayLV()
         CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_Inventory.hlsl", "PS_MAIN"))))
         return E_FAIL;
 
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::VS_VTXCOL,
-        CVertexShader::Create(m_pDevice, m_pContext,L"../Bin/Shader/Shader_VtxCol.hlsl",VTXCOL::Elements,VTXCOL::iNumElements, "VS_MAIN"))))
-        return E_FAIL;
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::VS_VTXCOL_UI,
         CVertexShader::Create(m_pDevice, m_pContext,L"../Bin/Shader/UI_VertexShader.hlsl",VTXCOL::Elements,VTXCOL::iNumElements, "VS_UI_SCOPE"))))
-        return E_FAIL;
-
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::PS_VTXCOL,
-        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_VtxCol.hlsl", "PS_MAIN"))))
         return E_FAIL;
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::PS_VTXCOL_SCOPE,

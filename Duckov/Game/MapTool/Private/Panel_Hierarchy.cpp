@@ -2,7 +2,6 @@
 #include "Panel_Hierarchy.h"
 #include "StaticProp.h"
 #include "Hill.h"
-#include "Cube.h"
 
 void CPanel_Hierarchy::Render(const PANEL_RECT& tRect)
 {
@@ -72,8 +71,6 @@ void CPanel_Hierarchy::Create_Object(const wstring_t& pPrototypeTag)
 {
     if (pPrototypeTag == Proto::Obj_Hill)
         Create_Terrain();
-    else if (pPrototypeTag == Proto::Obj_Cube)
-        Create_Cube();
     else
         Create_StaticProp(pPrototypeTag);
 }
@@ -106,47 +103,17 @@ void CPanel_Hierarchy::Create_Terrain()
     }
     m_Context.Select(strTag, CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag));
 }
-
-void CPanel_Hierarchy::Create_Cube()
-{
-    CCube::CUBE_DESC Desc{};
-    Desc.iLevelIndex = ETOUI(LEVEL::MAPTOOL);
-    Desc.strMeshPath = g_Meshes[0].strPath;           
-    Desc.strTexturePath = Normalize_AssetPath(g_Textures[2].pPath);
-    Desc.bEditorMode = true;
-
-    wstring_t strTag = {};
-    uint32_t iCubeCnt = { 0 };
-    do {
-        if (iCubeCnt < 10)
-            strTag = L"Cube_0" + to_wstring(iCubeCnt++);
-        else
-            strTag = L"Cube_" + to_wstring(iCubeCnt++);
-    } while (nullptr != CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag));
-
-
-    // 생성 + 선택
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::MAPTOOL), Proto::Obj_Cube,
-        ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag, &Desc)))
-    {
-        MSG_BOX("Create Failed");
-        return;
-    }
-    m_Context.Select(strTag, CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag));
-}
-
 void CPanel_Hierarchy::Create_StaticProp(const wstring_t& pPrototypeTag)
 {
     CStaticProp::STATICPROP_DESC Desc{};
     Desc.iLevelIndex = ETOUI(LEVEL::MAPTOOL);
-    Desc.strMeshPath = g_Meshes[0].strPath;           // 기본: cube
-    Desc.strTexturePath = g_Textures[0].pPath;      // 기본: 첫 텍스처
+    Desc.strMeshPath = g_Models[0].strPath;           // 기본: cube
     Desc.bEditorMode = true;
 
     wstring_t strTag;
 
     do {
-        if (m_Context.m_iNextID++ < 10)
+        if (m_Context.m_iNextID < 10)
             strTag = L"Prop_0" + to_wstring(m_Context.m_iNextID++);
         else
             strTag = L"Prop_" + to_wstring(m_Context.m_iNextID++);

@@ -1,6 +1,7 @@
 #include "Client_Mouse.h"
 #include "QuarterView_Cam.h"
 #include "Inven.h"
+#include "Player.h"
 namespace {
     const f32_t g_SizeX = 24.f;
     const f32_t g_SizeY = 15.f;
@@ -111,9 +112,14 @@ void CClient_Mouse::Update(f32_t fTimeDelta)
         return;
     pCamera->Compute_PickingRay(pt, vRayOrigin, vRayDir);
 
-    auto pPlayer = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", L"GameObject_Player");
+    auto pPlayer = m_pPlayer.lock();
     if (nullptr == pPlayer)
-        return;
+    {
+        pPlayer = dynamic_pointer_cast<CPlayer>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Player")));
+        if (nullptr == pPlayer)
+            return;
+        m_pPlayer = pPlayer;
+    }
 
     float3_t    vPlayerPos = {};
     float3_t    vecOrigin = {};
@@ -128,11 +134,7 @@ void CClient_Mouse::Update(f32_t fTimeDelta)
     f32_t z = (vPlayerPos.y - vecOrigin.y) / vecRayDir.y * vecRayDir.z + vecOrigin.z;
     m_pTransformCom->Set_State(STATE::POSITION,{ x, vPlayerPos.y, z, 1.f });
 
-    auto pInven = static_pointer_cast<CInven>(CGameInstance::Get().Find_GameObject(
-        ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", L"GameObject_Inven"));
-    bool_t bInvenOpen = (nullptr != pInven && pInven->Is_Open());
-
-    if (!bInvenOpen && CGameInstance::Get().Mouse_Pressing(DIM::LB) && m_fRange <= 50.f)
+    if (pPlayer->Is_Firing() && m_fRange <= 50.f)
     {
         m_fRange += 10.f;
         static_pointer_cast<CQuarterView_Cam>(CGameInstance::Get().Get_MainCamera())->AddShakeTime(fTimeDelta * 2);
@@ -154,15 +156,20 @@ HRESULT CClient_Mouse::Render()
 {
     if (FAILED(__super::Render()))
         return E_FAIL;
-    auto pInven = static_pointer_cast<CInven>(CGameInstance::Get().Find_GameObject(
-        ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", L"GameObject_Inven"));
+    auto pInven = m_pInven.lock();
+    if (nullptr == pInven)
+    {
+        pInven = dynamic_pointer_cast<CInven>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Inven")));
+        if (nullptr == pInven)
+            return S_OK;
+        m_pInven = pInven;
+    }
     D3D11_MAPPED_SUBRESOURCE tMapped{};
 
     if (FAILED(m_pContext->Map(m_pInstanceVB.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &tMapped)))
         return E_FAIL;
 
-    bool_t bInvenOpen = (nullptr != pInven && pInven->Is_Open());
-    if (bInvenOpen)
+    if (pInven->Is_Open())
     {
         m_eMouseState = MOUSESTATE::CURSOR;
         auto pDst = reinterpret_cast<float4x4_t*>(tMapped.pData);
