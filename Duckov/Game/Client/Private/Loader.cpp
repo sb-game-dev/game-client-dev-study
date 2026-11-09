@@ -214,7 +214,7 @@ HRESULT CLoader::Loading_For_GamePlayLV()
         return E_FAIL;
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::PS_VTXCOL_SHADOW,
-        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_VtxCol.hlsl", "PS_SHADOW"))))
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_SHADOW"))))
         return E_FAIL;
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::PS_VTXCOL_OCCLUDED,

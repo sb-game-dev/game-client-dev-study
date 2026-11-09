@@ -8,6 +8,7 @@ CMesh::CMesh(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
 HRESULT CMesh::Initialize_Prototype(const aiMesh* pAiMesh, fmatrix_t PreTransformMatrix)
 {
 #pragma region DATA
+    m_iMaterialIndex = pAiMesh->mMaterialIndex;
     m_iNumVertexBuffers = 1;
     m_iNumVertices = pAiMesh->mNumVertices;
     m_iVertexStride = sizeof(VTXMESH);

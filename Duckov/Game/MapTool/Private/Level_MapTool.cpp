@@ -76,7 +76,7 @@ HRESULT CLevel_MapTool::Ready_Layer_GameObject(const tchar_t* pLayerTag)
     // 카메라 사본
     CMapTool_Cam::CAMERA_MAPTOOL_CAM_DESC         CameraDesc{};
     CameraDesc.fDegreeRotPerSec = 180.f;
-    CameraDesc.fSpeedPerSec = 20.f;
+    CameraDesc.fSpeedPerSec = 10.f;
     CameraDesc.vEye = float4_t(0.f, 1.f, -5.f, 1.f);
     CameraDesc.vAt = float4_t(0.f, 1.f, 0.f, 1.f);
     CameraDesc.fFovy = 60.f;

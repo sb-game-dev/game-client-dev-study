@@ -109,10 +109,9 @@ void CPanel_Hierarchy::Create_Terrain()
 
 void CPanel_Hierarchy::Create_Cube()
 {
-
     CCube::CUBE_DESC Desc{};
     Desc.iLevelIndex = ETOUI(LEVEL::MAPTOOL);
-    Desc.strMeshPath = g_Meshes[0].pPath;           
+    Desc.strMeshPath = g_Meshes[0].strPath;           
     Desc.strTexturePath = Normalize_AssetPath(g_Textures[2].pPath);
     Desc.bEditorMode = true;
 
@@ -140,17 +139,17 @@ void CPanel_Hierarchy::Create_StaticProp(const wstring_t& pPrototypeTag)
 {
     CStaticProp::STATICPROP_DESC Desc{};
     Desc.iLevelIndex = ETOUI(LEVEL::MAPTOOL);
-    Desc.strMeshPath = g_Meshes[0].pPath;           // 기본: cube
+    Desc.strMeshPath = g_Meshes[0].strPath;           // 기본: cube
     Desc.strTexturePath = g_Textures[0].pPath;      // 기본: 첫 텍스처
     Desc.bEditorMode = true;
 
     wstring_t strTag;
 
     do {
-        if (m_iNextID < 10)
-            strTag = L"Prop_0" + to_wstring(m_iNextID++);
+        if (m_Context.m_iNextID++ < 10)
+            strTag = L"Prop_0" + to_wstring(m_Context.m_iNextID++);
         else
-            strTag = L"Prop_" + to_wstring(m_iNextID++);
+            strTag = L"Prop_" + to_wstring(m_Context.m_iNextID++);
     } while (nullptr != CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag));
 
     if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::MAPTOOL), pPrototypeTag,

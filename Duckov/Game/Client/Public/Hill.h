@@ -28,6 +28,9 @@ public:
 	virtual f32_t		GetHeight(f32_t x, f32_t z);
 	virtual float4_t	GetPlane(f32_t x, f32_t z);
 
+	virtual const vector<float3_t>& Get_Vertices() { return m_pBufferCom->Get_Vertices(); }
+	virtual const vector<uint32_t>& Get_Indices() { return m_pBufferCom->Get_Indices(); }
+
 public:
 	virtual void Save_Extra(ofstream& Out) const override;            // strLayerPath
 	static  void Read_Extra(ifstream& In, HILL_DESC& Desc);           // 불러올 때 desc 채우기 (3번에서 설명)

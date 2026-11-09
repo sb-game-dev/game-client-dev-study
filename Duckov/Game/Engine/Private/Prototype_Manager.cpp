@@ -1,5 +1,6 @@
 #include "Prototype_Manager.h"
 #include "Prototype.h"
+#include "Model.h"
 
 CPrototype_Manager::CPrototype_Manager()
 {
@@ -47,6 +48,17 @@ void CPrototype_Manager::Clear(uint32_t iClearLevelIndex)
 	if (iClearLevelIndex >= m_iNumLevels)
 		return;
 	m_pPrototypes[iClearLevelIndex].clear();
+}
+
+vector<wstring_t> CPrototype_Manager::Get_ModelTags(uint32_t iLevelIndex)
+{
+	vector<wstring_t> ModelTags;
+	for (auto& pPrototype : m_pPrototypes[iLevelIndex])
+	{
+		if (dynamic_pointer_cast<CModel>(pPrototype.second))
+			ModelTags.push_back(pPrototype.first);
+	}
+	return ModelTags;
 }
 
 shared_ptr<CPrototype> CPrototype_Manager::Find_Prototype(uint32_t iLevelIndex, const wstring_t& strPrototypeTag)

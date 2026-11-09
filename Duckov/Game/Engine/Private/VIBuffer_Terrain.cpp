@@ -12,10 +12,12 @@ HRESULT CVIBuffer_Terrain::Initialize_Prototype(const tchar_t* pHeightMapPath)
     m_iNumVertexBuffers = 1;
     m_iNumVertices = m_ivtxCntX * m_ivtxCntZ;
     m_iVertexStride = sizeof(VTXNORM);
+    m_vVertices.reserve(m_iNumVertices);
 
     m_iNumIndices = (m_ivtxCntX - 1) * (m_ivtxCntZ - 1) * 6;
     m_iIndexStride = 4;
     m_eIndexFormat = DXGI_FORMAT_R32_UINT;
+    m_vIndices.resize(m_iNumIndices);
 
     m_ePrimitiveTopology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 #pragma endregion
@@ -48,6 +50,8 @@ HRESULT CVIBuffer_Terrain::Initialize_Prototype(const tchar_t* pHeightMapPath)
             pVertices[i * m_ivtxCntX + j].vPosition = float3_t( x, GetHeight(x, z), z );
             pVertices[i * m_ivtxCntX + j].vNormal = GetNormal(i, j);
             pVertices[i * m_ivtxCntX + j].Tex = { j * du, i * dv };
+
+            m_vVertices.push_back(pVertices[i * m_ivtxCntX + j].vPosition);
         }
     }
 
@@ -67,26 +71,24 @@ HRESULT CVIBuffer_Terrain::Initialize_Prototype(const tchar_t* pHeightMapPath)
     IndexBufferDesc.MiscFlags = 0;
     IndexBufferDesc.StructureByteStride = m_iIndexStride;
 
-    shared_ptr<uint32_t[]>  pIndices = make_shared<uint32_t[]>(m_iNumIndices);
 
     uint32_t k = 0;
     for (uint32_t i = 0; i < m_ivtxCntZ - 1; ++i)
     {
         for (uint32_t j = 0; j < m_ivtxCntX - 1; ++j)
         {
-            pIndices[k] = i * m_ivtxCntX + j;
-            pIndices[k + 1] = i * m_ivtxCntX + j + 1;
-            pIndices[k + 2] = (i + 1) * m_ivtxCntX + j;
-            pIndices[k + 3] = (i + 1) * m_ivtxCntX + j;
-            pIndices[k + 4] = i * m_ivtxCntX + j + 1;
-            pIndices[k + 5] = (i + 1) * m_ivtxCntX + j + 1;
+            m_vIndices[k] = i * m_ivtxCntX + j;
+            m_vIndices[k + 1] = i * m_ivtxCntX + j + 1;
+            m_vIndices[k + 2] = (i + 1) * m_ivtxCntX + j;
+            m_vIndices[k + 3] = (i + 1) * m_ivtxCntX + j;
+            m_vIndices[k + 4] = i * m_ivtxCntX + j + 1;
+            m_vIndices[k + 5] = (i + 1) * m_ivtxCntX + j + 1;
 
             k += 6;
         }
     }
-
     D3D11_SUBRESOURCE_DATA          IndexInitialData{};
-    IndexInitialData.pSysMem = pIndices.get();
+    IndexInitialData.pSysMem = m_vIndices.data();
 
     if (FAILED(m_pDevice->CreateBuffer(&IndexBufferDesc, &IndexInitialData, &m_pIB)))
         return E_FAIL;

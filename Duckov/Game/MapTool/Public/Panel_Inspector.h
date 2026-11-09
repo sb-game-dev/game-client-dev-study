@@ -10,6 +10,8 @@ public:
 	virtual ~CPanel_Inspector() = default;
 
 public:
+	virtual HRESULT	Initialize();
+public:
 	virtual void	Render(const PANEL_RECT& tRect) override;
 
 public:

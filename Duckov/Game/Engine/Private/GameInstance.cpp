@@ -152,6 +152,11 @@ bool_t CGameInstance::Has_Prototype(uint32_t iLevelIndex, const wstring_t& strPr
 	return m_pPrototype_Manager->Has_Prototype(iLevelIndex, strPrototypeTag);
 }
 
+vector<wstring_t> CGameInstance::Get_ModelTags(uint32_t iLevelIndex)
+{
+	return m_pPrototype_Manager->Get_ModelTags(iLevelIndex);
+}
+
 #pragma endregion
 
 #pragma region OBJECT_MANAGER

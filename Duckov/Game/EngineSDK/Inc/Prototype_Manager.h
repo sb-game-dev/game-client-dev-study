@@ -19,6 +19,7 @@ public:
 	shared_ptr<CPrototype> Clone_Prototype(uint32_t iLevelIndex, const wstring_t& strPrototypeTag, void* pArg);
 	void Clear(uint32_t iClearLevelIndex);
 
+	vector<wstring_t>	Get_ModelTags(uint32_t iLevelIndex);
 private:
 	uint32_t	m_iNumLevels = {};
 

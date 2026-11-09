@@ -16,8 +16,13 @@ public:
 	f32_t				GetHeight(f32_t x, f32_t z);
 	float4_t			GetPlane(f32_t x, f32_t z);
 
+	const vector<float3_t>& Get_Vertices(){ return m_vVertices; }
+	const vector<uint32_t>& Get_Indices(){ return m_vIndices; }
+
 private:
 	vector<f32_t>		m_vHeightmap;
+	vector<float3_t>	m_vVertices;
+	vector<uint32_t>	m_vIndices;
 
 	uint32_t			m_ivtxCntX = { 321 };
 	uint32_t			m_ivtxCntZ = { 321 };

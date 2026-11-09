@@ -15,9 +15,9 @@ public:
 
 private:
 	ImGuizmo::OPERATION		m_eGizmoOp = ImGuizmo::TRANSLATE;
-
+	float3_t m_vPickPos = {};
 private:
-	void		Create_Object(const wstring_t& pPrototypeTag);
+	void		Create_Object(const wstring_t& pPrototypeTag, float3_t vPickPos);
 	void		Create_StaticProp(const wstring_t& pPrototypeTag);
 
 public:

@@ -136,14 +136,14 @@
     <Filter Include="99. Defines\Shader_Files">
       <UniqueIdentifier>{10e51d94-1661-4935-9a42-f48608afda0f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="06. Component\04. Model\99. Material">
-      <UniqueIdentifier>{24489452-8f01-4243-b38f-2ada973ae376}</UniqueIdentifier>
-    </Filter>
     <Filter Include="06. Component\04. Model\00. Mesh">
       <UniqueIdentifier>{b51103ed-dd8a-4f93-9c84-ded05189d64d}</UniqueIdentifier>
     </Filter>
     <Filter Include="09. Renderer">
       <UniqueIdentifier>{c68b7599-8680-4b08-8f80-61941eee7b98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component\04. Model\02. Material">
+      <UniqueIdentifier>{24489452-8f01-4243-b38f-2ada973ae376}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -268,7 +268,7 @@
       <Filter>06. Component\03. Shader\01. PixelShader</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Material.h">
-      <Filter>06. Component\04. Model\99. Material</Filter>
+      <Filter>06. Component\04. Model\02. Material</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Input_Device.h">
       <Filter>02. Device\InputDevice</Filter>
@@ -402,7 +402,7 @@
       <Filter>06. Component\03. Shader\03. ComputeShader</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Material.cpp">
-      <Filter>06. Component\04. Model\99. Material</Filter>
+      <Filter>06. Component\04. Model\02. Material</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Input_Device.cpp">
       <Filter>02. Device\InputDevice</Filter>

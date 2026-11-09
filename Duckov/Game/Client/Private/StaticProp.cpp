@@ -180,9 +180,15 @@ HRESULT CStaticProp::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState
     if (FAILED(Bind_Shader(m_pVS, pPS)))
         return E_FAIL;
 
-    if (FAILED(m_pModelCom->Render()))
-        return E_FAIL;
+    uint32_t iNumMeshes = m_pModelCom->Get_NumMeshes();
+    for (uint32_t i = 0; i < iNumMeshes; ++i)
+    {
+        if (FAILED(m_pModelCom->Bind_Material(i, aiTextureType_DIFFUSE, 0, 0)))
+            return E_FAIL;
 
+        if (FAILED(m_pModelCom->Render(i)))
+            return E_FAIL;
+    }
     return S_OK;
 }
 

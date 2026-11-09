@@ -22,20 +22,20 @@ public:
 	~CMaterial();
 
 public:
-	HRESULT Initialize(const aiMaterial* pAIMaterial, const char_t* pModelFilePath); 
-	HRESULT Bind_Material(aiTextureType eType, uint32_t iTextureIndex, uint32_t iSlot);
+	HRESULT	Initialize(const char_t* pModelFilePath, const aiMaterial* pAIMaterial);
+	HRESULT	Bind_Pixel_ShaderResource(aiTextureType eType, uint32_t iIndex, uint32_t iSlot);
 
-	uint32_t Get_NumTextures(aiTextureType eType) const {
-		return static_cast<uint32_t>(m_Textures[eType].size());
-	}
+public:
+	const wstring_t& Get_Name() const { return m_strName; }
+
 private:
 	ComPtr<ID3D11Device>						m_pDevice = { nullptr };
 	ComPtr<ID3D11DeviceContext>					m_pContext = { nullptr };
-
-	vector<ComPtr<ID3D11ShaderResourceView>>	m_Textures[AI_TEXTURE_TYPE_MAX];
+	vector<ComPtr<ID3D11ShaderResourceView>>	m_Materials[AI_TEXTURE_TYPE_MAX];
+	wstring_t									m_strName;
 
 public:
-	static shared_ptr<CMaterial> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, const aiMaterial* pAIMaterial, const char_t* pModelFilePath);
+	static shared_ptr<CMaterial> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, const char_t* pModelFilePath, const aiMaterial* pAIMaterial);
 };
 
 NS_END

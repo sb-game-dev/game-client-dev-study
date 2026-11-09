@@ -13,7 +13,6 @@ public:
 	virtual void	Render(const PANEL_RECT& tRect) override;
 
 private:
-	uint32_t	m_iNextID = {};						// "Prop_N"의 N
 	bool_t		m_bRequestDelete = { false };		// 목록 루프가 끝난 뒤 삭제
 
 private:

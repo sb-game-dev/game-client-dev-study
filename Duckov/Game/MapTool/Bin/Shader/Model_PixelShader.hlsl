@@ -1,7 +1,8 @@
 #include "Engine_Pixel_Shader_Defines.hlsli"
 
 // 텍스처
-Texture2D g_DiffuseTex : register(t0); //SRV
+Texture2D g_DiffuseTex : register(t0);
+Texture2D g_SpecularTex : register(t1);
 
 // 혼합맵 전용 텍스처
 Texture2D g_LayerMap0 : register(t2); // 잔디     (blend.r)
@@ -30,6 +31,12 @@ cbuffer cbFog : register(b5)
     float g_fFogStart; // 안개 시작 위치
     float g_fFogRange; // 안개 범위
     float2 g_vFogPad; // 패딩용 변수
+}
+
+cbuffer cbCharacter : register(b6) 
+{
+    float4 g_vAlphaMaskTint;    // 알파=1 영역(깃털)에 곱할 색
+    float4 g_vTint;             // 전체 색 보정
 }
 
 struct PS_IN
@@ -102,14 +109,11 @@ float4 PS_MAIN_MODEL(PS_IN_MODEL In) : SV_TARGET //몇 번째 렌더타겟에 색을 쓸지
     float3 vNormal = normalize(In.vNormalW);
     float3 vToEye = normalize(g_vEye.xyz - In.vPosW);
     
-    float4 vAmbient, vDiffuse, vSpec;
-    float4 vAmbientSum, vDiffuseSum, vSpecSum;
-    float4 vColor = float4(0.f, 0.f, 0.f, 0.f);
-    
-    float4 vMtrlDiffuse = 1.f; //g_DiffuseTex.Sample(g_LinearSampler, In.vTexCoord);
+    float4 vMtrlDiffuse = g_DiffuseTex.Sample(g_LinearSampler, In.vTexCoord);
     
     // 알파 테스트에 해당 알파값이 0.1이하인 경우 픽셀을 탈락시킴
-    //clip(vTexColor.a - 0.1f);
+    clip(vMtrlDiffuse.a - 0.1f);
+    
     float4 vDirLight_Direction = float4(g_DirLight.Direction, 0.f);
     float4 vNormalW = float4(In.vNormalW, 0.f);
     float4 vPosW = float4(In.vPosW, 1.f);
@@ -123,7 +127,7 @@ float4 PS_MAIN_MODEL(PS_IN_MODEL In) : SV_TARGET //몇 번째 렌더타겟에 색을 쓸지
     
     float fSpecular = pow(max(dot(normalize(vReflect) * -1.f, normalize(vLook)), 0.f), 50.f);
     
-    vColor = g_DirLight.Diffuse * vMtrlDiffuse * vShade +
+    float4 vColor = g_DirLight.Diffuse * vMtrlDiffuse * vShade +
         (g_DirLight.Specular * g_Material.Specular) * fSpecular;
     
     return vColor;
@@ -210,6 +214,9 @@ float4 PS_TERRAIN(PS_IN_TERRAIN In) : SV_TARGET
 
 float4 PS_OCCLUDEDPLAYER(PS_IN_MODEL In) : SV_TARGET
 {
+    float4 vTex = g_DiffuseTex.Sample(g_LinearSampler, In.vTexCoord);
+    clip(vTex.a - 0.1f);
+    
     // 화면 픽셀 가져오기
     float2 vPix = In.vPosition.xy;
     
@@ -220,4 +227,28 @@ float4 PS_OCCLUDEDPLAYER(PS_IN_MODEL In) : SV_TARGET
     float fAlpha = (0.2f + fLine * 0.5f);
     
     return float4(float3(0.3f, 0.75f, 1.0f), saturate(fAlpha));
+}
+
+float4 PS_MAIN_CHARACTER(PS_IN_MODEL In) : SV_TARGET
+{
+    float4 vTex = g_DiffuseTex.Sample(g_LinearSampler, In.vTexCoord);
+
+    // 알파 = 틴트 마스크 (투명도 아님) -> clip 하지 않음
+    float3 vAlbedo = lerp(vTex.rgb, vTex.rgb * g_vAlphaMaskTint.rgb, vTex.a) * g_vTint.rgb;
+
+    float3 vN = normalize(In.vNormalW);
+    float3 vL = normalize(g_DirLight.Direction);
+    float fShade = max(dot(-vL, vN), 0.f) + g_DirLight.Ambient.r;
+
+    float3 vReflect = reflect(vL, vN);
+    float3 vLook = normalize(In.vPosW - g_vEye.xyz);
+    
+    
+    float fSmooth = g_SpecularTex.Sample(g_LinearSampler, In.vTexCoord).r;
+    float fSpec = pow(max(dot(-vReflect, vLook), 0.f), 50.f) * fSmooth;
+
+    float3 vColor = g_DirLight.Diffuse.rgb * vAlbedo * fShade
+                  + g_DirLight.Specular.rgb * g_Material.Specular.rgb * fSpec;
+
+    return float4(vColor, 1.f); // 출력 알파 고정
 }

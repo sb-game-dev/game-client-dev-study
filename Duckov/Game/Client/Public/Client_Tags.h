@@ -55,6 +55,7 @@ namespace Client
 		// ---------- Shader : Model ----------
 		inline constexpr const wchar_t* VS_MODEL = L"Prototype_Component_VS_MODEL";
 		inline constexpr const wchar_t* PS_MODEL = L"Prototype_Component_PS_MODEL";
+		inline constexpr const wchar_t* PS_CHARACTER = L"Prototype_Component_PS_CHARACTER";
 
 		// ---------- GameObject ¿øÇü ----------
 		inline constexpr const wchar_t* Obj_BackGround = L"Prototype_GameObject_BackGround";

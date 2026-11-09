@@ -24,6 +24,7 @@ struct EDITOR_CONTEXT
 	// Hierarchy가 바꾸고 Inspector가 읽는다. (나중에 Scene 피킹도 여기에 쓴다)
 	weak_ptr<CMapObject>	pSelected;			// weak_ptr: 지워지면 자동으로 만료
 	wstring_t				strSelectedTag;		// 선택된 객체의 이름 ("Prop_01")
+	uint32_t				m_iNextID = {};		// "Prop_N"의 N
 
 	// Scene 창
 	float2_t	vImageMin = {};					// 화면 기준 씬 이미지 좌상단 (피킹용)
@@ -71,10 +72,18 @@ struct ASSET_ITEM
 	const wchar_t*	pPath;			// DESC에 넣을 경로 (텍스처는 Resource 기준 상대 경로)
 };
 
-inline constexpr ASSET_ITEM g_Meshes[] = {
-	{ "Duck", L"Characters/0_CharacterModel_Boss_Wu/0_CharacterModel_Boss_Wu.fbx" },
-	{ "ZeroZoneTree", L"Mesh/Tree/Pfb_Tree_01_1.fbx" },
+struct ASSET_ENTRY
+{
+	string    strDisplayName;  // 콤보에 보일 이름 (ImGui용 UTF-8)
+	wstring_t strPath;         // 프로토타입 태그 (정규화된 경로)
 };
+
+inline vector<ASSET_ENTRY> g_Meshes;
+
+//inline constexpr ASSET_ITEM g_Meshes[] = {
+//	{ "Duck", L"Characters/0_CharacterModel_Boss_Wu/0_CharacterModel_Boss_Wu.fbx" },
+//	{ "ZeroZoneTree", L"Mesh/Tree/Pfb_Tree_01_1.fbx" },
+//};
 
 inline constexpr ASSET_ITEM g_Textures[] = {
 	{ "WoodCrate01", L"Ex/WoodCrate01.dds" },

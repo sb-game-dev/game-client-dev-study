@@ -70,6 +70,7 @@ public:
 	HRESULT Add_Prototype(uint32_t iLevelIndex, const wstring_t& strPrototypeTag, shared_ptr<CPrototype> pPrototype);
 	shared_ptr<CPrototype> Clone_Prototype(uint32_t iLevelIndex, const wstring_t& strPrototypeTag, void* pArg = nullptr);
 	bool_t	Has_Prototype(uint32_t iLevelIndex, const wstring_t& strPrototypeTag);
+	vector<wstring_t>	Get_ModelTags(uint32_t iLevelIndex);
 #pragma endregion
 
 #pragma region LEVEL_MANAGER

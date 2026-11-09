@@ -178,10 +178,18 @@ HRESULT CPlayer::Render_Mesh(const matrix_t& matWorld, ID3D11RasterizerState* pR
 
     if (FAILED(Bind_ShaderResources(matWorld)))
         return E_FAIL;
+    uint32_t    iNumMeshes = m_pModel->Get_NumMeshes();
+    for (uint32_t i = 0; i < iNumMeshes; ++i)
+    {
+        if (FAILED(m_pModel->Bind_Material(i, aiTextureType_DIFFUSE, 0, 0)))
+            return E_FAIL;
 
-    if (FAILED(m_pModel->Render()))
-        return E_FAIL;
+        //if (FAILED(m_pModelCom->Bind_Material(i, aiTextureType_NORMALS, 0, 1)))
+        //    return E_FAIL;
 
+        if (FAILED(m_pModel->Render(i)))
+            return E_FAIL;
+    }
     return S_OK;
 }
 
@@ -213,7 +221,7 @@ void CPlayer::AdjustPosY()
     vector_t  vPos = m_pTransformCom->Get_State(STATE::POSITION);
     f32_t x = XMVectorGetX(vPos);
     f32_t z = XMVectorGetZ(vPos);
-    vPos = XMVectorSetY(vPos, pHill->GetHeight(x, z) + 0.001f);
+    vPos = XMVectorSetY(vPos, pHill->GetHeight(x, z) + 0.1f);
     m_pTransformCom->Set_State(STATE::POSITION, vPos);
     m_vGroundPlane = pHill->GetPlane(x, z);
 }

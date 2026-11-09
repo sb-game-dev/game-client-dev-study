@@ -3,6 +3,19 @@
 #include "StaticProp.h"
 #include "Hill.h"
 
+HRESULT CPanel_Inspector::Initialize()
+{
+    auto ModelTags = CGameInstance::Get().Get_ModelTags(ETOUI(LEVEL::MAPTOOL));
+
+    for (auto& ModelTag : ModelTags)
+    {
+        wchar_t szFileName[MAX_PATH] = {};
+        _wsplitpath_s(ModelTag.c_str(), nullptr, 0, nullptr, 0, szFileName, MAX_PATH, nullptr, 0);
+        g_Meshes.push_back({ To_UTF8(szFileName), ModelTag });
+    }
+    return S_OK;
+}
+
 void CPanel_Inspector::Render(const PANEL_RECT& tRect)
 {
     Set_NextPanelRect(tRect);
@@ -50,19 +63,20 @@ void CPanel_Inspector::Render(const PANEL_RECT& tRect)
 
             if (auto pProp = dynamic_pointer_cast<CStaticProp>(pSelected))
             {
-                if (ImGui::CollapsingHeader("Static Prop", ImGuiTreeNodeFlags_DefaultOpen))
+                if (ImGui::CollapsingHeader("Components", ImGuiTreeNodeFlags_DefaultOpen))
                 {
-                    if (auto pPath = Render_AssetCombo("Mesh", g_Meshes, _countof(g_Meshes), pProp->Get_MeshPath()))
+
+                    if (auto pPath = Render_AssetCombo("Model", g_Meshes, pProp->Get_MeshPath()))
                     {
                         if (FAILED(pProp->Change_Mesh(pPath)))
                             MSG_BOX("Mesh Change Failed");
                     }
 
-                    if (auto pPath = Render_AssetCombo("Texture", g_Textures, _countof(g_Textures), pProp->Get_TexturePath()))
-                    {
-                        if (FAILED(pProp->Change_Texture(pPath)))
-                            MSG_BOX("Texture Change Failed");
-                    }
+                    //if (auto pPath = Render_AssetCombo("Texture", g_Textures, _countof(g_Textures), pProp->Get_TexturePath()))
+                    //{
+                    //    if (FAILED(pProp->Change_Texture(pPath)))
+                    //        MSG_BOX("Texture Change Failed");
+                    //}
                 }
             }
         }
@@ -72,5 +86,12 @@ void CPanel_Inspector::Render(const PANEL_RECT& tRect)
 
 unique_ptr<CPanel_Inspector> CPanel_Inspector::Create(EDITOR_CONTEXT& Context)
 {
-    return unique_ptr<CPanel_Inspector>(new CPanel_Inspector(Context));
+    auto pInstance = unique_ptr<CPanel_Inspector>(new CPanel_Inspector(Context));
+
+    if (FAILED(pInstance->Initialize()))
+    {
+        MSG_BOX("Failed to Create : CPanel_Instance");
+        pInstance.reset();
+    }
+    return pInstance;
 }

@@ -2,6 +2,7 @@
 #include "Panel_Scene.h"
 #include "Camera.h"
 #include "Hill.h"
+#include "StaticProp.h"
 
 namespace
 {
@@ -195,7 +196,8 @@ void CPanel_Scene::Render(const PANEL_RECT& tRect)
         if (nullptr != pPicked)
             m_Context.Select(strPickedTag, pPicked);
     }
-    if (m_Context.bSceneHovered && ImGui::IsMouseClicked(ImGuiMouseButton_Right))
+    
+    if (m_Context.bSceneHovered && ImGui::IsMouseReleased(ImGuiMouseButton_Right))
     {
         auto pTerrain = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), L"Layer_Map", L"Terrain");
         if (nullptr == pTerrain)
@@ -203,23 +205,70 @@ void CPanel_Scene::Render(const PANEL_RECT& tRect)
             ImGui::End();
             return;
         }
-        // 항목 위가 아닌 창의 빈 곳을 우클릭했을 때만 열림
-        if (ImGui::BeginPopupContextWindow("HierarchyMenu", ImGuiPopupFlags_MouseButtonRight | ImGuiPopupFlags_NoOpenOverItems))
+        ImVec2 vDrag = ImGui::GetMouseDragDelta(ImGuiMouseButton_Right);
+        if (vDrag.x * vDrag.x + vDrag.y * vDrag.y < 25.f)    // 5픽셀 미만 이동 = 클릭으로 판단
         {
-            for (auto& Item : s_Placeables)
+            const auto& vVertices = dynamic_pointer_cast<CHill>(pTerrain)->Get_Vertices();
+            const auto& vIndices = dynamic_pointer_cast<CHill>(pTerrain)->Get_Indices();
+
+            f32_t fMinDist = D3D11_FLOAT32_MAX;
+            bool_t bHit = false;
+            for (size_t i = 0; i + 2 < vIndices.size(); i += 3)
             {
-                if (ImGui::MenuItem(Item.pName))      // "Add Static_Prop"
-                    Create_Object(Item.pPrototypeTag);
+                vector_t p0 = XMLoadFloat3(&vVertices[vIndices[i]]);
+                vector_t p1 = XMLoadFloat3(&vVertices[vIndices[i + 1]]);
+                vector_t p2 = XMLoadFloat3(&vVertices[vIndices[i + 2]]);
+
+                f32_t fDist = {};
+                if (TriangleTests::Intersects(vRayOrigin, vRayDir, p0, p1, p2, fDist) && fDist < fMinDist)
+                {
+                    fMinDist = fDist;
+                    bHit = true;
+                }
             }
-            ImGui::EndPopup();
+            if (bHit)
+            {
+                vector_t vHitPos = vRayOrigin + vRayDir * fMinDist;
+                XMStoreFloat3(&m_vPickPos, vHitPos);
+            }
+            ImGui::OpenPopup("SceneMenu");
         }
     }
-        
+    if (ImGui::BeginPopup("SceneMenu"))
+    {
+        if (ImGui::MenuItem(s_Placeables[0].pName))
+            Create_Object(s_Placeables[0].pPrototypeTag, m_vPickPos);
+        ImGui::EndPopup();
+    }        
     ImGui::End();
 }
 
-void CPanel_Scene::Create_Object(const wstring_t& pPrototypeTag)
+void CPanel_Scene::Create_Object(const wstring_t& pPrototypeTag, float3_t vPickPos)
 {
+    CStaticProp::STATICPROP_DESC Desc{};
+    Desc.iLevelIndex = ETOUI(LEVEL::MAPTOOL);
+    Desc.strMeshPath = g_Meshes[0].strPath;           // 기본: cube
+    Desc.strTexturePath = g_Textures[0].pPath;      // 기본: 첫 텍스처
+    Desc.bEditorMode = true;
+    Desc.vPosition = vPickPos;
+    wstring_t strTag;
+
+    do {
+        if (m_Context.m_iNextID < 10)
+            strTag = L"Prop_0" + to_wstring(m_Context.m_iNextID++);
+        else
+            strTag = L"Prop_" + to_wstring(m_Context.m_iNextID++);
+    } while (nullptr != CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag));
+
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::MAPTOOL), pPrototypeTag,
+        ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag, &Desc)))
+    {
+        MSG_BOX("Create Failed");
+        return;
+    }
+
+    // 만든 객체를 바로 선택
+    m_Context.Select(strTag, CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag));
 }
 
 void CPanel_Scene::Create_StaticProp(const wstring_t& pPrototypeTag)
