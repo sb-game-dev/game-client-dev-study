@@ -1,6 +1,6 @@
 # MapTool 작업 설명서 v2
 
-> 지금 프로젝트의 맵툴(로딩 레벨 → 에디터 레벨, Hierarchy / Scene / Inspector, FBX StaticProp 생성·선택·삭제·편집, 혼합맵 지형, 방향광 + 안개, Scene 피킹, SnapToTerrain, 지형 피킹 생성, ImGuizmo)을 **처음부터 다시 만들 수 있도록** 작업 순서대로 정리한 문서입니다.
+> 지금 프로젝트의 맵툴(로딩 레벨 → 에디터 레벨, 접을 수 있는 Hierarchy / Inspector 패널 + 백버퍼에 그대로 나오는 게임 화면, FBX StaticProp 생성·선택·삭제·편집, 혼합맵 지형, 방향광 + 안개, 화면 피킹, SnapToTerrain, 지형 피킹 생성, ImGuizmo)을 **처음부터 다시 만들 수 있도록** 작업 순서대로 정리한 문서입니다.
 >
 > **규칙: 각 단계는 그 앞 단계까지만 끝났으면 빌드·실행·확인이 된다.** 뒤 단계에서 쓰는 헤더, 함수, 원형은 앞 단계에 미리 넣지 않습니다. 그래서 같은 파일이 여러 단계에 걸쳐 조금씩 커집니다. 각 단계에는 "이번에 추가/수정하는 부분"만 적고, 파일이 짧으면 전체를 적습니다.
 >
@@ -13,8 +13,8 @@
 - [0. 전체 그림](#0-전체-그림)
 - [1단계. 프로젝트 + 엔진 초기화 + 로딩 레벨 + 빈 맵툴 레벨](#1단계-프로젝트--엔진-초기화--로딩-레벨--빈-맵툴-레벨)
 - [2단계. ImGui 붙이기 + 메뉴바](#2단계-imgui-붙이기--메뉴바)
-- [3단계. 창 3개 — Hierarchy / Scene / Inspector](#3단계-창-3개--hierarchy--scene--inspector)
-- [4단계. Scene 창에 게임 화면 넣기 (RTT)](#4단계-scene-창에-게임-화면-넣기-rtt)
+- [3단계. 패널 2개 — Hierarchy / Inspector (접기 가능)](#3단계-패널-2개--hierarchy--inspector-접기-가능)
+- [4단계. 게임 화면 위에 UI — 뷰포트 입력 판정](#4단계-게임-화면-위에-ui--뷰포트-입력-판정)
 - [5단계. 맵툴 카메라 + SkyBox + 카메라 조작 제한](#5단계-맵툴-카메라--skybox--카메라-조작-제한)
 - [6단계. 배치 객체 — CMapObject + FBX 모델 + CStaticProp + 조명/안개 + 생성 메뉴](#6단계-배치-객체--cmapobject--fbx-모델--cstaticprop--조명안개--생성-메뉴)
 - [7단계. Hierarchy 목록 + 선택](#7단계-hierarchy-목록--선택)
@@ -22,7 +22,7 @@
 - [9단계. Inspector — 이름 + Transform](#9단계-inspector--이름--transform)
 - [10단계. Inspector — 모델 교체 콤보](#10단계-inspector--모델-교체-콤보)
 - [11단계. 혼합맵 지형 — CHill](#11단계-혼합맵-지형--chill)
-- [12단계. Scene 피킹으로 선택](#12단계-scene-피킹으로-선택)
+- [12단계. 뷰포트 피킹으로 선택](#12단계-뷰포트-피킹으로-선택)
 - [13단계. SnapToTerrain](#13단계-snaptoterrain)
 - [14단계. 지형 피킹으로 객체 생성](#14단계-지형-피킹으로-객체-생성)
 - [15단계. ImGuizmo 기즈모](#15단계-imguizmo-기즈모)
@@ -49,7 +49,7 @@ Duckov/Game/
    ├─ Public/     MapTool_Defines.h, ToolMainApp.h, Level_Loading_MapTool.h, Loader_MapTool.h,
    │              Level_MapTool.h, MapTool_Cam.h,
    │              EditorUI.h, EditorUI_Defines.h, EditorUI_Utils.h,
-   │              Panel.h, Panel_Hierarchy.h, Panel_Scene.h, Panel_Inspector.h
+   │              Panel.h, Panel_Hierarchy.h, Panel_Inspector.h
    ├─ Private/    위 헤더들의 cpp
    └─ Bin/        MapTool.exe, Engine.dll, assimp dll, Shader/(Client/Bin/Shader에서 빌드 후 복사)
 ```
@@ -62,10 +62,11 @@ Duckov/Game/
 | `CToolMainApp` | MapTool | 엔진 초기화, 로딩 레벨로 시작, 매 프레임 `Update_Engine` → 클리어 → `Draw` → `Present` | 1 |
 | `CLevel_Loading_MapTool` | MapTool | 시작 레벨(`LEVEL::LOADING`). 로더를 돌리고 끝나면 스페이스로 맵툴 레벨 전환 | 1 |
 | `CLoader_MapTool` | MapTool | 서브 스레드에서 MAPTOOL 레벨 원형(텍스처, 모델, 셰이더, 객체) 등록 | 1 (단계마다 추가) |
-| `CLevel_MapTool` | MapTool | 에디터 레벨. **ImGui 초기화/프레임/렌더/종료**, SkyBox·Fog·카메라 사본, 방향광, `CEditorUI` 소유, Scene 상태를 카메라에 전달 | 1 (단계마다 추가) |
-| `CEditorUI` | MapTool | 메뉴바, 레이아웃 계산, 공용 상태 `EDITOR_CONTEXT`, 패널 3개 소유 | 2 |
-| `CPanel_Hierarchy` / `CPanel_Scene` / `CPanel_Inspector` | MapTool | 창 하나씩. `CPanel` 상속, Context를 참조로 공유 | 3 |
-| `CMapTool_Cam` | MapTool (namespace Client) | WASD 이동 + 우클릭 드래그 회전. Scene 창이 포커스+호버일 때만 | 5 |
+| `CLevel_MapTool` | MapTool | 에디터 레벨. **ImGui 초기화/프레임/렌더/종료**, SkyBox·Fog·카메라 사본, 방향광, `CEditorUI` 소유, 뷰포트 입력 상태를 카메라에 전달 | 1 (단계마다 추가) |
+| `CEditorUI` | MapTool | 메뉴바, 레이아웃 계산, 공용 상태 `EDITOR_CONTEXT`, 패널 2개 소유, **뷰포트 입력**(피킹·지형 우클릭 생성·기즈모) | 2 |
+| `CPanel_Hierarchy` / `CPanel_Inspector` | MapTool | 창 하나씩(접기 가능). `CPanel` 상속, Context를 참조로 공유 | 3 |
+| `CRenderer` | Engine | 씬을 렌더 타깃(텍스처)에 그리고 블러 등 후처리 → 전체 화면으로 백버퍼에 복사 | 4 |
+| `CMapTool_Cam` | MapTool (namespace Client) | WASD 이동 + 우클릭 드래그 회전. 마우스/키보드를 ImGui가 쓰지 않을 때만 | 5 |
 | `CMapObject` | Client | 배치 객체 부모. 위치/쿼터니언/크기/메시 경로를 DESC로 받는다 | 6 |
 | `CStaticProp` | Client | FBX 모델 하나를 그리는 구조물. 모델 경로로 교체 가능 | 6 |
 | `CHill` | Client | 혼합맵 지형(높이맵 + 혼합맵 + 레이어 3장). `CMapObject` 상속 | 11 |
@@ -81,14 +82,15 @@ wWinMain 루프 (1/60초마다)
          ├ 조명 Update (CSunLight가 b3 갱신)
          └ CLevel_MapTool::Update
              ├ Begin_ImGui()          DX11/Win32 NewFrame → ImGui::NewFrame → ImGuizmo::BeginFrame
-             ├ CEditorUI::Update()    메뉴바 → 레이아웃 → Hierarchy → Scene → Inspector
-             └ Sync_SceneView()       Scene 포커스/호버를 카메라에 전달
+             ├ CEditorUI::Update()    뷰포트 입력 상태 기록 → 메뉴바 → 레이아웃 → Hierarchy → Inspector
+             │                        → Update_Viewport (기즈모 → 좌클릭 피킹 → 우클릭 지형 메뉴)
+             └ Sync_Viewport()        뷰포트 입력 상태를 카메라에 전달
  └ CToolMainApp::Render
      ├ Clear 백버퍼/깊이, 파이프라인 상수버퍼 바인딩
      ├ Draw()
-     │   ├ Renderer               씬을 SceneRTV(텍스처)에 그림. Set_DrawToBackBuffer(false)라 백버퍼엔 안 그림
+     │   ├ Renderer               씬을 SceneRTV(텍스처)에 그림 → (블러) → 전체 화면으로 백버퍼에 복사
      │   └ CLevel_MapTool::Render
-     │       └ Render_ImGui()     ImGui::Render → RenderDrawData (Scene 창의 Image가 SceneSRV를 보여 줌)
+     │       └ Render_ImGui()     ImGui::Render → RenderDrawData (게임 화면 위에 패널/기즈모)
      └ Present
 ```
 
@@ -273,8 +275,11 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
     hInst = hInstance;
 
+    // 테두리 끌기(THICKFRAME), 최대화 버튼(MAXIMIZEBOX)을 뺀 창 -> 클라이언트 영역이 항상 1600×900
+    constexpr DWORD dwStyle = WS_OVERLAPPEDWINDOW & ~WS_THICKFRAME & ~WS_MAXIMIZEBOX;
+
     RECT rc{ 0, 0, g_iToolWinSizeX, g_iToolWinSizeY };
-    AdjustWindowRectExForDpi(&rc, WS_OVERLAPPEDWINDOW, FALSE, 0, GetDpiForSystem());
+    AdjustWindowRectExForDpi(&rc, dwStyle, FALSE, 0, GetDpiForSystem());
 
     const int iWinW = rc.right - rc.left;
     const int iWinH = rc.bottom - rc.top;
@@ -283,7 +288,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
     const int iPosX = rcWork.left + ((rcWork.right - rcWork.left) - iWinW) / 2;
     const int iPosY = rcWork.top + ((rcWork.bottom - rcWork.top) - iWinH) / 2;
 
-    HWND hWnd = CreateWindowW(szWindowClass, L"MapTool", WS_OVERLAPPEDWINDOW,
+    HWND hWnd = CreateWindowW(szWindowClass, L"MapTool", dwStyle,
         iPosX, iPosY, iWinW, iWinH, nullptr, nullptr, hInstance, nullptr);
 
     ShowWindow(hWnd, nCmdShow);
@@ -310,7 +315,11 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 }
 ```
 
-- **AdjustWindowRectExForDpi**: 클라이언트 영역이 정확히 1600×900이 되도록 테두리 크기를 더한다. 2단계에서 DPI 인식을 켜므로 DPI 버전을 쓴다.
+- **창 크기 고정 (dwStyle)**: 엔진은 `WM_SIZE`를 처리하지 않아서 창을 늘려도 스왑체인/뷰포트는 1600×900 그대로이고 화면만 늘어나 보인다. 창 크기 변경 자체를 막아서 **창 클라이언트 영역 = 엔진 뷰포트**가 항상 같게 만든다. 덕분에 12단계 피킹에서 마우스 좌표를 그대로 쓸 수 있다.
+  - `WS_THICKFRAME`: 테두리를 끌어 크기 조절 → 제거
+  - `WS_MAXIMIZEBOX`: 최대화 버튼(더블클릭 최대화 포함) → 제거
+  - 최소화는 남겨 둔다 (크기가 바뀌는 게 아니라 숨겨지는 것)
+- **AdjustWindowRectExForDpi**: 클라이언트 영역이 정확히 1600×900이 되도록 테두리 크기를 더한다. **CreateWindowW와 같은 스타일**을 넘겨야 테두리 두께가 맞는다. 2단계에서 DPI 인식을 켜므로 DPI 버전을 쓴다.
 - **작업 영역 가운데 배치**: 작업 표시줄을 뺀 영역 기준으로 가운데에 띄운다.
 - **메뉴 없음**: `MyRegisterClass`에서 `wcex.lpszMenuName = 0;`(Win32 기본 메뉴 제거). 메뉴는 2단계에서 ImGui로 만든다.
 - **ESC 종료**: 2단계에서 "ImGui 입력창에서는 종료 안 함" 조건이 붙는다.
@@ -425,7 +434,7 @@ unique_ptr<CToolMainApp> CToolMainApp::Create()
 - **Initialize**: 엔진에 창 핸들, 툴 창 크기, 레벨 개수를 넘긴다. 그다음 바로 로딩 레벨로 시작한다. "다음 레벨 = MAPTOOL"을 인자로 넘긴다.
 - **Update**: 엔진이 객체 → 조명 → 현재 레벨 Update 순으로 돌린다.
 - **Render**: 백버퍼/깊이 클리어 → 카메라 행렬 상수버퍼(슬롯 1)를 VS/PS/GS에 바인딩 → `Draw`(Renderer + 현재 레벨 Render) → `Present`.
-- 4단계에서 `Set_DrawToBackBuffer(false)` 한 줄이 Initialize에 추가된다.
+- `Set_DrawToBackBuffer`는 부르지 않는다. 기본값 true라서 씬 텍스처가 백버퍼로 복사되어 화면 전체에 나온다 (4단계 설명).
 
 ### 1-8. CLoader_MapTool (1단계 버전: 원형 없음)
 
@@ -745,9 +754,10 @@ shared_ptr<CLevel_MapTool> CLevel_MapTool::Create(ComPtr<ID3D11Device> pDevice, 
 ### 확인
 
 1. 빌드 → `MapTool/Bin/Shader/`에 셰이더가 복사됐는지 확인
-2. 실행 → 검은 창, 제목이 `로딩이 완료되었습니다.`
+2. 실행 → 회색 화면, 제목이 `로딩이 완료되었습니다.` (Renderer가 씬 텍스처를 0.75 회색으로 지우고 백버퍼로 복사한 것)
 3. 창을 클릭해 포커스 → 스페이스 → 제목이 `MapTool_Level`
-4. ESC → 종료, 출력 창에 메모리 누수 없음
+4. 창 테두리를 끌어도 크기가 안 바뀌고, 최대화 버튼이 비활성
+5. ESC → 종료, 출력 창에 메모리 누수 없음
 
 ---
 
@@ -1071,19 +1081,27 @@ HRESULT CLevel_MapTool::Shutdown_ImGui()
 
 ---
 
-## 3단계. 창 3개 — Hierarchy / Scene / Inspector
+## 3단계. 패널 2개 — Hierarchy / Inspector (접기 가능)
 
-**목표**: 메뉴바 아래에 왼쪽 Hierarchy, 가운데 Scene, 오른쪽 Inspector 창이 고정 크기로 붙어 있다. 창 크기를 바꿔도 다시 배치된다.
+**목표**: 메뉴바 아래 왼쪽에 Hierarchy, 오른쪽에 Inspector가 고정 위치로 붙어 있고, 제목 줄의 ▼ 버튼으로 접었다 펼 수 있다. 가운데에는 창이 없다. 4단계부터 이 자리에 게임 화면이 그대로 보인다.
 
 ### 3-1. 구조
 
 ```
+화면 (1600×900)
+┌──────────────────── 메뉴바 ────────────────────┐
+│ Hierarchy │                         │ Inspector │
+│   280     │  창 없음 = 뷰포트        │   280     │
+│           │  (게임 화면이 그대로 보임) │           │
+└───────────┴─────────────────────────┴───────────┘
+
 CEditorUI
  ├ EDITOR_CONTEXT m_Context   패널끼리 공유하는 상태 (지금은 비어 있음, 단계마다 필드 추가)
- ├ Calc_Layout()              세 창의 PANEL_RECT 계산
- └ 패널 3개 (unique_ptr)       Render(PANEL_RECT)만 가진다
+ ├ Calc_Layout()              두 창의 PANEL_RECT 계산
+ └ 패널 2개 (unique_ptr)       Render(PANEL_RECT)만 가진다
 ```
 
+- **Scene 창을 만들지 않는 이유**: 엔진은 씬을 렌더 타깃(텍스처)에 그린 뒤 전체 화면 사각형으로 백버퍼에 복사한다. 렌더 타깃을 거치는 건 블러 같은 후처리 때문이다. 그 백버퍼 위에 ImGui 패널을 그리기만 하면 된다. 패널이 덮은 부분만 가려지고, 패널을 접으면 그 부분도 보인다.
 - 패널끼리 직접 참조하지 않고 **Context를 참조로 공유**한다. 예) Hierarchy가 선택을 바꾸면 Inspector는 Context만 읽는다.
 
 ### 3-2. EditorUI_Defines.h (3단계 버전)
@@ -1097,7 +1115,6 @@ NS_BEGIN(MapTool)
 inline constexpr ImGuiWindowFlags g_FixedPanelFlags =
 ImGuiWindowFlags_NoMove                 // 제목 표시줄을 드래그해도 안 움직임
 | ImGuiWindowFlags_NoResize             // 모서리를 끌어도 크기 안 바뀜
-| ImGuiWindowFlags_NoCollapse           // 제목 표시줄의 접기 버튼 제거
 | ImGuiWindowFlags_NoSavedSettings;     // 창 정보를 저장하지 않음
 
 // 창 하나의 위치와 크기 (CEditorUI::Calc_Layout에서 계산)
@@ -1115,9 +1132,10 @@ struct EDITOR_CONTEXT
 NS_END
 ```
 
-- **g_FixedPanelFlags**: 세 창은 레이아웃 코드가 위치를 정하므로, 사용자가 옮기거나 크기를 바꾸지 못하게 한다. `NoSavedSettings`가 없으면 ini에 저장된 옛 위치가 끼어든다.
-- **ImGuiWindowFlags 타입**을 쓰려면 imgui.h가 필요한데, 이 헤더는 imgui.h를 직접 포함하지 않는다 → **이 헤더보다 imgui.h를 먼저 포함**해야 한다. 그래서 패널 cpp는 `EditorUI_Utils.h`(imgui.h 포함)를 맨 앞에 둔다.
-- **EDITOR_CONTEXT가 비어 있는 이유**: 선택(7단계)은 `CMapObject`가 필요하고, Scene 정보(4단계)는 Scene 창이 그림을 그려야 의미가 있다. 쓰지 않는 필드를 미리 넣으면 앞 단계에서 컴파일이 안 되거나 쓸모없는 코드가 된다.
+- **g_FixedPanelFlags**: 위치와 크기는 레이아웃 코드가 정하므로 사용자가 옮기거나 크기를 바꾸지 못하게 막는다. `NoSavedSettings`가 없으면 ini에 저장된 옛 위치가 끼어든다.
+- **`NoCollapse`를 넣지 않는다**: 그래서 제목 줄에 ▼ 접기 버튼이 생긴다. 접으면 제목 줄만 남고 그 아래 게임 화면이 보인다. 접힘 상태는 ImGui가 창마다 기억하므로 따로 변수를 둘 필요가 없다. 위치/크기는 매 프레임 `SetNextWindow*`로 정하지만 접힘 상태는 그대로 유지된다. `NoSavedSettings` 때문에 툴을 다시 켜면 펼친 상태로 시작한다.
+- **ImGuiWindowFlags 타입**을 쓰려면 imgui.h가 필요한데 이 헤더는 imgui.h를 직접 포함하지 않는다 → **이 헤더보다 imgui.h를 먼저 포함**해야 한다. 그래서 패널 cpp는 `EditorUI_Utils.h`(imgui.h 포함)를 맨 앞에 둔다.
+- **EDITOR_CONTEXT가 비어 있는 이유**: 선택(7단계)은 `CMapObject`가 필요하고, 뷰포트 입력 상태(4단계)는 다음 단계에서 쓴다. 쓰지 않는 필드를 미리 넣으면 앞 단계에서 컴파일이 안 되거나 쓸모없는 코드가 된다.
 
 ### 3-3. EditorUI_Utils.h (3단계 버전)
 
@@ -1167,9 +1185,7 @@ NS_END
 
 - 참조 멤버라서 생성자에서만 묶을 수 있다. Context는 `CEditorUI`의 멤버이고 패널보다 오래 살기 때문에 참조가 안전하다.
 
-### 3-5. 패널 3개 (빈 창)
-
-Hierarchy / Scene은 같은 모양이다. 이름만 바꾼다.
+### 3-5. 패널 2개 (빈 창)
 
 ```cpp
 // Panel_Hierarchy.h
@@ -1215,8 +1231,8 @@ unique_ptr<CPanel_Hierarchy> CPanel_Hierarchy::Create(EDITOR_CONTEXT& Context)
 ```
 
 - **Begin의 두 번째 인자 nullptr**: X(닫기) 버튼을 만들지 않는다.
-- **`if (Begin)` 밖에서 End**: 창이 접히거나 가려져도 `End`는 항상 불러야 한다.
-- `Panel_Scene`도 같은 방식으로 `"Scene"` 창을 만든다 (4단계에서 내용이 채워짐).
+- **`if (Begin)` 안쪽 = 펼쳐져 있을 때만 실행**: 창을 접으면 `Begin`이 false를 돌려줘서 안쪽 코드(목록, 우클릭 메뉴, Delete 키 처리 등)가 전부 실행되지 않는다. 접힌 동안 해당 기능이 멈추는 건 정상이다.
+- **`End`는 항상**: 접혀 있어도 `End`는 불러야 한다.
 
 Inspector는 6단계에서 모델 목록을 채울 `Initialize`를 **지금부터** 가지고 있게 만든다 (나중에 `Create`를 바꾸지 않으려고).
 
@@ -1285,10 +1301,9 @@ unique_ptr<CPanel_Inspector> CPanel_Inspector::Create(EDITOR_CONTEXT& Context)
 
 NS_BEGIN(MapTool)
 class CPanel_Hierarchy;
-class CPanel_Scene;
 class CPanel_Inspector;
 
-// 메뉴바, 레이아웃 계산, 공용 상태(EDITOR_CONTEXT) 보관, 패널 3개 소유
+// 메뉴바, 레이아웃 계산, 공용 상태(EDITOR_CONTEXT) 보관, 패널 2개 소유
 class CEditorUI final
 {
 private:
@@ -1302,16 +1317,14 @@ public:
 
 private:
 	f32_t		m_fMenuBarHeight = {};
-	f32_t		m_fSidePamelWidth = { 280.f };
+	f32_t		m_fSidePanelWidth = { 280.f };
 
 	PANEL_RECT	m_tHierarchy = {};
-	PANEL_RECT	m_tScene = {};
 	PANEL_RECT	m_tInspector = {};
 
 	EDITOR_CONTEXT					m_Context;		// 패널들이 참조로 공유
 
 	unique_ptr<CPanel_Hierarchy>	m_pHierarchy;
-	unique_ptr<CPanel_Scene>		m_pScene;
 	unique_ptr<CPanel_Inspector>	m_pInspector;
 
 private:
@@ -1334,16 +1347,14 @@ cpp:
 #include "EditorUI_Utils.h"
 #include "EditorUI.h"
 #include "Panel_Hierarchy.h"
-#include "Panel_Scene.h"
 #include "Panel_Inspector.h"
 
 HRESULT CEditorUI::Initialize()
 {
     m_pHierarchy = CPanel_Hierarchy::Create(m_Context);
-    m_pScene     = CPanel_Scene::Create(m_Context);
     m_pInspector = CPanel_Inspector::Create(m_Context);
 
-    if (nullptr == m_pHierarchy || nullptr == m_pScene || nullptr == m_pInspector)
+    if (nullptr == m_pHierarchy || nullptr == m_pInspector)
         return E_FAIL;
 	return S_OK;
 }
@@ -1354,7 +1365,6 @@ void CEditorUI::Update(const f32_t& fDeltaTime)
     Calc_Layout();
 
     m_pHierarchy->Render(m_tHierarchy);
-    m_pScene->Render(m_tScene);
     m_pInspector->Render(m_tInspector);
 }
 
@@ -1367,132 +1377,113 @@ void CEditorUI::Calc_Layout()
     const f32_t fTop    = m_fMenuBarHeight;
     const f32_t fHeight = vDisplay.y - fTop;
 
-    // 최소 씬 폭 보정
-    f32_t fSide = m_fSidePamelWidth;
-    const f32_t fMinScene = 200.f;
-    if (vDisplay.x - fSide * 2.f < fMinScene)
-        fSide = max(0.f, (vDisplay.x - fMinScene) * 0.5f);
+    // 창이 너무 좁으면 두 패널이 겹치지 않게 폭을 줄인다
+    const f32_t fSide = min(m_fSidePanelWidth, vDisplay.x * 0.5f);
 
-    // 세 창의 Rect {Left, Top, Width, Height}
+    // 두 창의 Rect {Left, Top, Width, Height}
     m_tHierarchy    = { 0.f, fTop, fSide, fHeight };
-    m_tScene        = { fSide, fTop, vDisplay.x - fSide * 2.f, fHeight };
     m_tInspector    = { vDisplay.x - fSide, fTop, fSide, fHeight };
 }
 ```
 
 - **Update 순서**: 메뉴바를 먼저 그려야 그 프레임의 메뉴바 높이가 잡힌다 → 레이아웃 → 패널.
-- **패널 순서 Hierarchy → Scene → Inspector**: 나중에 Hierarchy/Scene이 선택을 바꾸면 같은 프레임의 Inspector가 바로 반영한다.
-- **Calc_Layout**: `DisplaySize`는 Win32 백엔드가 매 프레임 클라이언트 영역 크기로 채운다. 창이 작아져도 Scene 폭이 200 아래로 내려가지 않게 양쪽 폭을 줄인다.
+- **패널 순서 Hierarchy → Inspector**: Hierarchy가 선택을 바꾸면 같은 프레임의 Inspector가 바로 반영한다.
+- **Calc_Layout**: `DisplaySize`는 Win32 백엔드가 매 프레임 클라이언트 영역 크기로 채운다. 가운데는 계산하지 않는다. 두 패널 사이가 그대로 뷰포트다.
+- 접힌 창도 같은 Rect를 받는다. 접혀 있으면 ImGui가 제목 줄 높이만큼만 그린다.
 
 ### 확인
 
-- 메뉴바 아래에 창 3개가 빈틈없이 붙어 있고 드래그/크기 조절이 안 된다
-- 창 크기를 바꾸면 세 창이 다시 맞춰진다
+- 메뉴바 아래 왼쪽/오른쪽에 창 2개가 붙어 있고 드래그/크기 조절이 안 된다
+- 제목 줄 ▼를 누르면 제목 줄만 남고, 다시 누르면 펼쳐진다
+- 가운데는 회색 (Renderer가 씬 텍스처를 0.75 회색으로 지우고 백버퍼로 복사한 화면)
 
 ---
 
-## 4단계. Scene 창에 게임 화면 넣기 (RTT)
+## 4단계. 게임 화면 위에 UI — 뷰포트 입력 판정
 
-**목표**: 엔진이 씬을 텍스처에 그리고, Scene 창이 그 텍스처를 화면 비율에 맞게 가운데에 보여 준다. 아직 그릴 객체가 없으므로 **Renderer의 클리어 색(밝은 회색 0.75)** 이 Scene 창 안에만 보이면 성공이다.
-
-> 카메라/SkyBox보다 먼저 하는 이유: ImGui 창 배경은 거의 불투명하다. 백버퍼에 SkyBox를 먼저 그려도 Scene 창이 덮어서 확인할 수 없다.
+**목표**: 패널이 없는 영역(= 뷰포트)을 마우스/키보드가 쓰고 있는지 매 프레임 `EDITOR_CONTEXT`에 기록한다. 5단계 카메라, 12·14단계 피킹, 15단계 기즈모가 이 값을 쓴다.
 
 ### 엔진 선행 조건
 
-- `CRenderer`: `Render_GameObject`에서 `m_pSceneRTV`에 그리고, `m_bDrawToBackBuffer`가 true일 때만 `Render_FullScreen`으로 백버퍼에 복사한다.
-- `CGameInstance::Set_DrawToBackBuffer(bool)`, `Get_SceneSRV()`, `Get_ViewportSize()`
+- `CRenderer::Render_GameObject`: `m_pSceneRTV`에 객체를 그리고, `m_bUseBlur`면 블러, `m_bDrawToBackBuffer`(기본값 true)면 `Render_FullScreen`으로 백버퍼에 복사
+- ImGui `io.WantCaptureMouse`, `io.WantCaptureKeyboard`
 
-### 4-1. CToolMainApp::Initialize — 백버퍼에 씬 복사 끄기
+### 4-1. 화면이 그려지는 순서 (코드 변경 없음)
 
-```cpp
-    if (FAILED(Start_Level(LEVEL::MAPTOOL)))
-        return E_FAIL;
-
-    CGameInstance::Get().Set_DrawToBackBuffer(false);
+```
+CToolMainApp::Render
+ ├ 백버퍼/깊이 클리어
+ └ Draw()
+     ├ Renderer::Render_GameObject
+     │   ├ SceneRTV(1600×900 텍스처)에 객체 그리기   ← 클리어 색 0.75 회색
+     │   ├ (m_bUseBlur) 블러
+     │   └ (m_bDrawToBackBuffer == true) Render_FullScreen → 백버퍼로 복사
+     └ CLevel_MapTool::Render → Render_ImGui       ← 백버퍼 위에 패널
 ```
 
-- 게임은 씬 텍스처를 전체 화면 사각형으로 백버퍼에 복사한다. 툴은 그 텍스처를 ImGui가 Scene 창에 그리므로 복사를 끈다. 이 줄이 없으면 ImGui 창들 뒤 전체 화면에도 씬이 깔린다.
+- **`Set_DrawToBackBuffer`는 건드리지 않는다**: 기본값 true 그대로라 게임과 똑같이 화면 전체에 씬이 나온다.
+- **렌더 타깃은 그대로 둔다**: 블러 같은 후처리를 하려면 그린 화면을 텍스처로 다시 읽어야 하기 때문이다. 툴 입장에서는 결과가 백버퍼에 복사되므로 신경 쓸 게 없다.
+- **좌표 기준이 같다**: 백버퍼 = 창의 클라이언트 영역이다. 그래서 ImGui 마우스 좌표(`io.MousePos`)가 게임 화면 픽셀 좌표와 같은 기준이다. 피킹(12단계)에서 좌표를 거의 변환하지 않아도 된다.
 
-### 4-2. EDITOR_CONTEXT — Scene 정보 추가
+### 4-2. EDITOR_CONTEXT — 뷰포트 입력 상태
 
 ```cpp
 struct EDITOR_CONTEXT
 {
-	// Scene 창
-	float2_t	vImageMin = {};					// 화면 기준 씬 이미지 좌상단 (피킹용)
-	float2_t	vImageSize = {};				// 씬 이미지 크기 (피킹에서 나누는 값)
-	bool_t		bSceneHovered = {};				// 씬 이미지 위에 마우스가 있는지
-	bool_t		bSceneFocused = {};				// Scene 창이 포커스인지 -> 카메라 조작 허용
+	// 뷰포트 (패널이 없는 게임 화면 영역)
+	bool_t		bViewportHovered = {};			// 마우스를 ImGui가 쓰지 않음 -> 카메라 회전, 피킹
+	bool_t		bViewportFocused = {};			// 키보드를 ImGui가 쓰지 않음 -> WASD 이동
 };
 ```
 
-- Scene 패널이 매 프레임 채운다. `bSceneHovered/Focused`는 5단계 카메라가, `vImageMin/Size`는 12단계 피킹과 15단계 기즈모가 쓴다.
-
-### 4-3. Panel_Scene::Render
+### 4-3. CEditorUI::Update — 매 프레임 기록
 
 ```cpp
-void CPanel_Scene::Render(const PANEL_RECT& tRect)
+void CEditorUI::Update(const f32_t& fDeltaTime)
 {
-    Set_NextPanelRect(tRect);
+    // 이번 프레임 마우스/키보드를 ImGui가 가져가는지 (NewFrame에서 계산된 값)
+    const ImGuiIO& io = ImGui::GetIO();
+    m_Context.bViewportHovered = !io.WantCaptureMouse;
+    m_Context.bViewportFocused = !io.WantCaptureKeyboard;
 
-    // 스크롤바가 생기지 않게
-    constexpr ImGuiWindowFlags eSceneFlags = g_FixedPanelFlags
-        | ImGuiWindowFlags_NoScrollbar
-        | ImGuiWindowFlags_NoScrollWithMouse;
+    Render_MenuBar();
+    Calc_Layout();
 
-    // 창 안쪽 여백(기본 8,8)을 0으로 -> 이미지가 창에 딱 붙게
-    ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.f, 0.f));
-    ImGui::Begin("Scene", nullptr, eSceneFlags);
-    ImGui::PopStyleVar();
-```
-
-- **PushStyleVar → Begin → PopStyleVar**: `WindowPadding`은 Begin 때 읽히므로 Begin 직후에 바로 되돌려도 이 창에만 적용된다. 되돌리지 않으면 뒤에 그리는 Inspector까지 여백이 0이 된다.
-
-```cpp
-    // 씬 텍스처의 가로세로 비율
-    float2_t vpSize = CGameInstance::Get().Get_ViewportSize();
-    const f32_t fAspect = static_cast<f32_t>(vpSize.x) / vpSize.y;
-
-    ImVec2 vSize = { tRect.fW, tRect.fH };
-    vSize.y = tRect.fW / fAspect;
-
-    // 커서 = 다음 위젯이 놓일 위치. y만 내려서 세로 가운데 정렬
-    const ImVec2 vCursor = ImVec2(0, (tRect.fH - vSize.y) * 0.5f);
-    ImGui::SetCursorPos(vCursor);
-```
-
-- **비율 맞추기**: 씬 텍스처는 1600×900인데 Scene 창은 1040×(900-메뉴바)다. 가로를 창 폭에 맞추고 세로는 비율로 계산해서 화면이 늘어나지 않게 한다.
-- **SetCursorPos**: ImGui는 위젯을 커서 위치에 놓고 커서를 다음 줄로 옮긴다. 이미지 위아래에 남는 공간을 반씩 나눠 가운데에 둔다.
-
-```cpp
-    // Renderer의 SRV를 ImGui 텍스처 ID로 넘긴다.
-    // DX11 백엔드가 그릴 때 다시 ID3D11ShaderResourceView*로 되돌려서 PS 0번 슬롯에 바인딩한다.
-    ID3D11ShaderResourceView* pSRV = CGameInstance::Get().Get_SceneSRV();
-    ImGui::Image((ImTextureID)pSRV, vSize);
-
-    // Item 함수는 바로 앞 아이템(Image)에 대한 값을 준다 -> 사이에 다른 위젯을 넣으면 안 됨
-    m_Context.vImageMin     = float2_t(ImGui::GetItemRectMin().x, ImGui::GetItemRectMin().y);
-    m_Context.vImageSize    = float2_t(vSize.x, vSize.y);
-    m_Context.bSceneHovered = ImGui::IsItemHovered();       // 이미지 위에 마우스가 있나
-    m_Context.bSceneFocused = ImGui::IsWindowFocused();     // 마지막으로 클릭된 창이 Scene인가 (Begin~End 사이에서)
-
-    ImGui::End();
+    m_pHierarchy->Render(m_tHierarchy);
+    m_pInspector->Render(m_tInspector);
 }
 ```
 
-- **Image는 명령만 기록**: 실제 그리기는 `Render_ImGui`에서 일어난다. 그때는 Renderer가 이미 이번 프레임 씬을 다 그린 뒤다 (`Draw` 안에서 Renderer → 레벨 Render 순).
-- **GetItemRectMin**: 이미지 좌상단의 **화면(클라이언트) 좌표**. 마우스 좌표(`io.MousePos`)와 같은 기준이라 피킹 때 바로 뺄셈할 수 있다.
+- **WantCaptureMouse가 true인 경우**
+  - 마우스가 ImGui 창(접힌 제목 줄, 메뉴바 포함) 위에 있을 때
+  - ImGui 창 위에서 누르기 시작한 드래그 중일 때
+  - 팝업이 열려 있을 때
+- **WantCaptureMouse가 false인 경우**: 뷰포트에서 누르기 시작한 드래그는 중간에 패널 위를 지나가도 false가 유지된다. 그래서 카메라 회전이 끊기지 않는다.
+- **WantCaptureKeyboard**: 입력칸 편집 중이거나, `NavEnableKeyboard`(2단계)가 켜진 상태로 ImGui 창에 포커스가 있으면 true다. 패널이 없는 곳을 클릭하면 ImGui 창 포커스가 풀려 false가 된다. → "뷰포트를 클릭해야 WASD가 먹는" 동작이 저절로 된다.
+- **한 프레임 늦은 값**: `NewFrame` 때 지난 프레임의 창 배치로 계산된다. 한 프레임 차이는 문제없다.
+- 맨 앞에서 계산하는 이유: 뒤에서 그리는 패널이나 팝업이 이번 프레임 값에 영향을 주지 않게, 그리기 전에 한 번만 읽어 둔다.
+
+### 4-4. 확인용 표시 (임시)
+
+`Render_MenuBar`의 `EndMainMenuBar()` 바로 위에:
+
+```cpp
+    ImGui::TextDisabled(m_Context.bViewportHovered ? "Viewport" : "UI");
+```
+
+- 메뉴바 안에서 Text를 부르면 메뉴 옆에 글자가 붙는다. 확인이 끝나면 지워도 된다.
 
 ### 확인
 
-- Scene 창 안에 밝은 회색 사각형이 16:9로 가운데에 보이고, 위아래에 창 배경이 남는다
-- Hierarchy/Inspector 뒤(백버퍼)는 검정 그대로
+- 가운데 회색 영역에 마우스 → 메뉴바에 `Viewport`, 패널/메뉴바 위 → `UI`
+- 패널을 접으면 그 자리도 `Viewport`
+- 가운데를 누른 채 패널 위로 끌고 가도 `Viewport` 유지
 
 ---
 
 ## 5단계. 맵툴 카메라 + SkyBox + 카메라 조작 제한
 
-**목표**: Scene 창에 SkyBox가 보이고, **Scene 창을 클릭해 포커스를 준 뒤 마우스가 이미지 위에 있을 때만** WASD 이동 / 우클릭 드래그 회전이 된다.
+**목표**: 화면에 SkyBox가 보이고, **마우스가 패널 밖에 있고 키보드를 ImGui가 쓰지 않을 때만** WASD 이동 / 우클릭 드래그 회전이 된다.
 
 ### 엔진/클라이언트 선행 조건
 
@@ -1528,11 +1519,11 @@ public:
     virtual void Late_Update(f32_t fTimeDelta);
     virtual HRESULT Render();
 
-    virtual void        Set_SceneClicked(bool_t bClicked) { m_bSceneClicked = bClicked; }
-    virtual void        Set_SceneHovered(bool_t bHovered) { m_bSceneHovered = bHovered; }
+    virtual void        Set_ViewportFocused(bool_t bFocused) { m_bViewportFocused = bFocused; }
+    virtual void        Set_ViewportHovered(bool_t bHovered) { m_bViewportHovered = bHovered; }
 private:
-    bool_t      m_bSceneClicked = { false };
-    bool_t      m_bSceneHovered = { false };
+    bool_t      m_bViewportFocused = { false };
+    bool_t      m_bViewportHovered = { false };
     f32_t	    m_fMouseSensor = {};
 private:
     void        KeyInput(const f32_t fDeltaTime);
@@ -1546,7 +1537,7 @@ NS_END
 
 - **namespace Client**: 게임 카메라들과 같은 자리에 두었다. 맵툴에서만 쓰지만 ImGui를 모른다.
 - **DESC 상속**: 부모 `CAMERA_DESC`(Eye/At/Fov/Near/Far/속도)에 마우스 감도만 더한다.
-- **Set_SceneClicked/Hovered**: 카메라는 ImGui를 모르므로 레벨이 매 프레임 알려 준다 (5-4).
+- **Set_ViewportFocused/Hovered**: 카메라는 ImGui를 모르므로 레벨이 매 프레임 알려 준다 (5-4). 값은 4단계에서 기록한 뷰포트 입력 상태.
 
 ```cpp
 // MapTool_Cam.cpp
@@ -1581,7 +1572,7 @@ void CMapTool_Cam::Priority_Update(f32_t fTimeDelta)
 void CMapTool_Cam::Update(f32_t fDeltaTime)
 {
 	__super::Update(fDeltaTime);
-	if (m_bSceneClicked && m_bSceneHovered)
+	if (m_bViewportFocused && m_bViewportHovered)
 		KeyInput(fDeltaTime);
 }
 
@@ -1596,7 +1587,7 @@ HRESULT CMapTool_Cam::Render()
 }
 ```
 
-- **Update 조건**: Scene 창이 포커스이고 마우스가 이미지 위일 때만 입력을 받는다. Inspector 입력칸에 "w"를 쳐도 카메라가 안 움직인다.
+- **Update 조건**: 키보드를 ImGui가 쓰지 않고(Focused) 마우스가 패널 밖일 때(Hovered)만 입력을 받는다. Inspector 입력칸에 "w"를 쳐도, 패널 위에서 우클릭 드래그를 해도 카메라가 안 움직인다.
 
 ```cpp
 void CMapTool_Cam::KeyInput(const f32_t fDeltaTime)
@@ -1687,7 +1678,7 @@ shared_ptr<CPrototype> CMapTool_Cam::Clone(void* pArg)
 private:
 	HRESULT Ready_Layer_BackGround(const tchar_t* pLayerTag);
 	HRESULT Ready_Layer_GameObject(const tchar_t* pLayerTag);
-	void	Sync_SceneView();
+	void	Sync_Viewport();
 ```
 
 cpp — include에 `#include "MapTool_Cam.h"`를 추가하고, Initialize에서 **ImGui 준비 전에**:
@@ -1735,14 +1726,14 @@ HRESULT CLevel_MapTool::Ready_Layer_GameObject(const tchar_t* pLayerTag)
 - **카메라**: (0,1,-5)에서 +Z를 본다. 6단계에서 원점에 만드는 객체가 정면에 보인다.
 - **Add_Camera / Set_MainCamera**: 엔진 카메라 매니저에 등록하고 메인으로 지정한다. 12단계의 `Get_MainCamera()->Compute_PickingRay`가 이 카메라를 쓴다.
 
-### 5-4. Scene 상태를 카메라에 전달
+### 5-4. 뷰포트 입력 상태를 카메라에 전달
 
 EditorUI.h에 getter 추가:
 
 ```cpp
 public:
-	bool_t		GetSceneCliked() { return m_Context.bSceneFocused; }
-	bool_t		GetSceneHovered() { return m_Context.bSceneHovered; }
+	bool_t		Get_ViewportFocused() { return m_Context.bViewportFocused; }
+	bool_t		Get_ViewportHovered() { return m_Context.bViewportHovered; }
 ```
 
 Level_MapTool.cpp:
@@ -1754,16 +1745,16 @@ void CLevel_MapTool::Update(f32_t fDeltaTime)
     if (FAILED(Begin_ImGui()))
         return;
     m_pEditorUI->Update(fDeltaTime);
-    Sync_SceneView();
+    Sync_Viewport();
 }
 
-void CLevel_MapTool::Sync_SceneView()
+void CLevel_MapTool::Sync_Viewport()
 {
     auto pCamera = dynamic_pointer_cast<CMapTool_Cam>(CGameInstance::Get().Get_MainCamera());
     if (nullptr == pCamera)
         return;
-    pCamera->Set_SceneClicked(m_pEditorUI->GetSceneCliked());
-    pCamera->Set_SceneHovered(m_pEditorUI->GetSceneHovered());
+    pCamera->Set_ViewportFocused(m_pEditorUI->Get_ViewportFocused());
+    pCamera->Set_ViewportHovered(m_pEditorUI->Get_ViewportHovered());
 }
 ```
 
@@ -1772,15 +1763,15 @@ void CLevel_MapTool::Sync_SceneView()
 
 ### 확인
 
-- Scene 창에 하늘이 보인다
-- Scene 창을 한 번 클릭 → 마우스를 이미지 위에 둔 채 WASD / 우클릭 드래그로 시점 이동
+- 가운데(패널을 접으면 화면 전체)에 하늘이 보인다
+- 패널이 없는 곳을 한 번 클릭 → 그 위에서 WASD / 우클릭 드래그로 시점 이동
 - 마우스를 Hierarchy로 옮기거나 다른 창을 클릭하면 카메라가 멈춘다
 
 ---
 
 ## 6단계. 배치 객체 — CMapObject + FBX 모델 + CStaticProp + 조명/안개 + 생성 메뉴
 
-**목표**: Hierarchy 빈 곳을 우클릭 → `Add Static_Prop` → Scene 원점에 FBX 모델이 **조명을 받은 색으로** 생긴다. (아직 목록에는 안 보임 → 7단계)
+**목표**: Hierarchy 빈 곳을 우클릭 → `Add Static_Prop` → 화면 가운데(원점)에 FBX 모델이 **조명을 받은 색으로** 생긴다. (아직 목록에는 안 보임 → 7단계)
 
 ### 엔진/클라이언트 선행 조건
 
@@ -2244,7 +2235,7 @@ struct EDITOR_CONTEXT
 {
 	uint32_t	m_iNextID = {};					// "Prop_N"의 N
 
-	// Scene 창 (4단계)
+	// 뷰포트 (4단계)
 	...
 };
 
@@ -2430,7 +2421,7 @@ void CPanel_Hierarchy::Create_StaticProp(const wstring_t& pPrototypeTag)
 
 ### 확인
 
-- Hierarchy 빈 곳 우클릭 → `Add Static_Prop` → Scene 원점에 Boss Wu 모델이 **밝게** 보인다
+- Hierarchy 빈 곳 우클릭 → `Add Static_Prop` → 화면 가운데(원점)에 Boss Wu 모델이 **밝게** 보인다
 - 여러 번 눌러도 실패 없이 겹쳐서 생긴다 (이름이 `Prop_00`, `Prop_01`...)
 - 모델이 검게 나오면 SunLight/Fog 확인 (부록 C)
 
@@ -2452,7 +2443,7 @@ EditorUI_Defines.h 맨 위 include에 추가:
 EDITOR_CONTEXT 맨 앞에 추가:
 
 ```cpp
-	// 선택: Hierarchy / Scene 피킹이 바꾸고 Inspector가 읽는다.
+	// 선택: Hierarchy / 뷰포트 피킹이 바꾸고 Inspector가 읽는다.
 	weak_ptr<CMapObject>	pSelected;			// weak_ptr: 지워지면 자동으로 만료
 	wstring_t				strSelectedTag;		// 선택된 객체의 이름 ("Prop_01")
 
@@ -2575,7 +2566,7 @@ void CPanel_Hierarchy::Delete_Selected()
 
 ### 확인
 
-- 항목 우클릭 → Delete → 목록과 Scene에서 사라짐
+- 항목 우클릭 → Delete → 목록과 화면에서 사라짐
 - 항목 클릭 후 Delete 키 → 삭제
 - 빈 곳 우클릭은 여전히 생성 메뉴
 
@@ -2583,7 +2574,7 @@ void CPanel_Hierarchy::Delete_Selected()
 
 ## 9단계. Inspector — 이름 + Transform
 
-**목표**: 선택한 객체 이름과 Position / Rotation / Scale이 보이고, 드래그로 바꾸면 Scene에 바로 반영된다.
+**목표**: 선택한 객체 이름과 Position / Rotation / Scale이 보이고, 드래그로 바꾸면 화면에 바로 반영된다.
 
 ### 9-1. EDITOR_CONTEXT — 선택 검사
 
@@ -2646,7 +2637,7 @@ void CPanel_Inspector::Render(const PANEL_RECT& tRect)
 
 ### 확인
 
-- 선택하면 이름과 값이 보이고, 값을 드래그하면 Scene 모델이 움직인다
+- 선택하면 이름과 값이 보이고, 값을 드래그하면 화면의 모델이 움직인다
 - Ctrl+클릭으로 숫자를 직접 입력할 수 있다
 - 선택 객체를 삭제하면 "No object selected"
 
@@ -2734,7 +2725,7 @@ include에 `#include "StaticProp.h"`, Transform 블록 다음에:
 ### 확인
 
 - 콤보를 열면 `0_CharacterModel_Boss_Wu`, `Pfb_Tree_01_1`, `SM_Container_*`가 보이고 현재 항목이 하이라이트
-- 고르면 Scene의 모델이 바뀌고, 콤보 미리보기도 바뀐다
+- 고르면 화면의 모델이 바뀌고, 콤보 미리보기도 바뀐다
 
 ---
 
@@ -3119,111 +3110,131 @@ void CPanel_Hierarchy::Create_Terrain()
 
 ---
 
-## 12단계. Scene 피킹으로 선택
+## 12단계. 뷰포트 피킹으로 선택
 
-**목표**: Scene 이미지 위를 좌클릭하면, 마우스 아래에 있는 가장 가까운 StaticProp이 선택된다 (지형 제외).
+**목표**: 패널이 없는 게임 화면을 좌클릭하면, 마우스 아래 가장 가까운 StaticProp이 선택된다 (지형 제외).
+
+> 피킹, 지형 우클릭(14), 기즈모(15)는 특정 창이 아니라 **뷰포트(창 밖 영역)** 의 일이라서 `CEditorUI`가 맡는다. 패널은 각자 창 안만 처리한다.
 
 ### 엔진 선행 조건
 
 - `CCamera::Compute_PickingRay(POINT, out 원점, out 방향)`: **뷰포트(1600×900) 픽셀 좌표**를 받아 월드 레이를 만든다.
+- `CGameInstance::Get_MainCamera()`
+- 1단계에서 창 크기를 고정해 둔 상태 (클라이언트 영역 = 엔진 뷰포트)
 - `CModel::GetBoundinBox()`: 모델 로컬 AABB
-- `CTransform::Get_World()`
+- `CGameObject::Get_Transform()`, `CTransform::Get_World()`
 
-### 12-1. Panel_Scene::Render — 마우스 좌표 변환 + 레이
-
-4단계 코드의 `m_Context...` 저장 다음, `ImGui::End()` 전에 넣는다. include에 `#include "Camera.h"`, `#include "Hill.h"`.
+### 12-1. EditorUI.h
 
 ```cpp
-    // Scene 창에 그려진 이미지의 중심 (ImGui 화면 좌표)
-    const float2_t vImageCenter = {
-        m_Context.vImageMin.x + m_Context.vImageSize.x * 0.5f,
-        m_Context.vImageMin.y + m_Context.vImageSize.y * 0.5f };
-
-    // 실제 씬(뷰포트)의 중심
-    const float2_t vViewportCenter = { vpSize.x * 0.5f, vpSize.y * 0.5f };
-
-    // 배율: Scene 이미지에서 1픽셀 = 뷰포트에서 몇 픽셀
-    const f32_t fScaleX = vpSize.x / m_Context.vImageSize.x;
-    const f32_t fScaleY = vpSize.y / m_Context.vImageSize.y;
-
-    // 마우스가 이미지 중심에서 얼마나 떨어져 있나
-    const ImVec2 vMouse = ImGui::GetIO().MousePos;
-    const f32_t fDeltaX = vMouse.x - vImageCenter.x;
-    const f32_t fDeltaY = vMouse.y - vImageCenter.y;
-
-    // 뷰포트 좌표 = 뷰포트 중심 + 변화량 × 배율
-    POINT ptPick{
-        static_cast<LONG>(vViewportCenter.x + fDeltaX * fScaleX),
-        static_cast<LONG>(vViewportCenter.y + fDeltaY * fScaleY) };
-
-    // 레이 만들기
-    vector_t vRayOrigin, vRayDir;
-    if (auto pCamera = CGameInstance::Get().Get_MainCamera())
-        pCamera->Compute_PickingRay(ptPick, vRayOrigin, vRayDir);
+private:
+	void		Update_Viewport();
+	void		Pick_Object(const vector_t& vRayOrigin, const vector_t& vRayDir);
 ```
 
-- **왜 변환이 필요한가**: 씬은 1600×900 텍스처에 그려졌는데, 화면에서는 Scene 창 안에 작게(약 1040×585) 줄여서 보여 준다. 마우스 좌표를 그대로 넘기면 엉뚱한 곳을 찍는다.
-- **중심 기준**: 이미지 중심 ↔ 뷰포트 중심을 맞추고, 중심에서 떨어진 거리만 배율로 늘린다. 이미지 좌상단 기준으로 `(마우스 - vImageMin) × 배율`로 계산해도 결과는 같다.
-- 레이는 매 프레임 계산한다. 14단계 우클릭 생성도 같은 레이를 쓴다.
+### 12-2. CEditorUI::Update — 패널 다음에 뷰포트 처리
 
-### 12-2. 클릭 시 OBB 검사
+include에 `#include "Camera.h"`, `#include "Hill.h"` 추가.
 
 ```cpp
-    // 피킹 요청: 씬 이미지 위에서 왼쪽 버튼을 누른 프레임
-    if (m_Context.bSceneHovered && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
-    {
-        auto GameObjects = CGameInstance::Get().Get_GameObjects(ETOUI(LEVEL::MAPTOOL), L"Layer_Map");
-        if (nullptr == GameObjects)
-        {
-            ImGui::End();
-            return;
-        }
-        f32_t fMinDist = D3D11_FLOAT32_MAX;
-        wstring_t               strPickedTag = {};
-        shared_ptr<CGameObject> pPicked = { nullptr };
-        for (auto& [strTag, pObject] : *GameObjects)
-        {
-            if (nullptr == pObject || pObject->Is_Dead())
-                continue;
-            if (nullptr != dynamic_pointer_cast<CHill>(pObject))          // 지형 제외 (박스가 맵 전체)
-                continue;
-            auto pModel = static_pointer_cast<CModel>(pObject->Find_Component(L"Com_Model"));
-            if (nullptr == pModel)
-                continue;
+void CEditorUI::Update(const f32_t& fDeltaTime)
+{
+    const ImGuiIO& io = ImGui::GetIO();
+    m_Context.bViewportHovered = !io.WantCaptureMouse;
+    m_Context.bViewportFocused = !io.WantCaptureKeyboard;
 
-            BoundingOrientedBox tWorldBox;
-            BoundingOrientedBox::CreateFromBoundingBox(tWorldBox, pModel->GetBoundinBox());
-            tWorldBox.Transform(tWorldBox, pObject->Get_Transform()->Get_World());
+    Render_MenuBar();
+    Calc_Layout();
 
-            f32_t fOutDist = {};
-            if (tWorldBox.Intersects(vRayOrigin, vRayDir, fOutDist) && fMinDist > fOutDist)
-            {
-                fMinDist = fOutDist;
-                strPickedTag = strTag;
-                pPicked = pObject;
-            }
-        }
-        if (nullptr != pPicked)
-            m_Context.Select(strPickedTag, pPicked);
-    }
+    m_pHierarchy->Render(m_tHierarchy);
+    m_pInspector->Render(m_tInspector);
 
-    ImGui::End();
+    Update_Viewport();
 }
 ```
 
-- **IsMouseClicked**: 누른 그 프레임 한 번만 true. 누르고 있는 동안 계속 검사하지 않는다.
-- **레이어가 없으면 End 후 return**: `Begin`을 열었으니 빠져나가기 전에 반드시 `End`. 빠뜨리면 ImGui assert.
+- 패널 다음에 두는 이유: Hierarchy에서 같은 프레임에 삭제된 객체를 피킹 대상으로 고르지 않게 하려고. 삭제된 객체는 Dead 표시가 되어 있어서 건너뛴다.
+
+### 12-3. Update_Viewport — 마우스 좌표 → 레이
+
+```cpp
+void CEditorUI::Update_Viewport()
+{
+    auto pCamera = CGameInstance::Get().Get_MainCamera();
+    if (nullptr == pCamera)
+        return;
+
+    // 창 크기가 고정(1단계)이라 마우스 좌표 = 뷰포트 좌표
+    const ImGuiIO&  io = ImGui::GetIO();
+    POINT ptPick{
+        static_cast<LONG>(io.MousePos.x),
+        static_cast<LONG>(io.MousePos.y) };
+
+    vector_t vRayOrigin, vRayDir;
+    pCamera->Compute_PickingRay(ptPick, vRayOrigin, vRayDir);
+
+    // 좌클릭: 객체 선택
+    if (m_Context.bViewportHovered && ImGui::IsMouseClicked(ImGuiMouseButton_Left))
+        Pick_Object(vRayOrigin, vRayDir);
+}
+```
+
+- **좌표 변환이 없다**: 게임 화면이 창 전체에 깔려 있고, 1단계에서 창 크기 변경을 막아 클라이언트 영역(`io.DisplaySize`)과 엔진 뷰포트(`Get_ViewportSize()`)가 둘 다 1600×900으로 고정이다. 그래서 마우스 좌표가 곧 뷰포트 픽셀 좌표다.
+- 나중에 창 크기 변경을 허용한다면(스왑체인 리사이즈 없이) `io.MousePos.x * vpSize.x / io.DisplaySize.x`처럼 비율을 곱해야 한다.
+- **레이는 매 프레임 계산**: 14단계 우클릭도 같은 레이를 쓴다.
+- **bViewportHovered 검사**: 패널 위를 클릭했을 때 그 뒤 객체가 선택되면 안 된다.
+- **IsMouseClicked**: 누른 그 프레임 한 번만 true.
+
+### 12-4. Pick_Object — OBB 검사
+
+```cpp
+void CEditorUI::Pick_Object(const vector_t& vRayOrigin, const vector_t& vRayDir)
+{
+    auto pObjects = CGameInstance::Get().Get_GameObjects(ETOUI(LEVEL::MAPTOOL), L"Layer_Map");
+    if (nullptr == pObjects)
+        return;
+
+    f32_t                   fMinDist = D3D11_FLOAT32_MAX;
+    wstring_t               strPickedTag = {};
+    shared_ptr<CGameObject> pPicked = { nullptr };
+    for (auto& [strTag, pObject] : *pObjects)
+    {
+        if (nullptr == pObject || pObject->Is_Dead())
+            continue;
+        if (nullptr != dynamic_pointer_cast<CHill>(pObject))          // 지형 제외 (박스가 맵 전체)
+            continue;
+        auto pModel = static_pointer_cast<CModel>(pObject->Find_Component(L"Com_Model"));
+        if (nullptr == pModel)
+            continue;
+
+        BoundingOrientedBox tWorldBox;
+        BoundingOrientedBox::CreateFromBoundingBox(tWorldBox, pModel->GetBoundinBox());
+        tWorldBox.Transform(tWorldBox, pObject->Get_Transform()->Get_World());
+
+        f32_t fOutDist = {};
+        if (tWorldBox.Intersects(vRayOrigin, vRayDir, fOutDist) && fMinDist > fOutDist)
+        {
+            fMinDist = fOutDist;
+            strPickedTag = strTag;
+            pPicked = pObject;
+        }
+    }
+    if (nullptr != pPicked)
+        m_Context.Select(strPickedTag, pPicked);
+}
+```
+
+- **창 밖이라 Begin/End가 없다**: 중간에 `return`해도 ImGui 짝을 신경 쓸 필요가 없다.
 - **지형 제외**: 지형의 경계 상자는 맵 전체라 항상 가장 먼저 맞아서 다른 객체를 못 고르게 된다.
-- **AABB → OBB**: 모델 로컬 AABB를 OBB로 만든 뒤 월드 행렬로 변환한다. 회전한 객체도 박스가 같이 돈다. (AABB를 그대로 Transform하면 회전 시 박스가 커진다)
+- **AABB → OBB**: 모델 로컬 AABB를 OBB로 만든 뒤 월드 행렬로 변환한다. 회전한 객체도 박스가 같이 돈다. (AABB를 그대로 Transform하면 회전할 때 박스가 커진다)
 - **가장 가까운 것**: 겹쳐 있으면 레이 거리가 가장 짧은 객체를 고른다.
 - 빈 곳을 클릭하면 선택이 그대로 유지된다 (해제하지 않음).
-- `Get_Transform()`: `CGameObject`가 Transform 컴포넌트를 돌려주는 엔진 함수.
 
 ### 확인
 
-- 모델 여러 개를 Inspector로 떨어뜨려 놓고 Scene에서 클릭 → Hierarchy 하이라이트와 Inspector가 바뀐다
+- 모델 여러 개를 Inspector로 떨어뜨려 놓고 화면에서 클릭 → Hierarchy 하이라이트와 Inspector가 바뀐다
 - 지형 위만 클릭하면 선택이 바뀌지 않는다
-- Scene 창이 처음 포커스를 얻는 클릭에서도 선택된다 (Hovered만 검사하므로)
+- 패널 위를 클릭하면 그 뒤에 있는 객체가 선택되지 않는다
 
 ---
 
@@ -3260,96 +3271,104 @@ include에 `#include "Hill.h"`. 이름 아래 `ImGui::Separator();` 다음, Tran
 
 ## 14단계. 지형 피킹으로 객체 생성
 
-**목표**: Scene에서 지형 위를 **우클릭(드래그 없이)** 하면 메뉴가 뜨고, `Add Static_Prop`을 고르면 그 지점에 Prop이 생긴다. 우클릭 드래그는 지금처럼 카메라 회전이다.
+**목표**: 게임 화면의 지형 위를 **우클릭(드래그 없이)** 하면 메뉴가 뜨고, `Add Static_Prop`을 고르면 그 지점에 Prop이 생긴다. 우클릭 드래그는 지금처럼 카메라 회전이다.
 
 ### 엔진 선행 조건
 
 - `TriangleTests::Intersects(원점, 방향, p0, p1, p2, out 거리)` (DirectXCollision)
 - 11단계 `CHill::Get_Vertices / Get_Indices` (로컬 정점 위치 / 인덱스)
 
-### 14-1. Panel_Scene.h
+### 14-1. EditorUI.h
 
 ```cpp
 private:
-	float3_t m_vPickPos = {};
+	float3_t	m_vPickPos = {};		// 우클릭한 지형 위 지점
 private:
-	void		Create_Object(const wstring_t& pPrototypeTag, float3_t vPickPos);
+	bool_t		Pick_Terrain(const vector_t& vRayOrigin, const vector_t& vRayDir);
+	void		Create_StaticProp(const float3_t& vPosition);
 ```
 
 - `m_vPickPos`: 우클릭한 프레임에 계산한 지점. 메뉴는 다음 프레임 이후에 고르므로 멤버로 기억해 둔다.
 
-### 14-2. 우클릭 판정 + 지형 삼각형 검사
+### 14-2. Update_Viewport — 우클릭 판정 + 메뉴
 
-12단계 블록 다음, `ImGui::End()` 전에 (include에 `#include "StaticProp.h"`):
+12단계 `Update_Viewport`의 좌클릭 처리 다음에 추가 (include에 `#include "StaticProp.h"`):
 
 ```cpp
-    if (m_Context.bSceneHovered && ImGui::IsMouseReleased(ImGuiMouseButton_Right))
+    // 우클릭(드래그 없이): 지형 위 지점을 구하고 메뉴 열기
+    if (m_Context.bViewportHovered && ImGui::IsMouseReleased(ImGuiMouseButton_Right))
     {
-        auto pTerrain = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), L"Layer_Map", L"Terrain");
-        if (nullptr == pTerrain)
-        {
-            ImGui::End();
-            return;
-        }
         ImVec2 vDrag = ImGui::GetMouseDragDelta(ImGuiMouseButton_Right);
-        if (vDrag.x * vDrag.x + vDrag.y * vDrag.y < 25.f)    // 5픽셀 미만 이동 = 클릭으로 판단
-        {
-            const auto& vVertices = dynamic_pointer_cast<CHill>(pTerrain)->Get_Vertices();
-            const auto& vIndices = dynamic_pointer_cast<CHill>(pTerrain)->Get_Indices();
+        if (vDrag.x * vDrag.x + vDrag.y * vDrag.y < 25.f       // 5픽셀 미만 이동 = 클릭으로 판단
+            && Pick_Terrain(vRayOrigin, vRayDir))
+            ImGui::OpenPopup("ViewportMenu");
+    }
 
-            f32_t fMinDist = D3D11_FLOAT32_MAX;
-            bool_t bHit = false;
-            for (size_t i = 0; i + 2 < vIndices.size(); i += 3)
-            {
-                vector_t p0 = XMLoadFloat3(&vVertices[vIndices[i]]);
-                vector_t p1 = XMLoadFloat3(&vVertices[vIndices[i + 1]]);
-                vector_t p2 = XMLoadFloat3(&vVertices[vIndices[i + 2]]);
-
-                f32_t fDist = {};
-                if (TriangleTests::Intersects(vRayOrigin, vRayDir, p0, p1, p2, fDist) && fDist < fMinDist)
-                {
-                    fMinDist = fDist;
-                    bHit = true;
-                }
-            }
-            if (bHit)
-            {
-                vector_t vHitPos = vRayOrigin + vRayDir * fMinDist;
-                XMStoreFloat3(&m_vPickPos, vHitPos);
-            }
-            ImGui::OpenPopup("SceneMenu");
-        }
+    if (ImGui::BeginPopup("ViewportMenu"))
+    {
+        if (ImGui::MenuItem(s_Placeables[0].pName))         // "Add Static_Prop"
+            Create_StaticProp(m_vPickPos);
+        ImGui::EndPopup();
     }
 ```
 
 - **IsMouseReleased + 드래그 거리**: 우클릭은 카메라 회전에도 쓴다. 뗀 순간 누른 위치에서 5픽셀 안쪽이면 "클릭", 더 움직였으면 "회전"으로 본다. `GetMouseDragDelta`는 뗀 프레임에도 누른 동안의 이동량을 준다. 제곱끼리 비교해서 sqrt를 피한다.
-- **지형이 없으면**: 생성할 지점이 없으니 메뉴도 안 연다 (End 후 return).
-- **삼각형 전체 검사**: 인덱스 3개씩 삼각형 하나. 레이와 맞는 삼각형 중 가장 가까운 거리를 고른다. 321×321 지형이면 삼각형 약 20만 개라 무겁지만 우클릭 순간에만 돈다.
-- **정점은 로컬 좌표**: 지형 Transform을 기본값(원점, 회전 없음, 1)으로 두면 월드와 같다. 지형을 옮겼다면 레이를 지형 로컬로 바꾸거나 정점에 월드 행렬을 곱해야 맞는다 (16. 남은 작업).
-- **맞은 지점** = 원점 + 방향 × 거리.
-- 맞지 않아도 메뉴는 열린다. 이때는 직전 `m_vPickPos`(처음엔 원점)에 생긴다.
+- **지형에 맞았을 때만 메뉴**: 지형이 없거나 하늘을 찍었으면 생성할 지점이 없으므로 메뉴를 열지 않는다.
+- **OpenPopup / BeginPopup 분리**: `OpenPopup`은 "열어라" 표시만 하고, 그리는 건 매 프레임 `BeginPopup`이 한다. 메뉴는 다음 프레임 이후에도 열려 있어야 하므로 `BeginPopup`은 조건 밖에 둔다.
+- **창 밖에서 팝업**: 두 함수 모두 `Begin` 밖(같은 ID 스택)에서 불리므로 ID `"ViewportMenu"`가 맞는다. 팝업은 연 순간의 마우스 위치에 뜬다.
+- **팝업이 열려 있는 동안**: `WantCaptureMouse`가 true라 `bViewportHovered`가 false다. 메뉴를 고르는 클릭이 피킹으로 새지 않는다.
+- **s_Placeables[0]만**: 지형은 하나뿐이고 위치가 정해져 있어서 지점 생성은 StaticProp만 한다.
 
-### 14-3. 메뉴 + 생성
+### 14-3. Pick_Terrain — 지형 삼각형 검사
 
 ```cpp
-    if (ImGui::BeginPopup("SceneMenu"))
-    {
-        if (ImGui::MenuItem(s_Placeables[0].pName))
-            Create_Object(s_Placeables[0].pPrototypeTag, m_vPickPos);
-        ImGui::EndPopup();
-    }
-    ImGui::End();
-}
+bool_t CEditorUI::Pick_Terrain(const vector_t& vRayOrigin, const vector_t& vRayDir)
+{
+    auto pTerrain = dynamic_pointer_cast<CHill>(
+        CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), L"Layer_Map", L"Terrain"));
+    if (nullptr == pTerrain)
+        return false;
 
-void CPanel_Scene::Create_Object(const wstring_t& pPrototypeTag, float3_t vPickPos)
+    const auto& vVertices = pTerrain->Get_Vertices();
+    const auto& vIndices  = pTerrain->Get_Indices();
+
+    f32_t  fMinDist = D3D11_FLOAT32_MAX;
+    bool_t bHit = false;
+    for (size_t i = 0; i + 2 < vIndices.size(); i += 3)
+    {
+        vector_t p0 = XMLoadFloat3(&vVertices[vIndices[i]]);
+        vector_t p1 = XMLoadFloat3(&vVertices[vIndices[i + 1]]);
+        vector_t p2 = XMLoadFloat3(&vVertices[vIndices[i + 2]]);
+
+        f32_t fDist = {};
+        if (TriangleTests::Intersects(vRayOrigin, vRayDir, p0, p1, p2, fDist) && fDist < fMinDist)
+        {
+            fMinDist = fDist;
+            bHit = true;
+        }
+    }
+    if (bHit)
+        XMStoreFloat3(&m_vPickPos, vRayOrigin + vRayDir * fMinDist);
+    return bHit;
+}
+```
+
+- **삼각형 전체 검사**: 인덱스 3개씩이 삼각형 하나다. 레이와 맞는 삼각형 중 가장 가까운 거리를 고른다. 321×321 지형이면 삼각형 약 20만 개라 무겁지만 우클릭 순간에만 돈다.
+- **정점은 로컬 좌표**: 지형 Transform을 기본값(원점, 회전 없음, 1)으로 두면 월드와 같다. 지형을 옮겼다면 레이를 지형 로컬로 바꾸거나 정점에 월드 행렬을 곱해야 맞는다 (16. 남은 작업).
+- **맞은 지점** = 원점 + 방향 × 거리.
+
+### 14-4. Create_StaticProp — 지점에 생성
+
+```cpp
+void CEditorUI::Create_StaticProp(const float3_t& vPosition)
 {
     CStaticProp::STATICPROP_DESC Desc{};
     Desc.iLevelIndex = ETOUI(LEVEL::MAPTOOL);
     Desc.strMeshPath = g_Models[0].strPath;
     Desc.bEditorMode = true;
-    Desc.vPosition = vPickPos;
-    wstring_t strTag;
+    Desc.vPosition   = vPosition;
 
+    wstring_t strTag;
     do {
         if (m_Context.m_iNextID < 10)
             strTag = L"Prop_0" + to_wstring(m_Context.m_iNextID++);
@@ -3357,7 +3376,7 @@ void CPanel_Scene::Create_Object(const wstring_t& pPrototypeTag, float3_t vPickP
             strTag = L"Prop_" + to_wstring(m_Context.m_iNextID++);
     } while (nullptr != CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag));
 
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::MAPTOOL), pPrototypeTag,
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::MAPTOOL), Proto::Obj_StaticProp,
         ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag, &Desc)))
     {
         MSG_BOX("Create Failed");
@@ -3369,21 +3388,21 @@ void CPanel_Scene::Create_Object(const wstring_t& pPrototypeTag, float3_t vPickP
 }
 ```
 
-- **OpenPopup / BeginPopup 분리**: `OpenPopup`은 "열어라" 표시만 하고, 그리는 건 매 프레임 `BeginPopup`이 한다. 메뉴는 다음 프레임 이후에도 계속 열려 있어야 하므로 `BeginPopup`은 조건 밖에 둔다. 두 곳의 ID(`"SceneMenu"`)가 같아야 한다.
-- **s_Placeables[0]만**: 지형은 하나뿐이고 위치가 정해져 있어서, 지점 생성은 StaticProp만.
-- **Create_Object**: Hierarchy 쪽과 같지만 `vPosition`에 지형 위 지점을 넣는다. 이름 번호(`m_iNextID`)를 Context로 공유하므로 두 곳에서 만들어도 이름이 안 겹친다.
+- Hierarchy의 `Create_StaticProp`(6단계)과 같고, `vPosition`에 지형 위 지점을 넣는 것만 다르다.
+- 이름 번호(`m_iNextID`)를 Context로 공유하므로 두 곳에서 만들어도 이름이 안 겹친다.
 
 ### 확인
 
-- 지형 생성 → Scene에서 지형 위를 우클릭(움직이지 않고) → `Add Static_Prop` → 그 지점에 Prop
+- 지형 생성 → 화면의 지형 위를 우클릭(움직이지 않고) → `Add Static_Prop` → 그 지점에 Prop
 - 우클릭 드래그는 카메라 회전만 하고 메뉴가 안 뜬다
-- 지형이 없으면 우클릭해도 메뉴가 안 뜬다
+- 지형이 없거나 하늘을 우클릭하면 메뉴가 안 뜬다
+- 패널 위 우클릭은 Hierarchy 메뉴(빈 곳)만 뜬다
 
 ---
 
 ## 15단계. ImGuizmo 기즈모
 
-**목표**: Scene 창 왼쪽 위에 `Move / Rotate / Scale` 버튼이 있고, 선택한 StaticProp 위에 기즈모가 나와 드래그로 변환할 수 있다. 기즈모를 잡고 있을 때는 피킹이 일어나지 않는다.
+**목표**: 메뉴바 `Gizmo` 메뉴에서 `Move / Rotate / Scale`을 고를 수 있고, 선택한 StaticProp 위에 기즈모가 나와 드래그로 변환할 수 있다. 기즈모를 잡고 있을 때는 피킹이 일어나지 않는다.
 
 ### 15-1. ImGuizmo 소스 추가
 
@@ -3408,21 +3427,27 @@ HRESULT CLevel_MapTool::Begin_ImGui()
 }
 ```
 
-- `ImGui::NewFrame` 뒤에 불러야 한다. ImGuizmo가 이번 프레임 입력 상태를 초기화한다.
+- `ImGui::NewFrame` 뒤에 불러야 한다.
+- `BeginFrame`은 화면 전체 크기의 **투명한 창** `"gizmo"`를 하나 만들고 기즈모를 그 창의 드로우 리스트에 그리게 정한다. 이 창은 `NoInputs`(마우스를 가로채지 않음), `NoBringToFrontOnFocus`(항상 맨 뒤) 설정이라 패널 아래, 게임 화면 위에 기즈모가 그려진다. 그래서 `SetDrawlist`를 따로 부를 필요가 없다.
 
-### 15-3. Panel_Scene.h
+### 15-3. EditorUI.h
 
 ```cpp
-#include "Panel.h"
+#pragma once
+#include "EditorUI_Defines.h"
 #include "ImGuizmo.h"
 ...
 private:
 	ImGuizmo::OPERATION		m_eGizmoOp = ImGuizmo::TRANSLATE;
+private:
+	void		Manipulate_Gizmo();
 ```
 
-### 15-4. 모드 버튼
+- `ImGuizmo.h`는 imgui.h가 먼저 있어야 한다. `EditorUI.h`를 포함하는 cpp(`EditorUI.cpp`, `Level_MapTool.cpp`)는 둘 다 imgui.h를 먼저 포함하고 있다.
 
-Panel_Scene.cpp 위쪽:
+### 15-4. 메뉴바 — 모드 선택
+
+EditorUI.cpp 위쪽:
 
 ```cpp
 namespace
@@ -3442,99 +3467,103 @@ namespace
 }
 ```
 
-- 이름 없는 namespace: 이 cpp에서만 쓰는 표. 버튼 글자와 모드를 짝으로 묶어 반복문 하나로 그린다.
+- 이름 없는 namespace: 이 cpp에서만 쓰는 표. 메뉴 글자와 모드를 짝으로 묶어 반복문 하나로 그린다.
 
-Render에서 `m_Context...` 저장 바로 다음 (피킹 코드보다 위):
+`Render_MenuBar`의 `File` 메뉴 다음에:
 
 ```cpp
-    // 카메라 -> 원근투영
-    ImGuizmo::SetOrthographic(false);
-    // 지금 창(Scene)의 드로우 리스트에 기즈모를 그린다
-    ImGuizmo::SetDrawlist();
-    // 기즈모가 뷰포트로 생각할 화면 -> 씬 이미지 Rect
-    ImGuizmo::SetRect(m_Context.vImageMin.x, m_Context.vImageMin.y,
-        m_Context.vImageSize.x, m_Context.vImageSize.y);
-
-    // 버튼은 이미지 좌상단에 겹쳐 그린다
-    ImGui::SetCursorPos(vCursor);
-    ImGui::BeginGroup();
-    for (size_t i = 0; i < 3; ++i)
+    if (ImGui::BeginMenu("Gizmo"))
     {
-        if (0 != i)
-            ImGui::SameLine();
-        // 현재 모드 버튼은 눌린 색으로
-        const bool_t bActive = (m_eGizmoOp == g_GizmoOps[i].eOp);
-        if (bActive)
-            ImGui::PushStyleColor(ImGuiCol_Button, ImGui::GetStyleColorVec4(ImGuiCol_ButtonActive));
-
-        if (ImGui::Button(g_GizmoOps[i].pLabel))
-            m_eGizmoOp = g_GizmoOps[i].eOp;
-
-        if (bActive)
-            ImGui::PopStyleColor();
+        for (auto& Item : g_GizmoOps)
+        {
+            // 세 번째 인자(선택됨) = 체크 표시. 클릭한 프레임에 true
+            if (ImGui::MenuItem(Item.pLabel, nullptr, m_eGizmoOp == Item.eOp))
+                m_eGizmoOp = Item.eOp;
+        }
+        ImGui::EndMenu();
     }
-    ImGui::EndGroup();
 ```
 
-- **SetRect = 이미지 Rect**: 기즈모는 이 사각형을 뷰포트로 보고 View/Proj를 적용한다. 4단계에서 저장한 `vImageMin/Size`를 그대로 쓴다. 창 전체를 넣으면 위아래 여백 때문에 기즈모가 모델과 어긋난다.
-- **SetDrawlist()**: 인자 없이 부르면 지금 Begin 중인 창에 그린다. Scene 창 위에 그려지고 다른 창에 가려진다.
-- **SetCursorPos(vCursor)**: 이미지 그린 뒤 커서는 이미지 아래에 있다. 이미지 좌상단으로 되돌려 버튼을 겹쳐 그린다.
-- **Push/PopStyleColor 짝**: 조건이 같은 `bActive`로 감싸서 짝이 항상 맞는다.
+- 화면에 버튼을 띄울 창이 없으므로 메뉴바에 둔다. 현재 모드에 체크 표시가 붙는다.
 
-> 주의: 버튼이 이미지 위에 있으므로 버튼을 누를 때 `IsItemHovered`(이미지)는 false가 되어 피킹이 일어나지 않는다. 버튼을 이미지보다 **먼저** 그리면 이미지가 버튼을 덮어서 클릭이 안 된다 → 반드시 Image 뒤에.
-
-### 15-5. Manipulate
-
-버튼 다음 (피킹 코드보다 위):
+### 15-5. Manipulate_Gizmo
 
 ```cpp
+void CEditorUI::Manipulate_Gizmo()
+{
     auto pObject = m_Context.pSelected.lock();
-    if (nullptr != pObject && !dynamic_pointer_cast<CHill>(pObject))
-    {
-        float4x4_t ViewMatrix, ProjMatrix, WorldMatrix;
-        XMStoreFloat4x4(&ViewMatrix, CGameInstance::Get().Get_Perspective_Transform(D3DTS::VIEW));
-        XMStoreFloat4x4(&ProjMatrix, CGameInstance::Get().Get_Perspective_Transform(D3DTS::PROJ));
-        WorldMatrix = *pObject->Get_Transform()->Get_WorldMatrixPtr();
+    if (nullptr == pObject || pObject->Is_Dead() || dynamic_pointer_cast<CHill>(pObject))
+        return;
 
-        if (ImGuizmo::Manipulate(&ViewMatrix._11, &ProjMatrix._11,
-            m_eGizmoOp, ImGuizmo::WORLD,
-            &WorldMatrix._11))
+    // 카메라 -> 원근투영, 기즈모가 쓸 뷰포트 = 창 전체
+    const ImGuiIO& io = ImGui::GetIO();
+    ImGuizmo::SetOrthographic(false);
+    ImGuizmo::SetRect(0.f, 0.f, io.DisplaySize.x, io.DisplaySize.y);
+
+    float4x4_t ViewMatrix, ProjMatrix, WorldMatrix;
+    XMStoreFloat4x4(&ViewMatrix, CGameInstance::Get().Get_Perspective_Transform(D3DTS::VIEW));
+    XMStoreFloat4x4(&ProjMatrix, CGameInstance::Get().Get_Perspective_Transform(D3DTS::PROJ));
+    WorldMatrix = *pObject->Get_Transform()->Get_WorldMatrixPtr();
+
+    if (ImGuizmo::Manipulate(&ViewMatrix._11, &ProjMatrix._11,
+        m_eGizmoOp, ImGuizmo::WORLD,
+        &WorldMatrix._11))
+    {
+        vector_t vS, vQ, vT;
+        if (XMMatrixDecompose(&vS, &vQ, &vT, XMLoadFloat4x4(&WorldMatrix)))
         {
-            vector_t vS, vQ, vT;
-            if (XMMatrixDecompose(&vS, &vQ, &vT, XMLoadFloat4x4(&WorldMatrix)))
-            {
-                float3_t vPos, vScale;
-                float4_t vQuat;
-                XMStoreFloat3(&vPos, vT);
-                XMStoreFloat3(&vScale, vS);
-                XMStoreFloat4(&vQuat, vQ);
-                pObject->Set_Transform(vPos, vQuat, vScale);
-            }
+            float3_t vPos, vScale;
+            float4_t vQuat;
+            XMStoreFloat3(&vPos, vT);
+            XMStoreFloat3(&vScale, vS);
+            XMStoreFloat4(&vQuat, vQ);
+            pObject->Set_Transform(vPos, vQuat, vScale);
         }
     }
+}
 ```
 
+- **Is_Dead 검사**: Inspector를 접어 두면 `Validate_Selection`(9단계)이 불리지 않는다. 그래서 여기서 직접 걸러 낸다.
 - **지형 제외**: 지형은 크기가 커서 기즈모가 화면을 덮고, 실수로 옮기기 쉽다. 지형은 Inspector로만.
-- **행렬 형식**: ImGuizmo는 `float[16]` 행 우선(row-major)을 받는다. DirectXMath의 `XMFLOAT4X4`도 같은 배치라 `._11` 주소를 그대로 넘긴다.
-- **Manipulate 반환**: 이번 프레임에 드래그로 행렬이 바뀌었으면 true. 바뀐 `WorldMatrix`를 S/R/T로 분해해서 `Set_Transform`으로 넣는다. Transform에 직접 쓰지 않는 이유는 `CMapObject`가 들고 있는 위치/쿼터니언/크기 원본 값도 같이 바꿔야 Inspector와 맞기 때문이다 (6-1).
-- **ImGuizmo::WORLD**: 축이 월드 기준. `LOCAL`로 바꾸면 객체 회전을 따라간다.
+- **SetRect = 창 전체**: 게임 화면이 창 전체에 깔려 있으므로 그대로 넣는다. 화면 비율과 투영 비율이 같아서 기즈모가 모델 위치에 정확히 붙는다.
+- **행렬 형식**: ImGuizmo는 `float[16]` 행 우선을 받는다. DirectXMath `XMFLOAT4X4`도 같은 배치라 `._11` 주소를 그대로 넘긴다.
+- **Manipulate 반환**: 이번 프레임에 드래그로 행렬이 바뀌었으면 true. 바뀐 `WorldMatrix`를 S/R/T로 분해해서 `Set_Transform`으로 넣는다. Transform에 직접 쓰지 않는 이유는 `CMapObject`의 위치/쿼터니언/크기 원본 값도 같이 바꿔야 Inspector와 맞기 때문이다 (6-1).
+- **패널 뒤에 그려진다**: 선택한 객체가 펼친 패널 뒤에 있으면 기즈모도 가려진다. 패널을 접거나 카메라를 옮기면 된다.
 
-### 15-6. 피킹 조건에 기즈모 제외 추가
-
-12단계 피킹 조건을 아래로 바꾼다:
+### 15-6. Update_Viewport — 기즈모 먼저, 피킹 조건 추가
 
 ```cpp
-    if (m_Context.bSceneHovered && ImGui::IsMouseClicked(ImGuiMouseButton_Left) && !ImGuizmo::IsOver() && !ImGuizmo::IsUsing())
+void CEditorUI::Update_Viewport()
+{
+    auto pCamera = CGameInstance::Get().Get_MainCamera();
+    if (nullptr == pCamera)
+        return;
+
+    // 기즈모를 먼저 처리해야 이번 프레임 IsOver / IsUsing 값이 맞다
+    Manipulate_Gizmo();
+
+    ...(12-3 레이 계산 그대로)...
+
+    // 좌클릭: 기즈모 위가 아닐 때만 객체 선택
+    if (m_Context.bViewportHovered && ImGui::IsMouseClicked(ImGuiMouseButton_Left)
+        && !ImGuizmo::IsOver() && !ImGuizmo::IsUsing())
+        Pick_Object(vRayOrigin, vRayDir);
+
+    ...(14-2 우클릭 / 메뉴 그대로)...
+}
 ```
 
-- 기즈모 축을 잡으려고 클릭했는데 그 뒤에 있는 다른 모델이 선택되면 기즈모가 그 모델로 옮겨 간다. `IsOver`(축 위에 마우스) / `IsUsing`(드래그 중)일 때는 피킹하지 않는다.
+- **기즈모 먼저**: `IsOver`(축 위에 마우스) / `IsUsing`(드래그 중)은 `Manipulate`가 부를 때 갱신된다. 피킹보다 뒤에 부르면 지난 프레임 값으로 판단하게 된다.
+- **피킹 조건**: 기즈모 축을 잡으려고 클릭했는데 그 뒤에 있는 다른 모델이 선택되면 기즈모가 그 모델로 옮겨 간다. 그래서 기즈모 위에서는 피킹하지 않는다.
+- 기즈모를 끌 때 `WantCaptureMouse`는 false다 (`"gizmo"` 창이 `NoInputs`). 카메라는 우클릭/WASD만 쓰므로 부딪히지 않는다.
 
 ### 확인
 
-- Prop 선택 → 기즈모가 보이고, 축을 끌면 이동, 버튼으로 회전/크기 모드 전환
+- Prop 선택 → 기즈모가 보이고, 축을 끌면 이동. `Gizmo` 메뉴로 회전/크기 모드 전환
 - 기즈모로 바꾼 값이 Inspector 숫자에도 반영된다
 - 기즈모 축을 클릭해도 뒤에 있는 다른 객체로 선택이 넘어가지 않는다
 - 지형을 선택하면 기즈모가 안 나온다
+- 기즈모가 패널 뒤로 가려진다 (패널이 위)
 
 ---
 
@@ -3546,11 +3575,11 @@ Render에서 `m_Context...` 저장 바로 다음 (피킹 코드보다 위):
 |---|---|
 | 로딩 레벨 → 에디터 레벨 | 1 |
 | ImGui, 메뉴바, 고정 3분할 레이아웃 | 2, 3 |
-| Scene RTT, 카메라 조작 제한 | 4, 5 |
+| 접기 가능한 패널 2개 + 백버퍼 게임 화면, 뷰포트 입력 판정, 카메라 조작 제한 | 3, 4, 5 |
 | FBX StaticProp 생성 / 목록 / 선택 / 삭제 | 6~8 |
 | Inspector Transform, 모델 교체 | 9, 10 |
 | 혼합맵 지형 (하나) | 11 |
-| Scene 피킹 선택, SnapToTerrain, 지형 위치에 생성 | 12~14 |
+| 뷰포트 피킹 선택, SnapToTerrain, 지형 위치에 생성 | 12~14 |
 | ImGuizmo 이동/회전/크기 | 15 |
 
 ### 남은 작업
@@ -3558,7 +3587,7 @@ Render에서 `m_Context...` 저장 바로 다음 (피킹 코드보다 위):
 - **저장 / 불러오기**: File 메뉴가 비활성 상태. `Layer_Map`을 돌며 원형 태그 + `MAPOBJECT_DESC`(+ `Save_Extra`)를 쓰고, 읽을 때 같은 DESC로 `Add_GameObject`. `CHill::Save_Extra / Read_Extra`가 빈 함수로 준비돼 있다.
 - **지형 피킹을 Transform에 맞추기**: 14단계는 지형 정점을 로컬 그대로 검사한다. 지형을 옮기거나 키우면 어긋난다 → 레이를 지형 월드 역행렬로 로컬에 보내 검사하고, 맞은 지점을 다시 월드로.
 - **지형 피킹 최적화**: 삼각형 전체 검사 대신 `CVIBuffer_Terrain::GetHeight`를 이용한 레이 마칭이나 격자 범위 검사.
-- **중복 코드 정리**: `Create_StaticProp`(Hierarchy)와 `Create_Object`(Scene)가 이름 생성·Add·선택을 똑같이 한다 → Context나 공용 함수로 합치기.
+- **중복 코드 정리**: `CPanel_Hierarchy::Create_StaticProp`과 `CEditorUI::Create_StaticProp`이 이름 생성·Add·선택을 똑같이 한다 → Context나 공용 함수로 합치기.
 - **g_Models 재진입**: `inline` 전역이라 맵툴 레벨을 다시 만들면 목록이 두 번 쌓인다. 지금은 레벨이 한 번뿐이라 문제없음. 필요하면 `Initialize` 시작에서 `clear()`.
 - **Loader 실패 경로**: 실패 시 `LeaveCriticalSection`/`CoUninitialize`가 불리지 않는다.
 - **모델 생성 기본값**: 지금은 항상 `g_Models[0]`. 콤보에서 고른 "현재 브러시 모델"로 만들기.
@@ -3570,45 +3599,42 @@ Render에서 `m_Context...` 저장 바로 다음 (피킹 코드보다 위):
 | 함수 | 쓰는 곳 | 설명 |
 |---|---|---|
 | `CreateContext / DestroyContext` | Level_MapTool | 컨텍스트 생성/삭제 |
-| `GetIO()` | 여러 곳 | 설정, `DisplaySize`, `MousePos`, `WantCaptureKeyboard` |
+| `GetIO()` | 여러 곳 | 설정, `DisplaySize`, `MousePos` |
+| `io.WantCaptureMouse / WantCaptureKeyboard` | EditorUI | 이번 프레임 마우스/키보드를 ImGui가 쓰는지 → 뷰포트 입력 판정 |
 | `StyleColorsDark()` | Ready_ImGui | 기본 다크 테마 |
 | `ImGui_ImplWin32_Init / DX11_Init / *_NewFrame / *_Shutdown` | Level_MapTool | 백엔드 |
 | `ImGui_ImplWin32_WndProcHandler` | WndProc | 입력 전달 |
 | `ImGui_ImplWin32_EnableDpiAwareness` | wWinMain | DPI 인식 |
 | `NewFrame / Render / GetDrawData` | Level_MapTool | 프레임 시작/끝 |
 | `BeginMainMenuBar / EndMainMenuBar` | EditorUI | 상단 메뉴바 (true일 때만 End) |
-| `BeginMenu / EndMenu / MenuItem` | EditorUI, 팝업 | 메뉴, 항목 |
+| `BeginMenu / EndMenu / MenuItem` | EditorUI, 팝업 | 메뉴, 항목. 세 번째 인자(선택됨)로 체크 표시 |
 | `GetWindowHeight` | 메뉴바 | 메뉴바 높이 |
 | `SetNextWindowPos / SetNextWindowSize` | Set_NextPanelRect | 다음 창 위치/크기 |
-| `Begin / End` | 패널 | 창 (End는 항상) |
-| `PushStyleVar / PopStyleVar` | Scene | 창 여백 0 |
-| `PushStyleColor / PopStyleColor / GetStyleColorVec4` | 기즈모 버튼 | 현재 모드 강조 |
-| `SetCursorPos` | Scene | 위젯 위치 |
-| `Image` | Scene | 씬 SRV 표시 |
-| `GetItemRectMin / IsItemHovered` | Scene | 바로 앞 위젯(이미지) 정보 |
-| `IsWindowFocused` | Scene, Hierarchy | 지금 창 포커스 |
-| `Text / TextDisabled / TextUnformatted / Separator` | 패널 | 글자, 구분선 |
+| `Begin / End` | 패널 | 창 (End는 항상). 접혀 있으면 Begin이 false |
+| `IsWindowFocused` | Hierarchy | 지금 창 포커스 |
+| `Text / TextDisabled / TextUnformatted / Separator` | 패널, 메뉴바 | 글자, 구분선 |
 | `Selectable` | Hierarchy, 콤보 | 한 줄 선택 항목 |
 | `BeginPopupContextWindow` | Hierarchy | 창 빈 곳 우클릭 메뉴 (`NoOpenOverItems`) |
 | `BeginPopupContextItem` | Hierarchy | 바로 앞 항목 우클릭 메뉴 |
-| `OpenPopup / BeginPopup / EndPopup` | Scene | 조건부로 여는 팝업 |
+| `OpenPopup / BeginPopup / EndPopup` | EditorUI | 조건부로 여는 팝업 (지형 우클릭) |
 | `IsKeyPressed(ImGuiKey_Delete)` | Hierarchy | 키 입력 |
-| `IsMouseClicked / IsMouseReleased / GetMouseDragDelta` | Scene | 피킹, 우클릭/드래그 구분 |
+| `IsMouseClicked / IsMouseReleased / GetMouseDragDelta` | EditorUI | 피킹, 우클릭/드래그 구분 |
 | `CollapsingHeader` | Inspector | 접는 제목 (`DefaultOpen`) |
 | `DragFloat3` | Inspector | 3성분 드래그 입력 |
-| `Button` | Inspector, Scene | 버튼 |
+| `Button` | Inspector | 버튼 (SnapToTerrain) |
 | `BeginCombo / EndCombo / SetItemDefaultFocus` | Render_AssetCombo | 콤보 |
-| `BeginGroup / EndGroup / SameLine` | Scene | 버튼 한 줄 묶기 |
-| `ImGuizmo::BeginFrame` | Begin_ImGui | 기즈모 프레임 시작 |
-| `ImGuizmo::SetOrthographic / SetDrawlist / SetRect` | Scene | 투영 종류, 그릴 곳, 뷰포트 영역 |
-| `ImGuizmo::Manipulate` | Scene | 기즈모 그리기 + 드래그로 행렬 수정 |
-| `ImGuizmo::IsOver / IsUsing` | Scene 피킹 | 기즈모 위/사용 중 |
+| `ImGuizmo::BeginFrame` | Begin_ImGui | 기즈모 프레임 시작 (전체 화면 투명 창 + 드로우 리스트 준비) |
+| `ImGuizmo::SetOrthographic / SetRect` | EditorUI | 투영 종류, 뷰포트 영역(창 전체) |
+| `ImGuizmo::Manipulate` | EditorUI | 기즈모 그리기 + 드래그로 행렬 수정 |
+| `ImGuizmo::IsOver / IsUsing` | EditorUI 피킹 | 기즈모 위/사용 중 |
 
 ---
 
 ## 부록 B. 단계와 커밋 대응
 
 커밋 하나에 여러 단계가 섞여 있어서 대략적인 대응이다.
+
+> 커밋 당시는 **Scene 패널(ImGui::Image로 씬 텍스처 표시)** 방식이었다. 이 문서는 Scene 패널을 없애고 **패널 2개 + 백버퍼 게임 화면** 구조로 바꿨다. 그래서 3·4·5·12·14·15단계 코드는 커밋과 다르다.
 
 | 커밋 | 내용 | 이 문서 단계 |
 |---|---|---|
@@ -3637,11 +3663,12 @@ Render에서 `m_Context...` 저장 바로 다음 (피킹 코드보다 위):
 | ImGui 창에 입력이 안 들어감 | WndProc 맨 앞 `ImGui_ImplWin32_WndProcHandler` 누락 | 2 |
 | 로딩 레벨에서 ESC 누르면 assert | 컨텍스트 없이 `GetIO()` → `GetCurrentContext()` null 검사 먼저 | 2 |
 | `ImGuiWindowFlags` 정의 안 됨 | `EditorUI_Defines.h`보다 imgui.h를 먼저 포함 (`EditorUI_Utils.h`를 맨 앞에) | 3 |
-| Inspector 여백까지 0이 됨 | Scene에서 `PopStyleVar` 누락 | 4 |
-| Scene 창이 까맣거나 비어 있음 | `ImGui::Image`에 `Get_SceneSRV()`를 넘겼는지, ImGui Render가 씬 Draw 뒤인지 | 4 |
-| 씬이 ImGui 창 뒤 전체 화면에도 보임 | `Set_DrawToBackBuffer(false)` 누락 | 4 |
-| 카메라가 전혀 안 움직임 | Scene 창을 한 번 클릭해 포커스를 줬는지, `Sync_SceneView` 호출 | 5 |
-| Inspector에 글자 치면 카메라가 움직임 | 카메라 Update에 Scene 포커스/호버 조건 누락 | 5 |
+| 패널에 접기 버튼(▼)이 없음 | `g_FixedPanelFlags`에 `ImGuiWindowFlags_NoCollapse`가 들어 있음 | 3 |
+| 패널을 접었더니 Delete 키/우클릭 메뉴가 안 됨 | 정상. 접히면 `Begin`이 false라 창 안 코드가 실행되지 않는다 | 3 |
+| 가운데가 회색이 아니라 검정 | `Set_DrawToBackBuffer(false)`를 불렀음 → 부르지 않는다 (기본 true) | 4 |
+| 패널 위에서도 `Viewport`로 나옴 | `WantCaptureMouse`를 `ImGui::NewFrame` 전에 읽음 → `CEditorUI::Update`(NewFrame 뒤)에서 읽는다 | 4 |
+| 카메라가 전혀 안 움직임 | 패널이 없는 곳을 한 번 클릭해 ImGui 창 포커스를 풀었는지, `Sync_Viewport` 호출 | 5 |
+| Inspector에 글자 치면 카메라가 움직임 | 카메라 Update에 `bViewportFocused/Hovered` 조건 누락 | 5 |
 | `NearZ > 0.f && FarZ > 0.f` assert | Engine 헤더와 `EngineSDK/Inc`가 달라 DESC 모양이 어긋남 → Engine 다시 빌드 후 MapTool | 5 |
 | 에디터에 들어가자마자 실패 | 사본이 쓰는 원형(`Obj_SkyBox`, `Obj_MapToolCam`, `Obj_Fog`)이 `LEVEL::MAPTOOL`에 등록됐는지 | 5, 6 |
 | `Add Static_Prop` 누르면 크래시 | `g_Models`가 비어서 `[0]` 접근 → 로더에 모델 원형이 있는지, Inspector `Initialize`가 채우는지 | 6 |
@@ -3657,12 +3684,11 @@ Render에서 `m_Context...` 저장 바로 다음 (피킹 코드보다 위):
 | 회전 값이 (180, 90, 180)처럼 튐 | 행렬에서 각도를 뽑음 → `m_vEulerHint` 표시 | 9 |
 | 콤보에 현재 값이 안 잡힘 | 객체 경로는 소문자 정규화 → 목록도 `Normalize_AssetPath` 후 비교 | 10 |
 | `Add Terrain` → `Create Failed` | 지형 원형(raw, splat, Layer%d)과 `VS/PS_TERRAIN`이 MAPTOOL 레벨에 있는지, DESC 경로와 같은 파일인지 | 11 |
-| 피킹이 엉뚱한 객체를 고름 | 마우스 좌표를 뷰포트 좌표로 변환하지 않음 (12-1) | 12 |
 | 피킹하면 항상 지형만/아무것도 안 잡힘 | 지형 제외 누락, 또는 `Com_Model` 슬롯 이름이 다름 | 12 |
-| 피킹 블록에서 return 후 ImGui assert | `Begin` 후 `End` 없이 return → return 전에 `ImGui::End()` | 12, 14 |
 | 우클릭 회전할 때마다 메뉴가 뜸 | 드래그 거리 검사 누락 (5픽셀) | 14 |
 | 지형을 옮기니 생성 위치가 어긋남 | 지형 정점이 로컬 좌표 → 16. 남은 작업 | 14 |
-| 기즈모가 모델과 어긋남 | `SetRect`에 창 Rect가 아니라 이미지 Rect를 넣었는지 | 15 |
-| 기즈모 버튼이 안 눌림 | 버튼을 Image보다 먼저 그림 → Image 뒤에 | 15 |
-| 기즈모 축을 잡으면 뒤 객체가 선택됨 | 피킹 조건에 `!IsOver() && !IsUsing()` | 15 |
+| 우클릭 메뉴를 고르는 클릭이 피킹으로 선택을 바꿈 | 피킹 조건에 `bViewportHovered` 누락 (팝업이 열려 있으면 false) | 14 |
+| 피킹/기즈모 위치가 마우스와 어긋남 | 창 크기가 1600×900이 아님 → `CreateWindowW`와 `AdjustWindowRectExForDpi`에 같은 `dwStyle`을 넘겼는지, 크기 변경을 막았는지 (1-6) | 12, 15 |
+| 기즈모 축을 잡으면 뒤 객체가 선택됨 | 피킹 조건에 `!IsOver() && !IsUsing()`, 그리고 `Manipulate_Gizmo`를 피킹보다 **먼저** 호출 | 15 |
+| 기즈모가 화면에 안 보임 | `ImGuizmo::BeginFrame` 누락, 또는 선택 객체가 펼친 패널 뒤에 있음 (기즈모는 패널 아래에 그려짐) | 15 |
 | 기즈모로 바꿨는데 Inspector 숫자가 안 바뀜 | Transform에 직접 썼음 → `Set_Transform`으로 원본 값까지 | 15 |
