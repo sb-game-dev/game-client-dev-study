@@ -70,6 +70,7 @@ namespace Client
 		inline constexpr const wchar_t* Obj_Client_Mouse = L"Prototype_GameObject_Client_Mouse";
 		inline constexpr const wchar_t* Obj_Scope = L"Prototype_GameObject_Scope";
 		inline constexpr const wchar_t* Obj_Inven = L"Prototype_GameObject_Inven";
+		inline constexpr const wchar_t* Obj_HUD = L"Prototype_GameObject_HUD";
 		inline constexpr const wchar_t* Obj_QuaterViewCam = L"Prototype_GameObject_QuaterViewCam";
 		inline constexpr const wchar_t* Obj_FreeCam = L"Prototype_GameObject_FreeCam";
 		inline constexpr const wchar_t* Obj_MapToolCam = L"Prototype_GameObject_MapToolCam";
@@ -95,6 +96,7 @@ namespace Client
 		inline constexpr const wchar_t* Client_Mouse = L"GameObject_Client_Mouse";
 		inline constexpr const wchar_t* Scope = L"GameObject_Scope";
 		inline constexpr const wchar_t* Inven = L"GameObject_Inven";
+		inline constexpr const wchar_t* HUD = L"GameObject_HUD";
 		inline constexpr const wchar_t* QuaterViewCam = L"GameObject_QuaterViewCam";
 		inline constexpr const wchar_t* FreeCam = L"GameObject_FreeCam";
 		inline constexpr const wchar_t* MapToolCam = L"GameObject_MapToolCam";

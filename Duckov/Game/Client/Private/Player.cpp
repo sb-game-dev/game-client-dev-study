@@ -54,8 +54,16 @@ void CPlayer::Priority_Update(f32_t fDeltaTime)
     __super::Priority_Update(fDeltaTime);
     if (m_bEditorMode)
         return;
-    auto pInven = static_pointer_cast<CInven>(CGameInstance::Get().Find_GameObject(
-        ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", L"GameObject_Inven"));
+
+    auto pInven = m_pInven.lock();
+    if (nullptr == pInven)
+    {
+        pInven = dynamic_pointer_cast<CInven>(CGameInstance::Get().Find_GameObject(
+            ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", L"GameObject_Inven"));
+        if (nullptr == pInven)
+            return;
+        m_pInven = pInven;
+    }
     bool_t bInvenOpen = (nullptr != pInven && pInven->Is_Open());
     if (!bInvenOpen)
     {
@@ -95,7 +103,7 @@ HRESULT CPlayer::Render_Shadow()
     if (m_bEditorMode)
         return S_OK;
     XMVECTOR vPlane     = XMLoadFloat4(&m_vGroundPlane);
-    XMVECTOR vToLight   = XMVectorSet(-0.5f, 0.5f, -0.5f, 0.f);   // SunLight Direction의 반대, w=0(평행광)
+    XMVECTOR vToLight   = XMVectorSet(-0.5f, 0.5f, -0.5f, 0.f);  // SunLight Direction의 반대, w=0(평행광)
 
     matrix_t matShadow  = XMMatrixShadow(vPlane, vToLight);
     matrix_t matOffset  = XMMatrixTranslation(0.f, 0.01f, 0.f);  // 지형과 z-fighting 방지
@@ -222,7 +230,16 @@ void CPlayer::KeyInput(f32_t fDeltaTime)
         LookAtMouse(fDeltaTime);
         m_pTransformCom->Set_Speed(8.f);
     }
-
+    auto pInven = m_pInven.lock();
+    if (pInven)
+    {
+        if (CGameInstance::Get().Key_Down(DIK_1)) 
+            pInven->Set_ActiveSlot(EQUIP_SLOT::GUN_1);
+        if (CGameInstance::Get().Key_Down(DIK_2)) 
+            pInven->Set_ActiveSlot(EQUIP_SLOT::GUN_2);
+        if (CGameInstance::Get().Key_Down(DIK_V))
+            pInven->Set_ActiveSlot(EQUIP_SLOT::MELEE);
+    }
     vector_t vLook = m_pTransformCom->Get_State(STATE::LOOK);
 
     if (CGameInstance::Get().Key_Pressing(DIK_W))

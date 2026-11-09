@@ -44,6 +44,8 @@ private:
 
 	ComPtr<ID3D11RasterizerState>	m_pRS_Reflect = { nullptr };
 
+	weak_ptr<class CInven>			m_pInven;
+
 private:
 	HRESULT			Ready_Components();
 	HRESULT			Ready_ConstantBuffer();

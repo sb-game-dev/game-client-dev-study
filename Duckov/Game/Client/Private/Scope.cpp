@@ -55,9 +55,19 @@ void CScope::Late_Update(f32_t fTimeDelta)
     __super::Late_Update(fTimeDelta);
     auto pInven = static_pointer_cast<CInven>(CGameInstance::Get().Find_GameObject(
         ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", L"GameObject_Inven"));
-    bool_t bInvenOpen = (nullptr != pInven && pInven->Is_Open());
+    if (nullptr == pInven)
+        return;
+    if (pInven->Is_Open())
+        return;
 
-    if (!bInvenOpen && CGameInstance::Get().Mouse_Pressing(DIM::RB))
+    //auto pActiveGun = dynamic_pointer_cast<GUN>(pInven->Get_ActiveItem());
+    //if (nullptr == pActiveGun)
+    //    return;
+    //if (nullptr == pActiveGun->pAttachments[ETOUI(ATTACH_SLOT::SCOPE)] 
+    //    || pActiveGun->pAttachments[ETOUI(ATTACH_SLOT::SCOPE)]->fZoom < 2.f)
+    //    return;
+
+    if (CGameInstance::Get().Mouse_Pressing(DIM::RB))
         CGameInstance::Get().Add_RenderGroup(RENDERID::ALPHA_UI, dynamic_pointer_cast<CGameObject>(shared_from_this()));
 }
 HRESULT CScope::Render()

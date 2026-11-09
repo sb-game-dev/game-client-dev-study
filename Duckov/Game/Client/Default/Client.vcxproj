@@ -154,7 +154,10 @@
     <ClInclude Include="..\public\Cube_Instance.h" />
     <ClInclude Include="..\Public\Fog.h" />
     <ClInclude Include="..\public\Free_Cam.h" />
-    <ClInclude Include="..\public\HUD.h" />
+    <ClInclude Include="..\public\HUD.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\public\MapObject.h" />
     <ClInclude Include="..\Public\Mirror.h" />
     <ClInclude Include="..\public\Client_Mouse.h" />
@@ -164,6 +167,8 @@
     <ClInclude Include="..\public\SunLight.h" />
     <ClInclude Include="..\public\Hill.h" />
     <ClInclude Include="..\Public\Inven.h" />
+    <ClInclude Include="..\Public\ItemIconTable.h" />
+    <ClInclude Include="..\Public\Item_Defines.h" />
     <ClInclude Include="..\Public\Level_GamePlay.h" />
     <ClInclude Include="..\Public\Level_Loading.h" />
     <ClInclude Include="..\public\Level_Logo.h" />
@@ -185,7 +190,10 @@
     <ClCompile Include="..\private\Cube_Instance.cpp" />
     <ClCompile Include="..\private\Fog.cpp" />
     <ClCompile Include="..\private\Free_Cam.cpp" />
-    <ClCompile Include="..\private\HUD.cpp" />
+    <ClCompile Include="..\private\HUD.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\private\MapObject.cpp" />
     <ClCompile Include="..\private\Mirror.cpp" />
     <ClCompile Include="..\private\Client_Mouse.cpp" />

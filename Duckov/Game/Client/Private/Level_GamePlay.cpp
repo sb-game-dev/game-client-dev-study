@@ -55,6 +55,10 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
         ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Inven)))
         return E_FAIL;
 
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_HUD,
+        ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::HUD)))
+        return E_FAIL;
+
     if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Client_Mouse,
         ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Client_Mouse)))
         return E_FAIL;

@@ -13,6 +13,7 @@
 #include "Client_Mouse.h"
 #include "Scope.h"
 #include "Inven.h"
+#include "HUD.h"
 
 CLoader::CLoader(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     : m_pDevice{pDevice}
@@ -152,7 +153,7 @@ HRESULT CLoader::Loading_For_GamePlayLV()
 
     // 아이템 아이콘
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Texture_ItemIcons,
-        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Inventory/IconArray/icons_test_128.dds"), 1))))
+        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Inventory/IconArray/icons_128.dds"), 1))))
         return E_FAIL;
 
     lstrcpy(m_szLoadingText, TEXT("모델을 준비중입니다."));
@@ -318,6 +319,10 @@ HRESULT CLoader::Loading_For_GamePlayLV()
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Inven,
         CInven::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_HUD,
+        CHUD::Create(m_pDevice, m_pContext))))
         return E_FAIL;
 
     lstrcpy(m_szLoadingText, TEXT("로딩이 완료되었습니다."));
