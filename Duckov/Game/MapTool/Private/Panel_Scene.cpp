@@ -130,37 +130,36 @@ void CPanel_Scene::Render(const PANEL_RECT& tRect)
             }
         }
     }
+    // 피킹
+    // Scene 창에 그려진 이미지의 중심 (ImGui 화면 좌표)
+    const float2_t vImageCenter = {
+        m_Context.vImageMin.x + m_Context.vImageSize.x * 0.5f,
+        m_Context.vImageMin.y + m_Context.vImageSize.y * 0.5f };
 
+    // 실제 Level 화면(뷰포트)의 크기와 중심
+    const float2_t vViewportCenter = { vpSize.x * 0.5f, vpSize.y * 0.5f };
+
+    // 배율: Scene 창에서 1픽셀 움직이면 실제 Level에서는 몇 픽셀인가
+    const f32_t fScaleX = vpSize.x / m_Context.vImageSize.x;
+    const f32_t fScaleY = vpSize.y / m_Context.vImageSize.y;
+
+    // 마우스가 이미지 중심에서 얼마나 떨어져 있나 (맵툴 상의 변화량)
+    const ImVec2 vMouse = ImGui::GetIO().MousePos;
+    const f32_t fDeltaX = vMouse.x - vImageCenter.x;
+    const f32_t fDeltaY = vMouse.y - vImageCenter.y;
+
+    // 실제 Level 좌표 = Level 중심 + 변화량 × 배율
+    POINT ptPick{
+        static_cast<LONG>(vViewportCenter.x + fDeltaX * fScaleX),
+        static_cast<LONG>(vViewportCenter.y + fDeltaY * fScaleY) };
+
+    // 레이 만들기
+    vector_t vRayOrigin, vRayDir;
+    if (auto pCamera = CGameInstance::Get().Get_MainCamera())
+        pCamera->Compute_PickingRay(ptPick, vRayOrigin, vRayDir);
     // 피킹 요청: 씬 이미지 위에서 왼쪽 버튼을 누른 프레임
     if (m_Context.bSceneHovered && ImGui::IsMouseClicked(ImGuiMouseButton_Left) && !ImGuizmo::IsOver() && !ImGuizmo::IsUsing())
     {
-        // 1. Scene 창에 그려진 이미지의 중심 (ImGui 화면 좌표)
-        const float2_t vImageCenter = {
-            m_Context.vImageMin.x + m_Context.vImageSize.x * 0.5f,
-            m_Context.vImageMin.y + m_Context.vImageSize.y * 0.5f };
-
-        // 2. 실제 Level 화면(뷰포트)의 크기와 중심
-        const float2_t vViewportCenter = { vpSize.x * 0.5f, vpSize.y * 0.5f };
-
-        // 3. 배율: Scene 창에서 1픽셀 움직이면 실제 Level에서는 몇 픽셀인가
-        const f32_t fScaleX = vpSize.x / m_Context.vImageSize.x;
-        const f32_t fScaleY = vpSize.y / m_Context.vImageSize.y;
-
-        // 4. 마우스가 이미지 중심에서 얼마나 떨어져 있나 (맵툴 상의 변화량)
-        const ImVec2 vMouse = ImGui::GetIO().MousePos;
-        const f32_t fDeltaX = vMouse.x - vImageCenter.x;
-        const f32_t fDeltaY = vMouse.y - vImageCenter.y;
-
-        // 5. 실제 Level 좌표 = Level 중심 + 변화량 × 배율
-        POINT ptPick{
-            static_cast<LONG>(vViewportCenter.x + fDeltaX * fScaleX),
-            static_cast<LONG>(vViewportCenter.y + fDeltaY * fScaleY) };
-
-        // 6. 레이 만들기
-        vector_t vRayOrigin, vRayDir;
-        if (auto pCamera = CGameInstance::Get().Get_MainCamera())
-            pCamera->Compute_PickingRay(ptPick, vRayOrigin, vRayDir);
-
         // 이 레이로 Layer_Map 객체 충돌 검사
         auto GameObjects = CGameInstance::Get().Get_GameObjects(ETOUI(LEVEL::MAPTOOL), L"Layer_Map");
         if (nullptr == GameObjects)
@@ -188,7 +187,7 @@ void CPanel_Scene::Render(const PANEL_RECT& tRect)
             f32_t fOutDist = {};
             if (tWorldBox.Intersects(vRayOrigin, vRayDir, fOutDist) && fMinDist > fOutDist)
             {
-                fMinDist = fOutDist;     
+                fMinDist = fOutDist;
                 strPickedTag = strTag;
                 pPicked = pObject;
             }
@@ -196,8 +195,35 @@ void CPanel_Scene::Render(const PANEL_RECT& tRect)
         if (nullptr != pPicked)
             m_Context.Select(strPickedTag, pPicked);
     }
-    
+    if (m_Context.bSceneHovered && ImGui::IsMouseClicked(ImGuiMouseButton_Right))
+    {
+        auto pTerrain = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), L"Layer_Map", L"Terrain");
+        if (nullptr == pTerrain)
+        {
+            ImGui::End();
+            return;
+        }
+        // 항목 위가 아닌 창의 빈 곳을 우클릭했을 때만 열림
+        if (ImGui::BeginPopupContextWindow("HierarchyMenu", ImGuiPopupFlags_MouseButtonRight | ImGuiPopupFlags_NoOpenOverItems))
+        {
+            for (auto& Item : s_Placeables)
+            {
+                if (ImGui::MenuItem(Item.pName))      // "Add Static_Prop"
+                    Create_Object(Item.pPrototypeTag);
+            }
+            ImGui::EndPopup();
+        }
+    }
+        
     ImGui::End();
+}
+
+void CPanel_Scene::Create_Object(const wstring_t& pPrototypeTag)
+{
+}
+
+void CPanel_Scene::Create_StaticProp(const wstring_t& pPrototypeTag)
+{
 }
 
 unique_ptr<CPanel_Scene> CPanel_Scene::Create(EDITOR_CONTEXT& Context)

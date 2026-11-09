@@ -16,6 +16,10 @@ public:
 private:
 	ImGuizmo::OPERATION		m_eGizmoOp = ImGuizmo::TRANSLATE;
 
+private:
+	void		Create_Object(const wstring_t& pPrototypeTag);
+	void		Create_StaticProp(const wstring_t& pPrototypeTag);
+
 public:
 	static unique_ptr<CPanel_Scene> Create(EDITOR_CONTEXT& Context);
 };
