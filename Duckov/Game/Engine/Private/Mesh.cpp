@@ -95,6 +95,20 @@ HRESULT CMesh::Initialize(void* pArg)
 	return S_OK;
 }
 
+HRESULT CMesh::Render_Instanced(ID3D11Buffer* pInstanceVB, uint32_t iInstanceStride, uint32_t iNumInstances)
+{
+    ID3D11Buffer*   pVBs[] = { m_pVB.Get(), pInstanceVB };
+    uint32_t        iStrides[] = { m_iVertexStride,iInstanceStride };
+    uint32_t        iOffsets[] = { 0,0 };
+
+    m_pContext->IASetVertexBuffers(0, 2, pVBs, iStrides, iOffsets);
+    m_pContext->IASetIndexBuffer(m_pIB.Get(), m_eIndexFormat, 0);
+    m_pContext->IASetPrimitiveTopology(m_ePrimitiveTopology);
+    m_pContext->DrawIndexedInstanced(m_iNumIndices, iNumInstances, 0, 0, 0);
+
+    return S_OK;
+}
+
 shared_ptr<CMesh> CMesh::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, const aiMesh* pAiMesh, fmatrix_t PreTransformMatrix)
 {
 	auto pInstance = shared_ptr<CMesh>(new CMesh(pDevice, pContext));

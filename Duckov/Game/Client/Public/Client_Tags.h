@@ -53,6 +53,7 @@ namespace Client
 
 		// ---------- Shader : Model ----------
 		inline constexpr const wchar_t* VS_MODEL = L"Prototype_Component_VS_MODEL";
+		inline constexpr const wchar_t* VS_MODEL_INSTANCE = L"Prototype_Component_VS_MODEL_INSTANCE";
 		inline constexpr const wchar_t* PS_MODEL = L"Prototype_Component_PS_MODEL";
 		inline constexpr const wchar_t* PS_CHARACTER = L"Prototype_Component_PS_CHARACTER";
 
@@ -75,6 +76,7 @@ namespace Client
 		inline constexpr const wchar_t* Obj_FreeCam = L"Prototype_GameObject_FreeCam";
 		inline constexpr const wchar_t* Obj_MapToolCam = L"Prototype_GameObject_MapToolCam";
 		inline constexpr const wchar_t* Obj_StaticProp = L"Prototype_GameObject_StaticProp";
+		inline constexpr const wchar_t* Obj_Tree_Instance = L"Prototype_GameObject_Tree_Instance";
 
 	}
 
@@ -101,6 +103,7 @@ namespace Client
 		inline constexpr const wchar_t* FreeCam = L"GameObject_FreeCam";
 		inline constexpr const wchar_t* MapToolCam = L"GameObject_MapToolCam";
 		inline constexpr const wchar_t* StaticProp = L"GameObject_StaticProp";
+		inline constexpr const wchar_t* Tree_Instance = L"GameObject_Tree_Instance";
 	}
 
 	/* =========================================================

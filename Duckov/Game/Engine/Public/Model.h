@@ -20,6 +20,7 @@ public:
 
 public:
 	virtual HRESULT			Render(uint32_t iMeshIndex);
+	virtual	HRESULT			Render_Instanced(uint32_t iMeshIndex, ID3D11Buffer* pInstanceVB, uint32_t iInstanceStride, uint32_t iNumInstances);
 	virtual	HRESULT			Bind_Material(uint32_t iMeshIndex, aiTextureType eType, uint32_t iIndex, uint32_t iSlot);
 
 	virtual void			SetUseCulling(bool_t bUse) { m_bUseCulling = bUse; }

@@ -103,6 +103,9 @@
     <Filter Include="02. GameObjects\99. UI\01. HUD">
       <UniqueIdentifier>{7eef2ffd-7f6f-42b2-9c6c-f5289a0ad6a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObjects\08. Tree\Tree_Instanced">
+      <UniqueIdentifier>{03696df9-5ca2-43ec-804d-2bc3fad23f9e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -207,6 +210,9 @@
     <ClInclude Include="..\public\HUD.h">
       <Filter>02. GameObjects\99. UI\01. HUD</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\Tree_Instance.h">
+      <Filter>02. GameObjects\08. Tree\Tree_Instanced</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -302,6 +308,9 @@
     </ClCompile>
     <ClCompile Include="..\private\HUD.cpp">
       <Filter>02. GameObjects\99. UI\01. HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Tree_Instance.cpp">
+      <Filter>02. GameObjects\08. Tree\Tree_Instanced</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

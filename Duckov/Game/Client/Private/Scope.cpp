@@ -76,9 +76,10 @@ void CScope::Late_Update(f32_t fTimeDelta)
     if (pInven->Is_Open())
         return;
 
-    //auto pActiveGun = dynamic_pointer_cast<GUN>(pInven->Get_ActiveItem());
-    //if (nullptr == pActiveGun)
-    //    return;
+    auto pActiveGun = dynamic_pointer_cast<GUN>(pInven->Get_ActiveItem());
+    if (nullptr == pActiveGun)
+        return;
+    cout << pActiveGun->fDamage << endl;
     //if (nullptr == pActiveGun->pAttachments[ETOUI(ATTACH_SLOT::SCOPE)] 
     //    || pActiveGun->pAttachments[ETOUI(ATTACH_SLOT::SCOPE)]->fZoom < 2.f)
     //    return;

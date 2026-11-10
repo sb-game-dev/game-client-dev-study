@@ -28,6 +28,17 @@ struct VS_IN_INST
     row_major float4x4 matWorld : WORLD;
 };
 
+
+struct VS_IN_MODEL_INST
+{
+    float3 vPosition : POSITION;
+    float3 vNormal : NORMAL;
+    float3 vTangent : TANGENT;
+    float3 vBinormal : BINORMAL;
+    float2 vTexCoord : TEXCOORD0;
+    row_major float4x4 matWorld : WORLD;
+};
+
 struct VS_OUT
 {
     float4 vPosition : SV_POSITION; // 클립 공간 위치 (월드,뷰,투영변환 완료된 위치)
@@ -74,6 +85,20 @@ VS_OUT_MODEL VS_MAIN_MODEL(VS_IN_MODEL In)
     float4 vPosW = mul(float4(In.vPosition, 1.f), g_matWorld);
     Out.vPosW = vPosW.xyz;
     Out.vNormalW = mul(In.vNormal, (float3x3) g_matWorldInvTranspose);
+    Out.vTangent = vector(In.vTangent, 0.f);
+    Out.vBinormal = vector(In.vBinormal, 0.f);
+    Out.vPosition = mul(mul(vPosW, g_ViewMatrix), g_ProjMatrix);
+    Out.vTexCoord = In.vTexCoord;
+    return Out;
+}
+
+VS_OUT_MODEL VS_MAIN_MODEL_INST(VS_IN_MODEL_INST In)
+{
+    VS_OUT_MODEL Out;
+
+    float4 vPosW = mul(float4(In.vPosition, 1.f), In.matWorld);
+    Out.vPosW = vPosW.xyz;
+    Out.vNormalW = mul(In.vNormal, (float3x3) In.matWorld);
     Out.vTangent = vector(In.vTangent, 0.f);
     Out.vBinormal = vector(In.vBinormal, 0.f);
     Out.vPosition = mul(mul(vPosW, g_ViewMatrix), g_ProjMatrix);

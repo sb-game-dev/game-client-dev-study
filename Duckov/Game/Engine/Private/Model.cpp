@@ -52,6 +52,13 @@ HRESULT CModel::Render(uint32_t iMeshIndex)
     return S_OK;
 }
 
+HRESULT CModel::Render_Instanced(uint32_t iMeshIndex, ID3D11Buffer* pInstanceVB, uint32_t iInstanceStride, uint32_t iNumInstances)
+{
+    if (FAILED(m_Meshes[iMeshIndex]->Render_Instanced(pInstanceVB,iInstanceStride,iNumInstances)))
+        return E_FAIL;
+    return S_OK;
+}
+
 HRESULT CModel::Bind_Material(uint32_t iMeshIndex, aiTextureType eType, uint32_t iIndex, uint32_t iSlot)
 {
     uint32_t    iMeterialIndex = m_Meshes[iMeshIndex]->Get_MaterialIndex();

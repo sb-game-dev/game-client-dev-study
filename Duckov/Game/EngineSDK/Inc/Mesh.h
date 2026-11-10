@@ -14,6 +14,8 @@ public:
 public:
 	HRESULT	Initialize_Prototype(const aiMesh* pAiMesh, fmatrix_t PreTransformMatrix);
 	HRESULT	Initialize(void* pArg);
+	HRESULT	Render_Instanced(ID3D11Buffer* pInstanceVB, uint32_t iInstanceStride, uint32_t iNumInstances);
+
 private:
 	uint32_t			m_iMaterialIndex = {};
 public:

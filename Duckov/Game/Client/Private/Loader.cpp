@@ -14,6 +14,7 @@
 #include "Scope.h"
 #include "Inven.h"
 #include "HUD.h"
+#include "Tree_Instance.h"
 
 CLoader::CLoader(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     : m_pDevice{pDevice}
@@ -183,6 +184,12 @@ HRESULT CLoader::Loading_For_GamePlayLV()
             "../../../Resource/Characters/0_CharacterModel_Boss_Wu/0_CharacterModel_Boss_Wu.fbx"))))
         return E_FAIL;
 
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
+        Normalize_AssetPath(TEXT("Mesh/Tree/Pfb_Tree_01_1.fbx")),
+        CModel::Create(m_pDevice, m_pContext,
+            "../../../Resource/Mesh/Tree/Pfb_Tree_01_1.fbx"))))
+        return E_FAIL;
+
     lstrcpy(m_szLoadingText, TEXT("셰이더를 준비중입니다."));
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::VS_UI,
@@ -255,6 +262,11 @@ HRESULT CLoader::Loading_For_GamePlayLV()
         CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_MAIN_MODEL"))))
         return E_FAIL;
 
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::VS_MODEL_INSTANCE,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_VertexShader.hlsl",
+            VTXMESH_INSTANCE::Elements, VTXMESH_INSTANCE::iNumElements, "VS_MAIN_MODEL_INST"))))
+        return E_FAIL;
+
     lstrcpy(m_szLoadingText, TEXT("객체원형 준비중입니다."));
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_QuaterViewCam,
@@ -312,6 +324,10 @@ HRESULT CLoader::Loading_For_GamePlayLV()
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_HUD,
         CHUD::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Tree_Instance,
+        CTree_Instance::Create(m_pDevice, m_pContext))))
         return E_FAIL;
 
     lstrcpy(m_szLoadingText, TEXT("로딩이 완료되었습니다."));

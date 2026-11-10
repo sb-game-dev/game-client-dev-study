@@ -103,6 +103,10 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
         ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Cube_Instance)))
         return E_FAIL;
 
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Tree_Instance,
+        ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Tree_Instance)))
+        return E_FAIL;
+
     if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Wave,
         ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Wave)))
         return E_FAIL;
@@ -120,9 +124,9 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
         ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Mirror, &Mirror_Desc)))
         return E_FAIL;
 
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Tree,
-        ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Tree)))
-        return E_FAIL;
+    //if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Tree,
+    //    ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Tree)))
+    //    return E_FAIL;
 
     if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Scope,
         ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Scope)))
