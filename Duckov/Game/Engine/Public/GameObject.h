@@ -47,25 +47,13 @@ protected:
 	ComPtr<ID3D11Buffer>				m_pCB = { nullptr };			// 변환 정보를 가지고있는 상수버퍼
 	uint32_t							m_iIndexCnt = {};				// 인덱스 개수
 
-	ComPtr<ID3D11InputLayout>			m_pInputLayout = { nullptr };	// 정점 메모리 해석표(FVF의 역할)
-
-	ComPtr<ID3D11VertexShader>			m_pVS = { nullptr };			// 버텍스 셰이더
-	ComPtr<ID3D11PixelShader>			m_pPS = { nullptr };			// 픽셀 셰이더
 	ComPtr<ID3D11RasterizerState>		m_pRS = { nullptr };			// 레스터라이저
-
-	ComPtr<ID3D11ShaderResourceView>	m_pSRV = { nullptr };
-	ComPtr<ID3D11SamplerState>			m_pSampler = { nullptr };
 
 	shared_ptr<CTransform>				m_pTransformCom = { nullptr };
 
 	map<const wstring_t, shared_ptr<CComponent>>		m_Components;
 
 	f32_t				m_fViewZ = {};
-
-	MATERIAL			m_tMaterial = {.Ambient = float4_t(1.f, 1.f, 1.f, 1.f) ,
-									   .Diffuse = float4_t(1.f, 1.f, 1.f, 1.f) ,
-									   .Specular = float4_t(0.2f, 0.2f, 0.2f, 16.f) };
-
 
 	BoundingBox			m_tLocalBox = {};
 	bool_t				m_bUseCulling = { false };

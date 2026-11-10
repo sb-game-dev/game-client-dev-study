@@ -57,7 +57,7 @@ HRESULT CClient_Mouse::Initialize_Prototype()
 
     // 상수 버퍼 생성
     D3D11_BUFFER_DESC CBDesc{};
-    CBDesc.ByteWidth = sizeof(CB_PER_OBJECT_LIT);
+    CBDesc.ByteWidth = sizeof(CB_PER_OBJECT);
     CBDesc.Usage = D3D11_USAGE_DEFAULT;
     CBDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 
@@ -231,10 +231,9 @@ HRESULT CClient_Mouse::Ready_InstanceBuffers()
 }
 HRESULT CClient_Mouse::Render_Mesh(ID3D11Buffer* pInstanceVB, shared_ptr<CPixelShader> pPS, uint32_t iInstanceCnt)
 {
-    CB_PER_OBJECT_LIT cbData;
+    CB_PER_OBJECT cbData;
     XMStoreFloat4x4(&cbData.mat_World, XMMatrixIdentity());
     XMStoreFloat4x4(&cbData.mat_WorldInvTranspose, XMMatrixIdentity());
-    cbData.tMaterial = m_tMaterial;
 
     // 변환 행렬의 정보를 가지고있는 m_pCB 버퍼로 복사(USAGE_DEFAULT로 생성해서 드라이버를 통해 복사)
     // 아래에서 VS의 b0 레지스터에 꽂을 예정

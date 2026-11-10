@@ -6,7 +6,7 @@ class ENGINE_DLL CLight abstract
 protected:
 	CLight(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
 public:
-	~CLight() = default;
+	virtual ~CLight() = default;
 
 public:
 	virtual void	Priority_Update(f32_t fDeltaTime) PURE;

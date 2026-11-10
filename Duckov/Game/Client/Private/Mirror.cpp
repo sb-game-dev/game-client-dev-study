@@ -106,7 +106,6 @@ HRESULT CMirror::Ready_ConstantBuffer()
     matNoTrans.r[3] = vector_t{ 0.f,0.f,0.f,1.f };
     XMStoreFloat4x4(&m_tCBData.mat_World, m_pTransformCom->Get_World());
     XMStoreFloat4x4(&m_tCBData.mat_WorldInvTranspose, XMMatrixTranspose(XMMatrixInverse(nullptr, matNoTrans)));
-    m_tCBData.tMaterial = m_tMaterial;
     m_pCB = CConstantBuffer::Create(m_pDevice, m_pContext,&m_tCBData,sizeof(m_tCBData));
     if (nullptr == m_pCB)
         return E_FAIL;

@@ -84,7 +84,7 @@ HRESULT CWave::Initialize_Prototype()
         return E_FAIL;
 
     D3D11_BUFFER_DESC CBDesc{};
-    CBDesc.ByteWidth = sizeof(CB_PER_OBJECT_LIT);
+    CBDesc.ByteWidth = sizeof(CB_PER_OBJECT);
     CBDesc.Usage = D3D11_USAGE_DEFAULT;
     CBDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 
@@ -154,10 +154,9 @@ HRESULT CWave::Render()
     matNoTrans.r[3] = XMVectorSet(0.f, 0.f, 0.f, 1.f);
     XMMATRIX matWorldInvTranspos = XMMatrixTranspose(XMMatrixInverse(nullptr, matNoTrans));
 
-    CB_PER_OBJECT_LIT cbData;
+    CB_PER_OBJECT cbData;
     XMStoreFloat4x4(&cbData.mat_World, (matWorld));
     XMStoreFloat4x4(&cbData.mat_WorldInvTranspose, (matWorldInvTranspos));
-    cbData.tMaterial = m_tMaterial;
 
     m_pContext->UpdateSubresource(m_pCB.Get(), 0, nullptr, &cbData, 0, 0);
 

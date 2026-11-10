@@ -17,7 +17,7 @@ HRESULT	 CPlayer_PointLight::Initialize()
 
     // 점조명 상수 버퍼 생성
     D3D11_BUFFER_DESC LightCBDesc{};
-    LightCBDesc.ByteWidth = sizeof(CB_POINTLIGHT);
+    LightCBDesc.ByteWidth = sizeof(PointLight);
     LightCBDesc.Usage = D3D11_USAGE_DEFAULT;
     LightCBDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 
@@ -41,12 +41,8 @@ void CPlayer_PointLight::Late_Update(f32_t fDeltaTime)
     vector_t vPos = pPlayer->Get_Transform()->Get_State(STATE::POSITION);
     XMStoreFloat3(&m_tPointLight.Position, vPos);
 
-    // 조명 상수 버퍼 채우기
-    CB_POINTLIGHT cbLight;
-    cbLight.tPointLight = m_tPointLight;
-
     // 갱신하고 PS b2에 꽂기
-    m_pContext->UpdateSubresource(m_pLightCB.Get(), 0, nullptr, &cbLight, 0, 0);
+    m_pContext->UpdateSubresource(m_pLightCB.Get(), 0, nullptr, &m_tPointLight, 0, 0);
     m_pContext->PSSetConstantBuffers(2, 1, m_pLightCB.GetAddressOf());
 }
 

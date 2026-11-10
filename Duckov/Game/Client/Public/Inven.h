@@ -158,16 +158,6 @@ private:
 		pItem->bStackable = iMaxStack > 1;
 		return pItem;
 	}
-	static shared_ptr<GUN>	Create_Gun()
-	{
-		ITEM_TYPE			eItemType;		    // 아이템 타입
-		wstring_t		    strItemName;		// 이름
-		wstring_t           strDesc;            // 아이템 설명
-		f32_t				fWeight;			// 무게
-		int32_t             iPrice;             // 가격
-		int32_t				iTypeID;
-		int32_t				iQuality;			// 1~6
-	}
 
 public:
 	static shared_ptr<CInven>		Create(ComPtr<ID3D11Device>pDevice, ComPtr<ID3D11DeviceContext>pContext);

@@ -4,11 +4,9 @@
 #include "Player.h"
 #include "Hill.h"
 #include "QuarterView_Cam.h"
-#include "Wave.h"
 #include "Fog.h"
 #include "Mirror.h"
 #include "SkyBox.h"
-#include "Tree.h"
 #include "Cube_Instance.h"
 #include "Client_Mouse.h"
 #include "Scope.h"
@@ -125,12 +123,6 @@ HRESULT CLoader::Loading_For_GamePlayLV()
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Texture_Hill,
         CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/grass.dds"), 1))))
         return E_FAIL;
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Texture_Wave,
-        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/water2.dds"), 1))))
-        return E_FAIL;
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Texture_Tree,
-        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/tree%d.dds"), 4))))
-        return E_FAIL;
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Texture_SkyBox,
         CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/SkyCube.dds"), 1))))
         return E_FAIL;
@@ -210,7 +202,7 @@ HRESULT CLoader::Loading_For_GamePlayLV()
         return E_FAIL;
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::PS_VTXCOL_SHADOW,
-        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_SHADOW"))))
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_SHADOW_MODEL"))))
         return E_FAIL;
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::PS_VTXCOL_OCCLUDED,
@@ -294,20 +286,12 @@ HRESULT CLoader::Loading_For_GamePlayLV()
         CHill::Create(m_pDevice, m_pContext))))
         return E_FAIL;
 
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Wave,
-        CWave::Create(m_pDevice, m_pContext))))
-        return E_FAIL;
-
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Fog,
         CFog::Create(m_pDevice, m_pContext))))
         return E_FAIL;
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Mirror,
         CMirror::Create(m_pDevice, m_pContext))))
-        return E_FAIL;
-
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Tree,
-        CTree::Create(m_pDevice, m_pContext))))
         return E_FAIL;
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Client_Mouse,

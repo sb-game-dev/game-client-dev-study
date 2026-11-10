@@ -125,7 +125,7 @@ HRESULT CScope::Ready_Components()
 }
 HRESULT CScope::Ready_ConstantBuffer()
 {
-    XMStoreFloat4x4(&m_tCBData.WorldMatrix, m_pTransformCom->Get_World());
+    XMStoreFloat4x4(&m_tCBData.mat_World, m_pTransformCom->Get_World());
     m_pCB = CConstantBuffer::Create(m_pDevice, m_pContext, &m_tCBData, sizeof(m_tCBData));
     if (nullptr == m_pCB)
         return E_FAIL;

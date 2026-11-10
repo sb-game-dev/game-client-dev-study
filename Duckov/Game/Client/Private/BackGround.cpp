@@ -105,7 +105,6 @@ HRESULT CBackGround::Ready_ConstantBuffer()
 
     XMStoreFloat4x4(&m_tCBData.mat_World, matWorld);
     XMStoreFloat4x4(&m_tCBData.mat_WorldInvTranspose, matWorldInvTranspos);
-    m_tCBData.tMaterial = m_tMaterial;
 
     m_pCB = CConstantBuffer::Create(m_pDevice, m_pContext, &m_tCBData, sizeof(m_tCBData));
     if (nullptr == m_pCB)

@@ -120,7 +120,6 @@ HRESULT CStaticProp::Update_ConstantBuffer(const matrix_t& matWorld)
 
     XMStoreFloat4x4(&m_tCBData.mat_World, (matWorld));
     XMStoreFloat4x4(&m_tCBData.mat_WorldInvTranspose, (matWorldInvTranspos));
-    m_tCBData.tMaterial = m_tMaterial;
 
     return S_OK;
 }

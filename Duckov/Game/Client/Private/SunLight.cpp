@@ -17,7 +17,7 @@ HRESULT CSunLight::Initialize()
 
 	// 방향성 조명 상수 버퍼 생성
 	D3D11_BUFFER_DESC LightCBDesc{};
-	LightCBDesc.ByteWidth = sizeof(CB_DIRLIGHT);
+	LightCBDesc.ByteWidth = sizeof(DirectionalLight);
 	LightCBDesc.Usage = D3D11_USAGE_DEFAULT;
 	LightCBDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 
@@ -36,12 +36,8 @@ void CSunLight::Update(f32_t fDeltaTime)
 
 void CSunLight::Late_Update(f32_t fDeltaTime)
 {
-	// 조명 상수 버퍼 채우기
-	CB_DIRLIGHT cbLight;
-	cbLight.tDirLight = m_tDirectionalLight;
-
 	// 갱신하고 PS b3에 꽂기
-	m_pContext->UpdateSubresource(m_pLightCB.Get(), 0, nullptr, &cbLight, 0, 0);
+	m_pContext->UpdateSubresource(m_pLightCB.Get(), 0, nullptr, &m_tDirectionalLight, 0, 0);
 	m_pContext->PSSetConstantBuffers(3, 1, m_pLightCB.GetAddressOf());
 }
 

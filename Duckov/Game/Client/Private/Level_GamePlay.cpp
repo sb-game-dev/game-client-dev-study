@@ -88,7 +88,7 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
         CCube::CUBE_DESC Cube_Desc{};
         f32_t fPosX = 38.2f + 10 * sinf(XM_2PI / 16 * i);
         f32_t fPosZ = -207.2f + 10 * cosf(XM_2PI / 16 * i);
-
+    
         Cube_Desc.vPosition = { fPosX ,0.f,fPosZ };
         Cube_Desc.iLevelIndex = ETOUI(LEVEL::GAMEPLAY);
         Cube_Desc.strMeshPath = Proto::VIBuffer_Cube;
@@ -107,10 +107,6 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
         ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Tree_Instance)))
         return E_FAIL;
 
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Wave,
-        ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Wave)))
-        return E_FAIL;
-
     if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Fog,
         ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Fog)))
         return E_FAIL;
@@ -123,10 +119,6 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
     if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Mirror,
         ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Mirror, &Mirror_Desc)))
         return E_FAIL;
-
-    //if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Tree,
-    //    ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Tree)))
-    //    return E_FAIL;
 
     if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Scope,
         ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Scope)))

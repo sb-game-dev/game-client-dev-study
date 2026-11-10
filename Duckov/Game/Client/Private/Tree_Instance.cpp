@@ -11,94 +11,6 @@ HRESULT CTree_Instance::Initialize_Prototype()
     if (FAILED(__super::Initialize_Prototype()))
         return E_FAIL;
 
-    // 정육면체 그리기
-    // 정점 정보
-    VTXNORM vertices[] =
-    {
-        // z-
-        { float3_t(-0.5f, -0.5f, -0.5f), float3_t(0.f, 0.f, -1.f), float2_t(0.f, 1.f) },
-        { float3_t(-0.5f, +0.5f, -0.5f), float3_t(0.f, 0.f, -1.f), float2_t(0.f, 0.f) },
-        { float3_t(+0.5f, +0.5f, -0.5f), float3_t(0.f, 0.f, -1.f), float2_t(1.f, 0.f) },
-        { float3_t(+0.5f, -0.5f, -0.5f), float3_t(0.f, 0.f, -1.f), float2_t(1.f, 1.f) },
-        // x+
-        { float3_t(+0.5f, -0.5f, -0.5f), float3_t(+1.f, 0.f, 0.f), float2_t(0.f, 1.f) },
-        { float3_t(+0.5f, +0.5f, -0.5f), float3_t(+1.f, 0.f, 0.f), float2_t(0.f, 0.f) },
-        { float3_t(+0.5f, +0.5f, +0.5f), float3_t(+1.f, 0.f, 0.f), float2_t(1.f, 0.f) },
-        { float3_t(+0.5f, -0.5f, +0.5f), float3_t(+1.f, 0.f, 0.f), float2_t(1.f, 1.f) },
-        // z+
-        { float3_t(+0.5f, -0.5f, +0.5f), float3_t(0.f, 0.f, +1.f), float2_t(0.f, 1.f) },
-        { float3_t(+0.5f, +0.5f, +0.5f), float3_t(0.f, 0.f, +1.f), float2_t(0.f, 0.f) },
-        { float3_t(-0.5f, +0.5f, +0.5f), float3_t(0.f, 0.f, +1.f), float2_t(1.f, 0.f) },
-        { float3_t(-0.5f, -0.5f, +0.5f), float3_t(0.f, 0.f, +1.f), float2_t(1.f, 1.f) },
-        // x-
-        { float3_t(-0.5f, -0.5f, +0.5f), float3_t(-1.f, 0.f, 0.f), float2_t(0.f, 1.f) },
-        { float3_t(-0.5f, +0.5f, +0.5f), float3_t(-1.f, 0.f, 0.f), float2_t(0.f, 0.f) },
-        { float3_t(-0.5f, +0.5f, -0.5f), float3_t(-1.f, 0.f, 0.f), float2_t(1.f, 0.f) },
-        { float3_t(-0.5f, -0.5f, -0.5f), float3_t(-1.f, 0.f, 0.f), float2_t(1.f, 1.f) },
-        // y+
-        { float3_t(-0.5f, +0.5f, -0.5f), float3_t(0.f, +1.f, 0.f), float2_t(0.f, 1.f) },
-        { float3_t(-0.5f, +0.5f, +0.5f), float3_t(0.f, +1.f, 0.f), float2_t(0.f, 0.f) },
-        { float3_t(+0.5f, +0.5f, +0.5f), float3_t(0.f, +1.f, 0.f), float2_t(1.f, 0.f) },
-        { float3_t(+0.5f, +0.5f, -0.5f), float3_t(0.f, +1.f, 0.f), float2_t(1.f, 1.f) },
-        // y-
-        { float3_t(-0.5f, -0.5f, +0.5f), float3_t(0.f, -1.f, 0.f), float2_t(0.f, 1.f) },
-        { float3_t(-0.5f, -0.5f, -0.5f), float3_t(0.f, -1.f, 0.f), float2_t(0.f, 0.f) },
-        { float3_t(+0.5f, -0.5f, -0.5f), float3_t(0.f, -1.f, 0.f), float2_t(1.f, 0.f) },
-        { float3_t(+0.5f, -0.5f, +0.5f), float3_t(0.f, -1.f, 0.f), float2_t(1.f, 1.f) },
-
-    };
-
-    BoundingBox::CreateFromPoints(m_tLocalBox, size(vertices), &vertices[0].vPosition, sizeof(VTXNORM));
-
-    // 정점 버퍼 생성
-    D3D11_BUFFER_DESC   VBDesc{};
-    VBDesc.ByteWidth = sizeof(vertices);
-    VBDesc.Usage = D3D11_USAGE_IMMUTABLE;
-    VBDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-
-    D3D11_SUBRESOURCE_DATA  VBData{};
-    VBData.pSysMem = vertices;  // 정점 버퍼를 초기화할 자료를 담은 시스템 메모리 배열을 가리키는 포인터
-    if (FAILED(m_pDevice->CreateBuffer(&VBDesc, &VBData, &m_pVB)))
-        return E_FAIL;
-
-    UINT indices[36] = {};
-    uint32_t iVtx = 0;
-    for (uint32_t i = 0; i < 36; i += 6)
-    {
-        indices[i] = iVtx;
-        indices[i + 1] = iVtx + 1;
-        indices[i + 2] = iVtx + 2;
-
-        indices[i + 3] = iVtx;
-        indices[i + 4] = iVtx + 2;
-        indices[i + 5] = iVtx + 3;
-
-        iVtx += 4;
-    }
-
-    // 인덱스 버퍼 생성
-    D3D11_BUFFER_DESC IBDesc{};
-    IBDesc.ByteWidth = sizeof(indices);
-    IBDesc.Usage = D3D11_USAGE_IMMUTABLE;
-    IBDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
-
-
-    D3D11_SUBRESOURCE_DATA IBData{};
-    IBData.pSysMem = indices;
-    m_iIndexCnt = size(indices);
-    if (FAILED(m_pDevice->CreateBuffer(&IBDesc, &IBData, &m_pIB)))
-        return E_FAIL;
-
-    // 상수 버퍼 생성
-    D3D11_BUFFER_DESC CBDesc{};
-    CBDesc.ByteWidth = sizeof(CB_PER_OBJECT_LIT);
-    CBDesc.Usage = D3D11_USAGE_DEFAULT;
-    CBDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-
-    // 상수 버퍼를 초기화 할 때 SubResource는 nullptr로 설정. 나중에 UpdateSubresource 할 예정
-    if (FAILED(m_pDevice->CreateBuffer(&CBDesc, nullptr, &m_pCB)))
-        return E_FAIL;
-
     // 래스터라이저 설정
     D3D11_RASTERIZER_DESC rsDesc{};
     rsDesc.FillMode = D3D11_FILL_SOLID;         // D3D11_FILL_WIREFRAME , D3D11_FILL_SOLID
@@ -147,7 +59,7 @@ void CTree_Instance::Late_Update(f32_t fDeltaTime)
 
 HRESULT CTree_Instance::Render()
 {
-    return Render_Mesh(m_pInstanceVB.Get(), m_pPS, m_iVisibleShadowCnt);
+    return Render_Mesh(m_pInstanceVB.Get(), m_pPS, m_iVisibleCnt);
 }
 
 HRESULT CTree_Instance::Render_Shadow()
@@ -182,8 +94,6 @@ HRESULT CTree_Instance::Ready_InstanceBuffers()
     m_ShadowMats.resize(m_iNumInstance);
 
     auto pHill = static_pointer_cast<CHill>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Hill")));
-   
-    
 
     const vector_t  vToLight = vector_t{ -0.5f, 0.5f, -0.5f, 0.f };
     const matrix_t matOffset = XMMatrixTranslation(0.f, 0.01f, 0.0f);
@@ -218,8 +128,8 @@ HRESULT CTree_Instance::Ready_InstanceBuffers()
     if (FAILED(m_pDevice->CreateBuffer(&desc, nullptr, &m_pInstanceVB)))
         return E_FAIL;
 
-    if (FAILED(m_pDevice->CreateBuffer(&desc, nullptr, &m_pInstanceVB_Shadow)))
-        return E_FAIL;
+    //if (FAILED(m_pDevice->CreateBuffer(&desc, nullptr, &m_pInstanceVB_Shadow)))
+    //    return E_FAIL;
 
     return S_OK;
 }
@@ -243,10 +153,10 @@ void CTree_Instance::Cull_Instances()
     const matrix_t  matIdentity = XMMatrixIdentity();
     // 큐브 컬링
     D3D11_MAPPED_SUBRESOURCE tMapped{};
-
+    
     if (FAILED(m_pContext->Map(m_pInstanceVB.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &tMapped)))
         return;
-
+    
     auto pDst = reinterpret_cast<float4x4_t*>(tMapped.pData);
     m_iVisibleCnt = 0;
     for (uint32_t i = 0; i < m_iNumInstance; ++i)
@@ -291,7 +201,7 @@ HRESULT CTree_Instance::Render_Mesh(ID3D11Buffer* pInstanceVB, shared_ptr<CPixel
         //if (FAILED(m_pModelCom->Bind_Material(i, aiTextureType_NORMALS, 0, 1)))
         //    return E_FAIL;
 
-        if (FAILED(m_pModelCom->Render_Instanced(i,m_pInstanceVB.Get(), sizeof(float4x4_t), m_iVisibleCnt)))
+        if (FAILED(m_pModelCom->Render_Instanced(i,m_pInstanceVB.Get(), sizeof(float4x4_t), iInstanceCnt)))
             return E_FAIL;
     }
 

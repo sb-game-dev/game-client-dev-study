@@ -42,7 +42,7 @@ private:
 	shared_ptr<CPixelShader>		m_pPS_Occluded = { nullptr };
 
 	shared_ptr<CConstantBuffer>		m_pCB = { nullptr };
-	CB_PER_OBJECT_LIT				m_tCBData = {};
+	CB_PER_OBJECT				m_tCBData = {};
 
 	ComPtr<ID3D11RasterizerState>	m_pRS_Reflect = { nullptr };
 

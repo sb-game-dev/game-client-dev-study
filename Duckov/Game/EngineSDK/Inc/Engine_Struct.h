@@ -91,10 +91,6 @@ namespace Engine
 		};
 	}VTXMESH;
 
-	typedef struct tagCBPerObject
-	{
-		float4x4_t WorldMatrix;
-	}CB_PER_OBJECT;
 
 	typedef struct tagCBCamera
 	{
@@ -170,37 +166,11 @@ namespace Engine
 		f32_t		Pad;
 	};
 
-
-	typedef struct tagMaterial
-	{
-		float4_t	Ambient;
-		float4_t	Diffuse;
-		float4_t	Specular; // w = SpecPower
-		float4_t	Reflect;
-	}MATERIAL;
-
-
-	typedef struct tagCBPerObjectLit
+	typedef struct tagCBPerObject
 	{
 		float4x4_t	mat_World;
 		float4x4_t	mat_WorldInvTranspose;
-		MATERIAL	tMaterial;
-	}CB_PER_OBJECT_LIT;
-
-	typedef struct tagCBPointLight
-	{
-		PointLight			tPointLight;	
-	}CB_POINTLIGHT;
-
-	typedef struct tagCBSpotLight
-	{
-		SpotLight			tSpotLight;
-	}CB_SPOTLIGHT;
-
-	typedef struct tagCBDirLight
-	{
-		DirectionalLight			tDirLight;
-	}CB_DIRLIGHT;
+	}CB_PER_OBJECT;
 
 	typedef struct tagCBFog
 	{

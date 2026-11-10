@@ -10,11 +10,12 @@ struct Material
     float4 Reflect;
 };
 
-cbuffer cbPerObject : register(b0)
+static const Material g_Material =
 {
-    row_major float4x4 g_matWorld;
-    row_major float4x4 g_matWorldInvTranspose;
-    Material g_Material;
+    float4(1.f, 1.f, 1.f, 1.f), // Ambient
+    float4(1.f, 1.f, 1.f, 1.f), // Diffuse (a = ¾ËÆÄ)
+    float4(0.2f, 0.2f, 0.2f, 16.f), // Specular (w = SpecPower)
+    float4(0.f, 0.f, 0.f, 0.f) // Reflect
 };
 
 cbuffer FrameData : register(b1)

@@ -151,6 +151,13 @@ float4 PS_SHADOW(PS_IN In) : SV_TARGET
     return float4(0.f, 0.f, 0.f, 0.5f);
 }
 
+float4 PS_SHADOW_MODEL(PS_IN_MODEL In) : SV_TARGET
+{
+    float4 vTexColor = g_DiffuseTex.Sample(g_LinearSampler, In.vTexCoord);
+    clip(vTexColor.a - 0.1f);
+    return float4(0.f, 0.f, 0.f, 0.5f);
+}
+
 float4 PS_MAIN_SKY(PS_IN In) : SV_TARGET
 {
     float4 vTexColor = g_DiffuseTex.Sample(g_LinearSampler, In.vTexCoord);

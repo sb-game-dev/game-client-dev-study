@@ -89,16 +89,6 @@ HRESULT CCube_Instance::Initialize_Prototype()
     if (FAILED(m_pDevice->CreateBuffer(&IBDesc, &IBData, &m_pIB)))
         return E_FAIL;
 
-    // 상수 버퍼 생성
-    D3D11_BUFFER_DESC CBDesc{};
-    CBDesc.ByteWidth = sizeof(CB_PER_OBJECT_LIT);
-    CBDesc.Usage = D3D11_USAGE_DEFAULT;
-    CBDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-
-    // 상수 버퍼를 초기화 할 때 SubResource는 nullptr로 설정. 나중에 UpdateSubresource 할 예정
-    if (FAILED(m_pDevice->CreateBuffer(&CBDesc, nullptr, &m_pCB)))
-        return E_FAIL;
-
     // 래스터라이저 설정
     D3D11_RASTERIZER_DESC rsDesc{};
     rsDesc.FillMode = D3D11_FILL_SOLID;         // D3D11_FILL_WIREFRAME , D3D11_FILL_SOLID
@@ -147,7 +137,7 @@ void CCube_Instance::Late_Update(f32_t fDeltaTime)
 
 HRESULT CCube_Instance::Render()
 {
-    return Render_Mesh(m_pInstanceVB.Get(), m_pPS, m_iVisibleShadowCnt);
+    return Render_Mesh(m_pInstanceVB.Get(), m_pPS, m_iVisibleCnt);
 }
 
 HRESULT CCube_Instance::Render_Shadow()

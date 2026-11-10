@@ -1,16 +1,9 @@
 
-struct Material
-{
-    float4 Ambient;
-    float4 Diffuse;
-    float4 Specular; // w = SpecPower
-    float4 Reflect;
-};
+
 cbuffer cbPerObject : register(b0)
 {
     row_major float4x4 g_matWorld;
     row_major float4x4 g_matWorldInvTranspose;
-    Material g_Material;
 };
 
 cbuffer FrameData : register(b1)

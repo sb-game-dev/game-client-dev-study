@@ -52,7 +52,7 @@ HRESULT CHUD::Initialize_Prototype()
 
 	// 상수 버퍼 생성
 	D3D11_BUFFER_DESC CBDesc{};
-	CBDesc.ByteWidth = sizeof(CB_PER_OBJECT_LIT);
+	CBDesc.ByteWidth = sizeof(CB_PER_OBJECT);
 	CBDesc.Usage = D3D11_USAGE_DEFAULT;
 	CBDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 

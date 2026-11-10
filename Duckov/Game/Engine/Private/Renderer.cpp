@@ -429,7 +429,10 @@ void CRenderer::Render_Mirror()
 {
 	auto pMirror = m_pMirror.lock();
 	if (nullptr == pMirror)
+	{
+		m_RenderGroup[ETOUI(RENDERID::REFLECT)].clear();
 		return;
+	}
 	float blendrFactor[4] = { 0.f,0.f,0.f,0.f };
 
 	// 스텐실버퍼에 거울 영역 채우기 (스텐실 1로 표시하기만 함. 거울이 그려지지는 않음)
