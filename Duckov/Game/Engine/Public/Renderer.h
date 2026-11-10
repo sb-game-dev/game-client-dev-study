@@ -18,6 +18,7 @@ public:
 	void	Set_Mirror(shared_ptr<CGameObject> pMirror) { m_pMirror = pMirror; }
 	void	SetBlurUse(bool_t bUseBlur)					{ m_bUseBlur = bUseBlur; }
 	void	Set_DrawToBackBuffer(bool_t bDraw)			{ m_bDrawToBackBuffer = bDraw; }
+	void	AddBlurField(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight);
 	ID3D11ShaderResourceView* Get_SceneSRV()const		{ return m_pSceneSRV.Get(); }
 private:
 	ComPtr<ID3D11Device>				m_pDevice = { nullptr };

@@ -149,9 +149,9 @@ HRESULT CLevel_GamePlay::Ready_Layer_Camera(const tchar_t* pLayerTag)
     CameraDesc.fSpeedPerSec = 20.f;
     CameraDesc.vEye = float4_t(-10.f, 10.f, -10.f, 1.f);
     CameraDesc.vAt = float4_t(0.f, 0.f, 0.f, 1.f);
-    CameraDesc.fFovy = 70.f;
-    CameraDesc.fNear = 0.1f;
-    CameraDesc.fFar = 1000.f;
+    CameraDesc.fFovy = 20.f;
+    CameraDesc.fNear = 0.3f;
+    CameraDesc.fFar = 300.f;
 
     if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_QuaterViewCam,
         ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::QuaterViewCam, &CameraDesc)))

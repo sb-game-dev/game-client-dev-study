@@ -130,9 +130,11 @@ void CInven::Update(f32_t fTimeDelta)
 	}
 	if (false == m_bOpen)
 	{
+		CGameInstance::Get().SetBlurUse(false);
 		m_tHoveredSlot = {};
 		return;
 	}
+	CGameInstance::Get().SetBlurUse(true);
 
 	m_ptMouse = CGameInstance::Get().Get_MousePos();
 	m_tHoveredSlot = Find_CollidedSlot(m_ptMouse);
@@ -231,9 +233,10 @@ void CInven::Build_Instances()
 	// 인스턴스 초기화
 	m_Instances.clear();
 
-	// 패널 그리기
+	//// 패널 그리기
 	Push_Rect(PANEL_LEFT, PANEL_TOP, PANEL_WIDTH, PANEL_HEIGHT, COLOR_PANEL, RADIUS);
-	
+	CGameInstance::Get().AddBlurField(PANEL_LEFT, PANEL_TOP, PANEL_WIDTH, PANEL_HEIGHT);
+
 	// 장비칸 그리기
 	for (int32_t i = 0; i < ETOI(EQUIP_SLOT::END); ++i)        
 		Push_Slot({ INVEN_AREA::EQUIP, i });
@@ -242,8 +245,9 @@ void CInven::Build_Instances()
 	for (int32_t i = 0; i < (int32_t)m_vecBackPack.size(); ++i) 
 		Push_Slot({ INVEN_AREA::BAG, i });
 
-	// 퀵슬롯 패널 그리기
+	//// 퀵슬롯 패널 그리기
 	Push_Rect(QUICK_PANEL_LEFT, QUICK_PANEL_TOP, QUICK_PANEL_WIDTH, QUICK_PANEL_HEIGHT, COLOR_PANEL, RADIUS);
+	CGameInstance::Get().AddBlurField(QUICK_PANEL_LEFT, QUICK_PANEL_TOP, QUICK_PANEL_WIDTH, QUICK_PANEL_HEIGHT);
 
 	// 퀵슬롯 그리기
 	for (int32_t i = 0; i < 6; ++i)

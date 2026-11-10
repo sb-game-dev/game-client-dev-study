@@ -23,7 +23,7 @@ constexpr int32_t BAG_COLS = 5;
 constexpr f32_t RADIUS = 8.f;
 
 // 색상
-constexpr float4_t COLOR_PANEL = { 0.08f, 0.14f, 0.22f, 0.6f };				// 패널 판
+constexpr float4_t COLOR_PANEL = { 0.196f, 0.349f, 0.471f, 0.2f };			// 패널 판
 constexpr float4_t COLOR_SLOT_BG = { 0.f, 0.f, 0.f, 0.2f };					// 칸 바탕      
 constexpr float4_t COLOR_SLOT_FRAME = { 1.f, 1.f, 1.f, 0.3f };				// 칸 테두리 
 constexpr float4_t COLOR_SELECTED = { 1.f, 0.62f, 0.23f, 1.f };				// 선택 테두리  

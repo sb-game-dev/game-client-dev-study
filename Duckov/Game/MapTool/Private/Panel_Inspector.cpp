@@ -68,7 +68,7 @@ void CPanel_Inspector::Render(const PANEL_RECT& tRect)
 
                     if (auto pPath = Render_AssetCombo("Model", g_Models, pProp->Get_MeshPath()))
                     {
-                        if (FAILED(pProp->Change_Mesh(pPath)))
+                        if (FAILED(pProp->Change_Model(pPath)))
                             MSG_BOX("Mesh Change Failed");
                     }
                 }

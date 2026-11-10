@@ -64,19 +64,17 @@ HRESULT CStaticProp ::Render()
 }
 
 
-HRESULT CStaticProp::Change_Mesh(const wstring_t& strMeshPath)
+HRESULT CStaticProp::Change_Model(const wstring_t& strMeshPath)
 {
     const wstring_t strMeshTag = Normalize_AssetPath(strMeshPath);
 
     if (false == CGameInstance::Get().Has_Prototype(m_iLevelIndex, strMeshTag))
-        return E_FAIL;                              // 등록 안 된 경로 → 기존 메시 유지                             
+        return E_FAIL;                              // 원본이 없다면 기존 메시 유지
 
-    shared_ptr<CModel> pNew;
     Remove_Component(TEXT("Com_Model"));
-    if (FAILED(__super::Add_Component(m_iLevelIndex, strMeshTag, TEXT("Com_Model"), pNew)))
+    if (FAILED(__super::Add_Component(m_iLevelIndex, strMeshTag, TEXT("Com_Model"), m_pModelCom)))
         return E_FAIL;
 
-    m_pModelCom = pNew;
     m_strMeshPath = strMeshTag;
     return S_OK;
 }
@@ -108,7 +106,7 @@ HRESULT CStaticProp ::Ready_ConstantBuffer()
 
 HRESULT CStaticProp::Ready_Mesh()
 {
-    if (FAILED(Change_Mesh(m_strMeshPath)))       return E_FAIL;
+    if (FAILED(Change_Model(m_strMeshPath)))       return E_FAIL;
     return S_OK;
 }
 

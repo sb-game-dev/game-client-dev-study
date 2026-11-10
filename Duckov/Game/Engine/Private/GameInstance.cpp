@@ -233,6 +233,11 @@ void CGameInstance::Set_Mirror(shared_ptr<CGameObject> pMirror)
 	m_pRenderer->Set_Mirror(pMirror);
 }
 
+void CGameInstance::AddBlurField(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight)
+{
+	m_pRenderer->AddBlurField(fLeft, fTop, fWidth, fHeight);
+}
+
 #pragma endregion
 
 #pragma region INPUTDEVICE

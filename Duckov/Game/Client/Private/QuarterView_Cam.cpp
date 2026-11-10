@@ -3,8 +3,8 @@
 #include "Player.h"
 #include "Inven.h"
 #include "Client_Mouse.h"
-const f32_t g_fMaxFov = 60.f;
-const f32_t g_fMinFov = 50.f;
+const f32_t g_fMaxFov = 20.f;   
+const f32_t g_fMinFov = 17.f;   
 
 CQuarterView_Cam::CQuarterView_Cam(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
 	:CCamera{pDevice, pContext}
@@ -46,6 +46,16 @@ void CQuarterView_Cam::Priority_Update(f32_t fTimeDelta)
 void CQuarterView_Cam::Update(f32_t fDeltaTime)
 {
 	__super::Update(fDeltaTime);
+
+	if (CGameInstance::Get().Key_Pressing(DIK_DOWN))
+	{
+		XMStoreFloat4(&m_vOffset, XMLoadFloat4(&m_vOffset) + vector_t{ 0,-10.f * fDeltaTime ,0.f,0.f });
+	}
+	if (CGameInstance::Get().Key_Pressing(DIK_UP))
+	{
+		XMStoreFloat4(&m_vOffset, XMLoadFloat4(&m_vOffset) + vector_t{ 0,10.f * fDeltaTime ,0.f,0.f });
+	}
+
 	// lock -> shared_ptr을 만들어주는 함수(참조 카운트 + 1)
 	auto pPlayer = m_pPlayer.lock();
 	if (nullptr == pPlayer)
@@ -106,7 +116,7 @@ void CQuarterView_Cam::Update(f32_t fDeltaTime)
 		m_pTransformCom->LookAt(vAt);
 		// fov 복구
 		if (m_fFovy < g_fMaxFov)
-			m_fFovy += fDeltaTime * 50.f;
+			m_fFovy += fDeltaTime * 15.f;  
 		else
 			m_fFovy = g_fMaxFov;
 	}

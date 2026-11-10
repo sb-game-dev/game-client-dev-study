@@ -19,11 +19,22 @@ HRESULT CBlurFilter::Initialize(uint32_t iWidth, uint32_t iHeight)
 
 	if (FAILED(Ready_ComputeShader()))
 		return E_FAIL;
+
+	if (FAILED(Ready_ConstantBuffer()))
+		return E_FAIL;
 	return S_OK;
 }
 
 void CBlurFilter::BlurInPlace(ID3D11ShaderResourceView* pInputSRV, ID3D11UnorderedAccessView* pInputUAV, uint32_t iBlurCount)
 {
+	if (m_BlurField.empty())
+		return;
+
+	CB_BLUR_DATA Data{};
+	Data.iNumField = (uint32_t)m_BlurField.size();
+	memcpy(Data.BlurFields, m_BlurField.data(), sizeof(BLUR_FIELD) * Data.iNumField);
+	m_pCB->Bind_Compute_ShaderResource(0, &Data);
+
 	// 바인딩 해제용 
 	ID3D11ShaderResourceView* pNullSRV[1] = {nullptr};
 	ID3D11UnorderedAccessView* pNullUAV[1] = {nullptr};
@@ -52,6 +63,7 @@ void CBlurFilter::BlurInPlace(ID3D11ShaderResourceView* pInputSRV, ID3D11Unorder
 	}
 
 	m_pContext->CSSetShader(nullptr, nullptr, 0);
+	m_BlurField.clear();
 }
 
 HRESULT CBlurFilter::Ready_Texture_B()
@@ -112,6 +124,15 @@ HRESULT CBlurFilter::Ready_ComputeShader()
 	if (FAILED(m_pDevice->CreateComputeShader(pVertBlob->GetBufferPointer(), pVertBlob->GetBufferSize(), nullptr, &m_pCS_Vert)))
 		return E_FAIL;
 
+	return S_OK;
+}
+
+HRESULT CBlurFilter::Ready_ConstantBuffer()
+{
+	CB_BLUR_DATA InitData{};
+	m_pCB = CConstantBuffer::Create(m_pDevice, m_pContext, &InitData, sizeof(CB_BLUR_DATA));
+	if (nullptr == m_pCB)
+		return E_FAIL;
 	return S_OK;
 }
 

@@ -2,16 +2,8 @@
 #include "Inven.h"
 
 namespace {
-    vector_t	g_vZ_Plus = XMVector4Normalize({ 0.f,0.f,+1.f,0.f });
-    vector_t	g_vZ_Minus = XMVector4Normalize({ 0.f,0.f,-1.f,0.f });
-    vector_t	g_vX_Plus = XMVector4Normalize({ +1.f,0.f,0.f,0.f });
-    vector_t	g_vX_Minus = XMVector4Normalize({ -1.f,0.f,0.f,0.f });
     vector_t	g_vY_Plus = XMVector4Normalize({ 0.f,+1.f,0.f,0.f });
     vector_t	g_vY_Minus = XMVector4Normalize({ 0.f,-1.f,0.f,0.f });
-    vector_t	g_vQuad1 = XMVector4Normalize({ +1.f,0.f,+1.f,0.f });
-    vector_t	g_vQuad2 = XMVector4Normalize({ -1.f,0.f,+1.f,0.f });
-    vector_t	g_vQuad3 = XMVector4Normalize({ -1.f,0.f,-1.f,0.f });
-    vector_t	g_vQuad4 = XMVector4Normalize({ +1.f,0.f,-1.f,0.f });
 }
 
 CPlayer::CPlayer(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
@@ -245,7 +237,6 @@ void CPlayer::KeyInput(f32_t fDeltaTime)
         m_pTransformCom->Set_Speed(8.f);
     }
 
-
     auto pInven = m_pInven.lock();
     if (pInven)
     {
@@ -259,123 +250,30 @@ void CPlayer::KeyInput(f32_t fDeltaTime)
     
     vector_t vLook = m_pTransformCom->Get_State(STATE::LOOK);
 
-    if (CGameInstance::Get().Key_Pressing(DIK_W))
+    f32_t fInputX = 0.f, fInputZ = 0.f;
+    if (CGameInstance::Get().Key_Pressing(DIK_W)) fInputZ += 1.f;
+    if (CGameInstance::Get().Key_Pressing(DIK_S)) fInputZ -= 1.f;
+    if (CGameInstance::Get().Key_Pressing(DIK_A)) fInputX -= 1.f;
+    if (CGameInstance::Get().Key_Pressing(DIK_D)) fInputX += 1.f;
+    if (0.f == fInputX && 0.f == fInputZ)
+        return;
+
+    matrix_t matCamWorld = CGameInstance::Get().Get_Perspective_Transform_Inverse(D3DTS::VIEW);
+    vector_t vCamRight = XMVector3Normalize(XMVectorSetY(matCamWorld.r[0], 0.f));
+    vector_t vCamLook = XMVector3Normalize(XMVectorSetY(matCamWorld.r[2], 0.f));
+
+    vector_t vMoveDir = XMVector3Normalize(vCamRight * fInputX + vCamLook * fInputZ);
+    m_pTransformCom->Move_Position(vMoveDir, fDeltaTime);
+
+    if (!bPushShift)
+        return;
+
+    vLook = XMVector3Normalize(XMVectorSetY(vLook, 0.f));
+    f32_t fDot = XMVectorGetX(XMVector3Dot(vLook, vMoveDir));
+    if (fDot < cosf(XMConvertToRadians(2.f)))
     {
-        if (CGameInstance::Get().Key_Pressing(DIK_A))
-        {
-            m_pTransformCom->Move_Position(g_vQuad2, fDeltaTime);
-            if (!bPushShift)
-                return;
-            f32_t dot = XMVectorGetY(XMVector3Dot(vLook, g_vQuad2));
-            if (XMConvertToDegrees(acosf(dot)) > 2.f)
-            {
-                if (XMVectorGetZ(vLook) > -XMVectorGetX(vLook))
-                    m_pTransformCom->Turn(g_vY_Minus, fDeltaTime);
-                else
-                    m_pTransformCom->Turn(g_vY_Plus, fDeltaTime);
-            }
-        }
-        else if (CGameInstance::Get().Key_Pressing(DIK_D))
-        {
-            m_pTransformCom->Move_Position(g_vQuad1, fDeltaTime);
-            if (!bPushShift)
-                return;
-            f32_t dot = XMVectorGetY(XMVector3Dot(vLook, g_vQuad1));
-            if (XMConvertToDegrees(acosf(dot)) > 2.f)
-            {
-                if (XMVectorGetZ(vLook) < XMVectorGetX(vLook))
-                    m_pTransformCom->Turn(g_vY_Minus, fDeltaTime);
-                else
-                    m_pTransformCom->Turn(g_vY_Plus, fDeltaTime);
-            }
-        }
-        else
-        {
-            m_pTransformCom->Move_Position(g_vZ_Plus, fDeltaTime);
-            if (!bPushShift)
-                return;
-            f32_t dot = XMVectorGetY(XMVector3Dot(vLook, g_vZ_Plus));
-            if (XMConvertToDegrees(acosf(dot)) > 2.f)
-            {
-                if (XMVectorGetX(vLook) < 0.f)
-                    m_pTransformCom->Turn(g_vY_Plus, fDeltaTime);
-                else 
-                    m_pTransformCom->Turn(g_vY_Minus, fDeltaTime);
-            }
-        }
-    }
-    else if (CGameInstance::Get().Key_Pressing(DIK_S))
-    {
-        if (CGameInstance::Get().Key_Pressing(DIK_A))
-        {
-            m_pTransformCom->Move_Position(g_vQuad3, fDeltaTime);
-            if (!bPushShift)
-                return;
-            f32_t dot = XMVectorGetY(XMVector3Dot(vLook, g_vQuad3));
-            if (XMConvertToDegrees(acosf(dot)) > 2.f)
-            {
-                if (XMVectorGetZ(vLook) < XMVectorGetX(vLook))
-                    m_pTransformCom->Turn(g_vY_Plus, fDeltaTime);
-                else
-                    m_pTransformCom->Turn(g_vY_Minus, fDeltaTime);
-            }
-        }
-        else if (CGameInstance::Get().Key_Pressing(DIK_D))
-        {
-            m_pTransformCom->Move_Position(g_vQuad4, fDeltaTime);
-            if (!bPushShift)
-                return;
-            f32_t dot = XMVectorGetY(XMVector3Dot(vLook, g_vQuad4));
-            if (XMConvertToDegrees(acosf(dot)) > 2.f)
-            {
-                if (XMVectorGetZ(vLook) > -XMVectorGetX(vLook))
-                    m_pTransformCom->Turn(g_vY_Plus, fDeltaTime);
-                else
-                    m_pTransformCom->Turn(g_vY_Minus, fDeltaTime);
-            }
-        }
-        else
-        {
-            m_pTransformCom->Move_Position(g_vZ_Minus, fDeltaTime);
-            if (!bPushShift)
-                return;
-            f32_t dot = XMVectorGetY(XMVector3Dot(vLook, g_vZ_Minus));
-            if (XMConvertToDegrees(acosf(dot)) > 2.f)
-            {
-                if (XMVectorGetX(vLook) < 0.f)
-                    m_pTransformCom->Turn(g_vY_Minus, fDeltaTime);
-                else
-                    m_pTransformCom->Turn(g_vY_Plus, fDeltaTime);
-            }
-        }
-    }
-    else if (CGameInstance::Get().Key_Pressing(DIK_A))
-    {
-        m_pTransformCom->Move_Position(g_vX_Minus, fDeltaTime);
-        if (!bPushShift)
-            return;
-        f32_t dot = XMVectorGetY(XMVector3Dot(vLook, g_vX_Minus));
-        if (XMConvertToDegrees(acosf(dot)) > 2.f)
-        {
-            if (XMVectorGetZ(vLook) < 0.f)
-                m_pTransformCom->Turn(g_vY_Plus, fDeltaTime);
-            else
-                m_pTransformCom->Turn(g_vY_Minus, fDeltaTime);
-        }
-    }
-    else if (CGameInstance::Get().Key_Pressing(DIK_D))
-    {
-        m_pTransformCom->Move_Position(g_vX_Plus, fDeltaTime);
-        if (!bPushShift)
-            return;
-        f32_t dot = XMVectorGetY(XMVector3Dot(vLook, g_vX_Plus));
-        if (XMConvertToDegrees(acosf(dot)) > 2.f)
-        {
-            if (XMVectorGetZ(vLook) < 0.f)
-                m_pTransformCom->Turn(g_vY_Minus, fDeltaTime);
-            else
-                m_pTransformCom->Turn(g_vY_Plus, fDeltaTime);
-        }
+        f32_t fCrossY = XMVectorGetY(XMVector3Cross(vLook, vMoveDir));
+        m_pTransformCom->Turn(fCrossY > 0.f ? g_vY_Plus : g_vY_Minus, fDeltaTime);
     }
 }
 void CPlayer::LookAtMouse(f32_t fDeltaTime)

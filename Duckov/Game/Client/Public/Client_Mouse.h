@@ -50,6 +50,8 @@ private:
 	f32_t							m_fRange = { 25.f };
 	f32_t							m_fTimer = { 0.f };
 
+	float2_t						m_vRecoilRemain = {};
+
 private:
 	HRESULT					Ready_Components();
 	HRESULT					Ready_InstanceBuffers();

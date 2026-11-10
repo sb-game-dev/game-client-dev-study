@@ -60,16 +60,19 @@ void CRenderer::Render_GameObject()
 
 	m_pContext->OMSetRenderTargets(1, pOldRTV.GetAddressOf(), pOldDSV.Get());
 
-	if (m_bUseBlur)
-	{
-		m_pBlurFilter->BlurInPlace(m_pSceneSRV.Get(), m_pSceneUAV.Get(), 4);
-	}
+	m_pBlurFilter->BlurInPlace(m_pSceneSRV.Get(), m_pSceneUAV.Get(), 10);
+
 	if(m_bDrawToBackBuffer)
 		Render_FullScreen();
 	Render_NonAlpha_UI();
 	Render_Alpha_UI();
 
  }
+
+void CRenderer::AddBlurField(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight)
+{
+	m_pBlurFilter->AddBlurField(fLeft, fTop, fWidth, fHeight);
+}
 
 
 HRESULT CRenderer::Ready_BlendState()

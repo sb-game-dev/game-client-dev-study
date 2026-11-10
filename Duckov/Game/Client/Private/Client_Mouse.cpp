@@ -83,7 +83,6 @@ HRESULT CClient_Mouse::Initialize(void* pArg)
     if (FAILED(__super::Initialize(&MouseDesc)))
         return E_FAIL;
 
-
     if (FAILED(Ready_Components()))
         return E_FAIL;
     if (FAILED(Ready_InstanceBuffers()))
@@ -103,6 +102,8 @@ void CClient_Mouse::Update(f32_t fTimeDelta)
     POINT		pt = CGameInstance::Get().Get_MousePos();
 
     m_vPosVP = { (f32_t)pt.x,(f32_t)pt.y,1.f };
+    
+   
 
     vector_t vRayOrigin = {};
     vector_t vRayDir = {};
@@ -120,10 +121,46 @@ void CClient_Mouse::Update(f32_t fTimeDelta)
             return;
         m_pPlayer = pPlayer;
     }
+    if (pPlayer->Is_Firing())
+    {
+        // 전부 창 안 좌표로 계산
+        float2_t vViewport = CGameInstance::Get().Get_ViewportSize();
+        f32_t fDirX = pt.x - vViewport.x * 0.5f;
+        f32_t fDirY = pt.y - vViewport.y * 0.5f;
+        f32_t fLen = sqrtf(fDirX * fDirX + fDirY * fDirY);
+
+        if (fLen > 1.f)   // 중앙 근처에서는 방향이 없으니 건너뜀
+        {
+            const f32_t fRecoilSpeed = 40.f;   // 초당 밀려나는 픽셀
+            m_vRecoilRemain.x += fDirX / fLen * fRecoilSpeed * fTimeDelta;
+            m_vRecoilRemain.y += fDirY / fLen * fRecoilSpeed * fTimeDelta;
+
+            // 정수 부분만 꺼내서 쓰고, 소수점은 남겨 둠
+            long iMoveX = (long)m_vRecoilRemain.x;
+            long iMoveY = (long)m_vRecoilRemain.y;
+            m_vRecoilRemain.x -= iMoveX;
+            m_vRecoilRemain.y -= iMoveY;
+
+            if (0 != iMoveX || 0 != iMoveY)
+            {
+                // 화면 밖으로 나가지 않게 제한
+                POINT ptNew = { pt.x + iMoveX, pt.y + iMoveY };
+                ptNew.x = std::clamp(ptNew.x, 0L, (long)vViewport.x - 1);
+                ptNew.y = std::clamp(ptNew.y, 0L, (long)vViewport.y - 1);
+
+                // SetCursorPos 직전에만 모니터 좌표로 변환
+                ClientToScreen(g_hWnd, &ptNew);
+                SetCursorPos(ptNew.x, ptNew.y);
+            }
+        }
+    }
+    else 
+        m_vRecoilRemain = {};
 
     float3_t    vPlayerPos = {};
     float3_t    vecOrigin = {};
     float3_t    vecRayDir = {};
+
     XMStoreFloat3(&vPlayerPos, pPlayer->Get_Transform()->Get_State(STATE::POSITION));
     XMStoreFloat3(&vecOrigin, vRayOrigin);
     XMStoreFloat3(&vecRayDir, vRayDir);

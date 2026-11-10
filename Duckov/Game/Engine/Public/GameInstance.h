@@ -113,6 +113,7 @@ public:
 	ID3D11ShaderResourceView* Get_SceneSRV()const;
 	void	SetBlurUse(bool_t bUseBlur);
 	void	Set_Mirror(shared_ptr<CGameObject> pMirror);
+	void	AddBlurField(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight);
 #pragma endregion
 
 #pragma region INPUT_DEVICE

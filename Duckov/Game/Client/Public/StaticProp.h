@@ -21,7 +21,7 @@ public:
     virtual	void	Late_Update(f32_t fDeltaTime) override;
     virtual HRESULT	Render() override;
 
-    HRESULT Change_Mesh(const wstring_t& strMeshPath);
+    HRESULT Change_Model(const wstring_t& strMeshPath);
 
 private:
     shared_ptr<CModel>              m_pModelCom;

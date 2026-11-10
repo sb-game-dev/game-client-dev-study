@@ -9,26 +9,7 @@ CMainApp::CMainApp()
 
 CMainApp::~CMainApp()
 {
-#ifdef _DEBUG
-    // 디바이스가 살아있을 때 디버그 인터페이스를 미리 확보 (pDebug도 디바이스 참조를 1개 가짐)
-    ComPtr<ID3D11Debug> pDebug;
-    m_pDevice.As(&pDebug);
-
-    // 파이프라인에 바인딩된 내부 참조 해제 + 지연 삭제 처리 -> Refcount 0 객체 정리
-    m_pContext->ClearState();
-    m_pContext->Flush();
-#endif
-
     CGameInstance::Get().Release_Engine();
-
-#ifdef _DEBUG
-    m_pContext.Reset();
-    m_pDevice.Reset();
-
-    // 남은 객체 = 진짜 누수 (디바이스 Refcount 1은 pDebug 몫이라 정상)
-    if (nullptr != pDebug)
-        pDebug->ReportLiveDeviceObjects(D3D11_RLDO_DETAIL | D3D11_RLDO_IGNORE_INTERNAL);
-#endif
 }
 
 
@@ -36,18 +17,18 @@ CMainApp::~CMainApp()
 HRESULT CMainApp::Initialize()
 {
     /* 엔진 프로젝트에 대한 준비 */
-//#ifdef _DEBUG
-//
-//    if (::AllocConsole() == TRUE)
-//    {
-//        FILE* nfp[3];
-//        freopen_s(nfp + 0, "CONOUT$", "rb", stdin);
-//        freopen_s(nfp + 1, "CONOUT$", "wb", stdout);
-//        freopen_s(nfp + 2, "CONOUT$", "wb", stderr);
-//        std::ios::sync_with_stdio();
-//    }
-//
-//#endif // _DEBUG
+#ifdef _DEBUG
+
+    if (::AllocConsole() == TRUE)
+    {
+        FILE* nfp[3];
+        freopen_s(nfp + 0, "CONOUT$", "rb", stdin);
+        freopen_s(nfp + 1, "CONOUT$", "wb", stdout);
+        freopen_s(nfp + 2, "CONOUT$", "wb", stderr);
+        std::ios::sync_with_stdio();
+    }
+
+#endif // _DEBUG
 
 
     ENGINE_DESC EngineDesc{};

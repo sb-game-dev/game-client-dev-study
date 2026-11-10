@@ -8,6 +8,30 @@ static const float g_Weights[11] =
     0.05f, 0.05f, 0.1f, 0.1f, 0.1f, 0.2f, 0.1f, 0.1f, 0.1f, 0.05f, 0.05f
 };
 
+struct BlurField
+{
+    float fLeft, fTop, fWidth, fHeight;
+};
+
+cbuffer cbBlur : register(b0)
+{
+    BlurField g_BlurFields[10];
+    uint g_iNumField;
+    float3 g_vPad;
+};
+
+bool IsInBlurField(int2 vPixel)
+{
+    for (uint i = 0; i < g_iNumField; ++i)
+    {
+        BlurField f = g_BlurFields[i];
+        if (vPixel.x >= f.fLeft && vPixel.x < f.fLeft + f.fWidth &&
+            vPixel.y >= f.fTop && vPixel.y < f.fTop + f.fHeight)
+            return true;
+    }
+    return false;
+}
+
 #define N 256
 #define CacheSize (N + 2 * g_iBlurRadius)
 groupshared float4 g_Cache[CacheSize];
@@ -48,7 +72,13 @@ void CS_HorzBlur(int3 vGroupThreadID : SV_GroupThreadID,// 그룹 안에서의 번호
     */
     
     GroupMemoryBarrierWithGroupSync();  // 같은 그륩의 256개의 스레드 누구도, 캐시 266칸이 다 채워지기 전에는 아래의 계산 단계로 넘어가지 못함.
-
+    
+    if (!IsInBlurField(vDispatchThreadID.xy))
+    {
+        g_Output[vDispatchThreadID.xy] = g_Cache[vGroupThreadID.x + g_iBlurRadius]; 
+        return;
+    }
+    
     float4 vBlurColor = float4(0.f, 0.f, 0.f, 0.f);
     [unroll]
     for (int i = -g_iBlurRadius; i <= g_iBlurRadius; ++i)
@@ -58,8 +88,6 @@ void CS_HorzBlur(int3 vGroupThreadID : SV_GroupThreadID,// 그룹 안에서의 번호
     }
     g_Output[vDispatchThreadID.xy] = vBlurColor;
 }
-
-
 
 [numthreads(1, N, 1)]
 void CS_VertBlur(int3 vGroupThreadID : SV_GroupThreadID,
@@ -80,7 +108,11 @@ void CS_VertBlur(int3 vGroupThreadID : SV_GroupThreadID,
     g_Cache[vGroupThreadID.y + g_iBlurRadius] = g_Input[min(vDispatchThreadID.xy, g_Input.Length.xy - 1)];
 
     GroupMemoryBarrierWithGroupSync();
-
+    if (!IsInBlurField(vDispatchThreadID.xy))
+    {
+        g_Output[vDispatchThreadID.xy] = g_Cache[vGroupThreadID.y + g_iBlurRadius];
+        return;
+    }
     float4 vBlurColor = float4(0.f, 0.f, 0.f, 0.f);
     [unroll]
     for (int i = -g_iBlurRadius; i <= g_iBlurRadius; ++i)
