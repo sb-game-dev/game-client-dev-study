@@ -238,7 +238,6 @@
     <ClCompile Include="..\..\Client\Private\Scope.cpp" />
     <ClCompile Include="..\..\Client\Private\SkyBox.cpp" />
     <ClCompile Include="..\..\Client\Private\SunLight.cpp" />
-    <ClCompile Include="..\..\Client\Private\Wave.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Default.rc" />

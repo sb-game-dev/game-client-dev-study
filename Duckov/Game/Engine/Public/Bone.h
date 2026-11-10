@@ -1,0 +1,27 @@
+#pragma once
+#include "Engine_Defines.h"
+NS_BEGIN(Engine)
+class CBone final
+{
+private:
+	CBone() = default;
+public:
+	~CBone() = default;
+
+public:
+	HRESULT Initialize(const aiNode* pAINode, int32_t iParentBoneIndex);
+	bool_t Compare_Name(const char_t* pBoneName) const { 
+		return !strcmp(pBoneName, m_szName); 
+	}
+
+private:
+	char_t		m_szName[MAX_PATH] = { "" };
+	float4x4_t	m_TransformationMatrix = {};
+	float4x4_t	m_CombinedTransfromationMatrix = {};
+	int32_t		m_iParentIndex = { -1 };
+
+public:
+	static shared_ptr<CBone> Create(const aiNode* pAINode, int32_t iParentBoneIndex);
+};
+
+NS_END

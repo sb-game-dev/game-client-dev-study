@@ -172,13 +172,13 @@ HRESULT CLoader::Loading_For_GamePlayLV()
     matrix_t PreTransformMatrix = XMMatrixRotationY(180.f);
     if(FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
         Normalize_AssetPath(TEXT("Characters/0_CharacterModel_Boss_Wu/0_CharacterModel_Boss_Wu.fbx")),
-        CModel::Create(m_pDevice, m_pContext,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
             "../../../Resource/Characters/0_CharacterModel_Boss_Wu/0_CharacterModel_Boss_Wu.fbx"))))
         return E_FAIL;
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
         Normalize_AssetPath(TEXT("Mesh/Tree/Pfb_Tree_01_1.fbx")),
-        CModel::Create(m_pDevice, m_pContext,
+        CModel::Create(m_pDevice, m_pContext,MODEL::NONANIM,
             "../../../Resource/Mesh/Tree/Pfb_Tree_01_1.fbx"))))
         return E_FAIL;
 

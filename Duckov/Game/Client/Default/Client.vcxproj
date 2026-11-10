@@ -179,7 +179,6 @@
     <ClInclude Include="..\public\Player_SpotLight.h" />
     <ClInclude Include="..\public\QuarterView_Cam.h" />
     <ClInclude Include="..\public\Tree_Instance.h" />
-    <ClInclude Include="..\public\Wave.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Resource.h" />
@@ -214,7 +213,6 @@
     <ClCompile Include="..\private\Level_Logo.cpp" />
     <ClCompile Include="..\Private\MainApp.cpp" />
     <ClCompile Include="..\private\Tree_Instance.cpp" />
-    <ClCompile Include="..\private\Wave.cpp" />
     <ClCompile Include="Client.cpp" />
   </ItemGroup>
   <ItemGroup>

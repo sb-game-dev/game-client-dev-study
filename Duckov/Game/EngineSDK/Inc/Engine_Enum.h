@@ -17,15 +17,10 @@ namespace Engine
 
 	enum class CAMERA { ORTHOGRAPHIC, QUARTERVIEW, FREE, END };
 
-	//// Dynamic 컴포넌트 경우 매 프레임마다 갱신해야하는 컴포넌트 집단
-	//enum COMPONENTID { ID_DYNAMIC, ID_STATIC, ID_END };
-	//
 	enum class INFO { RIGHT, UP, LOOK, POS, END };
-	//
+
 	enum class ROTATION { X, Y, Z, END };
-	//
-	//enum TEXTUREID { TEX_NORMAL, TEX_CUBE, TEX_END };
-	//
+
 	enum class RENDERID { PRIORITY, NONALPHA, OCCLUDEDPLAYER, PLAYER, ALPHA_PRE, SHADOW, REFLECT, ALPHA, NONALPHA_UI, ALPHA_UI, END };
 
 	enum class VSLOT { WORLD, CAMERA, END };
@@ -33,7 +28,6 @@ namespace Engine
 	enum class PSLOT { LIGHT, CAMERA, END };
 
 	enum class SAMPLER_SLOT { POINT, LINEAR, END };
-
 
 }
 #endif // Engine_Enum_h__

@@ -145,6 +145,9 @@
     <Filter Include="06. Component\04. Model\01. Material">
       <UniqueIdentifier>{24489452-8f01-4243-b38f-2ada973ae376}</UniqueIdentifier>
     </Filter>
+    <Filter Include="06. Component\04. Model\02. Bone">
+      <UniqueIdentifier>{8f87ce9c-c269-4aa0-aede-edd50041b42e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Engine_Defines.h">
@@ -297,6 +300,9 @@
     <ClInclude Include="..\public\Mesh.h">
       <Filter>06. Component\04. Model\00. Mesh</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\Bone.h">
+      <Filter>06. Component\04. Model\02. Bone</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Timer.cpp">
@@ -427,6 +433,9 @@
     </ClCompile>
     <ClCompile Include="..\private\Mesh.cpp">
       <Filter>06. Component\04. Model\00. Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Bone.cpp">
+      <Filter>06. Component\04. Model\02. Bone</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

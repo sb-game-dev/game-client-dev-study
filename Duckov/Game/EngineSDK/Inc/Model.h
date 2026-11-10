@@ -15,7 +15,7 @@ public:
 	uint32_t Get_NumMeshes() const {return m_iNumMeshes;}
 
 public:
-	virtual	HRESULT			Initialize_Prototype(const char_t* pModelFilePath, fmatrix_t PreTransformMatrix);
+	virtual	HRESULT			Initialize_Prototype(MODEL eType, const char_t* pModelFilePath, fmatrix_t PreTransformMatrix);
 	virtual	HRESULT			Initialize(void* pArg)override;
 
 public:
@@ -26,6 +26,8 @@ public:
 	virtual void			SetUseCulling(bool_t bUse) { m_bUseCulling = bUse; }
 	virtual bool_t			IsUseCulling() { return m_bUseCulling; }
 
+	virtual int32_t			Get_BoneIndex(const char_t* pBoneName);
+
 	virtual BoundingBox		GetBoundinBox() { return m_tLocalBox; }
 
 private:
@@ -33,21 +35,27 @@ private:
 	Assimp::Importer	m_pImporter = {};
 
 private:
+	MODEL								m_eType = { MODEL::END };
+
 	vector<shared_ptr <class CMesh>>	m_Meshes;
 	uint32_t							m_iNumMeshes = {};
 
 	vector<shared_ptr<class CMaterial>> m_Materials;
 	uint32_t							m_iNumMaterials = {};
 
+	vector<shared_ptr<class CBone>>		m_Bones;
+
+
 	BoundingBox					m_tLocalBox = {};
 	bool_t						m_bUseCulling = { false };
 
 private:
-	HRESULT	Ready_Meshes(fmatrix_t PreTransformMatrix);
+	HRESULT	Ready_Meshes(MODEL eType, fmatrix_t PreTransformMatrix);
 	HRESULT	Ready_Materials(const char_t* pModelFilePath);
+	HRESULT	Ready_Bones(const aiNode* pAINode, int32_t iParentIndex);
 
 public:
-	static shared_ptr<CModel> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, const char_t* pModelFilePath, fmatrix_t PreTransformMatrix = XMMatrixIdentity());
+	static shared_ptr<CModel> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, MODEL eType, const char_t* pModelFilePath, fmatrix_t PreTransformMatrix = XMMatrixIdentity());
 	shared_ptr<CPrototype> Clone(void* pArg) override;
 };
 

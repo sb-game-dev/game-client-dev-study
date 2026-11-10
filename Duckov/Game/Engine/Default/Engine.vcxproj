@@ -155,6 +155,7 @@ xcopy "$(SolutionDir)Engine\Bin\ShaderFiles" "$(SolutionDir)MapTool\Bin\Shader\"
   <ItemGroup>
     <ClInclude Include="..\public\Asset_Manager.h" />
     <ClInclude Include="..\public\BlurFilter.h" />
+    <ClInclude Include="..\public\Bone.h" />
     <ClInclude Include="..\public\Camera.h" />
     <ClInclude Include="..\public\Camera_Manager.h" />
     <ClInclude Include="..\public\Component.h" />
@@ -207,6 +208,7 @@ xcopy "$(SolutionDir)Engine\Bin\ShaderFiles" "$(SolutionDir)MapTool\Bin\Shader\"
   <ItemGroup>
     <ClCompile Include="..\private\Asset_Manager.cpp" />
     <ClCompile Include="..\private\BlurFilter.cpp" />
+    <ClCompile Include="..\private\Bone.cpp" />
     <ClCompile Include="..\private\Camera.cpp" />
     <ClCompile Include="..\private\Camera_Manager.cpp" />
     <ClCompile Include="..\private\Component.cpp" />

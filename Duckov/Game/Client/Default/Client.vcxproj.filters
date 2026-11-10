@@ -52,47 +52,20 @@
     <Filter Include="04. Light\01. Player_SpotLight">
       <UniqueIdentifier>{19910111-dce3-4e18-9ed1-40f9ccc1019d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObjects\04. Wave">
-      <UniqueIdentifier>{7aaabf08-fd25-4bd8-a2df-28659081e4ab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObjects\05. Fog">
-      <UniqueIdentifier>{68a9e740-f4a5-40d5-8f40-e3dca27baea9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObjects\06. Mirror">
-      <UniqueIdentifier>{788bfbd8-e4e5-4f98-a2f0-8e20abd27620}</UniqueIdentifier>
-    </Filter>
     <Filter Include="04. Light\02. SunLight">
       <UniqueIdentifier>{e055516c-97bd-41ed-8e3d-99fe0806140b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObjects\07. SkyBox">
-      <UniqueIdentifier>{79520db3-dd7f-4e7e-b02d-01177eb9b79d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObjects\08. Tree">
-      <UniqueIdentifier>{0d112b3a-b7ed-49f9-9d50-244024cfb7e6}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. GameObjects\02. Cube\Cube_Instanced">
       <UniqueIdentifier>{3c96a574-3c38-4cd8-ba09-c267ec673173}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObjects\09. Client_Mouse">
-      <UniqueIdentifier>{68c60908-b3db-4738-827d-a84f277c4667}</UniqueIdentifier>
-    </Filter>
     <Filter Include="97. ShaderFiles">
       <UniqueIdentifier>{90107c3a-9809-46f3-a18f-76a63f1bdcd4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObjects\10. Scope">
-      <UniqueIdentifier>{4d64e3f2-2c3c-4663-88bf-2d6648a7c34f}</UniqueIdentifier>
     </Filter>
     <Filter Include="03. Camera\00. QuaterView_Cam">
       <UniqueIdentifier>{b26241d5-a012-4840-a79b-fddba25685db}</UniqueIdentifier>
     </Filter>
     <Filter Include="03. Camera\01. Free_Cam">
       <UniqueIdentifier>{04e6eebb-9363-4a90-97c1-3263e8421532}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObjects\13. StaticProp">
-      <UniqueIdentifier>{de11b3b9-daf9-4d3a-8f0c-b61c6a4436cc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02. GameObjects\12. MapObject">
-      <UniqueIdentifier>{2bcb1537-a79d-40f2-85b9-8e225c544874}</UniqueIdentifier>
     </Filter>
     <Filter Include="02. GameObjects\99. UI">
       <UniqueIdentifier>{0be35556-3562-4fe7-8438-559ee6b50c89}</UniqueIdentifier>
@@ -102,6 +75,30 @@
     </Filter>
     <Filter Include="02. GameObjects\99. UI\01. HUD">
       <UniqueIdentifier>{7eef2ffd-7f6f-42b2-9c6c-f5289a0ad6a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObjects\04. Fog">
+      <UniqueIdentifier>{68a9e740-f4a5-40d5-8f40-e3dca27baea9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObjects\05. Mirror">
+      <UniqueIdentifier>{788bfbd8-e4e5-4f98-a2f0-8e20abd27620}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObjects\06. SkyBox">
+      <UniqueIdentifier>{79520db3-dd7f-4e7e-b02d-01177eb9b79d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObjects\07. Tree">
+      <UniqueIdentifier>{0d112b3a-b7ed-49f9-9d50-244024cfb7e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObjects\08. Client_Mouse">
+      <UniqueIdentifier>{68c60908-b3db-4738-827d-a84f277c4667}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObjects\09. Scope">
+      <UniqueIdentifier>{4d64e3f2-2c3c-4663-88bf-2d6648a7c34f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObjects\11. MapObject">
+      <UniqueIdentifier>{2bcb1537-a79d-40f2-85b9-8e225c544874}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObjects\12. StaticProp">
+      <UniqueIdentifier>{de11b3b9-daf9-4d3a-8f0c-b61c6a4436cc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -168,26 +165,23 @@
     <ClInclude Include="..\public\QuarterView_Cam.h">
       <Filter>03. Camera\00. QuaterView_Cam</Filter>
     </ClInclude>
-    <ClInclude Include="..\public\Wave.h">
-      <Filter>02. GameObjects\04. Wave</Filter>
-    </ClInclude>
     <ClInclude Include="..\Public\Fog.h">
-      <Filter>02. GameObjects\05. Fog</Filter>
+      <Filter>02. GameObjects\04. Fog</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Mirror.h">
-      <Filter>02. GameObjects\06. Mirror</Filter>
+      <Filter>02. GameObjects\05. Mirror</Filter>
     </ClInclude>
     <ClInclude Include="..\public\SkyBox.h">
-      <Filter>02. GameObjects\07. SkyBox</Filter>
+      <Filter>02. GameObjects\06. SkyBox</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Cube_Instance.h">
       <Filter>02. GameObjects\02. Cube\Cube_Instanced</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Client_Mouse.h">
-      <Filter>02. GameObjects\09. Client_Mouse</Filter>
+      <Filter>02. GameObjects\08. Client_Mouse</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Scope.h">
-      <Filter>02. GameObjects\10. Scope</Filter>
+      <Filter>02. GameObjects\09. Scope</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Client_Tags.h">
       <Filter>99. Define</Filter>
@@ -196,16 +190,16 @@
       <Filter>03. Camera\01. Free_Cam</Filter>
     </ClInclude>
     <ClInclude Include="..\public\StaticProp.h">
-      <Filter>02. GameObjects\13. StaticProp</Filter>
+      <Filter>02. GameObjects\12. StaticProp</Filter>
     </ClInclude>
     <ClInclude Include="..\public\MapObject.h">
-      <Filter>02. GameObjects\12. MapObject</Filter>
+      <Filter>02. GameObjects\11. MapObject</Filter>
     </ClInclude>
     <ClInclude Include="..\public\HUD.h">
       <Filter>02. GameObjects\99. UI\01. HUD</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Tree_Instance.h">
-      <Filter>02. GameObjects\08. Tree</Filter>
+      <Filter>02. GameObjects\07. Tree</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -267,41 +261,38 @@
     <ClCompile Include="..\Private\QuarterView_Cam.cpp">
       <Filter>03. Camera\00. QuaterView_Cam</Filter>
     </ClCompile>
-    <ClCompile Include="..\private\Wave.cpp">
-      <Filter>02. GameObjects\04. Wave</Filter>
-    </ClCompile>
     <ClCompile Include="..\private\Fog.cpp">
-      <Filter>02. GameObjects\05. Fog</Filter>
+      <Filter>02. GameObjects\04. Fog</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Mirror.cpp">
-      <Filter>02. GameObjects\06. Mirror</Filter>
+      <Filter>02. GameObjects\05. Mirror</Filter>
     </ClCompile>
     <ClCompile Include="..\private\SkyBox.cpp">
-      <Filter>02. GameObjects\07. SkyBox</Filter>
+      <Filter>02. GameObjects\06. SkyBox</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Cube_Instance.cpp">
       <Filter>02. GameObjects\02. Cube\Cube_Instanced</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Client_Mouse.cpp">
-      <Filter>02. GameObjects\09. Client_Mouse</Filter>
+      <Filter>02. GameObjects\08. Client_Mouse</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Scope.cpp">
-      <Filter>02. GameObjects\10. Scope</Filter>
+      <Filter>02. GameObjects\09. Scope</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Free_Cam.cpp">
       <Filter>03. Camera\01. Free_Cam</Filter>
     </ClCompile>
     <ClCompile Include="..\private\StaticProp.cpp">
-      <Filter>02. GameObjects\13. StaticProp</Filter>
+      <Filter>02. GameObjects\12. StaticProp</Filter>
     </ClCompile>
     <ClCompile Include="..\private\MapObject.cpp">
-      <Filter>02. GameObjects\12. MapObject</Filter>
+      <Filter>02. GameObjects\11. MapObject</Filter>
     </ClCompile>
     <ClCompile Include="..\private\HUD.cpp">
       <Filter>02. GameObjects\99. UI\01. HUD</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Tree_Instance.cpp">
-      <Filter>02. GameObjects\08. Tree</Filter>
+      <Filter>02. GameObjects\07. Tree</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

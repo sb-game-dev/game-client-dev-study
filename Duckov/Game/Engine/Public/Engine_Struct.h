@@ -29,19 +29,6 @@ namespace Engine
 
 	}VTXCOL;
 
-	typedef struct tagVertexPositionTexcoord
-	{
-		float3_t		vPosition;
-		float2_t		vTexcoord;
-
-		static constexpr uint32_t iNumElements = 2;
-		static constexpr D3D11_INPUT_ELEMENT_DESC Elements[iNumElements] =
-		{
-			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT,    0,  0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT,		 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		};
-	}VTXPOSTEX;
-
 	typedef struct tagVtxNorm
 	{
 		float3_t	vPosition;
@@ -91,42 +78,27 @@ namespace Engine
 		};
 	}VTXMESH;
 
-
-	typedef struct tagCBCamera
+	typedef struct tagVertexAnimationMesh
 	{
-		float4x4_t ViewMatrix;
-		float4x4_t ProjMatrix;
-		float3_t   vEye;
-		f32_t	   fPad;
+		XMFLOAT3			vPosition;
+		XMFLOAT3			vNormal;
+		XMFLOAT3			vTangent;
+		XMFLOAT3			vBinormal;
+		XMFLOAT2			vTexcoord;
+		XMUINT4				vBlendIndex;   
+		XMFLOAT4			vBlendWeight;  
 
-	}CB_CAMERA;
-
-	// CPU가 사용하는 정점 정보
-	typedef struct tagMeshVertex
-	{
-		tagMeshVertex() {};
-		tagMeshVertex(const float3_t& p, const float3_t& n, const float3_t& t, const float2_t& uv)
-			: vPosition(p), vNormal(n), vTangentU(t), TexC(uv) {
-		}
-		tagMeshVertex(
-			float px, float py, float pz,
-			float nx, float ny, float nz,
-			float tx, float ty, float tz,
-			float u, float v)
-			: vPosition(px, py, pz), vNormal(nx, ny, nz),
-			vTangentU(tx, ty, tz), TexC(u, v) {
-		}
-		float3_t vPosition;
-		float3_t vNormal;
-		float3_t vTangentU;
-		float2_t TexC;		//Texture (u, v)
-	}VERTEX;
-
-	typedef struct tagMeshData
-	{
-		vector<VERTEX>	Vertices;
-		vector<UINT>	Indices;
-	}MESHDATA;
+		static constexpr uint32_t		iNumElements = { 7 };
+		static constexpr D3D11_INPUT_ELEMENT_DESC		Elements[] = {
+			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "TANGENT", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 24, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "BINORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 36, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 48, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{"BLENDINDEX",  0, DXGI_FORMAT_R32G32B32A32_UINT,  0, 56, D3D11_INPUT_PER_VERTEX_DATA, 0},
+			{"BLENDWEIGHT", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 72, D3D11_INPUT_PER_VERTEX_DATA, 0},
+		};
+	}VTXANIMMESH;
 
 	struct DirectionalLight
 	{
@@ -180,18 +152,6 @@ namespace Engine
 		float2_t	Pad;
 	}CB_FOG;
 
-	typedef struct tagTreePointSprite
-	{
-		float3_t	vPos;
-		float2_t	Size;
-
-		static constexpr uint32_t iNumElements = 2;
-		static constexpr D3D11_INPUT_ELEMENT_DESC Elements[iNumElements] =
-		{
-			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0,  0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-			{ "SIZE",     0, DXGI_FORMAT_R32G32_FLOAT,    0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
-		};
-	}TREEPOINTSPRITE;
 
 	typedef struct tagVtxUIInstance
 	{
@@ -247,6 +207,9 @@ namespace Engine
 		XMFLOAT4X4						OrthoTransformInverseMatrices[ETOI(D3DTS::END)];
 		XMFLOAT4						vCamPosition;
 	}PIPELINE_DESC;
+
+
+
 }
 
 #endif // Engine_Struct_h__

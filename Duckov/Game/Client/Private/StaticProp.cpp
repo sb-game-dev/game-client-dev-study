@@ -152,7 +152,6 @@ HRESULT CStaticProp::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState
 {
     if (FAILED(__super::Render()))
         return E_FAIL;
-
     m_pContext->RSSetState(pRS);
 
     if (FAILED(Bind_ShaderResources(matWorld)))

@@ -199,9 +199,6 @@
     <ClCompile Include="..\..\Client\Private\SunLight.cpp">
       <Filter>97. Client_Shared</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Client\Private\Wave.cpp">
-      <Filter>97. Client_Shared</Filter>
-    </ClCompile>
     <ClCompile Include="..\ImGui\imgui.cpp">
       <Filter>96. ImGui</Filter>
     </ClCompile>
