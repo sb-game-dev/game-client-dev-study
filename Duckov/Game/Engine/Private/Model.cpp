@@ -34,11 +34,11 @@ HRESULT CModel::Initialize_Prototype(MODEL eType, const char_t* pModelFilePath, 
         MSG_BOX("Faile to ReadFile");
         return E_FAIL;
     }
+    if (FAILED(Ready_Bones(m_pAiScene->mRootNode, -1)))
+        return E_FAIL;
     if (FAILED(Ready_Meshes(eType, PreTransformMatrix)))
         return E_FAIL;
     if (FAILED(Ready_Materials(pModelFilePath)))
-        return E_FAIL;
-    if (FAILED(Ready_Bones(m_pAiScene->mRootNode, -1)))
         return E_FAIL;
     return S_OK;
 }
