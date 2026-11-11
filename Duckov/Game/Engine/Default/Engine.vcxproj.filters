@@ -148,6 +148,9 @@
     <Filter Include="06. Component\04. Model\02. Bone">
       <UniqueIdentifier>{8f87ce9c-c269-4aa0-aede-edd50041b42e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="99. Defines\Model_Format">
+      <UniqueIdentifier>{6e1822b3-66f8-47cd-a5fb-0ae4f17628d6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Engine_Defines.h">
@@ -302,6 +305,9 @@
     </ClInclude>
     <ClInclude Include="..\public\Bone.h">
       <Filter>06. Component\04. Model\02. Bone</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Model_Format.h">
+      <Filter>99. Defines\Model_Format</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

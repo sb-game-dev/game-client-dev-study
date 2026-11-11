@@ -175,6 +175,7 @@ xcopy "$(SolutionDir)Engine\Bin\ShaderFiles" "$(SolutionDir)MapTool\Bin\Shader\"
     <ClInclude Include="..\public\Material.h" />
     <ClInclude Include="..\public\Mesh.h" />
     <ClInclude Include="..\public\Model.h" />
+    <ClInclude Include="..\Public\Model_Format.h" />
     <ClInclude Include="..\public\Mouse.h" />
     <ClInclude Include="..\public\PipeLine.h" />
     <ClInclude Include="..\public\PixelShader.h" />
