@@ -27,7 +27,7 @@ using namespace DirectX;
 #include <iostream>
 #include <DirectXCollision.h>
 #include <cwctype>
-
+#include <fstream>
 using namespace std;
 
 #include <wrl/client.h>

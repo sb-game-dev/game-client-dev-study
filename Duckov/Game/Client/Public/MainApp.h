@@ -25,6 +25,8 @@ private:
 	HRESULT		Start_Level(LEVEL eStartLevelID);
 	HRESULT		Ready_Prototype_For_StaticLV();
 
+	void		Test_Write();
+	void		Test_Read();
 public:
 	static		unique_ptr<CMainApp>		Create();
 };

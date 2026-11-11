@@ -131,7 +131,7 @@ void CClient_Mouse::Update(f32_t fTimeDelta)
 
         if (fLen > 1.f)   // 중앙 근처에서는 방향이 없으니 건너뜀
         {
-            const f32_t fRecoilSpeed = 40.f;   // 초당 밀려나는 픽셀
+            const f32_t fRecoilSpeed = 80.f;   // 초당 밀려나는 픽셀
             m_vRecoilRemain.x += fDirX / fLen * fRecoilSpeed * fTimeDelta;
             m_vRecoilRemain.y += fDirY / fLen * fRecoilSpeed * fTimeDelta;
 
@@ -140,13 +140,9 @@ void CClient_Mouse::Update(f32_t fTimeDelta)
             long iMoveY = (long)m_vRecoilRemain.y;
             m_vRecoilRemain.x -= iMoveX;
             m_vRecoilRemain.y -= iMoveY;
-
             if (0 != iMoveX || 0 != iMoveY)
             {
-                // 화면 밖으로 나가지 않게 제한
                 POINT ptNew = { pt.x + iMoveX, pt.y + iMoveY };
-                ptNew.x = std::clamp(ptNew.x, 0L, (long)vViewport.x - 1);
-                ptNew.y = std::clamp(ptNew.y, 0L, (long)vViewport.y - 1);
 
                 // SetCursorPos 직전에만 모니터 좌표로 변환
                 ClientToScreen(g_hWnd, &ptNew);
