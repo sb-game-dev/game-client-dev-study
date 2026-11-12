@@ -173,13 +173,13 @@ HRESULT CLoader::Loading_For_GamePlayLV()
     if(FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
         Normalize_AssetPath(TEXT("Characters/0_CharacterModel_Boss_Wu/0_CharacterModel_Boss_Wu.fbx")),
         CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
-            "../../../Resource/Characters/0_CharacterModel_Boss_Wu/0_CharacterModel_Boss_Wu.fbx"))))
+            "../../../Resource/Characters/0_CharacterModel_Boss_Wu/0_CharacterModel_Boss_Wu.bin"))))
         return E_FAIL;
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
         Normalize_AssetPath(TEXT("Mesh/Tree/Pfb_Tree_01_1.fbx")),
         CModel::Create(m_pDevice, m_pContext,MODEL::NONANIM,
-            "../../../Resource/Mesh/Tree/Pfb_Tree_01_1.fbx"))))
+            "../../../Resource/Mesh/Tree/Pfb_Tree_01_1.bin"))))
         return E_FAIL;
 
     lstrcpy(m_szLoadingText, TEXT("셰이더를 준비중입니다."));

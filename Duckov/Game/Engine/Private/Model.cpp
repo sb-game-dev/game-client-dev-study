@@ -23,6 +23,13 @@ HRESULT CModel::Initialize_Prototype(MODEL eType, const char_t* pModelFilePath, 
 {
     m_eType = eType;
 
+    // bin파일 읽기
+    char_t szExt[MAX_PATH] = {};
+    _splitpath_s(pModelFilePath, nullptr, 0, nullptr, 0, nullptr, 0, szExt, MAX_PATH);
+    if (0 == strcmp(szExt, ".bin"))
+        return Load_Binary(pModelFilePath, PreTransformMatrix);
+
+    //Assimp 사용
     uint32_t        iFlag = { aiProcess_ConvertToLeftHanded | aiProcessPreset_TargetRealtime_Fast };
 
     if (MODEL::NONANIM == m_eType)
@@ -69,6 +76,9 @@ HRESULT CModel::Render_Instanced(uint32_t iMeshIndex, ID3D11Buffer* pInstanceVB,
 HRESULT CModel::Bind_Material(uint32_t iMeshIndex, aiTextureType eType, uint32_t iIndex, uint32_t iSlot)
 {
     uint32_t    iMeterialIndex = m_Meshes[iMeshIndex]->Get_MaterialIndex();
+    if (iMeterialIndex >= m_Materials.size())
+        return S_OK;
+
     m_Materials[iMeterialIndex]->Bind_Pixel_ShaderResource(eType, iIndex, iSlot);
     return S_OK;
 }
@@ -134,6 +144,83 @@ HRESULT CModel::Ready_Bones(const aiNode* pAINode, int32_t iPIndex)
     for (uint32_t i = 0; i < pAINode->mNumChildren; ++i)
     {
         Ready_Bones(pAINode->mChildren[i], iParentIndex);
+    }
+    return S_OK;
+}
+
+HRESULT CModel::Load_Binary(const char_t* pModelFilePath, fmatrix_t PreTransformMatrix)
+{
+    wchar_t szWidePath[MAX_PATH] = {};
+    MultiByteToWideChar(CP_ACP, 0, pModelFilePath, -1, szWidePath, MAX_PATH);
+
+    FILE* pFile = { nullptr };
+    if (0 != _wfopen_s(&pFile, szWidePath, L"rb") || nullptr == pFile)
+    {
+        MSG_BOX("Failed to Open : Binary Model");
+        return E_FAIL;
+    }
+
+    if (FAILED(Read_Header(pFile)))
+        return E_FAIL;
+    if (FAILED(Read_Meshes(pFile, PreTransformMatrix)))
+        return E_FAIL;
+    if (FAILED(Read_Materials(pFile, pModelFilePath)))
+        return E_FAIL;
+    fclose(pFile);
+    return S_OK;
+}
+
+HRESULT CModel::Read_Header(FILE* pFile)
+{
+    char_t szMagic[4] = {};
+    uint32_t iVersion = {};
+    uint32_t iType = {};
+
+    if (1 != fread(szMagic, sizeof(szMagic), 1, pFile) ||
+        1 != fread(&iVersion, sizeof(uint32_t), 1, pFile) ||
+        1 != fread(&iType, sizeof(uint32_t), 1, pFile))
+        return E_FAIL;
+    return S_OK;
+}
+
+HRESULT CModel::Read_Meshes(FILE* pFile, fmatrix_t PreTransformMatrix)
+{
+    if (1 != fread(&m_iNumMeshes, sizeof(uint32_t), 1, pFile))
+    {
+        MSG_BOX("Failed to Read : NumMeshes");
+        return E_FAIL;
+    }
+    bool_t bFirst = true;
+    for (uint32_t i = 0; i < m_iNumMeshes; ++i)
+    {
+        auto pMesh = CMesh::Create(m_pDevice, m_pContext, pFile, PreTransformMatrix);
+        if (nullptr == pMesh)
+            return E_FAIL;
+
+        if (bFirst)
+        {
+            m_tLocalBox = pMesh->GetBoundinBox();
+            bFirst = false;
+        }
+        else
+            BoundingBox::CreateMerged(m_tLocalBox, m_tLocalBox, pMesh->GetBoundinBox());
+
+        m_Meshes.push_back(pMesh);
+    }
+    m_bUseCulling = true;
+    return S_OK;
+}
+
+HRESULT CModel::Read_Materials(FILE* pFile, const char_t* pModelFilePath)
+{
+    fread(&m_iNumMaterials, sizeof(uint32_t), 1, pFile); 
+
+    for (uint32_t i = 0; i < m_iNumMaterials; ++i)
+    {
+        auto pMaterial = CMaterial::Create(m_pDevice, m_pContext, pModelFilePath, pFile);
+        if (nullptr == pMaterial)
+            return E_FAIL;
+        m_Materials.push_back(pMaterial);
     }
     return S_OK;
 }

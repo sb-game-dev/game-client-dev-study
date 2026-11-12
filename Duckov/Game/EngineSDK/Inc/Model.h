@@ -45,7 +45,6 @@ private:
 
 	vector<shared_ptr<class CBone>>		m_Bones;
 
-
 	BoundingBox					m_tLocalBox = {};
 	bool_t						m_bUseCulling = { false };
 
@@ -53,6 +52,11 @@ private:
 	HRESULT	Ready_Meshes(MODEL eType, fmatrix_t PreTransformMatrix);
 	HRESULT	Ready_Materials(const char_t* pModelFilePath);
 	HRESULT	Ready_Bones(const aiNode* pAINode, int32_t iParentIndex);
+
+	HRESULT	Load_Binary(const char_t* pModelFilePath, fmatrix_t PreTransformMatrix);
+	HRESULT	Read_Header(FILE* pFile);
+	HRESULT Read_Meshes(FILE* pFile, fmatrix_t PreTranformMatrix);
+	HRESULT Read_Materials(FILE* pFile, const char_t* pModelFilePath);
 
 public:
 	static shared_ptr<CModel> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, MODEL eType, const char_t* pModelFilePath, fmatrix_t PreTransformMatrix = XMMatrixIdentity());

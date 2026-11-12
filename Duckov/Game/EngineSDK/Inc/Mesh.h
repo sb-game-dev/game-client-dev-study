@@ -13,6 +13,7 @@ public:
 	}
 public:
 	HRESULT	Initialize_Prototype(MODEL eType, shared_ptr<class CModel> pModel, const aiMesh* pAiMesh, fmatrix_t PreTransformMatrix);
+	HRESULT	Initialize_Prototype(FILE* pFile, fmatrix_t PreTransformMatrix);
 	HRESULT	Initialize(void* pArg);
 	HRESULT	Render_Instanced(ID3D11Buffer* pInstanceVB, uint32_t iInstanceStride, uint32_t iNumInstances);
 
@@ -29,6 +30,7 @@ private:
 
 public:
 	static shared_ptr<CMesh> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, MODEL eType, shared_ptr<class CModel> pModel, const aiMesh* pAiMesh, fmatrix_t PreTransformMatrix = XMMatrixIdentity());
+	static shared_ptr<CMesh> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, FILE* pFile, fmatrix_t PreTransformMatrix = XMMatrixIdentity());
 	virtual shared_ptr<CPrototype> Clone(void* pArg)override;
 };
 

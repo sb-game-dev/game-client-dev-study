@@ -99,43 +99,43 @@ HRESULT CLoader_MapTool::Loading_For_MapToolLV()
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL),
         Normalize_AssetPath(TEXT("Characters/0_CharacterModel_Boss_Wu/0_CharacterModel_Boss_Wu.fbx")),
         CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
-            "../../../Resource/Characters/0_CharacterModel_Boss_Wu/0_CharacterModel_Boss_Wu.fbx"))))
+            "../../../Resource/Characters/0_CharacterModel_Boss_Wu/0_CharacterModel_Boss_Wu.bin"))))
         return E_FAIL;
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL),
         Normalize_AssetPath(TEXT("Mesh/Tree/Pfb_Tree_01_1.fbx")),
         CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
-            "../../../Resource/Mesh/Tree/Pfb_Tree_01_1.fbx"))))
+            "../../../Resource/Mesh/Tree/Pfb_Tree_01_1.bin"))))
         return E_FAIL;
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL),
         Normalize_AssetPath(TEXT("Mesh/SM_Container/SM_Container_Back.fbx")),
         CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
-            "../../../Resource/Mesh/SM_Container/SM_Container_Back.fbx"))))
+            "../../../Resource/Mesh/SM_Container/SM_Container_Back.bin"))))
         return E_FAIL;
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL),
         Normalize_AssetPath(TEXT("Mesh/SM_Container/SM_Container_Ceiling.fbx")),
         CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
-            "../../../Resource/Mesh/SM_Container/SM_Container_Ceiling.fbx"))))
+            "../../../Resource/Mesh/SM_Container/SM_Container_Ceiling.bin"))))
         return E_FAIL;
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL),
         Normalize_AssetPath(TEXT("Mesh/SM_Container/SM_Container_Ground.fbx")),
         CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
-            "../../../Resource/Mesh/SM_Container/SM_Container_Ground.fbx"))))
+            "../../../Resource/Mesh/SM_Container/SM_Container_Ground.bin"))))
         return E_FAIL;
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL),
         Normalize_AssetPath(TEXT("Mesh/SM_Container/SM_Container_L.fbx")),
         CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
-            "../../../Resource/Mesh/SM_Container/SM_Container_L.fbx"))))
+            "../../../Resource/Mesh/SM_Container/SM_Container_L.bin"))))
         return E_FAIL;
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL),
         Normalize_AssetPath(TEXT("Mesh/SM_Container/SM_Container_R.fbx")),
         CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
-            "../../../Resource/Mesh/SM_Container/SM_Container_R.fbx"))))
+            "../../../Resource/Mesh/SM_Container/SM_Container_R.bin"))))
         return E_FAIL;
 
 
