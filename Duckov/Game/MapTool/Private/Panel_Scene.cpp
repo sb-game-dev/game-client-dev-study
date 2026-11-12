@@ -239,7 +239,7 @@ void CPanel_Scene::Render(const PANEL_RECT& tRect)
         if (ImGui::MenuItem(s_Placeables[0].pName))
             Create_Object(s_Placeables[0].pPrototypeTag, m_vPickPos);
         ImGui::EndPopup();
-    }        
+    }
     ImGui::End();
 }
 
