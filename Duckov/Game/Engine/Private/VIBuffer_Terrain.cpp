@@ -1,5 +1,4 @@
 #include "VIBuffer_Terrain.h"
-#include <fstream>
 
 CVIBuffer_Terrain::CVIBuffer_Terrain(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     :CVIBuffer{ pDevice,pContext }
@@ -8,6 +7,8 @@ CVIBuffer_Terrain::CVIBuffer_Terrain(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11
 
 HRESULT CVIBuffer_Terrain::Initialize_Prototype(const tchar_t* pHeightMapPath)
 {
+    if (FAILED(LoadHeightMap(pHeightMapPath)))
+        return E_FAIL;
 #pragma region DATA
     m_iNumVertexBuffers = 1;
     m_iNumVertices = m_ivtxCntX * m_ivtxCntZ;
@@ -24,8 +25,6 @@ HRESULT CVIBuffer_Terrain::Initialize_Prototype(const tchar_t* pHeightMapPath)
 
 #pragma region VERTEX_BUFFER
 
-    if (FAILED(LoadHeightMap(pHeightMapPath)))
-        return E_FAIL;
 
     D3D11_BUFFER_DESC   VertexBufferDesc{};
     VertexBufferDesc.ByteWidth = m_iVertexStride * m_iNumVertices;
@@ -48,18 +47,13 @@ HRESULT CVIBuffer_Terrain::Initialize_Prototype(const tchar_t* pHeightMapPath)
             float x = -m_fHalfWidth + j * m_fDx;
 
             pVertices[i * m_ivtxCntX + j].vPosition = float3_t( x, GetHeight(x, z), z );
-            pVertices[i * m_ivtxCntX + j].vNormal = GetNormal(i, j);
+            pVertices[i * m_ivtxCntX + j].vNormal = float3_t(0.f, 0.f, 0.f);
             pVertices[i * m_ivtxCntX + j].Tex = { j * du, i * dv };
 
             m_vVertices.push_back(pVertices[i * m_ivtxCntX + j].vPosition);
         }
     }
 
-    D3D11_SUBRESOURCE_DATA VertexInitialData{};
-    VertexInitialData.pSysMem = pVertices.get();
-
-    if (FAILED(m_pDevice->CreateBuffer(&VertexBufferDesc, &VertexInitialData, &m_pVB)))
-        return E_FAIL;
 #pragma endregion
 
 #pragma region INDEX_BUFFER
@@ -72,21 +66,72 @@ HRESULT CVIBuffer_Terrain::Initialize_Prototype(const tchar_t* pHeightMapPath)
     IndexBufferDesc.StructureByteStride = m_iIndexStride;
 
 
-    uint32_t k = 0;
+    uint32_t        iNumIndices = {};
     for (uint32_t i = 0; i < m_ivtxCntZ - 1; ++i)
     {
         for (uint32_t j = 0; j < m_ivtxCntX - 1; ++j)
         {
-            m_vIndices[k] = i * m_ivtxCntX + j;
-            m_vIndices[k + 1] = i * m_ivtxCntX + j + 1;
-            m_vIndices[k + 2] = (i + 1) * m_ivtxCntX + j;
-            m_vIndices[k + 3] = (i + 1) * m_ivtxCntX + j;
-            m_vIndices[k + 4] = i * m_ivtxCntX + j + 1;
-            m_vIndices[k + 5] = (i + 1) * m_ivtxCntX + j + 1;
+            uint32_t        iIndex = i * m_ivtxCntX + j;
 
-            k += 6;
+            uint32_t        iIndices[4] = {
+                iIndex,                     
+                iIndex + 1,                 
+                iIndex + m_ivtxCntX + 1,    
+                iIndex + m_ivtxCntX         
+            };
+
+            vector_t        vSour, vDest, vNormal;
+
+            m_vIndices[iNumIndices++] = iIndices[0];
+            m_vIndices[iNumIndices++] = iIndices[1];
+            m_vIndices[iNumIndices++] = iIndices[3];
+
+            vSour = XMLoadFloat3(&pVertices[iIndices[1]].vPosition) -
+                XMLoadFloat3(&pVertices[iIndices[0]].vPosition);
+            vDest = XMLoadFloat3(&pVertices[iIndices[3]].vPosition) -
+                XMLoadFloat3(&pVertices[iIndices[1]].vPosition);
+
+            vNormal = XMVector3Normalize(XMVector3Cross(vSour, vDest));
+
+            XMStoreFloat3(&pVertices[iIndices[0]].vNormal,
+                XMLoadFloat3(&pVertices[iIndices[0]].vNormal) + vNormal);
+            XMStoreFloat3(&pVertices[iIndices[1]].vNormal,
+                XMLoadFloat3(&pVertices[iIndices[1]].vNormal) + vNormal);
+            XMStoreFloat3(&pVertices[iIndices[3]].vNormal,
+                XMLoadFloat3(&pVertices[iIndices[3]].vNormal) + vNormal);
+
+            m_vIndices[iNumIndices++] = iIndices[3];
+            m_vIndices[iNumIndices++] = iIndices[1];
+            m_vIndices[iNumIndices++] = iIndices[2];
+
+
+            vSour = XMLoadFloat3(&pVertices[iIndices[1]].vPosition) -
+                XMLoadFloat3(&pVertices[iIndices[3]].vPosition);
+            vDest = XMLoadFloat3(&pVertices[iIndices[2]].vPosition) -
+                XMLoadFloat3(&pVertices[iIndices[1]].vPosition);
+
+            vNormal = XMVector3Normalize(XMVector3Cross(vSour, vDest));
+
+            XMStoreFloat3(&pVertices[iIndices[3]].vNormal,
+                XMLoadFloat3(&pVertices[iIndices[3]].vNormal) + vNormal);
+            XMStoreFloat3(&pVertices[iIndices[1]].vNormal,
+                XMLoadFloat3(&pVertices[iIndices[1]].vNormal) + vNormal);
+            XMStoreFloat3(&pVertices[iIndices[2]].vNormal,
+                XMLoadFloat3(&pVertices[iIndices[2]].vNormal) + vNormal);
         }
     }
+
+    for (uint32_t i = 0; i < m_iNumVertices; i++)
+    {
+        XMStoreFloat3(&pVertices[i].vNormal,
+            XMVector3Normalize(XMLoadFloat3(&pVertices[i].vNormal)));
+    }
+    D3D11_SUBRESOURCE_DATA VertexInitialData{};
+    VertexInitialData.pSysMem = pVertices.get();
+
+    if (FAILED(m_pDevice->CreateBuffer(&VertexBufferDesc, &VertexInitialData, &m_pVB)))
+        return E_FAIL;
+
     D3D11_SUBRESOURCE_DATA          IndexInitialData{};
     IndexInitialData.pSysMem = m_vIndices.data();
 
@@ -188,45 +233,29 @@ float4_t CVIBuffer_Terrain::GetPlane(f32_t x, f32_t z)
 
 HRESULT CVIBuffer_Terrain::LoadHeightMap(const tchar_t* pHightMapPath)
 {
-    /*DWORD   dwByte = {};
-    
-    HANDLE  hFile = CreateFile(pHightMapPath, GENERIC_READ, 0, nullptr, OPEN_EXISTING, );
-    if (0 == hFile)
+    // 1. 파일 열기
+    FILE* pFile = nullptr;
+    if (0 != _wfopen_s(&pFile, pHightMapPath, L"rb") || nullptr == pFile)
         return E_FAIL;
 
-    BITMAPFILEHEADER        fh = {};
-    BITMAPINFOHEADER        ih = {};
+    // 2. 파일 크기 구하기
+    fseek(pFile, 0, SEEK_END);      // 파일 끝으로 이동
+    long lFileSize = ftell(pFile);  // 현재 위치 읽기
+    fseek(pFile, 0, SEEK_SET);      // 파일 처음으로 이동
 
+    // 3. 한 변의 길이 계산
+    uint32_t iCount = (uint32_t)(lFileSize / sizeof(uint16_t)); // 총 정점의 개수
+    uint32_t iSide = (uint32_t)lroundf(sqrtf((f32_t)iCount));   // 가로 x 세로 한 줄에 몇 개인지 확인
+    m_ivtxCntX = m_ivtxCntZ = iSide;
 
+    m_fHalfWidth = (m_ivtxCntX - 1) * 0.5f * m_fDx;
+    m_fHalfDepth = (m_ivtxCntZ - 1) * 0.5f * m_fDz;
 
-    ReadFile(hFile,&fh, sizeof(fh),&dwByte, nullptr);
-    ReadFile(hFile,&ih, sizeof(ih),&dwByte, nullptr);
-
-    ih.bit
-
-    ReadFile();
-
-    CloseHandle(hFile);*/
-
-
-    vector<uint16_t> in(m_ivtxCntX * m_ivtxCntZ);
-    ifstream inFile;
-    inFile.open(pHightMapPath, ios_base::binary); // binary로 읽어야 함
-
-    if (!inFile)
-        return E_FAIL;
-
-    // read(char* s, streamsize count);
-    // s: 읽은 데이터를 채울 메모리 시작 주소
-    // count: 읽을 바이트 수 -> 백터 길이 * 벡터 자료형의 크기
-    
-    inFile.read(
-        (char*)&in[0],
-        streamsize(in.size() * sizeof(in[0]))
-    );
-    inFile.close();
-
-    
+    // 4. 높이값 읽기
+    vector<uint16_t> in(iCount);
+    fread(in.data(), sizeof(uint16_t), iCount, pFile);
+    fclose(pFile);
+    // 5. 높이 변환
     m_vHeightmap.resize(m_ivtxCntX * m_ivtxCntZ);
     for (uint32_t i = 0; i < m_ivtxCntZ; ++i)
     {
@@ -238,34 +267,6 @@ HRESULT CVIBuffer_Terrain::LoadHeightMap(const tchar_t* pHightMapPath)
         }
     }
     return S_OK;
-}
-
-float3_t CVIBuffer_Terrain::GetNormal(uint32_t i, uint32_t j)
-{
-    // 중심 차분
-    // i -> 행 , j -> 열
-    uint32_t iUp = (i > 0) ? i - 1 : i; // i<=0 이면 up은 자기 자신이 되는 것
-    uint32_t iDown = (i < m_ivtxCntZ - 1) ? i + 1 : i;
-    uint32_t jLeft = (j > 0) ? j - 1 : j;
-    uint32_t jRight = (j < m_ivtxCntX - 1) ? j + 1 : j;
-
-    f32_t L = m_vHeightmap[i * m_ivtxCntX + jLeft];
-    f32_t R = m_vHeightmap[i * m_ivtxCntX + jRight];
-    f32_t U = m_vHeightmap[iUp * m_ivtxCntX + j];      // +z 쪽
-    f32_t D = m_vHeightmap[iDown * m_ivtxCntX + j];    // -z 쪽
-
-    // 실제 이웃 간 거리 (경계에서는 한 칸, 내부에서는 두 칸)
-    f32_t fDistX = (jRight - jLeft) * m_fDx;
-    f32_t fDistZ = (iDown - iUp) * m_fDz;
-
-    vector_t vN = vector_t{ (L - R) / fDistX,
-                            1.f,
-                            (D - U) / fDistZ,
-                            0.f };
-
-    float3_t vNormal;
-    XMStoreFloat3(&vNormal, XMVector3Normalize(vN));
-    return vNormal;
 }
 
 shared_ptr<CVIBuffer_Terrain> CVIBuffer_Terrain::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, const tchar_t* pHeightMapPath)

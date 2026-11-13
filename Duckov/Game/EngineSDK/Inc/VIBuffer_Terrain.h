@@ -33,7 +33,6 @@ private:
 
 private:
 	HRESULT				LoadHeightMap(const tchar_t* pHightMapPath);
-	float3_t			GetNormal(uint32_t i, uint32_t j);
 
 public:
 	static shared_ptr<CVIBuffer_Terrain> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, const tchar_t* pHeightMapPath);
