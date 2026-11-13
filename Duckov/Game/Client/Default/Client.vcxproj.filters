@@ -100,6 +100,9 @@
     <Filter Include="02. GameObjects\12. StaticProp">
       <UniqueIdentifier>{de11b3b9-daf9-4d3a-8f0c-b61c6a4436cc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObjects\01. Player\00. EquipPart">
+      <UniqueIdentifier>{27657172-ef29-42d4-9f6b-7b11840faa86}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
