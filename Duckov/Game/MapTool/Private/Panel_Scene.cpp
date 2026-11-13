@@ -177,7 +177,7 @@ void CPanel_Scene::Render(const PANEL_RECT& tRect)
                 continue;
             if (nullptr != dynamic_pointer_cast<CHill>(pObject))          // 지형 제외 (박스가 맵 전체)
                 continue;
-            auto pModel = static_pointer_cast<CModel>(pObject->Find_Component(L"Com_Model"));
+            auto pModel = dynamic_pointer_cast<CModel>(pObject->Find_Component(L"Com_Model"));
             if (nullptr == pModel)
                 continue;
 

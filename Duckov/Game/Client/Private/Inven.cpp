@@ -96,20 +96,20 @@ HRESULT CInven::Initialize(void* pArg)
 
 	auto pHelmet = make_shared<ARMOR>();
 	pHelmet->eSlot = ARMOR_SLOT::HEAD;
-	m_vecBackPack[5] = Init_TestItem(pHelmet, ITEM_TYPE::ARMOR, L"구식 철모", ITEM_ID::HELMATLV2, 2);
+	m_vecBackPack[5] = Init_TestItem(pHelmet, ITEM_TYPE::ARMOR, L"구식 철모", ITEM_ID::HELMATLV2, 2, 100, 50);
 
 	auto pVest = make_shared<ARMOR>();
 	pVest->eSlot = ARMOR_SLOT::BODY;
-	m_vecBackPack[6] = Init_TestItem(pVest, ITEM_TYPE::ARMOR, L"Lv.2 방탄복", ITEM_ID::ARMORLV2, 2);
+	m_vecBackPack[6] = Init_TestItem(pVest, ITEM_TYPE::ARMOR, L"Lv.2 방탄복", ITEM_ID::ARMORLV2, 2,1,1,100,45);
 
-	m_vecBackPack[7] = Init_TestItem(make_shared<GUN>(), ITEM_TYPE::GUN, L"PM", ITEM_ID::PST_PM_NORMAL, 1);
-	m_vecBackPack[8] = Init_TestItem(make_shared<ITEM>(), ITEM_TYPE::TOTEM, L"토템: 갑옷 Ⅰ", ITEM_ID::TOTEM_ARMOR, 1);
+	m_vecBackPack[7] = Init_TestItem(make_shared<GUN>(), ITEM_TYPE::GUN, L"PM", ITEM_ID::PST_PM_NORMAL, 1,1, 1, 100, 45);
+	m_vecBackPack[8] = Init_TestItem(make_shared<ITEM>(), ITEM_TYPE::TOTEM, L"토템: 갑옷 Ⅰ", ITEM_ID::TOTEM_ARMOR, 1, 1, 1);
 
-	m_vecBackPack[9] = Init_TestItem(make_shared<GUN>(), ITEM_TYPE::GUN, L"M700", ITEM_ID::SNIPER_M700_NORMAL, 1);
-	m_vecBackPack[10] = Init_TestItem(make_shared<ITEM>(), ITEM_TYPE::MELEE, L"전투 도끼", ITEM_ID::AXE, 1);
+	m_vecBackPack[9] = Init_TestItem(make_shared<GUN>(), ITEM_TYPE::GUN, L"M700", ITEM_ID::SNIPER_M700_NORMAL, 1, 1, 1, 100, 45);
+	m_vecBackPack[10] = Init_TestItem(make_shared<ITEM>(), ITEM_TYPE::MELEE, L"전투 도끼", ITEM_ID::AXE, 1, 1, 1, 100, 45);
 
 	// 장비 칸
-	m_pEquipSlots[ETOI(EQUIP_SLOT::GUN_1)] = Init_TestItem(make_shared<GUN>(), ITEM_TYPE::GUN, L"AK-74U", ITEM_ID::S_AK74_LV_2, 2);
+	m_pEquipSlots[ETOI(EQUIP_SLOT::GUN_1)] = Init_TestItem(make_shared<GUN>(), ITEM_TYPE::GUN, L"AK-74U", ITEM_ID::S_AK74_LV_2, 2, 1, 1, 100, 45);
 	m_pEquipSlots[ETOI(EQUIP_SLOT::BACKPACK)] = Init_TestItem(make_shared<BACKPACK>(), ITEM_TYPE::BACKPACK, L"여행 가방", ITEM_ID::BACKPACKLV3, 3);
 
 	return S_OK;
@@ -336,6 +336,14 @@ void CInven::Push_Rect(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, flo
 	m_Instances.push_back({ { fSnapLeft, fSnapTop, fSnapRight - fSnapLeft, fSnapBottom - fSnapTop },
 							vColor, { fRadius, fBorder, 0.f, 0.f }, { 0.f, 0.f, 1.f, 1.f } });
 }
+
+void CInven::Push_Bar(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, f32_t fRatio, float4_t vBgColor, float4_t vFillColor, f32_t fRadius)
+{
+	fRatio = max(0.f, min(1.f, fRatio));
+	Push_Rect(fLeft, fTop, fWidth, fHeight, vBgColor, fRadius);
+	if (fRatio > 0.f)
+		Push_Rect(fLeft, fTop, fWidth * fRatio, fHeight, vFillColor, fRadius);
+}
 void CInven::Push_Icon(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, int32_t iIconIndex, f32_t fAlpha)
 {
 	f32_t fSnapLeft = floorf(fLeft + 0.5f);
@@ -359,7 +367,21 @@ void CInven::Push_Slot(const SLOT_POS& t)
 	// 드래그를 한 상태이고 현재 위치가 드래그를 시작한 위치라면 알파값을 0.3으로 설정하여 살짝 투명하게 그림
 	// 드래그를 한 상태가 아니라면 현재 위치에 있는 아이템을 알파값 1로 설정하여 그린다.
 	bool_t bDragSource = (m_eDragState == DRAG_STATE::DRAGGING && t == m_tDraggedItemSlot);
-	Push_ItemIcon(r, Get_SlotItem(t), bDragSource ? ALPHA_DRAG_SOURCE : 1.f);
+	auto pItem = Get_SlotItem(t);
+	Push_ItemIcon(r, pItem, bDragSource ? ALPHA_DRAG_SOURCE : 1.f);
+
+	          
+	if (pItem && pItem->fMaxDurability > 0.f)
+	{
+		f32_t fBarW = r.z / 3.f;
+		f32_t fBarH = r.w * 0.09f;
+		f32_t fRightMargin = 2.f;
+		Push_Bar(r.x + r.z - fBarW - fRightMargin,
+			r.y + r.w * 0.72f,				
+			fBarW, fBarH,
+			pItem->fDurability / pItem->fMaxDurability,
+			COLOR_DURABILITY_BG, COLOR_DURABILITY_FILL, fBarH * 0.5f);
+	}
 }
 
 CInven::SLOT_POS CInven::Find_CollidedSlot(POINT pt)

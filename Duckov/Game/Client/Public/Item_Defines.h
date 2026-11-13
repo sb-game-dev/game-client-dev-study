@@ -19,6 +19,9 @@ typedef struct Item
 	int32_t				iTypeID;			// 같은 아이템인지 판단 (스택 합치기) / 아이콘 텍스처 배열 슬라이스
 	int32_t				iMaxStack;			// 최대 겹침 수
 	int32_t				iQuality;			// 1~6
+	
+	f32_t				fMaxDurability = 0.f;   // 0 = 내구도 없는 아이템(탄약/음식/키 등) -> 바 자체를 안 그림
+	f32_t				fDurability = 0.f;
 }ITEM;
 
 enum class ATTACH_SLOT { SCOPE, MUZZLE, GRIP, STOCK, MAGAZINE, END };

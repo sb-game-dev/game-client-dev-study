@@ -10,11 +10,6 @@ CConverter::~CConverter()
 	}
 }
 
-bool CConverter::Initialize()
-{
-	return true;
-}
-
 bool CConverter::Convert(const string& strFbxPath, MODEL_TYPE eType)
 {
 	m_eType = eType; 
@@ -78,11 +73,6 @@ bool CConverter::Convert(const string& strFbxPath, MODEL_TYPE eType)
 	}
 	cout << "[Convert] ¿Ï·á : " << szBinPath << " (" << iFileSize << " bytes)\n";
 	return true;
-}
-
-bool CConverter::Dump(const string& strBinPath)
-{
-	return false;
 }
 
 bool CConverter::Write_Header()
@@ -248,11 +238,5 @@ bool CConverter::To_TextureType(aiTextureType eAiType, TEXTURE_TYPE& eOutType)
 shared_ptr<CConverter> CConverter::Create()
 {
 	auto pInstance = shared_ptr<CConverter>(new CConverter());
-
-	if (false == pInstance->Initialize())
-	{
-		cout << "Failed to Create : CConverter\n";
-		return nullptr;
-	}
 	return pInstance;
 }

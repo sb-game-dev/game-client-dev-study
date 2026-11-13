@@ -31,6 +31,9 @@ constexpr float4_t COLOR_HOVER = { 1.f, 1.f, 1.f, 0.08f };					// 호버
 constexpr float4_t COLOR_PLACEABLE_GLOW = { 0.47f, 1.f, 0.62f, 0.35f };		// 놓을 수 있는 칸 안쪽 배경
 constexpr float4_t COLOR_PLACEABLE_LINE = { 1.f, 1.f, 1.f, 0.9f };			// 놓을 수 있는 칸 테두리
 
+constexpr float4_t COLOR_DURABILITY_BG = { 0.251f, 0.251f, 0.251f, 1.f };			// 내구도 배경
+constexpr float4_t COLOR_DURABILITY_FILL = { 0.310f, 0.596f, 0.725f, 1.f };			// 내구도 채움
+
 // 테두리 두께 
 constexpr f32_t BORDER_FRAME = 1.f;			// 칸 테두리     
 constexpr f32_t BORDER_SELECTED = 1.5f;		// 선택 테두리   
@@ -131,6 +134,7 @@ private:
 	shared_ptr<ITEM>&			Get_SlotItem(const SLOT_POS& t);	// 슬롯 정보로 아이템의 주소를 받아오는 함수
 
 	void						Push_Rect(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, float4_t vColor, f32_t fRadius = 0.f, f32_t fBorder = 0.f);// fBorder : 외곽선 두께
+	void						Push_Bar(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, f32_t fRatio, float4_t vBgColor, float4_t vFillColor, f32_t fRadius); 
 	void						Push_Icon(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, int32_t iIcon, f32_t fAlpha = 1.f);
 	void						Push_ItemIcon(const float4_t& vRect, const shared_ptr<ITEM>& pItem, f32_t fAlpha);
 	void						Push_Slot(const SLOT_POS& t);
@@ -144,10 +148,10 @@ private:
 
 	bool_t						CanPlace(const shared_ptr<ITEM>& pItem, const SLOT_POS& tDstSlot);
 
-	static shared_ptr<ITEM>	Init_TestItem(shared_ptr<ITEM> pItem, ITEM_TYPE eType, const wchar_t* pName,
-										  ITEM_ID eID, int32_t iQuality,
-										  int32_t iCount = 1, int32_t iMaxStack = 1)
-
+	static shared_ptr<ITEM> Init_TestItem(shared_ptr<ITEM> pItem, ITEM_TYPE eType, const wchar_t* pName,
+		ITEM_ID eID, int32_t iQuality,
+		int32_t iCount = 1, int32_t iMaxStack = 1,
+		f32_t fMaxDurability = 0.f, f32_t fDurability = -1.f)
 	{
 		pItem->eItemType = eType;
 		pItem->strItemName = pName;
@@ -156,6 +160,9 @@ private:
 		pItem->iCount = iCount;
 		pItem->iMaxStack = iMaxStack;
 		pItem->bStackable = iMaxStack > 1;
+
+		pItem->fMaxDurability = fMaxDurability;
+		pItem->fDurability = (fDurability < 0.f) ? fMaxDurability : fDurability;
 		return pItem;
 	}
 

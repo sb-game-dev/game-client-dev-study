@@ -11,6 +11,7 @@ namespace Client
 		inline constexpr const wchar_t* Texture_BackGround = L"Prototype_Component_Texture_BackGround";
 		inline constexpr const wchar_t* Texture_Mouse = L"Prototype_Component_Texture_Mouse";
 		inline constexpr const wchar_t* Texture_ItemIcons = L"Prototype_Component_Texture_ItemIcons";
+		inline constexpr const wchar_t* Texture_HUDIcons = L"Prototype_Component_Texture_HUDIcons";
 		inline constexpr const wchar_t* Texture_Cube = L"Prototype_Component_Texture_Cube";
 		inline constexpr const wchar_t* Texture_Hill = L"Prototype_Component_Texture_Hill";
 		inline constexpr const wchar_t* Texture_Wave = L"Prototype_Component_Texture_Wave";

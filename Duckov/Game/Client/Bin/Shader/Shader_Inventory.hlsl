@@ -11,6 +11,7 @@ cbuffer FrameData : register(b1)
 static const float2 g_vWinSize = float2(1280.f, 720.f); 
 
 Texture2DArray g_IconArray : register(t0);
+Texture2DArray g_HUDIconArray : register(t1);
 
 SamplerState g_PointSampler : register(s0);
 SamplerState g_LinearSampler : register(s1);
@@ -82,6 +83,9 @@ bool InRoundRect(float2 p, float2 vHalf, float r)
 float4 PS_MAIN(VS_OUT In) : SV_TARGET
 {
     // 아이콘인 경우
+    if (In.vShape.z > 1.5f)
+        return g_HUDIconArray.Sample(g_LinearSampler, float3(In.vTexCoord, In.vShape.w)) * In.vColor;
+    
     if (In.vShape.z > 0.5f)
         return g_IconArray.Sample(g_LinearSampler, float3(In.vTexCoord, In.vShape.w)) * In.vColor;
 

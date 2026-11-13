@@ -32,6 +32,9 @@ public:
 	virtual bool_t	Is_Aiming() const { return m_bAiming; }
 	virtual bool_t	Is_Firing() const { return m_bFiring; }
 
+	virtual f32_t	Get_HP()	const { return m_fHP; }
+	virtual f32_t	Get_MaxHP() const { return m_fMaxHP; }
+
 private:
 	float4_t						m_vGroundPlane = { 0.f, 1.f, 0.f, 0.f };	// ¹ß¹Ø Æò¸é (a,b,c,d)
 
@@ -49,6 +52,9 @@ private:
 	weak_ptr<class CInven>			m_pInven;
 	bool_t							m_bAiming = { false };
 	bool_t							m_bFiring = { false };
+
+	f32_t							m_fHP = 100.f;
+	f32_t							m_fMaxHP = 100.f;
 
 private:
 	HRESULT			Ready_Components();

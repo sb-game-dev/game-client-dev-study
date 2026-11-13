@@ -1,0 +1,290 @@
+{
+ "name": "S12_DuckV2_2",
+ "fbx": "S12_DuckV2_2.fbx",
+ "category": "Characters/Scenes",
+ "scene_object_name": "DuckV2_2",
+ "sockets": [
+  "RightHandSocket",
+  "MeleeWeaponSocket",
+  "MeleeWeaponSocket_1",
+  "HelmatSocket",
+  "ArmorSocket",
+  "BackpackSocket"
+ ],
+ "clips": [
+  {
+   "name": "Duck_Armature|Idle",
+   "fps": 60.0,
+   "frames": 99,
+   "seconds": 1.6333,
+   "loop": true,
+   "unbound_paths": 0
+  },
+  {
+   "name": "Duck_Armature|Walk.Forward",
+   "fps": 60.0,
+   "frames": 33,
+   "seconds": 0.5333,
+   "loop": true,
+   "unbound_paths": 0
+  },
+  {
+   "name": "Duck_Armature|Walk.Backward",
+   "fps": 60.0,
+   "frames": 33,
+   "seconds": 0.5333,
+   "loop": true,
+   "unbound_paths": 0
+  },
+  {
+   "name": "Duck_Armature|Walk.Left",
+   "fps": 60.0,
+   "frames": 33,
+   "seconds": 0.5333,
+   "loop": true,
+   "unbound_paths": 0
+  },
+  {
+   "name": "Duck_Armature|Walk.Right",
+   "fps": 60.0,
+   "frames": 33,
+   "seconds": 0.5333,
+   "loop": true,
+   "unbound_paths": 0
+  },
+  {
+   "name": "Duck_Armature|TPose",
+   "fps": 60.0,
+   "frames": 2,
+   "seconds": 0.0167,
+   "loop": false,
+   "unbound_paths": 0
+  },
+  {
+   "name": "Duck_Armature|Idle.RightHandOut",
+   "fps": 60.0,
+   "frames": 99,
+   "seconds": 1.6333,
+   "loop": true,
+   "unbound_paths": 0
+  },
+  {
+   "name": "Duck_Armature|Walk.Forward.RightHandOut",
+   "fps": 60.0,
+   "frames": 33,
+   "seconds": 0.5333,
+   "loop": true,
+   "unbound_paths": 0
+  },
+  {
+   "name": "Duck_Armature|Walk.Backward.RightHandOut",
+   "fps": 60.0,
+   "frames": 33,
+   "seconds": 0.5333,
+   "loop": true,
+   "unbound_paths": 0
+  },
+  {
+   "name": "Duck_Armature|Walk.Left.RightHandOut",
+   "fps": 60.0,
+   "frames": 33,
+   "seconds": 0.5333,
+   "loop": true,
+   "unbound_paths": 0
+  },
+  {
+   "name": "Duck_Armature|Walk.Right.RightHandOut",
+   "fps": 60.0,
+   "frames": 33,
+   "seconds": 0.5333,
+   "loop": true,
+   "unbound_paths": 0
+  },
+  {
+   "name": "Duck_Armature|Roll",
+   "fps": 60.0,
+   "frames": 73,
+   "seconds": 1.2,
+   "loop": false,
+   "unbound_paths": 10
+  },
+  {
+   "name": "Duck_Armature|Duck_Attack",
+   "fps": 60.0,
+   "frames": 52,
+   "seconds": 0.85,
+   "loop": false,
+   "unbound_paths": 2
+  },
+  {
+   "name": "Duck_Armature|Duck_Attack_L2R",
+   "fps": 60.0,
+   "frames": 55,
+   "seconds": 0.9,
+   "loop": false,
+   "unbound_paths": 2
+  }
+ ],
+ "renderers": [
+  {
+   "node": "Player_Duck_Head",
+   "type": "SkinnedMeshRenderer",
+   "mesh": "Player_Duck_Head",
+   "bones": 37,
+   "blendshapes": [],
+   "enabled": true,
+   "active": true
+  }
+ ],
+ "materials": [
+  {
+   "name": "Duck",
+   "shader": "SodaCraft/SodaCharacter",
+   "textures": {
+    "_MainTex": {
+     "texture": "Player_Duck_Tex_AlbedoTint.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_MetallicSmoothness": {
+     "texture": "Player_Duck_Tex_Smoothness.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_NormalMap": {
+     "texture": "Player_Duck_Tex_Normal.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "colors": {
+    "_AlphaMaskTint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_BaseColor": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_BottomColor": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "_Color": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_EmissionColor": [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ],
+    "_HitColor": [
+     47.937255859375,
+     12.800000190734863,
+     4.015686511993408,
+     0.0
+    ],
+    "_HurtColor": [
+     5.992156505584717,
+     0.0941176488995552,
+     0.0941176488995552,
+     0.0
+    ],
+    "_SpecColor": [
+     0.19999995827674866,
+     0.19999995827674866,
+     0.19999995827674866,
+     1.0
+    ],
+    "_Tint": [
+     1.0,
+     0.7004991769790649,
+     0.23113206028938293,
+     0.0
+    ]
+   },
+   "floats": {
+    "_AO_Blend2Albedo": 0.0,
+    "_AlphaClip": 0.0,
+    "_AlphaCutoff": 0.5,
+    "_AlphaMask": 0.0,
+    "_AoStrength": 1.0,
+    "_AoUseUV3": 0.0,
+    "_Blend": 0.0,
+    "_BlendModePreserveSpecular": 1.0,
+    "_BumpScale": 1.0,
+    "_ClearCoatMask": 0.0,
+    "_ClearCoatSmoothness": 0.0,
+    "_Cull": 2.0,
+    "_Cutoff": 0.5,
+    "_Cutout": 0.0,
+    "_DetailAlbedoMapScale": 1.0,
+    "_DetailNormalMapScale": 1.0,
+    "_DstBlend": 0.0,
+    "_DstBlendAlpha": 0.0,
+    "_EnvironmentReflections": 1.0,
+    "_FresnelPower": 3.0,
+    "_GlossMapScale": 0.0,
+    "_Glossiness": 0.0,
+    "_GlossinessSource": 0.0,
+    "_GlossyReflections": 0.0,
+    "_HeightFadeDistance": 0.0,
+    "_HitValue": 0.0,
+    "_HurtValue": 0.0,
+    "_Metallic": 0.0,
+    "_NormalScale": 1.0,
+    "_OcclusionStrength": 1.0,
+    "_Parallax": 0.004999999888241291,
+    "_QueueControl": 0.0,
+    "_QueueOffset": 0.0,
+    "_ReceiveShadows": 1.0,
+    "_Shininess": 0.0,
+    "_Smoothness": 0.25,
+    "_SmoothnessSource": 0.0,
+    "_SmoothnessTextureChannel": 0.0,
+    "_SpecSource": 0.0,
+    "_SpecularHighlights": 1.0,
+    "_SrcBlend": 1.0,
+    "_SrcBlendAlpha": 1.0,
+    "_Surface": 0.0,
+    "_TempratureLerp": 1.0,
+    "_WorkflowMode": 1.0,
+    "_ZWrite": 1.0
+   },
+   "keywords": null,
+   "fbx_name": "Duck"
+  }
+ ],
+ "lod_groups": null,
+ "source_fbx": [
+  "Scenes/12_Level_Farm_JLab_Facility/Animated/DuckV2_2.fbx"
+ ]
+}

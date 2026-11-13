@@ -117,7 +117,7 @@ HRESULT CPlayer::Render_Occluded()
 
 HRESULT CPlayer::Ready_Components()
 {
-    if(FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Normalize_AssetPath(TEXT("Characters/0_CharacterModel_Boss_Wu/0_CharacterModel_Boss_Wu.fbx")),
+    if(FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Normalize_AssetPath(TEXT("Characters/S12_DuckV2_2/S12_DuckV2_2.fbx")),
         TEXT("Com_Model"),m_pModel)))
         return E_FAIL;
 

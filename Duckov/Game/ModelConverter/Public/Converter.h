@@ -21,7 +21,6 @@ public:
 public:
 	bool	Initialize();
 	bool	Convert(const string& strFbxPath, MODEL_TYPE eType);
-	bool	Dump(const string& strBinPath);
 
 private:
 	Assimp::Importer				m_Importer;

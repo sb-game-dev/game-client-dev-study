@@ -149,6 +149,11 @@ HRESULT CLoader::Loading_For_GamePlayLV()
         CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Inventory/IconArray/icons_128.dds"), 1))))
         return E_FAIL;
 
+    // 아이템 아이콘
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Texture_HUDIcons,
+        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Inventory/IconArray/hud_icons.dds"), 1))))
+        return E_FAIL;
+
     lstrcpy(m_szLoadingText, TEXT("모델을 준비중입니다."));
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::VIBuffer_Cube,
@@ -171,9 +176,9 @@ HRESULT CLoader::Loading_For_GamePlayLV()
 
     matrix_t PreTransformMatrix = XMMatrixRotationY(180.f);
     if(FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
-        Normalize_AssetPath(TEXT("Characters/0_CharacterModel_Boss_Wu/0_CharacterModel_Boss_Wu.fbx")),
+        Normalize_AssetPath(TEXT("Characters/S12_DuckV2_2/S12_DuckV2_2.fbx")),
         CModel::Create(m_pDevice, m_pContext, MODEL::ANIM,
-            "../../../Resource/Characters/0_CharacterModel_Boss_Wu/0_CharacterModel_Boss_Wu.fbx"))))
+            "../../../Resource/Characters/S12_DuckV2_2/S12_DuckV2_2.fbx"))))
         return E_FAIL;
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),

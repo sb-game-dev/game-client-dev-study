@@ -1,5 +1,6 @@
 #include "HUD.h"
 #include "Inven.h"
+#include "Player.h"
 using namespace HUD_UI;
 
 
@@ -102,6 +103,14 @@ void CHUD::Update(f32_t fTimeDelta)
 			return;
 		m_pInven = pInven;
 	}
+	auto pPlayer = m_pPlayer.lock();
+	if (nullptr == pPlayer)
+	{
+		pPlayer = dynamic_pointer_cast<CPlayer>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", GO::Player));
+		if (nullptr == pPlayer)
+			return;
+		m_pPlayer = pPlayer;
+	}
 }
 
 void CHUD::Late_Update(f32_t fTimeDelta)
@@ -141,6 +150,9 @@ HRESULT CHUD::Render()
 		return E_FAIL;
 
 	if (FAILED(m_pIconTexCom->Set_TexturePS(0, 0)))
+		return E_FAIL;
+
+	if (FAILED(m_pHUDIconTexCom->Set_TexturePS(0, 1)))
 		return E_FAIL;
 
 	m_pContext->RSSetState(m_pRS.Get());
@@ -186,6 +198,21 @@ void CHUD::Build_Instances()
 	// 퀵 슬롯 3 ~ 8 숫자칸 그리기
 	for (int32_t i = 0; i < 6; ++i)
 		Push_Slot({ HUD_AREA::SLOT, i });
+
+	auto pPlayer = m_pPlayer.lock();
+	if (pPlayer)
+	{
+		// HP바 배경
+		Push_Rect(HP_LEFT, HP_TOP, HP_WIDTH, HP_HEIGHT, COLOR_HP_BG, HP_HEIGHT * 0.5f);
+
+		// HP바 아이콘
+		Push_HUDIcon(HEART_LEFT, HEART_TOP, HEART_SIZE, HEART_SIZE, 0, COLOR_HP_FILL);
+		// HP바 채움
+		Push_Bar(HP_SLIDER_LEFT, HP_SLIDER_TOP, HP_SLIDER_WIDTH, HP_SLIDER_HEIGHT,
+			pPlayer->Get_HP() / pPlayer->Get_MaxHP(),
+			COLOR_HP_FILL_SIDE, COLOR_HP_FILL,
+			HP_SLIDER_HEIGHT * 0.5f);
+	}
 }
 
 float4_t CHUD::Get_SlotRect(const HUD_POS& t)
@@ -245,6 +272,10 @@ HRESULT CHUD::Ready_Components()
 	if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::Texture_ItemIcons,
 		TEXT("Com_IconTex"), m_pIconTexCom)))
 		return E_FAIL;
+
+	if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::Texture_HUDIcons,
+		TEXT("Com_HUDIconTex"), m_pHUDIconTexCom)))
+		return E_FAIL;
 	return S_OK;
 }
 
@@ -272,6 +303,13 @@ void CHUD::Push_Rect(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, float
 	m_Instances.push_back({ { fSnapLeft, fSnapTop, fSnapRight - fSnapLeft, fSnapBottom - fSnapTop },
 							vColor, { fRadius, fBorder, 0.f, 0.f }, { 0.f, 0.f, 1.f, 1.f } });
 }
+void CHUD::Push_Bar(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, f32_t fRatio, float4_t vBgColor, float4_t vFillColor, f32_t fRadius)
+{
+	fRatio = max(0.f, min(1.f, fRatio));
+	Push_Rect(fLeft, fTop, fWidth, fHeight, vBgColor, fRadius);
+	if (fRatio > 0.f)
+		Push_Rect(fLeft, fTop, fWidth * fRatio, fHeight, vFillColor, fRadius);
+}
 void CHUD::Push_Icon(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, int32_t iIconIndex, f32_t fAlpha)
 {
 	f32_t fSnapLeft = floorf(fLeft + 0.5f);
@@ -281,6 +319,17 @@ void CHUD::Push_Icon(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, int32
 
 	m_Instances.push_back({ { fSnapLeft, fSnapTop, fSnapRight - fSnapLeft, fSnapBottom - fSnapTop },
 							{ 1.f, 1.f, 1.f, fAlpha }, { 0.f, 0.f, 1.f, (f32_t)iIconIndex }, { 0.f, 0.f, 1.f, 1.f } });
+}
+
+void CHUD::Push_HUDIcon(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, int32_t iIconIndex, float4_t vColor)
+{
+	f32_t fSnapLeft = floorf(fLeft + 0.5f);
+	f32_t fSnapTop = floorf(fTop + 0.5f);
+	f32_t fSnapRight = floorf(fLeft + fWidth + 0.5f);
+	f32_t fSnapBottom = floorf(fTop + fHeight + 0.5f);
+
+	m_Instances.push_back({ { fSnapLeft, fSnapTop, fSnapRight - fSnapLeft, fSnapBottom - fSnapTop },
+							vColor, { 0.f, 0.f, 2.f, (f32_t)iIconIndex }, { 0.f, 0.f, 1.f, 1.f } });
 }
 
 void CHUD::Push_Slot(const HUD_POS& t)
