@@ -16,6 +16,8 @@ CModel::CModel(const CModel& rhs)
     , m_iNumMaterials{rhs.m_iNumMaterials}
     , m_tLocalBox{rhs.m_tLocalBox}
     , m_bUseCulling{rhs.m_bUseCulling}
+    , m_Bones{rhs.m_Bones}
+    , m_PreTransformMatrix{ rhs.m_PreTransformMatrix}
 {
 }
 
@@ -23,6 +25,7 @@ HRESULT CModel::Initialize_Prototype(MODEL eType, const char_t* pModelFilePath, 
 {
     m_eType = eType;
 
+    XMStoreFloat4x4(&m_PreTransformMatrix, PreTransformMatrix);
     // bin파일 읽기
     char_t szExt[MAX_PATH] = {};
     _splitpath_s(pModelFilePath, nullptr, 0, nullptr, 0, nullptr, 0, szExt, MAX_PATH);
@@ -83,6 +86,11 @@ HRESULT CModel::Bind_Material(uint32_t iMeshIndex, aiTextureType eType, uint32_t
     return S_OK;
 }
 
+HRESULT CModel::Bind_BoneMatrix(uint32_t iMeshIndex, uint32_t iSlot)
+{
+    return m_Meshes[iMeshIndex]->Bind_BoneMatrix(m_Bones, iSlot);
+}
+
 int32_t CModel::Get_BoneIndex(const char_t* pBoneName)
 {
     int32_t iBoneIndex = {};
@@ -95,6 +103,19 @@ int32_t CModel::Get_BoneIndex(const char_t* pBoneName)
     if (iter == m_Bones.end())
         return -1;
     return iBoneIndex;
+}
+
+void CModel::PlayAnimation(f32_t fDeltaTime)
+{
+    // ------ 뼈들을 현재 애니메이션에 맞게 셋팅한다. ------
+
+    /* 1. 뼈들의 TransformMatrix 행렬을 현재 애니메이션에 맞게 세팅한다. */
+
+
+
+    /* 2. TransformMatrix 행렬과 부모 CombinedMatrix를 곱해서 나의 CombinedMatrix를 만든다.*/
+    for (auto& pBone : m_Bones)
+        pBone->Update_CombinedTranformMatrix(m_Bones, XMLoadFloat4x4(&m_PreTransformMatrix));
 }
 
 HRESULT CModel::Ready_Meshes(MODEL eType, fmatrix_t PreTransformMatrix)

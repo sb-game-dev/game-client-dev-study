@@ -53,6 +53,7 @@ namespace Client
 
 		// ---------- Shader : Model ----------
 		inline constexpr const wchar_t* VS_MODEL = L"Prototype_Component_VS_MODEL";
+		inline constexpr const wchar_t* VS_ANIM_MODEL = L"Prototype_Component_VS_ANIM_MODEL";
 		inline constexpr const wchar_t* VS_MODEL_INSTANCE = L"Prototype_Component_VS_MODEL_INSTANCE";
 		inline constexpr const wchar_t* PS_MODEL = L"Prototype_Component_PS_MODEL";
 		inline constexpr const wchar_t* PS_CHARACTER = L"Prototype_Component_PS_CHARACTER";

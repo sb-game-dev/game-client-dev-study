@@ -1,5 +1,7 @@
 #include "Mesh.h"
 #include "Model.h"
+#include "Bone.h"
+#include "ConstantBuffer.h"
 
 CMesh::CMesh(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
 	:CVIBuffer{pDevice, pContext}
@@ -9,6 +11,8 @@ CMesh::CMesh(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
 HRESULT CMesh::Initialize_Prototype(MODEL eType, shared_ptr<CModel> pModel, const aiMesh* pAiMesh, fmatrix_t PreTransformMatrix)
 {
 #pragma region DATA
+    strcpy_s(m_szName, pAiMesh->mName.C_Str());
+
     m_iMaterialIndex = pAiMesh->mMaterialIndex;
     m_iNumVertexBuffers = 1;
     m_iNumVertices = pAiMesh->mNumVertices;
@@ -23,6 +27,8 @@ HRESULT CMesh::Initialize_Prototype(MODEL eType, shared_ptr<CModel> pModel, cons
 #pragma region VERTEX_BUFFER
     HRESULT hr = MODEL::NONANIM == eType ? Ready_Meshes_For_NonAnim(pAiMesh, PreTransformMatrix) 
                                          : Ready_Meshes_For_Anim(pModel, pAiMesh);
+    if (FAILED(hr))
+        return E_FAIL;
 #pragma endregion
 
 #pragma region INDEX_BUFFER
@@ -49,7 +55,9 @@ HRESULT CMesh::Initialize_Prototype(MODEL eType, shared_ptr<CModel> pModel, cons
     if (FAILED(m_pDevice->CreateBuffer(&IndexBufferDesc, &IndexInitialData, &m_pIB)))
         return E_FAIL;
 #pragma endregion
-
+    m_pCB = CConstantBuffer::Create(m_pDevice, m_pContext, m_BoneMatrices, sizeof(m_BoneMatrices));
+    if (nullptr == m_pCB)
+        return E_FAIL;
 
 
 	return S_OK;
@@ -134,6 +142,10 @@ HRESULT CMesh::Initialize_Prototype(FILE* pFile, fmatrix_t PreTransformMatrix)
     if (FAILED(m_pDevice->CreateBuffer(&IndexBufferDesc, &IndexInitialData, &m_pIB)))
         return E_FAIL;
 #pragma endregion
+
+    m_pCB = CConstantBuffer::Create(m_pDevice, m_pContext, m_BoneMatrices, sizeof(m_BoneMatrices));
+    if (nullptr == m_pCB)
+        return E_FAIL;
     return S_OK;
 }
 
@@ -154,6 +166,17 @@ HRESULT CMesh::Render_Instanced(ID3D11Buffer* pInstanceVB, uint32_t iInstanceStr
     m_pContext->DrawIndexedInstanced(m_iNumIndices, iNumInstances, 0, 0, 0);
 
     return S_OK;
+}
+
+HRESULT CMesh::Bind_BoneMatrix(vector<shared_ptr<class CBone>>& Bones, uint32_t iSlot)
+{
+    for (uint32_t i = 0; i < m_iNumBones; ++i)
+    {
+        XMStoreFloat4x4(&m_BoneMatrices[i],
+            XMLoadFloat4x4(&m_OffsetMatrices[i]) *
+            XMLoadFloat4x4(Bones[m_BoneIndices[i]]->Get_CombinedTransformMatrix()));
+    }
+    return m_pCB->Bind_Vertex_ShaderResource(iSlot,m_BoneMatrices);
 }
 
 HRESULT CMesh::Ready_Meshes_For_NonAnim(const aiMesh* pAiMesh, fmatrix_t PreTransformMatrix)
@@ -236,25 +259,54 @@ HRESULT CMesh::Ready_Meshes_For_Anim(shared_ptr<class CModel> pModel, const aiMe
         if (-1 == iBoneIndex)
             return E_FAIL;
 
+        float4x4_t OffsetMatrix = {};
+        memcpy(&OffsetMatrix, &pAIMesh->mBones[i]->mOffsetMatrix, sizeof(float4x4_t));
+
+        XMStoreFloat4x4(&OffsetMatrix, XMMatrixTranspose(XMLoadFloat4x4(&OffsetMatrix)));
+        m_OffsetMatrices.push_back(OffsetMatrix);
+
         m_BoneIndices.push_back(iBoneIndex);
 
         /* pAIMesh->mBones[i]->mNumWeights => 이 뼈i 가 영향을 주는 정점의 갯수 */
         for (uint32_t j = 0; j < pAIMesh->mBones[i]->mNumWeights; ++j)
         {
             if (0.f == pVertices[pAIMesh->mBones[i]->mWeights[j].mVertexId].vBlendWeight.x)
+            {
                 pVertices[pAIMesh->mBones[i]->mWeights[j].mVertexId].vBlendIndex.x = i;
-
+                pVertices[pAIMesh->mBones[i]->mWeights[j].mVertexId].vBlendWeight.x = pAIMesh->mBones[i]->mWeights[j].mWeight;
+            }
             else if (0.f == pVertices[pAIMesh->mBones[i]->mWeights[j].mVertexId].vBlendWeight.y)
+            {
                 pVertices[pAIMesh->mBones[i]->mWeights[j].mVertexId].vBlendIndex.y = i;
-
+                pVertices[pAIMesh->mBones[i]->mWeights[j].mVertexId].vBlendWeight.y = pAIMesh->mBones[i]->mWeights[j].mWeight;
+            }
             else if (0.f == pVertices[pAIMesh->mBones[i]->mWeights[j].mVertexId].vBlendWeight.z)
+            {
                 pVertices[pAIMesh->mBones[i]->mWeights[j].mVertexId].vBlendIndex.z = i;
-
+                pVertices[pAIMesh->mBones[i]->mWeights[j].mVertexId].vBlendWeight.z = pAIMesh->mBones[i]->mWeights[j].mWeight;
+            }
             else
+            {
                 pVertices[pAIMesh->mBones[i]->mWeights[j].mVertexId].vBlendIndex.w = i;
+                pVertices[pAIMesh->mBones[i]->mWeights[j].mVertexId].vBlendWeight.w = pAIMesh->mBones[i]->mWeights[j].mWeight;
+            }
         }
     }
-
+    //if (0 == m_iNumBones)
+    //{
+    //    m_iNumBones = 1;
+    //    int32_t     iBoneIndex = pModel->Get_BoneIndex(m_szName);
+    //    if (-1 == iBoneIndex)
+    //        return E_FAIL;
+    //    m_BoneIndices.push_back(iBoneIndex);
+    //    float4x4_t OffsetMatrix = {};
+    //
+    //    // 뼈가 없는 모델의 경우 항등행렬로 OffsetMatrix를 채운다.
+    //    // 위에서 찾은 BoneIndex의 Context만 곱해도 되기 때문이다.
+    //    XMStoreFloat4x4(&OffsetMatrix, XMMatrixIdentity()); 
+    //    
+    //    m_OffsetMatrices.push_back(OffsetMatrix);
+    //}
     D3D11_SUBRESOURCE_DATA          VertexInitialData{};
     VertexInitialData.pSysMem = pVertices.get();
 

@@ -6,15 +6,28 @@ HRESULT CBone::Initialize(const aiNode* pAINode, int32_t iParentBoneIndex)
 
 	m_iParentIndex = iParentBoneIndex;
 
-	memcpy(&m_TransformationMatrix, &pAINode->mTransformation, sizeof(float4x4_t));
+	memcpy(&m_TransformMatrix, &pAINode->mTransformation, sizeof(float4x4_t));
 
-	XMStoreFloat4x4(&m_TransformationMatrix,
-		XMMatrixTranspose(XMLoadFloat4x4(&m_TransformationMatrix)));
+	XMStoreFloat4x4(&m_TransformMatrix,
+		XMMatrixTranspose(XMLoadFloat4x4(&m_TransformMatrix)));
 
-	XMStoreFloat4x4(&m_CombinedTransfromationMatrix,
+	XMStoreFloat4x4(&m_CombinedTransformMatrix,
 		XMMatrixIdentity());
 
 	return S_OK;
+}
+
+void CBone::Update_CombinedTranformMatrix(const vector<shared_ptr<CBone>>& Bones, fmatrix_t PreTranformMatrix)
+{
+	if (-1 == m_iParentIndex)
+	{
+		XMStoreFloat4x4(&m_CombinedTransformMatrix,
+			XMLoadFloat4x4(&m_TransformMatrix) * PreTranformMatrix);
+		return;
+	}
+	XMStoreFloat4x4(&m_CombinedTransformMatrix,
+		XMLoadFloat4x4(&m_TransformMatrix)
+		* XMLoadFloat4x4(&Bones[m_iParentIndex]->m_CombinedTransformMatrix));
 }
 
 shared_ptr<CBone> CBone::Create(const aiNode* pAINode, int32_t iParentBoneIndex)

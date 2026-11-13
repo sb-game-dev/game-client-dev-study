@@ -172,8 +172,8 @@ HRESULT CLoader::Loading_For_GamePlayLV()
     matrix_t PreTransformMatrix = XMMatrixRotationY(180.f);
     if(FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
         Normalize_AssetPath(TEXT("Characters/0_CharacterModel_Boss_Wu/0_CharacterModel_Boss_Wu.fbx")),
-        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
-            "../../../Resource/Characters/0_CharacterModel_Boss_Wu/0_CharacterModel_Boss_Wu.bin"))))
+        CModel::Create(m_pDevice, m_pContext, MODEL::ANIM,
+            "../../../Resource/Characters/0_CharacterModel_Boss_Wu/0_CharacterModel_Boss_Wu.fbx"))))
         return E_FAIL;
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
@@ -248,6 +248,10 @@ HRESULT CLoader::Loading_For_GamePlayLV()
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::VS_MODEL,
         CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_VertexShader.hlsl", VTXMESH::Elements, VTXMESH::iNumElements, "VS_MAIN_MODEL"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::VS_ANIM_MODEL,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_VertexShader.hlsl", VTXANIMMESH::Elements, VTXANIMMESH::iNumElements, "VS_MAIN_ANIM_MODEL"))))
         return E_FAIL;
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::PS_MODEL,

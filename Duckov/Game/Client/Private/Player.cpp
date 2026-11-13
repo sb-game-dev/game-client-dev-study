@@ -71,6 +71,7 @@ void CPlayer::Priority_Update(f32_t fDeltaTime)
 void CPlayer::Update(f32_t fDeltaTime)
 {
     __super::Update(fDeltaTime);
+    m_pModel->PlayAnimation(fDeltaTime);
 }
 void CPlayer::Late_Update(f32_t fDeltaTime)
 {
@@ -120,7 +121,7 @@ HRESULT CPlayer::Ready_Components()
         TEXT("Com_Model"),m_pModel)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VS_MODEL,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VS_ANIM_MODEL,
         TEXT("Com_VS"), m_pVS)))
         return E_FAIL;
 
@@ -177,6 +178,8 @@ HRESULT CPlayer::Render_Mesh(const matrix_t& matWorld, ID3D11RasterizerState* pR
     uint32_t    iNumMeshes = m_pModel->Get_NumMeshes();
     for (uint32_t i = 0; i < iNumMeshes; ++i)
     {
+        if (FAILED(m_pModel->Bind_BoneMatrix(i, 2)))
+            return E_FAIL;
         if (FAILED(m_pModel->Bind_Material(i, aiTextureType_DIFFUSE, 0, 0)))
             return E_FAIL;
 

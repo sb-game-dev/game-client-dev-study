@@ -22,6 +22,7 @@ public:
 	virtual HRESULT			Render(uint32_t iMeshIndex);
 	virtual	HRESULT			Render_Instanced(uint32_t iMeshIndex, ID3D11Buffer* pInstanceVB, uint32_t iInstanceStride, uint32_t iNumInstances);
 	virtual	HRESULT			Bind_Material(uint32_t iMeshIndex, aiTextureType eType, uint32_t iIndex, uint32_t iSlot);
+	virtual HRESULT			Bind_BoneMatrix(uint32_t iMeshIndex, uint32_t iSlot);
 
 	virtual void			SetUseCulling(bool_t bUse) { m_bUseCulling = bUse; }
 	virtual bool_t			IsUseCulling() { return m_bUseCulling; }
@@ -30,6 +31,7 @@ public:
 
 	virtual BoundingBox		GetBoundinBox() { return m_tLocalBox; }
 
+	virtual	void			PlayAnimation(f32_t fDeltaTime);
 private:
 	const	aiScene*	m_pAiScene = { nullptr };
 	Assimp::Importer	m_pImporter = {};
@@ -47,6 +49,8 @@ private:
 
 	BoundingBox					m_tLocalBox = {};
 	bool_t						m_bUseCulling = { false };
+
+	float4x4_t					m_PreTransformMatrix = {};
 
 private:
 	HRESULT	Ready_Meshes(MODEL eType, fmatrix_t PreTransformMatrix);

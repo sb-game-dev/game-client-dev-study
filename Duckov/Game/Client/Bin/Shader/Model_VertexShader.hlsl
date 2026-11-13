@@ -20,6 +20,23 @@ struct VS_IN_MODEL
     float2 vTexCoord : TEXCOORD0;
 };
 
+cbuffer BoneMatrices : register(b2)
+{
+    row_major matrix g_BoneMatrices[512];
+};
+
+struct VS_IN_ANIM_MODEL
+{
+    float3 vPosition : POSITION;
+    float3 vNormal : NORMAL;
+    float3 vTangent : TANGENT;
+    float3 vBinormal : BINORMAL;
+    float2 vTexCoord : TEXCOORD0;
+    uint4 vBlendIndex : BLENDINDEX;
+    float4 vBlendWeight : BLENDWEIGHT;
+};
+
+
 struct VS_IN_INST
 {
     float3 vPosition : POSITION;
@@ -91,6 +108,29 @@ VS_OUT_MODEL VS_MAIN_MODEL(VS_IN_MODEL In)
     Out.vTexCoord = In.vTexCoord;
     return Out;
 }
+
+VS_OUT_MODEL VS_MAIN_ANIM_MODEL(VS_IN_ANIM_MODEL In)
+{
+    VS_OUT_MODEL Out;
+
+    float fWeight = 1.f - (In.vBlendWeight.x + In.vBlendWeight.y + In.vBlendWeight.z);
+    
+    float4x4 BoneMatrix = g_BoneMatrices[In.vBlendIndex.x] * In.vBlendWeight.x +
+                          g_BoneMatrices[In.vBlendIndex.y] * In.vBlendWeight.y +
+                          g_BoneMatrices[In.vBlendIndex.z] * In.vBlendWeight.z +
+                          g_BoneMatrices[In.vBlendIndex.w] * fWeight;
+    
+    float4 vPosW = mul(float4(In.vPosition, 1.f), BoneMatrix);
+    vPosW = mul(vPosW, g_matWorld);
+    Out.vPosW = vPosW.xyz;
+    Out.vNormalW = mul(mul(In.vNormal, (float3x3) BoneMatrix), (float3x3) g_matWorldInvTranspose);
+    Out.vTangent = vector(In.vTangent, 0.f);
+    Out.vBinormal = vector(In.vBinormal, 0.f);
+    Out.vPosition = mul(mul(vPosW, g_ViewMatrix), g_ProjMatrix);
+    Out.vTexCoord = In.vTexCoord;
+    return Out;
+}
+
 
 VS_OUT_MODEL VS_MAIN_MODEL_INST(VS_IN_MODEL_INST In)
 {
