@@ -102,13 +102,7 @@ HRESULT CHill::Update_ConstantBuffer(const matrix_t& matWorld)
 
     return S_OK;
 }
-void CHill::Save_Extra(ofstream& Out) const
-{
-}
 
-void CHill::Read_Extra(ifstream& In, HILL_DESC& Desc)
-{
-}
 
 HRESULT CHill::Ready_Components()
 {

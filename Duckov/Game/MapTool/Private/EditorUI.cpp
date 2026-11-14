@@ -3,6 +3,7 @@
 #include "Panel_Hierarchy.h"
 #include "Panel_Scene.h"
 #include "Panel_Inspector.h"
+#include "StaticProp.h"
 
 CEditorUI::~CEditorUI()
 {
@@ -69,14 +70,115 @@ void CEditorUI::Render_MenuBar()
     {
         // MenuItem(라벨, 단축키표시, 선택됨, 활성화);
         // 단축키는 오른쪽에 보이는 글자일 뿐이고 실제 동작은 따로 만들어야 함.
-        ImGui::MenuItem("New Scene", nullptr, false, false);        // 저장/불러오기 전까지 비활성
-        ImGui::MenuItem("Open Scene", "Ctrl + O", false, false);
-        ImGui::MenuItem("Save", "Ctrl + S", false, false);
-        ImGui::MenuItem("Save As", nullptr, false, false);
+
+        ImGui::MenuItem("New Scene", nullptr, false, true);        
+
+        ImGui::MenuItem("Open Scene", "Ctrl + O", false, true);
+
+        ImGui::MenuItem("Save", "Ctrl + S", false, true);
+
+        ImGui::MenuItem("Save As", nullptr, false, true);
         ImGui::EndMenu();
     }
 
     ImGui::EndMainMenuBar();
+}
+
+HRESULT CEditorUI::Reset_Scene()
+{
+
+    return S_OK;
+}
+
+HRESULT CEditorUI::Save_Scene(const wstring& strPath)
+{
+    FILE* pFile;
+    _wfopen_s(&pFile, strPath.c_str(), L"wb");
+
+    auto Objects = CGameInstance::Get().Get_GameObjects(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"));
+    uint32_t iNumObject = static_cast<uint32_t>(Objects->size());
+    fwrite(&iNumObject, sizeof(uint32_t), 1, pFile);
+
+    for (auto& [Tag, pObj] : *Objects)
+    {
+        auto pMapObj = dynamic_pointer_cast<CMapObject>(pObj);
+        if (nullptr == pMapObj)
+            continue;
+        const wstring_t& strTag = pMapObj->Get_PrototypeTag();
+        uint32_t iLength = static_cast<uint32_t>(strTag.length());
+
+        fwrite(&iLength, sizeof(uint32_t), 1, pFile);
+        fwrite(strTag.data(), sizeof(wchar_t), iLength, pFile);
+
+        float3_t vPos = pMapObj->Get_Position();
+        fwrite(&vPos, sizeof(float3_t), 1, pFile);
+
+        float4_t vQuatern = pMapObj->Get_Quaternion();
+        fwrite(&vQuatern, sizeof(float4_t), 1, pFile);
+
+        float3_t vScale = pMapObj->Get_Scale();
+        fwrite(&vScale, sizeof(float3_t), 1, pFile);
+
+        wstring_t strModelPath = pMapObj->Get_MeshPath();
+        uint32_t  iModelPathLength = strModelPath.length();
+
+        fwrite(&iModelPathLength, sizeof(uint32_t), 1, pFile);
+        fwrite(strModelPath.data(), sizeof(wchar_t), iModelPathLength, pFile);
+    }
+    
+    fclose(pFile);
+    return S_OK;
+}
+
+HRESULT CEditorUI::Load_Scene(const wstring& strPath)
+{
+    FILE* pFile;
+    _wfopen_s(&pFile, strPath.c_str(), L"rb");
+
+    auto Objects = CGameInstance::Get().Get_GameObjects(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"));
+    uint32_t iNumObject = {};
+    fread(&iNumObject, sizeof(uint32_t), 1, pFile);
+
+    for (uint32_t i = 0; i < iNumObject; ++i)
+    {
+        uint32_t iLength = {};
+        fread(&iLength, sizeof(uint32_t), 1, pFile);
+
+        CStaticProp::STATICPROP_DESC Desc = {};
+        Desc.strPrototypeTag.resize(iLength);
+        fread(Desc.strPrototypeTag.data(), sizeof(wchar_t), iLength, pFile);
+        fread(&Desc.vPosition, sizeof(float3_t), 1, pFile);
+        fread(&Desc.vQuaternion, sizeof(float4_t), 1, pFile);
+        fread(&Desc.vScale, sizeof(float3_t), 1, pFile);
+
+        uint32_t  iModelPathLength = {};
+        fread(&iModelPathLength, sizeof(uint32_t), 1, pFile);
+        Desc.strMeshPath.resize(iModelPathLength);
+        fread(Desc.strMeshPath.data(), sizeof(wchar_t), iModelPathLength, pFile);
+
+
+        Desc.iLevelIndex = ETOUI(LEVEL::MAPTOOL);
+        Desc.bEditorMode = true;
+
+        wstring_t strTag;
+        do {
+            if (m_Context.m_iNextID < 10)
+                strTag = L"Prop_0" + to_wstring(m_Context.m_iNextID++);
+            else
+                strTag = L"Prop_" + to_wstring(m_Context.m_iNextID++);
+        } while (nullptr != CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag));
+
+        if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::MAPTOOL), Desc.strPrototypeTag,
+            ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag, &Desc)))
+        {
+            MSG_BOX("Create Failed");
+            return E_FAIL;
+        }
+        // 만든 객체를 바로 선택
+        m_Context.Select(strTag, CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag));
+    }
+    fclose(pFile);
+    return S_OK;
 }
 
 unique_ptr<CEditorUI> CEditorUI::Create()

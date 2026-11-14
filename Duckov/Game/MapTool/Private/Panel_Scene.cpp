@@ -245,11 +245,6 @@ void CPanel_Scene::Render(const PANEL_RECT& tRect)
 
 void CPanel_Scene::Create_Object(const wstring_t& pPrototypeTag, float3_t vPickPos)
 {
-    CStaticProp::STATICPROP_DESC Desc{};
-    Desc.iLevelIndex = ETOUI(LEVEL::MAPTOOL);
-    Desc.strMeshPath = g_Models[0].strPath;        
-    Desc.bEditorMode = true;
-    Desc.vPosition = vPickPos;
     wstring_t strTag;
 
     do {
@@ -258,6 +253,13 @@ void CPanel_Scene::Create_Object(const wstring_t& pPrototypeTag, float3_t vPickP
         else
             strTag = L"Prop_" + to_wstring(m_Context.m_iNextID++);
     } while (nullptr != CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag));
+
+    CStaticProp::STATICPROP_DESC Desc{};
+    Desc.iLevelIndex = ETOUI(LEVEL::MAPTOOL);
+    Desc.strMeshPath = g_Models[0].strPath;
+    Desc.bEditorMode = true;
+    Desc.strPrototypeTag = pPrototypeTag;
+    Desc.vPosition = vPickPos;
 
     if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::MAPTOOL), pPrototypeTag,
         ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag, &Desc)))

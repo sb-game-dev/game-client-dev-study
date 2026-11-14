@@ -1,5 +1,8 @@
 #pragma once
 #include "Client_Defines.h"
+#include <commdlg.h>
+#pragma comment(lib, "Comdlg32.lib")
+
 namespace MapTool
 {
     static constexpr uint32_t g_iToolWinSizeX = 1600;

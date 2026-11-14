@@ -96,19 +96,15 @@ void CPanel_Hierarchy::Create_Terrain()
 
     // 생성 + 선택
     if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::MAPTOOL), Proto::Obj_Hill,
-        ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag, &Desc)))
+        ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Terrain"), strTag, &Desc)))
     {
         MSG_BOX("Create Failed");
         return;
     }
-    m_Context.Select(strTag, CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag));
+    m_Context.Select(strTag, CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Terrain"), strTag));
 }
 void CPanel_Hierarchy::Create_StaticProp(const wstring_t& pPrototypeTag)
 {
-    CStaticProp::STATICPROP_DESC Desc{};
-    Desc.iLevelIndex = ETOUI(LEVEL::MAPTOOL);
-    Desc.strMeshPath = g_Models[0].strPath;           // 기본: cube
-    Desc.bEditorMode = true;
 
     wstring_t strTag;
 
@@ -118,6 +114,12 @@ void CPanel_Hierarchy::Create_StaticProp(const wstring_t& pPrototypeTag)
         else
             strTag = L"Prop_" + to_wstring(m_Context.m_iNextID++);
     } while (nullptr != CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag));
+    
+    CStaticProp::STATICPROP_DESC Desc{};
+    Desc.iLevelIndex = ETOUI(LEVEL::MAPTOOL);
+    Desc.strMeshPath = g_Models[0].strPath;
+    Desc.strPrototypeTag = pPrototypeTag;
+    Desc.bEditorMode = true;
 
     if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::MAPTOOL), pPrototypeTag,
         ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag, &Desc)))

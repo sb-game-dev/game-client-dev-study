@@ -17,6 +17,7 @@ HRESULT CMapObject::Initialize(void* pArg)
     m_vScale = pDesc->vScale;
     m_strMeshPath = pDesc->strMeshPath;
     m_strTexturePath = pDesc->strTexturePath;
+    m_strPrototypeTag = pDesc->strPrototypeTag;
     m_bEditorMode = pDesc->bEditorMode;
     m_vQuaternion = pDesc->vQuaternion;
 

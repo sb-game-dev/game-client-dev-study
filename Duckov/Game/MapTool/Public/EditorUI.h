@@ -38,6 +38,9 @@ private:
 private:
 	void		Calc_Layout();
 	void		Render_MenuBar();
+	HRESULT		Reset_Scene();
+	HRESULT		Save_Scene(const wstring& strPath);
+	HRESULT		Load_Scene(const wstring& strPath);
 
 public:
 	static unique_ptr<CEditorUI> Create();

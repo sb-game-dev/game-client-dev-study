@@ -32,9 +32,6 @@ public:
 	virtual const vector<uint32_t>& Get_Indices() { return m_pBufferCom->Get_Indices(); }
 
 public:
-	virtual void Save_Extra(ofstream& Out) const override;          
-	static  void Read_Extra(ifstream& In, HILL_DESC& Desc);         
-
 	const wstring_t& Get_LayerPath() const { return m_strLayerPath; }
 
 private:

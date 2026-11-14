@@ -14,8 +14,9 @@ public:
         float3_t  vPosition = {};
         float4_t  vQuaternion = { 0.f, 0.f, 0.f, 1.f };     // 단위 쿼터니언 (회전 없음)
         float3_t  vScale = { 1.f, 1.f, 1.f };
-        wstring_t strMeshPath;
-        wstring_t strTexturePath;
+        wstring_t strMeshPath = {};
+        wstring_t strTexturePath={};
+        wstring_t strPrototypeTag={};
         bool_t    bEditorMode = { false };
     }MAPOBJECT_DESC;
 
@@ -38,23 +39,23 @@ public:
     void Set_RotationEuler(const float3_t& vDeg);
     void Set_Transform(const float3_t& vPos, const float4_t& vQuat, const float3_t& vScale); 
 
-    virtual void Save_Extra(ofstream& Out) const {}
-    virtual void Load_Extra(ifstream& In, MAPOBJECT_DESC& Desc) {}
-
     const wstring_t& Get_MeshPath() const { return m_strMeshPath; }
-
+    const wstring_t& Get_PrototypeTag() const { return m_strPrototypeTag; }
 protected:
     void Apply_Transform();
 
 protected:
     uint32_t  m_iLevelIndex = {};
+
     float3_t  m_vPosition = {};
     float3_t  m_vScale = { 1.f, 1.f, 1.f };
     wstring_t m_strMeshPath;
     wstring_t m_strTexturePath;
+    wstring_t m_strPrototypeTag;
     float4_t  m_vQuaternion = { 0.f, 0.f, 0.f, 1.f };   // 원본 값: Transform, 저장 모두 이 값 기준
+    
     float3_t  m_vEulerHint = {};                        // 표시용: Inspector에 보여 줄 각도(degree)
-
+    
     bool_t    m_bEditorMode = { false };
 };
 NS_END
