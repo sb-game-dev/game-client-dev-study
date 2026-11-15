@@ -59,6 +59,18 @@ namespace Client
 		inline constexpr const wchar_t* PS_MODEL = L"Prototype_Component_PS_MODEL";
 		inline constexpr const wchar_t* PS_CHARACTER = L"Prototype_Component_PS_CHARACTER";
 
+		// ---------- Model ----------
+		// 값은 Normalize_AssetPath()를 거친 경로(소문자, Resource 루트 제외) 그대로 둔다.
+		// StaticProp::Change_Model / 맵툴 콤보(Get_ModelTags) / 씬 파일이 이 경로로 원형을 찾기 때문.
+		inline constexpr const wchar_t* Model_Duck = L"characters/s12_duckv2_2/s12_duckv2_2.fbx";
+		inline constexpr const wchar_t* Model_Boss_Wu = L"characters/0_charactermodel_boss_wu/0_charactermodel_boss_wu.bin";
+		inline constexpr const wchar_t* Model_Tree_01 = L"mesh/tree/pfb_tree_01_1.bin";
+		inline constexpr const wchar_t* Model_Container_Back = L"mesh/sm_container/sm_container_back.bin";
+		inline constexpr const wchar_t* Model_Container_Ceiling = L"mesh/sm_container/sm_container_ceiling.bin";
+		inline constexpr const wchar_t* Model_Container_Ground = L"mesh/sm_container/sm_container_ground.bin";
+		inline constexpr const wchar_t* Model_Container_L = L"mesh/sm_container/sm_container_l.bin";
+		inline constexpr const wchar_t* Model_Container_R = L"mesh/sm_container/sm_container_r.bin";
+
 		// ---------- GameObject 원형 ----------
 		inline constexpr const wchar_t* Obj_BackGround = L"Prototype_GameObject_BackGround";
 		inline constexpr const wchar_t* Obj_Player = L"Prototype_GameObject_Player";

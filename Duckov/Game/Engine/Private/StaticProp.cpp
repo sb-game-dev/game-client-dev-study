@@ -13,12 +13,12 @@ HRESULT CStaticProp::Initialize_Prototype()
     // 래스터라이저 설정
     D3D11_RASTERIZER_DESC rsDesc{};
     rsDesc.FillMode = D3D11_FILL_SOLID;         // D3D11_FILL_WIREFRAME , D3D11_FILL_SOLID
-    rsDesc.CullMode = D3D11_CULL_NONE;          // D3D11_CULL_BACK , D3D11_CULL_FRONT,D3D11_CULL_NONE
+    rsDesc.CullMode = D3D11_CULL_BACK;          // D3D11_CULL_BACK , D3D11_CULL_FRONT,D3D11_CULL_NONE
     rsDesc.FrontCounterClockwise = false;       // 시계방향이 전면
     rsDesc.DepthClipEnable = true;
 
     m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
-
+    m_bUseCulling = true;
     return S_OK;
 }
 
@@ -52,8 +52,13 @@ void CStaticProp ::Late_Update(f32_t fDeltaTime)
 {
     __super::Late_Update(fDeltaTime);
 
-    
-    CGameInstance::Get().Add_RenderGroup(RENDERID::NONALPHA, dynamic_pointer_cast<CGameObject>(shared_from_this()));
+    vector_t vCam = CGameInstance::Get().Get_CamPosition();
+    vector_t vPos = m_pTransformCom->Get_State(STATE::POSITION);
+    if (XMVectorGetX(XMVector3LengthSq(vPos - vCam)) > 100.f * 100.f) //80
+        return;
+
+    if (Is_InFrustum())
+        CGameInstance::Get().Add_RenderGroup(RENDERID::NONALPHA, dynamic_pointer_cast<CGameObject>(shared_from_this()));
 }
 
 HRESULT CStaticProp ::Render()

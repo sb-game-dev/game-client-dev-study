@@ -82,7 +82,7 @@ void CEditorUI::Render_MenuBar()
             wstring strPath;
             if (Open_FileDialog(strPath, false))
             {
-                if (FAILED(Load_Scene(L"../../../Resource/SceneData/exData.bin")))
+                if (FAILED(Load_Scene(strPath)))
                     return;
                 m_strCurrentPath = strPath;
             }

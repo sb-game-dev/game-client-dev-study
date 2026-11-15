@@ -69,7 +69,7 @@ HRESULT CTree_Instance::Render_Shadow()
 
 HRESULT CTree_Instance::Ready_Components()
 {
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Normalize_AssetPath(TEXT("Mesh/Tree/Pfb_Tree_01_1.fbx")),
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::Model_Tree_01,
         TEXT("Com_Model"), m_pModelCom)))
         return E_FAIL;
 
