@@ -30,7 +30,9 @@ HRESULT CLevel_GamePlay::Initialize()
     //    return E_FAIL;
     //if(FAILED(Load_Scene(TEXT("../../../Resource/SceneData/Trees_R80.bin"),ETOUI(LEVEL::GAMEPLAY),TEXT("Layer_GameObject"))))
     //    return E_FAIL;
-    if(FAILED(Load_Scene(TEXT("../../../Resource/SceneData/Trees_ALL.bin"),ETOUI(LEVEL::GAMEPLAY),TEXT("Layer_GameObject"))))
+    //if(FAILED(Load_Scene(TEXT("../../../Resource/SceneData/Trees_ALL.bin"),ETOUI(LEVEL::GAMEPLAY),TEXT("Layer_GameObject"))))
+    //    return E_FAIL;
+    if(FAILED(Load_Scene(TEXT("../../../Resource/SceneData/NewScene.bin"),ETOUI(LEVEL::GAMEPLAY),TEXT("Layer_GameObject"))))
         return E_FAIL;
 
     return S_OK;
