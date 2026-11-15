@@ -26,6 +26,8 @@ HRESULT CLevel_GamePlay::Initialize()
         return E_FAIL;
     if (FAILED(Ready_Layer_Camera(TEXT("Layer_Camera"))))
         return E_FAIL;
+    if(FAILED(Load_Scene(TEXT("../../../Resource/SceneData/exData.bin"),ETOUI(LEVEL::GAMEPLAY),TEXT("Layer_GameObject"))))
+        return E_FAIL;
 
     return S_OK;
 }

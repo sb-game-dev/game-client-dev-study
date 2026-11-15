@@ -1,0 +1,154 @@
+{
+ "name": "Agent_Handheld_Spider_Vehicle",
+ "fbx": "Agent_Handheld_Spider_Vehicle.fbx",
+ "category": "Prefabs/Weapons/Melee_Handheld",
+ "socket_hint": null,
+ "nodes": 12,
+ "renderers": [
+  {
+   "node": "GunBarrel_1",
+   "type": "MeshRenderer",
+   "mesh": "GunBarrel",
+   "enabled": true,
+   "active": true
+  }
+ ],
+ "sockets": [
+  "Sockets"
+ ],
+ "animator": null,
+ "clips": [],
+ "lod_groups": null,
+ "light_volumes": null,
+ "materials": [
+  {
+   "name": "SpiderGunTower Black",
+   "shader": "SodaCraft/SodaCharacter",
+   "textures": {
+    "_EmissionMap": {
+     "texture": "SpiderGunTower_Basic_Emission.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_MainTex": {
+     "texture": "SpiderGunTower_Basic_AlbedoTransparency.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_NormalMap": {
+     "texture": "SpiderGunTower_Basic_Normal.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "colors": {
+    "_AlphaMaskTint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_Color": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_EmissionColor": [
+     1.0,
+     0.3254716992378235,
+     0.3254716992378235,
+     1.0
+    ],
+    "_FlashColor": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "_HitEmiColor": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "_MaskTint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_SkinColor": [
+     0.8529412150382996,
+     0.7235293984413147,
+     0.6397058963775635,
+     0.0
+    ],
+    "_Tint": [
+     0.349056601524353,
+     0.349056601524353,
+     0.349056601524353,
+     0.0
+    ]
+   },
+   "floats": {
+    "_AOIntensity": 0.0,
+    "_AO_Blend2Albedo": 0.0,
+    "_AlphaCutoff": 0.5,
+    "_AlphaMask": 0.0,
+    "_AoStrength": 1.0,
+    "_BumpScale": 1.0,
+    "_CanFlash": 0.0,
+    "_Cutoff": 0.5,
+    "_Cutout": 0.0,
+    "_DetailNormalMapScale": 1.0,
+    "_DstBlend": 0.0,
+    "_FresnelPower": 2.0,
+    "_FresnelScale": 1.0,
+    "_GlossMapScale": 1.0,
+    "_Glossiness": 0.5,
+    "_GlossyReflections": 1.0,
+    "_HurtValue": 0.0,
+    "_Metallic": 0.0,
+    "_Mode": 0.0,
+    "_NoiseTile": 0.0,
+    "_NormalScale": 1.0,
+    "_OcclusionStrength": 1.0,
+    "_Parallax": 0.019999999552965164,
+    "_QueueControl": 0.0,
+    "_QueueOffset": 0.0,
+    "_Smoothness": 0.6050000190734863,
+    "_SmoothnessTextureChannel": 0.0,
+    "_SpecularHighlights": 1.0,
+    "_SrcBlend": 1.0,
+    "_TempratureLerp": 0.0,
+    "_UVSec": 0.0,
+    "_ZWrite": 1.0,
+    "__dirty": 0.0
+   },
+   "keywords": null,
+   "fbx_name": "SpiderGunTower Black"
+  }
+ ],
+ "warnings": [],
+ "node_names_in_fbx": null,
+ "unity_components": null
+}

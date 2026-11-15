@@ -2,8 +2,6 @@
 #include "Client_Defines.h"
 #include "MapObject.h"
 
-
-
 NS_BEGIN(Client)
 class CHill : public CMapObject
 {

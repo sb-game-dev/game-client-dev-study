@@ -1,0 +1,401 @@
+{
+ "name": "IG_Gun_MingChao_Carlotta",
+ "fbx": "IG_Gun_MingChao_Carlotta.fbx",
+ "category": "Prefabs/Weapons/Guns",
+ "socket_hint": "RightHandSocket",
+ "nodes": 13,
+ "renderers": [
+  {
+   "node": "WPN_WW_Carlotta",
+   "type": "MeshRenderer",
+   "mesh": "WPN_WW_Carlotta",
+   "enabled": true,
+   "active": true
+  },
+  {
+   "node": "WPN_WW_Carlotta_Ring",
+   "type": "MeshRenderer",
+   "mesh": "WPN_WW_Carlotta_Ring",
+   "enabled": true,
+   "active": true
+  }
+ ],
+ "sockets": [
+  "Sockets"
+ ],
+ "animator": null,
+ "clips": [],
+ "lod_groups": null,
+ "light_volumes": [
+  {
+   "node": "SodaPointLight",
+   "type": "SodaPointLight",
+   "color": {
+    "r": 2.055891752243042,
+    "g": 3.0229437351226807,
+    "b": 5.660377502441406,
+    "a": 0.0
+   },
+   "hardness": 0.6489999890327454,
+   "radius_scale": [
+    0.3780856430530548,
+    0.3780856430530548,
+    0.3780856430530548
+   ]
+  },
+  {
+   "node": "SodaPointLight_1",
+   "type": "SodaPointLight",
+   "color": {
+    "r": 2.9011969566345215,
+    "g": 0.6995856165885925,
+    "b": 0.533710777759552,
+    "a": 0.0
+   },
+   "hardness": 0.014000000432133675,
+   "radius_scale": [
+    0.2916127145290375,
+    0.2916127145290375,
+    0.2916127145290375
+   ]
+  }
+ ],
+ "materials": [
+  {
+   "name": "MAT_WPN_WW_Carlotta",
+   "shader": "SodaCraft/SodaLit_EdgeLight",
+   "textures": {
+    "_EmissionMap": {
+     "texture": "T_WW_Carlotta_E.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_MainTex": {
+     "texture": "T_WW_Carlotta_C.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_MetallicSmoothness": {
+     "texture": "T_WW_Carlotta_MMOR.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_NormalMap": {
+     "texture": "T_WW_Carlotta_N.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "colors": {
+    "_BaseColor": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_Color": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_CoverageColor": [
+     1.0,
+     1.0,
+     1.0,
+     0.0
+    ],
+    "_EdgeLightColor": [
+     0.2849912941455841,
+     1.4726091623306274,
+     2.0833842754364014,
+     0.0
+    ],
+    "_EmissionColor": [
+     0.6694101691246033,
+     2.891818046569824,
+     3.6388449668884277,
+     1.0
+    ],
+    "_MaskTint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_SpecColor": [
+     0.19999995827674866,
+     0.19999995827674866,
+     0.19999995827674866,
+     1.0
+    ],
+    "_Tint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_WindNoiseTileAndSpeed": [
+     1.0,
+     1.0,
+     0.0,
+     0.0
+    ]
+   },
+   "floats": {
+    "_AOIntensity": 1.0,
+    "_AlphaClip": 0.0,
+    "_AlphaCutoff": 0.5,
+    "_AlphaToMask": 0.0,
+    "_AoStrength": 1.0,
+    "_Blend": 0.0,
+    "_BlendModePreserveSpecular": 1.0,
+    "_BumpScale": 1.0,
+    "_ClearCoatMask": 0.0,
+    "_ClearCoatSmoothness": 0.0,
+    "_CoverageFade": 1.0,
+    "_CoverageLevel": 0.0,
+    "_CoverageNormalScale": 1.0,
+    "_Coverageon": 0.0,
+    "_Cull": 2.0,
+    "_Cutoff": 0.5,
+    "_DetailAlbedoMapScale": 1.0,
+    "_DetailNormalMapScale": 1.0,
+    "_DstBlend": 0.0,
+    "_DstBlendAlpha": 0.0,
+    "_EdgeLightPower": 4.849999904632568,
+    "_EdgeLightShadow": 0.0,
+    "_EnvironmentReflections": 1.0,
+    "_GlossMapScale": 0.0,
+    "_Glossiness": 0.0,
+    "_GlossyReflections": 0.0,
+    "_HurtValue": 0.0,
+    "_Mask": 0.0,
+    "_MaskContrast": 0.0,
+    "_Metallic": 0.8999999761581421,
+    "_NoiseToNormalDIrection": 0.0,
+    "_NormalScale": 1.0,
+    "_ORGMetallicIntensity": 0.0,
+    "_ORGNormalIntensity": 0.0,
+    "_ORGSmoothIntensity": 0.0,
+    "_OcclusionStrength": 1.0,
+    "_OverlayMethod": 0.0,
+    "_Parallax": 0.004999999888241291,
+    "_QueueControl": 0.0,
+    "_QueueOffset": 0.0,
+    "_ReceiveShadows": 1.0,
+    "_Smoothness": 0.671999990940094,
+    "_SmoothnessTextureChannel": 0.0,
+    "_SpecularHighlights": 1.0,
+    "_SrcBlend": 1.0,
+    "_SrcBlendAlpha": 1.0,
+    "_Surface": 0.0,
+    "_TempratureLerp": 0.0,
+    "_WindNoiseStrength": 0.0,
+    "_WorkflowMode": 1.0,
+    "_ZWrite": 1.0
+   },
+   "keywords": null,
+   "fbx_name": "MAT_WPN_WW_Carlotta"
+  },
+  {
+   "name": "MAT_WPN_WW_Carlotta 2",
+   "shader": "SodaCraft/SodaLit_EdgeLight",
+   "textures": {
+    "_EmissionMap": {
+     "texture": "T_WW_Carlotta_E.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_MainTex": {
+     "texture": "T_WW_Carlotta_C.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_MetallicSmoothness": {
+     "texture": "T_WW_Carlotta_MMOR.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_Noise": {
+     "texture": "RGBANoise.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_NormalMap": {
+     "texture": "T_WW_Carlotta_N.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "colors": {
+    "_BaseColor": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_Color": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_CoverageColor": [
+     1.0,
+     1.0,
+     1.0,
+     0.0
+    ],
+    "_EdgeLightColor": [
+     0.8332911133766174,
+     2.501784086227417,
+     13.589049339294434,
+     0.0
+    ],
+    "_EmissionColor": [
+     0.6694101691246033,
+     2.891818046569824,
+     3.6388449668884277,
+     1.0
+    ],
+    "_MaskTint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_SpecColor": [
+     0.19999995827674866,
+     0.19999995827674866,
+     0.19999995827674866,
+     1.0
+    ],
+    "_Tint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_WindNoiseTileAndSpeed": [
+     1.0,
+     1.0,
+     0.5,
+     0.5
+    ]
+   },
+   "floats": {
+    "_AOIntensity": 1.0,
+    "_AlphaClip": 0.0,
+    "_AlphaCutoff": 0.5,
+    "_AlphaToMask": 0.0,
+    "_AoStrength": 1.0,
+    "_Blend": 0.0,
+    "_BlendModePreserveSpecular": 1.0,
+    "_BumpScale": 1.0,
+    "_ClearCoatMask": 0.0,
+    "_ClearCoatSmoothness": 0.0,
+    "_CoverageFade": 1.0,
+    "_CoverageLevel": 0.0,
+    "_CoverageNormalScale": 1.0,
+    "_Coverageon": 0.0,
+    "_Cull": 2.0,
+    "_Cutoff": 0.5,
+    "_DetailAlbedoMapScale": 1.0,
+    "_DetailNormalMapScale": 1.0,
+    "_DstBlend": 0.0,
+    "_DstBlendAlpha": 0.0,
+    "_EdgeLightPower": 4.650000095367432,
+    "_EdgeLightShadow": 0.0,
+    "_EnvironmentReflections": 1.0,
+    "_GlossMapScale": 0.0,
+    "_Glossiness": 0.0,
+    "_GlossyReflections": 0.0,
+    "_HurtValue": 0.0,
+    "_Mask": 0.0,
+    "_MaskContrast": 0.0,
+    "_Metallic": 0.8999999761581421,
+    "_NoiseToNormalDIrection": 0.0,
+    "_NormalScale": 1.0,
+    "_ORGMetallicIntensity": 0.0,
+    "_ORGNormalIntensity": 0.0,
+    "_ORGSmoothIntensity": 0.0,
+    "_OcclusionStrength": 1.0,
+    "_OverlayMethod": 0.0,
+    "_Parallax": 0.004999999888241291,
+    "_QueueControl": 0.0,
+    "_QueueOffset": 0.0,
+    "_ReceiveShadows": 1.0,
+    "_Smoothness": 0.671999990940094,
+    "_SmoothnessTextureChannel": 0.0,
+    "_SpecularHighlights": 1.0,
+    "_SrcBlend": 1.0,
+    "_SrcBlendAlpha": 1.0,
+    "_Surface": 0.0,
+    "_TempratureLerp": 0.0,
+    "_WindNoiseStrength": 0.004999999888241291,
+    "_WorkflowMode": 1.0,
+    "_ZWrite": 1.0
+   },
+   "keywords": null,
+   "fbx_name": "MAT_WPN_WW_Carlotta 2"
+  }
+ ],
+ "warnings": [],
+ "node_names_in_fbx": null,
+ "unity_components": null
+}

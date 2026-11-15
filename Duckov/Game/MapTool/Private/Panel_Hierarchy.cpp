@@ -80,7 +80,7 @@ void CPanel_Hierarchy::Create_Terrain()
     const wstring_t strTag = L"Terrain";
 
     // 지형은 하나만
-    if (nullptr != CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag))
+    if (nullptr != CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Terrain"), strTag))
     {
         MSG_BOX("Terrain already exists");
         return;

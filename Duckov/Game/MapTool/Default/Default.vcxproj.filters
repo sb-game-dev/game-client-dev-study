@@ -226,12 +226,6 @@
     <ClCompile Include="..\private\MapTool_Cam.cpp">
       <Filter>03. Camera</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Client\Private\StaticProp.cpp">
-      <Filter>97. Client_Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Client\Private\MapObject.cpp">
-      <Filter>97. Client_Shared</Filter>
-    </ClCompile>
     <ClCompile Include="..\Private\Panel_Hierarchy.cpp">
       <Filter>02. EditorUI\01. Panel\00. Hierachy</Filter>
     </ClCompile>

@@ -1,0 +1,143 @@
+{
+ "name": "BulletNM",
+ "fbx": "BulletNM.fbx",
+ "category": "Prefabs/Weapons/Projectiles",
+ "socket_hint": null,
+ "nodes": 3,
+ "renderers": [
+  {
+   "node": "Bullet_BrainController",
+   "type": "MeshRenderer",
+   "mesh": "Bullet_BrainController",
+   "enabled": true,
+   "active": true
+  }
+ ],
+ "sockets": [],
+ "animator": null,
+ "clips": [],
+ "lod_groups": null,
+ "light_volumes": null,
+ "materials": [
+  {
+   "name": "Bullet_BrainController",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {
+    "_EmissionMap": {
+     "texture": "T_WPN_BrainController_E.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_MainTex": {
+     "texture": "T_WPN_BrainController_C.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_MetallicSmoothness": {
+     "texture": "T_WPN_BrainController_MMOR.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_NormalMap": {
+     "texture": "T_WPN_BrainController_N.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "colors": {
+    "_Color": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_CoverageColor": [
+     1.0,
+     1.0,
+     1.0,
+     0.0
+    ],
+    "_EmissionColor": [
+     2.0,
+     0.2735849618911743,
+     0.2735849618911743,
+     1.0
+    ],
+    "_MaskTint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_Tint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ]
+   },
+   "floats": {
+    "_AlphaCutoff": 0.5,
+    "_BumpScale": 1.0,
+    "_CoverageFade": 1.0,
+    "_CoverageLevel": 0.0,
+    "_CoverageNormalScale": 1.0,
+    "_Coverageon": 0.0,
+    "_Cutoff": 0.5,
+    "_DetailNormalMapScale": 1.0,
+    "_DstBlend": 0.0,
+    "_GlossMapScale": 1.0,
+    "_Glossiness": 0.5,
+    "_GlossyReflections": 1.0,
+    "_MaskContrast": 0.0,
+    "_Metallic": 0.800000011920929,
+    "_Mode": 0.0,
+    "_NormalScale": 1.0,
+    "_ORGMetallicIntensity": 0.0,
+    "_ORGNormalIntensity": 0.0,
+    "_ORGSmoothIntensity": 0.0,
+    "_OcclusionStrength": 1.0,
+    "_OverlayMethod": 0.0,
+    "_Parallax": 0.019999999552965164,
+    "_QueueControl": 0.0,
+    "_QueueOffset": 0.0,
+    "_Smoothness": 0.800000011920929,
+    "_SmoothnessTextureChannel": 0.0,
+    "_SpecularHighlights": 1.0,
+    "_SrcBlend": 1.0,
+    "_TempratureLerp": 0.0,
+    "_UVSec": 0.0,
+    "_ZWrite": 1.0
+   },
+   "keywords": null,
+   "fbx_name": "Bullet_BrainController"
+  }
+ ],
+ "warnings": [],
+ "node_names_in_fbx": null,
+ "unity_components": null
+}

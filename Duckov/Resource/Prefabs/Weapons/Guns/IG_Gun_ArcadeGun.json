@@ -1,0 +1,171 @@
+{
+ "name": "IG_Gun_ArcadeGun",
+ "fbx": "IG_Gun_ArcadeGun.fbx",
+ "category": "Prefabs/Weapons/Guns",
+ "socket_hint": "RightHandSocket",
+ "nodes": 9,
+ "renderers": [
+  {
+   "node": "1",
+   "type": "MeshRenderer",
+   "mesh": "_pCube17",
+   "enabled": true,
+   "active": true
+  }
+ ],
+ "sockets": [
+  "Sockets"
+ ],
+ "animator": null,
+ "clips": [],
+ "lod_groups": null,
+ "light_volumes": null,
+ "materials": [
+  {
+   "name": "DoctorGun",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {
+    "_EmissionMap": {
+     "texture": "Pistol_Emission.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_MainTex": {
+     "texture": "Pistol_AlbedoTransparency.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_MetallicSmoothness": {
+     "texture": "Pistol_MetallicSmoothness.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_NormalMap": {
+     "texture": "Pistol_Normal.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "colors": {
+    "_Color": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_CoverageColor": [
+     1.0,
+     1.0,
+     1.0,
+     0.0
+    ],
+    "_EmissionColor": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_FlashColor": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "_HitEmiColor": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "_MaskTint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_SkinColor": [
+     0.8529412150382996,
+     0.7235293984413147,
+     0.6397058963775635,
+     0.0
+    ],
+    "_Tint": [
+     1.0,
+     0.7975099086761475,
+     0.2783018946647644,
+     0.0
+    ]
+   },
+   "floats": {
+    "_AOIntensity": 0.0,
+    "_AlphaCutoff": 0.5,
+    "_BumpScale": 1.0,
+    "_CanFlash": 0.0,
+    "_ColorBooster": 0.10000000149011612,
+    "_CoverageFade": 1.0,
+    "_CoverageLevel": 0.0,
+    "_CoverageNormalScale": 1.0,
+    "_Coverageon": 0.0,
+    "_Cutoff": 0.5,
+    "_DetailNormalMapScale": 1.0,
+    "_DstBlend": 0.0,
+    "_EdgeColorMultiplier": 1.0,
+    "_FresnelPower": 2.7799999713897705,
+    "_FresnelScale": 2.7100000381469727,
+    "_GlossMapScale": 1.0,
+    "_Glossiness": 0.5,
+    "_GlossyReflections": 1.0,
+    "_MaskContrast": 0.0,
+    "_Metallic": 1.0,
+    "_Mode": 0.0,
+    "_NoiseTile": 0.0,
+    "_NormalScale": 1.0,
+    "_ORGMetallicIntensity": 0.0,
+    "_ORGNormalIntensity": 0.0,
+    "_ORGSmoothIntensity": 0.0,
+    "_OcclusionStrength": 1.0,
+    "_OverlayMethod": 0.0,
+    "_Parallax": 0.019999999552965164,
+    "_QueueControl": 0.0,
+    "_QueueOffset": 0.0,
+    "_Smoothness": 1.0,
+    "_SmoothnessTextureChannel": 0.0,
+    "_SpecularHighlights": 1.0,
+    "_SrcBlend": 1.0,
+    "_TempratureLerp": 0.0,
+    "_UVSec": 0.0,
+    "_ZWrite": 1.0,
+    "__dirty": 0.0
+   },
+   "keywords": null,
+   "fbx_name": "DoctorGun"
+  }
+ ],
+ "warnings": [],
+ "node_names_in_fbx": null,
+ "unity_components": null
+}

@@ -1,0 +1,121 @@
+{
+ "name": "Agent_Handheld_Blue",
+ "fbx": "Agent_Handheld_Blue.fbx",
+ "category": "Prefabs/Weapons/Melee_Handheld",
+ "socket_hint": null,
+ "nodes": 12,
+ "renderers": [
+  {
+   "node": "WPN_DryHand",
+   "type": "MeshRenderer",
+   "mesh": "WPN_DryHand",
+   "enabled": true,
+   "active": true
+  }
+ ],
+ "sockets": [
+  "Sockets"
+ ],
+ "animator": null,
+ "clips": [],
+ "lod_groups": null,
+ "light_volumes": [
+  {
+   "node": "SodaPointLight",
+   "type": "SodaPointLight",
+   "color": {
+    "r": 1.1549932956695557,
+    "g": 3.645155191421509,
+    "b": 5.962263584136963,
+    "a": 0.0
+   },
+   "hardness": 0.5,
+   "radius_scale": [
+    2.227811098098755,
+    2.227811098098755,
+    2.227811098098755
+   ]
+  }
+ ],
+ "materials": [
+  {
+   "name": "BlueHand",
+   "shader": "SodaCraft/SodaLit_EdgeLight",
+   "textures": {},
+   "colors": {
+    "_Color": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_EdgeLightColor": [
+     0.5532997250556946,
+     1.9493649005889893,
+     4.594793319702148,
+     0.0
+    ],
+    "_EmissionColor": [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ],
+    "_MaskTint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_Tint": [
+     0.0941176488995552,
+     0.1736551970243454,
+     0.2549019753932953,
+     1.0
+    ],
+    "_WindNoiseTileAndSpeed": [
+     1.0,
+     1.0,
+     0.0,
+     0.0
+    ]
+   },
+   "floats": {
+    "_AlphaCutoff": 0.5,
+    "_AoStrength": 1.0,
+    "_BumpScale": 1.0,
+    "_Cutoff": 0.5,
+    "_DetailNormalMapScale": 1.0,
+    "_DstBlend": 0.0,
+    "_EdgeLightPower": 1.2699999809265137,
+    "_EdgeLightShadow": 0.0,
+    "_GlossMapScale": 1.0,
+    "_Glossiness": 0.5,
+    "_GlossyReflections": 1.0,
+    "_HurtValue": 0.0,
+    "_Mask": 0.0,
+    "_Metallic": 0.0,
+    "_Mode": 0.0,
+    "_NoiseToNormalDIrection": 0.0,
+    "_NormalScale": 1.0,
+    "_OcclusionStrength": 1.0,
+    "_Parallax": 0.019999999552965164,
+    "_QueueControl": 0.0,
+    "_QueueOffset": 0.0,
+    "_Smoothness": 0.0,
+    "_SmoothnessTextureChannel": 0.0,
+    "_SpecularHighlights": 1.0,
+    "_SrcBlend": 1.0,
+    "_TempratureLerp": 0.0,
+    "_UVSec": 0.0,
+    "_WindNoiseStrength": 0.0,
+    "_ZWrite": 1.0
+   },
+   "keywords": null,
+   "fbx_name": "BlueHand"
+  }
+ ],
+ "warnings": [],
+ "node_names_in_fbx": null,
+ "unity_components": null
+}

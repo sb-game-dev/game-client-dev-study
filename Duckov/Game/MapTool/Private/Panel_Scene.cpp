@@ -196,10 +196,10 @@ void CPanel_Scene::Render(const PANEL_RECT& tRect)
         if (nullptr != pPicked)
             m_Context.Select(strPickedTag, pPicked);
     }
-    
+    // 지형 피킹
     if (m_Context.bSceneHovered && ImGui::IsMouseReleased(ImGuiMouseButton_Right))
     {
-        auto pTerrain = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), L"Layer_Map", L"Terrain");
+        auto pTerrain = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), L"Layer_Terrain", L"Terrain");
         if (nullptr == pTerrain)
         {
             ImGui::End();

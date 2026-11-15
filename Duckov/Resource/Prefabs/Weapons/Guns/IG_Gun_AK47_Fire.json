@@ -1,0 +1,1119 @@
+{
+ "name": "IG_Gun_AK47_Fire",
+ "fbx": "IG_Gun_AK47_Fire.fbx",
+ "category": "Prefabs/Weapons/Guns",
+ "socket_hint": "RightHandSocket",
+ "nodes": 28,
+ "renderers": [
+  {
+   "node": "Rifle03",
+   "type": "MeshRenderer",
+   "mesh": "Rifle03",
+   "enabled": true,
+   "active": false
+  },
+  {
+   "node": "WPN_AK47",
+   "type": "MeshRenderer",
+   "mesh": "WPN_AK47",
+   "enabled": true,
+   "active": true
+  },
+  {
+   "node": "ShowIf_Tec",
+   "type": "MeshRenderer",
+   "mesh": "ShowIf_Tec",
+   "enabled": true,
+   "active": false
+  },
+  {
+   "node": "ShowIf_Scope",
+   "type": "MeshRenderer",
+   "mesh": "ShowIf_Scope",
+   "enabled": true,
+   "active": false
+  },
+  {
+   "node": "ShowIf_Grip",
+   "type": "MeshRenderer",
+   "mesh": "ShowIf_Grip",
+   "enabled": true,
+   "active": false
+  },
+  {
+   "node": "HideIf_Stock",
+   "type": "MeshRenderer",
+   "mesh": "HideIf_Stock",
+   "enabled": true,
+   "active": true
+  },
+  {
+   "node": "HideIf_Grip",
+   "type": "MeshRenderer",
+   "mesh": "HideIf_Grip",
+   "enabled": true,
+   "active": true
+  },
+  {
+   "node": "Pfb_Stone_01_6_Terrain",
+   "type": "MeshRenderer",
+   "mesh": "SM_Stone_01_06",
+   "enabled": true,
+   "active": true
+  },
+  {
+   "node": "Pfb_Stone_01_6_Terrain_1",
+   "type": "MeshRenderer",
+   "mesh": "SM_Stone_01_06",
+   "enabled": true,
+   "active": true
+  },
+  {
+   "node": "Pfb_Stone_01_6_Terrain_2",
+   "type": "MeshRenderer",
+   "mesh": "SM_Stone_01_06",
+   "enabled": true,
+   "active": true
+  },
+  {
+   "node": "Pfb_Stone_01_6_Terrain_3",
+   "type": "MeshRenderer",
+   "mesh": "SM_Stone_01_06",
+   "enabled": true,
+   "active": true
+  },
+  {
+   "node": "Pfb_Stone_01_6_Terrain_4",
+   "type": "MeshRenderer",
+   "mesh": "SM_Stone_01_06",
+   "enabled": true,
+   "active": true
+  }
+ ],
+ "sockets": [
+  "Sockets"
+ ],
+ "animator": null,
+ "clips": [],
+ "lod_groups": null,
+ "light_volumes": [
+  {
+   "node": "SodaPointLight",
+   "type": "SodaPointLight",
+   "color": {
+    "r": 13.766359329223633,
+    "g": 5.858025074005127,
+    "b": 3.441589832305908,
+    "a": 0.0
+   },
+   "hardness": 0.4000000059604645,
+   "radius_scale": [
+    0.26645565032958984,
+    0.21170355379581451,
+    0.3731091618537903
+   ]
+  },
+  {
+   "node": "SodaPointLight_1",
+   "type": "SodaPointLight",
+   "color": {
+    "r": 2.989001989364624,
+    "g": 1.0008364915847778,
+    "b": 0.380674809217453,
+    "a": 0.0
+   },
+   "hardness": 0.7720000147819519,
+   "radius_scale": [
+    3.006456136703491,
+    2.3886802196502686,
+    3.384389877319336
+   ]
+  }
+ ],
+ "materials": [
+  {
+   "name": "ColorA",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {
+    "_MainTex": {
+     "texture": "Color.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "colors": {
+    "_AlphaMaskTint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_BaseColor": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_BottomColor": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "_Color": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_CoverageColor": [
+     1.0,
+     1.0,
+     1.0,
+     0.0
+    ],
+    "_EmissionColor": [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ],
+    "_MaskTint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_RimColor": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "_SpecColor": [
+     0.19999995827674866,
+     0.19999995827674866,
+     0.19999995827674866,
+     1.0
+    ],
+    "_Tint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ]
+   },
+   "floats": {
+    "_AOIntensity": 0.0,
+    "_AO_Blend2Albedo": 0.0,
+    "_AlphaClip": 0.0,
+    "_AlphaCutoff": 0.5,
+    "_AlphaMask": 0.0,
+    "_AlphaToMask": 0.0,
+    "_AoStrength": 1.0,
+    "_Blend": 0.0,
+    "_BlendModePreserveSpecular": 1.0,
+    "_BumpScale": 1.0,
+    "_ClearCoatMask": 0.0,
+    "_ClearCoatSmoothness": 0.0,
+    "_CoverageFade": 1.0,
+    "_CoverageLevel": 0.0,
+    "_CoverageNormalScale": 1.0,
+    "_Coverageon": 0.0,
+    "_Cull": 2.0,
+    "_Cutoff": 0.5,
+    "_DetailAlbedoMapScale": 1.0,
+    "_DetailNormalMapScale": 1.0,
+    "_DstBlend": 0.0,
+    "_DstBlendAlpha": 0.0,
+    "_Emi": 0.12999999523162842,
+    "_EnvironmentReflections": 1.0,
+    "_FresnelPower": 1.0,
+    "_GlossMapScale": 1.0,
+    "_Glossiness": 0.5,
+    "_GlossyReflections": 1.0,
+    "_HeightFadeDistance": 0.0,
+    "_HurtValue": 0.0,
+    "_MaskContrast": 0.0,
+    "_Metaiic": 0.0,
+    "_Metallic": 0.0,
+    "_Mode": 0.0,
+    "_NormalScale": 1.0,
+    "_ORGMetallicIntensity": 0.0,
+    "_ORGNormalIntensity": 0.0,
+    "_ORGSmoothIntensity": 0.0,
+    "_OcclusionStrength": 1.0,
+    "_OverlayMethod": 0.0,
+    "_Parallax": 0.019999999552965164,
+    "_Power": 3.0,
+    "_QueueControl": 0.0,
+    "_QueueOffset": 0.0,
+    "_ReceiveShadows": 1.0,
+    "_Smoothness": 0.2199999988079071,
+    "_SmoothnessTextureChannel": 0.0,
+    "_SpecularHighlights": 1.0,
+    "_SrcBlend": 1.0,
+    "_SrcBlendAlpha": 1.0,
+    "_Surface": 0.0,
+    "_TempratureLerp": 0.0,
+    "_UVSec": 0.0,
+    "_WorkflowMode": 1.0,
+    "_ZWrite": 1.0
+   },
+   "keywords": null,
+   "fbx_name": "ColorA"
+  },
+  {
+   "name": "ColorB",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {
+    "_MainTex": {
+     "texture": "Color.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "colors": {
+    "_AlphaMaskTint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_BaseColor": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_BottomColor": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "_Color": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_CoverageColor": [
+     1.0,
+     1.0,
+     1.0,
+     0.0
+    ],
+    "_EmissionColor": [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ],
+    "_MaskTint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_RimColor": [
+     0.23073157668113708,
+     0.46438875794410706,
+     0.5754716992378235,
+     0.0
+    ],
+    "_SpecColor": [
+     0.19999995827674866,
+     0.19999995827674866,
+     0.19999995827674866,
+     1.0
+    ],
+    "_Tint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ]
+   },
+   "floats": {
+    "_AOIntensity": 0.0,
+    "_AO_Blend2Albedo": 0.0,
+    "_AlphaClip": 0.0,
+    "_AlphaCutoff": 0.5,
+    "_AlphaMask": 0.0,
+    "_AlphaToMask": 0.0,
+    "_AoStrength": 1.0,
+    "_Blend": 0.0,
+    "_BlendModePreserveSpecular": 1.0,
+    "_BumpScale": 1.0,
+    "_ClearCoatMask": 0.0,
+    "_ClearCoatSmoothness": 0.0,
+    "_CoverageFade": 1.0,
+    "_CoverageLevel": 0.0,
+    "_CoverageNormalScale": 1.0,
+    "_Coverageon": 0.0,
+    "_Cull": 2.0,
+    "_Cutoff": 0.5,
+    "_DetailAlbedoMapScale": 1.0,
+    "_DetailNormalMapScale": 1.0,
+    "_DstBlend": 0.0,
+    "_DstBlendAlpha": 0.0,
+    "_Emi": 0.10000000149011612,
+    "_EnvironmentReflections": 1.0,
+    "_FresnelPower": 1.0,
+    "_GlossMapScale": 1.0,
+    "_Glossiness": 0.5600000023841858,
+    "_GlossyReflections": 1.0,
+    "_HeightFadeDistance": 0.0,
+    "_HurtValue": 0.0,
+    "_MaskContrast": 0.0,
+    "_Metaiic": 0.0,
+    "_Metallic": 0.289000004529953,
+    "_Mode": 0.0,
+    "_NormalScale": 1.0,
+    "_ORGMetallicIntensity": 0.0,
+    "_ORGNormalIntensity": 0.0,
+    "_ORGSmoothIntensity": 0.0,
+    "_OcclusionStrength": 1.0,
+    "_OverlayMethod": 0.0,
+    "_Parallax": 0.019999999552965164,
+    "_Power": 3.0,
+    "_QueueControl": 0.0,
+    "_QueueOffset": 0.0,
+    "_ReceiveShadows": 1.0,
+    "_Smoothness": 0.45100000500679016,
+    "_SmoothnessTextureChannel": 0.0,
+    "_SpecularHighlights": 1.0,
+    "_SrcBlend": 1.0,
+    "_SrcBlendAlpha": 1.0,
+    "_Surface": 0.0,
+    "_TempratureLerp": 0.0,
+    "_UVSec": 0.0,
+    "_WorkflowMode": 1.0,
+    "_ZWrite": 1.0
+   },
+   "keywords": null,
+   "fbx_name": "ColorB"
+  },
+  {
+   "name": "MAT_WPN_AK47_Fire",
+   "shader": "SodaCraft/SodaLit_EdgeLight",
+   "textures": {
+    "_EmissionMap": {
+     "texture": "T_Tile_Desert_01_M.png",
+     "scale": [
+      8.0,
+      8.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_MainTex": {
+     "texture": "T_WPN_AK47_C_Fire.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_MetallicSmoothness": {
+     "texture": "T_WPN_AK47_MMOR.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_Noise": {
+     "texture": "RGBANoise.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_NormalMap": {
+     "texture": "T_WPN_AK47_N.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "colors": {
+    "_BaseColor": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_Color": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_EdgeLightColor": [
+     12.405088424682617,
+     0.5266308784484863,
+     0.7666863203048706,
+     0.0
+    ],
+    "_EmissionColor": [
+     2.0,
+     1.029587745666504,
+     0.5377358198165894,
+     1.0
+    ],
+    "_MaskTint": [
+     0.5754716992378235,
+     0.5754716992378235,
+     0.5754716992378235,
+     1.0
+    ],
+    "_SpecColor": [
+     0.19999995827674866,
+     0.19999995827674866,
+     0.19999995827674866,
+     1.0
+    ],
+    "_Tint": [
+     0.7169811725616455,
+     0.7169811725616455,
+     0.7169811725616455,
+     1.0
+    ],
+    "_WindNoiseTileAndSpeed": [
+     2.0,
+     2.0,
+     0.20000000298023224,
+     0.20000000298023224
+    ]
+   },
+   "floats": {
+    "_AOIntensity": 0.0,
+    "_AlphaClip": 0.0,
+    "_AlphaCutoff": 0.5,
+    "_AlphaToMask": 0.0,
+    "_AoStrength": 1.0,
+    "_Blend": 0.0,
+    "_BlendModePreserveSpecular": 1.0,
+    "_BumpScale": 1.0,
+    "_ClearCoatMask": 0.0,
+    "_ClearCoatSmoothness": 0.0,
+    "_Cull": 2.0,
+    "_Cutoff": 0.5,
+    "_DetailAlbedoMapScale": 1.0,
+    "_DetailNormalMapScale": 1.0,
+    "_DstBlend": 0.0,
+    "_DstBlendAlpha": 0.0,
+    "_EdgeLightPower": 6.570000171661377,
+    "_EdgeLightShadow": 0.7110000252723694,
+    "_EnvironmentReflections": 1.0,
+    "_GlossMapScale": 0.0,
+    "_Glossiness": 0.0,
+    "_GlossyReflections": 0.0,
+    "_HurtValue": 0.0,
+    "_Mask": 0.0,
+    "_Metallic": 0.5070000290870667,
+    "_NoiseToNormalDIrection": 0.0,
+    "_NormalScale": 1.0,
+    "_OcclusionStrength": 1.0,
+    "_Parallax": 0.004999999888241291,
+    "_QueueControl": 0.0,
+    "_QueueOffset": 0.0,
+    "_ReceiveShadows": 1.0,
+    "_Smoothness": 1.0,
+    "_SmoothnessTextureChannel": 0.0,
+    "_SpecularHighlights": 1.0,
+    "_SrcBlend": 1.0,
+    "_SrcBlendAlpha": 1.0,
+    "_Surface": 0.0,
+    "_TempratureLerp": 0.7319999933242798,
+    "_WindNoiseStrength": 0.009999999776482582,
+    "_WorkflowMode": 1.0,
+    "_ZWrite": 1.0
+   },
+   "keywords": null,
+   "fbx_name": "MAT_WPN_AK47_Fire"
+  },
+  {
+   "name": "MAT_WPN_DTMDR762",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {
+    "_EmissionMap": {
+     "texture": "T_WPN_CubeGun_E.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_MainTex": {
+     "texture": "T_WPN_DTMDR762_C.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_MetallicSmoothness": {
+     "texture": "T_WPN_DTMDR762_MMOR.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_NormalMap": {
+     "texture": "T_WPN_DTMDR762_N.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "colors": {
+    "_BaseColor": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_Color": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_CoverageColor": [
+     1.0,
+     1.0,
+     1.0,
+     0.0
+    ],
+    "_EmissionColor": [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ],
+    "_MaskTint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_SpecColor": [
+     0.19999995827674866,
+     0.19999995827674866,
+     0.19999995827674866,
+     1.0
+    ],
+    "_Tint": [
+     0.9575471878051758,
+     0.9955949783325195,
+     1.0,
+     1.0
+    ]
+   },
+   "floats": {
+    "_AOIntensity": 0.0,
+    "_AlphaClip": 0.0,
+    "_AlphaCutoff": 0.5,
+    "_AlphaToMask": 0.0,
+    "_Blend": 0.0,
+    "_BlendModePreserveSpecular": 1.0,
+    "_BumpScale": 1.0,
+    "_ClearCoatMask": 0.0,
+    "_ClearCoatSmoothness": 0.0,
+    "_CoverageFade": 1.0,
+    "_CoverageLevel": 0.0,
+    "_CoverageNormalScale": 1.0,
+    "_Coverageon": 0.0,
+    "_Cull": 2.0,
+    "_Cutoff": 0.5,
+    "_DetailAlbedoMapScale": 1.0,
+    "_DetailNormalMapScale": 1.0,
+    "_DstBlend": 0.0,
+    "_DstBlendAlpha": 0.0,
+    "_EnvironmentReflections": 1.0,
+    "_GlossMapScale": 0.0,
+    "_Glossiness": 0.0,
+    "_GlossyReflections": 0.0,
+    "_MaskContrast": 0.0,
+    "_Metallic": 1.0,
+    "_NormalScale": 1.0,
+    "_ORGMetallicIntensity": 0.0,
+    "_ORGNormalIntensity": 0.0,
+    "_ORGSmoothIntensity": 0.0,
+    "_OcclusionStrength": 1.0,
+    "_OverlayMethod": 0.0,
+    "_Parallax": 0.004999999888241291,
+    "_QueueControl": 0.0,
+    "_QueueOffset": 0.0,
+    "_ReceiveShadows": 1.0,
+    "_Smoothness": 1.0,
+    "_SmoothnessTextureChannel": 0.0,
+    "_SpecularHighlights": 1.0,
+    "_SrcBlend": 1.0,
+    "_SrcBlendAlpha": 1.0,
+    "_Surface": 0.0,
+    "_TempratureLerp": 0.0,
+    "_WorkflowMode": 1.0,
+    "_ZWrite": 1.0
+   },
+   "keywords": null,
+   "fbx_name": "MAT_WPN_DTMDR762"
+  },
+  {
+   "name": "MAT_Acc_Groove",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {
+    "_MainTex": {
+     "texture": "T_Groove_C.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_MetallicSmoothness": {
+     "texture": "T_Groove_MMOR.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_NormalMap": {
+     "texture": "T_Groove_N.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "colors": {
+    "_BaseColor": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_Color": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_CoverageColor": [
+     1.0,
+     1.0,
+     1.0,
+     0.0
+    ],
+    "_EmissionColor": [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ],
+    "_MaskTint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_SpecColor": [
+     0.19999995827674866,
+     0.19999995827674866,
+     0.19999995827674866,
+     1.0
+    ],
+    "_Tint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ]
+   },
+   "floats": {
+    "_AOIntensity": 0.0,
+    "_AlphaClip": 0.0,
+    "_AlphaCutoff": 0.5,
+    "_AlphaToMask": 0.0,
+    "_Blend": 0.0,
+    "_BlendModePreserveSpecular": 1.0,
+    "_BumpScale": 1.0,
+    "_ClearCoatMask": 0.0,
+    "_ClearCoatSmoothness": 0.0,
+    "_CoverageFade": 1.0,
+    "_CoverageLevel": 0.0,
+    "_CoverageNormalScale": 1.0,
+    "_Coverageon": 0.0,
+    "_Cull": 2.0,
+    "_Cutoff": 0.5,
+    "_DetailAlbedoMapScale": 1.0,
+    "_DetailNormalMapScale": 1.0,
+    "_DstBlend": 0.0,
+    "_DstBlendAlpha": 0.0,
+    "_EnvironmentReflections": 1.0,
+    "_GlossMapScale": 0.0,
+    "_Glossiness": 0.0,
+    "_GlossyReflections": 0.0,
+    "_MaskContrast": 0.0,
+    "_Metallic": 1.0,
+    "_NormalScale": 1.0,
+    "_ORGMetallicIntensity": 0.0,
+    "_ORGNormalIntensity": 0.0,
+    "_ORGSmoothIntensity": 0.0,
+    "_OcclusionStrength": 1.0,
+    "_OverlayMethod": 0.0,
+    "_Parallax": 0.004999999888241291,
+    "_QueueControl": 0.0,
+    "_QueueOffset": 0.0,
+    "_ReceiveShadows": 1.0,
+    "_Smoothness": 1.0,
+    "_SmoothnessTextureChannel": 0.0,
+    "_SpecularHighlights": 1.0,
+    "_SrcBlend": 1.0,
+    "_SrcBlendAlpha": 1.0,
+    "_Surface": 0.0,
+    "_TempratureLerp": 0.0,
+    "_WorkflowMode": 1.0,
+    "_ZWrite": 1.0
+   },
+   "keywords": null,
+   "fbx_name": "MAT_Acc_Groove"
+  },
+  {
+   "name": "MAT_WPN_MK47",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {
+    "_MainTex": {
+     "texture": "T_MK47_C.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_MetallicSmoothness": {
+     "texture": "T_MK47_MMOR.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_NormalMap": {
+     "texture": "T_MK47_N.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "colors": {
+    "_BaseColor": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_Color": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_CoverageColor": [
+     1.0,
+     1.0,
+     1.0,
+     0.0
+    ],
+    "_EmissionColor": [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ],
+    "_MaskTint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_SpecColor": [
+     0.19999995827674866,
+     0.19999995827674866,
+     0.19999995827674866,
+     1.0
+    ],
+    "_Tint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ]
+   },
+   "floats": {
+    "_AOIntensity": 1.0,
+    "_AlphaClip": 0.0,
+    "_AlphaCutoff": 0.5,
+    "_AlphaToMask": 0.0,
+    "_Blend": 0.0,
+    "_BlendModePreserveSpecular": 1.0,
+    "_BumpScale": 1.0,
+    "_ClearCoatMask": 0.0,
+    "_ClearCoatSmoothness": 0.0,
+    "_CoverageFade": 1.0,
+    "_CoverageLevel": 0.0,
+    "_CoverageNormalScale": 1.0,
+    "_Coverageon": 0.0,
+    "_Cull": 2.0,
+    "_Cutoff": 0.5,
+    "_DetailAlbedoMapScale": 1.0,
+    "_DetailNormalMapScale": 1.0,
+    "_DstBlend": 0.0,
+    "_DstBlendAlpha": 0.0,
+    "_EnvironmentReflections": 1.0,
+    "_GlossMapScale": 0.0,
+    "_Glossiness": 0.0,
+    "_GlossyReflections": 0.0,
+    "_MaskContrast": 0.0,
+    "_Metallic": 1.0,
+    "_NormalScale": 1.0,
+    "_ORGMetallicIntensity": 0.0,
+    "_ORGNormalIntensity": 0.0,
+    "_ORGSmoothIntensity": 0.0,
+    "_OcclusionStrength": 1.0,
+    "_OverlayMethod": 0.0,
+    "_Parallax": 0.004999999888241291,
+    "_QueueControl": 0.0,
+    "_QueueOffset": 0.0,
+    "_ReceiveShadows": 1.0,
+    "_Smoothness": 1.0,
+    "_SmoothnessTextureChannel": 0.0,
+    "_SpecularHighlights": 1.0,
+    "_SrcBlend": 1.0,
+    "_SrcBlendAlpha": 1.0,
+    "_Surface": 0.0,
+    "_TempratureLerp": 0.0,
+    "_WorkflowMode": 1.0,
+    "_ZWrite": 1.0
+   },
+   "keywords": null,
+   "fbx_name": "MAT_WPN_MK47"
+  },
+  {
+   "name": "Mat_Stone_01_FireStone",
+   "shader": "SodaCraft/SodaLit_EdgeLight",
+   "textures": {
+    "_MainTex": {
+     "texture": "T_Stone_01_C.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_Noise": {
+     "texture": "RGBANoise.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_NormalMap": {
+     "texture": "T_Stone_01_N.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "colors": {
+    "_BaseColor": [
+     0.8113207817077637,
+     0.8113207817077637,
+     0.8113207817077637,
+     1.0
+    ],
+    "_BottomColor": [
+     0.19811320304870605,
+     0.09064614027738571,
+     0.09064614027738571,
+     0.0
+    ],
+    "_Color": [
+     0.8113207221031189,
+     0.8113207221031189,
+     0.8113207221031189,
+     1.0
+    ],
+    "_EdgeLightColor": [
+     14.185803413391113,
+     4.124056816101074,
+     2.0743391513824463,
+     1.0
+    ],
+    "_EmissionColor": [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ],
+    "_MaskTint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_SpecColor": [
+     0.19999995827674866,
+     0.19999995827674866,
+     0.19999995827674866,
+     1.0
+    ],
+    "_Tint": [
+     0.7264150977134705,
+     0.5408921837806702,
+     0.42145782709121704,
+     1.0
+    ],
+    "_WindNoiseTileAndSpeed": [
+     1.0,
+     1.0,
+     0.20000000298023224,
+     0.20000000298023224
+    ]
+   },
+   "floats": {
+    "_AOIntensity": 0.0,
+    "_AO_Blend2Albedo": 0.5,
+    "_AlphaClip": 1.0,
+    "_AlphaCutoff": 0.5,
+    "_AlphaToMask": 0.0,
+    "_AoStrength": 0.0,
+    "_AoUseUV3": 1.0,
+    "_Blend": 0.0,
+    "_BlendModePreserveSpecular": 1.0,
+    "_BumpScale": 1.0,
+    "_ClearCoatMask": 0.0,
+    "_ClearCoatSmoothness": 0.0,
+    "_Cull": 2.0,
+    "_Cutoff": 0.06499999761581421,
+    "_DetailAlbedoMapScale": 1.0,
+    "_DetailNormalMapScale": 1.0,
+    "_DstBlend": 10.0,
+    "_DstBlendAlpha": 10.0,
+    "_EdgeLightPower": 1.0,
+    "_EdgeLightShadow": 0.0,
+    "_EnvironmentReflections": 1.0,
+    "_GlossMapScale": 0.0,
+    "_Glossiness": 0.0,
+    "_GlossyReflections": 0.0,
+    "_HeightFadeDistance": 0.0,
+    "_HurtValue": 0.0,
+    "_Mask": 0.0,
+    "_Metallic": 0.0,
+    "_NoiseToNormalDIrection": 0.0,
+    "_NormalScale": 3.7899999618530273,
+    "_OcclusionStrength": 1.0,
+    "_Parallax": 0.004999999888241291,
+    "_QueueControl": 0.0,
+    "_QueueOffset": 0.0,
+    "_ReceiveShadows": 1.0,
+    "_Smoothness": 0.20000000298023224,
+    "_SmoothnessTextureChannel": 0.0,
+    "_SpecularHighlights": 1.0,
+    "_SrcBlend": 1.0,
+    "_SrcBlendAlpha": 1.0,
+    "_Surface": 1.0,
+    "_TempratureLerp": 0.0,
+    "_WindNoiseStrength": 0.009999999776482582,
+    "_WorkflowMode": 1.0,
+    "_ZWrite": 0.0
+   },
+   "keywords": null,
+   "fbx_name": "Mat_Stone_01_FireStone"
+  }
+ ],
+ "warnings": [],
+ "node_names_in_fbx": null,
+ "unity_components": null
+}

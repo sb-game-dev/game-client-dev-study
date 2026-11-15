@@ -13,6 +13,7 @@
 #include "Inven.h"
 #include "HUD.h"
 #include "Tree_Instance.h"
+#include "StaticProp.h"
 
 CLoader::CLoader(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     : m_pDevice{pDevice}
@@ -187,6 +188,43 @@ HRESULT CLoader::Loading_For_GamePlayLV()
             "../../../Resource/Mesh/Tree/Pfb_Tree_01_1.bin"))))
         return E_FAIL;
 
+    PreTransformMatrix = XMMatrixRotationY(180.f);
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
+        Normalize_AssetPath(TEXT("Characters/0_CharacterModel_Boss_Wu/0_CharacterModel_Boss_Wu.fbx")),
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/Characters/0_CharacterModel_Boss_Wu/0_CharacterModel_Boss_Wu.bin"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
+        Normalize_AssetPath(TEXT("Mesh/SM_Container/SM_Container_Back.fbx")),
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/Mesh/SM_Container/SM_Container_Back.bin"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
+        Normalize_AssetPath(TEXT("Mesh/SM_Container/SM_Container_Ceiling.fbx")),
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/Mesh/SM_Container/SM_Container_Ceiling.bin"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
+        Normalize_AssetPath(TEXT("Mesh/SM_Container/SM_Container_Ground.fbx")),
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/Mesh/SM_Container/SM_Container_Ground.bin"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
+        Normalize_AssetPath(TEXT("Mesh/SM_Container/SM_Container_L.fbx")),
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/Mesh/SM_Container/SM_Container_L.bin"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
+        Normalize_AssetPath(TEXT("Mesh/SM_Container/SM_Container_R.fbx")),
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/Mesh/SM_Container/SM_Container_R.bin"))))
+        return E_FAIL;
+
     lstrcpy(m_szLoadingText, TEXT("셰이더를 준비중입니다."));
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::VS_UI,
@@ -322,6 +360,11 @@ HRESULT CLoader::Loading_For_GamePlayLV()
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Tree_Instance,
         CTree_Instance::Create(m_pDevice, m_pContext))))
         return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_StaticProp,
+        CStaticProp::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+
 
     lstrcpy(m_szLoadingText, TEXT("로딩이 완료되었습니다."));
 

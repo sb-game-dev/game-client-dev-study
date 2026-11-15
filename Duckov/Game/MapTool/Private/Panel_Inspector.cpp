@@ -34,7 +34,7 @@ void CPanel_Inspector::Render(const PANEL_RECT& tRect)
             ImGui::Separator();
             if (ImGui::Button("SnapToTerrain"))
             {
-                if (auto pTerrain = dynamic_pointer_cast<CHill>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), L"Layer_Map", L"Terrain")))
+                if (auto pTerrain = dynamic_pointer_cast<CHill>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), L"Layer_Terrain", L"Terrain")))
                 {
                     f32_t fY = pTerrain->GetHeight(pSelected->Get_Position().x, pSelected->Get_Position().z);
                     pSelected->Set_Position(float3_t(pSelected->Get_Position().x, fY, pSelected->Get_Position().z));

@@ -1,0 +1,307 @@
+{
+ "name": "IG_Acc_Tec_Laser_CIT_1",
+ "fbx": "IG_Acc_Tec_Laser_CIT_1.fbx",
+ "category": "Prefabs/Weapons/Attachments",
+ "socket_hint": null,
+ "nodes": 5,
+ "renderers": [
+  {
+   "node": "HitMarker",
+   "type": "MeshRenderer",
+   "mesh": "Sphere",
+   "enabled": true,
+   "active": true
+  },
+  {
+   "node": "Pfb_Tec_Laser_CIT_1",
+   "type": "MeshRenderer",
+   "mesh": "Tec_Laser_CIT_1",
+   "enabled": true,
+   "active": true
+  }
+ ],
+ "sockets": [],
+ "animator": null,
+ "clips": [],
+ "lod_groups": null,
+ "light_volumes": null,
+ "materials": [
+  {
+   "name": "LazerPoint 1",
+   "shader": "Universal Render Pipeline/Particles/Unlit",
+   "textures": {},
+   "colors": {
+    "_BaseColor": [
+     1.0,
+     0.34433960914611816,
+     0.34433960914611816,
+     1.0
+    ],
+    "_BaseColorAddSubDiff": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "_CameraFadeParams": [
+     0.0,
+     Infinity,
+     0.0,
+     0.0
+    ],
+    "_CenterColor": [
+     12.996038436889648,
+     0.0,
+     0.0,
+     1.0
+    ],
+    "_Color": [
+     1.0,
+     0.3443395793437958,
+     0.3443395793437958,
+     1.0
+    ],
+    "_EmissionColor": [
+     11.313708305358887,
+     0.0,
+     0.0,
+     1.0
+    ],
+    "_GlowColor": [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ],
+    "_NoiseTileAndSpeed": [
+     0.20000000298023224,
+     0.20000000298023224,
+     0.10000000149011612,
+     0.10000000149011612
+    ],
+    "_SoftParticleFadeParams": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "_SpecColor": [
+     0.19999995827674866,
+     0.19999995827674866,
+     0.19999995827674866,
+     1.0
+    ]
+   },
+   "floats": {
+    "_AddPrecomputedVelocity": 0.0,
+    "_AlphaClip": 0.0,
+    "_AlphaCutoff": 0.5,
+    "_AlphaToMask": 0.0,
+    "_Blend": 0.0,
+    "_BlendModePreserveSpecular": 1.0,
+    "_BlendOp": 0.0,
+    "_BumpScale": 1.0,
+    "_CameraFadingEnabled": 0.0,
+    "_CameraFarFadeDistance": 2.0,
+    "_CameraNearFadeDistance": 1.0,
+    "_Clamp": 1.0,
+    "_ClearCoatMask": 0.0,
+    "_ClearCoatSmoothness": 0.0,
+    "_ColorMask": 15.0,
+    "_ColorMode": 0.0,
+    "_Cull": 2.0,
+    "_Cutoff": 0.5,
+    "_DetailAlbedoMapScale": 1.0,
+    "_DetailNormalMapScale": 1.0,
+    "_DistortionBlend": 0.5,
+    "_DistortionEnabled": 0.0,
+    "_DistortionStrength": 1.0,
+    "_DistortionStrengthScaled": 0.10000000149011612,
+    "_DstBlend": 10.0,
+    "_DstBlendAlpha": 10.0,
+    "_EnvironmentReflections": 1.0,
+    "_FlipbookBlending": 0.0,
+    "_FlipbookMode": 0.0,
+    "_GlossMapScale": 0.0,
+    "_Glossiness": 0.0,
+    "_GlossyReflections": 0.0,
+    "_Metallic": 0.0,
+    "_Mode": 0.0,
+    "_NoiseAffactAlpha": 1.0,
+    "_OcclusionStrength": 1.0,
+    "_Parallax": 0.004999999888241291,
+    "_QueueControl": 0.0,
+    "_QueueOffset": 0.0,
+    "_ReceiveShadows": 1.0,
+    "_SampleGI": 0.0,
+    "_Smoothness": 0.5,
+    "_SmoothnessTextureChannel": 0.0,
+    "_SoftParticlesEnabled": 0.0,
+    "_SoftParticlesFarFadeDistance": 1.0,
+    "_SoftParticlesNearFadeDistance": 0.0,
+    "_SpecularHighlights": 1.0,
+    "_SrcBlend": 5.0,
+    "_SrcBlendAlpha": 1.0,
+    "_Stencil": 0.0,
+    "_StencilComp": 8.0,
+    "_StencilOp": 0.0,
+    "_StencilReadMask": 255.0,
+    "_StencilWriteMask": 255.0,
+    "_Surface": 1.0,
+    "_UseUIAlphaClip": 0.0,
+    "_WorkflowMode": 1.0,
+    "_ZWrite": 0.0
+   },
+   "keywords": [
+    "_EMISSION",
+    "_SURFACE_TYPE_TRANSPARENT"
+   ],
+   "fbx_name": "LazerPoint 1"
+  },
+  {
+   "name": "MAT_Tec_Laser_CIT_1",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {
+    "_EmissionMap": {
+     "texture": "T_Tec_Laser_CIT_1_E.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_MainTex": {
+     "texture": "T_Tec_Laser_CIT_1_C.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_MetallicSmoothness": {
+     "texture": "T_Tec_Laser_CIT_1_MMOR.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_NormalMap": {
+     "texture": "T_Tec_Laser_CIT_1_N.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "colors": {
+    "_BaseColor": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_Color": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_CoverageColor": [
+     1.0,
+     1.0,
+     1.0,
+     0.0
+    ],
+    "_EmissionColor": [
+     57.037899017333984,
+     0.0,
+     0.0,
+     1.0
+    ],
+    "_MaskTint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_SpecColor": [
+     0.19999995827674866,
+     0.19999995827674866,
+     0.19999995827674866,
+     1.0
+    ],
+    "_Tint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ]
+   },
+   "floats": {
+    "_AOIntensity": 0.0,
+    "_AlphaClip": 0.0,
+    "_AlphaCutoff": 0.5,
+    "_AlphaToMask": 0.0,
+    "_Blend": 0.0,
+    "_BlendModePreserveSpecular": 1.0,
+    "_BumpScale": 1.0,
+    "_ClearCoatMask": 0.0,
+    "_ClearCoatSmoothness": 0.0,
+    "_CoverageFade": 1.0,
+    "_CoverageLevel": 0.0,
+    "_CoverageNormalScale": 1.0,
+    "_Coverageon": 0.0,
+    "_Cull": 2.0,
+    "_Cutoff": 0.5,
+    "_DetailAlbedoMapScale": 1.0,
+    "_DetailNormalMapScale": 1.0,
+    "_DstBlend": 0.0,
+    "_DstBlendAlpha": 0.0,
+    "_EnvironmentReflections": 1.0,
+    "_GlossMapScale": 0.0,
+    "_Glossiness": 0.0,
+    "_GlossyReflections": 0.0,
+    "_MaskContrast": 0.0,
+    "_Metallic": 1.0,
+    "_NormalScale": 1.0,
+    "_ORGMetallicIntensity": 0.0,
+    "_ORGNormalIntensity": 0.0,
+    "_ORGSmoothIntensity": 0.0,
+    "_OcclusionStrength": 1.0,
+    "_OverlayMethod": 0.0,
+    "_Parallax": 0.004999999888241291,
+    "_QueueControl": 0.0,
+    "_QueueOffset": 0.0,
+    "_ReceiveShadows": 1.0,
+    "_Smoothness": 1.0,
+    "_SmoothnessTextureChannel": 0.0,
+    "_SpecularHighlights": 1.0,
+    "_SrcBlend": 1.0,
+    "_SrcBlendAlpha": 1.0,
+    "_Surface": 0.0,
+    "_TempratureLerp": 0.0,
+    "_WorkflowMode": 1.0,
+    "_ZWrite": 1.0
+   },
+   "keywords": null,
+   "fbx_name": "MAT_Tec_Laser_CIT_1"
+  }
+ ],
+ "warnings": [],
+ "node_names_in_fbx": null,
+ "unity_components": null
+}

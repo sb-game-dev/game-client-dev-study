@@ -13,6 +13,7 @@ public:
 	virtual HRESULT Initialize();
 	virtual void	Update(f32_t fDeltaTime);
 	virtual HRESULT	Render();
+	virtual HRESULT	Load_Scene(const wstring& strPath, uint32_t iLevelIndex, wstring_t strLayerTag);
 
 protected:
 	ComPtr<ID3D11Device>		m_pDevice = { nullptr };
