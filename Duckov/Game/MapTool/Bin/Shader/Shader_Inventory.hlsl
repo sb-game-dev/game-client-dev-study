@@ -18,9 +18,12 @@ SamplerState g_LinearSampler : register(s1);
 
 struct VS_IN
 {
+    // 버텍스 버퍼
     float3 vPosition : POSITION; 
     float3 vNormal : NORMAL;
     float2 vTexCoord : TEXCOORD0;
+    
+    // 인스턴스 버퍼
     float4 vRect : UIRECT;
     float4 vColor : UICOLOR;
     float4 vShape : UISHAPE;
