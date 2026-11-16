@@ -1,0 +1,122 @@
+{
+ "name": "IG_Helmat_Killa",
+ "fbx": "IG_Helmat_Killa.fbx",
+ "category": "Prefabs/Equipment/Helmet",
+ "socket_hint": "HelmatSocket",
+ "nodes": 3,
+ "renderers": [
+  {
+   "node": "Hair_Hat_Killa_Real",
+   "type": "MeshRenderer",
+   "mesh": "Hair_Hat_Killa_Real",
+   "enabled": true,
+   "active": true
+  }
+ ],
+ "sockets": [],
+ "animator": null,
+ "clips": [],
+ "lod_groups": null,
+ "light_volumes": null,
+ "materials": [
+  {
+   "name": "MAT_Helmat_Killa",
+   "shader": "SodaCraft/SodaCharacter",
+   "textures": {
+    "_MainTex": {
+     "texture": "T_Hair_Hat_Killa_2_C.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_MetallicSmoothness": {
+     "texture": "T_Hair_Hat_Killa_2_MMOR.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_NormalMap": {
+     "texture": "T_Hair_Hat_Killa_2_N.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "colors": {
+    "_AlphaMaskTint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_Color": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_EmissionColor": [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ],
+    "_Tint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ]
+   },
+   "floats": {
+    "_AO_Blend2Albedo": 0.0,
+    "_AlphaCutoff": 0.5,
+    "_AlphaMask": 0.0,
+    "_BumpScale": 1.0,
+    "_Cutoff": 0.5,
+    "_Cutout": 0.0,
+    "_DetailNormalMapScale": 1.0,
+    "_DstBlend": 0.0,
+    "_FresnelPower": 1.0,
+    "_GlossMapScale": 1.0,
+    "_Glossiness": 0.5,
+    "_GlossyReflections": 1.0,
+    "_HurtValue": 0.0,
+    "_Metallic": 1.0,
+    "_Mode": 0.0,
+    "_NormalScale": 1.0,
+    "_OcclusionStrength": 1.0,
+    "_Parallax": 0.019999999552965164,
+    "_QueueControl": 0.0,
+    "_QueueOffset": 0.0,
+    "_Smoothness": 0.800000011920929,
+    "_SmoothnessTextureChannel": 0.0,
+    "_SpecularHighlights": 1.0,
+    "_SrcBlend": 1.0,
+    "_TempratureLerp": 0.0,
+    "_UVSec": 0.0,
+    "_ZWrite": 1.0
+   },
+   "keywords": null,
+   "fbx_name": "MAT_Helmat_Killa"
+  }
+ ],
+ "warnings": [],
+ "node_names_in_fbx": null,
+ "unity_components": null
+}

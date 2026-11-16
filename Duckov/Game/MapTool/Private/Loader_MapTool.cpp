@@ -138,7 +138,30 @@ HRESULT CLoader_MapTool::Loading_For_MapToolLV()
             "../../../Resource/Mesh/SM_Container/SM_Container_R.bin"))))
         return E_FAIL;
 
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL),
+        Proto::Model_Weapon_AK47,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/weapons/guns/ig_gun_ak47.bin"))))
+        return E_FAIL;
 
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL),
+        Proto::Model_Weapon_M700,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/weapons/guns/ig_gun_m700.bin"))))
+        return E_FAIL;
+
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL),
+        Proto::Model_Weapon_PM,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/weapons/guns/ig_gun_pm.bin"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL),
+        Proto::Model_Weapon_Axe,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/weapons/melee_handheld/MeleeWeaponAgent_Axe.bin"))))
+        return E_FAIL;
 
     lstrcpy(m_szLoadingText, TEXT("셰이더를 준비중입니다."));
 

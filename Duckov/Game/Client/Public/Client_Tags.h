@@ -70,6 +70,10 @@ namespace Client
 		inline constexpr const wchar_t* Model_Container_Ground = L"mesh/sm_container/sm_container_ground.bin";
 		inline constexpr const wchar_t* Model_Container_L = L"mesh/sm_container/sm_container_l.bin";
 		inline constexpr const wchar_t* Model_Container_R = L"mesh/sm_container/sm_container_r.bin";
+		inline constexpr const wchar_t* Model_Weapon_AK47 = L"mesh/weapons/guns/ig_gun_ak47.bin";
+		inline constexpr const wchar_t* Model_Weapon_M700 = L"mesh/weapons/guns/ig_gun_m700.bin";
+		inline constexpr const wchar_t* Model_Weapon_PM = L"mesh/weapons/guns/ig_gun_pm.bin";
+		inline constexpr const wchar_t* Model_Weapon_Axe = L"mesh/weapons/melee_handheld/meleeweaponagent_axe.bin";
 
 		// ---------- GameObject ¿øÇü ----------
 		inline constexpr const wchar_t* Obj_BackGround = L"Prototype_GameObject_BackGround";

@@ -1,0 +1,143 @@
+{
+ "name": "IG_Armor_LV1_Cotton_Snow",
+ "fbx": "IG_Armor_LV1_Cotton_Snow.fbx",
+ "category": "Prefabs/Equipment/Armor",
+ "socket_hint": "ArmorSocket",
+ "nodes": 3,
+ "renderers": [
+  {
+   "node": "Clothes_CottonOvercoat",
+   "type": "MeshRenderer",
+   "mesh": "Clothes_CottonOvercoat",
+   "enabled": true,
+   "active": true
+  }
+ ],
+ "sockets": [],
+ "animator": null,
+ "clips": [],
+ "lod_groups": null,
+ "light_volumes": null,
+ "materials": [
+  {
+   "name": "Cotton",
+   "shader": "SodaCraft/SodaCharacter",
+   "textures": {
+    "_MainTex": {
+     "texture": "T_Clothes_CottonOvercoat_C.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_MetallicSmoothness": {
+     "texture": "T_Clothes_CottonOvercoat_MMOR.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_NormalMap": {
+     "texture": "T_Clothes_CottonOvercoat_N.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "colors": {
+    "_AlphaMaskTint": [
+     0.7019999623298645,
+     0.44444334506988525,
+     0.26886600255966187,
+     1.0
+    ],
+    "_Color": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_CoverageColor": [
+     1.0,
+     1.0,
+     1.0,
+     0.0
+    ],
+    "_EmissionColor": [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ],
+    "_MaskTint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_Tint": [
+     0.9339622855186462,
+     0.8126533627510071,
+     0.7445265054702759,
+     1.0
+    ]
+   },
+   "floats": {
+    "_AO_Blend2Albedo": 0.0,
+    "_AlphaCutoff": 0.5,
+    "_AlphaMask": 0.7080000042915344,
+    "_BumpScale": 1.0,
+    "_CoverageFade": 1.0,
+    "_CoverageLevel": 0.0,
+    "_CoverageNormalScale": 1.0,
+    "_Coverageon": 0.0,
+    "_Cutoff": 0.5,
+    "_Cutout": 0.0,
+    "_DetailNormalMapScale": 1.0,
+    "_DstBlend": 0.0,
+    "_FresnelPower": 1.0,
+    "_GlossMapScale": 1.0,
+    "_Glossiness": 0.5,
+    "_GlossyReflections": 1.0,
+    "_HurtValue": 0.0,
+    "_MaskContrast": 0.0,
+    "_Metallic": 0.8450000286102295,
+    "_Mode": 0.0,
+    "_NormalScale": 1.0,
+    "_ORGMetallicIntensity": 0.0,
+    "_ORGNormalIntensity": 0.0,
+    "_ORGSmoothIntensity": 0.0,
+    "_OcclusionStrength": 1.0,
+    "_OverlayMethod": 0.0,
+    "_Parallax": 0.019999999552965164,
+    "_QueueControl": 0.0,
+    "_QueueOffset": 0.0,
+    "_Smoothness": 0.45500001311302185,
+    "_SmoothnessTextureChannel": 0.0,
+    "_SpecularHighlights": 1.0,
+    "_SrcBlend": 1.0,
+    "_TempratureLerp": 0.0,
+    "_UVSec": 0.0,
+    "_ZWrite": 1.0
+   },
+   "keywords": null,
+   "fbx_name": "Cotton"
+  }
+ ],
+ "warnings": [],
+ "node_names_in_fbx": null,
+ "unity_components": null
+}

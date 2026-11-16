@@ -1,0 +1,330 @@
+{
+ "name": "IG_Armor_LV3_Black",
+ "fbx": "IG_Armor_LV3_Black.fbx",
+ "category": "Prefabs/Equipment/Armor",
+ "socket_hint": "ArmorSocket",
+ "nodes": 6,
+ "renderers": [
+  {
+   "node": "Clothes_LV2",
+   "type": "MeshRenderer",
+   "mesh": "Clothes_LV2",
+   "enabled": true,
+   "active": true
+  },
+  {
+   "node": "Cylinder",
+   "type": "MeshRenderer",
+   "mesh": "Cylinder",
+   "enabled": true,
+   "active": true
+  },
+  {
+   "node": "Cylinder_1",
+   "type": "MeshRenderer",
+   "mesh": "Cylinder",
+   "enabled": true,
+   "active": true
+  }
+ ],
+ "sockets": [],
+ "animator": null,
+ "clips": [],
+ "lod_groups": null,
+ "light_volumes": [
+  {
+   "node": "SodaPointLight",
+   "type": "SodaPointLight",
+   "color": {
+    "r": 2.9094631671905518,
+    "g": 3.404690980911255,
+    "b": 3.879284381866455,
+    "a": 0.0
+   },
+   "hardness": 0.6449999809265137,
+   "radius_scale": [
+    0.3947407901287079,
+    0.5030679702758789,
+    0.3947407901287079
+   ]
+  }
+ ],
+ "materials": [
+  {
+   "name": "Mat_Clothes_LV2_Black",
+   "shader": "SodaCraft/SodaCharacter",
+   "textures": {
+    "_MainTex": {
+     "texture": "T_Clothes_LV2_C 1.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_MetallicSmoothness": {
+     "texture": "T_Clothes_LV2_M.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_NormalMap": {
+     "texture": "T_Clothes_LV2_N.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "colors": {
+    "_AlphaMaskTint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_BaseColor": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_Color": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_EmissionColor": [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ],
+    "_HurtColor": [
+     8.0,
+     8.0,
+     8.0,
+     0.0
+    ],
+    "_SpecColor": [
+     0.19999995827674866,
+     0.19999995827674866,
+     0.19999995827674866,
+     1.0
+    ],
+    "_Tint": [
+     0.37722501158714294,
+     0.42824849486351013,
+     0.46226418018341064,
+     1.0
+    ]
+   },
+   "floats": {
+    "_AO_Blend2Albedo": 0.0,
+    "_AlphaClip": 0.0,
+    "_AlphaCutoff": 0.5,
+    "_AlphaMask": 0.0,
+    "_AlphaToMask": 0.0,
+    "_AoStrength": 1.0,
+    "_Blend": 0.0,
+    "_BlendModePreserveSpecular": 1.0,
+    "_BumpScale": 1.0,
+    "_ClearCoatMask": 0.0,
+    "_ClearCoatSmoothness": 0.0,
+    "_Cull": 2.0,
+    "_Cutoff": 0.5,
+    "_Cutout": 0.0,
+    "_DetailAlbedoMapScale": 1.0,
+    "_DetailNormalMapScale": 1.0,
+    "_DstBlend": 0.0,
+    "_DstBlendAlpha": 0.0,
+    "_EnvironmentReflections": 1.0,
+    "_FresnelPower": 1.0,
+    "_GlossMapScale": 0.0,
+    "_Glossiness": 0.0,
+    "_GlossyReflections": 0.0,
+    "_HeightAOHeight": 1.0,
+    "_HeightAOStrength": 1.0,
+    "_HurtValue": 0.0,
+    "_Metallic": 0.0,
+    "_NormalScale": 1.0,
+    "_OcclusionStrength": 1.0,
+    "_Parallax": 0.004999999888241291,
+    "_QueueControl": 0.0,
+    "_QueueOffset": 0.0,
+    "_ReceiveShadows": 1.0,
+    "_Smoothness": 0.7919999957084656,
+    "_SmoothnessTextureChannel": 0.0,
+    "_SpecularHighlights": 1.0,
+    "_SrcBlend": 1.0,
+    "_SrcBlendAlpha": 1.0,
+    "_Surface": 0.0,
+    "_TempratureLerp": 0.0,
+    "_WorkflowMode": 1.0,
+    "_ZWrite": 1.0
+   },
+   "keywords": null,
+   "fbx_name": "Mat_Clothes_LV2_Black"
+  },
+  {
+   "name": "CallStick 1",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {},
+   "colors": {
+    "_Color": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_CoverageColor": [
+     1.0,
+     1.0,
+     1.0,
+     0.0
+    ],
+    "_EmissionColor": [
+     0.1921568512916565,
+     0.4493139386177063,
+     1.0,
+     1.0
+    ],
+    "_MaskTint": [
+     0.25,
+     0.6833552122116089,
+     1.0,
+     1.0
+    ],
+    "_Tint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ]
+   },
+   "floats": {
+    "_AlphaCutoff": 0.5,
+    "_BumpScale": 1.0,
+    "_CoverageFade": 1.0,
+    "_CoverageLevel": 0.0,
+    "_CoverageNormalScale": 1.0,
+    "_Coverageon": 0.0,
+    "_Cutoff": 0.5,
+    "_DetailNormalMapScale": 1.0,
+    "_DstBlend": 0.0,
+    "_GlossMapScale": 1.0,
+    "_Glossiness": 0.5,
+    "_GlossyReflections": 1.0,
+    "_MaskContrast": 0.0,
+    "_Metallic": 0.0,
+    "_Mode": 0.0,
+    "_NormalScale": 1.0,
+    "_ORGMetallicIntensity": 0.0,
+    "_ORGNormalIntensity": 0.0,
+    "_ORGSmoothIntensity": 0.0,
+    "_OcclusionStrength": 1.0,
+    "_OverlayMethod": 0.0,
+    "_Parallax": 0.019999999552965164,
+    "_QueueControl": 0.0,
+    "_QueueOffset": 0.0,
+    "_Smoothness": 0.0,
+    "_SmoothnessTextureChannel": 0.0,
+    "_SpecularHighlights": 1.0,
+    "_SrcBlend": 1.0,
+    "_TempratureLerp": 0.0,
+    "_UVSec": 0.0,
+    "_ZWrite": 1.0
+   },
+   "keywords": null,
+   "fbx_name": "CallStick 1"
+  },
+  {
+   "name": "CallStick",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {},
+   "colors": {
+    "_Color": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_CoverageColor": [
+     1.0,
+     1.0,
+     1.0,
+     0.0
+    ],
+    "_EmissionColor": [
+     1.0,
+     0.1921568512916565,
+     0.9049383401870728,
+     1.0
+    ],
+    "_MaskTint": [
+     0.5377358198165894,
+     0.3779369592666626,
+     0.5330199003219604,
+     1.0
+    ],
+    "_Tint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ]
+   },
+   "floats": {
+    "_AlphaCutoff": 0.5,
+    "_BumpScale": 1.0,
+    "_CoverageFade": 1.0,
+    "_CoverageLevel": 0.0,
+    "_CoverageNormalScale": 1.0,
+    "_Coverageon": 0.0,
+    "_Cutoff": 0.5,
+    "_DetailNormalMapScale": 1.0,
+    "_DstBlend": 0.0,
+    "_GlossMapScale": 1.0,
+    "_Glossiness": 0.5,
+    "_GlossyReflections": 1.0,
+    "_MaskContrast": 0.0,
+    "_Metallic": 0.0,
+    "_Mode": 0.0,
+    "_NormalScale": 1.0,
+    "_ORGMetallicIntensity": 0.0,
+    "_ORGNormalIntensity": 0.0,
+    "_ORGSmoothIntensity": 0.0,
+    "_OcclusionStrength": 1.0,
+    "_OverlayMethod": 0.0,
+    "_Parallax": 0.019999999552965164,
+    "_QueueControl": 0.0,
+    "_QueueOffset": 0.0,
+    "_Smoothness": 0.0,
+    "_SmoothnessTextureChannel": 0.0,
+    "_SpecularHighlights": 1.0,
+    "_SrcBlend": 1.0,
+    "_TempratureLerp": 0.0,
+    "_UVSec": 0.0,
+    "_ZWrite": 1.0
+   },
+   "keywords": null,
+   "fbx_name": "CallStick"
+  }
+ ],
+ "warnings": [],
+ "node_names_in_fbx": null,
+ "unity_components": null
+}
