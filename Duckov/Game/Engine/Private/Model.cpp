@@ -2,6 +2,7 @@
 #include "Mesh.h"
 #include "Material.h"
 #include "Bone.h"
+#include "Animation.h"
 
 CModel::CModel(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
 	:CComponent{pDevice,pContext}
@@ -14,10 +15,13 @@ CModel::CModel(const CModel& rhs)
     , m_iNumMeshes{rhs.m_iNumMeshes}
     , m_Materials{rhs.m_Materials}
     , m_iNumMaterials{rhs.m_iNumMaterials}
-    , m_tLocalBox{rhs.m_tLocalBox}
-    , m_bUseCulling{rhs.m_bUseCulling}
     , m_Bones{rhs.m_Bones}
     , m_PreTransformMatrix{ rhs.m_PreTransformMatrix}
+    , m_iNumAnimaition{rhs.m_iNumAnimaition}
+    , m_Animations{rhs.m_Animations }
+    , m_iCurrentAnimIndex{rhs.m_iCurrentAnimIndex }
+    , m_tLocalBox{rhs.m_tLocalBox}
+    , m_bUseCulling{rhs.m_bUseCulling}
 {
 }
 
@@ -44,12 +48,16 @@ HRESULT CModel::Initialize_Prototype(MODEL eType, const char_t* pModelFilePath, 
         MSG_BOX("Faile to ReadFile");
         return E_FAIL;
     }
+    
     if (FAILED(Ready_Bones(m_pAiScene->mRootNode, -1)))
         return E_FAIL;
     if (FAILED(Ready_Meshes(eType, PreTransformMatrix)))
         return E_FAIL;
     if (FAILED(Ready_Materials(pModelFilePath)))
         return E_FAIL;
+    if (FAILED(Ready_Animation()))
+        return E_FAIL;
+
     return S_OK;
 }
 
@@ -110,12 +118,45 @@ void CModel::PlayAnimation(f32_t fDeltaTime)
     // ------ 뼈들을 현재 애니메이션에 맞게 셋팅한다. ------
 
     /* 1. 뼈들의 TransformMatrix 행렬을 현재 애니메이션에 맞게 세팅한다. */
-
+    m_Animations[m_iCurrentAnimIndex]->Update_TransformMatrix(m_Bones, fDeltaTime);
 
 
     /* 2. TransformMatrix 행렬과 부모 CombinedMatrix를 곱해서 나의 CombinedMatrix를 만든다.*/
     for (auto& pBone : m_Bones)
         pBone->Update_CombinedTranformMatrix(m_Bones, XMLoadFloat4x4(&m_PreTransformMatrix));
+}
+
+void CModel::SetCurrentAnimIndex(uint32_t iAnimIndex)
+{
+    if (iAnimIndex >= m_iNumAnimaition)
+        return;
+
+    if (m_iCurrentAnimIndex != iAnimIndex)
+    {
+        m_Animations[m_iCurrentAnimIndex]->Reset_Animaition();
+        m_Animations[iAnimIndex]->Reset_Animaition();
+        Reset_BoneTransformMatrix();
+    }
+
+    m_iCurrentAnimIndex = iAnimIndex;
+}
+
+void CModel::Reset_BoneTransformMatrix()
+{
+    for (auto& pBone : m_Bones)
+        pBone->Reset_TransformMatrix();
+}
+
+void CModel::Set_Animation_Loop(uint32_t iAnimationIndex)
+{
+    if (iAnimationIndex >= m_iNumAnimaition)
+        return;
+    m_Animations[iAnimationIndex]->Set_Loop();
+}
+
+bool_t CModel::Is_Animation_End()
+{
+    return m_Animations[m_iCurrentAnimIndex]->Is_Animation_End();
 }
 
 HRESULT CModel::Ready_Meshes(MODEL eType, fmatrix_t PreTransformMatrix)
@@ -165,6 +206,19 @@ HRESULT CModel::Ready_Bones(const aiNode* pAINode, int32_t iPIndex)
     for (uint32_t i = 0; i < pAINode->mNumChildren; ++i)
     {
         Ready_Bones(pAINode->mChildren[i], iParentIndex);
+    }
+    return S_OK;
+}
+
+HRESULT CModel::Ready_Animation()
+{
+    m_iNumAnimaition = m_pAiScene->mNumAnimations;
+    for (uint32_t i = 0; i < m_iNumAnimaition; ++i)
+    {
+        auto pAnimaition = CAnimation::Create(m_pAiScene->mAnimations[i], dynamic_pointer_cast<CModel>(shared_from_this()));
+        if (nullptr == pAnimaition)
+            return E_FAIL;
+        m_Animations.push_back(pAnimaition);
     }
     return S_OK;
 }

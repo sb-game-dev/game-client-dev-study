@@ -15,37 +15,46 @@ public:
 	uint32_t Get_NumMeshes() const {return m_iNumMeshes;}
 
 public:
-	virtual	HRESULT			Initialize_Prototype(MODEL eType, const char_t* pModelFilePath, fmatrix_t PreTransformMatrix);
-	virtual	HRESULT			Initialize(void* pArg)override;
+	HRESULT			Initialize_Prototype(MODEL eType, const char_t* pModelFilePath, fmatrix_t PreTransformMatrix);
+	HRESULT			Initialize(void* pArg)override;
 
 public:
-	virtual HRESULT			Render(uint32_t iMeshIndex);
-	virtual	HRESULT			Render_Instanced(uint32_t iMeshIndex, ID3D11Buffer* pInstanceVB, uint32_t iInstanceStride, uint32_t iNumInstances);
-	virtual	HRESULT			Bind_Material(uint32_t iMeshIndex, aiTextureType eType, uint32_t iIndex, uint32_t iSlot);
-	virtual HRESULT			Bind_BoneMatrix(uint32_t iMeshIndex, uint32_t iSlot);
+	HRESULT			Render(uint32_t iMeshIndex);
+	HRESULT			Render_Instanced(uint32_t iMeshIndex, ID3D11Buffer* pInstanceVB, uint32_t iInstanceStride, uint32_t iNumInstances);
+	HRESULT			Bind_Material(uint32_t iMeshIndex, aiTextureType eType, uint32_t iIndex, uint32_t iSlot);
+	HRESULT			Bind_BoneMatrix(uint32_t iMeshIndex, uint32_t iSlot);
 
-	virtual void			SetUseCulling(bool_t bUse) { m_bUseCulling = bUse; }
-	virtual bool_t			IsUseCulling() { return m_bUseCulling; }
+	void			SetUseCulling(bool_t bUse) { m_bUseCulling = bUse; }
+	bool_t			IsUseCulling() { return m_bUseCulling; }
 
-	virtual int32_t			Get_BoneIndex(const char_t* pBoneName);
+	int32_t			Get_BoneIndex(const char_t* pBoneName);
 
-	virtual BoundingBox		GetBoundinBox() { return m_tLocalBox; }
+	BoundingBox		GetBoundinBox() { return m_tLocalBox; }
 
-	virtual	void			PlayAnimation(f32_t fDeltaTime);
+	void			PlayAnimation(f32_t fDeltaTime);
+	void			SetCurrentAnimIndex(uint32_t iAnimIndex);
+
+	void			Reset_BoneTransformMatrix();
+	void			Set_Animation_Loop(uint32_t iAnimationIndex);
+	bool_t			Is_Animation_End();
 private:
 	const	aiScene*	m_pAiScene = { nullptr };
 	Assimp::Importer	m_pImporter = {};
 
 private:
-	MODEL								m_eType = { MODEL::END };
+	MODEL									m_eType = { MODEL::END };
 
-	vector<shared_ptr <class CMesh>>	m_Meshes;
-	uint32_t							m_iNumMeshes = {};
+	vector<shared_ptr <class CMesh>>		m_Meshes;
+	uint32_t								m_iNumMeshes = {};
 
-	vector<shared_ptr<class CMaterial>> m_Materials;
-	uint32_t							m_iNumMaterials = {};
+	vector<shared_ptr<class CMaterial>>		m_Materials;
+	uint32_t								m_iNumMaterials = {};
 
-	vector<shared_ptr<class CBone>>		m_Bones;
+	vector<shared_ptr<class CBone>>			m_Bones;
+
+	vector<shared_ptr<class CAnimation>>	m_Animations;
+	uint32_t								m_iNumAnimaition = {};
+	uint32_t								m_iCurrentAnimIndex = {11};
 
 	BoundingBox					m_tLocalBox = {};
 	bool_t						m_bUseCulling = { false };
@@ -56,6 +65,7 @@ private:
 	HRESULT	Ready_Meshes(MODEL eType, fmatrix_t PreTransformMatrix);
 	HRESULT	Ready_Materials(const char_t* pModelFilePath);
 	HRESULT	Ready_Bones(const aiNode* pAINode, int32_t iParentIndex);
+	HRESULT	Ready_Animation();
 
 	HRESULT	Load_Binary(const char_t* pModelFilePath, fmatrix_t PreTransformMatrix);
 	HRESULT	Read_Header(FILE* pFile);

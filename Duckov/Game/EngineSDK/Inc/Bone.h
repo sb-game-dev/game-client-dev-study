@@ -17,10 +17,17 @@ public:
 	const float4x4_t* Get_CombinedTransformMatrix() const {
 		return &m_CombinedTransformMatrix;
 	}
+	void Set_TransfromMatrix(fmatrix_t TransformMatrix) {
+		XMStoreFloat4x4(&m_TransformMatrix, TransformMatrix);
+	}
+	void Reset_TransformMatrix() { m_TransformMatrix = m_InitialTransformMatrix; }
+
 private:
 	char_t		m_szName[MAX_PATH] = { "" };
 	float4x4_t	m_TransformMatrix = {};
 	float4x4_t	m_CombinedTransformMatrix = {};
+	float4x4_t	m_InitialTransformMatrix = {};
+
 	int32_t		m_iParentIndex = { -1 };
 
 public:

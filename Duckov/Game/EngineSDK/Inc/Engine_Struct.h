@@ -208,7 +208,13 @@ namespace Engine
 		XMFLOAT4						vCamPosition;
 	}PIPELINE_DESC;
 
-
+	typedef struct tagKeyFrame
+	{
+		XMFLOAT3		vScale;
+		XMFLOAT4		vRotation;
+		XMFLOAT3		vPosition;
+		float			fTrackPosition;
+	}KEYFRAME;
 
 }
 

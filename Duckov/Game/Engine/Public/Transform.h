@@ -54,6 +54,7 @@ public:
 	void			Rotation(f32_t fRotationX = 0, f32_t fRotationY = 0, f32_t fRotationZ = 0);
 
 	void			Set_Speed(f32_t fSpeed) { m_fSpeedPerSec = fSpeed; }
+	f32_t			Get_Speed() { return m_fSpeedPerSec; }
 	void			Set_RotationDegree(f32_t fDegree) { m_fRotationPerSec = XMConvertToRadians(fDegree); }
 
 	void			Set_Scale(f32_t ScaleX = 1, f32_t ScaleY = 1, f32_t ScaleZ = 1);

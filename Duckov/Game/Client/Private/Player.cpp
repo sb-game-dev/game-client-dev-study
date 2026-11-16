@@ -38,6 +38,7 @@ HRESULT CPlayer::Initialize(void* pArg)
         return E_FAIL;
     if (FAILED(Ready_ConstantBuffer()))
         return E_FAIL;
+
     return S_OK;
 }
 
@@ -59,8 +60,8 @@ void CPlayer::Priority_Update(f32_t fDeltaTime)
             return;
         m_pInven = pInven;
     }
+    m_ePreMoveState = m_eMoveState;
     bool_t bInvenOpen = (nullptr != pInven && pInven->Is_Open());
-
     if (!bInvenOpen)
     {
         KeyInput(fDeltaTime);
@@ -81,6 +82,7 @@ void CPlayer::Late_Update(f32_t fDeltaTime)
     CGameInstance::Get().Add_RenderGroup(RENDERID::OCCLUDEDPLAYER, dynamic_pointer_cast<CGameObject>(shared_from_this()));
     CGameInstance::Get().Add_RenderGroup(RENDERID::SHADOW, dynamic_pointer_cast<CGameObject>(shared_from_this()));
     CGameInstance::Get().Add_RenderGroup(RENDERID::REFLECT, dynamic_pointer_cast<CGameObject>(shared_from_this()));
+
 }
 
 HRESULT CPlayer::Render()
@@ -121,6 +123,13 @@ HRESULT CPlayer::Ready_Components()
         TEXT("Com_Model"),m_pModel)))
         return E_FAIL;
 
+    m_pModel->SetCurrentAnimIndex(ETOUI(m_eMoveState));
+    m_pModel->Set_Animation_Loop(ETOUI(MOVESTATE::WALK_FORWARD));
+    m_pModel->Set_Animation_Loop(ETOUI(MOVESTATE::WALK_FORWARD_RH));
+    m_pModel->Set_Animation_Loop(ETOUI(MOVESTATE::WALK_BACKWARD));
+    m_pModel->Set_Animation_Loop(ETOUI(MOVESTATE::IDLE));
+    m_pModel->Set_Animation_Loop(ETOUI(MOVESTATE::IDLE_RH));
+
     if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VS_ANIM_MODEL,
         TEXT("Com_VS"), m_pVS)))
         return E_FAIL;
@@ -160,7 +169,6 @@ HRESULT CPlayer::Update_ConstantBuffer(const matrix_t& matWorld)
 
     return S_OK;
 }
-
 
 HRESULT CPlayer::Render_Mesh(const matrix_t& matWorld, ID3D11RasterizerState* pRS, shared_ptr<CPixelShader> pPS)
 {
@@ -226,11 +234,43 @@ void CPlayer::AdjustPosY()
 }
 void CPlayer::KeyInput(f32_t fDeltaTime)
 {
+   matrix_t matCamWorld = CGameInstance::Get().Get_Perspective_Transform_Inverse(D3DTS::VIEW);
+   vector_t vCamRight = XMVector3Normalize(XMVectorSetY(matCamWorld.r[0], 0.f));
+   vector_t vCamLook = XMVector3Normalize(XMVectorSetY(matCamWorld.r[2], 0.f));
+
+   vector_t vMoveDir = XMVector3Normalize(vCamRight * m_fInputX + vCamLook * m_fInputZ);
+   if (m_eMoveState == MOVESTATE::ROLL)
+   {
+       if (m_fInputX + m_fInputZ == 0) // 키보드 입력이 없는 경우
+           vMoveDir = m_pTransformCom->Get_State(STATE::LOOK);
+       else                            // 키보드 입력이 있는 경우
+       {
+           vector_t vPos = m_pTransformCom->Get_State(STATE::POSITION);
+           vPos += vMoveDir;
+           m_pTransformCom->LookAt(vPos);
+       }
+
+       m_pTransformCom->Set_Speed(m_pTransformCom->Get_Speed() * 0.95f);
+       m_pTransformCom->Move_Position(vMoveDir, fDeltaTime);
+
+       if (m_pModel->Is_Animation_End())
+           Change_Animation(MOVESTATE::IDLE);
+       return;
+   }
+   else if(CGameInstance::Get().Key_Down(DIK_SPACE))
+   {
+       m_bSlowTrun = true;
+       m_pTransformCom->Set_Speed(20.f);
+       Change_Animation(MOVESTATE::ROLL);
+       return;   
+   }
+
     bool_t  bPushShift = false;
     if (CGameInstance::Get().Key_Pressing(DIK_LSHIFT))
     {
         m_pTransformCom->Set_Speed(16.f);
         bPushShift = true;
+        m_bSlowTrun = true;
     }
     else
     {
@@ -253,24 +293,37 @@ void CPlayer::KeyInput(f32_t fDeltaTime)
     
     vector_t vLook = m_pTransformCom->Get_State(STATE::LOOK);
 
-    f32_t fInputX = 0.f, fInputZ = 0.f;
-    if (CGameInstance::Get().Key_Pressing(DIK_W)) fInputZ += 1.f;
-    if (CGameInstance::Get().Key_Pressing(DIK_S)) fInputZ -= 1.f;
-    if (CGameInstance::Get().Key_Pressing(DIK_A)) fInputX -= 1.f;
-    if (CGameInstance::Get().Key_Pressing(DIK_D)) fInputX += 1.f;
-    if (0.f == fInputX && 0.f == fInputZ)
+    m_fInputX = m_fInputZ = 0.f;
+    if (CGameInstance::Get().Key_Pressing(DIK_W)) m_fInputZ += 1.f;
+    if (CGameInstance::Get().Key_Pressing(DIK_S)) m_fInputZ -= 1.f;
+    if (CGameInstance::Get().Key_Pressing(DIK_A)) m_fInputX -= 1.f;
+    if (CGameInstance::Get().Key_Pressing(DIK_D)) m_fInputX += 1.f;
+
+    if (0.f == m_fInputX && 0.f == m_fInputZ)
+    {
+        if (m_bAiming || m_bFiring)
+            Change_Animation(MOVESTATE::IDLE_RH);
+        else
+            Change_Animation(MOVESTATE::IDLE);
         return;
-
-    matrix_t matCamWorld = CGameInstance::Get().Get_Perspective_Transform_Inverse(D3DTS::VIEW);
-    vector_t vCamRight = XMVector3Normalize(XMVectorSetY(matCamWorld.r[0], 0.f));
-    vector_t vCamLook = XMVector3Normalize(XMVectorSetY(matCamWorld.r[2], 0.f));
-
-    vector_t vMoveDir = XMVector3Normalize(vCamRight * fInputX + vCamLook * fInputZ);
+    }
+    else if(!bPushShift)
+    {
+        if (m_bAiming || m_bFiring)
+            Change_Animation(MOVESTATE::WALK_FORWARD_RH);
+        else
+            Change_Animation(MOVESTATE::WALK_FORWARD);
+    }
+    else
+    {
+        Change_Animation(MOVESTATE::WALK_BACKWARD);
+    }
     m_pTransformCom->Move_Position(vMoveDir, fDeltaTime);
+
 
     if (!bPushShift)
         return;
-
+    
     vLook = XMVector3Normalize(XMVectorSetY(vLook, 0.f));
     f32_t fDot = XMVectorGetX(XMVector3Dot(vLook, vMoveDir));
     if (fDot < cosf(XMConvertToRadians(2.f)))
@@ -278,12 +331,40 @@ void CPlayer::KeyInput(f32_t fDeltaTime)
         f32_t fCrossY = XMVectorGetY(XMVector3Cross(vLook, vMoveDir));
         m_pTransformCom->Turn(fCrossY > 0.f ? g_vY_Plus : g_vY_Minus, fDeltaTime);
     }
+
 }
 void CPlayer::LookAtMouse(f32_t fDeltaTime)
 {
     auto pMouse = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", GO::Client_Mouse);
-    vector_t vTargetPos = pMouse->Get_Transform()->Get_State(STATE::POSITION);
-    m_pTransformCom->LookAt(vTargetPos);
+    vector_t vTargetDir = pMouse->Get_Transform()->Get_State(STATE::POSITION) - m_pTransformCom->Get_State(STATE::POSITION);
+
+    vector_t vLook = m_pTransformCom->Get_State(STATE::LOOK);
+    vLook = XMVector3Normalize(XMVectorSetY(vLook, 0.f));
+    
+    f32_t fDot = XMVectorGetX(XMVector3Dot(vLook, vTargetDir));
+    if (m_bSlowTrun)
+    {
+        if (fDot < cosf(XMConvertToRadians(0.01f)))
+        {
+            f32_t fCrossY = XMVectorGetY(XMVector3Cross(vLook, vTargetDir));
+            m_pTransformCom->Turn(fCrossY > 0.f ? g_vY_Plus : g_vY_Minus, fDeltaTime * 5);
+        }
+        else
+        {
+            m_bSlowTrun = false;
+        }
+    }
+    else
+    {
+        m_pTransformCom->LookAt(pMouse->Get_Transform()->Get_State(STATE::POSITION));
+    }
+}
+void CPlayer::Change_Animation(MOVESTATE eMoveState)
+{
+    if (eMoveState == m_eMoveState)
+        return;
+    m_eMoveState = eMoveState;
+    m_pModel->SetCurrentAnimIndex(ETOUI(m_eMoveState));
 }
 shared_ptr<CPlayer> CPlayer::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
 {

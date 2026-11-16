@@ -10,6 +10,9 @@ HRESULT CBone::Initialize(const aiNode* pAINode, int32_t iParentBoneIndex)
 
 	XMStoreFloat4x4(&m_TransformMatrix,
 		XMMatrixTranspose(XMLoadFloat4x4(&m_TransformMatrix)));
+	
+	// 처음의 TransformMatrix를 저장
+	m_InitialTransformMatrix = m_TransformMatrix;
 
 	XMStoreFloat4x4(&m_CombinedTransformMatrix,
 		XMMatrixIdentity());

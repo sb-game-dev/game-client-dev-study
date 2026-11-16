@@ -157,6 +157,12 @@
     <Filter Include="05. GameObject\04. StaticProp">
       <UniqueIdentifier>{34b543f1-6e32-4ff6-8053-7440d15ef341}</UniqueIdentifier>
     </Filter>
+    <Filter Include="06. Component\04. Model\03. Animation">
+      <UniqueIdentifier>{f23e7ef7-3ed0-4fb9-b9b6-9e58ce06127a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component\04. Model\03. Animation\Channel">
+      <UniqueIdentifier>{5550ec59-c8d4-4d23-b84c-a68401b0cfee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Engine_Defines.h">
@@ -321,6 +327,12 @@
     <ClInclude Include="..\Public\MapObject.h">
       <Filter>05. GameObject\03. MapObject</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\Animation.h">
+      <Filter>06. Component\04. Model\03. Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Channel.h">
+      <Filter>06. Component\04. Model\03. Animation\Channel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Timer.cpp">
@@ -460,6 +472,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\StaticProp.cpp">
       <Filter>05. GameObject\04. StaticProp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Animation.cpp">
+      <Filter>06. Component\04. Model\03. Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Channel.cpp">
+      <Filter>06. Component\04. Model\03. Animation\Channel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

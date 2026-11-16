@@ -45,7 +45,7 @@ private:
 	shared_ptr<CPixelShader>		m_pPS_Occluded = { nullptr };
 
 	shared_ptr<CConstantBuffer>		m_pCB = { nullptr };
-	CB_PER_OBJECT				m_tCBData = {};
+	CB_PER_OBJECT					m_tCBData = {};
 
 	ComPtr<ID3D11RasterizerState>	m_pRS_Reflect = { nullptr };
 
@@ -55,6 +55,21 @@ private:
 
 	f32_t							m_fHP = 100.f;
 	f32_t							m_fMaxHP = 100.f;
+
+	enum class MOVESTATE {
+		IDLE, 
+		WALK_FORWARD, WALK_BACKWARD, WALK_LEFT, WALK_RIGHT, TPOS,
+		IDLE_RH,
+		WALK_FORWARD_RH, WALK_BACKWRD_RH, WALK_LEFT_RH, WALK_RIGHT_RH,
+		ROLL, ATTACK, ATTACK_L2R, END 
+	};
+
+	MOVESTATE						m_ePreMoveState = { MOVESTATE::IDLE };
+	MOVESTATE						m_eMoveState = { MOVESTATE::END };
+
+	f32_t							m_fInputX = { 0.f };
+	f32_t							m_fInputZ = { 0.f };
+	bool_t							m_bSlowTrun = { false };
 
 private:
 	HRESULT			Ready_Components();
@@ -67,6 +82,7 @@ private:
 
 	void			KeyInput(f32_t fDeltaTime);
 	void			LookAtMouse(f32_t fDeltaTime);
+	void			Change_Animation(MOVESTATE eMoveState);
 
 public:
 	static shared_ptr<CPlayer> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
