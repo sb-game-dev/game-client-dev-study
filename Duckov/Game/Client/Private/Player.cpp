@@ -241,7 +241,7 @@ void CPlayer::KeyInput(f32_t fDeltaTime)
    vector_t vMoveDir = XMVector3Normalize(vCamRight * m_fInputX + vCamLook * m_fInputZ);
    if (m_eMoveState == MOVESTATE::ROLL)
    {
-       if (m_fInputX + m_fInputZ == 0) // 키보드 입력이 없는 경우
+       if (m_fInputX == 0 && m_fInputZ == 0) // 키보드 입력이 없는 경우
            vMoveDir = m_pTransformCom->Get_State(STATE::LOOK);
        else                            // 키보드 입력이 있는 경우
        {

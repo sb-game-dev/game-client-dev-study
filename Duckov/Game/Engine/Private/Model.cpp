@@ -101,16 +101,22 @@ HRESULT CModel::Bind_BoneMatrix(uint32_t iMeshIndex, uint32_t iSlot)
 
 int32_t CModel::Get_BoneIndex(const char_t* pBoneName)
 {
-    int32_t iBoneIndex = {};
-    auto iter = find_if(m_Bones.begin(), m_Bones.end(), [&](const auto& pBone)->bool_t {
-        if (true == pBone->Compare_Name(pBoneName))
-            return true;      // 찾았으면 멈춤 (iBoneIndex는 증가하지 않음)
-        ++iBoneIndex;         // 못 찾았으면 다음 칸으로
-        return false;
-        });
-    if (iter == m_Bones.end())
-        return -1;
-    return iBoneIndex;
+    //int32_t iBoneIndex = {};
+    //auto iter = find_if(m_Bones.begin(), m_Bones.end(), [&](const auto& pBone)->bool_t {
+    //    if (true == pBone->Compare_Name(pBoneName))
+    //        return true;      // 찾았으면 멈춤 (iBoneIndex는 증가하지 않음)
+    //    ++iBoneIndex;         // 못 찾았으면 다음 칸으로
+    //    return false;
+    //    });
+    //if (iter == m_Bones.end())
+    //    return -1;
+    //return iBoneIndex;
+    for (size_t i = 0; i < m_Bones.size(); ++i)
+    {
+        if (true == m_Bones[i]->Compare_Name(pBoneName))
+            return static_cast<int32_t>(i);
+    }
+    return -1;
 }
 
 void CModel::PlayAnimation(f32_t fDeltaTime)
