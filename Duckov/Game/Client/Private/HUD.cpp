@@ -238,14 +238,48 @@ void CHUD::Build_Instances()
 
 		// HP바 아이콘
 		Push_HUDIcon(HEART_LEFT, HEART_TOP, HEART_SIZE, HEART_SIZE, 0, COLOR_HP_FILL);
-		// HP바 채움
+		// HP바 게이지
 		Push_Bar(HP_SLIDER_LEFT, HP_SLIDER_TOP, HP_SLIDER_WIDTH, HP_SLIDER_HEIGHT,
 			pPlayer->Get_HP() / pPlayer->Get_MaxHP(),
 			COLOR_HP_FILL_SIDE, COLOR_HP_FILL,
 			HP_SLIDER_HEIGHT * 0.5f);
 
-		Push_Circle(HUD_WATER_CENTER.x, HUD_WATER_CENTER.y, HUD_RING_OUTER_SIZE, HUD_RING_INNER_SIZE, COLOR_WATER_ICON,pPlayer->Get_Thirst() / pPlayer->Get_MaxThirst() * 360.f);
-		Push_Circle(HUD_ENERGY_CENTER.x, HUD_ENERGY_CENTER.y, HUD_RING_OUTER_SIZE, HUD_RING_INNER_SIZE, COLOR_ENERGY_ICON,pPlayer->Get_Hunger() / pPlayer->Get_MaxHunger() * 360.f);
+		// 배고픔, 목마름 배경
+		Push_Circle(HUD_WATER_CENTER.x, HUD_WATER_CENTER.y, HUD_RING_OUTER_SIZE, HUD_RING_INNER_SIZE, COLOR_HUD_SLOT_BG_DARK, 360.f);
+		Push_Circle(HUD_ENERGY_CENTER.x, HUD_ENERGY_CENTER.y, HUD_RING_OUTER_SIZE, HUD_RING_INNER_SIZE, COLOR_HUD_SLOT_BG_DARK, 360.f);
+		
+		// 배고픔, 목마름 게이지
+		Push_Circle(HUD_WATER_CENTER.x, HUD_WATER_CENTER.y, HUD_RING_FILL_SIZE, HUD_RING_FILL_INNER_SIZE, COLOR_WATER_ICON,pPlayer->Get_Thirst() / pPlayer->Get_MaxThirst() * 360.f);
+		Push_Circle(HUD_ENERGY_CENTER.x, HUD_ENERGY_CENTER.y, HUD_RING_FILL_SIZE, HUD_RING_FILL_INNER_SIZE, COLOR_ENERGY_ICON,pPlayer->Get_Hunger() / pPlayer->Get_MaxHunger() * 360.f);
+		
+		// 배고픔, 목마름 흰색 게이지
+		Push_Circle(HUD_WATER_CENTER.x, HUD_WATER_CENTER.y, HUD_RING_FILL_SIZE - HUD_RING_FILL_BORDER, HUD_RING_FILL_INNER_SIZE + HUD_RING_FILL_BORDER, {1.f,1.f,1.f,0.7f}, pPlayer->Get_Thirst() / pPlayer->Get_MaxThirst() * 360.f);
+		Push_Circle(HUD_ENERGY_CENTER.x, HUD_ENERGY_CENTER.y, HUD_RING_FILL_SIZE - HUD_RING_FILL_BORDER, HUD_RING_FILL_INNER_SIZE + HUD_RING_FILL_BORDER, { 1.f,1.f,1.f,0.7f }, pPlayer->Get_Hunger() / pPlayer->Get_MaxHunger() * 360.f);
+		
+		// 배고픔, 목마름 아이콘
+		Push_Circle_Icon(HUD_WATER_CENTER.x, HUD_WATER_CENTER.y, 1, 1.f);
+		Push_Circle_Icon(HUD_ENERGY_CENTER.x, HUD_ENERGY_CENTER.y, 2, 1.f);
+
+		if (pPlayer->Get_Stamina() >= 100.f)
+			return;
+		auto pPlayerPos = pPlayer->Get_Transform()->Get_State(STATE::POSITION);
+		auto matPlayerWorld = pPlayer->Get_Transform()->Get_World();
+		auto matView = CGameInstance::Get().Get_Perspective_Transform(D3DTS::VIEW);
+		auto matOthoPorj = CGameInstance::Get().Get_Ortho_Transform(D3DTS::PROJ);
+		matPlayerWorld *= matView * matOthoPorj;
+
+		f32_t x = XMVectorGetX(matPlayerWorld.r[3]);
+		f32_t y = XMVectorGetY(matPlayerWorld.r[3]);
+		// 스테미너 배경
+		Push_Circle(x + STAMINA_OFFSET.x, y + STAMINA_OFFSET.y, 
+			HUD_RING_STAMINA_BG_OUTER_SIZE, HUD_RING_STAMINA_BG_INNER_SIZE, 
+			COLOR_HUD_SLOT_BG_DARK, 
+			360.f);
+		// 스테미너 게이지
+		Push_Circle(x + STAMINA_OFFSET.x, y + STAMINA_OFFSET.y, 
+			HUD_RING_STAMINA_FILL_OUTER_SIZE, HUD_RING_STAMINA_FILL_INNER_SIZE, 
+			pPlayer->Get_Stamina() > 30.f ? COLOR_STAMINA_FILL : COLOR_STAMINA_FILL_YELLOW,
+			pPlayer->Get_Stamina() / pPlayer->Get_MaxStamina() * 360.f);
 	}
 }
 
@@ -406,13 +440,13 @@ void CHUD::Push_Circle(f32_t fCenterX, f32_t fCenterY, f32_t R, f32_t r, float4_
 	m_Instances_Circle.push_back(VtxUIInstanceCircle);
 }
 
-void CHUD::Push_Circle_Icon(f32_t fCenterX, f32_t fCenterY, int32_t iIcon, f32_t fAlpha)
+void CHUD::Push_Circle_Icon(f32_t fCenterX, f32_t fCenterY, int32_t iIconIndex, f32_t fAlpha)
 {
 	VTXUI_INSTANCE_CIRCLE VtxUIInstanceCircle{};
 
-	VtxUIInstanceCircle.vCircleInfo = { fCenterX,fCenterY,fCenterX,fCenterY };
+	VtxUIInstanceCircle.vCircleInfo = { fCenterX,fCenterY,HUD_RING_ICON_SIZE,HUD_RING_ICON_SIZE };
 	VtxUIInstanceCircle.vColor = { 1.f,1.f,1.f,fAlpha };
-	VtxUIInstanceCircle.vShape = { 1.f,(f32_t)iIcon };
+	VtxUIInstanceCircle.vShape = { 1.f,(f32_t)iIconIndex };
 	m_Instances_Circle.push_back(VtxUIInstanceCircle);
 }
 

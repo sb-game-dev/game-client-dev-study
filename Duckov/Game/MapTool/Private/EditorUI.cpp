@@ -29,8 +29,6 @@ void CEditorUI::Update(const f32_t& fDeltaTime)
     m_pHierarchy->Render(m_tHierarchy);
     m_pScene->Render(m_tScene);
     m_pInspector->Render(m_tInspector);
-
-
 }
 
 void CEditorUI::Calc_Layout()
@@ -91,13 +89,24 @@ void CEditorUI::Render_MenuBar()
         if (ImGui::MenuItem("Save", "Ctrl + S", false, true))
         {
             if (m_strCurrentPath.empty())
-                Save_As();                      
+                Save_As();
             else
                 Save_Scene(m_strCurrentPath);   
         }
 
         if (ImGui::MenuItem("Save As", nullptr, false, true))
             Save_As();
+        ImGui::EndMenu();
+    }
+    if (ImGui::BeginMenu("Brush"))
+    {
+        for (auto& Model : g_Models)
+        {
+            if (ImGui::MenuItem(Model.strDisplayName.c_str(), nullptr, false, true))
+            {
+                m_Context.SetBrushModelTag(Model.strPrototypeTag);
+            }
+        }
         ImGui::EndMenu();
     }
 
@@ -186,12 +195,10 @@ HRESULT CEditorUI::Load_Scene(const wstring& strPath)
         Desc.bEditorMode = true;
 
         wstring_t strTag;
-        do {
-            if (m_Context.m_iNextID < 10)
-                strTag = L"Prop_0" + to_wstring(m_Context.m_iNextID++);
-            else
-                strTag = L"Prop_" + to_wstring(m_Context.m_iNextID++);
-        } while (nullptr != CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag));
+        if (m_Context.iNumObject < 10)
+            strTag = L"Prop_0" + to_wstring(m_Context.iNumObject++);
+        else
+            strTag = L"Prop_" + to_wstring(m_Context.iNumObject++);
 
         if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::MAPTOOL), Desc.strPrototypeTag,
             ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag, &Desc)))

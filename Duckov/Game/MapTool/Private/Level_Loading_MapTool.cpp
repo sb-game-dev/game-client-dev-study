@@ -25,12 +25,10 @@ HRESULT CLevel_Loading_MapTool::Initialize(LEVEL eNextLevel)
 void CLevel_Loading_MapTool::Update(f32_t fDeltaTime)
 {
     __super::Update(fDeltaTime);
-    if (true == m_pLoader->isFinished() &&
-        CGameInstance::Get().Key_Pressing(DIK_SPACE))
+    if (true == m_pLoader->isFinished())
     {
         if (FAILED(CGameInstance::Get().Change_Level(ETOI(m_eNextLevelID), CLevel_MapTool::Create(m_pDevice, m_pContext))))
             return;
-        return;
     }
 }
 

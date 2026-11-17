@@ -109,15 +109,15 @@ void CPanel_Hierarchy::Create_StaticProp(const wstring_t& pPrototypeTag)
     wstring_t strTag;
 
     do {
-        if (m_Context.m_iNextID < 10)
-            strTag = L"Prop_0" + to_wstring(m_Context.m_iNextID++);
+        if (m_Context.iNumObject < 10)
+            strTag = L"Prop_0" + to_wstring(m_Context.iNumObject++);
         else
-            strTag = L"Prop_" + to_wstring(m_Context.m_iNextID++);
+            strTag = L"Prop_" + to_wstring(m_Context.iNumObject++);
     } while (nullptr != CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag));
     
     CStaticProp::STATICPROP_DESC Desc{};
     Desc.iLevelIndex = ETOUI(LEVEL::MAPTOOL);
-    Desc.strMeshPath = g_Models[0].strPath;
+    Desc.strMeshPath = g_Models[0].strPrototypeTag;
     Desc.strPrototypeTag = pPrototypeTag;
     Desc.bEditorMode = true;
 

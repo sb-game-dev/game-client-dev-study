@@ -60,7 +60,6 @@ void CPlayer::Priority_Update(f32_t fDeltaTime)
             return;
         m_pInven = pInven;
     }
-    m_ePreMoveState = m_eMoveState;
     bool_t bInvenOpen = (nullptr != pInven && pInven->Is_Open());
     if (!bInvenOpen)
     {
@@ -260,8 +259,14 @@ void CPlayer::KeyInput(f32_t fDeltaTime)
            Change_Animation(MOVESTATE::IDLE);
        return;
    }
-   else if(CGameInstance::Get().Key_Down(DIK_SPACE))
+   else if(!m_bStaminaLock && m_fStamina > m_fRollStamina && CGameInstance::Get().Key_Down(DIK_SPACE))
    {
+       m_fStamina -= m_fRollStamina;
+       if (m_fStamina <= 0.f)
+       {
+           m_fStamina = 0.f;
+           m_bStaminaLock = true;
+       }
        m_bSlowTrun = true;
        m_pTransformCom->Set_Speed(20.f);
        Change_Animation(MOVESTATE::ROLL);
@@ -269,11 +274,19 @@ void CPlayer::KeyInput(f32_t fDeltaTime)
    }
 
     bool_t  bPushShift = false;
-    if (CGameInstance::Get().Key_Pressing(DIK_LSHIFT))
+    if (!m_bStaminaLock && m_fStamina > 0 && CGameInstance::Get().Key_Pressing(DIK_LSHIFT))
     {
         m_pTransformCom->Set_Speed(16.f);
         bPushShift = true;
         m_bSlowTrun = true;
+
+        if (m_fStamina > fDeltaTime * m_fStaminaDecayRate)
+            m_fStamina -= fDeltaTime * m_fStaminaDecayRate;
+        else
+        {
+            m_fStamina = 0.f;
+            m_bStaminaLock = true;
+        }
     }
     else
     {
@@ -281,6 +294,20 @@ void CPlayer::KeyInput(f32_t fDeltaTime)
         m_bFiring = CGameInstance::Get().Mouse_Pressing(DIM::LB);
         LookAtMouse(fDeltaTime);
         m_pTransformCom->Set_Speed(8.f);
+
+        if (m_eMoveState != MOVESTATE::ROLL)
+        {
+            if (m_fStamina < 100.f)
+            {
+                m_fStamina += fDeltaTime * m_fStaminaRegenRate;
+                if(m_fStamina > 20.f)
+                    m_bStaminaLock = false;
+            }
+            else
+            {
+                m_fStamina = 100.f;
+            }
+        }
     }
 
     auto pInven = m_pInven.lock();

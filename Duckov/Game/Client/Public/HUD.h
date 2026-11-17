@@ -36,22 +36,33 @@ const float2_t HUD_ENERGY_CENTER = { -209.5f, -308.2f };
 const float2_t HUD_WATER_CENTER  = { -266.8f, -308.2f };
 
 // 불방울 번개 아이콘 반지름
-const f32_t HUD_RING_OUTER_SIZE = 25.f;		// 바깥 링 반지름
-const f32_t HUD_RING_BORDER = 8.f;			// 바깥 링 두께
-const f32_t HUD_RING_INNER_SIZE = 14.5f;	// 안쪽 원 반지름
-const f32_t HUD_RING_FILL_SIZE = 45.f;		// 채움 링 지름
-const f32_t HUD_RING_FILL_BORDER = 3.f;		// 채움 링 두께
-const f32_t HUD_RING_ICON_SIZE = 20.f;		// 아이콘 크기
+const f32_t HUD_RING_OUTER_SIZE = 25.f;			// 바깥 링 반지름
+const f32_t HUD_RING_BORDER = 8.f;				// 바깥 링 두께
+const f32_t HUD_RING_INNER_SIZE = 14.5f;		// 안쪽 원 반지름
+const f32_t HUD_RING_FILL_SIZE = 22.5f;			// 채움 링 반지름
+const f32_t HUD_RING_FILL_BORDER = 0.5f;		// 채움 링 두께
+const f32_t HUD_RING_FILL_INNER_SIZE = 18.5f;	// 채움 링 안쪽 반지름
+const f32_t HUD_RING_ICON_SIZE = 10.f;			// 아이콘 크기
+
+// 스테미너 
+const f32_t HUD_RING_STAMINA_BG_OUTER_SIZE = 11.25;
+const f32_t HUD_RING_STAMINA_BG_INNER_SIZE = 3.75;
+const f32_t HUD_RING_STAMINA_FILL_OUTER_SIZE = 8.75;
+const f32_t HUD_RING_STAMINA_FILL_INNER_SIZE = 6.25;
+const float2_t STAMINA_OFFSET = { -30.f,-15.f };
+
 
 // 색상
 constexpr float4_t COLOR_HUD_SLOT_BG_LIGHT = { 0.f, 0.f, 0.f, 0.3f };	// 1, 2, V (무기 칸)
 constexpr float4_t COLOR_HUD_SLOT_BG_DARK = { 0.f, 0.f, 0.f, 0.58f };	// 3 ~ 8 (퀵슬롯)
 constexpr float4_t COLOR_SELECTED = { 1.f, 1.f, 1.f, 1.f };				// 선택 테두리  
-constexpr float4_t COLOR_HP_BG = { 0.f, 0.f, 0.f, 0.745f };				
+constexpr float4_t COLOR_HP_BG = { 0.f, 0.f, 0.f, 0.745f };
 constexpr float4_t COLOR_HP_FILL_SIDE = { 0.f, 0.f, 0.f, 1.f };
 constexpr float4_t COLOR_HP_FILL = { 1.f, 0.553f, 0.553f, 1.f };
-constexpr float4_t COLOR_WATER_ICON  = { 0.165f, 0.678f, 1.f, 1.f };
-constexpr float4_t COLOR_ENERGY_ICON = { 1.f, 0.596f, 0.165f, 1.f };
+constexpr float4_t COLOR_WATER_ICON  = { 0.165f, 0.678f, 1.f, 0.75f };
+constexpr float4_t COLOR_ENERGY_ICON = { 1.f, 0.596f, 0.165f, 0.75f };
+constexpr float4_t COLOR_STAMINA_FILL = { 0.678f, 1.0f, 0.427f, 1.0f };
+constexpr float4_t COLOR_STAMINA_FILL_YELLOW = { 1.f, 0.976f, 0.016f, 1.f };
 NS_END
 
 NS_BEGIN(Client)

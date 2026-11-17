@@ -38,6 +38,7 @@ public:
 
 	f32_t	Get_Stamina()		const { return m_fStamina; }
 	f32_t	Get_MaxStamina()	const { return m_fMaxStamina; }
+	bool_t	Is_StaminaLock()	const { return m_bStaminaLock; }
 
 	f32_t	Get_Hunger()		const { return m_fHunger; }
 	f32_t	Get_MaxHunger()		const { return m_fMaxHunger; }
@@ -71,7 +72,6 @@ private:
 		ROLL, ATTACK, ATTACK_L2R, END 
 	};
 
-	MOVESTATE						m_ePreMoveState = { MOVESTATE::IDLE };
 	MOVESTATE						m_eMoveState = { MOVESTATE::END };
 
 	f32_t							m_fInputX = { 0.f };
@@ -84,15 +84,18 @@ private:
 
 	f32_t							m_fStamina = {100.f};
 	f32_t							m_fMaxStamina = {100.f};
-	f32_t							m_fStaminaRegenRate = { 5.f };
+	f32_t							m_fStaminaRegenRate = { 15.f };
+	f32_t							m_fStaminaDecayRate = { 10.f };
+	f32_t							m_fRollStamina = { 20.f };
+	bool_t							m_bStaminaLock = { false };
 
 	f32_t							m_fHunger = { 100.f };
 	f32_t							m_fMaxHunger = { 100.f };
-	f32_t							m_fHungerDecayRate = { 0.5f };
+	f32_t							m_fHungerDecayRate = { 10.5f };
 
 	f32_t							m_fThirst = { 100.f };
 	f32_t							m_fMaxThirst = { 100.f };
-	f32_t							m_fThirstDecayRate = { 0.5f };
+	f32_t							m_fThirstDecayRate = { 10.5f };
 
 private:
 	HRESULT			Ready_Components();

@@ -39,13 +39,13 @@ inline wstring_t To_Wide(const char* pUTF8)
 // pItems / iCount : 콤보에 보일 목록 (g_Models, _countof(g_Meshes))
 // strCurrent      : 객체가 지금 가진 경로 (정규화된 태그, 소문자)
 // 반환            : 다른 항목을 고른 프레임에만 그 항목의 원본 경로, 아니면 nullptr
-inline const wchar_t* Render_AssetCombo(const char* pLabel, const vector<ASSET_ENTRY>& Items, const wstring_t& strCurrentPath)
+inline const wchar_t* Render_AssetCombo(const char* pLabel, const vector<MODEL_COMBO>& Items, const wstring_t& strCurrentPath)
 {
 	// 1. 현재 값이 목록의 몇 번째인지 찾기
 	int32_t iCurrentIIndex = -1;
 	for (int32_t i = 0; i < Items.size(); ++i)
 	{
-		if (Normalize_AssetPath(Items[i].strPath) == strCurrentPath)
+		if (Normalize_AssetPath(Items[i].strPrototypeTag) == strCurrentPath)
 		{
 			iCurrentIIndex = i;
 			break;
@@ -76,7 +76,7 @@ inline const wchar_t* Render_AssetCombo(const char* pLabel, const vector<ASSET_E
 			// Selectable -> 클릭했을 때 true 반환
 			// && !bSelected 조건을 사용하여 현재 사용하지 않는 항목인데 클릭했다면 선택되었다고 판단 -> pPicked
 			if (ImGui::Selectable(Items[i].strDisplayName.c_str(), bSelected) && !bSelected)
-				pPickedPath = Items[i].strPath.c_str();
+				pPickedPath = Items[i].strPrototypeTag.c_str();
 
 			// 콤보를 열었을 때 현재 항목으로 스크롤
 			if (bSelected)

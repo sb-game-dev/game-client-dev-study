@@ -159,15 +159,27 @@ void CPanel_Scene::Render(const PANEL_RECT& tRect)
     if (auto pCamera = CGameInstance::Get().Get_MainCamera())
         pCamera->Compute_PickingRay(ptPick, vRayOrigin, vRayDir);
     // 피킹 요청: 씬 이미지 위에서 왼쪽 버튼을 누른 프레임
+    PickObject(vRayOrigin, vRayDir);
+    
+    // 지형 피킹
+    PickTerrain(vRayOrigin, vRayDir);
+
+    // 브러시
+    Brush(vRayOrigin, vRayDir);
+
+
+    ImGui::End();
+}
+
+void CPanel_Scene::PickObject(vector_t vRayOrigin, vector_t vRayDir)
+{
     if (m_Context.bSceneHovered && ImGui::IsMouseClicked(ImGuiMouseButton_Left) && !ImGuizmo::IsOver() && !ImGuizmo::IsUsing())
     {
         // 이 레이로 Layer_Map 객체 충돌 검사
         auto GameObjects = CGameInstance::Get().Get_GameObjects(ETOUI(LEVEL::MAPTOOL), L"Layer_Map");
         if (nullptr == GameObjects)
-        {
-            ImGui::End();
             return;
-        }
+        
         f32_t fMinDist = D3D11_FLOAT32_MAX;
         wstring_t               strPickedTag = {};
         shared_ptr<CGameObject> pPicked = { nullptr };
@@ -196,15 +208,15 @@ void CPanel_Scene::Render(const PANEL_RECT& tRect)
         if (nullptr != pPicked)
             m_Context.Select(strPickedTag, pPicked);
     }
-    // 지형 피킹
+}
+
+void CPanel_Scene::PickTerrain(vector_t vRayOrigin, vector_t vRayDir)
+{
     if (m_Context.bSceneHovered && ImGui::IsMouseReleased(ImGuiMouseButton_Right))
     {
         auto pTerrain = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), L"Layer_Terrain", L"Terrain");
         if (nullptr == pTerrain)
-        {
-            ImGui::End();
             return;
-        }
         ImVec2 vDrag = ImGui::GetMouseDragDelta(ImGuiMouseButton_Right);
         if (vDrag.x * vDrag.x + vDrag.y * vDrag.y < 25.f)    // 5픽셀 미만 이동 = 클릭으로 판단
         {
@@ -240,28 +252,63 @@ void CPanel_Scene::Render(const PANEL_RECT& tRect)
             Create_Object(s_Placeables[0].pPrototypeTag, m_vPickPos);
         ImGui::EndPopup();
     }
-    ImGui::End();
 }
 
-void CPanel_Scene::Create_Object(const wstring_t& pPrototypeTag, float3_t vPickPos)
+void CPanel_Scene::Brush(vector_t vRayOrigin, vector_t vRayDir)
+{
+    ImVec2 vDrag = ImGui::GetMouseDragDelta(ImGuiMouseButton_Middle);
+    if (m_Context.bSceneHovered && vDrag.x * vDrag.x + vDrag.y * vDrag.y > 25.f) // 5픽셀 이상 이동 = 객체 생성 
+    {
+        auto pTerrain = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), L"Layer_Terrain", L"Terrain");
+        if (nullptr == pTerrain)
+            return;
+
+        const auto& vVertices = dynamic_pointer_cast<CHill>(pTerrain)->Get_Vertices();
+        const auto& vIndices = dynamic_pointer_cast<CHill>(pTerrain)->Get_Indices();
+
+        f32_t fMinDist = D3D11_FLOAT32_MAX;
+        bool_t bHit = false;
+        for (size_t i = 0; i + 2 < vIndices.size(); i += 3)
+        {
+            vector_t p0 = XMLoadFloat3(&vVertices[vIndices[i]]);
+            vector_t p1 = XMLoadFloat3(&vVertices[vIndices[i + 1]]);
+            vector_t p2 = XMLoadFloat3(&vVertices[vIndices[i + 2]]);
+
+            f32_t fDist = {};
+            if (TriangleTests::Intersects(vRayOrigin, vRayDir, p0, p1, p2, fDist) && fDist < fMinDist)
+            {
+                fMinDist = fDist;
+                bHit = true;
+            }
+        }
+        if (bHit)
+        {
+            vector_t vHitPos = vRayOrigin + vRayDir * fMinDist;
+            XMStoreFloat3(&m_vPickPos, vHitPos);
+            Create_Object(s_Placeables[0].pPrototypeTag, m_vPickPos, m_Context.strBrushModelTag);
+        }
+    }
+}
+
+void CPanel_Scene::Create_Object(const wstring_t& strPrototypeTag, float3_t vPickPos, const wstring_t& strModelTag)
 {
     wstring_t strTag;
 
     do {
-        if (m_Context.m_iNextID < 10)
-            strTag = L"Prop_0" + to_wstring(m_Context.m_iNextID++);
+        if (m_Context.iNumObject < 10)
+            strTag = L"Prop_0" + to_wstring(m_Context.iNumObject++);
         else
-            strTag = L"Prop_" + to_wstring(m_Context.m_iNextID++);
+            strTag = L"Prop_" + to_wstring(m_Context.iNumObject++);
     } while (nullptr != CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag));
 
     CStaticProp::STATICPROP_DESC Desc{};
     Desc.iLevelIndex = ETOUI(LEVEL::MAPTOOL);
-    Desc.strMeshPath = g_Models[0].strPath;
+    Desc.strMeshPath = strModelTag;
     Desc.bEditorMode = true;
-    Desc.strPrototypeTag = pPrototypeTag;
+    Desc.strPrototypeTag = strPrototypeTag;
     Desc.vPosition = vPickPos;
 
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::MAPTOOL), pPrototypeTag,
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::MAPTOOL), strPrototypeTag,
         ETOUI(LEVEL::MAPTOOL), TEXT("Layer_Map"), strTag, &Desc)))
     {
         MSG_BOX("Create Failed");

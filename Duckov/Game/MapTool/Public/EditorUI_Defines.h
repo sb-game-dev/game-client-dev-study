@@ -24,7 +24,8 @@ struct EDITOR_CONTEXT
 	// Hierarchy가 바꾸고 Inspector가 읽는다. (나중에 Scene 피킹도 여기에 쓴다)
 	weak_ptr<CMapObject>	pSelected;			// weak_ptr: 지워지면 자동으로 만료
 	wstring_t				strSelectedTag;		// 선택된 객체의 이름 ("Prop_01")
-	uint32_t				m_iNextID = {};		// "Prop_N"의 N
+	uint32_t				iNumObject = {};		// "Prop_N"의 N
+	wstring_t				strBrushModelTag = {};	// 브러쉬에 사용할 모델의 태그
 
 	// Scene 창
 	float2_t	vImageMin = {};					// 화면 기준 씬 이미지 좌상단 (피킹용)
@@ -37,7 +38,6 @@ struct EDITOR_CONTEXT
 		strSelectedTag = strTag;
 		pSelected = dynamic_pointer_cast<CMapObject>(pObject);
 	}
-
 	void Clear_Selection()
 	{
 		pSelected.reset();
@@ -50,6 +50,10 @@ struct EDITOR_CONTEXT
 		auto pObject = pSelected.lock();
 		if (nullptr == pObject || pObject->Is_Dead())
 			Clear_Selection();
+	}
+	void SetBrushModelTag(const wstring_t& strModelTag)
+	{
+		strBrushModelTag = strModelTag;
 	}
 };
 
@@ -66,13 +70,13 @@ static constexpr PLACEABLE s_Placeables[] = {
 };
 
 // { 표시 이름, 경로 } 목록 (Inspector 콤보, Hierarchy 생성 기본값)
-struct ASSET_ENTRY
+struct MODEL_COMBO
 {
 	string    strDisplayName;  // 콤보에 보일 이름 (ImGui용 UTF-8)
-	wstring_t strPath;         // 프로토타입 태그 (정규화된 경로)
+	wstring_t strPrototypeTag;         // 프로토타입 태그 (정규화된 경로)
 };
 
-inline vector<ASSET_ENTRY> g_Models;
+inline vector<MODEL_COMBO> g_Models;
 
 
 NS_END
