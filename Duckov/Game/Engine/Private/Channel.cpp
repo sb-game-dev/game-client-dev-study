@@ -59,7 +59,7 @@ void CChannel::Update_TransformMatirx(const vector<shared_ptr<class CBone>>& Bon
     }
     else
     {
-        if (fCurrentTrackPos >= m_KeyFrames[m_iLeftKeyFrameIndex + 1].fTrackPosition)
+        while (fCurrentTrackPos >= m_KeyFrames[m_iLeftKeyFrameIndex + 1].fTrackPosition)
             ++m_iLeftKeyFrameIndex;
         f32_t fRatio = (fCurrentTrackPos - m_KeyFrames[m_iLeftKeyFrameIndex].fTrackPosition) /
             (m_KeyFrames[m_iLeftKeyFrameIndex + 1].fTrackPosition - m_KeyFrames[m_iLeftKeyFrameIndex].fTrackPosition);

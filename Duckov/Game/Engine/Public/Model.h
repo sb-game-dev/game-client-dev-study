@@ -36,7 +36,7 @@ public:
 
 	void			Reset_BoneTransformMatrix();
 	void			Set_Animation_Loop(uint32_t iAnimationIndex);
-	bool_t			Is_Animation_End();
+	bool_t			Is_Animation_Finished();
 private:
 	const	aiScene*	m_pAiScene = { nullptr };
 	Assimp::Importer	m_pImporter = {};

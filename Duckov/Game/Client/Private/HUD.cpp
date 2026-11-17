@@ -367,24 +367,23 @@ void CHUD::Push_Slot(const HUD_POS& t)
 
 void CHUD::Push_Circle(f32_t fCenterX, f32_t fCenterY, f32_t R, f32_t r, float4_t vColor, f32_t fDegree)
 {
-	m_Instances_Circle.push_back({ 
-		{fCenterX,fCenterY,R,r},
-		vColor,
-		fDegree,
-		{0.f,0.f},
-		0.f 
-		});
+	VTXUI_INSTANCE_CIRCLE VtxUIInstanceCircle{};
+
+	VtxUIInstanceCircle.vCircleInfo = { fCenterX,fCenterY,R,r };
+	VtxUIInstanceCircle.vColor = vColor;
+	VtxUIInstanceCircle.fDegree = fDegree;
+
+	m_Instances_Circle.push_back(VtxUIInstanceCircle);
 }
 
 void CHUD::Push_Circle_Icon(f32_t fCenterX, f32_t fCenterY, int32_t iIcon, f32_t fAlpha)
 {
-	m_Instances_Circle.push_back({ 
-		{fCenterX,fCenterY,fCenterX,fCenterY},
-		{1.f,1.f,1.f,fAlpha},
-		360.f,
-		{1.f,iIcon},
-		0.f
-		});
+	VTXUI_INSTANCE_CIRCLE VtxUIInstanceCircle{};
+
+	VtxUIInstanceCircle.vCircleInfo = { fCenterX,fCenterY,fCenterX,fCenterY };
+	VtxUIInstanceCircle.vColor = { 1.f,1.f,1.f,fAlpha };
+	VtxUIInstanceCircle.vShape = { 1.f,(f32_t)iIcon };
+	m_Instances_Circle.push_back(VtxUIInstanceCircle);
 }
 
 void CHUD::Push_ItemIcon(const float4_t& vRect, const shared_ptr<ITEM>& pItem, f32_t fAlpha)

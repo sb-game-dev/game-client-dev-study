@@ -253,7 +253,7 @@ void CPlayer::KeyInput(f32_t fDeltaTime)
        m_pTransformCom->Set_Speed(m_pTransformCom->Get_Speed() * 0.95f);
        m_pTransformCom->Move_Position(vMoveDir, fDeltaTime);
 
-       if (m_pModel->Is_Animation_End())
+       if (m_pModel->Is_Animation_Finished())
            Change_Animation(MOVESTATE::IDLE);
        return;
    }
