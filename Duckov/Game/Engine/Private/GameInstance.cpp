@@ -57,6 +57,11 @@ HRESULT CGameInstance::Initialize_Engine(const ENGINE_DESC& EngineDesc, _Out_ Co
 	return S_OK;
 }
 
+f32_t CGameInstance::Random(f32_t fMin, f32_t fMax)
+{
+	return fMin + static_cast<f32_t>(rand())/RAND_MAX * fMax;
+}
+
 HRESULT CGameInstance::Clear_BackBuffer_View(const float4_t* pClearColor)
 {
 	return m_pGraphic_Device->Clear_BackBuffer_View(pClearColor);

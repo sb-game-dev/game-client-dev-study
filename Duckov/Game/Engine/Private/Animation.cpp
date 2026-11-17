@@ -14,6 +14,7 @@ HRESULT CAnimation::Initialize(const aiAnimation* pAIAnimaiton, shared_ptr<class
 			return E_FAIL;
 		m_Channels.push_back(pChannel);
 	}
+	m_LeftKeyFrameIndices.resize(m_iNumChannels);
 	return S_OK;
 }
 
@@ -27,17 +28,17 @@ void CAnimation::Update_TransformMatrix(const vector<shared_ptr<class CBone>>& B
 		else
 			m_isFinished = true;
 	}
-
+	uint32_t iChannelIndex = {};
 	for (auto& pChannel : m_Channels)
-		pChannel->Update_TransformMatirx(Bones, m_fCurrentTrackPosition);
+		pChannel->Update_TransformMatirx(Bones, m_LeftKeyFrameIndices[iChannelIndex++], m_fCurrentTrackPosition);
 }
 
 void CAnimation::Reset_Animaition()
 {
 	m_fCurrentTrackPosition = 0;
 	m_isFinished = false;
-	for (auto& pChannel : m_Channels)
-		pChannel->Reset_LeftKeyFrame();
+	for (auto& LeftKeyFrameIndex : m_LeftKeyFrameIndices)
+		LeftKeyFrameIndex = 0;
 }
 
 shared_ptr<CAnimation> CAnimation::Create(const aiAnimation* pAIAnimation, shared_ptr<class CModel> pModel)
@@ -49,4 +50,9 @@ shared_ptr<CAnimation> CAnimation::Create(const aiAnimation* pAIAnimation, share
 		pInstance.reset();
 	}
 	return pInstance;
+}
+
+shared_ptr<CAnimation> CAnimation::Clone()
+{
+	return shared_ptr<CAnimation>(new CAnimation(*this));
 }

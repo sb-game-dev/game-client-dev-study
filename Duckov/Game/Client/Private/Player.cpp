@@ -72,6 +72,8 @@ void CPlayer::Priority_Update(f32_t fDeltaTime)
 void CPlayer::Update(f32_t fDeltaTime)
 {
     __super::Update(fDeltaTime);
+    Update_Hunger(fDeltaTime);
+    Update_Thirst(fDeltaTime);
     m_pModel->PlayAnimation(fDeltaTime);
 }
 void CPlayer::Late_Update(f32_t fDeltaTime)
@@ -183,6 +185,7 @@ HRESULT CPlayer::Render_Mesh(const matrix_t& matWorld, ID3D11RasterizerState* pR
 
     if (FAILED(Bind_ShaderResources(matWorld)))
         return E_FAIL;
+
     uint32_t    iNumMeshes = m_pModel->Get_NumMeshes();
     for (uint32_t i = 0; i < iNumMeshes; ++i)
     {
@@ -365,6 +368,20 @@ void CPlayer::Change_Animation(MOVESTATE eMoveState)
         return;
     m_eMoveState = eMoveState;
     m_pModel->SetCurrentAnimIndex(ETOUI(m_eMoveState));
+}
+void CPlayer::Update_Hunger(f32_t fDeltaTime)
+{
+    if (m_fHunger > fDeltaTime * m_fHungerDecayRate)
+        m_fHunger -= fDeltaTime * m_fHungerDecayRate;
+    else
+        m_fHunger = 0.f;
+}
+void CPlayer::Update_Thirst(f32_t fDeltaTime)
+{
+    if (m_fThirst > fDeltaTime * m_fThirstDecayRate)
+        m_fThirst -= fDeltaTime * m_fThirstDecayRate;
+    else
+        m_fThirst = 0.f;
 }
 shared_ptr<CPlayer> CPlayer::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
 {

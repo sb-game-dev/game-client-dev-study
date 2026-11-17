@@ -47,7 +47,7 @@ HRESULT CChannel::Initialize(const aiNodeAnim* pAIChannel, shared_ptr<class CMod
     return S_OK;
 }
 
-void CChannel::Update_TransformMatirx(const vector<shared_ptr<class CBone>>& Bones, f32_t fCurrentTrackPos)
+void CChannel::Update_TransformMatirx(const vector<shared_ptr<class CBone>>& Bones, uint32_t& pLeftKetFrameIndex, f32_t fCurrentTrackPos)
 {
     vector_t vScale{}, vRotation{}, vPosition{};
     KEYFRAME    LastKeyFrame = m_KeyFrames.back();
@@ -59,22 +59,22 @@ void CChannel::Update_TransformMatirx(const vector<shared_ptr<class CBone>>& Bon
     }
     else
     {
-        while (fCurrentTrackPos >= m_KeyFrames[m_iLeftKeyFrameIndex + 1].fTrackPosition)
-            ++m_iLeftKeyFrameIndex;
-        f32_t fRatio = (fCurrentTrackPos - m_KeyFrames[m_iLeftKeyFrameIndex].fTrackPosition) /
-            (m_KeyFrames[m_iLeftKeyFrameIndex + 1].fTrackPosition - m_KeyFrames[m_iLeftKeyFrameIndex].fTrackPosition);
+        while (fCurrentTrackPos >= m_KeyFrames[pLeftKetFrameIndex + 1].fTrackPosition)
+            ++pLeftKetFrameIndex;
+        f32_t fRatio = (fCurrentTrackPos - m_KeyFrames[pLeftKetFrameIndex].fTrackPosition) /
+            (m_KeyFrames[pLeftKetFrameIndex + 1].fTrackPosition - m_KeyFrames[pLeftKetFrameIndex].fTrackPosition);
 
         vector_t    vLeftScale, vRightScale;
         vector_t    vLeftRotation, vRightRotation;
         vector_t    vLeftPosition, vRightPosition;
 
-        vLeftScale = XMLoadFloat3(&m_KeyFrames[m_iLeftKeyFrameIndex].vScale);
-        vLeftRotation = XMLoadFloat4(&m_KeyFrames[m_iLeftKeyFrameIndex].vRotation);
-        vLeftPosition = XMVectorSetW(XMLoadFloat3(&m_KeyFrames[m_iLeftKeyFrameIndex].vPosition), 1.f);
+        vLeftScale = XMLoadFloat3(&m_KeyFrames[pLeftKetFrameIndex].vScale);
+        vLeftRotation = XMLoadFloat4(&m_KeyFrames[pLeftKetFrameIndex].vRotation);
+        vLeftPosition = XMVectorSetW(XMLoadFloat3(&m_KeyFrames[pLeftKetFrameIndex].vPosition), 1.f);
 
-        vRightScale = XMLoadFloat3(&m_KeyFrames[m_iLeftKeyFrameIndex + 1].vScale);
-        vRightRotation = XMLoadFloat4(&m_KeyFrames[m_iLeftKeyFrameIndex + 1].vRotation);
-        vRightPosition = XMVectorSetW(XMLoadFloat3(&m_KeyFrames[m_iLeftKeyFrameIndex + 1].vPosition), 1.f);
+        vRightScale = XMLoadFloat3(&m_KeyFrames[pLeftKetFrameIndex + 1].vScale);
+        vRightRotation = XMLoadFloat4(&m_KeyFrames[pLeftKetFrameIndex + 1].vRotation);
+        vRightPosition = XMVectorSetW(XMLoadFloat3(&m_KeyFrames[pLeftKetFrameIndex + 1].vPosition), 1.f);
 
         vScale = XMVectorLerp(vLeftScale, vRightScale, fRatio);
         vRotation = XMQuaternionSlerp(vLeftRotation, vRightRotation, fRatio);

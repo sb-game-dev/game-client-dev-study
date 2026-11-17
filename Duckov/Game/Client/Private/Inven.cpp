@@ -136,7 +136,9 @@ void CInven::Update(f32_t fTimeDelta)
 	}
 	CGameInstance::Get().SetBlurUse(true);
 
-	m_ptMouse = CGameInstance::Get().Get_MousePos();
+	// 마우스는 뷰포트 좌표(좌상단 원점, y 아래) -> UI와 같은 직교 공간(화면 중앙 원점, y 위)으로 변환
+	POINT ptMouse = CGameInstance::Get().Get_MousePos();
+	m_ptMouse = { ptMouse.x - (LONG)(g_iWinSizeX / 2), (LONG)(g_iWinSizeY / 2) - ptMouse.y };
 	m_tHoveredSlot = Find_CollidedSlot(m_ptMouse);
 	Update_DragState();
 }
@@ -195,13 +197,13 @@ float4_t CInven::Get_SlotRect(const SLOT_POS& t)
 {
 	if (t.eArea == INVEN_AREA::BAG)
 		return { BAG_LEFT + (t.iIndex % BAG_COLS) * BAG_STEP,
-				 BAG_TOP + (t.iIndex / BAG_COLS) * BAG_STEP,
+				 BAG_TOP - (t.iIndex / BAG_COLS) * BAG_STEP,
 				 BAG_SIZE,
 				 BAG_SIZE };
 
 	if (t.eArea == INVEN_AREA::EQUIP)
 		return { EQUIP_LEFT + (t.iIndex % EQUIP_COLS) * EQUIP_STEP_X,
-				 EQUIP_TOP + (t.iIndex / EQUIP_COLS) * EQUIP_STEP_Y,
+				 EQUIP_TOP - (t.iIndex / EQUIP_COLS) * EQUIP_STEP_Y,
 				 EQUIP_WIDTH,
 				 EQUIP_HEIGHT };
 
@@ -235,7 +237,8 @@ void CInven::Build_Instances()
 
 	//// 패널 그리기
 	Push_Rect(PANEL_LEFT, PANEL_TOP, PANEL_WIDTH, PANEL_HEIGHT, COLOR_PANEL, RADIUS);
-	CGameInstance::Get().AddBlurField(PANEL_LEFT, PANEL_TOP, PANEL_WIDTH, PANEL_HEIGHT);
+	// 블러 셰이더는 픽셀 좌표(좌상단 원점)로 판정하므로 다시 변환해서 넘김
+	CGameInstance::Get().AddBlurField(PANEL_LEFT + g_iWinSizeX * 0.5f, g_iWinSizeY * 0.5f - PANEL_TOP, PANEL_WIDTH, PANEL_HEIGHT);
 
 	// 장비칸 그리기
 	for (int32_t i = 0; i < ETOI(EQUIP_SLOT::END); ++i)        
@@ -247,7 +250,7 @@ void CInven::Build_Instances()
 
 	//// 퀵슬롯 패널 그리기
 	Push_Rect(QUICK_PANEL_LEFT, QUICK_PANEL_TOP, QUICK_PANEL_WIDTH, QUICK_PANEL_HEIGHT, COLOR_PANEL, RADIUS);
-	CGameInstance::Get().AddBlurField(QUICK_PANEL_LEFT, QUICK_PANEL_TOP, QUICK_PANEL_WIDTH, QUICK_PANEL_HEIGHT);
+	CGameInstance::Get().AddBlurField(QUICK_PANEL_LEFT + g_iWinSizeX * 0.5f, g_iWinSizeY * 0.5f - QUICK_PANEL_TOP, QUICK_PANEL_WIDTH, QUICK_PANEL_HEIGHT);
 
 	// 퀵슬롯 그리기
 	for (int32_t i = 0; i < 6; ++i)
@@ -276,7 +279,7 @@ void CInven::Build_Instances()
 		// 마우스가 잡고 있는 아이템 아이콘
 		float4_t rFromSlot = Get_SlotRect(m_tDraggedItemSlot);		
 		float4_t rDraggedIcon = { m_ptMouse.x - rFromSlot.z * 0.5f,     
-								  m_ptMouse.y - rFromSlot.w * 0.5f,
+								  m_ptMouse.y + rFromSlot.w * 0.5f,		// y 위쪽이라 위 변 = 커서 + 높이/2
 								  rFromSlot.z, rFromSlot.w };			
 		Push_ItemIcon(rDraggedIcon, Get_SlotItem(m_tDraggedItemSlot), ALPHA_DRAGGED);
 
@@ -331,9 +334,9 @@ void CInven::Push_Rect(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, flo
 	f32_t fSnapLeft = floorf(fLeft + 0.5f);
 	f32_t fSnapTop = floorf(fTop + 0.5f);
 	f32_t fSnapRight = floorf(fLeft + fWidth + 0.5f);
-	f32_t fSnapBottom = floorf(fTop + fHeight + 0.5f);
+	f32_t fSnapBottom = floorf(fTop - fHeight + 0.5f);	// 직교 공간은 y 위쪽 -> 아래 변 = 위 변 - 높이
 
-	m_Instances.push_back({ { fSnapLeft, fSnapTop, fSnapRight - fSnapLeft, fSnapBottom - fSnapTop },
+	m_Instances.push_back({ { fSnapLeft, fSnapTop, fSnapRight - fSnapLeft, fSnapTop - fSnapBottom },
 							vColor, { fRadius, fBorder, 0.f, 0.f }, { 0.f, 0.f, 1.f, 1.f } });
 }
 
@@ -349,9 +352,9 @@ void CInven::Push_Icon(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, int
 	f32_t fSnapLeft = floorf(fLeft + 0.5f);
 	f32_t fSnapTop = floorf(fTop + 0.5f);
 	f32_t fSnapRight = floorf(fLeft + fWidth + 0.5f);
-	f32_t fSnapBottom = floorf(fTop + fHeight + 0.5f);
+	f32_t fSnapBottom = floorf(fTop - fHeight + 0.5f);	// 직교 공간은 y 위쪽 -> 아래 변 = 위 변 - 높이
 
-	m_Instances.push_back({ { fSnapLeft, fSnapTop, fSnapRight - fSnapLeft, fSnapBottom - fSnapTop },
+	m_Instances.push_back({ { fSnapLeft, fSnapTop, fSnapRight - fSnapLeft, fSnapTop - fSnapBottom },
 							{ 1.f, 1.f, 1.f, fAlpha }, { 0.f, 0.f, 1.f, (f32_t)iIconIndex }, { 0.f, 0.f, 1.f, 1.f } });
 }
 void CInven::Push_Slot(const SLOT_POS& t)
@@ -377,7 +380,7 @@ void CInven::Push_Slot(const SLOT_POS& t)
 		f32_t fBarH = r.w * 0.09f;
 		f32_t fRightMargin = 2.f;
 		Push_Bar(r.x + r.z - fBarW - fRightMargin,
-			r.y + r.w * 0.72f,				
+			r.y - r.w * 0.72f,
 			fBarW, fBarH,
 			pItem->fDurability / pItem->fMaxDurability,
 			COLOR_DURABILITY_BG, COLOR_DURABILITY_FILL, fBarH * 0.5f);
@@ -411,7 +414,7 @@ CInven::SLOT_POS CInven::Find_CollidedSlot(POINT pt)
 bool_t CInven::Is_InRect(POINT pt, const float4_t& vRect)
 {
 	return pt.x >= vRect.x && pt.x < vRect.x + vRect.z
-		&& pt.y >= vRect.y && pt.y < vRect.y + vRect.w;
+		&& pt.y <= vRect.y && pt.y > vRect.y - vRect.w;	// y 위쪽 : 위 변(vRect.y) 이하, 아래 변 초과
 }
 
 bool_t CInven::Is_Slot(const SLOT_POS& t)
@@ -536,7 +539,7 @@ void CInven::Push_ItemIcon(const float4_t& vRect, const shared_ptr<ITEM>& pItem,
 
 	f32_t fIconSize = min(vRect.z, vRect.w) - 6.f;
 	f32_t fIconLeft = vRect.x + (vRect.z - fIconSize) * 0.5f;
-	f32_t fIconTop = vRect.y + (vRect.w - fIconSize) * 0.5f;
+	f32_t fIconTop = vRect.y - (vRect.w - fIconSize) * 0.5f;
 	Push_Icon(fIconLeft, fIconTop, fIconSize, fIconSize, pItem->iTypeID, fAlpha);
 }
 

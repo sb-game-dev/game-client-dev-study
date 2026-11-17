@@ -61,6 +61,7 @@ struct VS_OUT
 struct VS_OUT_CIRCLE
 {
     float4 vPosition : SV_POSITION;
+    float2 vLocal : LOCAL;
     float2 vTexCoord : TEXCOORD0;
     float  fDegree : DEGREE;
     float  fLargeR : LARGER;
@@ -74,10 +75,9 @@ VS_OUT VS_MAIN(VS_IN In)
 {
     VS_OUT Out;
     float2 vSize = In.vRect.zw;
-    float2 vCenter = In.vRect.xy + vSize * 0.5f; 
+    float2 vCenter = float2(In.vRect.x + vSize.x * 0.5f, In.vRect.y - vSize.y * 0.5f);
     float2 vLocal = In.vPosition.xy * vSize;
-    float2 vOrtho = float2(vCenter.x - g_vWinSize.x * 0.5f,
-                            g_vWinSize.y * 0.5f - vCenter.y) + vLocal;
+    float2 vOrtho = vCenter + vLocal;
 
     // 픽셀 셰이더에서 사용하지 않음. 다만 레스터라이즈 단계에서 픽셀의 Local, Color 값을 보간을 하기위해 계산해야함
     Out.vPosition = mul(mul(float4(vOrtho, 1.f, 1.f), g_OrthoViewMatrix), g_OrthoProjMatrix);
@@ -92,13 +92,14 @@ VS_OUT VS_MAIN(VS_IN In)
 
 VS_OUT_CIRCLE VS_MAIN_CIRCLE(VS_IN_CIRCLE In)
 {
-    VS_OUT_CIRCLE Out;
-    float fSize = In.vCircleInfo.z * 2.f;
-    float2 vCenter = In.vCircleInfo.xy;
-    float2 vOrtho = vCenter + fSize * In.vPosition.xy;
+    VS_OUT_CIRCLE Out;    
+    float fR = In.vCircleInfo.z; // 큰 반지름
+    float2 vLocal = In.vPosition.xy * (fR * 2.f); // 크기변환만 적용
+    float2 vOrtho = In.vCircleInfo.xy + vLocal;
 
     // 픽셀 셰이더에서 사용하지 않음. 다만 레스터라이즈 단계에서 픽셀의 Local, Color 값을 보간을 하기위해 계산해야함
     Out.vPosition = mul(mul(float4(vOrtho, 1.f, 1.f), g_OrthoViewMatrix), g_OrthoProjMatrix);
+    Out.vLocal = vLocal;
     Out.vTexCoord = In.vTexCoord;
     Out.vColor = In.vColor;
     Out.fDegree = In.fDegree;
@@ -132,17 +133,19 @@ bool InRoundRect(float2 p, float2 vHalf, float r)
     return true;
 }
 
-bool InCircle(float2 PixelPos, float fDegree, float R, float r)
+bool InRing(float2 PixelPos, float fDegree, float R, float r)
 {
 	if (PixelPos.x * PixelPos.x + PixelPos.y * PixelPos.y > R*R)
         return false;
 	if (PixelPos.x * PixelPos.x + PixelPos.y * PixelPos.y < r*r)
         return false;
+    if (fDegree == 0.f)
+        return false;
     if (fDegree < 180.f && PixelPos.x < 0 && PixelPos.y > tan(radians(fDegree) + PI / 2) * PixelPos.x)
         return true;
     if (fDegree == 180.f && PixelPos.x < 0)
         return true;
-    if (fDegree < 360.f && (PixelPos.x <= 0 || PixelPos.y < tan(radians(fDegree) + PI / 2) * PixelPos.x))
+    if (180 < fDegree && fDegree < 360.f && (PixelPos.x <= 0 || PixelPos.y < tan(radians(fDegree) + PI / 2) * PixelPos.x))
         return true;
     if (fDegree == 360.f)
         return true;
@@ -181,7 +184,7 @@ float4 PS_MAIN_CIRCLE(VS_OUT_CIRCLE In) : SV_TARGET
     if (In.vShape.x > 0.5f)
         return g_HUDIconArray.Sample(g_LinearSampler, float3(In.vTexCoord, In.vShape.y)) * In.vColor;
     
-    if (!InCircle(In.vPosition.xy,In.fDegree, In.fLargeR, In.fSmallR))
+    if (!InRing(In.vLocal, In.fDegree, In.fLargeR, In.fSmallR))
         discard;
     
     return In.vColor;

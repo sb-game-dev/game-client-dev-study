@@ -43,3 +43,8 @@ shared_ptr<CBone> CBone::Create(const aiNode* pAINode, int32_t iParentBoneIndex)
 	}
 	return pInstance;
 }
+
+shared_ptr<CBone> CBone::Clone()
+{
+	return shared_ptr<CBone>(new CBone(*this));
+}

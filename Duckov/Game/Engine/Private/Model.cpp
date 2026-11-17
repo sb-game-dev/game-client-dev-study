@@ -15,14 +15,20 @@ CModel::CModel(const CModel& rhs)
     , m_iNumMeshes{rhs.m_iNumMeshes}
     , m_Materials{rhs.m_Materials}
     , m_iNumMaterials{rhs.m_iNumMaterials}
-    , m_Bones{rhs.m_Bones}
+    //, m_Bones{rhs.m_Bones}
     , m_PreTransformMatrix{ rhs.m_PreTransformMatrix}
     , m_iNumAnimaition{rhs.m_iNumAnimaition}
-    , m_Animations{rhs.m_Animations }
+    //, m_Animations{rhs.m_Animations }
     , m_iCurrentAnimIndex{rhs.m_iCurrentAnimIndex }
     , m_tLocalBox{rhs.m_tLocalBox}
     , m_bUseCulling{rhs.m_bUseCulling}
 {
+    for (auto& pBone : rhs.m_Bones)
+        m_Bones.push_back(pBone->Clone());
+
+    for (auto& pAnimation : rhs.m_Animations)
+        m_Animations.push_back(pAnimation->Clone());
+
 }
 
 HRESULT CModel::Initialize_Prototype(MODEL eType, const char_t* pModelFilePath, fmatrix_t PreTransformMatrix)
@@ -139,18 +145,9 @@ void CModel::SetCurrentAnimIndex(uint32_t iAnimIndex)
 
     if (m_iCurrentAnimIndex != iAnimIndex)
     {
-        m_Animations[m_iCurrentAnimIndex]->Reset_Animaition();
         m_Animations[iAnimIndex]->Reset_Animaition();
-        //Reset_BoneTransformMatrix();
+        m_iCurrentAnimIndex = iAnimIndex;
     }
-
-    m_iCurrentAnimIndex = iAnimIndex;
-}
-
-void CModel::Reset_BoneTransformMatrix()
-{
-    for (auto& pBone : m_Bones)
-        pBone->Reset_TransformMatrix();
 }
 
 void CModel::Set_Animation_Loop(uint32_t iAnimationIndex)

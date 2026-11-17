@@ -28,12 +28,22 @@ public:
 	virtual HRESULT	Render_Shadow() override;
 	virtual HRESULT	Render_Occluded() override;
 
-	virtual void	AdjustPosY();
-	virtual bool_t	Is_Aiming() const { return m_bAiming; }
-	virtual bool_t	Is_Firing() const { return m_bFiring; }
+	void	AdjustPosY();
 
-	virtual f32_t	Get_HP()	const { return m_fHP; }
-	virtual f32_t	Get_MaxHP() const { return m_fMaxHP; }
+	bool_t	Is_Aiming()			const { return m_bAiming; }
+	bool_t	Is_Firing()			const { return m_bFiring; }
+
+	f32_t	Get_HP()			const { return m_fHP; }
+	f32_t	Get_MaxHP()			const { return m_fMaxHP; }
+
+	f32_t	Get_Stamina()		const { return m_fStamina; }
+	f32_t	Get_MaxStamina()	const { return m_fMaxStamina; }
+
+	f32_t	Get_Hunger()		const { return m_fHunger; }
+	f32_t	Get_MaxHunger()		const { return m_fMaxHunger; }
+
+	f32_t	Get_Thirst()		const { return m_fThirst; }
+	f32_t	Get_MaxThirst()		const { return m_fMaxThirst; }
 
 private:
 	float4_t						m_vGroundPlane = { 0.f, 1.f, 0.f, 0.f };	// 발밑 평면 (a,b,c,d)
@@ -53,9 +63,6 @@ private:
 	bool_t							m_bAiming = { false };
 	bool_t							m_bFiring = { false };
 
-	f32_t							m_fHP = 100.f;
-	f32_t							m_fMaxHP = 100.f;
-
 	enum class MOVESTATE {
 		IDLE, 
 		WALK_FORWARD, WALK_BACKWARD, WALK_LEFT, WALK_RIGHT, TPOS,
@@ -71,6 +78,22 @@ private:
 	f32_t							m_fInputZ = { 0.f };
 	bool_t							m_bSlowTrun = { false };
 
+	// 플레이어 스텟값
+	f32_t							m_fHP = { 100.f };
+	f32_t							m_fMaxHP = { 100.f };
+
+	f32_t							m_fStamina = {100.f};
+	f32_t							m_fMaxStamina = {100.f};
+	f32_t							m_fStaminaRegenRate = { 5.f };
+
+	f32_t							m_fHunger = { 100.f };
+	f32_t							m_fMaxHunger = { 100.f };
+	f32_t							m_fHungerDecayRate = { 0.5f };
+
+	f32_t							m_fThirst = { 100.f };
+	f32_t							m_fMaxThirst = { 100.f };
+	f32_t							m_fThirstDecayRate = { 0.5f };
+
 private:
 	HRESULT			Ready_Components();
 	HRESULT			Ready_ConstantBuffer();
@@ -83,7 +106,8 @@ private:
 	void			KeyInput(f32_t fDeltaTime);
 	void			LookAtMouse(f32_t fDeltaTime);
 	void			Change_Animation(MOVESTATE eMoveState);
-
+	void			Update_Hunger(f32_t fDeltaTime);
+	void			Update_Thirst(f32_t fDeltaTime);
 public:
 	static shared_ptr<CPlayer> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
 	virtual shared_ptr<CPrototype> Clone(void* pArg) override;

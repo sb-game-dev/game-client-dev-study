@@ -125,7 +125,10 @@ void CHUD::Late_Update(f32_t fTimeDelta)
 
 HRESULT CHUD::Render()
 {
+	//---------------- 인스턴스 버퍼 준비 ----------------//
 	Build_Instances();
+
+	//---------------- 사각형 HUD 그리기 ----------------//
 	if (m_Instances.empty())
 		return S_OK;
 	uint32_t iCount = min((uint32_t)m_Instances.size(), m_iMaxInstance);
@@ -156,6 +159,32 @@ HRESULT CHUD::Render()
 		return E_FAIL;
 
 	m_pContext->RSSetState(m_pRS.Get());
+
+	m_pContext->DrawIndexedInstanced(m_iIndexCnt, iCount, 0, 0, 0);
+
+	//---------------- 원 HUD 그리기 ----------------//
+	if (m_Instances_Circle.empty())
+		return S_OK;
+	iCount = min((uint32_t)m_Instances_Circle.size(), m_iMaxInstance);
+
+	D3D11_MAPPED_SUBRESOURCE tCircleMapped{};
+	if (FAILED(m_pContext->Map(m_pInstanceVB_Circle.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &tCircleMapped)))
+		return E_FAIL;
+	memcpy(tCircleMapped.pData, m_Instances_Circle.data(), sizeof(VTXUI_INSTANCE_CIRCLE) * iCount);
+	m_pContext->Unmap(m_pInstanceVB_Circle.Get(), 0);
+
+	ID3D11Buffer* pCircleVBs[] = { m_pVB.Get(), m_pInstanceVB_Circle.Get() };
+	uint32_t iCircleStrides[] = { sizeof(VTXNORM), sizeof(VTXUI_INSTANCE_CIRCLE) };
+	uint32_t iCircleOffsets[] = { 0, 0 };
+	m_pContext->IASetVertexBuffers(0, 2, pCircleVBs, iCircleStrides, iCircleOffsets);
+	m_pContext->IASetIndexBuffer(m_pIB.Get(), DXGI_FORMAT_R32_UINT, 0);
+	m_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+	if (FAILED(m_pVSCircleCom->Begin()))
+		return E_FAIL;
+
+	if (FAILED(m_pPSCircleCom->Begin()))
+		return E_FAIL;
 
 	m_pContext->DrawIndexedInstanced(m_iIndexCnt, iCount, 0, 0, 0);
 	return S_OK;
@@ -215,7 +244,8 @@ void CHUD::Build_Instances()
 			COLOR_HP_FILL_SIDE, COLOR_HP_FILL,
 			HP_SLIDER_HEIGHT * 0.5f);
 
-
+		Push_Circle(HUD_WATER_CENTER.x, HUD_WATER_CENTER.y, HUD_RING_OUTER_SIZE, HUD_RING_INNER_SIZE, COLOR_WATER_ICON,pPlayer->Get_Thirst() / pPlayer->Get_MaxThirst() * 360.f);
+		Push_Circle(HUD_ENERGY_CENTER.x, HUD_ENERGY_CENTER.y, HUD_RING_OUTER_SIZE, HUD_RING_INNER_SIZE, COLOR_ENERGY_ICON,pPlayer->Get_Hunger() / pPlayer->Get_MaxHunger() * 360.f);
 	}
 }
 
@@ -224,19 +254,19 @@ float4_t CHUD::Get_SlotRect(const HUD_POS& t)
 
 	if (t.eArea == HUD_AREA::GUN)
 		return { WEAPON_LEFT + (t.iIndex % 2) * WEAPON_STEP,
-				 WEAPON_TOP+ (t.iIndex / 2) * WEAPON_STEP,
+				 WEAPON_TOP - (t.iIndex / 2) * WEAPON_STEP,
 				 WEAPON_SIZE,
 				 WEAPON_SIZE };
 
 	if (t.eArea == HUD_AREA::MELEE)
 		return { MELEE_LEFT + (t.iIndex % 2),
-				 MELEE_TOP + (t.iIndex / 2), 
+				 MELEE_TOP - (t.iIndex / 2), 
 				 MELEE_SIZE,
 				 MELEE_SIZE };
 
 	if (t.eArea == HUD_AREA::SLOT)
 		return { QUICK_LEFT + (t.iIndex % 6) * QUICK_STEP,
-				 QUICK_TOP + (t.iIndex / 6) * QUICK_STEP,
+				 QUICK_TOP - (t.iIndex / 6) * QUICK_STEP,
 				 QUICK_SIZE,
 				 QUICK_SIZE };
 
@@ -318,9 +348,9 @@ void CHUD::Push_Rect(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, float
 	f32_t fSnapLeft = floorf(fLeft + 0.5f);
 	f32_t fSnapTop = floorf(fTop + 0.5f);
 	f32_t fSnapRight = floorf(fLeft + fWidth + 0.5f);
-	f32_t fSnapBottom = floorf(fTop + fHeight + 0.5f);
+	f32_t fSnapBottom = floorf(fTop - fHeight + 0.5f);	// 직교 공간은 y 위쪽 -> 아래 변 = 위 변 - 높이
 
-	m_Instances.push_back({ { fSnapLeft, fSnapTop, fSnapRight - fSnapLeft, fSnapBottom - fSnapTop },
+	m_Instances.push_back({ { fSnapLeft, fSnapTop, fSnapRight - fSnapLeft, fSnapTop - fSnapBottom },
 							vColor, { fRadius, fBorder, 0.f, 0.f }, { 0.f, 0.f, 1.f, 1.f } });
 }
 void CHUD::Push_Bar(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, f32_t fRatio, float4_t vBgColor, float4_t vFillColor, f32_t fRadius)
@@ -335,9 +365,9 @@ void CHUD::Push_Icon(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, int32
 	f32_t fSnapLeft = floorf(fLeft + 0.5f);
 	f32_t fSnapTop = floorf(fTop + 0.5f);
 	f32_t fSnapRight = floorf(fLeft + fWidth + 0.5f);
-	f32_t fSnapBottom = floorf(fTop + fHeight + 0.5f);
+	f32_t fSnapBottom = floorf(fTop - fHeight + 0.5f);	// 직교 공간은 y 위쪽 -> 아래 변 = 위 변 - 높이
 
-	m_Instances.push_back({ { fSnapLeft, fSnapTop, fSnapRight - fSnapLeft, fSnapBottom - fSnapTop },
+	m_Instances.push_back({ { fSnapLeft, fSnapTop, fSnapRight - fSnapLeft, fSnapTop - fSnapBottom },
 							{ 1.f, 1.f, 1.f, fAlpha }, { 0.f, 0.f, 1.f, (f32_t)iIconIndex }, { 0.f, 0.f, 1.f, 1.f } });
 }
 
@@ -346,9 +376,9 @@ void CHUD::Push_HUDIcon(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, in
 	f32_t fSnapLeft = floorf(fLeft + 0.5f);
 	f32_t fSnapTop = floorf(fTop + 0.5f);
 	f32_t fSnapRight = floorf(fLeft + fWidth + 0.5f);
-	f32_t fSnapBottom = floorf(fTop + fHeight + 0.5f);
+	f32_t fSnapBottom = floorf(fTop - fHeight + 0.5f);	// 직교 공간은 y 위쪽 -> 아래 변 = 위 변 - 높이
 
-	m_Instances.push_back({ { fSnapLeft, fSnapTop, fSnapRight - fSnapLeft, fSnapBottom - fSnapTop },
+	m_Instances.push_back({ { fSnapLeft, fSnapTop, fSnapRight - fSnapLeft, fSnapTop - fSnapBottom },
 							vColor, { 0.f, 0.f, 2.f, (f32_t)iIconIndex }, { 0.f, 0.f, 1.f, 1.f } });
 }
 
@@ -393,7 +423,7 @@ void CHUD::Push_ItemIcon(const float4_t& vRect, const shared_ptr<ITEM>& pItem, f
 
 	f32_t fIconSize = min(vRect.z, vRect.w) - 6.f;
 	f32_t fIconLeft = vRect.x + (vRect.z - fIconSize) * 0.5f;
-	f32_t fIconTop = vRect.y + (vRect.w - fIconSize) * 0.5f;
+	f32_t fIconTop = vRect.y - (vRect.w - fIconSize) * 0.5f;
 	Push_Icon(fIconLeft, fIconTop, fIconSize, fIconSize, pItem->iTypeID, fAlpha);
 }
 

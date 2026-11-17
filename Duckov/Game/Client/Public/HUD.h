@@ -3,36 +3,45 @@
 #include "Client_Defines.h"
 #include "GameObject.h"
 NS_BEGIN(HUD_UI)
+// 위치 좌표 : 직교 공간 (화면 중앙 원점, x 오른쪽, y 위쪽, 1 = 1px). LEFT/TOP 은 사각형의 왼쪽 변 x, 위쪽 변 y
 // 무기 칸 
-constexpr f32_t WEAPON_LEFT = 480.5f, WEAPON_TOP = 631.f;
-constexpr f32_t WEAPON_SIZE = 64.f, WEAPON_STEP = 74.f;          // 무기1 480.5, 무기2 554.5
+constexpr f32_t WEAPON_LEFT = -159.5f, WEAPON_TOP = -271.f;
+constexpr f32_t WEAPON_SIZE = 64.f, WEAPON_STEP = 74.f;          // 무기1 -159.5, 무기2 -85.5
 
-constexpr f32_t MELEE_LEFT = 628.5f, MELEE_TOP = 655.f, MELEE_SIZE = 40.f;
+constexpr f32_t MELEE_LEFT = -11.5f, MELEE_TOP = -295.f, MELEE_SIZE = 40.f;
 
 constexpr f32_t WEAPON_RADIUS = 16.f;
 constexpr f32_t BORDER_FRAME = 1.f;			// 칸 테두리 
 constexpr f32_t BORDER_SELECTED = 2.f;		// 선택 테두리   
 
 // 퀵슬롯 3~8 
-constexpr f32_t QUICK_LEFT = 677.5f, QUICK_TOP = 645.f;
+constexpr f32_t QUICK_LEFT = 37.5f, QUICK_TOP = -285.f;
 constexpr f32_t QUICK_SIZE = 50.f, QUICK_STEP = 60.f;
 
 // 키 배지 
 constexpr f32_t BADGE_GAP = 2.5f, BADGE_HEIGHT = 20.f, BADGE_PAD_X = 6.f, BADGE_RADIUS = 4.f;
 
-// 원형 게이지 
-constexpr f32_t WATER_CX = 373.2f, ENERGY_CX = 430.5f, GAUGE_CY = 668.2f;
-constexpr f32_t GAUGE_SIZE = 50.f;
-
 // HP 바
-constexpr f32_t HP_LEFT = 213.f, HP_TOP = 668.2f, HP_WIDTH = 130.f, HP_HEIGHT = 25.f;
-constexpr f32_t HP_SLIDER_LEFT = 236.8f, HP_SLIDER_TOP = 672.2f, HP_SLIDER_WIDTH = 102.7f, HP_SLIDER_HEIGHT = 17.f;
+constexpr f32_t HP_LEFT = -427.f, HP_TOP = -308.2f, HP_WIDTH = 130.f, HP_HEIGHT = 25.f;
+constexpr f32_t HP_SLIDER_LEFT = -403.2f, HP_SLIDER_TOP = -312.2f, HP_SLIDER_WIDTH = 102.7f, HP_SLIDER_HEIGHT = 17.f;
 
 // HP바 아이콘 
-constexpr f32_t HEART_LEFT = 216.9f, HEART_TOP = 671.9f, HEART_SIZE = 17.5f;
+constexpr f32_t HEART_LEFT = -423.1f, HEART_TOP = -311.9f, HEART_SIZE = 17.5f;
 
 // 물방울, 번개 아이콘 크기
 constexpr f32_t HUD_ICON_SIZE = 20.f;
+
+// 물방울, 번개 아이콘 위치
+const float2_t HUD_ENERGY_CENTER = { -209.5f, -308.2f };
+const float2_t HUD_WATER_CENTER  = { -266.8f, -308.2f };
+
+// 불방울 번개 아이콘 반지름
+const f32_t HUD_RING_OUTER_SIZE = 25.f;		// 바깥 링 반지름
+const f32_t HUD_RING_BORDER = 8.f;			// 바깥 링 두께
+const f32_t HUD_RING_INNER_SIZE = 14.5f;	// 안쪽 원 반지름
+const f32_t HUD_RING_FILL_SIZE = 45.f;		// 채움 링 지름
+const f32_t HUD_RING_FILL_BORDER = 3.f;		// 채움 링 두께
+const f32_t HUD_RING_ICON_SIZE = 20.f;		// 아이콘 크기
 
 // 색상
 constexpr float4_t COLOR_HUD_SLOT_BG_LIGHT = { 0.f, 0.f, 0.f, 0.3f };	// 1, 2, V (무기 칸)

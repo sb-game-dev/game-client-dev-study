@@ -32,9 +32,8 @@ public:
 	BoundingBox		GetBoundinBox() { return m_tLocalBox; }
 
 	void			PlayAnimation(f32_t fDeltaTime);
-	void			SetCurrentAnimIndex(uint32_t iAnimIndex);
 
-	void			Reset_BoneTransformMatrix();
+	void			SetCurrentAnimIndex(uint32_t iAnimIndex);
 	void			Set_Animation_Loop(uint32_t iAnimationIndex);
 	bool_t			Is_Animation_Finished();
 private:
@@ -56,10 +55,13 @@ private:
 	uint32_t								m_iNumAnimaition = {};
 	uint32_t								m_iCurrentAnimIndex = {11};
 
-	BoundingBox					m_tLocalBox = {};
-	bool_t						m_bUseCulling = { false };
+	BoundingBox								m_tLocalBox = {};
+	bool_t									m_bUseCulling = { false };
 
-	float4x4_t					m_PreTransformMatrix = {};
+	float4x4_t								m_PreTransformMatrix = {};
+
+	bool_t									m_isLoop = { false };
+	bool_t									m_isFinished = { false };
 
 private:
 	HRESULT	Ready_Meshes(MODEL eType, fmatrix_t PreTransformMatrix);

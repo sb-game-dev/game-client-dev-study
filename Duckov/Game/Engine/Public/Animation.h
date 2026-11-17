@@ -25,14 +25,16 @@ private:
 	f32_t		m_fCurrentTrackPosition = {};
 
 	/* 이 애니메이션에서 사용해야할 뼈들의 정보를 보관한다. */
-	uint32_t	m_iNumChannels = {};
-	vector<shared_ptr<class CChannel>> m_Channels;
+	uint32_t							m_iNumChannels = {};
+	vector<shared_ptr<class CChannel>>	m_Channels;
+	vector<uint32_t>					m_LeftKeyFrameIndices;
 
 	bool_t		m_bLoop = { false };
 	bool_t		m_isFinished = { true };
 
 public:
 	static shared_ptr<CAnimation> Create(const aiAnimation* pAIAnimation, shared_ptr<class CModel> pModel);
+	shared_ptr<CAnimation> Clone();
 };
 
 NS_END

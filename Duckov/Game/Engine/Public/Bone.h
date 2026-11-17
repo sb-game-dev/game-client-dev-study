@@ -32,6 +32,7 @@ private:
 
 public:
 	static shared_ptr<CBone> Create(const aiNode* pAINode, int32_t iParentBoneIndex);
+	shared_ptr<CBone> Clone();
 };
 
 NS_END

@@ -11,8 +11,7 @@ public:
 
 public:
 	HRESULT	Initialize(const aiNodeAnim* pAIChannel, shared_ptr<class CModel> pModel);
-	void Update_TransformMatirx(const vector<shared_ptr<class CBone>>& Bones, f32_t fCurrentTrackPos);
-	void Reset_LeftKeyFrame() { m_iLeftKeyFrameIndex = 0; }
+	void Update_TransformMatirx(const vector<shared_ptr<class CBone>>& Bones, uint32_t& pLeftKetFrameIndex, f32_t fCurrentTrackPos);
 
 private:
 	char_t				m_szName[MAX_PATH] = {};

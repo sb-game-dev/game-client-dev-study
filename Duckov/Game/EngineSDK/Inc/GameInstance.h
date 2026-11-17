@@ -55,6 +55,7 @@ public:/* 엔진의 초기화과정 : 여러 메니져를 미리 할당하여 사용 할 준비를 한다*/
 									  _Out_ ComPtr<ID3D11DeviceContext>& pContext);
 
 public:
+	f32_t			Random(f32_t fMin, f32_t fMax);
 	HRESULT			Clear_BackBuffer_View(const float4_t* pClearColor);
 	HRESULT			Clear_DepthStencil_View();
 	HRESULT			Clear_Resources(int32_t iClearLevelIndex);

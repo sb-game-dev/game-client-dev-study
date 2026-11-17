@@ -3,18 +3,19 @@
 #include "Client_Defines.h"
 #include "GameObject.h"
 NS_BEGIN(INVEN_UI)
+// 위치 좌표 : 직교 공간 (화면 중앙 원점, x 오른쪽, y 위쪽, 1 = 1px). LEFT/TOP 은 사각형의 왼쪽 변 x, 위쪽 변 y
 // ==================== 인벤 ====================
 // 패널 : 왼쪽 장비와 가방을 감싸는 큰 판
-constexpr f32_t PANEL_LEFT = 42.f, PANEL_TOP = 117.f, PANEL_WIDTH = 320.f, PANEL_HEIGHT = 543.f;
+constexpr f32_t PANEL_LEFT = -598.f, PANEL_TOP = 243.f, PANEL_WIDTH = 320.f, PANEL_HEIGHT = 543.f;
 
 // 장비 10칸 (2행 x 5열)
-constexpr f32_t EQUIP_LEFT = 65.f, EQUIP_TOP = 151.f;         
+constexpr f32_t EQUIP_LEFT = -575.f, EQUIP_TOP = 209.f;         
 constexpr f32_t EQUIP_WIDTH = 45.f, EQUIP_HEIGHT = 43.f;      
 constexpr f32_t EQUIP_STEP_X = 58.f, EQUIP_STEP_Y = 64.f;     
 constexpr int32_t EQUIP_COLS = 5;
 
 // 가방 그리드
-constexpr f32_t BAG_LEFT = 52.f, BAG_TOP = 326.f;             
+constexpr f32_t BAG_LEFT = -588.f, BAG_TOP = 34.f;             
 constexpr f32_t BAG_SIZE = 56.f;
 constexpr f32_t BAG_STEP = 60.f;
 constexpr int32_t BAG_COLS = 5;
@@ -45,10 +46,10 @@ constexpr f32_t ALPHA_DRAGGED = 0.9f;		// 커서를 따라오는 아이콘
 
 // ==================== 퀵슬롯 ====================
 // 퀵슬롯 패널
-constexpr f32_t QUICK_PANEL_LEFT = 451.f, QUICK_PANEL_TOP = 571.6f, QUICK_PANEL_WIDTH = 378.f, QUICK_PANEL_HEIGHT = 88.4f;
+constexpr f32_t QUICK_PANEL_LEFT = -189.f, QUICK_PANEL_TOP = -211.6f, QUICK_PANEL_WIDTH = 378.f, QUICK_PANEL_HEIGHT = 88.4f;
 
 // 퀵슬롯 6칸
-constexpr f32_t QUICK_LEFT = 455.f, QUICK_TOP = 592.f;
+constexpr f32_t QUICK_LEFT = -185.f, QUICK_TOP = -232.f;
 constexpr f32_t QUICK_SIZE = 55.f;
 constexpr f32_t QUICK_STEP = 63.f;
 constexpr int32_t QUICK_COLS = 6;
@@ -119,7 +120,7 @@ private:
 	EQUIP_SLOT					m_eActiveSlot = EQUIP_SLOT::GUN_1;
 
 	DRAG_STATE					m_eDragState = { DRAG_STATE::IDLE };
-	POINT						m_ptMouse = {};				// 마우스 위치 (뷰포트 좌표, 좌상단 원점)
+	POINT						m_ptMouse = {};				// 마우스 위치 (직교 공간, 화면 중앙 원점, y 위쪽)
 	SLOT_POS					m_tHoveredSlot = {};		// 마우스 아래의 슬롯 칸 정보
 	SLOT_POS					m_tSelectedSlot = {};       // 클릭된 칸 (주황 테두리)
 	SLOT_POS					m_tDraggedItemSlot = {};    // 집어 든 칸

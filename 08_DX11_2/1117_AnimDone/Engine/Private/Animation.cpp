@@ -36,9 +36,7 @@ bool_t CAnimation::Update_TransformationMatrix(const vector<shared_ptr<class CBo
     {
         if (false == isLoop)
             return true;
-        m_fCurrentTrackPosition = 0.f;      
-
-
+        m_fCurrentTrackPosition = 0.f;
     }
 
     uint32_t        iChannelIndex = {};
