@@ -18,6 +18,17 @@ namespace
         { "Rotate", ImGuizmo::ROTATE    },
         { "Scale",  ImGuizmo::SCALE     },
     };
+    struct BRUSH_ITEM
+    {
+        const char* pLabel;         // 글자
+        CPanel_Scene::BRUSH_MODE eBrushMode;
+    };
+
+    static constexpr BRUSH_ITEM g_BrushOps[] =
+    {
+        { "Paint",  CPanel_Scene::BRUSH_MODE::PAINT },
+        { "Erase",  CPanel_Scene::BRUSH_MODE::ERASE},
+    };
 }
 
 void CPanel_Scene::Render(const PANEL_RECT& tRect)
@@ -77,61 +88,36 @@ void CPanel_Scene::Render(const PANEL_RECT& tRect)
     m_Context.bSceneHovered = ImGui::IsItemHovered();       // 카메라 드래그 + 카메라 피킹에 사용
     m_Context.bSceneFocused = ImGui::IsWindowFocused();     // 마지막으로 클릭된 창일 때 true 카메라 조작 허용
                                                             // (Begin과 End 사이에서 불려야 이 창에 대한 값이 나옴)
-    // 카메라 -> 원근투영
-    ImGuizmo::SetOrthographic(false);
+
+    // 기즈모
+    Render_Guizmo(vCursor);
+
+    // 피킹 준비(레이 만들기)
+    vector_t vRayOrigin, vRayDir;
+    Ready_Ray(vRayOrigin, vRayDir, vpSize);
     
-    // Scene에 기즈모를 그리게 한다.
-    ImGuizmo::SetDrawlist();
+    // 오브젝트 피킹
+    PickObject(vRayOrigin, vRayDir);
+    
+    // 지형 피킹
+    PickTerrain(vRayOrigin, vRayDir);
 
-    // 기즈모가 뷰포트로 생각할 화면 -> Scene의 Rect
-    ImGuizmo::SetRect(m_Context.vImageMin.x, m_Context.vImageMin.y,
-        m_Context.vImageSize.x, m_Context.vImageSize.y);
+    // 브러시 모드 변경
+    Change_BrushMode();
+    
+    // Paint
+    if(m_eBrushMode == BRUSH_MODE::PAINT)
+        Brush(vRayOrigin, vRayDir);
 
-    ImGui::SetCursorPos(vCursor);
-    ImGui::BeginGroup();
-    for (size_t i = 0; i < 3; ++i)
-    {
-        if (0 != i)
-            ImGui::SameLine();
-        // 현재 그려야 하는 버튼이 선택된 기즈모 방식인지 확인 -> 스타일 변경 후 그리기
-        const bool_t bActive = (m_eGizmoOp == g_GizmoOps[i].eOp);
-        if (bActive)
-            ImGui::PushStyleColor(ImGuiCol_Button, ImGui::GetStyleColorVec4(ImGuiCol_ButtonActive));
-        
-        // 버튼 그리기
-        if (ImGui::Button(g_GizmoOps[i].pLabel))
-            m_eGizmoOp = g_GizmoOps[i].eOp;
-        // 스타일 복구
-        if (bActive)
-            ImGui::PopStyleColor();
-    }
-    ImGui::EndGroup();
+    // Erase
+    else
+        Erase(vRayOrigin, vRayDir);
+    
+    ImGui::End();
+}
 
-    auto pObject = m_Context.pSelected.lock();
-    if (nullptr != pObject && !dynamic_pointer_cast<CHill>(pObject))
-    {
-        float4x4_t ViewMatrix, ProjMatrix, WorldMatrix;
-        XMStoreFloat4x4(&ViewMatrix, CGameInstance::Get().Get_Perspective_Transform(D3DTS::VIEW));
-        XMStoreFloat4x4(&ProjMatrix, CGameInstance::Get().Get_Perspective_Transform(D3DTS::PROJ));
-        WorldMatrix = *pObject->Get_Transform()->Get_WorldMatrixPtr();
-
-        if (ImGuizmo::Manipulate(&ViewMatrix._11, &ProjMatrix._11,
-            m_eGizmoOp, ImGuizmo::WORLD,
-            &WorldMatrix._11))
-        {
-            vector_t vS, vQ, vT;
-            if (XMMatrixDecompose(&vS, &vQ, &vT, XMLoadFloat4x4(&WorldMatrix)))
-            {
-                float3_t vPos, vScale; 
-                float4_t vQuat;
-                XMStoreFloat3(&vPos, vT); 
-                XMStoreFloat3(&vScale, vS); 
-                XMStoreFloat4(&vQuat, vQ);
-                pObject->Set_Transform(vPos, vQuat, vScale);
-            }
-        }
-    }
-    // 피킹
+void CPanel_Scene::Ready_Ray(vector_t& vRayOrigin, vector_t& vRayDir, const float2_t& vpSize)
+{
     // Scene 창에 그려진 이미지의 중심 (ImGui 화면 좌표)
     const float2_t vImageCenter = {
         m_Context.vImageMin.x + m_Context.vImageSize.x * 0.5f,
@@ -153,22 +139,8 @@ void CPanel_Scene::Render(const PANEL_RECT& tRect)
     POINT ptPick{
         static_cast<LONG>(vViewportCenter.x + fDeltaX * fScaleX),
         static_cast<LONG>(vViewportCenter.y + fDeltaY * fScaleY) };
-
-    // 레이 만들기
-    vector_t vRayOrigin, vRayDir;
     if (auto pCamera = CGameInstance::Get().Get_MainCamera())
         pCamera->Compute_PickingRay(ptPick, vRayOrigin, vRayDir);
-    // 피킹 요청: 씬 이미지 위에서 왼쪽 버튼을 누른 프레임
-    PickObject(vRayOrigin, vRayDir);
-    
-    // 지형 피킹
-    PickTerrain(vRayOrigin, vRayDir);
-
-    // 브러시
-    Brush(vRayOrigin, vRayDir);
-
-
-    ImGui::End();
 }
 
 void CPanel_Scene::PickObject(vector_t vRayOrigin, vector_t vRayDir)
@@ -254,10 +226,47 @@ void CPanel_Scene::PickTerrain(vector_t vRayOrigin, vector_t vRayDir)
     }
 }
 
+void CPanel_Scene::Change_BrushMode()
+{
+    ImGui::BeginGroup();
+    for (size_t i = 0; i < 2; ++i)
+    {
+        if (0 != i)
+            ImGui::SameLine();
+        // 현재 그려야 하는 버튼이 선택된 기즈모 방식인지 확인 -> 스타일 변경 후 그리기
+        const bool_t bActive = (m_eBrushMode == g_BrushOps[i].eBrushMode);
+        if (bActive)
+            ImGui::PushStyleColor(ImGuiCol_Button, ImGui::GetStyleColorVec4(ImGuiCol_ButtonActive));
+
+        // 버튼 그리기
+        if (ImGui::Button(g_BrushOps[i].pLabel))
+            m_eBrushMode = g_BrushOps[i].eBrushMode;
+        // 스타일 복구
+        if (bActive)
+            ImGui::PopStyleColor();
+    }
+
+    if (m_Context.strBrushModelTag.empty())
+        m_Context.SetBrushModelTag(g_Models[0].strPrototypeTag);
+    if (m_eBrushMode == BRUSH_MODE::PAINT)
+    {
+        ImGui::SameLine();
+        ImGui::SetNextItemWidth(200.f);
+
+        if (auto pPicked = Render_AssetCombo("BrushModels", g_Models, Normalize_AssetPath(m_Context.strBrushModelTag)))
+            m_Context.SetBrushModelTag(pPicked);
+    }
+    ImGui::EndGroup();
+}
+
 void CPanel_Scene::Brush(vector_t vRayOrigin, vector_t vRayDir)
 {
-    ImVec2 vDrag = ImGui::GetMouseDragDelta(ImGuiMouseButton_Middle);
-    if (m_Context.bSceneHovered && vDrag.x * vDrag.x + vDrag.y * vDrag.y > 25.f) // 5픽셀 이상 이동 = 객체 생성 
+    int32_t iMouseMoveX = CGameInstance::Get().Get_DIMouseMove(DIMM::X);
+    int32_t iMouseMoveY = CGameInstance::Get().Get_DIMouseMove(DIMM::Y);
+
+    if (m_Context.bSceneHovered &&
+        CGameInstance::Get().Get_DIMouseState(DIM::WHEEL) &&
+        iMouseMoveX * iMouseMoveX + iMouseMoveY * iMouseMoveY > 25.f) // 5픽셀 이상 이동 -> 객체 생성
     {
         auto pTerrain = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), L"Layer_Terrain", L"Terrain");
         if (nullptr == pTerrain)
@@ -288,6 +297,107 @@ void CPanel_Scene::Brush(vector_t vRayOrigin, vector_t vRayDir)
             Create_Object(s_Placeables[0].pPrototypeTag, m_vPickPos, m_Context.strBrushModelTag);
         }
     }
+}
+
+void CPanel_Scene::Erase(vector_t vRayOrigin, vector_t vRayDir)
+{
+    int32_t iMouseMoveX = CGameInstance::Get().Get_DIMouseMove(DIMM::X);
+    int32_t iMouseMoveY = CGameInstance::Get().Get_DIMouseMove(DIMM::Y);
+
+    if (m_Context.bSceneHovered &&
+        CGameInstance::Get().Get_DIMouseState(DIM::WHEEL))
+    {
+        auto GameObjects = CGameInstance::Get().Get_GameObjects(ETOUI(LEVEL::MAPTOOL), L"Layer_Map");
+        if (nullptr == GameObjects)
+            return;
+
+        f32_t fMinDist = D3D11_FLOAT32_MAX;
+        wstring_t               strPickedTag = {};
+        shared_ptr<CGameObject> pPicked = { nullptr };
+        for (auto& [strTag, pObject] : *GameObjects)
+        {
+            if (nullptr == pObject || pObject->Is_Dead())
+                continue;
+            if (nullptr != dynamic_pointer_cast<CHill>(pObject))          // 지형 제외 (박스가 맵 전체)
+                continue;
+            auto pModel = dynamic_pointer_cast<CModel>(pObject->Find_Component(L"Com_Model"));
+            if (nullptr == pModel)
+                continue;
+
+            BoundingOrientedBox tWorldBox;
+            BoundingOrientedBox::CreateFromBoundingBox(tWorldBox, pModel->GetBoundinBox());
+            tWorldBox.Transform(tWorldBox, pObject->Get_Transform()->Get_World());
+
+            f32_t fOutDist = {};
+            if (tWorldBox.Intersects(vRayOrigin, vRayDir, fOutDist) && fMinDist > fOutDist)
+            {
+                fMinDist = fOutDist;
+                strPickedTag = strTag;
+                pPicked = pObject;
+            }
+        }
+        if (nullptr != pPicked)
+            pPicked->Set_Dead();
+    }
+}
+
+void CPanel_Scene::Render_Guizmo(const ImVec2& vCursor)
+{    
+    // 카메라 -> 원근투영
+    ImGuizmo::SetOrthographic(false);
+
+    // Scene에 기즈모를 그리게 한다.
+    ImGuizmo::SetDrawlist();
+
+    // 기즈모가 뷰포트로 생각할 화면 -> Scene의 Rect
+    ImGuizmo::SetRect(m_Context.vImageMin.x, m_Context.vImageMin.y,
+        m_Context.vImageSize.x, m_Context.vImageSize.y);
+
+    ImGui::SetCursorPos(vCursor);
+    ImGui::BeginGroup();
+    for (size_t i = 0; i < 3; ++i)
+    {
+        if (0 != i)
+            ImGui::SameLine();
+        // 현재 그려야 하는 버튼이 선택된 기즈모 방식인지 확인 -> 스타일 변경 후 그리기
+        const bool_t bActive = (m_eGizmoOp == g_GizmoOps[i].eOp);
+        if (bActive)
+            ImGui::PushStyleColor(ImGuiCol_Button, ImGui::GetStyleColorVec4(ImGuiCol_ButtonActive));
+
+        // 버튼 그리기
+        if (ImGui::Button(g_GizmoOps[i].pLabel))
+            m_eGizmoOp = g_GizmoOps[i].eOp;
+        // 스타일 복구
+        if (bActive)
+            ImGui::PopStyleColor();
+    }
+    ImGui::EndGroup();
+
+    auto pObject = m_Context.pSelected.lock();
+    if (nullptr != pObject && !dynamic_pointer_cast<CHill>(pObject))
+    {
+        float4x4_t ViewMatrix, ProjMatrix, WorldMatrix;
+        XMStoreFloat4x4(&ViewMatrix, CGameInstance::Get().Get_Perspective_Transform(D3DTS::VIEW));
+        XMStoreFloat4x4(&ProjMatrix, CGameInstance::Get().Get_Perspective_Transform(D3DTS::PROJ));
+        WorldMatrix = *pObject->Get_Transform()->Get_WorldMatrixPtr();
+
+        if (ImGuizmo::Manipulate(&ViewMatrix._11, &ProjMatrix._11,
+            m_eGizmoOp, ImGuizmo::WORLD,
+            &WorldMatrix._11))
+        {
+            vector_t vS, vQ, vT;
+            if (XMMatrixDecompose(&vS, &vQ, &vT, XMLoadFloat4x4(&WorldMatrix)))
+            {
+                float3_t vPos, vScale;
+                float4_t vQuat;
+                XMStoreFloat3(&vPos, vT);
+                XMStoreFloat3(&vScale, vS);
+                XMStoreFloat4(&vQuat, vQ);
+                pObject->Set_Transform(vPos, vQuat, vScale);
+            }
+        }
+    }
+
 }
 
 void CPanel_Scene::Create_Object(const wstring_t& strPrototypeTag, float3_t vPickPos, const wstring_t& strModelTag)

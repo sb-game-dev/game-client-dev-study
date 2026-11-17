@@ -98,18 +98,7 @@ void CEditorUI::Render_MenuBar()
             Save_As();
         ImGui::EndMenu();
     }
-    if (ImGui::BeginMenu("Brush"))
-    {
-        for (auto& Model : g_Models)
-        {
-            if (ImGui::MenuItem(Model.strDisplayName.c_str(), nullptr, false, true))
-            {
-                m_Context.SetBrushModelTag(Model.strPrototypeTag);
-            }
-        }
-        ImGui::EndMenu();
-    }
-
+    
     ImGui::EndMainMenuBar();
 }
 
@@ -156,7 +145,7 @@ HRESULT CEditorUI::Save_Scene(const wstring& strPath)
         fwrite(&vScale, sizeof(float3_t), 1, pFile);
 
         wstring_t strModelPath = pMapObj->Get_MeshPath();
-        uint32_t  iModelPathLength = strModelPath.length();
+        uint32_t  iModelPathLength = static_cast<uint32_t>(strModelPath.length());
 
         fwrite(&iModelPathLength, sizeof(uint32_t), 1, pFile);
         fwrite(strModelPath.data(), sizeof(wchar_t), iModelPathLength, pFile);

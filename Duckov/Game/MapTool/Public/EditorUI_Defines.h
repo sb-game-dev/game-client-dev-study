@@ -25,7 +25,7 @@ struct EDITOR_CONTEXT
 	weak_ptr<CMapObject>	pSelected;			// weak_ptr: 지워지면 자동으로 만료
 	wstring_t				strSelectedTag;		// 선택된 객체의 이름 ("Prop_01")
 	uint32_t				iNumObject = {};		// "Prop_N"의 N
-	wstring_t				strBrushModelTag = {};	// 브러쉬에 사용할 모델의 태그
+	wstring_t				strBrushModelTag = {};	// 브러쉬에 사용할 현재 모델의 태그
 
 	// Scene 창
 	float2_t	vImageMin = {};					// 화면 기준 씬 이미지 좌상단 (피킹용)

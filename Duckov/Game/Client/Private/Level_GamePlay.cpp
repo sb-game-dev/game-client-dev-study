@@ -26,13 +26,7 @@ HRESULT CLevel_GamePlay::Initialize()
         return E_FAIL;
     if (FAILED(Ready_Layer_Camera(TEXT("Layer_Camera"))))
         return E_FAIL;
-    //if(FAILED(Load_Scene(TEXT("../../../Resource/SceneData/exData.bin"),ETOUI(LEVEL::GAMEPLAY),TEXT("Layer_GameObject"))))
-    //    return E_FAIL;
-    //if(FAILED(Load_Scene(TEXT("../../../Resource/SceneData/Trees_R80.bin"),ETOUI(LEVEL::GAMEPLAY),TEXT("Layer_GameObject"))))
-    //    return E_FAIL;
-    //if(FAILED(Load_Scene(TEXT("../../../Resource/SceneData/Trees_ALL.bin"),ETOUI(LEVEL::GAMEPLAY),TEXT("Layer_GameObject"))))
-    //    return E_FAIL;
-    if(FAILED(Load_Scene(TEXT("../../../Resource/SceneData/NewScene.bin"),ETOUI(LEVEL::GAMEPLAY),TEXT("Layer_GameObject"))))
+    if(FAILED(Load_Scene(TEXT("../../../Resource/SceneData/exData.bin"),ETOUI(LEVEL::GAMEPLAY),TEXT("Layer_GameObject"))))
         return E_FAIL;
 
     return S_OK;
@@ -84,8 +78,6 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
     Player_Desc.fDegreeRotPerSec = 180.f;
     Player_Desc.iLevelIndex = ETOUI(LEVEL::GAMEPLAY);
     Player_Desc.vPosition = { 38.2f ,0.f,-207.2f };
-    //Player_Desc.strMeshPath = TEXT("Duckov_Extract/Terrain/Terrain_GroundZero_Crop/height_321x321_16bit.raw");  // Mesh
-    //Player_Desc.strTexturePath = TEXT("Duckov_Extract/Terrain/Terrain_GroundZero_Crop/splat_0.png");            // Texture
 
     if(FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Player, 
         ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Player, &Player_Desc)))
