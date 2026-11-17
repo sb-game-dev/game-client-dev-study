@@ -47,7 +47,7 @@ HRESULT CMaterial::Initialize(const char_t* pModelFilePath, const aiMaterial* pA
 
 			// 최종 텍스처 경로 완성
 			wchar_t		szPerfectPath[MAX_PATH] = {};
-			MultiByteToWideChar(CP_ACP, 0, szTempFilePath, strlen(szTempFilePath), szPerfectPath, MAX_PATH);
+			MultiByteToWideChar(CP_ACP, 0, szTempFilePath, int32_t(strlen(szTempFilePath)), szPerfectPath, MAX_PATH);
 
 			// 텍스처 추출
 			HRESULT         hr = {};

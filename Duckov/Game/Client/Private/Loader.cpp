@@ -261,6 +261,15 @@ HRESULT CLoader::Loading_For_GamePlayLV()
         CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_Inventory.hlsl", "PS_MAIN"))))
         return E_FAIL;
 
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::VS_UI_CIRCLE,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_Inventory.hlsl",
+            VTXUI_INSTANCE_CIRCLE::Elements, VTXUI_INSTANCE_CIRCLE::iNumElements, "VS_MAIN_CIRCLE"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::PS_UI_CIRCLE,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_Inventory.hlsl", "PS_MAIN_CIRCLE"))))
+        return E_FAIL;
+
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::VS_VTXCOL_UI,
         CVertexShader::Create(m_pDevice, m_pContext,L"../Bin/Shader/UI_VertexShader.hlsl",VTXCOL::Elements,VTXCOL::iNumElements, "VS_UI_SCOPE"))))
         return E_FAIL;

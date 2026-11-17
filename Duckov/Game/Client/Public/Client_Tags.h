@@ -51,6 +51,8 @@ namespace Client
 		inline constexpr const wchar_t* PS_TERRAIN = L"Prototype_Component_PS_TERRAIN";
 		inline constexpr const wchar_t* VS_UI = L"Prototype_Component_VS_UI";
 		inline constexpr const wchar_t* PS_UI = L"Prototype_Component_PS_UI";
+		inline constexpr const wchar_t* VS_UI_CIRCLE = L"Prototype_Component_VS_UI_CIRCLE";
+		inline constexpr const wchar_t* PS_UI_CIRCLE = L"Prototype_Component_PS_UI_CIRCLE";
 
 		// ---------- Shader : Model ----------
 		inline constexpr const wchar_t* VS_MODEL = L"Prototype_Component_VS_MODEL";

@@ -167,6 +167,7 @@ void CHUD::Build_Instances()
 {
 	// 인스턴스 초기화
 	m_Instances.clear();
+	m_Instances_Circle.clear();
 
 	// 퀵 슬롯 총 2개 칸그리기
 	for (int32_t i = 0; i < 2; ++i)
@@ -198,7 +199,8 @@ void CHUD::Build_Instances()
 	// 퀵 슬롯 3 ~ 8 숫자칸 그리기
 	for (int32_t i = 0; i < 6; ++i)
 		Push_Slot({ HUD_AREA::SLOT, i });
-
+	
+	// 플레이어 상태 띄우기
 	auto pPlayer = m_pPlayer.lock();
 	if (pPlayer)
 	{
@@ -212,6 +214,8 @@ void CHUD::Build_Instances()
 			pPlayer->Get_HP() / pPlayer->Get_MaxHP(),
 			COLOR_HP_FILL_SIDE, COLOR_HP_FILL,
 			HP_SLIDER_HEIGHT * 0.5f);
+
+
 	}
 }
 
@@ -269,6 +273,14 @@ HRESULT CHUD::Ready_Components()
 		TEXT("Com_PS"), m_pPSCom)))
 		return E_FAIL;
 
+	if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VS_UI_CIRCLE,
+		TEXT("Com_VS_Circle"), m_pVSCircleCom)))
+		return E_FAIL;
+
+	if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_UI_CIRCLE,
+		TEXT("Com_PS_Circle"), m_pPSCircleCom)))
+		return E_FAIL;
+
 	if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::Texture_ItemIcons,
 		TEXT("Com_IconTex"), m_pIconTexCom)))
 		return E_FAIL;
@@ -289,6 +301,14 @@ HRESULT CHUD::Ready_InstanceBuffer()
 	if (FAILED(m_pDevice->CreateBuffer(&desc, nullptr, &m_pInstanceVB)))
 		return E_FAIL;
 	m_Instances.reserve(m_iMaxInstance);
+
+	desc.ByteWidth = sizeof(VTXUI_INSTANCE_CIRCLE) * m_iMaxInstance;
+	desc.Usage = D3D11_USAGE_DYNAMIC;
+	desc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+	desc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	if (FAILED(m_pDevice->CreateBuffer(&desc, nullptr, &m_pInstanceVB_Circle)))
+		return E_FAIL;
+	m_Instances_Circle.reserve(m_iMaxInstance);
 	return S_OK;
 }
 
@@ -343,6 +363,28 @@ void CHUD::Push_Slot(const HUD_POS& t)
 
 	// 아이템 그리기
 	Push_ItemIcon(r, Get_SlotItem(t), 1.f);
+}
+
+void CHUD::Push_Circle(f32_t fCenterX, f32_t fCenterY, f32_t R, f32_t r, float4_t vColor, f32_t fDegree)
+{
+	m_Instances_Circle.push_back({ 
+		{fCenterX,fCenterY,R,r},
+		vColor,
+		fDegree,
+		{0.f,0.f},
+		0.f 
+		});
+}
+
+void CHUD::Push_Circle_Icon(f32_t fCenterX, f32_t fCenterY, int32_t iIcon, f32_t fAlpha)
+{
+	m_Instances_Circle.push_back({ 
+		{fCenterX,fCenterY,fCenterX,fCenterY},
+		{1.f,1.f,1.f,fAlpha},
+		360.f,
+		{1.f,iIcon},
+		0.f
+		});
 }
 
 void CHUD::Push_ItemIcon(const float4_t& vRect, const shared_ptr<ITEM>& pItem, f32_t fAlpha)

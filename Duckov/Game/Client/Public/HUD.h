@@ -75,13 +75,17 @@ public:
 
 
 private:
-	shared_ptr<CVertexShader>   m_pVSCom;
-	shared_ptr<CPixelShader>    m_pPSCom;
-	shared_ptr<CTexture>        m_pIconTexCom;
-	shared_ptr<CTexture>        m_pHUDIconTexCom;
-	ComPtr<ID3D11Buffer>        m_pInstanceVB;
-	static constexpr uint32_t   m_iMaxInstance = 1024;
-	vector<VTXUI_INSTANCE>      m_Instances;
+	shared_ptr<CVertexShader>		m_pVSCom;
+	shared_ptr<CPixelShader>		m_pPSCom;
+	shared_ptr<CVertexShader>		m_pVSCircleCom;
+	shared_ptr<CPixelShader>		m_pPSCircleCom;
+	shared_ptr<CTexture>			m_pIconTexCom;
+	shared_ptr<CTexture>			m_pHUDIconTexCom;
+	ComPtr<ID3D11Buffer>			m_pInstanceVB;
+	ComPtr<ID3D11Buffer>			m_pInstanceVB_Circle;
+	static constexpr uint32_t		m_iMaxInstance = 1024;
+	vector<VTXUI_INSTANCE>			m_Instances;
+	vector<VTXUI_INSTANCE_CIRCLE>	m_Instances_Circle;
 
 	weak_ptr<class CInven>		m_pInven;
 	weak_ptr<class CPlayer>		m_pPlayer;
@@ -100,6 +104,9 @@ private:
 	void					Push_HUDIcon(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, int32_t iIcon, float4_t vColor);
 	void					Push_ItemIcon(const float4_t& vRect, const shared_ptr<ITEM>& pItem, f32_t fAlpha);
 	void					Push_Slot(const HUD_POS& t);
+
+	void					Push_Circle(f32_t fCenterX, f32_t fCenterY, f32_t R, f32_t r, float4_t vColor, f32_t fDegree = 0.f);
+	void					Push_Circle_Icon(f32_t fCenterX, f32_t fCenterY, int32_t iIcon, f32_t fAlpha = 1.f);
 public:
 	static shared_ptr<CHUD>	Create(ComPtr<ID3D11Device>pDevice, ComPtr<ID3D11DeviceContext>pContext);
 	shared_ptr<CPrototype>	Clone(void* pArg) override;

@@ -3,8 +3,8 @@
 HRESULT CAnimation::Initialize(const aiAnimation* pAIAnimaiton, shared_ptr<class CModel> pModel)
 {
 	strcpy_s(m_szName, pAIAnimaiton->mName.C_Str());
-	m_fDuration = pAIAnimaiton->mDuration;
-	m_fTickPerSecond = pAIAnimaiton->mTicksPerSecond;
+	m_fDuration = (f32_t)pAIAnimaiton->mDuration;
+	m_fTickPerSecond = (f32_t)pAIAnimaiton->mTicksPerSecond;
 
 	m_iNumChannels = pAIAnimaiton->mNumChannels;
 	for (uint32_t i = 0; i < m_iNumChannels; ++i)

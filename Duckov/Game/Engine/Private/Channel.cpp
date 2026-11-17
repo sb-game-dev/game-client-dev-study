@@ -21,12 +21,12 @@ HRESULT CChannel::Initialize(const aiNodeAnim* pAIChannel, shared_ptr<class CMod
 
         if (i < pAIChannel->mNumScalingKeys)
         {
-            tKeyFrame.fTrackPosition = pAIChannel->mScalingKeys[i].mTime;
+            tKeyFrame.fTrackPosition =(float)pAIChannel->mScalingKeys[i].mTime;
             memcpy(&vScale, &pAIChannel->mScalingKeys[i].mValue, sizeof(float3_t));
         }
         if (i < pAIChannel->mNumRotationKeys)
         {
-            tKeyFrame.fTrackPosition = pAIChannel->mRotationKeys[i].mTime;
+            tKeyFrame.fTrackPosition = (float)pAIChannel->mRotationKeys[i].mTime;
             vRotation.x = pAIChannel->mRotationKeys[i].mValue.x;
             vRotation.y = pAIChannel->mRotationKeys[i].mValue.y;
             vRotation.z = pAIChannel->mRotationKeys[i].mValue.z;
@@ -34,7 +34,7 @@ HRESULT CChannel::Initialize(const aiNodeAnim* pAIChannel, shared_ptr<class CMod
         }
         if (i < pAIChannel->mNumPositionKeys)
         {
-            tKeyFrame.fTrackPosition = pAIChannel->mPositionKeys[i].mTime;
+            tKeyFrame.fTrackPosition = (float)pAIChannel->mPositionKeys[i].mTime;
             memcpy(&vPosition, &pAIChannel->mPositionKeys[i].mValue, sizeof(float3_t));
         }
         tKeyFrame.vScale = vScale;

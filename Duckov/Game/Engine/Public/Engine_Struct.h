@@ -173,6 +173,29 @@ namespace Engine
 		};
 	}VTXUI_INSTANCE;
 
+	typedef struct tagVtxUIInstanceCircle
+	{
+		float4_t    vCircleInfo;	// CenterX, CenterY, R, r (큰 반지름, 작은 반지름)
+		float4_t    vColor;			// RGBA
+		f32_t		fDegree;		// 각도
+		float2_t    vShape;			// z: 0 도형 / 1 아이콘, w: 아이콘 번호
+		f32_t		fCirclePad;		// Padding
+
+		static constexpr uint32_t iNumElements = 8;
+		static constexpr D3D11_INPUT_ELEMENT_DESC Elements[iNumElements] =
+		{
+			{ "POSITION",	0, DXGI_FORMAT_R32G32B32_FLOAT,    0,  0, D3D11_INPUT_PER_VERTEX_DATA,   0 },
+			{ "NORMAL",		0, DXGI_FORMAT_R32G32B32_FLOAT,    0, 12, D3D11_INPUT_PER_VERTEX_DATA,   0 },
+			{ "TEXCOORD",	0, DXGI_FORMAT_R32G32_FLOAT,       0, 24, D3D11_INPUT_PER_VERTEX_DATA,   0 },
+
+			{ "CIRCLEINFO", 0, DXGI_FORMAT_R32G32B32A32_FLOAT,	1,  0, D3D11_INPUT_PER_INSTANCE_DATA, 1 },
+			{ "UICOLOR",	0, DXGI_FORMAT_R32G32B32A32_FLOAT,	1, 16, D3D11_INPUT_PER_INSTANCE_DATA, 1 },
+			{ "DEGREE",		0, DXGI_FORMAT_R32_FLOAT,			1, 32, D3D11_INPUT_PER_INSTANCE_DATA, 1 },
+			{ "SHAPE",		0, DXGI_FORMAT_R32G32_FLOAT,		1, 40, D3D11_INPUT_PER_INSTANCE_DATA, 1 },
+			{ "CIRCLEPAD",  0, DXGI_FORMAT_R32G32B32A32_FLOAT,	1, 56, D3D11_INPUT_PER_INSTANCE_DATA, 1 },
+		};
+	}VTXUI_INSTANCE_CIRCLE;
+
 	typedef struct tagVtxMeshInstance
 	{
 		static constexpr uint32_t iNumElements = 9;

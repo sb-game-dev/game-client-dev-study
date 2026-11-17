@@ -8,6 +8,9 @@ cbuffer FrameData : register(b1)
     float4 g_vEye;
 };
 
+static const float PI = 3.14159265358979f;
+static const float TWO_PI = 6.28318530717958f;
+
 static const float2 g_vWinSize = float2(1280.f, 720.f); 
 
 Texture2DArray g_IconArray : register(t0);
@@ -30,6 +33,21 @@ struct VS_IN
     float4 vUV : UIUV;
 };
 
+struct VS_IN_CIRCLE
+{
+    // 버텍스 버퍼
+    float3 vPosition : POSITION;
+    float3 vNormal : NORMAL;
+    float2 vTexCoord : TEXCOORD0;
+    
+    // 인스턴스 버퍼
+    float4 vCircleInfo : CIRCLEINFO;
+    float4 vColor : UICOLOR;
+    float  fDegree : DEGREE;
+    float2 vShape : SHAPE;
+    float fCirclePad : CIRCLEPAD;
+};
+
 struct VS_OUT
 {
     float4 vPosition : SV_POSITION;
@@ -38,6 +56,18 @@ struct VS_OUT
     nointerpolation float4 vColor : COLOR;
     nointerpolation float4 vShape : SHAPE;
     nointerpolation float2 vSize : SIZE;
+};
+
+struct VS_OUT_CIRCLE
+{
+    float4 vPosition : SV_POSITION;
+    float2 vTexCoord : TEXCOORD0;
+    float  fDegree : DEGREE;
+    float  fLargeR : LARGER;
+    float  fSmallR : SMALLR;
+    
+    nointerpolation float2 vShape : SHAPE;
+    nointerpolation float4 vColor : COLOR;
 };
 
 VS_OUT VS_MAIN(VS_IN In)
@@ -56,6 +86,25 @@ VS_OUT VS_MAIN(VS_IN In)
     Out.vColor = In.vColor;
     Out.vShape = In.vShape;
     Out.vSize = vSize;
+    return Out;
+}
+
+
+VS_OUT_CIRCLE VS_MAIN_CIRCLE(VS_IN_CIRCLE In)
+{
+    VS_OUT_CIRCLE Out;
+    float fSize = In.vCircleInfo.z * 2.f;
+    float2 vCenter = In.vCircleInfo.xy;
+    float2 vOrtho = vCenter + fSize * In.vPosition.xy;
+
+    // 픽셀 셰이더에서 사용하지 않음. 다만 레스터라이즈 단계에서 픽셀의 Local, Color 값을 보간을 하기위해 계산해야함
+    Out.vPosition = mul(mul(float4(vOrtho, 1.f, 1.f), g_OrthoViewMatrix), g_OrthoProjMatrix);
+    Out.vTexCoord = In.vTexCoord;
+    Out.vColor = In.vColor;
+    Out.fDegree = In.fDegree;
+    Out.fLargeR = In.vCircleInfo.z;
+    Out.fSmallR = In.vCircleInfo.w;
+    Out.vShape = In.vShape;
     return Out;
 }
 
@@ -83,6 +132,23 @@ bool InRoundRect(float2 p, float2 vHalf, float r)
     return true;
 }
 
+bool InCircle(float2 PixelPos, float fDegree, float R, float r)
+{
+	if (PixelPos.x * PixelPos.x + PixelPos.y * PixelPos.y > R*R)
+        return false;
+	if (PixelPos.x * PixelPos.x + PixelPos.y * PixelPos.y < r*r)
+        return false;
+    if (fDegree < 180.f && PixelPos.x < 0 && PixelPos.y > tan(radians(fDegree) + PI / 2) * PixelPos.x)
+        return true;
+    if (fDegree == 180.f && PixelPos.x < 0)
+        return true;
+    if (fDegree < 360.f && (PixelPos.x <= 0 || PixelPos.y < tan(radians(fDegree) + PI / 2) * PixelPos.x))
+        return true;
+    if (fDegree == 360.f)
+        return true;
+    return false;
+}
+
 float4 PS_MAIN(VS_OUT In) : SV_TARGET
 {
     // 아이콘인 경우
@@ -106,5 +172,17 @@ float4 PS_MAIN(VS_OUT In) : SV_TARGET
         InRoundRect(In.vLocal, vHalf - fBorder, max(fRadius - fBorder, 0.f)))
         discard;
 
+    return In.vColor;
+}
+
+float4 PS_MAIN_CIRCLE(VS_OUT_CIRCLE In) : SV_TARGET
+{
+    // 아이콘인 경우
+    if (In.vShape.x > 0.5f)
+        return g_HUDIconArray.Sample(g_LinearSampler, float3(In.vTexCoord, In.vShape.y)) * In.vColor;
+    
+    if (!InCircle(In.vPosition.xy,In.fDegree, In.fLargeR, In.fSmallR))
+        discard;
+    
     return In.vColor;
 }
