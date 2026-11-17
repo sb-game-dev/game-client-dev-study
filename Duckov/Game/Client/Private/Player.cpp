@@ -66,6 +66,10 @@ void CPlayer::Priority_Update(f32_t fDeltaTime)
         KeyInput(fDeltaTime);
         AdjustPosY();
     }
+    else
+    {
+        Change_Animation(MOVESTATE::IDLE);
+    }
 }
 
 void CPlayer::Update(f32_t fDeltaTime)
@@ -130,6 +134,8 @@ HRESULT CPlayer::Ready_Components()
     m_pModel->Set_Animation_Loop(ETOUI(MOVESTATE::WALK_BACKWARD));
     m_pModel->Set_Animation_Loop(ETOUI(MOVESTATE::IDLE));
     m_pModel->Set_Animation_Loop(ETOUI(MOVESTATE::IDLE_RH));
+    m_pModel->Set_Animation_Loop(ETOUI(MOVESTATE::ATTACK));
+    m_pModel->Set_Animation_Loop(ETOUI(MOVESTATE::ATTACK_L2R));
 
     if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VS_ANIM_MODEL,
         TEXT("Com_VS"), m_pVS)))
@@ -236,6 +242,17 @@ void CPlayer::AdjustPosY()
 }
 void CPlayer::KeyInput(f32_t fDeltaTime)
 {
+   auto pInven = m_pInven.lock();
+   if (pInven)
+   {
+       if (CGameInstance::Get().Key_Down(DIK_1))
+           pInven->Set_ActiveSlot(EQUIP_SLOT::GUN_1);
+       if (CGameInstance::Get().Key_Down(DIK_2))
+           pInven->Set_ActiveSlot(EQUIP_SLOT::GUN_2);
+       if (CGameInstance::Get().Key_Down(DIK_V))
+           pInven->Set_ActiveSlot(EQUIP_SLOT::MELEE);
+   }
+
    matrix_t matCamWorld = CGameInstance::Get().Get_Perspective_Transform_Inverse(D3DTS::VIEW);
    vector_t vCamRight = XMVector3Normalize(XMVectorSetY(matCamWorld.r[0], 0.f));
    vector_t vCamLook = XMVector3Normalize(XMVectorSetY(matCamWorld.r[2], 0.f));
@@ -272,6 +289,7 @@ void CPlayer::KeyInput(f32_t fDeltaTime)
        Change_Animation(MOVESTATE::ROLL);
        return;   
    }
+
 
     bool_t  bPushShift = false;
     if (!m_bStaminaLock && m_fStamina > 0 && CGameInstance::Get().Key_Pressing(DIK_LSHIFT))
@@ -310,16 +328,7 @@ void CPlayer::KeyInput(f32_t fDeltaTime)
         }
     }
 
-    auto pInven = m_pInven.lock();
-    if (pInven)
-    {
-        if (CGameInstance::Get().Key_Down(DIK_1)) 
-            pInven->Set_ActiveSlot(EQUIP_SLOT::GUN_1);
-        if (CGameInstance::Get().Key_Down(DIK_2)) 
-            pInven->Set_ActiveSlot(EQUIP_SLOT::GUN_2);
-        if (CGameInstance::Get().Key_Down(DIK_V))
-            pInven->Set_ActiveSlot(EQUIP_SLOT::MELEE);
-    }
+    
     
     vector_t vLook = m_pTransformCom->Get_State(STATE::LOOK);
 
@@ -339,7 +348,10 @@ void CPlayer::KeyInput(f32_t fDeltaTime)
     }
     else if(!bPushShift)
     {
-        if (m_bAiming || m_bFiring)
+        if(pInven->Get_ActiveSlot() == EQUIP_SLOT::MELEE)
+            if (m_bFiring) Change_Animation(rand() %2 == 0 ? MOVESTATE::ATTACK : MOVESTATE::ATTACK_L2R);
+            else Change_Animation(MOVESTATE::WALK_FORWARD);
+        else if (m_bAiming || m_bFiring)
             Change_Animation(MOVESTATE::WALK_FORWARD_RH);
         else
             Change_Animation(MOVESTATE::WALK_FORWARD);
@@ -348,6 +360,8 @@ void CPlayer::KeyInput(f32_t fDeltaTime)
     {
         Change_Animation(MOVESTATE::WALK_BACKWARD);
     }
+
+
     m_pTransformCom->Move_Position(vMoveDir, fDeltaTime);
 
 

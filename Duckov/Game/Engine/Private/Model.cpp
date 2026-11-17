@@ -147,9 +147,14 @@ void CModel::SetCurrentAnimIndex(uint32_t iAnimIndex)
     {
         m_Animations[iAnimIndex]->Reset_Animaition();
         m_iCurrentAnimIndex = iAnimIndex;
+        Reset_BoneTransformMatrix();
     }
 }
-
+void CModel::Reset_BoneTransformMatrix()
+{
+    for (auto& pBone : m_Bones)
+        pBone->Reset_TransformMatrix();
+}
 void CModel::Set_Animation_Loop(uint32_t iAnimationIndex)
 {
     if (iAnimationIndex >= m_iNumAnimaition)

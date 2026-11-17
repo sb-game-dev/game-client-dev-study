@@ -67,9 +67,20 @@ void CQuarterView_Cam::Update(f32_t fDeltaTime)
 	}
 	vector_t vPlayerPos = pPlayer->Get_Transform()->Get_State(STATE::POSITION);
 
+	// lock -> shared_ptr을 만들어주는 함수(참조 카운트 + 1)
+	auto pInven = m_pInven.lock();
+	if (nullptr == pInven)
+	{
+		pInven = dynamic_pointer_cast<CInven>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Inven")));
+		if (nullptr == pInven)
+			return;
+		m_pInven = pInven;
+	}
+
 	// At 설정
+	bool_t bIsMelee = pInven->Get_ActiveSlot() == EQUIP_SLOT::MELEE;
 	bool_t bAiming = pPlayer->Is_Aiming();
-	if (bAiming)
+	if (bAiming && !bIsMelee)
 	{
 		auto pMouse = m_pClientMouse.lock();
 		if (nullptr == pMouse)

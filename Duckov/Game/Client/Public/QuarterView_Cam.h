@@ -26,6 +26,7 @@ public:
 private:
     weak_ptr<class CPlayer>         m_pPlayer;
     weak_ptr<class CClient_Mouse>   m_pClientMouse;
+    weak_ptr<class CInven>      m_pInven;
     f32_t                           m_fShakeTime = {};
     f32_t                           m_fShakeDistance = { 1.f };
     float3_t                        m_vShakeOffset = {};

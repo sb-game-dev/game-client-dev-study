@@ -32,7 +32,7 @@ public:
 	BoundingBox		GetBoundinBox() { return m_tLocalBox; }
 
 	void			PlayAnimation(f32_t fDeltaTime);
-
+	void			Reset_BoneTransformMatrix();
 	void			SetCurrentAnimIndex(uint32_t iAnimIndex);
 	void			Set_Animation_Loop(uint32_t iAnimationIndex);
 	bool_t			Is_Animation_Finished();

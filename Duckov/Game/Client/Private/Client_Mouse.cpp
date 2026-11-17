@@ -121,7 +121,16 @@ void CClient_Mouse::Update(f32_t fTimeDelta)
             return;
         m_pPlayer = pPlayer;
     }
-    if (pPlayer->Is_Firing())
+    auto pInven = m_pInven.lock();
+    if (nullptr == pInven)
+    {
+        pInven = dynamic_pointer_cast<CInven>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Inven")));
+        if (nullptr == pInven)
+            return ;
+        m_pInven = pInven;
+    }
+
+    if (pPlayer->Is_Firing() && pInven->Get_ActiveSlot() != EQUIP_SLOT::MELEE)
     {
         // 전부 창 안 좌표로 계산
         float2_t vViewport = CGameInstance::Get().Get_ViewportSize();
@@ -167,7 +176,7 @@ void CClient_Mouse::Update(f32_t fTimeDelta)
     f32_t z = (vPlayerPos.y - vecOrigin.y) / vecRayDir.y * vecRayDir.z + vecOrigin.z;
     m_pTransformCom->Set_State(STATE::POSITION,{ x, vPlayerPos.y, z, 1.f });
 
-    if (pPlayer->Is_Firing() && m_fRange <= 50.f)
+    if (pPlayer->Is_Firing() && pInven->Get_ActiveSlot() != EQUIP_SLOT::MELEE && m_fRange <= 50.f)
     {
         m_fRange += 10.f;
         static_pointer_cast<CQuarterView_Cam>(CGameInstance::Get().Get_MainCamera())->AddShakeTime(fTimeDelta * 2);
@@ -190,13 +199,6 @@ HRESULT CClient_Mouse::Render()
     if (FAILED(__super::Render()))
         return E_FAIL;
     auto pInven = m_pInven.lock();
-    if (nullptr == pInven)
-    {
-        pInven = dynamic_pointer_cast<CInven>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Inven")));
-        if (nullptr == pInven)
-            return S_OK;
-        m_pInven = pInven;
-    }
     D3D11_MAPPED_SUBRESOURCE tMapped{};
 
     if (FAILED(m_pContext->Map(m_pInstanceVB.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &tMapped)))
