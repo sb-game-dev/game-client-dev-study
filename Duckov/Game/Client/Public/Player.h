@@ -30,8 +30,8 @@ public:
 
 	void	AdjustPosY();
 
-	bool_t	Is_Aiming()			const { return m_bAiming; }
-	bool_t	Is_Firing()			const { return m_bFiring; }
+	bool_t	Is_Aiming()			{ return m_bAiming && Has_Weapon();	}
+	bool_t	Is_Firing()			{ return m_bFiring && Has_Weapon(); }
 
 	f32_t	Get_HP()			const { return m_fHP; }
 	f32_t	Get_MaxHP()			const { return m_fMaxHP; }
@@ -63,8 +63,27 @@ private:
 	weak_ptr<class CInven>			m_pInven;
 	bool_t							m_bAiming = { false };
 	bool_t							m_bFiring = { false };
+	
+	bool_t							m_bSlowTrun = { false };
 
-	enum class MOVESTATE {
+private:
+	typedef struct tagPlayerInput
+	{
+		f32_t   fMoveX = 0.f, fMoveZ = 0.f;   // WASD 결과
+		bool_t  bSprint = false;              // LShift 누르는 중
+		bool_t  bRoll = false;                // Space 이번 프레임에 눌림
+		bool_t  bAim = false;                 // RB
+		bool_t  bFire = false;                // LB
+		bool_t  bSlot1 = false, bSlot2 = false, bSlotMelee = false;
+	}PLAYER_INPUT;
+	PLAYER_INPUT    m_tInput = {};
+
+
+private:
+	enum class PLAYER_STATE { IDLE, WALK, SPRINT, ROLL, ATTACK, END };
+	PLAYER_STATE    m_eState = { PLAYER_STATE::IDLE };
+
+	enum class PLAYER_ANIM {
 		IDLE, 
 		WALK_FORWARD, WALK_BACKWARD, WALK_LEFT, WALK_RIGHT, TPOS,
 		IDLE_RH,
@@ -72,12 +91,11 @@ private:
 		ROLL, ATTACK, ATTACK_L2R, END 
 	};
 
-	MOVESTATE						m_eMoveState = { MOVESTATE::END };
+	PLAYER_ANIM						m_eLowerMoveState = { PLAYER_ANIM::END };
+	PLAYER_ANIM						m_eUpperMoveState = { PLAYER_ANIM::END };
 
-	f32_t							m_fInputX = { 0.f };
-	f32_t							m_fInputZ = { 0.f };
-	bool_t							m_bSlowTrun = { false };
 
+private:
 	// 플레이어 스텟값
 	f32_t							m_fHP = { 100.f };
 	f32_t							m_fMaxHP = { 100.f };
@@ -106,9 +124,29 @@ private:
 	virtual			HRESULT Bind_Shader(shared_ptr<CVertexShader> pVS = nullptr, shared_ptr<CPixelShader> pPS = nullptr);
 	virtual			HRESULT Bind_ShaderResources(const matrix_t& matWorld);
 
-	void			KeyInput(f32_t fDeltaTime);
+	void			Key_Input();
+	void			Update_State(f32_t fDeltaTime);
+	void			Initialize_State(PLAYER_STATE eNext);
+
+	void			Update_State_Idle(f32_t fDeltaTime);
+	void			Update_State_Walk(f32_t fDeltaTime);
+	void			Update_State_Sprint(f32_t fDeltaTime);
+	void			Update_State_Roll(f32_t fDeltaTime);
+	void			Update_State_Attack(f32_t fDeltaTime);
+	void			Handle_SlotInput();
+
+	bool_t			Can_Roll() const { return !m_bStaminaLock && m_fStamina > m_fRollStamina; }
+	bool_t			Can_Sprint() const { return !m_bStaminaLock && m_fStamina > 0.f; }
+	bool_t			Has_MoveInput() const { return 0.f != m_tInput.fMoveX || 0.f != m_tInput.fMoveZ; }
+	bool_t			Has_Weapon();	
+	bool_t          Is_MeleeSlot();	
+	vector_t		Calc_MoveDir();
+	void			Turn_Toward(vector_t vMoveDir, f32_t fDeltaTime);
+
 	void			LookAtMouse(f32_t fDeltaTime);
-	void			Change_Animation(MOVESTATE eMoveState);
+	void			Change_Animation(PLAYER_ANIM eMoveState, bool_t bUpper = false);
+	
+	void			Update_Stamina(f32_t fDeltaTime);
 	void			Update_Hunger(f32_t fDeltaTime);
 	void			Update_Thirst(f32_t fDeltaTime);
 public:

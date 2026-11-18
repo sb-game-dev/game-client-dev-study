@@ -22,6 +22,7 @@ CModel::CModel(const CModel& rhs)
     , m_iCurrentAnimIndex{rhs.m_iCurrentAnimIndex }
     , m_tLocalBox{rhs.m_tLocalBox}
     , m_bUseCulling{rhs.m_bUseCulling}
+    , m_IsUpperBone{rhs.m_IsUpperBone}
 {
     for (auto& pBone : rhs.m_Bones)
         m_Bones.push_back(pBone->Clone());
@@ -55,7 +56,7 @@ HRESULT CModel::Initialize_Prototype(MODEL eType, const char_t* pModelFilePath, 
         return E_FAIL;
     }
     
-    if (FAILED(Ready_Bones(m_pAiScene->mRootNode, -1)))
+    if (FAILED(Ready_Bones(m_pAiScene->mRootNode, -1, false)))
         return E_FAIL;
     if (FAILED(Ready_Meshes(eType, PreTransformMatrix)))
         return E_FAIL;
@@ -130,9 +131,14 @@ void CModel::PlayAnimation(f32_t fDeltaTime)
     // ------ 뼈들을 현재 애니메이션에 맞게 셋팅한다. ------
 
     /* 1. 뼈들의 TransformMatrix 행렬을 현재 애니메이션에 맞게 세팅한다. */
-    m_Animations[m_iCurrentAnimIndex]->Update_TransformMatrix(m_Bones, fDeltaTime);
+    
+    // 일단 하체 갱신 -> 하체는 뼈 전체를 갱신한다.
+    m_Animations[m_tLowerLayer.iAnimIndex]->Update_TransformMatrix(m_Bones, fDeltaTime);
 
-
+    // 상체를 바꿔야 한다면 상체는 따로 갱신 + 하체와 상체의 애니메이션이 같다면 상체의 뼈는 갱신하지 않는다.(애니메이션이 두 번 재생됨)
+    if (m_tUpperLayer.isActive && m_tUpperLayer.iAnimIndex != m_tLowerLayer.iAnimIndex)
+        m_Animations[m_tUpperLayer.iAnimIndex]->Update_TransformMatrix(m_Bones, fDeltaTime, &m_IsUpperBone);
+     
     /* 2. TransformMatrix 행렬과 부모 CombinedMatrix를 곱해서 나의 CombinedMatrix를 만든다.*/
     for (auto& pBone : m_Bones)
         pBone->Update_CombinedTranformMatrix(m_Bones, XMLoadFloat4x4(&m_PreTransformMatrix));
@@ -147,7 +153,30 @@ void CModel::SetCurrentAnimIndex(uint32_t iAnimIndex)
     {
         m_Animations[iAnimIndex]->Reset_Animaition();
         m_iCurrentAnimIndex = iAnimIndex;
-        Reset_BoneTransformMatrix();
+        //Reset_BoneTransformMatrix();
+    }
+}
+void CModel::Set_LowerAnimationIndex(uint32_t iAnimIndex)
+{
+    if (iAnimIndex >= m_iNumAnimaition)
+        return;
+
+    if (m_tLowerLayer.iAnimIndex != iAnimIndex)
+    {
+        m_Animations[iAnimIndex]->Reset_Animaition();
+        m_tLowerLayer.iAnimIndex = iAnimIndex;
+    }
+}
+void CModel::Set_UpperAnimationIndex(uint32_t iAnimIndex, bool_t bActive)
+{
+    if (iAnimIndex >= m_iNumAnimaition)
+        return;
+
+    if (m_tUpperLayer.iAnimIndex != iAnimIndex)
+    {
+        m_Animations[iAnimIndex]->Reset_Animaition();
+        m_tUpperLayer.iAnimIndex = iAnimIndex;
+        m_tUpperLayer.isActive = bActive;
     }
 }
 void CModel::Reset_BoneTransformMatrix()
@@ -162,9 +191,12 @@ void CModel::Set_Animation_Loop(uint32_t iAnimationIndex)
     m_Animations[iAnimationIndex]->Set_Loop();
 }
 
-bool_t CModel::Is_Animation_Finished()
+
+bool_t CModel::Is_Animation_Finished(bool_t bUpper)
 {
-    return m_Animations[m_iCurrentAnimIndex]->Is_Animation_End();
+    if (bUpper) 
+        return m_Animations[m_tUpperLayer.iAnimIndex]->Is_Animation_End();
+    return m_Animations[m_tLowerLayer.iAnimIndex]->Is_Animation_End();
 }
 
 HRESULT CModel::Ready_Meshes(MODEL eType, fmatrix_t PreTransformMatrix)
@@ -215,6 +247,26 @@ HRESULT CModel::Ready_Bones(const aiNode* pAINode, int32_t iPIndex)
     {
         Ready_Bones(pAINode->mChildren[i], iParentIndex);
     }
+    return S_OK;
+}
+
+HRESULT CModel::Ready_Bones(const aiNode* pAINode, int32_t iParentIndex, bool_t isUpper)
+{
+    auto pBone = CBone::Create(pAINode, iParentIndex);
+    if (nullptr == pBone)
+        return E_FAIL;
+    if (!isUpper && nullptr != strstr(pAINode->mName.C_Str(), "Spine")) // 전체 문자열, 찾을 문자열
+        isUpper = true;
+    
+    m_Bones.push_back(pBone);
+    m_IsUpperBone.push_back(isUpper);
+
+    int32_t iPIndex = { int32_t(m_Bones.size()) - 1 };
+    for (uint32_t i = 0; i < pAINode->mNumChildren; ++i)
+    {
+        Ready_Bones(pAINode->mChildren[i], iPIndex, isUpper);
+    }
+
     return S_OK;
 }
 

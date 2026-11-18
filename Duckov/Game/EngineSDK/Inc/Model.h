@@ -34,8 +34,11 @@ public:
 	void			PlayAnimation(f32_t fDeltaTime);
 	void			Reset_BoneTransformMatrix();
 	void			SetCurrentAnimIndex(uint32_t iAnimIndex);
+	void			Set_LowerAnimationIndex(uint32_t iAnimIndex);
+	void			Set_UpperAnimationIndex(uint32_t iAnimIndex, bool_t bActive);
+	void			Set_UpperAnimationInActive() { m_tUpperLayer.isActive = false; }
 	void			Set_Animation_Loop(uint32_t iAnimationIndex);
-	bool_t			Is_Animation_Finished();
+	bool_t			Is_Animation_Finished(bool_t bUpper = false);
 private:
 	const	aiScene*	m_pAiScene = { nullptr };
 	Assimp::Importer	m_pImporter = {};
@@ -50,6 +53,7 @@ private:
 	uint32_t								m_iNumMaterials = {};
 
 	vector<shared_ptr<class CBone>>			m_Bones;
+	vector<bool_t>							m_IsUpperBone;
 
 	vector<shared_ptr<class CAnimation>>	m_Animations;
 	uint32_t								m_iNumAnimaition = {};
@@ -63,10 +67,19 @@ private:
 	bool_t									m_isLoop = { false };
 	bool_t									m_isFinished = { false };
 
+	struct ANIM_LAYER
+	{
+		uint32_t	iAnimIndex = {};
+		bool_t		isActive = { false };
+	};
+	ANIM_LAYER								m_tLowerLayer = { 0, true };
+	ANIM_LAYER								m_tUpperLayer = { 0, false };
+
 private:
 	HRESULT	Ready_Meshes(MODEL eType, fmatrix_t PreTransformMatrix);
 	HRESULT	Ready_Materials(const char_t* pModelFilePath);
 	HRESULT	Ready_Bones(const aiNode* pAINode, int32_t iParentIndex);
+	HRESULT	Ready_Bones(const aiNode* pAINode, int32_t iParentIndex, bool_t isUpper);
 	HRESULT	Ready_Animation();
 
 	HRESULT	Load_Binary(const char_t* pModelFilePath, fmatrix_t PreTransformMatrix);

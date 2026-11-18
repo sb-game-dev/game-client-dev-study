@@ -60,23 +60,30 @@ void CPlayer::Priority_Update(f32_t fDeltaTime)
             return;
         m_pInven = pInven;
     }
+
+
     bool_t bInvenOpen = (nullptr != pInven && pInven->Is_Open());
-    if (!bInvenOpen)
-    {
-        KeyInput(fDeltaTime);
-        AdjustPosY();
-    }
+    if (bInvenOpen)
+        m_tInput = {};
     else
     {
-        Change_Animation(MOVESTATE::IDLE);
+        Key_Input();
+
+        Update_State(fDeltaTime);
+
+        Update_Stamina(fDeltaTime);
+        Update_Hunger(fDeltaTime);
+        Update_Thirst(fDeltaTime);
+
+        Handle_SlotInput();
+
+        AdjustPosY();
     }
 }
 
 void CPlayer::Update(f32_t fDeltaTime)
 {
     __super::Update(fDeltaTime);
-    Update_Hunger(fDeltaTime);
-    Update_Thirst(fDeltaTime);
     m_pModel->PlayAnimation(fDeltaTime);
 }
 void CPlayer::Late_Update(f32_t fDeltaTime)
@@ -87,7 +94,6 @@ void CPlayer::Late_Update(f32_t fDeltaTime)
     CGameInstance::Get().Add_RenderGroup(RENDERID::OCCLUDEDPLAYER, dynamic_pointer_cast<CGameObject>(shared_from_this()));
     CGameInstance::Get().Add_RenderGroup(RENDERID::SHADOW, dynamic_pointer_cast<CGameObject>(shared_from_this()));
     CGameInstance::Get().Add_RenderGroup(RENDERID::REFLECT, dynamic_pointer_cast<CGameObject>(shared_from_this()));
-
 }
 
 HRESULT CPlayer::Render()
@@ -128,14 +134,12 @@ HRESULT CPlayer::Ready_Components()
         TEXT("Com_Model"),m_pModel)))
         return E_FAIL;
 
-    m_pModel->SetCurrentAnimIndex(ETOUI(m_eMoveState));
-    m_pModel->Set_Animation_Loop(ETOUI(MOVESTATE::WALK_FORWARD));
-    m_pModel->Set_Animation_Loop(ETOUI(MOVESTATE::WALK_FORWARD_RH));
-    m_pModel->Set_Animation_Loop(ETOUI(MOVESTATE::WALK_BACKWARD));
-    m_pModel->Set_Animation_Loop(ETOUI(MOVESTATE::IDLE));
-    m_pModel->Set_Animation_Loop(ETOUI(MOVESTATE::IDLE_RH));
-    m_pModel->Set_Animation_Loop(ETOUI(MOVESTATE::ATTACK));
-    m_pModel->Set_Animation_Loop(ETOUI(MOVESTATE::ATTACK_L2R));
+    m_pModel->SetCurrentAnimIndex(ETOUI(m_eLowerMoveState));
+    m_pModel->Set_Animation_Loop(ETOUI(PLAYER_ANIM::WALK_FORWARD));
+    m_pModel->Set_Animation_Loop(ETOUI(PLAYER_ANIM::WALK_FORWARD_RH));
+    m_pModel->Set_Animation_Loop(ETOUI(PLAYER_ANIM::WALK_BACKWARD));
+    m_pModel->Set_Animation_Loop(ETOUI(PLAYER_ANIM::IDLE));
+    m_pModel->Set_Animation_Loop(ETOUI(PLAYER_ANIM::IDLE_RH));
 
     if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VS_ANIM_MODEL,
         TEXT("Com_VS"), m_pVS)))
@@ -240,136 +244,177 @@ void CPlayer::AdjustPosY()
     m_pTransformCom->Set_State(STATE::POSITION, vPos);
     m_vGroundPlane = pHill->GetPlane(x, z);
 }
-void CPlayer::KeyInput(f32_t fDeltaTime)
+void CPlayer::Key_Input()
 {
-   auto pInven = m_pInven.lock();
-   if (pInven)
-   {
-       if (CGameInstance::Get().Key_Down(DIK_1))
-           pInven->Set_ActiveSlot(EQUIP_SLOT::GUN_1);
-       if (CGameInstance::Get().Key_Down(DIK_2))
-           pInven->Set_ActiveSlot(EQUIP_SLOT::GUN_2);
-       if (CGameInstance::Get().Key_Down(DIK_V))
-           pInven->Set_ActiveSlot(EQUIP_SLOT::MELEE);
-   }
+    m_tInput = {};
+    auto& GI = CGameInstance::Get();
+    if (GI.Key_Pressing(DIK_W)) m_tInput.fMoveZ += 1.f;
+    if (GI.Key_Pressing(DIK_S)) m_tInput.fMoveZ -= 1.f;
+    if (GI.Key_Pressing(DIK_A)) m_tInput.fMoveX -= 1.f;
+    if (GI.Key_Pressing(DIK_D)) m_tInput.fMoveX += 1.f;
 
-   matrix_t matCamWorld = CGameInstance::Get().Get_Perspective_Transform_Inverse(D3DTS::VIEW);
-   vector_t vCamRight = XMVector3Normalize(XMVectorSetY(matCamWorld.r[0], 0.f));
-   vector_t vCamLook = XMVector3Normalize(XMVectorSetY(matCamWorld.r[2], 0.f));
+    m_tInput.bSprint        = GI.Key_Pressing(DIK_LSHIFT);
+    m_tInput.bAim           = GI.Mouse_Pressing(DIM::RB);
+    m_tInput.bFire          = GI.Mouse_Pressing(DIM::LB);
+    m_tInput.bRoll          = GI.Key_Down(DIK_SPACE);
+    m_tInput.bSlot1         = GI.Key_Down(DIK_1);
+    m_tInput.bSlot2         = GI.Key_Down(DIK_2);
+    m_tInput.bSlotMelee     = GI.Key_Down(DIK_V);
+}
 
-   vector_t vMoveDir = XMVector3Normalize(vCamRight * m_fInputX + vCamLook * m_fInputZ);
-   if (m_eMoveState == MOVESTATE::ROLL)
-   {
-       if (m_fInputX == 0 && m_fInputZ == 0) // 키보드 입력이 없는 경우
-           vMoveDir = m_pTransformCom->Get_State(STATE::LOOK);
-       else                            // 키보드 입력이 있는 경우
-       {
-           vector_t vPos = m_pTransformCom->Get_State(STATE::POSITION);
-           vPos += vMoveDir;
-           m_pTransformCom->LookAt(vPos);
-       }
-
-       m_pTransformCom->Set_Speed(m_pTransformCom->Get_Speed() * 0.95f);
-       m_pTransformCom->Move_Position(vMoveDir, fDeltaTime);
-
-       if (m_pModel->Is_Animation_Finished())
-           Change_Animation(MOVESTATE::IDLE);
-       return;
-   }
-   else if(!m_bStaminaLock && m_fStamina > m_fRollStamina && CGameInstance::Get().Key_Down(DIK_SPACE))
-   {
-       m_fStamina -= m_fRollStamina;
-       if (m_fStamina <= 0.f)
-       {
-           m_fStamina = 0.f;
-           m_bStaminaLock = true;
-       }
-       m_bSlowTrun = true;
-       m_pTransformCom->Set_Speed(20.f);
-       Change_Animation(MOVESTATE::ROLL);
-       return;   
-   }
-
-
-    bool_t  bPushShift = false;
-    if (!m_bStaminaLock && m_fStamina > 0 && CGameInstance::Get().Key_Pressing(DIK_LSHIFT))
+void CPlayer::Update_State(f32_t fDeltaTime)
+{
+    switch (m_eState)
     {
-        m_pTransformCom->Set_Speed(16.f);
-        bPushShift = true;
-        m_bSlowTrun = true;
-
-        if (m_fStamina > fDeltaTime * m_fStaminaDecayRate)
-            m_fStamina -= fDeltaTime * m_fStaminaDecayRate;
-        else
-        {
-            m_fStamina = 0.f;
-            m_bStaminaLock = true;
-        }
+    case Client::CPlayer::PLAYER_STATE::IDLE:       Update_State_Idle(fDeltaTime);     break;
+    case Client::CPlayer::PLAYER_STATE::WALK:       Update_State_Walk(fDeltaTime);     break;
+    case Client::CPlayer::PLAYER_STATE::SPRINT:     Update_State_Sprint(fDeltaTime);   break;
+    case Client::CPlayer::PLAYER_STATE::ROLL:       Update_State_Roll(fDeltaTime);     break;
+    case Client::CPlayer::PLAYER_STATE::ATTACK:     Update_State_Attack(fDeltaTime);   break;
     }
-    else
-    {
-        m_bAiming = CGameInstance::Get().Mouse_Pressing(DIM::RB);
-        m_bFiring = CGameInstance::Get().Mouse_Pressing(DIM::LB);
-        LookAtMouse(fDeltaTime);
-        m_pTransformCom->Set_Speed(8.f);
+}
 
-        if (m_eMoveState != MOVESTATE::ROLL)
-        {
-            if (m_fStamina < 100.f)
-            {
-                m_fStamina += fDeltaTime * m_fStaminaRegenRate;
-                if(m_fStamina > 20.f)
-                    m_bStaminaLock = false;
-            }
-            else
-            {
-                m_fStamina = 100.f;
-            }
-        }
-    }
-
-    
-    
-    vector_t vLook = m_pTransformCom->Get_State(STATE::LOOK);
-
-    m_fInputX = m_fInputZ = 0.f;
-    if (CGameInstance::Get().Key_Pressing(DIK_W)) m_fInputZ += 1.f;
-    if (CGameInstance::Get().Key_Pressing(DIK_S)) m_fInputZ -= 1.f;
-    if (CGameInstance::Get().Key_Pressing(DIK_A)) m_fInputX -= 1.f;
-    if (CGameInstance::Get().Key_Pressing(DIK_D)) m_fInputX += 1.f;
-
-    if (0.f == m_fInputX && 0.f == m_fInputZ)
-    {
-        if (pInven->Get_ActiveSlot() == EQUIP_SLOT::MELEE)
-            if (m_bFiring) Change_Animation(rand() % 1 == 0 ? MOVESTATE::ATTACK : MOVESTATE::ATTACK_L2R);
-        else if (m_bAiming || m_bFiring)
-            Change_Animation(MOVESTATE::IDLE_RH);
-        else
-            Change_Animation(MOVESTATE::IDLE);
+void CPlayer::Initialize_State(PLAYER_STATE eNext)
+{
+    // 플레이어의 상태가 바뀌는 순간에만 설정해야 하는 값들
+    if (eNext == m_eState)
         return;
-    }
-    else if(!bPushShift)
+    m_eState = eNext;
+    switch (m_eState)
     {
-        if(pInven->Get_ActiveSlot() == EQUIP_SLOT::MELEE)
-            if (m_bFiring) Change_Animation(rand() %1 == 0 ? MOVESTATE::ATTACK : MOVESTATE::ATTACK_L2R);
-            else Change_Animation(MOVESTATE::WALK_FORWARD);
-        else if (m_bAiming || m_bFiring)
-            Change_Animation(MOVESTATE::WALK_FORWARD_RH);
-        else
-            Change_Animation(MOVESTATE::WALK_FORWARD);
+    case Client::CPlayer::PLAYER_STATE::SPRINT:
+        m_bSlowTrun = true;
+        m_pTransformCom->Set_Speed(16.f);
+        Change_Animation(PLAYER_ANIM::WALK_BACKWARD);
+        break;
+    case Client::CPlayer::PLAYER_STATE::ROLL:
+        if (m_fStamina >= m_fRollStamina)
+        {
+            m_fStamina -= m_fRollStamina;
+            if (m_fStamina <= 0.f)
+            {
+                m_fStamina = 0.f;
+                m_bStaminaLock = true;
+            }
+            m_bSlowTrun = true;
+            m_pTransformCom->Set_Speed(20.f);
+            Change_Animation(PLAYER_ANIM::ROLL);
+        }
+        break;
+    case Client::CPlayer::PLAYER_STATE::ATTACK:
+        Change_Animation(rand() % 2 ? PLAYER_ANIM::ATTACK : PLAYER_ANIM::ATTACK_L2R, true);
+        break;
+    default: 
+        m_pTransformCom->Set_Speed(8.f); 
+        break;
     }
-    else
-    {
-        Change_Animation(MOVESTATE::WALK_BACKWARD);
-    }
+}
+void CPlayer::Update_State_Idle(f32_t fDeltaTime)
+{
+    // IDLE -> ROLL, ATTACK, WALK
+    if (m_tInput.bRoll && Can_Roll())                       { Initialize_State(PLAYER_STATE::ROLL); return; }
+    if (m_tInput.bFire && Is_MeleeSlot() && Has_Weapon())   { Initialize_State(PLAYER_STATE::ATTACK); return; }
+    if (Has_MoveInput())                                    { Initialize_State(PLAYER_STATE::WALK); return; }
 
+    m_bAiming = m_tInput.bAim;
+    m_bFiring = m_tInput.bFire;
+    Change_Animation((m_bAiming || m_bFiring) ? PLAYER_ANIM::IDLE_RH : PLAYER_ANIM::IDLE);
+    LookAtMouse(fDeltaTime);
+}
+void CPlayer::Update_State_Walk(f32_t fDeltaTime)
+{
+    // WALK -> ROLL, SPRINT, ATTACK, IDLE
+    if (m_tInput.bRoll && Can_Roll())                       { Initialize_State(PLAYER_STATE::ROLL); return; }
+    if (m_tInput.bSprint && Can_Sprint())                   { Initialize_State(PLAYER_STATE::SPRINT); return; }
+    if (m_tInput.bFire && Is_MeleeSlot() && Has_Weapon())   { Initialize_State(PLAYER_STATE::ATTACK); return; }
+    if (!Has_MoveInput())                                   { Initialize_State(PLAYER_STATE::IDLE);   return; }
 
+    m_bAiming = m_tInput.bAim;
+    m_bFiring = m_tInput.bFire;
+    Change_Animation((m_bAiming || m_bFiring) ? PLAYER_ANIM::WALK_FORWARD_RH : PLAYER_ANIM::WALK_FORWARD);
+    LookAtMouse(fDeltaTime);
+    m_pTransformCom->Move_Position(Calc_MoveDir(), fDeltaTime);
+}
+
+void CPlayer::Update_State_Sprint(f32_t fDeltaTime)
+{
+    // SPRINT -> ROLL, WALK
+    if (m_tInput.bRoll && Can_Roll())                               { Initialize_State(PLAYER_STATE::ROLL); return; }
+    if (!m_tInput.bSprint || m_bStaminaLock || !Has_MoveInput())    { Initialize_State(Has_MoveInput() ? PLAYER_STATE::WALK : PLAYER_STATE::IDLE); return; }
+
+    vector_t vMoveDir = Calc_MoveDir();
+    m_pTransformCom->Move_Position(vMoveDir, fDeltaTime);
+    Turn_Toward(vMoveDir, fDeltaTime);
+}
+
+void CPlayer::Update_State_Roll(f32_t fDeltaTime)
+{
+    // 키입력이 있다면 이동 방향은 키입력 방향, 없다면 마우스방향(Look 방향)
+    vector_t vMoveDir = Has_MoveInput() ? Calc_MoveDir() : m_pTransformCom->Get_State(STATE::LOOK);
+
+    // 키입력이 있다면 구를 때 키입력 방향으로 굴러야 한다.
+    if (Has_MoveInput())
+        m_pTransformCom->LookAt(m_pTransformCom->Get_State(STATE::POSITION) + vMoveDir);
+
+    // 구르기 속도 설정
+    m_pTransformCom->Set_Speed(m_pTransformCom->Get_Speed() * 0.95f);
+    // 구르기 이동
     m_pTransformCom->Move_Position(vMoveDir, fDeltaTime);
 
+    // 구르기가 끝났다면 IDLE상태
+    if (m_pModel->Is_Animation_Finished())
+        Initialize_State(PLAYER_STATE::IDLE);
+}
 
-    if (!bPushShift)
+void CPlayer::Update_State_Attack(f32_t fDeltaTime)
+{
+    LookAtMouse(fDeltaTime);
+
+    if (Has_MoveInput())
+        m_pTransformCom->Move_Position(Calc_MoveDir(), fDeltaTime);
+
+    if (m_pModel->Is_Animation_Finished(true))
+    {
+        m_pModel->Set_UpperAnimationInActive();
+        m_eUpperMoveState = PLAYER_ANIM::END;
+        Initialize_State(Has_MoveInput() ? PLAYER_STATE::WALK : PLAYER_STATE::IDLE);
+    }
+}
+
+void CPlayer::Handle_SlotInput()
+{
+    if (PLAYER_STATE::ROLL == m_eState || PLAYER_STATE::ATTACK == m_eState)
         return;
-    
+    auto pInven = m_pInven.lock();
+    if (nullptr == pInven)
+        return;
+
+    if (m_tInput.bSlot1)     pInven->Set_ActiveSlot(EQUIP_SLOT::GUN_1);
+    if (m_tInput.bSlot2)     pInven->Set_ActiveSlot(EQUIP_SLOT::GUN_2);
+    if (m_tInput.bSlotMelee) pInven->Set_ActiveSlot(EQUIP_SLOT::MELEE);
+}
+
+bool_t CPlayer::Has_Weapon()
+{
+    return nullptr != m_pInven.lock() && m_pInven.lock()->Get_ActiveItem() != nullptr;
+}
+
+bool_t CPlayer::Is_MeleeSlot()
+{
+    return nullptr != m_pInven.lock() && m_pInven.lock()->Get_ActiveSlot() == EQUIP_SLOT::MELEE;
+}
+
+vector_t CPlayer::Calc_MoveDir()
+{
+    matrix_t matCamWorld = CGameInstance::Get().Get_Perspective_Transform_Inverse(D3DTS::VIEW);
+    vector_t vCamRight = XMVector3Normalize(XMVectorSetY(matCamWorld.r[0], 0.f));
+    vector_t vCamLook = XMVector3Normalize(XMVectorSetY(matCamWorld.r[2], 0.f));
+
+    return XMVector3Normalize(vCamRight * m_tInput.fMoveX + vCamLook * m_tInput.fMoveZ);
+}
+void CPlayer::Turn_Toward(vector_t vMoveDir, f32_t fDeltaTime)
+{
+    vector_t vLook = m_pTransformCom->Get_State(STATE::LOOK);
     vLook = XMVector3Normalize(XMVectorSetY(vLook, 0.f));
     f32_t fDot = XMVectorGetX(XMVector3Dot(vLook, vMoveDir));
     if (fDot < cosf(XMConvertToRadians(2.f)))
@@ -377,8 +422,8 @@ void CPlayer::KeyInput(f32_t fDeltaTime)
         f32_t fCrossY = XMVectorGetY(XMVector3Cross(vLook, vMoveDir));
         m_pTransformCom->Turn(fCrossY > 0.f ? g_vY_Plus : g_vY_Minus, fDeltaTime);
     }
-
 }
+
 void CPlayer::LookAtMouse(f32_t fDeltaTime)
 {
     auto pMouse = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", GO::Client_Mouse);
@@ -405,13 +450,38 @@ void CPlayer::LookAtMouse(f32_t fDeltaTime)
         m_pTransformCom->LookAt(pMouse->Get_Transform()->Get_State(STATE::POSITION));
     }
 }
-void CPlayer::Change_Animation(MOVESTATE eMoveState)
+void CPlayer::Change_Animation(PLAYER_ANIM eMoveState, bool_t bUpper)
 {
-    if (eMoveState == m_eMoveState)
-        return;
-    m_eMoveState = eMoveState;
-    m_pModel->SetCurrentAnimIndex(ETOUI(m_eMoveState));
+    if (bUpper)
+    {
+        if (eMoveState == m_eUpperMoveState)
+            return;
+        m_eUpperMoveState = eMoveState;
+        m_pModel->Set_UpperAnimationIndex(ETOUI(m_eUpperMoveState),true);
+    }
+    else
+    {
+        if (eMoveState == m_eLowerMoveState)
+            return;
+        m_eLowerMoveState = eMoveState;
+        m_pModel->Set_LowerAnimationIndex(ETOUI(m_eLowerMoveState));
+    }
 }
+
+void CPlayer::Update_Stamina(f32_t fDeltaTime)
+{
+    if (PLAYER_STATE::SPRINT == m_eState)
+    {
+        m_fStamina -= fDeltaTime * m_fStaminaDecayRate;
+        if (m_fStamina <= 0.f) { m_fStamina = 0.f; m_bStaminaLock = true; }
+    }
+    else if (PLAYER_STATE::ROLL != m_eState)
+    {
+        m_fStamina = min(m_fStamina + fDeltaTime * m_fStaminaRegenRate, m_fMaxStamina);
+        if (m_fStamina > 20.f) m_bStaminaLock = false;
+    }
+}
+
 void CPlayer::Update_Hunger(f32_t fDeltaTime)
 {
     if (m_fHunger > fDeltaTime * m_fHungerDecayRate)

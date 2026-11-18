@@ -80,6 +80,7 @@ void CChannel::Update_TransformMatirx(const vector<shared_ptr<class CBone>>& Bon
         vRotation = XMQuaternionSlerp(vLeftRotation, vRightRotation, fRatio);
         vPosition = XMVectorLerp(vLeftPosition, vRightPosition, fRatio);
     }
+
     Bones[m_iBoneIndex]->Set_TransfromMatrix(XMMatrixAffineTransformation(vScale, vector_t{ 0.f,0.f,0.f,1.f }, vRotation, vPosition));
 }
 

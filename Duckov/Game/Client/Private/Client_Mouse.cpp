@@ -130,7 +130,7 @@ void CClient_Mouse::Update(f32_t fTimeDelta)
         m_pInven = pInven;
     }
 
-    if (pPlayer->Is_Firing() && pInven->Get_ActiveSlot() != EQUIP_SLOT::MELEE)
+     if (pPlayer->Is_Firing() && pInven->Get_ActiveSlot() != EQUIP_SLOT::MELEE)
     {
         // 전부 창 안 좌표로 계산
         float2_t vViewport = CGameInstance::Get().Get_ViewportSize();
