@@ -1,0 +1,1033 @@
+{
+ "scene": "06_Base_SceneV2_Sub_01",
+ "fbx": "06_Base_SceneV2_Sub_01.fbx",
+ "coords": "유니티 월드 좌표 그대로 (assimp ConvertToLeftHanded)",
+ "bounds_min": [
+  38.237,
+  -7.1,
+  -121.251
+ ],
+ "bounds_max": [
+  139.619,
+  3.191,
+  23.093
+ ],
+ "renderers_used": 132,
+ "excluded": {
+  "off": 593,
+  "skipped_material": 1,
+  "light_volume": 18
+ },
+ "vertices": 44464,
+ "triangles": 47456,
+ "materials": [
+  {
+   "fbx_material": "Mat_Tile_FloorCement01",
+   "unity_material": "Mat_Tile_FloorCement01",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {
+    "diffuse": "T_Tile_FloorCement01_C__TD1D1D1.png",
+    "normal": "T_Tile_FloorCement01_N.png",
+    "specular": "T_Tile_FloorCement01_M.png"
+   },
+   "uv_scale_offset": [
+    [
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0
+    ]
+   ],
+   "renderers": 1,
+   "bounds": [
+    [
+     91.8,
+     -1.66,
+     -87.72
+    ],
+    [
+     109.3,
+     3.0,
+     -19.15
+    ]
+   ],
+   "vertices": 328,
+   "triangles": 284
+  },
+  {
+   "fbx_material": "DarkBackground",
+   "unity_material": "DarkBackground",
+   "shader": "Universal Render Pipeline/Unlit",
+   "textures": {
+    "diffuse": "SolidColor_000000.png"
+   },
+   "uv_scale_offset": [
+    [
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0
+    ]
+   ],
+   "renderers": 1,
+   "bounds": [
+    [
+     38.24,
+     -7.1,
+     -121.25
+    ],
+    [
+     139.62,
+     -7.1,
+     23.09
+    ]
+   ],
+   "vertices": 4,
+   "triangles": 2
+  },
+  {
+   "fbx_material": "Water Base",
+   "unity_material": "Water Base",
+   "shader": "SimpleWater",
+   "textures": {
+    "diffuse": "SolidColor_FFFFFF.png"
+   },
+   "uv_scale_offset": [
+    [
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0
+    ]
+   ],
+   "renderers": 1,
+   "bounds": [
+    [
+     96.44,
+     -0.58,
+     -87.84
+    ],
+    [
+     110.17,
+     -0.58,
+     -19.07
+    ]
+   ],
+   "vertices": 4,
+   "triangles": 2
+  },
+  {
+   "fbx_material": "Mat_Tile_DryMud_01",
+   "unity_material": "Mat_Tile_DryMud_01",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {
+    "diffuse": "T_Tile_DryMud_01_C.png",
+    "normal": "T_Tile_DryMud_01_N.png",
+    "specular": "T_Tile_DryMud_01_M.png"
+   },
+   "uv_scale_offset": [
+    [
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0
+    ]
+   ],
+   "renderers": 4,
+   "bounds": [
+    [
+     96.13,
+     -2.31,
+     -68.06
+    ],
+    [
+     100.84,
+     -0.39,
+     -42.13
+    ]
+   ],
+   "vertices": 132,
+   "triangles": 184
+  },
+  {
+   "fbx_material": "Mat_Clothes_LV4",
+   "unity_material": "Mat_Clothes_LV4",
+   "shader": "SodaCraft/SodaCharacter",
+   "textures": {
+    "diffuse": "T_Clothes_LV4_C.png",
+    "normal": "T_Clothes_LV4_N.png",
+    "specular": "T_Clothes_LV4_M.png"
+   },
+   "uv_scale_offset": [
+    [
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0
+    ]
+   ],
+   "renderers": 1,
+   "bounds": [
+    [
+     103.33,
+     -0.13,
+     -58.25
+    ],
+    [
+     104.07,
+     0.36,
+     -57.64
+    ]
+   ],
+   "vertices": 646,
+   "triangles": 648
+  },
+  {
+   "fbx_material": "OfficeDeskSet02",
+   "unity_material": "OfficeDeskSet02",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {
+    "diffuse": "OfficeDeskSet02.png",
+    "normal": "OfficeDeskSet02_NM.png",
+    "specular": "OfficeDeskSet02_Metallic.png"
+   },
+   "uv_scale_offset": [
+    [
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0
+    ]
+   ],
+   "renderers": 2,
+   "bounds": [
+    [
+     94.15,
+     1.24,
+     -52.13
+    ],
+    [
+     94.57,
+     1.28,
+     -51.67
+    ]
+   ],
+   "vertices": 254,
+   "triangles": 198
+  },
+  {
+   "fbx_material": "ColorB",
+   "unity_material": "ColorB",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {
+    "diffuse": "Color.png"
+   },
+   "uv_scale_offset": [
+    [
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0
+    ]
+   ],
+   "renderers": 2,
+   "bounds": [
+    [
+     97.44,
+     0.23,
+     -75.48
+    ],
+    [
+     104.46,
+     1.27,
+     -58.78
+    ]
+   ],
+   "vertices": 2102,
+   "triangles": 1548
+  },
+  {
+   "fbx_material": "FlashLight_Emi",
+   "unity_material": "FlashLight_Emi",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {
+    "diffuse": "SolidColor_FFFFFF.png"
+   },
+   "uv_scale_offset": [
+    [
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0
+    ]
+   ],
+   "renderers": 2,
+   "bounds": [
+    [
+     97.47,
+     0.36,
+     -75.44
+    ],
+    [
+     104.43,
+     1.05,
+     -58.82
+    ]
+   ],
+   "vertices": 178,
+   "triangles": 192
+  },
+  {
+   "fbx_material": "Mat_WoodBox_01_1",
+   "unity_material": "Mat_WoodBox_01_1",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {
+    "diffuse": "T_WoodBox_01_C.png",
+    "normal": "T_WoodBox_01_N.png",
+    "specular": "T_WoodBox_01_MMOR.png"
+   },
+   "uv_scale_offset": [
+    [
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0
+    ]
+   ],
+   "renderers": 6,
+   "bounds": [
+    [
+     97.0,
+     -0.04,
+     -75.64
+    ],
+    [
+     104.35,
+     1.0,
+     -60.17
+    ]
+   ],
+   "vertices": 818,
+   "triangles": 512
+  },
+  {
+   "fbx_material": "Mat_WoodBoards_01",
+   "unity_material": "Mat_WoodBoards_01",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {
+    "diffuse": "T_Woodboard_01_1_C.png",
+    "normal": "T_Woodboard_01_1_N.png",
+    "specular": "T_Woodboard_01_1_MMOR.png"
+   },
+   "uv_scale_offset": [
+    [
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0
+    ]
+   ],
+   "renderers": 34,
+   "bounds": [
+    [
+     91.84,
+     -0.84,
+     -70.29
+    ],
+    [
+     104.93,
+     3.19,
+     -39.35
+    ]
+   ],
+   "vertices": 1308,
+   "triangles": 706
+  },
+  {
+   "fbx_material": "Mat_BarbedWire_01 2",
+   "unity_material": "Mat_BarbedWire_01 2",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {
+    "diffuse": "T_BarbedWire_01_C__T767572.png",
+    "normal": "T_BarbedWire_01_N.png",
+    "specular": "T_BarbedWire_01_MMOR.png"
+   },
+   "uv_scale_offset": [
+    [
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0
+    ]
+   ],
+   "renderers": 31,
+   "bounds": [
+    [
+     96.67,
+     0.0,
+     -86.58
+    ],
+    [
+     104.54,
+     0.73,
+     -29.37
+    ]
+   ],
+   "vertices": 6262,
+   "triangles": 5084
+  },
+  {
+   "fbx_material": "Mat_Roadblocks01",
+   "unity_material": "Mat_Roadblocks01",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {
+    "diffuse": "T_Roadblocks01_C.png",
+    "normal": "T_Roadblocks01_N.png",
+    "specular": "T_Roadblocks01_M.png"
+   },
+   "uv_scale_offset": [
+    [
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0
+    ]
+   ],
+   "renderers": 1,
+   "bounds": [
+    [
+     103.87,
+     0.0,
+     -73.07
+    ],
+    [
+     104.52,
+     0.91,
+     -71.32
+    ]
+   ],
+   "vertices": 76,
+   "triangles": 60
+  },
+  {
+   "fbx_material": "Mat_Bags_01_4",
+   "unity_material": "Mat_Bags_01_4",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {
+    "diffuse": "T_Bags_01_C.png",
+    "normal": "T_Bags_01_N.png",
+    "specular": "T_Bags_01_MMOR.png"
+   },
+   "uv_scale_offset": [
+    [
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0
+    ]
+   ],
+   "renderers": 4,
+   "bounds": [
+    [
+     95.68,
+     -2.66,
+     -68.39
+    ],
+    [
+     101.11,
+     0.49,
+     -41.53
+    ]
+   ],
+   "vertices": 8298,
+   "triangles": 10518
+  },
+  {
+   "fbx_material": "Mat_WoodBoards_01 3",
+   "unity_material": "Mat_WoodBoards_01 3",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {
+    "diffuse": "T_Woodboard_01_3_C.png",
+    "normal": "T_Woodboard_01_1_N.png",
+    "specular": "T_Woodboard_01_1_MMOR.png"
+   },
+   "uv_scale_offset": [
+    [
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0
+    ]
+   ],
+   "renderers": 1,
+   "bounds": [
+    [
+     102.48,
+     -1.01,
+     -61.62
+    ],
+    [
+     104.82,
+     0.83,
+     -56.06
+    ]
+   ],
+   "vertices": 532,
+   "triangles": 396
+  },
+  {
+   "fbx_material": "OutDoor",
+   "unity_material": "OutDoor",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {
+    "diffuse": "OutDoor_AlbedoTransparency.png",
+    "normal": "OutDoor_New_Normal.png",
+    "specular": "OutDoor_MetallicSmoothness.png"
+   },
+   "uv_scale_offset": [
+    [
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0
+    ]
+   ],
+   "renderers": 6,
+   "bounds": [
+    [
+     102.06,
+     -1.14,
+     -61.65
+    ],
+    [
+     105.25,
+     0.15,
+     -58.06
+    ]
+   ],
+   "vertices": 936,
+   "triangles": 1440
+  },
+  {
+   "fbx_material": "Mat_CementMold_1",
+   "unity_material": "Mat_CementMold_1",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {
+    "diffuse": "T_CementMold_C.png",
+    "normal": "T_CementMold_N.png",
+    "specular": "T_CementMold_MMOR.png"
+   },
+   "uv_scale_offset": [
+    [
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0
+    ]
+   ],
+   "renderers": 4,
+   "bounds": [
+    [
+     93.75,
+     -0.14,
+     -70.55
+    ],
+    [
+     94.34,
+     3.0,
+     -31.71
+    ]
+   ],
+   "vertices": 96,
+   "triangles": 48
+  },
+  {
+   "fbx_material": "FishingRing",
+   "unity_material": "FishingRing",
+   "shader": "BillBoardOverlay",
+   "textures": {
+    "diffuse": "Joysticks_Ring.png"
+   },
+   "uv_scale_offset": [
+    [
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0
+    ]
+   ],
+   "renderers": 1,
+   "bounds": [
+    [
+     103.23,
+     -0.64,
+     -48.81
+    ],
+    [
+     104.47,
+     -0.64,
+     -47.57
+    ]
+   ],
+   "vertices": 4,
+   "triangles": 2
+  },
+  {
+   "fbx_material": "Mat_WaterTankButt_01_R1",
+   "unity_material": "Mat_WaterTankButt_01_R1",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {
+    "diffuse": "T_WaterTankButt_01_C.png",
+    "normal": "T_WaterTankButt_01_N.png",
+    "specular": "T_WaterTankButt_01_MMOR.png"
+   },
+   "uv_scale_offset": [
+    [
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0
+    ]
+   ],
+   "renderers": 2,
+   "bounds": [
+    [
+     93.8,
+     0.0,
+     -77.16
+    ],
+    [
+     96.52,
+     1.71,
+     -35.5
+    ]
+   ],
+   "vertices": 2486,
+   "triangles": 2632
+  },
+  {
+   "fbx_material": "ColorA Smooth",
+   "unity_material": "ColorA Smooth",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {
+    "diffuse": "Color.png"
+   },
+   "uv_scale_offset": [
+    [
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0
+    ]
+   ],
+   "renderers": 1,
+   "bounds": [
+    [
+     103.29,
+     0.52,
+     -58.36
+    ],
+    [
+     104.06,
+     0.9,
+     -57.63
+    ]
+   ],
+   "vertices": 442,
+   "triangles": 348
+  },
+  {
+   "fbx_material": "ColorA",
+   "unity_material": "ColorA",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {
+    "diffuse": "Color.png"
+   },
+   "uv_scale_offset": [
+    [
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0
+    ]
+   ],
+   "renderers": 2,
+   "bounds": [
+    [
+     97.26,
+     0.68,
+     -75.18
+    ],
+    [
+     103.8,
+     0.91,
+     -57.9
+    ]
+   ],
+   "vertices": 548,
+   "triangles": 368
+  },
+  {
+   "fbx_material": "Mat_Bags_01_3",
+   "unity_material": "Mat_Bags_01_3",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {
+    "diffuse": "T_Bags_01_C__TC8C8C8.png",
+    "normal": "T_Bags_01_N.png",
+    "specular": "T_Bags_01_MMOR.png"
+   },
+   "uv_scale_offset": [
+    [
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0
+    ]
+   ],
+   "renderers": 1,
+   "bounds": [
+    [
+     100.38,
+     -2.3,
+     -48.5
+    ],
+    [
+     101.04,
+     -1.47,
+     -47.87
+    ]
+   ],
+   "vertices": 85,
+   "triangles": 104
+  },
+  {
+   "fbx_material": "Woodboard Variant",
+   "unity_material": "Woodboard Variant",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {
+    "diffuse": "SM_Shed_BaseColor.png",
+    "normal": "Wood_Board_Tex_Normal.png"
+   },
+   "uv_scale_offset": [
+    [
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0
+    ]
+   ],
+   "renderers": 1,
+   "bounds": [
+    [
+     97.32,
+     -2.93,
+     -52.68
+    ],
+    [
+     101.39,
+     0.02,
+     -50.14
+    ]
+   ],
+   "vertices": 2269,
+   "triangles": 1616
+  },
+  {
+   "fbx_material": "Mat_WaterTankButt_01_B",
+   "unity_material": "Mat_WaterTankButt_01_B",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {
+    "diffuse": "T_WaterTankButt_01_C.png",
+    "normal": "T_WaterTankButt_01_N.png",
+    "specular": "T_WaterTankButt_01_MMOR.png"
+   },
+   "uv_scale_offset": [
+    [
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0
+    ]
+   ],
+   "renderers": 5,
+   "bounds": [
+    [
+     93.92,
+     -0.0,
+     -67.65
+    ],
+    [
+     96.91,
+     1.24,
+     -35.92
+    ]
+   ],
+   "vertices": 640,
+   "triangles": 820
+  },
+  {
+   "fbx_material": "Mat_Bags_01_5",
+   "unity_material": "Mat_Bags_01_5",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {
+    "diffuse": "T_Bags_01_HO_C 2.png",
+    "normal": "T_Bags_01_N.png",
+    "specular": "T_Bags_01_MMOR.png"
+   },
+   "uv_scale_offset": [
+    [
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0
+    ]
+   ],
+   "renderers": 4,
+   "bounds": [
+    [
+     95.44,
+     -2.79,
+     -68.23
+    ],
+    [
+     101.05,
+     -0.28,
+     -41.4
+    ]
+   ],
+   "vertices": 2635,
+   "triangles": 3224
+  },
+  {
+   "fbx_material": "Mat_Bags_01_1",
+   "unity_material": "Mat_Bags_01_1",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {
+    "diffuse": "T_Bags_01_C.png",
+    "normal": "T_Bags_01_N.png",
+    "specular": "T_Bags_01_MMOR.png"
+   },
+   "uv_scale_offset": [
+    [
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0
+    ]
+   ],
+   "renderers": 7,
+   "bounds": [
+    [
+     93.71,
+     -2.73,
+     -67.61
+    ],
+    [
+     101.3,
+     0.81,
+     -41.42
+    ]
+   ],
+   "vertices": 5294,
+   "triangles": 6956
+  },
+  {
+   "fbx_material": "OutDoor_New",
+   "unity_material": "OutDoor_New",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {
+    "diffuse": "OutDoor_New_AlbedoTransparency.png",
+    "normal": "OutDoor_New_Normal.png",
+    "specular": "OutDoor_MetallicSmoothness.png"
+   },
+   "uv_scale_offset": [
+    [
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0
+    ]
+   ],
+   "renderers": 1,
+   "bounds": [
+    [
+     93.76,
+     -0.2,
+     -55.19
+    ],
+    [
+     94.03,
+     1.78,
+     -54.72
+    ]
+   ],
+   "vertices": 96,
+   "triangles": 64
+  },
+  {
+   "fbx_material": "Mat_ChineseLantern_01",
+   "unity_material": "Mat_ChineseLantern_01",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {
+    "diffuse": "T_ChineseLantern_01_C.png",
+    "normal": "T_ChineseLantern_01_N.png",
+    "emissive": "T_ChineseLattern_01_E.png",
+    "specular": "T_ChineseLantern_01_MMOR.png"
+   },
+   "uv_scale_offset": [
+    [
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0
+    ]
+   ],
+   "renderers": 7,
+   "bounds": [
+    [
+     93.87,
+     1.06,
+     -70.61
+    ],
+    [
+     95.16,
+     2.79,
+     -39.03
+    ]
+   ],
+   "vertices": 7896,
+   "triangles": 9408
+  },
+  {
+   "fbx_material": "FishingRingStatic",
+   "unity_material": "FishingRingStatic",
+   "shader": "BillBoardOverlay",
+   "textures": {
+    "diffuse": "Empty Circle Head.png"
+   },
+   "uv_scale_offset": [
+    [
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0
+    ]
+   ],
+   "renderers": 1,
+   "bounds": [
+    [
+     103.25,
+     -0.64,
+     -48.79
+    ],
+    [
+     104.45,
+     -0.64,
+     -47.59
+    ]
+   ],
+   "vertices": 4,
+   "triangles": 2
+  },
+  {
+   "fbx_material": "pen",
+   "unity_material": "pen",
+   "shader": "SodaCraft/SodaLit",
+   "textures": {
+    "diffuse": "pen.png"
+   },
+   "uv_scale_offset": [
+    [
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0
+    ]
+   ],
+   "renderers": 1,
+   "bounds": [
+    [
+     94.21,
+     1.28,
+     -51.84
+    ],
+    [
+     94.32,
+     1.31,
+     -51.76
+    ]
+   ],
+   "vertices": 91,
+   "triangles": 90
+  }
+ ],
+ "shaders": {
+  "SodaCraft/SodaLit": 130,
+  "Universal Render Pipeline/Unlit": 1,
+  "SimpleWater": 1,
+  "SodaCraft/SodaCharacter": 1,
+  "BillBoardOverlay": 2
+ },
+ "missing_textures": {},
+ "skipped_materials": {
+  "Universal Render Pipeline/Particles/Unlit : FishingLine": 1
+ }
+}
