@@ -340,7 +340,9 @@ void CPlayer::KeyInput(f32_t fDeltaTime)
 
     if (0.f == m_fInputX && 0.f == m_fInputZ)
     {
-        if (m_bAiming || m_bFiring)
+        if (pInven->Get_ActiveSlot() == EQUIP_SLOT::MELEE)
+            if (m_bFiring) Change_Animation(rand() % 1 == 0 ? MOVESTATE::ATTACK : MOVESTATE::ATTACK_L2R);
+        else if (m_bAiming || m_bFiring)
             Change_Animation(MOVESTATE::IDLE_RH);
         else
             Change_Animation(MOVESTATE::IDLE);
@@ -349,7 +351,7 @@ void CPlayer::KeyInput(f32_t fDeltaTime)
     else if(!bPushShift)
     {
         if(pInven->Get_ActiveSlot() == EQUIP_SLOT::MELEE)
-            if (m_bFiring) Change_Animation(rand() %2 == 0 ? MOVESTATE::ATTACK : MOVESTATE::ATTACK_L2R);
+            if (m_bFiring) Change_Animation(rand() %1 == 0 ? MOVESTATE::ATTACK : MOVESTATE::ATTACK_L2R);
             else Change_Animation(MOVESTATE::WALK_FORWARD);
         else if (m_bAiming || m_bFiring)
             Change_Animation(MOVESTATE::WALK_FORWARD_RH);
