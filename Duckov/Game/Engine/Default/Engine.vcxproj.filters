@@ -342,6 +342,9 @@
     <ClInclude Include="..\public\ContainerObject.h">
       <Filter>05. GameObject\05. ContainerObject</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\PartObject.h">
+      <Filter>05. GameObject\05. ContainerObject\PartObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Timer.cpp">
@@ -490,6 +493,9 @@
     </ClCompile>
     <ClCompile Include="..\private\ContainerObject.cpp">
       <Filter>05. GameObject\05. ContainerObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\PartObject.cpp">
+      <Filter>05. GameObject\05. ContainerObject\PartObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

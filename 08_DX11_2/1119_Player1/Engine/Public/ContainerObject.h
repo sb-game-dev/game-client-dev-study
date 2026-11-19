@@ -32,8 +32,7 @@ protected:
 
 protected:
 	shared_ptr<class CPartObject> Find_PartObject(const wstring& strComponentTag);
-	HRESULT Add_PartObject(uint32_t iPrototypeLevelIndex, const wstring_t& strPrototypeTag, 
-		const wstring_t& strPartTag, void* pArg = nullptr);
+	HRESULT Add_PartObject(uint32_t iPrototypeLevelIndex, const wstring_t& strPrototypeTag, const wstring_t& strPartTag, void* pArg = nullptr);
 	
 public:
 	virtual shared_ptr<CPrototype> Clone(void* pArg) = 0;

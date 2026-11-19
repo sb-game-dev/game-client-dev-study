@@ -37,22 +37,6 @@
    "unbound_paths": 0
   },
   {
-   "name": "Duck_Armature|Walk.Left",
-   "fps": 60.0,
-   "frames": 33,
-   "seconds": 0.5333,
-   "loop": true,
-   "unbound_paths": 0
-  },
-  {
-   "name": "Duck_Armature|Walk.Right",
-   "fps": 60.0,
-   "frames": 33,
-   "seconds": 0.5333,
-   "loop": true,
-   "unbound_paths": 0
-  },
-  {
    "name": "Duck_Armature|TPose",
    "fps": 60.0,
    "frames": 2,
@@ -85,22 +69,6 @@
    "unbound_paths": 0
   },
   {
-   "name": "Duck_Armature|Walk.Left.RightHandOut",
-   "fps": 60.0,
-   "frames": 33,
-   "seconds": 0.5333,
-   "loop": true,
-   "unbound_paths": 0
-  },
-  {
-   "name": "Duck_Armature|Walk.Right.RightHandOut",
-   "fps": 60.0,
-   "frames": 33,
-   "seconds": 0.5333,
-   "loop": true,
-   "unbound_paths": 0
-  },
-  {
    "name": "Duck_Armature|Roll",
    "fps": 60.0,
    "frames": 73,
@@ -123,6 +91,51 @@
    "seconds": 0.9,
    "loop": false,
    "unbound_paths": 2
+  },
+  {
+   "name": "Duck_Armature|CT_Walk_Left",
+   "fps": 60.0,
+   "frames": 49,
+   "seconds": 0.8,
+   "loop": true,
+   "unbound_paths": 0,
+   "retarget_from": "0_CharacterModel_Custom_Template Armature|Walk_Left"
+  },
+  {
+   "name": "Duck_Armature|CT_Walk_Right",
+   "fps": 60.0,
+   "frames": 49,
+   "seconds": 0.8,
+   "loop": true,
+   "unbound_paths": 0,
+   "retarget_from": "0_CharacterModel_Custom_Template Armature|Walk_Right"
+  },
+  {
+   "name": "Duck_Armature|CT_Walk_Left.RightHandOut",
+   "fps": 60.0,
+   "frames": 49,
+   "seconds": 0.8,
+   "loop": true,
+   "unbound_paths": 0,
+   "retarget_from": "0_CharacterModel_Custom_Template Armature|Walk_Left"
+  },
+  {
+   "name": "Duck_Armature|CT_Walk_Right.RightHandOut",
+   "fps": 60.0,
+   "frames": 49,
+   "seconds": 0.8,
+   "loop": true,
+   "unbound_paths": 0,
+   "retarget_from": "0_CharacterModel_Custom_Template Armature|Walk_Right"
+  },
+  {
+   "name": "Duck_Armature|CT_Riding",
+   "fps": 60.0,
+   "frames": 6,
+   "seconds": 0.0833,
+   "loop": false,
+   "unbound_paths": 0,
+   "retarget_from": "0_CharacterModel_Custom_Template Armature_Riding"
   }
  ],
  "renderers": [

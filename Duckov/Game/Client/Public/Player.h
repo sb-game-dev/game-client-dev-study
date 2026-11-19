@@ -1,13 +1,12 @@
 #pragma once
 #include "Client_Defines.h"
-#include "MapObject.h"
-#include "Hill.h"
+#include "ContainerObject.h"
 
 NS_BEGIN(Client)
-class CPlayer : public CMapObject
+class CPlayer : public CContainerObject
 {
 public:
-	typedef struct tagPlayerDesc : public MAPOBJECT_DESC
+	typedef struct tagPlayerDesc : public CONTAINEROBJECT_DESC
 	{
 
 	}PLAYER_DESC;
@@ -30,37 +29,37 @@ public:
 
 	void	AdjustPosY();
 
-	bool_t	Is_Aiming()			{ return m_bAiming && Has_Weapon();	}
-	bool_t	Is_Firing()			{ return m_bFiring && Has_Weapon(); }
+	bool_t	Is_Aiming()				{ return m_bAiming && Has_Weapon();	}
+	bool_t	Is_Firing()				{ return m_bFiring && Has_Weapon(); }
 
-	f32_t	Get_HP()			const { return m_fHP; }
-	f32_t	Get_MaxHP()			const { return m_fMaxHP; }
+	f32_t	Get_HP()				const { return m_fHP; }
+	f32_t	Get_MaxHP()				const { return m_fMaxHP; }
 
-	f32_t	Get_Stamina()		const { return m_fStamina; }
-	f32_t	Get_MaxStamina()	const { return m_fMaxStamina; }
-	bool_t	Is_StaminaLock()	const { return m_bStaminaLock; }
+	f32_t	Get_Stamina()			const { return m_fStamina; }
+	f32_t	Get_MaxStamina()		const { return m_fMaxStamina; }
+	bool_t	Is_StaminaLock()		const { return m_bStaminaLock; }
 
-	f32_t	Get_Hunger()		const { return m_fHunger; }
-	f32_t	Get_MaxHunger()		const { return m_fMaxHunger; }
+	f32_t	Get_Hunger()			const { return m_fHunger; }
+	f32_t	Get_MaxHunger()			const { return m_fMaxHunger; }
 
-	f32_t	Get_Thirst()		const { return m_fThirst; }
-	f32_t	Get_MaxThirst()		const { return m_fMaxThirst; }
+	f32_t	Get_Thirst()			const { return m_fThirst; }
+	f32_t	Get_MaxThirst()			const { return m_fMaxThirst; }
 
 private:
 	float4_t						m_vGroundPlane = { 0.f, 1.f, 0.f, 0.f };	// ¹ß¹Ø Æò¸é (a,b,c,d)
 
-	shared_ptr<CModel>				m_pModel = { nullptr };
-	shared_ptr<CVertexShader>		m_pVS = { nullptr };
-	shared_ptr<CPixelShader>		m_pPS = { nullptr };
+	shared_ptr<CModel>				m_pModelCom = { nullptr };
+	shared_ptr<CVertexShader>		m_pVSCom = { nullptr };
+	shared_ptr<CPixelShader>		m_pPSCom = { nullptr };
 	shared_ptr<CPixelShader>		m_pPS_Shadow = { nullptr };
 	shared_ptr<CPixelShader>		m_pPS_Occluded = { nullptr };
+	ComPtr<ID3D11RasterizerState>	m_pRS_Reflect = { nullptr };
 
 	shared_ptr<CConstantBuffer>		m_pCB = { nullptr };
 	CB_PER_OBJECT					m_tCBData = {};
 
-	ComPtr<ID3D11RasterizerState>	m_pRS_Reflect = { nullptr };
-
 	weak_ptr<class CInven>			m_pInven;
+	weak_ptr<class CHill>			m_pHill;
 	bool_t							m_bAiming = { false };
 	bool_t							m_bFiring = { false };
 	
@@ -77,6 +76,7 @@ private:
 		bool_t  bFire = false;                // LB
 		bool_t  bSlot1 = false, bSlot2 = false, bSlotMelee = false;
 	}PLAYER_INPUT;
+
 	PLAYER_INPUT    m_tInput = {};
 
 
@@ -86,10 +86,13 @@ private:
 
 	enum class PLAYER_ANIM {
 		IDLE, 
-		WALK_FORWARD, WALK_BACKWARD, WALK_LEFT, WALK_RIGHT, TPOS,
+		WALK_FORWARD, WALK_BACKWARD, TPOS,
 		IDLE_RH,
-		WALK_FORWARD_RH, WALK_BACKWRD_RH, WALK_LEFT_RH, WALK_RIGHT_RH,
-		ROLL, ATTACK, ATTACK_L2R, END 
+		WALK_FORWARD_RH, WALK_BACKWARD_RH,
+		ROLL, ATTACK, ATTACK_L2R, 
+		WALK_LEFT,WALK_RIGHT,WALK_LEFT_RH_OUT,WALK_RIGHT_RH_OUT,
+		RIDING,
+		END 
 	};
 
 	PLAYER_ANIM						m_eLowerMoveState = { PLAYER_ANIM::END };
@@ -145,7 +148,7 @@ private:
 	void			Turn_Toward(vector_t vMoveDir, f32_t fDeltaTime);
 
 	void			LookAtMouse(f32_t fDeltaTime);
-	void			Change_Animation(PLAYER_ANIM eMoveState, bool_t bUpper = false);
+	void			Change_Animation(PLAYER_ANIM eMoveState, bool_t bUpper = false, f32_t fAnimPlaySpeed = 1.f);
 	
 	void			Update_Stamina(f32_t fDeltaTime);
 	void			Update_Hunger(f32_t fDeltaTime);

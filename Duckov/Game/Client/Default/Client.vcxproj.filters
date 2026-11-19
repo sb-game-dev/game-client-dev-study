@@ -94,8 +94,17 @@
     <Filter Include="02. GameObjects\09. Scope">
       <UniqueIdentifier>{4d64e3f2-2c3c-4663-88bf-2d6648a7c34f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObjects\01. Player\00. EquipPart">
+    <Filter Include="02. GameObjects\01. Player\00. Body">
       <UniqueIdentifier>{27657172-ef29-42d4-9f6b-7b11840faa86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObjects\01. Player\01. Weapon">
+      <UniqueIdentifier>{d31e4331-4cbd-4ff9-8193-2fd6e82d027d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObjects\01. Player\02. UI">
+      <UniqueIdentifier>{555f40b0-2126-4582-aee2-dd2c87f13b62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObjects\01. Player\03. Effect">
+      <UniqueIdentifier>{158d68cd-7664-4ecc-8956-b7f575c598ba}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -192,6 +201,9 @@
     <ClInclude Include="..\public\Tree_Instance.h">
       <Filter>02. GameObjects\07. Tree</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\Body_Player.h">
+      <Filter>02. GameObjects\01. Player\00. Body</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -278,6 +290,9 @@
     </ClCompile>
     <ClCompile Include="..\private\Tree_Instance.cpp">
       <Filter>02. GameObjects\07. Tree</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Body_Player.cpp">
+      <Filter>02. GameObjects\01. Player\00. Body</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

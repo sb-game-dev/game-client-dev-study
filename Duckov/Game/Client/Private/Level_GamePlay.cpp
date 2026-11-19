@@ -75,9 +75,9 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
         return E_FAIL;
 
     CPlayer::PLAYER_DESC Player_Desc{};
-    Player_Desc.fDegreeRotPerSec = 180.f;
-    Player_Desc.iLevelIndex = ETOUI(LEVEL::GAMEPLAY);
-    Player_Desc.vPosition = { 38.2f ,0.f,-207.2f };
+    Player_Desc.fDegreeRotPerSec = { 180.f };
+    Player_Desc.fPosX = { 38.2f };
+    Player_Desc.fPosZ = { -207.2f };
 
     if(FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Player, 
         ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Player, &Player_Desc)))

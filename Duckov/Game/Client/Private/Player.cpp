@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Inven.h"
+#include "Hill.h"
 
 namespace {
     vector_t	g_vY_Plus = XMVector4Normalize({ 0.f,+1.f,0.f,0.f });
@@ -7,7 +8,7 @@ namespace {
 }
 
 CPlayer::CPlayer(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
-    :CMapObject(pDevice, pContext)
+    :CContainerObject(pDevice, pContext)
 {
 }
 
@@ -45,8 +46,6 @@ HRESULT CPlayer::Initialize(void* pArg)
 void CPlayer::Priority_Update(f32_t fDeltaTime)
 {
     __super::Priority_Update(fDeltaTime);
-    if (m_bEditorMode)
-        return;
 
     m_bAiming = false;
     m_bFiring = false;
@@ -84,7 +83,7 @@ void CPlayer::Priority_Update(f32_t fDeltaTime)
 void CPlayer::Update(f32_t fDeltaTime)
 {
     __super::Update(fDeltaTime);
-    m_pModel->PlayAnimation(fDeltaTime);
+    m_pModelCom->PlayAnimation(fDeltaTime);
 }
 void CPlayer::Late_Update(f32_t fDeltaTime)
 {
@@ -98,20 +97,16 @@ void CPlayer::Late_Update(f32_t fDeltaTime)
 
 HRESULT CPlayer::Render()
 {
-    return Render_Mesh(m_pTransformCom->Get_World(), m_pRS.Get(), m_pPS);
+    return Render_Mesh(m_pTransformCom->Get_World(), m_pRS.Get(), m_pPSCom);
 }
 
 HRESULT CPlayer::Render_Reflection(const matrix_t& matReflect)
 {
-    if (m_bEditorMode)
-        return S_OK;
-    return Render_Mesh(m_pTransformCom->Get_World() * matReflect, m_pRS_Reflect.Get(), m_pPS);
+    return Render_Mesh(m_pTransformCom->Get_World() * matReflect, m_pRS_Reflect.Get(), m_pPSCom);
 }
 
 HRESULT CPlayer::Render_Shadow()
 {
-    if (m_bEditorMode)
-        return S_OK;
     XMVECTOR vPlane     = XMLoadFloat4(&m_vGroundPlane);
     XMVECTOR vToLight   = XMVectorSet(-0.5f, 0.5f, -0.5f, 0.f);  // SunLight Direction의 반대, w=0(평행광)
 
@@ -123,30 +118,31 @@ HRESULT CPlayer::Render_Shadow()
 
 HRESULT CPlayer::Render_Occluded()
 {
-    if (m_bEditorMode)
-        return S_OK;
     return Render_Mesh(m_pTransformCom->Get_World(), m_pRS.Get(), m_pPS_Occluded);
 }
 
 HRESULT CPlayer::Ready_Components()
 {
     if(FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Normalize_AssetPath(TEXT("Characters/S12_DuckV2_2/S12_DuckV2_2.fbx")),
-        TEXT("Com_Model"),m_pModel)))
+        TEXT("Com_Model"),m_pModelCom)))
         return E_FAIL;
 
-    m_pModel->Set_LowerAnimationIndex(ETOUI(m_eLowerMoveState));
-    m_pModel->Set_Animation_Loop(ETOUI(PLAYER_ANIM::WALK_FORWARD));
-    m_pModel->Set_Animation_Loop(ETOUI(PLAYER_ANIM::WALK_FORWARD_RH));
-    m_pModel->Set_Animation_Loop(ETOUI(PLAYER_ANIM::WALK_BACKWARD));
-    m_pModel->Set_Animation_Loop(ETOUI(PLAYER_ANIM::IDLE));
-    m_pModel->Set_Animation_Loop(ETOUI(PLAYER_ANIM::IDLE_RH));
+    m_pModelCom->Set_LowerAnimationIndex(ETOUI(m_eLowerMoveState));
+    m_pModelCom->Set_Animation_Loop(ETOUI(PLAYER_ANIM::WALK_FORWARD));
+    m_pModelCom->Set_Animation_Loop(ETOUI(PLAYER_ANIM::WALK_FORWARD_RH));
+    m_pModelCom->Set_Animation_Loop(ETOUI(PLAYER_ANIM::WALK_BACKWARD));
+    m_pModelCom->Set_Animation_Loop(ETOUI(PLAYER_ANIM::WALK_BACKWARD_RH));
+    m_pModelCom->Set_Animation_Loop(ETOUI(PLAYER_ANIM::WALK_LEFT));
+    m_pModelCom->Set_Animation_Loop(ETOUI(PLAYER_ANIM::WALK_LEFT_RH_OUT));
+    m_pModelCom->Set_Animation_Loop(ETOUI(PLAYER_ANIM::IDLE));
+    m_pModelCom->Set_Animation_Loop(ETOUI(PLAYER_ANIM::IDLE_RH));
 
     if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VS_ANIM_MODEL,
-        TEXT("Com_VS"), m_pVS)))
+        TEXT("Com_VS"), m_pVSCom)))
         return E_FAIL;
 
     if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_MODEL,
-        TEXT("Com_PS"), m_pPS)))
+        TEXT("Com_PS"), m_pPSCom)))
         return E_FAIL;
 
     if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_VTXCOL_SHADOW,
@@ -189,24 +185,24 @@ HRESULT CPlayer::Render_Mesh(const matrix_t& matWorld, ID3D11RasterizerState* pR
     // RS(레스터라이저 설정)
     m_pContext->RSSetState(pRS);
 
-    if (FAILED(Bind_Shader(m_pVS, pPS)))
+    if (FAILED(Bind_Shader(m_pVSCom, pPS)))
         return E_FAIL;
 
     if (FAILED(Bind_ShaderResources(matWorld)))
         return E_FAIL;
 
-    uint32_t    iNumMeshes = m_pModel->Get_NumMeshes();
+    uint32_t    iNumMeshes = m_pModelCom->Get_NumMeshes();
     for (uint32_t i = 0; i < iNumMeshes; ++i)
     {
-        if (FAILED(m_pModel->Bind_BoneMatrix(i, 2)))
+        if (FAILED(m_pModelCom->Bind_BoneMatrix(i, 2)))
             return E_FAIL;
-        if (FAILED(m_pModel->Bind_Material(i, aiTextureType_DIFFUSE, 0, 0)))
+        if (FAILED(m_pModelCom->Bind_Material(i, aiTextureType_DIFFUSE, 0, 0)))
             return E_FAIL;
 
         //if (FAILED(m_pModelCom->Bind_Material(i, aiTextureType_NORMALS, 0, 1)))
         //    return E_FAIL;
 
-        if (FAILED(m_pModel->Render(i)))
+        if (FAILED(m_pModelCom->Render(i)))
             return E_FAIL;
     }
     return S_OK;
@@ -233,10 +229,16 @@ HRESULT CPlayer::Bind_ShaderResources(const matrix_t& matWorld)
 
 void CPlayer::AdjustPosY()
 {
-    if (m_bEditorMode)
-        return;
-    auto pHill = static_pointer_cast<CHill>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Hill")));
-    
+    auto pHill = m_pHill.lock();
+    if (nullptr == pHill)
+    {
+        pHill = dynamic_pointer_cast<CHill>(CGameInstance::Get().Find_GameObject(
+            ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", L"GameObject_Hill"));
+        if (nullptr == pHill)
+            return;
+        m_pHill = pHill;
+    }
+
     vector_t  vPos = m_pTransformCom->Get_State(STATE::POSITION);
     f32_t x = XMVectorGetX(vPos);
     f32_t z = XMVectorGetZ(vPos);
@@ -285,8 +287,7 @@ void CPlayer::Initialize_State(PLAYER_STATE eNext)
     case Client::CPlayer::PLAYER_STATE::SPRINT:
         m_bSlowTrun = true;
         m_pTransformCom->Set_Speed(16.f);
-        Change_Animation(PLAYER_ANIM::WALK_BACKWARD);
-        m_pModel->SetAnimPlaySpeed(2.f);
+        Change_Animation(Has_Weapon() ? PLAYER_ANIM::WALK_FORWARD_RH : PLAYER_ANIM::WALK_FORWARD_RH, false, 2.f);
         break;
     case Client::CPlayer::PLAYER_STATE::ROLL:
         if (m_fStamina >= m_fRollStamina)
@@ -301,17 +302,15 @@ void CPlayer::Initialize_State(PLAYER_STATE eNext)
             m_pTransformCom->Set_Speed(20.f);
 
             XMStoreFloat4(&m_vRollStartMoveDir, Has_MoveInput() ? Calc_MoveDir() : m_pTransformCom->Get_State(STATE::LOOK));
-            m_pModel->SetAnimPlaySpeed(1.f);
-            Change_Animation(PLAYER_ANIM::ROLL);
+            
+            Change_Animation(PLAYER_ANIM::ROLL, false, 1.f);
         }
         break;
     case Client::CPlayer::PLAYER_STATE::ATTACK:
-        Change_Animation(rand() % 2 ? PLAYER_ANIM::ATTACK : PLAYER_ANIM::ATTACK_L2R, true);
-        m_pModel->SetAnimPlaySpeed(1.5f);
+        Change_Animation(rand() % 2 ? PLAYER_ANIM::ATTACK : PLAYER_ANIM::ATTACK_L2R, true, 1.5f);
         break;
     default: 
         m_pTransformCom->Set_Speed(8.f);
-        m_pModel->SetAnimPlaySpeed(0.5f);
         break;
     }
 }
@@ -324,7 +323,7 @@ void CPlayer::Update_State_Idle(f32_t fDeltaTime)
 
     m_bAiming = m_tInput.bAim;
     m_bFiring = m_tInput.bFire;
-    Change_Animation((m_bAiming || m_bFiring) ? PLAYER_ANIM::IDLE_RH : PLAYER_ANIM::IDLE);
+    Change_Animation(Has_Weapon() ? PLAYER_ANIM::IDLE_RH : PLAYER_ANIM::IDLE, false, 1.f);
     LookAtMouse(fDeltaTime);
 }
 void CPlayer::Update_State_Walk(f32_t fDeltaTime)
@@ -337,7 +336,16 @@ void CPlayer::Update_State_Walk(f32_t fDeltaTime)
 
     m_bAiming = m_tInput.bAim;
     m_bFiring = m_tInput.bFire;
-    Change_Animation((m_bAiming || m_bFiring) ? PLAYER_ANIM::WALK_FORWARD_RH : PLAYER_ANIM::WALK_FORWARD);
+
+    auto pMouse = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", GO::Client_Mouse);
+    vector_t vTargetDir = pMouse->Get_Transform()->Get_State(STATE::POSITION) - m_pTransformCom->Get_State(STATE::POSITION);
+    vector_t vMoveDir = Calc_MoveDir();
+    f32_t fDot = XMVectorGetX(XMVector3Dot(XMVector4Normalize(vMoveDir), XMVector4Normalize(vTargetDir)));
+    
+    if(fDot> cosf(XM_PI / 4))        { Change_Animation(Has_Weapon() ? PLAYER_ANIM::WALK_FORWARD_RH : PLAYER_ANIM::WALK_FORWARD, false, 1.f);}
+    else if(fDot < -cosf(XM_PI / 4)) { Change_Animation(Has_Weapon() ? PLAYER_ANIM::WALK_BACKWARD_RH : PLAYER_ANIM::WALK_BACKWARD, false, 1.f);}
+    else                             { Change_Animation(Has_Weapon() ? PLAYER_ANIM::WALK_LEFT_RH_OUT : PLAYER_ANIM::WALK_LEFT, false, 1.5f); }
+
     LookAtMouse(fDeltaTime);
     m_pTransformCom->Move_Position(Calc_MoveDir(), fDeltaTime);
 }
@@ -368,7 +376,7 @@ void CPlayer::Update_State_Roll(f32_t fDeltaTime)
     m_pTransformCom->Move_Position(XMLoadFloat4(&m_vRollStartMoveDir), fDeltaTime);
 
     // 구르기가 끝났다면 IDLE상태
-    if (m_pModel->Is_Animation_Finished())
+    if (m_pModelCom->Is_Animation_Finished())
         Initialize_State(PLAYER_STATE::IDLE);
 }
 
@@ -378,17 +386,17 @@ void CPlayer::Update_State_Attack(f32_t fDeltaTime)
 
     if (Has_MoveInput())
     {
-        m_pModel->Set_LowerAnimationIndex(ETOUI(PLAYER_ANIM::WALK_FORWARD));
+        Change_Animation(PLAYER_ANIM::WALK_FORWARD);
         m_pTransformCom->Move_Position(Calc_MoveDir(), fDeltaTime);
     }
     else
     {
-        m_pModel->Set_LowerAnimationIndex(ETOUI(PLAYER_ANIM::IDLE));
+        Change_Animation(PLAYER_ANIM::IDLE);
     }
 
-    if (m_pModel->Is_Animation_Finished(true))
+    if (m_pModelCom->Is_Animation_Finished(true))
     {
-        m_pModel->Set_UpperAnimationInActive();
+        m_pModelCom->Set_UpperAnimationInActive();
         m_eUpperMoveState = PLAYER_ANIM::END;
         Initialize_State(Has_MoveInput() ? PLAYER_STATE::WALK : PLAYER_STATE::IDLE);
     }
@@ -464,21 +472,22 @@ void CPlayer::LookAtMouse(f32_t fDeltaTime)
         m_pTransformCom->LookAt(pMouse->Get_Transform()->Get_State(STATE::POSITION));
     }
 }
-void CPlayer::Change_Animation(PLAYER_ANIM eMoveState, bool_t bUpper)
+void CPlayer::Change_Animation(PLAYER_ANIM eMoveState, bool_t bUpper, f32_t fAnimPlaySpeed)
 {
+    m_pModelCom->SetAnimPlaySpeed(fAnimPlaySpeed, bUpper);
     if (bUpper)
     {
         if (eMoveState == m_eUpperMoveState)
             return;
         m_eUpperMoveState = eMoveState;
-        m_pModel->Set_UpperAnimationIndex(ETOUI(m_eUpperMoveState),true);
+        m_pModelCom->Set_UpperAnimationIndex(ETOUI(m_eUpperMoveState),true);
     }
     else
     {
         if (eMoveState == m_eLowerMoveState)
             return;
         m_eLowerMoveState = eMoveState;
-        m_pModel->Set_LowerAnimationIndex(ETOUI(m_eLowerMoveState));
+        m_pModelCom->Set_LowerAnimationIndex(ETOUI(m_eLowerMoveState));
     }
 }
 

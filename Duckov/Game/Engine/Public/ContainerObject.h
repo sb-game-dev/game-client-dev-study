@@ -24,12 +24,12 @@ public:
 	virtual void		Late_Update(f32_t fDeltaTime)override;
 	virtual HRESULT		Render()override;
 
-private:
+protected:
 	map<const wstring_t, shared_ptr<class CPartObject>>		m_PartObjects;
 
-private:
+protected:
 	shared_ptr<class CPartObject>	Find_PartObect(const wstring_t& strPartObjectTag);
-	HRESULT Add_PartObject(uint32_t iPrototypeLevelIndex, const wstring_t strPrototypeTag, const wstring_t strPartTag, void* pArg);
+	HRESULT Add_PartObject(uint32_t iPrototypeLevelIndex, const wstring_t& strPrototypeTag, const wstring_t& strPartTag, void* pArg);
 
 public:
 	virtual shared_ptr<CPrototype> Clone(void* pArg) PURE;

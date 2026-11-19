@@ -160,6 +160,10 @@
     </ClInclude>
     <ClInclude Include="..\Public\Mirror.h" />
     <ClInclude Include="..\public\Client_Mouse.h" />
+    <ClInclude Include="..\public\Body_Player.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\public\Scope.h" />
     <ClInclude Include="..\public\SkyBox.h" />
     <ClInclude Include="..\public\SunLight.h" />
@@ -193,6 +197,10 @@
     </ClCompile>
     <ClCompile Include="..\private\Mirror.cpp" />
     <ClCompile Include="..\private\Client_Mouse.cpp" />
+    <ClCompile Include="..\private\Body_Player.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\private\Scope.cpp" />
     <ClCompile Include="..\private\SkyBox.cpp" />
     <ClCompile Include="..\private\SunLight.cpp" />
