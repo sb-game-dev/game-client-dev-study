@@ -163,6 +163,7 @@ xcopy "$(SolutionDir)Engine\Bin\ShaderFiles" "$(SolutionDir)MapTool\Bin\Shader\"
     <ClInclude Include="..\public\Component.h" />
     <ClInclude Include="..\public\ComputeShader.h" />
     <ClInclude Include="..\public\ConstantBuffer.h" />
+    <ClInclude Include="..\public\ContainerObject.h" />
     <ClInclude Include="..\public\DirectionalLight.h" />
     <ClInclude Include="..\Public\Engine_Global.h" />
     <ClInclude Include="..\Public\GameInstance.h" />
@@ -221,6 +222,7 @@ xcopy "$(SolutionDir)Engine\Bin\ShaderFiles" "$(SolutionDir)MapTool\Bin\Shader\"
     <ClCompile Include="..\private\Component.cpp" />
     <ClCompile Include="..\private\ComputeShader.cpp" />
     <ClCompile Include="..\private\ConstantBuffer.cpp" />
+    <ClCompile Include="..\private\ContainerObject.cpp" />
     <ClCompile Include="..\Private\DirectionalLight.cpp" />
     <ClCompile Include="..\Private\GameInstance.cpp" />
     <ClCompile Include="..\Private\GameObject.cpp" />

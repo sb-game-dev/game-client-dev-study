@@ -163,6 +163,12 @@
     <Filter Include="06. Component\04. Model\03. Animation\Channel">
       <UniqueIdentifier>{5550ec59-c8d4-4d23-b84c-a68401b0cfee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05. GameObject\05. ContainerObject">
+      <UniqueIdentifier>{be363aa4-36b9-43e1-acde-8d24f3a6439e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. GameObject\05. ContainerObject\PartObject">
+      <UniqueIdentifier>{3277d14c-142c-4e37-966e-12ac8fce6295}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Engine_Defines.h">
@@ -333,6 +339,9 @@
     <ClInclude Include="..\public\Channel.h">
       <Filter>06. Component\04. Model\03. Animation\Channel</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\ContainerObject.h">
+      <Filter>05. GameObject\05. ContainerObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Timer.cpp">
@@ -478,6 +487,9 @@
     </ClCompile>
     <ClCompile Include="..\private\Channel.cpp">
       <Filter>06. Component\04. Model\03. Animation\Channel</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\ContainerObject.cpp">
+      <Filter>05. GameObject\05. ContainerObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
