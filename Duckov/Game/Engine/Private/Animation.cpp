@@ -18,9 +18,9 @@ HRESULT CAnimation::Initialize(const aiAnimation* pAIAnimaiton, shared_ptr<class
 	return S_OK;
 }
 
-void CAnimation::Update_TransformMatrix(const vector<shared_ptr<class CBone>>& Bones, f32_t fDeltaTime, const vector<bool_t>* pIsUpperBone)
+void CAnimation::Update_TransformMatrix(const vector<shared_ptr<class CBone>>& Bones, f32_t fDeltaTime, const vector<bool_t>* pIsUpperBone, f32_t fAnimPlaySpeed)
 {
-	m_fCurrentTrackPosition += m_fTickPerSecond * fDeltaTime;
+	m_fCurrentTrackPosition += m_fTickPerSecond * fDeltaTime * fAnimPlaySpeed;
 	if (m_fCurrentTrackPosition >= m_fDuration)
 	{
 		if(m_bLoop)

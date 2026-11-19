@@ -32,6 +32,7 @@ public:
 	BoundingBox		GetBoundinBox() { return m_tLocalBox; }
 
 	void			PlayAnimation(f32_t fDeltaTime);
+	void			SetAnimPlaySpeed(f32_t fAnimPlaySpeed) { m_fAnimPlaySpeed = fAnimPlaySpeed; }
 	void			Reset_BoneTransformMatrix();
 	void			Set_LowerAnimationIndex(uint32_t iAnimIndex);
 	void			Set_UpperAnimationIndex(uint32_t iAnimIndex, bool_t bActive);
@@ -68,6 +69,8 @@ private:
 
 	BoundingBox								m_tLocalBox = {};
 	bool_t									m_bUseCulling = { false };
+
+	f32_t									m_fAnimPlaySpeed = {1.f};
 
 private:
 	HRESULT	Ready_Meshes(MODEL eType, fmatrix_t PreTransformMatrix);

@@ -20,6 +20,7 @@ CModel::CModel(const CModel& rhs)
     , m_iNumMaterials{rhs.m_iNumMaterials}
     
     , m_iNumAnimaition{rhs.m_iNumAnimaition}
+    , m_fAnimPlaySpeed{rhs.m_fAnimPlaySpeed}
     , m_IsUpperBone{rhs.m_IsUpperBone}
     , m_tLowerLayer{rhs.m_tLowerLayer}
     , m_tUpperLayer{rhs.m_tUpperLayer}

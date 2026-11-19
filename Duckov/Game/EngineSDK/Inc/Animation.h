@@ -13,7 +13,7 @@ public:
 	~CAnimation() = default;
 public:
 	HRESULT		Initialize(const aiAnimation* pAIAnimaiton, shared_ptr<class CModel> pModel);
-	void		Update_TransformMatrix(const vector<shared_ptr<class CBone>>& Bones, f32_t fDeltaTime, const vector<bool_t>* pIsUpperBone = nullptr);
+	void		Update_TransformMatrix(const vector<shared_ptr<class CBone>>& Bones, f32_t fDeltaTime, const vector<bool_t>* pIsUpperBone = nullptr, f32_t fAnimPlaySpeed = 1.f);
 	void		Reset_Animaition();
 	bool_t		Is_Animation_End() const { return m_isFinished; }
 	void		Set_Loop() { m_bLoop = true; }
