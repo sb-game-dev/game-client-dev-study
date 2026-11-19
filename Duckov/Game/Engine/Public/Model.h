@@ -33,7 +33,6 @@ public:
 
 	void			PlayAnimation(f32_t fDeltaTime);
 	void			Reset_BoneTransformMatrix();
-	void			SetCurrentAnimIndex(uint32_t iAnimIndex);
 	void			Set_LowerAnimationIndex(uint32_t iAnimIndex);
 	void			Set_UpperAnimationIndex(uint32_t iAnimIndex, bool_t bActive);
 	void			Set_UpperAnimationInActive() { m_tUpperLayer.isActive = false; }
@@ -48,24 +47,16 @@ private:
 
 	vector<shared_ptr <class CMesh>>		m_Meshes;
 	uint32_t								m_iNumMeshes = {};
+	float4x4_t								m_PreTransformMatrix = {};
 
 	vector<shared_ptr<class CMaterial>>		m_Materials;
 	uint32_t								m_iNumMaterials = {};
 
 	vector<shared_ptr<class CBone>>			m_Bones;
-	vector<bool_t>							m_IsUpperBone;
 
 	vector<shared_ptr<class CAnimation>>	m_Animations;
+	vector<bool_t>							m_IsUpperBone;
 	uint32_t								m_iNumAnimaition = {};
-	uint32_t								m_iCurrentAnimIndex = {11};
-
-	BoundingBox								m_tLocalBox = {};
-	bool_t									m_bUseCulling = { false };
-
-	float4x4_t								m_PreTransformMatrix = {};
-
-	bool_t									m_isLoop = { false };
-	bool_t									m_isFinished = { false };
 
 	struct ANIM_LAYER
 	{
@@ -74,6 +65,9 @@ private:
 	};
 	ANIM_LAYER								m_tLowerLayer = { 0, true };
 	ANIM_LAYER								m_tUpperLayer = { 0, false };
+
+	BoundingBox								m_tLocalBox = {};
+	bool_t									m_bUseCulling = { false };
 
 private:
 	HRESULT	Ready_Meshes(MODEL eType, fmatrix_t PreTransformMatrix);

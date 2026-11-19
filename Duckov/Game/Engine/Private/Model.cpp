@@ -11,18 +11,21 @@ CModel::CModel(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContex
 
 CModel::CModel(const CModel& rhs)
     : CComponent{rhs}
+    , m_eType{rhs.m_eType}
     , m_Meshes{rhs.m_Meshes}
     , m_iNumMeshes{rhs.m_iNumMeshes}
+    , m_PreTransformMatrix{ rhs.m_PreTransformMatrix}
+
     , m_Materials{rhs.m_Materials}
     , m_iNumMaterials{rhs.m_iNumMaterials}
-    //, m_Bones{rhs.m_Bones}
-    , m_PreTransformMatrix{ rhs.m_PreTransformMatrix}
+    
     , m_iNumAnimaition{rhs.m_iNumAnimaition}
-    //, m_Animations{rhs.m_Animations }
-    , m_iCurrentAnimIndex{rhs.m_iCurrentAnimIndex }
+    , m_IsUpperBone{rhs.m_IsUpperBone}
+    , m_tLowerLayer{rhs.m_tLowerLayer}
+    , m_tUpperLayer{rhs.m_tUpperLayer}
+
     , m_tLocalBox{rhs.m_tLocalBox}
     , m_bUseCulling{rhs.m_bUseCulling}
-    , m_IsUpperBone{rhs.m_IsUpperBone}
 {
     for (auto& pBone : rhs.m_Bones)
         m_Bones.push_back(pBone->Clone());
@@ -132,7 +135,7 @@ void CModel::PlayAnimation(f32_t fDeltaTime)
 
     /* 1. 뼈들의 TransformMatrix 행렬을 현재 애니메이션에 맞게 세팅한다. */
     
-    // 일단 하체 갱신 -> 하체는 뼈 전체를 갱신한다.
+    // 하체는 뼈 전체를 갱신한다.(상체뼈 하체뼈 구분하지 않는다.)
     m_Animations[m_tLowerLayer.iAnimIndex]->Update_TransformMatrix(m_Bones, fDeltaTime);
 
     // 상체를 바꿔야 한다면 상체는 따로 갱신 + 하체와 상체의 애니메이션이 같다면 상체의 뼈는 갱신하지 않는다.(애니메이션이 두 번 재생됨)
@@ -144,18 +147,6 @@ void CModel::PlayAnimation(f32_t fDeltaTime)
         pBone->Update_CombinedTranformMatrix(m_Bones, XMLoadFloat4x4(&m_PreTransformMatrix));
 }
 
-void CModel::SetCurrentAnimIndex(uint32_t iAnimIndex)
-{
-    if (iAnimIndex >= m_iNumAnimaition)
-        return;
-
-    if (m_iCurrentAnimIndex != iAnimIndex)
-    {
-        m_Animations[iAnimIndex]->Reset_Animaition();
-        m_iCurrentAnimIndex = iAnimIndex;
-        //Reset_BoneTransformMatrix();
-    }
-}
 void CModel::Set_LowerAnimationIndex(uint32_t iAnimIndex)
 {
     if (iAnimIndex >= m_iNumAnimaition)

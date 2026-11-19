@@ -1,0 +1,32 @@
+{
+ "scene": "31_Level_JLab_1",
+ "map_fbx": "31_Level_JLab_1_Map.fbx",
+ "map_vertices": 83953,
+ "map_triangles": 35508,
+ "structure_types": 819,
+ "placed_active": 6493,
+ "placed_inactive": 158,
+ "scene_bin": "31_Level_JLab_1_Scene.bin",
+ "scene_bin_inactive": "31_Level_JLab_1_Scene_Inactive.bin",
+ "bin_format": "uint32 개수, 반복[uint32 길이 + UTF-16 프로토타입 태그, float3 위치, float4 쿼터니언(xyzw), float3 스케일, uint32 길이 + UTF-16 메시 경로(Resource 기준 소문자 .bin)] = MapTool CEditorUI::Save_Scene",
+ "stats": {
+  "structure_renderers": 9666,
+  "map_renderers": 4070,
+  "renderer_disabled": 1638,
+  "map_inactive": 115,
+  "light_volume": 128,
+  "no_mesh": 2,
+  "no_material": 1,
+  "max_placement_err_x1e6": 0
+ },
+ "missing_textures": {},
+ "skipped_materials": {
+  "Universal Render Pipeline/Particles/Unlit : PurpleGlow 1": 1,
+  "Universal Render Pipeline/Particles/Unlit : DarkFade4m": 1,
+  "Universal Render Pipeline/Particles/Lit : Mat_Transparent_2 1": 1,
+  "Universal Render Pipeline/Particles/Lit : Mat_Transparent_2": 1,
+  "Universal Render Pipeline/Particles/Unlit : JLabRedGlow": 1,
+  "Universal Render Pipeline/Particles/Lit : Mat_Transparent": 1,
+  "Universal Render Pipeline/Particles/Unlit : FakeGlow_Base Storage": 1
+ }
+}

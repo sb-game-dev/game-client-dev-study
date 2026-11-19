@@ -33,7 +33,8 @@ void CAnimation::Update_TransformMatrix(const vector<shared_ptr<class CBone>>& B
 		// IsUpper벡터를 전달받았고 이 뼈가 하체인경우는 채널(뼈)을 갱신하지 않는다.
 		if (nullptr != pIsUpperBone && false == (*pIsUpperBone)[m_Channels[i]->Get_BoneIndex()]) 
 			continue;
-		// isUppder 벡터를 전달 받지 못했다(하체를 그리는 경우다) -> 애니메이션이 들고있는 채널(뼈) 전체 갱신
+		// isUpper 벡터를 전달 받지 못했다(하체를 그리는 경우다) -> 애니메이션이 들고있는 채널(뼈) 전체 갱신
+		// isUpper 벡터를 전달 받았고 값이 true다 -> 상체 뼈이므로 Update
 		m_Channels[i]->Update_TransformMatirx(Bones, m_LeftKeyFrameIndices[i], m_fCurrentTrackPosition);
 	}
 }

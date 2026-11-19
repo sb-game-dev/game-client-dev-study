@@ -1,0 +1,7373 @@
+[
+ {
+  "name": "Pfb_AccelerateDoor",
+  "fbx": "Pfb_AccelerateDoor.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Pfb_AccelerateDoor",
+  "vertices": 2451,
+  "triangles": 2452
+ },
+ {
+  "name": "Pfb_Server",
+  "fbx": "Pfb_Server.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_Server_5",
+  "vertices": 952,
+  "triangles": 540
+ },
+ {
+  "name": "ScalableMesh_Ground",
+  "fbx": "ScalableMesh_Ground.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/ScalableMesh_Ground_10",
+  "vertices": 96,
+  "triangles": 108
+ },
+ {
+  "name": "ScalableMesh_Ground__2",
+  "fbx": "ScalableMesh_Ground__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Entrance/ScalableMesh_Ground_03",
+  "vertices": 96,
+  "triangles": 108
+ },
+ {
+  "name": "ScalableMesh_Ground__3",
+  "fbx": "ScalableMesh_Ground__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/ScalableMesh_Ground_04",
+  "vertices": 128,
+  "triangles": 108
+ },
+ {
+  "name": "ScalableMesh_Ground__4",
+  "fbx": "ScalableMesh_Ground__4.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/ScalableMesh_Ground_09",
+  "vertices": 96,
+  "triangles": 108
+ },
+ {
+  "name": "ScalableMesh_Ground__5",
+  "fbx": "ScalableMesh_Ground__5.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Water_01/ScalableMesh_Ground_02",
+  "vertices": 96,
+  "triangles": 108
+ },
+ {
+  "name": "ScalableMesh_Ground__6",
+  "fbx": "ScalableMesh_Ground__6.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/ScalableMesh_Ground_06",
+  "vertices": 128,
+  "triangles": 108
+ },
+ {
+  "name": "ScalableMesh_Ground__7",
+  "fbx": "ScalableMesh_Ground__7.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Medical01/ScalableMesh_Ground_03",
+  "vertices": 96,
+  "triangles": 108
+ },
+ {
+  "name": "ScalableMesh_Ground__8",
+  "fbx": "ScalableMesh_Ground__8.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_03/ScalableMesh_Ground_04",
+  "vertices": 1023,
+  "triangles": 1200
+ },
+ {
+  "name": "ScalableMesh_Ground__9",
+  "fbx": "ScalableMesh_Ground__9.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/ScalableMesh_Ground_07",
+  "vertices": 96,
+  "triangles": 108
+ },
+ {
+  "name": "ScalableMesh_Ground__10",
+  "fbx": "ScalableMesh_Ground__10.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/ScalableMesh_Ground_05",
+  "vertices": 96,
+  "triangles": 108
+ },
+ {
+  "name": "ScalableMesh_Ground__11",
+  "fbx": "ScalableMesh_Ground__11.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/ScalableMesh_Ground_05",
+  "vertices": 128,
+  "triangles": 108
+ },
+ {
+  "name": "ScalableMesh_Ground__12",
+  "fbx": "ScalableMesh_Ground__12.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/ScalableMesh_Ground_08",
+  "vertices": 96,
+  "triangles": 108
+ },
+ {
+  "name": "Pfb_LabDoor",
+  "fbx": "Pfb_LabDoor.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Doors/Pfb_LabDoor",
+  "vertices": 1496,
+  "triangles": 922
+ },
+ {
+  "name": "w",
+  "fbx": "w.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_03/w",
+  "vertices": 96,
+  "triangles": 108
+ },
+ {
+  "name": "wrr",
+  "fbx": "wrr.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/wrr",
+  "vertices": 88,
+  "triangles": 80
+ },
+ {
+  "name": "Plane",
+  "fbx": "Plane.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Under/Plane",
+  "vertices": 121,
+  "triangles": 200
+ },
+ {
+  "name": "ScalableMesh_Ground__13",
+  "fbx": "ScalableMesh_Ground__13.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Water_01/ScalableMesh_Ground_01",
+  "vertices": 96,
+  "triangles": 108
+ },
+ {
+  "name": "ScalableMesh_Ground__14",
+  "fbx": "ScalableMesh_Ground__14.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Water_01/ScalableMesh_Ground_03",
+  "vertices": 96,
+  "triangles": 108
+ },
+ {
+  "name": "ScalableMesh_Ground__15",
+  "fbx": "ScalableMesh_Ground__15.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/GreyCorrider/ScalableMesh_Ground_04",
+  "vertices": 128,
+  "triangles": 108
+ },
+ {
+  "name": "ScalableMesh_Ground__16",
+  "fbx": "ScalableMesh_Ground__16.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_03/ScalableMesh_Ground_05",
+  "vertices": 1021,
+  "triangles": 1200
+ },
+ {
+  "name": "ScalableMesh_Ground__17",
+  "fbx": "ScalableMesh_Ground__17.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_02/ScalableMesh_Ground_04",
+  "vertices": 96,
+  "triangles": 108
+ },
+ {
+  "name": "ScalableMesh_Ground__18",
+  "fbx": "ScalableMesh_Ground__18.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/ScalableMesh_Ground_11",
+  "vertices": 96,
+  "triangles": 108
+ },
+ {
+  "name": "ScalableMesh_Ground__19",
+  "fbx": "ScalableMesh_Ground__19.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/ScalableMesh_Ground_06",
+  "vertices": 96,
+  "triangles": 108
+ },
+ {
+  "name": "ScalableMesh_Ground__20",
+  "fbx": "ScalableMesh_Ground__20.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_01/ScalableMesh_Ground_04",
+  "vertices": 96,
+  "triangles": 108
+ },
+ {
+  "name": "ScalableMesh_Ground__21",
+  "fbx": "ScalableMesh_Ground__21.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/ScalableMesh_Ground_04",
+  "vertices": 96,
+  "triangles": 108
+ },
+ {
+  "name": "w__2",
+  "fbx": "w__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ProjectionRoom/w",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "w__3",
+  "fbx": "w__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_03/w_1",
+  "vertices": 96,
+  "triangles": 108
+ },
+ {
+  "name": "ScalableMesh_Ground__22",
+  "fbx": "ScalableMesh_Ground__22.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_03/ScalableMesh_Ground_06",
+  "vertices": 1026,
+  "triangles": 1200
+ },
+ {
+  "name": "Pfb_PaperBox",
+  "fbx": "Pfb_PaperBox.fbx",
+  "placed_active": 5,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Workshop/Pfb_PaperBox_01_7",
+  "vertices": 120,
+  "triangles": 60
+ },
+ {
+  "name": "Pfb_PaperBox__2",
+  "fbx": "Pfb_PaperBox__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_03/Pfb_PaperBox_01_14",
+  "vertices": 120,
+  "triangles": 60
+ },
+ {
+  "name": "Pfb_PaperBox__3",
+  "fbx": "Pfb_PaperBox__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office02/Pfb_PaperBox_01_7",
+  "vertices": 120,
+  "triangles": 60
+ },
+ {
+  "name": "Pfb_PaperBox__4",
+  "fbx": "Pfb_PaperBox__4.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/Pfb_PaperBox_01_7",
+  "vertices": 120,
+  "triangles": 60
+ },
+ {
+  "name": "Prfb_Safe",
+  "fbx": "Prfb_Safe.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Lux/LootBox_Lux_9/Prfb_Safe_01",
+  "vertices": 762,
+  "triangles": 712
+ },
+ {
+  "name": "Pfb_JLABContainer",
+  "fbx": "Pfb_JLABContainer.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Top/Pfb_JLABContainer_02",
+  "vertices": 1414,
+  "triangles": 1240
+ },
+ {
+  "name": "Pfb_CleaningHandcart",
+  "fbx": "Pfb_CleaningHandcart.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCorrider/Pfb_CleaningHandcart_02",
+  "vertices": 4953,
+  "triangles": 4994
+ },
+ {
+  "name": "Pfb_Soda_Tripod_LightOn",
+  "fbx": "Pfb_Soda_Tripod_LightOn.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Pfb_Soda_Tripod_LightOn",
+  "vertices": 1566,
+  "triangles": 1442
+ },
+ {
+  "name": "Pfb_Tent",
+  "fbx": "Pfb_Tent.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_Tent_5_4",
+  "vertices": 11474,
+  "triangles": 10452
+ },
+ {
+  "name": "Pfb_ElectricBox",
+  "fbx": "Pfb_ElectricBox.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WarehouseCenter/Pfb_ElectricBox_01_1",
+  "vertices": 434,
+  "triangles": 312
+ },
+ {
+  "name": "Prfb_Computer",
+  "fbx": "Prfb_Computer.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Computer/Prfb_Computer_01_3",
+  "vertices": 1003,
+  "triangles": 690
+ },
+ {
+  "name": "Pfb_FileCabient_M4",
+  "fbx": "Pfb_FileCabient_M4.fbx",
+  "placed_active": 14,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/FileCab/LootBox_FileCab_6/Pfb_FileCabient_M4",
+  "vertices": 274,
+  "triangles": 180
+ },
+ {
+  "name": "Pfb_Soda_Instruments",
+  "fbx": "Pfb_Soda_Instruments.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Pfb_Soda_Instruments_23",
+  "vertices": 114,
+  "triangles": 72
+ },
+ {
+  "name": "Pfb_ObservationDeck_Temp__2",
+  "fbx": "Pfb_ObservationDeck_Temp__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Medical01/Pfb_ObservationDeck_Temp_9",
+  "vertices": 8680,
+  "triangles": 6208
+ },
+ {
+  "name": "Pfb_Indoors_WC",
+  "fbx": "Pfb_Indoors_WC.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WC01/Pfb_Indoors_WC_09",
+  "vertices": 322,
+  "triangles": 309
+ },
+ {
+  "name": "r",
+  "fbx": "r.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_SpecialElements/TeleporterBubblePair/SimpleTeleport_1/r",
+  "vertices": 515,
+  "triangles": 768
+ },
+ {
+  "name": "Pfb_Stairs_Temp",
+  "fbx": "Pfb_Stairs_Temp.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Stairs/Pfb_Stairs_Temp_1",
+  "vertices": 432,
+  "triangles": 264
+ },
+ {
+  "name": "Pipe3",
+  "fbx": "Pipe3.fbx",
+  "placed_active": 41,
+  "placed_inactive": 0,
+  "example_source_path": "TeleportBeacon/Pipe3_5",
+  "vertices": 236,
+  "triangles": 288
+ },
+ {
+  "name": "Prfb_Toolbox",
+  "fbx": "Prfb_Toolbox.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Tool_02/LootBox_Tools2_1/Prfb_Toolbox",
+  "vertices": 828,
+  "triangles": 612
+ },
+ {
+  "name": "Prfb_Safe__2",
+  "fbx": "Prfb_Safe__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Lux/LootBox_Lux_10/Prfb_Safe_01",
+  "vertices": 762,
+  "triangles": 712
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line",
+  "fbx": "Pfb_JALB_WallPart2_Line.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/Pfb_JALB_WallPart2_Line_12",
+  "vertices": 5625,
+  "triangles": 7680
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__2",
+  "fbx": "Pfb_JALB_WallPart2_Line__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_JALB_WallPart2_Line_25",
+  "vertices": 1539,
+  "triangles": 2108
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__3",
+  "fbx": "Pfb_JALB_WallPart2_Line__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/Pfb_JALB_WallPart2_Line_9",
+  "vertices": 5250,
+  "triangles": 7168
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__4",
+  "fbx": "Pfb_JALB_WallPart2_Line__4.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_JALB_WallPart2_Line_28",
+  "vertices": 5664,
+  "triangles": 7740
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__5",
+  "fbx": "Pfb_JALB_WallPart2_Line__5.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCorrider/Pfb_JALB_WallPart2_Line_17",
+  "vertices": 1875,
+  "triangles": 2560
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__6",
+  "fbx": "Pfb_JALB_WallPart2_Line__6.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Group/Pfb_JALB_WallPart2_Line_10",
+  "vertices": 2000,
+  "triangles": 2756
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__7",
+  "fbx": "Pfb_JALB_WallPart2_Line__7.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_JALB_WallPart2_Line_13",
+  "vertices": 1500,
+  "triangles": 2048
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__8",
+  "fbx": "Pfb_JALB_WallPart2_Line__8.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_JALB_WallPart2_Line_14",
+  "vertices": 2750,
+  "triangles": 3780
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__9",
+  "fbx": "Pfb_JALB_WallPart2_Line__9.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_JALB_WallPart2_Line_20",
+  "vertices": 1250,
+  "triangles": 1732
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__10",
+  "fbx": "Pfb_JALB_WallPart2_Line__10.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/Pfb_JALB_WallPart2_Line_17",
+  "vertices": 3875,
+  "triangles": 5316
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__11",
+  "fbx": "Pfb_JALB_WallPart2_Line__11.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_JALB_WallPart2_Line_15",
+  "vertices": 5000,
+  "triangles": 6852
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__12",
+  "fbx": "Pfb_JALB_WallPart2_Line__12.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCorrider/Pfb_JALB_WallPart2_Line_22",
+  "vertices": 3125,
+  "triangles": 4292
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__13",
+  "fbx": "Pfb_JALB_WallPart2_Line__13.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_JALB_WallPart2_Line_21",
+  "vertices": 5289,
+  "triangles": 7228
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__14",
+  "fbx": "Pfb_JALB_WallPart2_Line__14.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCorrider/Pfb_JALB_WallPart2_Line_19",
+  "vertices": 2664,
+  "triangles": 3644
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__15",
+  "fbx": "Pfb_JALB_WallPart2_Line__15.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCorrider/Pfb_JALB_WallPart2_Line_18",
+  "vertices": 2000,
+  "triangles": 2756
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__16",
+  "fbx": "Pfb_JALB_WallPart2_Line__16.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCorrider/Pfb_JALB_WallPart2_Line_15",
+  "vertices": 3000,
+  "triangles": 4096
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__17",
+  "fbx": "Pfb_JALB_WallPart2_Line__17.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/Pfb_JALB_WallPart2_Line_18",
+  "vertices": 2664,
+  "triangles": 3644
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__18",
+  "fbx": "Pfb_JALB_WallPart2_Line__18.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Group/Pfb_JALB_WallPart2_Line_9",
+  "vertices": 1875,
+  "triangles": 2560
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__19",
+  "fbx": "Pfb_JALB_WallPart2_Line__19.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/Pfb_JALB_WallPart2_Line_11",
+  "vertices": 2750,
+  "triangles": 3780
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__20",
+  "fbx": "Pfb_JALB_WallPart2_Line__20.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/Pfb_JALB_WallPart2_Line_10",
+  "vertices": 5625,
+  "triangles": 7680
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__21",
+  "fbx": "Pfb_JALB_WallPart2_Line__21.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_JALB_WallPart2_Line_23",
+  "vertices": 2625,
+  "triangles": 3584
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__22",
+  "fbx": "Pfb_JALB_WallPart2_Line__22.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_JALB_WallPart2_Line_22",
+  "vertices": 1539,
+  "triangles": 2108
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__23",
+  "fbx": "Pfb_JALB_WallPart2_Line__23.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_JALB_WallPart2_Line_16",
+  "vertices": 750,
+  "triangles": 1024
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__24",
+  "fbx": "Pfb_JALB_WallPart2_Line__24.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCorrider/Pfb_JALB_WallPart2_Line_16",
+  "vertices": 1125,
+  "triangles": 1536
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__25",
+  "fbx": "Pfb_JALB_WallPart2_Line__25.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/Pfb_JALB_WallPart2_Line_19",
+  "vertices": 1125,
+  "triangles": 1536
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__26",
+  "fbx": "Pfb_JALB_WallPart2_Line__26.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_JALB_WallPart2_Line_26",
+  "vertices": 1539,
+  "triangles": 2108
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__27",
+  "fbx": "Pfb_JALB_WallPart2_Line__27.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_JALB_WallPart2_Line_27",
+  "vertices": 1539,
+  "triangles": 2108
+ },
+ {
+  "name": "Pfb_Indoors_Study_Shelf_JLAB04",
+  "fbx": "Pfb_Indoors_Study_Shelf_JLAB04.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_Indoors_Study_Shelf_JLAB04",
+  "vertices": 400,
+  "triangles": 284
+ },
+ {
+  "name": "OfficeDeskSet02",
+  "fbx": "OfficeDeskSet02.fbx",
+  "placed_active": 17,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_Notes/Note_JLab_Switches/OfficeDeskSet02_4",
+  "vertices": 72,
+  "triangles": 54
+ },
+ {
+  "name": "Pfb_Server_02_Temp",
+  "fbx": "Pfb_Server_02_Temp.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_05/Pfb_Server_02_Temp",
+  "vertices": 16256,
+  "triangles": 13968
+ },
+ {
+  "name": "Prfb_Bin",
+  "fbx": "Prfb_Bin.fbx",
+  "placed_active": 0,
+  "placed_inactive": 27,
+  "example_source_path": "LevelElements/JLab_01_LootBox/TrashCan/LootBox_TrashCan_15/Prfb_Bin_01",
+  "vertices": 178,
+  "triangles": 160
+ },
+ {
+  "name": "Pfb_Table_04_JLAB",
+  "fbx": "Pfb_Table_04_JLAB.fbx",
+  "placed_active": 33,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_Table_04_JLAB",
+  "vertices": 416,
+  "triangles": 240
+ },
+ {
+  "name": "Pfb_Tent__2",
+  "fbx": "Pfb_Tent__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_Tent_5_5",
+  "vertices": 9926,
+  "triangles": 9220
+ },
+ {
+  "name": "Pfb_SteelFrame_01_GRP",
+  "fbx": "Pfb_SteelFrame_01_GRP.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Top/Pfb_SteelFrame_01_GRP_1",
+  "vertices": 1776,
+  "triangles": 984
+ },
+ {
+  "name": "Pfb_SteelFrame_01_GRP__2",
+  "fbx": "Pfb_SteelFrame_01_GRP__2.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/OfficeOut2/Pfb_SteelFrame_01_GRP",
+  "vertices": 1776,
+  "triangles": 984
+ },
+ {
+  "name": "Pfb_Indoors_Study_Shelf",
+  "fbx": "Pfb_Indoors_Study_Shelf.fbx",
+  "placed_active": 9,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_Indoors_Study_Shelf_05",
+  "vertices": 120,
+  "triangles": 76
+ },
+ {
+  "name": "Pfb_Indoors_Study_Shelf__2",
+  "fbx": "Pfb_Indoors_Study_Shelf__2.fbx",
+  "placed_active": 14,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_01/Pfb_Indoors_Study_Shelf_07",
+  "vertices": 120,
+  "triangles": 76
+ },
+ {
+  "name": "Pfb_Indoors_Study_Shelf__3",
+  "fbx": "Pfb_Indoors_Study_Shelf__3.fbx",
+  "placed_active": 8,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ProjectionRoom/Group/Pfb_Indoors_Study_Shelf_09",
+  "vertices": 120,
+  "triangles": 76
+ },
+ {
+  "name": "Pfb_Soda_Instruments__2",
+  "fbx": "Pfb_Soda_Instruments__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Pfb_Soda_Instruments_22",
+  "vertices": 86,
+  "triangles": 82
+ },
+ {
+  "name": "Prfb_Stone",
+  "fbx": "Prfb_Stone.fbx",
+  "placed_active": 46,
+  "placed_inactive": 24,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Hidden/LootBox_Hidden_1/Prfb_Stone_01_4_3",
+  "vertices": 48,
+  "triangles": 42
+ },
+ {
+  "name": "Prfb_Bulletbox",
+  "fbx": "Prfb_Bulletbox.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Bullert/LootBox_Bullet_15/Prfb_Bulletbox_01",
+  "vertices": 772,
+  "triangles": 632
+ },
+ {
+  "name": "Pfb_Computer",
+  "fbx": "Pfb_Computer.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_02/Pfb_Computer_01_1",
+  "vertices": 688,
+  "triangles": 424
+ },
+ {
+  "name": "Pfb_Computer__2",
+  "fbx": "Pfb_Computer__2.fbx",
+  "placed_active": 12,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office02/Pfb_Computer_01_10",
+  "vertices": 688,
+  "triangles": 424
+ },
+ {
+  "name": "Pfb_Computer__3",
+  "fbx": "Pfb_Computer__3.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Pfb_Computer_01_10",
+  "vertices": 688,
+  "triangles": 424
+ },
+ {
+  "name": "Pfb_Computer__4",
+  "fbx": "Pfb_Computer__4.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_05/Pfb_Computer_01_3",
+  "vertices": 688,
+  "triangles": 424
+ },
+ {
+  "name": "Pfb_Computer__5",
+  "fbx": "Pfb_Computer__5.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_02/Pfb_Computer_01_2",
+  "vertices": 688,
+  "triangles": 424
+ },
+ {
+  "name": "Pfb_Computer__6",
+  "fbx": "Pfb_Computer__6.fbx",
+  "placed_active": 5,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Pfb_Computer_01_8",
+  "vertices": 688,
+  "triangles": 424
+ },
+ {
+  "name": "Prfb_Computer__2",
+  "fbx": "Prfb_Computer__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Entrance/Group/Prfb_Computer_01_1",
+  "vertices": 688,
+  "triangles": 424
+ },
+ {
+  "name": "Pfb_Computer__7",
+  "fbx": "Pfb_Computer__7.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_01/Pfb_Computer_01_2",
+  "vertices": 688,
+  "triangles": 424
+ },
+ {
+  "name": "Pfb_ElectricBox__2",
+  "fbx": "Pfb_ElectricBox__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "PowerSwitcher/Pfb_ElectricBox_03_1",
+  "vertices": 1000,
+  "triangles": 732
+ },
+ {
+  "name": "Prfb_Safe__3",
+  "fbx": "Prfb_Safe__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Lux/LootBox_Lux_7/Prfb_Safe_01",
+  "vertices": 762,
+  "triangles": 712
+ },
+ {
+  "name": "Pfb_GlassWall",
+  "fbx": "Pfb_GlassWall.fbx",
+  "placed_active": 15,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/Group/BarbedWire_Line_3/Pfb_GlassWall_03 1",
+  "vertices": 456,
+  "triangles": 276
+ },
+ {
+  "name": "Pfb_Computer__8",
+  "fbx": "Pfb_Computer__8.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_Computer_01_3",
+  "vertices": 967,
+  "triangles": 666
+ },
+ {
+  "name": "Pfb_Table",
+  "fbx": "Pfb_Table.fbx",
+  "placed_active": 24,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office02/Pfb_Table_02_7",
+  "vertices": 172,
+  "triangles": 102
+ },
+ {
+  "name": "Pfb_Table__2",
+  "fbx": "Pfb_Table__2.fbx",
+  "placed_active": 13,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/Pfb_Table_02_7",
+  "vertices": 172,
+  "triangles": 102
+ },
+ {
+  "name": "Pfb_Table__3",
+  "fbx": "Pfb_Table__3.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_03/Pfb_Table_02_3",
+  "vertices": 172,
+  "triangles": 102
+ },
+ {
+  "name": "Pfb_Table__4",
+  "fbx": "Pfb_Table__4.fbx",
+  "placed_active": 11,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_02/Zone_01/Pfb_Table_02_5",
+  "vertices": 172,
+  "triangles": 102
+ },
+ {
+  "name": "Pfb_Table__5",
+  "fbx": "Pfb_Table__5.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ProjectionRoom/Group/Pfb_Table_02_3",
+  "vertices": 172,
+  "triangles": 102
+ },
+ {
+  "name": "Pfb_FileCabient_L",
+  "fbx": "Pfb_FileCabient_L.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_03/Pfb_FileCabient_L",
+  "vertices": 2368,
+  "triangles": 1996
+ },
+ {
+  "name": "Pfb_FileCabient_L__2",
+  "fbx": "Pfb_FileCabient_L__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_01/Pfb_FileCabient_L",
+  "vertices": 2600,
+  "triangles": 2220
+ },
+ {
+  "name": "Pfb_FileCabient_L__3",
+  "fbx": "Pfb_FileCabient_L__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_01/Pfb_FileCabient_L_1",
+  "vertices": 2600,
+  "triangles": 2220
+ },
+ {
+  "name": "Pfb_Controller_02_JLAB",
+  "fbx": "Pfb_Controller_02_JLAB.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_Controller_02_JLAB",
+  "vertices": 7492,
+  "triangles": 5830
+ },
+ {
+  "name": "Prfb_Medicalbox",
+  "fbx": "Prfb_Medicalbox.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Medic_02/LootBox_Medic_02/Prfb_Medicalbox_02",
+  "vertices": 340,
+  "triangles": 316
+ },
+ {
+  "name": "Prfb_Bags",
+  "fbx": "Prfb_Bags.fbx",
+  "placed_active": 0,
+  "placed_inactive": 11,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Totem/LootBox_Totem_5/Built/Prfb_Bags_01_13",
+  "vertices": 90,
+  "triangles": 108
+ },
+ {
+  "name": "Prfb_LabDoor",
+  "fbx": "Prfb_LabDoor.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Doors/Prfb_LabDoor",
+  "vertices": 1488,
+  "triangles": 916
+ },
+ {
+  "name": "Prfb_Hangclothes",
+  "fbx": "Prfb_Hangclothes.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Clothes/LootBox_Hangclothes_01_8/Prfb_Hangclothes_01_2",
+  "vertices": 160,
+  "triangles": 198
+ },
+ {
+  "name": "Prfb_Starter",
+  "fbx": "Prfb_Starter.fbx",
+  "placed_active": 11,
+  "placed_inactive": 18,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Normal/LootBox_Normal_17/Prfb_Starter",
+  "vertices": 188,
+  "triangles": 154
+ },
+ {
+  "name": "Prfb_Safe__4",
+  "fbx": "Prfb_Safe__4.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Lux/LootBox_Lux_13/Prfb_Safe_01",
+  "vertices": 762,
+  "triangles": 712
+ },
+ {
+  "name": "Prfb_Lootbox",
+  "fbx": "Prfb_Lootbox.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/WeaponEquip_1/LootBox_WeaponEquip 2_8/Prfb_Lootbox_03",
+  "vertices": 1540,
+  "triangles": 1250
+ },
+ {
+  "name": "Pfb_Table_02_7_JLAB_Temp",
+  "fbx": "Pfb_Table_02_7_JLAB_Temp.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_02/Zone_01/Pfb_Table_02_7_JLAB_Temp_1",
+  "vertices": 1197,
+  "triangles": 918
+ },
+ {
+  "name": "Pfb_Canteen",
+  "fbx": "Pfb_Canteen.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_Canteen_02_2",
+  "vertices": 216,
+  "triangles": 132
+ },
+ {
+  "name": "Pfb_Canteen__2",
+  "fbx": "Pfb_Canteen__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_Canteen_02_1",
+  "vertices": 216,
+  "triangles": 132
+ },
+ {
+  "name": "Pfb_Canteen__3",
+  "fbx": "Pfb_Canteen__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_Canteen_02_3",
+  "vertices": 216,
+  "triangles": 132
+ },
+ {
+  "name": "Droppod01_Bottom",
+  "fbx": "Droppod01_Bottom.fbx",
+  "placed_active": 11,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/JLab/LootBox_Lab_1/Droppod01_Bottom_01",
+  "vertices": 2184,
+  "triangles": 1656
+ },
+ {
+  "name": "Pfb_Computer__9",
+  "fbx": "Pfb_Computer__9.fbx",
+  "placed_active": 5,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Computer/Pfb_Computer_01_6",
+  "vertices": 1003,
+  "triangles": 690
+ },
+ {
+  "name": "Pfb_ElectricControlBox",
+  "fbx": "Pfb_ElectricControlBox.fbx",
+  "placed_active": 56,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ElectricTop/Pfb_ElectricControlBox_71",
+  "vertices": 130,
+  "triangles": 100
+ },
+ {
+  "name": "Pfb_Soda_wall12",
+  "fbx": "Pfb_Soda_wall12.fbx",
+  "placed_active": 10,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Pfb_Soda_wall12_8",
+  "vertices": 650,
+  "triangles": 394
+ },
+ {
+  "name": "Prfb_Locker",
+  "fbx": "Prfb_Locker.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Locker/LootBox_Locker_16/Prfb_Locker_01_1",
+  "vertices": 298,
+  "triangles": 192
+ },
+ {
+  "name": "Pfb_Soda_Core",
+  "fbx": "Pfb_Soda_Core.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Entrance/Group/Pfb_Soda_Core",
+  "vertices": 7000,
+  "triangles": 7536
+ },
+ {
+  "name": "Pfb_GlassWall__2",
+  "fbx": "Pfb_GlassWall__2.fbx",
+  "placed_active": 52,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/BarbedWire_Line_2/Pfb_GlassWall_01 1",
+  "vertices": 456,
+  "triangles": 276
+ },
+ {
+  "name": "Pfb_GlassWall__3",
+  "fbx": "Pfb_GlassWall__3.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_03/BarbedWire_Line_1/Pfb_GlassWall_01 1",
+  "vertices": 456,
+  "triangles": 276
+ },
+ {
+  "name": "Pfb_GlassWall__4",
+  "fbx": "Pfb_GlassWall__4.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_02/GlassWall/Pfb_GlassWall_03",
+  "vertices": 456,
+  "triangles": 276
+ },
+ {
+  "name": "Prfb_Locker__2",
+  "fbx": "Prfb_Locker__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Locker/LootBox_Locker_14/Prfb_Locker_01_1",
+  "vertices": 298,
+  "triangles": 192
+ },
+ {
+  "name": "SM_Computer",
+  "fbx": "SM_Computer.fbx",
+  "placed_active": 1,
+  "placed_inactive": 2,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Quest/Quest_Computer_1403/SM_Computer_01_3_1",
+  "vertices": 36,
+  "triangles": 24
+ },
+ {
+  "name": "Pfb_Shop_Counter",
+  "fbx": "Pfb_Shop_Counter.fbx",
+  "placed_active": 35,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Entrance/Pfb_Shop_Counter_01_19",
+  "vertices": 20,
+  "triangles": 10
+ },
+ {
+  "name": "Pfb_Shop_Counter__2",
+  "fbx": "Pfb_Shop_Counter__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_01/Pfb_Shop_Counter_01_2",
+  "vertices": 20,
+  "triangles": 10
+ },
+ {
+  "name": "Pfb_Shop_Counter__3",
+  "fbx": "Pfb_Shop_Counter__3.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_Shop_Counter_01_4",
+  "vertices": 20,
+  "triangles": 10
+ },
+ {
+  "name": "Pfb_Stairs_Soda",
+  "fbx": "Pfb_Stairs_Soda.fbx",
+  "placed_active": 34,
+  "placed_inactive": 0,
+  "example_source_path": "Env/OfficeOut2/Pfb_Stairs_Soda_06",
+  "vertices": 184,
+  "triangles": 108
+ },
+ {
+  "name": "Pfb_GlassWall__5",
+  "fbx": "Pfb_GlassWall__5.fbx",
+  "placed_active": 7,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_02/GlassWall/Pfb_GlassWall_02",
+  "vertices": 288,
+  "triangles": 176
+ },
+ {
+  "name": "Pfb_ElectricControlBox__2",
+  "fbx": "Pfb_ElectricControlBox__2.fbx",
+  "placed_active": 28,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ElectricTop/Pfb_ElectricControlBox_205",
+  "vertices": 534,
+  "triangles": 437
+ },
+ {
+  "name": "Pipe3__2",
+  "fbx": "Pipe3__2.fbx",
+  "placed_active": 8,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/Pipe3_7",
+  "vertices": 236,
+  "triangles": 288
+ },
+ {
+  "name": "Pipe3__3",
+  "fbx": "Pipe3__3.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Yellow/Pipe3_2",
+  "vertices": 236,
+  "triangles": 288
+ },
+ {
+  "name": "Pfb_Table_02_1_JLAB_Temp",
+  "fbx": "Pfb_Table_02_1_JLAB_Temp.fbx",
+  "placed_active": 7,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_Table_02_1_JLAB_Temp_6",
+  "vertices": 2172,
+  "triangles": 1254
+ },
+ {
+  "name": "SM_Cabinet",
+  "fbx": "SM_Cabinet.fbx",
+  "placed_active": 8,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office02/SM_Cabinet_02_03/SM_Cabinet_02_03_02",
+  "vertices": 44,
+  "triangles": 22
+ },
+ {
+  "name": "Pfb_Table_02_3_JLAB_Temp",
+  "fbx": "Pfb_Table_02_3_JLAB_Temp.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office02/Pfb_Table_02_3_JLAB_Temp_4",
+  "vertices": 2072,
+  "triangles": 1190
+ },
+ {
+  "name": "Pfb_Table_02_4_JLAB_Temp",
+  "fbx": "Pfb_Table_02_4_JLAB_Temp.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_Table_02_4_JLAB_Temp_11",
+  "vertices": 2072,
+  "triangles": 1190
+ },
+ {
+  "name": "OfficeDeskSet02__2",
+  "fbx": "OfficeDeskSet02__2.fbx",
+  "placed_active": 65,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_03/OfficeDeskSet02_3",
+  "vertices": 182,
+  "triangles": 144
+ },
+ {
+  "name": "Pfb_Fence",
+  "fbx": "Pfb_Fence.fbx",
+  "placed_active": 19,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ElectricTop/Group_1/BarbedWire_Line/Pfb_Fence_1 1",
+  "vertices": 114,
+  "triangles": 108
+ },
+ {
+  "name": "Pfb_Tent__3",
+  "fbx": "Pfb_Tent__3.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_Tent_5_2",
+  "vertices": 962,
+  "triangles": 610
+ },
+ {
+  "name": "Pfb_MetalBoard",
+  "fbx": "Pfb_MetalBoard.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Top/Pfb_MetalBoard_01_9",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Prfb_Forklift",
+  "fbx": "Prfb_Forklift.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Prfb_Forklift_02",
+  "vertices": 2974,
+  "triangles": 2626
+ },
+ {
+  "name": "Pfb_Forklift",
+  "fbx": "Pfb_Forklift.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCorrider/Pfb_Forklift_01",
+  "vertices": 2974,
+  "triangles": 2626
+ },
+ {
+  "name": "Pfb_Indoors_Books",
+  "fbx": "Pfb_Indoors_Books.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Pfb_Indoors_Books_09",
+  "vertices": 96,
+  "triangles": 60
+ },
+ {
+  "name": "Pfb_Indoors_Books__2",
+  "fbx": "Pfb_Indoors_Books__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_05/Pfb_Indoors_Books_09",
+  "vertices": 96,
+  "triangles": 60
+ },
+ {
+  "name": "Prfb_Controller",
+  "fbx": "Prfb_Controller.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Green/Prfb_Controller_10",
+  "vertices": 4041,
+  "triangles": 2906
+ },
+ {
+  "name": "Prfb_Controller__2",
+  "fbx": "Prfb_Controller__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Green/Prfb_Controller_02",
+  "vertices": 4041,
+  "triangles": 2906
+ },
+ {
+  "name": "Prfb_Controller__3",
+  "fbx": "Prfb_Controller__3.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Green/Prfb_Controller_16",
+  "vertices": 4041,
+  "triangles": 2906
+ },
+ {
+  "name": "Pfb_WC_Board",
+  "fbx": "Pfb_WC_Board.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WC01/Pfb_WC_Board_20",
+  "vertices": 168,
+  "triangles": 112
+ },
+ {
+  "name": "Pfb_WC_Board__2",
+  "fbx": "Pfb_WC_Board__2.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WC01/Pfb_WC_Board_24",
+  "vertices": 168,
+  "triangles": 112
+ },
+ {
+  "name": "Pfb_JLAB_Sterilizer",
+  "fbx": "Pfb_JLAB_Sterilizer.fbx",
+  "placed_active": 14,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_01/Pfb_JLAB_Sterilizer_02",
+  "vertices": 287,
+  "triangles": 362
+ },
+ {
+  "name": "Pfb_Indoors_Wardrobe",
+  "fbx": "Pfb_Indoors_Wardrobe.fbx",
+  "placed_active": 5,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ProjectionRoom/Group/Pfb_Indoors_Wardrobe_01_2",
+  "vertices": 874,
+  "triangles": 604
+ },
+ {
+  "name": "Pfb_JLAB_Box",
+  "fbx": "Pfb_JLAB_Box.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/Pfb_JLAB_Box_02",
+  "vertices": 56,
+  "triangles": 28
+ },
+ {
+  "name": "Pfb_JLAB_Mask_Box",
+  "fbx": "Pfb_JLAB_Mask_Box.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/Pfb_JLAB_Mask_Box_01",
+  "vertices": 250,
+  "triangles": 138
+ },
+ {
+  "name": "WD40",
+  "fbx": "WD40.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_SpecialElements/Decompose/DecomposeStation_1/WD40",
+  "vertices": 266,
+  "triangles": 188
+ },
+ {
+  "name": "Pfb_CoatHanger_06_JLAB",
+  "fbx": "Pfb_CoatHanger_06_JLAB.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCorrider/Pfb_CoatHanger_06_JLAB_1",
+  "vertices": 3142,
+  "triangles": 4332
+ },
+ {
+  "name": "Pfb_CoatHanger_06_JLAB__2",
+  "fbx": "Pfb_CoatHanger_06_JLAB__2.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Corridor02/Pfb_CoatHanger_06_JLAB_1",
+  "vertices": 3142,
+  "triangles": 4332
+ },
+ {
+  "name": "Pfb_CoatHanger_06_JLAB__3",
+  "fbx": "Pfb_CoatHanger_06_JLAB__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_03/Pfb_CoatHanger_06_JLAB_1",
+  "vertices": 3142,
+  "triangles": 4332
+ },
+ {
+  "name": "Pfb_Indoors_Books__3",
+  "fbx": "Pfb_Indoors_Books__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_05/Pfb_Indoors_Books_12",
+  "vertices": 359,
+  "triangles": 200
+ },
+ {
+  "name": "Pfb_Indoors_Books__4",
+  "fbx": "Pfb_Indoors_Books__4.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_Indoors_Books_13",
+  "vertices": 359,
+  "triangles": 200
+ },
+ {
+  "name": "Prfb_Computer__3",
+  "fbx": "Prfb_Computer__3.fbx",
+  "placed_active": 36,
+  "placed_inactive": 0,
+  "example_source_path": "Doors/JLabDoor_Small_3/Prfb_Computer_01_1",
+  "vertices": 688,
+  "triangles": 424
+ },
+ {
+  "name": "Pfb_JLAB_Surgery_Machine",
+  "fbx": "Pfb_JLAB_Surgery_Machine.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_01/Pfb_JLAB_Surgery_Machine_01",
+  "vertices": 2974,
+  "triangles": 2775
+ },
+ {
+  "name": "OfficeDeskSet01",
+  "fbx": "OfficeDeskSet01.fbx",
+  "placed_active": 12,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_03/OfficeDeskSet01",
+  "vertices": 982,
+  "triangles": 1011
+ },
+ {
+  "name": "Pfb_Canvas_Ground_1x5",
+  "fbx": "Pfb_Canvas_Ground_1x5.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Top/Pfb_Canvas_Ground_1x5_3",
+  "vertices": 30,
+  "triangles": 26
+ },
+ {
+  "name": "Pfb_Soda_TelevisionRobot_Bind",
+  "fbx": "Pfb_Soda_TelevisionRobot_Bind.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Top/Group/Pfb_Soda_TelevisionRobot_Bind",
+  "vertices": 4,
+  "triangles": 2
+ },
+ {
+  "name": "SM_Cabinet__2",
+  "fbx": "SM_Cabinet__2.fbx",
+  "placed_active": 8,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCorrider/SM_Cabinet_02_06/SM_Cabinet_02_03_01",
+  "vertices": 76,
+  "triangles": 44
+ },
+ {
+  "name": "Pfb_Indoors_Books__5",
+  "fbx": "Pfb_Indoors_Books__5.fbx",
+  "placed_active": 5,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_05/Pfb_Indoors_Books_06",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Pfb_Canvas_Ground_1x5__2",
+  "fbx": "Pfb_Canvas_Ground_1x5__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Corrider_02/Pfb_Canvas_Ground_1x5_1",
+  "vertices": 17,
+  "triangles": 15
+ },
+ {
+  "name": "Pfb_JLAB_Surgical_Laser",
+  "fbx": "Pfb_JLAB_Surgical_Laser.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Pfb_JLAB_Surgical_Laser_02",
+  "vertices": 557,
+  "triangles": 497
+ },
+ {
+  "name": "Pfb_Soda_Pipe",
+  "fbx": "Pfb_Soda_Pipe.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Green/Pfb_Soda_Pipe_3",
+  "vertices": 746,
+  "triangles": 1180
+ },
+ {
+  "name": "Block19",
+  "fbx": "Block19.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Env/WarehouseCenter/Group/Block_Lab_F0(6)/Block19",
+  "vertices": 30,
+  "triangles": 16
+ },
+ {
+  "name": "Pfb_Tent__4",
+  "fbx": "Pfb_Tent__4.fbx",
+  "placed_active": 0,
+  "placed_inactive": 2,
+  "example_source_path": "Env/Center_01/Group/Pfb_Tent_5_3",
+  "vertices": 84,
+  "triangles": 58
+ },
+ {
+  "name": "SM_Cabinet__3",
+  "fbx": "SM_Cabinet__3.fbx",
+  "placed_active": 8,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCorrider/SM_Cabinet_02_04/SM_Cabinet_02_03_03",
+  "vertices": 44,
+  "triangles": 22
+ },
+ {
+  "name": "Pipe_S2",
+  "fbx": "Pipe_S2.fbx",
+  "placed_active": 7,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Water_01/Group/Pipe_S2",
+  "vertices": 370,
+  "triangles": 338
+ },
+ {
+  "name": "Pipe_S2__2",
+  "fbx": "Pipe_S2__2.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Yellow/Pipe_S2_3",
+  "vertices": 370,
+  "triangles": 338
+ },
+ {
+  "name": "Pfb_Tent__5",
+  "fbx": "Pfb_Tent__5.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Corridor02/Pfb_Tent_5_3",
+  "vertices": 1300,
+  "triangles": 858
+ },
+ {
+  "name": "Pipe2",
+  "fbx": "Pipe2.fbx",
+  "placed_active": 28,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Corridor02/Pipe2_3",
+  "vertices": 170,
+  "triangles": 160
+ },
+ {
+  "name": "Pipe2__2",
+  "fbx": "Pipe2__2.fbx",
+  "placed_active": 7,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Yellow/Pipe2",
+  "vertices": 170,
+  "triangles": 160
+ },
+ {
+  "name": "Pfb_JLAB_Bottle",
+  "fbx": "Pfb_JLAB_Bottle.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/GreyCorrider/Pfb_JLAB_Bottle_05",
+  "vertices": 105,
+  "triangles": 132
+ },
+ {
+  "name": "Hammer02",
+  "fbx": "Hammer02.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_SpecialElements/Decompose/DecomposeStation_1/Hammer02",
+  "vertices": 185,
+  "triangles": 156
+ },
+ {
+  "name": "Pfb_Indoors_Books__6",
+  "fbx": "Pfb_Indoors_Books__6.fbx",
+  "placed_active": 7,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_Indoors_Books_22",
+  "vertices": 118,
+  "triangles": 74
+ },
+ {
+  "name": "Pfb_Indoors_Books__7",
+  "fbx": "Pfb_Indoors_Books__7.fbx",
+  "placed_active": 7,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_Indoors_Books_15",
+  "vertices": 118,
+  "triangles": 74
+ },
+ {
+  "name": "Pfb_Indoors_Books__8",
+  "fbx": "Pfb_Indoors_Books__8.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_Indoors_Books_21",
+  "vertices": 118,
+  "triangles": 74
+ },
+ {
+  "name": "pen",
+  "fbx": "pen.fbx",
+  "placed_active": 12,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_Notes/Note_JLab_StormBossSpace/pen",
+  "vertices": 91,
+  "triangles": 90
+ },
+ {
+  "name": "Pfb_ElectricControlBox__3",
+  "fbx": "Pfb_ElectricControlBox__3.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ElectricTop/Pfb_ElectricControlBox_003",
+  "vertices": 148,
+  "triangles": 102
+ },
+ {
+  "name": "Sphere",
+  "fbx": "Sphere.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "TeleportBeacon/Sphere",
+  "vertices": 515,
+  "triangles": 768
+ },
+ {
+  "name": "Pfb_Network",
+  "fbx": "Pfb_Network.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Top/Pfb_Network_01_2",
+  "vertices": 632,
+  "triangles": 448
+ },
+ {
+  "name": "Block31",
+  "fbx": "Block31.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Env/WarehouseCenter/Group/Block_Lab_F0(6)/Block31",
+  "vertices": 20,
+  "triangles": 10
+ },
+ {
+  "name": "Prfb_Safe__5",
+  "fbx": "Prfb_Safe__5.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Lux/LootBox_Lux_6/Prfb_Safe_01",
+  "vertices": 762,
+  "triangles": 712
+ },
+ {
+  "name": "Pfb_GlassWall__6",
+  "fbx": "Pfb_GlassWall__6.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_02/GlassWall/Pfb_GlassWall_03",
+  "vertices": 456,
+  "triangles": 276
+ },
+ {
+  "name": "Pfb_CleaningHandcart__2",
+  "fbx": "Pfb_CleaningHandcart__2.fbx",
+  "placed_active": 12,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Workshop/Pfb_CleaningHandcart_01",
+  "vertices": 4953,
+  "triangles": 4994
+ },
+ {
+  "name": "Pfb_JLAB_Bed",
+  "fbx": "Pfb_JLAB_Bed.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/Pfb_JLAB_Bed_04",
+  "vertices": 1940,
+  "triangles": 2512
+ },
+ {
+  "name": "Pfb_Scaffold",
+  "fbx": "Pfb_Scaffold.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Pfb_Scaffold_01_04",
+  "vertices": 680,
+  "triangles": 556
+ },
+ {
+  "name": "Block50",
+  "fbx": "Block50.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Env/WarehouseCenter/Group/Block_Lab_F0(6)/Block50",
+  "vertices": 28,
+  "triangles": 14
+ },
+ {
+  "name": "Prfb_Toolbox__2",
+  "fbx": "Prfb_Toolbox__2.fbx",
+  "placed_active": 7,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Tool_02/LootBox_Tools2_2/Prfb_Toolbox",
+  "vertices": 828,
+  "triangles": 612
+ },
+ {
+  "name": "Pfb_Computer__11",
+  "fbx": "Pfb_Computer__11.fbx",
+  "placed_active": 7,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Computer/Pfb_Computer_01_3",
+  "vertices": 1003,
+  "triangles": 690
+ },
+ {
+  "name": "Pfb_Box_GRP",
+  "fbx": "Pfb_Box_GRP.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ServerRoom_02/Pfb_Box_GRP_04",
+  "vertices": 529,
+  "triangles": 447
+ },
+ {
+  "name": "Pfb_ElectricControlBox__4",
+  "fbx": "Pfb_ElectricControlBox__4.fbx",
+  "placed_active": 33,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ElectricTop/Pfb_ElectricControlBox_124",
+  "vertices": 288,
+  "triangles": 228
+ },
+ {
+  "name": "OfficeDeskSet02__3",
+  "fbx": "OfficeDeskSet02__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/OfficeDeskSet02_1",
+  "vertices": 138,
+  "triangles": 124
+ },
+ {
+  "name": "Pfb_JLAB_IV_Drip",
+  "fbx": "Pfb_JLAB_IV_Drip.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/Pfb_JLAB_IV_Drip_02",
+  "vertices": 1791,
+  "triangles": 1996
+ },
+ {
+  "name": "Pfb_Garbage",
+  "fbx": "Pfb_Garbage.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Under/Pfb_Garbage_01_3",
+  "vertices": 480,
+  "triangles": 482
+ },
+ {
+  "name": "Pfb_PaperBox__5",
+  "fbx": "Pfb_PaperBox__5.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_03/Pfb_PaperBox_01_5",
+  "vertices": 120,
+  "triangles": 60
+ },
+ {
+  "name": "Pfb_PaperBox__6",
+  "fbx": "Pfb_PaperBox__6.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office02/Pfb_PaperBox_01_15",
+  "vertices": 120,
+  "triangles": 60
+ },
+ {
+  "name": "Pfb_PaperBox__7",
+  "fbx": "Pfb_PaperBox__7.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_PaperBox_01_33",
+  "vertices": 120,
+  "triangles": 60
+ },
+ {
+  "name": "Pfb_PaperBox__8",
+  "fbx": "Pfb_PaperBox__8.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Corridor/Boxes_Wall/Pfb_PaperBox_01_21",
+  "vertices": 120,
+  "triangles": 60
+ },
+ {
+  "name": "Pfb_WaterButts",
+  "fbx": "Pfb_WaterButts.fbx",
+  "placed_active": 9,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/Pfb_WaterButts_23",
+  "vertices": 50,
+  "triangles": 44
+ },
+ {
+  "name": "Pfb_WaterButts__2",
+  "fbx": "Pfb_WaterButts__2.fbx",
+  "placed_active": 34,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Workshop/Pfb_WaterButts_07",
+  "vertices": 50,
+  "triangles": 44
+ },
+ {
+  "name": "Pfb_WaterButts__3",
+  "fbx": "Pfb_WaterButts__3.fbx",
+  "placed_active": 9,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/Pfb_WaterButts_15",
+  "vertices": 50,
+  "triangles": 44
+ },
+ {
+  "name": "Pfb_GargabePileBags",
+  "fbx": "Pfb_GargabePileBags.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Yellow/Pfb_GargabePileBags_03",
+  "vertices": 1064,
+  "triangles": 1354
+ },
+ {
+  "name": "Pfb_GargabePileBags__2",
+  "fbx": "Pfb_GargabePileBags__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Corridor02/Pfb_GargabePileBags_03",
+  "vertices": 1064,
+  "triangles": 1354
+ },
+ {
+  "name": "OfficeTrashCan02",
+  "fbx": "OfficeTrashCan02.fbx",
+  "placed_active": 8,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/OfficeTrashCan02_3",
+  "vertices": 253,
+  "triangles": 380
+ },
+ {
+  "name": "Pfb_Box_GRP__2",
+  "fbx": "Pfb_Box_GRP__2.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ElectricTop/Pfb_Box_GRP_01",
+  "vertices": 492,
+  "triangles": 380
+ },
+ {
+  "name": "Pfb_Box_GRP__3",
+  "fbx": "Pfb_Box_GRP__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_Box_GRP_01",
+  "vertices": 492,
+  "triangles": 380
+ },
+ {
+  "name": "Pfb_Barbed_Gray",
+  "fbx": "Pfb_Barbed_Gray.fbx",
+  "placed_active": 7,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WarehouseCenter/Group/BarbedWire_Line_1/Pfb_Barbed_Gray",
+  "vertices": 200,
+  "triangles": 204
+ },
+ {
+  "name": "Pfb_Barbed_Blue",
+  "fbx": "Pfb_Barbed_Blue.fbx",
+  "placed_active": 20,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_02/BarbedWire_Line_1/Pfb_Barbed_Blue",
+  "vertices": 200,
+  "triangles": 204
+ },
+ {
+  "name": "Pfb_Barbed_Yellow",
+  "fbx": "Pfb_Barbed_Yellow.fbx",
+  "placed_active": 9,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Yellow/BarbedWire_Line_5/Pfb_Barbed_Yellow",
+  "vertices": 200,
+  "triangles": 204
+ },
+ {
+  "name": "Pfb_JLAB_Flask",
+  "fbx": "Pfb_JLAB_Flask.fbx",
+  "placed_active": 170,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_02/Zone_01/Pfb_JLAB_Flask_76",
+  "vertices": 225,
+  "triangles": 302
+ },
+ {
+  "name": "Prfb_Locker__3",
+  "fbx": "Prfb_Locker__3.fbx",
+  "placed_active": 10,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Locker/LootBox_Locker_21/Prfb_Locker_01_1",
+  "vertices": 298,
+  "triangles": 192
+ },
+ {
+  "name": "Pfb_PlasticPallet",
+  "fbx": "Pfb_PlasticPallet.fbx",
+  "placed_active": 27,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Corridor02/Pfb_PlasticPallet_02",
+  "vertices": 1694,
+  "triangles": 1151
+ },
+ {
+  "name": "Pfb_PlasticPallet__2",
+  "fbx": "Pfb_PlasticPallet__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_02/Zone_01/Pfb_PlasticPallet_04",
+  "vertices": 1694,
+  "triangles": 1151
+ },
+ {
+  "name": "Pfb_PlasticPallet__3",
+  "fbx": "Pfb_PlasticPallet__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Under/Pfb_PlasticPallet_02",
+  "vertices": 1694,
+  "triangles": 1151
+ },
+ {
+  "name": "SM_Switch_2_Rod",
+  "fbx": "SM_Switch_2_Rod.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "PowerSwitcher/Switcher/Group/RotateCenter/SM_Switch_2_Rod",
+  "vertices": 273,
+  "triangles": 336
+ },
+ {
+  "name": "Pfb_WoodBox",
+  "fbx": "Pfb_WoodBox.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ServerRoom_02/Pfb_WoodBox_01_2",
+  "vertices": 88,
+  "triangles": 44
+ },
+ {
+  "name": "Pfb_JLAB_Screen",
+  "fbx": "Pfb_JLAB_Screen.fbx",
+  "placed_active": 29,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/BarbedWire_Line_2/Pfb_JLAB_Screen_01",
+  "vertices": 444,
+  "triangles": 596
+ },
+ {
+  "name": "Prfb_Normal",
+  "fbx": "Prfb_Normal.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/SpecialExplor/LootBox_Formula_BP_ColorMonitor/Prfb_Normal",
+  "vertices": 374,
+  "triangles": 540
+ },
+ {
+  "name": "Pfb_Soda_Prison",
+  "fbx": "Pfb_Soda_Prison.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Pfb_Soda_Prison_07",
+  "vertices": 360,
+  "triangles": 324
+ },
+ {
+  "name": "Prfb_Starter__2",
+  "fbx": "Prfb_Starter__2.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Darily/LootBox_Darily_43/Prfb_Starter",
+  "vertices": 188,
+  "triangles": 154
+ },
+ {
+  "name": "Pfb_JLAB_Trash_Biohazard",
+  "fbx": "Pfb_JLAB_Trash_Biohazard.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_JLAB_Trash_Biohazard_01",
+  "vertices": 470,
+  "triangles": 578
+ },
+ {
+  "name": "SM_PaperBox",
+  "fbx": "SM_PaperBox.fbx",
+  "placed_active": 10,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Top/SM_PaperBox_01_3",
+  "vertices": 90,
+  "triangles": 76
+ },
+ {
+  "name": "SM_PaperBox__2",
+  "fbx": "SM_PaperBox__2.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/SM_PaperBox_01_3",
+  "vertices": 90,
+  "triangles": 76
+ },
+ {
+  "name": "Pfb_Table_02_2_JLAB_Temp",
+  "fbx": "Pfb_Table_02_2_JLAB_Temp.fbx",
+  "placed_active": 13,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_Table_02_2_JLAB_Temp_2",
+  "vertices": 1172,
+  "triangles": 678
+ },
+ {
+  "name": "Prfb_Daily",
+  "fbx": "Prfb_Daily.fbx",
+  "placed_active": 11,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Food/LootBox_Food_29/Prfb_Daily",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "OfficeBox01",
+  "fbx": "OfficeBox01.fbx",
+  "placed_active": 22,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_03/OfficeBox01_14",
+  "vertices": 56,
+  "triangles": 28
+ },
+ {
+  "name": "OfficeBox01__2",
+  "fbx": "OfficeBox01__2.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/OfficeBox01_7",
+  "vertices": 172,
+  "triangles": 140
+ },
+ {
+  "name": "Pfb_Table_02_4_JLAB_Temp__2",
+  "fbx": "Pfb_Table_02_4_JLAB_Temp__2.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_02/Zone_01/Pfb_Table_02_4_JLAB_Temp_6",
+  "vertices": 1072,
+  "triangles": 614
+ },
+ {
+  "name": "Pfb_Table_02_4_JLAB",
+  "fbx": "Pfb_Table_02_4_JLAB.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCorrider/Pfb_Table_02_4_JLAB_1",
+  "vertices": 1072,
+  "triangles": 614
+ },
+ {
+  "name": "Prfb_MedicalBag",
+  "fbx": "Prfb_MedicalBag.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Medic_01/LootBox_Medic_2/Prfb_MedicalBag_01_1",
+  "vertices": 266,
+  "triangles": 304
+ },
+ {
+  "name": "Prfb_Indoors_Study",
+  "fbx": "Prfb_Indoors_Study.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_SpecialElements/Decompose/DecomposeStation_2/Prfb_Indoors_Study_02_07",
+  "vertices": 370,
+  "triangles": 258
+ },
+ {
+  "name": "Pipe_End",
+  "fbx": "Pipe_End.fbx",
+  "placed_active": 8,
+  "placed_inactive": 0,
+  "example_source_path": "TeleportBeacon/Visual/Pipe_End",
+  "vertices": 66,
+  "triangles": 70
+ },
+ {
+  "name": "Pfb_Indoors_Bedroom_Bed",
+  "fbx": "Pfb_Indoors_Bedroom_Bed.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_05/Pfb_Indoors_Bedroom_Bed_02",
+  "vertices": 416,
+  "triangles": 292
+ },
+ {
+  "name": "Pfb_FabricScroll",
+  "fbx": "Pfb_FabricScroll.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/Pfb_FabricScroll_5",
+  "vertices": 312,
+  "triangles": 290
+ },
+ {
+  "name": "Pfb_FabricScroll__2",
+  "fbx": "Pfb_FabricScroll__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Top/Pfb_FabricScroll_2",
+  "vertices": 312,
+  "triangles": 290
+ },
+ {
+  "name": "Pfb_FabricScroll__3",
+  "fbx": "Pfb_FabricScroll__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/Pfb_FabricScroll_2",
+  "vertices": 312,
+  "triangles": 290
+ },
+ {
+  "name": "Pfb_JLAB_Copybook",
+  "fbx": "Pfb_JLAB_Copybook.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_JLAB_Copybook_01",
+  "vertices": 42,
+  "triangles": 24
+ },
+ {
+  "name": "SM_PaperBox__3",
+  "fbx": "SM_PaperBox__3.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_SpecialElements/Decompose/DecomposeStation_2/SM_PaperBox_01_5",
+  "vertices": 32,
+  "triangles": 20
+ },
+ {
+  "name": "Pfb_Computer__13",
+  "fbx": "Pfb_Computer__13.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Computer/Pfb_Computer_01_18",
+  "vertices": 967,
+  "triangles": 666
+ },
+ {
+  "name": "Pfb_WC_Door",
+  "fbx": "Pfb_WC_Door.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WC01/Pfb_WC_Door_02",
+  "vertices": 88,
+  "triangles": 52
+ },
+ {
+  "name": "Pfb_WC_Door__2",
+  "fbx": "Pfb_WC_Door__2.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WC01/Pfb_WC_Door_04",
+  "vertices": 88,
+  "triangles": 52
+ },
+ {
+  "name": "Prfb_Lootbox__2",
+  "fbx": "Prfb_Lootbox__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/WeaponEquip_1/LootBox_WeaponEquip 2_5/Prfb_Lootbox_03",
+  "vertices": 1540,
+  "triangles": 1250
+ },
+ {
+  "name": "Pfb_Soda_ExhaustSystem1",
+  "fbx": "Pfb_Soda_ExhaustSystem1.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Workshop/Pfb_Soda_ExhaustSystem1_02",
+  "vertices": 270,
+  "triangles": 262
+ },
+ {
+  "name": "Pfb_Computer__14",
+  "fbx": "Pfb_Computer__14.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Computer/Pfb_Computer_01_19",
+  "vertices": 1003,
+  "triangles": 690
+ },
+ {
+  "name": "Pfb_Soda_Pipe__2",
+  "fbx": "Pfb_Soda_Pipe__2.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Green/Pfb_Soda_Pipe_5",
+  "vertices": 140,
+  "triangles": 96
+ },
+ {
+  "name": "Pfb_Computer__15",
+  "fbx": "Pfb_Computer__15.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Computer/Pfb_Computer_01_12",
+  "vertices": 1003,
+  "triangles": 690
+ },
+ {
+  "name": "Pfb_Canvas_Ground_2x4",
+  "fbx": "Pfb_Canvas_Ground_2x4.fbx",
+  "placed_active": 7,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/Pfb_Canvas_Ground_2x4_1",
+  "vertices": 14,
+  "triangles": 12
+ },
+ {
+  "name": "Pfb_Canvas_Ground_2x4__2",
+  "fbx": "Pfb_Canvas_Ground_2x4__2.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Top/Pfb_Canvas_Ground_2x4_1",
+  "vertices": 14,
+  "triangles": 12
+ },
+ {
+  "name": "Pfb_Canvas_Ground_2x4__3",
+  "fbx": "Pfb_Canvas_Ground_2x4__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/Pfb_Canvas_Ground_2x4_2",
+  "vertices": 14,
+  "triangles": 12
+ },
+ {
+  "name": "Prfb_Locker__4",
+  "fbx": "Prfb_Locker__4.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Locker/LootBox_Locker_20/Prfb_Locker_01_1",
+  "vertices": 298,
+  "triangles": 192
+ },
+ {
+  "name": "Pfb_Indoors_Study_Shelf__4",
+  "fbx": "Pfb_Indoors_Study_Shelf__4.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_Indoors_Study_Shelf_07",
+  "vertices": 103,
+  "triangles": 64
+ },
+ {
+  "name": "Pfb_Utility_Cart",
+  "fbx": "Pfb_Utility_Cart.fbx",
+  "placed_active": 12,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_Utility_Cart_09",
+  "vertices": 1120,
+  "triangles": 928
+ },
+ {
+  "name": "Pfb_Indoors_WC__2",
+  "fbx": "Pfb_Indoors_WC__2.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ProjectionRoom/Group/Pfb_Indoors_WC_12",
+  "vertices": 668,
+  "triangles": 644
+ },
+ {
+  "name": "Pfb_JLAB_Bowl",
+  "fbx": "Pfb_JLAB_Bowl.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/GreyCorrider/Pfb_JLAB_Bowl_01",
+  "vertices": 216,
+  "triangles": 212
+ },
+ {
+  "name": "Pfb_Box_GRP__4",
+  "fbx": "Pfb_Box_GRP__4.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Under/Pfb_Box_GRP_02",
+  "vertices": 713,
+  "triangles": 496
+ },
+ {
+  "name": "Pfb_Box_GRP__5",
+  "fbx": "Pfb_Box_GRP__5.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Top/Pfb_Box_GRP_02",
+  "vertices": 713,
+  "triangles": 496
+ },
+ {
+  "name": "Pfb_Indoors_WC__3",
+  "fbx": "Pfb_Indoors_WC__3.fbx",
+  "placed_active": 0,
+  "placed_inactive": 2,
+  "example_source_path": "Env/ProjectionRoom/Group/Pfb_Indoors_WC_11",
+  "vertices": 128,
+  "triangles": 156
+ },
+ {
+  "name": "Prfb_Suitcase",
+  "fbx": "Prfb_Suitcase.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/SuitCase/LootBox_Suitcase_10/Prfb_Suitcase_01",
+  "vertices": 1257,
+  "triangles": 1212
+ },
+ {
+  "name": "Pfb_Soda_Shelves_GRP",
+  "fbx": "Pfb_Soda_Shelves_GRP.fbx",
+  "placed_active": 7,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Top/Pfb_Soda_Shelves_GRP_2",
+  "vertices": 3520,
+  "triangles": 3344
+ },
+ {
+  "name": "OfficeFloorLight01",
+  "fbx": "OfficeFloorLight01.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ProjectionRoom/Group/OfficeFloorLight01",
+  "vertices": 843,
+  "triangles": 1286
+ },
+ {
+  "name": "Pfb_GasTank",
+  "fbx": "Pfb_GasTank.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Yellow/Pfb_GasTank_06",
+  "vertices": 1552,
+  "triangles": 1205
+ },
+ {
+  "name": "SM_Scales",
+  "fbx": "SM_Scales.fbx",
+  "placed_active": 12,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/SM_Scales_01",
+  "vertices": 514,
+  "triangles": 350
+ },
+ {
+  "name": "Cylinder",
+  "fbx": "Cylinder.fbx",
+  "placed_active": 0,
+  "placed_inactive": 3,
+  "example_source_path": "Exits/ExitNoSmoke_1/Cylinder",
+  "vertices": 88,
+  "triangles": 80
+ },
+ {
+  "name": "Test_Rope2",
+  "fbx": "Test_Rope2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Test_Rope2_4",
+  "vertices": 4048,
+  "triangles": 4488
+ },
+ {
+  "name": "Test_Rope2__2",
+  "fbx": "Test_Rope2__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Test_Rope2_3",
+  "vertices": 2944,
+  "triangles": 3264
+ },
+ {
+  "name": "Test_Rope2__3",
+  "fbx": "Test_Rope2__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Test_Rope2_5",
+  "vertices": 2576,
+  "triangles": 2856
+ },
+ {
+  "name": "Test_Rope2__4",
+  "fbx": "Test_Rope2__4.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WaterOffice_02/Test_Rope2",
+  "vertices": 2024,
+  "triangles": 2244
+ },
+ {
+  "name": "Test_Rope2__5",
+  "fbx": "Test_Rope2__5.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WaterOffice_02/Test_Rope2_1",
+  "vertices": 1104,
+  "triangles": 1224
+ },
+ {
+  "name": "Test_Rope2__6",
+  "fbx": "Test_Rope2__6.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WaterOffice_02/Test_Rope2_2",
+  "vertices": 736,
+  "triangles": 816
+ },
+ {
+  "name": "Prfb_LabDoor__2",
+  "fbx": "Prfb_LabDoor__2.fbx",
+  "placed_active": 18,
+  "placed_inactive": 0,
+  "example_source_path": "Doors/Prfb_LabDoor_2",
+  "vertices": 1488,
+  "triangles": 916
+ },
+ {
+  "name": "Pfb_LabDoor__2",
+  "fbx": "Pfb_LabDoor__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Doors/Pfb_LabDoor_1",
+  "vertices": 1536,
+  "triangles": 948
+ },
+ {
+  "name": "Pfb_WaterTank",
+  "fbx": "Pfb_WaterTank.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Under/Pfb_WaterTank_02",
+  "vertices": 475,
+  "triangles": 614
+ },
+ {
+  "name": "Pfb_PlasticPallet__4",
+  "fbx": "Pfb_PlasticPallet__4.fbx",
+  "placed_active": 12,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Top/Pfb_PlasticPallet_01_02",
+  "vertices": 168,
+  "triangles": 124
+ },
+ {
+  "name": "Pfb_Table_02_6_JLAB_Temp",
+  "fbx": "Pfb_Table_02_6_JLAB_Temp.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_02/Zone_01/Pfb_Table_02_6_JLAB_Temp_5",
+  "vertices": 1398,
+  "triangles": 1234
+ },
+ {
+  "name": "Prfb_Dumpster",
+  "fbx": "Prfb_Dumpster.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "LevelElements/JLab_01_LootBox/TrashBin/LootBox_TrashBin 1_1/Prfb_Dumpster_01_1",
+  "vertices": 1042,
+  "triangles": 764
+ },
+ {
+  "name": "Pfb_RoundStools",
+  "fbx": "Pfb_RoundStools.fbx",
+  "placed_active": 7,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_RoundStools_01",
+  "vertices": 1175,
+  "triangles": 1395
+ },
+ {
+  "name": "Pfb_Soda_Wall2",
+  "fbx": "Pfb_Soda_Wall2.fbx",
+  "placed_active": 18,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Pfb_Soda_Wall2_16",
+  "vertices": 205,
+  "triangles": 145
+ },
+ {
+  "name": "Pfb_Box_GRP__6",
+  "fbx": "Pfb_Box_GRP__6.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ServerRoom_02/Pfb_Box_GRP_05",
+  "vertices": 562,
+  "triangles": 519
+ },
+ {
+  "name": "Pfb_Box_GRP__7",
+  "fbx": "Pfb_Box_GRP__7.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/Pfb_Box_GRP_06",
+  "vertices": 562,
+  "triangles": 519
+ },
+ {
+  "name": "Pfb_JLAB_Biochemical_Analyzer",
+  "fbx": "Pfb_JLAB_Biochemical_Analyzer.fbx",
+  "placed_active": 14,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_JLAB_Biochemical_Analyzer_01",
+  "vertices": 436,
+  "triangles": 408
+ },
+ {
+  "name": "Utility_Cart",
+  "fbx": "Utility_Cart.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/Utility_Cart_13",
+  "vertices": 1196,
+  "triangles": 1142
+ },
+ {
+  "name": "Pfb_Soda_ExhaustSystem1__2",
+  "fbx": "Pfb_Soda_ExhaustSystem1__2.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Workshop/Pfb_Soda_ExhaustSystem1_12",
+  "vertices": 184,
+  "triangles": 104
+ },
+ {
+  "name": "Pipe00",
+  "fbx": "Pipe00.fbx",
+  "placed_active": 30,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Yellow/Pipe00_10",
+  "vertices": 100,
+  "triangles": 76
+ },
+ {
+  "name": "GoggleA",
+  "fbx": "GoggleA.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_SpecialElements/Decompose/DecomposeStation_1/GoggleA",
+  "vertices": 534,
+  "triangles": 390
+ },
+ {
+  "name": "Pfb_WC_Board__3",
+  "fbx": "Pfb_WC_Board__3.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WC01/Pfb_WC_Board_14",
+  "vertices": 248,
+  "triangles": 172
+ },
+ {
+  "name": "Pfb_WC_Board__4",
+  "fbx": "Pfb_WC_Board__4.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WC01/Pfb_WC_Board_23",
+  "vertices": 248,
+  "triangles": 172
+ },
+ {
+  "name": "Pfb_WaterTank__2",
+  "fbx": "Pfb_WaterTank__2.fbx",
+  "placed_active": 5,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Under/Pfb_WaterTank_02_04",
+  "vertices": 1552,
+  "triangles": 1205
+ },
+ {
+  "name": "Pfb_WaterTank__3",
+  "fbx": "Pfb_WaterTank__3.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Workshop/Pfb_WaterTank_02_04",
+  "vertices": 1552,
+  "triangles": 1205
+ },
+ {
+  "name": "Prfb_Bulletbox__2",
+  "fbx": "Prfb_Bulletbox__2.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Bullert/LootBox_Bullet_11/Prfb_Bulletbox_01",
+  "vertices": 772,
+  "triangles": 632
+ },
+ {
+  "name": "Pfb_SteelFrame",
+  "fbx": "Pfb_SteelFrame.fbx",
+  "placed_active": 16,
+  "placed_inactive": 17,
+  "example_source_path": "Env/Hall_01/Glass_House/Pfb_SteelFrame_01_21",
+  "vertices": 72,
+  "triangles": 44
+ },
+ {
+  "name": "Pfb_JLAB_Immunoanalyzer",
+  "fbx": "Pfb_JLAB_Immunoanalyzer.fbx",
+  "placed_active": 14,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office02/Pfb_JLAB_Immunoanalyzer_05",
+  "vertices": 426,
+  "triangles": 285
+ },
+ {
+  "name": "Pfb_Computer__16",
+  "fbx": "Pfb_Computer__16.fbx",
+  "placed_active": 28,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_03/Pfb_Computer_01_3_6",
+  "vertices": 61,
+  "triangles": 76
+ },
+ {
+  "name": "Pfb_Computer__17",
+  "fbx": "Pfb_Computer__17.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_Computer_01_3_39",
+  "vertices": 61,
+  "triangles": 76
+ },
+ {
+  "name": "Pfb_BarbedWire",
+  "fbx": "Pfb_BarbedWire.fbx",
+  "placed_active": 42,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Corridor/Group/BarbedWire_Line/Pfb_BarbedWire_01_03",
+  "vertices": 128,
+  "triangles": 104
+ },
+ {
+  "name": "Wall_Ornament",
+  "fbx": "Wall_Ornament.fbx",
+  "placed_active": 7,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Wall_Ornament 12_7",
+  "vertices": 32,
+  "triangles": 16
+ },
+ {
+  "name": "Pfb_Door",
+  "fbx": "Pfb_Door.fbx",
+  "placed_active": 1,
+  "placed_inactive": 1,
+  "example_source_path": "Env/Hall_01/Glass_House/Pfb_Door_06_1",
+  "vertices": 216,
+  "triangles": 108
+ },
+ {
+  "name": "Pipe5",
+  "fbx": "Pipe5.fbx",
+  "placed_active": 48,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Corridor/Pipes_Wall/Pipe5_6",
+  "vertices": 170,
+  "triangles": 160
+ },
+ {
+  "name": "Pipe5__2",
+  "fbx": "Pipe5__2.fbx",
+  "placed_active": 7,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Yellow/Pipe5",
+  "vertices": 170,
+  "triangles": 160
+ },
+ {
+  "name": "Pfb_Indoors_Books__9",
+  "fbx": "Pfb_Indoors_Books__9.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_03/Pfb_Indoors_Books_02",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Pfb_Soda_JLABCore",
+  "fbx": "Pfb_Soda_JLABCore.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Entrance/Group/Pfb_Soda_JLABCore",
+  "vertices": 3865,
+  "triangles": 4817
+ },
+ {
+  "name": "Prfb_Locker__5",
+  "fbx": "Prfb_Locker__5.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Locker/LootBox_Locker_22/Prfb_Locker_01_1",
+  "vertices": 298,
+  "triangles": 192
+ },
+ {
+  "name": "Pfb_Ventilation_Soda1",
+  "fbx": "Pfb_Ventilation_Soda1.fbx",
+  "placed_active": 12,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Water_01/Group/Pfb_Ventilation_Soda1_1",
+  "vertices": 301,
+  "triangles": 214
+ },
+ {
+  "name": "Pfb_Shop_Counter__4",
+  "fbx": "Pfb_Shop_Counter__4.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Entrance/Pfb_Shop_Counter_03_2",
+  "vertices": 68,
+  "triangles": 42
+ },
+ {
+  "name": "JLabDoorFrameSmall",
+  "fbx": "JLabDoorFrameSmall.fbx",
+  "placed_active": 18,
+  "placed_inactive": 0,
+  "example_source_path": "Doors/JLabDoor_Small_9/JLabDoorFrameSmall",
+  "vertices": 16,
+  "triangles": 18
+ },
+ {
+  "name": "Pfb_PaperBox__9",
+  "fbx": "Pfb_PaperBox__9.fbx",
+  "placed_active": 21,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_PaperBox_01_1",
+  "vertices": 172,
+  "triangles": 128
+ },
+ {
+  "name": "Pfb_PaperBox__10",
+  "fbx": "Pfb_PaperBox__10.fbx",
+  "placed_active": 0,
+  "placed_inactive": 2,
+  "example_source_path": "Env/Lab_01/Pfb_PaperBox_01_18",
+  "vertices": 48,
+  "triangles": 28
+ },
+ {
+  "name": "Pfb_PaperBox__11",
+  "fbx": "Pfb_PaperBox__11.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_PaperBox_01_5",
+  "vertices": 172,
+  "triangles": 128
+ },
+ {
+  "name": "Pfb_PaperBox__12",
+  "fbx": "Pfb_PaperBox__12.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/Pfb_PaperBox_01_4",
+  "vertices": 172,
+  "triangles": 128
+ },
+ {
+  "name": "Pfb_Table_02_1_JLAB_Temp__2",
+  "fbx": "Pfb_Table_02_1_JLAB_Temp__2.fbx",
+  "placed_active": 15,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_Table_02_1_JLAB_Temp",
+  "vertices": 1172,
+  "triangles": 678
+ },
+ {
+  "name": "Prfb_Hangclothes__2",
+  "fbx": "Prfb_Hangclothes__2.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Clothes/LootBox_Hangclothes_01_6/Prfb_Hangclothes_01_4",
+  "vertices": 208,
+  "triangles": 232
+ },
+ {
+  "name": "Pfb_Soda_Door_Mecha",
+  "fbx": "Pfb_Soda_Door_Mecha.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Top/Pfb_Soda_Door_Mecha",
+  "vertices": 926,
+  "triangles": 826
+ },
+ {
+  "name": "PipeS",
+  "fbx": "PipeS.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WorkShopCorrider/PipeS",
+  "vertices": 248,
+  "triangles": 256
+ },
+ {
+  "name": "OfficePartition01",
+  "fbx": "OfficePartition01.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_03/OfficePartition01_1 1",
+  "vertices": 344,
+  "triangles": 400
+ },
+ {
+  "name": "Pfb_CementMold",
+  "fbx": "Pfb_CementMold.fbx",
+  "placed_active": 14,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_02/Zone_01/Pfb_CementMold_23",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Pfb_Soda_ExhaustSystem1__3",
+  "fbx": "Pfb_Soda_ExhaustSystem1__3.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Under/Pfb_Soda_ExhaustSystem1_08",
+  "vertices": 1104,
+  "triangles": 584
+ },
+ {
+  "name": "Pfb_PaperBox__13",
+  "fbx": "Pfb_PaperBox__13.fbx",
+  "placed_active": 15,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Water_01/Pfb_PaperBox_01_14",
+  "vertices": 86,
+  "triangles": 52
+ },
+ {
+  "name": "Pfb_PaperBox__14",
+  "fbx": "Pfb_PaperBox__14.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office02/Pfb_PaperBox_01_14",
+  "vertices": 86,
+  "triangles": 52
+ },
+ {
+  "name": "OfficeDeskSet02__4",
+  "fbx": "OfficeDeskSet02__4.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_02/OfficeDeskSet02_15",
+  "vertices": 512,
+  "triangles": 450
+ },
+ {
+  "name": "Pfb_ElectricControlBox__5",
+  "fbx": "Pfb_ElectricControlBox__5.fbx",
+  "placed_active": 68,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ElectricTop/Pfb_ElectricControlBox_144",
+  "vertices": 44,
+  "triangles": 22
+ },
+ {
+  "name": "Block24",
+  "fbx": "Block24.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Env/WarehouseCenter/Group/Block_Lab_F0(6)/Block24",
+  "vertices": 8,
+  "triangles": 4
+ },
+ {
+  "name": "Block35",
+  "fbx": "Block35.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Env/WarehouseCenter/Group/Block_Lab_F0(6)/Block35",
+  "vertices": 26,
+  "triangles": 14
+ },
+ {
+  "name": "Pfb_FileCabient_L2",
+  "fbx": "Pfb_FileCabient_L2.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_FileCabient_L2_1",
+  "vertices": 1416,
+  "triangles": 1524
+ },
+ {
+  "name": "Pfb_FileCabient_L2__2",
+  "fbx": "Pfb_FileCabient_L2__2.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_03/Pfb_FileCabient_L2",
+  "vertices": 1416,
+  "triangles": 1524
+ },
+ {
+  "name": "Pfb_FileCabient_L2__3",
+  "fbx": "Pfb_FileCabient_L2__3.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_03/Pfb_FileCabient_L2_2",
+  "vertices": 1416,
+  "triangles": 1524
+ },
+ {
+  "name": "polySurface9",
+  "fbx": "polySurface9.fbx",
+  "placed_active": 48,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Green/Chest2_13/group1/polySurface9",
+  "vertices": 122,
+  "triangles": 68
+ },
+ {
+  "name": "polySurface6",
+  "fbx": "polySurface6.fbx",
+  "placed_active": 48,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Green/Chest2_13/group2/polySurface6",
+  "vertices": 122,
+  "triangles": 68
+ },
+ {
+  "name": "polySurface5",
+  "fbx": "polySurface5.fbx",
+  "placed_active": 48,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Green/Chest2_13/group2/polySurface5",
+  "vertices": 72,
+  "triangles": 44
+ },
+ {
+  "name": "polySurface8",
+  "fbx": "polySurface8.fbx",
+  "placed_active": 48,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Green/Chest2_13/group1/polySurface8",
+  "vertices": 72,
+  "triangles": 44
+ },
+ {
+  "name": "polySurface7",
+  "fbx": "polySurface7.fbx",
+  "placed_active": 48,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Green/Chest2_13/group2/polySurface7",
+  "vertices": 72,
+  "triangles": 44
+ },
+ {
+  "name": "polySurface2",
+  "fbx": "polySurface2.fbx",
+  "placed_active": 48,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Green/Chest2_13/group3/polySurface2",
+  "vertices": 72,
+  "triangles": 44
+ },
+ {
+  "name": "polySurface13",
+  "fbx": "polySurface13.fbx",
+  "placed_active": 48,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Green/Chest2_13/group4/polySurface13",
+  "vertices": 72,
+  "triangles": 44
+ },
+ {
+  "name": "polySurface4",
+  "fbx": "polySurface4.fbx",
+  "placed_active": 48,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Green/Chest2_13/group3/polySurface4",
+  "vertices": 72,
+  "triangles": 44
+ },
+ {
+  "name": "polySurface3",
+  "fbx": "polySurface3.fbx",
+  "placed_active": 48,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Green/Chest2_13/group3/polySurface3",
+  "vertices": 122,
+  "triangles": 68
+ },
+ {
+  "name": "polySurface10",
+  "fbx": "polySurface10.fbx",
+  "placed_active": 48,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Green/Chest2_13/group1/polySurface10",
+  "vertices": 72,
+  "triangles": 44
+ },
+ {
+  "name": "Center",
+  "fbx": "Center.fbx",
+  "placed_active": 48,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Green/Chest2_13/Center",
+  "vertices": 238,
+  "triangles": 176
+ },
+ {
+  "name": "polySurface12",
+  "fbx": "polySurface12.fbx",
+  "placed_active": 48,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Green/Chest2_13/group4/polySurface12",
+  "vertices": 122,
+  "triangles": 68
+ },
+ {
+  "name": "polySurface11",
+  "fbx": "polySurface11.fbx",
+  "placed_active": 48,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Green/Chest2_13/group4/polySurface11",
+  "vertices": 72,
+  "triangles": 44
+ },
+ {
+  "name": "Pfb_ElectricBox__3",
+  "fbx": "Pfb_ElectricBox__3.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Workshop/Pfb_ElectricBox_02_4",
+  "vertices": 432,
+  "triangles": 330
+ },
+ {
+  "name": "Pipe4",
+  "fbx": "Pipe4.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Yellow/Pipe4",
+  "vertices": 434,
+  "triangles": 416
+ },
+ {
+  "name": "Pipe4__2",
+  "fbx": "Pipe4__2.fbx",
+  "placed_active": 5,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Water_01/Group/Pipe4_2",
+  "vertices": 434,
+  "triangles": 416
+ },
+ {
+  "name": "Pfb_Chair",
+  "fbx": "Pfb_Chair.fbx",
+  "placed_active": 18,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Medical01/Pfb_Chair_02_7",
+  "vertices": 484,
+  "triangles": 516
+ },
+ {
+  "name": "Pfb_Chair__2",
+  "fbx": "Pfb_Chair__2.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Corridor02/Pfb_Chair_02_3",
+  "vertices": 484,
+  "triangles": 516
+ },
+ {
+  "name": "Pfb_Chair__3",
+  "fbx": "Pfb_Chair__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_01/Pfb_Chair_02_2",
+  "vertices": 484,
+  "triangles": 516
+ },
+ {
+  "name": "Pfb_Chair__4",
+  "fbx": "Pfb_Chair__4.fbx",
+  "placed_active": 7,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/Pfb_Chair_02_3",
+  "vertices": 484,
+  "triangles": 516
+ },
+ {
+  "name": "Pfb_ElectricControlBox__6",
+  "fbx": "Pfb_ElectricControlBox__6.fbx",
+  "placed_active": 24,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ElectricTop/Pfb_ElectricControlBox_120",
+  "vertices": 416,
+  "triangles": 359
+ },
+ {
+  "name": "Pfb_Table_02_5_JLAB_Temp",
+  "fbx": "Pfb_Table_02_5_JLAB_Temp.fbx",
+  "placed_active": 11,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_Table_02_5_JLAB_Temp",
+  "vertices": 1822,
+  "triangles": 1474
+ },
+ {
+  "name": "Pfb_Box_GRP__8",
+  "fbx": "Pfb_Box_GRP__8.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Top/Pfb_Box_GRP_11",
+  "vertices": 1442,
+  "triangles": 1079
+ },
+ {
+  "name": "Pfb_Box_GRP__9",
+  "fbx": "Pfb_Box_GRP__9.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Top/Pfb_Box_GRP_09",
+  "vertices": 1442,
+  "triangles": 1079
+ },
+ {
+  "name": "Pfb_JLAB_Box__2",
+  "fbx": "Pfb_JLAB_Box__2.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_JLAB_Box_07",
+  "vertices": 137,
+  "triangles": 100
+ },
+ {
+  "name": "Pfb_JLAB_Bed__2",
+  "fbx": "Pfb_JLAB_Bed__2.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/Pfb_JLAB_Bed_03",
+  "vertices": 2171,
+  "triangles": 2432
+ },
+ {
+  "name": "SM_Door",
+  "fbx": "SM_Door.fbx",
+  "placed_active": 19,
+  "placed_inactive": 0,
+  "example_source_path": "Doors/JLabDoor_Small_7/SM_Door_02_02/SM_Door_02_02",
+  "vertices": 304,
+  "triangles": 248
+ },
+ {
+  "name": "Prfb_Bulletbox__3",
+  "fbx": "Prfb_Bulletbox__3.fbx",
+  "placed_active": 5,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Bullert/LootBox_Bullet_4/Prfb_Bulletbox_01",
+  "vertices": 772,
+  "triangles": 632
+ },
+ {
+  "name": "Pfb_JLAB__hemical_Sterilizer",
+  "fbx": "Pfb_JLAB__hemical_Sterilizer.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_02/Zone_01/Pfb_JLAB_Сhemical_Sterilizer_02",
+  "vertices": 549,
+  "triangles": 322
+ },
+ {
+  "name": "Prfb_Hangclothes__3",
+  "fbx": "Prfb_Hangclothes__3.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Clothes/LootBox_Hangclothes_01_1/Prfb_Hangclothes_01_1",
+  "vertices": 201,
+  "triangles": 224
+ },
+ {
+  "name": "Pfb_MetalBoard__2",
+  "fbx": "Pfb_MetalBoard__2.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Top/Pfb_MetalBoard_01_1",
+  "vertices": 40,
+  "triangles": 28
+ },
+ {
+  "name": "OfficeBox01__3",
+  "fbx": "OfficeBox01__3.fbx",
+  "placed_active": 12,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_03/OfficeBox01_7",
+  "vertices": 172,
+  "triangles": 148
+ },
+ {
+  "name": "Pfb_Shop_Counter__5",
+  "fbx": "Pfb_Shop_Counter__5.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_01/Pfb_Shop_Counter_01_4",
+  "vertices": 221,
+  "triangles": 129
+ },
+ {
+  "name": "Pfb_Server__2",
+  "fbx": "Pfb_Server__2.fbx",
+  "placed_active": 45,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ServerRoom_02/Pfb_Server_33",
+  "vertices": 1032,
+  "triangles": 712
+ },
+ {
+  "name": "Pfb_Server__3",
+  "fbx": "Pfb_Server__3.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Env/Hall_01/OfficeZone_01/Pfb_Server_5",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Pfb_Server__4",
+  "fbx": "Pfb_Server__4.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Pfb_Server_4",
+  "vertices": 1032,
+  "triangles": 712
+ },
+ {
+  "name": "Prfb_Lootbox__3",
+  "fbx": "Prfb_Lootbox__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/WeaponEquip_1/LootBox_WeaponEquip 2_4/Prfb_Lootbox_03",
+  "vertices": 1540,
+  "triangles": 1250
+ },
+ {
+  "name": "Pfb_JLAB_Bed__3",
+  "fbx": "Pfb_JLAB_Bed__3.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/Pfb_JLAB_Bed_08",
+  "vertices": 4295,
+  "triangles": 4622
+ },
+ {
+  "name": "Pfb_Soda_Shelves_GRP__2",
+  "fbx": "Pfb_Soda_Shelves_GRP__2.fbx",
+  "placed_active": 20,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Top/Pfb_Soda_Shelves_GRP 1_11",
+  "vertices": 3840,
+  "triangles": 3744
+ },
+ {
+  "name": "Pfb_Soda_Shelves_GRP__3",
+  "fbx": "Pfb_Soda_Shelves_GRP__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Top/Pfb_Soda_Shelves_GRP 1_5",
+  "vertices": 3840,
+  "triangles": 3744
+ },
+ {
+  "name": "OfficePhone01",
+  "fbx": "OfficePhone01.fbx",
+  "placed_active": 36,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/OfficePhone01_6",
+  "vertices": 480,
+  "triangles": 524
+ },
+ {
+  "name": "Pfb_Soda_Instruments_09_GRP",
+  "fbx": "Pfb_Soda_Instruments_09_GRP.fbx",
+  "placed_active": 24,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Pfb_Soda_Instruments_09_GRP_14",
+  "vertices": 956,
+  "triangles": 1100
+ },
+ {
+  "name": "Pfb_Roadblock13",
+  "fbx": "Pfb_Roadblock13.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Corridor02/Pfb_Roadblock13_2",
+  "vertices": 28,
+  "triangles": 28
+ },
+ {
+  "name": "Pfb_JLAB_Probe_Rack",
+  "fbx": "Pfb_JLAB_Probe_Rack.fbx",
+  "placed_active": 114,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_JLAB_Probe_Rack_58",
+  "vertices": 767,
+  "triangles": 756
+ },
+ {
+  "name": "Pfb_JLAB_Probe_Rack__2",
+  "fbx": "Pfb_JLAB_Probe_Rack__2.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_01/Pfb_JLAB_Probe_Rack_03",
+  "vertices": 767,
+  "triangles": 756
+ },
+ {
+  "name": "Pfb_JLAB_Probe_Rack__3",
+  "fbx": "Pfb_JLAB_Probe_Rack__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_JLAB_Probe_Rack_59",
+  "vertices": 767,
+  "triangles": 756
+ },
+ {
+  "name": "Block33",
+  "fbx": "Block33.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Env/WarehouseCenter/Group/Block_Lab_F0(6)/Block33",
+  "vertices": 28,
+  "triangles": 14
+ },
+ {
+  "name": "Pfb_PlasticPallet__5",
+  "fbx": "Pfb_PlasticPallet__5.fbx",
+  "placed_active": 13,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ServerRoom_02/Pfb_PlasticPallet_01_01",
+  "vertices": 216,
+  "triangles": 172
+ },
+ {
+  "name": "Pfb_PlasticPallet__6",
+  "fbx": "Pfb_PlasticPallet__6.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Yellow/Pfb_PlasticPallet_01_01",
+  "vertices": 216,
+  "triangles": 172
+ },
+ {
+  "name": "Pfb_JLAB_Test_Tube_Rack",
+  "fbx": "Pfb_JLAB_Test_Tube_Rack.fbx",
+  "placed_active": 13,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_01/Pfb_JLAB_Test_Tube_Rack_02",
+  "vertices": 439,
+  "triangles": 510
+ },
+ {
+  "name": "Pfb_Computer__18",
+  "fbx": "Pfb_Computer__18.fbx",
+  "placed_active": 0,
+  "placed_inactive": 2,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Computer/Pfb_Computer_01_18",
+  "vertices": 36,
+  "triangles": 24
+ },
+ {
+  "name": "OfficeDeskSet02__5",
+  "fbx": "OfficeDeskSet02__5.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/OfficeDeskSet02_15",
+  "vertices": 280,
+  "triangles": 156
+ },
+ {
+  "name": "Pfb_Stone_01_6_Terrain",
+  "fbx": "Pfb_Stone_01_6_Terrain.fbx",
+  "placed_active": 101,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Yellow/Pfb_Stone_01_6_Terrain_27",
+  "vertices": 42,
+  "triangles": 36
+ },
+ {
+  "name": "Pfb_Table__6",
+  "fbx": "Pfb_Table__6.fbx",
+  "placed_active": 28,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Pfb_Table_01_4",
+  "vertices": 108,
+  "triangles": 58
+ },
+ {
+  "name": "Pfb_Table__7",
+  "fbx": "Pfb_Table__7.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCorrider/Pfb_Table_01_3",
+  "vertices": 108,
+  "triangles": 58
+ },
+ {
+  "name": "Pfb_JLAB_Screen__2",
+  "fbx": "Pfb_JLAB_Screen__2.fbx",
+  "placed_active": 5,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/Pfb_JLAB_Screen_02",
+  "vertices": 1144,
+  "triangles": 1508
+ },
+ {
+  "name": "OfficeWallClock01",
+  "fbx": "OfficeWallClock01.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Entrance/OfficeWallClock01",
+  "vertices": 144,
+  "triangles": 236
+ },
+ {
+  "name": "Wall_Ornament__2",
+  "fbx": "Wall_Ornament__2.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Wall_Ornament 13_1",
+  "vertices": 130,
+  "triangles": 110
+ },
+ {
+  "name": "SM_Cabinet__4",
+  "fbx": "SM_Cabinet__4.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_01/SM_Cabinet_01_04/SM_Cabinet_01_04_01",
+  "vertices": 48,
+  "triangles": 28
+ },
+ {
+  "name": "Pfb_Table_03_2_JLAB_Temp",
+  "fbx": "Pfb_Table_03_2_JLAB_Temp.fbx",
+  "placed_active": 15,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_Table_03_2_JLAB_Temp_8",
+  "vertices": 484,
+  "triangles": 306
+ },
+ {
+  "name": "SM_ExhaustFan",
+  "fbx": "SM_ExhaustFan.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_03/SM_ExhaustFan_01_02",
+  "vertices": 40,
+  "triangles": 28
+ },
+ {
+  "name": "Pfb_Indoors_Study_Shelf_JLAB04__2",
+  "fbx": "Pfb_Indoors_Study_Shelf_JLAB04__2.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office02/Pfb_Indoors_Study_Shelf_JLAB04_2",
+  "vertices": 400,
+  "triangles": 284
+ },
+ {
+  "name": "Pfb_Indoors_Study_Shelf_JLAB04__3",
+  "fbx": "Pfb_Indoors_Study_Shelf_JLAB04__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/Pfb_Indoors_Study_Shelf_JLAB04_3",
+  "vertices": 416,
+  "triangles": 292
+ },
+ {
+  "name": "Pfb_Indoors_Study_Shelf_JLAB04__4",
+  "fbx": "Pfb_Indoors_Study_Shelf_JLAB04__4.fbx",
+  "placed_active": 21,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_02/Zone_01/Pfb_Indoors_Study_Shelf_JLAB04_6",
+  "vertices": 400,
+  "triangles": 284
+ },
+ {
+  "name": "Pfb_Indoors_Study_Shelf_JLAB04__5",
+  "fbx": "Pfb_Indoors_Study_Shelf_JLAB04__5.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/Pfb_Indoors_Study_Shelf_JLAB04_6",
+  "vertices": 416,
+  "triangles": 292
+ },
+ {
+  "name": "Pfb_Indoors_Study_Shelf_JLAB04__6",
+  "fbx": "Pfb_Indoors_Study_Shelf_JLAB04__6.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_Indoors_Study_Shelf_JLAB04_4",
+  "vertices": 400,
+  "triangles": 284
+ },
+ {
+  "name": "Pfb_Indoors_Study_Shelf_JLAB04__7",
+  "fbx": "Pfb_Indoors_Study_Shelf_JLAB04__7.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/Pfb_Indoors_Study_Shelf_JLAB04_4",
+  "vertices": 416,
+  "triangles": 292
+ },
+ {
+  "name": "Pfb_Indoors_Study_Shelf_JLAB04__8",
+  "fbx": "Pfb_Indoors_Study_Shelf_JLAB04__8.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ServerRoom_02/Pfb_Indoors_Study_Shelf_JLAB04",
+  "vertices": 416,
+  "triangles": 292
+ },
+ {
+  "name": "Pfb_Indoors_Study_Shelf_JLAB04__9",
+  "fbx": "Pfb_Indoors_Study_Shelf_JLAB04__9.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/Pfb_Indoors_Study_Shelf_JLAB04_1",
+  "vertices": 416,
+  "triangles": 292
+ },
+ {
+  "name": "Pfb_MetalBoard__3",
+  "fbx": "Pfb_MetalBoard__3.fbx",
+  "placed_active": 7,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WarehouseCenter/Pfb_MetalBoard_01_10",
+  "vertices": 102,
+  "triangles": 104
+ },
+ {
+  "name": "Pfb_MetalBoard__4",
+  "fbx": "Pfb_MetalBoard__4.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Water_01/Pfb_MetalBoard_01_9",
+  "vertices": 102,
+  "triangles": 104
+ },
+ {
+  "name": "Pfb_MetalBoard__5",
+  "fbx": "Pfb_MetalBoard__5.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Workshop/Pfb_MetalBoard_01_13",
+  "vertices": 102,
+  "triangles": 104
+ },
+ {
+  "name": "Utility_Cart_13_Shelf",
+  "fbx": "Utility_Cart_13_Shelf.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/Utility_Cart_13/Utility_Cart_13_Shelf_01",
+  "vertices": 104,
+  "triangles": 58
+ },
+ {
+  "name": "OfficeDeskSet02__6",
+  "fbx": "OfficeDeskSet02__6.fbx",
+  "placed_active": 9,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_02/OfficeDeskSet02_7",
+  "vertices": 624,
+  "triangles": 992
+ },
+ {
+  "name": "SM_Door__2",
+  "fbx": "SM_Door__2.fbx",
+  "placed_active": 19,
+  "placed_inactive": 0,
+  "example_source_path": "Doors/JLabDoor_Small_1_DJC/SM_Door_02_02/SM_Door_02_01",
+  "vertices": 96,
+  "triangles": 88
+ },
+ {
+  "name": "Pfb_JLAB_Bottle__2",
+  "fbx": "Pfb_JLAB_Bottle__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_JLAB_Bottle_02",
+  "vertices": 260,
+  "triangles": 196
+ },
+ {
+  "name": "Pfb_JLAB_Screen__3",
+  "fbx": "Pfb_JLAB_Screen__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/Pfb_JLAB_Screen_03",
+  "vertices": 826,
+  "triangles": 1092
+ },
+ {
+  "name": "Cube",
+  "fbx": "Cube.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ProjectionRoom/Group/Tile_Jlab_6x6/Cube_1",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Cube__2",
+  "fbx": "Cube__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ProjectionRoom/Group/Tile_Jlab_6x6_1/Cube_1",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Wall_Ornament__3",
+  "fbx": "Wall_Ornament__3.fbx",
+  "placed_active": 8,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Wall_Ornament 9_7",
+  "vertices": 94,
+  "triangles": 56
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__28",
+  "fbx": "Pfb_JALB_WallPart2_Line__28.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCorrider/Pfb_JALB_WallPart2_Line_20",
+  "vertices": 914,
+  "triangles": 1280
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__29",
+  "fbx": "Pfb_JALB_WallPart2_Line__29.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_JALB_WallPart2_Line_24",
+  "vertices": 1242,
+  "triangles": 1716
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__30",
+  "fbx": "Pfb_JALB_WallPart2_Line__30.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCorrider/Pfb_JALB_WallPart2_Line_21",
+  "vertices": 914,
+  "triangles": 1280
+ },
+ {
+  "name": "Pfb_JLABWall4",
+  "fbx": "Pfb_JLABWall4.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_JLABWall4_2",
+  "vertices": 414,
+  "triangles": 572
+ },
+ {
+  "name": "OfficeServer01",
+  "fbx": "OfficeServer01.fbx",
+  "placed_active": 28,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ServerRoom_02/OfficeServer01_32",
+  "vertices": 176,
+  "triangles": 220
+ },
+ {
+  "name": "OfficeServer01__2",
+  "fbx": "OfficeServer01__2.fbx",
+  "placed_active": 25,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/OfficeServer01",
+  "vertices": 176,
+  "triangles": 220
+ },
+ {
+  "name": "OfficeServer01__3",
+  "fbx": "OfficeServer01__3.fbx",
+  "placed_active": 7,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Green/OfficeServer01",
+  "vertices": 176,
+  "triangles": 220
+ },
+ {
+  "name": "OfficeServer01__4",
+  "fbx": "OfficeServer01__4.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Green/OfficeServer01_14",
+  "vertices": 176,
+  "triangles": 220
+ },
+ {
+  "name": "Pfb_JLAB_Centrifuge",
+  "fbx": "Pfb_JLAB_Centrifuge.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_JLAB_Centrifuge_01",
+  "vertices": 200,
+  "triangles": 214
+ },
+ {
+  "name": "OfficePrinter01",
+  "fbx": "OfficePrinter01.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/OfficePrinter01",
+  "vertices": 698,
+  "triangles": 930
+ },
+ {
+  "name": "Pfb_Table_02_5_JLAB_Temp__2",
+  "fbx": "Pfb_Table_02_5_JLAB_Temp__2.fbx",
+  "placed_active": 8,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_Table_02_5_JLAB_Temp_1",
+  "vertices": 3472,
+  "triangles": 2846
+ },
+ {
+  "name": "SM_Cabinet__5",
+  "fbx": "SM_Cabinet__5.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office02/SM_Cabinet_02_04/SM_Cabinet_02_04_03",
+  "vertices": 68,
+  "triangles": 38
+ },
+ {
+  "name": "Prfb_Toolbox__3",
+  "fbx": "Prfb_Toolbox__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Tool_02/LootBox_Tools2/Prfb_Toolbox",
+  "vertices": 828,
+  "triangles": 612
+ },
+ {
+  "name": "Pfb_Canvas_Ground_2x2",
+  "fbx": "Pfb_Canvas_Ground_2x2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/Pfb_Canvas_Ground_2x2_1",
+  "vertices": 10,
+  "triangles": 8
+ },
+ {
+  "name": "Pfb_Canvas_Ground_2x2__2",
+  "fbx": "Pfb_Canvas_Ground_2x2__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/OfficeOut/Pfb_Canvas_Ground_2x2_1",
+  "vertices": 10,
+  "triangles": 8
+ },
+ {
+  "name": "Block46",
+  "fbx": "Block46.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Env/WarehouseCenter/Group/Block_Lab_F0(6)/Block46",
+  "vertices": 8,
+  "triangles": 4
+ },
+ {
+  "name": "Pfb_MetalBoard__6",
+  "fbx": "Pfb_MetalBoard__6.fbx",
+  "placed_active": 7,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WarehouseCenter/Pfb_MetalBoard_01_10",
+  "vertices": 198,
+  "triangles": 198
+ },
+ {
+  "name": "Wall_Ornament__4",
+  "fbx": "Wall_Ornament__4.fbx",
+  "placed_active": 12,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Wall_Ornament 1_6",
+  "vertices": 90,
+  "triangles": 60
+ },
+ {
+  "name": "Prfb_BoxGroup",
+  "fbx": "Prfb_BoxGroup.fbx",
+  "placed_active": 71,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Prfb_BoxGroup_170",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Prfb_BoxGroup__2",
+  "fbx": "Prfb_BoxGroup__2.fbx",
+  "placed_active": 76,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WarehouseCenter/Group/Prfb_BoxGroup_135",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Pfb_BoxGroup",
+  "fbx": "Pfb_BoxGroup.fbx",
+  "placed_active": 8,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/Pfb_BoxGroup_14",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Pfb_BoxGroup__2",
+  "fbx": "Pfb_BoxGroup__2.fbx",
+  "placed_active": 5,
+  "placed_inactive": 0,
+  "example_source_path": "Env/GreyCorrider/Pfb_BoxGroup_05",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Pfb_PaperBox__15",
+  "fbx": "Pfb_PaperBox__15.fbx",
+  "placed_active": 13,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Corridor/Boxes_Wall/Pfb_PaperBox_01_47",
+  "vertices": 55,
+  "triangles": 50
+ },
+ {
+  "name": "Pfb_PaperBox__16",
+  "fbx": "Pfb_PaperBox__16.fbx",
+  "placed_active": 9,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Pfb_PaperBox_01_52",
+  "vertices": 55,
+  "triangles": 50
+ },
+ {
+  "name": "Pfb_PaperBox__17",
+  "fbx": "Pfb_PaperBox__17.fbx",
+  "placed_active": 10,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Corridor/Boxes_Wall/Pfb_PaperBox_01_6",
+  "vertices": 55,
+  "triangles": 50
+ },
+ {
+  "name": "Pfb_PaperBox__18",
+  "fbx": "Pfb_PaperBox__18.fbx",
+  "placed_active": 26,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ServerRoom_02/Pfb_PaperBox_01_3",
+  "vertices": 55,
+  "triangles": 50
+ },
+ {
+  "name": "Pfb_PaperBox__19",
+  "fbx": "Pfb_PaperBox__19.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_PaperBox_01_29",
+  "vertices": 55,
+  "triangles": 50
+ },
+ {
+  "name": "Pfb_FabricScroll__4",
+  "fbx": "Pfb_FabricScroll__4.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Top/Pfb_FabricScroll_4",
+  "vertices": 268,
+  "triangles": 256
+ },
+ {
+  "name": "Pfb_FabricScroll__5",
+  "fbx": "Pfb_FabricScroll__5.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/Pfb_FabricScroll_4",
+  "vertices": 268,
+  "triangles": 256
+ },
+ {
+  "name": "Pfb_Box_GRP__10",
+  "fbx": "Pfb_Box_GRP__10.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "Env/OfficeOut2/Pfb_Box_GRP_06",
+  "vertices": 4380,
+  "triangles": 5503
+ },
+ {
+  "name": "Pfb_Box_GRP__11",
+  "fbx": "Pfb_Box_GRP__11.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_02/Zone_01/Pfb_Box_GRP_06",
+  "vertices": 4380,
+  "triangles": 5503
+ },
+ {
+  "name": "OfficeProjector01",
+  "fbx": "OfficeProjector01.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ProjectionRoom/Group/OfficeProjector01_1",
+  "vertices": 508,
+  "triangles": 820
+ },
+ {
+  "name": "Pfb_Table_02_1_JLAB",
+  "fbx": "Pfb_Table_02_1_JLAB.fbx",
+  "placed_active": 9,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/Pfb_Table_02_1_JLAB_3",
+  "vertices": 1172,
+  "triangles": 678
+ },
+ {
+  "name": "Pfb_Kitchen",
+  "fbx": "Pfb_Kitchen.fbx",
+  "placed_active": 12,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_Kitchen_22",
+  "vertices": 68,
+  "triangles": 38
+ },
+ {
+  "name": "Pfb_Canvas_Ground_2x2__3",
+  "fbx": "Pfb_Canvas_Ground_2x2__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Yellow/Pfb_Canvas_Ground_2x2_3",
+  "vertices": 22,
+  "triangles": 21
+ },
+ {
+  "name": "Pfb_Canvas_Ground_2x2__4",
+  "fbx": "Pfb_Canvas_Ground_2x2__4.fbx",
+  "placed_active": 7,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCorrider/Pfb_Canvas_Ground_2x2_3",
+  "vertices": 22,
+  "triangles": 21
+ },
+ {
+  "name": "Pfb_Canvas_Ground_2x2__5",
+  "fbx": "Pfb_Canvas_Ground_2x2__5.fbx",
+  "placed_active": 9,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Top/Pfb_Canvas_Ground_2x2_5",
+  "vertices": 22,
+  "triangles": 21
+ },
+ {
+  "name": "Pfb_Canvas_Ground_2x2__6",
+  "fbx": "Pfb_Canvas_Ground_2x2__6.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Yellow/Pfb_Canvas_Ground_2x2_2",
+  "vertices": 22,
+  "triangles": 21
+ },
+ {
+  "name": "Pfb_Canvas_Ground_2x2__7",
+  "fbx": "Pfb_Canvas_Ground_2x2__7.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Corridor/Pfb_Canvas_Ground_2x2_2",
+  "vertices": 22,
+  "triangles": 21
+ },
+ {
+  "name": "Pfb_RoundStools__2",
+  "fbx": "Pfb_RoundStools__2.fbx",
+  "placed_active": 10,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/GlassHouse/Pfb_RoundStools_03",
+  "vertices": 1611,
+  "triangles": 1965
+ },
+ {
+  "name": "Pfb_RoundStools__3",
+  "fbx": "Pfb_RoundStools__3.fbx",
+  "placed_active": 7,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/Pfb_RoundStools_17",
+  "vertices": 1611,
+  "triangles": 1965
+ },
+ {
+  "name": "Pfb_WaterTank__4",
+  "fbx": "Pfb_WaterTank__4.fbx",
+  "placed_active": 66,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Under/Pfb_WaterTank_13",
+  "vertices": 1243,
+  "triangles": 1316
+ },
+ {
+  "name": "Pfb_WaterTank__5",
+  "fbx": "Pfb_WaterTank__5.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_03/Pfb_WaterTank_03",
+  "vertices": 1243,
+  "triangles": 1316
+ },
+ {
+  "name": "Pfb_WaterTank__6",
+  "fbx": "Pfb_WaterTank__6.fbx",
+  "placed_active": 5,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Workshop/Pfb_WaterTank_09",
+  "vertices": 1243,
+  "triangles": 1316
+ },
+ {
+  "name": "Prfb_Groundpile3",
+  "fbx": "Prfb_Groundpile3.fbx",
+  "placed_active": 0,
+  "placed_inactive": 8,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Hidden/LootBox_Hidden_7/Prfb_Groundpile3",
+  "vertices": 27,
+  "triangles": 38
+ },
+ {
+  "name": "Pfb_MetalBoard__7",
+  "fbx": "Pfb_MetalBoard__7.fbx",
+  "placed_active": 5,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Water_01/Pfb_MetalBoard_01_11",
+  "vertices": 40,
+  "triangles": 28
+ },
+ {
+  "name": "Pfb_BarbedWire__2",
+  "fbx": "Pfb_BarbedWire__2.fbx",
+  "placed_active": 10,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Water_01/Group/BarbedWire_Line/Pfb_BarbedWire_01_04",
+  "vertices": 20,
+  "triangles": 16
+ },
+ {
+  "name": "Pfb_JLAB_Screen__4",
+  "fbx": "Pfb_JLAB_Screen__4.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Env/BlueCardHouse/Pfb_JLAB_Screen_03",
+  "vertices": 318,
+  "triangles": 416
+ },
+ {
+  "name": "Pipe1",
+  "fbx": "Pipe1.fbx",
+  "placed_active": 10,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Water_01/Group/Pipe1_2",
+  "vertices": 170,
+  "triangles": 160
+ },
+ {
+  "name": "Pipe1__2",
+  "fbx": "Pipe1__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WorkShopCorrider/Pipe1_2",
+  "vertices": 170,
+  "triangles": 160
+ },
+ {
+  "name": "Prfb_Computer__4",
+  "fbx": "Prfb_Computer__4.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "TeleportBeacon/Visual/Prfb_Computer_01_1",
+  "vertices": 688,
+  "triangles": 424
+ },
+ {
+  "name": "Pfb_Chair__5",
+  "fbx": "Pfb_Chair__5.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Green/Pfb_Chair_03_4",
+  "vertices": 615,
+  "triangles": 592
+ },
+ {
+  "name": "Pfb_Chair__6",
+  "fbx": "Pfb_Chair__6.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_02/Zone_02/Pfb_Chair_03_2",
+  "vertices": 615,
+  "triangles": 592
+ },
+ {
+  "name": "Pfb_RoundStools__4",
+  "fbx": "Pfb_RoundStools__4.fbx",
+  "placed_active": 34,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_02/Zone_02/Pfb_RoundStools_03",
+  "vertices": 1477,
+  "triangles": 1799
+ },
+ {
+  "name": "Pfb_Table__8",
+  "fbx": "Pfb_Table__8.fbx",
+  "placed_active": 9,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCorrider/Pfb_Table_02_3",
+  "vertices": 160,
+  "triangles": 112
+ },
+ {
+  "name": "Pfb_Table__9",
+  "fbx": "Pfb_Table__9.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/Pfb_Table_02_9",
+  "vertices": 160,
+  "triangles": 112
+ },
+ {
+  "name": "Pfb_Table__10",
+  "fbx": "Pfb_Table__10.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_Table_02_2",
+  "vertices": 160,
+  "triangles": 112
+ },
+ {
+  "name": "Pfb_Indoors_Books__10",
+  "fbx": "Pfb_Indoors_Books__10.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_03/Pfb_Indoors_Books_13",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Pfb_Indoors_Books__11",
+  "fbx": "Pfb_Indoors_Books__11.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_Indoors_Books_19",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Pfb_Indoors_Books__12",
+  "fbx": "Pfb_Indoors_Books__12.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_Indoors_Books_06",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Block54",
+  "fbx": "Block54.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Env/WarehouseCenter/Group/Block_Lab_F0(6)/Block54",
+  "vertices": 32,
+  "triangles": 18
+ },
+ {
+  "name": "Prfb_Weapons",
+  "fbx": "Prfb_Weapons.fbx",
+  "placed_active": 0,
+  "placed_inactive": 2,
+  "example_source_path": "LevelElements/JLab_01_LootBox/WeaponEquip_2/LootBox_WeaponEquip_2/Prfb_Weapons_02",
+  "vertices": 626,
+  "triangles": 690
+ },
+ {
+  "name": "Pfb_Kitchen__2",
+  "fbx": "Pfb_Kitchen__2.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_Kitchen_24",
+  "vertices": 150,
+  "triangles": 88
+ },
+ {
+  "name": "SM_Cabinet__6",
+  "fbx": "SM_Cabinet__6.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office02/SM_Cabinet_02_04/SM_Cabinet_02_04_01",
+  "vertices": 76,
+  "triangles": 44
+ },
+ {
+  "name": "SM_Switch_2_Base",
+  "fbx": "SM_Switch_2_Base.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "PowerSwitcher/Switcher/Group/SM_Switch_2_Base",
+  "vertices": 560,
+  "triangles": 582
+ },
+ {
+  "name": "Pfb_Indoors_Study_Shelf_JLAB04__10",
+  "fbx": "Pfb_Indoors_Study_Shelf_JLAB04__10.fbx",
+  "placed_active": 0,
+  "placed_inactive": 3,
+  "example_source_path": "Env/ServerRoom_02/Pfb_Indoors_Study_Shelf_JLAB04_1",
+  "vertices": 296,
+  "triangles": 216
+ },
+ {
+  "name": "Pfb_JLAB_Bottle__3",
+  "fbx": "Pfb_JLAB_Bottle__3.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/GreyCorrider/Pfb_JLAB_Bottle_02",
+  "vertices": 169,
+  "triangles": 148
+ },
+ {
+  "name": "Pfb_MetalBoard__8",
+  "fbx": "Pfb_MetalBoard__8.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Water_01/Pfb_MetalBoard_01_5",
+  "vertices": 80,
+  "triangles": 68
+ },
+ {
+  "name": "Pfb_MetalBoard__9",
+  "fbx": "Pfb_MetalBoard__9.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WaterOffice_02/Pfb_MetalBoard_01_5",
+  "vertices": 80,
+  "triangles": 68
+ },
+ {
+  "name": "SM_PaperBox__4",
+  "fbx": "SM_PaperBox__4.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_03/SM_PaperBox_01_2",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "SM_PaperBox__5",
+  "fbx": "SM_PaperBox__5.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/SM_PaperBox_01_2",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Pfb_Table__11",
+  "fbx": "Pfb_Table__11.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_Table_03_2",
+  "vertices": 132,
+  "triangles": 84
+ },
+ {
+  "name": "Wall_Ornament__5",
+  "fbx": "Wall_Ornament__5.fbx",
+  "placed_active": 14,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Wall_Ornament 5_1",
+  "vertices": 92,
+  "triangles": 52
+ },
+ {
+  "name": "SM_Scullery",
+  "fbx": "SM_Scullery.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office02/SM_Scullery_01",
+  "vertices": 613,
+  "triangles": 566
+ },
+ {
+  "name": "Pfb_Server__5",
+  "fbx": "Pfb_Server__5.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_01/Pfb_Server_5",
+  "vertices": 1008,
+  "triangles": 700
+ },
+ {
+  "name": "Render",
+  "fbx": "Render.fbx",
+  "placed_active": 0,
+  "placed_inactive": 3,
+  "example_source_path": "DarkRoom_2/Render",
+  "vertices": 4,
+  "triangles": 2
+ },
+ {
+  "name": "Pfb_Computer__19",
+  "fbx": "Pfb_Computer__19.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Env/Lab_01/Pfb_Computer_01_3",
+  "vertices": 36,
+  "triangles": 24
+ },
+ {
+  "name": "SM_Cabinet__7",
+  "fbx": "SM_Cabinet__7.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office02/SM_Cabinet_01_04/SM_Cabinet_01_04_03",
+  "vertices": 88,
+  "triangles": 52
+ },
+ {
+  "name": "Pfb_JALB_WallPart1",
+  "fbx": "Pfb_JALB_WallPart1.fbx",
+  "placed_active": 91,
+  "placed_inactive": 0,
+  "example_source_path": "Env/GreyCorrider2/Pfb_JALB_WallPart1",
+  "vertices": 570,
+  "triangles": 388
+ },
+ {
+  "name": "Pfb_JALB_WallPart2",
+  "fbx": "Pfb_JALB_WallPart2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Group/Pfb_JALB_WallPart2",
+  "vertices": 584,
+  "triangles": 394
+ },
+ {
+  "name": "Prfb_Toolbox__4",
+  "fbx": "Prfb_Toolbox__4.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Tool_03/LootBox_Tools3/Prfb_Toolbox_2",
+  "vertices": 632,
+  "triangles": 360
+ },
+ {
+  "name": "Prfb_Ventilation_Soda1",
+  "fbx": "Prfb_Ventilation_Soda1.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "TeleportBeacon/Visual/Prfb_Ventilation_Soda1",
+  "vertices": 301,
+  "triangles": 214
+ },
+ {
+  "name": "Pfb_JLAB_Encephalograph_01_Device",
+  "fbx": "Pfb_JLAB_Encephalograph_01_Device.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_JLAB_Encephalograph_01_Device_01",
+  "vertices": 586,
+  "triangles": 384
+ },
+ {
+  "name": "OfficePrinter02",
+  "fbx": "OfficePrinter02.fbx",
+  "placed_active": 12,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office02/OfficePrinter02_1",
+  "vertices": 1242,
+  "triangles": 1584
+ },
+ {
+  "name": "OfficePrinter03",
+  "fbx": "OfficePrinter03.fbx",
+  "placed_active": 9,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Green/OfficePrinter03_1",
+  "vertices": 1156,
+  "triangles": 1520
+ },
+ {
+  "name": "OfficeDeskSet02__7",
+  "fbx": "OfficeDeskSet02__7.fbx",
+  "placed_active": 9,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office02/OfficeDeskSet02_7",
+  "vertices": 546,
+  "triangles": 438
+ },
+ {
+  "name": "Pfb_SteelFrame__2",
+  "fbx": "Pfb_SteelFrame__2.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Yellow/Pfb_SteelFrame_01_2",
+  "vertices": 296,
+  "triangles": 164
+ },
+ {
+  "name": "Pfb_BoxGroup__3",
+  "fbx": "Pfb_BoxGroup__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_02/Zone_01/Pfb_BoxGroup_02",
+  "vertices": 150,
+  "triangles": 192
+ },
+ {
+  "name": "Pfb_BoxGroup__4",
+  "fbx": "Pfb_BoxGroup__4.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/GlassHouse/Pfb_BoxGroup_02",
+  "vertices": 150,
+  "triangles": 192
+ },
+ {
+  "name": "Pfb_CoatHanger",
+  "fbx": "Pfb_CoatHanger.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_03/Pfb_CoatHanger_06",
+  "vertices": 274,
+  "triangles": 348
+ },
+ {
+  "name": "SM_Cabinet__8",
+  "fbx": "SM_Cabinet__8.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office02/SM_Cabinet_01_04/SM_Cabinet_01_04_04",
+  "vertices": 88,
+  "triangles": 52
+ },
+ {
+  "name": "Pfb_JLAB_Hematology_Analyzer",
+  "fbx": "Pfb_JLAB_Hematology_Analyzer.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_JLAB_Hematology_Analyzer_01",
+  "vertices": 230,
+  "triangles": 144
+ },
+ {
+  "name": "OfficeDeskSet02__8",
+  "fbx": "OfficeDeskSet02__8.fbx",
+  "placed_active": 9,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/OfficeDeskSet02_13",
+  "vertices": 1164,
+  "triangles": 1128
+ },
+ {
+  "name": "Pfb_WoodenPallet",
+  "fbx": "Pfb_WoodenPallet.fbx",
+  "placed_active": 23,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_WoodenPallet_3",
+  "vertices": 616,
+  "triangles": 428
+ },
+ {
+  "name": "Pipe_S3",
+  "fbx": "Pipe_S3.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Water_01/Group/Pipe_S3_1",
+  "vertices": 353,
+  "triangles": 336
+ },
+ {
+  "name": "Pfb_Soda_Wall7",
+  "fbx": "Pfb_Soda_Wall7.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Pfb_Soda_Wall7_1",
+  "vertices": 194,
+  "triangles": 122
+ },
+ {
+  "name": "Pfb_FileCabient_S",
+  "fbx": "Pfb_FileCabient_S.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_02/Pfb_FileCabient_S_1",
+  "vertices": 232,
+  "triangles": 224
+ },
+ {
+  "name": "Pfb_FileCabient_S__2",
+  "fbx": "Pfb_FileCabient_S__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_03/Pfb_FileCabient_S",
+  "vertices": 232,
+  "triangles": 224
+ },
+ {
+  "name": "Pfb_Soda_Ladder",
+  "fbx": "Pfb_Soda_Ladder.fbx",
+  "placed_active": 7,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/GlassHouse/Pfb_Soda_Ladder",
+  "vertices": 1056,
+  "triangles": 748
+ },
+ {
+  "name": "Pfb_TeaTable",
+  "fbx": "Pfb_TeaTable.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Green/Pfb_TeaTable_1",
+  "vertices": 200,
+  "triangles": 124
+ },
+ {
+  "name": "Pfb_TeaTable__2",
+  "fbx": "Pfb_TeaTable__2.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WaterOffice_02/Pfb_TeaTable_1",
+  "vertices": 200,
+  "triangles": 124
+ },
+ {
+  "name": "Pfb_TeaTable__3",
+  "fbx": "Pfb_TeaTable__3.fbx",
+  "placed_active": 5,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_TeaTable_1",
+  "vertices": 200,
+  "triangles": 124
+ },
+ {
+  "name": "Block44",
+  "fbx": "Block44.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Env/WarehouseCenter/Group/Block_Lab_F0(6)/Block44",
+  "vertices": 20,
+  "triangles": 10
+ },
+ {
+  "name": "Pfb_JLAB_Box__3",
+  "fbx": "Pfb_JLAB_Box__3.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_JLAB_Box_06",
+  "vertices": 75,
+  "triangles": 44
+ },
+ {
+  "name": "Quad__2",
+  "fbx": "Quad__2.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Exits/ExitNoSmoke/Quad",
+  "vertices": 4,
+  "triangles": 2
+ },
+ {
+  "name": "Pfb_Indoors_Study_Shelf__5",
+  "fbx": "Pfb_Indoors_Study_Shelf__5.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ProjectionRoom/Group/Pfb_Indoors_Study_Shelf_03",
+  "vertices": 56,
+  "triangles": 34
+ },
+ {
+  "name": "Pipe6",
+  "fbx": "Pipe6.fbx",
+  "placed_active": 8,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Corridor/Pipes_Wall/Pipe6_3",
+  "vertices": 170,
+  "triangles": 160
+ },
+ {
+  "name": "Pipe6__2",
+  "fbx": "Pipe6__2.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Yellow/Pipe6_1",
+  "vertices": 170,
+  "triangles": 160
+ },
+ {
+  "name": "Pfb_BarbedWire__3",
+  "fbx": "Pfb_BarbedWire__3.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Corridor/Pfb_BarbedWire_01_06",
+  "vertices": 20,
+  "triangles": 16
+ },
+ {
+  "name": "Pfb_Canvas_Ground_1x5__3",
+  "fbx": "Pfb_Canvas_Ground_1x5__3.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_Canvas_Ground_1x5_2",
+  "vertices": 39,
+  "triangles": 33
+ },
+ {
+  "name": "Pfb_Canvas_Ground_1x5__4",
+  "fbx": "Pfb_Canvas_Ground_1x5__4.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/Pfb_Canvas_Ground_1x5_2",
+  "vertices": 39,
+  "triangles": 33
+ },
+ {
+  "name": "Pfb_Canvas_Ground_1x5__5",
+  "fbx": "Pfb_Canvas_Ground_1x5__5.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/Pfb_Canvas_Ground_1x5_3",
+  "vertices": 39,
+  "triangles": 33
+ },
+ {
+  "name": "Pfb_CableReel",
+  "fbx": "Pfb_CableReel.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WaterOffice_02/Pfb_CableReel_02",
+  "vertices": 206,
+  "triangles": 188
+ },
+ {
+  "name": "Pfb_Roadblock",
+  "fbx": "Pfb_Roadblock.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Under/Pfb_Roadblock_5",
+  "vertices": 48,
+  "triangles": 28
+ },
+ {
+  "name": "Pfb_Table__12",
+  "fbx": "Pfb_Table__12.fbx",
+  "placed_active": 9,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_03/Pfb_Table_01_12",
+  "vertices": 108,
+  "triangles": 58
+ },
+ {
+  "name": "Pfb_Table__13",
+  "fbx": "Pfb_Table__13.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/Pfb_Table_01_2",
+  "vertices": 108,
+  "triangles": 58
+ },
+ {
+  "name": "OfficeTableLamp01",
+  "fbx": "OfficeTableLamp01.fbx",
+  "placed_active": 7,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Green/OfficeTableLamp01_1",
+  "vertices": 580,
+  "triangles": 880
+ },
+ {
+  "name": "Wall_Ornament__6",
+  "fbx": "Wall_Ornament__6.fbx",
+  "placed_active": 16,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Wall_Ornament 6_7",
+  "vertices": 216,
+  "triangles": 152
+ },
+ {
+  "name": "Pfb_ShoppingTrolley",
+  "fbx": "Pfb_ShoppingTrolley.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Corridor/Pfb_ShoppingTrolley_3",
+  "vertices": 862,
+  "triangles": 940
+ },
+ {
+  "name": "Pfb_Table_02_3_JLAB",
+  "fbx": "Pfb_Table_02_3_JLAB.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_Table_02_3_JLAB",
+  "vertices": 1072,
+  "triangles": 614
+ },
+ {
+  "name": "Pfb_Chair__7",
+  "fbx": "Pfb_Chair__7.fbx",
+  "placed_active": 43,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_03/Pfb_Chair_01_6",
+  "vertices": 1011,
+  "triangles": 913
+ },
+ {
+  "name": "Pfb_Chair__8",
+  "fbx": "Pfb_Chair__8.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/Pfb_Chair_01_1",
+  "vertices": 1011,
+  "triangles": 913
+ },
+ {
+  "name": "Pfb_PaperBox__20",
+  "fbx": "Pfb_PaperBox__20.fbx",
+  "placed_active": 16,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Corridor/Boxes_Wall/Pfb_PaperBox_01_7",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Pfb_PaperBox__21",
+  "fbx": "Pfb_PaperBox__21.fbx",
+  "placed_active": 39,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Pfb_PaperBox_01_60",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Pfb_PaperBox__22",
+  "fbx": "Pfb_PaperBox__22.fbx",
+  "placed_active": 31,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WaterOffice_02/Pfb_PaperBox_01_6",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Pfb_PaperBox__23",
+  "fbx": "Pfb_PaperBox__23.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_PaperBox_01_25",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Pfb_PaperBox__24",
+  "fbx": "Pfb_PaperBox__24.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Corridor/Boxes_Wall/Pfb_PaperBox_01_33",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "SM_JLAB_Microscope",
+  "fbx": "SM_JLAB_Microscope.fbx",
+  "placed_active": 59,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/SM_JLAB_Microscope_34",
+  "vertices": 1187,
+  "triangles": 1000
+ },
+ {
+  "name": "OfficeDeskSet02__9",
+  "fbx": "OfficeDeskSet02__9.fbx",
+  "placed_active": 15,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeDeskSet02_20",
+  "vertices": 480,
+  "triangles": 326
+ },
+ {
+  "name": "Pfb_Roadblock__2",
+  "fbx": "Pfb_Roadblock__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Pfb_Roadblock_1",
+  "vertices": 354,
+  "triangles": 280
+ },
+ {
+  "name": "Pfb_JLAB_Colposcope_Stand",
+  "fbx": "Pfb_JLAB_Colposcope_Stand.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/Pfb_JLAB_Colposcope_Stand_01",
+  "vertices": 2513,
+  "triangles": 1832
+ },
+ {
+  "name": "Pfb_Soda_ExhaustSystem1__4",
+  "fbx": "Pfb_Soda_ExhaustSystem1__4.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/OfficeOut2/Pfb_Soda_ExhaustSystem1_36",
+  "vertices": 96,
+  "triangles": 72
+ },
+ {
+  "name": "Pfb_OilBarrel01",
+  "fbx": "Pfb_OilBarrel01.fbx",
+  "placed_active": 20,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WorkShopCorrider/Pfb_OilBarrel01",
+  "vertices": 110,
+  "triangles": 116
+ },
+ {
+  "name": "Pfb_OilBarrel01__2",
+  "fbx": "Pfb_OilBarrel01__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Yellow/Pfb_OilBarrel01",
+  "vertices": 110,
+  "triangles": 116
+ },
+ {
+  "name": "Pfb_JLAB_Bowl__2",
+  "fbx": "Pfb_JLAB_Bowl__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/GreyCorrider/Pfb_JLAB_Bowl_02",
+  "vertices": 320,
+  "triangles": 316
+ },
+ {
+  "name": "Pfb_Chair__9",
+  "fbx": "Pfb_Chair__9.fbx",
+  "placed_active": 144,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_05/Pfb_Chair_01_8",
+  "vertices": 620,
+  "triangles": 564
+ },
+ {
+  "name": "Pfb_Chair__10",
+  "fbx": "Pfb_Chair__10.fbx",
+  "placed_active": 12,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_03/Pfb_Chair_01_34",
+  "vertices": 620,
+  "triangles": 564
+ },
+ {
+  "name": "Pfb_Water_bear",
+  "fbx": "Pfb_Water_bear.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Env/Hall_01/OfficeZone_03/Pfb_Water_bear",
+  "vertices": 18727,
+  "triangles": 28453
+ },
+ {
+  "name": "Pipe",
+  "fbx": "Pipe.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WarehouseCenter/Pipe_1",
+  "vertices": 42,
+  "triangles": 40
+ },
+ {
+  "name": "Pipe__2",
+  "fbx": "Pipe__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Corridor02/Pipe_3",
+  "vertices": 4667,
+  "triangles": 8592
+ },
+ {
+  "name": "Pipe__3",
+  "fbx": "Pipe__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Entrance/Group/Pipe_14",
+  "vertices": 533,
+  "triangles": 960
+ },
+ {
+  "name": "Pipe__4",
+  "fbx": "Pipe__4.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Entrance/Group/Pipe_8",
+  "vertices": 403,
+  "triangles": 720
+ },
+ {
+  "name": "Pipe__5",
+  "fbx": "Pipe__5.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Corridor02/Pipe_5",
+  "vertices": 650,
+  "triangles": 1176
+ },
+ {
+  "name": "Pipe__6",
+  "fbx": "Pipe__6.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Corridor/Pipe_6",
+  "vertices": 1274,
+  "triangles": 2328
+ },
+ {
+  "name": "Pipe__7",
+  "fbx": "Pipe__7.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Under/Pipe_4",
+  "vertices": 806,
+  "triangles": 1464
+ },
+ {
+  "name": "Pipe__8",
+  "fbx": "Pipe__8.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Entrance/Group/Pipe_13",
+  "vertices": 390,
+  "triangles": 696
+ },
+ {
+  "name": "Pipe__9",
+  "fbx": "Pipe__9.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Corridor/Pipe_7",
+  "vertices": 780,
+  "triangles": 1416
+ },
+ {
+  "name": "Pipe__10",
+  "fbx": "Pipe__10.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Workshop/Pipe_1",
+  "vertices": 169,
+  "triangles": 288
+ },
+ {
+  "name": "Pipe__11",
+  "fbx": "Pipe__11.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Corridor02/Pipe_4",
+  "vertices": 4940,
+  "triangles": 9096
+ },
+ {
+  "name": "Pipe__12",
+  "fbx": "Pipe__12.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Entrance/Group/Pipe_12",
+  "vertices": 403,
+  "triangles": 720
+ },
+ {
+  "name": "Pipe__13",
+  "fbx": "Pipe__13.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/GlassHouse/Pipe_5",
+  "vertices": 1157,
+  "triangles": 2112
+ },
+ {
+  "name": "Pipe__14",
+  "fbx": "Pipe__14.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WarehouseCenter/Pipe_3",
+  "vertices": 42,
+  "triangles": 40
+ },
+ {
+  "name": "Pipe__15",
+  "fbx": "Pipe__15.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Workshop/Pipe_3",
+  "vertices": 117,
+  "triangles": 192
+ },
+ {
+  "name": "Pipe__16",
+  "fbx": "Pipe__16.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Entrance/Group/Pipe_10",
+  "vertices": 520,
+  "triangles": 936
+ },
+ {
+  "name": "Pipe__17",
+  "fbx": "Pipe__17.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Entrance/Group/Pipe_9",
+  "vertices": 533,
+  "triangles": 960
+ },
+ {
+  "name": "Pipe__18",
+  "fbx": "Pipe__18.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WarehouseCenter/Pipe",
+  "vertices": 42,
+  "triangles": 40
+ },
+ {
+  "name": "Pipe__19",
+  "fbx": "Pipe__19.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Under/Pipe_5",
+  "vertices": 1430,
+  "triangles": 2616
+ },
+ {
+  "name": "Pipe__20",
+  "fbx": "Pipe__20.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Workshop/Pipe",
+  "vertices": 169,
+  "triangles": 288
+ },
+ {
+  "name": "Pipe__21",
+  "fbx": "Pipe__21.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WorkShopCorrider/Pipe_6",
+  "vertices": 1040,
+  "triangles": 1896
+ },
+ {
+  "name": "Pipe__22",
+  "fbx": "Pipe__22.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Entrance/Group/Pipe_11",
+  "vertices": 403,
+  "triangles": 720
+ },
+ {
+  "name": "Pipe__23",
+  "fbx": "Pipe__23.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ServerRoom_02/Pipe_7",
+  "vertices": 663,
+  "triangles": 1200
+ },
+ {
+  "name": "Pipe__24",
+  "fbx": "Pipe__24.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Top/Pipe_6",
+  "vertices": 1287,
+  "triangles": 2352
+ },
+ {
+  "name": "Pipe__25",
+  "fbx": "Pipe__25.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Entrance/Group/Pipe_15",
+  "vertices": 403,
+  "triangles": 720
+ },
+ {
+  "name": "Pipe__26",
+  "fbx": "Pipe__26.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Top/Pipe_5",
+  "vertices": 1404,
+  "triangles": 2568
+ },
+ {
+  "name": "Pipe__27",
+  "fbx": "Pipe__27.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ServerRoom_02/Pipe_6",
+  "vertices": 897,
+  "triangles": 1632
+ },
+ {
+  "name": "Pipe__28",
+  "fbx": "Pipe__28.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WarehouseCenter/Pipe_2",
+  "vertices": 42,
+  "triangles": 40
+ },
+ {
+  "name": "Prfb_Sundries",
+  "fbx": "Prfb_Sundries.fbx",
+  "placed_active": 23,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Prfb_Sundries_19",
+  "vertices": 850,
+  "triangles": 1032
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__31",
+  "fbx": "Pfb_JALB_WallPart2_Line__31.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Group/Pfb_JALB_WallPart2_Line_3",
+  "vertices": 12264,
+  "triangles": 8274
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__32",
+  "fbx": "Pfb_JALB_WallPart2_Line__32.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Group/Pfb_JALB_WallPart2_Line_7",
+  "vertices": 12264,
+  "triangles": 8274
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__33",
+  "fbx": "Pfb_JALB_WallPart2_Line__33.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Group/Pfb_JALB_WallPart2_Line",
+  "vertices": 2336,
+  "triangles": 1576
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__34",
+  "fbx": "Pfb_JALB_WallPart2_Line__34.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Group/Pfb_JALB_WallPart2_Line_4",
+  "vertices": 2336,
+  "triangles": 1576
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__35",
+  "fbx": "Pfb_JALB_WallPart2_Line__35.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Group/Pfb_JALB_WallPart2_Line_6",
+  "vertices": 2920,
+  "triangles": 1970
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__36",
+  "fbx": "Pfb_JALB_WallPart2_Line__36.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Group/Pfb_JALB_WallPart2_Line_5",
+  "vertices": 1752,
+  "triangles": 1182
+ },
+ {
+  "name": "Pfb_JALB_WallPart2__2",
+  "fbx": "Pfb_JALB_WallPart2__2.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Entrance/Group/Pfb_JALB_WallPart2 1",
+  "vertices": 584,
+  "triangles": 394
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__37",
+  "fbx": "Pfb_JALB_WallPart2_Line__37.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Group/Pfb_JALB_WallPart2_Line_1",
+  "vertices": 4088,
+  "triangles": 2758
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__38",
+  "fbx": "Pfb_JALB_WallPart2_Line__38.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Group/Pfb_JALB_WallPart2_Line_2",
+  "vertices": 1752,
+  "triangles": 1182
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__39",
+  "fbx": "Pfb_JALB_WallPart2_Line__39.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Pfb_JALB_WallPart2_Line_3",
+  "vertices": 2336,
+  "triangles": 1576
+ },
+ {
+  "name": "Pfb_Indoors_Books__13",
+  "fbx": "Pfb_Indoors_Books__13.fbx",
+  "placed_active": 7,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Pfb_Indoors_Books_03",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Pfb_Indoors_Books__14",
+  "fbx": "Pfb_Indoors_Books__14.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_05/Pfb_Indoors_Books_07",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Pfb_CoatHanger__2",
+  "fbx": "Pfb_CoatHanger__2.fbx",
+  "placed_active": 7,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_03/Pfb_CoatHanger_08",
+  "vertices": 442,
+  "triangles": 504
+ },
+ {
+  "name": "Pfb_CoatHanger__3",
+  "fbx": "Pfb_CoatHanger__3.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Entrance/Pfb_CoatHanger_09",
+  "vertices": 442,
+  "triangles": 504
+ },
+ {
+  "name": "Pfb_Soda_WarmKeeper",
+  "fbx": "Pfb_Soda_WarmKeeper.fbx",
+  "placed_active": 20,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Pfb_Soda_WarmKeeper_15",
+  "vertices": 1700,
+  "triangles": 1614
+ },
+ {
+  "name": "Pfb_Soda_WarmKeeper__2",
+  "fbx": "Pfb_Soda_WarmKeeper__2.fbx",
+  "placed_active": 8,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Green/Pfb_Soda_WarmKeeper_4",
+  "vertices": 1700,
+  "triangles": 1614
+ },
+ {
+  "name": "Pfb_Soda_WarmKeeper__3",
+  "fbx": "Pfb_Soda_WarmKeeper__3.fbx",
+  "placed_active": 5,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_03/Pfb_Soda_WarmKeeper",
+  "vertices": 1700,
+  "triangles": 1614
+ },
+ {
+  "name": "Pfb_Soda_WarmKeeper__4",
+  "fbx": "Pfb_Soda_WarmKeeper__4.fbx",
+  "placed_active": 5,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Pfb_Soda_WarmKeeper_5",
+  "vertices": 1700,
+  "triangles": 1614
+ },
+ {
+  "name": "Pfb_Computer__20",
+  "fbx": "Pfb_Computer__20.fbx",
+  "placed_active": 12,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office02/Pfb_Computer_01_11",
+  "vertices": 345,
+  "triangles": 320
+ },
+ {
+  "name": "Pfb_Computer__21",
+  "fbx": "Pfb_Computer__21.fbx",
+  "placed_active": 20,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_02/Pfb_Computer_01_12",
+  "vertices": 345,
+  "triangles": 320
+ },
+ {
+  "name": "Pfb_Computer__22",
+  "fbx": "Pfb_Computer__22.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Pfb_Computer_01_9",
+  "vertices": 345,
+  "triangles": 320
+ },
+ {
+  "name": "Pfb_Computer__23",
+  "fbx": "Pfb_Computer__23.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_Computer_01_10",
+  "vertices": 345,
+  "triangles": 320
+ },
+ {
+  "name": "Pfb_Box_GRP__12",
+  "fbx": "Pfb_Box_GRP__12.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_Box_GRP_03",
+  "vertices": 164,
+  "triangles": 216
+ },
+ {
+  "name": "Pfb_Box_GRP__13",
+  "fbx": "Pfb_Box_GRP__13.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Yellow/Pfb_Box_GRP_03",
+  "vertices": 164,
+  "triangles": 216
+ },
+ {
+  "name": "Pfb_Box_GRP__14",
+  "fbx": "Pfb_Box_GRP__14.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_02/Zone_01/Pfb_Box_GRP_03",
+  "vertices": 164,
+  "triangles": 216
+ },
+ {
+  "name": "Pfb_Box_GRP__15",
+  "fbx": "Pfb_Box_GRP__15.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/GreyCorrider/Pfb_Box_GRP_03",
+  "vertices": 164,
+  "triangles": 216
+ },
+ {
+  "name": "Pfb_Box_GRP__16",
+  "fbx": "Pfb_Box_GRP__16.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/Pfb_Box_GRP_05",
+  "vertices": 164,
+  "triangles": 216
+ },
+ {
+  "name": "Pfb_Box_GRP__17",
+  "fbx": "Pfb_Box_GRP__17.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Top/Pfb_Box_GRP_03",
+  "vertices": 164,
+  "triangles": 216
+ },
+ {
+  "name": "Pfb_Box_GRP__18",
+  "fbx": "Pfb_Box_GRP__18.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_Box_GRP_03",
+  "vertices": 164,
+  "triangles": 216
+ },
+ {
+  "name": "Pfb_WaterButts__4",
+  "fbx": "Pfb_WaterButts__4.fbx",
+  "placed_active": 9,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Yellow/Pfb_WaterButts_10",
+  "vertices": 128,
+  "triangles": 164
+ },
+ {
+  "name": "Pfb_WaterButts__5",
+  "fbx": "Pfb_WaterButts__5.fbx",
+  "placed_active": 5,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Top/Pfb_WaterButts_05",
+  "vertices": 128,
+  "triangles": 164
+ },
+ {
+  "name": "Pfb_Soda_Shelves_model02",
+  "fbx": "Pfb_Soda_Shelves_model02.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Top/Pfb_Soda_Shelves_model02_5",
+  "vertices": 880,
+  "triangles": 836
+ },
+ {
+  "name": "Pfb_FileCabient_L__4",
+  "fbx": "Pfb_FileCabient_L__4.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Env/Office_03/Pfb_FileCabient_L",
+  "vertices": 232,
+  "triangles": 224
+ },
+ {
+  "name": "Pfb_Indoors_Books__15",
+  "fbx": "Pfb_Indoors_Books__15.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Corrider_02/Pfb_Indoors_Books_7",
+  "vertices": 343,
+  "triangles": 192
+ },
+ {
+  "name": "Pfb_Indoors_Books__16",
+  "fbx": "Pfb_Indoors_Books__16.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_05/Pfb_Indoors_Books_7",
+  "vertices": 343,
+  "triangles": 192
+ },
+ {
+  "name": "Block32",
+  "fbx": "Block32.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Env/WarehouseCenter/Group/Block_Lab_F0(6)/Block32",
+  "vertices": 36,
+  "triangles": 18
+ },
+ {
+  "name": "Pfb_Soda_Instruments__3",
+  "fbx": "Pfb_Soda_Instruments__3.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Pfb_Soda_Instruments_04",
+  "vertices": 140,
+  "triangles": 90
+ },
+ {
+  "name": "Pfb_Canvas_Ground_2x4__4",
+  "fbx": "Pfb_Canvas_Ground_2x4__4.fbx",
+  "placed_active": 9,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office02/Pfb_Canvas_Ground_2x4_3",
+  "vertices": 24,
+  "triangles": 22
+ },
+ {
+  "name": "Pfb_Canvas_Ground_2x4__5",
+  "fbx": "Pfb_Canvas_Ground_2x4__5.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/Pfb_Canvas_Ground_2x4_6",
+  "vertices": 24,
+  "triangles": 22
+ },
+ {
+  "name": "Pfb_Canvas_Ground_2x4__6",
+  "fbx": "Pfb_Canvas_Ground_2x4__6.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_02/Pfb_Canvas_Ground_2x4_3",
+  "vertices": 24,
+  "triangles": 22
+ },
+ {
+  "name": "Pfb_Canvas_Ground_2x4__7",
+  "fbx": "Pfb_Canvas_Ground_2x4__7.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Yellow/Pfb_Canvas_Ground_2x4_3",
+  "vertices": 24,
+  "triangles": 22
+ },
+ {
+  "name": "OfficeFax01",
+  "fbx": "OfficeFax01.fbx",
+  "placed_active": 7,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Medical01/OfficeFax01",
+  "vertices": 628,
+  "triangles": 928
+ },
+ {
+  "name": "Pfb_Shelf",
+  "fbx": "Pfb_Shelf.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_03/Pfb_Shelf_01_3",
+  "vertices": 1632,
+  "triangles": 1072
+ },
+ {
+  "name": "Pfb_Roadblock__3",
+  "fbx": "Pfb_Roadblock__3.fbx",
+  "placed_active": 5,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Workshop/Pfb_Roadblock_8",
+  "vertices": 95,
+  "triangles": 92
+ },
+ {
+  "name": "Pfb_Water_bear__2",
+  "fbx": "Pfb_Water_bear__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_03/Pfb_Water_bear",
+  "vertices": 3833,
+  "triangles": 6998
+ },
+ {
+  "name": "Pfb_Soda_Prison__2",
+  "fbx": "Pfb_Soda_Prison__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 1,
+  "example_source_path": "Env/Boss/Pfb_Soda_Prison_04",
+  "vertices": 40,
+  "triangles": 26
+ },
+ {
+  "name": "OfficeTrashCan01",
+  "fbx": "OfficeTrashCan01.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_02/Zone_01/OfficeTrashCan01",
+  "vertices": 319,
+  "triangles": 436
+ },
+ {
+  "name": "OfficeTrashCan01__2",
+  "fbx": "OfficeTrashCan01__2.fbx",
+  "placed_active": 9,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_02/Zone_02/OfficeTrashCan01_2",
+  "vertices": 319,
+  "triangles": 436
+ },
+ {
+  "name": "Prfb_Suitcase__2",
+  "fbx": "Prfb_Suitcase__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/SuitCase/LootBox_Suitcase_08/Prfb_Suitcase_01",
+  "vertices": 1257,
+  "triangles": 1212
+ },
+ {
+  "name": "Pfb_Flowerpot",
+  "fbx": "Pfb_Flowerpot.fbx",
+  "placed_active": 21,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Entrance/Pfb_Flowerpot_11",
+  "vertices": 792,
+  "triangles": 804
+ },
+ {
+  "name": "OfficeWaterDispenser01",
+  "fbx": "OfficeWaterDispenser01.fbx",
+  "placed_active": 15,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Entrance/OfficeWaterDispenser01",
+  "vertices": 670,
+  "triangles": 974
+ },
+ {
+  "name": "Prfb_Safe__6",
+  "fbx": "Prfb_Safe__6.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Lux/LootBox_Lux_5/Prfb_Safe_01",
+  "vertices": 762,
+  "triangles": 712
+ },
+ {
+  "name": "OfficeDeskSet02__10",
+  "fbx": "OfficeDeskSet02__10.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/OfficeDeskSet02_9",
+  "vertices": 970,
+  "triangles": 940
+ },
+ {
+  "name": "Pfb_JLABContainer__2",
+  "fbx": "Pfb_JLABContainer__2.fbx",
+  "placed_active": 18,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_JLABContainer_12",
+  "vertices": 3389,
+  "triangles": 2214
+ },
+ {
+  "name": "Pfb_JLABContainer__3",
+  "fbx": "Pfb_JLABContainer__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Top/Pfb_JLABContainer_08",
+  "vertices": 3389,
+  "triangles": 2214
+ },
+ {
+  "name": "SM_Cabinet__9",
+  "fbx": "SM_Cabinet__9.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_01/SM_Cabinet_01_05/SM_Cabinet_01_04_02",
+  "vertices": 88,
+  "triangles": 52
+ },
+ {
+  "name": "Prfb_Hangclothes__4",
+  "fbx": "Prfb_Hangclothes__4.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "LevelElements/JLab_01_LootBox/Clothes/LootBox_Hangclothes_01_10/Prfb_Hangclothes_01_3",
+  "vertices": 164,
+  "triangles": 198
+ },
+ {
+  "name": "Pfb_Soda_ExhaustSystem1__5",
+  "fbx": "Pfb_Soda_ExhaustSystem1__5.fbx",
+  "placed_active": 41,
+  "placed_inactive": 0,
+  "example_source_path": "Env/OfficeOut2/Pfb_Soda_ExhaustSystem1_18",
+  "vertices": 48,
+  "triangles": 24
+ },
+ {
+  "name": "Pfb_Indoors_Books__17",
+  "fbx": "Pfb_Indoors_Books__17.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_05/Pfb_Indoors_Books_08",
+  "vertices": 96,
+  "triangles": 60
+ },
+ {
+  "name": "Pfb_Indoors_Books__18",
+  "fbx": "Pfb_Indoors_Books__18.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Corrider_02/Pfb_Indoors_Books_08",
+  "vertices": 96,
+  "triangles": 60
+ },
+ {
+  "name": "Pfb_Soda_RollingShutterDoor",
+  "fbx": "Pfb_Soda_RollingShutterDoor.fbx",
+  "placed_active": 1,
+  "placed_inactive": 1,
+  "example_source_path": "Env/Boss/Pfb_Soda_RollingShutterDoor_01_3",
+  "vertices": 262,
+  "triangles": 172
+ },
+ {
+  "name": "Pfb_Canteen_01_03_Table1",
+  "fbx": "Pfb_Canteen_01_03_Table1.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Green/Pfb_Canteen_01_03_Table1_2",
+  "vertices": 428,
+  "triangles": 432
+ },
+ {
+  "name": "Pfb_Soda_RollingShutterDoor__2",
+  "fbx": "Pfb_Soda_RollingShutterDoor__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 1,
+  "example_source_path": "Env/Boss/Pfb_Soda_RollingShutterDoor_01_4",
+  "vertices": 704,
+  "triangles": 704
+ },
+ {
+  "name": "Pfb_Indoors_WC__4",
+  "fbx": "Pfb_Indoors_WC__4.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WC01/Pfb_Indoors_WC_6",
+  "vertices": 721,
+  "triangles": 809
+ },
+ {
+  "name": "SM_PaperBox__6",
+  "fbx": "SM_PaperBox__6.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/SM_PaperBox_01_1",
+  "vertices": 102,
+  "triangles": 68
+ },
+ {
+  "name": "SM_PaperBox__7",
+  "fbx": "SM_PaperBox__7.fbx",
+  "placed_active": 5,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Water_01/SM_PaperBox_01_1",
+  "vertices": 102,
+  "triangles": 68
+ },
+ {
+  "name": "Pfb_FileCabient_L1",
+  "fbx": "Pfb_FileCabient_L1.fbx",
+  "placed_active": 84,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Green/Pfb_FileCabient_L1_49",
+  "vertices": 2600,
+  "triangles": 2220
+ },
+ {
+  "name": "Pfb_FileCabient_L1__2",
+  "fbx": "Pfb_FileCabient_L1__2.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_02/Zone_02/Pfb_FileCabient_L1",
+  "vertices": 2600,
+  "triangles": 2220
+ },
+ {
+  "name": "Pfb_FileCabient_L1__3",
+  "fbx": "Pfb_FileCabient_L1__3.fbx",
+  "placed_active": 14,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/Pfb_FileCabient_L1",
+  "vertices": 2600,
+  "triangles": 2220
+ },
+ {
+  "name": "Pfb_FileCabient_L1__4",
+  "fbx": "Pfb_FileCabient_L1__4.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Medical01/Pfb_FileCabient_L1",
+  "vertices": 2600,
+  "triangles": 2220
+ },
+ {
+  "name": "SM_GeneratorBox",
+  "fbx": "SM_GeneratorBox.fbx",
+  "placed_active": 9,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WarehouseCenter/Group/SM_GeneratorBox",
+  "vertices": 300,
+  "triangles": 226
+ },
+ {
+  "name": "Pfb_MetalBoard__10",
+  "fbx": "Pfb_MetalBoard__10.fbx",
+  "placed_active": 5,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WorkShopCorrider/Pfb_MetalBoard_01_2",
+  "vertices": 93,
+  "triangles": 84
+ },
+ {
+  "name": "Pfb_MetalBoard__11",
+  "fbx": "Pfb_MetalBoard__11.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Water_01/Pfb_MetalBoard_01_2",
+  "vertices": 93,
+  "triangles": 84
+ },
+ {
+  "name": "Wall_Ornament__7",
+  "fbx": "Wall_Ornament__7.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Wall_Ornament 16_1",
+  "vertices": 48,
+  "triangles": 32
+ },
+ {
+  "name": "Pfb_Indoors_Bedroom_Besidetable",
+  "fbx": "Pfb_Indoors_Bedroom_Besidetable.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_Indoors_Bedroom_Besidetable_01",
+  "vertices": 28,
+  "triangles": 18
+ },
+ {
+  "name": "SM_GeneratorBox__2",
+  "fbx": "SM_GeneratorBox__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "TeleportBeacon/Visual/SM_GeneratorBox",
+  "vertices": 300,
+  "triangles": 226
+ },
+ {
+  "name": "Pfb_Soda_Instruments__4",
+  "fbx": "Pfb_Soda_Instruments__4.fbx",
+  "placed_active": 10,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Pfb_Soda_Instruments_13",
+  "vertices": 74,
+  "triangles": 52
+ },
+ {
+  "name": "Pfb_Soda_Instruments__5",
+  "fbx": "Pfb_Soda_Instruments__5.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Top/Pfb_Soda_Instruments_03",
+  "vertices": 74,
+  "triangles": 52
+ },
+ {
+  "name": "Pfb_JLABContainer__4",
+  "fbx": "Pfb_JLABContainer__4.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_JLABContainer_01",
+  "vertices": 1512,
+  "triangles": 1160
+ },
+ {
+  "name": "OfficePartition01__2",
+  "fbx": "OfficePartition01__2.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Medical01/OfficePartition01_5",
+  "vertices": 624,
+  "triangles": 716
+ },
+ {
+  "name": "OfficePartition01__3",
+  "fbx": "OfficePartition01__3.fbx",
+  "placed_active": 73,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/OfficePartition01_2 1_15",
+  "vertices": 624,
+  "triangles": 716
+ },
+ {
+  "name": "Pfb_Computer__24",
+  "fbx": "Pfb_Computer__24.fbx",
+  "placed_active": 39,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Pfb_Computer_01_3_4",
+  "vertices": 564,
+  "triangles": 282
+ },
+ {
+  "name": "Pfb_Computer__25",
+  "fbx": "Pfb_Computer__25.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_03/Pfb_Computer_01_3_20",
+  "vertices": 564,
+  "triangles": 282
+ },
+ {
+  "name": "Pfb_Indoors_WC__5",
+  "fbx": "Pfb_Indoors_WC__5.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WC01/Pfb_Indoors_WC_5",
+  "vertices": 270,
+  "triangles": 210
+ },
+ {
+  "name": "Pfb_Sofa",
+  "fbx": "Pfb_Sofa.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_Sofa_1",
+  "vertices": 432,
+  "triangles": 528
+ },
+ {
+  "name": "Pfb_Sofa__2",
+  "fbx": "Pfb_Sofa__2.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ProjectionRoom/Group/Pfb_Sofa_1",
+  "vertices": 432,
+  "triangles": 528
+ },
+ {
+  "name": "Pfb_Sofa__3",
+  "fbx": "Pfb_Sofa__3.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Entrance/Pfb_Sofa_13",
+  "vertices": 432,
+  "triangles": 528
+ },
+ {
+  "name": "Pfb_Box_GRP__19",
+  "fbx": "Pfb_Box_GRP__19.fbx",
+  "placed_active": 11,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_02/Zone_01/Pfb_Box_GRP_07",
+  "vertices": 60,
+  "triangles": 66
+ },
+ {
+  "name": "Pfb_Box_GRP__20",
+  "fbx": "Pfb_Box_GRP__20.fbx",
+  "placed_active": 8,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_Box_GRP_07",
+  "vertices": 60,
+  "triangles": 66
+ },
+ {
+  "name": "Pfb_Box_GRP__21",
+  "fbx": "Pfb_Box_GRP__21.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ServerRoom_02/Pfb_Box_GRP_07",
+  "vertices": 60,
+  "triangles": 66
+ },
+ {
+  "name": "Pfb_Box_GRP__22",
+  "fbx": "Pfb_Box_GRP__22.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Top/Pfb_Box_GRP_12",
+  "vertices": 60,
+  "triangles": 66
+ },
+ {
+  "name": "Pfb_Box_GRP__23",
+  "fbx": "Pfb_Box_GRP__23.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Top/Pfb_Box_GRP_07",
+  "vertices": 60,
+  "triangles": 66
+ },
+ {
+  "name": "Pfb_Roadblock__4",
+  "fbx": "Pfb_Roadblock__4.fbx",
+  "placed_active": 5,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Under/Pfb_Roadblock_4",
+  "vertices": 160,
+  "triangles": 80
+ },
+ {
+  "name": "Block42",
+  "fbx": "Block42.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Env/WarehouseCenter/Group/Block_Lab_F0(6)/Block42",
+  "vertices": 20,
+  "triangles": 10
+ },
+ {
+  "name": "SM_Ammeter",
+  "fbx": "SM_Ammeter.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Yellow/SM_Ammeter_01_02",
+  "vertices": 96,
+  "triangles": 64
+ },
+ {
+  "name": "Pfb_Table_03_1_JLAB",
+  "fbx": "Pfb_Table_03_1_JLAB.fbx",
+  "placed_active": 17,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_Table_03_1_JLAB_3",
+  "vertices": 936,
+  "triangles": 596
+ },
+ {
+  "name": "Pfb_Table_03_1_JLAB__2",
+  "fbx": "Pfb_Table_03_1_JLAB__2.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_04/Pfb_Table_03_1_JLAB_6",
+  "vertices": 936,
+  "triangles": 596
+ },
+ {
+  "name": "Pfb_Table_03_1_JLAB_Temp",
+  "fbx": "Pfb_Table_03_1_JLAB_Temp.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_Table_03_1_JLAB_Temp_2",
+  "vertices": 936,
+  "triangles": 596
+ },
+ {
+  "name": "Pfb_Table_03_1_JLAB_Temp__2",
+  "fbx": "Pfb_Table_03_1_JLAB_Temp__2.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_01/Pfb_Table_03_1_JLAB_Temp_1",
+  "vertices": 936,
+  "triangles": 596
+ },
+ {
+  "name": "Pfb_ElectricControlBox__7",
+  "fbx": "Pfb_ElectricControlBox__7.fbx",
+  "placed_active": 19,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ElectricTop/Pfb_ElectricControlBox_149",
+  "vertices": 694,
+  "triangles": 572
+ },
+ {
+  "name": "Pfb_FileCabient_S3",
+  "fbx": "Pfb_FileCabient_S3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_02/Pfb_FileCabient_S3",
+  "vertices": 1336,
+  "triangles": 1132
+ },
+ {
+  "name": "Sterilizer",
+  "fbx": "Sterilizer.fbx",
+  "placed_active": 5,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Sterilizer_04",
+  "vertices": 432,
+  "triangles": 256
+ },
+ {
+  "name": "Pfb_JALB_WallPart",
+  "fbx": "Pfb_JALB_WallPart.fbx",
+  "placed_active": 8,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Group/Pfb_JALB_WallPart_3",
+  "vertices": 112,
+  "triangles": 88
+ },
+ {
+  "name": "Pfb_Soda_Prison__3",
+  "fbx": "Pfb_Soda_Prison__3.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Pfb_Soda_Prison_12",
+  "vertices": 520,
+  "triangles": 292
+ },
+ {
+  "name": "Pfb_JLAB_Folder",
+  "fbx": "Pfb_JLAB_Folder.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_JLAB_Folder_02",
+  "vertices": 142,
+  "triangles": 92
+ },
+ {
+  "name": "Pfb_Shelf__2",
+  "fbx": "Pfb_Shelf__2.fbx",
+  "placed_active": 21,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Under/Pfb_Shelf_01_3",
+  "vertices": 1264,
+  "triangles": 828
+ },
+ {
+  "name": "Pfb_Fence__2",
+  "fbx": "Pfb_Fence__2.fbx",
+  "placed_active": 131,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Fence/BarbedWire_Line_5/Pfb_Fence_3_1",
+  "vertices": 468,
+  "triangles": 596
+ },
+ {
+  "name": "Pfb_Fence__3",
+  "fbx": "Pfb_Fence__3.fbx",
+  "placed_active": 10,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ElectricTop/Pfb_Fence_3_2",
+  "vertices": 468,
+  "triangles": 596
+ },
+ {
+  "name": "Pfb_Garbage__2",
+  "fbx": "Pfb_Garbage__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WarehouseCenter/Pfb_Garbage_01_10",
+  "vertices": 504,
+  "triangles": 302
+ },
+ {
+  "name": "Pfb_JLAB_Cosmetic_Combine",
+  "fbx": "Pfb_JLAB_Cosmetic_Combine.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/Pfb_JLAB_Cosmetic_Combine_01",
+  "vertices": 2478,
+  "triangles": 2836
+ },
+ {
+  "name": "Pfb_JLAB_Box__4",
+  "fbx": "Pfb_JLAB_Box__4.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/Pfb_JLAB_Box_04",
+  "vertices": 112,
+  "triangles": 60
+ },
+ {
+  "name": "Pfb_Canvas_Ground_2x4__8",
+  "fbx": "Pfb_Canvas_Ground_2x4__8.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_02/Zone_01/Pfb_Canvas_Ground_2x4_2",
+  "vertices": 15,
+  "triangles": 13
+ },
+ {
+  "name": "Pfb_Canvas_Ground_2x4__9",
+  "fbx": "Pfb_Canvas_Ground_2x4__9.fbx",
+  "placed_active": 8,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/Pfb_Canvas_Ground_2x4_5",
+  "vertices": 15,
+  "triangles": 13
+ },
+ {
+  "name": "Pfb_Canvas_Ground_2x4__10",
+  "fbx": "Pfb_Canvas_Ground_2x4__10.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Corridor02/Pfb_Canvas_Ground_2x4_4",
+  "vertices": 15,
+  "triangles": 13
+ },
+ {
+  "name": "Pfb_Canvas_Ground_2x4__11",
+  "fbx": "Pfb_Canvas_Ground_2x4__11.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Yellow/Pfb_Canvas_Ground_2x4_4",
+  "vertices": 15,
+  "triangles": 13
+ },
+ {
+  "name": "Pfb_Canvas_Ground_2x4__12",
+  "fbx": "Pfb_Canvas_Ground_2x4__12.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Corridor/Pfb_Canvas_Ground_2x4_2",
+  "vertices": 15,
+  "triangles": 13
+ },
+ {
+  "name": "OfficeDeskSet02__11",
+  "fbx": "OfficeDeskSet02__11.fbx",
+  "placed_active": 15,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Entrance/OfficeDeskSet02_6",
+  "vertices": 681,
+  "triangles": 588
+ },
+ {
+  "name": "Pfb_JLAB_Hemodialysis_Machine",
+  "fbx": "Pfb_JLAB_Hemodialysis_Machine.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/Pfb_JLAB_Hemodialysis_Machine_01",
+  "vertices": 2470,
+  "triangles": 2916
+ },
+ {
+  "name": "Pfb_RoadblockGRP",
+  "fbx": "Pfb_RoadblockGRP.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Workshop/Pfb_RoadblockGRP_3",
+  "vertices": 356,
+  "triangles": 306
+ },
+ {
+  "name": "Pfb_MetalBoard__12",
+  "fbx": "Pfb_MetalBoard__12.fbx",
+  "placed_active": 21,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Yellow/Pfb_MetalBoard_01_04",
+  "vertices": 28,
+  "triangles": 16
+ },
+ {
+  "name": "OfficeCabinet01",
+  "fbx": "OfficeCabinet01.fbx",
+  "placed_active": 30,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_03/OfficeCabinet01_1",
+  "vertices": 384,
+  "triangles": 396
+ },
+ {
+  "name": "Pfb_Server__6",
+  "fbx": "Pfb_Server__6.fbx",
+  "placed_active": 0,
+  "placed_inactive": 4,
+  "example_source_path": "Env/Center_01/Group/Pfb_Server_5",
+  "vertices": 176,
+  "triangles": 220
+ },
+ {
+  "name": "Pfb_Fence__4",
+  "fbx": "Pfb_Fence__4.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Pfb_Fence_2_11",
+  "vertices": 128,
+  "triangles": 132
+ },
+ {
+  "name": "Pfb_MetalBoard__13",
+  "fbx": "Pfb_MetalBoard__13.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Workshop/Pfb_MetalBoard_01_15",
+  "vertices": 124,
+  "triangles": 118
+ },
+ {
+  "name": "Pfb_MetalBoard__14",
+  "fbx": "Pfb_MetalBoard__14.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Workshop/Pfb_MetalBoard_01_6",
+  "vertices": 124,
+  "triangles": 118
+ },
+ {
+  "name": "Pfb_MetalBoard__15",
+  "fbx": "Pfb_MetalBoard__15.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Workshop/Pfb_MetalBoard_01_9",
+  "vertices": 124,
+  "triangles": 118
+ },
+ {
+  "name": "Pfb_Indoors_Books__19",
+  "fbx": "Pfb_Indoors_Books__19.fbx",
+  "placed_active": 7,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_05/Pfb_Indoors_Books_01",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Pfb_Indoors_Books__20",
+  "fbx": "Pfb_Indoors_Books__20.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_Indoors_Books_01",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Pfb_ElectricControlBox__8",
+  "fbx": "Pfb_ElectricControlBox__8.fbx",
+  "placed_active": 32,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ElectricTop/Pfb_ElectricControlBox_240",
+  "vertices": 720,
+  "triangles": 573
+ },
+ {
+  "name": "Pfb_Flowerpot__2",
+  "fbx": "Pfb_Flowerpot__2.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_Flowerpot_11",
+  "vertices": 494,
+  "triangles": 482
+ },
+ {
+  "name": "OfficeWhiteBoard01",
+  "fbx": "OfficeWhiteBoard01.fbx",
+  "placed_active": 5,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ServerRoom_02/OfficeWhiteBoard01_3",
+  "vertices": 108,
+  "triangles": 60
+ },
+ {
+  "name": "Pfb_SideRoadMoulder",
+  "fbx": "Pfb_SideRoadMoulder.fbx",
+  "placed_active": 5,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_SideRoadMoulder_01",
+  "vertices": 56,
+  "triangles": 66
+ },
+ {
+  "name": "Pfb_SideRoadMoulder__2",
+  "fbx": "Pfb_SideRoadMoulder__2.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Entrance/Pfb_SideRoadMoulder_01",
+  "vertices": 56,
+  "triangles": 66
+ },
+ {
+  "name": "OfficeCabinet01__2",
+  "fbx": "OfficeCabinet01__2.fbx",
+  "placed_active": 36,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_02/Zone_02/OfficeCabinet01_7",
+  "vertices": 653,
+  "triangles": 668
+ },
+ {
+  "name": "OfficeCabinet01__3",
+  "fbx": "OfficeCabinet01__3.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office02/OfficeCabinet01_4",
+  "vertices": 653,
+  "triangles": 668
+ },
+ {
+  "name": "Pfb_Door__2",
+  "fbx": "Pfb_Door__2.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_Door_06_1",
+  "vertices": 216,
+  "triangles": 108
+ },
+ {
+  "name": "Pfb_Door__3",
+  "fbx": "Pfb_Door__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/Group/Pfb_Door_06_2",
+  "vertices": 216,
+  "triangles": 108
+ },
+ {
+  "name": "Pfb_Chair__11",
+  "fbx": "Pfb_Chair__11.fbx",
+  "placed_active": 12,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_03/Pfb_Chair_01_38",
+  "vertices": 975,
+  "triangles": 845
+ },
+ {
+  "name": "Prfb_Canteen_01_01_Seat1",
+  "fbx": "Prfb_Canteen_01_01_Seat1.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/Prfb_Canteen_01_01_Seat1_1",
+  "vertices": 92,
+  "triangles": 68
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__40",
+  "fbx": "Pfb_JALB_WallPart2_Line__40.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/GreyCorrider/Pfb_JALB_WallPart2_Line_26",
+  "vertices": 80,
+  "triangles": 40
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__41",
+  "fbx": "Pfb_JALB_WallPart2_Line__41.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/GreyCorrider/Pfb_JALB_WallPart2_Line_25",
+  "vertices": 96,
+  "triangles": 48
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__42",
+  "fbx": "Pfb_JALB_WallPart2_Line__42.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/GreyCorrider/Pfb_JALB_WallPart2_Line_23",
+  "vertices": 144,
+  "triangles": 72
+ },
+ {
+  "name": "Pfb_JLABWall03",
+  "fbx": "Pfb_JLABWall03.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/GreyCorrider/Pfb_JLABWall03",
+  "vertices": 16,
+  "triangles": 8
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__43",
+  "fbx": "Pfb_JALB_WallPart2_Line__43.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/GreyCorrider/Pfb_JALB_WallPart2_Line_27",
+  "vertices": 48,
+  "triangles": 24
+ },
+ {
+  "name": "Pfb_JALB_WallPart2_Line__44",
+  "fbx": "Pfb_JALB_WallPart2_Line__44.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/GreyCorrider/Pfb_JALB_WallPart2_Line_24",
+  "vertices": 48,
+  "triangles": 24
+ },
+ {
+  "name": "Pfb_Desk",
+  "fbx": "Pfb_Desk.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WarehouseCenter/Group/Pfb_Desk_01_2",
+  "vertices": 480,
+  "triangles": 380
+ },
+ {
+  "name": "Pfb_FileCabient_S2",
+  "fbx": "Pfb_FileCabient_S2.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Pfb_FileCabient_S2",
+  "vertices": 1336,
+  "triangles": 1132
+ },
+ {
+  "name": "Pfb_Soda_ExhaustSystem1__6",
+  "fbx": "Pfb_Soda_ExhaustSystem1__6.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/OfficeOut2/Pfb_Soda_ExhaustSystem1_07",
+  "vertices": 224,
+  "triangles": 112
+ },
+ {
+  "name": "Pfb_Indoors_Books__21",
+  "fbx": "Pfb_Indoors_Books__21.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_03/Pfb_Indoors_Books_11",
+  "vertices": 470,
+  "triangles": 284
+ },
+ {
+  "name": "Pfb_Canvas_Ground_2x2__8",
+  "fbx": "Pfb_Canvas_Ground_2x2__8.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Top/Pfb_Canvas_Ground_2x2_7",
+  "vertices": 15,
+  "triangles": 13
+ },
+ {
+  "name": "Pfb_Canvas_Ground_2x2__9",
+  "fbx": "Pfb_Canvas_Ground_2x2__9.fbx",
+  "placed_active": 9,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/Pfb_Canvas_Ground_2x2_7",
+  "vertices": 15,
+  "triangles": 13
+ },
+ {
+  "name": "Pfb_Canvas_Ground_2x2__10",
+  "fbx": "Pfb_Canvas_Ground_2x2__10.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/Pfb_Canvas_Ground_2x2_9",
+  "vertices": 15,
+  "triangles": 13
+ },
+ {
+  "name": "Pfb_Canvas_Ground_2x2__11",
+  "fbx": "Pfb_Canvas_Ground_2x2__11.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/Pfb_Canvas_Ground_2x2_8",
+  "vertices": 15,
+  "triangles": 13
+ },
+ {
+  "name": "Pfb_JLAB_Bottle__4",
+  "fbx": "Pfb_JLAB_Bottle__4.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/GreyCorrider/Pfb_JLAB_Bottle_10",
+  "vertices": 159,
+  "triangles": 154
+ },
+ {
+  "name": "Pfb_Indoors_Books__22",
+  "fbx": "Pfb_Indoors_Books__22.fbx",
+  "placed_active": 5,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_05/Pfb_Indoors_Books_04",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Pfb_Indoors_Books__23",
+  "fbx": "Pfb_Indoors_Books__23.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_Indoors_Books_05",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Pfb_Sofa__4",
+  "fbx": "Pfb_Sofa__4.fbx",
+  "placed_active": 13,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Entrance/Pfb_Sofa_5",
+  "vertices": 586,
+  "triangles": 712
+ },
+ {
+  "name": "Pfb_Sofa__5",
+  "fbx": "Pfb_Sofa__5.fbx",
+  "placed_active": 14,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_Sofa_10",
+  "vertices": 586,
+  "triangles": 712
+ },
+ {
+  "name": "Pfb_Sofa__6",
+  "fbx": "Pfb_Sofa__6.fbx",
+  "placed_active": 8,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/Pfb_Sofa_9",
+  "vertices": 586,
+  "triangles": 712
+ },
+ {
+  "name": "Pfb_Sofa__7",
+  "fbx": "Pfb_Sofa__7.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_03/Pfb_Sofa_4",
+  "vertices": 586,
+  "triangles": 712
+ },
+ {
+  "name": "Pfb_Sofa__8",
+  "fbx": "Pfb_Sofa__8.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WaterOffice_02/Pfb_Sofa_2",
+  "vertices": 586,
+  "triangles": 712
+ },
+ {
+  "name": "Pfb_Sofa__9",
+  "fbx": "Pfb_Sofa__9.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ProjectionRoom/Group/Pfb_Sofa_3",
+  "vertices": 586,
+  "triangles": 712
+ },
+ {
+  "name": "Block34",
+  "fbx": "Block34.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Env/WarehouseCenter/Group/Block_Lab_F0(6)/Block34",
+  "vertices": 45,
+  "triangles": 23
+ },
+ {
+  "name": "Pfb_Garbage__3",
+  "fbx": "Pfb_Garbage__3.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WarehouseCenter/Group/Pfb_Garbage_01_8",
+  "vertices": 443,
+  "triangles": 277
+ },
+ {
+  "name": "Pfb_PlasticPallet__7",
+  "fbx": "Pfb_PlasticPallet__7.fbx",
+  "placed_active": 34,
+  "placed_inactive": 0,
+  "example_source_path": "Env/OfficeOut2/Pfb_PlasticPallet_01_08",
+  "vertices": 984,
+  "triangles": 652
+ },
+ {
+  "name": "Pfb_PlasticPallet__8",
+  "fbx": "Pfb_PlasticPallet__8.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_02/Zone_01/Pfb_PlasticPallet_01_04",
+  "vertices": 984,
+  "triangles": 652
+ },
+ {
+  "name": "Pfb_PaperBox__25",
+  "fbx": "Pfb_PaperBox__25.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_PaperBox_01_19",
+  "vertices": 124,
+  "triangles": 100
+ },
+ {
+  "name": "OfficeDeskSet02__12",
+  "fbx": "OfficeDeskSet02__12.fbx",
+  "placed_active": 7,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Entrance/OfficeDeskSet02_09",
+  "vertices": 352,
+  "triangles": 200
+ },
+ {
+  "name": "Pfb_Ventilation_Soda2",
+  "fbx": "Pfb_Ventilation_Soda2.fbx",
+  "placed_active": 11,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Pfb_Ventilation_Soda2_4",
+  "vertices": 488,
+  "triangles": 278
+ },
+ {
+  "name": "OfficeDeskSet02__13",
+  "fbx": "OfficeDeskSet02__13.fbx",
+  "placed_active": 7,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office02/OfficeDeskSet02_9",
+  "vertices": 1164,
+  "triangles": 1128
+ },
+ {
+  "name": "Pfb_JLAB_Mask_Box__2",
+  "fbx": "Pfb_JLAB_Mask_Box__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/Pfb_JLAB_Mask_Box_02",
+  "vertices": 144,
+  "triangles": 76
+ },
+ {
+  "name": "Pfb_SteelFrame__3",
+  "fbx": "Pfb_SteelFrame__3.fbx",
+  "placed_active": 54,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Water_01/Group/Pfb_SteelFrame_01_33",
+  "vertices": 48,
+  "triangles": 28
+ },
+ {
+  "name": "OfficeWhiteBoard01__2",
+  "fbx": "OfficeWhiteBoard01__2.fbx",
+  "placed_active": 30,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_02/Zone_02/OfficeWhiteBoard01_1",
+  "vertices": 792,
+  "triangles": 664
+ },
+ {
+  "name": "Pfb_JLAB_Infusion_Pumo",
+  "fbx": "Pfb_JLAB_Infusion_Pumo.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/Pfb_JLAB_Infusion_Pumo_03",
+  "vertices": 2379,
+  "triangles": 2720
+ },
+ {
+  "name": "Pfb_Door__4",
+  "fbx": "Pfb_Door__4.fbx",
+  "placed_active": 1,
+  "placed_inactive": 1,
+  "example_source_path": "Env/Hall_01/Glass_House/Pfb_Door_06",
+  "vertices": 216,
+  "triangles": 108
+ },
+ {
+  "name": "Pfb_ElectricBox__4",
+  "fbx": "Pfb_ElectricBox__4.fbx",
+  "placed_active": 5,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/Pfb_ElectricBox_02_4",
+  "vertices": 424,
+  "triangles": 294
+ },
+ {
+  "name": "Pfb_Soda_Instruments__6",
+  "fbx": "Pfb_Soda_Instruments__6.fbx",
+  "placed_active": 9,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Pfb_Soda_Instruments_34",
+  "vertices": 161,
+  "triangles": 142
+ },
+ {
+  "name": "Pfb_PaperBox__26",
+  "fbx": "Pfb_PaperBox__26.fbx",
+  "placed_active": 19,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_05/Pfb_PaperBox_01_52",
+  "vertices": 114,
+  "triangles": 76
+ },
+ {
+  "name": "Pfb_PaperBox__27",
+  "fbx": "Pfb_PaperBox__27.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_PaperBox_01_53",
+  "vertices": 114,
+  "triangles": 76
+ },
+ {
+  "name": "Pfb_ElectricControlBox__9",
+  "fbx": "Pfb_ElectricControlBox__9.fbx",
+  "placed_active": 26,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ElectricTop/Pfb_ElectricControlBox_95",
+  "vertices": 344,
+  "triangles": 260
+ },
+ {
+  "name": "OfficeProjectionScreen01",
+  "fbx": "OfficeProjectionScreen01.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ProjectionRoom/Group/OfficeProjectionScreen01",
+  "vertices": 372,
+  "triangles": 536
+ },
+ {
+  "name": "SM_PaperBox__8",
+  "fbx": "SM_PaperBox__8.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WaterOffice_02/SM_PaperBox_01_4",
+  "vertices": 32,
+  "triangles": 20
+ },
+ {
+  "name": "Pfb_MetalBoard__16",
+  "fbx": "Pfb_MetalBoard__16.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Workshop/Pfb_MetalBoard_01_7",
+  "vertices": 42,
+  "triangles": 32
+ },
+ {
+  "name": "SM_Cabinet__10",
+  "fbx": "SM_Cabinet__10.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office02/SM_Cabinet_02_04/SM_Cabinet_02_04_02",
+  "vertices": 68,
+  "triangles": 38
+ },
+ {
+  "name": "OfficeBox01__4",
+  "fbx": "OfficeBox01__4.fbx",
+  "placed_active": 25,
+  "placed_inactive": 0,
+  "example_source_path": "Env/WaterOffice_02/OfficeBox01_5",
+  "vertices": 172,
+  "triangles": 140
+ },
+ {
+  "name": "PipeRing",
+  "fbx": "PipeRing.fbx",
+  "placed_active": 41,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Water_01/Group/PipeRing_13",
+  "vertices": 50,
+  "triangles": 48
+ },
+ {
+  "name": "PipeRing__2",
+  "fbx": "PipeRing__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Yellow/PipeRing",
+  "vertices": 50,
+  "triangles": 48
+ },
+ {
+  "name": "Block57",
+  "fbx": "Block57.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Env/WarehouseCenter/Group/Block_Lab_F0(6)/Block57",
+  "vertices": 4,
+  "triangles": 2
+ },
+ {
+  "name": "Block_Wall_Ceiling",
+  "fbx": "Block_Wall_Ceiling.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Env/WarehouseCenter/Group/Block_Lab_F0(6)/Block_Wall_Ceiling",
+  "vertices": 303,
+  "triangles": 285
+ },
+ {
+  "name": "Pfb_PaperBox__28",
+  "fbx": "Pfb_PaperBox__28.fbx",
+  "placed_active": 7,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Top/Pfb_PaperBox_01_6 1",
+  "vertices": 120,
+  "triangles": 60
+ },
+ {
+  "name": "Pfb_PaperBox__29",
+  "fbx": "Pfb_PaperBox__29.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_02/Zone_02/Pfb_PaperBox_01_6 1",
+  "vertices": 120,
+  "triangles": 60
+ },
+ {
+  "name": "Pfb_PaperBox__30",
+  "fbx": "Pfb_PaperBox__30.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCorrider/Pfb_PaperBox_01_6 1",
+  "vertices": 120,
+  "triangles": 60
+ },
+ {
+  "name": "Pfb_Table__14",
+  "fbx": "Pfb_Table__14.fbx",
+  "placed_active": 9,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Pfb_Table_01_2",
+  "vertices": 108,
+  "triangles": 58
+ },
+ {
+  "name": "Pfb_Table__15",
+  "fbx": "Pfb_Table__15.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/BlueCardHouse/Pfb_Table_01_5",
+  "vertices": 108,
+  "triangles": 58
+ },
+ {
+  "name": "Pfb_Table__16",
+  "fbx": "Pfb_Table__16.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Medical01/Pfb_Table_01_3",
+  "vertices": 108,
+  "triangles": 58
+ },
+ {
+  "name": "Pfb_StuffGroup",
+  "fbx": "Pfb_StuffGroup.fbx",
+  "placed_active": 10,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Yellow/Pfb_StuffGroup_01 2_26",
+  "vertices": 3792,
+  "triangles": 4312
+ },
+ {
+  "name": "Pfb_StuffGroup__2",
+  "fbx": "Pfb_StuffGroup__2.fbx",
+  "placed_active": 12,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Under/Pfb_StuffGroup_01 2",
+  "vertices": 3792,
+  "triangles": 4312
+ },
+ {
+  "name": "Pfb_StuffGroup__3",
+  "fbx": "Pfb_StuffGroup__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/OfficeOut2/Pfb_StuffGroup_01 2",
+  "vertices": 3792,
+  "triangles": 4312
+ },
+ {
+  "name": "Prfb_StuffGroup",
+  "fbx": "Prfb_StuffGroup.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Prfb_StuffGroup_01 2_3",
+  "vertices": 3792,
+  "triangles": 4312
+ },
+ {
+  "name": "Pfb_Chair__12",
+  "fbx": "Pfb_Chair__12.fbx",
+  "placed_active": 10,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Green/Pfb_Chair_03_8",
+  "vertices": 390,
+  "triangles": 424
+ },
+ {
+  "name": "Sterilizer_01_Door",
+  "fbx": "Sterilizer_01_Door.fbx",
+  "placed_active": 5,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Sterilizer_05/Sterilizer_01_Door_01",
+  "vertices": 78,
+  "triangles": 42
+ },
+ {
+  "name": "Pfb_FileCabient_L4",
+  "fbx": "Pfb_FileCabient_L4.fbx",
+  "placed_active": 5,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Medical01/Pfb_FileCabient_L4",
+  "vertices": 1968,
+  "triangles": 1676
+ },
+ {
+  "name": "Pfb_FileCabient_L4__2",
+  "fbx": "Pfb_FileCabient_L4__2.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_FileCabient_L4_3",
+  "vertices": 1968,
+  "triangles": 1676
+ },
+ {
+  "name": "Pfb_FileCabient_L4__3",
+  "fbx": "Pfb_FileCabient_L4__3.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/Pfb_FileCabient_L4_1",
+  "vertices": 1968,
+  "triangles": 1676
+ },
+ {
+  "name": "Pfb_Soda_Pipe__3",
+  "fbx": "Pfb_Soda_Pipe__3.fbx",
+  "placed_active": 10,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Pfb_Soda_Pipe_15",
+  "vertices": 408,
+  "triangles": 584
+ },
+ {
+  "name": "Pfb_FileCabient_L3",
+  "fbx": "Pfb_FileCabient_L3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_02/Zone_02/Pfb_FileCabient_L3",
+  "vertices": 1968,
+  "triangles": 1676
+ },
+ {
+  "name": "Pfb_FileCabient_L3__2",
+  "fbx": "Pfb_FileCabient_L3__2.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Medical01/Pfb_FileCabient_L3_2",
+  "vertices": 1968,
+  "triangles": 1676
+ },
+ {
+  "name": "Pfb_Weapons",
+  "fbx": "Pfb_Weapons.fbx",
+  "placed_active": 5,
+  "placed_inactive": 0,
+  "example_source_path": "Env/ElectricTop/Pfb_Weapons",
+  "vertices": 834,
+  "triangles": 1032
+ },
+ {
+  "name": "Block36",
+  "fbx": "Block36.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Env/WarehouseCenter/Group/Block_Lab_F0(6)/Block36",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Pfb_Chair__13",
+  "fbx": "Pfb_Chair__13.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Entrance/Pfb_Chair_02_1",
+  "vertices": 446,
+  "triangles": 336
+ },
+ {
+  "name": "Pfb_FileCabient_M2",
+  "fbx": "Pfb_FileCabient_M2.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_03/Pfb_FileCabient_M2",
+  "vertices": 708,
+  "triangles": 762
+ },
+ {
+  "name": "Pfb_Computer__26",
+  "fbx": "Pfb_Computer__26.fbx",
+  "placed_active": 95,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_Computer_01_42",
+  "vertices": 342,
+  "triangles": 308
+ },
+ {
+  "name": "Pfb_Computer__27",
+  "fbx": "Pfb_Computer__27.fbx",
+  "placed_active": 5,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_03/Pfb_Computer_01_13",
+  "vertices": 342,
+  "triangles": 308
+ },
+ {
+  "name": "Pfb_Computer__28",
+  "fbx": "Pfb_Computer__28.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Medical01/Pfb_Computer_01_4",
+  "vertices": 342,
+  "triangles": 308
+ },
+ {
+  "name": "Pfb_PaperBox__31",
+  "fbx": "Pfb_PaperBox__31.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_PaperBox_01_26",
+  "vertices": 88,
+  "triangles": 52
+ },
+ {
+  "name": "Pfb_PaperBox__32",
+  "fbx": "Pfb_PaperBox__32.fbx",
+  "placed_active": 5,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_PaperBox_01_16",
+  "vertices": 88,
+  "triangles": 52
+ },
+ {
+  "name": "Pfb_PaperBox__33",
+  "fbx": "Pfb_PaperBox__33.fbx",
+  "placed_active": 23,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Corridor02/Pfb_PaperBox_01_29",
+  "vertices": 88,
+  "triangles": 52
+ },
+ {
+  "name": "Pfb_PaperBox__34",
+  "fbx": "Pfb_PaperBox__34.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Corridor/Boxes_Wall/Pfb_PaperBox_01_37",
+  "vertices": 88,
+  "triangles": 52
+ },
+ {
+  "name": "Pfb_PaperBox__35",
+  "fbx": "Pfb_PaperBox__35.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_03/Pfb_PaperBox_01_19",
+  "vertices": 88,
+  "triangles": 52
+ },
+ {
+  "name": "Pfb_Soda_Container",
+  "fbx": "Pfb_Soda_Container.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Underground/Top/Pfb_Soda_Container",
+  "vertices": 1567,
+  "triangles": 1506
+ },
+ {
+  "name": "Pfb_Soda_Instruments__7",
+  "fbx": "Pfb_Soda_Instruments__7.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Entrance/Group/Pfb_Soda_Instruments_06",
+  "vertices": 408,
+  "triangles": 280
+ },
+ {
+  "name": "Pfb_Soda_Instruments__8",
+  "fbx": "Pfb_Soda_Instruments__8.fbx",
+  "placed_active": 8,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Pfb_Soda_Instruments_20",
+  "vertices": 408,
+  "triangles": 280
+ },
+ {
+  "name": "Pfb_Soda_Instruments__9",
+  "fbx": "Pfb_Soda_Instruments__9.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_03/Pfb_Soda_Instruments_07",
+  "vertices": 408,
+  "triangles": 280
+ },
+ {
+  "name": "Pfb_Soda_Instruments__10",
+  "fbx": "Pfb_Soda_Instruments__10.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Hall_01/OfficeZone_03/Pfb_Soda_Instruments_06",
+  "vertices": 112,
+  "triangles": 56
+ },
+ {
+  "name": "Pfb_ElectricBox__5",
+  "fbx": "Pfb_ElectricBox__5.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "PowerSwitcher/Pfb_ElectricBox_01_6",
+  "vertices": 384,
+  "triangles": 280
+ },
+ {
+  "name": "Pfb_ElectricBox__6",
+  "fbx": "Pfb_ElectricBox__6.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/OfficeOut/Pfb_ElectricBox_01_2",
+  "vertices": 384,
+  "triangles": 280
+ },
+ {
+  "name": "Pfb_Indoors_Study_Shelf__6",
+  "fbx": "Pfb_Indoors_Study_Shelf__6.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Center_01/Group/Pfb_Indoors_Study_Shelf_19",
+  "vertices": 130,
+  "triangles": 78
+ },
+ {
+  "name": "Pfb_Indoors_Study_Shelf__7",
+  "fbx": "Pfb_Indoors_Study_Shelf__7.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Office_03/Pfb_Indoors_Study_Shelf_06",
+  "vertices": 130,
+  "triangles": 78
+ },
+ {
+  "name": "Render__2",
+  "fbx": "Render__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "DarkRoom_Black/Render",
+  "vertices": 4,
+  "triangles": 2
+ },
+ {
+  "name": "Pfb_JLAB_Bottle__5",
+  "fbx": "Pfb_JLAB_Bottle__5.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Lab_01/Pfb_JLAB_Bottle_03",
+  "vertices": 50,
+  "triangles": 44
+ },
+ {
+  "name": "Pfb_FileCabient_M1",
+  "fbx": "Pfb_FileCabient_M1.fbx",
+  "placed_active": 5,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Pfb_FileCabient_M1_6",
+  "vertices": 1312,
+  "triangles": 1116
+ },
+ {
+  "name": "Pfb_FileCabient_M1__2",
+  "fbx": "Pfb_FileCabient_M1__2.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Env/Boss/Pfb_FileCabient_M1_5",
+  "vertices": 1312,
+  "triangles": 1116
+ }
+]

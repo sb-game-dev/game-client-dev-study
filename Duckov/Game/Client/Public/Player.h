@@ -65,6 +65,7 @@ private:
 	bool_t							m_bFiring = { false };
 	
 	bool_t							m_bSlowTrun = { false };
+	float4_t						m_vRollStartMoveDir = {};
 
 private:
 	typedef struct tagPlayerInput

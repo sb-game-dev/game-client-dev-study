@@ -1,0 +1,1307 @@
+[
+ {
+  "name": "SkillMachine",
+  "fbx": "SkillMachine.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Buildings/SkillMachine",
+  "vertices": 4480,
+  "triangles": 3840
+ },
+ {
+  "name": "MapSelect",
+  "fbx": "MapSelect.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Buildings/MapSelect",
+  "vertices": 611,
+  "triangles": 816
+ },
+ {
+  "name": "SaleMachine",
+  "fbx": "SaleMachine.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Buildings/SaleMachine",
+  "vertices": 3082,
+  "triangles": 2140
+ },
+ {
+  "name": "Sphere",
+  "fbx": "Sphere.fbx",
+  "placed_active": 0,
+  "placed_inactive": 2,
+  "example_source_path": "Go (3)/Sphere",
+  "vertices": 515,
+  "triangles": 768
+ },
+ {
+  "name": "Cube",
+  "fbx": "Cube.fbx",
+  "placed_active": 0,
+  "placed_inactive": 8,
+  "example_source_path": "Go (3)/Cube (3)",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Cube__2",
+  "fbx": "Cube__2.fbx",
+  "placed_active": 0,
+  "placed_inactive": 2,
+  "example_source_path": "Spawners/TestSpawnHack/Interact_1/Cube",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Cube__3",
+  "fbx": "Cube__3.fbx",
+  "placed_active": 0,
+  "placed_inactive": 9,
+  "example_source_path": "TestScene/Cube_3",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Prfb_Indoors_WC",
+  "fbx": "Prfb_Indoors_WC.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Enviroment/Prfb_Indoors_WC_5",
+  "vertices": 469,
+  "triangles": 458
+ },
+ {
+  "name": "pTorus6",
+  "fbx": "pTorus6.fbx",
+  "placed_active": 8,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/ShipLife/Built/First_aid_Kit03_1/pTorus6_1",
+  "vertices": 272,
+  "triangles": 316
+ },
+ {
+  "name": "SM_Computer",
+  "fbx": "SM_Computer.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "BuildingArea/Visual_1/SM_Computer_01_1_5",
+  "vertices": 104,
+  "triangles": 84
+ },
+ {
+  "name": "SM_Fabric",
+  "fbx": "SM_Fabric.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "BuildingArea/Visual_1/SM_Fabric_01_1",
+  "vertices": 72,
+  "triangles": 100
+ },
+ {
+  "name": "Pfb_WoodBoards",
+  "fbx": "Pfb_WoodBoards.fbx",
+  "placed_active": 1,
+  "placed_inactive": 4,
+  "example_source_path": "GardenConstruct/Built/Garden/Corner01/Pfb_WoodBoards_01_5",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "newspaper",
+  "fbx": "newspaper.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "BuildingArea/Visual_1/newspaper",
+  "vertices": 224,
+  "triangles": 204
+ },
+ {
+  "name": "radio",
+  "fbx": "radio.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Enviroment/radio",
+  "vertices": 690,
+  "triangles": 768
+ },
+ {
+  "name": "StarterKit",
+  "fbx": "StarterKit.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Buildings/StarterKit",
+  "vertices": 8044,
+  "triangles": 5762
+ },
+ {
+  "name": "Prfb_Indoors_Study_Shelf",
+  "fbx": "Prfb_Indoors_Study_Shelf.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Enviroment/Prfb_Indoors_Study_Shelf_04",
+  "vertices": 120,
+  "triangles": 76
+ },
+ {
+  "name": "Pfb_Soda_Instruments",
+  "fbx": "Pfb_Soda_Instruments.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/ShipCompute/Built/Pfb_Soda_Instruments_04",
+  "vertices": 86,
+  "triangles": 82
+ },
+ {
+  "name": "Pfb_Soda_Cubbe",
+  "fbx": "Pfb_Soda_Cubbe.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/ShipPower/Built/Power/Pfb_Soda_Cubbe",
+  "vertices": 792,
+  "triangles": 396
+ },
+ {
+  "name": "Pfb_BoxGroup",
+  "fbx": "Pfb_BoxGroup.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "ShipBuildingFrame/Pfb_BoxGroup_01",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Pfb_Stairs_New",
+  "fbx": "Pfb_Stairs_New.fbx",
+  "placed_active": 18,
+  "placed_inactive": 0,
+  "example_source_path": "ShipBuildingFrame/Pfb_Stairs_New_27",
+  "vertices": 580,
+  "triangles": 560
+ },
+ {
+  "name": "Pfb_WoodBoards__2",
+  "fbx": "Pfb_WoodBoards__2.fbx",
+  "placed_active": 40,
+  "placed_inactive": 8,
+  "example_source_path": "GardenConstruct/Built/Garden/ScaledBorder00/Pfb_WoodBoards_01_5",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Pfb_Stairs_New__2",
+  "fbx": "Pfb_Stairs_New__2.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "ShipBuildingFrame/Pfb_Stairs_New_09",
+  "vertices": 30,
+  "triangles": 16
+ },
+ {
+  "name": "Pfb_Stairs_New__3",
+  "fbx": "Pfb_Stairs_New__3.fbx",
+  "placed_active": 8,
+  "placed_inactive": 0,
+  "example_source_path": "ShipBuildingFrame/Pfb_Stairs_New_33",
+  "vertices": 104,
+  "triangles": 52
+ },
+ {
+  "name": "Prfb_Bags",
+  "fbx": "Prfb_Bags.fbx",
+  "placed_active": 0,
+  "placed_inactive": 12,
+  "example_source_path": "HalfObsticles/TestHalfObsticle_1/DeadVisuals/Prfb_Bags_01_10",
+  "vertices": 35,
+  "triangles": 48
+ },
+ {
+  "name": "Pfb_Canvas_Ground_2x4",
+  "fbx": "Pfb_Canvas_Ground_2x4.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "ShipBuildingFrame/Pfb_Canvas_Ground_2x4_4",
+  "vertices": 24,
+  "triangles": 22
+ },
+ {
+  "name": "Pfb_MetalBoard",
+  "fbx": "Pfb_MetalBoard.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "GardenConstruct/NotBuilt/Pfb_MetalBoard_01_9",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Pfb_MetalBoard__2",
+  "fbx": "Pfb_MetalBoard__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/Main/Pfb_MetalBoard_01_9",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "OfficeDeskSet02",
+  "fbx": "OfficeDeskSet02.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Notes/Note_Base_Start/OfficeDeskSet02_4",
+  "vertices": 72,
+  "triangles": 54
+ },
+ {
+  "name": "Temp",
+  "fbx": "Temp.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Buildings/Temp",
+  "vertices": 16934,
+  "triangles": 12678
+ },
+ {
+  "name": "Pfb_Canvas_Ground_1x5",
+  "fbx": "Pfb_Canvas_Ground_1x5.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/Main/Pfb_Canvas_Ground_1x5_3",
+  "vertices": 30,
+  "triangles": 26
+ },
+ {
+  "name": "Pfb_Soda_Shield",
+  "fbx": "Pfb_Soda_Shield.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/ShipProtect/Built/Protect/Pfb_Soda_Shield_1",
+  "vertices": 345,
+  "triangles": 316
+ },
+ {
+  "name": "Building_PetHouse",
+  "fbx": "Building_PetHouse.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Buildings/Building_PetHouse",
+  "vertices": 308,
+  "triangles": 278
+ },
+ {
+  "name": "Car_1_Base",
+  "fbx": "Car_1_Base.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/Main/SM_Car_02_Frame/Car_1_Base",
+  "vertices": 3807,
+  "triangles": 3880
+ },
+ {
+  "name": "Prfb_Brick02",
+  "fbx": "Prfb_Brick02.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "BuildingArea/Visual/Prfb_Brick02_2",
+  "vertices": 84,
+  "triangles": 68
+ },
+ {
+  "name": "JLAB_ProtectiveClothes_Body",
+  "fbx": "JLAB_ProtectiveClothes_Body.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Ship/Main/DuckV2_2/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Agent_Armor_FireProtect/JLAB_ProtectiveClothes_Body",
+  "vertices": 415,
+  "triangles": 520
+ },
+ {
+  "name": "Pfb_SteelFrame",
+  "fbx": "Pfb_SteelFrame.fbx",
+  "placed_active": 15,
+  "placed_inactive": 0,
+  "example_source_path": "ShipBuildingFrame/Pfb_SteelFrame_01_17",
+  "vertices": 48,
+  "triangles": 28
+ },
+ {
+  "name": "Pfb_Soda_Pipe",
+  "fbx": "Pfb_Soda_Pipe.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/ShipPower/Built/Power/Pfb_Soda_Pipe_4",
+  "vertices": 426,
+  "triangles": 616
+ },
+ {
+  "name": "Pfb_Barbed_Green",
+  "fbx": "Pfb_Barbed_Green.fbx",
+  "placed_active": 20,
+  "placed_inactive": 0,
+  "example_source_path": "GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_Barbed_Green",
+  "vertices": 200,
+  "triangles": 204
+ },
+ {
+  "name": "Prfb_BarbedWire",
+  "fbx": "Prfb_BarbedWire.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "BarbedWire/Prfb_BarbedWire_01_03_2 1_1",
+  "vertices": 200,
+  "triangles": 204
+ },
+ {
+  "name": "Prfb_Indoors_Bedroom_Bed",
+  "fbx": "Prfb_Indoors_Bedroom_Bed.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Enviroment/Prfb_Indoors_Bedroom_Bed_02",
+  "vertices": 416,
+  "triangles": 292
+ },
+ {
+  "name": "Pfb_Box_GRP",
+  "fbx": "Pfb_Box_GRP.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "ShipBuildingFrame/Pfb_Box_GRP_05",
+  "vertices": 562,
+  "triangles": 519
+ },
+ {
+  "name": "Pfb_Indoors_Table",
+  "fbx": "Pfb_Indoors_Table.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Enviroment/Pfb_Indoors_Table_04",
+  "vertices": 432,
+  "triangles": 280
+ },
+ {
+  "name": "Pfb_Table",
+  "fbx": "Pfb_Table.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "ShipBuildingFrame/Pfb_Table_02_2",
+  "vertices": 172,
+  "triangles": 102
+ },
+ {
+  "name": "Character_Heart7",
+  "fbx": "Character_Heart7.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Buildings/Character_Heart7",
+  "vertices": 2671,
+  "triangles": 3700
+ },
+ {
+  "name": "Pfb_Soda_Pipe__2",
+  "fbx": "Pfb_Soda_Pipe__2.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/ShipPower/Built/Power/Pfb_Soda_Pipe_2",
+  "vertices": 140,
+  "triangles": 96
+ },
+ {
+  "name": "Sphere__2",
+  "fbx": "Sphere__2.fbx",
+  "placed_active": 0,
+  "placed_inactive": 6,
+  "example_source_path": "Ship/Main/DuckV2_2/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/ArmorSocket/Sphere_1",
+  "vertices": 515,
+  "triangles": 768
+ },
+ {
+  "name": "Pfb_FabricScroll",
+  "fbx": "Pfb_FabricScroll.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "GardenConstruct/Other/Pfb_FabricScroll_2",
+  "vertices": 312,
+  "triangles": 290
+ },
+ {
+  "name": "Pfb_Stairs",
+  "fbx": "Pfb_Stairs.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "ShipBuildingFrame/Pfb_Stairs_01_02",
+  "vertices": 196,
+  "triangles": 148
+ },
+ {
+  "name": "r",
+  "fbx": "r.fbx",
+  "placed_active": 0,
+  "placed_inactive": 2,
+  "example_source_path": "SimpleTeleport/r",
+  "vertices": 515,
+  "triangles": 768
+ },
+ {
+  "name": "Prfb_Garbage",
+  "fbx": "Prfb_Garbage.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Enviroment/Prfb_Garbage_01_5",
+  "vertices": 687,
+  "triangles": 451
+ },
+ {
+  "name": "Pfb_Soda_ExhaustSystem1",
+  "fbx": "Pfb_Soda_ExhaustSystem1.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/ShipCompute/Built/Pfb_Soda_ExhaustSystem1_08",
+  "vertices": 56,
+  "triangles": 28
+ },
+ {
+  "name": "Pfb_Radar_01_Temp",
+  "fbx": "Pfb_Radar_01_Temp.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/ShipGuide/Built/Pfb_Radar_01_Temp",
+  "vertices": 1734,
+  "triangles": 1752
+ },
+ {
+  "name": "SaleMachine__2",
+  "fbx": "SaleMachine__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Buildings/SaleMachine",
+  "vertices": 1621,
+  "triangles": 1516
+ },
+ {
+  "name": "Pfb_Truck_02_Tyre",
+  "fbx": "Pfb_Truck_02_Tyre.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/ShipDir/Built/Dir/Car_1_Rear_Wheel_R/Pfb_Truck_02_Tyre_1",
+  "vertices": 90,
+  "triangles": 124
+ },
+ {
+  "name": "Pfb_CleaningHandcart",
+  "fbx": "Pfb_CleaningHandcart.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "ShipBuildingFrame/Pfb_CleaningHandcart_01",
+  "vertices": 4953,
+  "triangles": 4994
+ },
+ {
+  "name": "SM_LittleYellowDuck",
+  "fbx": "SM_LittleYellowDuck.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/Main/SM_LittleYellowDuck",
+  "vertices": 472,
+  "triangles": 804
+ },
+ {
+  "name": "Pfb_Soda_ExhaustSystem1__2",
+  "fbx": "Pfb_Soda_ExhaustSystem1__2.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/ShipDir/Built/Dir/Pfb_Soda_ExhaustSystem1_13",
+  "vertices": 184,
+  "triangles": 104
+ },
+ {
+  "name": "Prfb_Indoors_Bedroom_Besidetable",
+  "fbx": "Prfb_Indoors_Bedroom_Besidetable.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "BaseBGMSelector/Prfb_Indoors_Bedroom_Besidetable_03",
+  "vertices": 28,
+  "triangles": 18
+ },
+ {
+  "name": "Pfb_FileCabient_M2",
+  "fbx": "Pfb_FileCabient_M2.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "ShipBuildingFrame/Pfb_FileCabient_M2_1",
+  "vertices": 708,
+  "triangles": 762
+ },
+ {
+  "name": "Pfb_Stairs_New__4",
+  "fbx": "Pfb_Stairs_New__4.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "ShipBuildingFrame/Pfb_Stairs_New_02",
+  "vertices": 970,
+  "triangles": 848
+ },
+ {
+  "name": "SM_Roadsign",
+  "fbx": "SM_Roadsign.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "BuildingArea/Visual/SM_Roadsign_2",
+  "vertices": 98,
+  "triangles": 56
+ },
+ {
+  "name": "Prfb_Starter",
+  "fbx": "Prfb_Starter.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "LootBox_Starter/Prfb_Starter",
+  "vertices": 188,
+  "triangles": 154
+ },
+ {
+  "name": "Pipe",
+  "fbx": "Pipe.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "ShipBuildingFrame/Pipe",
+  "vertices": 598,
+  "triangles": 1080
+ },
+ {
+  "name": "Pfb_Soda_Shield2",
+  "fbx": "Pfb_Soda_Shield2.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/ShipDir/Built/Dir/Pfb_Soda_Shield2",
+  "vertices": 1349,
+  "triangles": 1130
+ },
+ {
+  "name": "Pfb_Ventilation_Soda3",
+  "fbx": "Pfb_Ventilation_Soda3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/ShipGuide/Built/Pfb_Ventilation_Soda3",
+  "vertices": 183,
+  "triangles": 166
+ },
+ {
+  "name": "SM_Scarecrow",
+  "fbx": "SM_Scarecrow.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "LootBox_Starter/SM_Scarecrow/SM_Scarecrow",
+  "vertices": 1001,
+  "triangles": 970
+ },
+ {
+  "name": "Pfb_Wood_Fence1",
+  "fbx": "Pfb_Wood_Fence1.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "GardenConstruct/NotBuilt/Pfb_Wood_Fence1",
+  "vertices": 316,
+  "triangles": 228
+ },
+ {
+  "name": "Pfb_Stairs_Soda",
+  "fbx": "Pfb_Stairs_Soda.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/ShipPower/Built/Power/Pfb_Stairs_Soda_02",
+  "vertices": 48,
+  "triangles": 28
+ },
+ {
+  "name": "Pfb_Canvas_Ground_2x4__2",
+  "fbx": "Pfb_Canvas_Ground_2x4__2.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "ShipBuildingFrame/Pfb_Canvas_Ground_2x4_5",
+  "vertices": 15,
+  "triangles": 13
+ },
+ {
+  "name": "Pfb_SteelFrame__2",
+  "fbx": "Pfb_SteelFrame__2.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "ShipBuildingFrame/Pfb_SteelFrame_01_9",
+  "vertices": 296,
+  "triangles": 164
+ },
+ {
+  "name": "Lv",
+  "fbx": "Lv.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/ShipLife/Built/Lv",
+  "vertices": 716,
+  "triangles": 568
+ },
+ {
+  "name": "Prfb_BagsTile",
+  "fbx": "Prfb_BagsTile.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "HalfObsticles/TestHalfObsticle_1/DefaultVisuals/Prfb_BagsTile_7",
+  "vertices": 241,
+  "triangles": 304
+ },
+ {
+  "name": "Basket",
+  "fbx": "Basket.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Basket_Pfb/Basket",
+  "vertices": 464,
+  "triangles": 492
+ },
+ {
+  "name": "Prfb_CementMold",
+  "fbx": "Prfb_CementMold.fbx",
+  "placed_active": 13,
+  "placed_inactive": 1,
+  "example_source_path": "Enviroment/Prfb_CementMold_05",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Pfb_Soda_ExhaustSystem1__3",
+  "fbx": "Pfb_Soda_ExhaustSystem1__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/ShipDir/Built/Dir/Pfb_Soda_ExhaustSystem1_16",
+  "vertices": 128,
+  "triangles": 68
+ },
+ {
+  "name": "Pfb_Soda_LightProp",
+  "fbx": "Pfb_Soda_LightProp.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/ShipPower/Built/Power/Pfb_Soda_LightProp",
+  "vertices": 471,
+  "triangles": 408
+ },
+ {
+  "name": "Pfb_Soda_ExhaustSystem1__4",
+  "fbx": "Pfb_Soda_ExhaustSystem1__4.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/Main/Pfb_Soda_ExhaustSystem1_02",
+  "vertices": 615,
+  "triangles": 508
+ },
+ {
+  "name": "Prfb_Toolbox",
+  "fbx": "Prfb_Toolbox.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "GardenConstruct/Built/Garden/LootBox_Test/Prfb_Toolbox_02",
+  "vertices": 345,
+  "triangles": 320
+ },
+ {
+  "name": "Pfb_Soda_Ladder",
+  "fbx": "Pfb_Soda_Ladder.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "ShipBuildingFrame/Pfb_Soda_Ladder",
+  "vertices": 1056,
+  "triangles": 748
+ },
+ {
+  "name": "Prfb_WaterButt",
+  "fbx": "Prfb_WaterButt.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "BuildingArea/Visual/Prfb_WaterButt_03",
+  "vertices": 77,
+  "triangles": 94
+ },
+ {
+  "name": "nut",
+  "fbx": "nut.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "ShipBuildingFrame/nut",
+  "vertices": 885,
+  "triangles": 846
+ },
+ {
+  "name": "Pfb_BarbedWire",
+  "fbx": "Pfb_BarbedWire.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "GardenConstruct/NotBuilt/BarbedWire_Line/Pfb_BarbedWire_01_04",
+  "vertices": 20,
+  "triangles": 16
+ },
+ {
+  "name": "Prfb_Indoors_Books",
+  "fbx": "Prfb_Indoors_Books.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Enviroment/Prfb_Indoors_Books_06",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Pfb_Groundpile3",
+  "fbx": "Pfb_Groundpile3.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "GardenConstruct/NotBuilt/Pfb_Groundpile3",
+  "vertices": 27,
+  "triangles": 38
+ },
+ {
+  "name": "SM_Switch_1_Base",
+  "fbx": "SM_Switch_1_Base.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "ShipBuildingFrame/Switcher2/SM_Switch_1_Base",
+  "vertices": 476,
+  "triangles": 314
+ },
+ {
+  "name": "SM_PaperBox",
+  "fbx": "SM_PaperBox.fbx",
+  "placed_active": 6,
+  "placed_inactive": 0,
+  "example_source_path": "BuildingArea/Visual_1/SM_PaperBox_01_3",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Pfb_MetalBoard__3",
+  "fbx": "Pfb_MetalBoard__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "ShipBuildingFrame/Pfb_MetalBoard_01_2",
+  "vertices": 93,
+  "triangles": 84
+ },
+ {
+  "name": "Prfb_Indoors_Stool",
+  "fbx": "Prfb_Indoors_Stool.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Enviroment/Prfb_Indoors_Stool_02",
+  "vertices": 290,
+  "triangles": 204
+ },
+ {
+  "name": "Prfb_Stone",
+  "fbx": "Prfb_Stone.fbx",
+  "placed_active": 0,
+  "placed_inactive": 9,
+  "example_source_path": "HalfObsticles/TestHalfObsticle_1/DeadVisuals/Prfb_Stone_01_4_2",
+  "vertices": 48,
+  "triangles": 42
+ },
+ {
+  "name": "First_aid_Kit03",
+  "fbx": "First_aid_Kit03.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/ShipLife/Built/First_aid_Kit03",
+  "vertices": 1335,
+  "triangles": 948
+ },
+ {
+  "name": "SM_GeneratorBox",
+  "fbx": "SM_GeneratorBox.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "ShipBuildingFrame/SM_GeneratorBox",
+  "vertices": 300,
+  "triangles": 226
+ },
+ {
+  "name": "SM_Switch_1_Rod",
+  "fbx": "SM_Switch_1_Rod.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "ShipBuildingFrame/Switcher2/RotateCenter/SM_Switch_1_Rod",
+  "vertices": 218,
+  "triangles": 208
+ },
+ {
+  "name": "driver",
+  "fbx": "driver.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "ShipBuildingFrame/driver",
+  "vertices": 207,
+  "triangles": 258
+ },
+ {
+  "name": "Pfb_Bags",
+  "fbx": "Pfb_Bags.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "GardenConstruct/Other/Pfb_Bags_01_4",
+  "vertices": 48,
+  "triangles": 36
+ },
+ {
+  "name": "Prfb_WoodenPallet",
+  "fbx": "Prfb_WoodenPallet.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Teleporters/DoorTo/Prfb_WoodenPallet_1",
+  "vertices": 616,
+  "triangles": 428
+ },
+ {
+  "name": "Pfb_Soda_Instruments__2",
+  "fbx": "Pfb_Soda_Instruments__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/ShipPower/Built/Power/Pfb_Soda_Instruments_09",
+  "vertices": 478,
+  "triangles": 550
+ },
+ {
+  "name": "Pfb_CoatHanger",
+  "fbx": "Pfb_CoatHanger.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "ShipBuildingFrame/Pfb_CoatHanger_03",
+  "vertices": 284,
+  "triangles": 192
+ },
+ {
+  "name": "Pfb_Canvas_Ground_2x4__3",
+  "fbx": "Pfb_Canvas_Ground_2x4__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "ShipBuildingFrame/Pfb_Canvas_Ground_2x4_3",
+  "vertices": 14,
+  "triangles": 12
+ },
+ {
+  "name": "OfficeTableLamp01",
+  "fbx": "OfficeTableLamp01.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Enviroment/OfficeTableLamp01",
+  "vertices": 580,
+  "triangles": 880
+ },
+ {
+  "name": "Pfb_Canvas_Ground_1x5__2",
+  "fbx": "Pfb_Canvas_Ground_1x5__2.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "ShipBuildingFrame/Pfb_Canvas_Ground_1x5_1",
+  "vertices": 17,
+  "triangles": 15
+ },
+ {
+  "name": "Wrench01",
+  "fbx": "Wrench01.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "ShipBuildingFrame/Wrench01",
+  "vertices": 750,
+  "triangles": 540
+ },
+ {
+  "name": "Pfb_Stairs_New__5",
+  "fbx": "Pfb_Stairs_New__5.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "ShipBuildingFrame/Pfb_Stairs_New_04",
+  "vertices": 616,
+  "triangles": 596
+ },
+ {
+  "name": "Prfb_Stairs",
+  "fbx": "Prfb_Stairs.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Enviroment/Prfb_Stairs_01_03",
+  "vertices": 196,
+  "triangles": 148
+ },
+ {
+  "name": "Pfb_Brick01",
+  "fbx": "Pfb_Brick01.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "GardenConstruct/Other/Pfb_Brick01_1",
+  "vertices": 82,
+  "triangles": 68
+ },
+ {
+  "name": "Prfb_Indoors_Study_Shelf__2",
+  "fbx": "Prfb_Indoors_Study_Shelf__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Enviroment/Prfb_Indoors_Study_Shelf_01",
+  "vertices": 92,
+  "triangles": 66
+ },
+ {
+  "name": "Pfb_Soda_WarmKeeper",
+  "fbx": "Pfb_Soda_WarmKeeper.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/ShipDir/Built/Dir/Car_1_Front_Wheel_R/Pfb_Soda_WarmKeeper_1",
+  "vertices": 1700,
+  "triangles": 1614
+ },
+ {
+  "name": "Pfb_Soda_WarmKeeper__2",
+  "fbx": "Pfb_Soda_WarmKeeper__2.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/ShipPower/Built/Power/Pfb_Soda_WarmKeeper_3",
+  "vertices": 1700,
+  "triangles": 1614
+ },
+ {
+  "name": "Pfb_Soda_WarmKeeper__3",
+  "fbx": "Pfb_Soda_WarmKeeper__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/ShipDir/Built/Dir/Pfb_Soda_WarmKeeper",
+  "vertices": 1700,
+  "triangles": 1614
+ },
+ {
+  "name": "Pfb_Soda_Shelves_model02",
+  "fbx": "Pfb_Soda_Shelves_model02.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/Main/Pfb_Soda_Shelves_model02_1",
+  "vertices": 880,
+  "triangles": 836
+ },
+ {
+  "name": "Pfb_Canvas_Ground_2x2",
+  "fbx": "Pfb_Canvas_Ground_2x2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "ShipBuildingFrame/Pfb_Canvas_Ground_2x2_2",
+  "vertices": 22,
+  "triangles": 21
+ },
+ {
+  "name": "OfficeDeskSet02__2",
+  "fbx": "OfficeDeskSet02__2.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Notes/Note_Base_Start/OfficeDeskSet02_3",
+  "vertices": 182,
+  "triangles": 144
+ },
+ {
+  "name": "MachineFBXASC046002",
+  "fbx": "MachineFBXASC046002.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "BaseBGMSelector/Music/MachineFBXASC046002",
+  "vertices": 2284,
+  "triangles": 2604
+ },
+ {
+  "name": "Pfb_PortaPotty_Base",
+  "fbx": "Pfb_PortaPotty_Base.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Pfb_PortaPotty_Base",
+  "vertices": 2179,
+  "triangles": 1783
+ },
+ {
+  "name": "Prfb_Indoors_Books__2",
+  "fbx": "Prfb_Indoors_Books__2.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Enviroment/Prfb_Indoors_Books_09",
+  "vertices": 96,
+  "triangles": 60
+ },
+ {
+  "name": "Hammer02",
+  "fbx": "Hammer02.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "BuildingArea/Visual/Hammer02",
+  "vertices": 185,
+  "triangles": 156
+ },
+ {
+  "name": "First_aid_Kit03__2",
+  "fbx": "First_aid_Kit03__2.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "LootBox/First_aid_Kit03",
+  "vertices": 1335,
+  "triangles": 948
+ },
+ {
+  "name": "Pfb_Soda_Pipe__3",
+  "fbx": "Pfb_Soda_Pipe__3.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/ShipProtect/Built/Protect/Group/Pfb_Soda_Pipe_6",
+  "vertices": 250,
+  "triangles": 296
+ },
+ {
+  "name": "Pfb_Soda_Instruments__3",
+  "fbx": "Pfb_Soda_Instruments__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/ShipPower/Built/Power/Pfb_Soda_Instruments_03",
+  "vertices": 74,
+  "triangles": 52
+ },
+ {
+  "name": "Pfb_Garbage",
+  "fbx": "Pfb_Garbage.fbx",
+  "placed_active": 7,
+  "placed_inactive": 0,
+  "example_source_path": "GardenConstruct/NotBuilt/Pfb_Garbage_01_7",
+  "vertices": 367,
+  "triangles": 199
+ },
+ {
+  "name": "Pfb_Sofa",
+  "fbx": "Pfb_Sofa.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/Main/Pfb_Sofa_1",
+  "vertices": 432,
+  "triangles": 528
+ },
+ {
+  "name": "Pfb_Sofa__2",
+  "fbx": "Pfb_Sofa__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/ShipFinal/Built/Pfb_Sofa_3",
+  "vertices": 432,
+  "triangles": 528
+ },
+ {
+  "name": "Pfb_Sofa__3",
+  "fbx": "Pfb_Sofa__3.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/Main/Pfb_Sofa_2",
+  "vertices": 432,
+  "triangles": 528
+ },
+ {
+  "name": "Pfb_Canvas_Ground_2x4__4",
+  "fbx": "Pfb_Canvas_Ground_2x4__4.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "ShipBuildingFrame/Pfb_Canvas_Ground_2x4_1",
+  "vertices": 14,
+  "triangles": 12
+ },
+ {
+  "name": "Pfb_JALB_WallPart",
+  "fbx": "Pfb_JALB_WallPart.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/ShipProtect/Built/Protect/Pfb_JALB_WallPart",
+  "vertices": 112,
+  "triangles": 88
+ },
+ {
+  "name": "Pfb_JALB_WallPart__2",
+  "fbx": "Pfb_JALB_WallPart__2.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/Main/Pfb_JALB_WallPart_2",
+  "vertices": 112,
+  "triangles": 88
+ },
+ {
+  "name": "Prfb_Shelf",
+  "fbx": "Prfb_Shelf.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Enviroment/Prfb_Shelf_01_16",
+  "vertices": 1264,
+  "triangles": 828
+ },
+ {
+  "name": "Pfb_MetalBoard__4",
+  "fbx": "Pfb_MetalBoard__4.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "GardenConstruct/NotBuilt/Pfb_MetalBoard_01_5",
+  "vertices": 28,
+  "triangles": 16
+ },
+ {
+  "name": "Pfb_MetalBoard__5",
+  "fbx": "Pfb_MetalBoard__5.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/Main/Pfb_MetalBoard_01_6",
+  "vertices": 28,
+  "triangles": 16
+ },
+ {
+  "name": "Pfb_MetalBoard__6",
+  "fbx": "Pfb_MetalBoard__6.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "GardenConstruct/NotBuilt/Pfb_MetalBoard_01_6",
+  "vertices": 124,
+  "triangles": 118
+ },
+ {
+  "name": "Pfb_Indoors_Books",
+  "fbx": "Pfb_Indoors_Books.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Enviroment/Pfb_Indoors_Books_01",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Pfb_Soda_Pipe__4",
+  "fbx": "Pfb_Soda_Pipe__4.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/ShipPower/Built/Power/Pfb_Soda_Pipe_10",
+  "vertices": 360,
+  "triangles": 496
+ },
+ {
+  "name": "Pfb_JLABWall03",
+  "fbx": "Pfb_JLABWall03.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/Main/Pfb_JLABWall03",
+  "vertices": 16,
+  "triangles": 8
+ },
+ {
+  "name": "Hammer01",
+  "fbx": "Hammer01.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "BuildingArea/Visual/Hammer01",
+  "vertices": 330,
+  "triangles": 246
+ },
+ {
+  "name": "pen",
+  "fbx": "pen.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Notes/Note_Base_ShootingRange/pen",
+  "vertices": 91,
+  "triangles": 90
+ },
+ {
+  "name": "JLAB_ProtectiveClothes_Head",
+  "fbx": "JLAB_ProtectiveClothes_Head.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Ship/Main/DuckV2_2/Duck_Armature/Root/Hip/Spine.001/Spine.002/Spine.003/Head/HelmatSocket/Agent_HelmatFireProtect/JLAB_ProtectiveClothes_Head",
+  "vertices": 549,
+  "triangles": 708
+ },
+ {
+  "name": "Pfb_PlasticPallet",
+  "fbx": "Pfb_PlasticPallet.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "GardenConstruct/NotBuilt/Pfb_PlasticPallet_01_03",
+  "vertices": 984,
+  "triangles": 652
+ },
+ {
+  "name": "SM_ExhaustFan",
+  "fbx": "SM_ExhaustFan.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "SM_ExhaustFan_01_02",
+  "vertices": 40,
+  "triangles": 28
+ },
+ {
+  "name": "Prfb_Groundpile3",
+  "fbx": "Prfb_Groundpile3.fbx",
+  "placed_active": 0,
+  "placed_inactive": 3,
+  "example_source_path": "HalfObsticles/TestHalfObsticle/DeadVisuals/Prfb_Groundpile3",
+  "vertices": 27,
+  "triangles": 38
+ },
+ {
+  "name": "Wrench02",
+  "fbx": "Wrench02.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "ShipBuildingFrame/Wrench02",
+  "vertices": 582,
+  "triangles": 390
+ },
+ {
+  "name": "Pfb_Soda_Instruments__4",
+  "fbx": "Pfb_Soda_Instruments__4.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/ShipPower/Built/Power/Pfb_Soda_Instruments_10",
+  "vertices": 161,
+  "triangles": 142
+ },
+ {
+  "name": "Prfb_WoodBoards",
+  "fbx": "Prfb_WoodBoards.fbx",
+  "placed_active": 8,
+  "placed_inactive": 0,
+  "example_source_path": "Teleporters/DoorTo/GameObject/Prfb_WoodBoards_01_7",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Pfb_Soda_Instruments__5",
+  "fbx": "Pfb_Soda_Instruments__5.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/ShipProtect/Built/Protect/Pfb_Soda_Instruments_06",
+  "vertices": 408,
+  "triangles": 280
+ },
+ {
+  "name": "Pfb_Soda_Ironframe",
+  "fbx": "Pfb_Soda_Ironframe.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/ShipPower/Built/Power/Pfb_Soda_Ironframe_04",
+  "vertices": 48,
+  "triangles": 28
+ },
+ {
+  "name": "Pfb_Soda_Ironframe__2",
+  "fbx": "Pfb_Soda_Ironframe__2.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/ShipPower/Built/Power/Pfb_Soda_Ironframe_07",
+  "vertices": 48,
+  "triangles": 28
+ },
+ {
+  "name": "SM_Cabinet",
+  "fbx": "SM_Cabinet.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Ship/Main/SM_Cabinet_02_05",
+  "vertices": 48,
+  "triangles": 28
+ }
+]

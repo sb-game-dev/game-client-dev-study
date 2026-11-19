@@ -134,7 +134,7 @@ HRESULT CPlayer::Ready_Components()
         TEXT("Com_Model"),m_pModel)))
         return E_FAIL;
 
-    m_pModel->SetCurrentAnimIndex(ETOUI(m_eLowerMoveState));
+    m_pModel->Set_LowerAnimationIndex(ETOUI(m_eLowerMoveState));
     m_pModel->Set_Animation_Loop(ETOUI(PLAYER_ANIM::WALK_FORWARD));
     m_pModel->Set_Animation_Loop(ETOUI(PLAYER_ANIM::WALK_FORWARD_RH));
     m_pModel->Set_Animation_Loop(ETOUI(PLAYER_ANIM::WALK_BACKWARD));
@@ -298,6 +298,8 @@ void CPlayer::Initialize_State(PLAYER_STATE eNext)
             }
             m_bSlowTrun = true;
             m_pTransformCom->Set_Speed(20.f);
+
+            XMStoreFloat4(&m_vRollStartMoveDir, Has_MoveInput() ? Calc_MoveDir() : m_pTransformCom->Get_State(STATE::LOOK));
             Change_Animation(PLAYER_ANIM::ROLL);
         }
         break;
@@ -351,15 +353,15 @@ void CPlayer::Update_State_Roll(f32_t fDeltaTime)
 {
     // 키입력이 있다면 이동 방향은 키입력 방향, 없다면 마우스방향(Look 방향)
     vector_t vMoveDir = Has_MoveInput() ? Calc_MoveDir() : m_pTransformCom->Get_State(STATE::LOOK);
-
+    
     // 키입력이 있다면 구를 때 키입력 방향으로 굴러야 한다.
     if (Has_MoveInput())
-        m_pTransformCom->LookAt(m_pTransformCom->Get_State(STATE::POSITION) + vMoveDir);
+        m_pTransformCom->LookAt(m_pTransformCom->Get_State(STATE::POSITION) + XMLoadFloat4(&m_vRollStartMoveDir));
 
     // 구르기 속도 설정
     m_pTransformCom->Set_Speed(m_pTransformCom->Get_Speed() * 0.95f);
     // 구르기 이동
-    m_pTransformCom->Move_Position(vMoveDir, fDeltaTime);
+    m_pTransformCom->Move_Position(XMLoadFloat4(&m_vRollStartMoveDir), fDeltaTime);
 
     // 구르기가 끝났다면 IDLE상태
     if (m_pModel->Is_Animation_Finished())
@@ -371,7 +373,14 @@ void CPlayer::Update_State_Attack(f32_t fDeltaTime)
     LookAtMouse(fDeltaTime);
 
     if (Has_MoveInput())
+    {
+        m_pModel->Set_LowerAnimationIndex(ETOUI(PLAYER_ANIM::WALK_FORWARD));
         m_pTransformCom->Move_Position(Calc_MoveDir(), fDeltaTime);
+    }
+    else
+    {
+        m_pModel->Set_LowerAnimationIndex(ETOUI(PLAYER_ANIM::IDLE));
+    }
 
     if (m_pModel->Is_Animation_Finished(true))
     {

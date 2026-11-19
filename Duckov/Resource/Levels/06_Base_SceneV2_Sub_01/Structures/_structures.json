@@ -1,0 +1,488 @@
+[
+ {
+  "name": "QuestGiver_Jeff",
+  "fbx": "QuestGiver_Jeff.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Buildings/QuestGiver_Jeff",
+  "vertices": 4621,
+  "triangles": 6006
+ },
+ {
+  "name": "Cube",
+  "fbx": "Cube.fbx",
+  "placed_active": 0,
+  "placed_inactive": 13,
+  "example_source_path": "TestGround/Cube_2",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Go",
+  "fbx": "Go.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Buildings/Go (2)",
+  "vertices": 611,
+  "triangles": 816
+ },
+ {
+  "name": "Workbench",
+  "fbx": "Workbench.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Buildings/Workbench",
+  "vertices": 11934,
+  "triangles": 9438
+ },
+ {
+  "name": "PerkTreeInvoker",
+  "fbx": "PerkTreeInvoker.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Buildings/PerkTreeInvoker",
+  "vertices": 19363,
+  "triangles": 15922
+ },
+ {
+  "name": "Merchant_Equipment",
+  "fbx": "Merchant_Equipment.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Buildings/Merchant_Equipment",
+  "vertices": 35659,
+  "triangles": 28948
+ },
+ {
+  "name": "FoodTable",
+  "fbx": "FoodTable.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Buildings/FoodTable",
+  "vertices": 8932,
+  "triangles": 7106
+ },
+ {
+  "name": "QuestGiver",
+  "fbx": "QuestGiver.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Buildings/QuestGiver",
+  "vertices": 7039,
+  "triangles": 7026
+ },
+ {
+  "name": "Sphere",
+  "fbx": "Sphere.fbx",
+  "placed_active": 0,
+  "placed_inactive": 3,
+  "example_source_path": "Go (3)/Sphere",
+  "vertices": 515,
+  "triangles": 768
+ },
+ {
+  "name": "Cube__2",
+  "fbx": "Cube__2.fbx",
+  "placed_active": 0,
+  "placed_inactive": 12,
+  "example_source_path": "Go (3)/Cube (3)",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Merchant_Weapon",
+  "fbx": "Merchant_Weapon.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Buildings/Merchant_Weapon",
+  "vertices": 41245,
+  "triangles": 31374
+ },
+ {
+  "name": "Bathroom",
+  "fbx": "Bathroom.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Buildings/Bathroom",
+  "vertices": 7338,
+  "triangles": 6797
+ },
+ {
+  "name": "TestEnemy",
+  "fbx": "TestEnemy.fbx",
+  "placed_active": 0,
+  "placed_inactive": 3,
+  "example_source_path": "Test/TestEnemy (2)",
+  "vertices": 550,
+  "triangles": 832
+ },
+ {
+  "name": "Merchant_Normal",
+  "fbx": "Merchant_Normal.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Buildings/Merchant_Normal",
+  "vertices": 29365,
+  "triangles": 24512
+ },
+ {
+  "name": "Ground",
+  "fbx": "Ground.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Grounds/Ground",
+  "vertices": 16,
+  "triangles": 8
+ },
+ {
+  "name": "Ground__2",
+  "fbx": "Ground__2.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Grounds/Ground",
+  "vertices": 20,
+  "triangles": 10
+ },
+ {
+  "name": "StarterKit",
+  "fbx": "StarterKit.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Buildings/StarterKit",
+  "vertices": 8044,
+  "triangles": 5762
+ },
+ {
+  "name": "PetHouse",
+  "fbx": "PetHouse.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Buildings/PetHouse",
+  "vertices": 308,
+  "triangles": 278
+ },
+ {
+  "name": "Prfb_GargabePile_Temp",
+  "fbx": "Prfb_GargabePile_Temp.fbx",
+  "placed_active": 3,
+  "placed_inactive": 0,
+  "example_source_path": "Prfb_GargabePile_Temp_04",
+  "vertices": 3736,
+  "triangles": 4768
+ },
+ {
+  "name": "PlayerStorage",
+  "fbx": "PlayerStorage.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Buildings/PlayerStorage",
+  "vertices": 1972,
+  "triangles": 1232
+ },
+ {
+  "name": "MasterKey",
+  "fbx": "MasterKey.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Buildings/MasterKey",
+  "vertices": 1623,
+  "triangles": 1110
+ },
+ {
+  "name": "Prfb_BoatBetweenBaseAndFarm",
+  "fbx": "Prfb_BoatBetweenBaseAndFarm.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Envir/Prfb_BoatBetweenBaseAndFarm",
+  "vertices": 4763,
+  "triangles": 4420
+ },
+ {
+  "name": "Cylinder",
+  "fbx": "Cylinder.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "FishingPoint/LootBox_Fishing/Bucket/Cylinder_1",
+  "vertices": 88,
+  "triangles": 80
+ },
+ {
+  "name": "OfficeDeskSet02",
+  "fbx": "OfficeDeskSet02.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Notes/Note_Fishing-1/OfficeDeskSet02_4",
+  "vertices": 72,
+  "triangles": 54
+ },
+ {
+  "name": "Temp",
+  "fbx": "Temp.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "Buildings/Temp",
+  "vertices": 15878,
+  "triangles": 11910
+ },
+ {
+  "name": "Prfb_GargabePile_Temp__2",
+  "fbx": "Prfb_GargabePile_Temp__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Prfb_GargabePile_Temp_01",
+  "vertices": 4715,
+  "triangles": 6018
+ },
+ {
+  "name": "Prfb_WoodBox",
+  "fbx": "Prfb_WoodBox.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Envir/Prfb_WoodBox_01_7",
+  "vertices": 88,
+  "triangles": 44
+ },
+ {
+  "name": "Prfb_WoodBoards",
+  "fbx": "Prfb_WoodBoards.fbx",
+  "placed_active": 7,
+  "placed_inactive": 0,
+  "example_source_path": "NewYear/ChineseLantern_7/Prfb_WoodBoards_01_7",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Prfb_Roadblock_temp3",
+  "fbx": "Prfb_Roadblock_temp3.fbx",
+  "placed_active": 31,
+  "placed_inactive": 0,
+  "example_source_path": "Envir/Prfb_Roadblock_temp3_14",
+  "vertices": 202,
+  "triangles": 164
+ },
+ {
+  "name": "Prfb_Roadblock",
+  "fbx": "Prfb_Roadblock.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Envir/Prfb_Roadblock_12",
+  "vertices": 76,
+  "triangles": 60
+ },
+ {
+  "name": "Prfb_Starter",
+  "fbx": "Prfb_Starter.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "LootBox_Starter/Prfb_Starter",
+  "vertices": 188,
+  "triangles": 154
+ },
+ {
+  "name": "SunFog",
+  "fbx": "SunFog.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "LookDevCamera/Fx/SunFog",
+  "vertices": 4,
+  "triangles": 2
+ },
+ {
+  "name": "SM_Scarecrow",
+  "fbx": "SM_Scarecrow.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "LootBox_Starter/SM_Scarecrow/SM_Scarecrow",
+  "vertices": 1001,
+  "triangles": 970
+ },
+ {
+  "name": "Prfb_CementMold",
+  "fbx": "Prfb_CementMold.fbx",
+  "placed_active": 4,
+  "placed_inactive": 0,
+  "example_source_path": "Envir/Prfb_CementMold_05",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Scale",
+  "fbx": "Scale.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "FishingPoint/TargetPoint/RingParent/Scale",
+  "vertices": 4,
+  "triangles": 2
+ },
+ {
+  "name": "Prfb_WaterTank",
+  "fbx": "Prfb_WaterTank.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Envir/Prfb_WaterTank_04",
+  "vertices": 1243,
+  "triangles": 1316
+ },
+ {
+  "name": "EdgeLight",
+  "fbx": "EdgeLight.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "LookDevCamera/Fx/EdgeLight",
+  "vertices": 4,
+  "triangles": 2
+ },
+ {
+  "name": "Prfb_Bags",
+  "fbx": "Prfb_Bags.fbx",
+  "placed_active": 0,
+  "placed_inactive": 2,
+  "example_source_path": "LootBox_Totem/Built/Prfb_Bags_01_13",
+  "vertices": 90,
+  "triangles": 108
+ },
+ {
+  "name": "Cylinder__2",
+  "fbx": "Cylinder__2.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "FishingPoint/LootBox_Fishing/Bucket/Cylinder",
+  "vertices": 88,
+  "triangles": 80
+ },
+ {
+  "name": "ChineseLantern",
+  "fbx": "ChineseLantern.fbx",
+  "placed_active": 0,
+  "placed_inactive": 7,
+  "example_source_path": "NewYear/ChineseLantern_6/ChineseLantern_1",
+  "vertices": 515,
+  "triangles": 768
+ },
+ {
+  "name": "Pfb_Shed",
+  "fbx": "Pfb_Shed.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Envir/Pfb_Shed_1",
+  "vertices": 2269,
+  "triangles": 1616
+ },
+ {
+  "name": "Prfb_WaterButts",
+  "fbx": "Prfb_WaterButts.fbx",
+  "placed_active": 5,
+  "placed_inactive": 0,
+  "example_source_path": "Envir/Prfb_WaterButts_02",
+  "vertices": 128,
+  "triangles": 164
+ },
+ {
+  "name": "OfficeDeskSet02__2",
+  "fbx": "OfficeDeskSet02__2.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Notes/Note_Fishing-1/OfficeDeskSet02_3",
+  "vertices": 182,
+  "triangles": 144
+ },
+ {
+  "name": "Prfb_BagsTile",
+  "fbx": "Prfb_BagsTile.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Envir/Prfb_BagsTile_1",
+  "vertices": 351,
+  "triangles": 456
+ },
+ {
+  "name": "Lantern",
+  "fbx": "Lantern.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Envir/Lantern",
+  "vertices": 1140,
+  "triangles": 870
+ },
+ {
+  "name": "SM_Ammeter",
+  "fbx": "SM_Ammeter.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Envir/SM_Ammeter_01_02",
+  "vertices": 96,
+  "triangles": 64
+ },
+ {
+  "name": "Prfb_WoodBoards__2",
+  "fbx": "Prfb_WoodBoards__2.fbx",
+  "placed_active": 8,
+  "placed_inactive": 0,
+  "example_source_path": "ManHole/SmallBridgeNeedFix/Common/GameObject_3/Prfb_WoodBoards_01_6",
+  "vertices": 24,
+  "triangles": 12
+ },
+ {
+  "name": "Pfb_Lattern",
+  "fbx": "Pfb_Lattern.fbx",
+  "placed_active": 7,
+  "placed_inactive": 0,
+  "example_source_path": "NewYear/ChineseLantern_6/Pfb_Lattern_01",
+  "vertices": 1128,
+  "triangles": 1344
+ },
+ {
+  "name": "Prfb_Bags__2",
+  "fbx": "Prfb_Bags__2.fbx",
+  "placed_active": 2,
+  "placed_inactive": 0,
+  "example_source_path": "Envir/Prfb_Bags_01_8",
+  "vertices": 85,
+  "triangles": 104
+ },
+ {
+  "name": "pCylinder2",
+  "fbx": "pCylinder2.fbx",
+  "placed_active": 0,
+  "placed_inactive": 1,
+  "example_source_path": "FishingPoint/LootBox_Fishing/Bucket/pCylinder2",
+  "vertices": 439,
+  "triangles": 372
+ },
+ {
+  "name": "Static",
+  "fbx": "Static.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "FishingPoint/TargetPoint/RingParent/Static",
+  "vertices": 4,
+  "triangles": 2
+ },
+ {
+  "name": "pen",
+  "fbx": "pen.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Notes/Note_Fishing-1/pen",
+  "vertices": 91,
+  "triangles": 90
+ },
+ {
+  "name": "Zippo",
+  "fbx": "Zippo.fbx",
+  "placed_active": 1,
+  "placed_inactive": 0,
+  "example_source_path": "Envir/Zippo",
+  "vertices": 463,
+  "triangles": 296
+ },
+ {
+  "name": "Prfb_WoodBoards__3",
+  "fbx": "Prfb_WoodBoards__3.fbx",
+  "placed_active": 18,
+  "placed_inactive": 0,
+  "example_source_path": "ManHole/SmallBridgeNeedFix/Common/GameObject_3/Prfb_WoodBoards_01_7",
+  "vertices": 24,
+  "triangles": 12
+ }
+]

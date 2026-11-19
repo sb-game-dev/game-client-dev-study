@@ -1,0 +1,30 @@
+{
+ "scene": "32_Level_JLab_2",
+ "map_fbx": "32_Level_JLab_2_Map.fbx",
+ "map_vertices": 62471,
+ "map_triangles": 27540,
+ "structure_types": 499,
+ "placed_active": 2996,
+ "placed_inactive": 551,
+ "scene_bin": "32_Level_JLab_2_Scene.bin",
+ "scene_bin_inactive": "32_Level_JLab_2_Scene_Inactive.bin",
+ "bin_format": "uint32 개수, 반복[uint32 길이 + UTF-16 프로토타입 태그, float3 위치, float4 쿼터니언(xyzw), float3 스케일, uint32 길이 + UTF-16 메시 경로(Resource 기준 소문자 .bin)] = MapTool CEditorUI::Save_Scene",
+ "stats": {
+  "map_renderers": 3435,
+  "structure_renderers": 5900,
+  "shadow_only": 6,
+  "light_volume": 81,
+  "renderer_disabled": 591,
+  "map_inactive": 10,
+  "max_placement_err_x1e6": 0
+ },
+ "missing_textures": {},
+ "skipped_materials": {
+  "Universal Render Pipeline/Particles/Lit : Mat_Transparent_2": 1,
+  "Universal Render Pipeline/Particles/Lit : Mat_Transparent": 1,
+  "Universal Render Pipeline/Particles/Unlit : JLabBlueGlow": 1,
+  "Universal Render Pipeline/Particles/Unlit : JLabRedGlow": 1,
+  "Universal Render Pipeline/Particles/Lit : Mat_Transparent_2 1": 1,
+  "Universal Render Pipeline/Particles/Unlit : FakeGlow_Base Storage": 1
+ }
+}
