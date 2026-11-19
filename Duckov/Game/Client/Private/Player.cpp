@@ -286,6 +286,7 @@ void CPlayer::Initialize_State(PLAYER_STATE eNext)
         m_bSlowTrun = true;
         m_pTransformCom->Set_Speed(16.f);
         Change_Animation(PLAYER_ANIM::WALK_BACKWARD);
+        m_pModel->SetAnimPlaySpeed(2.f);
         break;
     case Client::CPlayer::PLAYER_STATE::ROLL:
         if (m_fStamina >= m_fRollStamina)
@@ -300,14 +301,17 @@ void CPlayer::Initialize_State(PLAYER_STATE eNext)
             m_pTransformCom->Set_Speed(20.f);
 
             XMStoreFloat4(&m_vRollStartMoveDir, Has_MoveInput() ? Calc_MoveDir() : m_pTransformCom->Get_State(STATE::LOOK));
+            m_pModel->SetAnimPlaySpeed(1.f);
             Change_Animation(PLAYER_ANIM::ROLL);
         }
         break;
     case Client::CPlayer::PLAYER_STATE::ATTACK:
         Change_Animation(rand() % 2 ? PLAYER_ANIM::ATTACK : PLAYER_ANIM::ATTACK_L2R, true);
+        m_pModel->SetAnimPlaySpeed(1.5f);
         break;
     default: 
-        m_pTransformCom->Set_Speed(8.f); 
+        m_pTransformCom->Set_Speed(8.f);
+        m_pModel->SetAnimPlaySpeed(0.5f);
         break;
     }
 }
@@ -421,6 +425,7 @@ vector_t CPlayer::Calc_MoveDir()
 
     return XMVector3Normalize(vCamRight * m_tInput.fMoveX + vCamLook * m_tInput.fMoveZ);
 }
+
 void CPlayer::Turn_Toward(vector_t vMoveDir, f32_t fDeltaTime)
 {
     vector_t vLook = m_pTransformCom->Get_State(STATE::LOOK);

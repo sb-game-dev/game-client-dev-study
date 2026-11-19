@@ -137,11 +137,11 @@ void CModel::PlayAnimation(f32_t fDeltaTime)
     /* 1. 뼈들의 TransformMatrix 행렬을 현재 애니메이션에 맞게 세팅한다. */
     
     // 하체는 뼈 전체를 갱신한다.(상체뼈 하체뼈 구분하지 않는다.)
-    m_Animations[m_tLowerLayer.iAnimIndex]->Update_TransformMatrix(m_Bones, fDeltaTime);
+    m_Animations[m_tLowerLayer.iAnimIndex]->Update_TransformMatrix(m_Bones, fDeltaTime,nullptr,m_fAnimPlaySpeed);
 
     // 상체를 바꿔야 한다면 상체는 따로 갱신 + 하체와 상체의 애니메이션이 같다면 상체의 뼈는 갱신하지 않는다.(애니메이션이 두 번 재생됨)
     if (m_tUpperLayer.isActive && m_tUpperLayer.iAnimIndex != m_tLowerLayer.iAnimIndex)
-        m_Animations[m_tUpperLayer.iAnimIndex]->Update_TransformMatrix(m_Bones, fDeltaTime, &m_IsUpperBone);
+        m_Animations[m_tUpperLayer.iAnimIndex]->Update_TransformMatrix(m_Bones, fDeltaTime, &m_IsUpperBone, m_fAnimPlaySpeed);
      
     /* 2. TransformMatrix 행렬과 부모 CombinedMatrix를 곱해서 나의 CombinedMatrix를 만든다.*/
     for (auto& pBone : m_Bones)
