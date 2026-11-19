@@ -61,6 +61,10 @@ HRESULT CModel::Initialize_Prototype(MODEL eType, const char_t* pModelFilePath, 
     
     if (FAILED(Ready_Bones(m_pAiScene->mRootNode, -1, false)))
         return E_FAIL;
+    
+    m_tLowerLayer.PreBoneSRT.resize(m_Bones.size());
+    m_tUpperLayer.PreBoneSRT.resize(m_Bones.size());
+
     if (FAILED(Ready_Meshes(eType, PreTransformMatrix)))
         return E_FAIL;
     if (FAILED(Ready_Materials(pModelFilePath)))
@@ -136,11 +140,27 @@ void CModel::PlayAnimation(f32_t fDeltaTime)
     /* 1. 뼈들의 TransformMatrix 행렬을 현재 애니메이션에 맞게 세팅한다. */
     
     // 하체는 뼈 전체를 갱신한다.(상체뼈 하체뼈 구분하지 않는다.)
-    m_Animations[m_tLowerLayer.iAnimIndex]->Update_TransformMatrix(m_Bones, fDeltaTime,nullptr, m_tLowerLayer.fAnimPlaySpeed);
+
+    f32_t  fLowerRatio = Update_BlendRatio(m_tLowerLayer, fDeltaTime);
+    if(m_tLowerLayer.isBlending)
+        m_Animations[m_tLowerLayer.iAnimIndex]->Update_TransformMatrix(m_Bones, fDeltaTime, nullptr,
+            m_tLowerLayer.fAnimPlaySpeed,&m_tLowerLayer.PreBoneSRT, fLowerRatio);
+    else
+        m_Animations[m_tLowerLayer.iAnimIndex]->Update_TransformMatrix(m_Bones, fDeltaTime,nullptr, m_tLowerLayer.fAnimPlaySpeed);
 
     // 상체를 바꿔야 한다면 상체는 따로 갱신 + 하체와 상체의 애니메이션이 같다면 상체의 뼈는 갱신하지 않는다.(애니메이션이 두 번 재생됨)
+
     if (m_tUpperLayer.isActive && m_tUpperLayer.iAnimIndex != m_tLowerLayer.iAnimIndex)
-        m_Animations[m_tUpperLayer.iAnimIndex]->Update_TransformMatrix(m_Bones, fDeltaTime, &m_IsUpperBone, m_tUpperLayer.fAnimPlaySpeed);
+    {
+        bool_t bUpperBlend = m_tUpperLayer.isBlending;
+        f32_t  fUpperRatio = Update_BlendRatio(m_tUpperLayer, fDeltaTime);
+
+        if (bUpperBlend)
+            m_Animations[m_tUpperLayer.iAnimIndex]->Update_TransformMatrix(m_Bones, fDeltaTime, &m_IsUpperBone,
+                m_tUpperLayer.fAnimPlaySpeed, &m_tUpperLayer.PreBoneSRT, fUpperRatio);
+        else
+            m_Animations[m_tUpperLayer.iAnimIndex]->Update_TransformMatrix(m_Bones, fDeltaTime, &m_IsUpperBone, m_tUpperLayer.fAnimPlaySpeed);
+    }
      
     /* 2. TransformMatrix 행렬과 부모 CombinedMatrix를 곱해서 나의 CombinedMatrix를 만든다.*/
     for (auto& pBone : m_Bones)
@@ -153,28 +173,57 @@ void CModel::SetAnimPlaySpeed(f32_t fAnimPlaySpeed, bool_t isUpper)
     else            { m_tLowerLayer.fAnimPlaySpeed = fAnimPlaySpeed; }
 }
 
-void CModel::Set_LowerAnimationIndex(uint32_t iAnimIndex)
+void CModel::Set_LowerAnimationIndex(uint32_t iAnimIndex, f32_t fBlendDuration)
 {
     if (iAnimIndex >= m_iNumAnimaition)
         return;
 
     if (m_tLowerLayer.iAnimIndex != iAnimIndex)
     {
+        for (auto i = 0; i < m_Bones.size(); ++i)
+            m_Bones[i]->Get_SRT(m_tLowerLayer.PreBoneSRT[i]);
+
+        m_tLowerLayer.isBlending = true;
+        m_tLowerLayer.fBlendTime = 0.f;
+        m_tLowerLayer.fBlendDuration = fBlendDuration;
+
         m_Animations[iAnimIndex]->Reset_Animaition();
         m_tLowerLayer.iAnimIndex = iAnimIndex;
     }
 }
-void CModel::Set_UpperAnimationIndex(uint32_t iAnimIndex, bool_t bActive)
+void CModel::Set_UpperAnimationIndex(uint32_t iAnimIndex, bool_t bActive, f32_t fBlendDuration)
 {
     if (iAnimIndex >= m_iNumAnimaition)
         return;
 
     if (m_tUpperLayer.iAnimIndex != iAnimIndex || !m_tUpperLayer.isActive)
     {
+        for (auto i = 0; i < m_Bones.size(); ++i)
+            m_Bones[i]->Get_SRT(m_tUpperLayer.PreBoneSRT[i]);
+
+        m_tUpperLayer.isBlending = true;
+        m_tUpperLayer.fBlendTime = 0.f;
+        m_tUpperLayer.fBlendDuration = fBlendDuration;
+
         m_Animations[iAnimIndex]->Reset_Animaition();
         m_tUpperLayer.iAnimIndex = iAnimIndex;
         m_tUpperLayer.isActive = bActive;
     }
+}
+void CModel::Set_UpperAnimationInActive(f32_t fBlendDuration)
+{
+    if (false == m_tUpperLayer.isActive)
+        return;
+
+    for (size_t i = 0; i < m_Bones.size(); ++i)
+        m_Bones[i]->Get_SRT(m_tLowerLayer.PreBoneSRT[i]);
+
+    m_tLowerLayer.isBlending = true;
+    m_tLowerLayer.fBlendTime = 0.f;
+    m_tLowerLayer.fBlendDuration = fBlendDuration;
+
+    m_tUpperLayer.isActive = false;
+    m_tUpperLayer.isBlending = false;
 }
 void CModel::Reset_BoneTransformMatrix()
 {
@@ -355,6 +404,22 @@ HRESULT CModel::Read_Materials(FILE* pFile, const char_t* pModelFilePath)
         m_Materials.push_back(pMaterial);
     }
     return S_OK;
+}
+
+f32_t CModel::Update_BlendRatio(ANIM_LAYER& tLayer, f32_t fDeltaTime)
+{
+    if (false == tLayer.isBlending || tLayer.fBlendDuration <= 0.f)
+        return 1.f;
+
+    tLayer.fBlendTime += fDeltaTime;
+
+    f32_t fRatio = tLayer.fBlendTime / tLayer.fBlendDuration;
+    if (fRatio >= 1.f)
+    {
+        fRatio = 1.f;
+        tLayer.isBlending = false;
+    }
+    return fRatio;
 }
 
 shared_ptr<CModel> CModel::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, MODEL eType, const char_t* pModelFilePath, fmatrix_t PreTransformMatrix)

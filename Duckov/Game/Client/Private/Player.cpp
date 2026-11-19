@@ -127,7 +127,7 @@ HRESULT CPlayer::Ready_Components()
         TEXT("Com_Model"),m_pModelCom)))
         return E_FAIL;
 
-    m_pModelCom->Set_LowerAnimationIndex(ETOUI(m_eLowerMoveState));
+    m_pModelCom->Set_LowerAnimationIndex(ETOUI(m_eLowerMoveState),0.f);
     m_pModelCom->Set_Animation_Loop(ETOUI(PLAYER_ANIM::WALK_FORWARD));
     m_pModelCom->Set_Animation_Loop(ETOUI(PLAYER_ANIM::WALK_FORWARD_RH));
     m_pModelCom->Set_Animation_Loop(ETOUI(PLAYER_ANIM::WALK_BACKWARD));
@@ -287,7 +287,7 @@ void CPlayer::Initialize_State(PLAYER_STATE eNext)
     case Client::CPlayer::PLAYER_STATE::SPRINT:
         m_bSlowTrun = true;
         m_pTransformCom->Set_Speed(16.f);
-        Change_Animation(Has_Weapon() ? PLAYER_ANIM::WALK_FORWARD_RH : PLAYER_ANIM::WALK_FORWARD_RH, false, 2.f);
+        Change_Animation(Has_Weapon() ? PLAYER_ANIM::WALK_FORWARD_RH : PLAYER_ANIM::WALK_FORWARD, false, 2.f);
         break;
     case Client::CPlayer::PLAYER_STATE::ROLL:
         if (m_fStamina >= m_fRollStamina)
@@ -303,11 +303,11 @@ void CPlayer::Initialize_State(PLAYER_STATE eNext)
 
             XMStoreFloat4(&m_vRollStartMoveDir, Has_MoveInput() ? Calc_MoveDir() : m_pTransformCom->Get_State(STATE::LOOK));
             
-            Change_Animation(PLAYER_ANIM::ROLL, false, 1.f);
+            Change_Animation(PLAYER_ANIM::ROLL, false, 1.f, 0.01f);
         }
         break;
     case Client::CPlayer::PLAYER_STATE::ATTACK:
-        Change_Animation(rand() % 2 ? PLAYER_ANIM::ATTACK : PLAYER_ANIM::ATTACK_L2R, true, 1.5f);
+        Change_Animation(rand() % 2 ? PLAYER_ANIM::ATTACK : PLAYER_ANIM::ATTACK_L2R, true, 1.5f, 0.01f);
         break;
     default: 
         m_pTransformCom->Set_Speed(8.f);
@@ -342,9 +342,9 @@ void CPlayer::Update_State_Walk(f32_t fDeltaTime)
     vector_t vMoveDir = Calc_MoveDir();
     f32_t fDot = XMVectorGetX(XMVector3Dot(XMVector4Normalize(vMoveDir), XMVector4Normalize(vTargetDir)));
     
-    if(fDot> cosf(XM_PI / 4))        { Change_Animation(Has_Weapon() ? PLAYER_ANIM::WALK_FORWARD_RH : PLAYER_ANIM::WALK_FORWARD, false, 1.f);}
-    else if(fDot < -cosf(XM_PI / 4)) { Change_Animation(Has_Weapon() ? PLAYER_ANIM::WALK_BACKWARD_RH : PLAYER_ANIM::WALK_BACKWARD, false, 1.f);}
-    else                             { Change_Animation(Has_Weapon() ? PLAYER_ANIM::WALK_LEFT_RH_OUT : PLAYER_ANIM::WALK_LEFT, false, 1.5f); }
+    if(fDot> cosf(XM_PI / 4))        { Change_Animation(Has_Weapon() ? PLAYER_ANIM::WALK_FORWARD_RH : PLAYER_ANIM::WALK_FORWARD, false, 1.f, 0.25f);}
+    else if(fDot < -cosf(XM_PI / 4)) { Change_Animation(Has_Weapon() ? PLAYER_ANIM::WALK_BACKWARD_RH : PLAYER_ANIM::WALK_BACKWARD, false, 1.f, 0.25f);}
+    else                             { Change_Animation(Has_Weapon() ? PLAYER_ANIM::WALK_LEFT_RH_OUT : PLAYER_ANIM::WALK_LEFT, false, 1.5f, 0.25f); }
 
     LookAtMouse(fDeltaTime);
     m_pTransformCom->Move_Position(Calc_MoveDir(), fDeltaTime);
@@ -386,12 +386,12 @@ void CPlayer::Update_State_Attack(f32_t fDeltaTime)
 
     if (Has_MoveInput())
     {
-        Change_Animation(PLAYER_ANIM::WALK_FORWARD);
+        Change_Animation(Has_Weapon() ? PLAYER_ANIM::WALK_FORWARD_RH : PLAYER_ANIM::WALK_FORWARD);
         m_pTransformCom->Move_Position(Calc_MoveDir(), fDeltaTime);
     }
     else
     {
-        Change_Animation(PLAYER_ANIM::IDLE);
+        Change_Animation(Has_Weapon() ? PLAYER_ANIM::IDLE_RH : PLAYER_ANIM::IDLE);
     }
 
     if (m_pModelCom->Is_Animation_Finished(true))
@@ -472,7 +472,7 @@ void CPlayer::LookAtMouse(f32_t fDeltaTime)
         m_pTransformCom->LookAt(pMouse->Get_Transform()->Get_State(STATE::POSITION));
     }
 }
-void CPlayer::Change_Animation(PLAYER_ANIM eMoveState, bool_t bUpper, f32_t fAnimPlaySpeed)
+void CPlayer::Change_Animation(PLAYER_ANIM eMoveState, bool_t bUpper, f32_t fAnimPlaySpeed, f32_t fBlendDuration)
 {
     m_pModelCom->SetAnimPlaySpeed(fAnimPlaySpeed, bUpper);
     if (bUpper)
@@ -480,14 +480,14 @@ void CPlayer::Change_Animation(PLAYER_ANIM eMoveState, bool_t bUpper, f32_t fAni
         if (eMoveState == m_eUpperMoveState)
             return;
         m_eUpperMoveState = eMoveState;
-        m_pModelCom->Set_UpperAnimationIndex(ETOUI(m_eUpperMoveState),true);
+        m_pModelCom->Set_UpperAnimationIndex(ETOUI(m_eUpperMoveState),true, fBlendDuration);
     }
     else
     {
         if (eMoveState == m_eLowerMoveState)
             return;
         m_eLowerMoveState = eMoveState;
-        m_pModelCom->Set_LowerAnimationIndex(ETOUI(m_eLowerMoveState));
+        m_pModelCom->Set_LowerAnimationIndex(ETOUI(m_eLowerMoveState), fBlendDuration);
     }
 }
 

@@ -239,6 +239,12 @@ namespace Engine
 		float			fTrackPosition;
 	}KEYFRAME;
 
+	typedef struct tagBoneSRT
+	{
+		float3_t vScale;
+		float4_t vRotation;
+		float3_t vPosition;
+	}BONE_SRT;
 }
 
 #endif // Engine_Struct_h__

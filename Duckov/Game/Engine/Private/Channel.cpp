@@ -47,7 +47,7 @@ HRESULT CChannel::Initialize(const aiNodeAnim* pAIChannel, shared_ptr<class CMod
     return S_OK;
 }
 
-void CChannel::Update_TransformMatirx(const vector<shared_ptr<class CBone>>& Bones, uint32_t& pLeftKetFrameIndex, f32_t fCurrentTrackPos)
+void CChannel::Update_TransformMatirx(const vector<shared_ptr<class CBone>>& Bones, uint32_t& pLeftKetFrameIndex, f32_t fCurrentTrackPos, const vector<BONE_SRT>* pPreSRT, f32_t fBlendRatio)
 {
     vector_t vScale{}, vRotation{}, vPosition{};
     KEYFRAME    LastKeyFrame = m_KeyFrames.back();
@@ -81,6 +81,13 @@ void CChannel::Update_TransformMatirx(const vector<shared_ptr<class CBone>>& Bon
         vPosition = XMVectorLerp(vLeftPosition, vRightPosition, fRatio);
     }
 
+    if (nullptr != pPreSRT)
+    {
+        const BONE_SRT& tPreSRT = (*pPreSRT)[m_iBoneIndex];
+        vScale = XMVectorLerp(XMLoadFloat3(&tPreSRT.vScale), vScale, fBlendRatio);
+        vRotation = XMQuaternionSlerp(XMLoadFloat4(&tPreSRT.vRotation), vRotation, fBlendRatio);
+        vPosition = XMVectorLerp(XMVectorSetW(XMLoadFloat3(&tPreSRT.vPosition), 1.f), vPosition, fBlendRatio);
+    }
     Bones[m_iBoneIndex]->Set_TransfromMatrix(XMMatrixAffineTransformation(vScale, vector_t{ 0.f,0.f,0.f,1.f }, vRotation, vPosition));
 }
 

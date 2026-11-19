@@ -34,9 +34,9 @@ public:
 	void			PlayAnimation(f32_t fDeltaTime);
 	void			SetAnimPlaySpeed(f32_t fAnimPlaySpeed, bool_t isUpper = false);
 	void			Reset_BoneTransformMatrix();
-	void			Set_LowerAnimationIndex(uint32_t iAnimIndex);
-	void			Set_UpperAnimationIndex(uint32_t iAnimIndex, bool_t bActive);
-	void			Set_UpperAnimationInActive() { m_tUpperLayer.isActive = false; }
+	void			Set_LowerAnimationIndex(uint32_t iAnimIndex, f32_t fBlendDuration = 0.2f);
+	void			Set_UpperAnimationIndex(uint32_t iAnimIndex, bool_t bActive, f32_t fBlendDuration = 0.2f);
+	void			Set_UpperAnimationInActive(f32_t fBlendDuration = 0.2f);
 	void			Set_Animation_Loop(uint32_t iAnimationIndex);
 	bool_t			Is_Animation_Finished(bool_t bUpper = false);
 private:
@@ -61,9 +61,14 @@ private:
 
 	struct ANIM_LAYER
 	{
-		uint32_t	iAnimIndex = {};
-		bool_t		isActive = { false };
-		f32_t		fAnimPlaySpeed = {1.f};
+		uint32_t			iAnimIndex = {};
+		bool_t				isActive = { false };
+		f32_t				fAnimPlaySpeed = {1.f};
+
+		bool_t				isBlending = { false };
+		f32_t				fBlendTime = {};
+		f32_t				fBlendDuration = { 0.3f };
+		vector<BONE_SRT>	PreBoneSRT;
 	};
 	ANIM_LAYER								m_tLowerLayer = { 0, true };
 	ANIM_LAYER								m_tUpperLayer = { 0, false };
@@ -73,6 +78,7 @@ private:
 
 
 private:
+
 	HRESULT	Ready_Meshes(MODEL eType, fmatrix_t PreTransformMatrix);
 	HRESULT	Ready_Materials(const char_t* pModelFilePath);
 	HRESULT	Ready_Bones(const aiNode* pAINode, int32_t iParentIndex);
@@ -83,6 +89,9 @@ private:
 	HRESULT	Read_Header(FILE* pFile);
 	HRESULT Read_Meshes(FILE* pFile, fmatrix_t PreTranformMatrix);
 	HRESULT Read_Materials(FILE* pFile, const char_t* pModelFilePath);
+
+
+	f32_t	Update_BlendRatio(ANIM_LAYER& tLayer, f32_t fDeltaTime);
 
 public:
 	static shared_ptr<CModel> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, MODEL eType, const char_t* pModelFilePath, fmatrix_t PreTransformMatrix = XMMatrixIdentity());

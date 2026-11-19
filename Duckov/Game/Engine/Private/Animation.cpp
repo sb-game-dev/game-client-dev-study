@@ -18,7 +18,7 @@ HRESULT CAnimation::Initialize(const aiAnimation* pAIAnimaiton, shared_ptr<class
 	return S_OK;
 }
 
-void CAnimation::Update_TransformMatrix(const vector<shared_ptr<class CBone>>& Bones, f32_t fDeltaTime, const vector<bool_t>* pIsUpperBone, f32_t fAnimPlaySpeed)
+void CAnimation::Update_TransformMatrix(const vector<shared_ptr<class CBone>>& Bones, f32_t fDeltaTime, const vector<bool_t>* pIsUpperBone, f32_t fAnimPlaySpeed, const vector<BONE_SRT>* pPreSRT, f32_t fBlendRatio)
 {
 	m_fCurrentTrackPosition += m_fTickPerSecond * fDeltaTime * fAnimPlaySpeed;
 	if (m_fCurrentTrackPosition >= m_fDuration)
@@ -30,12 +30,14 @@ void CAnimation::Update_TransformMatrix(const vector<shared_ptr<class CBone>>& B
 	}
 	for (uint32_t i = 0; i < m_iNumChannels; ++i)
 	{
+		/*===== 상체 or 하체 뼈 고르기*/
+
 		// IsUpper벡터를 전달받았고 이 뼈가 하체인경우는 채널(뼈)을 갱신하지 않는다.
 		if (nullptr != pIsUpperBone && false == (*pIsUpperBone)[m_Channels[i]->Get_BoneIndex()]) 
 			continue;
 		// isUpper 벡터를 전달 받지 못했다(하체를 그리는 경우다) -> 애니메이션이 들고있는 채널(뼈) 전체 갱신
 		// isUpper 벡터를 전달 받았고 값이 true다 -> 상체 뼈이므로 Update
-		m_Channels[i]->Update_TransformMatirx(Bones, m_LeftKeyFrameIndices[i], m_fCurrentTrackPosition);
+		m_Channels[i]->Update_TransformMatirx(Bones, m_LeftKeyFrameIndices[i], m_fCurrentTrackPosition, pPreSRT, fBlendRatio);
 	}
 }
 

@@ -33,6 +33,15 @@ void CBone::Update_CombinedTranformMatrix(const vector<shared_ptr<CBone>>& Bones
 		* XMLoadFloat4x4(&Bones[m_iParentIndex]->m_CombinedTransformMatrix));
 }
 
+void CBone::Get_SRT(BONE_SRT& tBone_SRT)
+{
+	vector_t vScale, vRotation, vTranspos;
+	XMMatrixDecompose(&vScale, &vRotation, &vTranspos, XMLoadFloat4x4(&m_TransformMatrix));
+	XMStoreFloat3(&tBone_SRT.vScale, vScale);
+	XMStoreFloat4(&tBone_SRT.vRotation, vRotation);
+	XMStoreFloat3(&tBone_SRT.vPosition, vTranspos);
+}
+
 shared_ptr<CBone> CBone::Create(const aiNode* pAINode, int32_t iParentBoneIndex)
 {
 	auto pInstance = shared_ptr<CBone>(new CBone());

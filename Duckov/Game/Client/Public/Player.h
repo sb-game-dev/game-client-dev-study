@@ -148,7 +148,7 @@ private:
 	void			Turn_Toward(vector_t vMoveDir, f32_t fDeltaTime);
 
 	void			LookAtMouse(f32_t fDeltaTime);
-	void			Change_Animation(PLAYER_ANIM eMoveState, bool_t bUpper = false, f32_t fAnimPlaySpeed = 1.f);
+	void			Change_Animation(PLAYER_ANIM eMoveState, bool_t bUpper = false, f32_t fAnimPlaySpeed = 1.f, f32_t fBlendDuration = 0.2f);
 	
 	void			Update_Stamina(f32_t fDeltaTime);
 	void			Update_Hunger(f32_t fDeltaTime);

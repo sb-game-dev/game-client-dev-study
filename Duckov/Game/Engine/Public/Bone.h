@@ -21,6 +21,7 @@ public:
 		XMStoreFloat4x4(&m_TransformMatrix, TransformMatrix);
 	}
 	void Reset_TransformMatrix() { m_TransformMatrix = m_InitialTransformMatrix; }
+	void Get_SRT(BONE_SRT& tBone_SRT);
 
 private:
 	char_t		m_szName[MAX_PATH] = { "" };
