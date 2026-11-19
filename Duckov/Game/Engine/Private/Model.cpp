@@ -152,10 +152,9 @@ void CModel::PlayAnimation(f32_t fDeltaTime)
 
     if (m_tUpperLayer.isActive && m_tUpperLayer.iAnimIndex != m_tLowerLayer.iAnimIndex)
     {
-        bool_t bUpperBlend = m_tUpperLayer.isBlending;
         f32_t  fUpperRatio = Update_BlendRatio(m_tUpperLayer, fDeltaTime);
 
-        if (bUpperBlend)
+        if (m_tUpperLayer.isBlending)
             m_Animations[m_tUpperLayer.iAnimIndex]->Update_TransformMatrix(m_Bones, fDeltaTime, &m_IsUpperBone,
                 m_tUpperLayer.fAnimPlaySpeed, &m_tUpperLayer.PreBoneSRT, fUpperRatio);
         else
