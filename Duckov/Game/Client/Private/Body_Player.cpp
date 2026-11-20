@@ -60,6 +60,29 @@ HRESULT CBody_Player::Render()
 	return ;
 }
 
+
+HRESULT CBody_Player::Render_Reflection(const matrix_t& matReflect)
+{
+    return Render_Mesh(m_pTransformCom->Get_World() * matReflect, m_pRS_Reflect.Get(), m_pPSCom);
+}
+
+HRESULT CBody_Player::Render_Shadow()
+{
+    XMVECTOR vPlane = XMLoadFloat4(&m_vGroundPlane);
+    XMVECTOR vToLight = XMVectorSet(-0.5f, 0.5f, -0.5f, 0.f);  // SunLight Direction의 반대, w=0(평행광)
+
+    matrix_t matShadow = XMMatrixShadow(vPlane, vToLight);
+    matrix_t matOffset = XMMatrixTranslation(0.f, 0.01f, 0.f);  // 지형과 z-fighting 방지
+
+    return Render_Mesh(m_pTransformCom->Get_World() * matShadow * matOffset, m_pRS.Get(), m_pPS_Shadow);
+}
+
+HRESULT CBody_Player::Render_Occluded()
+{
+    return Render_Mesh(m_pTransformCom->Get_World(), m_pRS.Get(), m_pPS_Occluded);
+}
+
+
 HRESULT CBody_Player::Bind_Shader(shared_ptr<CVertexShader> pVS, shared_ptr<CPixelShader> pPS)
 {
     if (FAILED(pVS->Begin()))

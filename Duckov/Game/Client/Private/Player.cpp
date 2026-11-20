@@ -287,7 +287,7 @@ void CPlayer::Initialize_State(PLAYER_STATE eNext)
     case Client::CPlayer::PLAYER_STATE::SPRINT:
         m_bSlowTrun = true;
         m_pTransformCom->Set_Speed(16.f);
-        Change_Animation(PLAYER_ANIM::WALK_FORWARD);
+        Change_Animation(PLAYER_ANIM::WALK_FORWARD, false, 2.f);
         break;
     case Client::CPlayer::PLAYER_STATE::ROLL:
         if (m_fStamina >= m_fRollStamina)
@@ -302,8 +302,6 @@ void CPlayer::Initialize_State(PLAYER_STATE eNext)
             m_pTransformCom->Set_Speed(20.f);
 
             XMStoreFloat4(&m_vRollStartMoveDir, Has_MoveInput() ? Calc_MoveDir() : m_pTransformCom->Get_State(STATE::LOOK));
-            
-            Change_Animation(PLAYER_ANIM::ROLL, false, 1.f, 0.01f);
         }
         break;
     case Client::CPlayer::PLAYER_STATE::ATTACK:
@@ -364,6 +362,10 @@ void CPlayer::Update_State_Sprint(f32_t fDeltaTime)
 
 void CPlayer::Update_State_Roll(f32_t fDeltaTime)
 {
+    m_pModelCom->Set_UpperAnimationInActive(0.01f);
+    m_bSwapping = false;
+    m_bCanAttack = false;
+    Change_Animation(PLAYER_ANIM::ROLL, false, 1.f, 0.01f);
     // 키입력이 있다면 이동 방향은 키입력 방향, 없다면 마우스방향(Look 방향)
     vector_t vMoveDir = Has_MoveInput() ? Calc_MoveDir() : m_pTransformCom->Get_State(STATE::LOOK);
     
@@ -378,7 +380,11 @@ void CPlayer::Update_State_Roll(f32_t fDeltaTime)
 
     // 구르기가 끝났다면 IDLE상태
     if (m_pModelCom->Is_Animation_Finished())
+    {
         Initialize_State(PLAYER_STATE::IDLE);
+        if (Has_Weapon())
+            Change_Animation(PLAYER_ANIM::IDLE_RH, true);
+    }
 }
 
 void CPlayer::Update_State_Attack(f32_t fDeltaTime)

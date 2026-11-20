@@ -12,6 +12,18 @@ namespace Client
 	static constexpr uint32_t g_iWinSizeX = 1280;
 	static constexpr uint32_t g_iWinSizeY = 720;
 	enum class LEVEL { STATIC, LOADING, LOGO, GAMEPLAY, MAPTOOL, END };	
+
+	enum class PLAYER_ANIM {
+		IDLE,
+		WALK_FORWARD, WALK_BACKWARD, TPOS,
+		IDLE_RH,
+		WALK_FORWARD_RH, WALK_BACKWARD_RH,
+		ROLL, ATTACK, ATTACK_L2R,
+		WALK_LEFT, WALK_RIGHT, WALK_LEFT_RH_OUT, WALK_RIGHT_RH_OUT,
+		RIDING,
+		END
+	};
+
 };
 
 using namespace std;

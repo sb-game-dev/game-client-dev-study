@@ -23,9 +23,12 @@ public:
 	virtual	void	Late_Update(f32_t fDeltaTime) override;
 
 	virtual HRESULT	Render() override;
+
+	//=========================================
 	virtual HRESULT	Render_Reflection(const matrix_t& matReflect) override;
 	virtual HRESULT	Render_Shadow() override;
 	virtual HRESULT	Render_Occluded() override;
+	//=========================================
 
 	void	AdjustPosY();
 
@@ -48,6 +51,7 @@ public:
 private:
 	float4_t						m_vGroundPlane = { 0.f, 1.f, 0.f, 0.f };	// ¹ß¹Ø Æò¸é (a,b,c,d)
 
+	//=========================================
 	shared_ptr<CModel>				m_pModelCom = { nullptr };
 	shared_ptr<CVertexShader>		m_pVSCom = { nullptr };
 	shared_ptr<CPixelShader>		m_pPSCom = { nullptr };
@@ -57,6 +61,7 @@ private:
 
 	shared_ptr<CConstantBuffer>		m_pCB = { nullptr };
 	CB_PER_OBJECT					m_tCBData = {};
+	//=========================================
 
 	weak_ptr<class CInven>			m_pInven;
 	weak_ptr<class CHill>			m_pHill;
@@ -79,24 +84,14 @@ private:
 
 	PLAYER_INPUT    m_tInput = {};
 
-
 private:
 	enum class PLAYER_STATE { IDLE, WALK, SPRINT, ROLL, ATTACK, END };
 	PLAYER_STATE    m_eState = { PLAYER_STATE::IDLE };
 
-	enum class PLAYER_ANIM {
-		IDLE, 
-		WALK_FORWARD, WALK_BACKWARD, TPOS,
-		IDLE_RH,
-		WALK_FORWARD_RH, WALK_BACKWARD_RH,
-		ROLL, ATTACK, ATTACK_L2R, 
-		WALK_LEFT,WALK_RIGHT,WALK_LEFT_RH_OUT,WALK_RIGHT_RH_OUT,
-		RIDING,
-		END 
-	};
-
+	//=========================================
 	PLAYER_ANIM						m_eLowerMoveState = { PLAYER_ANIM::END };
 	PLAYER_ANIM						m_eUpperMoveState = { PLAYER_ANIM::END };
+	//=========================================
 
 	f32_t							m_fSwapWeaponTime = { 0.f };
 	bool_t							m_bSwapping = { true };
@@ -125,6 +120,7 @@ private:
 
 
 private:
+	//=====================================
 	HRESULT			Ready_Components();
 	HRESULT			Ready_ConstantBuffer();
 	HRESULT			Update_ConstantBuffer(const matrix_t& matWorld);
@@ -132,7 +128,7 @@ private:
 
 	virtual			HRESULT Bind_Shader(shared_ptr<CVertexShader> pVS = nullptr, shared_ptr<CPixelShader> pPS = nullptr);
 	virtual			HRESULT Bind_ShaderResources(const matrix_t& matWorld);
-
+	//=====================================
 	void			Key_Input();
 	void			Update_State(f32_t fDeltaTime);
 	void			Initialize_State(PLAYER_STATE eNext);

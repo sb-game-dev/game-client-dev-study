@@ -15,14 +15,23 @@ public:
 	virtual ~CBody_Player() = default;
 
 public:
+	const float4x4_t* Get_SocketMatrix(const char_t* pBoneName);
+
+public:
 	virtual HRESULT Initialize_Prototype() override;
 	virtual HRESULT Initialize(void* pArg) override;
+	
 	virtual void Priority_Update(f32_t fTimeDelta) override;
 	virtual void Update(f32_t fTimeDelta) override;
 	virtual void Late_Update(f32_t fTimeDelta) override;
+	
 	virtual HRESULT Render() override;
+	virtual HRESULT	Render_Reflection(const matrix_t& matReflect) override;
+	virtual HRESULT	Render_Shadow() override;
+	virtual HRESULT	Render_Occluded() override;
 
 private:
+	float4_t						m_vGroundPlane = { 0.f, 1.f, 0.f, 0.f };
 
 	shared_ptr<CModel>				m_pModelCom = { nullptr };
 	shared_ptr<CVertexShader>		m_pVSCom = { nullptr };
@@ -35,6 +44,9 @@ private:
 	shared_ptr<CConstantBuffer>		m_pCB = { nullptr };
 	CB_PER_OBJECT					m_tCBData = {};
 
+private:
+	PLAYER_ANIM						m_eLowerMoveState = { PLAYER_ANIM::END };
+	PLAYER_ANIM						m_eUpperMoveState = { PLAYER_ANIM::END };
 
 private:
 	HRESULT Ready_Components();
@@ -45,7 +57,6 @@ private:
 	HRESULT Bind_ShaderResources(const matrix_t& matWorld);
 	
 	HRESULT	Render_Mesh(const matrix_t& matWorld, ID3D11RasterizerState* pRS, shared_ptr<CPixelShader> pPS);
-
 
 
 public:
