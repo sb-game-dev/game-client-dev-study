@@ -343,9 +343,9 @@ void CPlayer::Update_State_Walk(f32_t fDeltaTime)
     vector_t vMoveDir = Calc_MoveDir();
     f32_t fDot = XMVectorGetX(XMVector3Dot(XMVector4Normalize(vMoveDir), XMVector4Normalize(vTargetDir)));
     
-    if(fDot> cosf(XM_PI / 4))        { Change_Animation(PLAYER_ANIM::WALK_FORWARD, false, 1.f, 0.25f);}
-    else if(fDot < -cosf(XM_PI / 4)) { Change_Animation(PLAYER_ANIM::WALK_BACKWARD, false, 1.f, 0.25f);}
-    else                             { Change_Animation(PLAYER_ANIM::WALK_LEFT, false, 1.5f, 0.25f); }
+    if(fDot> cosf(XM_PI / 4))        { Change_Animation(PLAYER_ANIM::WALK_FORWARD);}
+    else if(fDot < -cosf(XM_PI / 4)) { Change_Animation(PLAYER_ANIM::WALK_BACKWARD);}
+    else                             { Change_Animation(PLAYER_ANIM::WALK_LEFT); }
 
     LookAtMouse(fDeltaTime);
     m_pTransformCom->Move_Position(Calc_MoveDir(), fDeltaTime);
@@ -403,27 +403,39 @@ void CPlayer::Update_State_Attack(f32_t fDeltaTime)
     }
 }
 
-void CPlayer::Play_Swap_Weapon_Anim(f32_t fDeltaTime)
+void CPlayer::Play_Swap_Weapon_Anim_WeaponToWeapon(f32_t fDeltaTime)
 {
-    // 상체는 바꾸는 애니메이션(팔 내렸다 올렸다.) -> 무기를 들고있는 상황에서만 호출
-    // 하체는 키입력에 따라 IDLE, WALK, SPRINT
-    // SWAP_WEAPON -> IDLE, WALK, SPRINT
     m_fSwapWeaponTime += fDeltaTime;
     if (m_fSwapWeaponTime < 0.2f)
     {
-        Change_Animation(PLAYER_ANIM::IDLE, true, 1.f, 0.2f);
+        Change_Animation(PLAYER_ANIM::IDLE, true);
         m_bCanAttack = false;
     }
     else if (m_fSwapWeaponTime < 0.4f)
     {
-        Change_Animation(PLAYER_ANIM::IDLE_RH, true, 1.f, 0.2f);
+        Change_Animation(PLAYER_ANIM::IDLE_RH, true);
         m_bCanAttack = false;
     }
     else
     {
+        m_pModelCom->Set_UpperAnimationInActive();
         m_bCanAttack = true;
     }
+}
 
+void CPlayer::Play_Swap_Weapon_Anim_EdleToWeapon(f32_t fDeltaTime)
+{
+    m_fSwapWeaponTime += fDeltaTime;
+    if (m_fSwapWeaponTime < 0.2f)
+    {
+        Change_Animation(PLAYER_ANIM::IDLE_RH, true);
+        m_bCanAttack = false;
+    }
+    else
+    {
+        m_pModelCom->Set_UpperAnimationInActive();
+        m_bCanAttack = true;
+    }
 }
 
 void CPlayer::Handle_SlotInput(f32_t fDeltaTime)
@@ -433,15 +445,21 @@ void CPlayer::Handle_SlotInput(f32_t fDeltaTime)
     auto pInven = m_pInven.lock();
     if (nullptr == pInven)
         return;
+    
+    bool_t bPreHasWeapon = Has_Weapon();
 
-    if (m_tInput.bSlot1)     pInven->Set_ActiveSlot(EQUIP_SLOT::GUN_1); 
-    if (m_tInput.bSlot2)     pInven->Set_ActiveSlot(EQUIP_SLOT::GUN_2);
-    if (m_tInput.bSlotMelee) pInven->Set_ActiveSlot(EQUIP_SLOT::MELEE);
+    if (m_tInput.bSlot1)        pInven->Set_ActiveSlot(EQUIP_SLOT::GUN_1); 
+    if (m_tInput.bSlot2)        pInven->Set_ActiveSlot(EQUIP_SLOT::GUN_2);
+    if (m_tInput.bSlotMelee)    pInven->Set_ActiveSlot(EQUIP_SLOT::MELEE);
 
-    if ((m_tInput.bSlot1 || m_tInput.bSlot2 || m_tInput.bSlotMelee) && Has_Weapon())
+    if (m_tInput.bSlot1 || m_tInput.bSlot2 || m_tInput.bSlotMelee)
     {
         m_fSwapWeaponTime = 0.f;
-        Play_Swap_Weapon_Anim(fDeltaTime);
+        m_pModelCom->Set_UpperAnimationInActive();
+        if (bPreHasWeapon)
+            Play_Swap_Weapon_Anim_WeaponToWeapon(fDeltaTime);
+        else
+            Play_Swap_Weapon_Anim_EdleToWeapon(fDeltaTime);
     }
     else
     {
@@ -511,15 +529,11 @@ void CPlayer::Change_Animation(PLAYER_ANIM eMoveState, bool_t bUpper, f32_t fAni
     m_pModelCom->SetAnimPlaySpeed(fAnimPlaySpeed, bUpper);
     if (bUpper)
     {
-        if (eMoveState == m_eUpperMoveState)
-            return;
         m_eUpperMoveState = eMoveState;
         m_pModelCom->Set_UpperAnimationIndex(ETOUI(m_eUpperMoveState),true, fBlendDuration);
     }
     else
     {
-        if (eMoveState == m_eLowerMoveState)
-            return;
         m_eLowerMoveState = eMoveState;
         m_pModelCom->Set_LowerAnimationIndex(ETOUI(m_eLowerMoveState), fBlendDuration);
     }

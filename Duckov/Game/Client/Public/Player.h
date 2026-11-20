@@ -141,7 +141,8 @@ private:
 	void			Update_State_Roll(f32_t fDeltaTime);
 	void			Update_State_Attack(f32_t fDeltaTime);
 
-	void			Play_Swap_Weapon_Anim(f32_t fDeltaTime);
+	void			Play_Swap_Weapon_Anim_WeaponToWeapon(f32_t fDeltaTime);
+	void			Play_Swap_Weapon_Anim_EdleToWeapon(f32_t fDeltaTime);
 	void			Handle_SlotInput(f32_t fDeltaTime);
 
 	bool_t			Can_Roll() const { return !m_bStaminaLock && m_fStamina > m_fRollStamina; }
