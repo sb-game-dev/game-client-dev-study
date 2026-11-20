@@ -102,10 +102,16 @@ public:
 	void						Set_ActiveSlot(EQUIP_SLOT eSlot);
 	const shared_ptr<ITEM>&		Get_ActiveItem() { return m_pEquipSlots[ETOUI(m_eActiveSlot)]; }
 
-private:
+private:	
+	ComPtr<ID3D11Buffer>		m_pVB = { nullptr };
+	ComPtr<ID3D11Buffer>		m_pIB = { nullptr };
+	uint32_t					m_iIndexCnt = {};
+	
 	shared_ptr<CVertexShader>   m_pVSCom;
 	shared_ptr<CPixelShader>    m_pPSCom;
 	shared_ptr<CTexture>        m_pIconTexCom;
+
+	
 	ComPtr<ID3D11Buffer>        m_pInstanceVB;
 	static constexpr uint32_t   m_iMaxInstance = 1024;
 	vector<VTXUI_INSTANCE>      m_Instances;

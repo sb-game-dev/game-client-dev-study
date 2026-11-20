@@ -42,7 +42,6 @@ protected:
     void Apply_Transform();
 
 protected:
-    uint32_t  m_iLevelIndex = {};
 
     float3_t  m_vPosition = {};
     float3_t  m_vScale = { 1.f, 1.f, 1.f };

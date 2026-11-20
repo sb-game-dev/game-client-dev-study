@@ -3,7 +3,8 @@
 #include "Client_Defines.h"
 #include "ItemIconTable.h"
 
-enum class ITEM_TYPE { GUN, MELEE, BULLET, ARMOR, ATTACH, BACKPACK, TOTEM, MEDICAL, FOOD, MISC, END };
+enum class ITEM_TYPE { GUN, MELEE, BULLET, ARMOR, ATTACH, BACKPACK, TOTEM, MEDICAL, FOOD, MISC, HEADSET, FACEMASK, END };
+
 typedef struct Item
 {
 	virtual ~Item() = default;

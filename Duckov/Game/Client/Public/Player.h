@@ -21,16 +21,11 @@ public:
 	virtual	void	Priority_Update(f32_t fDeltaTime) override;
 	virtual	void	Update(f32_t fDeltaTime) override;
 	virtual	void	Late_Update(f32_t fDeltaTime) override;
-
 	virtual HRESULT	Render() override;
 
-	//=========================================
-	virtual HRESULT	Render_Reflection(const matrix_t& matReflect) override;
-	virtual HRESULT	Render_Shadow() override;
-	virtual HRESULT	Render_Occluded() override;
-	//=========================================
-
 	void	AdjustPosY();
+
+	void	Set_Swapping(bool_t bSwapping)	{ m_bSwapping = bSwapping; }
 
 	bool_t	Is_Aiming()				{ return m_bAiming && Has_Weapon();	}
 	bool_t	Is_Firing()				{ return m_bFiring && Has_Weapon(); }
@@ -51,20 +46,10 @@ public:
 private:
 	float4_t						m_vGroundPlane = { 0.f, 1.f, 0.f, 0.f };	// ¹ß¹Ø Æò¸é (a,b,c,d)
 
-	//=========================================
-	shared_ptr<CModel>				m_pModelCom = { nullptr };
-	shared_ptr<CVertexShader>		m_pVSCom = { nullptr };
-	shared_ptr<CPixelShader>		m_pPSCom = { nullptr };
-	shared_ptr<CPixelShader>		m_pPS_Shadow = { nullptr };
-	shared_ptr<CPixelShader>		m_pPS_Occluded = { nullptr };
-	ComPtr<ID3D11RasterizerState>	m_pRS_Reflect = { nullptr };
-
-	shared_ptr<CConstantBuffer>		m_pCB = { nullptr };
-	CB_PER_OBJECT					m_tCBData = {};
-	//=========================================
-
 	weak_ptr<class CInven>			m_pInven;
 	weak_ptr<class CHill>			m_pHill;
+	shared_ptr<class CBody_Player>	m_pBodyPlayer;
+
 	bool_t							m_bAiming = { false };
 	bool_t							m_bFiring = { false };
 	
@@ -87,11 +72,6 @@ private:
 private:
 	enum class PLAYER_STATE { IDLE, WALK, SPRINT, ROLL, ATTACK, END };
 	PLAYER_STATE    m_eState = { PLAYER_STATE::IDLE };
-
-	//=========================================
-	PLAYER_ANIM						m_eLowerMoveState = { PLAYER_ANIM::END };
-	PLAYER_ANIM						m_eUpperMoveState = { PLAYER_ANIM::END };
-	//=========================================
 
 	f32_t							m_fSwapWeaponTime = { 0.f };
 	bool_t							m_bSwapping = { true };
@@ -120,15 +100,9 @@ private:
 
 
 private:
-	//=====================================
 	HRESULT			Ready_Components();
-	HRESULT			Ready_ConstantBuffer();
-	HRESULT			Update_ConstantBuffer(const matrix_t& matWorld);
-	HRESULT			Render_Mesh(const matrix_t& matWorld, ID3D11RasterizerState* pRS, shared_ptr<CPixelShader> pPS);
+	HRESULT			Ready_PartObjects();
 
-	virtual			HRESULT Bind_Shader(shared_ptr<CVertexShader> pVS = nullptr, shared_ptr<CPixelShader> pPS = nullptr);
-	virtual			HRESULT Bind_ShaderResources(const matrix_t& matWorld);
-	//=====================================
 	void			Key_Input();
 	void			Update_State(f32_t fDeltaTime);
 	void			Initialize_State(PLAYER_STATE eNext);

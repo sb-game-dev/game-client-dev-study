@@ -31,8 +31,6 @@ private:
 	shared_ptr<CVIBuffer_Rect>		m_pBufferCom = { nullptr };
 	shared_ptr<CVertexShader>		m_pVS = { nullptr };
 	shared_ptr<CPixelShader>		m_pPS = { nullptr };
-	shared_ptr<CConstantBuffer>		m_pCB = { nullptr };
-	CB_PER_OBJECT				m_tCBData = {};
 
 private:
 	HRESULT			Ready_Components();

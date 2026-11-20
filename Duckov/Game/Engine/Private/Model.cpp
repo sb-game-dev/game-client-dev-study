@@ -133,6 +133,16 @@ int32_t CModel::Get_BoneIndex(const char_t* pBoneName)
     return -1;
 }
 
+const float4x4_t* CModel::Get_CombinedTransformMatrix(const char_t* pBoneName)
+{
+    for (auto& pBone:m_Bones)
+    {
+        if (pBone->Compare_Name(pBoneName))
+            return pBone->Get_CombinedTransformMatrix();
+    }
+    return nullptr;
+}
+
 void CModel::PlayAnimation(f32_t fDeltaTime)
 {
     // ------ 뼈들을 현재 애니메이션에 맞게 셋팅한다. ------

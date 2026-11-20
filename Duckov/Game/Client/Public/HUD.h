@@ -101,6 +101,9 @@ private:
 	shared_ptr<CPixelShader>		m_pPSCircleCom;
 	shared_ptr<CTexture>			m_pIconTexCom;
 	shared_ptr<CTexture>			m_pHUDIconTexCom;
+	ComPtr<ID3D11Buffer>			m_pVB = { nullptr };
+	ComPtr<ID3D11Buffer>			m_pIB = { nullptr };
+	uint32_t						m_iIndexCnt = {};
 	ComPtr<ID3D11Buffer>			m_pInstanceVB;
 	ComPtr<ID3D11Buffer>			m_pInstanceVB_Circle;
 	static constexpr uint32_t		m_iMaxInstance = 1024;

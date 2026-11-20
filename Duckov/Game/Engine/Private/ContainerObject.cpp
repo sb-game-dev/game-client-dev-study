@@ -26,16 +26,31 @@ HRESULT CContainerObject::Initialize(void* pArg)
 void CContainerObject::Priority_Update(f32_t fDeltaTime)
 {
 	__super::Priority_Update(fDeltaTime);
+	for (auto& pPart : m_PartObjects)
+	{
+		if (nullptr != pPart.second && !pPart.second->Is_Dead())
+			pPart.second->Priority_Update(fDeltaTime);
+	}
 }
 
 void CContainerObject::Update(f32_t fDeltaTime)
 {
 	__super::Update(fDeltaTime);
+	for (auto& pPart : m_PartObjects)
+	{
+		if (nullptr != pPart.second && !pPart.second->Is_Dead())
+			pPart.second->Update(fDeltaTime);
+	}
 }
 
 void CContainerObject::Late_Update(f32_t fDeltaTime)
 {
 	__super::Late_Update(fDeltaTime);
+	for (auto& pPart : m_PartObjects)
+	{
+		if (nullptr != pPart.second && !pPart.second->Is_Dead())
+			pPart.second->Late_Update(fDeltaTime);
+	}
 }
 
 HRESULT CContainerObject::Render()

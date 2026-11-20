@@ -55,14 +55,9 @@ HRESULT CClient_Mouse::Initialize_Prototype()
     if (FAILED(m_pDevice->CreateBuffer(&IBDesc, &IBData, &m_pIB)))
         return E_FAIL;
 
-    // 상수 버퍼 생성
-    D3D11_BUFFER_DESC CBDesc{};
-    CBDesc.ByteWidth = sizeof(CB_PER_OBJECT);
-    CBDesc.Usage = D3D11_USAGE_DEFAULT;
-    CBDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-
-    // 상수 버퍼를 초기화 할 때 SubResource는 nullptr로 설정. 나중에 UpdateSubresource 할 예정
-    if (FAILED(m_pDevice->CreateBuffer(&CBDesc, nullptr, &m_pCB)))
+    // 상수 버퍼 생성 (부모의 m_tCBData 크기, 값은 Render_Mesh에서 갱신)
+    m_pCB = CConstantBuffer::Create(m_pDevice, m_pContext, &m_tCBData, sizeof(m_tCBData));
+    if (nullptr == m_pCB)
         return E_FAIL;
 
     // 래스터라이저 설정
@@ -266,13 +261,8 @@ HRESULT CClient_Mouse::Ready_InstanceBuffers()
 }
 HRESULT CClient_Mouse::Render_Mesh(ID3D11Buffer* pInstanceVB, shared_ptr<CPixelShader> pPS, uint32_t iInstanceCnt)
 {
-    CB_PER_OBJECT cbData;
-    XMStoreFloat4x4(&cbData.mat_World, XMMatrixIdentity());
-    XMStoreFloat4x4(&cbData.mat_WorldInvTranspose, XMMatrixIdentity());
-
-    // 변환 행렬의 정보를 가지고있는 m_pCB 버퍼로 복사(USAGE_DEFAULT로 생성해서 드라이버를 통해 복사)
-    // 아래에서 VS의 b0 레지스터에 꽂을 예정
-    m_pContext->UpdateSubresource(m_pCB.Get(), 0, nullptr, &cbData, 0, 0);
+    XMStoreFloat4x4(&m_tCBData.mat_World, XMMatrixIdentity());
+    XMStoreFloat4x4(&m_tCBData.mat_WorldInvTranspose, XMMatrixIdentity());
 
     // 파이프라인에 꽂기
         //IA(입력 조립기 단계)
@@ -289,14 +279,11 @@ HRESULT CClient_Mouse::Render_Mesh(ID3D11Buffer* pInstanceVB, shared_ptr<CPixelS
     // 삼각형 그리기 설정
     m_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
-    // VS의 상수버퍼슬롯(b0)에 상수버퍼(변환 행렬 버퍼) 꽂기
-
-    m_pContext->VSSetConstantBuffers(0, 1, m_pCB.GetAddressOf());
-
-
-    m_pContext->PSSetConstantBuffers(0, //register(b0)과 연결됨
-        1,
-        m_pCB.GetAddressOf());
+    // VS, PS의 상수버퍼 슬롯(b0)에 변환 행렬 버퍼 꽂기
+    if (FAILED(m_pCB->Bind_Vertex_ShaderResource(0, &m_tCBData)))
+        return E_FAIL;
+    if (FAILED(m_pCB->Bind_Pixel_ShaderResource(0, &m_tCBData)))
+        return E_FAIL;
 
     if (FAILED(m_pVS->Begin()))
         return E_FAIL;

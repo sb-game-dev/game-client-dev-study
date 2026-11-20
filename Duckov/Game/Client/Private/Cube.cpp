@@ -68,7 +68,7 @@ void CCube::Late_Update(f32_t fDeltaTime)
         return;
     // 그림자 : 월드 공간 박스 + 단위 행렬
     BoundingBox tShadowBox;
-    m_tLocalBox.Transform(tShadowBox, Get_ShadowWorld());   // 그림자를 감싸는 월드 박스
+    m_pBufferCom->GetBoundinBox().Transform(tShadowBox, Get_ShadowWorld());   // 그림자를 감싸는 월드 박스
 
     if (Is_BoxInFrustum(tShadowBox, XMMatrixIdentity()))
         CGameInstance::Get().Add_RenderGroup(RENDERID::SHADOW, dynamic_pointer_cast<CGameObject>(shared_from_this()));

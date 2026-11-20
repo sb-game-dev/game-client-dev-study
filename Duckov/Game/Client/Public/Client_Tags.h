@@ -76,10 +76,29 @@ namespace Client
 		inline constexpr const wchar_t* Model_Weapon_M700 = L"mesh/weapons/guns/ig_gun_m700.bin";
 		inline constexpr const wchar_t* Model_Weapon_PM = L"mesh/weapons/guns/ig_gun_pm.bin";
 		inline constexpr const wchar_t* Model_Weapon_Axe = L"mesh/weapons/melee_handheld/meleeweaponagent_axe.bin";
+		inline constexpr const wchar_t* Model_Helmet_LV2 = L"mesh/equipment/helmet/ig_helmat_lv2.bin";
+		inline constexpr const wchar_t* Model_Helmet_LV3 = L"mesh/equipment/helmet/ig_helmat_lv3.bin";
+		inline constexpr const wchar_t* Model_Armor_LV2 = L"mesh/equipment/armor/ig_armor_lv2.bin";
+		inline constexpr const wchar_t* Model_Armor_LV3 = L"mesh/equipment/armor/ig_armor_lv3.bin";
+		inline constexpr const wchar_t* Model_BackPack_LV2 = L"mesh/equipment/backpack/ig_backpack_lv2.bin";
+		inline constexpr const wchar_t* Model_BackPack_LV3 = L"mesh/equipment/backpack/ig_backpack_lv3.bin";
+		inline constexpr const wchar_t* Model_Headset_LV0 = L"mesh/equipment/headset/ig_headset_lv0.bin";
+		inline constexpr const wchar_t* Model_Headset_LV1 = L"mesh/equipment/headset/ig_headset_lv1v2.bin";
+		inline constexpr const wchar_t* Model_FaceMask_FlyMask = L"mesh/equipment/facemask/ig_fackmask_flymask.bin";
+		inline constexpr const wchar_t* Model_FaceMask_GasMask = L"mesh/equipment/facemask/ig_fackmask_gasmask_01.bin";
+		inline constexpr const wchar_t* Model_FaceMask_NightVision = L"mesh/equipment/facemask/ig_fackmask_nightvision.bin";
+
 
 		// ---------- GameObject ¿øÇü ----------
 		inline constexpr const wchar_t* Obj_BackGround = L"Prototype_GameObject_BackGround";
 		inline constexpr const wchar_t* Obj_Player = L"Prototype_GameObject_Player";
+		inline constexpr const wchar_t* Obj_Player_Body = L"Prototype_GameObject_Player_Body";
+		inline constexpr const wchar_t* Obj_Weapon = L"Prototype_GameObject_Weapon";
+		inline constexpr const wchar_t* Obj_Helmet = L"Prototype_GameObject_Helmet";
+		inline constexpr const wchar_t* Obj_Armor = L"Prototype_GameObject_Armor";
+		inline constexpr const wchar_t* Obj_BackPack = L"Prototype_GameObject_BackPack";
+		inline constexpr const wchar_t* Obj_Headset = L"Prototype_GameObject_Headset";
+		inline constexpr const wchar_t* Obj_FaceMask = L"Prototype_GameObject_FaceMask";
 		inline constexpr const wchar_t* Obj_Cube = L"Prototype_GameObject_Cube";
 		inline constexpr const wchar_t* Obj_Cube_Instance = L"Prototype_GameObject_Cube_Instance";
 		inline constexpr const wchar_t* Obj_SkyBox = L"Prototype_GameObject_SkyBox";

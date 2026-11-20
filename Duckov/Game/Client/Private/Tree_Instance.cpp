@@ -161,7 +161,7 @@ void CTree_Instance::Cull_Instances()
     m_iVisibleCnt = 0;
     for (uint32_t i = 0; i < m_iNumInstance; ++i)
     {
-        if (Is_BoxInFrustum(m_tLocalBox, XMLoadFloat4x4(&m_WorldMats[i])))
+        if (Is_BoxInFrustum(m_pModelCom->GetBoundinBox(), XMLoadFloat4x4(&m_WorldMats[i])))
             pDst[m_iVisibleCnt++] = m_WorldMats[i];
     }
     m_pContext->Unmap(m_pInstanceVB.Get(), 0);

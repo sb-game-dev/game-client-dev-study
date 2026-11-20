@@ -100,11 +100,26 @@
     <Filter Include="02. GameObjects\01. Player\01. Weapon">
       <UniqueIdentifier>{d31e4331-4cbd-4ff9-8193-2fd6e82d027d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObjects\01. Player\02. UI">
+    <Filter Include="02. GameObjects\01. Player\98. UI">
       <UniqueIdentifier>{555f40b0-2126-4582-aee2-dd2c87f13b62}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObjects\01. Player\03. Effect">
+    <Filter Include="02. GameObjects\01. Player\99. Effect">
       <UniqueIdentifier>{158d68cd-7664-4ecc-8956-b7f575c598ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObjects\01. Player\03. Armor">
+      <UniqueIdentifier>{490abf84-b63e-4092-bb8c-a35aebd41a98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObjects\01. Player\02. Helmet">
+      <UniqueIdentifier>{03bb6157-69e8-4c21-bdca-404c2805fc1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObjects\01. Player\04. FaceMask">
+      <UniqueIdentifier>{488d8f78-f884-4b06-b1f6-bbd67719c285}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObjects\01. Player\05. Headset">
+      <UniqueIdentifier>{786ecbce-8e61-40e3-b131-cbc0edb3aa16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObjects\01. Player\06. BackPack">
+      <UniqueIdentifier>{db0ec47a-a843-4e5b-86b3-798c32a50e63}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -204,6 +219,24 @@
     <ClInclude Include="..\public\Body_Player.h">
       <Filter>02. GameObjects\01. Player\00. Body</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\Weapon.h">
+      <Filter>02. GameObjects\01. Player\01. Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Helmet.h">
+      <Filter>02. GameObjects\01. Player\02. Helmet</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Armor.h">
+      <Filter>02. GameObjects\01. Player\03. Armor</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\BackPack.h">
+      <Filter>02. GameObjects\01. Player\06. BackPack</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Headset.h">
+      <Filter>02. GameObjects\01. Player\05. Headset</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\FaceMask.h">
+      <Filter>02. GameObjects\01. Player\04. FaceMask</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -293,6 +326,24 @@
     </ClCompile>
     <ClCompile Include="..\private\Body_Player.cpp">
       <Filter>02. GameObjects\01. Player\00. Body</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Weapon.cpp">
+      <Filter>02. GameObjects\01. Player\01. Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Helmet.cpp">
+      <Filter>02. GameObjects\01. Player\02. Helmet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Armor.cpp">
+      <Filter>02. GameObjects\01. Player\03. Armor</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\BackPack.cpp">
+      <Filter>02. GameObjects\01. Player\06. BackPack</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Headset.cpp">
+      <Filter>02. GameObjects\01. Player\05. Headset</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\FaceMask.cpp">
+      <Filter>02. GameObjects\01. Player\04. FaceMask</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -14,6 +14,13 @@
 #include "HUD.h"
 #include "Tree_Instance.h"
 #include "StaticProp.h"
+#include "Body_Player.h"
+#include "Weapon.h"
+#include "Helmet.h"
+#include "Armor.h"
+#include "BackPack.h"
+#include "Headset.h"
+#include "FaceMask.h"
 
 CLoader::CLoader(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     : m_pDevice{pDevice}
@@ -249,6 +256,69 @@ HRESULT CLoader::Loading_For_GamePlayLV()
             "../../../Resource/prefabs/weapons/melee_handheld/MeleeWeaponAgent_Axe.bin"))))
         return E_FAIL;
 
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
+        Proto::Model_Helmet_LV2,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/equipment/helmet/ig_helmat_LV2.bin"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
+        Proto::Model_Helmet_LV3,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/equipment/helmet/ig_helmat_LV3.bin"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
+        Proto::Model_Armor_LV2,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/equipment/armor/ig_armor_LV2.bin"))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
+        Proto::Model_Armor_LV3,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/equipment/armor/ig_armor_LV3.bin"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
+        Proto::Model_BackPack_LV2,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/equipment/backpack/ig_backpack_LV2.bin"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
+        Proto::Model_BackPack_LV3,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/equipment/backpack/ig_backpack_LV3.bin"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
+        Proto::Model_Headset_LV0,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/equipment/headset/ig_headset_LV0.bin"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
+        Proto::Model_Headset_LV1,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/equipment/headset/IG_Headset_LV1V2.bin"))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
+        Proto::Model_FaceMask_FlyMask,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/equipment/facemask/IG_fackmask_flymask.bin"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
+        Proto::Model_FaceMask_GasMask,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/equipment/facemask/IG_fackmask_gasmask_01.bin"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
+        Proto::Model_FaceMask_NightVision,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/equipment/facemask/IG_fackmask_nightvision.bin"))))
+        return E_FAIL;
 
     lstrcpy(m_szLoadingText, TEXT("셰이더를 준비중입니다."));
 
@@ -348,6 +418,30 @@ HRESULT CLoader::Loading_For_GamePlayLV()
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Player,
         CPlayer::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Player_Body,
+        CBody_Player::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Weapon,
+        CWeapon::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Helmet,
+        CHelmet::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Armor,
+        CArmor::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_BackPack,
+        CBackPack::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Headset,
+        CHeadset::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_FaceMask,
+        CFaceMask::Create(m_pDevice, m_pContext))))
         return E_FAIL;
 
 

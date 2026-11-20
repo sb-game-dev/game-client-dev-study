@@ -29,6 +29,9 @@ public:
 
 private:
 	static constexpr uint32_t		m_iNumInstance = 16;
+	ComPtr<ID3D11Buffer>			m_pVB = { nullptr };
+	ComPtr<ID3D11Buffer>			m_pIB = { nullptr };
+	uint32_t						m_iIndexCnt = {};
 	ComPtr<ID3D11Buffer>			m_pInstanceVB = { nullptr };
 	ComPtr<ID3D11Buffer>			m_pInstanceVB_Shadow = { nullptr };
 
@@ -39,6 +42,7 @@ private:
 
 	float4x4_t						m_WorldMats[m_iNumInstance] = {};      
 	float4x4_t						m_ShadowMats[m_iNumInstance] = {};
+	BoundingBox						m_tLocalBox = {};
 	BoundingBox						m_ShadowBoxes[m_iNumInstance] = {};    
 	uint32_t						m_iVisibleCnt = {};
 	uint32_t						m_iVisibleShadowCnt = {};

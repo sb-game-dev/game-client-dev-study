@@ -28,13 +28,11 @@ private:
 	shared_ptr<CVIBuffer_Rect>		m_pBufferCom = { nullptr };
 	shared_ptr<CVertexShader>		m_pVS = { nullptr };
 	shared_ptr<CPixelShader>		m_pPS = { nullptr };
-	shared_ptr<CConstantBuffer>		m_pCB = { nullptr };
 	shared_ptr<CConstantBuffer> 	m_pCBMouse = { nullptr };
 
 	weak_ptr<class CPlayer>			m_pPlayer;
 	weak_ptr<class CInven>			m_pInven;
 
-	CB_PER_OBJECT					m_tCBData = {};
 	CB_MOUSEINFO					m_tCBMouseData = {};
 private:
 	HRESULT			Ready_Components();

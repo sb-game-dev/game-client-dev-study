@@ -42,12 +42,10 @@ public:
 	shared_ptr<CComponent>	Find_Component(const wstring_t& strComponentTag);
 
 protected:
-	ComPtr<ID3D11Buffer>				m_pVB = { nullptr };			// 버텍스 버퍼
-	ComPtr<ID3D11Buffer>				m_pIB = { nullptr };			// 인덱스 버퍼
-	ComPtr<ID3D11Buffer>				m_pCB = { nullptr };			// 변환 정보를 가지고있는 상수버퍼
-	uint32_t							m_iIndexCnt = {};				// 인덱스 개수
+	shared_ptr<CConstantBuffer>			m_pCB = { nullptr };			
+	CB_PER_OBJECT						m_tCBData = {};					
 
-	ComPtr<ID3D11RasterizerState>		m_pRS = { nullptr };			// 레스터라이저
+	ComPtr<ID3D11RasterizerState>		m_pRS = { nullptr };			
 
 	shared_ptr<CTransform>				m_pTransformCom = { nullptr };
 
@@ -55,8 +53,6 @@ protected:
 
 	f32_t				m_fViewZ = {};
 
-	BoundingBox			m_tLocalBox = {};
-	bool_t				m_bUseCulling = { false };
 
 	bool_t				m_bDead = { false };
 

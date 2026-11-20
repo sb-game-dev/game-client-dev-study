@@ -31,6 +31,8 @@ public:
 
 	BoundingBox		GetBoundinBox() { return m_tLocalBox; }
 
+	const float4x4_t* Get_CombinedTransformMatrix(const char_t* pBoneName);
+
 	void			PlayAnimation(f32_t fDeltaTime);
 	void			SetAnimPlaySpeed(f32_t fAnimPlaySpeed, bool_t isUpper = false);
 	void			Reset_BoneTransformMatrix();

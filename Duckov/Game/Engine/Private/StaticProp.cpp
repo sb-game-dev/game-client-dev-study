@@ -18,7 +18,6 @@ HRESULT CStaticProp::Initialize_Prototype()
     rsDesc.DepthClipEnable = true;
 
     m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
-    m_bUseCulling = true;
     return S_OK;
 }
 

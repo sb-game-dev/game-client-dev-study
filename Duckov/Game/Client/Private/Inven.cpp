@@ -50,16 +50,6 @@ HRESULT CInven::Initialize_Prototype()
 	if (FAILED(m_pDevice->CreateBuffer(&IBDesc, &IBData, &m_pIB)))
 		return E_FAIL;
 
-	// 상수 버퍼 생성
-	D3D11_BUFFER_DESC CBDesc{};
-	CBDesc.ByteWidth = sizeof(CB_PER_OBJECT);
-	CBDesc.Usage = D3D11_USAGE_DEFAULT;
-	CBDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-
-	// 상수 버퍼를 초기화 할 때 SubResource는 nullptr로 설정. 나중에 UpdateSubresource 할 예정
-	if (FAILED(m_pDevice->CreateBuffer(&CBDesc, nullptr, &m_pCB)))
-		return E_FAIL;
-
 	// 래스터라이저 설정
 	D3D11_RASTERIZER_DESC rsDesc{};
 	rsDesc.FillMode = D3D11_FILL_SOLID;         // D3D11_FILL_WIREFRAME , D3D11_FILL_SOLID
@@ -96,21 +86,38 @@ HRESULT CInven::Initialize(void* pArg)
 
 	auto pHelmet = make_shared<ARMOR>();
 	pHelmet->eSlot = ARMOR_SLOT::HEAD;
-	m_vecBackPack[5] = Init_TestItem(pHelmet, ITEM_TYPE::ARMOR, L"구식 철모", ITEM_ID::HELMATLV2, 2, 100, 50);
+	m_vecBackPack[5] = Init_TestItem(pHelmet, ITEM_TYPE::ARMOR, Proto::Model_Helmet_LV2, ITEM_ID::HELMATLV2, 2, 100, 50);
+
 
 	auto pVest = make_shared<ARMOR>();
 	pVest->eSlot = ARMOR_SLOT::BODY;
-	m_vecBackPack[6] = Init_TestItem(pVest, ITEM_TYPE::ARMOR, L"Lv.2 방탄복", ITEM_ID::ARMORLV2, 2,1,1,100,45);
+	m_vecBackPack[6] = Init_TestItem(pVest, ITEM_TYPE::ARMOR, Proto::Model_Armor_LV2, ITEM_ID::ARMORLV2, 2,1,1,100,45);
 
-	m_vecBackPack[7] = Init_TestItem(make_shared<GUN>(), ITEM_TYPE::GUN, L"PM", ITEM_ID::PST_PM_NORMAL, 1,1, 1, 100, 45);
+	m_vecBackPack[7] = Init_TestItem(make_shared<GUN>(), ITEM_TYPE::GUN, Proto::Model_Weapon_PM, ITEM_ID::PST_PM_NORMAL, 1,1, 1, 100, 45);
 	m_vecBackPack[8] = Init_TestItem(make_shared<ITEM>(), ITEM_TYPE::TOTEM, L"토템: 갑옷 Ⅰ", ITEM_ID::TOTEM_ARMOR, 1, 1, 1);
 
-	m_vecBackPack[9] = Init_TestItem(make_shared<GUN>(), ITEM_TYPE::GUN, L"M700", ITEM_ID::SNIPER_M700_NORMAL, 1, 1, 1, 100, 45);
-	m_vecBackPack[10] = Init_TestItem(make_shared<ITEM>(), ITEM_TYPE::MELEE, L"전투 도끼", ITEM_ID::AXE, 1, 1, 1, 100, 45);
+	m_vecBackPack[9] = Init_TestItem(make_shared<GUN>(), ITEM_TYPE::GUN, Proto::Model_Weapon_M700, ITEM_ID::SNIPER_M700_NORMAL, 1, 1, 1, 100, 45);
+	m_vecBackPack[10] = Init_TestItem(make_shared<ITEM>(), ITEM_TYPE::MELEE, Proto::Model_Weapon_Axe, ITEM_ID::AXE, 1, 1, 1, 100, 45);
+
+	auto pHelmet2 = make_shared<ARMOR>();
+	pHelmet2->eSlot = ARMOR_SLOT::HEAD;
+	m_vecBackPack[11] = Init_TestItem(pHelmet2, ITEM_TYPE::ARMOR, Proto::Model_Helmet_LV3, ITEM_ID::HELMATLV3, 2, 100, 50);
+
+	auto pVest2 = make_shared<ARMOR>();
+	pVest2->eSlot = ARMOR_SLOT::BODY;
+	m_vecBackPack[12] = Init_TestItem(pVest2, ITEM_TYPE::ARMOR, Proto::Model_Armor_LV3, ITEM_ID::ARMORLV3, 2,1,1,100,45);
+
+	m_vecBackPack[13] = Init_TestItem(make_shared<ITEM>(), ITEM_TYPE::HEADSET, Proto::Model_Headset_LV0, ITEM_ID::HEADSETLV1, 1);
+	m_vecBackPack[14] = Init_TestItem(make_shared<ITEM>(), ITEM_TYPE::HEADSET, Proto::Model_Headset_LV1, ITEM_ID::HEADSETLV2, 1);
+
+	m_vecBackPack[15] = Init_TestItem(make_shared<ITEM>(), ITEM_TYPE::FACEMASK, Proto::Model_FaceMask_FlyMask, ITEM_ID::FACEMASK_FLY_EYE, 1);
+	m_vecBackPack[16] = Init_TestItem(make_shared<ITEM>(), ITEM_TYPE::FACEMASK, Proto::Model_FaceMask_GasMask, ITEM_ID::GASMASK_01, 1);
+	m_vecBackPack[17] = Init_TestItem(make_shared<ITEM>(), ITEM_TYPE::FACEMASK, Proto::Model_FaceMask_NightVision, ITEM_ID::NIGHTVISIONGOGGLES, 1);
+
 
 	// 장비 칸
-	m_pEquipSlots[ETOI(EQUIP_SLOT::GUN_1)] = Init_TestItem(make_shared<GUN>(), ITEM_TYPE::GUN, L"AK-74U", ITEM_ID::S_AK74_LV_2, 2, 1, 1, 100, 45);
-	m_pEquipSlots[ETOI(EQUIP_SLOT::BACKPACK)] = Init_TestItem(make_shared<BACKPACK>(), ITEM_TYPE::BACKPACK, L"여행 가방", ITEM_ID::BACKPACKLV3, 3);
+	m_pEquipSlots[ETOI(EQUIP_SLOT::GUN_1)] = Init_TestItem(make_shared<GUN>(), ITEM_TYPE::GUN, Proto::Model_Weapon_AK47, ITEM_ID::S_AK74_LV_2, 2, 1, 1, 100, 45);
+	m_pEquipSlots[ETOI(EQUIP_SLOT::BACKPACK)] = Init_TestItem(make_shared<BACKPACK>(), ITEM_TYPE::BACKPACK, Proto::Model_BackPack_LV3, ITEM_ID::BACKPACKLV3, 3);
 
 	return S_OK;
 }
@@ -582,6 +589,12 @@ bool_t CInven::CanPlace(const shared_ptr<ITEM>& pItem, const SLOT_POS& tDstSlot)
 		return pItem->eItemType == ITEM_TYPE::ARMOR
 			&& static_pointer_cast<ARMOR>(pItem)->eSlot == ARMOR_SLOT::BODY;
 
+	case EQUIP_SLOT::FACE:
+		return pItem->eItemType == ITEM_TYPE::FACEMASK;
+
+	case EQUIP_SLOT::HEADSET:
+		return pItem->eItemType == ITEM_TYPE::HEADSET;
+
 	case EQUIP_SLOT::BACKPACK:
 		return pItem->eItemType == ITEM_TYPE::BACKPACK;
 
@@ -589,7 +602,7 @@ bool_t CInven::CanPlace(const shared_ptr<ITEM>& pItem, const SLOT_POS& tDstSlot)
 	case EQUIP_SLOT::TOTEM_2:
 		return pItem->eItemType == ITEM_TYPE::TOTEM;
 
-	default: // FACE, HEADSET: 아직 맞는 아이템 타입이 없음
+	default:
 		return false;
 	}
 }

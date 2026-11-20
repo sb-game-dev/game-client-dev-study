@@ -1,6 +1,13 @@
 #include "Player.h"
 #include "Inven.h"
 #include "Hill.h"
+#include "Body_Player.h"
+#include "Weapon.h"
+#include "Helmet.h"
+#include "Armor.h"
+#include "BackPack.h"
+#include "Headset.h"
+#include "FaceMask.h"
 
 namespace {
     vector_t	g_vY_Plus = XMVector4Normalize({ 0.f,+1.f,0.f,0.f });
@@ -16,18 +23,6 @@ HRESULT CPlayer::Initialize_Prototype()
 {
     if (FAILED(__super::Initialize_Prototype()))
         return E_FAIL;
-
-    // 레스터라이저 설정
-    D3D11_RASTERIZER_DESC rsDesc{};
-    rsDesc.FillMode = D3D11_FILL_SOLID;         //D3D11_FILL_WIREFRAME , D3D11_FILL_SOLID
-    rsDesc.CullMode = D3D11_CULL_BACK;          // D3D11_CULL_BACK , D3D11_CULL_FRONT
-    rsDesc.FrontCounterClockwise = false;       // 시계방향이 전면
-    rsDesc.DepthClipEnable = true;
-
-    m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
-
-    rsDesc.FrontCounterClockwise = true;        // 반사되면 감기 순서가 뒤집히므로 앞면 기준도 뒤집음
-    m_pDevice->CreateRasterizerState(&rsDesc, m_pRS_Reflect.GetAddressOf());
     return S_OK;
 }
 
@@ -37,7 +32,7 @@ HRESULT CPlayer::Initialize(void* pArg)
         return E_FAIL;
     if (FAILED(Ready_Components()))
         return E_FAIL;
-    if (FAILED(Ready_ConstantBuffer()))
+    if (FAILED(Ready_PartObjects()))
         return E_FAIL;
 
     return S_OK;
@@ -65,165 +60,93 @@ void CPlayer::Priority_Update(f32_t fDeltaTime)
     if (bInvenOpen)
         m_tInput = {};
     else
-    {
         Key_Input();
 
-        Update_State(fDeltaTime);
-
-        Update_Stamina(fDeltaTime);
-        Update_Hunger(fDeltaTime);
-        Update_Thirst(fDeltaTime);
-
-        Handle_SlotInput(fDeltaTime);
-
-        AdjustPosY();
-    }
+    Update_State(fDeltaTime);
+    
+    Update_Stamina(fDeltaTime);
+    Update_Hunger(fDeltaTime);
+    Update_Thirst(fDeltaTime);
+    
+    Handle_SlotInput(fDeltaTime);
+    
+    AdjustPosY();
 }
 
 void CPlayer::Update(f32_t fDeltaTime)
 {
     __super::Update(fDeltaTime);
-    m_pModelCom->PlayAnimation(fDeltaTime);
 }
 void CPlayer::Late_Update(f32_t fDeltaTime)
 {
     __super::Late_Update(fDeltaTime);
-
-    CGameInstance::Get().Add_RenderGroup(RENDERID::PLAYER, dynamic_pointer_cast<CGameObject>(shared_from_this()));
-    CGameInstance::Get().Add_RenderGroup(RENDERID::OCCLUDEDPLAYER, dynamic_pointer_cast<CGameObject>(shared_from_this()));
-    CGameInstance::Get().Add_RenderGroup(RENDERID::SHADOW, dynamic_pointer_cast<CGameObject>(shared_from_this()));
-    CGameInstance::Get().Add_RenderGroup(RENDERID::REFLECT, dynamic_pointer_cast<CGameObject>(shared_from_this()));
 }
 
 HRESULT CPlayer::Render()
 {
-    return Render_Mesh(m_pTransformCom->Get_World(), m_pRS.Get(), m_pPSCom);
-}
-
-HRESULT CPlayer::Render_Reflection(const matrix_t& matReflect)
-{
-    return Render_Mesh(m_pTransformCom->Get_World() * matReflect, m_pRS_Reflect.Get(), m_pPSCom);
-}
-
-HRESULT CPlayer::Render_Shadow()
-{
-    XMVECTOR vPlane     = XMLoadFloat4(&m_vGroundPlane);
-    XMVECTOR vToLight   = XMVectorSet(-0.5f, 0.5f, -0.5f, 0.f);  // SunLight Direction의 반대, w=0(평행광)
-
-    matrix_t matShadow  = XMMatrixShadow(vPlane, vToLight);
-    matrix_t matOffset  = XMMatrixTranslation(0.f, 0.01f, 0.f);  // 지형과 z-fighting 방지
-
-    return Render_Mesh(m_pTransformCom->Get_World() * matShadow * matOffset, m_pRS.Get(), m_pPS_Shadow);
-}
-
-HRESULT CPlayer::Render_Occluded()
-{
-    return Render_Mesh(m_pTransformCom->Get_World(), m_pRS.Get(), m_pPS_Occluded);
+    if (FAILED(__super::Render()))
+        return E_FAIL;
+    return S_OK;
 }
 
 HRESULT CPlayer::Ready_Components()
 {
-    if(FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Normalize_AssetPath(TEXT("Characters/S12_DuckV2_2/S12_DuckV2_2.fbx")),
-        TEXT("Com_Model"),m_pModelCom)))
-        return E_FAIL;
-
-    m_pModelCom->Set_LowerAnimationIndex(ETOUI(m_eLowerMoveState),0.f);
-    m_pModelCom->Set_Animation_Loop(ETOUI(PLAYER_ANIM::WALK_FORWARD));
-    m_pModelCom->Set_Animation_Loop(ETOUI(PLAYER_ANIM::WALK_FORWARD_RH));
-    m_pModelCom->Set_Animation_Loop(ETOUI(PLAYER_ANIM::WALK_BACKWARD));
-    m_pModelCom->Set_Animation_Loop(ETOUI(PLAYER_ANIM::WALK_BACKWARD_RH));
-    m_pModelCom->Set_Animation_Loop(ETOUI(PLAYER_ANIM::WALK_LEFT));
-    m_pModelCom->Set_Animation_Loop(ETOUI(PLAYER_ANIM::WALK_LEFT_RH_OUT));
-    m_pModelCom->Set_Animation_Loop(ETOUI(PLAYER_ANIM::IDLE));
-    m_pModelCom->Set_Animation_Loop(ETOUI(PLAYER_ANIM::IDLE_RH));
-
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VS_ANIM_MODEL,
-        TEXT("Com_VS"), m_pVSCom)))
-        return E_FAIL;
-
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_MODEL,
-        TEXT("Com_PS"), m_pPSCom)))
-        return E_FAIL;
-
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_VTXCOL_SHADOW,
-        TEXT("Com_PS_SHADOW"), m_pPS_Shadow)))
-        return E_FAIL;
-
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_VTXCOL_OCCLUDED,
-        TEXT("Com_PS_OCCLUDED"), m_pPS_Occluded)))
-        return E_FAIL;
-
     return S_OK;
 }
 
-HRESULT CPlayer::Ready_ConstantBuffer()
+HRESULT CPlayer::Ready_PartObjects()
 {
-    m_pCB = CConstantBuffer::Create(m_pDevice, m_pContext, &m_tCBData, sizeof m_tCBData);
-    if (nullptr == m_pCB)
+    CBody_Player::BODY_DESC     BodyDesc{};
+    BodyDesc.pParentTransformCom = m_pTransformCom;
+    BodyDesc.pGroundPlane = &m_vGroundPlane;
+
+    if (FAILED(__super::Add_PartObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Player_Body,
+        TEXT("Part_Body"), &BodyDesc)))
+        return E_FAIL;
+    m_pBodyPlayer = dynamic_pointer_cast<CBody_Player>(m_PartObjects[TEXT("Part_Body")]);
+
+    CWeapon::WEAPON_DESC        WeaponDesc{};
+    WeaponDesc.pParentTransformCom = m_pTransformCom;
+    WeaponDesc.pSocketMatrix = m_pBodyPlayer->Get_SocketMatrix("Hand.R");
+    if (FAILED(__super::Add_PartObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Weapon,
+        TEXT("Part_Weapon"), &WeaponDesc)))
         return E_FAIL;
 
-    return S_OK;
-}
-
-HRESULT CPlayer::Update_ConstantBuffer(const matrix_t& matWorld)
-{
-    XMMATRIX matNoTrans = matWorld;
-    matNoTrans.r[3] = XMVectorSet(0.f, 0.f, 0.f, 1.f);
-    XMMATRIX matWorldInvTranspos = XMMatrixTranspose(XMMatrixInverse(nullptr, matNoTrans));
-
-    XMStoreFloat4x4(&m_tCBData.mat_World, (matWorld));
-    XMStoreFloat4x4(&m_tCBData.mat_WorldInvTranspose, (matWorldInvTranspos));
-
-    return S_OK;
-}
-
-HRESULT CPlayer::Render_Mesh(const matrix_t& matWorld, ID3D11RasterizerState* pRS, shared_ptr<CPixelShader> pPS)
-{
-    if (FAILED(__super::Render()))
+    CHelmet::HELMET_DESC        HelmetDesc{};
+    HelmetDesc.pParentTransformCom = m_pTransformCom;
+    HelmetDesc.pSocketMatrix = m_pBodyPlayer->Get_SocketMatrix("Head");
+    if (FAILED(__super::Add_PartObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Helmet,
+        TEXT("Part_Helmet"), &HelmetDesc)))
+        return E_FAIL;
+    
+    CArmor::ARMOR_DESC        ArmorDesc{};
+    ArmorDesc.pParentTransformCom = m_pTransformCom;
+    ArmorDesc.pSocketMatrix = m_pBodyPlayer->Get_SocketMatrix("Spine.001");
+    if (FAILED(__super::Add_PartObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Armor,
+        TEXT("Part_Armor"), &ArmorDesc)))
+        return E_FAIL;
+    
+    CBackPack::BACKPACK_DESC    BackPackDesc{};
+    BackPackDesc.pParentTransformCom = m_pTransformCom;
+    BackPackDesc.pSocketMatrix = m_pBodyPlayer->Get_SocketMatrix("Spine.001");
+    if (FAILED(__super::Add_PartObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_BackPack,
+        TEXT("Part_BackPack"), &BackPackDesc)))
         return E_FAIL;
 
-    // RS(레스터라이저 설정)
-    m_pContext->RSSetState(pRS);
-
-    if (FAILED(Bind_Shader(m_pVSCom, pPS)))
+    CHeadset::HEADSET_DESC    HeadsetDesc{};
+    HeadsetDesc.pParentTransformCom = m_pTransformCom;
+    HeadsetDesc.pSocketMatrix = m_pBodyPlayer->Get_SocketMatrix("Head");
+    if (FAILED(__super::Add_PartObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Headset,
+        TEXT("Part_Headset"), &HeadsetDesc)))
         return E_FAIL;
 
-    if (FAILED(Bind_ShaderResources(matWorld)))
+    CFaceMask::FACEMASK_DESC    FaceMaskDesc{};
+    FaceMaskDesc.pParentTransformCom = m_pTransformCom;
+    FaceMaskDesc.pSocketMatrix = m_pBodyPlayer->Get_SocketMatrix("Head");
+    if (FAILED(__super::Add_PartObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_FaceMask,
+        TEXT("Part_FaceMask"), &FaceMaskDesc)))
         return E_FAIL;
 
-    uint32_t    iNumMeshes = m_pModelCom->Get_NumMeshes();
-    for (uint32_t i = 0; i < iNumMeshes; ++i)
-    {
-        if (FAILED(m_pModelCom->Bind_BoneMatrix(i, 2)))
-            return E_FAIL;
-        if (FAILED(m_pModelCom->Bind_Material(i, aiTextureType_DIFFUSE, 0, 0)))
-            return E_FAIL;
-
-        //if (FAILED(m_pModelCom->Bind_Material(i, aiTextureType_NORMALS, 0, 1)))
-        //    return E_FAIL;
-
-        if (FAILED(m_pModelCom->Render(i)))
-            return E_FAIL;
-    }
-    return S_OK;
-}
-
-HRESULT CPlayer::Bind_Shader(shared_ptr<CVertexShader> pVS, shared_ptr<CPixelShader> pPS)
-{
-    if (FAILED(pVS->Begin()))
-        return E_FAIL;
-
-    if (FAILED(pPS->Begin()))
-        return E_FAIL;
-    return S_OK;
-}
-
-HRESULT CPlayer::Bind_ShaderResources(const matrix_t& matWorld)
-{
-    if (FAILED(Update_ConstantBuffer(matWorld)))
-        return E_FAIL;
-    if (FAILED(m_pCB->Bind_Vertex_ShaderResource(0, &m_tCBData)))
-        return E_FAIL;
     return S_OK;
 }
 
@@ -305,7 +228,7 @@ void CPlayer::Initialize_State(PLAYER_STATE eNext)
         }
         break;
     case Client::CPlayer::PLAYER_STATE::ATTACK:
-        if(m_bCanAttack) Change_Animation(rand() % 2 ? PLAYER_ANIM::ATTACK : PLAYER_ANIM::ATTACK_L2R, true, 1.5f, 0.01f);
+        Change_Animation(PLAYER_ANIM::ATTACK_L2R, true, 1.5f, 0.01f);
         break;
     default: 
         m_pTransformCom->Set_Speed(8.f);
@@ -315,9 +238,9 @@ void CPlayer::Initialize_State(PLAYER_STATE eNext)
 void CPlayer::Update_State_Idle(f32_t fDeltaTime)
 {
     // IDLE -> ROLL, ATTACK, WALK
-    if (m_tInput.bRoll && Can_Roll())                       { Initialize_State(PLAYER_STATE::ROLL); return; }
-    if (m_tInput.bFire && Is_MeleeSlot() && Has_Weapon())   { Initialize_State(PLAYER_STATE::ATTACK); return; }
-    if (Has_MoveInput())                                    { Initialize_State(PLAYER_STATE::WALK); return; }
+    if (m_tInput.bRoll && Can_Roll())                                       { Initialize_State(PLAYER_STATE::ROLL); return; }
+    if (m_tInput.bFire && Is_MeleeSlot() && Has_Weapon() && m_bCanAttack)   { Initialize_State(PLAYER_STATE::ATTACK); return; }
+    if (Has_MoveInput())                                                    { Initialize_State(PLAYER_STATE::WALK); return; }
 
     m_bAiming = m_tInput.bAim;
     m_bFiring = m_tInput.bFire;
@@ -328,10 +251,10 @@ void CPlayer::Update_State_Idle(f32_t fDeltaTime)
 void CPlayer::Update_State_Walk(f32_t fDeltaTime)
 {
     // WALK -> ROLL, SPRINT, ATTACK, IDLE
-    if (m_tInput.bRoll && Can_Roll())                       { Initialize_State(PLAYER_STATE::ROLL); return; }
-    if (m_tInput.bSprint && Can_Sprint())                   { Initialize_State(PLAYER_STATE::SPRINT); return; }
-    if (m_tInput.bFire && Is_MeleeSlot() && Has_Weapon())   { Initialize_State(PLAYER_STATE::ATTACK); return; }
-    if (!Has_MoveInput())                                   { Initialize_State(PLAYER_STATE::IDLE);   return; }
+    if (m_tInput.bRoll && Can_Roll())                                       { Initialize_State(PLAYER_STATE::ROLL); return; }
+    if (m_tInput.bSprint && Can_Sprint())                                   { Initialize_State(PLAYER_STATE::SPRINT); return; }
+    if (m_tInput.bFire && Is_MeleeSlot() && Has_Weapon() && m_bCanAttack)   { Initialize_State(PLAYER_STATE::ATTACK); return; }
+    if (!Has_MoveInput())                                                   { Initialize_State(PLAYER_STATE::IDLE);   return; }
 
     m_bAiming = m_tInput.bAim;
     m_bFiring = m_tInput.bFire;
@@ -362,7 +285,7 @@ void CPlayer::Update_State_Sprint(f32_t fDeltaTime)
 
 void CPlayer::Update_State_Roll(f32_t fDeltaTime)
 {
-    m_pModelCom->Set_UpperAnimationInActive(0.01f);
+    m_pBodyPlayer->Set_UpperAnimationInActive(0.01f);
     m_bSwapping = false;
     m_bCanAttack = false;
     Change_Animation(PLAYER_ANIM::ROLL, false, 1.f, 0.01f);
@@ -379,8 +302,9 @@ void CPlayer::Update_State_Roll(f32_t fDeltaTime)
     m_pTransformCom->Move_Position(XMLoadFloat4(&m_vRollStartMoveDir), fDeltaTime);
 
     // 구르기가 끝났다면 IDLE상태
-    if (m_pModelCom->Is_Animation_Finished())
+    if (m_pBodyPlayer->Is_Animation_Finished())
     {
+        m_bCanAttack = true;
         Initialize_State(PLAYER_STATE::IDLE);
         if (Has_Weapon())
             Change_Animation(PLAYER_ANIM::IDLE_RH, true);
@@ -401,11 +325,12 @@ void CPlayer::Update_State_Attack(f32_t fDeltaTime)
         Change_Animation(PLAYER_ANIM::IDLE);
     }
 
-    if (m_pModelCom->Is_Animation_Finished(true))
+    if (m_pBodyPlayer->Is_Animation_Finished(true))
     {
-        m_pModelCom->Set_UpperAnimationInActive();
-        m_eUpperMoveState = PLAYER_ANIM::END;
+        m_pBodyPlayer->Set_UpperAnimationInActive();
         Initialize_State(Has_MoveInput() ? PLAYER_STATE::WALK : PLAYER_STATE::IDLE);
+        if (Has_Weapon())
+            Change_Animation(PLAYER_ANIM::IDLE_RH, true);
     }
 }
 
@@ -414,7 +339,7 @@ void CPlayer::Play_Swap_Weapon_Anim_WeaponToWeapon(f32_t fDeltaTime)
     m_fSwapWeaponTime += fDeltaTime;
     if (m_fSwapWeaponTime < 0.2f)
     {
-        Change_Animation(PLAYER_ANIM::IDLE, true);
+        Change_Animation(PLAYER_ANIM::WALK_RIGHT, true);
         m_bCanAttack = false;
     }
     else if (m_fSwapWeaponTime < 0.4f)
@@ -434,7 +359,7 @@ void CPlayer::Play_Swap_Weapon_Anim_EdleToWeapon(f32_t fDeltaTime)
     m_fSwapWeaponTime += fDeltaTime;
     if (m_fSwapWeaponTime < 0.2f)
     {
-        Change_Animation(PLAYER_ANIM::IDLE_RH, true);
+        Change_Animation(PLAYER_ANIM::IDLE_RH, true, 0.f);
         m_bCanAttack = false;
     }
     else
@@ -448,10 +373,14 @@ void CPlayer::Handle_SlotInput(f32_t fDeltaTime)
 {
     if (PLAYER_STATE::ROLL == m_eState || PLAYER_STATE::ATTACK == m_eState)
         return;
+
     auto pInven = m_pInven.lock();
     if (nullptr == pInven)
         return;
     
+    if (pInven->Get_ActiveSlot() == EQUIP_SLOT::GUN_1 && m_tInput.bSlot1) return;
+    if (pInven->Get_ActiveSlot() == EQUIP_SLOT::GUN_2 && m_tInput.bSlot2) return;
+    if (pInven->Get_ActiveSlot() == EQUIP_SLOT::MELEE && m_tInput.bSlotMelee) return;
 
     if (m_tInput.bSlot1 || m_tInput.bSlot2 || m_tInput.bSlotMelee)
     {
@@ -463,14 +392,14 @@ void CPlayer::Handle_SlotInput(f32_t fDeltaTime)
     if (m_tInput.bSlot1)        pInven->Set_ActiveSlot(EQUIP_SLOT::GUN_1); 
     if (m_tInput.bSlot2)        pInven->Set_ActiveSlot(EQUIP_SLOT::GUN_2);
     if (m_tInput.bSlotMelee)    pInven->Set_ActiveSlot(EQUIP_SLOT::MELEE);
-    
+
     if (m_bSwapping)
     {
         if (!Has_Weapon()) 
         {
             // 무기 슬롯이 없는 곳으로 이동하면 자동으로 상체 애니메이션을 끄고 스왑 상태를 끈다.
             // 스왑상태를 꺼서 아래의 스왑 애니메이션이 작동하지 않고 하체의 애니메이션(IDLE or Walk)과 보간된다.
-            m_pModelCom->Set_UpperAnimationInActive();
+            m_pBodyPlayer->Set_UpperAnimationInActive();
             m_bSwapping = false;
         }
         else if (m_bPreHasWeapon)
@@ -539,17 +468,7 @@ void CPlayer::LookAtMouse(f32_t fDeltaTime)
 }
 void CPlayer::Change_Animation(PLAYER_ANIM eMoveState, bool_t bUpper, f32_t fAnimPlaySpeed, f32_t fBlendDuration)
 {
-    m_pModelCom->SetAnimPlaySpeed(fAnimPlaySpeed, bUpper);
-    if (bUpper)
-    {
-        m_eUpperMoveState = eMoveState;
-        m_pModelCom->Set_UpperAnimationIndex(ETOUI(m_eUpperMoveState),true, fBlendDuration);
-    }
-    else
-    {
-        m_eLowerMoveState = eMoveState;
-        m_pModelCom->Set_LowerAnimationIndex(ETOUI(m_eLowerMoveState), fBlendDuration);
-    }
+    m_pBodyPlayer->Change_Animation(eMoveState, bUpper, fAnimPlaySpeed, fBlendDuration);
 }
 
 void CPlayer::Update_Stamina(f32_t fDeltaTime)

@@ -18,7 +18,7 @@ HRESULT CPrototype_Manager::Add_Prototype(uint32_t iLevelIndex, const wstring_t&
 	if (iLevelIndex >= m_iNumLevels ||
 		nullptr != Find_Prototype(iLevelIndex, strPrototypeTag))
 		return E_FAIL;
-
+	pPrototype->Set_LevelIndex(iLevelIndex);
 	m_pPrototypes[iLevelIndex].emplace(strPrototypeTag, pPrototype);
 	return S_OK;
 }
@@ -39,7 +39,7 @@ shared_ptr<CPrototype> CPrototype_Manager::Clone_Prototype(uint32_t iLevelIndex,
 	auto        pCloneObject = pPrototype->Clone(pArg);
 	if (nullptr == pCloneObject)
 		return nullptr;
-
+	pCloneObject->Set_LevelIndex(iLevelIndex);
 	return pCloneObject;
 }
 

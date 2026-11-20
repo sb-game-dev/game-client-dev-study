@@ -21,20 +21,22 @@
    "unbound_paths": 0
   },
   {
-   "name": "Duck_Armature|Walk.Forward",
+   "name": "Duck_Armature|CT_Walk_Forward",
    "fps": 60.0,
-   "frames": 33,
-   "seconds": 0.5333,
+   "frames": 49,
+   "seconds": 0.8,
    "loop": true,
-   "unbound_paths": 0
+   "unbound_paths": 0,
+   "retarget_from": "0_CharacterModel_Custom_Template Armature|Walk_Forward"
   },
   {
-   "name": "Duck_Armature|Walk.Backward",
+   "name": "Duck_Armature|CT_Walk_Backward",
    "fps": 60.0,
-   "frames": 33,
-   "seconds": 0.5333,
+   "frames": 49,
+   "seconds": 0.8,
    "loop": true,
-   "unbound_paths": 0
+   "unbound_paths": 0,
+   "retarget_from": "0_CharacterModel_Custom_Template Armature|Walk_Backward"
   },
   {
    "name": "Duck_Armature|TPose",
@@ -53,20 +55,22 @@
    "unbound_paths": 0
   },
   {
-   "name": "Duck_Armature|Walk.Forward.RightHandOut",
+   "name": "Duck_Armature|CT_Walk_Forward.RightHandOut",
    "fps": 60.0,
-   "frames": 33,
-   "seconds": 0.5333,
+   "frames": 49,
+   "seconds": 0.8,
    "loop": true,
-   "unbound_paths": 0
+   "unbound_paths": 0,
+   "retarget_from": "0_CharacterModel_Custom_Template Armature|Walk_Forward"
   },
   {
-   "name": "Duck_Armature|Walk.Backward.RightHandOut",
+   "name": "Duck_Armature|CT_Walk_Backward.RightHandOut",
    "fps": 60.0,
-   "frames": 33,
-   "seconds": 0.5333,
+   "frames": 49,
+   "seconds": 0.8,
    "loop": true,
-   "unbound_paths": 0
+   "unbound_paths": 0,
+   "retarget_from": "0_CharacterModel_Custom_Template Armature|Walk_Backward"
   },
   {
    "name": "Duck_Armature|Roll",

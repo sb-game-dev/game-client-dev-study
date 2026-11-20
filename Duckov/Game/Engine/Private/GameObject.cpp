@@ -55,14 +55,19 @@ void CGameObject::Compute_ViewZ()
 
 bool_t CGameObject::Is_InFrustum()
 {
-	if (false == m_bUseCulling)
-		return true;
-
 	if (auto pBuffer = dynamic_pointer_cast<CVIBuffer>(Find_Component(L"Com_Buffer")))
+	{
+		if (false == pBuffer->IsUseCulling())
+			return true;
 		return Is_BoxInFrustum(pBuffer->GetBoundinBox(), m_pTransformCom->Get_World());
+	}
 
 	if (auto pModel = dynamic_pointer_cast<CModel>(Find_Component(L"Com_Model")))
+	{
+		if (false == pModel->IsUseCulling())
+			return true;
 		return Is_BoxInFrustum(pModel->GetBoundinBox(), m_pTransformCom->Get_World());
+	}
 
 	return true;
 }

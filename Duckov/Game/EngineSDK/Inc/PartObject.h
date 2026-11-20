@@ -2,7 +2,7 @@
 #include "Engine_Defines.h"
 #include "GameObject.h"
 NS_BEGIN(Engine)
-class CPartObject :public CGameObject
+class ENGINE_DLL CPartObject :public CGameObject
 {
 public:
 	typedef struct tagPartObjectDesc : public CGameObject::GAMEOBJECT_DESC
@@ -23,9 +23,14 @@ public:
 	virtual void		Late_Update(f32_t fDeltaTime)override;
 	virtual HRESULT		Render()override;
 
+
 protected:
 	float4x4_t						m_CombinedWorldMatrix = {};
-	shared_ptr<CTransform>			m_pParentTransform = { nullptr };
+	shared_ptr<CTransform>			m_pParentTransformCom = { nullptr };
+
+protected:
+	void Update_CombinedWorldMatrix(fmatrix_t ChildMatrix);
+	HRESULT Bind_Vertex_ShaderResource(uint32_t iSlot, const matrix_t& matWorld);
 
 public:
 	static shared_ptr<CPartObject> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);

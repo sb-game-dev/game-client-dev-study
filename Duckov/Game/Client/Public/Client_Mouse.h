@@ -44,6 +44,9 @@ private:
 	MOUSESTATE						m_eMouseState = {};
 	float3_t						m_vPosVP = {0.f,0.f,2.f};
 
+	ComPtr<ID3D11Buffer>			m_pVB = { nullptr };
+	ComPtr<ID3D11Buffer>			m_pIB = { nullptr };
+	uint32_t						m_iIndexCnt = {};
 	ComPtr<ID3D11Buffer>			m_pInstanceVB = { nullptr };
 	vector<float4x4_t>				m_WorldMats;
 	

@@ -256,6 +256,27 @@
     <ClCompile Include="..\..\Client\Private\Tree_Instance.cpp">
       <Filter>97. Client_Shared</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Weapon.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Body_Player.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Helmet.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Armor.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\BackPack.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Headset.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\FaceMask.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Default.rc">

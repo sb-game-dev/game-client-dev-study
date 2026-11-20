@@ -26,8 +26,6 @@ private:
     shared_ptr<CModel>              m_pModelCom;
     shared_ptr<CVertexShader>       m_pVS;
     shared_ptr<CPixelShader>        m_pPS;
-    shared_ptr<CConstantBuffer>     m_pCB;
-    CB_PER_OBJECT                   m_tCBData = {};
 
 private:
     HRESULT Ready_Components();
