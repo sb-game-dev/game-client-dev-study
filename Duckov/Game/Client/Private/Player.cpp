@@ -418,8 +418,8 @@ void CPlayer::Play_Swap_Weapon_Anim_WeaponToWeapon(f32_t fDeltaTime)
     }
     else
     {
-        m_pModelCom->Set_UpperAnimationInActive();
         m_bCanAttack = true;
+        m_bSwapping = false;
     }
 }
 
@@ -433,8 +433,8 @@ void CPlayer::Play_Swap_Weapon_Anim_EdleToWeapon(f32_t fDeltaTime)
     }
     else
     {
-        m_pModelCom->Set_UpperAnimationInActive();
         m_bCanAttack = true;
+        m_bSwapping = false;
     }
 }
 
@@ -446,24 +446,31 @@ void CPlayer::Handle_SlotInput(f32_t fDeltaTime)
     if (nullptr == pInven)
         return;
     
-    bool_t bPreHasWeapon = Has_Weapon();
-
-    if (m_tInput.bSlot1)        pInven->Set_ActiveSlot(EQUIP_SLOT::GUN_1); 
-    if (m_tInput.bSlot2)        pInven->Set_ActiveSlot(EQUIP_SLOT::GUN_2);
-    if (m_tInput.bSlotMelee)    pInven->Set_ActiveSlot(EQUIP_SLOT::MELEE);
 
     if (m_tInput.bSlot1 || m_tInput.bSlot2 || m_tInput.bSlotMelee)
     {
+        m_bPreHasWeapon = Has_Weapon();
+        m_bSwapping = true;
         m_fSwapWeaponTime = 0.f;
-        m_pModelCom->Set_UpperAnimationInActive();
-        if (bPreHasWeapon)
+    }
+    
+    if (m_tInput.bSlot1)        pInven->Set_ActiveSlot(EQUIP_SLOT::GUN_1); 
+    if (m_tInput.bSlot2)        pInven->Set_ActiveSlot(EQUIP_SLOT::GUN_2);
+    if (m_tInput.bSlotMelee)    pInven->Set_ActiveSlot(EQUIP_SLOT::MELEE);
+    
+    if (m_bSwapping)
+    {
+        if (!Has_Weapon()) 
+        {
+            // 무기 슬롯이 없는 곳으로 이동하면 자동으로 상체 애니메이션을 끄고 스왑 상태를 끈다.
+            // 스왑상태를 꺼서 아래의 스왑 애니메이션이 작동하지 않고 하체의 애니메이션(IDLE or Walk)과 보간된다.
+            m_pModelCom->Set_UpperAnimationInActive();
+            m_bSwapping = false;
+        }
+        else if (m_bPreHasWeapon)
             Play_Swap_Weapon_Anim_WeaponToWeapon(fDeltaTime);
         else
             Play_Swap_Weapon_Anim_EdleToWeapon(fDeltaTime);
-    }
-    else
-    {
-        Change_Animation(PLAYER_ANIM::IDLE, true);
     }
 }
 

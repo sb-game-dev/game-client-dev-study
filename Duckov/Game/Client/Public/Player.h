@@ -99,6 +99,8 @@ private:
 	PLAYER_ANIM						m_eUpperMoveState = { PLAYER_ANIM::END };
 
 	f32_t							m_fSwapWeaponTime = { 0.f };
+	bool_t							m_bSwapping = { true };
+	bool_t							m_bPreHasWeapon = { false };
 	bool_t							m_bCanAttack = { true };
 
 private:

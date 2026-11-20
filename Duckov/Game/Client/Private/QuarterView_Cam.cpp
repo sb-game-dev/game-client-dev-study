@@ -3,8 +3,13 @@
 #include "Player.h"
 #include "Inven.h"
 #include "Client_Mouse.h"
+
 const f32_t g_fMaxFov = 20.f;   
 const f32_t g_fMinFov = 17.f;   
+const f32_t g_fMinCamY = 15.f;
+const f32_t g_fMaxCamY = 50.f;
+const f32_t g_fWheelSpeed = 0.02f;
+const f32_t g_fCamYLerpSpeed = 4.f;
 
 CQuarterView_Cam::CQuarterView_Cam(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
 	:CCamera{pDevice, pContext}
@@ -47,14 +52,15 @@ void CQuarterView_Cam::Update(f32_t fDeltaTime)
 {
 	__super::Update(fDeltaTime);
 
-	if (CGameInstance::Get().Key_Pressing(DIK_DOWN))
+	int32_t iWheel = CGameInstance::Get().Get_DIMouseMove(DIMM::WHEEL);
+	if (0 != iWheel)
 	{
-		XMStoreFloat4(&m_vOffset, XMLoadFloat4(&m_vOffset) + vector_t{ 0,-10.f * fDeltaTime ,0.f,0.f });
+		m_fTargetCamY -= iWheel * g_fWheelSpeed;
+		m_fTargetCamY = max(g_fMinCamY, min(m_fTargetCamY, g_fMaxCamY));
 	}
-	if (CGameInstance::Get().Key_Pressing(DIK_UP))
-	{
-		XMStoreFloat4(&m_vOffset, XMLoadFloat4(&m_vOffset) + vector_t{ 0,10.f * fDeltaTime ,0.f,0.f });
-	}
+
+	f32_t fT = 1.f - expf(-g_fCamYLerpSpeed * fDeltaTime);
+	m_vOffset.y += (m_fTargetCamY - m_vOffset.y) * fT;
 
 	// lock -> shared_ptr을 만들어주는 함수(참조 카운트 + 1)
 	auto pPlayer = m_pPlayer.lock();

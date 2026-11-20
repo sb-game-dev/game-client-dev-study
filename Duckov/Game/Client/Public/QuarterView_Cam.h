@@ -32,6 +32,8 @@ private:
     float3_t                        m_vShakeOffset = {};
     float4_t                        m_vAt = {}; 
     float4_t                        m_vOffset = { 12.9f, 36.9f, -22.4f, 0.f };
+    f32_t                           m_fTargetCamY = { 36.9f };   
+
 
 private:
     void                Shake(f32_t fDeltaTime);
