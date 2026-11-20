@@ -74,7 +74,7 @@ void CPlayer::Priority_Update(f32_t fDeltaTime)
         Update_Hunger(fDeltaTime);
         Update_Thirst(fDeltaTime);
 
-        Handle_SlotInput();
+        Handle_SlotInput(fDeltaTime);
 
         AdjustPosY();
     }
@@ -268,11 +268,11 @@ void CPlayer::Update_State(f32_t fDeltaTime)
 {
     switch (m_eState)
     {
-    case Client::CPlayer::PLAYER_STATE::IDLE:       Update_State_Idle(fDeltaTime);     break;
-    case Client::CPlayer::PLAYER_STATE::WALK:       Update_State_Walk(fDeltaTime);     break;
-    case Client::CPlayer::PLAYER_STATE::SPRINT:     Update_State_Sprint(fDeltaTime);   break;
-    case Client::CPlayer::PLAYER_STATE::ROLL:       Update_State_Roll(fDeltaTime);     break;
-    case Client::CPlayer::PLAYER_STATE::ATTACK:     Update_State_Attack(fDeltaTime);   break;
+    case Client::CPlayer::PLAYER_STATE::IDLE:           Update_State_Idle(fDeltaTime);          break;
+    case Client::CPlayer::PLAYER_STATE::WALK:           Update_State_Walk(fDeltaTime);          break;
+    case Client::CPlayer::PLAYER_STATE::SPRINT:         Update_State_Sprint(fDeltaTime);        break;
+    case Client::CPlayer::PLAYER_STATE::ROLL:           Update_State_Roll(fDeltaTime);          break;
+    case Client::CPlayer::PLAYER_STATE::ATTACK:         Update_State_Attack(fDeltaTime);        break;
     }
 }
 
@@ -287,7 +287,7 @@ void CPlayer::Initialize_State(PLAYER_STATE eNext)
     case Client::CPlayer::PLAYER_STATE::SPRINT:
         m_bSlowTrun = true;
         m_pTransformCom->Set_Speed(16.f);
-        Change_Animation(Has_Weapon() ? PLAYER_ANIM::WALK_FORWARD_RH : PLAYER_ANIM::WALK_FORWARD, false, 2.f);
+        Change_Animation(PLAYER_ANIM::WALK_FORWARD);
         break;
     case Client::CPlayer::PLAYER_STATE::ROLL:
         if (m_fStamina >= m_fRollStamina)
@@ -307,7 +307,7 @@ void CPlayer::Initialize_State(PLAYER_STATE eNext)
         }
         break;
     case Client::CPlayer::PLAYER_STATE::ATTACK:
-        Change_Animation(rand() % 2 ? PLAYER_ANIM::ATTACK : PLAYER_ANIM::ATTACK_L2R, true, 1.5f, 0.01f);
+        if(m_bCanAttack) Change_Animation(rand() % 2 ? PLAYER_ANIM::ATTACK : PLAYER_ANIM::ATTACK_L2R, true, 1.5f, 0.01f);
         break;
     default: 
         m_pTransformCom->Set_Speed(8.f);
@@ -323,7 +323,8 @@ void CPlayer::Update_State_Idle(f32_t fDeltaTime)
 
     m_bAiming = m_tInput.bAim;
     m_bFiring = m_tInput.bFire;
-    Change_Animation(Has_Weapon() ? PLAYER_ANIM::IDLE_RH : PLAYER_ANIM::IDLE, false, 1.f);
+    
+    Change_Animation(PLAYER_ANIM::IDLE);
     LookAtMouse(fDeltaTime);
 }
 void CPlayer::Update_State_Walk(f32_t fDeltaTime)
@@ -342,9 +343,9 @@ void CPlayer::Update_State_Walk(f32_t fDeltaTime)
     vector_t vMoveDir = Calc_MoveDir();
     f32_t fDot = XMVectorGetX(XMVector3Dot(XMVector4Normalize(vMoveDir), XMVector4Normalize(vTargetDir)));
     
-    if(fDot> cosf(XM_PI / 4))        { Change_Animation(Has_Weapon() ? PLAYER_ANIM::WALK_FORWARD_RH : PLAYER_ANIM::WALK_FORWARD, false, 1.f, 0.25f);}
-    else if(fDot < -cosf(XM_PI / 4)) { Change_Animation(Has_Weapon() ? PLAYER_ANIM::WALK_BACKWARD_RH : PLAYER_ANIM::WALK_BACKWARD, false, 1.f, 0.25f);}
-    else                             { Change_Animation(Has_Weapon() ? PLAYER_ANIM::WALK_LEFT_RH_OUT : PLAYER_ANIM::WALK_LEFT, false, 1.5f, 0.25f); }
+    if(fDot> cosf(XM_PI / 4))        { Change_Animation(PLAYER_ANIM::WALK_FORWARD, false, 1.f, 0.25f);}
+    else if(fDot < -cosf(XM_PI / 4)) { Change_Animation(PLAYER_ANIM::WALK_BACKWARD, false, 1.f, 0.25f);}
+    else                             { Change_Animation(PLAYER_ANIM::WALK_LEFT, false, 1.5f, 0.25f); }
 
     LookAtMouse(fDeltaTime);
     m_pTransformCom->Move_Position(Calc_MoveDir(), fDeltaTime);
@@ -386,12 +387,12 @@ void CPlayer::Update_State_Attack(f32_t fDeltaTime)
 
     if (Has_MoveInput())
     {
-        Change_Animation(Has_Weapon() ? PLAYER_ANIM::WALK_FORWARD_RH : PLAYER_ANIM::WALK_FORWARD);
+        Change_Animation(PLAYER_ANIM::WALK_FORWARD);
         m_pTransformCom->Move_Position(Calc_MoveDir(), fDeltaTime);
     }
     else
     {
-        Change_Animation(Has_Weapon() ? PLAYER_ANIM::IDLE_RH : PLAYER_ANIM::IDLE);
+        Change_Animation(PLAYER_ANIM::IDLE);
     }
 
     if (m_pModelCom->Is_Animation_Finished(true))
@@ -402,7 +403,30 @@ void CPlayer::Update_State_Attack(f32_t fDeltaTime)
     }
 }
 
-void CPlayer::Handle_SlotInput()
+void CPlayer::Play_Swap_Weapon_Anim(f32_t fDeltaTime)
+{
+    // 상체는 바꾸는 애니메이션(팔 내렸다 올렸다.) -> 무기를 들고있는 상황에서만 호출
+    // 하체는 키입력에 따라 IDLE, WALK, SPRINT
+    // SWAP_WEAPON -> IDLE, WALK, SPRINT
+    m_fSwapWeaponTime += fDeltaTime;
+    if (m_fSwapWeaponTime < 0.2f)
+    {
+        Change_Animation(PLAYER_ANIM::IDLE, true, 1.f, 0.2f);
+        m_bCanAttack = false;
+    }
+    else if (m_fSwapWeaponTime < 0.4f)
+    {
+        Change_Animation(PLAYER_ANIM::IDLE_RH, true, 1.f, 0.2f);
+        m_bCanAttack = false;
+    }
+    else
+    {
+        m_bCanAttack = true;
+    }
+
+}
+
+void CPlayer::Handle_SlotInput(f32_t fDeltaTime)
 {
     if (PLAYER_STATE::ROLL == m_eState || PLAYER_STATE::ATTACK == m_eState)
         return;
@@ -410,9 +434,19 @@ void CPlayer::Handle_SlotInput()
     if (nullptr == pInven)
         return;
 
-    if (m_tInput.bSlot1)     pInven->Set_ActiveSlot(EQUIP_SLOT::GUN_1);
+    if (m_tInput.bSlot1)     pInven->Set_ActiveSlot(EQUIP_SLOT::GUN_1); 
     if (m_tInput.bSlot2)     pInven->Set_ActiveSlot(EQUIP_SLOT::GUN_2);
     if (m_tInput.bSlotMelee) pInven->Set_ActiveSlot(EQUIP_SLOT::MELEE);
+
+    if ((m_tInput.bSlot1 || m_tInput.bSlot2 || m_tInput.bSlotMelee) && Has_Weapon())
+    {
+        m_fSwapWeaponTime = 0.f;
+        Play_Swap_Weapon_Anim(fDeltaTime);
+    }
+    else
+    {
+        Change_Animation(PLAYER_ANIM::IDLE, true);
+    }
 }
 
 bool_t CPlayer::Has_Weapon()

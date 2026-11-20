@@ -98,6 +98,8 @@ private:
 	PLAYER_ANIM						m_eLowerMoveState = { PLAYER_ANIM::END };
 	PLAYER_ANIM						m_eUpperMoveState = { PLAYER_ANIM::END };
 
+	f32_t							m_fSwapWeaponTime = { 0.f };
+	bool_t							m_bCanAttack = { true };
 
 private:
 	// 플레이어 스텟값
@@ -119,6 +121,7 @@ private:
 	f32_t							m_fMaxThirst = { 100.f };
 	f32_t							m_fThirstDecayRate = { 10.5f };
 
+
 private:
 	HRESULT			Ready_Components();
 	HRESULT			Ready_ConstantBuffer();
@@ -137,7 +140,9 @@ private:
 	void			Update_State_Sprint(f32_t fDeltaTime);
 	void			Update_State_Roll(f32_t fDeltaTime);
 	void			Update_State_Attack(f32_t fDeltaTime);
-	void			Handle_SlotInput();
+
+	void			Play_Swap_Weapon_Anim(f32_t fDeltaTime);
+	void			Handle_SlotInput(f32_t fDeltaTime);
 
 	bool_t			Can_Roll() const { return !m_bStaminaLock && m_fStamina > m_fRollStamina; }
 	bool_t			Can_Sprint() const { return !m_bStaminaLock && m_fStamina > 0.f; }
@@ -145,9 +150,10 @@ private:
 	bool_t			Has_Weapon();	
 	bool_t          Is_MeleeSlot();	
 	vector_t		Calc_MoveDir();
-	void			Turn_Toward(vector_t vMoveDir, f32_t fDeltaTime);
 
 	void			LookAtMouse(f32_t fDeltaTime);
+	void			Turn_Toward(vector_t vMoveDir, f32_t fDeltaTime);
+
 	void			Change_Animation(PLAYER_ANIM eMoveState, bool_t bUpper = false, f32_t fAnimPlaySpeed = 1.f, f32_t fBlendDuration = 0.2f);
 	
 	void			Update_Stamina(f32_t fDeltaTime);

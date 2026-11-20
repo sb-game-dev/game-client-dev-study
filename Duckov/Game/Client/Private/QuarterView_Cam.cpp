@@ -77,21 +77,21 @@ void CQuarterView_Cam::Update(f32_t fDeltaTime)
 		m_pInven = pInven;
 	}
 
+	auto pMouse = m_pClientMouse.lock();
+	if (nullptr == pMouse)
+	{
+		pMouse = dynamic_pointer_cast<CClient_Mouse>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", GO::Client_Mouse));
+		if (nullptr == pMouse)
+			return;
+		m_pClientMouse = pMouse;
+	}
+
 	// At ¼³Á¤
 	bool_t bIsMelee = pInven->Get_ActiveSlot() == EQUIP_SLOT::MELEE;
-	bool_t bAiming = pPlayer->Is_Aiming();
+ 	bool_t bAiming = pPlayer->Is_Aiming();
 	if (bAiming && !bIsMelee)
-	{
-		auto pMouse = m_pClientMouse.lock();
-		if (nullptr == pMouse)
-		{
-			pMouse = dynamic_pointer_cast<CClient_Mouse>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", GO::Client_Mouse));
-			if (nullptr == pMouse)
-				return;
-			m_pClientMouse = pMouse;
-		}
+	{		
 		auto vWorldMousePos = pMouse->Get_Transform()->Get_State(STATE::POSITION);
-
 		XMStoreFloat4(&m_vAt, (vWorldMousePos + vPlayerPos) / 2);
 
 		vector_t vOffset = XMLoadFloat4(&m_vOffset);
