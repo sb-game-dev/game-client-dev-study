@@ -13,9 +13,13 @@ CConverter::~CConverter()
 bool CConverter::Convert(const string& strFbxPath, MODEL_TYPE eType)
 {
 	m_eType = eType; 
+	m_BoneNames.clear();
 	uint32_t	iFlag = { aiProcess_ConvertToLeftHanded | aiProcessPreset_TargetRealtime_Fast };
 	if (MODEL_TYPE::NONANIM == m_eType)
 		iFlag |= aiProcess_PreTransformVertices;
+	else
+		iFlag |= aiProcess_LimitBoneWeights;
+
 	m_pScene = m_Importer.ReadFile(strFbxPath, iFlag);
 	if (nullptr == m_pScene)
 	{
@@ -54,8 +58,12 @@ bool CConverter::Convert(const string& strFbxPath, MODEL_TYPE eType)
 		return false;
 	}
 
+	bool	bSuccess = { false };
 	// 파일 쓰기
-	bool	bSuccess = Write_Header() && Write_Meshes() && Write_Materials();
+	if (eType == MODEL_TYPE::NONANIM)
+		bSuccess = Write_Header() && Write_Meshes() && Write_Materials();
+	else
+		bSuccess = Write_Header() && Write_Bone() && Write_Meshes() && Write_Materials() && Write_Animation();
 
 	long	iFileSize = ftell(m_pFile);
 
@@ -98,29 +106,9 @@ bool CConverter::Write_Meshes()
 		// i번째 메시 꺼내기
 		const aiMesh* pAiMesh = m_pScene->mMeshes[i];
 
-		// Engine에서의 CMesh DATA중 정점 정보 채우기(머티리얼의 인덱스, 정점 하나의 크기, 정점의 개수)
-		uint32_t	iMaterialIndex = pAiMesh->mMaterialIndex;
-		uint32_t	iVertexStride = sizeof(VERTEX_STATIC);
-		uint32_t	iNumVertices = pAiMesh->mNumVertices;
-
-		// 정점 DATA 쓰기
-		if (1 != fwrite(&iMaterialIndex, sizeof(uint32_t), 1, m_pFile) ||
-			1 != fwrite(&iVertexStride, sizeof(uint32_t), 1, m_pFile) ||
-			1 != fwrite(&iNumVertices, sizeof(uint32_t), 1, m_pFile))
-			return false;
-
-		// Ready_Meshes_For_NonAnim + PreTransformMatirx는 bin파일을 읽는 쪽에서 수행
-		vector<VERTEX_STATIC>	Vertices(iNumVertices);
-		for (uint32_t j = 0; j < iNumVertices; ++j)
-		{
-			memcpy(&Vertices[j].vPosition, &pAiMesh->mVertices[j], sizeof(DirectX::XMFLOAT3));
-			memcpy(&Vertices[j].vNormal, &pAiMesh->mNormals[j], sizeof(DirectX::XMFLOAT3));
-			memcpy(&Vertices[j].vTangent, &pAiMesh->mTangents[j], sizeof(DirectX::XMFLOAT3));
-			memcpy(&Vertices[j].vBinormal, &pAiMesh->mBitangents[j], sizeof(DirectX::XMFLOAT3));
-			memcpy(&Vertices[j].vTexcoord, &pAiMesh->mTextureCoords[0][j], sizeof(DirectX::XMFLOAT2));
-		}
-		// 정점 정보(VERTEX_STATIC) 쓰기
-		if (iNumVertices != fwrite(Vertices.data(), sizeof(VERTEX_STATIC), iNumVertices, m_pFile))
+		// 애니메이션 유무에 따라 분기
+		bool bOk = (MODEL_TYPE::NONANIM == m_eType) ? Write_Vertices_Static(pAiMesh) : Write_Vertices_Anim(pAiMesh);
+		if (false == bOk)
 			return false;
 
 		// 인덱스 DATA 채우기 (인덱스의 개수)
@@ -143,11 +131,96 @@ bool CConverter::Write_Meshes()
 		// 인덱스 정보 쓰기
 		if (iNumIndices != fwrite(pIndices.get(), sizeof(uint32_t), iNumIndices, m_pFile))
 			return false;
+		if (m_eType == MODEL_TYPE::NONANIM)
+			continue;
+		uint32_t iNumBones = pAiMesh->mNumBones;
+		fwrite(&iNumBones, sizeof(uint32_t), 1, m_pFile);
+		for (uint32_t j = 0; j < iNumBones; ++j)
+		{
+			int32_t iBoneIndex = Get_BoneIndex(pAiMesh->mBones[j]->mName.C_Str());
+			fwrite(&iBoneIndex, sizeof(int32_t), 1, m_pFile);
 
-		cout << "[Write_Meshes] " << i << "번 : 정점 " << iNumVertices << ", 인덱스 " << iNumIndices << '\n';
+			aiMatrix4x4 OffsetMatrix = pAiMesh->mBones[j]->mOffsetMatrix;
+			fwrite(&OffsetMatrix, sizeof(OffsetMatrix), 1, m_pFile);
+		}
+
 	}
 	return true;
 }
+
+bool CConverter::Write_Vertices_Static(const aiMesh* pAiMesh)
+{
+	// Engine에서의 CMesh DATA중 정점 정보 채우기(머티리얼의 인덱스, 정점 하나의 크기, 정점의 개수)
+	uint32_t	iMaterialIndex = pAiMesh->mMaterialIndex;
+	uint32_t	iVertexStride = sizeof(VERTEX_STATIC);
+	uint32_t	iNumVertices = pAiMesh->mNumVertices;
+
+	// 정점 DATA 쓰기
+	if (1 != fwrite(&iMaterialIndex, sizeof(uint32_t), 1, m_pFile) ||
+		1 != fwrite(&iVertexStride, sizeof(uint32_t), 1, m_pFile) ||
+		1 != fwrite(&iNumVertices, sizeof(uint32_t), 1, m_pFile))
+		return false;
+
+	// Ready_Meshes_For_NonAnim + PreTransformMatirx는 bin파일을 읽는 쪽에서 수행
+	vector<VERTEX_STATIC>	Vertices(iNumVertices);
+	for (uint32_t j = 0; j < iNumVertices; ++j)
+	{
+		memcpy(&Vertices[j].vPosition, &pAiMesh->mVertices[j], sizeof(DirectX::XMFLOAT3));
+		memcpy(&Vertices[j].vNormal, &pAiMesh->mNormals[j], sizeof(DirectX::XMFLOAT3));
+		memcpy(&Vertices[j].vTangent, &pAiMesh->mTangents[j], sizeof(DirectX::XMFLOAT3));
+		memcpy(&Vertices[j].vBinormal, &pAiMesh->mBitangents[j], sizeof(DirectX::XMFLOAT3));
+		memcpy(&Vertices[j].vTexcoord, &pAiMesh->mTextureCoords[0][j], sizeof(DirectX::XMFLOAT2));
+	}
+	// 정점 정보(VERTEX_STATIC) 쓰기
+	if (iNumVertices != fwrite(Vertices.data(), sizeof(VERTEX_STATIC), iNumVertices, m_pFile))
+		return false;
+	return true;
+}
+
+bool CConverter::Write_Vertices_Anim(const aiMesh* pAiMesh)
+{
+	// Engine에서의 CMesh DATA중 정점 정보 채우기(머티리얼의 인덱스, 정점 하나의 크기, 정점의 개수)
+	uint32_t	iMaterialIndex = pAiMesh->mMaterialIndex;
+	uint32_t	iVertexStride = sizeof(VERTEX_ANIM);
+	uint32_t	iNumVertices = pAiMesh->mNumVertices;
+
+	// 정점 DATA 쓰기
+	if (1 != fwrite(&iMaterialIndex, sizeof(uint32_t), 1, m_pFile) ||
+		1 != fwrite(&iVertexStride, sizeof(uint32_t), 1, m_pFile) ||
+		1 != fwrite(&iNumVertices, sizeof(uint32_t), 1, m_pFile))
+		return false;
+
+	// Ready_Meshes_For_NonAnim + PreTransformMatirx는 bin파일을 읽는 쪽에서 수행
+	vector<VERTEX_ANIM>	Vertices(iNumVertices);
+	for (uint32_t j = 0; j < iNumVertices; ++j)
+	{
+		memcpy(&Vertices[j].vPosition, &pAiMesh->mVertices[j], sizeof(DirectX::XMFLOAT3));
+		memcpy(&Vertices[j].vNormal, &pAiMesh->mNormals[j], sizeof(DirectX::XMFLOAT3));
+		memcpy(&Vertices[j].vTangent, &pAiMesh->mTangents[j], sizeof(DirectX::XMFLOAT3));
+		memcpy(&Vertices[j].vBinormal, &pAiMesh->mBitangents[j], sizeof(DirectX::XMFLOAT3));
+		memcpy(&Vertices[j].vTexcoord, &pAiMesh->mTextureCoords[0][j], sizeof(DirectX::XMFLOAT2));
+	}
+
+	for (uint32_t j = 0; j < pAiMesh->mNumBones; ++j)       // j = 이 메시 안에서 몇 번째 뼈인지
+	{
+		const aiBone* pBone = pAiMesh->mBones[j];
+		for (uint32_t k = 0; k < pBone->mNumWeights; ++k)
+		{
+			VERTEX_ANIM& v = Vertices[pBone->mWeights[k].mVertexId];
+			float w = pBone->mWeights[k].mWeight;
+			if (0.f == v.vBlendWeight.x) { v.vBlendIndex.x = j; v.vBlendWeight.x = w; }
+			else if (0.f == v.vBlendWeight.y) { v.vBlendIndex.y = j; v.vBlendWeight.y = w; }
+			else if (0.f == v.vBlendWeight.z) { v.vBlendIndex.z = j; v.vBlendWeight.z = w; }
+			else if (0.f == v.vBlendWeight.w) { v.vBlendIndex.w = j; v.vBlendWeight.w = w; }
+		}
+	}
+
+	// 정점 정보(VERTEX_ANIM) 쓰기
+	if (iNumVertices != fwrite(Vertices.data(), sizeof(VERTEX_ANIM), iNumVertices, m_pFile))
+		return false;
+	return true;
+}
+
 
 bool CConverter::Write_Materials()
 {
@@ -212,6 +285,138 @@ bool CConverter::Write_Materials()
 		}
 	}
 	return true;
+}
+
+bool CConverter::Write_Bone()
+{
+	uint32_t iNumBones = Count_Nodes(m_pScene->mRootNode);
+	if (1 != fwrite(&iNumBones, sizeof(uint32_t), 1, m_pFile))
+		return false;
+
+	return Write_Bone(m_pScene->mRootNode, -1);
+}
+
+bool CConverter::Write_Bone(const aiNode* pAINode, int32_t iParentIndex)
+{
+	uint32_t	iNameLength = pAINode->mName.length;
+	
+	fwrite(&iNameLength, sizeof(uint32_t), 1, m_pFile);
+	if (iNameLength != fwrite(pAINode->mName.C_Str(), sizeof(char), iNameLength, m_pFile))
+		return false;
+
+	int32_t iMyIndex = static_cast<int32_t>(m_BoneNames.size());
+	m_BoneNames.push_back(pAINode->mName.C_Str());
+
+	int32_t iPIndex = iParentIndex;
+	if (1 != fwrite(&iPIndex, sizeof(int32_t), 1, m_pFile))
+		return false;
+	fwrite(&pAINode->mTransformation, sizeof(aiMatrix4x4), 1, m_pFile);
+
+	for (uint32_t i = 0; i < pAINode->mNumChildren; ++i)
+	{
+		Write_Bone(pAINode->mChildren[i], iMyIndex);
+	}
+
+	return true;
+}
+
+uint32_t CConverter::Count_Nodes(const aiNode* pAINode)
+{
+	uint32_t iCount = 1;
+	for (uint32_t i = 0; i < pAINode->mNumChildren; ++i)
+		iCount += Count_Nodes(pAINode->mChildren[i]);
+	return iCount;
+}
+bool CConverter::Write_Animation()
+{
+	auto iNumAnimation = m_pScene->mNumAnimations;
+	fwrite(&iNumAnimation, sizeof(uint32_t), 1, m_pFile);
+	for (uint32_t i = 0; i < iNumAnimation; ++i)
+	{
+		auto pAnimations = m_pScene->mAnimations[i];
+		uint32_t iLength = pAnimations->mName.length;
+		fwrite(&iLength, sizeof(uint32_t), 1, m_pFile);
+		fwrite(pAnimations->mName.C_Str(), sizeof(char), iLength, m_pFile);
+
+		float fDuration = (float)pAnimations->mDuration;
+		fwrite(&fDuration, sizeof(float), 1, m_pFile);
+
+		float fTickPerSecond = (float)pAnimations->mTicksPerSecond;
+		fwrite(&fTickPerSecond, sizeof(float), 1, m_pFile);
+		
+		uint32_t iNumChannels = pAnimations->mNumChannels;
+		fwrite(&iNumChannels, sizeof(uint32_t), 1, m_pFile);
+
+		for (uint32_t j = 0; j < iNumChannels; ++j)
+		{
+			auto pAIChannel = pAnimations->mChannels[j];
+			int32_t iBoneIndex = Get_BoneIndex(pAIChannel->mNodeName.C_Str());
+			fwrite(&iBoneIndex, sizeof(int32_t), 1, m_pFile);
+
+			uint32_t iNumKeyFrames = max(pAIChannel->mNumScalingKeys, pAIChannel->mNumRotationKeys);
+			iNumKeyFrames = max(iNumKeyFrames, pAIChannel->mNumPositionKeys);
+
+			fwrite(&iNumKeyFrames, sizeof(uint32_t), 1, m_pFile);
+			
+			vector<float> vScale, vRotation, vPosition;
+
+			vScale.resize(3);
+			vRotation.resize(4);
+			vPosition.resize(3);
+			for (uint32_t k = 0; k < iNumKeyFrames; ++k)
+			{
+				KEYFRAME tKeyFrame{};
+				if (k < pAIChannel->mNumScalingKeys)
+				{
+					tKeyFrame.fTrackPosition = (float)pAIChannel->mScalingKeys[k].mTime;
+					vScale[0] = pAIChannel->mScalingKeys[k].mValue.x;
+					vScale[1] = pAIChannel->mScalingKeys[k].mValue.y;
+					vScale[2] = pAIChannel->mScalingKeys[k].mValue.z;
+
+				}
+				if (k < pAIChannel->mNumRotationKeys)
+				{
+					tKeyFrame.fTrackPosition = (float)pAIChannel->mRotationKeys[k].mTime;
+					vRotation[0] = pAIChannel->mRotationKeys[k].mValue.x;
+					vRotation[1] = pAIChannel->mRotationKeys[k].mValue.y;
+					vRotation[2] = pAIChannel->mRotationKeys[k].mValue.z;
+					vRotation[3] = pAIChannel->mRotationKeys[k].mValue.w;
+				}
+				if (k < pAIChannel->mNumPositionKeys)
+				{
+					tKeyFrame.fTrackPosition = (float)pAIChannel->mPositionKeys[k].mTime;
+					vPosition[0] = pAIChannel->mPositionKeys[k].mValue.x;
+					vPosition[1] = pAIChannel->mPositionKeys[k].mValue.y;
+					vPosition[2] = pAIChannel->mPositionKeys[k].mValue.z;
+				}
+				tKeyFrame.vScale.x = vScale[0];
+				tKeyFrame.vScale.y = vScale[1];
+				tKeyFrame.vScale.z = vScale[2];
+
+				tKeyFrame.vRotation.x = vRotation[0];
+				tKeyFrame.vRotation.y = vRotation[1];
+				tKeyFrame.vRotation.z = vRotation[2];
+				tKeyFrame.vRotation.w = vRotation[3];
+
+				tKeyFrame.vPosition.x = vPosition[0];
+				tKeyFrame.vPosition.y = vPosition[1];
+				tKeyFrame.vPosition.z = vPosition[2];
+
+				fwrite(&tKeyFrame, sizeof(KEYFRAME), 1, m_pFile);
+			}
+		}
+	}
+	return true;
+}
+
+int32_t CConverter::Get_BoneIndex(const char* pBoneName)
+{
+	for (size_t i = 0; i < m_BoneNames.size(); ++i)
+	{
+		if (pBoneName == m_BoneNames[i])
+			return static_cast<int32_t>(i);
+	}
+	return -1;
 }
 
 bool CConverter::To_TextureType(aiTextureType eAiType, TEXTURE_TYPE& eOutType)

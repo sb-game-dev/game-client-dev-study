@@ -55,22 +55,24 @@ void CPlayer::Priority_Update(f32_t fDeltaTime)
         m_pInven = pInven;
     }
 
-
-    bool_t bInvenOpen = (nullptr != pInven && pInven->Is_Open());
-    if (bInvenOpen)
+    m_bCurInvenOpen = (nullptr != pInven && pInven->Is_Open());
+    if (m_bCurInvenOpen)
         m_tInput = {};
     else
+    {
         Key_Input();
 
-    Update_State(fDeltaTime);
-    
-    Update_Stamina(fDeltaTime);
-    Update_Hunger(fDeltaTime);
-    Update_Thirst(fDeltaTime);
-    
-    Handle_SlotInput(fDeltaTime);
-    
-    AdjustPosY();
+        Update_State(fDeltaTime);
+
+        Update_Stamina(fDeltaTime);
+        Update_Hunger(fDeltaTime);
+        Update_Thirst(fDeltaTime);
+
+        Handle_SlotInput(fDeltaTime);
+
+        AdjustPosY();
+    }
+    m_bPreInvenOpen = m_bCurInvenOpen;
 }
 
 void CPlayer::Update(f32_t fDeltaTime)
@@ -382,7 +384,7 @@ void CPlayer::Handle_SlotInput(f32_t fDeltaTime)
     if (pInven->Get_ActiveSlot() == EQUIP_SLOT::GUN_2 && m_tInput.bSlot2) return;
     if (pInven->Get_ActiveSlot() == EQUIP_SLOT::MELEE && m_tInput.bSlotMelee) return;
 
-    if (m_tInput.bSlot1 || m_tInput.bSlot2 || m_tInput.bSlotMelee)
+    if (m_tInput.bSlot1 || m_tInput.bSlot2 || m_tInput.bSlotMelee || (!m_bCurInvenOpen && m_bPreInvenOpen) )
     {
         m_bPreHasWeapon = Has_Weapon();
         m_bSwapping = true;

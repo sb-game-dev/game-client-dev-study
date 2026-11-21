@@ -50,6 +50,9 @@ private:
 	weak_ptr<class CHill>			m_pHill;
 	shared_ptr<class CBody_Player>	m_pBodyPlayer;
 
+	bool_t							m_bPreInvenOpen = { false };
+	bool_t							m_bCurInvenOpen = { false };
+
 	bool_t							m_bAiming = { false };
 	bool_t							m_bFiring = { false };
 	

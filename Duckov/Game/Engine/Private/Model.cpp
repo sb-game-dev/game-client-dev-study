@@ -350,17 +350,13 @@ HRESULT CModel::Load_Binary(const char_t* pModelFilePath, fmatrix_t PreTransform
         return E_FAIL;
     }
 
-    if (FAILED(Read_Header(pFile)))
+    if (FAILED(Read_Header(pFile, pModelFilePath, PreTransformMatrix)))
         return E_FAIL;
-    if (FAILED(Read_Meshes(pFile, PreTransformMatrix)))
-        return E_FAIL;
-    if (FAILED(Read_Materials(pFile, pModelFilePath)))
-        return E_FAIL;
-    fclose(pFile);
+    
     return S_OK;
 }
 
-HRESULT CModel::Read_Header(FILE* pFile)
+HRESULT CModel::Read_Header(FILE* pFile, const char_t* pModelFilePath, fmatrix_t PreTransformMatrix)
 {
     char_t szMagic[4] = {};
     uint32_t iVersion = {};
@@ -370,6 +366,28 @@ HRESULT CModel::Read_Header(FILE* pFile)
         1 != fread(&iVersion, sizeof(uint32_t), 1, pFile) ||
         1 != fread(&iType, sizeof(uint32_t), 1, pFile))
         return E_FAIL;
+
+    if (iType == ETOUI(MODEL::NONANIM))
+    {
+        if (FAILED(Read_Meshes(pFile, PreTransformMatrix)))
+            return E_FAIL;
+        if (FAILED(Read_Materials(pFile, pModelFilePath)))
+            return E_FAIL;
+    }
+    else
+    {
+        if (FAILED(Read_AnimMeshes(pFile)))
+            return E_FAIL;
+    }
+    fclose(pFile);
+    return S_OK;
+}
+
+HRESULT CModel::Read_Bone(FILE* pFile)
+{
+    uint32_t iNumBone;
+    fread(&iNumBone, sizeof(uint32_t), 1, pFile);
+
     return S_OK;
 }
 
@@ -384,6 +402,34 @@ HRESULT CModel::Read_Meshes(FILE* pFile, fmatrix_t PreTransformMatrix)
     for (uint32_t i = 0; i < m_iNumMeshes; ++i)
     {
         auto pMesh = CMesh::Create(m_pDevice, m_pContext, pFile, PreTransformMatrix);
+        if (nullptr == pMesh)
+            return E_FAIL;
+
+        if (bFirst)
+        {
+            m_tLocalBox = pMesh->GetBoundinBox();
+            bFirst = false;
+        }
+        else
+            BoundingBox::CreateMerged(m_tLocalBox, m_tLocalBox, pMesh->GetBoundinBox());
+
+        m_Meshes.push_back(pMesh);
+    }
+    m_bUseCulling = true;
+    return S_OK;
+}
+
+HRESULT CModel::Read_AnimMeshes(FILE* pFile)
+{
+    if (1 != fread(&m_iNumMeshes, sizeof(uint32_t), 1, pFile))
+    {
+        MSG_BOX("Failed to Read : NumMeshes");
+        return E_FAIL;
+    }
+    bool_t bFirst = true;
+    for (uint32_t i = 0; i < m_iNumMeshes; ++i)
+    {
+        auto pMesh = CMesh::Create(m_pDevice, m_pContext, pFile);
         if (nullptr == pMesh)
             return E_FAIL;
 

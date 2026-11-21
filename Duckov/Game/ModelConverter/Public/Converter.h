@@ -31,7 +31,18 @@ private:
 private:
 	bool	Write_Header();
 	bool	Write_Meshes();
+	bool	Write_Vertices_Static(const aiMesh* pAiMesh);
+	bool	Write_Vertices_Anim(const aiMesh* pAiMesh);
 	bool	Write_Materials();
+
+	bool	Write_Bone();
+	bool	Write_Bone(const aiNode* pAINode, int32_t iParentIndex);
+
+	static uint32_t	Count_Nodes(const aiNode* pAINode);
+	bool	Write_Animation();
+
+	int32_t Get_BoneIndex(const char* pBoneName);
+	vector<string> m_BoneNames;
 
 	static bool	To_TextureType(aiTextureType eAiType, TEXTURE_TYPE& eOutType);
 

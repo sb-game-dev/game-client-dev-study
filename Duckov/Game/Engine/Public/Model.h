@@ -88,10 +88,13 @@ private:
 	HRESULT	Ready_Animation();
 
 	HRESULT	Load_Binary(const char_t* pModelFilePath, fmatrix_t PreTransformMatrix);
-	HRESULT	Read_Header(FILE* pFile);
-	HRESULT Read_Meshes(FILE* pFile, fmatrix_t PreTranformMatrix);
-	HRESULT Read_Materials(FILE* pFile, const char_t* pModelFilePath);
+	HRESULT	Read_Header(FILE* pFile, const char_t* pModelFilePath, fmatrix_t PreTransformMatrix);
 
+	HRESULT	Read_Bone(FILE* pFile);
+	HRESULT Read_Meshes(FILE* pFile, fmatrix_t PreTranformMatrix);
+	HRESULT Read_AnimMeshes(FILE* pFile, fmatrix_t PreTranformMatrix);
+	HRESULT Read_Materials(FILE* pFile, const char_t* pModelFilePath);
+	HRESULT	Read_Animation(FILE* pFile);
 
 	f32_t	Update_BlendRatio(ANIM_LAYER& tLayer, f32_t fDeltaTime);
 

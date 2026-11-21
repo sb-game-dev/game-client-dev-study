@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="00. AnimModelConverter">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="01. Converter">
+      <UniqueIdentifier>{822fbea8-05a1-48d6-92c7-6d05a2713405}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ModelConverter_Anim.cpp">
+      <Filter>00. AnimModelConverter</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\ModelConverter\Private\Converter.cpp">
+      <Filter>01. Converter</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\ModelConverter\Public\Converter.h">
+      <Filter>01. Converter</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
