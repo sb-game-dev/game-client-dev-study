@@ -17,7 +17,7 @@ void CLayer::Priority_Update(f32_t fTimeDelta)
 {
     for (auto& Pair : m_GameObjects)
     {
-        if (nullptr != Pair.second)
+        if (nullptr != Pair.second && !Pair.second->Is_Dead())
             Pair.second->Priority_Update(fTimeDelta);
     }
 }
