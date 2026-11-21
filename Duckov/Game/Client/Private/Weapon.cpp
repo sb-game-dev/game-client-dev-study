@@ -1,5 +1,6 @@
 #include "Weapon.h"
 #include "Inven.h"
+#include "Player.h"
 #include "GameInstance.h"
 
 CWeapon::CWeapon(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
@@ -53,6 +54,15 @@ void CWeapon::Priority_Update(f32_t fTimeDelta)
             return;
         m_pInven = pInven;
     }
+    auto pPlayer = m_pPlayer.lock();
+    if (nullptr == pPlayer)
+    {
+        pPlayer = dynamic_pointer_cast<CPlayer>(CGameInstance::Get().Find_GameObject(
+            ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", L"GameObject_Player"));
+        if (nullptr == pPlayer)
+            return;
+        m_pPlayer = pPlayer;
+    }
 }
 
 void CWeapon::Update(f32_t fTimeDelta)
@@ -64,7 +74,7 @@ void CWeapon::Update(f32_t fTimeDelta)
         return;
     Change_Model(pInven->Get_ActiveItem()->strItemName);
 
-    //Play_FireAnim(fTimeDelta);
+    Play_FireAnim(fTimeDelta);
 
     matrix_t        SocketMatrix = XMLoadFloat4x4(m_pSocketMatrix);
     //for (uint32_t i = 0; i < 3; i++)
@@ -130,6 +140,23 @@ void CWeapon::Play_FireAnim(const f32_t fDeltaTime)
         m_pTransformCom->Set_State(STATE::POSITION, XMVectorSet(0.0f, 0.f, 0.f, 1.f));
         return;
     }
+    auto pPlayer = m_pPlayer.lock();
+    if (nullptr != pPlayer)
+    {
+        if(false == pPlayer->Is_Firing())
+            m_pTransformCom->Set_State(STATE::POSITION, XMVectorSet(0.0f, 0.f, 0.f, 1.f));
+        else
+        {
+            auto vPos = m_pTransformCom->Get_State(STATE::POSITION);
+            if (XMVectorGetY(vPos) <= 0)
+                m_pTransformCom->Set_Speed(2.f);
+            else if(XMVectorGetY(vPos) >= 0.1f)
+                m_pTransformCom->Set_Speed(-2.f);
+            //cout << XMVectorGetX(vPos) << "\t" << XMVectorGetY(vPos) << "\t" << XMVectorGetZ(vPos) << endl;
+            m_pTransformCom->Go_Straight(fDeltaTime);
+        }
+    }
+    //m_pTransformCom->Go_Straight(fDeltaTime);
 }
 
 HRESULT CWeapon::Ready_Components()

@@ -41,6 +41,7 @@ private:
 	shared_ptr<CModel>						m_pModelCom = { nullptr };
 
 	weak_ptr<class CInven>					m_pInven;
+	weak_ptr<class CPlayer>					m_pPlayer;
 
 private:
 	const float4x4_t* m_pSocketMatrix = { nullptr };
