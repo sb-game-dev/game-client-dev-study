@@ -37,26 +37,8 @@
     <Filter Include="04. Prototypes\Manager">
       <UniqueIdentifier>{d4948aff-7631-40bc-9d04-88fa9c603de6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="08. Light">
-      <UniqueIdentifier>{2275e296-f666-4f6f-88a7-5ec3bb88b248}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="08. Light\01. PointLight">
-      <UniqueIdentifier>{1e1a3983-23e8-4bb0-94d2-0616a94374b7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="08. Light\02. DirectionalLight">
-      <UniqueIdentifier>{221ee111-a3b0-4d28-881a-285094942740}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="08. Light\03. SpotLight">
-      <UniqueIdentifier>{3b2d2e0d-eebf-471a-92b1-1878e8447eb6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="08. Light\00. Manager">
-      <UniqueIdentifier>{16caa894-e5f1-4ff2-ad29-125f69aec517}</UniqueIdentifier>
-    </Filter>
     <Filter Include="06. Component\00. Transform">
       <UniqueIdentifier>{570386b8-edae-40dd-9659-21f6c47d2b21}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="10. Blur">
-      <UniqueIdentifier>{055b0155-e494-4327-9915-2efca13fab27}</UniqueIdentifier>
     </Filter>
     <Filter Include="06. Component\01. Texture">
       <UniqueIdentifier>{f2679b99-ae3f-4bdc-bcf4-c82dda35c955}</UniqueIdentifier>
@@ -112,18 +94,6 @@
     <Filter Include="02. Device\InputDevice">
       <UniqueIdentifier>{0cbf2a7f-b959-4fde-89ac-bd7a5991ed19}</UniqueIdentifier>
     </Filter>
-    <Filter Include="12. PipeLine">
-      <UniqueIdentifier>{750965b9-25dd-41af-9921-dae3482bf926}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="11. ConstantBuffer">
-      <UniqueIdentifier>{f23d5061-d18d-4de7-a48b-1d6eb725d7dd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="13. Sampler">
-      <UniqueIdentifier>{ad591800-0c19-42e4-9521-d05c56f489fe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="13. Sampler\Manager">
-      <UniqueIdentifier>{d8944a1e-d9a1-4ef9-883c-6d7b40468c20}</UniqueIdentifier>
-    </Filter>
     <Filter Include="05. GameObject\02. Camera">
       <UniqueIdentifier>{7fe7501a-8427-4b61-ab8c-bf82f6654429}</UniqueIdentifier>
     </Filter>
@@ -135,9 +105,6 @@
     </Filter>
     <Filter Include="06. Component\04. Model\00. Mesh">
       <UniqueIdentifier>{b51103ed-dd8a-4f93-9c84-ded05189d64d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="09. Renderer">
-      <UniqueIdentifier>{c68b7599-8680-4b08-8f80-61941eee7b98}</UniqueIdentifier>
     </Filter>
     <Filter Include="06. Component\04. Model\01. Material">
       <UniqueIdentifier>{24489452-8f01-4243-b38f-2ada973ae376}</UniqueIdentifier>
@@ -165,6 +132,39 @@
     </Filter>
     <Filter Include="05. GameObject\05. ContainerObject\PartObject">
       <UniqueIdentifier>{3277d14c-142c-4e37-966e-12ac8fce6295}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Light">
+      <UniqueIdentifier>{2275e296-f666-4f6f-88a7-5ec3bb88b248}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Light\01. PointLight">
+      <UniqueIdentifier>{1e1a3983-23e8-4bb0-94d2-0616a94374b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Light\02. DirectionalLight">
+      <UniqueIdentifier>{221ee111-a3b0-4d28-881a-285094942740}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Light\03. SpotLight">
+      <UniqueIdentifier>{3b2d2e0d-eebf-471a-92b1-1878e8447eb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Light\00. Manager">
+      <UniqueIdentifier>{16caa894-e5f1-4ff2-ad29-125f69aec517}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="08. Renderer">
+      <UniqueIdentifier>{c68b7599-8680-4b08-8f80-61941eee7b98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="09. Blur">
+      <UniqueIdentifier>{055b0155-e494-4327-9915-2efca13fab27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10. ConstantBuffer">
+      <UniqueIdentifier>{f23d5061-d18d-4de7-a48b-1d6eb725d7dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="11. PipeLine">
+      <UniqueIdentifier>{750965b9-25dd-41af-9921-dae3482bf926}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="12. Sampler">
+      <UniqueIdentifier>{ad591800-0c19-42e4-9521-d05c56f489fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="12. Sampler\Manager">
+      <UniqueIdentifier>{d8944a1e-d9a1-4ef9-883c-6d7b40468c20}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -229,28 +229,28 @@
       <Filter>05. GameObject\02. Camera\Manager</Filter>
     </ClInclude>
     <ClInclude Include="..\public\PointLight.h">
-      <Filter>08. Light\01. PointLight</Filter>
+      <Filter>07. Light\01. PointLight</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Light.h">
-      <Filter>08. Light</Filter>
+      <Filter>07. Light</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Light_Manager.h">
-      <Filter>08. Light\00. Manager</Filter>
+      <Filter>07. Light\00. Manager</Filter>
     </ClInclude>
     <ClInclude Include="..\public\DirectionalLight.h">
-      <Filter>08. Light\02. DirectionalLight</Filter>
+      <Filter>07. Light\02. DirectionalLight</Filter>
     </ClInclude>
     <ClInclude Include="..\public\SpotLight.h">
-      <Filter>08. Light\03. SpotLight</Filter>
+      <Filter>07. Light\03. SpotLight</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Renderer.h">
-      <Filter>09. Renderer</Filter>
+      <Filter>08. Renderer</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Transform.h">
       <Filter>06. Component\00. Transform</Filter>
     </ClInclude>
     <ClInclude Include="..\public\BlurFilter.h">
-      <Filter>10. Blur</Filter>
+      <Filter>09. Blur</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Engine_Global.h">
       <Filter>99. Defines</Filter>
@@ -295,16 +295,16 @@
       <Filter>02. Device\InputDevice</Filter>
     </ClInclude>
     <ClInclude Include="..\public\PipeLine.h">
-      <Filter>12. PipeLine</Filter>
+      <Filter>11. PipeLine</Filter>
     </ClInclude>
     <ClInclude Include="..\public\ConstantBuffer.h">
-      <Filter>11. ConstantBuffer</Filter>
+      <Filter>10. ConstantBuffer</Filter>
     </ClInclude>
     <ClInclude Include="..\public\VIBuffer_Terrain.h">
       <Filter>06. Component\02. VIBuffer\02. Terrain</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Sampler_Manager.h">
-      <Filter>13. Sampler\Manager</Filter>
+      <Filter>12. Sampler\Manager</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Model.h">
       <Filter>06. Component\04. Model</Filter>
@@ -384,28 +384,28 @@
       <Filter>05. GameObject\02. Camera\Manager</Filter>
     </ClCompile>
     <ClCompile Include="..\private\PointLight.cpp">
-      <Filter>08. Light\01. PointLight</Filter>
+      <Filter>07. Light\01. PointLight</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Light.cpp">
-      <Filter>08. Light</Filter>
+      <Filter>07. Light</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Light_Manager.cpp">
-      <Filter>08. Light\00. Manager</Filter>
+      <Filter>07. Light\00. Manager</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\DirectionalLight.cpp">
-      <Filter>08. Light\02. DirectionalLight</Filter>
+      <Filter>07. Light\02. DirectionalLight</Filter>
     </ClCompile>
     <ClCompile Include="..\private\SpotLight.cpp">
-      <Filter>08. Light\03. SpotLight</Filter>
+      <Filter>07. Light\03. SpotLight</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Renderer.cpp">
-      <Filter>09. Renderer</Filter>
+      <Filter>08. Renderer</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Transform.cpp">
       <Filter>06. Component\00. Transform</Filter>
     </ClCompile>
     <ClCompile Include="..\private\BlurFilter.cpp">
-      <Filter>10. Blur</Filter>
+      <Filter>09. Blur</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Texture.cpp">
       <Filter>06. Component\01. Texture</Filter>
@@ -450,16 +450,16 @@
       <Filter>02. Device\InputDevice</Filter>
     </ClCompile>
     <ClCompile Include="..\private\PipeLine.cpp">
-      <Filter>12. PipeLine</Filter>
+      <Filter>11. PipeLine</Filter>
     </ClCompile>
     <ClCompile Include="..\private\ConstantBuffer.cpp">
-      <Filter>11. ConstantBuffer</Filter>
+      <Filter>10. ConstantBuffer</Filter>
     </ClCompile>
     <ClCompile Include="..\private\VIBuffer_Terrain.cpp">
       <Filter>06. Component\02. VIBuffer\02. Terrain</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Sampler_Manager.cpp">
-      <Filter>13. Sampler\Manager</Filter>
+      <Filter>12. Sampler\Manager</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Model.cpp">
       <Filter>06. Component\04. Model</Filter>
