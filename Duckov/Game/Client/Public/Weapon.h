@@ -33,6 +33,7 @@ public:
 	virtual HRESULT Render() override;
 
 	HRESULT	Change_Model(const wstring_t& strMeshPath);
+	void	Play_FireAnim(const f32_t fDeltaTime);
 
 private:
 	shared_ptr<CVertexShader>				m_pVSCom = { nullptr };

@@ -163,7 +163,7 @@ HRESULT CStaticProp::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState
     uint32_t iNumMeshes = m_pModelCom->Get_NumMeshes();
     for (uint32_t i = 0; i < iNumMeshes; ++i)
     {
-        if (FAILED(m_pModelCom->Bind_Material(i, aiTextureType_DIFFUSE, 0, 0)))
+        if (FAILED(m_pModelCom->Bind_Material(i, ModelFile::TEXTURE_TYPE::DIFFUSE, 0, 0)))
             return E_FAIL;
 
         if (FAILED(m_pModelCom->Render(i)))

@@ -143,7 +143,6 @@ bool CConverter::Write_Meshes()
 			aiMatrix4x4 OffsetMatrix = pAiMesh->mBones[j]->mOffsetMatrix;
 			fwrite(&OffsetMatrix, sizeof(OffsetMatrix), 1, m_pFile);
 		}
-
 	}
 	return true;
 }

@@ -13,7 +13,6 @@
 #include "Texture.h"
 #include "Pipeline.h"
 #include "Sampler_Manager.h"
-#include "Asset_Manager.h"
 
 // ¹öÆÛ
 #include "VIBuffer_Rect.h"
@@ -168,7 +167,6 @@ private:
 	unique_ptr<CInput_Device>       m_pInput_Device = { nullptr };
 	unique_ptr<CPipeLine>			m_pPipeLine = { nullptr };
 	unique_ptr<CSampler_Manager>	m_pSampler_Manager = { nullptr };
-	unique_ptr<CAsset_Manager>		m_pAsset_Manager = { nullptr };
 	HWND							m_hWND = { nullptr };
 
 private:

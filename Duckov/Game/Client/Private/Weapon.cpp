@@ -63,6 +63,9 @@ void CWeapon::Update(f32_t fTimeDelta)
     if (nullptr == pInven || nullptr == pInven->Get_ActiveItem())
         return;
     Change_Model(pInven->Get_ActiveItem()->strItemName);
+
+    //Play_FireAnim(fTimeDelta);
+
     matrix_t        SocketMatrix = XMLoadFloat4x4(m_pSocketMatrix);
     //for (uint32_t i = 0; i < 3; i++)
     //    SocketMatrix.r[i] = XMVector3Normalize(SocketMatrix.r[i]);
@@ -95,7 +98,7 @@ HRESULT CWeapon::Render()
 
     for (uint32_t i = 0; i < iNumMeshes; i++)
     {
-        if (FAILED(m_pModelCom->Bind_Material(i, aiTextureType_DIFFUSE, 0, 0)))
+        if (FAILED(m_pModelCom->Bind_Material(i, ModelFile::TEXTURE_TYPE::DIFFUSE, 0, 0)))
             return E_FAIL;
 
         if (FAILED(m_pModelCom->Render(i)))
@@ -117,6 +120,16 @@ HRESULT CWeapon::Change_Model(const wstring_t& strMeshPath)
         return E_FAIL;
 
     return S_OK;
+}
+
+void CWeapon::Play_FireAnim(const f32_t fDeltaTime)
+{
+    auto pInven = m_pInven.lock();
+    if (nullptr == pInven || EQUIP_SLOT::MELEE == pInven->Get_ActiveSlot())
+    {
+        m_pTransformCom->Set_State(STATE::POSITION, XMVectorSet(0.0f, 0.f, 0.f, 1.f));
+        return;
+    }
 }
 
 HRESULT CWeapon::Ready_Components()

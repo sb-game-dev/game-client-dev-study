@@ -1,22 +1,5 @@
 #include "Animation.h"
 #include "Channel.h"
-HRESULT CAnimation::Initialize(const aiAnimation* pAIAnimaiton, shared_ptr<class CModel> pModel)
-{
-	strcpy_s(m_szName, pAIAnimaiton->mName.C_Str());
-	m_fDuration = (f32_t)pAIAnimaiton->mDuration;
-	m_fTickPerSecond = (f32_t)pAIAnimaiton->mTicksPerSecond;
-
-	m_iNumChannels = pAIAnimaiton->mNumChannels;
-	for (uint32_t i = 0; i < m_iNumChannels; ++i)
-	{
-		auto pChannel = CChannel::Create(pAIAnimaiton->mChannels[i], pModel);
-		if (nullptr == pChannel)
-			return E_FAIL;
-		m_Channels.push_back(pChannel);
-	}
-	m_LeftKeyFrameIndices.resize(m_iNumChannels);
-	return S_OK;
-}
 
 HRESULT CAnimation::Initialize(FILE* pFile)
 {
@@ -68,17 +51,6 @@ void CAnimation::Reset_Animaition()
 	m_isFinished = false;
 	for (auto& LeftKeyFrameIndex : m_LeftKeyFrameIndices)
 		LeftKeyFrameIndex = 0;
-}
-
-shared_ptr<CAnimation> CAnimation::Create(const aiAnimation* pAIAnimation, shared_ptr<class CModel> pModel)
-{
-	auto pInstance = shared_ptr<CAnimation>(new CAnimation());
-	if (FAILED(pInstance->Initialize(pAIAnimation, pModel)))
-	{
-		MSG_BOX("Create to Failed : CAnimaition");
-		pInstance.reset();
-	}
-	return pInstance;
 }
 
 shared_ptr<CAnimation> CAnimation::Create(FILE* pFile)

@@ -21,7 +21,7 @@ public:
 public:
 	HRESULT			Render(uint32_t iMeshIndex);
 	HRESULT			Render_Instanced(uint32_t iMeshIndex, ID3D11Buffer* pInstanceVB, uint32_t iInstanceStride, uint32_t iNumInstances);
-	HRESULT			Bind_Material(uint32_t iMeshIndex, aiTextureType eType, uint32_t iIndex, uint32_t iSlot);
+	HRESULT			Bind_Material(uint32_t iMeshIndex, ModelFile::TEXTURE_TYPE eType, uint32_t iIndex, uint32_t iSlot);
 	HRESULT			Bind_BoneMatrix(uint32_t iMeshIndex, uint32_t iSlot);
 
 	void			SetUseCulling(bool_t bUse) { m_bUseCulling = bUse; }
@@ -41,9 +41,7 @@ public:
 	void			Set_UpperAnimationInActive(f32_t fBlendDuration = 0.2f);
 	void			Set_Animation_Loop(uint32_t iAnimationIndex);
 	bool_t			Is_Animation_Finished(bool_t bUpper = false);
-private:
-	const	aiScene*	m_pAiScene = { nullptr };
-	Assimp::Importer	m_pImporter = {};
+
 
 private:
 	MODEL									m_eType = { MODEL::END };
@@ -80,13 +78,6 @@ private:
 
 
 private:
-
-	HRESULT	Ready_Meshes(MODEL eType, fmatrix_t PreTransformMatrix);
-	HRESULT	Ready_Materials(const char_t* pModelFilePath);
-	HRESULT	Ready_Bones(const aiNode* pAINode, int32_t iParentIndex);
-	HRESULT	Ready_Bones(const aiNode* pAINode, int32_t iParentIndex, bool_t isUpper);
-	HRESULT	Ready_Animation();
-
 	HRESULT	Load_Binary(const char_t* pModelFilePath, fmatrix_t PreTransformMatrix);
 	HRESULT	Read_Header(FILE* pFile, const char_t* pModelFilePath, fmatrix_t PreTransformMatrix);
 

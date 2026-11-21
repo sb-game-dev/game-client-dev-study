@@ -137,7 +137,7 @@ HRESULT CBody_Player::Render_Mesh(const matrix_t& matWorld, ID3D11RasterizerStat
     {
         if (FAILED(m_pModelCom->Bind_BoneMatrix(i, 2)))
             return E_FAIL;
-        if (FAILED(m_pModelCom->Bind_Material(i, aiTextureType_DIFFUSE, 0, 0)))
+        if (FAILED(m_pModelCom->Bind_Material(i, ModelFile::TEXTURE_TYPE::DIFFUSE, 0, 0)))
             return E_FAIL;
 
         //if (FAILED(m_pModelCom->Bind_Material(i, aiTextureType_NORMALS, 0, 1)))

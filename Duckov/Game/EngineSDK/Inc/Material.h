@@ -22,9 +22,8 @@ public:
 	~CMaterial();
 
 public:
-	HRESULT	Initialize(const char_t* pModelFilePath, const aiMaterial* pAIMaterial);
 	HRESULT	Initialize(const char_t* pModelFilePath, FILE* pFile);
-	HRESULT	Bind_Pixel_ShaderResource(aiTextureType eType, uint32_t iIndex, uint32_t iSlot);
+	HRESULT	Bind_Pixel_ShaderResource(ModelFile::TEXTURE_TYPE eType, uint32_t iIndex, uint32_t iSlot);
 
 public:
 	const wstring_t& Get_Name() const { return m_strName; }
@@ -32,12 +31,9 @@ public:
 private:
 	ComPtr<ID3D11Device>						m_pDevice = { nullptr };
 	ComPtr<ID3D11DeviceContext>					m_pContext = { nullptr };
-	vector<ComPtr<ID3D11ShaderResourceView>>	m_Materials[AI_TEXTURE_TYPE_MAX];
+	vector<ComPtr<ID3D11ShaderResourceView>>	m_Materials[ETOUI(ModelFile::TEXTURE_TYPE::END)];
 	wstring_t									m_strName;
-private:
-	static bool_t	To_AiTextureType(ModelFile::TEXTURE_TYPE eType, aiTextureType& eOutType);
 public:
-	static shared_ptr<CMaterial> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, const char_t* pModelFilePath, const aiMaterial* pAIMaterial);
 	static shared_ptr<CMaterial> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, const char_t* pModelFilePath, FILE* pFile);
 };
 

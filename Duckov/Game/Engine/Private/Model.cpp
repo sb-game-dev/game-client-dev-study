@@ -40,39 +40,7 @@ HRESULT CModel::Initialize_Prototype(MODEL eType, const char_t* pModelFilePath, 
     m_eType = eType;
 
     XMStoreFloat4x4(&m_PreTransformMatrix, PreTransformMatrix);
-    // bin파일 읽기
-    char_t szExt[MAX_PATH] = {};
-    _splitpath_s(pModelFilePath, nullptr, 0, nullptr, 0, nullptr, 0, szExt, MAX_PATH);
-    if (0 == strcmp(szExt, ".bin"))
-        return Load_Binary(pModelFilePath, PreTransformMatrix);
-
-    //Assimp 사용
-    uint32_t        iFlag = { aiProcess_ConvertToLeftHanded | aiProcessPreset_TargetRealtime_Fast };
-
-    if (MODEL::NONANIM == m_eType)
-        iFlag |= aiProcess_PreTransformVertices;
-    m_pAiScene = m_pImporter.ReadFile(pModelFilePath, iFlag);
-	
-    if (0 == m_pAiScene)
-    {
-        MSG_BOX("Faile to ReadFile");
-        return E_FAIL;
-    }
-    
-    if (FAILED(Ready_Bones(m_pAiScene->mRootNode, -1, false)))
-        return E_FAIL;
-    
-    m_tLowerLayer.PreBoneSRT.resize(m_Bones.size());
-    m_tUpperLayer.PreBoneSRT.resize(m_Bones.size());
-
-    if (FAILED(Ready_Meshes(eType, PreTransformMatrix)))
-        return E_FAIL;
-    if (FAILED(Ready_Materials(pModelFilePath)))
-        return E_FAIL;
-    if (FAILED(Ready_Animation()))
-        return E_FAIL;
-
-    return S_OK;
+    return Load_Binary(pModelFilePath, PreTransformMatrix);
 }
 
 HRESULT CModel::Initialize(void* pArg)
@@ -98,7 +66,7 @@ HRESULT CModel::Render_Instanced(uint32_t iMeshIndex, ID3D11Buffer* pInstanceVB,
     return S_OK;
 }
 
-HRESULT CModel::Bind_Material(uint32_t iMeshIndex, aiTextureType eType, uint32_t iIndex, uint32_t iSlot)
+HRESULT CModel::Bind_Material(uint32_t iMeshIndex, ModelFile::TEXTURE_TYPE eType, uint32_t iIndex, uint32_t iSlot)
 {
     uint32_t    iMeterialIndex = m_Meshes[iMeshIndex]->Get_MaterialIndex();
     if (iMeterialIndex >= m_Materials.size())
@@ -252,90 +220,6 @@ bool_t CModel::Is_Animation_Finished(bool_t bUpper)
     if (bUpper) 
         return m_Animations[m_tUpperLayer.iAnimIndex]->Is_Animation_End();
     return m_Animations[m_tLowerLayer.iAnimIndex]->Is_Animation_End();
-}
-
-HRESULT CModel::Ready_Meshes(MODEL eType, fmatrix_t PreTransformMatrix)
-{
-    m_iNumMeshes = m_pAiScene->mNumMeshes;
-    bool_t bFirst = true;
-
-    for (uint32_t i = 0; i < m_iNumMeshes; ++i)
-    {
-        auto pMesh = CMesh::Create(m_pDevice, m_pContext, eType, dynamic_pointer_cast<CModel>(shared_from_this()), m_pAiScene->mMeshes[i], PreTransformMatrix);
-        if (nullptr == pMesh)
-            return E_FAIL;
-        if (bFirst) 
-        {   
-            m_tLocalBox = pMesh->GetBoundinBox(); 
-            bFirst = false; 
-        }
-        else          
-            BoundingBox::CreateMerged(m_tLocalBox, m_tLocalBox, pMesh->GetBoundinBox());
-        m_Meshes.push_back(pMesh);
-    }
-    m_bUseCulling = true;
-    return S_OK;
-}
-
-HRESULT CModel::Ready_Materials(const char_t* pModelFilePath)
-{
-    m_iNumMaterials = m_pAiScene->mNumMaterials;
-    for (uint32_t i = 0; i < m_iNumMaterials; ++i)
-    {
-        auto pMaterial = CMaterial::Create(m_pDevice, m_pContext, pModelFilePath, m_pAiScene->mMaterials[i]);
-        if (nullptr == pMaterial)
-            return E_FAIL;
-        m_Materials.push_back(pMaterial);
-    }
-    return S_OK;
-}
-
-HRESULT CModel::Ready_Bones(const aiNode* pAINode, int32_t iPIndex)
-{
-    auto pBone = CBone::Create(pAINode, iPIndex);
-    if (nullptr == pBone)
-        return E_FAIL;
-    m_Bones.push_back(pBone);
-
-    int32_t iParentIndex = { int32_t(m_Bones.size()) - 1 };
-    for (uint32_t i = 0; i < pAINode->mNumChildren; ++i)
-    {
-        Ready_Bones(pAINode->mChildren[i], iParentIndex);
-    }
-    return S_OK;
-}
-
-HRESULT CModel::Ready_Bones(const aiNode* pAINode, int32_t iParentIndex, bool_t isUpper)
-{
-    auto pBone = CBone::Create(pAINode, iParentIndex);
-    if (nullptr == pBone)
-        return E_FAIL;
-    if (!isUpper && nullptr != strstr(pAINode->mName.C_Str(), "Spine")) // 전체 문자열, 찾을 문자열
-        isUpper = true;
-    
-    m_Bones.push_back(pBone);
-    m_IsUpperBone.push_back(isUpper);
-
-    int32_t iPIndex = { int32_t(m_Bones.size()) - 1 };
-    for (uint32_t i = 0; i < pAINode->mNumChildren; ++i)
-    {
-        Ready_Bones(pAINode->mChildren[i], iPIndex, isUpper);
-    }
-
-    return S_OK;
-}
-
-HRESULT CModel::Ready_Animation()
-{
-    m_iNumAnimation = m_pAiScene->mNumAnimations;
-    for (uint32_t i = 0; i < m_iNumAnimation; ++i)
-    {
-        auto pAnimaition = CAnimation::Create(m_pAiScene->mAnimations[i], dynamic_pointer_cast<CModel>(shared_from_this()));
-        if (nullptr == pAnimaition)
-            return E_FAIL;
-        m_Animations.push_back(pAnimaition);
-    }
-    return S_OK;
 }
 
 HRESULT CModel::Load_Binary(const char_t* pModelFilePath, fmatrix_t PreTransformMatrix)

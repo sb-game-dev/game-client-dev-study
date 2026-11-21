@@ -9,7 +9,6 @@ public:
 	~CBone() = default;
 
 public:
-	HRESULT Initialize(const aiNode* pAINode, int32_t iParentBoneIndex);
 	HRESULT Initialize(FILE* pFile);
 	void   Update_CombinedTranformMatrix(const vector<shared_ptr<CBone>>& Bones, fmatrix_t PreTranformMatrix);
 	bool_t Compare_Name(const char_t* pBoneName) const { 
@@ -36,7 +35,6 @@ private:
 	int32_t		m_iParentIndex = { -1 };
 
 public:
-	static shared_ptr<CBone> Create(const aiNode* pAINode, int32_t iParentBoneIndex);
 	static shared_ptr<CBone> Create(FILE* pFile);
 	shared_ptr<CBone> Clone();
 };

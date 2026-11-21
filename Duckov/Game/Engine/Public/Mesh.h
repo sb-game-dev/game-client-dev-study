@@ -12,7 +12,6 @@ public:
 		return m_iMaterialIndex;
 	}
 public:
-	HRESULT	Initialize_Prototype(MODEL eType, shared_ptr<class CModel> pModel, const aiMesh* pAiMesh, fmatrix_t PreTransformMatrix);
 	HRESULT	Initialize_Prototype_NonAnimMesh(FILE* pFile, fmatrix_t PreTransformMatrix);
 	HRESULT	Initialize_Prototype_AnimMesh(FILE* pFile);
 	HRESULT	Initialize(void* pArg);
@@ -24,7 +23,7 @@ private:
 	뼈가 없는 메시일 수 있으니(mNumBones = 0), 메시의 이름으로 뼈와 매칭
 	아무 처리를 하지 않으면 뼈 행렬이 아무것도 없게 되기 때문에 제대로 그려지지 않는다
 	*/
-	char_t m_szName[MAX_PATH];
+	char_t m_szName[MAX_PATH] = {};
 
 	/* 이 메시에 입힐 머티리얼 인덱스*/
 	uint32_t			m_iMaterialIndex = {};
@@ -39,12 +38,8 @@ private:
 	shared_ptr<class CConstantBuffer>	m_pCB = { nullptr };
 	float4x4_t							m_BoneMatrices[512] = {};
 
-private:
-	HRESULT				Ready_Meshes_For_NonAnim(const aiMesh* pAiMesh, fmatrix_t PreTransformMatrix);
-	HRESULT				Ready_Meshes_For_Anim(shared_ptr<class CModel> pModel, const aiMesh* pAIMesh);
 
 public:
-	static shared_ptr<CMesh> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, MODEL eType, shared_ptr<class CModel> pModel, const aiMesh* pAiMesh, fmatrix_t PreTransformMatrix = XMMatrixIdentity());
 	static shared_ptr<CMesh> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, FILE* pFile, fmatrix_t PreTransformMatrix);
 	static shared_ptr<CMesh> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, FILE* pFile);
 	virtual shared_ptr<CPrototype> Clone(void* pArg)override;
