@@ -18,6 +18,27 @@ HRESULT CAnimation::Initialize(const aiAnimation* pAIAnimaiton, shared_ptr<class
 	return S_OK;
 }
 
+HRESULT CAnimation::Initialize(FILE* pFile)
+{
+	uint32_t iLength = {};
+	fread(&iLength, sizeof(uint32_t), 1, pFile);
+	fread(m_szName, sizeof(char_t), iLength, pFile);
+
+	fread(&m_fDuration, sizeof(f32_t), 1, pFile);
+	fread(&m_fTickPerSecond, sizeof(f32_t), 1, pFile);
+	fread(&m_iNumChannels, sizeof(uint32_t), 1, pFile);
+
+	for (uint32_t i = 0; i < m_iNumChannels; ++i)
+	{
+		auto pChannel = CChannel::Create(pFile);
+		if (nullptr == pChannel)
+			return E_FAIL;
+		m_Channels.push_back(pChannel);
+	}
+	m_LeftKeyFrameIndices.resize(m_iNumChannels);
+	return S_OK;
+}
+
 void CAnimation::Update_TransformMatrix(const vector<shared_ptr<class CBone>>& Bones, f32_t fDeltaTime, const vector<bool_t>* pIsUpperBone, f32_t fAnimPlaySpeed, const vector<BONE_SRT>* pPreSRT, f32_t fBlendRatio)
 {
 	m_fCurrentTrackPosition += m_fTickPerSecond * fDeltaTime * fAnimPlaySpeed;
@@ -53,6 +74,17 @@ shared_ptr<CAnimation> CAnimation::Create(const aiAnimation* pAIAnimation, share
 {
 	auto pInstance = shared_ptr<CAnimation>(new CAnimation());
 	if (FAILED(pInstance->Initialize(pAIAnimation, pModel)))
+	{
+		MSG_BOX("Create to Failed : CAnimaition");
+		pInstance.reset();
+	}
+	return pInstance;
+}
+
+shared_ptr<CAnimation> CAnimation::Create(FILE* pFile)
+{
+	auto pInstance = shared_ptr<CAnimation>(new CAnimation());
+	if (FAILED(pInstance->Initialize(pFile)))
 	{
 		MSG_BOX("Create to Failed : CAnimaition");
 		pInstance.reset();

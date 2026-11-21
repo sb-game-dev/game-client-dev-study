@@ -17,5 +17,22 @@ namespace Engine::ModelFile
 		DirectX::XMFLOAT3	vBinormal;
 		DirectX::XMFLOAT2	vTexcoord;
 	};
+	struct VERTEX_ANIM
+	{
+		DirectX::XMFLOAT3	vPosition;
+		DirectX::XMFLOAT3	vNormal;
+		DirectX::XMFLOAT3	vTangent;
+		DirectX::XMFLOAT3	vBinormal;
+		DirectX::XMFLOAT2	vTexcoord;
+		DirectX::XMUINT4	vBlendIndex;
+		DirectX::XMFLOAT4	vBlendWeight;
+	};
+	struct KEYFRAME
+	{
+		DirectX::XMFLOAT3		vScale;
+		DirectX::XMFLOAT4		vRotation;
+		DirectX::XMFLOAT3		vPosition;
+		float					fTrackPosition;
+	};
 
 }

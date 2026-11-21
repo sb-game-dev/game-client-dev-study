@@ -59,7 +59,7 @@ private:
 
 	vector<shared_ptr<class CAnimation>>	m_Animations;
 	vector<bool_t>							m_IsUpperBone;
-	uint32_t								m_iNumAnimaition = {};
+	uint32_t								m_iNumAnimation = {};
 
 	struct ANIM_LAYER
 	{
@@ -90,9 +90,9 @@ private:
 	HRESULT	Load_Binary(const char_t* pModelFilePath, fmatrix_t PreTransformMatrix);
 	HRESULT	Read_Header(FILE* pFile, const char_t* pModelFilePath, fmatrix_t PreTransformMatrix);
 
-	HRESULT	Read_Bone(FILE* pFile);
+	HRESULT	Read_Bones(FILE* pFile, bool_t isUpper);
 	HRESULT Read_Meshes(FILE* pFile, fmatrix_t PreTranformMatrix);
-	HRESULT Read_AnimMeshes(FILE* pFile, fmatrix_t PreTranformMatrix);
+	HRESULT Read_AnimMeshes(FILE* pFile);
 	HRESULT Read_Materials(FILE* pFile, const char_t* pModelFilePath);
 	HRESULT	Read_Animation(FILE* pFile);
 

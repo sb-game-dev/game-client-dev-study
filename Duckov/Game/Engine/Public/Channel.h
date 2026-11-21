@@ -11,6 +11,7 @@ public:
 
 public:
 	HRESULT	Initialize(const aiNodeAnim* pAIChannel, shared_ptr<class CModel> pModel);
+	HRESULT	Initialize(FILE* pFile);
 	void	Update_TransformMatirx(const vector<shared_ptr<class CBone>>& Bones, uint32_t& pLeftKetFrameIndex, f32_t fCurrentTrackPos, const vector<BONE_SRT>* pPreSRT, f32_t fBlendRatio);
 	int32_t	Get_BoneIndex() { return m_iBoneIndex; }
 private:
@@ -25,6 +26,7 @@ private:
 
 public:
 	static shared_ptr<CChannel> Create(const aiNodeAnim* pAIChannel, shared_ptr<class CModel> pModel);
+	static shared_ptr<CChannel> Create(FILE* pFile);
 };
 
 NS_END

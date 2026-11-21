@@ -63,7 +63,7 @@ HRESULT CMesh::Initialize_Prototype(MODEL eType, shared_ptr<CModel> pModel, cons
 	return S_OK;
 }
 
-HRESULT CMesh::Initialize_Prototype(FILE* pFile, fmatrix_t PreTransformMatrix)
+HRESULT CMesh::Initialize_Prototype_NonAnimMesh(FILE* pFile, fmatrix_t PreTransformMatrix)
 {
 #pragma region DATA
     if (1 != fread(&m_iMaterialIndex, sizeof(uint32_t), 1, pFile) ||
@@ -142,6 +142,93 @@ HRESULT CMesh::Initialize_Prototype(FILE* pFile, fmatrix_t PreTransformMatrix)
     if (FAILED(m_pDevice->CreateBuffer(&IndexBufferDesc, &IndexInitialData, &m_pIB)))
         return E_FAIL;
 #pragma endregion
+
+    m_pCB = CConstantBuffer::Create(m_pDevice, m_pContext, m_BoneMatrices, sizeof(m_BoneMatrices));
+    if (nullptr == m_pCB)
+        return E_FAIL;
+    return S_OK;
+}
+
+HRESULT CMesh::Initialize_Prototype_AnimMesh(FILE* pFile)
+{
+#pragma region DATA
+    if (1 != fread(&m_iMaterialIndex, sizeof(uint32_t), 1, pFile) ||
+        1 != fread(&m_iVertexStride, sizeof(uint32_t), 1, pFile) ||
+        1 != fread(&m_iNumVertices, sizeof(uint32_t), 1, pFile))
+        return E_FAIL;
+
+    m_iNumVertexBuffers = 1;
+#pragma endregion
+
+#pragma region VERTEX_BUFFER
+    shared_ptr<VTXANIMMESH[]> pVertices = make_shared<VTXANIMMESH[]>(m_iNumVertices);
+
+    if (m_iNumVertices != fread(&pVertices[0], sizeof(VTXANIMMESH), m_iNumVertices, pFile))
+        return E_FAIL;
+
+    D3D11_BUFFER_DESC   VertexBufferDesc{};
+    VertexBufferDesc.ByteWidth = m_iVertexStride * m_iNumVertices;
+    VertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+    VertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+    VertexBufferDesc.CPUAccessFlags = 0;
+    VertexBufferDesc.MiscFlags = 0;
+    VertexBufferDesc.StructureByteStride = m_iVertexStride;
+
+    D3D11_SUBRESOURCE_DATA VertexInitialData{};
+    VertexInitialData.pSysMem = pVertices.get();
+
+    if (FAILED(m_pDevice->CreateBuffer(&VertexBufferDesc, &VertexInitialData, &m_pVB)))
+        return E_FAIL;
+
+
+    
+    // AABB 
+    m_bUseCulling = true;
+    BoundingBox::CreateFromPoints(m_tLocalBox, m_iNumVertices, &pVertices[0].vPosition, sizeof(VTXANIMMESH));
+
+#pragma endregion
+
+#pragma region INDEX_BUFFER
+    fread(&m_iNumIndices, sizeof(uint32_t), 1, pFile);
+    m_iIndexStride = 4;
+    m_eIndexFormat = DXGI_FORMAT_R32_UINT;
+    m_ePrimitiveTopology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+
+    D3D11_BUFFER_DESC           IndexBufferDesc{};
+    IndexBufferDesc.ByteWidth = m_iIndexStride * m_iNumIndices;
+    IndexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+    IndexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
+    IndexBufferDesc.CPUAccessFlags = 0;
+    IndexBufferDesc.MiscFlags = 0;
+    IndexBufferDesc.StructureByteStride = m_iIndexStride;
+
+    shared_ptr<uint32_t[]>  pIndices = make_shared<uint32_t[]>(m_iNumIndices);
+    if (m_iNumIndices != fread(&pIndices[0], sizeof(uint32_t), m_iNumIndices, pFile))
+    {
+        MSG_BOX("Failed to Read : Indices");
+        return E_FAIL;
+    }
+
+    D3D11_SUBRESOURCE_DATA          IndexInitialData{};
+    IndexInitialData.pSysMem = pIndices.get();
+
+    if (FAILED(m_pDevice->CreateBuffer(&IndexBufferDesc, &IndexInitialData, &m_pIB)))
+        return E_FAIL;
+#pragma endregion
+
+    fread(&m_iNumBones, sizeof(uint32_t), 1, pFile);
+    for (uint32_t i = 0; i < m_iNumBones; i++)
+    {
+        int32_t iBoneIndex = { -1 };
+        fread(&iBoneIndex, sizeof(int32_t), 1, pFile);
+        m_BoneIndices.push_back(iBoneIndex);
+
+        float4x4_t OffsetMatrix = {};
+        fread(&OffsetMatrix, sizeof(float4x4_t), 1, pFile);
+        XMStoreFloat4x4(&OffsetMatrix, XMMatrixTranspose(XMLoadFloat4x4(&OffsetMatrix)));
+        m_OffsetMatrices.push_back(OffsetMatrix);
+
+    }
 
     m_pCB = CConstantBuffer::Create(m_pDevice, m_pContext, m_BoneMatrices, sizeof(m_BoneMatrices));
     if (nullptr == m_pCB)
@@ -332,7 +419,19 @@ shared_ptr<CMesh> CMesh::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11Devic
 {
     auto pInstance = shared_ptr<CMesh>(new CMesh(pDevice, pContext));
 
-    if (FAILED(pInstance->Initialize_Prototype(pFile, PreTransformMatrix)))
+    if (FAILED(pInstance->Initialize_Prototype_NonAnimMesh(pFile, PreTransformMatrix)))
+    {
+        MSG_BOX("Failed to Created : CMesh (Binary)");
+        return nullptr;
+    }
+    return pInstance;
+}
+
+shared_ptr<CMesh> CMesh::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, FILE* pFile)
+{
+    auto pInstance = shared_ptr<CMesh>(new CMesh(pDevice, pContext));
+
+    if (FAILED(pInstance->Initialize_Prototype_AnimMesh(pFile)))
     {
         MSG_BOX("Failed to Created : CMesh (Binary)");
         return nullptr;

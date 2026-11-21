@@ -47,6 +47,15 @@ HRESULT CChannel::Initialize(const aiNodeAnim* pAIChannel, shared_ptr<class CMod
     return S_OK;
 }
 
+HRESULT CChannel::Initialize(FILE* pFile)
+{
+    fread(&m_iBoneIndex, sizeof(int32_t), 1, pFile);
+    fread(&m_iNumKeyFrames, sizeof(uint32_t), 1, pFile);
+    m_KeyFrames.resize(m_iNumKeyFrames);
+    fread(m_KeyFrames.data(), sizeof(KEYFRAME), m_iNumKeyFrames, pFile);
+    return S_OK;
+}
+
 void CChannel::Update_TransformMatirx(const vector<shared_ptr<class CBone>>& Bones, uint32_t& pLeftKetFrameIndex, f32_t fCurrentTrackPos, const vector<BONE_SRT>* pPreSRT, f32_t fBlendRatio)
 {
     vector_t vScale{}, vRotation{}, vPosition{};
@@ -95,6 +104,17 @@ shared_ptr<CChannel> CChannel::Create(const aiNodeAnim* pAIChannel, shared_ptr<c
 {
     auto pInstance = shared_ptr<CChannel>(new CChannel());
     if (FAILED(pInstance->Initialize(pAIChannel, pModel)))
+    {
+        MSG_BOX("Failed to Create : CChannel");
+        pInstance.reset();
+    }
+    return pInstance;
+}
+
+shared_ptr<CChannel> CChannel::Create(FILE* pFile)
+{
+    auto pInstance = shared_ptr<CChannel>(new CChannel());
+    if (FAILED(pInstance->Initialize(pFile)))
     {
         MSG_BOX("Failed to Create : CChannel");
         pInstance.reset();

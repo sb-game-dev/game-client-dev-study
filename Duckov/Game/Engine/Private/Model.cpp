@@ -19,7 +19,7 @@ CModel::CModel(const CModel& rhs)
     , m_Materials{rhs.m_Materials}
     , m_iNumMaterials{rhs.m_iNumMaterials}
     
-    , m_iNumAnimaition{rhs.m_iNumAnimaition}
+    , m_iNumAnimation{rhs.m_iNumAnimation}
     , m_IsUpperBone{rhs.m_IsUpperBone}
     , m_tLowerLayer{rhs.m_tLowerLayer}
     , m_tUpperLayer{rhs.m_tUpperLayer}
@@ -184,7 +184,7 @@ void CModel::SetAnimPlaySpeed(f32_t fAnimPlaySpeed, bool_t isUpper)
 
 void CModel::Set_LowerAnimationIndex(uint32_t iAnimIndex, f32_t fBlendDuration)
 {
-    if (iAnimIndex >= m_iNumAnimaition)
+    if (iAnimIndex >= m_iNumAnimation)
         return;
 
     if (m_tLowerLayer.iAnimIndex != iAnimIndex)
@@ -202,7 +202,7 @@ void CModel::Set_LowerAnimationIndex(uint32_t iAnimIndex, f32_t fBlendDuration)
 }
 void CModel::Set_UpperAnimationIndex(uint32_t iAnimIndex, bool_t bActive, f32_t fBlendDuration)
 {
-    if (iAnimIndex >= m_iNumAnimaition)
+    if (iAnimIndex >= m_iNumAnimation)
         return;
 
     if (m_tUpperLayer.iAnimIndex != iAnimIndex || !m_tUpperLayer.isActive)
@@ -241,7 +241,7 @@ void CModel::Reset_BoneTransformMatrix()
 }
 void CModel::Set_Animation_Loop(uint32_t iAnimationIndex)
 {
-    if (iAnimationIndex >= m_iNumAnimaition)
+    if (iAnimationIndex >= m_iNumAnimation)
         return;
     m_Animations[iAnimationIndex]->Set_Loop();
 }
@@ -327,8 +327,8 @@ HRESULT CModel::Ready_Bones(const aiNode* pAINode, int32_t iParentIndex, bool_t 
 
 HRESULT CModel::Ready_Animation()
 {
-    m_iNumAnimaition = m_pAiScene->mNumAnimations;
-    for (uint32_t i = 0; i < m_iNumAnimaition; ++i)
+    m_iNumAnimation = m_pAiScene->mNumAnimations;
+    for (uint32_t i = 0; i < m_iNumAnimation; ++i)
     {
         auto pAnimaition = CAnimation::Create(m_pAiScene->mAnimations[i], dynamic_pointer_cast<CModel>(shared_from_this()));
         if (nullptr == pAnimaition)
@@ -376,18 +376,36 @@ HRESULT CModel::Read_Header(FILE* pFile, const char_t* pModelFilePath, fmatrix_t
     }
     else
     {
+        if (FAILED(Read_Bones(pFile,false)))
+            return E_FAIL;
+
+        m_tLowerLayer.PreBoneSRT.resize(m_Bones.size());
+        m_tUpperLayer.PreBoneSRT.resize(m_Bones.size());
+
         if (FAILED(Read_AnimMeshes(pFile)))
+            return E_FAIL;
+        if (FAILED(Read_Materials(pFile, pModelFilePath)))
+            return E_FAIL;
+        if (FAILED(Read_Animation(pFile)))
             return E_FAIL;
     }
     fclose(pFile);
     return S_OK;
 }
 
-HRESULT CModel::Read_Bone(FILE* pFile)
+HRESULT CModel::Read_Bones(FILE* pFile, bool_t isUpper)
 {
     uint32_t iNumBone;
     fread(&iNumBone, sizeof(uint32_t), 1, pFile);
+    for (uint32_t i = 0; i < iNumBone; ++i)
+    {
+        auto pBone = CBone::Create(pFile);
+        if (!isUpper && nullptr != strstr(pBone->Get_Name(), "Spine")) // 전체 문자열, 찾을 문자열
+            isUpper = true;
 
+        m_Bones.push_back(pBone);
+        m_IsUpperBone.push_back(isUpper);
+    }
     return S_OK;
 }
 
@@ -458,6 +476,21 @@ HRESULT CModel::Read_Materials(FILE* pFile, const char_t* pModelFilePath)
             return E_FAIL;
         m_Materials.push_back(pMaterial);
     }
+    return S_OK;
+}
+
+HRESULT CModel::Read_Animation(FILE* pFile)
+{
+    fread(&m_iNumAnimation, sizeof(uint32_t), 1, pFile);
+
+    for (uint32_t i = 0; i < m_iNumAnimation; ++i)
+    {
+        auto pAnimation = CAnimation::Create(pFile);
+        if (nullptr == pAnimation)
+            return E_FAIL;
+        m_Animations.push_back(pAnimation);
+    }
+
     return S_OK;
 }
 

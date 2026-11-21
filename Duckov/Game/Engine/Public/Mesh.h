@@ -13,7 +13,8 @@ public:
 	}
 public:
 	HRESULT	Initialize_Prototype(MODEL eType, shared_ptr<class CModel> pModel, const aiMesh* pAiMesh, fmatrix_t PreTransformMatrix);
-	HRESULT	Initialize_Prototype(FILE* pFile, fmatrix_t PreTransformMatrix);
+	HRESULT	Initialize_Prototype_NonAnimMesh(FILE* pFile, fmatrix_t PreTransformMatrix);
+	HRESULT	Initialize_Prototype_AnimMesh(FILE* pFile);
 	HRESULT	Initialize(void* pArg);
 	HRESULT	Render_Instanced(ID3D11Buffer* pInstanceVB, uint32_t iInstanceStride, uint32_t iNumInstances);
 	HRESULT	Bind_BoneMatrix(vector<shared_ptr<class CBone>>& Bones, uint32_t iSlot);
@@ -44,7 +45,8 @@ private:
 
 public:
 	static shared_ptr<CMesh> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, MODEL eType, shared_ptr<class CModel> pModel, const aiMesh* pAiMesh, fmatrix_t PreTransformMatrix = XMMatrixIdentity());
-	static shared_ptr<CMesh> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, FILE* pFile, fmatrix_t PreTransformMatrix = XMMatrixIdentity());
+	static shared_ptr<CMesh> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, FILE* pFile, fmatrix_t PreTransformMatrix);
+	static shared_ptr<CMesh> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, FILE* pFile);
 	virtual shared_ptr<CPrototype> Clone(void* pArg)override;
 };
 

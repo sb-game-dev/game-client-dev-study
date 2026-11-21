@@ -186,7 +186,7 @@ HRESULT CLoader::Loading_For_GamePlayLV()
     if(FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
         Proto::Model_Duck,
         CModel::Create(m_pDevice, m_pContext, MODEL::ANIM,
-            "../../../Resource/Characters/S12_DuckV2_2/S12_DuckV2_2.fbx"))))
+            "../../../Resource/Characters/S12_DuckV2_2/S12_DuckV2_2.bin"))))
         return E_FAIL;
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),

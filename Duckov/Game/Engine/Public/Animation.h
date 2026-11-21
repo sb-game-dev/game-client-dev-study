@@ -13,6 +13,7 @@ public:
 	~CAnimation() = default;
 public:
 	HRESULT		Initialize(const aiAnimation* pAIAnimaiton, shared_ptr<class CModel> pModel);
+	HRESULT		Initialize(FILE* pFile);
 	void		Update_TransformMatrix(const vector<shared_ptr<class CBone>>& Bones, 
 									   f32_t fDeltaTime, 
 									   const vector<bool_t>* pIsUpperBone = nullptr, 
@@ -40,6 +41,7 @@ private:
 
 public:
 	static shared_ptr<CAnimation> Create(const aiAnimation* pAIAnimation, shared_ptr<class CModel> pModel);
+	static shared_ptr<CAnimation> Create(FILE* pFile);
 	shared_ptr<CAnimation> Clone();
 };
 
