@@ -150,6 +150,7 @@
     <ClInclude Include="..\public\Armor.h" />
     <ClInclude Include="..\public\BackGround.h" />
     <ClInclude Include="..\public\BackPack.h" />
+    <ClInclude Include="..\public\Bullet.h" />
     <ClInclude Include="..\Public\Client_Defines.h" />
     <ClInclude Include="..\Public\Client_Tags.h" />
     <ClInclude Include="..\Public\Cube.h" />
@@ -196,6 +197,7 @@
     <ClCompile Include="..\private\Armor.cpp" />
     <ClCompile Include="..\private\BackGround.cpp" />
     <ClCompile Include="..\private\BackPack.cpp" />
+    <ClCompile Include="..\private\Bullet.cpp" />
     <ClCompile Include="..\private\Cube_Instance.cpp" />
     <ClCompile Include="..\private\FaceMask.cpp" />
     <ClCompile Include="..\private\Fog.cpp" />

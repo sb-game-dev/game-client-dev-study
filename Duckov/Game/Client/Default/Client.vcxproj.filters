@@ -121,6 +121,9 @@
     <Filter Include="02. GameObjects\01. Player\06. BackPack">
       <UniqueIdentifier>{db0ec47a-a843-4e5b-86b3-798c32a50e63}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObjects\01. Player\01. Weapon\Bullet">
+      <UniqueIdentifier>{d7a393c8-f4c6-4401-81ed-de075e6f3b59}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -237,6 +240,9 @@
     <ClInclude Include="..\public\FaceMask.h">
       <Filter>02. GameObjects\01. Player\04. FaceMask</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\Bullet.h">
+      <Filter>02. GameObjects\01. Player\01. Weapon\Bullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -344,6 +350,9 @@
     </ClCompile>
     <ClCompile Include="..\private\FaceMask.cpp">
       <Filter>02. GameObjects\01. Player\04. FaceMask</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Bullet.cpp">
+      <Filter>02. GameObjects\01. Player\01. Weapon\Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

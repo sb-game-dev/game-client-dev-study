@@ -26,6 +26,8 @@ public:
 	void	AdjustPosY();
 
 	void	Set_Swapping(bool_t bSwapping)	{ m_bSwapping = bSwapping; }
+	bool	Is_Swapping()					{ return m_bSwapping; }
+	bool	Is_Rolling()					{ return m_bRolling; }
 
 	bool_t	Is_Aiming()				{ return m_bAiming && Has_Weapon();	}
 	bool_t	Is_Firing()				{ return m_bFiring && Has_Weapon(); }
@@ -80,6 +82,8 @@ private:
 	bool_t							m_bSwapping = { true };
 	bool_t							m_bPreHasWeapon = { false };
 	bool_t							m_bCanAttack = { true };
+	bool_t							m_bRolling = { false };
+	EQUIP_SLOT						m_eSwapNextWeapon = { EQUIP_SLOT::GUN_1 };
 
 private:
 	// 플레이어 스텟값

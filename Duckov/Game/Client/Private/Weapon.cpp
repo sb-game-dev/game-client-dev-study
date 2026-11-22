@@ -42,9 +42,9 @@ HRESULT CWeapon::Initialize(void* pArg)
     return S_OK;
 }
 
-void CWeapon::Priority_Update(f32_t fTimeDelta)
+void CWeapon::Priority_Update(f32_t fDeltaTime)
 {
-    __super::Priority_Update(fTimeDelta);
+    __super::Priority_Update(fDeltaTime);
     auto pInven = m_pInven.lock();
     if (nullptr == pInven)
     {
@@ -65,29 +65,39 @@ void CWeapon::Priority_Update(f32_t fTimeDelta)
     }
 }
 
-void CWeapon::Update(f32_t fTimeDelta)
+void CWeapon::Update(f32_t fDeltaTime)
 {
-    __super::Update(fTimeDelta);
+    __super::Update(fDeltaTime);
 
     auto pInven = m_pInven.lock();
+    auto pPlayer = m_pPlayer.lock();
     if (nullptr == pInven || nullptr == pInven->Get_ActiveItem())
         return;
     Change_Model(pInven->Get_ActiveItem()->strItemName);
-
-    Play_FireAnim(fTimeDelta);
-
+    Play_FireAnim(fDeltaTime);
+    Check_CanFire(fDeltaTime);
+    
     matrix_t        SocketMatrix = XMLoadFloat4x4(m_pSocketMatrix);
-    //for (uint32_t i = 0; i < 3; i++)
-    //    SocketMatrix.r[i] = XMVector3Normalize(SocketMatrix.r[i]);
-
-    matrix_t        ChildMatrix = XMLoadFloat4x4(m_pTransformCom->Get_WorldMatrixPtr()) * SocketMatrix;
+    matrix_t        ChildMatrix;
+    
+    if (EQUIP_SLOT::MELEE == pInven->Get_ActiveSlot() || (nullptr != pPlayer && (pPlayer->Is_Swapping() || pPlayer->Is_Rolling())))
+    {
+        ChildMatrix = XMLoadFloat4x4(m_pTransformCom->Get_WorldMatrixPtr()) * SocketMatrix;
+    }
+    else
+    {
+        matrix_t SocketMatrixOnlyPos = XMMatrixTranslationFromVector(SocketMatrix.r[3]);
+        matrix_t Recoil = XMMatrixTranslation(0.f, 0.f, -m_fRecoilOffset);
+        ChildMatrix = Recoil * SocketMatrixOnlyPos;
+        
+    }
     __super::Update_CombinedWorldMatrix(ChildMatrix);
 }
 
 
-void CWeapon::Late_Update(f32_t fTimeDelta)
+void CWeapon::Late_Update(f32_t fDeltaTime)
 {
-    __super::Late_Update(fTimeDelta);
+    __super::Late_Update(fDeltaTime);
 
     auto pInven = m_pInven.lock();
     if (nullptr == pInven || nullptr == pInven->Get_ActiveItem())
@@ -144,19 +154,22 @@ void CWeapon::Play_FireAnim(const f32_t fDeltaTime)
     if (nullptr != pPlayer)
     {
         if(false == pPlayer->Is_Firing())
-            m_pTransformCom->Set_State(STATE::POSITION, XMVectorSet(0.0f, 0.f, 0.f, 1.f));
+            m_fRecoilOffset = 0.f;
         else
         {
-            auto vPos = m_pTransformCom->Get_State(STATE::POSITION);
-            if (XMVectorGetY(vPos) <= 0)
-                m_pTransformCom->Set_Speed(2.f);
-            else if(XMVectorGetY(vPos) >= 0.1f)
-                m_pTransformCom->Set_Speed(-2.f);
-            //cout << XMVectorGetX(vPos) << "\t" << XMVectorGetY(vPos) << "\t" << XMVectorGetZ(vPos) << endl;
-            m_pTransformCom->Go_Straight(fDeltaTime);
+            m_fRecoilOffset += m_fRecoilSpeed * fDeltaTime;
+            if (m_fRecoilOffset >= 0.1f)
+            {
+                m_fRecoilOffset = 0.1f; 
+                m_fRecoilSpeed = -2.f;
+            }
+            else if (m_fRecoilOffset <= 0.f)
+            { 
+                m_fRecoilOffset = 0.f;  
+                m_fRecoilSpeed = 2.f;
+            }
         }
     }
-    //m_pTransformCom->Go_Straight(fDeltaTime);
 }
 
 HRESULT CWeapon::Ready_Components()
@@ -190,6 +203,30 @@ HRESULT CWeapon::Bind_Shader()
 HRESULT CWeapon::Bind_ShaderResources(const matrix_t& matWorld)
 {
     return __super::Bind_Vertex_ShaderResource(ETOUI(VSLOT::WORLD), matWorld);
+}
+
+void CWeapon::Check_CanFire(const f32_t& fDeltaTime)
+{
+    auto pPlayer = m_pPlayer.lock();
+    if (nullptr == pPlayer)
+        return;
+
+    auto pInven = m_pInven.lock();
+    if (nullptr == pInven)
+        return;
+
+    if (m_fFireTimer > 0.f)
+        m_fFireTimer -= fDeltaTime;
+
+    if (EQUIP_SLOT::MELEE != pInven->Get_ActiveSlot() && pPlayer->Is_Firing() && m_fFireTimer < 0.f)
+    {
+        Fire();   //ÃÑ¾Ë ¹ß»ç
+        m_fFireTimer += m_fFireinterval;
+    }
+}
+
+void CWeapon::Fire()
+{
 }
 
 shared_ptr<CWeapon> CWeapon::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)

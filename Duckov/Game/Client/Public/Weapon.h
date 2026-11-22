@@ -47,10 +47,24 @@ private:
 	const float4x4_t* m_pSocketMatrix = { nullptr };
 
 private:
+	f32_t m_fFireTimer = { 0.f };
+	f32_t m_fFireinterval = { 0.1f };
+
+private:
+	f32_t m_fRecoilOffset = { 0.f };
+	f32_t m_fRecoilSpeed = { 2.f };
+	
+	f32_t m_fAimBlend = { 1.f };
+	f32_t m_fAimBlendDuration = { 0.2f };
+
+private:
 	HRESULT Ready_Components();
 	HRESULT Bind_Shader();
 	HRESULT Bind_ShaderResources(const matrix_t& matWorld);
 
+private:
+	void	Check_CanFire(const f32_t& fDeltaTime);
+	void	Fire();
 public:
 	static shared_ptr<CWeapon> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
 	virtual shared_ptr<CPrototype> Clone(void* pArg) override;
