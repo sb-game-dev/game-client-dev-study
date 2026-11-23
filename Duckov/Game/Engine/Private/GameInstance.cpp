@@ -116,6 +116,11 @@ HRESULT CGameInstance::Change_Level(int32_t iNewLevelIndex, shared_ptr<CLevel> p
 	return m_pLevel_Manager->Change_Level(iNewLevelIndex, pNewLevel);
 }
 
+int32_t CGameInstance::Get_CurrentLevelIndex()
+{
+	return m_pLevel_Manager->Get_CurrentLevelIndex();
+}
+
 #pragma endregion
 
 #pragma region TIMER_MANAGER
@@ -180,6 +185,11 @@ shared_ptr<CGameObject> CGameInstance::Find_GameObject(uint32_t iLayerLevelIndex
 const map<const wstring_t, shared_ptr<CGameObject>>* CGameInstance::Get_GameObjects(uint32_t iLayerLevelIndex, const wstring_t& strLayerTag)
 {
 	return m_pObject_Manager->Get_GameObjects(iLayerLevelIndex,strLayerTag);
+}
+
+void CGameInstance::Set_LayerActive(uint32_t iLayerLevelIndex, const wstring_t& strLayerTag, bool_t bActive)
+{
+	m_pObject_Manager->Set_LayerActive(iLayerLevelIndex, strLayerTag, bActive);
 }
 
 #pragma endregion

@@ -1,6 +1,18 @@
 #include "MainApp.h"
 #include "Client_Defines.h"
 #include "Level_Loading.h"
+#include "Body_Player.h"
+#include "Weapon.h"
+#include "Helmet.h"
+#include "Armor.h"
+#include "BackPack.h"
+#include "Headset.h"
+#include "FaceMask.h"
+#include "Player.h"
+#include "Client_Mouse.h"
+#include "Scope.h"
+#include "Inven.h"
+#include "HUD.h"
 
 CMainApp::CMainApp()
 {
@@ -41,10 +53,14 @@ HRESULT CMainApp::Initialize()
 
     if (FAILED(CGameInstance::Get().Initialize_Engine(EngineDesc,m_pDevice,m_pContext)))
         return E_FAIL;
+
+    if (FAILED(Ready_Prototype_For_StaticLV()))
+        return E_FAIL;
+    if (FAILED(Ready_Static_Layer()))
+        return E_FAIL;
+    
     // 씬 생성
     if (FAILED(Start_Level(LEVEL::GAMEPLAY)))
-        return E_FAIL;
-    if (FAILED(Ready_Prototype_For_StaticLV()))
         return E_FAIL;
 
     //Test_Write();
@@ -86,6 +102,291 @@ HRESULT CMainApp::Start_Level(LEVEL eStartLevelID)
 
 HRESULT CMainApp::Ready_Prototype_For_StaticLV()
 {
+    //================== 셰이더 ==================
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::VS_UI,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_Inventory.hlsl",
+            VTXUI_INSTANCE::Elements, VTXUI_INSTANCE::iNumElements, "VS_MAIN"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::PS_UI,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_Inventory.hlsl", "PS_MAIN"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::VS_UI_CIRCLE,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_Inventory.hlsl",
+            VTXUI_INSTANCE_CIRCLE::Elements, VTXUI_INSTANCE_CIRCLE::iNumElements, "VS_MAIN_CIRCLE"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::PS_UI_CIRCLE,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_Inventory.hlsl", "PS_MAIN_CIRCLE"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::VS_VTXCOL_UI,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/UI_VertexShader.hlsl", VTXCOL::Elements, VTXCOL::iNumElements, "VS_UI_SCOPE"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::PS_VTXCOL_SCOPE,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/UI_PixelShader.hlsl", "PS_SCOPE"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::PS_VTXCOL_SHADOW,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_SHADOW_MODEL"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::PS_VTXCOL_OCCLUDED,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_OCCLUDEDPLAYER"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::VS_VTXTEX,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_VertexShader.hlsl", VTXNORM::Elements, VTXNORM::iNumElements, "VS_MAIN"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::VS_VTXTEX_INSTANCE,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_VertexShader.hlsl", VTXNORM_INSTANCE::Elements, VTXNORM_INSTANCE::iNumElements, "VS_MAIN_INST"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::VS_VTXTEX_INSTANCE_UI,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/UI_VertexShader.hlsl", VTXNORM_INSTANCE::Elements, VTXNORM_INSTANCE::iNumElements, "VS_MAIN_INST_UI"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::PS_VTXTEX,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_MAIN"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::PS_VTXTEX_SHADOW,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_SHADOW"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::PS_VTXTEX_SKYBOX,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_MAIN_SKY"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::PS_VTXTEX_NOLIGHT,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_MAIN_NOLIGHT"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::VS_TERRAIN,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_VertexShader.hlsl", VTXNORM::Elements, VTXNORM::iNumElements, "VS_TERRAIN"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::PS_TERRAIN,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_TERRAIN"))))
+        return E_FAIL;
+
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::VS_MODEL,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_VertexShader.hlsl", VTXMESH::Elements, VTXMESH::iNumElements, "VS_MAIN_MODEL"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::VS_ANIM_MODEL,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_VertexShader.hlsl", VTXANIMMESH::Elements, VTXANIMMESH::iNumElements, "VS_MAIN_ANIM_MODEL"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::PS_MODEL,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_MAIN_MODEL"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::VS_MODEL_INSTANCE,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_VertexShader.hlsl",
+            VTXMESH_INSTANCE::Elements, VTXMESH_INSTANCE::iNumElements, "VS_MAIN_MODEL_INST"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::VS_VTXTEX_UI,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/UI_VertexShader.hlsl", VTXNORM::Elements, VTXNORM::iNumElements, "VS_MAIN_UI"))))
+        return E_FAIL;
+    //================== 객체 원형 ==================
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_Player,
+        CPlayer::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_Player_Body,
+        CBody_Player::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_Weapon,
+        CWeapon::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_Helmet,
+        CHelmet::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_Armor,
+        CArmor::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_BackPack,
+        CBackPack::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_Headset,
+        CHeadset::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_FaceMask,
+        CFaceMask::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_Client_Mouse,
+        CClient_Mouse::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_Scope,
+        CScope::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_Inven,
+        CInven::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_HUD,
+        CHUD::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+
+    //================== 모델 원형 ==================
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC),
+        Proto::Model_Duck,
+        CModel::Create(m_pDevice, m_pContext, MODEL::ANIM,
+            "../../../Resource/Characters/S12_DuckV2_2/S12_DuckV2_2.bin"))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC),
+        Proto::Model_Weapon_AK47,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/weapons/guns/ig_gun_ak47.bin"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC),
+        Proto::Model_Weapon_M700,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/weapons/guns/ig_gun_m700.bin"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC),
+        Proto::Model_Weapon_PM,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/weapons/guns/ig_gun_pm.bin"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC),
+        Proto::Model_Weapon_Axe,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/weapons/melee_handheld/MeleeWeaponAgent_Axe.bin"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC),
+        Proto::Model_Helmet_LV2,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/equipment/helmet/ig_helmat_LV2.bin"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC),
+        Proto::Model_Helmet_LV3,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/equipment/helmet/ig_helmat_LV3.bin"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC),
+        Proto::Model_Armor_LV2,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/equipment/armor/ig_armor_LV2.bin"))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC),
+        Proto::Model_Armor_LV3,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/equipment/armor/ig_armor_LV3.bin"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC),
+        Proto::Model_BackPack_LV2,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/equipment/backpack/ig_backpack_LV2.bin"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC),
+        Proto::Model_BackPack_LV3,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/equipment/backpack/ig_backpack_LV3.bin"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC),
+        Proto::Model_Headset_LV0,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/equipment/headset/ig_headset_LV0.bin"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC),
+        Proto::Model_Headset_LV1,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/equipment/headset/IG_Headset_LV1V2.bin"))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC),
+        Proto::Model_FaceMask_FlyMask,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/equipment/facemask/IG_fackmask_flymask.bin"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC),
+        Proto::Model_FaceMask_GasMask,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/equipment/facemask/IG_fackmask_gasmask_01.bin"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC),
+        Proto::Model_FaceMask_NightVision,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/equipment/facemask/IG_fackmask_nightvision.bin"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::VIBuffer_Cube,
+        CVIBuffer_Cube::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::VIBuffer_SkyBox,
+        CVIBuffer_SkyBox::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::VIBuffer_Rect,
+        CVIBuffer_Rect::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+
+    //================== 텍스처 ==================
+        // 마우스 조준선
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Texture_Mouse,
+        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/UI/Mouse/cursor%d.png"), 4))))
+        return E_FAIL;
+
+    // 아이템 아이콘
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Texture_ItemIcons,
+        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Inventory/IconArray/icons_128.dds"), 1))))
+        return E_FAIL;
+
+    // 아이템 아이콘
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Texture_HUDIcons,
+        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Inventory/IconArray/hud_icons.dds"), 1))))
+        return E_FAIL;
+    return S_OK;
+}
+
+HRESULT CMainApp::Ready_Static_Layer()
+{
+    auto pLayerTag = L"Layer_Static";
+
+    CPlayer::PLAYER_DESC Player_Desc{};
+    Player_Desc.fDegreeRotPerSec = { 180.f };
+    Player_Desc.fPosX = { 38.2f };
+    Player_Desc.fPosZ = { -207.2f };
+
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::STATIC), Proto::Obj_Player,
+        ETOUI(LEVEL::STATIC), pLayerTag, GO::Player, &Player_Desc)))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::STATIC), Proto::Obj_Inven,
+        ETOUI(LEVEL::STATIC), pLayerTag, GO::Inven)))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::STATIC), Proto::Obj_HUD,
+        ETOUI(LEVEL::STATIC), pLayerTag, GO::HUD)))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::STATIC), Proto::Obj_Client_Mouse,
+        ETOUI(LEVEL::STATIC), pLayerTag, GO::Client_Mouse)))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::STATIC), Proto::Obj_Scope,
+        ETOUI(LEVEL::STATIC), pLayerTag, GO::Scope)))
+        return E_FAIL;
+
+
+
     return S_OK;
 }
 

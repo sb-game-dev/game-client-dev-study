@@ -86,11 +86,11 @@ HRESULT CStaticProp ::Ready_Components()
     if (FAILED(Ready_Mesh()))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(m_iLevelIndex, L"Prototype_Component_VS_MODEL",
+    if (FAILED(__super::Add_Component(0, L"Prototype_Component_VS_MODEL",
         TEXT("Com_VS"), m_pVS)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(m_iLevelIndex, L"Prototype_Component_PS_MODEL",
+    if (FAILED(__super::Add_Component(0, L"Prototype_Component_PS_MODEL",
         TEXT("Com_PS"), m_pPS)))
         return E_FAIL;
 
@@ -177,7 +177,10 @@ shared_ptr<CStaticProp > CStaticProp::Create(ComPtr<ID3D11Device> pDevice, ComPt
     auto pInstance = shared_ptr<CStaticProp >(new CStaticProp (pDevice, pContext));
 
     if (FAILED(pInstance->Initialize_Prototype()))
+    {
+        MSG_BOX("Failed to Created : CStaticProp");
         pInstance.reset();
+    }
 
     return pInstance;
 }
@@ -186,7 +189,10 @@ shared_ptr<CPrototype> CStaticProp::Clone(void* pArg)
 {
     auto pInstance = shared_ptr<CStaticProp >(new CStaticProp (*this));
     if (FAILED(pInstance->Initialize(pArg)))
+    {
+        MSG_BOX("Failed to Cloned : CStaticProp");
         pInstance.reset();
+    }
 
     return pInstance;
 }

@@ -27,7 +27,7 @@ HRESULT CBackGround::Initialize(void* pArg)
 	if (FAILED(__super::Initialize(&BackGroundDesc)))
 		return E_FAIL;
 
-    m_pTransformCom->Set_State(STATE::POSITION, vector_t{ 0.f,0.f,1.f,1.f });
+    m_pTransformCom->Set_State(STATE::POSITION, vector_t{ 0.f,0.f,90.f,1.f });
     m_pTransformCom->Set_Scale( g_iWinSizeX, g_iWinSizeY, 1.f );
 
     if (FAILED(Ready_Components()))
@@ -81,15 +81,15 @@ HRESULT CBackGround::Ready_Components()
         TEXT("Com_Texture"), m_pTextureCom)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::LOADING), Proto::VIBuffer_Rect, 
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::VIBuffer_Rect,
         TEXT("Com_Buffer"), m_pBufferCom)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::LOADING), Proto::VS_VTXTEX_UI,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::VS_VTXTEX_UI,
         TEXT("Com_VS"), m_pVS)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::LOADING), Proto::PS_VTXTEX_NOLIGHT,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::PS_VTXTEX_NOLIGHT,
         TEXT("Com_PS"), m_pPS)))
         return E_FAIL;
     return S_OK;

@@ -31,7 +31,7 @@ HRESULT CQuarterView_Cam::Initialize(void* pArg)
 {
 	if (FAILED(__super::Initialize(pArg)))
 		return E_FAIL;
-	auto pPlayer = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Player"));
+	auto pPlayer = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::STATIC), L"Layer_Static", TEXT("GameObject_Player"));
 	vector_t vPlayerPos = pPlayer->Get_Transform()->Get_State(STATE::POSITION);
 
 	XMStoreFloat4(&m_vAt, vPlayerPos);
@@ -66,7 +66,7 @@ void CQuarterView_Cam::Update(f32_t fDeltaTime)
 	auto pPlayer = m_pPlayer.lock();
 	if (nullptr == pPlayer)
 	{
-		pPlayer = dynamic_pointer_cast<CPlayer>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Player")));
+		pPlayer = dynamic_pointer_cast<CPlayer>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::STATIC), L"Layer_Static", TEXT("GameObject_Player")));
 		if (nullptr == pPlayer)
 			return;
 		m_pPlayer = pPlayer;
@@ -77,7 +77,7 @@ void CQuarterView_Cam::Update(f32_t fDeltaTime)
 	auto pInven = m_pInven.lock();
 	if (nullptr == pInven)
 	{
-		pInven = dynamic_pointer_cast<CInven>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Inven")));
+		pInven = dynamic_pointer_cast<CInven>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::STATIC), L"Layer_Static", TEXT("GameObject_Inven")));
 		if (nullptr == pInven)
 			return;
 		m_pInven = pInven;
@@ -86,7 +86,7 @@ void CQuarterView_Cam::Update(f32_t fDeltaTime)
 	auto pMouse = m_pClientMouse.lock();
 	if (nullptr == pMouse)
 	{
-		pMouse = dynamic_pointer_cast<CClient_Mouse>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", GO::Client_Mouse));
+		pMouse = dynamic_pointer_cast<CClient_Mouse>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::STATIC), L"Layer_Static", GO::Client_Mouse));
 		if (nullptr == pMouse)
 			return;
 		m_pClientMouse = pMouse;
@@ -169,14 +169,20 @@ shared_ptr<CQuarterView_Cam> CQuarterView_Cam::Create(ComPtr<ID3D11Device> pDevi
 {
 	auto pInstance = shared_ptr<CQuarterView_Cam>(new CQuarterView_Cam(pDevice, pContext));
 	if (FAILED(pInstance->Initialize_Prototype()))
+	{
+		MSG_BOX("Failed to Created : CQuarterView_Cam");
 		pInstance.reset();
+	}
 	return pInstance;
 }
 shared_ptr<CPrototype> CQuarterView_Cam::Clone(void* pArg)
 {
 	auto pInstance = shared_ptr<CQuarterView_Cam>(new CQuarterView_Cam(*this));
 	if (FAILED(pInstance->Initialize(pArg)))
+	{
+		MSG_BOX("Failed to Cloned : CQuarterView_Cam");
 		pInstance.reset();
+	}
 
 	return pInstance;
 }

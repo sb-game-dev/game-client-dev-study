@@ -49,7 +49,7 @@ void CHelmet::Priority_Update(f32_t fTimeDelta)
     if (nullptr == pInven)
     {
         pInven = dynamic_pointer_cast<CInven>(CGameInstance::Get().Find_GameObject(
-            ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", L"GameObject_Inven"));
+            ETOUI(LEVEL::STATIC), L"Layer_Static", L"GameObject_Inven"));
         if (nullptr == pInven)
             return;
         m_pInven = pInven;
@@ -123,15 +123,15 @@ HRESULT CHelmet::Change_Model(const wstring_t& strMeshPath)
 
 HRESULT CHelmet::Ready_Components()
 {
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::Model_Helmet_LV2,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::Model_Helmet_LV2,
         TEXT("Com_Model"), m_pModelCom)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VS_MODEL,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::VS_MODEL,
         TEXT("Com_VS"), m_pVSCom)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_MODEL,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::PS_MODEL,
         TEXT("Com_PS"), m_pPSCom)))
         return E_FAIL;
 

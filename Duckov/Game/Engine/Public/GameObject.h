@@ -36,6 +36,9 @@ public:
 
 	virtual shared_ptr<CTransform>	Get_Transform() { return m_pTransformCom; }
 
+	virtual void			Set_Active(bool_t bActive)	{ m_bActive = bActive; }
+	virtual bool_t			Is_Active()					{ return m_bActive; }
+
 	virtual void			Set_Dead() { m_bDead = true; }
 	virtual bool_t			Is_Dead()const { return m_bDead; }
 	virtual void			Remove_Component(const wstring_t& strComponentTag) { m_Components.erase(strComponentTag); }
@@ -53,7 +56,7 @@ protected:
 
 	f32_t				m_fViewZ = {};
 
-
+	bool_t				m_bActive = { true };
 	bool_t				m_bDead = { false };
 
 protected:

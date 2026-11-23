@@ -18,6 +18,10 @@ HRESULT CLevel_Loading::Initialize(LEVEL eNextLevel)
         return E_FAIL;
     m_eNextLevelID = eNextLevel;
 
+    CGameInstance::Get().Set_LayerActive(ETOUI(LEVEL::STATIC), L"Layer_Static", false);
+    auto pMouse = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::STATIC), L"Layer_Static", GO::Client_Mouse);
+    if (nullptr != pMouse) pMouse->Set_Active(true);
+
     /* 로딩레벨에 필요한 객체들을 생성하는 과정. */
     if (FAILED(Ready_Layer_BackGround()))
         return E_FAIL;
@@ -73,20 +77,6 @@ HRESULT CLevel_Loading::Ready_Layer_BackGround()
     // 텍스처
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOADING), Proto::Texture_BackGround,
         CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Logo/Logo_Background_1280x720.dds"), 1))))
-        return E_FAIL;
-
-    // VIBuffer_Rect
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOADING), Proto::VIBuffer_Rect,
-        CVIBuffer_Rect::Create(m_pDevice, m_pContext))))
-        return E_FAIL;
-
-    // VS
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOADING), Proto::VS_VTXTEX_UI,
-        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/UI_VertexShader.hlsl", VTXNORM::Elements, VTXNORM::iNumElements, "VS_MAIN_UI"))))
-        return E_FAIL;
-    // PS
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOADING), Proto::PS_VTXTEX_NOLIGHT,
-        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/UI_PixelShader.hlsl", "PS_MAIN"))))
         return E_FAIL;
 
     // 배경 원형

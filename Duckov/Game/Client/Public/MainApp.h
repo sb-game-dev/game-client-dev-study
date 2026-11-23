@@ -24,6 +24,7 @@ private:
 private:
 	HRESULT		Start_Level(LEVEL eStartLevelID);
 	HRESULT		Ready_Prototype_For_StaticLV();
+	HRESULT		Ready_Static_Layer();
 
 	void		Test_Write();
 	void		Test_Read();

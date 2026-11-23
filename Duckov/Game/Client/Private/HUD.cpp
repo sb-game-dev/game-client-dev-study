@@ -88,7 +88,7 @@ void CHUD::Update(f32_t fTimeDelta)
 	auto pInven = m_pInven.lock();
 	if (nullptr == pInven)
 	{
-		pInven = dynamic_pointer_cast<CInven>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", GO::Inven));
+		pInven = dynamic_pointer_cast<CInven>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::STATIC), L"Layer_Static", GO::Inven));
 		if (nullptr == pInven)
 			return;
 		m_pInven = pInven;
@@ -96,7 +96,7 @@ void CHUD::Update(f32_t fTimeDelta)
 	auto pPlayer = m_pPlayer.lock();
 	if (nullptr == pPlayer)
 	{
-		pPlayer = dynamic_pointer_cast<CPlayer>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", GO::Player));
+		pPlayer = dynamic_pointer_cast<CPlayer>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::STATIC), L"Layer_Static", GO::Player));
 		if (nullptr == pPlayer)
 			return;
 		m_pPlayer = pPlayer;
@@ -319,27 +319,27 @@ const shared_ptr<ITEM>& CHUD::Get_SlotItem(const HUD_POS& t)
 
 HRESULT CHUD::Ready_Components()
 {
-	if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VS_UI,
+	if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::VS_UI,
 		TEXT("Com_VS"), m_pVSCom)))
 		return E_FAIL;
 
-	if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_UI,
+	if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::PS_UI,
 		TEXT("Com_PS"), m_pPSCom)))
 		return E_FAIL;
 
-	if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VS_UI_CIRCLE,
+	if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::VS_UI_CIRCLE,
 		TEXT("Com_VS_Circle"), m_pVSCircleCom)))
 		return E_FAIL;
 
-	if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_UI_CIRCLE,
+	if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::PS_UI_CIRCLE,
 		TEXT("Com_PS_Circle"), m_pPSCircleCom)))
 		return E_FAIL;
 
-	if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::Texture_ItemIcons,
+	if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::Texture_ItemIcons,
 		TEXT("Com_IconTex"), m_pIconTexCom)))
 		return E_FAIL;
 
-	if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::Texture_HUDIcons,
+	if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::Texture_HUDIcons,
 		TEXT("Com_HUDIconTex"), m_pHUDIconTexCom)))
 		return E_FAIL;
 	return S_OK;

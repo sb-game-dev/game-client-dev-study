@@ -87,6 +87,14 @@ void CObject_Manager::Clear(uint32_t iClearLevelIndex)
 	m_pLayers[iClearLevelIndex].clear();
 }
 
+void CObject_Manager::Set_LayerActive(uint32_t iLayerLevelIndex, const wstring_t& strLayerTag, bool_t bActive)
+{
+	auto pLayer = Find_Layer(iLayerLevelIndex, strLayerTag);
+	if (nullptr == pLayer)
+		return;
+	pLayer->Set_Active(bActive);
+}
+
 shared_ptr<CGameObject> CObject_Manager::Find_GameObject(uint32_t iLayerLevelIndex, const wstring_t& strLayerTag, const wstring_t& strGameObjectTag)
 {
 	auto pLayer = Find_Layer(iLayerLevelIndex, strLayerTag);

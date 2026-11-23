@@ -35,6 +35,9 @@ HRESULT CToolMainApp::Initialize()
     if (FAILED(CGameInstance::Get().Initialize_Engine(EngineDesc, m_pDevice, m_pContext)))
         return E_FAIL;
     
+    if (FAILED(Ready_Prototype_For_StaticLV()))
+        return E_FAIL;
+
     if (FAILED(Start_Level(LEVEL::MAPTOOL)))
         return E_FAIL;
 
@@ -78,6 +81,102 @@ HRESULT CToolMainApp::Start_Level(LEVEL eStartLevelID)
 {
     if (FAILED(CGameInstance::Get().Change_Level(static_cast<int>(LEVEL::LOADING),
         CLevel_Loading_MapTool::Create(m_pDevice, m_pContext, eStartLevelID))))
+        return E_FAIL;
+    return S_OK;
+}
+
+HRESULT CToolMainApp::Ready_Prototype_For_StaticLV()
+{
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::VS_UI,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_Inventory.hlsl",
+            VTXUI_INSTANCE::Elements, VTXUI_INSTANCE::iNumElements, "VS_MAIN"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::PS_UI,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_Inventory.hlsl", "PS_MAIN"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::VS_UI_CIRCLE,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_Inventory.hlsl",
+            VTXUI_INSTANCE_CIRCLE::Elements, VTXUI_INSTANCE_CIRCLE::iNumElements, "VS_MAIN_CIRCLE"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::PS_UI_CIRCLE,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Shader_Inventory.hlsl", "PS_MAIN_CIRCLE"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::VS_VTXCOL_UI,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/UI_VertexShader.hlsl", VTXCOL::Elements, VTXCOL::iNumElements, "VS_UI_SCOPE"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::PS_VTXCOL_SCOPE,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/UI_PixelShader.hlsl", "PS_SCOPE"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::PS_VTXCOL_SHADOW,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_SHADOW_MODEL"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::PS_VTXCOL_OCCLUDED,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_OCCLUDEDPLAYER"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::VS_VTXTEX,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_VertexShader.hlsl", VTXNORM::Elements, VTXNORM::iNumElements, "VS_MAIN"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::VS_VTXTEX_INSTANCE,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_VertexShader.hlsl", VTXNORM_INSTANCE::Elements, VTXNORM_INSTANCE::iNumElements, "VS_MAIN_INST"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::VS_VTXTEX_INSTANCE_UI,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/UI_VertexShader.hlsl", VTXNORM_INSTANCE::Elements, VTXNORM_INSTANCE::iNumElements, "VS_MAIN_INST_UI"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::PS_VTXTEX,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_MAIN"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::PS_VTXTEX_SHADOW,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_SHADOW"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::PS_VTXTEX_SKYBOX,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_MAIN_SKY"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::PS_VTXTEX_NOLIGHT,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_MAIN_NOLIGHT"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::VS_TERRAIN,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_VertexShader.hlsl", VTXNORM::Elements, VTXNORM::iNumElements, "VS_TERRAIN"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::PS_TERRAIN,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_TERRAIN"))))
+        return E_FAIL;
+
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::VS_MODEL,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_VertexShader.hlsl", VTXMESH::Elements, VTXMESH::iNumElements, "VS_MAIN_MODEL"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::VS_ANIM_MODEL,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_VertexShader.hlsl", VTXANIMMESH::Elements, VTXANIMMESH::iNumElements, "VS_MAIN_ANIM_MODEL"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::PS_MODEL,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_MAIN_MODEL"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::VS_MODEL_INSTANCE,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_VertexShader.hlsl",
+            VTXMESH_INSTANCE::Elements, VTXMESH_INSTANCE::iNumElements, "VS_MAIN_MODEL_INST"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::VS_VTXTEX_UI,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/UI_VertexShader.hlsl", VTXNORM::Elements, VTXNORM::iNumElements, "VS_MAIN_UI"))))
         return E_FAIL;
     return S_OK;
 }

@@ -50,6 +50,7 @@ private:
 
 	weak_ptr<class CInven>			m_pInven;
 	weak_ptr<class CHill>			m_pHill;
+	weak_ptr<class CClient_Mouse>	m_pClientMouse;
 	shared_ptr<class CBody_Player>	m_pBodyPlayer;
 
 	bool_t							m_bPreInvenOpen = { false };

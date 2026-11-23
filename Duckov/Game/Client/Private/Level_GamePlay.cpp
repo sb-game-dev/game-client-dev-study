@@ -19,6 +19,8 @@ HRESULT CLevel_GamePlay::Initialize()
     if (FAILED(__super::Initialize()))
         return E_FAIL;
 
+    CGameInstance::Get().Set_LayerActive(ETOUI(LEVEL::STATIC), L"Layer_Static", true);
+
     SetWindowText(g_hWnd, L"GamePlay_Level");
     if(FAILED(Ready_Layer_BackGround(TEXT("Layer_BackGround"))))
         return E_FAIL;
@@ -53,18 +55,6 @@ HRESULT CLevel_GamePlay::Ready_Layer_BackGround(const tchar_t* pLayerTag)
 
 HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
 {
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Inven,
-        ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Inven)))
-        return E_FAIL;
-
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_HUD,
-        ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::HUD)))
-        return E_FAIL;
-
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Client_Mouse,
-        ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Client_Mouse)))
-        return E_FAIL;
-
     CHill::HILL_DESC Hill_Desc{};
     Hill_Desc.iLevelIndex = ETOUI(LEVEL::GAMEPLAY);
     Hill_Desc.strMeshPath = TEXT("Duckov_Extract/Terrain/Terrain_GroundZero_Crop/height_321x321_16bit.raw");  // 지형 버퍼 + 높이맵
@@ -74,14 +64,7 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
         ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Hill, &Hill_Desc)))
         return E_FAIL;
 
-    CPlayer::PLAYER_DESC Player_Desc{};
-    Player_Desc.fDegreeRotPerSec = { 180.f };
-    Player_Desc.fPosX = { 38.2f };
-    Player_Desc.fPosZ = { -207.2f };
 
-    if(FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Player, 
-        ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Player, &Player_Desc)))
-        return E_FAIL;
 
     for (int i = 0; i < 16; ++i)
     {
@@ -120,11 +103,7 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
         ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Mirror, &Mirror_Desc)))
         return E_FAIL;
 
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Scope,
-        ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Scope)))
-        return E_FAIL;
-
-    auto pPlayer = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Player);
+    auto pPlayer = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::STATIC), L"Layer_Static", GO::Player);
     auto pMirror = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Mirror);
     CGameInstance::Get().Set_Mirror(pMirror);    
 

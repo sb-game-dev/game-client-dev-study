@@ -17,7 +17,7 @@ void CLayer::Priority_Update(f32_t fTimeDelta)
 {
     for (auto& Pair : m_GameObjects)
     {
-        if (nullptr != Pair.second && !Pair.second->Is_Dead())
+        if (nullptr != Pair.second && !Pair.second->Is_Dead() && Pair.second->Is_Active())
             Pair.second->Priority_Update(fTimeDelta);
     }
 }
@@ -25,7 +25,7 @@ void CLayer::Update(f32_t fTimeDelta)
 {
     for (auto& Pair : m_GameObjects)
     {
-        if (nullptr != Pair.second && !Pair.second->Is_Dead())
+        if (nullptr != Pair.second && !Pair.second->Is_Dead() && Pair.second->Is_Active())
             Pair.second->Update(fTimeDelta);
     }
 }
@@ -33,7 +33,7 @@ void CLayer::Late_Update(f32_t fTimeDelta)
 {
     for (auto& Pair : m_GameObjects)
     {
-        if (nullptr != Pair.second && !Pair.second->Is_Dead())
+        if (nullptr != Pair.second && !Pair.second->Is_Dead() && Pair.second->Is_Active())
         {
             Pair.second->Late_Update(fTimeDelta);
         }
@@ -48,6 +48,16 @@ void CLayer::Remove_Dead()
         else
             ++iter;
     }
+}
+
+void CLayer::Set_Active(bool_t bActive)
+{
+    for (auto& Pair : m_GameObjects)
+    {
+        if (nullptr != Pair.second && !Pair.second->Is_Dead())
+            Pair.second->Set_Active(bActive);
+    }
+
 }
 
 shared_ptr<CGameObject> CLayer::Find_GameObject(const wstring_t& strGameObjectTag)

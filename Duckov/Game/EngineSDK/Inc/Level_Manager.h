@@ -13,6 +13,8 @@ public:
 	void			Update(f32_t fTimeDelta);
 	HRESULT			Render();
 
+	int32_t			Get_CurrentLevelIndex() { return m_iCurrentLevelIndex; }
+
 private:
 	int32_t						m_iCurrentLevelIndex = { -1 };
 	shared_ptr<CLevel>			m_pCurrentLevel = { nullptr };

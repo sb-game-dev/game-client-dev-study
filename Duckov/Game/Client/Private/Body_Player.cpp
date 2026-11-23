@@ -166,7 +166,7 @@ void CBody_Player::Change_Animation(PLAYER_ANIM eMoveState, bool_t bUpper, f32_t
 
 HRESULT CBody_Player::Ready_Components()
 {
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Normalize_AssetPath(TEXT("Characters/S12_DuckV2_2/S12_DuckV2_2.fbx")),
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Normalize_AssetPath(TEXT("Characters/S12_DuckV2_2/S12_DuckV2_2.fbx")),
         TEXT("Com_Model"), m_pModelCom)))
         return E_FAIL;
 
@@ -181,19 +181,19 @@ HRESULT CBody_Player::Ready_Components()
     m_pModelCom->Set_Animation_Loop(ETOUI(PLAYER_ANIM::IDLE));
     m_pModelCom->Set_Animation_Loop(ETOUI(PLAYER_ANIM::IDLE_RH));
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VS_ANIM_MODEL,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::VS_ANIM_MODEL,
         TEXT("Com_VS"), m_pVSCom)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_MODEL,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::PS_MODEL,
         TEXT("Com_PS"), m_pPSCom)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_VTXCOL_SHADOW,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::PS_VTXCOL_SHADOW,
         TEXT("Com_PS_SHADOW"), m_pPS_Shadow)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_VTXCOL_OCCLUDED,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::PS_VTXCOL_OCCLUDED,
         TEXT("Com_PS_OCCLUDED"), m_pPS_Occluded)))
         return E_FAIL;
 

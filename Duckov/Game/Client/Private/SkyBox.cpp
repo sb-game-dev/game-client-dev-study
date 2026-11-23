@@ -96,13 +96,13 @@ HRESULT CSkyBox::Ready_Components()
     if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::Texture_SkyBox,
         TEXT("Com_Texture"), m_pTextureCom)))
         return E_FAIL;
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VIBuffer_SkyBox,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::VIBuffer_SkyBox,
         TEXT("Com_Buffer"), m_pBufferCom)))
         return E_FAIL;
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VS_VTXTEX,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::VS_VTXTEX,
         TEXT("Com_VS"), m_pVS)))
         return E_FAIL;
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_VTXTEX_SKYBOX,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::PS_VTXTEX_SKYBOX,
         TEXT("Com_PS"), m_pPS)))
         return E_FAIL;
 #endif // _MAPTOOL
@@ -155,7 +155,10 @@ shared_ptr<CSkyBox> CSkyBox::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11D
     auto pInstance = shared_ptr<CSkyBox>(new CSkyBox(pDevice, pContext));
 
     if (FAILED(pInstance->Initialize_Prototype()))
+    {
+        MSG_BOX("Failed to Created : CSkyBox");
         pInstance.reset();
+    }
 
     return pInstance;
 }
@@ -164,7 +167,10 @@ shared_ptr<CPrototype> CSkyBox::Clone(void* pArg)
 {
     auto pInstance = shared_ptr<CSkyBox>(new CSkyBox(*this));
     if (FAILED(pInstance->Initialize(pArg)))
+    {
+        MSG_BOX("Failed to Cloned : CSkyBox");
         pInstance.reset();
+    }
 
     return pInstance;
 }

@@ -58,7 +58,7 @@ void CScope::Late_Update(f32_t fTimeDelta)
     auto pInven = m_pInven.lock();
     if (nullptr == pInven)
     {
-        m_pInven = dynamic_pointer_cast<CInven>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", L"GameObject_Inven"));
+        m_pInven = dynamic_pointer_cast<CInven>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::STATIC), L"Layer_Static", L"GameObject_Inven"));
         if (nullptr == pInven)
             return;
         m_pInven = pInven;
@@ -67,7 +67,7 @@ void CScope::Late_Update(f32_t fTimeDelta)
     auto pPlayer = m_pPlayer.lock();
     if (nullptr == pPlayer)
     {
-        pPlayer = dynamic_pointer_cast<CPlayer>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Player")));
+        pPlayer = dynamic_pointer_cast<CPlayer>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::STATIC), L"Layer_Static", TEXT("GameObject_Player")));
         if (nullptr == pPlayer)
             return;
         m_pPlayer = pPlayer;
@@ -109,15 +109,15 @@ HRESULT CScope::Render()
 }
 HRESULT CScope::Ready_Components()
 {
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VIBuffer_Rect,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::VIBuffer_Rect,
         TEXT("Com_Buffer"), m_pBufferCom)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VS_VTXCOL_UI,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::VS_VTXCOL_UI,
         TEXT("Com_VS"), m_pVS)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_VTXCOL_SCOPE,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::PS_VTXCOL_SCOPE,
         TEXT("Com_PS"), m_pPS)))
         return E_FAIL;
     return S_OK;

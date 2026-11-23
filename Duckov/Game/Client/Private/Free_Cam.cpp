@@ -94,7 +94,10 @@ shared_ptr<CFree_Cam> CFree_Cam::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3
 {
 	auto pInstance = shared_ptr<CFree_Cam>(new CFree_Cam(pDevice, pContext));
 	if (FAILED(pInstance->Initialize_Prototype()))
+	{
+		MSG_BOX("Failed to Created : CFree_Cam");
 		pInstance.reset();
+	}
 
 	return pInstance;
 }
@@ -103,7 +106,10 @@ shared_ptr<CPrototype> CFree_Cam::Clone(void* pArg)
 {
 	auto pInstance = shared_ptr<CFree_Cam>(new CFree_Cam(*this));
 	if (FAILED(pInstance->Initialize(pArg)))
+	{
+		MSG_BOX("Failed to Cloned : CFree_Cam");
 		pInstance.reset();
+	}
 
 	return pInstance;
 }

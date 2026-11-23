@@ -22,6 +22,8 @@ public:
 	void		Late_Update(f32_t fDeltaTime);
 	void		Clear(uint32_t iClearLevelIndex);
 
+
+	void							Set_LayerActive(uint32_t iLayerLevelIndex, const wstring_t& strLayerTag, bool_t bActive);
 	shared_ptr<CGameObject>			Find_GameObject(uint32_t iLayerLevelIndex, const wstring_t& strLayerTag, const wstring_t& strGameObjectTag);
 	const map<const wstring_t, shared_ptr<CGameObject>>* Get_GameObjects(uint32_t iLayerLevelIndex, const wstring_t& strLayerTag);
 private:

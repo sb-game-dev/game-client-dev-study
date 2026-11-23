@@ -90,29 +90,29 @@ HRESULT CCube::Ready_Components()
         TEXT("Com_Texture"), m_pTextureCom)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(m_iLevelIndex, m_strMeshPath,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), m_strMeshPath,
         TEXT("Com_Buffer"), m_pBufferCom)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(m_iLevelIndex, Proto::VS_VTXTEX,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::VS_VTXTEX,
         TEXT("Com_VS"), m_pVS)))
         return E_FAIL;
 
     if (!m_bEditorMode)
     {
-        if (FAILED(__super::Add_Component(m_iLevelIndex, Proto::PS_VTXTEX,
+        if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::PS_VTXTEX,
             TEXT("Com_PS"), m_pPS)))
             return E_FAIL;
     }
     else
     {
-        if (FAILED(__super::Add_Component(m_iLevelIndex, Proto::PS_VTXTEX_NOLIGHT,
+        if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::PS_VTXTEX_NOLIGHT,
             TEXT("Com_PS"), m_pPS)))
             return E_FAIL;
     }
 
     if(!m_bEditorMode)
-        if (FAILED(__super::Add_Component(m_iLevelIndex, Proto::PS_VTXTEX_SHADOW,
+        if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::PS_VTXTEX_SHADOW,
             TEXT("Com_PS_SHADOW"), m_pPS_Shadow)))
             return E_FAIL;
 
@@ -205,7 +205,10 @@ shared_ptr<CCube> CCube::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11Devic
 	auto pInstance = shared_ptr<CCube>(new CCube(pDevice, pContext));
 
     if (FAILED(pInstance->Initialize_Prototype()))
+    {
+        MSG_BOX("Failed to Created : CCube");
         pInstance.reset();
+    }
 
     return pInstance;
 }
@@ -214,7 +217,10 @@ shared_ptr<CPrototype> CCube::Clone(void* pArg)
 {
     auto pInstance = shared_ptr<CCube>(new CCube(*this));
     if (FAILED(pInstance->Initialize(pArg)))
+    {
+        MSG_BOX("Failed to Cloned : CCube");
         pInstance.reset();
+    }
 
     return pInstance;
 }

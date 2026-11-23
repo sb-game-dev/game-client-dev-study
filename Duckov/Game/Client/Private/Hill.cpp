@@ -118,9 +118,9 @@ HRESULT CHill::Ready_Components()
         TEXT("Com_Layer"), m_pLayerCom)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(m_iLevelIndex, Proto::VS_TERRAIN, TEXT("Com_VS"), m_pVS)))
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::VS_TERRAIN, TEXT("Com_VS"), m_pVS)))
         return E_FAIL;
-    if (FAILED(__super::Add_Component(m_iLevelIndex, Proto::PS_TERRAIN, TEXT("Com_PS"), m_pPS)))
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::PS_TERRAIN, TEXT("Com_PS"), m_pPS)))
         return E_FAIL;
 
     return S_OK;
@@ -181,7 +181,10 @@ shared_ptr<CHill> CHill::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11Devic
     auto pInstance = shared_ptr<CHill>(new CHill(pDevice, pContext));
 
     if (FAILED(pInstance->Initialize_Prototype()))
+    {
+        MSG_BOX("Failed to Created : CHill");
         pInstance.reset();
+    }
 
     return pInstance;
 }
@@ -190,7 +193,10 @@ shared_ptr<CPrototype> CHill::Clone(void* pArg)
 {
     auto pInstance = shared_ptr<CHill>(new CHill(*this));
     if (FAILED(pInstance->Initialize(pArg)))
+    {
+        MSG_BOX("Failed to Cloned : CHill");
         pInstance.reset();
+    }
 
     return pInstance;
 }

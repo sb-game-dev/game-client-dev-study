@@ -86,7 +86,10 @@ shared_ptr<CMapTool_Cam> CMapTool_Cam::Create(ComPtr<ID3D11Device> pDevice, ComP
 {
 	auto pInstance = shared_ptr<CMapTool_Cam>(new CMapTool_Cam(pDevice, pContext));
 	if (FAILED(pInstance->Initialize_Prototype()))
+	{
+		MSG_BOX("Failed to Created : CMapTool_Cam");
 		pInstance.reset();
+	}
 
 	return pInstance;
 }
@@ -95,7 +98,10 @@ shared_ptr<CPrototype> CMapTool_Cam::Clone(void* pArg)
 {
 	auto pInstance = shared_ptr<CMapTool_Cam>(new CMapTool_Cam(*this));
 	if (FAILED(pInstance->Initialize(pArg)))
+	{
+		MSG_BOX("Failed to Cloned : CMapTool_Cam");
 		pInstance.reset();
+	}
 
 	return pInstance;
 }

@@ -73,15 +73,15 @@ HRESULT CTree_Instance::Ready_Components()
         TEXT("Com_Model"), m_pModelCom)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VS_MODEL_INSTANCE,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::VS_MODEL_INSTANCE,
         TEXT("Com_VS"), m_pVS)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_MODEL,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::PS_MODEL,
         TEXT("Com_PS"), m_pPS)))
         return E_FAIL;
 
-    //if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_VTXTEX_SHADOW,
+    //if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::PS_VTXTEX_SHADOW,
     //    TEXT("Com_PS_SHADOW"), m_pPS_Shadow)))
     //    return E_FAIL;
 
@@ -213,7 +213,10 @@ shared_ptr<CTree_Instance> CTree_Instance::Create(ComPtr<ID3D11Device> pDevice, 
     auto pInstance = shared_ptr<CTree_Instance>(new CTree_Instance(pDevice, pContext));
 
     if (FAILED(pInstance->Initialize_Prototype()))
+    {
+        MSG_BOX("Failed to Created : CTree_Instance");
         pInstance.reset();
+    }
 
     return pInstance;
 }
@@ -222,7 +225,10 @@ shared_ptr<CPrototype> CTree_Instance::Clone(void* pArg)
 {
     auto pInstance = shared_ptr<CTree_Instance>(new CTree_Instance(*this));
     if (FAILED(pInstance->Initialize(pArg)))
+    {
+        MSG_BOX("Failed to Cloned : CTree_Instance");
         pInstance.reset();
+    }
 
     return pInstance;
 }

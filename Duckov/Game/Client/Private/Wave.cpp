@@ -227,7 +227,10 @@ shared_ptr<CWave> CWave::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11Devic
     auto pInstance = shared_ptr<CWave>(new CWave(pDevice, pContext));
 
     if (FAILED(pInstance->Initialize_Prototype()))
+    {
+        MSG_BOX("Failed to Created : CWave");
         pInstance.reset();
+    }
 
     return pInstance;
 }
@@ -236,7 +239,10 @@ shared_ptr<CPrototype> CWave::Clone(void* pArg)
 {
     auto pInstance = shared_ptr<CWave>(new CWave(*this));
     if (FAILED(pInstance->Initialize(pArg)))
+    {
+        MSG_BOX("Failed to Cloned : CWave");
         pInstance.reset();
+    }
 
     return pInstance;
 }

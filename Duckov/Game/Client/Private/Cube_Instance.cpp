@@ -151,15 +151,15 @@ HRESULT CCube_Instance::Ready_Components()
         TEXT("Com_Texture"), m_pTextureCom)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VS_VTXTEX_INSTANCE,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::VS_VTXTEX_INSTANCE,
         TEXT("Com_VS"), m_pVS)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_VTXTEX,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::PS_VTXTEX,
         TEXT("Com_PS"), m_pPS)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_VTXTEX_SHADOW,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::PS_VTXTEX_SHADOW,
         TEXT("Com_PS_SHADOW"), m_pPS_Shadow)))
         return E_FAIL;
     return S_OK;
@@ -292,7 +292,10 @@ shared_ptr<CCube_Instance> CCube_Instance::Create(ComPtr<ID3D11Device> pDevice, 
     auto pInstance = shared_ptr<CCube_Instance>(new CCube_Instance(pDevice, pContext));
 
     if (FAILED(pInstance->Initialize_Prototype()))
+    {
+        MSG_BOX("Failed to Created : CCube_Instance");
         pInstance.reset();
+    }
 
     return pInstance;
 }
@@ -301,7 +304,10 @@ shared_ptr<CPrototype> CCube_Instance::Clone(void* pArg)
 {
     auto pInstance = shared_ptr<CCube_Instance>(new CCube_Instance(*this));
     if (FAILED(pInstance->Initialize(pArg)))
+    {
+        MSG_BOX("Failed to Cloned : CCube_Instance");
         pInstance.reset();
+    }
 
     return pInstance;
 }

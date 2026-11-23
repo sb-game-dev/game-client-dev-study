@@ -3,10 +3,10 @@
 #include "Inven.h"
 #include "Player.h"
 namespace {
-    const f32_t g_SizeX = 24.f;
-    const f32_t g_SizeY = 15.f;
-    const f32_t g_CusorSizeX = 24.f;
-    const f32_t g_CusorSizeY = 24.f;
+    const f32_t g_SizeX = 27.f;
+    const f32_t g_SizeY = 18.f;
+    const f32_t g_CusorSizeX = 36.f;
+    const f32_t g_CusorSizeY = 36.f;
     const f32_t g_RotZ[4] = { 0.f,90.f,180.f,270.f };
 }
 CClient_Mouse::CClient_Mouse(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
@@ -111,7 +111,7 @@ void CClient_Mouse::Update(f32_t fTimeDelta)
     auto pPlayer = m_pPlayer.lock();
     if (nullptr == pPlayer)
     {
-        pPlayer = dynamic_pointer_cast<CPlayer>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Player")));
+        pPlayer = dynamic_pointer_cast<CPlayer>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::STATIC), L"Layer_Static", TEXT("GameObject_Player")));
         if (nullptr == pPlayer)
             return;
         m_pPlayer = pPlayer;
@@ -119,7 +119,7 @@ void CClient_Mouse::Update(f32_t fTimeDelta)
     auto pInven = m_pInven.lock();
     if (nullptr == pInven)
     {
-        pInven = dynamic_pointer_cast<CInven>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Inven")));
+        pInven = dynamic_pointer_cast<CInven>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::STATIC), L"Layer_Static", TEXT("GameObject_Inven")));
         if (nullptr == pInven)
             return ;
         m_pInven = pInven;
@@ -186,20 +186,20 @@ void CClient_Mouse::Update(f32_t fTimeDelta)
 void CClient_Mouse::Late_Update(f32_t fTimeDelta)
 {
     __super::Late_Update(fTimeDelta);
-    CGameInstance::Get().Add_RenderGroup(RENDERID::ALPHA_UI, dynamic_pointer_cast<CGameObject>(shared_from_this()));
+    CGameInstance::Get().Add_RenderGroup(RENDERID::NONALPHA_UI, dynamic_pointer_cast<CGameObject>(shared_from_this()));
 }
 
 HRESULT CClient_Mouse::Render()
 {
     if (FAILED(__super::Render()))
         return E_FAIL;
-    auto pInven = m_pInven.lock();
     D3D11_MAPPED_SUBRESOURCE tMapped{};
 
     if (FAILED(m_pContext->Map(m_pInstanceVB.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &tMapped)))
         return E_FAIL;
 
-    if (pInven->Is_Open())
+    auto pInven = m_pInven.lock();
+    if ((nullptr != pInven && pInven->Is_Open()) || ETOI(LEVEL::GAMEPLAY) > CGameInstance::Get().Get_CurrentLevelIndex())
     {
         m_eMouseState = MOUSESTATE::CURSOR;
         auto pDst = reinterpret_cast<float4x4_t*>(tMapped.pData);
@@ -233,15 +233,15 @@ HRESULT CClient_Mouse::Render()
 HRESULT CClient_Mouse::Ready_Components()
 {
     //StaticLevel로 변경해야 할 듯
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::Texture_Mouse,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::Texture_Mouse,
         TEXT("Com_Texture"), m_pTextureCom)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::VS_VTXTEX_INSTANCE_UI,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::VS_VTXTEX_INSTANCE_UI,
         TEXT("Com_VS"), m_pVS)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::PS_VTXTEX_NOLIGHT,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::PS_VTXTEX_NOLIGHT,
         TEXT("Com_PS"), m_pPS)))
         return E_FAIL;
 

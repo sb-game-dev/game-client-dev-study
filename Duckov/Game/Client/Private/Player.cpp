@@ -8,6 +8,7 @@
 #include "BackPack.h"
 #include "Headset.h"
 #include "FaceMask.h"
+#include "Client_Mouse.h"
 
 namespace {
     vector_t	g_vY_Plus = XMVector4Normalize({ 0.f,+1.f,0.f,0.f });
@@ -44,12 +45,19 @@ void CPlayer::Priority_Update(f32_t fDeltaTime)
 
     m_bAiming = false;
     m_bFiring = false;
-
+    auto pMouse = m_pClientMouse.lock();
+    if (nullptr == pMouse)
+    {
+        pMouse = dynamic_pointer_cast<CClient_Mouse>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::STATIC), L"Layer_Static", GO::Client_Mouse));
+        if (nullptr == pMouse)
+            return;
+        m_pClientMouse = pMouse;
+    }
     auto pInven = m_pInven.lock();
     if (nullptr == pInven)
     {
         pInven = dynamic_pointer_cast<CInven>(CGameInstance::Get().Find_GameObject(
-            ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", L"GameObject_Inven"));
+            ETOUI(LEVEL::STATIC), L"Layer_Static", L"GameObject_Inven"));
         if (nullptr == pInven)
             return;
         m_pInven = pInven;
@@ -102,7 +110,7 @@ HRESULT CPlayer::Ready_PartObjects()
     BodyDesc.pParentTransformCom = m_pTransformCom;
     BodyDesc.pGroundPlane = &m_vGroundPlane;
 
-    if (FAILED(__super::Add_PartObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Player_Body,
+    if (FAILED(__super::Add_PartObject(ETOUI(LEVEL::STATIC), Proto::Obj_Player_Body,
         TEXT("Part_Body"), &BodyDesc)))
         return E_FAIL;
     m_pBodyPlayer = dynamic_pointer_cast<CBody_Player>(m_PartObjects[TEXT("Part_Body")]);
@@ -110,42 +118,42 @@ HRESULT CPlayer::Ready_PartObjects()
     CWeapon::WEAPON_DESC        WeaponDesc{};
     WeaponDesc.pParentTransformCom = m_pTransformCom;
     WeaponDesc.pSocketMatrix = m_pBodyPlayer->Get_SocketMatrix("Hand.R");
-    if (FAILED(__super::Add_PartObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Weapon,
+    if (FAILED(__super::Add_PartObject(ETOUI(LEVEL::STATIC), Proto::Obj_Weapon,
         TEXT("Part_Weapon"), &WeaponDesc)))
         return E_FAIL;
 
     CHelmet::HELMET_DESC        HelmetDesc{};
     HelmetDesc.pParentTransformCom = m_pTransformCom;
     HelmetDesc.pSocketMatrix = m_pBodyPlayer->Get_SocketMatrix("Head");
-    if (FAILED(__super::Add_PartObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Helmet,
+    if (FAILED(__super::Add_PartObject(ETOUI(LEVEL::STATIC), Proto::Obj_Helmet,
         TEXT("Part_Helmet"), &HelmetDesc)))
         return E_FAIL;
     
     CArmor::ARMOR_DESC        ArmorDesc{};
     ArmorDesc.pParentTransformCom = m_pTransformCom;
     ArmorDesc.pSocketMatrix = m_pBodyPlayer->Get_SocketMatrix("Spine.001");
-    if (FAILED(__super::Add_PartObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Armor,
+    if (FAILED(__super::Add_PartObject(ETOUI(LEVEL::STATIC), Proto::Obj_Armor,
         TEXT("Part_Armor"), &ArmorDesc)))
         return E_FAIL;
     
     CBackPack::BACKPACK_DESC    BackPackDesc{};
     BackPackDesc.pParentTransformCom = m_pTransformCom;
     BackPackDesc.pSocketMatrix = m_pBodyPlayer->Get_SocketMatrix("Spine.001");
-    if (FAILED(__super::Add_PartObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_BackPack,
+    if (FAILED(__super::Add_PartObject(ETOUI(LEVEL::STATIC), Proto::Obj_BackPack,
         TEXT("Part_BackPack"), &BackPackDesc)))
         return E_FAIL;
 
     CHeadset::HEADSET_DESC    HeadsetDesc{};
     HeadsetDesc.pParentTransformCom = m_pTransformCom;
     HeadsetDesc.pSocketMatrix = m_pBodyPlayer->Get_SocketMatrix("Head");
-    if (FAILED(__super::Add_PartObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Headset,
+    if (FAILED(__super::Add_PartObject(ETOUI(LEVEL::STATIC), Proto::Obj_Headset,
         TEXT("Part_Headset"), &HeadsetDesc)))
         return E_FAIL;
 
     CFaceMask::FACEMASK_DESC    FaceMaskDesc{};
     FaceMaskDesc.pParentTransformCom = m_pTransformCom;
     FaceMaskDesc.pSocketMatrix = m_pBodyPlayer->Get_SocketMatrix("Head");
-    if (FAILED(__super::Add_PartObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_FaceMask,
+    if (FAILED(__super::Add_PartObject(ETOUI(LEVEL::STATIC), Proto::Obj_FaceMask,
         TEXT("Part_FaceMask"), &FaceMaskDesc)))
         return E_FAIL;
 
@@ -262,7 +270,9 @@ void CPlayer::Update_State_Walk(f32_t fDeltaTime)
     m_bAiming = m_tInput.bAim;
     m_bFiring = m_tInput.bFire;
 
-    auto pMouse = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", GO::Client_Mouse);
+    auto pMouse = m_pClientMouse.lock();
+    if (nullptr == pMouse)
+        return;
     vector_t vTargetDir = pMouse->Get_Transform()->Get_State(STATE::POSITION) - m_pTransformCom->Get_State(STATE::POSITION);
     vector_t vMoveDir = Calc_MoveDir();
     f32_t fDot = XMVectorGetX(XMVector3Dot(XMVector4Normalize(vMoveDir), XMVector4Normalize(vTargetDir)));
@@ -457,7 +467,9 @@ void CPlayer::Turn_Toward(vector_t vMoveDir, f32_t fDeltaTime)
 
 void CPlayer::LookAtMouse(f32_t fDeltaTime)
 {
-    auto pMouse = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", GO::Client_Mouse);
+    auto pMouse = m_pClientMouse.lock();
+    if (nullptr == pMouse)
+        return;
     vector_t vTargetDir = pMouse->Get_Transform()->Get_State(STATE::POSITION) - m_pTransformCom->Get_State(STATE::POSITION);
 
     vector_t vLook = m_pTransformCom->Get_State(STATE::LOOK);

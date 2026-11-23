@@ -76,6 +76,7 @@ public:
 #pragma region LEVEL_MANAGER
 public:
 	HRESULT			Change_Level(int32_t iNewLevelIndex, shared_ptr<CLevel> pNewLevel);
+	int32_t			Get_CurrentLevelIndex();
 #pragma endregion
 
 #pragma region TIMER_MANAGER
@@ -92,6 +93,7 @@ public:
 
 	shared_ptr<CGameObject>			Find_GameObject(uint32_t iLayerLevelIndex, const wstring_t& strLayerTag, const wstring_t& strGameObjectTag);
 	const map<const wstring_t, shared_ptr<CGameObject>>* Get_GameObjects(uint32_t iLayerLevelIndex, const wstring_t& strLayerTag);
+	void							Set_LayerActive(uint32_t iLayerLevelIndex, const wstring_t& strLayerTag, bool_t bActive);
 #pragma endregion
 
 #pragma region CAMERA_MANAGER

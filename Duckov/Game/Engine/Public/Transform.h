@@ -38,8 +38,8 @@ public:
 		);
 	}
 
-	matrix_t		Get_World() { return XMLoadFloat4x4(&m_WorldMatrix); }
-	const float4x4_t* Get_WorldMatrixPtr() const { return &m_WorldMatrix; }
+	matrix_t			Get_World() { return XMLoadFloat4x4(&m_WorldMatrix); }
+	const float4x4_t*	Get_WorldMatrixPtr() const { return &m_WorldMatrix; }
 
 	void			Move_Position(fvector_t vDir, f32_t fDeltaTime);
 	void			Move_To(fvector_t vGoal, f32_t fDeltaTime, f32_t fLimitDistance = 0.1f);

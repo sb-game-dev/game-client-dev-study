@@ -20,7 +20,8 @@ private:
 	ComPtr<ID3D11DeviceContext>			m_pContext = { nullptr };
 
 private:
-	HRESULT								Start_Level(LEVEL eStartLevelID);
+	HRESULT			Start_Level(LEVEL eStartLevelID);
+	HRESULT			Ready_Prototype_For_StaticLV();
 
 public:
 	static		unique_ptr<CToolMainApp>		Create();
