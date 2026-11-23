@@ -374,6 +374,12 @@
     <FxCompile Include="..\Bin\Shader\UI_PixelShader.hlsl">
       <Filter>97. ShaderFiles</Filter>
     </FxCompile>
+    <FxCompile Include="..\Bin\Shader\Trail_VertexShader.hlsl">
+      <Filter>97. ShaderFiles</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Bin\Shader\Trail_PixelShader.hlsl">
+      <Filter>97. ShaderFiles</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Bin\Shader\LightHelper.hlsli">

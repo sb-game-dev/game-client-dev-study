@@ -58,13 +58,17 @@ private:
 	f32_t m_fAimBlendDuration = { 0.2f };
 
 private:
+	vector<shared_ptr<class CBullet>>	m_Bullets;
+	uint32_t							m_iNumBullet = { 32 };
+
+private:
 	HRESULT Ready_Components();
 	HRESULT Bind_Shader();
 	HRESULT Bind_ShaderResources(const matrix_t& matWorld);
-
+	HRESULT Ready_Bullets();
 private:
 	void	Check_CanFire(const f32_t& fDeltaTime);
-	void	Fire();
+	void	Fire(const float3_t vPos, const float3_t& vDir, f32_t fSpeed);
 public:
 	static shared_ptr<CWeapon> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
 	virtual shared_ptr<CPrototype> Clone(void* pArg) override;

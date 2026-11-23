@@ -2,6 +2,7 @@
 #include "Inven.h"
 #include "Player.h"
 #include "GameInstance.h"
+#include "Bullet.h"
 
 CWeapon::CWeapon(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     : CPartObject{ pDevice, pContext }
@@ -34,11 +35,13 @@ HRESULT CWeapon::Initialize(void* pArg)
 
     if (FAILED(Ready_Components()))
         return E_FAIL;
+    if (FAILED(Ready_Bullets()))
+        return E_FAIL;
 
     //m_pTransformCom->Set_Scale(10.f, 10.f, 10.f);
     m_pTransformCom->Rotation(-90.f, 0.f, 0.f);
     //m_pTransformCom->Set_State(STATE::POSITION, XMVectorSet(0.8f, 0.f, 0.f, 1.f));
-
+    
     return S_OK;
 }
 
@@ -63,19 +66,28 @@ void CWeapon::Priority_Update(f32_t fDeltaTime)
             return;
         m_pPlayer = pPlayer;
     }
+    for (auto& pBullet : m_Bullets)
+    {
+        if (nullptr != pBullet && pBullet->Is_Active() && !pBullet->Is_Dead())
+            pBullet->Priority_Update(fDeltaTime);
+    }
 }
 
 void CWeapon::Update(f32_t fDeltaTime)
 {
     __super::Update(fDeltaTime);
 
+    for (auto& pBullet : m_Bullets)
+    {
+        if (nullptr != pBullet && pBullet->Is_Active() && !pBullet->Is_Dead())
+            pBullet->Update(fDeltaTime);
+    }
     auto pInven = m_pInven.lock();
     auto pPlayer = m_pPlayer.lock();
     if (nullptr == pInven || nullptr == pInven->Get_ActiveItem())
         return;
     Change_Model(pInven->Get_ActiveItem()->strItemName);
     Play_FireAnim(fDeltaTime);
-    Check_CanFire(fDeltaTime);
     
     matrix_t        SocketMatrix = XMLoadFloat4x4(m_pSocketMatrix);
     matrix_t        ChildMatrix;
@@ -92,6 +104,8 @@ void CWeapon::Update(f32_t fDeltaTime)
         
     }
     __super::Update_CombinedWorldMatrix(ChildMatrix);
+
+    Check_CanFire(fDeltaTime);
 }
 
 
@@ -99,11 +113,16 @@ void CWeapon::Late_Update(f32_t fDeltaTime)
 {
     __super::Late_Update(fDeltaTime);
 
+    for (auto& pBullet : m_Bullets)
+    {
+        if (nullptr != pBullet && pBullet->Is_Active() && !pBullet->Is_Dead())
+            pBullet->Late_Update(fDeltaTime);
+    }
+
     auto pInven = m_pInven.lock();
     if (nullptr == pInven || nullptr == pInven->Get_ActiveItem())
         return;
     CGameInstance::Get().Add_RenderGroup(RENDERID::PLAYER, dynamic_pointer_cast<CGameObject>(shared_from_this()));
-
 }
 
 HRESULT CWeapon::Render()
@@ -205,6 +224,19 @@ HRESULT CWeapon::Bind_ShaderResources(const matrix_t& matWorld)
     return __super::Bind_Vertex_ShaderResource(ETOUI(VSLOT::WORLD), matWorld);
 }
 
+HRESULT CWeapon::Ready_Bullets()
+{
+    m_Bullets.reserve(m_iNumBullet);
+    for (uint32_t i = 0; i < m_iNumBullet; ++i)
+    {
+        auto pBullet = dynamic_pointer_cast<CBullet>(CGameInstance::Get().Clone_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_Bullet));
+        if(nullptr == pBullet)
+            return E_FAIL;
+        m_Bullets.push_back(pBullet);
+    }
+    return S_OK;
+}
+
 void CWeapon::Check_CanFire(const f32_t& fDeltaTime)
 {
     auto pPlayer = m_pPlayer.lock();
@@ -217,16 +249,26 @@ void CWeapon::Check_CanFire(const f32_t& fDeltaTime)
 
     if (m_fFireTimer > 0.f)
         m_fFireTimer -= fDeltaTime;
-
-    if (EQUIP_SLOT::MELEE != pInven->Get_ActiveSlot() && pPlayer->Is_Firing() && m_fFireTimer < 0.f)
+    else if (EQUIP_SLOT::MELEE != pInven->Get_ActiveSlot() && pPlayer->Is_Firing())
     {
-        Fire();   //ÃÑ¾Ë ¹ß»ç
+        float3_t vPos = { m_CombinedWorldMatrix._41,m_CombinedWorldMatrix._42,m_CombinedWorldMatrix._43 };
+        float3_t vDir = { m_CombinedWorldMatrix._31,m_CombinedWorldMatrix._32,m_CombinedWorldMatrix._33 };
+        f32_t fSpeed = { 100.f };
+        Fire(vPos,vDir,fSpeed);   //ÃÑ¾Ë ¹ß»ç
         m_fFireTimer += m_fFireinterval;
     }
 }
 
-void CWeapon::Fire()
+void CWeapon::Fire(const float3_t vPos, const float3_t& vDir, f32_t fSpeed)
 {
+    for (auto& pBullet : m_Bullets)
+    {
+        if (!pBullet->Is_Active())
+        {
+            pBullet->Bullet_Active(vPos, vDir, fSpeed);
+            return;
+        }
+    }
 }
 
 shared_ptr<CWeapon> CWeapon::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)

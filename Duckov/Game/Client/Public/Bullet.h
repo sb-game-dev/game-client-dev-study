@@ -23,15 +23,22 @@ public:
 	virtual void Late_Update(f32_t fDeltaTime) override;
 	virtual HRESULT Render() override;
 
+public:
+	void	Bullet_Active(const float3_t vPos, const float3_t& vDir, f32_t fSpeed);
+
 private:
 	shared_ptr<CVertexShader>				m_pVSCom = { nullptr };
 	shared_ptr<CPixelShader>				m_pPSCom = { nullptr };
-	shared_ptr<CModel>						m_pModelCom = { nullptr };
+	shared_ptr<CVIBuffer_Rect>				m_pBufferCom = { nullptr };
 	
 private:
+	f32_t				m_fMoveDistance = { 0.f };
+
+private:
 	HRESULT Ready_Components();
+	HRESULT	Ready_ConstantBuffer();
 	HRESULT Bind_Shader();
-	HRESULT Bind_ShaderResources(const matrix_t& matWorld);
+	HRESULT Bind_ShaderResources();
 
 public:
 	static shared_ptr<CBullet> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);

@@ -8,6 +8,7 @@
 #include "Mirror.h"
 #include "Free_Cam.h"
 #include "QuarterView_Cam.h"
+#include "Bullet.h"
 
 CLevel_GamePlay::CLevel_GamePlay(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     :CLevel{ pDevice,pContext }

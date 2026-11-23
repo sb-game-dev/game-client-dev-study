@@ -33,10 +33,12 @@ namespace Client
 		inline constexpr const wchar_t* VS_VTXTEX_UI = L"Prototype_Component_VS_VTXTEX_UI";
 		inline constexpr const wchar_t* VS_VTXTEX_INSTANCE = L"Prototype_Component_VS_VTXTEX_INSTANCE";
 		inline constexpr const wchar_t* VS_VTXTEX_INSTANCE_UI = L"Prototype_Component_VS_VTXTEX_INSTANCE_UI";
+		inline constexpr const wchar_t* VS_TRAIL = L"Prototype_Component_VS_TRAIL";
 		inline constexpr const wchar_t* PS_VTXTEX = L"Prototype_Component_PS_VTXTEX";
 		inline constexpr const wchar_t* PS_VTXTEX_NOLIGHT = L"Prototype_Component_PS_VTXTEX_NOLIGHT";
 		inline constexpr const wchar_t* PS_VTXTEX_SHADOW = L"Prototype_Component_PS_VTXTEX_SHADOW";
 		inline constexpr const wchar_t* PS_VTXTEX_SKYBOX = L"Prototype_Component_PS_VTXTEX_SKYBOX";
+		inline constexpr const wchar_t* PS_TRAIL= L"Prototype_Component_PS_TRAIL";
 
 		// ---------- Shader : VtxCol ----------
 		inline constexpr const wchar_t* VS_VTXCOL = L"Prototype_Component_VS_VTXCOL";
@@ -115,6 +117,7 @@ namespace Client
 		inline constexpr const wchar_t* Obj_FreeCam = L"Prototype_GameObject_FreeCam";
 		inline constexpr const wchar_t* Obj_MapToolCam = L"Prototype_GameObject_MapToolCam";
 		inline constexpr const wchar_t* Obj_StaticProp = L"Prototype_GameObject_StaticProp";
+		inline constexpr const wchar_t* Obj_Bullet = L"Prototype_GameObject_Bullet";
 		inline constexpr const wchar_t* Obj_Tree_Instance = L"Prototype_GameObject_Tree_Instance";
 
 	}

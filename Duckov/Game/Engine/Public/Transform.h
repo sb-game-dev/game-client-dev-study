@@ -41,26 +41,26 @@ public:
 	matrix_t			Get_World() { return XMLoadFloat4x4(&m_WorldMatrix); }
 	const float4x4_t*	Get_WorldMatrixPtr() const { return &m_WorldMatrix; }
 
-	void			Move_Position(fvector_t vDir, f32_t fDeltaTime);
-	void			Move_To(fvector_t vGoal, f32_t fDeltaTime, f32_t fLimitDistance = 0.1f);
+	void				Move_Position(fvector_t vDir, f32_t fDeltaTime);
+	void				Move_To(fvector_t vGoal, f32_t fDeltaTime, f32_t fLimitDistance = 0.1f);
 
-	void			Go_Straight(f32_t fDeltaTime);
-	void			Go_Backward(f32_t fDeltaTime);
-	void			Go_Left(f32_t fDeltaTime);
-	void			Go_Right(f32_t fDeltaTime);
+	void				Go_Straight(f32_t fDeltaTime);
+	void				Go_Backward(f32_t fDeltaTime);
+	void				Go_Left(f32_t fDeltaTime);
+	void				Go_Right(f32_t fDeltaTime);
 
-	void			Turn(fvector_t vAxis, f32_t fDeltaTime);
-	void			Rotation(fvector_t vAxis, f32_t fAngle);
-	void			Rotation(f32_t fRotationX = 0, f32_t fRotationY = 0, f32_t fRotationZ = 0);
+	void				Turn(fvector_t vAxis, f32_t fDeltaTime);
+	void				Rotation(fvector_t vAxis, f32_t fAngle);
+	void				Rotation(f32_t fRotationX = 0, f32_t fRotationY = 0, f32_t fRotationZ = 0);
 
-	void			Set_Speed(f32_t fSpeed) { m_fSpeedPerSec = fSpeed; }
-	f32_t			Get_Speed() { return m_fSpeedPerSec; }
-	void			Set_RotationDegree(f32_t fDegree) { m_fRotationPerSec = XMConvertToRadians(fDegree); }
+	void				Set_Speed(f32_t fSpeed) { m_fSpeedPerSec = fSpeed; }
+	f32_t				Get_Speed() { return m_fSpeedPerSec; }
+	void				Set_RotationDegree(f32_t fDegree) { m_fRotationPerSec = XMConvertToRadians(fDegree); }
 
-	void			Set_Scale(f32_t ScaleX = 1, f32_t ScaleY = 1, f32_t ScaleZ = 1);
-	void			Scaling(f32_t ScaleX = 1, f32_t ScaleY = 1, f32_t ScaleZ = 1);
+	void				Set_Scale(f32_t ScaleX = 1, f32_t ScaleY = 1, f32_t ScaleZ = 1);
+	void				Scaling(f32_t ScaleX = 1, f32_t ScaleY = 1, f32_t ScaleZ = 1);
 
-	void			LookAt(fvector_t vAt);
+	void				LookAt(fvector_t vAt);
 
 private:
 	float4x4_t		m_WorldMatrix = {};

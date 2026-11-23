@@ -242,9 +242,9 @@ void CHUD::Build_Instances()
 		Push_Circle(HUD_WATER_CENTER.x, HUD_WATER_CENTER.y, HUD_RING_FILL_SIZE, HUD_RING_FILL_INNER_SIZE, COLOR_WATER_ICON,pPlayer->Get_Thirst() / pPlayer->Get_MaxThirst() * 360.f);
 		Push_Circle(HUD_ENERGY_CENTER.x, HUD_ENERGY_CENTER.y, HUD_RING_FILL_SIZE, HUD_RING_FILL_INNER_SIZE, COLOR_ENERGY_ICON,pPlayer->Get_Hunger() / pPlayer->Get_MaxHunger() * 360.f);
 		
-		// 배고픔, 목마름 흰색 게이지
-		Push_Circle(HUD_WATER_CENTER.x, HUD_WATER_CENTER.y, HUD_RING_FILL_SIZE - HUD_RING_FILL_BORDER, HUD_RING_FILL_INNER_SIZE + HUD_RING_FILL_BORDER, {1.f,1.f,1.f,0.7f}, pPlayer->Get_Thirst() / pPlayer->Get_MaxThirst() * 360.f);
-		Push_Circle(HUD_ENERGY_CENTER.x, HUD_ENERGY_CENTER.y, HUD_RING_FILL_SIZE - HUD_RING_FILL_BORDER, HUD_RING_FILL_INNER_SIZE + HUD_RING_FILL_BORDER, { 1.f,1.f,1.f,0.7f }, pPlayer->Get_Hunger() / pPlayer->Get_MaxHunger() * 360.f);
+		//// 배고픔, 목마름 흰색 게이지
+		//Push_Circle(HUD_WATER_CENTER.x, HUD_WATER_CENTER.y, HUD_RING_FILL_SIZE - HUD_RING_FILL_BORDER, HUD_RING_FILL_INNER_SIZE + HUD_RING_FILL_BORDER, {1.f,1.f,1.f,0.7f}, pPlayer->Get_Thirst() / pPlayer->Get_MaxThirst() * 360.f);
+		//Push_Circle(HUD_ENERGY_CENTER.x, HUD_ENERGY_CENTER.y, HUD_RING_FILL_SIZE - HUD_RING_FILL_BORDER, HUD_RING_FILL_INNER_SIZE + HUD_RING_FILL_BORDER, { 1.f,1.f,1.f,0.7f }, pPlayer->Get_Hunger() / pPlayer->Get_MaxHunger() * 360.f);
 		
 		// 배고픔, 목마름 아이콘
 		Push_Circle_Icon(HUD_WATER_CENTER.x, HUD_WATER_CENTER.y, 1, 1.f);

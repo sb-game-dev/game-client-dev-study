@@ -13,6 +13,7 @@
 #include "Scope.h"
 #include "Inven.h"
 #include "HUD.h"
+#include "Bullet.h"
 
 CMainApp::CMainApp()
 {
@@ -194,6 +195,13 @@ HRESULT CMainApp::Ready_Prototype_For_StaticLV()
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::VS_VTXTEX_UI,
         CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/UI_VertexShader.hlsl", VTXNORM::Elements, VTXNORM::iNumElements, "VS_MAIN_UI"))))
         return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::VS_TRAIL,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Trail_VertexShader.hlsl", VTXNORM::Elements, VTXNORM::iNumElements, "VS_MAIN"))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::PS_TRAIL,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Trail_PixelShader.hlsl", "PS_MAIN"))))
+        return E_FAIL;
     //================== °´Ã¼ ¿øÇü ==================
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_Player,
         CPlayer::Create(m_pDevice, m_pContext))))
@@ -230,6 +238,10 @@ HRESULT CMainApp::Ready_Prototype_For_StaticLV()
         return E_FAIL;
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_HUD,
         CHUD::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_Bullet,
+        CBullet::Create(m_pDevice, m_pContext))))
         return E_FAIL;
 
     //================== ¸ðµ¨ ¿øÇü ==================
