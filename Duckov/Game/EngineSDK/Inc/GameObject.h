@@ -44,6 +44,39 @@ public:
 	virtual void			Remove_Component(const wstring_t& strComponentTag) { m_Components.erase(strComponentTag); }
 	shared_ptr<CComponent>	Find_Component(const wstring_t& strComponentTag);
 
+	template<typename T>
+	HRESULT Get_Component(shared_ptr<T>& pOutComponent)
+	{
+		for (auto& Component : m_Components)
+		{
+			if (auto TargetCom = dynamic_pointer_cast<T>(Component.second))
+			{
+				pOutComponent = TargetCom;
+				return S_OK;
+			}
+		}
+		return E_FAIL;
+	}
+
+	template<typename T>
+	void Get_Components(vector<shared_ptr<T>>& OutComponents)
+	{
+		for (auto& Component : m_Components)
+		{
+			if (auto TargetCom = dynamic_pointer_cast<T>(Component.second))
+				OutComponents.push_back(TargetCom);
+		}
+	}
+
+
+	virtual	void			TriggerEnter(shared_ptr<class CCollider> pOtherCollider) {};
+	virtual	void			TriggerExit(shared_ptr<class CCollider> pOtherCollider) {};
+	virtual	void			TriggerStay(shared_ptr<class CCollider> pOtherCollider) {};
+
+	virtual	void			CollisionEnter(shared_ptr<class CCollider> pOtherCollider) {};
+	virtual	void			CollisionExit(shared_ptr<class CCollider> pOtherCollider) {};
+	virtual	void			CollisionStay(shared_ptr<class CCollider> pOtherCollider) {};
+
 protected:
 	shared_ptr<CConstantBuffer>			m_pCB = { nullptr };			
 	CB_PER_OBJECT						m_tCBData = {};					
@@ -77,7 +110,7 @@ protected:
 		pOut = dynamic_pointer_cast<T>(CGameInstance::Get().Clone_Prototype(iPrototypeLevelIndex, strPrototypeTag, pArg));
 		if (nullptr == pOut)
 			return E_FAIL;
-
+		pOut->Set_Owner(dynamic_pointer_cast<CGameObject>(shared_from_this()));
 		m_Components.emplace(strComponentTag, pOut);
 		return S_OK;
 	}

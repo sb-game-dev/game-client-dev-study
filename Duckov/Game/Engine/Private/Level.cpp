@@ -64,3 +64,65 @@ HRESULT CLevel::Load_Scene(const wstring& strPath, uint32_t iLevelIndex, wstring
     fclose(pFile);
     return S_OK;
 }
+
+void CLevel::Process_Collision(const vector<shared_ptr<class CGameObject>>& vecObjects)
+{
+    for (auto& DstObject : vecObjects)
+    {
+        for (auto& SrcObject : vecObjects)
+        {
+            if (nullptr == DstObject || nullptr == SrcObject            // nullptr 검사
+                || DstObject == SrcObject                               // 같은 오브젝트 검사
+                || DstObject->Is_Dead() || SrcObject->Is_Dead()         // 죽은 오브젝트 검사
+                || !DstObject->Is_Active() || !SrcObject->Is_Active())  // 바활성화 오브젝트 검사
+                continue;
+            
+            vector<shared_ptr<CCollider>> DstColliders;
+            DstObject->Get_Components(DstColliders);
+
+            vector<shared_ptr<CCollider>> SrcColliders;
+            SrcObject->Get_Components(SrcColliders);
+
+            for (auto& DstCollider : DstColliders)
+            {
+                for (auto& SrcCollider : SrcColliders)
+                {
+                    if (DstCollider->Get_Active() && SrcCollider->Get_Active())
+                        CGameInstance::Get().Collision(DstCollider, SrcCollider);
+                }
+            }
+
+
+        }
+    }
+}
+
+void CLevel::Process_Collision(const map<const wstring_t, shared_ptr<class CGameObject>>& vecDstObjects, const map<const wstring_t, shared_ptr<class CGameObject>>& vecSrcObjects)
+{
+    for (auto& [DstName, DstObject]: vecDstObjects)
+    {
+        for (auto& [Srcname, SrcObject] : vecSrcObjects)
+        {
+            if (nullptr == DstObject || nullptr == SrcObject            // nullptr 검사
+                || DstObject == SrcObject                               // 같은 오브젝트 검사
+                || DstObject->Is_Dead() || SrcObject->Is_Dead()         // 죽은 오브젝트 검사
+                || !DstObject->Is_Active() || !SrcObject->Is_Active())  // 바활성화 오브젝트 검사
+                continue;
+
+            vector<shared_ptr<CCollider>> DstColliders;
+            DstObject->Get_Components(DstColliders);
+
+            vector<shared_ptr<CCollider>> SrcColliders;
+            SrcObject->Get_Components(SrcColliders);
+
+            for (auto& DstCollider : DstColliders)
+            {
+                for (auto& SrcCollider : SrcColliders)
+                {
+                    if (DstCollider->Get_Active() && SrcCollider->Get_Active())
+                        CGameInstance::Get().Collision(DstCollider, SrcCollider);
+                }
+            }
+        }
+    }
+}

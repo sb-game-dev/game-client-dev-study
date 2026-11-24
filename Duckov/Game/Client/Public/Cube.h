@@ -24,11 +24,15 @@ public:
 	virtual HRESULT	Render() override;
 	virtual HRESULT	Render_Shadow() override;
 
+public:
+	virtual void	TriggerEnter(shared_ptr<class CCollider> pOtherCollider)override;
+
 private:
 	float4_t						m_vGroundPlane = { 0.f, 1.f, 0.f, 0.f };	// ¹ß¹Ø Æò¸é (a,b,c,d)
 
 	shared_ptr<CTexture>			m_pTextureCom = { nullptr };
 	shared_ptr<CVIBuffer_Cube>		m_pBufferCom = { nullptr };
+	shared_ptr<CCube_Collider>		m_pCube_Collider = { nullptr };
 	shared_ptr<CVertexShader>		m_pVS = { nullptr };
 	shared_ptr<CPixelShader>		m_pPS = { nullptr };
 	shared_ptr<CPixelShader>		m_pPS_Shadow = { nullptr };

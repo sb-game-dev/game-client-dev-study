@@ -365,6 +365,11 @@ HRESULT CMainApp::Ready_Prototype_For_StaticLV()
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Texture_HUDIcons,
         CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Inventory/IconArray/hud_icons.dds"), 1))))
         return E_FAIL;
+    //================== Collider ==================
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Cube_Collider,
+        CCube_Collider::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+
     return S_OK;
 }
 

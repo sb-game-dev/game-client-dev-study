@@ -159,10 +159,13 @@ xcopy "$(SolutionDir)Engine\Bin\ShaderFiles" "$(SolutionDir)MapTool\Bin\Shader\"
     <ClInclude Include="..\public\Camera.h" />
     <ClInclude Include="..\public\Camera_Manager.h" />
     <ClInclude Include="..\public\Channel.h" />
+    <ClInclude Include="..\Public\Collider.h" />
+    <ClInclude Include="..\public\Collision_Manager.h" />
     <ClInclude Include="..\public\Component.h" />
     <ClInclude Include="..\public\ComputeShader.h" />
     <ClInclude Include="..\public\ConstantBuffer.h" />
     <ClInclude Include="..\public\ContainerObject.h" />
+    <ClInclude Include="..\public\Cube_Collider.h" />
     <ClInclude Include="..\public\DirectionalLight.h" />
     <ClInclude Include="..\Public\Engine_Global.h" />
     <ClInclude Include="..\Public\GameInstance.h" />
@@ -218,10 +221,13 @@ xcopy "$(SolutionDir)Engine\Bin\ShaderFiles" "$(SolutionDir)MapTool\Bin\Shader\"
     <ClCompile Include="..\private\Camera.cpp" />
     <ClCompile Include="..\private\Camera_Manager.cpp" />
     <ClCompile Include="..\private\Channel.cpp" />
+    <ClCompile Include="..\Private\Collider.cpp" />
+    <ClCompile Include="..\private\Collision_Manager.cpp" />
     <ClCompile Include="..\private\Component.cpp" />
     <ClCompile Include="..\private\ComputeShader.cpp" />
     <ClCompile Include="..\private\ConstantBuffer.cpp" />
     <ClCompile Include="..\private\ContainerObject.cpp" />
+    <ClCompile Include="..\private\Cube_Collider.cpp" />
     <ClCompile Include="..\Private\DirectionalLight.cpp" />
     <ClCompile Include="..\Private\GameInstance.cpp" />
     <ClCompile Include="..\Private\GameObject.cpp" />

@@ -92,6 +92,11 @@ void CBullet::Bullet_Active(const float3_t vPos, const float3_t& vDir, f32_t fSp
     m_bActive = true;
 }
 
+void CBullet::TriggerEnter(shared_ptr<class CCollider> pOtherCollider)
+{
+    m_bActive = false;
+}
+
 HRESULT CBullet::Ready_Components()
 {
     if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::VS_TRAIL, TEXT("Com_VS"), m_pVSCom)))
@@ -100,6 +105,9 @@ HRESULT CBullet::Ready_Components()
         return E_FAIL;
     if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::VIBuffer_Rect, TEXT("Com_Buffer"), m_pBufferCom)))
         return E_FAIL;
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::Cube_Collider, TEXT("Com_Cube_Collider"), m_pCube_Collider)))
+        return E_FAIL;
+
     return S_OK;
 }
 

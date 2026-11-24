@@ -15,6 +15,10 @@ public:
 	virtual HRESULT	Render();
 	virtual HRESULT	Load_Scene(const wstring& strPath, uint32_t iLevelIndex, wstring_t strLayerTag);
 
+	virtual void	Process_Collision(const vector<shared_ptr<class CGameObject>>& vecObjects);
+	virtual void	Process_Collision(const map<const wstring_t ,shared_ptr<class CGameObject>>& vecDstObjects, const map<const wstring_t, shared_ptr<class CGameObject>>& vecSrcObjects);
+
+
 protected:
 	ComPtr<ID3D11Device>		m_pDevice = { nullptr };
 	ComPtr<ID3D11DeviceContext> m_pContext = { nullptr };

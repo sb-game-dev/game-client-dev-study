@@ -90,6 +90,9 @@ namespace Client
 		inline constexpr const wchar_t* Model_FaceMask_GasMask = L"mesh/equipment/facemask/ig_fackmask_gasmask_01.bin";
 		inline constexpr const wchar_t* Model_FaceMask_NightVision = L"mesh/equipment/facemask/ig_fackmask_nightvision.bin";
 
+		// ---------- Collider ----------
+		inline constexpr const wchar_t* Cube_Collider = L"Prototype_Component_Cube_Collider";
+
 
 		// ---------- GameObject ¿øÇü ----------
 		inline constexpr const wchar_t* Obj_BackGround = L"Prototype_GameObject_BackGround";
@@ -146,6 +149,7 @@ namespace Client
 		inline constexpr const wchar_t* MapToolCam = L"GameObject_MapToolCam";
 		inline constexpr const wchar_t* StaticProp = L"GameObject_StaticProp";
 		inline constexpr const wchar_t* Tree_Instance = L"GameObject_Tree_Instance";
+		inline constexpr const wchar_t* Weapon = L"GameObject_Weapon";
 	}
 
 	/* =========================================================

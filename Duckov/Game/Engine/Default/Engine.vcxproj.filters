@@ -166,6 +166,18 @@
     <Filter Include="12. Sampler\Manager">
       <UniqueIdentifier>{d8944a1e-d9a1-4ef9-883c-6d7b40468c20}</UniqueIdentifier>
     </Filter>
+    <Filter Include="06. Component\05. Collider">
+      <UniqueIdentifier>{48674b0b-dc32-4245-8a4e-2ef67b6e129d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component\05. Collider\00. Manager">
+      <UniqueIdentifier>{56c40952-e011-47d7-a0b9-d87684f8336d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component\05. Collider\01. Cube_Collider">
+      <UniqueIdentifier>{c3af730b-9a39-4171-ae65-1da951f25af6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component\05. Collider\02. Sphere_Collider">
+      <UniqueIdentifier>{f2072e05-b5cd-4739-8091-9853991439f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Engine_Defines.h">
@@ -339,6 +351,15 @@
     <ClInclude Include="..\public\PartObject.h">
       <Filter>05. GameObject\05. ContainerObject\PartObject</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Collider.h">
+      <Filter>06. Component\05. Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Cube_Collider.h">
+      <Filter>06. Component\05. Collider\01. Cube_Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Collision_Manager.h">
+      <Filter>06. Component\05. Collider\00. Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Timer.cpp">
@@ -487,6 +508,15 @@
     </ClCompile>
     <ClCompile Include="..\private\PartObject.cpp">
       <Filter>05. GameObject\05. ContainerObject\PartObject</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Collider.cpp">
+      <Filter>06. Component\05. Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Cube_Collider.cpp">
+      <Filter>06. Component\05. Collider\01. Cube_Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Collision_Manager.cpp">
+      <Filter>06. Component\05. Collider\00. Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

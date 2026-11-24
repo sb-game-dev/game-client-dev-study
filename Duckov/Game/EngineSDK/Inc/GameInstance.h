@@ -32,6 +32,10 @@
 // 모델
 #include "Model.h"
 
+// Collider
+#include "Cube_Collider.h"
+#include "Collision_Manager.h"
+
 /*
 1. 엔진의 기능을 클라이언트에 보여주는 객체.
 2. 엔진에 정의되어있는 다양한 기능을 하는 객체를 모아서 보관한다.
@@ -152,10 +156,10 @@ public:
 	HRESULT Bind_Sampler_Pixel_Shader(const wstring_t& strSamplerTag, uint32_t iSlot);
 #pragma endregion
 
-#pragma region ASSET_MANAGER
-	HRESULT	Get_Or_Load_Texture(uint32_t iLevelIndex, const wstring_t& strPath, _Out_ wstring_t& strTag);
-	HRESULT	Get_or_Load_Mesh(uint32_t iLevelIndex, const wstring_t& strPath, _Out_ wstring_t& strTag);
+#pragma region COLLISION_MANAGER
+	void Collision(shared_ptr<class CCollider> pDstCollider, shared_ptr<class CCollider> pSrcCollider);
 #pragma endregion
+
 
 private:
 	unique_ptr<CGraphic_Device>		m_pGraphic_Device = { nullptr };
@@ -169,6 +173,7 @@ private:
 	unique_ptr<CInput_Device>       m_pInput_Device = { nullptr };
 	unique_ptr<CPipeLine>			m_pPipeLine = { nullptr };
 	unique_ptr<CSampler_Manager>	m_pSampler_Manager = { nullptr };
+	unique_ptr<CCollision_Manager>	m_pCollision_Manager = { nullptr };
 	HWND							m_hWND = { nullptr };
 
 private:

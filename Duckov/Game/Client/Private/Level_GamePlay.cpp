@@ -9,6 +9,7 @@
 #include "Free_Cam.h"
 #include "QuarterView_Cam.h"
 #include "Bullet.h"
+#include "Weapon.h"
 
 CLevel_GamePlay::CLevel_GamePlay(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     :CLevel{ pDevice,pContext }
@@ -32,12 +33,35 @@ HRESULT CLevel_GamePlay::Initialize()
     if(FAILED(Load_Scene(TEXT("../../../Resource/SceneData/exData.bin"),ETOUI(LEVEL::GAMEPLAY),TEXT("Layer_GameObject"))))
         return E_FAIL;
 
+
+
     return S_OK;
 }
 
 void CLevel_GamePlay::Update(f32_t fDeltaTime)
 {
     __super::Update(fDeltaTime);
+
+    auto Player = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::STATIC), TEXT("Layer_Static"), GO::Player);
+    if (nullptr == Player)
+        return;
+    auto Weapon = dynamic_pointer_cast<CPlayer>(Player)->Get_Weapon();
+    auto Bullets = dynamic_pointer_cast<CWeapon>(Weapon)->Get_Bullets();
+    auto GamePlayLevelObjects = CGameInstance::Get().Get_GameObjects(ETOUI(LEVEL::GAMEPLAY), TEXT("Layer_GameObject"));
+
+    shared_ptr<CCollider> pCollider;
+    vector<shared_ptr<CGameObject>> Objects;
+    //Objects.push_back(Weapon);
+    for (auto& Bullet : Bullets)
+        Objects.push_back(Bullet);
+
+    for (auto& [strName, GamePlayLevelObject] : *GamePlayLevelObjects)
+    {
+        if (SUCCEEDED(GamePlayLevelObject->Get_Component(pCollider)))
+            Objects.push_back(GamePlayLevelObject);
+    }
+    Process_Collision(Objects);
+    //Process_Collision(*StaticObjects,*GamePlayLevelObjects);
 }
 
 HRESULT CLevel_GamePlay::Render()
@@ -64,8 +88,6 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
     if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Hill,
         ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Hill, &Hill_Desc)))
         return E_FAIL;
-
-
 
     for (int i = 0; i < 16; ++i)
     {

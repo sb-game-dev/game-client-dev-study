@@ -51,6 +51,10 @@ HRESULT CGameInstance::Initialize_Engine(const ENGINE_DESC& EngineDesc, _Out_ Co
 	if (nullptr == m_pSampler_Manager)
 		return E_FAIL;
 
+	m_pCollision_Manager = CCollision_Manager::Create();
+	if (nullptr == m_pCollision_Manager)
+		return E_FAIL;
+
 
 	m_vViewportSize = m_pGraphic_Device->Compute_ViewportSize();
 	return S_OK;
@@ -362,13 +366,20 @@ HRESULT CGameInstance::Bind_Sampler_Pixel_Shader(const wstring_t& strSamplerTag,
 {
 	return m_pSampler_Manager->Bind_Sampler_Pixel_Shader(strSamplerTag, iSlot);
 }
+#pragma endregion
 
+#pragma region COLLISION_MANAGER
+void CGameInstance::Collision(shared_ptr<class CCollider> pDstCollider, shared_ptr<class CCollider> pSrcCollider)
+{
+	m_pCollision_Manager->Collision(pDstCollider, pSrcCollider);
+}
 #pragma endregion
 
 
 
 void CGameInstance::Release_Engine()
 {
+	m_pCollision_Manager.reset();
 	m_pSampler_Manager.reset();
 	m_pPipeLine.reset();
 	m_pInput_Device.reset();

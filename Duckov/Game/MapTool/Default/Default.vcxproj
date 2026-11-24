@@ -182,6 +182,7 @@
     <ClCompile Include="..\..\Client\Private\Armor.cpp" />
     <ClCompile Include="..\..\Client\Private\BackPack.cpp" />
     <ClCompile Include="..\..\Client\Private\Body_Player.cpp" />
+    <ClCompile Include="..\..\Client\Private\Bullet.cpp" />
     <ClCompile Include="..\..\Client\Private\FaceMask.cpp" />
     <ClCompile Include="..\..\Client\Private\Free_Cam.cpp" />
     <ClCompile Include="..\..\Client\Private\Headset.cpp" />

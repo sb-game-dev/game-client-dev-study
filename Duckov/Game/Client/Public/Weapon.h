@@ -34,6 +34,7 @@ public:
 
 	HRESULT	Change_Model(const wstring_t& strMeshPath);
 	void	Play_FireAnim(const f32_t fDeltaTime);
+	vector<shared_ptr<class CBullet>>&		Get_Bullets() { return m_Bullets; }
 
 private:
 	shared_ptr<CVertexShader>				m_pVSCom = { nullptr };

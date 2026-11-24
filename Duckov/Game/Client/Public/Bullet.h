@@ -26,10 +26,14 @@ public:
 public:
 	void	Bullet_Active(const float3_t vPos, const float3_t& vDir, f32_t fSpeed);
 
+public:
+	virtual void	TriggerEnter(shared_ptr<class CCollider> pOtherCollider)override;
+
 private:
 	shared_ptr<CVertexShader>				m_pVSCom = { nullptr };
 	shared_ptr<CPixelShader>				m_pPSCom = { nullptr };
 	shared_ptr<CVIBuffer_Rect>				m_pBufferCom = { nullptr };
+	shared_ptr<CCube_Collider>				m_pCube_Collider = { nullptr };
 	
 private:
 	f32_t				m_fMoveDistance = { 0.f };

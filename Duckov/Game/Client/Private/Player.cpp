@@ -121,6 +121,7 @@ HRESULT CPlayer::Ready_PartObjects()
     if (FAILED(__super::Add_PartObject(ETOUI(LEVEL::STATIC), Proto::Obj_Weapon,
         TEXT("Part_Weapon"), &WeaponDesc)))
         return E_FAIL;
+    m_pWeapon = dynamic_pointer_cast<CWeapon>(m_PartObjects[TEXT("Part_Weapon")]);
 
     CHelmet::HELMET_DESC        HelmetDesc{};
     HelmetDesc.pParentTransformCom = m_pTransformCom;

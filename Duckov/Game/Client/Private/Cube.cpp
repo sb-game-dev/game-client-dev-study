@@ -1,5 +1,7 @@
 #include "Cube.h"
 #include "Hill.h"
+#include "Collider.h"
+#include "Bullet.h"
 
 CCube::CCube(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
 	:CMapObject(pDevice,pContext)
@@ -84,6 +86,12 @@ HRESULT CCube::Render_Shadow()
     return Render_Mesh(Get_ShadowWorld(), m_pRS.Get(), m_pPS_Shadow);
 }
 
+void CCube::TriggerEnter(shared_ptr<class CCollider> pOtherCollider)
+{
+    if (dynamic_pointer_cast<CBullet>(pOtherCollider->Get_Owner().lock()))
+        Set_Dead();
+}
+
 HRESULT CCube::Ready_Components()
 {
     if (FAILED(__super::Add_Component(m_iLevelIndex, m_strTexturePath,
@@ -97,7 +105,8 @@ HRESULT CCube::Ready_Components()
     if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::VS_VTXTEX,
         TEXT("Com_VS"), m_pVS)))
         return E_FAIL;
-
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::Cube_Collider, TEXT("Com_Cube_Collider"), m_pCube_Collider)))
+        return E_FAIL;
     if (!m_bEditorMode)
     {
         if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::PS_VTXTEX,

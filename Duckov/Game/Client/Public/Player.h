@@ -45,6 +45,8 @@ public:
 	f32_t	Get_Thirst()			const { return m_fThirst; }
 	f32_t	Get_MaxThirst()			const { return m_fMaxThirst; }
 
+	shared_ptr<class CWeapon>		Get_Weapon() { return m_pWeapon; }
+
 private:
 	float4_t						m_vGroundPlane = { 0.f, 1.f, 0.f, 0.f };	// ¹ß¹Ø Æò¸é (a,b,c,d)
 
@@ -52,6 +54,7 @@ private:
 	weak_ptr<class CHill>			m_pHill;
 	weak_ptr<class CClient_Mouse>	m_pClientMouse;
 	shared_ptr<class CBody_Player>	m_pBodyPlayer;
+	shared_ptr<class CWeapon>		m_pWeapon;
 
 	bool_t							m_bPreInvenOpen = { false };
 	bool_t							m_bCurInvenOpen = { false };

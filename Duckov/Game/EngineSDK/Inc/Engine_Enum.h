@@ -29,5 +29,7 @@ namespace Engine
 
 	enum class SAMPLER_SLOT { POINT, LINEAR, END };
 
+	enum class COLLIDER_TYPE { CUBE, SPHERE, END };
+
 }
 #endif // Engine_Enum_h__
