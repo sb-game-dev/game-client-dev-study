@@ -3,6 +3,8 @@
 #include "Player.h"
 #include "GameInstance.h"
 #include "Bullet.h"
+#include "Cube.h"
+#include "Body_Player.h"
 
 CWeapon::CWeapon(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     : CPartObject{ pDevice, pContext }
@@ -57,15 +59,6 @@ void CWeapon::Priority_Update(f32_t fDeltaTime)
             return;
         m_pInven = pInven;
     }
-    auto pPlayer = m_pPlayer.lock();
-    if (nullptr == pPlayer)
-    {
-        pPlayer = dynamic_pointer_cast<CPlayer>(CGameInstance::Get().Find_GameObject(
-            ETOUI(LEVEL::STATIC), L"Layer_Static", L"GameObject_Player"));
-        if (nullptr == pPlayer)
-            return;
-        m_pPlayer = pPlayer;
-    }
     for (auto& pBullet : m_Bullets)
     {
         if (nullptr != pBullet && pBullet->Is_Active() && !pBullet->Is_Dead())
@@ -83,7 +76,7 @@ void CWeapon::Update(f32_t fDeltaTime)
             pBullet->Update(fDeltaTime);
     }
     auto pInven = m_pInven.lock();
-    auto pPlayer = m_pPlayer.lock();
+    auto pPlayer = static_pointer_cast<CPlayer>(m_pParent.lock());
     if (nullptr == pInven || nullptr == pInven->Get_ActiveItem())
         return;
     Change_Model(pInven->Get_ActiveItem()->strItemName);
@@ -106,6 +99,7 @@ void CWeapon::Update(f32_t fDeltaTime)
     __super::Update_CombinedWorldMatrix(ChildMatrix);
 
     Check_CanFire(fDeltaTime);
+    Update_ColliderActive();
 }
 
 
@@ -157,6 +151,11 @@ HRESULT CWeapon::Change_Model(const wstring_t& strMeshPath)
     Remove_Component(TEXT("Com_Model"));
     if (FAILED(__super::Add_Component(m_iLevelIndex, strMeshTag, TEXT("Com_Model"), m_pModelCom)))
         return E_FAIL;
+    if (EQUIP_SLOT::MELEE == m_pInven.lock()->Get_ActiveSlot())
+        m_pCubeCollider->Set_OBBSize(m_pModelCom->GetBoundingBox());
+    else
+        m_pCubeCollider->Set_Active(false);
+
 
     return S_OK;
 }
@@ -169,7 +168,7 @@ void CWeapon::Play_FireAnim(const f32_t fDeltaTime)
         m_pTransformCom->Set_State(STATE::POSITION, XMVectorSet(0.0f, 0.f, 0.f, 1.f));
         return;
     }
-    auto pPlayer = m_pPlayer.lock();
+    auto pPlayer = static_pointer_cast<CPlayer>(m_pParent.lock());
     if (nullptr != pPlayer)
     {
         if(false == pPlayer->Is_Firing())
@@ -191,6 +190,29 @@ void CWeapon::Play_FireAnim(const f32_t fDeltaTime)
     }
 }
 
+void CWeapon::Update_ColliderActive()
+{
+    auto pInven = m_pInven.lock();
+    if (nullptr == pInven || EQUIP_SLOT::MELEE != pInven->Get_ActiveSlot())
+    {
+        m_pCubeCollider->Set_Active(false);
+        return;
+    }
+
+    auto pBody = static_pointer_cast<CPlayer>(m_pParent.lock())->Get_Body();
+    
+    if (pBody->Is_Animation_Finished())
+        m_pCubeCollider->Set_Active(false);
+}
+
+void CWeapon::TriggerEnter(shared_ptr<class CCollider> pOtherCollider)
+{
+    if (false == m_pCubeCollider->Get_Active())
+        return;
+    if (dynamic_pointer_cast<CCube>(pOtherCollider->Get_Owner().lock()))
+        m_pCubeCollider->Set_Active(false);
+}
+
 HRESULT CWeapon::Ready_Components()
 {
     if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::Model_Weapon_Axe,
@@ -205,6 +227,11 @@ HRESULT CWeapon::Ready_Components()
         TEXT("Com_PS"), m_pPSCom)))
         return E_FAIL;
 
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::Cube_Collider,
+        TEXT("Com_Cube_Collider"), m_pCubeCollider)))
+        return E_FAIL;
+    m_pCubeCollider->Set_OBBSize(m_pModelCom->GetBoundingBox()); 
+    m_pCubeCollider->Set_Active(false);
     return S_OK;
 }
 
@@ -239,7 +266,7 @@ HRESULT CWeapon::Ready_Bullets()
 
 void CWeapon::Check_CanFire(const f32_t& fDeltaTime)
 {
-    auto pPlayer = m_pPlayer.lock();
+    auto pPlayer = static_pointer_cast<CPlayer>(m_pParent.lock());
     if (nullptr == pPlayer)
         return;
 

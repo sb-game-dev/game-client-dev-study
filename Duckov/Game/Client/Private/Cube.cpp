@@ -2,6 +2,7 @@
 #include "Hill.h"
 #include "Collider.h"
 #include "Bullet.h"
+#include "Weapon.h"
 
 CCube::CCube(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
 	:CMapObject(pDevice,pContext)
@@ -90,6 +91,8 @@ void CCube::TriggerEnter(shared_ptr<class CCollider> pOtherCollider)
 {
     if (dynamic_pointer_cast<CBullet>(pOtherCollider->Get_Owner().lock()))
         Set_Dead();
+    if (dynamic_pointer_cast<CWeapon>(pOtherCollider->Get_Owner().lock()))
+        Set_Dead();
 }
 
 HRESULT CCube::Ready_Components()
@@ -107,6 +110,9 @@ HRESULT CCube::Ready_Components()
         return E_FAIL;
     if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::Cube_Collider, TEXT("Com_Cube_Collider"), m_pCube_Collider)))
         return E_FAIL;
+
+    m_pCube_Collider->Set_Extents(m_pTransformCom->Get_Scaled());
+
     if (!m_bEditorMode)
     {
         if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::PS_VTXTEX,

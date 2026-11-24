@@ -51,7 +51,7 @@ void CLevel_GamePlay::Update(f32_t fDeltaTime)
 
     shared_ptr<CCollider> pCollider;
     vector<shared_ptr<CGameObject>> Objects;
-    //Objects.push_back(Weapon);
+    Objects.push_back(Weapon);
     for (auto& Bullet : Bullets)
         Objects.push_back(Bullet);
 

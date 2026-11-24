@@ -29,7 +29,7 @@ public:
 
 	int32_t			Get_BoneIndex(const char_t* pBoneName);
 
-	BoundingBox		GetBoundinBox() { return m_tLocalBox; }
+	BoundingBox		GetBoundingBox() { return m_tLocalBox; }
 
 	const float4x4_t* Get_CombinedTransformMatrix(const char_t* pBoneName);
 

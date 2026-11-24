@@ -166,7 +166,7 @@ void CPanel_Scene::PickObject(vector_t vRayOrigin, vector_t vRayDir)
                 continue;
 
             BoundingOrientedBox tWorldBox;
-            BoundingOrientedBox::CreateFromBoundingBox(tWorldBox, pModel->GetBoundinBox());
+            BoundingOrientedBox::CreateFromBoundingBox(tWorldBox, pModel->GetBoundingBox());
             tWorldBox.Transform(tWorldBox, pObject->Get_Transform()->Get_World());
 
             f32_t fOutDist = {};
@@ -325,7 +325,7 @@ void CPanel_Scene::Erase(vector_t vRayOrigin, vector_t vRayDir)
                 continue;
 
             BoundingOrientedBox tWorldBox;
-            BoundingOrientedBox::CreateFromBoundingBox(tWorldBox, pModel->GetBoundinBox());
+            BoundingOrientedBox::CreateFromBoundingBox(tWorldBox, pModel->GetBoundingBox());
             tWorldBox.Transform(tWorldBox, pObject->Get_Transform()->Get_World());
 
             f32_t fOutDist = {};

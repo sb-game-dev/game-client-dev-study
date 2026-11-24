@@ -23,10 +23,14 @@ public:
 	virtual void		Late_Update(f32_t fDeltaTime)override;
 	virtual HRESULT		Render()override;
 
+	virtual void		Set_Parent(shared_ptr<class CContainerObject> pParent) { m_pParent = pParent; }
+protected:
+	virtual matrix_t	Get_ColliderMatrix()override { return XMLoadFloat4x4(&m_CombinedWorldMatrix); }
 
 protected:
 	float4x4_t						m_CombinedWorldMatrix = {};
 	shared_ptr<CTransform>			m_pParentTransformCom = { nullptr };
+	weak_ptr<class CContainerObject>	m_pParent;
 
 protected:
 	void Update_CombinedWorldMatrix(fmatrix_t ChildMatrix);

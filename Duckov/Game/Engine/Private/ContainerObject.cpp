@@ -77,7 +77,7 @@ HRESULT CContainerObject::Add_PartObject(uint32_t iPrototypeLevelIndex, const ws
 	auto pPartObject = static_pointer_cast<CPartObject>(CGameInstance::Get().Clone_Prototype(iPrototypeLevelIndex, strPrototypeTag, pArg));
 	if (nullptr == pPartObject)
 		return E_FAIL;
-
+	pPartObject->Set_Parent(dynamic_pointer_cast<CContainerObject>(shared_from_this()));
 	m_PartObjects.emplace(strPartTag, pPartObject);
 	return S_OK;
 }

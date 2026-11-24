@@ -44,6 +44,8 @@ public:
 	virtual void			Remove_Component(const wstring_t& strComponentTag) { m_Components.erase(strComponentTag); }
 	shared_ptr<CComponent>	Find_Component(const wstring_t& strComponentTag);
 
+	virtual matrix_t		Get_ColliderMatrix() { return m_pTransformCom->Get_World(); }
+
 	template<typename T>
 	HRESULT Get_Component(shared_ptr<T>& pOutComponent)
 	{

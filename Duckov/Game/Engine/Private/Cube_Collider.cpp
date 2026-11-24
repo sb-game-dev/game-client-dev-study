@@ -20,11 +20,8 @@ BoundingOrientedBox& CCube_Collider::Get_Info()
 {
 	BoundingOrientedBox BoundingBox = {};
 	auto pOwner = m_pOwner.lock();
-	if (nullptr != pOwner)
-	{
-		auto pOwnerTransform = pOwner->Get_Transform();
-
-		matrix_t matWorld = pOwnerTransform->Get_World();
+	if (nullptr != pOwner){
+		matrix_t matWorld = pOwner->Get_ColliderMatrix();
 		vector_t vScale, vRotQuat, vTrans;
 		XMMatrixDecompose(&vScale, &vRotQuat, &vTrans, matWorld);
 		vTrans += XMVectorSetW(XMLoadFloat3(&m_vOffset), 1.f);
@@ -45,6 +42,10 @@ void CCube_Collider::Render_Collider(float4_t vColor)
 	
 }
 
+void CCube_Collider::Set_OBBSize(BoundingBox Box_AABB)
+{
+	BoundingOrientedBox::CreateFromBoundingBox(m_BoundingBox, Box_AABB);
+}
 
 shared_ptr<CCube_Collider> CCube_Collider::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
 {

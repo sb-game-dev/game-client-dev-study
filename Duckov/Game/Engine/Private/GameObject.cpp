@@ -66,7 +66,7 @@ bool_t CGameObject::Is_InFrustum()
 	{
 		if (false == pModel->IsUseCulling())
 			return true;
-		return Is_BoxInFrustum(pModel->GetBoundinBox(), m_pTransformCom->Get_World());
+		return Is_BoxInFrustum(pModel->GetBoundingBox(), m_pTransformCom->Get_World());
 	}
 
 	return true;

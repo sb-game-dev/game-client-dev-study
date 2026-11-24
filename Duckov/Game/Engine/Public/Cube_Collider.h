@@ -24,6 +24,7 @@ public:
 	void					Set_Extents(float3_t vExtents) { m_BoundingBox.Extents = vExtents; }
 	float3_t				Get_Extents() { return m_BoundingBox.Extents; }
 
+	void					Set_OBBSize(BoundingBox Box_AABB);
 private:
 	BoundingOrientedBox		m_BoundingBox = {};
 

@@ -36,10 +36,15 @@ public:
 	void	Play_FireAnim(const f32_t fDeltaTime);
 	vector<shared_ptr<class CBullet>>&		Get_Bullets() { return m_Bullets; }
 
+	void	Update_ColliderActive();
+	void	Set_ColliderActive(bool_t bActive) { m_bActive = bActive; }
+	void	TriggerEnter(shared_ptr<class CCollider> pOtherCollider)override;
+
 private:
 	shared_ptr<CVertexShader>				m_pVSCom = { nullptr };
 	shared_ptr<CPixelShader>				m_pPSCom = { nullptr };
 	shared_ptr<CModel>						m_pModelCom = { nullptr };
+	shared_ptr<CCube_Collider>				m_pCubeCollider = { nullptr };
 
 	weak_ptr<class CInven>					m_pInven;
 	weak_ptr<class CPlayer>					m_pPlayer;

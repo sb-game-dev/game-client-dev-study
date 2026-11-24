@@ -27,7 +27,7 @@ public:
 	void	Bullet_Active(const float3_t vPos, const float3_t& vDir, f32_t fSpeed);
 
 public:
-	virtual void	TriggerEnter(shared_ptr<class CCollider> pOtherCollider)override;
+	void	TriggerEnter(shared_ptr<class CCollider> pOtherCollider)override;
 
 private:
 	shared_ptr<CVertexShader>				m_pVSCom = { nullptr };
@@ -37,6 +37,7 @@ private:
 	
 private:
 	f32_t				m_fMoveDistance = { 0.f };
+	f32_t				m_fWidth = { 0.25f };
 
 private:
 	HRESULT Ready_Components();

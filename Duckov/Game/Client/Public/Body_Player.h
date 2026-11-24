@@ -34,7 +34,6 @@ public:
 	bool_t	Is_Animation_Finished(bool_t IsUpper = false);
 	void	Set_UpperAnimationInActive(f32_t fBlendDuration = 0.2f);
 	void	Change_Animation(PLAYER_ANIM eMoveState, bool_t bUpper, f32_t fAnimPlaySpeed, f32_t fBlendDuration);
-
 private:
 	float4_t*						m_pGroundPlane = { nullptr };
 
@@ -44,6 +43,7 @@ private:
 	shared_ptr<CPixelShader>		m_pPS_Shadow = { nullptr };
 	shared_ptr<CPixelShader>		m_pPS_Occluded = { nullptr };
 	ComPtr<ID3D11RasterizerState>	m_pRS_Reflect = { nullptr };
+
 
 private:
 	PLAYER_ANIM						m_eLowerMoveState = { PLAYER_ANIM::END };
