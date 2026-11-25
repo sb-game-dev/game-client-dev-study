@@ -154,14 +154,24 @@ void CBody_Player::Change_Animation(PLAYER_ANIM eMoveState, bool_t bUpper, f32_t
     m_pModelCom->SetAnimPlaySpeed(fAnimPlaySpeed, bUpper);
     if (bUpper)
     {
-        m_eUpperMoveState = eMoveState;
-        m_pModelCom->Set_UpperAnimationIndex(ETOUI(m_eUpperMoveState), true, fBlendDuration);
+        m_eUpperAnimState = eMoveState;
+        m_pModelCom->Set_UpperAnimationIndex(ETOUI(m_eUpperAnimState), true, fBlendDuration);
     }
     else
     {
-        m_eLowerMoveState = eMoveState;
-        m_pModelCom->Set_LowerAnimationIndex(ETOUI(m_eLowerMoveState), fBlendDuration);
+        m_eLowerAnimState = eMoveState;
+        m_pModelCom->Set_LowerAnimationIndex(ETOUI(m_eLowerAnimState), fBlendDuration);
     }
+}
+
+f32_t CBody_Player::Get_CurrentTrackPosition(bool_t Is_Upper)
+{
+    return m_pModelCom->Get_CurrentTrackPosition(Is_Upper);
+}
+
+f32_t CBody_Player::Get_Duration(bool_t Is_Upper)
+{
+    return m_pModelCom->Get_Duration(Is_Upper);
 }
 
 HRESULT CBody_Player::Ready_Components()
@@ -170,7 +180,7 @@ HRESULT CBody_Player::Ready_Components()
         TEXT("Com_Model"), m_pModelCom)))
         return E_FAIL;
 
-    m_pModelCom->Set_LowerAnimationIndex(ETOUI(m_eLowerMoveState), 0.f);
+    m_pModelCom->Set_LowerAnimationIndex(ETOUI(m_eLowerAnimState), 0.f);
 
     m_pModelCom->Set_Animation_Loop(ETOUI(PLAYER_ANIM::WALK_FORWARD));
     m_pModelCom->Set_Animation_Loop(ETOUI(PLAYER_ANIM::WALK_FORWARD_RH));

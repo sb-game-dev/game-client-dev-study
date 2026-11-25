@@ -28,7 +28,7 @@ public:
 
 public:
 	void	TriggerEnter(shared_ptr<class CCollider> pOtherCollider)override;
-
+	void	Clear_Hit_Targets();
 private:
 	shared_ptr<CVertexShader>				m_pVSCom = { nullptr };
 	shared_ptr<CPixelShader>				m_pPSCom = { nullptr };
@@ -38,6 +38,10 @@ private:
 private:
 	f32_t				m_fMoveDistance = { 0.f };
 	f32_t				m_fWidth = { 0.25f };
+
+private:
+	vector<weak_ptr<CGameObject>>		m_Hit_Targets;
+	DAMAGE_DESC							m_tDamageDesc = {};
 
 private:
 	HRESULT Ready_Components();

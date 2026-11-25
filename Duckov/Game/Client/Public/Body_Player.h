@@ -34,6 +34,13 @@ public:
 	bool_t	Is_Animation_Finished(bool_t IsUpper = false);
 	void	Set_UpperAnimationInActive(f32_t fBlendDuration = 0.2f);
 	void	Change_Animation(PLAYER_ANIM eMoveState, bool_t bUpper, f32_t fAnimPlaySpeed, f32_t fBlendDuration);
+
+	f32_t			Get_CurrentTrackPosition(bool_t Is_Upper);
+	f32_t			Get_Duration(bool_t Is_Upper);
+
+	PLAYER_ANIM		Get_UpperAnimState() { return m_eUpperAnimState; }
+	PLAYER_ANIM		Get_LowerAnimState() { return m_eLowerAnimState; }
+
 private:
 	float4_t*						m_pGroundPlane = { nullptr };
 
@@ -46,8 +53,8 @@ private:
 
 
 private:
-	PLAYER_ANIM						m_eLowerMoveState = { PLAYER_ANIM::END };
-	PLAYER_ANIM						m_eUpperMoveState = { PLAYER_ANIM::END };
+	PLAYER_ANIM						m_eLowerAnimState = { PLAYER_ANIM::END };
+	PLAYER_ANIM						m_eUpperAnimState = { PLAYER_ANIM::END };
 
 private:
 	HRESULT Ready_Components();

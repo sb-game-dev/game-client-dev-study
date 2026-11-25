@@ -95,6 +95,29 @@ void CCube::TriggerEnter(shared_ptr<class CCollider> pOtherCollider)
         Set_Dead();
 }
 
+void CCube::Take_Damage(const DAMAGE_DESC& Desc)
+{
+    m_fCurrentHp -= Desc.fDamage;
+    switch (Desc.iDamageType)
+    {
+    case ETOUI(DAMAGE_TYPE::BULLET):
+
+        break;
+    case ETOUI(DAMAGE_TYPE::MELEE):
+
+        break;
+    default:
+
+        break;
+    }
+    if (m_fCurrentHp <= 0.f)
+    {
+        // 죽었을 때 나는 소리 + 이펙트
+        Set_Dead(); // 추후 시체로 모델 변경 + 파밍 가능하도록
+        return;
+    }
+}
+
 HRESULT CCube::Ready_Components()
 {
     if (FAILED(__super::Add_Component(m_iLevelIndex, m_strTexturePath,

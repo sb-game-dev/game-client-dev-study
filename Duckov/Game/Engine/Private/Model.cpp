@@ -222,6 +222,20 @@ bool_t CModel::Is_Animation_Finished(bool_t bUpper)
     return m_Animations[m_tLowerLayer.iAnimIndex]->Is_Animation_End();
 }
 
+f32_t CModel::Get_Duration(bool_t Is_Upper)
+{
+    if (Is_Upper)
+        return m_Animations[m_tUpperLayer.iAnimIndex]->Get_Duration();
+    return m_Animations[m_tLowerLayer.iAnimIndex]->Get_Duration();
+}
+
+f32_t CModel::Get_CurrentTrackPosition(bool_t Is_Upper)
+{
+    if (Is_Upper)
+        return m_Animations[m_tUpperLayer.iAnimIndex]->Get_CurrentTrackPosition();
+    return m_Animations[m_tLowerLayer.iAnimIndex]->Get_CurrentTrackPosition();
+}
+
 HRESULT CModel::Load_Binary(const char_t* pModelFilePath, fmatrix_t PreTransformMatrix)
 {
     wchar_t szWidePath[MAX_PATH] = {};

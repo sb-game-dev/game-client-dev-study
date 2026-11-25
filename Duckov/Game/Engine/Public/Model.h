@@ -42,6 +42,8 @@ public:
 	void			Set_Animation_Loop(uint32_t iAnimationIndex);
 	bool_t			Is_Animation_Finished(bool_t bUpper = false);
 
+	f32_t			Get_Duration(bool_t Is_Upper = false);
+	f32_t			Get_CurrentTrackPosition(bool_t Is_Upper = false);
 
 private:
 	MODEL									m_eType = { MODEL::END };

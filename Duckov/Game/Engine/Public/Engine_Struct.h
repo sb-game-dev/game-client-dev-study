@@ -245,6 +245,16 @@ namespace Engine
 		float4_t vRotation;
 		float3_t vPosition;
 	}BONE_SRT;
+
+	typedef struct tagDamageDesc
+	{
+		f32_t		fDamage = { 0.f };
+		float3_t	vHitPos = {};
+		float3_t	vHitDir = {};
+		uint32_t	iDamageType = {};
+		weak_ptr<class CGameObject> pAttackObject;
+		weak_ptr<class CGameObject> pWeapon;
+	}DAMAGE_DESC;
 }
 
 #endif // Engine_Struct_h__

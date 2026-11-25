@@ -26,7 +26,7 @@ public:
 
 public:
 	virtual void	TriggerEnter(shared_ptr<class CCollider> pOtherCollider)override;
-
+	virtual void	Take_Damage(const DAMAGE_DESC& Desc)override;
 private:
 	float4_t						m_vGroundPlane = { 0.f, 1.f, 0.f, 0.f };	// ¹ß¹Ø Æò¸é (a,b,c,d)
 
@@ -36,6 +36,10 @@ private:
 	shared_ptr<CVertexShader>		m_pVS = { nullptr };
 	shared_ptr<CPixelShader>		m_pPS = { nullptr };
 	shared_ptr<CPixelShader>		m_pPS_Shadow = { nullptr };
+
+private:
+	f32_t			m_fMaxHp = { 100.f };
+	f32_t			m_fCurrentHp = { 100.f };
 
 private:
 	HRESULT			Ready_Components();

@@ -24,6 +24,8 @@ namespace Client
 		END
 	};
 
+	enum class DAMAGE_TYPE { BULLET, MELEE, END };
+
 };
 
 using namespace std;

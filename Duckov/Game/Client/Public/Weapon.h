@@ -36,9 +36,10 @@ public:
 	void	Play_FireAnim(const f32_t fDeltaTime);
 	vector<shared_ptr<class CBullet>>&		Get_Bullets() { return m_Bullets; }
 
-	void	Update_ColliderActive();
+	void	Update_MeleeAttack();
 	void	Set_ColliderActive(bool_t bActive) { m_bActive = bActive; }
-	void	TriggerEnter(shared_ptr<class CCollider> pOtherCollider)override;
+	void	TriggerEnter(shared_ptr<class CCollider> pOtherCollider) override;
+	void	Clear_Hit_Targets();
 
 private:
 	shared_ptr<CVertexShader>				m_pVSCom = { nullptr };
@@ -66,6 +67,9 @@ private:
 private:
 	vector<shared_ptr<class CBullet>>	m_Bullets;
 	uint32_t							m_iNumBullet = { 32 };
+private:
+	vector<weak_ptr<CGameObject>>		m_Hit_Targets;
+	DAMAGE_DESC							m_tDamageDesc = {};
 
 private:
 	HRESULT Ready_Components();
@@ -73,7 +77,7 @@ private:
 	HRESULT Bind_ShaderResources(const matrix_t& matWorld);
 	HRESULT Ready_Bullets();
 private:
-	void	Check_CanFire(const f32_t& fDeltaTime);
+	void	Update_CanFire(const f32_t& fDeltaTime);
 	void	Fire(const float3_t vPos, const float3_t& vDir, f32_t fSpeed);
 public:
 	static shared_ptr<CWeapon> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);

@@ -23,6 +23,10 @@ public:
 	void		Reset_Animaition();
 	bool_t		Is_Animation_End() const { return m_isFinished; }
 	void		Set_Loop() { m_bLoop = true; }
+	
+	f32_t		Get_Duration() { return m_fDuration; }
+	f32_t		Get_CurrentTrackPosition() { return m_fCurrentTrackPosition; }
+
 private:
 	/* 이 애니메이션의 전체 길이, 속도등의 정보를 관리한다. */
 	char_t		m_szName[MAX_PATH] = { "" };

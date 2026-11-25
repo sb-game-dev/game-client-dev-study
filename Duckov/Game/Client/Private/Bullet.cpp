@@ -32,6 +32,12 @@ HRESULT CBullet::Initialize(void* pArg)
 
     if (FAILED(Ready_ConstantBuffer()))
         return E_FAIL;
+
+    m_tDamageDesc.fDamage = 100.f;
+    m_tDamageDesc.pWeapon = static_pointer_cast<CGameObject>(shared_from_this());
+    m_tDamageDesc.iDamageType = ETOUI(DAMAGE_TYPE::BULLET);
+    m_tDamageDesc.pAttackObject = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::STATIC),L"Layer_Static",GO::Player);
+
     m_bActive = false;
     return S_OK;
 }
@@ -89,12 +95,31 @@ void CBullet::Bullet_Active(const float3_t vPos, const float3_t& vDir, f32_t fSp
     m_pTransformCom->LookAt(vPosition + XMLoadFloat3(&vDir));
 
     m_pTransformCom->Set_Speed(fSpeed);
+
+    Clear_Hit_Targets();
+
     m_bActive = true;
 }
 
 void CBullet::TriggerEnter(shared_ptr<class CCollider> pOtherCollider)
 {
+    if (false == m_pCube_Collider->Get_Active())
+        return;
     m_bActive = false;
+    auto pOtherObject = pOtherCollider->Get_Owner().lock();
+
+    for (auto pHit_Target : m_Hit_Targets)
+    {
+        if (pHit_Target.lock() == pOtherObject)
+            return;
+    }
+    pOtherObject->Take_Damage(m_tDamageDesc);
+    m_Hit_Targets.push_back(pOtherObject);
+}
+
+void CBullet::Clear_Hit_Targets()
+{
+    m_Hit_Targets.clear();
 }
 
 HRESULT CBullet::Ready_Components()

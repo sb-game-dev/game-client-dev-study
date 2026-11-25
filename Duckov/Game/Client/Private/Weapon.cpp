@@ -44,6 +44,11 @@ HRESULT CWeapon::Initialize(void* pArg)
     m_pTransformCom->Rotation(-90.f, 0.f, 0.f);
     //m_pTransformCom->Set_State(STATE::POSITION, XMVectorSet(0.8f, 0.f, 0.f, 1.f));
     
+    m_tDamageDesc.fDamage = 100.f;
+    m_tDamageDesc.pWeapon = static_pointer_cast<CGameObject>(shared_from_this());
+    m_tDamageDesc.iDamageType = ETOUI(DAMAGE_TYPE::MELEE);
+    m_tDamageDesc.pAttackObject = m_pParent;
+
     return S_OK;
 }
 
@@ -98,8 +103,8 @@ void CWeapon::Update(f32_t fDeltaTime)
     }
     __super::Update_CombinedWorldMatrix(ChildMatrix);
 
-    Check_CanFire(fDeltaTime);
-    Update_ColliderActive();
+    if(EQUIP_SLOT::MELEE == pInven->Get_ActiveSlot())       Update_MeleeAttack();
+    else                                                    Update_CanFire(fDeltaTime);
 }
 
 
@@ -190,18 +195,21 @@ void CWeapon::Play_FireAnim(const f32_t fDeltaTime)
     }
 }
 
-void CWeapon::Update_ColliderActive()
+void CWeapon::Update_MeleeAttack()
 {
-    auto pInven = m_pInven.lock();
-    if (nullptr == pInven || EQUIP_SLOT::MELEE != pInven->Get_ActiveSlot())
+    auto pBody = static_pointer_cast<CPlayer>(m_pParent.lock())->Get_Body();
+    if (PLAYER_ANIM::ATTACK_L2R != pBody->Get_UpperAnimState())
     {
         m_pCubeCollider->Set_Active(false);
         return;
     }
-
-    auto pBody = static_pointer_cast<CPlayer>(m_pParent.lock())->Get_Body();
-    
-    if (pBody->Is_Animation_Finished())
+    f32_t fRatio = pBody->Get_CurrentTrackPosition(true) / pBody->Get_Duration(true);
+    if (fRatio > 0.5f && fRatio < 0.8f)
+    {
+        Clear_Hit_Targets();
+        m_pCubeCollider->Set_Active(true);
+    }
+    else
         m_pCubeCollider->Set_Active(false);
 }
 
@@ -209,8 +217,20 @@ void CWeapon::TriggerEnter(shared_ptr<class CCollider> pOtherCollider)
 {
     if (false == m_pCubeCollider->Get_Active())
         return;
-    if (dynamic_pointer_cast<CCube>(pOtherCollider->Get_Owner().lock()))
-        m_pCubeCollider->Set_Active(false);
+    auto pOtherObject = pOtherCollider->Get_Owner().lock();
+
+    for (auto pHit_Target : m_Hit_Targets)
+    {
+        if (pHit_Target.lock() == pOtherObject)
+            return;
+    }
+    pOtherObject->Take_Damage(m_tDamageDesc);
+    m_Hit_Targets.push_back(pOtherObject);
+}
+
+void CWeapon::Clear_Hit_Targets()
+{
+    m_Hit_Targets.clear();
 }
 
 HRESULT CWeapon::Ready_Components()
@@ -264,19 +284,15 @@ HRESULT CWeapon::Ready_Bullets()
     return S_OK;
 }
 
-void CWeapon::Check_CanFire(const f32_t& fDeltaTime)
+void CWeapon::Update_CanFire(const f32_t& fDeltaTime)
 {
     auto pPlayer = static_pointer_cast<CPlayer>(m_pParent.lock());
     if (nullptr == pPlayer)
         return;
 
-    auto pInven = m_pInven.lock();
-    if (nullptr == pInven)
-        return;
-
     if (m_fFireTimer > 0.f)
         m_fFireTimer -= fDeltaTime;
-    else if (EQUIP_SLOT::MELEE != pInven->Get_ActiveSlot() && pPlayer->Is_Firing())
+    else if (pPlayer->Is_Firing())
     {
         float3_t vPos = { m_CombinedWorldMatrix._41,m_CombinedWorldMatrix._42,m_CombinedWorldMatrix._43 };
         float3_t vDir = { m_CombinedWorldMatrix._31,m_CombinedWorldMatrix._32,m_CombinedWorldMatrix._33 };

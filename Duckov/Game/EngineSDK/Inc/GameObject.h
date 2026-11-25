@@ -46,6 +46,8 @@ public:
 
 	virtual matrix_t		Get_ColliderMatrix() { return m_pTransformCom->Get_World(); }
 
+	virtual void			Take_Damage(const DAMAGE_DESC& Desc) {}
+
 	template<typename T>
 	HRESULT Get_Component(shared_ptr<T>& pOutComponent)
 	{
