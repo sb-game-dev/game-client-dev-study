@@ -80,7 +80,7 @@ VS_OUT VS_MAIN(VS_IN In)
     float2 vOrtho = vCenter + vLocal;
 
     // 픽셀 셰이더에서 사용하지 않음. 다만 레스터라이즈 단계에서 픽셀의 Local, Color 값을 보간을 하기위해 계산해야함
-    Out.vPosition = mul(mul(float4(vOrtho, 1.f, 1.f), g_OrthoViewMatrix), g_OrthoProjMatrix);
+    Out.vPosition = mul(mul(float4(vOrtho, 10.f, 1.f), g_OrthoViewMatrix), g_OrthoProjMatrix);
     Out.vLocal = vLocal;
     Out.vTexCoord = lerp(In.vUV.xy, In.vUV.zw, In.vTexCoord);
     Out.vColor = In.vColor;
@@ -98,7 +98,7 @@ VS_OUT_CIRCLE VS_MAIN_CIRCLE(VS_IN_CIRCLE In)
     float2 vOrtho = In.vCircleInfo.xy + vLocal;
 
     // 픽셀 셰이더에서 사용하지 않음. 다만 레스터라이즈 단계에서 픽셀의 Local, Color 값을 보간을 하기위해 계산해야함
-    Out.vPosition = mul(mul(float4(vOrtho, 1.f, 1.f), g_OrthoViewMatrix), g_OrthoProjMatrix);
+    Out.vPosition = mul(mul(float4(vOrtho, 10.f, 1.f), g_OrthoViewMatrix), g_OrthoProjMatrix);
     Out.vLocal = vLocal;
     Out.vTexCoord = In.vTexCoord;
     Out.vColor = In.vColor;

@@ -93,7 +93,7 @@ HRESULT CSkyBox::Ready_Components()
         TEXT("Com_PS"), m_pPS)))
         return E_FAIL;
 #else
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::Texture_SkyBox,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::ZEROZONE), Proto::Texture_SkyBox,
         TEXT("Com_Texture"), m_pTextureCom)))
         return E_FAIL;
     if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::VIBuffer_SkyBox,

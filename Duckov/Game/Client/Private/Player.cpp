@@ -174,7 +174,7 @@ void CPlayer::AdjustPosY()
     if (nullptr == pHill)
     {
         pHill = dynamic_pointer_cast<CHill>(CGameInstance::Get().Find_GameObject(
-            ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", L"GameObject_Hill"));
+            ETOUI(LEVEL::ZEROZONE), L"Layer_GameObject", L"GameObject_Hill"));
         if (nullptr == pHill)
             return;
         m_pHill = pHill;
@@ -247,6 +247,7 @@ void CPlayer::Initialize_State(PLAYER_STATE eNext)
         }
         break;
     case Client::CPlayer::PLAYER_STATE::ATTACK:
+        m_pWeapon->Clear_Hit_Targets();
         Change_Animation(PLAYER_ANIM::ATTACK_L2R, true, 1.5f, 0.01f);
         break;
     default: 

@@ -1,12 +1,12 @@
 #pragma once
 #include "Client_Defines.h"
-#include "MapObject.h"
+#include "ContainerObject.h"
 
 NS_BEGIN(Client)
-class CCube : public CMapObject
+class CCube : public CContainerObject
 {
 public:
-	typedef struct tagCubeDesc : public MAPOBJECT_DESC
+	typedef struct tagCubeDesc : public CONTAINEROBJECT_DESC
 	{
 		
 	}CUBE_DESC;
@@ -23,6 +23,10 @@ public:
 	virtual	void	Late_Update(f32_t fDeltaTime) override;
 	virtual HRESULT	Render() override;
 	virtual HRESULT	Render_Shadow() override;
+
+	f32_t		Get_MaxHP() { return m_fMaxHp; }
+	f32_t		Get_HP() { return m_fCurrentHp; }
+
 
 public:
 	virtual void	TriggerEnter(shared_ptr<class CCollider> pOtherCollider)override;
@@ -43,6 +47,7 @@ private:
 
 private:
 	HRESULT			Ready_Components();
+	HRESULT			Ready_PartObjects();
 	HRESULT			Ready_ConstantBuffer();
 	HRESULT			Update_ConstantBuffer(const matrix_t& matWorld);
 

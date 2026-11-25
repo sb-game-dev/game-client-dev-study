@@ -1,12 +1,12 @@
 #pragma once
-#include "GameObject.h"
+#include "MapObject.h"
 #include "Engine_Defines.h"
 
 NS_BEGIN(Engine)
-class ENGINE_DLL CContainerObject : public CGameObject
+class ENGINE_DLL CContainerObject : public CMapObject
 {
 public:
-	typedef struct tagContainerObjectDesc : public CGameObject::GAMEOBJECT_DESC
+	typedef struct tagContainerObjectDesc : public CMapObject::MAPOBJECT_DESC
 	{
 
 	}CONTAINEROBJECT_DESC;

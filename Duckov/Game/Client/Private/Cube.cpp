@@ -2,10 +2,11 @@
 #include "Hill.h"
 #include "Collider.h"
 #include "Bullet.h"
+#include "UI_Monster.h"
 #include "Weapon.h"
 
 CCube::CCube(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
-	:CMapObject(pDevice,pContext)
+	:CContainerObject(pDevice,pContext)
 {
 }
 
@@ -39,7 +40,7 @@ HRESULT CCube::Initialize(void* pArg)
 
     if (m_bEditorMode)
         return S_OK;
-    auto pHill = static_pointer_cast<CHill>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Hill")));
+    auto pHill = static_pointer_cast<CHill>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::ZEROZONE), L"Layer_GameObject", TEXT("GameObject_Hill")));
 
     vector_t  vPos = m_pTransformCom->Get_State(STATE::POSITION);
     m_pTransformCom->Set_Scale(2.f,2.f,2.f);
@@ -49,6 +50,8 @@ HRESULT CCube::Initialize(void* pArg)
     m_pTransformCom->Set_State(STATE::POSITION, vPos);
     m_vGroundPlane = pHill->GetPlane(x, z);
 
+    if (FAILED(Ready_PartObjects()))
+        return E_FAIL;
     return S_OK;
 }
 
@@ -89,10 +92,10 @@ HRESULT CCube::Render_Shadow()
 
 void CCube::TriggerEnter(shared_ptr<class CCollider> pOtherCollider)
 {
-    if (dynamic_pointer_cast<CBullet>(pOtherCollider->Get_Owner().lock()))
-        Set_Dead();
-    if (dynamic_pointer_cast<CWeapon>(pOtherCollider->Get_Owner().lock()))
-        Set_Dead();
+    //if (dynamic_pointer_cast<CBullet>(pOtherCollider->Get_Owner().lock()))
+    //    Set_Dead();
+    //if (dynamic_pointer_cast<CWeapon>(pOtherCollider->Get_Owner().lock()))
+    //    Set_Dead();
 }
 
 void CCube::Take_Damage(const DAMAGE_DESC& Desc)
@@ -154,6 +157,16 @@ HRESULT CCube::Ready_Components()
             TEXT("Com_PS_SHADOW"), m_pPS_Shadow)))
             return E_FAIL;
 
+    return S_OK;
+}
+
+HRESULT CCube::Ready_PartObjects()
+{
+    CUI_Monster::UIMONSTER_DESC    UI_MonsterDesc{};
+    UI_MonsterDesc.pParentTransformCom = m_pTransformCom;
+    if (FAILED(__super::Add_PartObject(ETOUI(LEVEL::STATIC), Proto::Obj_UI_Monster,
+        TEXT("Part_UI"), &UI_MonsterDesc)))
+        return E_FAIL;
     return S_OK;
 }
 

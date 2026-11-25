@@ -15,6 +15,7 @@
 #include "HUD.h"
 #include "Bullet.h"
 #include "UI_Player.h"
+#include "UI_Monster.h"
 
 CMainApp::CMainApp()
 {
@@ -62,7 +63,7 @@ HRESULT CMainApp::Initialize()
         return E_FAIL;
     
     // ¾À »ý¼º
-    if (FAILED(Start_Level(LEVEL::GAMEPLAY)))
+    if (FAILED(Start_Level(LEVEL::ZEROZONE)))
         return E_FAIL;
 
     //Test_Write();
@@ -242,6 +243,9 @@ HRESULT CMainApp::Ready_Prototype_For_StaticLV()
         return E_FAIL;
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_UI_Player,
         CUI_Player::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_UI_Monster,
+        CUI_Monster::Create(m_pDevice, m_pContext))))
         return E_FAIL;
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_Bullet,
         CBullet::Create(m_pDevice, m_pContext))))

@@ -24,6 +24,10 @@ HRESULT CMapObject::Initialize(void* pArg)
     // TransformCom »ý¼º
     if (FAILED(__super::Initialize(pArg)))      
         return E_FAIL;
+
+    if (XMVector3Equal(XMLoadFloat3(&m_vPosition), XMVectorZero()))
+        XMStoreFloat3(&m_vPosition, m_pTransformCom->Get_State(STATE::POSITION));
+
     Set_Transform(m_vPosition, m_vQuaternion, m_vScale);
     return S_OK;
 }

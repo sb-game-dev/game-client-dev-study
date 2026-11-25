@@ -82,7 +82,7 @@ XMVECTOR CMirror::Get_MirrorPlane()
 
 HRESULT CMirror::Ready_Components()
 {
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::Texture_Mirror,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::ZEROZONE), Proto::Texture_Mirror,
         TEXT("Com_Texture"), m_pTextureCom)))
         return E_FAIL;
 

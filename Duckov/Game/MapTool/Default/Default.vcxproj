@@ -188,7 +188,9 @@
     <ClCompile Include="..\..\Client\Private\Headset.cpp" />
     <ClCompile Include="..\..\Client\Private\Helmet.cpp" />
     <ClCompile Include="..\..\Client\Private\HUD.cpp" />
+    <ClCompile Include="..\..\Client\Private\Level_ZeroZone.cpp" />
     <ClCompile Include="..\..\Client\Private\Tree_Instance.cpp" />
+    <ClCompile Include="..\..\Client\Private\UI_Monster.cpp" />
     <ClCompile Include="..\..\Client\Private\UI_Player.cpp" />
     <ClCompile Include="..\..\Client\Private\Weapon.cpp" />
     <ClCompile Include="..\ImGui\imgui.cpp">
@@ -233,7 +235,6 @@
     <ClCompile Include="..\..\Client\Private\Fog.cpp" />
     <ClCompile Include="..\..\Client\Private\Hill.cpp" />
     <ClCompile Include="..\..\Client\Private\Inven.cpp" />
-    <ClCompile Include="..\..\Client\Private\Level_GamePlay.cpp" />
     <ClCompile Include="..\..\Client\Private\Level_Loading.cpp" />
     <ClCompile Include="..\..\Client\Private\Level_Logo.cpp" />
     <ClCompile Include="..\..\Client\Private\Loader.cpp" />

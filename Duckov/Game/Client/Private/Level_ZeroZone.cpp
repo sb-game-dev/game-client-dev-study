@@ -1,4 +1,4 @@
-#include "Level_GamePlay.h"
+#include "Level_ZeroZone.h"
 #include "Cube.h"
 #include "Player.h"
 #include "Hill.h"
@@ -11,12 +11,12 @@
 #include "Bullet.h"
 #include "Weapon.h"
 
-CLevel_GamePlay::CLevel_GamePlay(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
+CLevel_ZeroZone::CLevel_ZeroZone(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     :CLevel{ pDevice,pContext }
 {
 }
 
-HRESULT CLevel_GamePlay::Initialize()
+HRESULT CLevel_ZeroZone::Initialize()
 {
     if (FAILED(__super::Initialize()))
         return E_FAIL;
@@ -30,7 +30,7 @@ HRESULT CLevel_GamePlay::Initialize()
         return E_FAIL;
     if (FAILED(Ready_Layer_Camera(TEXT("Layer_Camera"))))
         return E_FAIL;
-    if(FAILED(Load_Scene(TEXT("../../../Resource/SceneData/exData.bin"),ETOUI(LEVEL::GAMEPLAY),TEXT("Layer_GameObject"))))
+    if(FAILED(Load_Scene(TEXT("../../../Resource/SceneData/exData.bin"),ETOUI(LEVEL::ZEROZONE),TEXT("Layer_GameObject"))))
         return E_FAIL;
 
 
@@ -38,7 +38,7 @@ HRESULT CLevel_GamePlay::Initialize()
     return S_OK;
 }
 
-void CLevel_GamePlay::Update(f32_t fDeltaTime)
+void CLevel_ZeroZone::Update(f32_t fDeltaTime)
 {
     __super::Update(fDeltaTime);
 
@@ -47,7 +47,7 @@ void CLevel_GamePlay::Update(f32_t fDeltaTime)
         return;
     auto Weapon = dynamic_pointer_cast<CPlayer>(Player)->Get_Weapon();
     auto Bullets = dynamic_pointer_cast<CWeapon>(Weapon)->Get_Bullets();
-    auto GamePlayLevelObjects = CGameInstance::Get().Get_GameObjects(ETOUI(LEVEL::GAMEPLAY), TEXT("Layer_GameObject"));
+    auto GamePlayLevelObjects = CGameInstance::Get().Get_GameObjects(ETOUI(LEVEL::ZEROZONE), TEXT("Layer_GameObject"));
 
     shared_ptr<CCollider> pCollider;
     vector<shared_ptr<CGameObject>> Objects;
@@ -64,29 +64,29 @@ void CLevel_GamePlay::Update(f32_t fDeltaTime)
     //Process_Collision(*StaticObjects,*GamePlayLevelObjects);
 }
 
-HRESULT CLevel_GamePlay::Render()
+HRESULT CLevel_ZeroZone::Render()
 {
     if (FAILED(__super::Render()))
         return E_FAIL;
     return S_OK;
 }
-HRESULT CLevel_GamePlay::Ready_Layer_BackGround(const tchar_t* pLayerTag)
+HRESULT CLevel_ZeroZone::Ready_Layer_BackGround(const tchar_t* pLayerTag)
 {
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_SkyBox,
-        ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::SkyBox)))
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::ZEROZONE), Proto::Obj_SkyBox,
+        ETOUI(LEVEL::ZEROZONE), pLayerTag, GO::SkyBox)))
         return E_FAIL;
     return S_OK;
 }
 
-HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
+HRESULT CLevel_ZeroZone::Ready_Layer_GameObject(const tchar_t* pLayerTag)
 {
     CHill::HILL_DESC Hill_Desc{};
-    Hill_Desc.iLevelIndex = ETOUI(LEVEL::GAMEPLAY);
+    Hill_Desc.iLevelIndex = ETOUI(LEVEL::ZEROZONE);
     Hill_Desc.strMeshPath = TEXT("Duckov_Extract/Terrain/Terrain_GroundZero_Crop/height_321x321_16bit.raw");  // ÁöÇü ¹öÆÛ + ³ôÀÌ¸Ê
     Hill_Desc.strTexturePath = TEXT("Duckov_Extract/Terrain/Terrain_GroundZero_Crop/splat_0.png");            // È¥ÇÕ¸Ê
     Hill_Desc.strLayerPath = TEXT("Duckov_Extract/Terrain/Terrain_GroundZero_Crop/Layer%d.png");              // ·¹ÀÌ¾î
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Hill,
-        ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Hill, &Hill_Desc)))
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::ZEROZONE), Proto::Obj_Hill,
+        ETOUI(LEVEL::ZEROZONE), pLayerTag, GO::Hill, &Hill_Desc)))
         return E_FAIL;
 
     for (int i = 0; i < 16; ++i)
@@ -96,25 +96,25 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
         f32_t fPosZ = -207.2f + 10 * cosf(XM_2PI / 16 * i);
     
         Cube_Desc.vPosition = { fPosX ,0.f,fPosZ };
-        Cube_Desc.iLevelIndex = ETOUI(LEVEL::GAMEPLAY);
+        Cube_Desc.iLevelIndex = ETOUI(LEVEL::ZEROZONE);
         Cube_Desc.strMeshPath = Proto::VIBuffer_Cube;
         Cube_Desc.strTexturePath = Proto::Texture_Cube;
         //Cube_Desc.strTexturePath;
-        if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Cube,
-            ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Cube + to_wstring(i), &Cube_Desc)))
+        if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::ZEROZONE), Proto::Obj_Cube,
+            ETOUI(LEVEL::ZEROZONE), pLayerTag, GO::Cube + to_wstring(i), &Cube_Desc)))
             return E_FAIL;
     }
 
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Cube_Instance,
-        ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Cube_Instance)))
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::ZEROZONE), Proto::Obj_Cube_Instance,
+        ETOUI(LEVEL::ZEROZONE), pLayerTag, GO::Cube_Instance)))
         return E_FAIL;
 
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Tree_Instance,
-        ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Tree_Instance)))
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::ZEROZONE), Proto::Obj_Tree_Instance,
+        ETOUI(LEVEL::ZEROZONE), pLayerTag, GO::Tree_Instance)))
         return E_FAIL;
 
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Fog,
-        ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Fog)))
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::ZEROZONE), Proto::Obj_Fog,
+        ETOUI(LEVEL::ZEROZONE), pLayerTag, GO::Fog)))
         return E_FAIL;
 
     CMirror::MIRROR_DESC Mirror_Desc{};
@@ -122,12 +122,12 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
     Mirror_Desc.fPosY = 0.f;
     Mirror_Desc.fPosZ = -180.2f;
 
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Mirror,
-        ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Mirror, &Mirror_Desc)))
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::ZEROZONE), Proto::Obj_Mirror,
+        ETOUI(LEVEL::ZEROZONE), pLayerTag, GO::Mirror, &Mirror_Desc)))
         return E_FAIL;
 
     auto pPlayer = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::STATIC), L"Layer_Static", GO::Player);
-    auto pMirror = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::Mirror);
+    auto pMirror = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::ZEROZONE), pLayerTag, GO::Mirror);
     CGameInstance::Get().Set_Mirror(pMirror);    
 
     auto pPlayer_PointLight = CPlayer_PointLight::Create(m_pDevice, m_pContext);
@@ -144,7 +144,7 @@ HRESULT CLevel_GamePlay::Ready_Layer_GameObject(const tchar_t* pLayerTag)
     return S_OK;
 }
 
-HRESULT CLevel_GamePlay::Ready_Layer_Camera(const tchar_t* pLayerTag)
+HRESULT CLevel_ZeroZone::Ready_Layer_Camera(const tchar_t* pLayerTag)
 {
     CQuarterView_Cam::CAMERA_QUATER_DESC         CameraDesc{};
     CameraDesc.fDegreeRotPerSec = 180.f;
@@ -155,19 +155,19 @@ HRESULT CLevel_GamePlay::Ready_Layer_Camera(const tchar_t* pLayerTag)
     CameraDesc.fNear = 0.3f;
     CameraDesc.fFar = 300.f;
 
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_QuaterViewCam,
-        ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::QuaterViewCam, &CameraDesc)))
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::ZEROZONE), Proto::Obj_QuaterViewCam,
+        ETOUI(LEVEL::ZEROZONE), pLayerTag, GO::QuaterViewCam, &CameraDesc)))
         return E_FAIL;
 
-    auto pQuaterViewCam = dynamic_pointer_cast<CQuarterView_Cam>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), pLayerTag, GO::QuaterViewCam));
+    auto pQuaterViewCam = dynamic_pointer_cast<CQuarterView_Cam>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::ZEROZONE), pLayerTag, GO::QuaterViewCam));
     CGameInstance::Get().Add_Camera(CAMERA::QUARTERVIEW, pQuaterViewCam);
     CGameInstance::Get().Set_MainCamera(CAMERA::QUARTERVIEW);
     return S_OK;
 }
 
-shared_ptr<CLevel_GamePlay> CLevel_GamePlay::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
+shared_ptr<CLevel_ZeroZone> CLevel_ZeroZone::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
 {
-    auto pInstance = shared_ptr<CLevel_GamePlay>(new CLevel_GamePlay(pDevice, pContext));
+    auto pInstance = shared_ptr<CLevel_ZeroZone>(new CLevel_ZeroZone(pDevice, pContext));
     if (FAILED(pInstance->Initialize()))
         pInstance.reset();
 

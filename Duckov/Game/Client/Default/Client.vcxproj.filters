@@ -19,9 +19,6 @@
     <Filter Include="01. Levels\00. Loding">
       <UniqueIdentifier>{642877ce-9e65-435b-8dc7-8e64b6a36adf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Levels\02. GamePlay">
-      <UniqueIdentifier>{6ff54d3d-4429-461c-8678-12fe828cf7ed}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03. Camera">
       <UniqueIdentifier>{5a0a5cf8-c572-4890-a0f3-be617625dde3}</UniqueIdentifier>
     </Filter>
@@ -127,6 +124,12 @@
     <Filter Include="02. GameObjects\01. Player\97. Sound">
       <UniqueIdentifier>{2513f23b-9056-4ecc-bab6-f32d147f1aeb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObjects\02. Cube\UI_Cube">
+      <UniqueIdentifier>{a64e0d82-924d-49b3-9298-2a8eb45fee91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Levels\02. ZeroZone">
+      <UniqueIdentifier>{6ff54d3d-4429-461c-8678-12fe828cf7ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -164,9 +167,6 @@
     </ClInclude>
     <ClInclude Include="..\Public\Cube.h">
       <Filter>02. GameObjects\02. Cube</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Public\Level_GamePlay.h">
-      <Filter>01. Levels\02. GamePlay</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Hill.h">
       <Filter>02. GameObjects\03. Hills</Filter>
@@ -249,6 +249,12 @@
     <ClInclude Include="..\Public\UI_Player.h">
       <Filter>02. GameObjects\01. Player\98. UI</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\UI_Monster.h">
+      <Filter>02. GameObjects\02. Cube\UI_Cube</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Level_ZeroZone.h">
+      <Filter>01. Levels\02. ZeroZone</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -281,9 +287,6 @@
     </ClCompile>
     <ClCompile Include="..\Private\Cube.cpp">
       <Filter>02. GameObjects\02. Cube</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Private\Level_GamePlay.cpp">
-      <Filter>01. Levels\02. GamePlay</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Hill.cpp">
       <Filter>02. GameObjects\03. Hills</Filter>
@@ -362,6 +365,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\UI_Player.cpp">
       <Filter>02. GameObjects\01. Player\98. UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_Monster.cpp">
+      <Filter>02. GameObjects\02. Cube\UI_Cube</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Level_ZeroZone.cpp">
+      <Filter>01. Levels\02. ZeroZone</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

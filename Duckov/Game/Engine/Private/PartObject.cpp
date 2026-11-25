@@ -1,7 +1,7 @@
 #include "PartObject.h"
 
 CPartObject::CPartObject(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
-    :CGameObject{ pDevice, pContext }
+    :CMapObject{ pDevice, pContext }
 {
 }
 

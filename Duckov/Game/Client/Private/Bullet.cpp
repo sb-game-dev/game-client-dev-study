@@ -33,7 +33,7 @@ HRESULT CBullet::Initialize(void* pArg)
     if (FAILED(Ready_ConstantBuffer()))
         return E_FAIL;
 
-    m_tDamageDesc.fDamage = 100.f;
+    m_tDamageDesc.fDamage = 10.f;
     m_tDamageDesc.pWeapon = static_pointer_cast<CGameObject>(shared_from_this());
     m_tDamageDesc.iDamageType = ETOUI(DAMAGE_TYPE::BULLET);
     m_tDamageDesc.pAttackObject = CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::STATIC),L"Layer_Static",GO::Player);
@@ -48,10 +48,7 @@ void CBullet::Priority_Update(f32_t fDeltaTime)
     m_pTransformCom->Go_Straight(fDeltaTime);
     m_fMoveDistance += fDeltaTime * m_pTransformCom->Get_Speed();
     if (m_fMoveDistance >= 100)
-    {
-        m_fMoveDistance = 0.f;
         Set_Active(false);
-    }
 }
 
 void CBullet::Update(f32_t fDeltaTime)
@@ -97,6 +94,8 @@ void CBullet::Bullet_Active(const float3_t vPos, const float3_t& vDir, f32_t fSp
     m_pTransformCom->Set_Speed(fSpeed);
 
     Clear_Hit_Targets();
+
+    m_fMoveDistance = { 0.f };
 
     m_bActive = true;
 }

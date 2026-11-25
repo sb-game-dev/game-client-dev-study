@@ -163,9 +163,6 @@
     <ClCompile Include="..\..\Client\Private\Inven.cpp">
       <Filter>97. Client_Shared</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Client\Private\Level_GamePlay.cpp">
-      <Filter>97. Client_Shared</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Client\Private\Level_Loading.cpp">
       <Filter>97. Client_Shared</Filter>
     </ClCompile>
@@ -281,6 +278,12 @@
       <Filter>97. Client_Shared</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Client\Private\UI_Player.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\UI_Monster.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Level_ZeroZone.cpp">
       <Filter>97. Client_Shared</Filter>
     </ClCompile>
   </ItemGroup>

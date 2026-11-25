@@ -194,7 +194,7 @@ HRESULT CClient_Mouse::Render()
         return E_FAIL;
 
     auto pInven = m_pInven.lock();
-    if ((nullptr != pInven && pInven->Is_Open()) || ETOI(LEVEL::GAMEPLAY) > CGameInstance::Get().Get_CurrentLevelIndex())
+    if ((nullptr != pInven && pInven->Is_Open()) || ETOI(LEVEL::MAIN_MENU) >= CGameInstance::Get().Get_CurrentLevelIndex())
     {
         m_eMouseState = MOUSESTATE::CURSOR;
         auto pDst = reinterpret_cast<float4x4_t*>(tMapped.pData);

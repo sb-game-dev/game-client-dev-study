@@ -31,8 +31,8 @@ HRESULT CLevel_Logo::Render()
 HRESULT CLevel_Logo::Ready_Layer_BackGround(const tchar_t* pLayerTag)
 {
     /* 원형 객체를 찾고 -> 복제하고 -> 오브젝트 메니져에 다시 분류해서 보관한다. */
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOI(LEVEL::LOGO), TEXT("Prototype_GameObject_BackGround"),
-        ETOUI(LEVEL::LOGO), pLayerTag, TEXT("GameObject_BackGround"))))
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOI(LEVEL::MAIN_MENU), TEXT("Prototype_GameObject_BackGround"),
+        ETOUI(LEVEL::MAIN_MENU), pLayerTag, TEXT("GameObject_BackGround"))))
         return E_FAIL;
     return S_OK;
 }

@@ -117,6 +117,7 @@ namespace Client
 		inline constexpr const wchar_t* Obj_Inven = L"Prototype_GameObject_Inven";
 		inline constexpr const wchar_t* Obj_HUD = L"Prototype_GameObject_HUD";
 		inline constexpr const wchar_t* Obj_UI_Player = L"Prototype_GameObject_UI_Player";
+		inline constexpr const wchar_t* Obj_UI_Monster = L"Prototype_GameObject_UI_Monster";
 		inline constexpr const wchar_t* Obj_QuaterViewCam = L"Prototype_GameObject_QuaterViewCam";
 		inline constexpr const wchar_t* Obj_FreeCam = L"Prototype_GameObject_FreeCam";
 		inline constexpr const wchar_t* Obj_MapToolCam = L"Prototype_GameObject_MapToolCam";

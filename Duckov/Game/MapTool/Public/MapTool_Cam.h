@@ -23,8 +23,9 @@ public:
     virtual void Late_Update(f32_t fTimeDelta);
     virtual HRESULT Render();
 
-    virtual void        Set_SceneClicked(bool_t bClicked) { m_bSceneClicked = bClicked; }
-    virtual void        Set_SceneHovered(bool_t bHovered) { m_bSceneHovered = bHovered; }
+    void        Set_SceneClicked(bool_t bClicked) { m_bSceneClicked = bClicked; }
+    void        Set_SceneHovered(bool_t bHovered) { m_bSceneHovered = bHovered; }
+    void        Focus_On(vector_t vObjectPos);
 private:
     bool_t      m_bSceneClicked = { false };
     bool_t      m_bSceneHovered = { false };

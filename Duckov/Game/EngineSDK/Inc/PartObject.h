@@ -1,11 +1,10 @@
 #pragma once
-#include "Engine_Defines.h"
-#include "GameObject.h"
+#include "MapObject.h"
 NS_BEGIN(Engine)
-class ENGINE_DLL CPartObject :public CGameObject
+class ENGINE_DLL CPartObject :public CMapObject
 {
 public:
-	typedef struct tagPartObjectDesc : public CGameObject::GAMEOBJECT_DESC
+	typedef struct tagPartObjectDesc : public CMapObject::MAPOBJECT_DESC
 	{
 		shared_ptr<CTransform>		pParentTransformCom = { nullptr };
 	}PARTOBJECT_DESC;

@@ -147,7 +147,7 @@ HRESULT CCube_Instance::Render_Shadow()
 
 HRESULT CCube_Instance::Ready_Components()
 {
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::Texture_Cube,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::ZEROZONE), Proto::Texture_Cube,
         TEXT("Com_Texture"), m_pTextureCom)))
         return E_FAIL;
 
@@ -205,7 +205,7 @@ HRESULT CCube_Instance::Ready_InstanceBuffers()
 
 bool CCube_Instance::Compute_OnHill(vector_t& vPos, vector_t& vGroundPlane)
 {
-    auto pHill = static_pointer_cast<CHill>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Hill")));
+    auto pHill = static_pointer_cast<CHill>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::ZEROZONE), L"Layer_GameObject", TEXT("GameObject_Hill")));
 
     f32_t x = XMVectorGetX(vPos);
     f32_t z = XMVectorGetZ(vPos);

@@ -59,10 +59,10 @@ HRESULT CLoader::Loading()
     HRESULT hr = {};
     switch (m_eNextLevelID)
     {
-    case Client::LEVEL::LOGO:
+    case Client::LEVEL::MAIN_MENU:
         hr = Loading_For_LogoLV();//S_OK or E_FAIL
         break;
-    case Client::LEVEL::GAMEPLAY:
+    case Client::LEVEL::ZEROZONE:
         hr = Loading_For_GamePlayLV();
         break;
     }
@@ -101,7 +101,7 @@ HRESULT CLoader::Loading_For_LogoLV()
         uint32_t iData = 10;
 
     lstrcpy(m_szLoadingText, TEXT("객체원형 준비중입니다."));
-    CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::LOGO), TEXT("Prototype_GameObject_BackGround"),
+    CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAIN_MENU), TEXT("Prototype_GameObject_BackGround"),
         CBackGround::Create(m_pDevice, m_pContext));
 
     lstrcpy(m_szLoadingText, TEXT("로딩이 완료되었습니다."));
@@ -114,31 +114,31 @@ HRESULT CLoader::Loading_For_GamePlayLV()
 {
     lstrcpy(m_szLoadingText, TEXT("텍스쳐를 준비중입니다."));
 
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Texture_Cube,
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::ZEROZONE), Proto::Texture_Cube,
         CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/WireFence.dds"), 1))))
         return E_FAIL;
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Texture_Hill,
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::ZEROZONE), Proto::Texture_Hill,
         CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/grass.dds"), 1))))
         return E_FAIL;
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Texture_SkyBox,
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::ZEROZONE), Proto::Texture_SkyBox,
         CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/SkyCube.dds"), 1))))
         return E_FAIL;
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Texture_Mirror,
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::ZEROZONE), Proto::Texture_Mirror,
         CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/ice.dds"), 1))))
         return E_FAIL;
 
 
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Normalize_AssetPath(L"../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/splat_0.png"),
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::ZEROZONE), Normalize_AssetPath(L"../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/splat_0.png"),
         CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/splat_0.png"), 1))))
         return E_FAIL;
 
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Normalize_AssetPath(L"../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/Layer%d.png"),
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::ZEROZONE), Normalize_AssetPath(L"../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/Layer%d.png"),
         CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/Layer%d.png"), 3))))
         return E_FAIL;
 
     lstrcpy(m_szLoadingText, TEXT("모델을 준비중입니다."));
 
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::ZEROZONE),
         Normalize_AssetPath(TEXT("Duckov_Extract/Terrain/Terrain_GroundZero_Crop/height_321x321_16bit.raw")),  
         CVIBuffer_Terrain::Create(m_pDevice, m_pContext,
             TEXT("../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/height_321x321_16bit.raw")))))  
@@ -146,42 +146,42 @@ HRESULT CLoader::Loading_For_GamePlayLV()
 
     matrix_t PreTransformMatrix = XMMatrixRotationY(180.f);
 
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::ZEROZONE),
         Proto::Model_Tree_01,
         CModel::Create(m_pDevice, m_pContext,MODEL::NONANIM,
             "../../../Resource/Mesh/Tree/Pfb_Tree_01_1.bin"))))
         return E_FAIL;
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::ZEROZONE),
         Proto::Model_Boss_Wu,
         CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
             "../../../Resource/Characters/0_CharacterModel_Boss_Wu/0_CharacterModel_Boss_Wu.bin"))))
         return E_FAIL;
 
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::ZEROZONE),
         Proto::Model_Container_Back,
         CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
             "../../../Resource/Mesh/SM_Container/SM_Container_Back.bin"))))
         return E_FAIL;
 
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::ZEROZONE),
         Proto::Model_Container_Ceiling,
         CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
             "../../../Resource/Mesh/SM_Container/SM_Container_Ceiling.bin"))))
         return E_FAIL;
 
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::ZEROZONE),
         Proto::Model_Container_Ground,
         CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
             "../../../Resource/Mesh/SM_Container/SM_Container_Ground.bin"))))
         return E_FAIL;
 
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::ZEROZONE),
         Proto::Model_Container_L,
         CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
             "../../../Resource/Mesh/SM_Container/SM_Container_L.bin"))))
         return E_FAIL;
 
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY),
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::ZEROZONE),
         Proto::Model_Container_R,
         CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
             "../../../Resource/Mesh/SM_Container/SM_Container_R.bin"))))
@@ -192,39 +192,39 @@ HRESULT CLoader::Loading_For_GamePlayLV()
 
     lstrcpy(m_szLoadingText, TEXT("객체원형 준비중입니다."));
 
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_QuaterViewCam,
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::ZEROZONE), Proto::Obj_QuaterViewCam,
         CQuarterView_Cam::Create(m_pDevice, m_pContext))))
         return E_FAIL;
 
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Cube,
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::ZEROZONE), Proto::Obj_Cube,
         CCube::Create(m_pDevice, m_pContext))))
         return E_FAIL;
 
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Cube_Instance,
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::ZEROZONE), Proto::Obj_Cube_Instance,
         CCube_Instance::Create(m_pDevice, m_pContext))))
         return E_FAIL;
    
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_SkyBox,
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::ZEROZONE), Proto::Obj_SkyBox,
         CSkyBox::Create(m_pDevice, m_pContext))))
         return E_FAIL;
 
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Hill,
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::ZEROZONE), Proto::Obj_Hill,
         CHill::Create(m_pDevice, m_pContext))))
         return E_FAIL;
 
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Fog,
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::ZEROZONE), Proto::Obj_Fog,
         CFog::Create(m_pDevice, m_pContext))))
         return E_FAIL;
 
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Mirror,
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::ZEROZONE), Proto::Obj_Mirror,
         CMirror::Create(m_pDevice, m_pContext))))
         return E_FAIL;
 
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_Tree_Instance,
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::ZEROZONE), Proto::Obj_Tree_Instance,
         CTree_Instance::Create(m_pDevice, m_pContext))))
         return E_FAIL;
 
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::GAMEPLAY), Proto::Obj_StaticProp,
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::ZEROZONE), Proto::Obj_StaticProp,
         CStaticProp::Create(m_pDevice, m_pContext))))
         return E_FAIL;
 

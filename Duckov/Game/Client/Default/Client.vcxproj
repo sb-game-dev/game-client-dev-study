@@ -164,6 +164,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="..\Public\Level_ZeroZone.h" />
     <ClInclude Include="..\Public\Mirror.h" />
     <ClInclude Include="..\public\Client_Mouse.h" />
     <ClInclude Include="..\public\Body_Player.h">
@@ -177,7 +178,6 @@
     <ClInclude Include="..\Public\Inven.h" />
     <ClInclude Include="..\Public\ItemIconTable.h" />
     <ClInclude Include="..\Public\Item_Defines.h" />
-    <ClInclude Include="..\Public\Level_GamePlay.h" />
     <ClInclude Include="..\Public\Level_Loading.h" />
     <ClInclude Include="..\public\Level_Logo.h" />
     <ClInclude Include="..\public\Loader.h" />
@@ -187,6 +187,7 @@
     <ClInclude Include="..\public\Player_SpotLight.h" />
     <ClInclude Include="..\public\QuarterView_Cam.h" />
     <ClInclude Include="..\public\Tree_Instance.h" />
+    <ClInclude Include="..\Public\UI_Monster.h" />
     <ClInclude Include="..\Public\UI_Player.h" />
     <ClInclude Include="..\public\Weapon.h" />
     <ClInclude Include="Client.h" />
@@ -209,6 +210,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\Private\Level_ZeroZone.cpp" />
     <ClCompile Include="..\private\Mirror.cpp" />
     <ClCompile Include="..\private\Client_Mouse.cpp" />
     <ClCompile Include="..\private\Body_Player.cpp">
@@ -226,11 +228,11 @@
     <ClCompile Include="..\Private\Cube.cpp" />
     <ClCompile Include="..\Private\Hill.cpp" />
     <ClCompile Include="..\Private\Inven.cpp" />
-    <ClCompile Include="..\Private\Level_GamePlay.cpp" />
     <ClCompile Include="..\Private\Level_Loading.cpp" />
     <ClCompile Include="..\private\Level_Logo.cpp" />
     <ClCompile Include="..\Private\MainApp.cpp" />
     <ClCompile Include="..\private\Tree_Instance.cpp" />
+    <ClCompile Include="..\Private\UI_Monster.cpp" />
     <ClCompile Include="..\Private\UI_Player.cpp" />
     <ClCompile Include="..\private\Weapon.cpp" />
     <ClCompile Include="Client.cpp" />

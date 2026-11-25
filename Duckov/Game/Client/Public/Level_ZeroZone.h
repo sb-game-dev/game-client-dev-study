@@ -3,12 +3,12 @@
 #include "Level.h"
 
 NS_BEGIN(Client)
-class CLevel_GamePlay final : public CLevel
+class CLevel_ZeroZone final : public CLevel
 {
 private:
-	CLevel_GamePlay(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
+	CLevel_ZeroZone(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
 public:
-	~CLevel_GamePlay() = default;
+	~CLevel_ZeroZone() = default;
 
 public:
 	virtual		HRESULT		Initialize() override;
@@ -20,7 +20,7 @@ private:
 	HRESULT Ready_Layer_GameObject(const tchar_t* pLayerTag);
 	HRESULT Ready_Layer_Camera(const tchar_t* pLayerTag);
 public:
-	static shared_ptr<CLevel_GamePlay> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
+	static shared_ptr<CLevel_ZeroZone> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
 };
 
 NS_END

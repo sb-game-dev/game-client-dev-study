@@ -93,14 +93,6 @@ void CUI_Player::Update(f32_t fTimeDelta)
 			return;
 		m_pInven = pInven;
 	}
-	auto pPlayer = dynamic_pointer_cast<CPlayer>(m_pParent.lock());
-	if (nullptr == pPlayer)
-	{
-		pPlayer = dynamic_pointer_cast<CPlayer>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::STATIC), L"Layer_Static", GO::Player));
-		if (nullptr == pPlayer)
-			return;
-		m_pParent = pPlayer;
-	}
 }
 
 void CUI_Player::Late_Update(f32_t fTimeDelta)
@@ -191,18 +183,25 @@ void CUI_Player::Build_Instances()
 	auto pPlayer = dynamic_pointer_cast<CPlayer>(m_pParent.lock());
 	if (pPlayer)
 	{
-		auto pPlayerPos = m_pParentTransformCom->Get_State(STATE::POSITION);
-		auto matPlayerWorld = m_pParentTransformCom->Get_World();
-		auto matView = CGameInstance::Get().Get_Perspective_Transform(D3DTS::VIEW);
-		auto matOthoPorj = CGameInstance::Get().Get_Ortho_Transform(D3DTS::PROJ);
-		matPlayerWorld *= matView * matOthoPorj;
-		f32_t x = XMVectorGetX(matPlayerWorld.r[3]);
-		f32_t y = XMVectorGetY(matPlayerWorld.r[3]);
+		vector_t vHead = m_pParentTransformCom->Get_State(STATE::POSITION)
+			+ XMVectorSet(-0.5f, 2.f, 0.f, 0.f);
+		auto matPlayerWorld = m_pParentTransformCom->Get_World(); 
+		
+		matrix_t matVP = CGameInstance::Get().Get_Perspective_Transform(D3DTS::VIEW) * CGameInstance::Get().Get_Perspective_Transform(D3DTS::PROJ);
+		vector_t vNDC = XMVector3TransformCoord(vHead, matVP);
+
+		f32_t x = XMVectorGetX(vNDC) * g_iWinSizeX * 0.5f;
+		f32_t y = XMVectorGetY(vNDC) * g_iWinSizeY * 0.5f;
 
 		// ---------- 체력바 ----------		
+		// HP바 배경
+		Push_Bar(x - 2.f, y + 2.f, HP_SLIDER_WIDTH + 4.f, HP_SLIDER_HEIGHT + 4.f,
+			1,
+			COLOR_HP_FILL_SIDE, COLOR_HP_FILL_SIDE,
+			HP_SLIDER_HEIGHT * 0.5f);
 		// HP바 게이지
-		Push_Bar(x + HP_OFFSET.x, y + HP_OFFSET.y, HP_SLIDER_WIDTH, HP_SLIDER_HEIGHT,
-			(pPlayer->Get_HP() - 10) / pPlayer->Get_MaxHP(),
+		Push_Bar(x, y, HP_SLIDER_WIDTH, HP_SLIDER_HEIGHT,
+			pPlayer->Get_HP() / pPlayer->Get_MaxHP(),
 			COLOR_HP_FILL_SIDE, COLOR_HP_FILL,
 			HP_SLIDER_HEIGHT * 0.5f);
 
@@ -287,7 +286,6 @@ void CUI_Player::Push_Rect(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight,
 void CUI_Player::Push_Bar(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, f32_t fRatio, float4_t vBgColor, float4_t vFillColor, f32_t fRadius)
 {
 	fRatio = max(0.f, min(1.f, fRatio));
-	Push_Rect(fLeft, fTop, fWidth, fHeight, vBgColor, fRadius);
 	if (fRatio > 0.f)
 		Push_Rect(fLeft, fTop, fWidth * fRatio, fHeight, vFillColor, fRadius);
 }

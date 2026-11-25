@@ -69,7 +69,7 @@ HRESULT CTree_Instance::Render_Shadow()
 
 HRESULT CTree_Instance::Ready_Components()
 {
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::GAMEPLAY), Proto::Model_Tree_01,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::ZEROZONE), Proto::Model_Tree_01,
         TEXT("Com_Model"), m_pModelCom)))
         return E_FAIL;
 
@@ -93,7 +93,7 @@ HRESULT CTree_Instance::Ready_InstanceBuffers()
     m_WorldMats.resize(m_iNumInstance);
     m_ShadowMats.resize(m_iNumInstance);
 
-    auto pHill = static_pointer_cast<CHill>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Hill")));
+    auto pHill = static_pointer_cast<CHill>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::ZEROZONE), L"Layer_GameObject", TEXT("GameObject_Hill")));
 
     const vector_t  vToLight = vector_t{ -0.5f, 0.5f, -0.5f, 0.f };
     const matrix_t matOffset = XMMatrixTranslation(0.f, 0.01f, 0.0f);
@@ -136,7 +136,7 @@ HRESULT CTree_Instance::Ready_InstanceBuffers()
 
 bool CTree_Instance::Compute_OnHill(vector_t& vPos, vector_t& vGroundPlane)
 {
-    auto pHill = static_pointer_cast<CHill>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::GAMEPLAY), L"Layer_GameObject", TEXT("GameObject_Hill")));
+    auto pHill = static_pointer_cast<CHill>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::ZEROZONE), L"Layer_GameObject", TEXT("GameObject_Hill")));
 
     f32_t x = XMVectorGetX(vPos);
     f32_t z = XMVectorGetZ(vPos);

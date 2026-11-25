@@ -1,7 +1,7 @@
 #include "Loader.h"
 #include "Level_Loading.h"
 #include "Level_Logo.h"
-#include "Level_GamePlay.h"
+#include "Level_ZeroZone.h"
 #include "BackGround.h"
 #include "Texture.h"
 #include "VIBuffer_Rect.h"
@@ -46,11 +46,11 @@ void CLevel_Loading::Update(f32_t fDeltaTime)
         shared_ptr<CLevel> pNewLevel = { nullptr };
         switch (m_eNextLevelID)
         {
-        case Client::LEVEL::LOGO:
+        case Client::LEVEL::MAIN_MENU:
             pNewLevel = CLevel_Logo::Create(m_pDevice,m_pContext);
             break;
-        case Client::LEVEL::GAMEPLAY:
-            pNewLevel = CLevel_GamePlay::Create(m_pDevice, m_pContext);
+        case Client::LEVEL::ZEROZONE:
+            pNewLevel = CLevel_ZeroZone::Create(m_pDevice, m_pContext);
             break;
         }
 

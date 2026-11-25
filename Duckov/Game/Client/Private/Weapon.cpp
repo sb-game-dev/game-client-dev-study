@@ -43,7 +43,7 @@ HRESULT CWeapon::Initialize(void* pArg)
     m_pTransformCom->Rotation(-90.f, 0.f, 0.f);
     //m_pTransformCom->Set_State(STATE::POSITION, XMVectorSet(0.8f, 0.f, 0.f, 1.f));
     
-    m_tDamageDesc.fDamage = 100.f;
+    m_tDamageDesc.fDamage = 50.f;
     m_tDamageDesc.pWeapon = static_pointer_cast<CGameObject>(shared_from_this());
     m_tDamageDesc.iDamageType = ETOUI(DAMAGE_TYPE::MELEE);
     m_tDamageDesc.pAttackObject = m_pParent;
@@ -213,7 +213,6 @@ void CWeapon::Update_MeleeAttack()
     f32_t fRatio = pBody->Get_CurrentTrackPosition(true) / pBody->Get_Duration(true);
     if (fRatio > 0.5f && fRatio < 0.8f)
     {
-        Clear_Hit_Targets();
         m_pCubeCollider->Set_Active(true);
     }
     else

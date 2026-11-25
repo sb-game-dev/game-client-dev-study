@@ -47,6 +47,16 @@ HRESULT CMapTool_Cam::Render()
 	return __super::Render();
 }
 
+void CMapTool_Cam::Focus_On(vector_t vObjectPos)
+{
+	vector_t vEye = m_pTransformCom->Get_State(STATE::POSITION);
+	vector_t vDir = XMVector3Normalize(vEye - vObjectPos);
+	vEye = vObjectPos + vDir * 3.f;
+	m_pTransformCom->Set_State(STATE::POSITION, vEye);
+	m_pTransformCom->LookAt(vObjectPos);
+	Update_PipeLines();
+}
+
 void CMapTool_Cam::KeyInput(const f32_t fDeltaTime)
 {
 	

@@ -5,7 +5,7 @@
 NS_BEGIN(UI_Player)
 // 위치 좌표 : 직교 공간 (화면 중앙 원점, x 오른쪽, y 위쪽, 1 = 1px). LEFT/TOP 은 사각형의 왼쪽 변 x, 위쪽 변 y
 // HP 바
-constexpr f32_t HP_SLIDER_WIDTH = 54.5f, HP_SLIDER_HEIGHT = 10.f;
+constexpr f32_t HP_SLIDER_WIDTH = 54.5f, HP_SLIDER_HEIGHT = 6.f;
 const float2_t HP_OFFSET = { -28.f, 60.f };
 
 // 스테미너 
@@ -13,14 +13,14 @@ const f32_t HUD_RING_STAMINA_BG_OUTER_SIZE = 11.25;
 const f32_t HUD_RING_STAMINA_BG_INNER_SIZE = 3.75;
 const f32_t HUD_RING_STAMINA_FILL_OUTER_SIZE = 8.75;
 const f32_t HUD_RING_STAMINA_FILL_INNER_SIZE = 6.25;
-const float2_t STAMINA_OFFSET = { -30.f,-15.f };
+const float2_t STAMINA_OFFSET = { -30.f,-90.f };
 
 // 색상
 constexpr float4_t COLOR_HUD_SLOT_BG_LIGHT = { 0.f, 0.f, 0.f, 0.3f };	// 1, 2, V (무기 칸)
 constexpr float4_t COLOR_HUD_SLOT_BG_DARK = { 0.f, 0.f, 0.f, 0.58f };	// 3 ~ 8 (퀵슬롯)
 constexpr float4_t COLOR_HP_BG = { 0.f, 0.f, 0.f, 0.745f };
-constexpr float4_t COLOR_HP_FILL_SIDE = { 0.f, 0.f, 0.f, 8.f };
-constexpr float4_t COLOR_HP_FILL = { 1.f, 0.553f, 0.553f, 1.f };
+constexpr float4_t COLOR_HP_FILL_SIDE = { 0.f, 0.f, 0.f, 0.7f };
+constexpr float4_t COLOR_HP_FILL = { 1.f,0.353f, 0.286f, 1.f };
 constexpr float4_t COLOR_STAMINA_FILL = { 0.678f, 1.0f, 0.427f, 1.0f };
 constexpr float4_t COLOR_STAMINA_FILL_YELLOW = { 1.f, 0.976f, 0.016f, 1.f };
 NS_END

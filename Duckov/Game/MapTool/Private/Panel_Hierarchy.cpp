@@ -2,6 +2,7 @@
 #include "Panel_Hierarchy.h"
 #include "StaticProp.h"
 #include "Hill.h"
+#include "MapTool_Cam.h"
 
 void CPanel_Hierarchy::Render(const PANEL_RECT& tRect)
 {
@@ -34,8 +35,15 @@ void CPanel_Hierarchy::Render(const PANEL_RECT& tRect)
                 //                          그래서 클릭한 프레임에서는 strTag == m_Context.strSelectedTag 조건이 false이고
                 //                          다음 프레임 부터 true가 되어서 하이라이트가 된다.  
                 //                          물론 strTag == m_Context.strSelectedTag 조건의 값과 별개로 클릭은 Selectable() 함수가 반환
-                if (ImGui::Selectable(To_UTF8(strTag).c_str(), strTag == m_Context.strSelectedTag))
+                if (ImGui::Selectable(To_UTF8(strTag).c_str(), strTag == m_Context.strSelectedTag, ImGuiSelectableFlags_AllowDoubleClick))
+                {
                     m_Context.Select(strTag, pObject);
+                    if (ImGui::IsMouseDoubleClicked(ImGuiMouseButton_Left))
+                    {
+                        auto pMapToolCam = dynamic_pointer_cast<CMapTool_Cam>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::MAPTOOL), TEXT("Layer_GameObject"), GO::MapToolCam));
+                        if (pMapToolCam)    pMapToolCam->Focus_On(pObject->Get_Transform()->Get_State(STATE::POSITION));
+                    }
+                }
 
                 // 마우스 우클릭을 뗀 순간 마우스가 바로 앞 위젯 위에 있었나를 검사한다.
                 // 바로 앞 Selectable 위젯 전용
