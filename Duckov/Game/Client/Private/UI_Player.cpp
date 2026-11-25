@@ -5,7 +5,7 @@ using namespace UI_Player;
 
 
 CUI_Player::CUI_Player(ComPtr<ID3D11Device>pDevice, ComPtr<ID3D11DeviceContext>pContext)
-	: CGameObject{ pDevice,pContext }
+	: CPartObject{ pDevice,pContext }
 {
 
 }
@@ -93,13 +93,13 @@ void CUI_Player::Update(f32_t fTimeDelta)
 			return;
 		m_pInven = pInven;
 	}
-	auto pPlayer = m_pPlayer.lock();
+	auto pPlayer = dynamic_pointer_cast<CPlayer>(m_pParent.lock());
 	if (nullptr == pPlayer)
 	{
 		pPlayer = dynamic_pointer_cast<CPlayer>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::STATIC), L"Layer_Static", GO::Player));
 		if (nullptr == pPlayer)
 			return;
-		m_pPlayer = pPlayer;
+		m_pParent = pPlayer;
 	}
 }
 
@@ -188,20 +188,28 @@ void CUI_Player::Build_Instances()
 	m_Instances.clear();
 	m_Instances_Circle.clear();
 
-	// 플레이어 상태 띄우기
-	auto pPlayer = m_pPlayer.lock();
+	auto pPlayer = dynamic_pointer_cast<CPlayer>(m_pParent.lock());
 	if (pPlayer)
 	{
-		if (pPlayer->Get_Stamina() >= 100.f)
-			return;
-		auto pPlayerPos = pPlayer->Get_Transform()->Get_State(STATE::POSITION);
-		auto matPlayerWorld = pPlayer->Get_Transform()->Get_World();
+		auto pPlayerPos = m_pParentTransformCom->Get_State(STATE::POSITION);
+		auto matPlayerWorld = m_pParentTransformCom->Get_World();
 		auto matView = CGameInstance::Get().Get_Perspective_Transform(D3DTS::VIEW);
 		auto matOthoPorj = CGameInstance::Get().Get_Ortho_Transform(D3DTS::PROJ);
 		matPlayerWorld *= matView * matOthoPorj;
-
 		f32_t x = XMVectorGetX(matPlayerWorld.r[3]);
 		f32_t y = XMVectorGetY(matPlayerWorld.r[3]);
+
+		// ---------- 체력바 ----------		
+		// HP바 게이지
+		Push_Bar(x + HP_OFFSET.x, y + HP_OFFSET.y, HP_SLIDER_WIDTH, HP_SLIDER_HEIGHT,
+			(pPlayer->Get_HP() - 10) / pPlayer->Get_MaxHP(),
+			COLOR_HP_FILL_SIDE, COLOR_HP_FILL,
+			HP_SLIDER_HEIGHT * 0.5f);
+
+		// ---------- 스테미너 ----------
+		if (pPlayer->Get_Stamina() >= 100.f)
+			return;
+
 		// 스테미너 배경
 		Push_Circle(x + STAMINA_OFFSET.x, y + STAMINA_OFFSET.y, 
 			HUD_RING_STAMINA_BG_OUTER_SIZE, HUD_RING_STAMINA_BG_INNER_SIZE, 
@@ -212,6 +220,7 @@ void CUI_Player::Build_Instances()
 			HUD_RING_STAMINA_FILL_OUTER_SIZE, HUD_RING_STAMINA_FILL_INNER_SIZE, 
 			pPlayer->Get_Stamina() > 30.f ? COLOR_STAMINA_FILL : COLOR_STAMINA_FILL_YELLOW,
 			pPlayer->Get_Stamina() / pPlayer->Get_MaxStamina() * 360.f);
+
 	}
 }
 

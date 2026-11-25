@@ -1,12 +1,12 @@
 #pragma once
 
 #include "Client_Defines.h"
-#include "GameObject.h"
+#include "PartObject.h"
 NS_BEGIN(UI_Player)
 // 위치 좌표 : 직교 공간 (화면 중앙 원점, x 오른쪽, y 위쪽, 1 = 1px). LEFT/TOP 은 사각형의 왼쪽 변 x, 위쪽 변 y
 // HP 바
-constexpr f32_t HP_LEFT = -427.f, HP_TOP = -308.2f, HP_WIDTH = 130.f, HP_HEIGHT = 25.f;
-constexpr f32_t HP_SLIDER_LEFT = -403.2f, HP_SLIDER_TOP = -312.2f, HP_SLIDER_WIDTH = 102.7f, HP_SLIDER_HEIGHT = 17.f;
+constexpr f32_t HP_SLIDER_WIDTH = 54.5f, HP_SLIDER_HEIGHT = 10.f;
+const float2_t HP_OFFSET = { -28.f, 60.f };
 
 // 스테미너 
 const f32_t HUD_RING_STAMINA_BG_OUTER_SIZE = 11.25;
@@ -19,7 +19,7 @@ const float2_t STAMINA_OFFSET = { -30.f,-15.f };
 constexpr float4_t COLOR_HUD_SLOT_BG_LIGHT = { 0.f, 0.f, 0.f, 0.3f };	// 1, 2, V (무기 칸)
 constexpr float4_t COLOR_HUD_SLOT_BG_DARK = { 0.f, 0.f, 0.f, 0.58f };	// 3 ~ 8 (퀵슬롯)
 constexpr float4_t COLOR_HP_BG = { 0.f, 0.f, 0.f, 0.745f };
-constexpr float4_t COLOR_HP_FILL_SIDE = { 0.f, 0.f, 0.f, 1.f };
+constexpr float4_t COLOR_HP_FILL_SIDE = { 0.f, 0.f, 0.f, 8.f };
 constexpr float4_t COLOR_HP_FILL = { 1.f, 0.553f, 0.553f, 1.f };
 constexpr float4_t COLOR_STAMINA_FILL = { 0.678f, 1.0f, 0.427f, 1.0f };
 constexpr float4_t COLOR_STAMINA_FILL_YELLOW = { 1.f, 0.976f, 0.016f, 1.f };
@@ -27,8 +27,15 @@ NS_END
 
 NS_BEGIN(Client)
 
-class CUI_Player : public CGameObject
+class CUI_Player : public CPartObject
 {
+public:
+	typedef struct tagUI_PlayerDesc : public CPartObject::PARTOBJECT_DESC
+	{
+		const float4x4_t* pSocketMatrix = { nullptr };
+		const uint32_t* pParentState = { nullptr };
+	}UIPLAYER_DESC;
+
 private:
 	CUI_Player(ComPtr<ID3D11Device>pDevice, ComPtr<ID3D11DeviceContext>pContext);
 public:
@@ -60,7 +67,6 @@ private:
 	vector<VTXUI_INSTANCE_CIRCLE>	m_Instances_Circle;
 
 	weak_ptr<class CInven>		m_pInven;
-	weak_ptr<class CPlayer>		m_pPlayer;
 
 private:
 	HRESULT					Ready_Components();

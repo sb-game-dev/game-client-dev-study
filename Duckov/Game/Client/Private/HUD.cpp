@@ -249,27 +249,6 @@ void CHUD::Build_Instances()
 		// 배고픔, 목마름 아이콘
 		Push_Circle_Icon(HUD_WATER_CENTER.x, HUD_WATER_CENTER.y, 1, 1.f);
 		Push_Circle_Icon(HUD_ENERGY_CENTER.x, HUD_ENERGY_CENTER.y, 2, 1.f);
-
-		if (pPlayer->Get_Stamina() >= 100.f)
-			return;
-		auto pPlayerPos = pPlayer->Get_Transform()->Get_State(STATE::POSITION);
-		auto matPlayerWorld = pPlayer->Get_Transform()->Get_World();
-		auto matView = CGameInstance::Get().Get_Perspective_Transform(D3DTS::VIEW);
-		auto matOthoPorj = CGameInstance::Get().Get_Ortho_Transform(D3DTS::PROJ);
-		matPlayerWorld *= matView * matOthoPorj;
-
-		f32_t x = XMVectorGetX(matPlayerWorld.r[3]);
-		f32_t y = XMVectorGetY(matPlayerWorld.r[3]);
-		// 스테미너 배경
-		Push_Circle(x + STAMINA_OFFSET.x, y + STAMINA_OFFSET.y, 
-			HUD_RING_STAMINA_BG_OUTER_SIZE, HUD_RING_STAMINA_BG_INNER_SIZE, 
-			COLOR_HUD_SLOT_BG_DARK, 
-			360.f);
-		// 스테미너 게이지
-		Push_Circle(x + STAMINA_OFFSET.x, y + STAMINA_OFFSET.y, 
-			HUD_RING_STAMINA_FILL_OUTER_SIZE, HUD_RING_STAMINA_FILL_INNER_SIZE, 
-			pPlayer->Get_Stamina() > 30.f ? COLOR_STAMINA_FILL : COLOR_STAMINA_FILL_YELLOW,
-			pPlayer->Get_Stamina() / pPlayer->Get_MaxStamina() * 360.f);
 	}
 }
 

@@ -9,6 +9,7 @@
 #include "Headset.h"
 #include "FaceMask.h"
 #include "Client_Mouse.h"
+#include "UI_Player.h"
 
 namespace {
     vector_t	g_vY_Plus = XMVector4Normalize({ 0.f,+1.f,0.f,0.f });
@@ -156,6 +157,12 @@ HRESULT CPlayer::Ready_PartObjects()
     FaceMaskDesc.pSocketMatrix = m_pBodyPlayer->Get_SocketMatrix("Head");
     if (FAILED(__super::Add_PartObject(ETOUI(LEVEL::STATIC), Proto::Obj_FaceMask,
         TEXT("Part_FaceMask"), &FaceMaskDesc)))
+        return E_FAIL;
+
+    CUI_Player::UIPLAYER_DESC    UI_PlayerDesc{};
+    UI_PlayerDesc.pParentTransformCom = m_pTransformCom;
+    if (FAILED(__super::Add_PartObject(ETOUI(LEVEL::STATIC), Proto::Obj_UI_Player,
+        TEXT("Part_UI"), &UI_PlayerDesc)))
         return E_FAIL;
 
     return S_OK;

@@ -14,6 +14,7 @@
 #include "Inven.h"
 #include "HUD.h"
 #include "Bullet.h"
+#include "UI_Player.h"
 
 CMainApp::CMainApp()
 {
@@ -239,7 +240,9 @@ HRESULT CMainApp::Ready_Prototype_For_StaticLV()
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_HUD,
         CHUD::Create(m_pDevice, m_pContext))))
         return E_FAIL;
-
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_UI_Player,
+        CUI_Player::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_Bullet,
         CBullet::Create(m_pDevice, m_pContext))))
         return E_FAIL;
