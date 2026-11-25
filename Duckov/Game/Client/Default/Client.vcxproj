@@ -187,6 +187,7 @@
     <ClInclude Include="..\public\Player_SpotLight.h" />
     <ClInclude Include="..\public\QuarterView_Cam.h" />
     <ClInclude Include="..\public\Tree_Instance.h" />
+    <ClInclude Include="..\Public\UI_Player.h" />
     <ClInclude Include="..\public\Weapon.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="framework.h" />
@@ -230,6 +231,7 @@
     <ClCompile Include="..\private\Level_Logo.cpp" />
     <ClCompile Include="..\Private\MainApp.cpp" />
     <ClCompile Include="..\private\Tree_Instance.cpp" />
+    <ClCompile Include="..\Private\UI_Player.cpp" />
     <ClCompile Include="..\private\Weapon.cpp" />
     <ClCompile Include="Client.cpp" />
   </ItemGroup>

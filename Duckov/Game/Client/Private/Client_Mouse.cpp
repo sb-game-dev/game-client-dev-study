@@ -98,8 +98,6 @@ void CClient_Mouse::Update(f32_t fTimeDelta)
 
     m_vPosVP = { (f32_t)pt.x,(f32_t)pt.y,1.f };
     
-   
-
     vector_t vRayOrigin = {};
     vector_t vRayDir = {};
 
@@ -171,16 +169,13 @@ void CClient_Mouse::Update(f32_t fTimeDelta)
     f32_t z = (vPlayerPos.y - vecOrigin.y) / vecRayDir.y * vecRayDir.z + vecOrigin.z;
     m_pTransformCom->Set_State(STATE::POSITION,{ x, vPlayerPos.y, z, 1.f });
 
-    if (pPlayer->Is_Firing() && pInven->Get_ActiveSlot() != EQUIP_SLOT::MELEE && m_fRange <= 50.f)
-    {
-        m_fRange += 10.f;
-        static_pointer_cast<CQuarterView_Cam>(CGameInstance::Get().Get_MainCamera())->AddShakeTime(fTimeDelta * 2);
-    }
+    if (pPlayer->Is_Firing() && pInven->Get_ActiveSlot() != EQUIP_SLOT::MELEE)
+        static_pointer_cast<CQuarterView_Cam>(CGameInstance::Get().Get_MainCamera())->AddShakeTime(fTimeDelta);
     
-    if (m_fRange > 26.f)
-        m_fRange -= 100 * fTimeDelta;
+    if (m_fAimSpreadRange > 26.f)
+        m_fAimSpreadRange -= 100 * fTimeDelta;
     else
-        m_fRange = 25.f;
+        m_fAimSpreadRange = 25.f;
 }
 
 void CClient_Mouse::Late_Update(f32_t fTimeDelta)
@@ -214,7 +209,7 @@ HRESULT CClient_Mouse::Render()
     else
     {
         m_eMouseState = MOUSESTATE::ARROW;
-        float3_t vOffsetPos[4] = { {0.f,m_fRange,0.f},{-m_fRange,0.f,0.f} ,{0.f,-m_fRange,0.f} ,{m_fRange,0.f,0.f} };
+        float3_t vOffsetPos[4] = { {0.f,m_fAimSpreadRange,0.f},{-m_fAimSpreadRange,0.f,0.f} ,{0.f,-m_fAimSpreadRange,0.f} ,{m_fAimSpreadRange,0.f,0.f} };
         auto pDst = reinterpret_cast<float4x4_t*>(tMapped.pData);
         for (uint32_t i = 0; i < 4; ++i)
         {

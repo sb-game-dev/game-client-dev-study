@@ -3,12 +3,6 @@
 #include "Client_Defines.h"
 #include "PartObject.h"
 
-NS_BEGIN(Engine)
-class CShader;
-class CModel;
-NS_END
-
-
 NS_BEGIN(Client)
 
 class CWeapon final : public CPartObject
@@ -48,7 +42,7 @@ private:
 	shared_ptr<CCube_Collider>				m_pCubeCollider = { nullptr };
 
 	weak_ptr<class CInven>					m_pInven;
-	weak_ptr<class CPlayer>					m_pPlayer;
+	weak_ptr<class CClient_Mouse>			m_pClient_Mouse;
 
 private:
 	const float4x4_t* m_pSocketMatrix = { nullptr };
@@ -76,9 +70,11 @@ private:
 	HRESULT Bind_Shader();
 	HRESULT Bind_ShaderResources(const matrix_t& matWorld);
 	HRESULT Ready_Bullets();
+
 private:
-	void	Update_CanFire(const f32_t& fDeltaTime);
+	void	Update_GunAttack(const f32_t& fDeltaTime);
 	void	Fire(const float3_t vPos, const float3_t& vDir, f32_t fSpeed);
+
 public:
 	static shared_ptr<CWeapon> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
 	virtual shared_ptr<CPrototype> Clone(void* pArg) override;

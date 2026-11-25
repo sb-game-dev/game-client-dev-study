@@ -189,6 +189,7 @@
     <ClCompile Include="..\..\Client\Private\Helmet.cpp" />
     <ClCompile Include="..\..\Client\Private\HUD.cpp" />
     <ClCompile Include="..\..\Client\Private\Tree_Instance.cpp" />
+    <ClCompile Include="..\..\Client\Private\UI_Player.cpp" />
     <ClCompile Include="..\..\Client\Private\Weapon.cpp" />
     <ClCompile Include="..\ImGui\imgui.cpp">
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/utf-8 %(AdditionalOptions)</AdditionalOptions>

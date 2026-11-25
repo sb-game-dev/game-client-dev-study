@@ -33,6 +33,7 @@ public:
 	MOUSESTATE				GetMouseState() { return m_eMouseState; }
 	void					SetMouseState(MOUSESTATE eMouseState) { m_eMouseState = eMouseState; }
 
+	void					Add_AimSpreadRange(f32_t fRange) {if(m_fAimSpreadRange <= 50.f) m_fAimSpreadRange += fRange; }
 private:
 	weak_ptr<class CPlayer>			m_pPlayer;
 	weak_ptr<class CInven>			m_pInven;
@@ -50,7 +51,7 @@ private:
 	ComPtr<ID3D11Buffer>			m_pInstanceVB = { nullptr };
 	vector<float4x4_t>				m_WorldMats;
 	
-	f32_t							m_fRange = { 25.f };
+	f32_t							m_fAimSpreadRange = { 25.f };
 	f32_t							m_fTimer = { 0.f };
 
 	float2_t						m_vRecoilRemain = {};

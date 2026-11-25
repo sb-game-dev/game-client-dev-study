@@ -5,6 +5,7 @@
 #include "Bullet.h"
 #include "Cube.h"
 #include "Body_Player.h"
+#include "Client_Mouse.h"
 
 CWeapon::CWeapon(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     : CPartObject{ pDevice, pContext }
@@ -17,8 +18,6 @@ HRESULT CWeapon::Initialize_Prototype()
         return E_FAIL;
 
     /* 백그라운드 원형객체에 필요한 정보를 다 채워둔다. */
-
-
 
     return S_OK;
 }
@@ -59,10 +58,19 @@ void CWeapon::Priority_Update(f32_t fDeltaTime)
     if (nullptr == pInven)
     {
         pInven = dynamic_pointer_cast<CInven>(CGameInstance::Get().Find_GameObject(
-            ETOUI(LEVEL::STATIC), L"Layer_Static", L"GameObject_Inven"));
+            ETOUI(LEVEL::STATIC), L"Layer_Static", GO::Inven));
         if (nullptr == pInven)
             return;
         m_pInven = pInven;
+    }
+    auto pClient_Mouse = m_pClient_Mouse.lock();
+    if (nullptr == pClient_Mouse)
+    {
+        pClient_Mouse = dynamic_pointer_cast<CClient_Mouse>(CGameInstance::Get().Find_GameObject(
+            ETOUI(LEVEL::STATIC), L"Layer_Static", GO::Client_Mouse));
+        if (nullptr == pClient_Mouse)
+            return;
+        m_pClient_Mouse = pClient_Mouse;
     }
     for (auto& pBullet : m_Bullets)
     {
@@ -99,12 +107,11 @@ void CWeapon::Update(f32_t fDeltaTime)
         matrix_t SocketMatrixOnlyPos = XMMatrixTranslationFromVector(SocketMatrix.r[3]);
         matrix_t Recoil = XMMatrixTranslation(0.f, 0.f, -m_fRecoilOffset);
         ChildMatrix = Recoil * SocketMatrixOnlyPos;
-        
     }
     __super::Update_CombinedWorldMatrix(ChildMatrix);
 
     if(EQUIP_SLOT::MELEE == pInven->Get_ActiveSlot())       Update_MeleeAttack();
-    else                                                    Update_CanFire(fDeltaTime);
+    else                                                    Update_GunAttack(fDeltaTime);
 }
 
 
@@ -284,7 +291,7 @@ HRESULT CWeapon::Ready_Bullets()
     return S_OK;
 }
 
-void CWeapon::Update_CanFire(const f32_t& fDeltaTime)
+void CWeapon::Update_GunAttack(const f32_t& fDeltaTime)
 {
     auto pPlayer = static_pointer_cast<CPlayer>(m_pParent.lock());
     if (nullptr == pPlayer)
@@ -297,8 +304,14 @@ void CWeapon::Update_CanFire(const f32_t& fDeltaTime)
         float3_t vPos = { m_CombinedWorldMatrix._41,m_CombinedWorldMatrix._42,m_CombinedWorldMatrix._43 };
         float3_t vDir = { m_CombinedWorldMatrix._31,m_CombinedWorldMatrix._32,m_CombinedWorldMatrix._33 };
         f32_t fSpeed = { 100.f };
+        // 총알 확산
+        XMStoreFloat3(&vDir,
+            XMVector3TransformNormal(XMLoadFloat3(&vDir), XMMatrixRotationY(XMConvertToRadians(CGameInstance::Get().Random(-5, 5)))));
         Fire(vPos,vDir,fSpeed);   //총알 발사
         m_fFireTimer += m_fFireinterval;
+
+        auto pClient_Mouse = m_pClient_Mouse.lock();
+        pClient_Mouse->Add_AimSpreadRange(10);
     }
 }
 

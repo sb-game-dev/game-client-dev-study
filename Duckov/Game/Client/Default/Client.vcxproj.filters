@@ -124,6 +124,9 @@
     <Filter Include="02. GameObjects\01. Player\01. Weapon\Bullet">
       <UniqueIdentifier>{d7a393c8-f4c6-4401-81ed-de075e6f3b59}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObjects\01. Player\97. Sound">
+      <UniqueIdentifier>{2513f23b-9056-4ecc-bab6-f32d147f1aeb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -243,6 +246,9 @@
     <ClInclude Include="..\public\Bullet.h">
       <Filter>02. GameObjects\01. Player\01. Weapon\Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\UI_Player.h">
+      <Filter>02. GameObjects\01. Player\98. UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -353,6 +359,9 @@
     </ClCompile>
     <ClCompile Include="..\private\Bullet.cpp">
       <Filter>02. GameObjects\01. Player\01. Weapon\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_Player.cpp">
+      <Filter>02. GameObjects\01. Player\98. UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
