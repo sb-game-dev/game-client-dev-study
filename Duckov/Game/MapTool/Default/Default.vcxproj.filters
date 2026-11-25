@@ -286,6 +286,9 @@
     <ClCompile Include="..\..\Client\Private\Level_ZeroZone.cpp">
       <Filter>97. Client_Shared</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Client\Private\UI_StaminaRing.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Default.rc">
