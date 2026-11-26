@@ -27,7 +27,6 @@ private:
 	list<shared_ptr<CGameObject>>		m_RenderGroup[ETOUI(RENDERID::END)];
 
 	ComPtr<ID3D11BlendState>			m_pBS = { nullptr };
-
 	ComPtr<ID3D11BlendState>			m_pBS_NoColorWrite = { nullptr };
 
 	ComPtr<ID3D11DepthStencilState>		m_pDSS_Priority = { nullptr };
@@ -65,6 +64,7 @@ private:
 
 	HRESULT	Ready_BlendState();
 	HRESULT	Ready_BlendState_NoColor();
+
 	HRESULT	Ready_Priority_DSS();
 	HRESULT	Ready_Alpha_DSS();
 	HRESULT	Ready_Mirror_DSS();

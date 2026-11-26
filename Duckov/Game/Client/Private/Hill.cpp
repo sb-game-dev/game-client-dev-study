@@ -10,15 +10,6 @@ HRESULT CHill::Initialize_Prototype()
 {
     if (FAILED(__super::Initialize_Prototype()))
         return E_FAIL;
-
-    D3D11_RASTERIZER_DESC rsDesc{};
-    rsDesc.FillMode = D3D11_FILL_SOLID;         
-    rsDesc.CullMode = D3D11_CULL_BACK;          
-    rsDesc.FrontCounterClockwise = false;       
-    rsDesc.DepthClipEnable = true;
-
-    m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
-
     return S_OK;
 }
 
@@ -53,10 +44,7 @@ void CHill::Late_Update(f32_t fDeltaTime)
 }
 
 HRESULT CHill::Render()
-{
-    // 레스터라이즈 설정
-    m_pContext->RSSetState(m_pRS.Get());
-    
+{    
     if (FAILED(Bind_Shader(m_pVS, m_pPS)))
         return E_FAIL;
 

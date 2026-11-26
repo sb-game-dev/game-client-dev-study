@@ -21,12 +21,6 @@ HRESULT CBullet::Initialize(void* pArg)
     if (FAILED(__super::Initialize(pArg)))
         return E_FAIL;
 
-    D3D11_RASTERIZER_DESC rsDesc{};
-    rsDesc.FillMode = D3D11_FILL_SOLID;
-    rsDesc.CullMode = D3D11_CULL_NONE;  
-    rsDesc.DepthClipEnable = TRUE;
-    m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
-
     if (FAILED(Ready_Components()))
         return E_FAIL;
 
@@ -68,17 +62,20 @@ HRESULT CBullet::Render()
     if (FAILED(__super::Render()))
         return E_FAIL;
 
+    if (FAILED(CGameInstance::Get().Bind_RasterizerState(g_strRS_Cull_None)))
+        return E_FAIL;
+
     if (FAILED(Bind_Shader()))
         return E_FAIL;
     if (FAILED(Bind_ShaderResources()))
         return E_FAIL;
 
-    m_pContext->RSSetState(m_pRS.Get());
-
     if (FAILED(m_pBufferCom->Bind_Resources()))
         return E_FAIL;
-
     if (FAILED(m_pBufferCom->Render()))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Bind_RasterizerState(g_strRS_Default)))
         return E_FAIL;
     return S_OK;
 }

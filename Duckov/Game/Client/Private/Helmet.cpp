@@ -42,9 +42,9 @@ HRESULT CHelmet::Initialize(void* pArg)
     return S_OK;
 }
 
-void CHelmet::Priority_Update(f32_t fTimeDelta)
+void CHelmet::Priority_Update(f32_t fDeltaTime)
 {
-    __super::Priority_Update(fTimeDelta);
+    __super::Priority_Update(fDeltaTime);
     auto pInven = m_pInven.lock();
     if (nullptr == pInven)
     {
@@ -57,9 +57,9 @@ void CHelmet::Priority_Update(f32_t fTimeDelta)
 
 }
 
-void CHelmet::Update(f32_t fTimeDelta)
+void CHelmet::Update(f32_t fDeltaTime)
 {
-    __super::Update(fTimeDelta);
+    __super::Update(fDeltaTime);
 
     auto pInven = m_pInven.lock();
     if (nullptr == pInven || nullptr == pInven->GetEquipSlot(EQUIP_SLOT::HEAD))
@@ -74,9 +74,9 @@ void CHelmet::Update(f32_t fTimeDelta)
 }
 
 
-void CHelmet::Late_Update(f32_t fTimeDelta)
+void CHelmet::Late_Update(f32_t fDeltaTime)
 {
-    __super::Late_Update(fTimeDelta);
+    __super::Late_Update(fDeltaTime);
 
     auto pInven = m_pInven.lock();
     if (nullptr == pInven || nullptr == pInven->GetEquipSlot(EQUIP_SLOT::HEAD))

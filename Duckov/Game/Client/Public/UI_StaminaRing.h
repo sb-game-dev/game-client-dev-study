@@ -31,7 +31,7 @@ public:
 	{
 		const float4x4_t* pSocketMatrix = { nullptr };
 		const uint32_t* pParentState = { nullptr };
-	}UIPLAYER_DESC;
+	}UISTAMINARING_DESC;
 
 private:
 	CUI_StaminaRing(ComPtr<ID3D11Device>pDevice, ComPtr<ID3D11DeviceContext>pContext);
@@ -41,9 +41,9 @@ public:
 public:
 	virtual		HRESULT		Initialize_Prototype() override;
 	virtual		HRESULT		Initialize(void* pArg) override;
-	virtual		void		Priority_Update(f32_t fTimeDelta)override;
-	virtual		void		Update(f32_t fTimeDelta)override;
-	virtual		void		Late_Update(f32_t fTimeDelta)override;
+	virtual		void		Priority_Update(f32_t fDeltaTime)override;
+	virtual		void		Update(f32_t fDeltaTime)override;
+	virtual		void		Late_Update(f32_t fDeltaTime)override;
 	virtual		HRESULT		Render() override;
 
 

@@ -49,7 +49,6 @@ private:
 	shared_ptr<CPixelShader>		m_pPSCom = { nullptr };
 	shared_ptr<CPixelShader>		m_pPS_Shadow = { nullptr };
 	shared_ptr<CPixelShader>		m_pPS_Occluded = { nullptr };
-	ComPtr<ID3D11RasterizerState>	m_pRS_Reflect = { nullptr };
 
 
 private:
@@ -62,7 +61,7 @@ private:
 	HRESULT Bind_Shader(shared_ptr<CVertexShader> pVS = nullptr, shared_ptr<CPixelShader> pPS = nullptr);
 	HRESULT Bind_ShaderResources(const matrix_t& matWorld);
 	
-	HRESULT	Render_Mesh(const matrix_t& matWorld, ID3D11RasterizerState* pRS, shared_ptr<CPixelShader> pPS);
+	HRESULT	Render_Mesh(const matrix_t& matWorld, shared_ptr<CPixelShader> pPS);
 
 public:
 	static shared_ptr<CBody_Player> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);

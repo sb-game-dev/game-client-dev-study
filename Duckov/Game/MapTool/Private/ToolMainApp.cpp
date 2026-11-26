@@ -141,7 +141,7 @@ HRESULT CToolMainApp::Ready_Prototype_For_StaticLV()
         CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_SHADOW"))))
         return E_FAIL;
 
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::PS_VTXTEX_SKYBOX,
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::PS_CUBE,
         CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_MAIN_SKY"))))
         return E_FAIL;
 

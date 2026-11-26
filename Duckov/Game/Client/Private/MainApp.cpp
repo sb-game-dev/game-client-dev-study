@@ -14,8 +14,8 @@
 #include "Inven.h"
 #include "HUD.h"
 #include "Bullet.h"
-#include "UI_Player.h"
-#include "UI_Monster.h"
+#include "UI_StaminaRing.h"
+#include "UI_HpBar.h"
 
 CMainApp::CMainApp()
 {
@@ -160,10 +160,6 @@ HRESULT CMainApp::Ready_Prototype_For_StaticLV()
         CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_SHADOW"))))
         return E_FAIL;
 
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::PS_VTXTEX_SKYBOX,
-        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_MAIN_SKY"))))
-        return E_FAIL;
-
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::PS_VTXTEX_NOLIGHT,
         CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_MAIN_NOLIGHT"))))
         return E_FAIL;
@@ -204,6 +200,23 @@ HRESULT CMainApp::Ready_Prototype_For_StaticLV()
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::PS_TRAIL,
         CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Trail_PixelShader.hlsl", "PS_MAIN"))))
         return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::VS_CUBE,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Cube_VertexShader.hlsl", VTXCUBE::Elements, VTXCUBE::iNumElements, "VS_MAIN"))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::PS_CUBE,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Cube_PixelShader.hlsl", "PS_MAIN"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::VS_CUBE_SKY,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Cube_VertexShader.hlsl", VTXCUBE::Elements, VTXCUBE::iNumElements, "VS_MAIN_SKY"))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::PS_CUBE_SKY,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Cube_PixelShader.hlsl", "PS_MAIN_SKY"))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::PS_CUBE_SHADOW,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Cube_PixelShader.hlsl", "PS_SHADOW"))))
+        return E_FAIL;
     //================== °´Ã¼ ¿øÇü ==================
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_Player,
         CPlayer::Create(m_pDevice, m_pContext))))
@@ -241,12 +254,15 @@ HRESULT CMainApp::Ready_Prototype_For_StaticLV()
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_HUD,
         CHUD::Create(m_pDevice, m_pContext))))
         return E_FAIL;
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_UI_Player,
-        CUI_Player::Create(m_pDevice, m_pContext))))
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_UI_HpBar,
+        CUI_HpBar::Create(m_pDevice, m_pContext))))
         return E_FAIL;
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_UI_Monster,
-        CUI_Monster::Create(m_pDevice, m_pContext))))
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_UI_StaminaRing,
+        CUI_StaminaRing::Create(m_pDevice, m_pContext))))
         return E_FAIL;
+    
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_Bullet,
         CBullet::Create(m_pDevice, m_pContext))))
         return E_FAIL;
@@ -347,10 +363,6 @@ HRESULT CMainApp::Ready_Prototype_For_StaticLV()
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::VIBuffer_Cube,
         CVIBuffer_Cube::Create(m_pDevice, m_pContext))))
-        return E_FAIL;
-
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::VIBuffer_SkyBox,
-        CVIBuffer_SkyBox::Create(m_pDevice, m_pContext))))
         return E_FAIL;
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::VIBuffer_Rect,

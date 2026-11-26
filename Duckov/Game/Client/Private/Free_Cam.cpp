@@ -23,7 +23,7 @@ HRESULT CFree_Cam::Initialize(void* pArg)
 	return S_OK;
 }
 
-void CFree_Cam::Priority_Update(f32_t fTimeDelta)
+void CFree_Cam::Priority_Update(f32_t fDeltaTime)
 {
 }
 

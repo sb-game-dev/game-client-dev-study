@@ -10,7 +10,7 @@ public:
 	~CTimer();
 
 public:
-	f32_t				Get_TimeDelta() const { return m_fTimeDelta; }
+	f32_t				Get_TimeDelta() const { return m_fDeltaTime; }
 
 public:
 	HRESULT				Ready_Timer();
@@ -23,7 +23,7 @@ private:
 
 	LARGE_INTEGER		m_CpuTick;
 
-	f32_t				m_fTimeDelta;
+	f32_t				m_fDeltaTime;
 
 public:
 	static shared_ptr<CTimer> Create();

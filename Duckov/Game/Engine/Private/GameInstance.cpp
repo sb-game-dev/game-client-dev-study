@@ -55,7 +55,10 @@ HRESULT CGameInstance::Initialize_Engine(const ENGINE_DESC& EngineDesc, _Out_ Co
 	if (nullptr == m_pCollision_Manager)
 		return E_FAIL;
 
-
+	m_pRenderState_Manager = CRenderState_Manager::Create(pDevice, pContext);
+	if (nullptr == m_pRenderState_Manager)
+		return E_FAIL;
+	
 	m_vViewportSize = m_pGraphic_Device->Compute_ViewportSize();
 	return S_OK;
 }
@@ -375,10 +378,38 @@ void CGameInstance::Collision(shared_ptr<class CCollider> pDstCollider, shared_p
 }
 #pragma endregion
 
+#pragma region RENDERSTATE_MANAGER
+HRESULT CGameInstance::Add_RasterizerState(const wstring_t& strRSTag, const D3D11_RASTERIZER_DESC& RSDesc)
+{
+	return m_pRenderState_Manager->Add_RasterizerState(strRSTag,RSDesc);
+}
+HRESULT CGameInstance::Bind_RasterizerState(const wstring_t& strRSTag)
+{
+	return m_pRenderState_Manager->Bind_RasterizerState(strRSTag);
+}
+HRESULT CGameInstance::Add_DepthStencilState(const wstring_t& strDSSTag, const D3D11_DEPTH_STENCIL_DESC& DSSDesc)
+{
+	return m_pRenderState_Manager->Add_DepthStencilState(strDSSTag, DSSDesc);
+}
+HRESULT CGameInstance::Bind_DepthStencilState(const wstring_t& strDSSTag, uint32_t StencilRef)
+{
+	return m_pRenderState_Manager->Bind_DepthStencilState(strDSSTag, StencilRef);
+}
+HRESULT CGameInstance::Add_BlendState(const wstring_t& strBlendTag, const D3D11_BLEND_DESC& BlendDesc)
+{
+	return m_pRenderState_Manager->Add_BlendState(strBlendTag, BlendDesc);
+}
+HRESULT CGameInstance::Bind_BlendState(const wstring_t& strBlendTag, f32_t* pBlendFactor, uint32_t SampleMask)
+{
+	return m_pRenderState_Manager->Bind_BlendState(strBlendTag, pBlendFactor, SampleMask);
+}
+#pragma endregion
+
 
 
 void CGameInstance::Release_Engine()
 {
+	m_pRenderState_Manager.reset();
 	m_pCollision_Manager.reset();
 	m_pSampler_Manager.reset();
 	m_pPipeLine.reset();

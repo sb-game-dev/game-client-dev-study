@@ -50,17 +50,6 @@ HRESULT CUI_StaminaRing::Initialize_Prototype()
 	m_iIndexCnt = size(indices);
 	if (FAILED(m_pDevice->CreateBuffer(&IBDesc, &IBData, &m_pIB)))
 		return E_FAIL;
-
-	// 래스터라이저 설정
-	D3D11_RASTERIZER_DESC rsDesc{};
-	rsDesc.FillMode = D3D11_FILL_SOLID;         // D3D11_FILL_WIREFRAME , D3D11_FILL_SOLID
-	rsDesc.CullMode = D3D11_CULL_BACK;          // D3D11_CULL_BACK , D3D11_CULL_FRONT
-	rsDesc.FrontCounterClockwise = false;       // 시계방향이 전면
-	rsDesc.DepthClipEnable = true;
-
-	m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
-
-
 	return S_OK;
 }
 
@@ -76,14 +65,14 @@ HRESULT CUI_StaminaRing::Initialize(void* pArg)
 	return S_OK;
 }
 
-void CUI_StaminaRing::Priority_Update(f32_t fTimeDelta)
+void CUI_StaminaRing::Priority_Update(f32_t fDeltaTime)
 {
-	__super::Priority_Update(fTimeDelta);
+	__super::Priority_Update(fDeltaTime);
 }
 
-void CUI_StaminaRing::Update(f32_t fTimeDelta)
+void CUI_StaminaRing::Update(f32_t fDeltaTime)
 {
-	__super::Update(fTimeDelta);
+	__super::Update(fDeltaTime);
 
 	auto pInven = m_pInven.lock();
 	if (nullptr == pInven)
@@ -95,9 +84,9 @@ void CUI_StaminaRing::Update(f32_t fTimeDelta)
 	}
 }
 
-void CUI_StaminaRing::Late_Update(f32_t fTimeDelta)
+void CUI_StaminaRing::Late_Update(f32_t fDeltaTime)
 {
-	__super::Late_Update(fTimeDelta);
+	__super::Late_Update(fDeltaTime);
 	auto pInven = m_pInven.lock();
 	if (nullptr == pInven)
 		return;
@@ -153,10 +142,10 @@ void CUI_StaminaRing::Build_Instances()
 		auto matPlayerWorld = m_pParentTransformCom->Get_World(); 
 		
 		matrix_t matVP = CGameInstance::Get().Get_Perspective_Transform(D3DTS::VIEW) * CGameInstance::Get().Get_Perspective_Transform(D3DTS::PROJ);
-		vector_t vNDC = XMVector3TransformCoord(vHead, matVP);
+		vector_t vScreenPos = XMVector3TransformCoord(vHead, matVP);
 
-		f32_t x = XMVectorGetX(vNDC) * g_iWinSizeX * 0.5f;
-		f32_t y = XMVectorGetY(vNDC) * g_iWinSizeY * 0.5f;
+		f32_t x = XMVectorGetX(vScreenPos) * g_iWinSizeX * 0.5f;
+		f32_t y = XMVectorGetY(vScreenPos) * g_iWinSizeY * 0.5f;
 
 		// ---------- 스테미너 ----------
 		if (pPlayer->Get_Stamina() >= 100.f)
@@ -172,7 +161,6 @@ void CUI_StaminaRing::Build_Instances()
 			HUD_RING_STAMINA_FILL_OUTER_SIZE, HUD_RING_STAMINA_FILL_INNER_SIZE, 
 			pPlayer->Get_Stamina() > 30.f ? COLOR_STAMINA_FILL : COLOR_STAMINA_FILL_YELLOW,
 			pPlayer->Get_Stamina() / pPlayer->Get_MaxStamina() * 360.f);
-
 	}
 }
 

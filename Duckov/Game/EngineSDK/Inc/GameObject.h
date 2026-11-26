@@ -47,6 +47,8 @@ public:
 	virtual matrix_t		Get_ColliderMatrix() { return m_pTransformCom->Get_World(); }
 
 	virtual void			Take_Damage(const DAMAGE_DESC& Desc) {}
+	f32_t	Get_HP()		const { return m_fHP; }
+	f32_t	Get_MaxHP()		const { return m_fMaxHP; }
 
 	template<typename T>
 	HRESULT Get_Component(shared_ptr<T>& pOutComponent)
@@ -82,11 +84,8 @@ public:
 	virtual	void			CollisionStay(shared_ptr<class CCollider> pOtherCollider) {};
 
 protected:
-	shared_ptr<CConstantBuffer>			m_pCB = { nullptr };			
-	CB_PER_OBJECT						m_tCBData = {};					
-
-	ComPtr<ID3D11RasterizerState>		m_pRS = { nullptr };			
-
+	shared_ptr<CConstantBuffer>			m_pCB = { nullptr };
+	CB_PER_OBJECT						m_tCBData = {};
 	shared_ptr<CTransform>				m_pTransformCom = { nullptr };
 
 	map<const wstring_t, shared_ptr<CComponent>>		m_Components;
@@ -95,6 +94,9 @@ protected:
 
 	bool_t				m_bActive = { true };
 	bool_t				m_bDead = { false };
+
+	f32_t				m_fHP = { 100.f };
+	f32_t				m_fMaxHP = { 100.f };
 
 protected:
 	virtual		bool_t		Is_InFrustum();

@@ -2,7 +2,7 @@
 #include "Hill.h"
 #include "Collider.h"
 #include "Bullet.h"
-#include "UI_Monster.h"
+#include "UI_HpBar.h"
 #include "Weapon.h"
 
 CCube::CCube(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
@@ -14,16 +14,6 @@ HRESULT CCube::Initialize_Prototype()
 {
     if (FAILED(__super::Initialize_Prototype()))
         return E_FAIL;
-
-    // 래스터라이저 설정
-    D3D11_RASTERIZER_DESC rsDesc{};
-    rsDesc.FillMode = D3D11_FILL_SOLID;         // D3D11_FILL_WIREFRAME , D3D11_FILL_SOLID
-    rsDesc.CullMode = D3D11_CULL_NONE;          // D3D11_CULL_BACK , D3D11_CULL_FRONT,D3D11_CULL_NONE
-    rsDesc.FrontCounterClockwise = false;       // 시계방향이 전면
-    rsDesc.DepthClipEnable = true;
-
-    m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
-
 	return S_OK;
 }
 
@@ -82,12 +72,18 @@ void CCube::Late_Update(f32_t fDeltaTime)
 
 HRESULT CCube::Render()
 {    
-    return Render_Mesh(m_pTransformCom->Get_World(), m_pRS.Get(), m_pPS);
+    if (FAILED(CGameInstance::Get().Bind_RasterizerState(g_strRS_Cull_None)))
+        return E_FAIL;
+    if (FAILED(Render_Mesh(m_pTransformCom->Get_World(), m_pPS)))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Bind_RasterizerState(g_strRS_Default)))
+        return E_FAIL;
+    return S_OK;
 }
 
 HRESULT CCube::Render_Shadow()
 {
-    return Render_Mesh(Get_ShadowWorld(), m_pRS.Get(), m_pPS_Shadow);
+    return Render_Mesh(Get_ShadowWorld(), m_pPS_Shadow);
 }
 
 void CCube::TriggerEnter(shared_ptr<class CCollider> pOtherCollider)
@@ -100,7 +96,8 @@ void CCube::TriggerEnter(shared_ptr<class CCollider> pOtherCollider)
 
 void CCube::Take_Damage(const DAMAGE_DESC& Desc)
 {
-    m_fCurrentHp -= Desc.fDamage;
+    m_fHP -= Desc.fDamage;
+    m_pHpBar->Initialize_HitAnimation();
     switch (Desc.iDamageType)
     {
     case ETOUI(DAMAGE_TYPE::BULLET):
@@ -113,7 +110,7 @@ void CCube::Take_Damage(const DAMAGE_DESC& Desc)
 
         break;
     }
-    if (m_fCurrentHp <= 0.f)
+    if (m_fHP <= 0.f)
     {
         // 죽었을 때 나는 소리 + 이펙트
         Set_Dead(); // 추후 시체로 모델 변경 + 파밍 가능하도록
@@ -131,7 +128,7 @@ HRESULT CCube::Ready_Components()
         TEXT("Com_Buffer"), m_pBufferCom)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::VS_VTXTEX,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::VS_CUBE,
         TEXT("Com_VS"), m_pVS)))
         return E_FAIL;
     if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::Cube_Collider, TEXT("Com_Cube_Collider"), m_pCube_Collider)))
@@ -139,34 +136,27 @@ HRESULT CCube::Ready_Components()
 
     m_pCube_Collider->Set_Extents(m_pTransformCom->Get_Scaled());
 
-    if (!m_bEditorMode)
-    {
-        if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::PS_VTXTEX,
-            TEXT("Com_PS"), m_pPS)))
-            return E_FAIL;
-    }
-    else
-    {
-        if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::PS_VTXTEX_NOLIGHT,
-            TEXT("Com_PS"), m_pPS)))
-            return E_FAIL;
-    }
 
-    if(!m_bEditorMode)
-        if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::PS_VTXTEX_SHADOW,
-            TEXT("Com_PS_SHADOW"), m_pPS_Shadow)))
-            return E_FAIL;
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::PS_CUBE,
+        TEXT("Com_PS"), m_pPS)))
+        return E_FAIL;
+
+
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::PS_CUBE_SHADOW,
+        TEXT("Com_PS_SHADOW"), m_pPS_Shadow)))
+        return E_FAIL;
 
     return S_OK;
 }
 
 HRESULT CCube::Ready_PartObjects()
 {
-    CUI_Monster::UIMONSTER_DESC    UI_MonsterDesc{};
-    UI_MonsterDesc.pParentTransformCom = m_pTransformCom;
-    if (FAILED(__super::Add_PartObject(ETOUI(LEVEL::STATIC), Proto::Obj_UI_Monster,
-        TEXT("Part_UI"), &UI_MonsterDesc)))
+    CUI_HpBar::UIHPBAR_DESC    UI_HpBarDesc{};
+    UI_HpBarDesc.pParentTransformCom = m_pTransformCom;
+    if (FAILED(__super::Add_PartObject(ETOUI(LEVEL::STATIC), Proto::Obj_UI_HpBar,
+        TEXT("Part_HpBar"), &UI_HpBarDesc)))
         return E_FAIL;
+    m_pHpBar = static_pointer_cast<CUI_HpBar>(Find_PartObect(TEXT("Part_HpBar")));
     return S_OK;
 }
 
@@ -217,12 +207,10 @@ HRESULT CCube::Bind_ShaderResources(const matrix_t& matWorld)
     return S_OK;
 }
 
-HRESULT CCube::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS, shared_ptr<CPixelShader> pPS)
+HRESULT CCube::Render_Mesh(const XMMATRIX& matWorld, shared_ptr<CPixelShader> pPS)
 {
     if (FAILED(__super::Render()))
         return E_FAIL;
-
-    m_pContext->RSSetState(pRS);
 
     if (FAILED(Bind_ShaderResources(matWorld)))
         return E_FAIL;

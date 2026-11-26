@@ -59,16 +59,6 @@ HRESULT CClient_Mouse::Initialize_Prototype()
     m_pCB = CConstantBuffer::Create(m_pDevice, m_pContext, &m_tCBData, sizeof(m_tCBData));
     if (nullptr == m_pCB)
         return E_FAIL;
-
-    // 래스터라이저 설정
-    D3D11_RASTERIZER_DESC rsDesc{};
-    rsDesc.FillMode = D3D11_FILL_SOLID;         // D3D11_FILL_WIREFRAME , D3D11_FILL_SOLID
-    rsDesc.CullMode = D3D11_CULL_BACK;          // D3D11_CULL_BACK , D3D11_CULL_FRONT
-    rsDesc.FrontCounterClockwise = false;       // 시계방향이 전면
-    rsDesc.DepthClipEnable = true;
-
-    m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
-
     return S_OK;
 }
 
@@ -86,14 +76,14 @@ HRESULT CClient_Mouse::Initialize(void* pArg)
     return S_OK;
 }
 
-void CClient_Mouse::Priority_Update(f32_t fTimeDelta)
+void CClient_Mouse::Priority_Update(f32_t fDeltaTime)
 {
-    __super::Priority_Update(fTimeDelta);
+    __super::Priority_Update(fDeltaTime);
 }
 
-void CClient_Mouse::Update(f32_t fTimeDelta)
+void CClient_Mouse::Update(f32_t fDeltaTime)
 {
-    __super::Update(fTimeDelta);
+    __super::Update(fDeltaTime);
     POINT		pt = CGameInstance::Get().Get_MousePos();
 
     m_vPosVP = { (f32_t)pt.x,(f32_t)pt.y,1.f };
@@ -134,8 +124,8 @@ void CClient_Mouse::Update(f32_t fTimeDelta)
         if (fLen > 1.f)   // 중앙 근처에서는 방향이 없으니 건너뜀
         {
             const f32_t fRecoilSpeed = 80.f;   // 초당 밀려나는 픽셀
-            m_vRecoilRemain.x += fDirX / fLen * fRecoilSpeed * fTimeDelta;
-            m_vRecoilRemain.y += fDirY / fLen * fRecoilSpeed * fTimeDelta;
+            m_vRecoilRemain.x += fDirX / fLen * fRecoilSpeed * fDeltaTime;
+            m_vRecoilRemain.y += fDirY / fLen * fRecoilSpeed * fDeltaTime;
 
             // 정수 부분만 꺼내서 쓰고, 소수점은 남겨 둠
             long iMoveX = (long)m_vRecoilRemain.x;
@@ -170,17 +160,17 @@ void CClient_Mouse::Update(f32_t fTimeDelta)
     m_pTransformCom->Set_State(STATE::POSITION,{ x, vPlayerPos.y, z, 1.f });
 
     if (pPlayer->Is_Firing() && pInven->Get_ActiveSlot() != EQUIP_SLOT::MELEE)
-        static_pointer_cast<CQuarterView_Cam>(CGameInstance::Get().Get_MainCamera())->AddShakeTime(fTimeDelta);
+        static_pointer_cast<CQuarterView_Cam>(CGameInstance::Get().Get_MainCamera())->AddShakeTime(fDeltaTime);
     
     if (m_fAimSpreadRange > 26.f)
-        m_fAimSpreadRange -= 100 * fTimeDelta;
+        m_fAimSpreadRange -= 100 * fDeltaTime;
     else
         m_fAimSpreadRange = 25.f;
 }
 
-void CClient_Mouse::Late_Update(f32_t fTimeDelta)
+void CClient_Mouse::Late_Update(f32_t fDeltaTime)
 {
-    __super::Late_Update(fTimeDelta);
+    __super::Late_Update(fDeltaTime);
     CGameInstance::Get().Add_RenderGroup(RENDERID::NONALPHA_UI, dynamic_pointer_cast<CGameObject>(shared_from_this()));
 }
 
@@ -287,10 +277,6 @@ HRESULT CClient_Mouse::Render_Mesh(ID3D11Buffer* pInstanceVB, shared_ptr<CPixelS
 
     if (FAILED(m_pTextureCom->Set_TexturePS(ETOUI(m_eMouseState), 0)))
         return E_FAIL;
-
-    // RS(레스터라이저 설정)
-    m_pContext->RSSetState(m_pRS.Get());
-
     m_pContext->DrawIndexedInstanced(m_iIndexCnt,       // IndexCnt: 인덱스 버퍼의 크기
         iInstanceCnt,    // 인스턴스 개수(월드 행렬의 개수) 
         0, 0, 0);

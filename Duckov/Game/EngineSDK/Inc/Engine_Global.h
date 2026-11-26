@@ -5,6 +5,26 @@ namespace Engine
 {
 	static const wstring		g_strTransformComTag = { TEXT("Com_Transform") };
 
+	static const wstring		g_strRS_Default = { TEXT("RS_Default") };
+	static const D3D11_RASTERIZER_DESC g_RS_DefaultDesc = {
+		.FillMode = D3D11_FILL_SOLID,
+		.CullMode = D3D11_CULL_BACK,
+		.FrontCounterClockwise = false
+	};
+
+	static const wstring		g_strRS_Cull_None = { TEXT("RS_Cull_None") };
+	static const D3D11_RASTERIZER_DESC g_RS_Cull_None = {
+		.FillMode = D3D11_FILL_SOLID,
+		.CullMode = D3D11_CULL_NONE,
+		.FrontCounterClockwise = false
+	};
+	static const wstring		g_strRS_Cull_Front = { TEXT("RS_Cull_Front") };
+	static const D3D11_RASTERIZER_DESC g_RS_Cull_Front = {
+		.FillMode = D3D11_FILL_SOLID,
+		.CullMode = D3D11_CULL_FRONT,
+		.FrontCounterClockwise = false
+	};
+
 	static const wstring		g_strSampler_Point = { TEXT("Sampler_Point") };
 	static const D3D11_SAMPLER_DESC g_Sampler_Point_Desc = {
 		.Filter = D3D11_FILTER_MIN_MAG_MIP_POINT,

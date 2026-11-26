@@ -13,29 +13,29 @@ HRESULT CLayer::Add_GameObject(const wstring_t& strGameObjectTag, shared_ptr<cla
     return S_OK;
 }
 
-void CLayer::Priority_Update(f32_t fTimeDelta)
+void CLayer::Priority_Update(f32_t fDeltaTime)
 {
     for (auto& Pair : m_GameObjects)
     {
         if (nullptr != Pair.second && !Pair.second->Is_Dead() && Pair.second->Is_Active())
-            Pair.second->Priority_Update(fTimeDelta);
+            Pair.second->Priority_Update(fDeltaTime);
     }
 }
-void CLayer::Update(f32_t fTimeDelta)
+void CLayer::Update(f32_t fDeltaTime)
 {
     for (auto& Pair : m_GameObjects)
     {
         if (nullptr != Pair.second && !Pair.second->Is_Dead() && Pair.second->Is_Active())
-            Pair.second->Update(fTimeDelta);
+            Pair.second->Update(fDeltaTime);
     }
 }
-void CLayer::Late_Update(f32_t fTimeDelta)
+void CLayer::Late_Update(f32_t fDeltaTime)
 {
     for (auto& Pair : m_GameObjects)
     {
         if (nullptr != Pair.second && !Pair.second->Is_Dead() && Pair.second->Is_Active())
         {
-            Pair.second->Late_Update(fTimeDelta);
+            Pair.second->Late_Update(fDeltaTime);
         }
     }
 }

@@ -6,7 +6,7 @@
 
 const f32_t g_fMaxFov = 20.f;   
 const f32_t g_fMinFov = 17.f;   
-const f32_t g_fMinCamY = 15.f;
+const f32_t g_fMinCamY = 5.f;
 const f32_t g_fMaxCamY = 50.f;
 const f32_t g_fWheelSpeed = 0.02f;
 const f32_t g_fCamYLerpSpeed = 4.f;
@@ -44,7 +44,7 @@ HRESULT CQuarterView_Cam::Initialize(void* pArg)
 	return S_OK;
 }
 
-void CQuarterView_Cam::Priority_Update(f32_t fTimeDelta)
+void CQuarterView_Cam::Priority_Update(f32_t fDeltaTime)
 {
 }
 

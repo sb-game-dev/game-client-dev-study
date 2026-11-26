@@ -24,9 +24,9 @@ public:
 public:
 	virtual		HRESULT		Initialize_Prototype() override;
 	virtual		HRESULT		Initialize(void* pArg) override;
-	virtual		void		Priority_Update(f32_t fTimeDelta)override;
-	virtual		void		Update(f32_t fTimeDelta)override;
-	virtual		void		Late_Update(f32_t fTimeDelta)override;
+	virtual		void		Priority_Update(f32_t fDeltaTime)override;
+	virtual		void		Update(f32_t fDeltaTime)override;
+	virtual		void		Late_Update(f32_t fDeltaTime)override;
 	virtual		HRESULT		Render() override;
 	virtual		HRESULT		Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS) { return S_OK; }
 

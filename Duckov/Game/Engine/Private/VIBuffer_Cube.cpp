@@ -10,7 +10,7 @@ HRESULT CVIBuffer_Cube::Initialize_Prototype()
 #pragma region DATA
     m_iNumVertexBuffers = 1;
     m_iNumVertices = 24;
-    m_iVertexStride = sizeof(VTXNORM);
+    m_iVertexStride = sizeof(VTXCUBE);
 
     m_iNumIndices = 36;
     m_iIndexStride = 2;
@@ -28,38 +28,38 @@ HRESULT CVIBuffer_Cube::Initialize_Prototype()
     VertexBufferDesc.MiscFlags = 0;
     VertexBufferDesc.StructureByteStride = m_iVertexStride;
 
-    shared_ptr<VTXNORM[]> pVertices = make_shared<VTXNORM[]>(m_iNumVertices);
+    shared_ptr<VTXCUBE[]> pVertices = make_shared<VTXCUBE[]>(m_iNumVertices);
 
     // z-
-     pVertices[0] = { float3_t(-0.5f, -0.5f, -0.5f), float3_t(0.f, 0.f, -1.f), float2_t(0.f, 1.f) };
-     pVertices[1] = { float3_t(-0.5f, +0.5f, -0.5f), float3_t(0.f, 0.f, -1.f), float2_t(0.f, 0.f) };
-     pVertices[2] = { float3_t(+0.5f, +0.5f, -0.5f), float3_t(0.f, 0.f, -1.f), float2_t(1.f, 0.f) };
-     pVertices[3] = { float3_t(+0.5f, -0.5f, -0.5f), float3_t(0.f, 0.f, -1.f), float2_t(1.f, 1.f) };
+     pVertices[0] = { float3_t(-0.5f, -0.5f, -0.5f), float3_t(0.f, 0.f, -1.f), float3_t(-0.5f, -0.5f, -0.5f) };
+     pVertices[1] = { float3_t(-0.5f, +0.5f, -0.5f), float3_t(0.f, 0.f, -1.f), float3_t(-0.5f, +0.5f, -0.5f) };
+     pVertices[2] = { float3_t(+0.5f, +0.5f, -0.5f), float3_t(0.f, 0.f, -1.f), float3_t(+0.5f, +0.5f, -0.5f) };
+     pVertices[3] = { float3_t(+0.5f, -0.5f, -0.5f), float3_t(0.f, 0.f, -1.f), float3_t(+0.5f, -0.5f, -0.5f) };
     // x+
-     pVertices[4] = { float3_t(+0.5f, -0.5f, -0.5f), float3_t(+1.f, 0.f, 0.f), float2_t(0.f, 1.f) };
-     pVertices[5] = { float3_t(+0.5f, +0.5f, -0.5f), float3_t(+1.f, 0.f, 0.f), float2_t(0.f, 0.f) };
-     pVertices[6] = { float3_t(+0.5f, +0.5f, +0.5f), float3_t(+1.f, 0.f, 0.f), float2_t(1.f, 0.f) };
-     pVertices[7] = { float3_t(+0.5f, -0.5f, +0.5f), float3_t(+1.f, 0.f, 0.f), float2_t(1.f, 1.f) };
+     pVertices[4] = { float3_t(+0.5f, -0.5f, -0.5f), float3_t(+1.f, 0.f, 0.f), float3_t(+0.5f, -0.5f, -0.5f) };
+     pVertices[5] = { float3_t(+0.5f, +0.5f, -0.5f), float3_t(+1.f, 0.f, 0.f), float3_t(+0.5f, +0.5f, -0.5f) };
+     pVertices[6] = { float3_t(+0.5f, +0.5f, +0.5f), float3_t(+1.f, 0.f, 0.f), float3_t(+0.5f, +0.5f, +0.5f) };
+     pVertices[7] = { float3_t(+0.5f, -0.5f, +0.5f), float3_t(+1.f, 0.f, 0.f), float3_t(+0.5f, -0.5f, +0.5f) };
     // z+
-     pVertices[8] = { float3_t(+0.5f, -0.5f, +0.5f), float3_t(0.f, 0.f, +1.f), float2_t(0.f, 1.f) };
-     pVertices[9] = { float3_t(+0.5f, +0.5f, +0.5f), float3_t(0.f, 0.f, +1.f), float2_t(0.f, 0.f) };
-     pVertices[10] = { float3_t(-0.5f, +0.5f, +0.5f), float3_t(0.f, 0.f, +1.f), float2_t(1.f, 0.f) };
-     pVertices[11]= { float3_t(-0.5f, -0.5f, +0.5f), float3_t(0.f, 0.f, +1.f), float2_t(1.f, 1.f) };
+     pVertices[8]  = { float3_t(+0.5f, -0.5f, +0.5f), float3_t(0.f, 0.f, +1.f), float3_t(+0.5f, -0.5f, +0.5f) };
+     pVertices[9]  = { float3_t(+0.5f, +0.5f, +0.5f), float3_t(0.f, 0.f, +1.f), float3_t(+0.5f, +0.5f, +0.5f) };
+     pVertices[10] = { float3_t(-0.5f, +0.5f, +0.5f), float3_t(0.f, 0.f, +1.f), float3_t(-0.5f, +0.5f, +0.5f) };
+     pVertices[11] = { float3_t(-0.5f, -0.5f, +0.5f), float3_t(0.f, 0.f, +1.f), float3_t(-0.5f, -0.5f, +0.5f) };
     // x-
-     pVertices[12] = { float3_t(-0.5f, -0.5f, +0.5f), float3_t(-1.f, 0.f, 0.f), float2_t(0.f, 1.f) };
-     pVertices[13] = { float3_t(-0.5f, +0.5f, +0.5f), float3_t(-1.f, 0.f, 0.f), float2_t(0.f, 0.f) };
-     pVertices[14] = { float3_t(-0.5f, +0.5f, -0.5f), float3_t(-1.f, 0.f, 0.f), float2_t(1.f, 0.f) };
-     pVertices[15] = { float3_t(-0.5f, -0.5f, -0.5f), float3_t(-1.f, 0.f, 0.f), float2_t(1.f, 1.f) };
+     pVertices[12] = { float3_t(-0.5f, -0.5f, +0.5f), float3_t(-1.f, 0.f, 0.f), float3_t(-0.5f, -0.5f, +0.5f) };
+     pVertices[13] = { float3_t(-0.5f, +0.5f, +0.5f), float3_t(-1.f, 0.f, 0.f), float3_t(-0.5f, +0.5f, +0.5f) };
+     pVertices[14] = { float3_t(-0.5f, +0.5f, -0.5f), float3_t(-1.f, 0.f, 0.f), float3_t(-0.5f, +0.5f, -0.5f) };
+     pVertices[15] = { float3_t(-0.5f, -0.5f, -0.5f), float3_t(-1.f, 0.f, 0.f), float3_t(-0.5f, -0.5f, -0.5f) };
     // y+
-     pVertices[16] = { float3_t(-0.5f, +0.5f, -0.5f), float3_t(0.f, +1.f, 0.f), float2_t(0.f, 1.f) };
-     pVertices[17] = { float3_t(-0.5f, +0.5f, +0.5f), float3_t(0.f, +1.f, 0.f), float2_t(0.f, 0.f) };
-     pVertices[18] = { float3_t(+0.5f, +0.5f, +0.5f), float3_t(0.f, +1.f, 0.f), float2_t(1.f, 0.f) };
-     pVertices[19] = { float3_t(+0.5f, +0.5f, -0.5f), float3_t(0.f, +1.f, 0.f), float2_t(1.f, 1.f) };
+     pVertices[16] = { float3_t(-0.5f, +0.5f, -0.5f), float3_t(0.f, +1.f, 0.f), float3_t(-0.5f, +0.5f, -0.5f) };
+     pVertices[17] = { float3_t(-0.5f, +0.5f, +0.5f), float3_t(0.f, +1.f, 0.f), float3_t(-0.5f, +0.5f, +0.5f) };
+     pVertices[18] = { float3_t(+0.5f, +0.5f, +0.5f), float3_t(0.f, +1.f, 0.f), float3_t(+0.5f, +0.5f, +0.5f) };
+     pVertices[19] = { float3_t(+0.5f, +0.5f, -0.5f), float3_t(0.f, +1.f, 0.f), float3_t(+0.5f, +0.5f, -0.5f) };
     // y-
-     pVertices[20] = { float3_t(-0.5f, -0.5f, +0.5f), float3_t(0.f, -1.f, 0.f), float2_t(0.f, 1.f) };
-     pVertices[21] = { float3_t(-0.5f, -0.5f, -0.5f), float3_t(0.f, -1.f, 0.f), float2_t(0.f, 0.f) };
-     pVertices[22] = { float3_t(+0.5f, -0.5f, -0.5f), float3_t(0.f, -1.f, 0.f), float2_t(1.f, 0.f) };
-     pVertices[23] = { float3_t(+0.5f, -0.5f, +0.5f), float3_t(0.f, -1.f, 0.f), float2_t(1.f, 1.f) };
+     pVertices[20] = { float3_t(-0.5f, -0.5f, +0.5f), float3_t(0.f, -1.f, 0.f), float3_t(-0.5f, -0.5f, +0.5f) };
+     pVertices[21] = { float3_t(-0.5f, -0.5f, -0.5f), float3_t(0.f, -1.f, 0.f), float3_t(-0.5f, -0.5f, -0.5f) };
+     pVertices[22] = { float3_t(+0.5f, -0.5f, -0.5f), float3_t(0.f, -1.f, 0.f), float3_t(+0.5f, -0.5f, -0.5f) };
+     pVertices[23] = { float3_t(+0.5f, -0.5f, +0.5f), float3_t(0.f, -1.f, 0.f), float3_t(+0.5f, -0.5f, +0.5f) };
 
     D3D11_SUBRESOURCE_DATA VertexInitialData{};
     VertexInitialData.pSysMem = pVertices.get();
@@ -101,7 +101,7 @@ HRESULT CVIBuffer_Cube::Initialize_Prototype()
 
 #pragma region CullingAABB
     m_bUseCulling = true;
-    BoundingBox::CreateFromPoints(m_tLocalBox, m_iNumVertices, &pVertices[0].vPosition, sizeof(VTXNORM));
+    BoundingBox::CreateFromPoints(m_tLocalBox, m_iNumVertices, &pVertices[0].vPosition, sizeof(VTXCUBE));
 #pragma endregion
     return S_OK;
 }

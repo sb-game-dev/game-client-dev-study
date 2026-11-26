@@ -178,6 +178,12 @@
     <Filter Include="06. Component\05. Collider\02. Sphere_Collider">
       <UniqueIdentifier>{f2072e05-b5cd-4739-8091-9853991439f5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="13. RenderState">
+      <UniqueIdentifier>{e4be86f6-9070-4584-a07d-b46af7dd55a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="13. RenderState\Manager">
+      <UniqueIdentifier>{0c5a2d8c-f169-48a6-9d61-ef48b988831f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Engine_Defines.h">
@@ -360,6 +366,9 @@
     <ClInclude Include="..\public\Collision_Manager.h">
       <Filter>06. Component\05. Collider\00. Manager</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\RenderState_Manager.h">
+      <Filter>13. RenderState\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Timer.cpp">
@@ -517,6 +526,9 @@
     </ClCompile>
     <ClCompile Include="..\private\Collision_Manager.cpp">
       <Filter>06. Component\05. Collider\00. Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\RenderState_Manager.cpp">
+      <Filter>13. RenderState\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

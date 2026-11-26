@@ -9,16 +9,6 @@ HRESULT CSkyBox::Initialize_Prototype()
 {
     if (FAILED(__super::Initialize_Prototype()))
         return E_FAIL;
-
-    // 래스터라이저 설정
-    D3D11_RASTERIZER_DESC rsDesc{};
-    rsDesc.FillMode = D3D11_FILL_SOLID;         // D3D11_FILL_WIREFRAME , D3D11_FILL_SOLID
-    rsDesc.CullMode = D3D11_CULL_NONE;          // D3D11_CULL_BACK , D3D11_CULL_FRONT,D3D11_CULL_NONE
-    rsDesc.FrontCounterClockwise = true;        // 시계방향이 전면
-    rsDesc.DepthClipEnable = true;
-
-    m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
-
     return S_OK;
 }
 
@@ -56,9 +46,9 @@ void CSkyBox::Late_Update(f32_t fDeltaTime)
 
 HRESULT CSkyBox::Render()
 {
-    // 레스터라이즈 설정
-    m_pContext->RSSetState(m_pRS.Get());
-    
+    if (FAILED(CGameInstance::Get().Bind_RasterizerState(g_strRS_Cull_None)))
+        return E_FAIL;
+
     if (FAILED(Bind_Shader(m_pVS,m_pPS)))
         return E_FAIL;
 
@@ -71,6 +61,8 @@ HRESULT CSkyBox::Render()
     if (FAILED(m_pBufferCom->Render()))
         return E_FAIL;
 
+    if (FAILED(CGameInstance::Get().Bind_RasterizerState(g_strRS_Default)))
+        return E_FAIL;
     return S_OK;
 }
 
@@ -81,28 +73,28 @@ HRESULT CSkyBox::Ready_Components()
         TEXT("Com_Texture"), m_pTextureCom)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::MAPTOOL), Proto::VIBuffer_SkyBox,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::MAPTOOL), Proto::VIBuffer_Cube,
         TEXT("Com_Buffer"), m_pBufferCom)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::MAPTOOL), Proto::VS_VTXTEX,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::MAPTOOL), Proto::VS_CUBE_SKY,
         TEXT("Com_VS"), m_pVS)))
         return E_FAIL;
 
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::MAPTOOL), Proto::PS_VTXTEX_SKYBOX,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::MAPTOOL), Proto::PS_CUBE_SKY,
         TEXT("Com_PS"), m_pPS)))
         return E_FAIL;
 #else
     if (FAILED(__super::Add_Component(ETOUI(LEVEL::ZEROZONE), Proto::Texture_SkyBox,
         TEXT("Com_Texture"), m_pTextureCom)))
         return E_FAIL;
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::VIBuffer_SkyBox,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::VIBuffer_Cube,
         TEXT("Com_Buffer"), m_pBufferCom)))
         return E_FAIL;
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::VS_VTXTEX,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::VS_CUBE_SKY,
         TEXT("Com_VS"), m_pVS)))
         return E_FAIL;
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::PS_VTXTEX_SKYBOX,
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::PS_CUBE_SKY,
         TEXT("Com_PS"), m_pPS)))
         return E_FAIL;
 #endif // _MAPTOOL

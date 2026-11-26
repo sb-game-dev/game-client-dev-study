@@ -43,6 +43,20 @@ namespace Engine
 		};
 	}VTXNORM;
 
+	typedef struct tagVtxCube
+	{
+		float3_t	vPosition;
+		float3_t	vNormal;
+		float3_t	Tex;
+		static constexpr uint32_t iNumElements = 3;
+		static constexpr D3D11_INPUT_ELEMENT_DESC Elements[iNumElements] =
+		{
+			{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT,0,  0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT,0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+			{ "TEXCOORD", 0, DXGI_FORMAT_R32G32B32_FLOAT,0, 24, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		};
+	}VTXCUBE;
+
 	typedef struct tagVtxNormInstance
 	{
 		static constexpr uint32_t	iNumElements = 7;

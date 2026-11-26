@@ -1,6 +1,6 @@
 #include "Timer.h"
 
-CTimer::CTimer() : m_fTimeDelta(0.f)
+CTimer::CTimer() : m_fDeltaTime(0.f)
 {
 	ZeroMemory(&m_FixTime, sizeof(LARGE_INTEGER));
 	ZeroMemory(&m_LastTime, sizeof(LARGE_INTEGER));
@@ -33,7 +33,7 @@ void CTimer::Update_Timer()
 		m_FixTime = m_FrameTime;
 	}
 
-	m_fTimeDelta = (m_FrameTime.QuadPart - m_LastTime.QuadPart) / (f32_t)m_CpuTick.QuadPart;
+	m_fDeltaTime = (m_FrameTime.QuadPart - m_LastTime.QuadPart) / (f32_t)m_CpuTick.QuadPart;
 
 	m_LastTime = m_FrameTime;
 }

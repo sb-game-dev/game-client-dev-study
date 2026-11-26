@@ -53,7 +53,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     if (FAILED(CGameInstance::Get().Add_Timer(TEXT("Timer_60"))))
         return FALSE;
 
-    f32_t fTimeDeltaAcc = {};
+    f32_t fDeltaTimeAcc = {};
     bool_t bDone = false;
     while (!bDone)
     {
@@ -67,13 +67,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         if (bDone)
             break;
         CGameInstance::Get().Update_TimeDelta(TEXT("Timer_Default"));
-        fTimeDeltaAcc += CGameInstance::Get().Get_TimeDelta(TEXT("Timer_Default"));
-        if (fTimeDeltaAcc >= 1.f / 60.f)
+        fDeltaTimeAcc += CGameInstance::Get().Get_TimeDelta(TEXT("Timer_Default"));
+        if (fDeltaTimeAcc >= 1.f / 60.f)
         {
             CGameInstance::Get().Update_TimeDelta(TEXT("Timer_60"));
             pToolMainApp->Update(CGameInstance::Get().Get_TimeDelta(TEXT("Timer_60")));
             pToolMainApp->Render();
-            fTimeDeltaAcc = 0.f;
+            fDeltaTimeAcc = 0.f;
         }
     }
 

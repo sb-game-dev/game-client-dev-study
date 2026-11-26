@@ -13,6 +13,7 @@
 #include "Texture.h"
 #include "Pipeline.h"
 #include "Sampler_Manager.h"
+#include "RenderState_Manager.h"
 
 // ¹öÆÛ
 #include "VIBuffer_Rect.h"
@@ -160,20 +161,32 @@ public:
 	void Collision(shared_ptr<class CCollider> pDstCollider, shared_ptr<class CCollider> pSrcCollider);
 #pragma endregion
 
+#pragma region COLLISION_MANAGER
+	HRESULT Add_RasterizerState(const wstring_t& strRSTag, const D3D11_RASTERIZER_DESC& RSDesc);
+	HRESULT Bind_RasterizerState(const wstring_t& strRSTag);
+
+	HRESULT Add_DepthStencilState(const wstring_t& strDSSTag, const D3D11_DEPTH_STENCIL_DESC& DSSDesc);
+	HRESULT Bind_DepthStencilState(const wstring_t& strDSSTag, uint32_t StencilRef);
+
+	HRESULT	Add_BlendState(const wstring_t& strBlendTag, const D3D11_BLEND_DESC& BlendDesc);
+	HRESULT Bind_BlendState(const wstring_t& strBlendTag, f32_t* pBlendFactor, uint32_t SampleMask);
+#pragma endregion
+
 
 private:
-	unique_ptr<CGraphic_Device>		m_pGraphic_Device = { nullptr };
-	unique_ptr<CObject_Manager>		m_pObject_Manager = { nullptr };
-	unique_ptr<CTimer_Manager>		m_pTimer_Manager = { nullptr };
-	unique_ptr<CLevel_Manager>		m_pLevel_Manager = { nullptr };
-	unique_ptr<CPrototype_Manager>	m_pPrototype_Manager = { nullptr };
-	unique_ptr<CCamera_Manager>		m_pCamera_Manager = { nullptr };
-	unique_ptr<CLight_Manager>		m_pLight_Manager = { nullptr };
-	unique_ptr<CRenderer>			m_pRenderer = { nullptr };
-	unique_ptr<CInput_Device>       m_pInput_Device = { nullptr };
-	unique_ptr<CPipeLine>			m_pPipeLine = { nullptr };
-	unique_ptr<CSampler_Manager>	m_pSampler_Manager = { nullptr };
-	unique_ptr<CCollision_Manager>	m_pCollision_Manager = { nullptr };
+	unique_ptr<CGraphic_Device>			m_pGraphic_Device = { nullptr };
+	unique_ptr<CObject_Manager>			m_pObject_Manager = { nullptr };
+	unique_ptr<CTimer_Manager>			m_pTimer_Manager = { nullptr };
+	unique_ptr<CLevel_Manager>			m_pLevel_Manager = { nullptr };
+	unique_ptr<CPrototype_Manager>		m_pPrototype_Manager = { nullptr };
+	unique_ptr<CCamera_Manager>			m_pCamera_Manager = { nullptr };
+	unique_ptr<CLight_Manager>			m_pLight_Manager = { nullptr };
+	unique_ptr<CRenderer>				m_pRenderer = { nullptr };
+	unique_ptr<CInput_Device>			m_pInput_Device = { nullptr };
+	unique_ptr<CPipeLine>				m_pPipeLine = { nullptr };
+	unique_ptr<CSampler_Manager>		m_pSampler_Manager = { nullptr };
+	unique_ptr<CCollision_Manager>		m_pCollision_Manager = { nullptr };
+	unique_ptr<CRenderState_Manager>	m_pRenderState_Manager = { nullptr };
 	HWND							m_hWND = { nullptr };
 
 private:

@@ -37,7 +37,7 @@ private:
     HRESULT Bind_Shader(shared_ptr<CVertexShader> pVS, shared_ptr<CPixelShader> pPS);
     HRESULT Bind_ShaderResources(const matrix_t& matWorld);
 
-    HRESULT Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS, shared_ptr<CPixelShader> pPS);
+    HRESULT Render_Mesh(const XMMATRIX& matWorld, shared_ptr<CPixelShader> pPS = nullptr);
 
 public:
     static shared_ptr<CStaticProp> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);

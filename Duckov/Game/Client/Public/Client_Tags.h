@@ -24,7 +24,6 @@ namespace Client
 		// ---------- VIBuffer ----------
 		inline constexpr const wchar_t* VIBuffer_Rect = L"Prototype_Component_VIBuffer_Rect";
 		inline constexpr const wchar_t* VIBuffer_Cube = L"Prototype_Component_VIBuffer_Cube";
-		inline constexpr const wchar_t* VIBuffer_SkyBox = L"Prototype_Component_VIBuffer_SkyBox";
 		inline constexpr const wchar_t* VIBuffer_Pyramid = L"Prototype_Component_VIBuffer_Pyramid";
 		inline constexpr const wchar_t* VIBuffer_Terrain = L"Prototype_Component_VIBuffer_Terrain";
 
@@ -33,11 +32,15 @@ namespace Client
 		inline constexpr const wchar_t* VS_VTXTEX_UI = L"Prototype_Component_VS_VTXTEX_UI";
 		inline constexpr const wchar_t* VS_VTXTEX_INSTANCE = L"Prototype_Component_VS_VTXTEX_INSTANCE";
 		inline constexpr const wchar_t* VS_VTXTEX_INSTANCE_UI = L"Prototype_Component_VS_VTXTEX_INSTANCE_UI";
+		inline constexpr const wchar_t* VS_CUBE = L"Prototype_Component_VS_CUBE";
+		inline constexpr const wchar_t* VS_CUBE_SKY = L"Prototype_Component_VS_CUBE_SKY";
 		inline constexpr const wchar_t* VS_TRAIL = L"Prototype_Component_VS_TRAIL";
 		inline constexpr const wchar_t* PS_VTXTEX = L"Prototype_Component_PS_VTXTEX";
 		inline constexpr const wchar_t* PS_VTXTEX_NOLIGHT = L"Prototype_Component_PS_VTXTEX_NOLIGHT";
 		inline constexpr const wchar_t* PS_VTXTEX_SHADOW = L"Prototype_Component_PS_VTXTEX_SHADOW";
-		inline constexpr const wchar_t* PS_VTXTEX_SKYBOX = L"Prototype_Component_PS_VTXTEX_SKYBOX";
+		inline constexpr const wchar_t* PS_CUBE = L"Prototype_Component_PS_CUBE";
+		inline constexpr const wchar_t* PS_CUBE_SKY = L"Prototype_Component_PS_CUBE_SKY";
+		inline constexpr const wchar_t* PS_CUBE_SHADOW = L"Prototype_Component_PS_CUBE_SHADOW";
 		inline constexpr const wchar_t* PS_TRAIL= L"Prototype_Component_PS_TRAIL";
 
 		// ---------- Shader : VtxCol ----------
@@ -116,8 +119,8 @@ namespace Client
 		inline constexpr const wchar_t* Obj_Scope = L"Prototype_GameObject_Scope";
 		inline constexpr const wchar_t* Obj_Inven = L"Prototype_GameObject_Inven";
 		inline constexpr const wchar_t* Obj_HUD = L"Prototype_GameObject_HUD";
-		inline constexpr const wchar_t* Obj_UI_Player = L"Prototype_GameObject_UI_Player";
-		inline constexpr const wchar_t* Obj_UI_Monster = L"Prototype_GameObject_UI_Monster";
+		inline constexpr const wchar_t* Obj_UI_HpBar = L"Prototype_GameObject_UI_HpBar";
+		inline constexpr const wchar_t* Obj_UI_StaminaRing = L"Prototype_GameObject_UI_StaminaRing";
 		inline constexpr const wchar_t* Obj_QuaterViewCam = L"Prototype_GameObject_QuaterViewCam";
 		inline constexpr const wchar_t* Obj_FreeCam = L"Prototype_GameObject_FreeCam";
 		inline constexpr const wchar_t* Obj_MapToolCam = L"Prototype_GameObject_MapToolCam";

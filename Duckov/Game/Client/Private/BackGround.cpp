@@ -9,15 +9,6 @@ HRESULT CBackGround::Initialize_Prototype()
 {
 	if (FAILED(__super::Initialize_Prototype()))
 		return E_FAIL;
-
-    // 래스터라이저 설정
-    D3D11_RASTERIZER_DESC rsDesc{};
-    rsDesc.FillMode = D3D11_FILL_SOLID;         // D3D11_FILL_WIREFRAME , D3D11_FILL_SOLID
-    rsDesc.CullMode = D3D11_CULL_BACK;          // D3D11_CULL_BACK , D3D11_CULL_FRONT
-    rsDesc.FrontCounterClockwise = false;       // 시계방향이 전면
-    rsDesc.DepthClipEnable = true;
-
-    m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
     return S_OK;
 }
 
@@ -37,28 +28,25 @@ HRESULT CBackGround::Initialize(void* pArg)
     return S_OK;
 }
 
-void CBackGround::Priority_Update(f32_t fTimeDelta)
+void CBackGround::Priority_Update(f32_t fDeltaTime)
 {
-	__super::Priority_Update(fTimeDelta);
+	__super::Priority_Update(fDeltaTime);
 }
 
-void CBackGround::Update(f32_t fTimeDelta)
+void CBackGround::Update(f32_t fDeltaTime)
 {
-	__super::Update(fTimeDelta);
+	__super::Update(fDeltaTime);
 }
 
-void CBackGround::Late_Update(f32_t fTimeDelta)
+void CBackGround::Late_Update(f32_t fDeltaTime)
 {
-	__super::Late_Update(fTimeDelta);
+	__super::Late_Update(fDeltaTime);
     CGameInstance::Get().Add_RenderGroup(RENDERID::NONALPHA_UI, dynamic_pointer_cast<CGameObject>(shared_from_this()));
 }
 HRESULT CBackGround::Render()
 {
 	if (FAILED(__super::Render()))
 		return E_FAIL;
-
-    // RS(레스터라이저 설정)
-    m_pContext->RSSetState(m_pRS.Get());
 
     if (FAILED(Bind_Shader()))
         return S_OK;

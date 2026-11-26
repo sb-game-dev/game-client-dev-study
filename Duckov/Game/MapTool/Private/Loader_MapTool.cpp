@@ -74,7 +74,7 @@ HRESULT CLoader_MapTool::Loading_For_MapToolLV()
     lstrcpy(m_szLoadingText, TEXT("텍스쳐를 준비중입니다."));
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::Texture_SkyBox,
-        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/proc_preview.png"), 1))))
+        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/proc_preview_Cube.dds"), 1))))
         return E_FAIL;
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Normalize_AssetPath(TEXT("../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/splat_0.png")),
@@ -87,12 +87,12 @@ HRESULT CLoader_MapTool::Loading_For_MapToolLV()
 
     lstrcpy(m_szLoadingText, TEXT("모델을 준비중입니다."));
 
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::VIBuffer_SkyBox,
-        CVIBuffer_SkyBox::Create(m_pDevice, m_pContext))))
-        return E_FAIL;
-
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Normalize_AssetPath(TEXT("../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/height_321x321_16bit.raw")),
         CVIBuffer_Terrain::Create(m_pDevice, m_pContext, L"../../../Resource/Duckov_Extract/Terrain/Terrain_GroundZero_Crop/height_321x321_16bit.raw"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::VIBuffer_Cube,
+        CVIBuffer_Cube::Create(m_pDevice, m_pContext))))
         return E_FAIL;
 
     matrix_t PreTransformMatrix = XMMatrixRotationY(180.f);
@@ -168,11 +168,11 @@ HRESULT CLoader_MapTool::Loading_For_MapToolLV()
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::VS_VTXTEX,
         CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_VertexShader.hlsl", VTXNORM::Elements, VTXNORM::iNumElements, "VS_MAIN"))))
         return E_FAIL;
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::PS_VTXTEX_SKYBOX,
-        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_MAIN_SKY"))))
-        return E_FAIL;
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::PS_VTXTEX_NOLIGHT,
         CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_PixelShader.hlsl", "PS_MAIN_NOLIGHT"))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::PS_CUBE_SKY,
+        CPixelShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Cube_PixelShader.hlsl", "PS_MAIN_SKY"))))
         return E_FAIL;
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::VS_TERRAIN,
@@ -184,6 +184,10 @@ HRESULT CLoader_MapTool::Loading_For_MapToolLV()
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::VS_MODEL,
         CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Model_VertexShader.hlsl", VTXMESH::Elements, VTXMESH::iNumElements, "VS_MAIN_MODEL"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::VS_CUBE_SKY,
+        CVertexShader::Create(m_pDevice, m_pContext, L"../Bin/Shader/Cube_VertexShader.hlsl", VTXCUBE::Elements, VTXCUBE::iNumElements, "VS_MAIN_SKY"))))
         return E_FAIL;
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::MAPTOOL), Proto::PS_MODEL,

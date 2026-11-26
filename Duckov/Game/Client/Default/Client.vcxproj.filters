@@ -124,9 +124,6 @@
     <Filter Include="02. GameObjects\01. Player\97. Sound">
       <UniqueIdentifier>{2513f23b-9056-4ecc-bab6-f32d147f1aeb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02. GameObjects\02. Cube\UI_Cube">
-      <UniqueIdentifier>{a64e0d82-924d-49b3-9298-2a8eb45fee91}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01. Levels\02. ZeroZone">
       <UniqueIdentifier>{6ff54d3d-4429-461c-8678-12fe828cf7ed}</UniqueIdentifier>
     </Filter>
@@ -252,17 +249,14 @@
     <ClInclude Include="..\public\Bullet.h">
       <Filter>02. GameObjects\01. Player\01. Weapon\Bullet</Filter>
     </ClInclude>
-    <ClInclude Include="..\Public\UI_Player.h">
-      <Filter>02. GameObjects\01. Player\98. UI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Public\UI_Monster.h">
-      <Filter>02. GameObjects\02. Cube\UI_Cube</Filter>
-    </ClInclude>
     <ClInclude Include="..\Public\Level_ZeroZone.h">
       <Filter>01. Levels\02. ZeroZone</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\UI_StaminaRing.h">
       <Filter>02. GameObjects\01. Player\98. UI\01. Stamina_Ring</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\UI_HpBar.h">
+      <Filter>02. GameObjects\01. Player\98. UI\00. HP_Bar</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -372,17 +366,14 @@
     <ClCompile Include="..\private\Bullet.cpp">
       <Filter>02. GameObjects\01. Player\01. Weapon\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="..\Private\UI_Player.cpp">
-      <Filter>02. GameObjects\01. Player\98. UI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Private\UI_Monster.cpp">
-      <Filter>02. GameObjects\02. Cube\UI_Cube</Filter>
-    </ClCompile>
     <ClCompile Include="..\Private\Level_ZeroZone.cpp">
       <Filter>01. Levels\02. ZeroZone</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\UI_StaminaRing.cpp">
       <Filter>02. GameObjects\01. Player\98. UI\01. Stamina_Ring</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_HpBar.cpp">
+      <Filter>02. GameObjects\01. Player\98. UI\00. HP_Bar</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -408,6 +399,12 @@
       <Filter>97. ShaderFiles</Filter>
     </FxCompile>
     <FxCompile Include="..\Bin\Shader\Trail_PixelShader.hlsl">
+      <Filter>97. ShaderFiles</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Bin\Shader\Cube_VertexShader.hlsl">
+      <Filter>97. ShaderFiles</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Bin\Shader\Cube_PixelShader.hlsl">
       <Filter>97. ShaderFiles</Filter>
     </FxCompile>
   </ItemGroup>

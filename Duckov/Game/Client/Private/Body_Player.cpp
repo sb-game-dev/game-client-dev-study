@@ -14,18 +14,6 @@ HRESULT CBody_Player::Initialize_Prototype()
 {
 	if (FAILED(__super::Initialize_Prototype()))
 		return E_FAIL;
-
-    // 레스터라이저 설정
-    D3D11_RASTERIZER_DESC rsDesc{};
-    rsDesc.FillMode = D3D11_FILL_SOLID;         //D3D11_FILL_WIREFRAME , D3D11_FILL_SOLID
-    rsDesc.CullMode = D3D11_CULL_BACK;          // D3D11_CULL_BACK , D3D11_CULL_FRONT
-    rsDesc.FrontCounterClockwise = false;       // 시계방향이 전면
-    rsDesc.DepthClipEnable = true;
-
-    m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
-
-    rsDesc.FrontCounterClockwise = true;        // 반사되면 감기 순서가 뒤집히므로 앞면 기준도 뒤집음
-    m_pDevice->CreateRasterizerState(&rsDesc, m_pRS_Reflect.GetAddressOf());
 	return S_OK;
 }
 
@@ -67,13 +55,13 @@ void CBody_Player::Late_Update(f32_t fDeltaTime)
 
 HRESULT CBody_Player::Render()
 {
-    return Render_Mesh(XMLoadFloat4x4(&m_CombinedWorldMatrix), m_pRS.Get(), m_pPSCom);
+    return Render_Mesh(XMLoadFloat4x4(&m_CombinedWorldMatrix), m_pPSCom);
 }
 
 
 HRESULT CBody_Player::Render_Reflection(const matrix_t& matReflect)
 {
-    return Render_Mesh(XMLoadFloat4x4(&m_CombinedWorldMatrix) * matReflect, m_pRS_Reflect.Get(), m_pPSCom);
+    return Render_Mesh(XMLoadFloat4x4(&m_CombinedWorldMatrix) * matReflect, m_pPSCom);
 }
 
 HRESULT CBody_Player::Render_Shadow()
@@ -84,12 +72,18 @@ HRESULT CBody_Player::Render_Shadow()
     matrix_t matShadow = XMMatrixShadow(vPlane, vToLight);
     matrix_t matOffset = XMMatrixTranslation(0.f, 0.01f, 0.f);  // 지형과 z-fighting 방지
 
-    return Render_Mesh(XMLoadFloat4x4(&m_CombinedWorldMatrix) * matShadow * matOffset, m_pRS.Get(), m_pPS_Shadow);
+    return Render_Mesh(XMLoadFloat4x4(&m_CombinedWorldMatrix) * matShadow * matOffset, m_pPS_Shadow);
 }
 
 HRESULT CBody_Player::Render_Occluded()
 {
-    return Render_Mesh(XMLoadFloat4x4(&m_CombinedWorldMatrix), m_pRS.Get(), m_pPS_Occluded);
+    if (FAILED(CGameInstance::Get().Bind_RasterizerState(g_strRS_Cull_Front)))
+        return E_FAIL;
+    if (FAILED(Render_Mesh(XMLoadFloat4x4(&m_CombinedWorldMatrix), m_pPS_Occluded)))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Bind_RasterizerState(g_strRS_Default)))
+        return E_FAIL;
+    return S_OK;
 }
 
 bool_t CBody_Player::Is_Animation_Finished(bool_t IsUpper)
@@ -118,13 +112,10 @@ HRESULT CBody_Player::Bind_ShaderResources(const matrix_t& matWorld)
     return __super::Bind_Vertex_ShaderResource(ETOUI(VSLOT::WORLD), matWorld);
 }
 
-HRESULT CBody_Player::Render_Mesh(const matrix_t& matWorld, ID3D11RasterizerState* pRS, shared_ptr<CPixelShader> pPS)
+HRESULT CBody_Player::Render_Mesh(const matrix_t& matWorld, shared_ptr<CPixelShader> pPS)
 {
     if (FAILED(__super::Render()))
         return E_FAIL;
-
-    // RS(레스터라이저 설정)
-    m_pContext->RSSetState(pRS);
 
     if (FAILED(Bind_Shader(m_pVSCom, pPS)))
         return E_FAIL;

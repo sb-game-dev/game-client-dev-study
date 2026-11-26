@@ -24,14 +24,14 @@ public:
 public:
 	virtual		HRESULT		Initialize_Prototype() override;
 	virtual		HRESULT		Initialize(void* pArg) override;
-	virtual		void		Priority_Update(f32_t fTimeDelta)override;
-	virtual		void		Update(f32_t fTimeDelta)override;
-	virtual		void		Late_Update(f32_t fTimeDelta)override;
+	virtual		void		Priority_Update(f32_t fDeltaTime)override;
+	virtual		void		Update(f32_t fDeltaTime)override;
+	virtual		void		Late_Update(f32_t fDeltaTime)override;
 	virtual		HRESULT		Render() override;
 
 private:
 	shared_ptr<CTexture>			m_pTextureCom = { nullptr };
-	shared_ptr<CVIBuffer_SkyBox>	m_pBufferCom = { nullptr };
+	shared_ptr<CVIBuffer_Cube>	m_pBufferCom = { nullptr };
 	shared_ptr<CVertexShader>		m_pVS = { nullptr };
 	shared_ptr<CPixelShader>		m_pPS = { nullptr };
 

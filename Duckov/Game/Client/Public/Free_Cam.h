@@ -18,9 +18,9 @@ public:
 public:
     virtual HRESULT Initialize_Prototype() override;
     virtual HRESULT Initialize(void* pArg) override;
-    virtual void Priority_Update(f32_t fTimeDelta);
-    virtual void Update(f32_t fTimeDelta);
-    virtual void Late_Update(f32_t fTimeDelta);
+    virtual void Priority_Update(f32_t fDeltaTime);
+    virtual void Update(f32_t fDeltaTime);
+    virtual void Late_Update(f32_t fDeltaTime);
     virtual HRESULT Render();
 
 private:

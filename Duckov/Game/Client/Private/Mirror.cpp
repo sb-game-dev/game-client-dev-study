@@ -9,16 +9,6 @@ HRESULT CMirror::Initialize_Prototype()
 {
     if (FAILED(__super::Initialize_Prototype()))
         return E_FAIL;
-
-    // 레스터라이저 설정
-    D3D11_RASTERIZER_DESC rsDesc{};
-    rsDesc.FillMode = D3D11_FILL_SOLID;         //D3D11_FILL_WIREFRAME , D3D11_FILL_SOLID
-    rsDesc.CullMode = D3D11_CULL_BACK;          // D3D11_CULL_BACK , D3D11_CULL_FRONT
-    rsDesc.FrontCounterClockwise = false;       // 시계방향이 전면
-    rsDesc.DepthClipEnable = true;
-
-    m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
-
     return S_OK;
 }
 
@@ -55,9 +45,6 @@ void CMirror::Late_Update(f32_t fDeltaTime)
 
 HRESULT CMirror::Render()
 {
-    // RS(레스터라이저 설정)
-    m_pContext->RSSetState(m_pRS.Get());
-
     if (FAILED(Bind_Shader(m_pVS, m_pPS)))
         return E_FAIL;
 

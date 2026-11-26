@@ -1,17 +1,17 @@
-#include "UI_Monster.h"
+#include "UI_HpBar.h"
 #include "Inven.h"
-#include "Cube.h"
-using namespace UI_Monster;
+#include "Player.h"
+using namespace UI_HpBar;
 
 
-CUI_Monster::CUI_Monster(ComPtr<ID3D11Device>pDevice, ComPtr<ID3D11DeviceContext>pContext)
+CUI_HpBar::CUI_HpBar(ComPtr<ID3D11Device>pDevice, ComPtr<ID3D11DeviceContext>pContext)
 	: CPartObject{ pDevice,pContext }
 {
 
 }
 
 
-HRESULT CUI_Monster::Initialize_Prototype()
+HRESULT CUI_HpBar::Initialize_Prototype()
 {
 	if (FAILED(__super::Initialize_Prototype()))
 		return E_FAIL;
@@ -51,20 +51,10 @@ HRESULT CUI_Monster::Initialize_Prototype()
 	if (FAILED(m_pDevice->CreateBuffer(&IBDesc, &IBData, &m_pIB)))
 		return E_FAIL;
 
-	// 래스터라이저 설정
-	D3D11_RASTERIZER_DESC rsDesc{};
-	rsDesc.FillMode = D3D11_FILL_SOLID;         // D3D11_FILL_WIREFRAME , D3D11_FILL_SOLID
-	rsDesc.CullMode = D3D11_CULL_BACK;          // D3D11_CULL_BACK , D3D11_CULL_FRONT
-	rsDesc.FrontCounterClockwise = false;       // 시계방향이 전면
-	rsDesc.DepthClipEnable = true;
-
-	m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
-
-
 	return S_OK;
 }
 
-HRESULT CUI_Monster::Initialize(void* pArg)
+HRESULT CUI_HpBar::Initialize(void* pArg)
 {
 	if (FAILED(__super::Initialize(pArg)))
 		return E_FAIL;
@@ -76,9 +66,17 @@ HRESULT CUI_Monster::Initialize(void* pArg)
 	return S_OK;
 }
 
-void CUI_Monster::Priority_Update(f32_t fTimeDelta)
+void CUI_HpBar::Priority_Update(f32_t fDeltaTime)
 {
-	__super::Priority_Update(fTimeDelta);
+	__super::Priority_Update(fDeltaTime);
+}
+
+void CUI_HpBar::Update(f32_t fDeltaTime)
+{
+	__super::Update(fDeltaTime);
+
+	m_fHitTimeRemaining = max(0.f, m_fHitTimeRemaining - fDeltaTime);
+
 	auto pInven = m_pInven.lock();
 	if (nullptr == pInven)
 	{
@@ -89,22 +87,17 @@ void CUI_Monster::Priority_Update(f32_t fTimeDelta)
 	}
 }
 
-void CUI_Monster::Update(f32_t fTimeDelta)
+void CUI_HpBar::Late_Update(f32_t fDeltaTime)
 {
-	__super::Update(fTimeDelta);
-}
-
-void CUI_Monster::Late_Update(f32_t fTimeDelta)
-{
-	__super::Late_Update(fTimeDelta);	
+	__super::Late_Update(fDeltaTime);
 	auto pInven = m_pInven.lock();
 	if (nullptr == pInven)
 		return;
 	if (!pInven->Is_Open())
-	CGameInstance::Get().Add_RenderGroup(RENDERID::ALPHA_UI, dynamic_pointer_cast<CGameObject>(shared_from_this()));
+		CGameInstance::Get().Add_RenderGroup(RENDERID::ALPHA_UI, dynamic_pointer_cast<CGameObject>(shared_from_this()));
 }
 
-HRESULT CUI_Monster::Render()
+HRESULT CUI_HpBar::Render()
 {
 	//---------------- 인스턴스 버퍼 준비 ----------------//
 	Build_Instances();
@@ -133,48 +126,60 @@ HRESULT CUI_Monster::Render()
 	if (FAILED(m_pPSCom->Begin()))
 		return E_FAIL;
 
-	m_pContext->RSSetState(m_pRS.Get());
-
 	m_pContext->DrawIndexedInstanced(m_iIndexCnt, iCount, 0, 0, 0);
 
 	return S_OK;
 }
 
+void CUI_HpBar::Initialize_HitAnimation()
+{
+	m_fHitTimeRemaining = m_fHitDuration;
+}
 
-
-void CUI_Monster::Build_Instances()
+void CUI_HpBar::Build_Instances()
 {
 	// 인스턴스 초기화
 	m_Instances.clear();
 
-	auto pCube = dynamic_pointer_cast<CCube>(m_pParent.lock());
-	if (pCube)
+	auto pParent = m_pParent.lock();
+	if (pParent)
 	{
 		vector_t vHead = m_pParentTransformCom->Get_State(STATE::POSITION)
-			+ XMVectorSet(-0.5f, 2.f, 0.f, 0.f);
-		auto matPlayerWorld = m_pParentTransformCom->Get_World();
-
+			+ XMVectorSet(0.f, 2.f, 0.f, 0.f);
+		auto matPlayerWorld = m_pParentTransformCom->Get_World(); 
+		
 		matrix_t matVP = CGameInstance::Get().Get_Perspective_Transform(D3DTS::VIEW) * CGameInstance::Get().Get_Perspective_Transform(D3DTS::PROJ);
-		vector_t vNDC = XMVector3TransformCoord(vHead, matVP);
+		vector_t vScreenPos = XMVector3TransformCoord(vHead, matVP);
 
-		f32_t x = XMVectorGetX(vNDC) * g_iWinSizeX * 0.5f;
-		f32_t y = XMVectorGetY(vNDC) * g_iWinSizeY * 0.5f;
+		f32_t x = XMVectorGetX(vScreenPos) * g_iWinSizeX * 0.5f;
+		f32_t y = XMVectorGetY(vScreenPos) * g_iWinSizeY * 0.5f;
 
-		// ---------- 체력바 ----------		
-		// HP바 배경
-		Push_Bar(x + HP_OFFSET.x - 2.f, y + HP_OFFSET.y + 2.f, HP_SLIDER_WIDTH + 4.f, HP_SLIDER_HEIGHT + 4.f,
-			1,
-			COLOR_HP_FILL_SIDE, COLOR_HP_FILL_SIDE,
-			HP_SLIDER_HEIGHT * 0.5f);
-		// HP바 게이지
-		Push_Bar(x + HP_OFFSET.x, y + HP_OFFSET.y, HP_SLIDER_WIDTH, HP_SLIDER_HEIGHT,
-			pCube->Get_HP() / pCube->Get_MaxHP(),
-			COLOR_HP_FILL_SIDE, COLOR_HP_FILL,
-			HP_SLIDER_HEIGHT * 0.5f);
+		// 애니메이션의 남은 시간 비율 -> 1이면 애니메이션 처음 시작, 0이면 애니메이션 끝
+		f32_t fRatio = m_fHitTimeRemaining / m_fHitDuration;
+		
+		// 크기 -> 애니메이션 남은 시간 비율만큼 늘어남
+		f32_t w = HP_SLIDER_WIDTH * (1 + fRatio);
+		f32_t h = HP_SLIDER_HEIGHT* (1 + fRatio);
+
+		// x,y 흔들기 -> 애니메이션 남은 시간 비율만큼 큰 폭으로 튕김
+		f32_t fDeltaX = (CGameInstance::Get().Random(-4, 4)) * fRatio;
+		f32_t fDeltaY = (CGameInstance::Get().Random(-4, 4)) * fRatio;
+
+		// 바 중심을 먼저 구하고 -> 커진 크기의 절반만큼 빼서 좌상단 구하기
+		f32_t cx = x + fDeltaX;
+		f32_t cy = y - HP_SLIDER_HEIGHT * 0.5f + fDeltaY;
+		f32_t left = cx - w * 0.5f;
+		f32_t top = cy + h * 0.5f;
+
+		Push_Bar(left - 2.f, top + 2.f, w + 4.f, h + 4.f,
+			1, COLOR_HP_FILL_SIDE, h * 0.5f);
+
+		Push_Bar(left, top, w, h, pParent->Get_HP() / pParent->Get_MaxHP(),
+			BlendWithWiteColor(COLOR_HP_FILL, fRatio), h * 0.5f);
 	}
 }
 
-HRESULT CUI_Monster::Ready_Components()
+HRESULT CUI_HpBar::Ready_Components()
 {
 	if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::VS_UI,
 		TEXT("Com_VS"), m_pVSCom)))
@@ -186,7 +191,7 @@ HRESULT CUI_Monster::Ready_Components()
 	return S_OK;
 }
 
-HRESULT CUI_Monster::Ready_InstanceBuffer()
+HRESULT CUI_HpBar::Ready_InstanceBuffer()
 {
 	D3D11_BUFFER_DESC desc{};
 	desc.ByteWidth = sizeof(VTXUI_INSTANCE) * m_iMaxInstance;
@@ -196,10 +201,11 @@ HRESULT CUI_Monster::Ready_InstanceBuffer()
 	if (FAILED(m_pDevice->CreateBuffer(&desc, nullptr, &m_pInstanceVB)))
 		return E_FAIL;
 	m_Instances.reserve(m_iMaxInstance);
+
 	return S_OK;
 }
 
-void CUI_Monster::Push_Rect(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, float4_t vColor, f32_t fRadius, f32_t fBorder)
+void CUI_HpBar::Push_Rect(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, float4_t vColor, f32_t fRadius, f32_t fBorder)
 {
 	// 좌상단과 우하단을 각각 정수 픽셀로 반올림 (1px 테두리가 픽셀 사이에 끼지 않게)
 	f32_t fSnapLeft = floorf(fLeft + 0.5f);
@@ -210,18 +216,25 @@ void CUI_Monster::Push_Rect(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight
 	m_Instances.push_back({ { fSnapLeft, fSnapTop, fSnapRight - fSnapLeft, fSnapTop - fSnapBottom },
 							vColor, { fRadius, fBorder, 0.f, 0.f }, { 0.f, 0.f, 1.f, 1.f } });
 }
-void CUI_Monster::Push_Bar(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, f32_t fRatio, float4_t vBgColor, float4_t vFillColor, f32_t fRadius)
+void CUI_HpBar::Push_Bar(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, f32_t fRatio, float4_t vFillColor, f32_t fRadius)
 {
 	fRatio = max(0.f, min(1.f, fRatio));
 	if (fRatio > 0.f)
 		Push_Rect(fLeft, fTop, fWidth * fRatio, fHeight, vFillColor, fRadius);
 }
 
-
-
-shared_ptr<CUI_Monster> CUI_Monster::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
+float4_t CUI_HpBar::BlendWithWiteColor(float4_t OriginalColor, f32_t fRatio)
 {
-	auto pInstance = shared_ptr<CUI_Monster>(new CUI_Monster(pDevice, pContext));
+	return float4_t(OriginalColor.x + (1 - OriginalColor.x) * fRatio,
+		OriginalColor.y + (1 - OriginalColor.y) * fRatio,
+		OriginalColor.z + (1 - OriginalColor.z) * fRatio,
+		OriginalColor.w + (1 - OriginalColor.w) * fRatio
+		);
+}
+
+shared_ptr<CUI_HpBar> CUI_HpBar::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
+{
+	auto pInstance = shared_ptr<CUI_HpBar>(new CUI_HpBar(pDevice, pContext));
 	if (FAILED(pInstance->Initialize_Prototype()))
 	{
 		MSG_BOX("Create Failed : HUD");
@@ -230,9 +243,9 @@ shared_ptr<CUI_Monster> CUI_Monster::Create(ComPtr<ID3D11Device> pDevice, ComPtr
 	return pInstance;
 }
 
-shared_ptr<CPrototype> CUI_Monster::Clone(void* pArg)
+shared_ptr<CPrototype> CUI_HpBar::Clone(void* pArg)
 {
-	auto pInstance = shared_ptr<CUI_Monster>(new CUI_Monster(*this));
+	auto pInstance = shared_ptr<CUI_HpBar>(new CUI_HpBar(*this));
 	if (FAILED(pInstance->Initialize(pArg)))
 	{
 		MSG_BOX("Clone Failed : HUD");

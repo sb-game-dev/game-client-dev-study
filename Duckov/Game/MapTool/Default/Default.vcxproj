@@ -190,8 +190,7 @@
     <ClCompile Include="..\..\Client\Private\HUD.cpp" />
     <ClCompile Include="..\..\Client\Private\Level_ZeroZone.cpp" />
     <ClCompile Include="..\..\Client\Private\Tree_Instance.cpp" />
-    <ClCompile Include="..\..\Client\Private\UI_Monster.cpp" />
-    <ClCompile Include="..\..\Client\Private\UI_Player.cpp" />
+    <ClCompile Include="..\..\Client\Private\UI_HpBar.cpp" />
     <ClCompile Include="..\..\Client\Private\UI_StaminaRing.cpp" />
     <ClCompile Include="..\..\Client\Private\Weapon.cpp" />
     <ClCompile Include="..\ImGui\imgui.cpp">

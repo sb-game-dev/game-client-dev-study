@@ -42,9 +42,9 @@ HRESULT CHeadset::Initialize(void* pArg)
     return S_OK;
 }
 
-void CHeadset::Priority_Update(f32_t fTimeDelta)
+void CHeadset::Priority_Update(f32_t fDeltaTime)
 {
-    __super::Priority_Update(fTimeDelta);
+    __super::Priority_Update(fDeltaTime);
     auto pInven = m_pInven.lock();
     if (nullptr == pInven)
     {
@@ -57,9 +57,9 @@ void CHeadset::Priority_Update(f32_t fTimeDelta)
 
 }
 
-void CHeadset::Update(f32_t fTimeDelta)
+void CHeadset::Update(f32_t fDeltaTime)
 {
-    __super::Update(fTimeDelta);
+    __super::Update(fDeltaTime);
 
     auto pInven = m_pInven.lock();
     if (nullptr == pInven || nullptr == pInven->GetEquipSlot(EQUIP_SLOT::HEADSET))
@@ -74,9 +74,9 @@ void CHeadset::Update(f32_t fTimeDelta)
 }
 
 
-void CHeadset::Late_Update(f32_t fTimeDelta)
+void CHeadset::Late_Update(f32_t fDeltaTime)
 {
-    __super::Late_Update(fTimeDelta);
+    __super::Late_Update(fDeltaTime);
 
     auto pInven = m_pInven.lock();
     if (nullptr == pInven || nullptr == pInven->GetEquipSlot(EQUIP_SLOT::HEADSET))

@@ -9,15 +9,6 @@ HRESULT CStaticProp::Initialize_Prototype()
 {
     if (FAILED(__super::Initialize_Prototype()))
         return E_FAIL;
-
-    // 래스터라이저 설정
-    D3D11_RASTERIZER_DESC rsDesc{};
-    rsDesc.FillMode = D3D11_FILL_SOLID;         // D3D11_FILL_WIREFRAME , D3D11_FILL_SOLID
-    rsDesc.CullMode = D3D11_CULL_BACK;          // D3D11_CULL_BACK , D3D11_CULL_FRONT,D3D11_CULL_NONE
-    rsDesc.FrontCounterClockwise = false;       // 시계방향이 전면
-    rsDesc.DepthClipEnable = true;
-
-    m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
     return S_OK;
 }
 
@@ -62,7 +53,7 @@ void CStaticProp ::Late_Update(f32_t fDeltaTime)
 
 HRESULT CStaticProp ::Render()
 {
-    return Render_Mesh(m_pTransformCom->Get_World(), m_pRS.Get(), m_pPS);
+    return Render_Mesh(m_pTransformCom->Get_World(), m_pPS);
 }
 
 
@@ -148,11 +139,10 @@ HRESULT CStaticProp::Bind_ShaderResources(const matrix_t& matWorld)
     return S_OK;
 }
 
-HRESULT CStaticProp::Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS, shared_ptr<CPixelShader> pPS)
+HRESULT CStaticProp::Render_Mesh(const XMMATRIX& matWorld, shared_ptr<CPixelShader> pPS)
 {
     if (FAILED(__super::Render()))
         return E_FAIL;
-    m_pContext->RSSetState(pRS);
 
     if (FAILED(Bind_ShaderResources(matWorld)))
         return E_FAIL;

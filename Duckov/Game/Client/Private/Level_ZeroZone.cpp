@@ -105,10 +105,6 @@ HRESULT CLevel_ZeroZone::Ready_Layer_GameObject(const tchar_t* pLayerTag)
             return E_FAIL;
     }
 
-    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::ZEROZONE), Proto::Obj_Cube_Instance,
-        ETOUI(LEVEL::ZEROZONE), pLayerTag, GO::Cube_Instance)))
-        return E_FAIL;
-
     if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::ZEROZONE), Proto::Obj_Tree_Instance,
         ETOUI(LEVEL::ZEROZONE), pLayerTag, GO::Tree_Instance)))
         return E_FAIL;

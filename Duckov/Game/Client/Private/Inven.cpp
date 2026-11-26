@@ -49,17 +49,6 @@ HRESULT CInven::Initialize_Prototype()
 	m_iIndexCnt = size(indices);
 	if (FAILED(m_pDevice->CreateBuffer(&IBDesc, &IBData, &m_pIB)))
 		return E_FAIL;
-
-	// 래스터라이저 설정
-	D3D11_RASTERIZER_DESC rsDesc{};
-	rsDesc.FillMode = D3D11_FILL_SOLID;         // D3D11_FILL_WIREFRAME , D3D11_FILL_SOLID
-	rsDesc.CullMode = D3D11_CULL_BACK;          // D3D11_CULL_BACK , D3D11_CULL_FRONT
-	rsDesc.FrontCounterClockwise = false;       // 시계방향이 전면
-	rsDesc.DepthClipEnable = true;
-
-	m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
-
-
 	return S_OK;
 }
 
@@ -122,14 +111,14 @@ HRESULT CInven::Initialize(void* pArg)
 	return S_OK;
 }
 
-void CInven::Priority_Update(f32_t fTimeDelta)
+void CInven::Priority_Update(f32_t fDeltaTime)
 {
-	__super::Priority_Update(fTimeDelta);
+	__super::Priority_Update(fDeltaTime);
 }
 
-void CInven::Update(f32_t fTimeDelta)
+void CInven::Update(f32_t fDeltaTime)
 {
-	__super::Update(fTimeDelta);  
+	__super::Update(fDeltaTime);  
 	if (CGameInstance::Get().Key_Down(DIK_TAB))
 	{
 		m_bOpen = !m_bOpen;
@@ -150,9 +139,9 @@ void CInven::Update(f32_t fTimeDelta)
 	Update_DragState();
 }
 
-void CInven::Late_Update(f32_t fTimeDelta)
+void CInven::Late_Update(f32_t fDeltaTime)
 {
-	__super::Late_Update(fTimeDelta); 
+	__super::Late_Update(fDeltaTime); 
 	if (m_bOpen)
 		CGameInstance::Get().Add_RenderGroup(RENDERID::ALPHA_UI, dynamic_pointer_cast<CGameObject>(shared_from_this()));
 }
@@ -185,8 +174,6 @@ HRESULT CInven::Render()
 
 	if (FAILED(m_pIconTexCom->Set_TexturePS(0, 0)))
 		return E_FAIL;
-
-	m_pContext->RSSetState(m_pRS.Get());
 
 	m_pContext->DrawIndexedInstanced(m_iIndexCnt, iCount, 0, 0, 0);
 	return S_OK;

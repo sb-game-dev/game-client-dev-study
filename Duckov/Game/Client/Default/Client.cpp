@@ -61,7 +61,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     if (FAILED(CGameInstance::Get().Add_Timer(TEXT("Timer_60"))))
         return FALSE;
 
-    f32_t fTimeDeltaAcc = {};
+    f32_t fDeltaTimeAcc = {};
 
     // 기본 메시지 루프입니다:
     while (true)
@@ -78,8 +78,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             }
         }
         CGameInstance::Get().Update_TimeDelta(TEXT("Timer_Default"));
-        fTimeDeltaAcc += CGameInstance::Get().Get_TimeDelta(TEXT("Timer_Default"));
-        if (fTimeDeltaAcc >= 1.f / 60.f)
+        fDeltaTimeAcc += CGameInstance::Get().Get_TimeDelta(TEXT("Timer_Default"));
+        if (fDeltaTimeAcc >= 1.f / 60.f)
         {
             CGameInstance::Get().Update_TimeDelta(TEXT("Timer_60"));
             /* 내 게임의 업데이트를 수행한다 */
@@ -88,7 +88,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
             /* 내 게임의 렌더를 수행한다 */
             pMainApp->Render();
 
-            fTimeDeltaAcc = 0.f;
+            fDeltaTimeAcc = 0.f;
         }
     }
 

@@ -10,16 +10,6 @@ HRESULT CTree_Instance::Initialize_Prototype()
 {
     if (FAILED(__super::Initialize_Prototype()))
         return E_FAIL;
-
-    // 래스터라이저 설정
-    D3D11_RASTERIZER_DESC rsDesc{};
-    rsDesc.FillMode = D3D11_FILL_SOLID;         // D3D11_FILL_WIREFRAME , D3D11_FILL_SOLID
-    rsDesc.CullMode = D3D11_CULL_NONE;          // D3D11_CULL_BACK , D3D11_CULL_FRONT,D3D11_CULL_NONE
-    rsDesc.FrontCounterClockwise = false;       // 시계방향이 전면
-    rsDesc.DepthClipEnable = true;
-
-    m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
-
     return S_OK;
 }
 
@@ -184,9 +174,6 @@ void CTree_Instance::Cull_Instances()
 
 HRESULT CTree_Instance::Render_Mesh(ID3D11Buffer* pInstanceVB, shared_ptr<CPixelShader> pPS, uint32_t iInstanceCnt)
 {
-    // RS(레스터라이저 설정)
-    m_pContext->RSSetState(m_pRS.Get());
-
     if (FAILED(m_pVS->Begin()))
         return E_FAIL;
 

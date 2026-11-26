@@ -32,9 +32,6 @@ public:
 	bool_t	Is_Aiming()				{ return m_bAiming && Has_Weapon();	}
 	bool_t	Is_Firing()				{ return m_bFiring && Has_Weapon(); }
 
-	f32_t	Get_HP()				const { return m_fHP; }
-	f32_t	Get_MaxHP()				const { return m_fMaxHP; }
-
 	f32_t	Get_Stamina()			const { return m_fStamina; }
 	f32_t	Get_MaxStamina()		const { return m_fMaxStamina; }
 	bool_t	Is_StaminaLock()		const { return m_bStaminaLock; }
@@ -92,8 +89,6 @@ private:
 
 private:
 	// 플레이어 스텟값
-	f32_t							m_fHP = { 100.f };
-	f32_t							m_fMaxHP = { 100.f };
 
 	f32_t							m_fStamina = {100.f};
 	f32_t							m_fMaxStamina = {100.f};

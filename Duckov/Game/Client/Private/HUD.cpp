@@ -50,17 +50,6 @@ HRESULT CHUD::Initialize_Prototype()
 	m_iIndexCnt = size(indices);
 	if (FAILED(m_pDevice->CreateBuffer(&IBDesc, &IBData, &m_pIB)))
 		return E_FAIL;
-
-	// 래스터라이저 설정
-	D3D11_RASTERIZER_DESC rsDesc{};
-	rsDesc.FillMode = D3D11_FILL_SOLID;         // D3D11_FILL_WIREFRAME , D3D11_FILL_SOLID
-	rsDesc.CullMode = D3D11_CULL_BACK;          // D3D11_CULL_BACK , D3D11_CULL_FRONT
-	rsDesc.FrontCounterClockwise = false;       // 시계방향이 전면
-	rsDesc.DepthClipEnable = true;
-
-	m_pDevice->CreateRasterizerState(&rsDesc, m_pRS.GetAddressOf());
-
-
 	return S_OK;
 }
 
@@ -76,14 +65,14 @@ HRESULT CHUD::Initialize(void* pArg)
 	return S_OK;
 }
 
-void CHUD::Priority_Update(f32_t fTimeDelta)
+void CHUD::Priority_Update(f32_t fDeltaTime)
 {
-	__super::Priority_Update(fTimeDelta);
+	__super::Priority_Update(fDeltaTime);
 }
 
-void CHUD::Update(f32_t fTimeDelta)
+void CHUD::Update(f32_t fDeltaTime)
 {
-	__super::Update(fTimeDelta);
+	__super::Update(fDeltaTime);
 
 	auto pInven = m_pInven.lock();
 	if (nullptr == pInven)
@@ -103,9 +92,9 @@ void CHUD::Update(f32_t fTimeDelta)
 	}
 }
 
-void CHUD::Late_Update(f32_t fTimeDelta)
+void CHUD::Late_Update(f32_t fDeltaTime)
 {
-	__super::Late_Update(fTimeDelta);
+	__super::Late_Update(fDeltaTime);
 	auto pInven = m_pInven.lock();
 	if (nullptr == pInven)
 		return;
@@ -147,8 +136,6 @@ HRESULT CHUD::Render()
 
 	if (FAILED(m_pHUDIconTexCom->Set_TexturePS(0, 1)))
 		return E_FAIL;
-
-	m_pContext->RSSetState(m_pRS.Get());
 
 	m_pContext->DrawIndexedInstanced(m_iIndexCnt, iCount, 0, 0, 0);
 

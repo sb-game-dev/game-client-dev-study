@@ -115,13 +115,13 @@ HRESULT CLoader::Loading_For_GamePlayLV()
     lstrcpy(m_szLoadingText, TEXT("텍스쳐를 준비중입니다."));
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::ZEROZONE), Proto::Texture_Cube,
-        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/WireFence.dds"), 1))))
+        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/WireFence_Cube.dds"), 1))))
         return E_FAIL;
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::ZEROZONE), Proto::Texture_Hill,
         CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/grass.dds"), 1))))
         return E_FAIL;
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::ZEROZONE), Proto::Texture_SkyBox,
-        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/SkyCube.dds"), 1))))
+        CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/SkyCube_Cube.dds"), 1))))
         return E_FAIL;
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::ZEROZONE), Proto::Texture_Mirror,
         CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/Ex/ice.dds"), 1))))

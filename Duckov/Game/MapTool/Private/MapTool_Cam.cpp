@@ -24,7 +24,7 @@ HRESULT CMapTool_Cam::Initialize(void* pArg)
 	return S_OK;
 }
 
-void CMapTool_Cam::Priority_Update(f32_t fTimeDelta)
+void CMapTool_Cam::Priority_Update(f32_t fDeltaTime)
 {
 }
 

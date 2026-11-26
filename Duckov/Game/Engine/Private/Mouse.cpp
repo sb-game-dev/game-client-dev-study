@@ -19,19 +19,19 @@ HRESULT CMouse::Initialize(void* pArg)
     return S_OK;
 }
 
-void CMouse::Priority_Update(f32_t fTimeDelta)
+void CMouse::Priority_Update(f32_t fDeltaTime)
 {
-    __super::Priority_Update(fTimeDelta);
+    __super::Priority_Update(fDeltaTime);
 }
 
-void CMouse::Update(f32_t fTimeDelta)
+void CMouse::Update(f32_t fDeltaTime)
 {
-    __super::Update(fTimeDelta);
+    __super::Update(fDeltaTime);
 }
 
-void CMouse::Late_Update(f32_t fTimeDelta)
+void CMouse::Late_Update(f32_t fDeltaTime)
 {
-    __super::Late_Update(fTimeDelta);
+    __super::Late_Update(fDeltaTime);
 }
 HRESULT CMouse::Render()
 {

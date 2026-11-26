@@ -42,9 +42,9 @@ HRESULT CArmor::Initialize(void* pArg)
     return S_OK;
 }
 
-void CArmor::Priority_Update(f32_t fTimeDelta)
+void CArmor::Priority_Update(f32_t fDeltaTime)
 {
-    __super::Priority_Update(fTimeDelta);
+    __super::Priority_Update(fDeltaTime);
     auto pInven = m_pInven.lock();
     if (nullptr == pInven)
     {
@@ -57,9 +57,9 @@ void CArmor::Priority_Update(f32_t fTimeDelta)
 
 }
 
-void CArmor::Update(f32_t fTimeDelta)
+void CArmor::Update(f32_t fDeltaTime)
 {
-    __super::Update(fTimeDelta);
+    __super::Update(fDeltaTime);
 
     auto pInven = m_pInven.lock();
     if (nullptr == pInven || nullptr == pInven->GetEquipSlot(EQUIP_SLOT::BODY))
@@ -74,9 +74,9 @@ void CArmor::Update(f32_t fTimeDelta)
 }
 
 
-void CArmor::Late_Update(f32_t fTimeDelta)
+void CArmor::Late_Update(f32_t fDeltaTime)
 {
-    __super::Late_Update(fTimeDelta);
+    __super::Late_Update(fDeltaTime);
 
     auto pInven = m_pInven.lock();
     if (nullptr == pInven || nullptr == pInven->GetEquipSlot(EQUIP_SLOT::BODY))

@@ -11,9 +11,9 @@ public:
 
 public:
 	HRESULT		Add_GameObject(const wstring_t& strGameObjectTag ,shared_ptr<class CGameObject> pGameObject);
-	void		Priority_Update(f32_t fTimeDelta);
+	void		Priority_Update(f32_t fDeltaTime);
 	void		Update(f32_t fTimeDelat);
-	void		Late_Update(f32_t fTimeDelta); 
+	void		Late_Update(f32_t fDeltaTime); 
 	void		Remove_Dead();
 
 	void		Set_Active(bool_t bActive);

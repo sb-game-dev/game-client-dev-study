@@ -24,10 +24,6 @@ public:
 	virtual HRESULT	Render() override;
 	virtual HRESULT	Render_Shadow() override;
 
-	f32_t		Get_MaxHP() { return m_fMaxHp; }
-	f32_t		Get_HP() { return m_fCurrentHp; }
-
-
 public:
 	virtual void	TriggerEnter(shared_ptr<class CCollider> pOtherCollider)override;
 	virtual void	Take_Damage(const DAMAGE_DESC& Desc)override;
@@ -41,9 +37,7 @@ private:
 	shared_ptr<CPixelShader>		m_pPS = { nullptr };
 	shared_ptr<CPixelShader>		m_pPS_Shadow = { nullptr };
 
-private:
-	f32_t			m_fMaxHp = { 100.f };
-	f32_t			m_fCurrentHp = { 100.f };
+	shared_ptr<class CUI_HpBar>		m_pHpBar = { nullptr };
 
 private:
 	HRESULT			Ready_Components();
@@ -54,7 +48,7 @@ private:
 	virtual			HRESULT Bind_Shader(shared_ptr<CVertexShader> pVS = nullptr, shared_ptr<CPixelShader> pPS = nullptr);
 	virtual			HRESULT Bind_ShaderResources(const matrix_t& matWorld);
 
-	HRESULT			Render_Mesh(const XMMATRIX& matWorld, ID3D11RasterizerState* pRS, shared_ptr<CPixelShader> pPS);
+	HRESULT			Render_Mesh(const XMMATRIX& matWorld, shared_ptr<CPixelShader> pPS);
 	matrix_t		Get_ShadowWorld();
 public:
 	static shared_ptr<CCube> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
