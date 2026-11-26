@@ -112,7 +112,7 @@ HRESULT CPlayer::Ready_PartObjects()
     BodyDesc.pParentTransformCom = m_pTransformCom;
     BodyDesc.pGroundPlane = &m_vGroundPlane;
 
-    if (FAILED(__super::Add_PartObject(ETOUI(LEVEL::STATIC), Proto::Obj_Player_Body,
+    if (FAILED(__super::Add_PartObject(ETOUI(LEVEL::STATIC), Proto::Obj_Body_Player,
         TEXT("Part_Body"), &BodyDesc)))
         return E_FAIL;
     m_pBodyPlayer = dynamic_pointer_cast<CBody_Player>(m_PartObjects[TEXT("Part_Body")]);

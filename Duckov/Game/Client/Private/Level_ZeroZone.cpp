@@ -10,6 +10,7 @@
 #include "QuarterView_Cam.h"
 #include "Bullet.h"
 #include "Weapon.h"
+#include "TargetDummy.h"
 
 CLevel_ZeroZone::CLevel_ZeroZone(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     :CLevel{ pDevice,pContext }
@@ -91,17 +92,14 @@ HRESULT CLevel_ZeroZone::Ready_Layer_GameObject(const tchar_t* pLayerTag)
 
     for (int i = 0; i < 16; ++i)
     {
-        CCube::CUBE_DESC Cube_Desc{};
+        CTargetDummy::TARGETDUMMY_DESC TargetDummy_Desc{};
         f32_t fPosX = 38.2f + 10 * sinf(XM_2PI / 16 * i);
         f32_t fPosZ = -207.2f + 10 * cosf(XM_2PI / 16 * i);
     
-        Cube_Desc.vPosition = { fPosX ,0.f,fPosZ };
-        Cube_Desc.iLevelIndex = ETOUI(LEVEL::ZEROZONE);
-        Cube_Desc.strMeshPath = Proto::VIBuffer_Cube;
-        Cube_Desc.strTexturePath = Proto::Texture_Cube;
-        //Cube_Desc.strTexturePath;
-        if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::ZEROZONE), Proto::Obj_Cube,
-            ETOUI(LEVEL::ZEROZONE), pLayerTag, GO::Cube + to_wstring(i), &Cube_Desc)))
+        TargetDummy_Desc.vPosition = { fPosX ,0.f,fPosZ };
+        TargetDummy_Desc.iLevelIndex = ETOUI(LEVEL::ZEROZONE);
+        if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::ZEROZONE), Proto::Obj_TargetDummy,
+            ETOUI(LEVEL::ZEROZONE), pLayerTag, GO::TargetDummy + to_wstring(i), &TargetDummy_Desc)))
             return E_FAIL;
     }
 

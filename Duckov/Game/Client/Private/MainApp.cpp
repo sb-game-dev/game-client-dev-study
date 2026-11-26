@@ -221,7 +221,7 @@ HRESULT CMainApp::Ready_Prototype_For_StaticLV()
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_Player,
         CPlayer::Create(m_pDevice, m_pContext))))
         return E_FAIL;
-    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_Player_Body,
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_Body_Player,
         CBody_Player::Create(m_pDevice, m_pContext))))
         return E_FAIL;
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_Weapon,

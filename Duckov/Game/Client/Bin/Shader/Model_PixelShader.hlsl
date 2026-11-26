@@ -39,6 +39,11 @@ cbuffer cbCharacter : register(b6)
     float4 g_vTint;             // 전체 색 보정
 }
 
+cbuffer cbHitRaito : register(b7)
+{
+    float4 g_vHitRatio;
+}
+
 struct PS_IN
 {
     float4 vPosition : SV_POSITION; // 클립 공간 위치 (월드,뷰,투영변환 완료된 위치)
@@ -101,6 +106,10 @@ float4 PS_MAIN(PS_IN In) : SV_TARGET //몇 번째 렌더타겟에 색을 쓸지
     float fogLerp = saturate((distToEye - g_fFogStart) / g_fFogRange);
     vColor.rgb = lerp(vColor.rgb, g_vFogColor.rgb, fogLerp);
     
+    vColor.r = vColor.r + (1 - vColor.r) * g_vHitRatio.r;
+    vColor.g = vColor.g + (1 - vColor.g) * g_vHitRatio.g;
+    vColor.b = vColor.b + (1 - vColor.b) * g_vHitRatio.b;
+    
     return vColor;
 }
 
@@ -129,6 +138,10 @@ float4 PS_MAIN_MODEL(PS_IN_MODEL In) : SV_TARGET //몇 번째 렌더타겟에 색을 쓸지
     
     float4 vColor = g_DirLight.Diffuse * vMtrlDiffuse * vShade +
         (g_DirLight.Specular * g_Material.Specular) * fSpecular;
+    
+    vColor.r = vColor.r + (1 - vColor.r) * g_vHitRatio.r;
+    vColor.g = vColor.g + (1 - vColor.g) * g_vHitRatio.g;
+    vColor.b = vColor.b + (1 - vColor.b) * g_vHitRatio.b;
     
     return vColor;
 }

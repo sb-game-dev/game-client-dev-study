@@ -69,7 +69,8 @@ namespace Client
 		// ---------- Model ----------
 		// 값은 Normalize_AssetPath()를 거친 경로(소문자, Resource 루트 제외) 그대로 둔다.
 		// StaticProp::Change_Model / 맵툴 콤보(Get_ModelTags) / 씬 파일이 이 경로로 원형을 찾기 때문.
-		inline constexpr const wchar_t* Model_Duck = L"characters/s12_duckv2_2/s12_duckv2_2.fbx";
+		inline constexpr const wchar_t* Model_Duck = L"characters/s12_duckv2_2/s12_duckv2_2.bin";
+		inline constexpr const wchar_t* Model_TargetDummy = L"characters/charactermodel_dummy_1/charactermodel_dummy_1.bin";
 		inline constexpr const wchar_t* Model_Boss_Wu = L"characters/0_charactermodel_boss_wu/0_charactermodel_boss_wu.bin";
 		inline constexpr const wchar_t* Model_Tree_01 = L"mesh/tree/pfb_tree_01_1.bin";
 		inline constexpr const wchar_t* Model_Container_Back = L"mesh/sm_container/sm_container_back.bin";
@@ -100,7 +101,9 @@ namespace Client
 		// ---------- GameObject 원형 ----------
 		inline constexpr const wchar_t* Obj_BackGround = L"Prototype_GameObject_BackGround";
 		inline constexpr const wchar_t* Obj_Player = L"Prototype_GameObject_Player";
-		inline constexpr const wchar_t* Obj_Player_Body = L"Prototype_GameObject_Player_Body";
+		inline constexpr const wchar_t* Obj_TargetDummy = L"Prototype_GameObject_TargetDummy";
+		inline constexpr const wchar_t* Obj_Body_Player = L"Prototype_GameObject_Player_Body";
+		inline constexpr const wchar_t* Obj_Body_TargetDummy = L"Prototype_GameObject_Body_TargetDummy";
 		inline constexpr const wchar_t* Obj_Weapon = L"Prototype_GameObject_Weapon";
 		inline constexpr const wchar_t* Obj_Helmet = L"Prototype_GameObject_Helmet";
 		inline constexpr const wchar_t* Obj_Armor = L"Prototype_GameObject_Armor";
@@ -137,6 +140,7 @@ namespace Client
 	{
 		inline constexpr const wchar_t* BackGround = L"GameObject_BackGround";
 		inline constexpr const wchar_t* Player = L"GameObject_Player";
+		inline constexpr const wchar_t* TargetDummy = L"GameObject_TargetDummy";
 		inline constexpr const wchar_t* Cube = L"GameObject_Cube";          // 뒤에 번호 붙여서 사용
 		inline constexpr const wchar_t* Cube_Instance = L"GameObject_Cube_Instance";
 		inline constexpr const wchar_t* SkyBox = L"GameObject_SkyBox";

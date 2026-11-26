@@ -138,7 +138,7 @@ void CUI_StaminaRing::Build_Instances()
 	if (pPlayer)
 	{
 		vector_t vHead = m_pParentTransformCom->Get_State(STATE::POSITION)
-			+ XMVectorSet(-0.5f, 2.f, 0.f, 0.f);
+			+ XMVectorSet(-1.f, -1.f, 0.f, 0.f);
 		auto matPlayerWorld = m_pParentTransformCom->Get_World(); 
 		
 		matrix_t matVP = CGameInstance::Get().Get_Perspective_Transform(D3DTS::VIEW) * CGameInstance::Get().Get_Perspective_Transform(D3DTS::PROJ);
@@ -152,12 +152,12 @@ void CUI_StaminaRing::Build_Instances()
 			return;
 
 		// 스테미너 배경
-		Push_Circle(x + STAMINA_OFFSET.x, y + STAMINA_OFFSET.y, 
+		Push_Circle(x, y, 
 			HUD_RING_STAMINA_BG_OUTER_SIZE, HUD_RING_STAMINA_BG_INNER_SIZE, 
 			COLOR_HUD_SLOT_BG_DARK, 
 			360.f);
 		// 스테미너 게이지
-		Push_Circle(x + STAMINA_OFFSET.x, y + STAMINA_OFFSET.y, 
+		Push_Circle(x, y, 
 			HUD_RING_STAMINA_FILL_OUTER_SIZE, HUD_RING_STAMINA_FILL_INNER_SIZE, 
 			pPlayer->Get_Stamina() > 30.f ? COLOR_STAMINA_FILL : COLOR_STAMINA_FILL_YELLOW,
 			pPlayer->Get_Stamina() / pPlayer->Get_MaxStamina() * 360.f);

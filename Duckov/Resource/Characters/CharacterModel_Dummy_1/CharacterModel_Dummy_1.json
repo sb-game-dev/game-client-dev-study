@@ -1,0 +1,496 @@
+{
+ "name": "CharacterModel_Dummy_1",
+ "fbx": "CharacterModel_Dummy_1.fbx",
+ "category": "Characters",
+ "socket_hint": null,
+ "nodes": 13,
+ "renderers": [
+  {
+   "node": "Capsule",
+   "type": "MeshRenderer",
+   "mesh": "Capsule",
+   "enabled": true,
+   "active": true
+  },
+  {
+   "node": "Capsule_1",
+   "type": "MeshRenderer",
+   "mesh": "Capsule",
+   "enabled": true,
+   "active": true
+  },
+  {
+   "node": "Capsule_2",
+   "type": "MeshRenderer",
+   "mesh": "pSphere1",
+   "enabled": true,
+   "active": true
+  },
+  {
+   "node": "Capsule_3",
+   "type": "MeshRenderer",
+   "mesh": "pSphere1",
+   "enabled": true,
+   "active": true
+  }
+ ],
+ "sockets": [
+  "ArmorSocket",
+  "BackpackSocket",
+  "HelmatSocket",
+  "MeleeWeaponSocket",
+  "RightHandSocket",
+  "PopTextSocket"
+ ],
+ "animator": null,
+ "clips": [],
+ "lod_groups": null,
+ "light_volumes": null,
+ "materials": [
+  {
+   "name": "Duck Dummy",
+   "shader": "SodaCraft/SodaCharacter",
+   "textures": {
+    "_EmissionMap": {
+     "texture": "Material.001_E.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    },
+    "_NormalMap": {
+     "texture": "Player_Duck_Tex_Normal.png",
+     "scale": [
+      1.0,
+      1.0
+     ],
+     "offset": [
+      0.0,
+      0.0
+     ]
+    }
+   },
+   "colors": {
+    "_AlphaMaskTint": [
+     0.6886792182922363,
+     0.6886792182922363,
+     0.6886792182922363,
+     1.0
+    ],
+    "_BaseColor": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_BottomColor": [
+     0.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    "_Color": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_EmissionColor": [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ],
+    "_HitColor": [
+     47.937255859375,
+     12.800000190734863,
+     4.015686511993408,
+     0.0
+    ],
+    "_HurtColor": [
+     5.992156505584717,
+     0.0941176488995552,
+     0.0941176488995552,
+     0.0
+    ],
+    "_SpecColor": [
+     0.19999995827674866,
+     0.19999995827674866,
+     0.19999995827674866,
+     1.0
+    ],
+    "_Tint": [
+     1.0,
+     1.0,
+     1.0,
+     0.0
+    ]
+   },
+   "floats": {
+    "_AO_Blend2Albedo": 0.0,
+    "_AlphaClip": 0.0,
+    "_AlphaCutoff": 0.5,
+    "_AlphaMask": 1.0,
+    "_AoStrength": 1.0,
+    "_AoUseUV3": 0.0,
+    "_Blend": 0.0,
+    "_BlendModePreserveSpecular": 1.0,
+    "_BumpScale": 1.0,
+    "_ClearCoatMask": 0.0,
+    "_ClearCoatSmoothness": 0.0,
+    "_Cull": 2.0,
+    "_Cutoff": 0.5,
+    "_Cutout": 0.0,
+    "_DetailAlbedoMapScale": 1.0,
+    "_DetailNormalMapScale": 1.0,
+    "_DstBlend": 0.0,
+    "_DstBlendAlpha": 0.0,
+    "_EnvironmentReflections": 1.0,
+    "_FresnelPower": 3.0,
+    "_GlossMapScale": 0.0,
+    "_Glossiness": 0.0,
+    "_GlossinessSource": 0.0,
+    "_GlossyReflections": 0.0,
+    "_HeightFadeDistance": 0.0,
+    "_HitValue": 0.0,
+    "_HurtValue": 0.0,
+    "_Metallic": 0.0,
+    "_NormalScale": 0.0,
+    "_OcclusionStrength": 1.0,
+    "_Parallax": 0.004999999888241291,
+    "_QueueControl": 0.0,
+    "_QueueOffset": 0.0,
+    "_ReceiveShadows": 1.0,
+    "_Shininess": 0.0,
+    "_Smoothness": 0.7020000219345093,
+    "_SmoothnessSource": 0.0,
+    "_SmoothnessTextureChannel": 0.0,
+    "_SpecSource": 0.0,
+    "_SpecularHighlights": 1.0,
+    "_SrcBlend": 1.0,
+    "_SrcBlendAlpha": 1.0,
+    "_Surface": 0.0,
+    "_TempratureLerp": 1.0,
+    "_WorkflowMode": 1.0,
+    "_ZWrite": 1.0
+   },
+   "keywords": null,
+   "fbx_name": "Duck Dummy"
+  },
+  {
+   "name": "Eyebrow",
+   "shader": "SodaCraft/SodaCharacter",
+   "textures": {},
+   "colors": {
+    "_AlphaMaskTint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_BaseColor": [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ],
+    "_Color": [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ],
+    "_EmissionColor": [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ],
+    "_SpecColor": [
+     0.19999995827674866,
+     0.19999995827674866,
+     0.19999995827674866,
+     1.0
+    ],
+    "_Tint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ]
+   },
+   "floats": {
+    "_AO_Blend2Albedo": 0.0,
+    "_AlphaClip": 0.0,
+    "_AlphaCutoff": 0.5,
+    "_AlphaMask": 0.0,
+    "_AlphaToMask": 0.0,
+    "_Blend": 0.0,
+    "_BlendModePreserveSpecular": 1.0,
+    "_BlendOp": 0.0,
+    "_BumpScale": 1.0,
+    "_ClearCoatMask": 0.0,
+    "_ClearCoatSmoothness": 0.0,
+    "_Cull": 2.0,
+    "_Cutoff": 0.5,
+    "_Cutout": 0.0,
+    "_DetailAlbedoMapScale": 1.0,
+    "_DetailNormalMapScale": 1.0,
+    "_DstBlend": 0.0,
+    "_DstBlendAlpha": 0.0,
+    "_EnvironmentReflections": 1.0,
+    "_FresnelPower": 1.0,
+    "_GlossMapScale": 0.0,
+    "_Glossiness": 0.0,
+    "_GlossyReflections": 0.0,
+    "_HurtValue": 0.0,
+    "_Metallic": 0.0,
+    "_NormalScale": 1.0,
+    "_OcclusionStrength": 1.0,
+    "_Parallax": 0.004999999888241291,
+    "_QueueControl": 0.0,
+    "_QueueOffset": 0.0,
+    "_ReceiveShadows": 1.0,
+    "_SampleGI": 0.0,
+    "_Smoothness": 0.2770000100135803,
+    "_SmoothnessTextureChannel": 0.0,
+    "_SpecularHighlights": 1.0,
+    "_SrcBlend": 1.0,
+    "_SrcBlendAlpha": 1.0,
+    "_Surface": 0.0,
+    "_TempratureLerp": 0.0,
+    "_WorkflowMode": 1.0,
+    "_ZWrite": 1.0
+   },
+   "keywords": null,
+   "fbx_name": "Eyebrow"
+  },
+  {
+   "name": "EyeBlack",
+   "shader": "SodaCraft/SodaCharacter",
+   "textures": {},
+   "colors": {
+    "_AlphaMaskTint": [
+     1.0,
+     1.0,
+     1.0,
+     1.0
+    ],
+    "_BaseColor": [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ],
+    "_Color": [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ],
+    "_EmissionColor": [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ],
+    "_SpecColor": [
+     0.19999995827674866,
+     0.19999995827674866,
+     0.19999995827674866,
+     1.0
+    ],
+    "_Tint": [
+     0.27358490228652954,
+     0.27358490228652954,
+     0.27358490228652954,
+     1.0
+    ]
+   },
+   "floats": {
+    "_AO_Blend2Albedo": 0.0,
+    "_AlphaClip": 0.0,
+    "_AlphaCutoff": 0.5,
+    "_AlphaMask": 0.0,
+    "_AlphaToMask": 0.0,
+    "_Blend": 0.0,
+    "_BlendModePreserveSpecular": 1.0,
+    "_BlendOp": 0.0,
+    "_BumpScale": 1.0,
+    "_ClearCoatMask": 0.0,
+    "_ClearCoatSmoothness": 0.0,
+    "_Cull": 2.0,
+    "_Cutoff": 0.5,
+    "_Cutout": 0.0,
+    "_DetailAlbedoMapScale": 1.0,
+    "_DetailNormalMapScale": 1.0,
+    "_DstBlend": 0.0,
+    "_DstBlendAlpha": 0.0,
+    "_EnvironmentReflections": 1.0,
+    "_FresnelPower": 1.0,
+    "_GlossMapScale": 0.0,
+    "_Glossiness": 0.0,
+    "_GlossyReflections": 0.0,
+    "_HurtValue": 0.0,
+    "_Metallic": 0.0,
+    "_NormalScale": 1.0,
+    "_OcclusionStrength": 1.0,
+    "_Parallax": 0.004999999888241291,
+    "_QueueControl": 0.0,
+    "_QueueOffset": 0.0,
+    "_ReceiveShadows": 1.0,
+    "_SampleGI": 0.0,
+    "_Smoothness": 0.7099999785423279,
+    "_SmoothnessTextureChannel": 0.0,
+    "_SpecularHighlights": 1.0,
+    "_SrcBlend": 1.0,
+    "_SrcBlendAlpha": 1.0,
+    "_Surface": 0.0,
+    "_TempratureLerp": 0.0,
+    "_WorkflowMode": 1.0,
+    "_ZWrite": 1.0
+   },
+   "keywords": null,
+   "fbx_name": "EyeBlack"
+  }
+ ],
+ "warnings": [],
+ "node_names_in_fbx": [
+  "CharacterModel_Dummy_1",
+  "ArmorSocket",
+  "BackpackSocket",
+  "HelmatSocket",
+  "MeleeWeaponSocket",
+  "RightHandSocket",
+  "RunParticle",
+  "Particle System",
+  "PopTextSocket",
+  "Capsule",
+  "Capsule_1",
+  "Capsule_2",
+  "Capsule_3"
+ ],
+ "unity_components": {
+  "CharacterModel": {
+   "m_GameObject": {
+    "m_FileID": 0,
+    "m_PathID": 14288
+   },
+   "m_Enabled": 1,
+   "m_Script": {
+    "m_FileID": 16777216,
+    "m_PathID": 64692944896
+   },
+   "m_Name": "",
+   "damageReceiverRadius": 0.5,
+   "characterRadius": 0.30000001192092896,
+   "attackFxZOffset": 0.0,
+   "vehicleType": 0,
+   "characterMainControl": {
+    "m_FileID": 0,
+    "m_PathID": 0
+   },
+   "invisable": 0,
+   "lefthandSocket": {
+    "m_FileID": 0,
+    "m_PathID": 0
+   },
+   "rightHandSocket": {
+    "m_FileID": 0,
+    "m_PathID": 34013
+   },
+   "hurtVisual": {
+    "m_FileID": 0,
+    "m_PathID": 89027
+   },
+   "armorSocket": {
+    "m_FileID": 0,
+    "m_PathID": 43283
+   },
+   "helmatSocket": {
+    "m_FileID": 0,
+    "m_PathID": 34749
+   },
+   "faceSocket": {
+    "m_FileID": 0,
+    "m_PathID": 0
+   },
+   "backpackSocket": {
+    "m_FileID": 0,
+    "m_PathID": 34955
+   },
+   "meleeWeaponSocket": {
+    "m_FileID": 0,
+    "m_PathID": 41886
+   },
+   "popTextSocket": {
+    "m_FileID": 0,
+    "m_PathID": 37408
+   },
+   "vehicleSocket": {
+    "m_FileID": 0,
+    "m_PathID": 0
+   },
+   "exitVehicleSockets": [],
+   "subVisuals": [],
+   "renderers": [],
+   "customFace": {
+    "m_FileID": 0,
+    "m_PathID": 0
+   },
+   "autoSyncRightHandRotation": 1
+  },
+  "CharacterSubVisuals": {
+   "m_GameObject": {
+    "m_FileID": 0,
+    "m_PathID": 14288
+   },
+   "m_Enabled": 1,
+   "m_Script": {
+    "m_FileID": 16777216,
+    "m_PathID": 36238786560
+   },
+   "m_Name": "",
+   "renderers": [
+    {
+     "m_FileID": 0,
+     "m_PathID": 47365
+    },
+    {
+     "m_FileID": 0,
+     "m_PathID": 48847
+    },
+    {
+     "m_FileID": 0,
+     "m_PathID": 48306
+    },
+    {
+     "m_FileID": 0,
+     "m_PathID": 48133
+    }
+   ],
+   "particles": [
+    {
+     "m_FileID": 0,
+     "m_PathID": 53119
+    },
+    {
+     "m_FileID": 0,
+     "m_PathID": 53086
+    }
+   ],
+   "lights": [],
+   "sodaPointLights": [],
+   "logWhenSetVisual": 0,
+   "mainModel": {
+    "m_FileID": 0,
+    "m_PathID": 0
+   },
+   "debug": 0
+  }
+ }
+}

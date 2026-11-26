@@ -38,6 +38,10 @@ private:
 	shared_ptr<CPixelShader>		m_pPS_Shadow = { nullptr };
 
 	shared_ptr<class CUI_HpBar>		m_pHpBar = { nullptr };
+	f32_t							m_fHitTimeRemaining = { 0.f };	// 남은 시간
+	f32_t							m_fHitDuration = { 0.15f };		// 전체 애니메이션 길이
+	shared_ptr<CConstantBuffer>		m_pCBHitRatio = { nullptr };
+	float4_t						m_vHitRatio = {};
 
 private:
 	HRESULT			Ready_Components();

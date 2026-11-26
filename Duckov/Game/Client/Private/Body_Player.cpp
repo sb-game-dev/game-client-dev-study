@@ -61,7 +61,13 @@ HRESULT CBody_Player::Render()
 
 HRESULT CBody_Player::Render_Reflection(const matrix_t& matReflect)
 {
-    return Render_Mesh(XMLoadFloat4x4(&m_CombinedWorldMatrix) * matReflect, m_pPSCom);
+    if (FAILED(CGameInstance::Get().Bind_RasterizerState(g_strRS_Cull_Front)))
+        return E_FAIL;
+    if (FAILED(Render_Mesh(XMLoadFloat4x4(&m_CombinedWorldMatrix) * matReflect, m_pPSCom)))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Bind_RasterizerState(g_strRS_Default)))
+        return E_FAIL;
+    return S_OK;
 }
 
 HRESULT CBody_Player::Render_Shadow()
@@ -77,11 +83,8 @@ HRESULT CBody_Player::Render_Shadow()
 
 HRESULT CBody_Player::Render_Occluded()
 {
-    if (FAILED(CGameInstance::Get().Bind_RasterizerState(g_strRS_Cull_Front)))
-        return E_FAIL;
+    
     if (FAILED(Render_Mesh(XMLoadFloat4x4(&m_CombinedWorldMatrix), m_pPS_Occluded)))
-        return E_FAIL;
-    if (FAILED(CGameInstance::Get().Bind_RasterizerState(g_strRS_Default)))
         return E_FAIL;
     return S_OK;
 }
@@ -167,7 +170,7 @@ f32_t CBody_Player::Get_Duration(bool_t Is_Upper)
 
 HRESULT CBody_Player::Ready_Components()
 {
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Normalize_AssetPath(TEXT("Characters/S12_DuckV2_2/S12_DuckV2_2.fbx")),
+    if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Normalize_AssetPath(TEXT("Characters/S12_DuckV2_2/S12_DuckV2_2.bin")),
         TEXT("Com_Model"), m_pModelCom)))
         return E_FAIL;
 

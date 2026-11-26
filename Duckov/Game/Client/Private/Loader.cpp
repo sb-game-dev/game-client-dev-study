@@ -9,6 +9,8 @@
 #include "Cube_Instance.h"
 #include "Tree_Instance.h"
 #include "StaticProp.h"
+#include "TargetDummy.h"
+#include "Body_TargetDummy.h"
 
 
 CLoader::CLoader(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
@@ -145,6 +147,12 @@ HRESULT CLoader::Loading_For_GamePlayLV()
         return E_FAIL;
 
     matrix_t PreTransformMatrix = XMMatrixRotationY(180.f);
+    
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::ZEROZONE),
+        Proto::Model_TargetDummy,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/Characters/CharacterModel_Dummy_1/CharacterModel_Dummy_1.bin"))))
+        return E_FAIL;
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::ZEROZONE),
         Proto::Model_Tree_01,
@@ -227,6 +235,15 @@ HRESULT CLoader::Loading_For_GamePlayLV()
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::ZEROZONE), Proto::Obj_StaticProp,
         CStaticProp::Create(m_pDevice, m_pContext))))
         return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::ZEROZONE), Proto::Obj_TargetDummy,
+        CTargetDummy::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::ZEROZONE), Proto::Obj_Body_TargetDummy,
+        CBody_TargetDummy::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
+
+
 
     lstrcpy(m_szLoadingText, TEXT("로딩이 완료되었습니다."));
 

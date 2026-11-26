@@ -158,24 +158,22 @@ void CUI_HpBar::Build_Instances()
 		f32_t fRatio = m_fHitTimeRemaining / m_fHitDuration;
 		
 		// 크기 -> 애니메이션 남은 시간 비율만큼 늘어남
-		f32_t w = HP_SLIDER_WIDTH * (1 + fRatio);
-		f32_t h = HP_SLIDER_HEIGHT* (1 + fRatio);
+		f32_t w = HP_SLIDER_WIDTH * (1 + fRatio * 0.2f);
+		f32_t h = HP_SLIDER_HEIGHT* (1 + fRatio * 0.2f);
 
-		// x,y 흔들기 -> 애니메이션 남은 시간 비율만큼 큰 폭으로 튕김
+		// x,y 흔들기 -> 애니메이션 남은 시간 비율만큼 흔들림
 		f32_t fDeltaX = (CGameInstance::Get().Random(-4, 4)) * fRatio;
 		f32_t fDeltaY = (CGameInstance::Get().Random(-4, 4)) * fRatio;
 
-		// 바 중심을 먼저 구하고 -> 커진 크기의 절반만큼 빼서 좌상단 구하기
-		f32_t cx = x + fDeltaX;
-		f32_t cy = y - HP_SLIDER_HEIGHT * 0.5f + fDeltaY;
-		f32_t left = cx - w * 0.5f;
-		f32_t top = cy + h * 0.5f;
+		// 크기 + 흔들기에의해 새롭게 업데이트된 Left,Top 구하기
+		f32_t left = x - w * 0.5f + fDeltaX;
+		f32_t top = y + h * 0.5f + fDeltaY;
 
 		Push_Bar(left - 2.f, top + 2.f, w + 4.f, h + 4.f,
 			1, COLOR_HP_FILL_SIDE, h * 0.5f);
 
-		Push_Bar(left, top, w, h, pParent->Get_HP() / pParent->Get_MaxHP(),
-			BlendWithWiteColor(COLOR_HP_FILL, fRatio), h * 0.5f);
+		Push_Bar(left, top, w, h, 
+			pParent->Get_HP() / pParent->Get_MaxHP(), AddWhiteColor(COLOR_HP_FILL, fRatio), h * 0.5f);
 	}
 }
 
@@ -223,7 +221,7 @@ void CUI_HpBar::Push_Bar(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, f
 		Push_Rect(fLeft, fTop, fWidth * fRatio, fHeight, vFillColor, fRadius);
 }
 
-float4_t CUI_HpBar::BlendWithWiteColor(float4_t OriginalColor, f32_t fRatio)
+float4_t CUI_HpBar::AddWhiteColor(float4_t OriginalColor, f32_t fRatio)
 {
 	return float4_t(OriginalColor.x + (1 - OriginalColor.x) * fRatio,
 		OriginalColor.y + (1 - OriginalColor.y) * fRatio,

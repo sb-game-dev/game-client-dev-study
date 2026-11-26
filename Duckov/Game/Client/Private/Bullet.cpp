@@ -156,7 +156,7 @@ HRESULT CBullet::Bind_ShaderResources()
     // 다만 이동할수록 길어짐 -> 최대값을 설정
     f32_t fHeight = min(m_pTransformCom->Get_Speed() * 0.04f, m_fMoveDistance);    
 
-    matrix_t matLocal = XMMatrixScaling(m_fWidth, fHeight, 1.f)     // 폭 , 길이 설정
+    matrix_t matLocal = XMMatrixScaling(m_fWidth, fHeight, 1.f)  // 폭 , 길이 설정
         * XMMatrixRotationX(XM_PI / 2.f)                         // x축 90도 회전(x,z평면으로 눕히기)
         * XMMatrixTranslation(0.f, 0.f, -fHeight * 0.5f);        // 중심점을 총알 투사체의 시작점으로 설정 
                                                                  // -> 이 설정을 하지 않으면 충돌 검사를 총알 투사체의 중심과 하게 됨

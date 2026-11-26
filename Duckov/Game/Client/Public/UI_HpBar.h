@@ -57,7 +57,7 @@ private:
 
 	weak_ptr<class CInven>			m_pInven;
 
-	f32_t       m_fHitTimeRemaining = { 0.f };			// 남은 시간
+	f32_t       m_fHitTimeRemaining = { 0.f };	// 남은 시간
 	f32_t       m_fHitDuration = { 0.15f };		// 전체 애니메이션 길이
 
 private:
@@ -68,7 +68,7 @@ private:
 	void					Push_Rect(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, float4_t vColor, f32_t fRadius = 0.f, f32_t fBorder = 0.f);// fBorder : 외곽선 두께
 	void					Push_Bar(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight, f32_t fRatio, float4_t vFillColor, f32_t fRadius);
 
-	float4_t				BlendWithWiteColor(float4_t OriginalColor, f32_t fRatio);
+	float4_t				AddWhiteColor(float4_t OriginalColor, f32_t fRatio);
 public:
 	static shared_ptr<CUI_HpBar>	Create(ComPtr<ID3D11Device>pDevice, ComPtr<ID3D11DeviceContext>pContext);
 	shared_ptr<CPrototype>	Clone(void* pArg) override;

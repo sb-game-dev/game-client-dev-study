@@ -28,9 +28,13 @@ HRESULT CCube::Initialize(void* pArg)
     if (FAILED(Ready_ConstantBuffer()))
         return E_FAIL;
 
-    if (m_bEditorMode)
-        return S_OK;
-    auto pHill = static_pointer_cast<CHill>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::ZEROZONE), L"Layer_GameObject", TEXT("GameObject_Hill")));
+    if (FAILED(Ready_PartObjects()))
+        return E_FAIL;
+
+    auto pHill = dynamic_pointer_cast<CHill>(CGameInstance::Get().Find_GameObject(ETOUI(LEVEL::ZEROZONE), L"Layer_GameObject", TEXT("GameObject_Hill")));
+    if (nullptr == pHill)
+        return E_FAIL;
+
 
     vector_t  vPos = m_pTransformCom->Get_State(STATE::POSITION);
     m_pTransformCom->Set_Scale(2.f,2.f,2.f);
@@ -40,8 +44,6 @@ HRESULT CCube::Initialize(void* pArg)
     m_pTransformCom->Set_State(STATE::POSITION, vPos);
     m_vGroundPlane = pHill->GetPlane(x, z);
 
-    if (FAILED(Ready_PartObjects()))
-        return E_FAIL;
     return S_OK;
 }
 
@@ -53,6 +55,9 @@ void CCube::Priority_Update(f32_t fDeltaTime)
 void CCube::Update(f32_t fDeltaTime)
 {
     __super::Update(fDeltaTime);
+
+    m_fHitTimeRemaining = max(0.f, m_fHitTimeRemaining - fDeltaTime);
+
 }
 void CCube::Late_Update(f32_t fDeltaTime)
 {
@@ -71,7 +76,7 @@ void CCube::Late_Update(f32_t fDeltaTime)
 }
 
 HRESULT CCube::Render()
-{    
+{
     if (FAILED(CGameInstance::Get().Bind_RasterizerState(g_strRS_Cull_None)))
         return E_FAIL;
     if (FAILED(Render_Mesh(m_pTransformCom->Get_World(), m_pPS)))
@@ -97,6 +102,7 @@ void CCube::TriggerEnter(shared_ptr<class CCollider> pOtherCollider)
 void CCube::Take_Damage(const DAMAGE_DESC& Desc)
 {
     m_fHP -= Desc.fDamage;
+    m_fHitTimeRemaining = m_fHitDuration;
     m_pHpBar->Initialize_HitAnimation();
     switch (Desc.iDamageType)
     {
@@ -165,7 +171,9 @@ HRESULT CCube::Ready_ConstantBuffer()
     m_pCB = CConstantBuffer::Create(m_pDevice, m_pContext, &m_tCBData, sizeof(m_tCBData));
     if (nullptr == m_pCB)
         return E_FAIL;
-
+    m_pCBHitRatio = CConstantBuffer::Create(m_pDevice, m_pContext, &m_vHitRatio, sizeof(m_vHitRatio));
+    if (nullptr == m_pCBHitRatio)
+        return E_FAIL;
     return S_OK;
 }
 
@@ -177,6 +185,11 @@ HRESULT CCube::Update_ConstantBuffer(const matrix_t& matWorld)
 
     XMStoreFloat4x4(&m_tCBData.mat_World, (matWorld));
     XMStoreFloat4x4(&m_tCBData.mat_WorldInvTranspose, (matWorldInvTranspos));
+
+    m_vHitRatio.x = m_fHitTimeRemaining / m_fHitDuration;
+    m_vHitRatio.y = m_fHitTimeRemaining / m_fHitDuration;
+    m_vHitRatio.z = m_fHitTimeRemaining / m_fHitDuration;
+    m_vHitRatio.w = m_fHitTimeRemaining / m_fHitDuration;
 
     return S_OK;
 }
@@ -199,9 +212,6 @@ HRESULT CCube::Bind_ShaderResources(const matrix_t& matWorld)
     if (FAILED(m_pCB->Bind_Vertex_ShaderResource(0, &m_tCBData)))
         return E_FAIL;
 
-    if (FAILED(m_pCB->Bind_Pixel_ShaderResource(0, &m_tCBData)))
-        return E_FAIL;
-
     if (FAILED(m_pTextureCom->Bind_Pixel_ShaderResource(0, 0)))
         return E_FAIL;
     return S_OK;
@@ -215,6 +225,8 @@ HRESULT CCube::Render_Mesh(const XMMATRIX& matWorld, shared_ptr<CPixelShader> pP
     if (FAILED(Bind_ShaderResources(matWorld)))
         return E_FAIL;
 
+    if (FAILED(m_pCBHitRatio->Bind_Pixel_ShaderResource(7, &m_vHitRatio)))
+        return E_FAIL;
     if (FAILED(Bind_Shader(m_pVS, pPS)))
         return E_FAIL;
 
@@ -224,6 +236,8 @@ HRESULT CCube::Render_Mesh(const XMMATRIX& matWorld, shared_ptr<CPixelShader> pP
     if (FAILED(m_pBufferCom->Render()))
         return E_FAIL;
 
+    ID3D11Buffer* pNull = nullptr;
+    m_pContext->PSSetConstantBuffers(7, 1, &pNull);
     return S_OK;
 }
 

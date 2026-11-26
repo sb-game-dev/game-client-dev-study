@@ -23,7 +23,10 @@ cbuffer cbFog : register(b5)
     float g_fFogRange; // 안개 범위
     float2 g_vFogPad; // 패딩용 변수
 }
-
+cbuffer cbHitRaito : register(b7)
+{
+    float4 g_vHitRatio;
+}
 struct PS_IN_SKY
 {
     float4 vPosition : SV_POSITION;
@@ -84,9 +87,14 @@ PS_OUT PS_MAIN (PS_IN In)
     vColor = vTexColor * (vAmbientSum + vDiffuseSum) + vSpecSum;
     vColor.a = g_Material.Diffuse.a * vTexColor.a;
     
+    vColor.r = vColor.r + (1 - vColor.r) * g_vHitRatio.r;
+    vColor.g = vColor.g + (1 - vColor.g) * g_vHitRatio.g;
+    vColor.b = vColor.b + (1 - vColor.b) * g_vHitRatio.b;
+    
     float distToEye = length(g_vEye.xyz - In.vPosW);
     float fogLerp = saturate((distToEye - g_fFogStart) / g_fFogRange);
     vColor.rgb = lerp(vColor.rgb, g_vFogColor.rgb, fogLerp);
+    
     
     PS_OUT Out;
     Out.vColor = vColor;

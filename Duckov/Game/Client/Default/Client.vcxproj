@@ -150,6 +150,7 @@
     <ClInclude Include="..\public\Armor.h" />
     <ClInclude Include="..\public\BackGround.h" />
     <ClInclude Include="..\public\BackPack.h" />
+    <ClInclude Include="..\public\Body_TargetDummy.h" />
     <ClInclude Include="..\public\Bullet.h" />
     <ClInclude Include="..\Public\Client_Defines.h" />
     <ClInclude Include="..\Public\Client_Tags.h" />
@@ -186,6 +187,7 @@
     <ClInclude Include="..\public\Player_PointLight.h" />
     <ClInclude Include="..\public\Player_SpotLight.h" />
     <ClInclude Include="..\public\QuarterView_Cam.h" />
+    <ClInclude Include="..\public\TargetDummy.h" />
     <ClInclude Include="..\public\Tree_Instance.h" />
     <ClInclude Include="..\Public\UI_HpBar.h" />
     <ClInclude Include="..\Public\UI_StaminaRing.h" />
@@ -199,6 +201,7 @@
     <ClCompile Include="..\private\Armor.cpp" />
     <ClCompile Include="..\private\BackGround.cpp" />
     <ClCompile Include="..\private\BackPack.cpp" />
+    <ClCompile Include="..\private\Body_TargetDummy.cpp" />
     <ClCompile Include="..\private\Bullet.cpp" />
     <ClCompile Include="..\private\Cube_Instance.cpp" />
     <ClCompile Include="..\private\FaceMask.cpp" />
@@ -231,6 +234,7 @@
     <ClCompile Include="..\Private\Level_Loading.cpp" />
     <ClCompile Include="..\private\Level_Logo.cpp" />
     <ClCompile Include="..\Private\MainApp.cpp" />
+    <ClCompile Include="..\private\TargetDummy.cpp" />
     <ClCompile Include="..\private\Tree_Instance.cpp" />
     <ClCompile Include="..\Private\UI_HpBar.cpp" />
     <ClCompile Include="..\Private\UI_StaminaRing.cpp" />
