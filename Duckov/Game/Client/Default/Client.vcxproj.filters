@@ -130,6 +130,12 @@
     <Filter Include="01. Levels\02. ZeroZone">
       <UniqueIdentifier>{6ff54d3d-4429-461c-8678-12fe828cf7ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. GameObjects\01. Player\98. UI\00. HP_Bar">
+      <UniqueIdentifier>{4f9c212e-732e-411b-9388-1f8936a05a78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObjects\01. Player\98. UI\01. Stamina_Ring">
+      <UniqueIdentifier>{a26d4477-d631-4f54-bde8-bcce19b01173}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Client.h">
@@ -255,6 +261,9 @@
     <ClInclude Include="..\Public\Level_ZeroZone.h">
       <Filter>01. Levels\02. ZeroZone</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\UI_StaminaRing.h">
+      <Filter>02. GameObjects\01. Player\98. UI\01. Stamina_Ring</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Client.ico">
@@ -371,6 +380,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Level_ZeroZone.cpp">
       <Filter>01. Levels\02. ZeroZone</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\UI_StaminaRing.cpp">
+      <Filter>02. GameObjects\01. Player\98. UI\01. Stamina_Ring</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

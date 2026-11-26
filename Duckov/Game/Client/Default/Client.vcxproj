@@ -189,6 +189,7 @@
     <ClInclude Include="..\public\Tree_Instance.h" />
     <ClInclude Include="..\Public\UI_Monster.h" />
     <ClInclude Include="..\Public\UI_Player.h" />
+    <ClInclude Include="..\Public\UI_StaminaRing.h" />
     <ClInclude Include="..\public\Weapon.h" />
     <ClInclude Include="Client.h" />
     <ClInclude Include="framework.h" />
@@ -234,6 +235,7 @@
     <ClCompile Include="..\private\Tree_Instance.cpp" />
     <ClCompile Include="..\Private\UI_Monster.cpp" />
     <ClCompile Include="..\Private\UI_Player.cpp" />
+    <ClCompile Include="..\Private\UI_StaminaRing.cpp" />
     <ClCompile Include="..\private\Weapon.cpp" />
     <ClCompile Include="Client.cpp" />
   </ItemGroup>
