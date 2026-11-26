@@ -29,6 +29,7 @@ public:
 	virtual HRESULT	Render_Shadow() override;
 
 	const BoundingBox& Get_AABB() { return m_pModelCom->GetBoundingBox(); }
+	void	Set_Hit() { m_fHitTimeRemaining = m_fHitDuration; }
 
 private:
 	float4_t						m_vGroundPlane = { 0.f, 1.f, 0.f, 0.f };	// 발밑 평면 (a,b,c,d)
@@ -38,8 +39,15 @@ private:
 	shared_ptr<CPixelShader>		m_pPSCom = { nullptr };
 	shared_ptr<CPixelShader>		m_pPS_Shadow = { nullptr };
 
+	f32_t							m_fHitTimeRemaining = { 0.f };	// 남은 시간
+	f32_t							m_fHitDuration = { 0.15f };		// 전체 애니메이션 길이
+	shared_ptr<CConstantBuffer>		m_pCBHitRatio = { nullptr };
+	float4_t						m_vHitRatio = {};
+
 private:
 	HRESULT Ready_Components();
+	HRESULT	Ready_ConstantBuffer();
+	HRESULT	Update_ConstantBuffer();
 
 	HRESULT Bind_Shader(shared_ptr<CVertexShader> pVS = nullptr, shared_ptr<CPixelShader> pPS = nullptr);
 	HRESULT Bind_ShaderResources(const matrix_t& matWorld);

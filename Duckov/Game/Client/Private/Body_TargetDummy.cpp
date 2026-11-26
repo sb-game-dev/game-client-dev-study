@@ -23,6 +23,8 @@ HRESULT CBody_TargetDummy::Initialize(void* pArg)
         return E_FAIL;
     if (FAILED(Ready_Components()))
         return E_FAIL;
+    if (FAILED(Ready_ConstantBuffer()))
+        return E_FAIL;
     return S_OK;
 }
 
@@ -35,6 +37,7 @@ void CBody_TargetDummy::Update(f32_t fDeltaTime)
 {
     __super::Update(fDeltaTime);
 
+    m_fHitTimeRemaining = max(0.f, m_fHitTimeRemaining - fDeltaTime);
     __super::Update_CombinedWorldMatrix(XMLoadFloat4x4(m_pTransformCom->Get_WorldMatrixPtr()));
 }
 
@@ -75,6 +78,7 @@ HRESULT CBody_TargetDummy::Bind_Shader(shared_ptr<CVertexShader> pVS, shared_ptr
 
 HRESULT CBody_TargetDummy::Bind_ShaderResources(const matrix_t& matWorld)
 {
+    Update_ConstantBuffer();
     return __super::Bind_Vertex_ShaderResource(ETOUI(VSLOT::WORLD), matWorld);
 }
 
@@ -86,6 +90,8 @@ HRESULT CBody_TargetDummy::Render_Mesh(const matrix_t& matWorld, shared_ptr<CPix
     if (FAILED(Bind_Shader(m_pVSCom, pPS)))
         return E_FAIL;
 
+    if (FAILED(m_pCBHitRatio->Bind_Pixel_ShaderResource(7, &m_vHitRatio)))
+        return E_FAIL;
     if (FAILED(Bind_ShaderResources(matWorld)))
         return E_FAIL;
 
@@ -103,6 +109,8 @@ HRESULT CBody_TargetDummy::Render_Mesh(const matrix_t& matWorld, shared_ptr<CPix
         if (FAILED(m_pModelCom->Render(i)))
             return E_FAIL;
     }
+    ID3D11Buffer* pNull = nullptr;
+    m_pContext->PSSetConstantBuffers(7, 1, &pNull);
     return S_OK;
 }
 
@@ -123,6 +131,23 @@ HRESULT CBody_TargetDummy::Ready_Components()
     if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::PS_VTXCOL_SHADOW,
         TEXT("Com_PS_SHADOW"), m_pPS_Shadow)))
         return E_FAIL;
+    return S_OK;
+}
+
+HRESULT CBody_TargetDummy::Ready_ConstantBuffer()
+{
+    m_pCBHitRatio = CConstantBuffer::Create(m_pDevice, m_pContext, &m_vHitRatio, sizeof(m_vHitRatio));
+    if (nullptr == m_pCBHitRatio)
+        return E_FAIL;
+    return S_OK;
+}
+
+HRESULT CBody_TargetDummy::Update_ConstantBuffer()
+{
+    m_vHitRatio.x = m_fHitTimeRemaining / m_fHitDuration;
+    m_vHitRatio.y = m_fHitTimeRemaining / m_fHitDuration;
+    m_vHitRatio.z = m_fHitTimeRemaining / m_fHitDuration;
+    m_vHitRatio.w = m_fHitTimeRemaining / m_fHitDuration;
     return S_OK;
 }
 

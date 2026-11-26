@@ -47,7 +47,6 @@ void CTargetDummy::Priority_Update(f32_t fDeltaTime)
 void CTargetDummy::Update(f32_t fDeltaTime)
 {
     __super::Update(fDeltaTime);
-    m_fHitTimeRemaining = max(0.f, m_fHitTimeRemaining - fDeltaTime);
 }
 void CTargetDummy::Late_Update(f32_t fDeltaTime)
 {
@@ -69,7 +68,7 @@ void CTargetDummy::TriggerEnter(shared_ptr<class CCollider> pOtherCollider)
 void CTargetDummy::Take_Damage(const DAMAGE_DESC& Desc)
 {
     m_fHP -= Desc.fDamage;
-    m_fHitTimeRemaining = m_fHitDuration;
+    m_pBodyTargetDummy->Set_Hit();
     m_pHpBar->Initialize_HitAnimation();
 }
 
@@ -79,7 +78,9 @@ HRESULT CTargetDummy::Ready_Components()
     if (FAILED(__super::Add_Component(ETOUI(LEVEL::STATIC), Proto::Cube_Collider, TEXT("Com_Cube_Collider"), m_pCube_Collider)))
         return E_FAIL;
 
-    m_pCube_Collider->Set_OBBSize(m_pBodyTargetDummy->Get_AABB());
+    const BoundingBox& AABB = m_pBodyTargetDummy->Get_AABB();
+    m_pCube_Collider->Set_OBBSize(AABB);
+    m_pCube_Collider->Set_Offset({ 0.f, AABB.Center.y, 0.f });
     return S_OK;
 }
 
