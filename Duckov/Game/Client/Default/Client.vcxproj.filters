@@ -118,9 +118,6 @@
     <Filter Include="02. GameObjects\01. Player\97. Sound">
       <UniqueIdentifier>{2513f23b-9056-4ecc-bab6-f32d147f1aeb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01. Levels\02. ZeroZone">
-      <UniqueIdentifier>{6ff54d3d-4429-461c-8678-12fe828cf7ed}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02. GameObjects\01. Player\98. UI\00. HP_Bar">
       <UniqueIdentifier>{4f9c212e-732e-411b-9388-1f8936a05a78}</UniqueIdentifier>
     </Filter>
@@ -144,6 +141,33 @@
     </Filter>
     <Filter Include="02. GameObjects\02. Enemy\00. TargetDummy\00. Body_TargetDummy">
       <UniqueIdentifier>{cc5986c3-edeb-4646-81f5-87720d2a0d9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObjects\01. Player\01. Weapon\Bullet\Manager">
+      <UniqueIdentifier>{475306a4-630a-44d4-9a22-37663679f434}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Levels\03. ZeroZone">
+      <UniqueIdentifier>{6ff54d3d-4429-461c-8678-12fe828cf7ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01. Levels\02. Base">
+      <UniqueIdentifier>{c14f79fd-e2cd-43df-9a13-e91e3d379327}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObjects\03. Hills\01. ZeroZone_Terrain">
+      <UniqueIdentifier>{7d5dc4bb-642f-442f-8800-e720816b6355}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObjects\03. Hills\00. Base_Terrain">
+      <UniqueIdentifier>{a8aebaee-d0f5-4cba-8fb0-364f808b2fc2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObjects\03. Hills\02. Lab1_Terrain">
+      <UniqueIdentifier>{b312c363-b50c-428e-b376-58ad5aace2a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObjects\03. Hills\03. Lab2_Terrain">
+      <UniqueIdentifier>{8f7ffcce-5ede-49bb-82a1-e720dd04c42c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObjects\02. Enemy\00. TargetDummy\01. Helmet_TargetDummy">
+      <UniqueIdentifier>{fb353be0-89d8-4832-a5f5-79ed81dcee5f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02. GameObjects\02. Enemy\00. TargetDummy\02. Armor_TargetDummy">
+      <UniqueIdentifier>{4dd3d7a4-9e42-44e2-a1bc-0d1dbd2285d8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -182,9 +206,6 @@
     </ClInclude>
     <ClInclude Include="..\Public\Cube.h">
       <Filter>02. GameObjects\10. Cube</Filter>
-    </ClInclude>
-    <ClInclude Include="..\public\Hill.h">
-      <Filter>02. GameObjects\03. Hills</Filter>
     </ClInclude>
     <ClInclude Include="..\public\Player.h">
       <Filter>02. GameObjects\01. Player</Filter>
@@ -262,7 +283,7 @@
       <Filter>02. GameObjects\01. Player\01. Weapon\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Level_ZeroZone.h">
-      <Filter>01. Levels\02. ZeroZone</Filter>
+      <Filter>01. Levels\03. ZeroZone</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\UI_StaminaRing.h">
       <Filter>02. GameObjects\01. Player\98. UI\01. Stamina_Ring</Filter>
@@ -275,6 +296,24 @@
     </ClInclude>
     <ClInclude Include="..\public\Body_TargetDummy.h">
       <Filter>02. GameObjects\02. Enemy\00. TargetDummy\00. Body_TargetDummy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Bullet_Manager.h">
+      <Filter>02. GameObjects\01. Player\01. Weapon\Bullet\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Level_Base.h">
+      <Filter>01. Levels\02. Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Hill.h">
+      <Filter>02. GameObjects\03. Hills\01. ZeroZone_Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Base_Terrain1.h">
+      <Filter>02. GameObjects\03. Hills\00. Base_Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Helmet_TargetDummy.h">
+      <Filter>02. GameObjects\02. Enemy\00. TargetDummy\01. Helmet_TargetDummy</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\Armor_TargetDummy.h">
+      <Filter>02. GameObjects\02. Enemy\00. TargetDummy\02. Armor_TargetDummy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -308,9 +347,6 @@
     </ClCompile>
     <ClCompile Include="..\Private\Cube.cpp">
       <Filter>02. GameObjects\10. Cube</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Private\Hill.cpp">
-      <Filter>02. GameObjects\03. Hills</Filter>
     </ClCompile>
     <ClCompile Include="..\private\Player.cpp">
       <Filter>02. GameObjects\01. Player</Filter>
@@ -385,7 +421,7 @@
       <Filter>02. GameObjects\01. Player\01. Weapon\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\Level_ZeroZone.cpp">
-      <Filter>01. Levels\02. ZeroZone</Filter>
+      <Filter>01. Levels\03. ZeroZone</Filter>
     </ClCompile>
     <ClCompile Include="..\Private\UI_StaminaRing.cpp">
       <Filter>02. GameObjects\01. Player\98. UI\01. Stamina_Ring</Filter>
@@ -398,6 +434,24 @@
     </ClCompile>
     <ClCompile Include="..\private\Body_TargetDummy.cpp">
       <Filter>02. GameObjects\02. Enemy\00. TargetDummy\00. Body_TargetDummy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Bullet_Manager.cpp">
+      <Filter>02. GameObjects\01. Player\01. Weapon\Bullet\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Level_Base.cpp">
+      <Filter>01. Levels\02. Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Hill.cpp">
+      <Filter>02. GameObjects\03. Hills\01. ZeroZone_Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Base_Terrain1.cpp">
+      <Filter>02. GameObjects\03. Hills\00. Base_Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Helmet_TargetDummy.cpp">
+      <Filter>02. GameObjects\02. Enemy\00. TargetDummy\01. Helmet_TargetDummy</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Armor_TargetDummy.cpp">
+      <Filter>02. GameObjects\02. Enemy\00. TargetDummy\02. Armor_TargetDummy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -148,10 +148,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\public\Armor.h" />
+    <ClInclude Include="..\public\Armor_TargetDummy.h" />
     <ClInclude Include="..\public\BackGround.h" />
     <ClInclude Include="..\public\BackPack.h" />
+    <ClInclude Include="..\public\Base_Terrain1.h" />
     <ClInclude Include="..\public\Body_TargetDummy.h" />
     <ClInclude Include="..\public\Bullet.h" />
+    <ClInclude Include="..\public\Bullet_Manager.h" />
     <ClInclude Include="..\Public\Client_Defines.h" />
     <ClInclude Include="..\Public\Client_Tags.h" />
     <ClInclude Include="..\Public\Cube.h" />
@@ -161,10 +164,12 @@
     <ClInclude Include="..\public\Free_Cam.h" />
     <ClInclude Include="..\public\Headset.h" />
     <ClInclude Include="..\public\Helmet.h" />
+    <ClInclude Include="..\public\Helmet_TargetDummy.h" />
     <ClInclude Include="..\public\HUD.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="..\public\Level_Base.h" />
     <ClInclude Include="..\Public\Level_ZeroZone.h" />
     <ClInclude Include="..\Public\Mirror.h" />
     <ClInclude Include="..\public\Client_Mouse.h" />
@@ -199,20 +204,25 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\private\Armor.cpp" />
+    <ClCompile Include="..\private\Armor_TargetDummy.cpp" />
     <ClCompile Include="..\private\BackGround.cpp" />
     <ClCompile Include="..\private\BackPack.cpp" />
+    <ClCompile Include="..\private\Base_Terrain1.cpp" />
     <ClCompile Include="..\private\Body_TargetDummy.cpp" />
     <ClCompile Include="..\private\Bullet.cpp" />
+    <ClCompile Include="..\private\Bullet_Manager.cpp" />
     <ClCompile Include="..\private\Cube_Instance.cpp" />
     <ClCompile Include="..\private\FaceMask.cpp" />
     <ClCompile Include="..\private\Fog.cpp" />
     <ClCompile Include="..\private\Free_Cam.cpp" />
     <ClCompile Include="..\private\Headset.cpp" />
     <ClCompile Include="..\private\Helmet.cpp" />
+    <ClCompile Include="..\private\Helmet_TargetDummy.cpp" />
     <ClCompile Include="..\private\HUD.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\private\Level_Base.cpp" />
     <ClCompile Include="..\Private\Level_ZeroZone.cpp" />
     <ClCompile Include="..\private\Mirror.cpp" />
     <ClCompile Include="..\private\Client_Mouse.cpp" />

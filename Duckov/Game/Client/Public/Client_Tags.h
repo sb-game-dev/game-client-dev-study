@@ -82,17 +82,31 @@ namespace Client
 		inline constexpr const wchar_t* Model_Weapon_M700 = L"mesh/weapons/guns/ig_gun_m700.bin";
 		inline constexpr const wchar_t* Model_Weapon_PM = L"mesh/weapons/guns/ig_gun_pm.bin";
 		inline constexpr const wchar_t* Model_Weapon_Axe = L"mesh/weapons/melee_handheld/meleeweaponagent_axe.bin";
+
+		inline constexpr const wchar_t* Model_Helmet_LV1 = L"mesh/equipment/helmet/ig_helmat_lv1.bin";
 		inline constexpr const wchar_t* Model_Helmet_LV2 = L"mesh/equipment/helmet/ig_helmat_lv2.bin";
 		inline constexpr const wchar_t* Model_Helmet_LV3 = L"mesh/equipment/helmet/ig_helmat_lv3.bin";
+		inline constexpr const wchar_t* Model_Helmet_LV4 = L"mesh/equipment/helmet/ig_helmat_lv4.bin";
+		inline constexpr const wchar_t* Model_Helmet_LV5 = L"mesh/equipment/helmet/ig_helmat_lv5.bin";
+
+		inline constexpr const wchar_t* Model_Armor_LV1 = L"mesh/equipment/armor/ig_armor_lv1.bin";
 		inline constexpr const wchar_t* Model_Armor_LV2 = L"mesh/equipment/armor/ig_armor_lv2.bin";
 		inline constexpr const wchar_t* Model_Armor_LV3 = L"mesh/equipment/armor/ig_armor_lv3.bin";
+		inline constexpr const wchar_t* Model_Armor_LV4 = L"mesh/equipment/armor/ig_armor_lv4.bin";
+		inline constexpr const wchar_t* Model_Armor_LV5 = L"mesh/equipment/armor/ig_armor_lv5.bin";
+
 		inline constexpr const wchar_t* Model_BackPack_LV2 = L"mesh/equipment/backpack/ig_backpack_lv2.bin";
 		inline constexpr const wchar_t* Model_BackPack_LV3 = L"mesh/equipment/backpack/ig_backpack_lv3.bin";
+
 		inline constexpr const wchar_t* Model_Headset_LV0 = L"mesh/equipment/headset/ig_headset_lv0.bin";
 		inline constexpr const wchar_t* Model_Headset_LV1 = L"mesh/equipment/headset/ig_headset_lv1v2.bin";
+
 		inline constexpr const wchar_t* Model_FaceMask_FlyMask = L"mesh/equipment/facemask/ig_fackmask_flymask.bin";
 		inline constexpr const wchar_t* Model_FaceMask_GasMask = L"mesh/equipment/facemask/ig_fackmask_gasmask_01.bin";
 		inline constexpr const wchar_t* Model_FaceMask_NightVision = L"mesh/equipment/facemask/ig_fackmask_nightvision.bin";
+
+		inline constexpr const wchar_t* Model_BaseTerrain1 = L"levels/05_base_scenev2/05_base_scenev2.bin";
+		inline constexpr const wchar_t* Model_BaseTerrain2 = L"levels/05_base_scenev2/05_base_scenev2_map.bin";
 
 		// ---------- Collider ----------
 		inline constexpr const wchar_t* Cube_Collider = L"Prototype_Component_Cube_Collider";
@@ -104,6 +118,8 @@ namespace Client
 		inline constexpr const wchar_t* Obj_TargetDummy = L"Prototype_GameObject_TargetDummy";
 		inline constexpr const wchar_t* Obj_Body_Player = L"Prototype_GameObject_Player_Body";
 		inline constexpr const wchar_t* Obj_Body_TargetDummy = L"Prototype_GameObject_Body_TargetDummy";
+		inline constexpr const wchar_t* Obj_Helmet_TargetDummy = L"Prototype_GameObject_HelmetTargetDummy";
+		inline constexpr const wchar_t* Obj_Armor_TargetDummy = L"Prototype_GameObject_ArmorTargetDummy";
 		inline constexpr const wchar_t* Obj_Weapon = L"Prototype_GameObject_Weapon";
 		inline constexpr const wchar_t* Obj_Helmet = L"Prototype_GameObject_Helmet";
 		inline constexpr const wchar_t* Obj_Armor = L"Prototype_GameObject_Armor";
@@ -129,7 +145,10 @@ namespace Client
 		inline constexpr const wchar_t* Obj_MapToolCam = L"Prototype_GameObject_MapToolCam";
 		inline constexpr const wchar_t* Obj_StaticProp = L"Prototype_GameObject_StaticProp";
 		inline constexpr const wchar_t* Obj_Bullet = L"Prototype_GameObject_Bullet";
+		inline constexpr const wchar_t* Obj_Bullet_Manager = L"Prototype_GameObject_BulletManager";
 		inline constexpr const wchar_t* Obj_Tree_Instance = L"Prototype_GameObject_Tree_Instance";
+
+		inline constexpr const wchar_t* Obj_BaseTerrain1 = L"Prototype_GameObject_BaseTerrain1";
 
 	}
 
@@ -140,6 +159,7 @@ namespace Client
 	{
 		inline constexpr const wchar_t* BackGround = L"GameObject_BackGround";
 		inline constexpr const wchar_t* Player = L"GameObject_Player";
+		inline constexpr const wchar_t* Bullet_Manager = L"GameObject_BulletManager";
 		inline constexpr const wchar_t* TargetDummy = L"GameObject_TargetDummy";
 		inline constexpr const wchar_t* Cube = L"GameObject_Cube";          // 뒤에 번호 붙여서 사용
 		inline constexpr const wchar_t* Cube_Instance = L"GameObject_Cube_Instance";
@@ -159,6 +179,7 @@ namespace Client
 		inline constexpr const wchar_t* StaticProp = L"GameObject_StaticProp";
 		inline constexpr const wchar_t* Tree_Instance = L"GameObject_Tree_Instance";
 		inline constexpr const wchar_t* Weapon = L"GameObject_Weapon";
+		inline constexpr const wchar_t* BaseTerrain1 = L"GameObject_BaseTerrain1";
 	}
 
 	/* =========================================================

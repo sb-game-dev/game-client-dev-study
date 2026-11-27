@@ -26,6 +26,11 @@ public:
 public:
 	void	Bullet_Active(const float3_t vPos, const float3_t& vDir, f32_t fSpeed);
 
+	vector_t	Get_PrevPos() const { return XMLoadFloat3(&m_vPrePos); }
+	vector_t	Get_CurrPos() const	{ return m_pTransformCom->Get_State(STATE::POSITION); }
+
+	void	On_Hit(shared_ptr<CGameObject> pTarget);
+
 public:
 	void	TriggerEnter(shared_ptr<class CCollider> pOtherCollider)override;
 	void	Clear_Hit_Targets();
@@ -42,6 +47,8 @@ private:
 private:
 	vector<weak_ptr<CGameObject>>		m_Hit_Targets;
 	DAMAGE_DESC							m_tDamageDesc = {};
+
+	float3_t							m_vPrePos = {};
 
 private:
 	HRESULT Ready_Components();

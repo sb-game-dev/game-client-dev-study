@@ -49,6 +49,9 @@ HRESULT CSkyBox::Render()
     if (FAILED(CGameInstance::Get().Bind_RasterizerState(g_strRS_Cull_None)))
         return E_FAIL;
 
+    if (FAILED(CGameInstance::Get().Bind_DepthStencilState(g_strDSS_NonZ, 0)))
+        return E_FAIL;
+
     if (FAILED(Bind_Shader(m_pVS,m_pPS)))
         return E_FAIL;
 
@@ -62,6 +65,8 @@ HRESULT CSkyBox::Render()
         return E_FAIL;
 
     if (FAILED(CGameInstance::Get().Bind_RasterizerState(g_strRS_Default)))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Bind_DepthStencilState(g_strDSS_Default, 0)))
         return E_FAIL;
     return S_OK;
 }
@@ -114,6 +119,7 @@ HRESULT CSkyBox::Update_ConstantBuffer(const matrix_t& matWorld)
     XMStoreFloat4x4(&m_tCBData.mat_World, matWorld);
     return S_OK;
 }
+
 
 HRESULT CSkyBox::Bind_Shader(shared_ptr<CVertexShader> pVS, shared_ptr<CPixelShader> pPS)
 {

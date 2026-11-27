@@ -28,7 +28,6 @@ public:
 
 	HRESULT	Change_Model(const wstring_t& strMeshPath);
 	void	Play_FireAnim(const f32_t fDeltaTime);
-	vector<shared_ptr<class CBullet>>&		Get_Bullets() { return m_Bullets; }
 
 	void	Update_MeleeAttack();
 	void	Set_ColliderActive(bool_t bActive) { m_bActive = bActive; }
@@ -43,6 +42,7 @@ private:
 
 	weak_ptr<class CInven>					m_pInven;
 	weak_ptr<class CClient_Mouse>			m_pClient_Mouse;
+	weak_ptr<class CBullet_Manager>			m_pBullet_Manager;
 
 private:
 	const float4x4_t* m_pSocketMatrix = { nullptr };
@@ -59,9 +59,6 @@ private:
 	f32_t m_fAimBlendDuration = { 0.2f };
 
 private:
-	vector<shared_ptr<class CBullet>>	m_Bullets;
-	uint32_t							m_iNumBullet = { 32 };
-private:
 	vector<weak_ptr<CGameObject>>		m_Hit_Targets;
 	DAMAGE_DESC							m_tDamageDesc = {};
 
@@ -69,7 +66,6 @@ private:
 	HRESULT Ready_Components();
 	HRESULT Bind_Shader();
 	HRESULT Bind_ShaderResources(const matrix_t& matWorld);
-	HRESULT Ready_Bullets();
 
 private:
 	void	Update_GunAttack(const f32_t& fDeltaTime);

@@ -39,6 +39,8 @@ HRESULT CBullet::Initialize(void* pArg)
 void CBullet::Priority_Update(f32_t fDeltaTime)
 {
     __super::Priority_Update(fDeltaTime);
+    XMStoreFloat3(&m_vPrePos, Get_CurrPos());
+
     m_pTransformCom->Go_Straight(fDeltaTime);
     m_fMoveDistance += fDeltaTime * m_pTransformCom->Get_Speed();
     if (m_fMoveDistance >= 100)
@@ -84,6 +86,8 @@ void CBullet::Bullet_Active(const float3_t vPos, const float3_t& vDir, f32_t fSp
 {
     vector_t vPosition = XMVectorSetW(XMLoadFloat3(&vPos), 1.f);
 
+    XMStoreFloat3(&m_vPrePos, vPosition);
+
     m_pTransformCom->Set_State(STATE::POSITION, vPosition);
 
     m_pTransformCom->LookAt(vPosition + XMLoadFloat3(&vDir));
@@ -97,7 +101,16 @@ void CBullet::Bullet_Active(const float3_t vPos, const float3_t& vDir, f32_t fSp
     m_bActive = true;
 }
 
-void CBullet::TriggerEnter(shared_ptr<class CCollider> pOtherCollider)
+void CBullet::On_Hit(shared_ptr<CGameObject> pTarget)
+{
+    m_bActive = false;
+    for (auto& pHit : m_Hit_Targets)
+        if (pHit.lock() == pTarget) return;
+    pTarget->Take_Damage(m_tDamageDesc);
+    m_Hit_Targets.push_back(pTarget);
+}
+
+void CBullet::TriggerEnter(shared_ptr<CCollider> pOtherCollider)
 {
     if (false == m_pCube_Collider->Get_Active())
         return;

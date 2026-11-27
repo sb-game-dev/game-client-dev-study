@@ -11,21 +11,8 @@ CRenderer::CRenderer(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> p
 
 HRESULT CRenderer::Initialize(uint32_t iWinSizeX, uint32_t iWinSizeY)
 {
-	if (FAILED(Ready_BlendState()))
-		return E_FAIL;
-	if (FAILED(Ready_BlendState_NoColor()))
-		return E_FAIL;
-	if (FAILED(Ready_Priority_DSS()))
-		return E_FAIL;
-	if (FAILED(Ready_Mirror_DSS()))
-		return E_FAIL;
-	if (FAILED(Ready_Shadow_DSS()))
-		return E_FAIL;
-	if (FAILED(Ready_Alpha_DSS()))
-		return E_FAIL;
+
 	if (FAILED(Ready_SceneTarget(iWinSizeX,iWinSizeY)))
-		return E_FAIL;
-	if (FAILED(Ready_Occluder_DSS()))
 		return E_FAIL;
 	return S_OK;
 }
@@ -44,7 +31,7 @@ void CRenderer::Render_GameObject()
 	ComPtr<ID3D11DepthStencilView>	pOldDSV;
 	m_pContext->OMGetRenderTargets(1, pOldRTV.GetAddressOf(), pOldDSV.GetAddressOf());
 
-	float clearColor[4] = { 0.75f, 0.75f, 0.75f, 1.f };
+	float clearColor[4] = { 0.016f, 0.016f, 0.129f, 1.f };
 	m_pContext->OMSetRenderTargets(1, m_pSceneRTV.GetAddressOf(), pOldDSV.Get());
 	m_pContext->ClearRenderTargetView(m_pSceneRTV.Get(), clearColor);
 
@@ -54,7 +41,6 @@ void CRenderer::Render_GameObject()
 	Render_OccludedPlayer();
 	Render_Player();
 	Render_Shadow();
-	Render_AlphaPre();
 	Render_Mirror();
 	Render_Alpha();
 
@@ -72,206 +58,6 @@ void CRenderer::Render_GameObject()
 void CRenderer::AddBlurField(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight)
 {
 	m_pBlurFilter->AddBlurField(fLeft, fTop, fWidth, fHeight);
-}
-
-
-HRESULT CRenderer::Ready_BlendState()
-{
-	// 블렌더 스테이트 생성
-	D3D11_BLEND_DESC blendDesc{};
-	blendDesc.AlphaToCoverageEnable = FALSE;      // 픽셀 알파를 MSAA 샘플 커버리지로 변환 (MSAA 사용 시에만 효과, 수업에서는 안 씀)
-	blendDesc.IndependentBlendEnable = FALSE;     // FALSE: 모든 렌더타겟에 RenderTarget[0] 설정 공통 적용
-
-	// TRUE: 렌더타겟별 개별 설정
-	blendDesc.RenderTarget[0].BlendEnable = TRUE;                       // 블렌더 활성화
-	// RGB 블렌드 설정 -> 렌더 타겟에 기록할 최종 RGB 계산
-	blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;         // RGB Src블렌드 계수 : Src.a
-	blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;    // RGB Dst블렌드 계수 : 1- Src.a
-	blendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;             // RGB 블렌드 연산
-
-	// 알파 블렌드 설정 -> 렌더 타겟의 A 채널에 기록할 최종 알파값 계산
-	// 최종A = Src.a * 1 + Dst.a * 0 = Src.a (기존 알파를 버리고 Src 알파로 덮어씀)
-	// 백버퍼에서는 A가 화면에 표시되지 않아 영향 없음, 오프스크린 렌더타겟을 텍스처로 다시 쓸 때 그 텍스처의 알파가 됨
-	blendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;          // 알파 Src블렌드 계수 : Src 알파 * 1
-	blendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;        // 알파 Dst블렌드 계수 : Dst 알파 * 0
-	blendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;        // 알파 블랜드 연산
-	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL; // 렌더타겟에 기록할 채널 (RGBA 전부)
-
-	if (FAILED(m_pDevice->CreateBlendState(&blendDesc, m_pBS.GetAddressOf())))
-		return E_FAIL;
-
-	return S_OK;
-}
-
-HRESULT CRenderer::Ready_BlendState_NoColor()
-{
-	D3D11_BLEND_DESC noColorDesc{};
-	noColorDesc.RenderTarget[0].RenderTargetWriteMask = 0;   // RGBA 아무 채널도 안 씀
-	if (FAILED(m_pDevice->CreateBlendState(&noColorDesc, m_pBS_NoColorWrite.GetAddressOf())))
-		return E_FAIL;
-	return S_OK;
-}
-HRESULT CRenderer::Ready_Priority_DSS()
-{
-	D3D11_DEPTH_STENCIL_DESC priorityDesc{};
-	priorityDesc.DepthEnable = TRUE;
-	priorityDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
-	priorityDesc.DepthFunc = D3D11_COMPARISON_LESS;
-
-	priorityDesc.StencilEnable = FALSE;
-
-	if (FAILED(m_pDevice->CreateDepthStencilState(&priorityDesc, m_pDSS_Priority.GetAddressOf())))
-		return E_FAIL;
-	return S_OK;
-}
-HRESULT CRenderer::Ready_Alpha_DSS()
-{
-	D3D11_DEPTH_STENCIL_DESC alphaDesc{};
-	alphaDesc.DepthEnable = TRUE;
-	alphaDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
-	alphaDesc.DepthFunc = D3D11_COMPARISON_LESS;
-
-	alphaDesc.StencilEnable = FALSE;
-
-	if (FAILED(m_pDevice->CreateDepthStencilState(&alphaDesc, m_pDSS_Alpha.GetAddressOf())))
-		return E_FAIL;
-
-	return S_OK;
-}
-// 거울 렌더링에 쓰는 DSS 두 개 생성
-// m_pDSS_MarkMirror     : 거울이 보이는 픽셀의 스텐실을 1로 표시 (쓰기)
-// m_pDSS_DrawReflection : 스텐실이 1인 픽셀에만 반사 오브젝트 출력 (읽기 전용)
-HRESULT CRenderer::Ready_Mirror_DSS()
-{
-	// ===== 1. 마킹용 =====
-	D3D11_DEPTH_STENCIL_DESC markDesc{};
-
-	// 깊이 테스트 수행 여부 -> 거울 앞을 가린 물체가 있으면 그 픽셀은 표시하지 않기 위해 켬
-	// 깊이 버퍼에 대해 할 수 있는 일은 읽기(검사)와 쓰기(기록) 두 가지 이다
-	
-	// 검사 -> DepthEnable / DepthFunc -> 내 깊이를 버퍼에 적힌 값과 비교해서, 더 뒤에 있으면 탈락
-
-	markDesc.DepthEnable = TRUE;
-	// 깊이 테스트를 통과하면 깊이를 기록할지
-	// ALL : 기록함. 일반 불투명 물체의 기본값
-	// ZERO: 기록 안 함. 가려지면 탈락하지만, 다른 물체를 가리지 않음 
-	//       -> 나는 남한테 가려질 수 있지만, 내가 남을 가리지 않겠다.
-	
-	// 거울 판의 깊이를 기록하면 버퍼에 'z=5에 뭔가 있다'가 남아서
-	// 거울 뒤에 그려질 반사 오브젝트가 깊이 테스트에서 가려짐
-	// -> 거울은 스텐실 표시만 하면 되므로 검사만 하고 자기 깊이는 남기지 않음
-	markDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO; 
-
-	// 깊이 비교 방법 (LESS : 더 가까운 픽셀이 테스트 통과)
-	markDesc.DepthFunc = D3D11_COMPARISON_LESS;
-
-
-	// 스텐실 테스트 수행 여부
-	markDesc.StencilEnable = TRUE;
-	// 비교 전에 Ref와 버퍼값에 AND할 마스크 (0xff = 8비트 전부 비교)
-	// 마킹은 ALWAYS라 실제로는 쓰이지 않음
-	markDesc.StencilReadMask = 0xff;
-
-	// 앞면 삼각형에 적용할 규칙 (Func 1개 + 결과별 Op 3개)
-	// Op 종류
-	// KEEP             : 유지
-	// REPLACE          : StencilRef로 교체
-	// ZERO             : 0으로 교체
-	// INCR_SAT/DECR_SAT: 1 증가/감소 (최대·최소에서 멈춤)
-	// INCR/DECR        : 1 증가/감소 (넘치면 한 바퀴 돎
-	
-	// Ref와 버퍼값을 비교하는 방법 -> 무조건 통과시킴(마킹 단계에서는 버퍼값과 상관없이 통과해야 함)
-	markDesc.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
-
-	// 스텐실 테스트 실패시 할 일 -> 기존값 유지
-	// ALWAYS라 사실상 실패할 일 없음, 다만 거울속 세상에서 사용하기 때문에 미리 선언
-	markDesc.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
-	// 깊이 테스트 실패시 할 일 -> 기존 값 유지
-	// ALWAYS라 사실상 실패할 일 없음, 다만 거울속 세상에서 사용하기 때문에 미리 선언
-	markDesc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_KEEP;
-	// 스텐실-깊이 테스트를 둘 다 통과 시 할 일 -> Ref 값으로 교체(Ref 값으로 1 설정함)
-	markDesc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_REPLACE;
-
-	// Op가 값을 쓸 때 실제로 바꿀 비트 (0xff = 8비트 전부 -> Op 결과가 그대로 기록됨)
-	markDesc.StencilWriteMask = 0xff;
-	
-
-	// 뒷면 삼각형 규칙 -> 앞면과 동일
-	// (거울은 CULL_BACK이라 뒷면이 래스터화되지 않지만 안전하게 맞춰 둠)
-	markDesc.BackFace = markDesc.FrontFace;
-
-	if (FAILED(m_pDevice->CreateDepthStencilState(&markDesc, m_pDSS_MarkMirror.GetAddressOf())))
-		return E_FAIL;
-
-	// ===== 2. 거울속 세상 출력용 (스텐실이 1인지 검사만 하고 값은 바꾸지 않음) =====
-	D3D11_DEPTH_STENCIL_DESC reflectDesc = markDesc;
-	// 깊이 테스트 끔 -> 복제본은 거울 뒤(더 먼 곳)에 있어서
-	// 켜 두면 거울 뒤 지형 깊이에 가려짐. 끄면 깊이 쓰기도 같이 꺼짐
-	reflectDesc.DepthEnable = FALSE;
-	// Ref == 버퍼값 인 픽셀만 통과 -> 마킹된(1) 거울 영역에만 그려짐
-	// Ref = OMSetDepthStencilState(m_pDSS_DrawReflection, 1)의 두 번째 인자 1
-	reflectDesc.FrontFace.StencilFunc = D3D11_COMPARISON_EQUAL;
-
-	// 거울 속 세상을 출력하기 위한 스텐실 테스트는 읽기용이므로 통과해도 값 유지
-	// 사실 위에서 선언한 FailOp, DepthFailOp이 KEEP이라 버퍼를 절대 바꾸지 않음
-	reflectDesc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_KEEP;
-
-	// 뒷면도 동일 (반사 오브젝트는 m_pRS_Reflect로 감기 방향을 뒤집어 그림)
-	reflectDesc.BackFace = reflectDesc.FrontFace;
-	if (FAILED(m_pDevice->CreateDepthStencilState(&reflectDesc, m_pDSS_DrawReflection.GetAddressOf())))
-		return E_FAIL;
-
-	return S_OK;
-}
-
-HRESULT CRenderer::Ready_Occluder_DSS()
-{
-	// ===== 마킹용 =====
-	D3D11_DEPTH_STENCIL_DESC markDesc{};
-
-	markDesc.DepthEnable = TRUE;
-	markDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
-	markDesc.DepthFunc = D3D11_COMPARISON_LESS;
-
-	markDesc.StencilEnable = TRUE;
-	markDesc.StencilReadMask = 0xff;
-
-	markDesc.FrontFace.StencilFunc = D3D11_COMPARISON_ALWAYS;
-
-	markDesc.FrontFace.StencilFailOp = D3D11_STENCIL_OP_KEEP;
-	markDesc.FrontFace.StencilDepthFailOp = D3D11_STENCIL_OP_KEEP;
-	markDesc.FrontFace.StencilPassOp = D3D11_STENCIL_OP_REPLACE;
-	markDesc.StencilWriteMask = 0xff;
-
-	markDesc.BackFace = markDesc.FrontFace;
-
-	if (FAILED(m_pDevice->CreateDepthStencilState(&markDesc, m_pDSS_MarkOccluder.GetAddressOf())))
-		return E_FAIL;
-
-	return S_OK;
-}
-
-HRESULT CRenderer::Ready_Shadow_DSS()
-{
-	D3D11_DEPTH_STENCIL_DESC noDoubleBlendDesc{};
-
-	noDoubleBlendDesc.DepthEnable		= TRUE;
-	noDoubleBlendDesc.DepthWriteMask	= D3D11_DEPTH_WRITE_MASK_ALL;
-	noDoubleBlendDesc.DepthFunc			= D3D11_COMPARISON_LESS;
-
-	noDoubleBlendDesc.StencilEnable		= TRUE;
-	noDoubleBlendDesc.StencilReadMask	= 0xff;
-	noDoubleBlendDesc.StencilWriteMask	= 0xff;
-
-	noDoubleBlendDesc.FrontFace.StencilFailOp		= D3D11_STENCIL_OP_KEEP;
-	noDoubleBlendDesc.FrontFace.StencilDepthFailOp	= D3D11_STENCIL_OP_KEEP;
-	noDoubleBlendDesc.FrontFace.StencilPassOp		= D3D11_STENCIL_OP_INCR;
-	noDoubleBlendDesc.FrontFace.StencilFunc			= D3D11_COMPARISON_EQUAL;
-
-	noDoubleBlendDesc.BackFace = noDoubleBlendDesc.FrontFace;
-	if (FAILED(m_pDevice->CreateDepthStencilState(&noDoubleBlendDesc, m_pDSS_DrawNoDoubleBlend.GetAddressOf())))
-		return E_FAIL;
-	return S_OK;
 }
 
 HRESULT CRenderer::Ready_SceneTarget(uint32_t iWinSizeX, uint32_t iWinSizeY)
@@ -295,8 +81,6 @@ HRESULT CRenderer::Ready_SceneTarget(uint32_t iWinSizeX, uint32_t iWinSizeY)
 	D3D11_DEPTH_STENCIL_DESC noDepth{};
 
 	noDepth.DepthEnable = FALSE;
-	if (FAILED(m_pDevice->CreateDepthStencilState(&noDepth, m_pDSS_NoDepth.GetAddressOf())))
-		return E_FAIL;
 
 	ComPtr<ID3DBlob> pVSBlob, pPSBlob, pErrBlob;
 
@@ -336,19 +120,17 @@ HRESULT CRenderer::Ready_SceneTarget(uint32_t iWinSizeX, uint32_t iWinSizeY)
 
 void CRenderer::Render_Priority()
 {
-	m_pContext->OMSetDepthStencilState(m_pDSS_Priority.Get(), 0);
 	for (auto& pObj : m_RenderGroup[ETOUI(RENDERID::PRIORITY)])
 	{
 		if (nullptr != pObj)
 			pObj->Render();
 	}
 	m_RenderGroup[ETOUI(RENDERID::PRIORITY)].clear();
-	m_pContext->OMSetDepthStencilState(nullptr, 0);
 }
 
 void CRenderer::Render_NonAlpha()
 {
-	m_pContext->OMSetDepthStencilState(m_pDSS_MarkOccluder.Get(), 10); // STENCIL_OCCLUDER : 10
+	CGameInstance::Get().Bind_DepthStencilState(g_strDSS_SilhouetteMark, 10);
 
 	for (auto& pObj : m_RenderGroup[ETOUI(RENDERID::NONALPHA)])
 	{
@@ -357,14 +139,13 @@ void CRenderer::Render_NonAlpha()
 	}
 	m_RenderGroup[ETOUI(RENDERID::NONALPHA)].clear();
 
-	m_pContext->OMSetDepthStencilState(nullptr, 0);   // 복구
+	CGameInstance::Get().Bind_DepthStencilState(g_strDSS_Default);
 }
 
 void CRenderer::Render_OccludedPlayer()
 {
-	float blendFactor[4] = { 0.f, 0.f, 0.f, 0.f };
-	m_pContext->OMSetBlendState(m_pBS.Get(), blendFactor, 0xffffffff);
-	m_pContext->OMSetDepthStencilState(m_pDSS_DrawReflection.Get(), 10); // STENCIL_OCCLUDER : 10
+	CGameInstance::Get().Bind_BlendState(g_strBS_AlphaBlend);
+	CGameInstance::Get().Bind_DepthStencilState(g_strDSS_MirrorReflect, 10);
 
 	for (auto& pObj : m_RenderGroup[ETOUI(RENDERID::OCCLUDEDPLAYER)])
 	{
@@ -373,8 +154,9 @@ void CRenderer::Render_OccludedPlayer()
 	}
 	m_RenderGroup[ETOUI(RENDERID::OCCLUDEDPLAYER)].clear();
 
-	m_pContext->OMSetDepthStencilState(nullptr, 0);   // 복구
-	m_pContext->OMSetBlendState(nullptr, blendFactor, 0xffffffff);
+
+	CGameInstance::Get().Bind_BlendState(g_strBS_Default);
+	CGameInstance::Get().Bind_DepthStencilState(g_strDSS_Default);
 }
 
 void CRenderer::Render_Player()
@@ -387,47 +169,6 @@ void CRenderer::Render_Player()
 	m_RenderGroup[ETOUI(RENDERID::PLAYER)].clear();
 }
 
-void CRenderer::Render_AlphaPre()
-{
-	// 알파블렌더 설정
-
-	// 상수 블렌드 계수 -> 텍스처 알파와 상관없이 오브젝트를 일정 비율로 반투명하게 만들고 싶을 때 사용
-	// 예시) 
-	// blendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_BLEND_FACTOR;         
-	// blendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_INV_BLEND_FACTOR;       
-	// bledFactor[4] = {0.3f, 0.3f,0.3f,0.3f};
-	// 
-	// => 최종 RGB -> Src.RGB * 0.3f + Dst.RGB * 0.7fs
-	float blendFactor[4] = { 0.f, 0.f, 0.f, 0.f };
-
-	// 블렌딩 ON
-	m_pContext->OMSetBlendState(m_pBS.Get(),	// 블렌더 스테이트 객체의 포인터
-		blendFactor,	// 부동소수점 값 네 개의 배열을 가리키는 포인터
-		0xffffffff);	// SampleMask (0xffffffff -> 모든 샘플을 활성화)
-
-	for (auto& pObj : m_RenderGroup[ETOUI(RENDERID::ALPHA_PRE)])
-	{
-		pObj->Compute_ViewZ();
-	}
-	m_RenderGroup[ETOUI(RENDERID::ALPHA_PRE)].sort([](shared_ptr<CGameObject> pDst, shared_ptr<CGameObject> pSrc)->bool
-		{
-			return pDst->Get_ViewZ() > pSrc->Get_ViewZ();
-		});
-	// 깊이 쓰기 끄기
-	//m_pContext->OMSetDepthStencilState(m_pDSS_Alpha.Get(), 0);
-	// 그리기
-	for (auto& pObj : m_RenderGroup[ETOUI(RENDERID::ALPHA_PRE)])
-	{
-		if (nullptr != pObj)
-			pObj->Render();
-	}
-	m_RenderGroup[ETOUI(RENDERID::ALPHA_PRE)].clear();
-
-	// 복구
-	//m_pContext->OMSetDepthStencilState(nullptr, 0);
-	m_pContext->OMSetBlendState(nullptr, blendFactor, 0xffffffff);
-
-}
 void CRenderer::Render_Mirror()
 {
 	auto pMirror = m_pMirror.lock();
@@ -439,8 +180,8 @@ void CRenderer::Render_Mirror()
 	float blendrFactor[4] = { 0.f,0.f,0.f,0.f };
 
 	// 스텐실버퍼에 거울 영역 채우기 (스텐실 1로 표시하기만 함. 거울이 그려지지는 않음)
-	m_pContext->OMSetBlendState(m_pBS_NoColorWrite.Get(), blendrFactor, 0xffffffff);	// 색 없이 그리기
-	m_pContext->OMSetDepthStencilState(m_pDSS_MarkMirror.Get(), 2);						// 쓰기만 하는 상태: 스텐실버퍼에 1값 쓰기
+	CGameInstance::Get().Bind_BlendState(g_strBS_NoColor);
+	CGameInstance::Get().Bind_DepthStencilState(g_strDSS_MirrorMark, 2);
 
 	pMirror->Render();																// 거울 영역 스텐실 버퍼에 1채우기
 
@@ -448,10 +189,7 @@ void CRenderer::Render_Mirror()
 	m_pContext->OMSetBlendState(nullptr, blendrFactor, 0xffffffff);
 
 	XMMATRIX matReflect = XMMatrixReflect(pMirror->Get_MirrorPlane());
-	m_pContext->OMSetDepthStencilState(m_pDSS_DrawReflection.Get(), 2);					// 읽기만 하는 상태: 스텐실버퍼가 1인지 검사만 함
-
-	//for (auto& pObj : m_ReflectObjects)
-	//	pObj->Render_Reflection(matReflect);
+	CGameInstance::Get().Bind_DepthStencilState(g_strDSS_MirrorReflect, 2);
 
 	for (auto& pObj : m_RenderGroup[ETOUI(RENDERID::REFLECT)])
 	{
@@ -460,14 +198,14 @@ void CRenderer::Render_Mirror()
 	}
 	m_RenderGroup[ETOUI(RENDERID::REFLECT)].clear();
 
-	m_pContext->OMSetDepthStencilState(nullptr, 0);										// 기본 상태(스텐실 : off)
+	CGameInstance::Get().Bind_BlendState(g_strBS_Default);
+	CGameInstance::Get().Bind_DepthStencilState(g_strDSS_Default);
 }
 
 void CRenderer::Render_Shadow()
 {
-	float blendFactor[4] = { 0.f, 0.f, 0.f, 0.f };
-	m_pContext->OMSetBlendState(m_pBS.Get(), blendFactor, 0xffffffff);
-	m_pContext->OMSetDepthStencilState(m_pDSS_DrawNoDoubleBlend.Get(), 10);
+	CGameInstance::Get().Bind_BlendState(g_strBS_AlphaBlend);
+	CGameInstance::Get().Bind_DepthStencilState(g_strDSS_NoDoubleBlend, 10);
 
 	for (auto& pObj : m_RenderGroup[ETOUI(RENDERID::SHADOW)])
 	{
@@ -476,17 +214,13 @@ void CRenderer::Render_Shadow()
 	}
 	m_RenderGroup[ETOUI(RENDERID::SHADOW)].clear();
 
-	m_pContext->OMSetDepthStencilState(nullptr, 10);
-	m_pContext->OMSetBlendState(nullptr, blendFactor, 0xffffffff);
+	CGameInstance::Get().Bind_BlendState(g_strBS_Default);
+	CGameInstance::Get().Bind_DepthStencilState(g_strDSS_Default);
 }
 void CRenderer::Render_Alpha()
 {
-	float blendFactor[4] = { 0.f, 0.f, 0.f, 0.f };
-
-	// 블렌딩 ON
-	m_pContext->OMSetBlendState(m_pBS.Get(),	// 블렌더 스테이트 객체의 포인터
-		blendFactor,	// 부동소수점 값 네 개의 배열을 가리키는 포인터
-		0xffffffff);	// SampleMask (0xffffffff -> 모든 샘플을 활성화)
+	CGameInstance::Get().Bind_BlendState(g_strBS_AlphaBlend);
+	CGameInstance::Get().Bind_DepthStencilState(g_strDSS_Alpha);
 	for (auto& pObj : m_RenderGroup[ETOUI(RENDERID::ALPHA)])
 	{
 		pObj->Compute_ViewZ();
@@ -495,8 +229,6 @@ void CRenderer::Render_Alpha()
 		{
 			return pDst->Get_ViewZ() > pSrc->Get_ViewZ();
 		});
-	// 깊이 쓰기 끄기
-	m_pContext->OMSetDepthStencilState(m_pDSS_Alpha.Get(), 0);
 	// 그리기
 	for (auto& pObj : m_RenderGroup[ETOUI(RENDERID::ALPHA)])
 	{
@@ -506,13 +238,13 @@ void CRenderer::Render_Alpha()
 	m_RenderGroup[ETOUI(RENDERID::ALPHA)].clear();
 
 	// 복구
-	m_pContext->OMSetDepthStencilState(nullptr, 0);
-	m_pContext->OMSetBlendState(nullptr, blendFactor, 0xffffffff);
+	CGameInstance::Get().Bind_BlendState(g_strBS_Default);
+	CGameInstance::Get().Bind_DepthStencilState(g_strDSS_Default);
 }
 
 void CRenderer::Render_FullScreen()
 {
-	m_pContext->OMSetDepthStencilState(m_pDSS_NoDepth.Get(), 0);   // 깊이 끄기
+	CGameInstance::Get().Bind_DepthStencilState(g_strDSS_NonZ);
 	m_pContext->IASetInputLayout(nullptr);
 	m_pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	m_pContext->VSSetShader(m_pVS_FullScreen.Get(), nullptr, 0);
@@ -537,12 +269,8 @@ void CRenderer::Render_NonAlpha_UI()
 
 void CRenderer::Render_Alpha_UI()
 {
-	float blendFactor[4] = { 0.f, 0.f, 0.f, 0.f };
-
-	// 블렌딩 ON
-	m_pContext->OMSetBlendState(m_pBS.Get(),	// 블렌더 스테이트 객체의 포인터
-		blendFactor,	// 부동소수점 값 네 개의 배열을 가리키는 포인터
-		0xffffffff);	// SampleMask (0xffffffff -> 모든 샘플을 활성화)
+	CGameInstance::Get().Bind_BlendState(g_strBS_AlphaBlend);
+	CGameInstance::Get().Bind_DepthStencilState(g_strDSS_Alpha);
 
 	m_RenderGroup[ETOUI(RENDERID::ALPHA_UI)].sort([](shared_ptr<CGameObject> pDst, shared_ptr<CGameObject> pSrc)->bool
 		{
@@ -550,8 +278,6 @@ void CRenderer::Render_Alpha_UI()
 			f32_t fSrcZ = XMVectorGetZ(pSrc->Get_Transform()->Get_State(STATE::POSITION));
 			return fDstZ > fSrcZ;
 		});
-	// 깊이 쓰기 끄기
-	m_pContext->OMSetDepthStencilState(m_pDSS_Alpha.Get(), 0);
 	// 그리기
 
 	for (auto& pObj : m_RenderGroup[ETOUI(RENDERID::ALPHA_UI)])
@@ -562,9 +288,8 @@ void CRenderer::Render_Alpha_UI()
 	m_RenderGroup[ETOUI(RENDERID::ALPHA_UI)].clear();
 
 	// 복구
-	m_pContext->OMSetDepthStencilState(nullptr, 0);
-	m_pContext->OMSetBlendState(nullptr, blendFactor, 0xffffffff);
-
+	CGameInstance::Get().Bind_BlendState(g_strBS_Default);
+	CGameInstance::Get().Bind_DepthStencilState(g_strDSS_Default);
 }
 
 

@@ -12,7 +12,6 @@ HRESULT CMapObject::Initialize(void* pArg)
 
     // 구조체 채우기
     auto pDesc = static_cast<MAPOBJECT_DESC*>(pArg);
-    m_iLevelIndex = pDesc->iLevelIndex;
     m_vPosition = pDesc->vPosition;
     m_vScale = pDesc->vScale;
     m_strMeshPath = pDesc->strMeshPath;

@@ -1,10 +1,10 @@
 #include "Loader.h"
 #include "Level_Loading.h"
 #include "Level_Logo.h"
+#include "Level_Base.h"
 #include "Level_ZeroZone.h"
 #include "BackGround.h"
 #include "Texture.h"
-#include "VIBuffer_Rect.h"
 
 CLevel_Loading::CLevel_Loading(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)
     :CLevel{ pDevice,pContext }
@@ -40,14 +40,16 @@ HRESULT CLevel_Loading::Initialize(LEVEL eNextLevel)
 void CLevel_Loading::Update(f32_t fDeltaTime)
 {
     __super::Update(fDeltaTime);
-    if (true == m_pLoader->isFinished() &&
-        CGameInstance::Get().Key_Pressing(DIK_SPACE))
+    if (true == m_pLoader->isFinished())
     {
         shared_ptr<CLevel> pNewLevel = { nullptr };
         switch (m_eNextLevelID)
         {
         case Client::LEVEL::MAIN_MENU:
             pNewLevel = CLevel_Logo::Create(m_pDevice,m_pContext);
+            break;
+        case Client::LEVEL::BASE:
+            pNewLevel = CLevel_Base::Create(m_pDevice,m_pContext);
             break;
         case Client::LEVEL::ZEROZONE:
             pNewLevel = CLevel_ZeroZone::Create(m_pDevice, m_pContext);

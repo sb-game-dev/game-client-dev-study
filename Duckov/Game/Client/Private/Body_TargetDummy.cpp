@@ -116,7 +116,7 @@ HRESULT CBody_TargetDummy::Render_Mesh(const matrix_t& matWorld, shared_ptr<CPix
 
 HRESULT CBody_TargetDummy::Ready_Components()
 {
-    if (FAILED(__super::Add_Component(ETOUI(LEVEL::ZEROZONE), Proto::Model_TargetDummy,
+    if (FAILED(__super::Add_Component(ETOUI(m_iLevelIndex), Proto::Model_TargetDummy,
         TEXT("Com_Model"), m_pModelCom)))
         return E_FAIL;
 

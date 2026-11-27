@@ -20,23 +20,12 @@ public:
 	void	Set_DrawToBackBuffer(bool_t bDraw)			{ m_bDrawToBackBuffer = bDraw; }
 	void	AddBlurField(f32_t fLeft, f32_t fTop, f32_t fWidth, f32_t fHeight);
 	ID3D11ShaderResourceView* Get_SceneSRV()const		{ return m_pSceneSRV.Get(); }
+
 private:
 	ComPtr<ID3D11Device>				m_pDevice = { nullptr };
 	ComPtr<ID3D11DeviceContext>			m_pContext = { nullptr };
 
 	list<shared_ptr<CGameObject>>		m_RenderGroup[ETOUI(RENDERID::END)];
-
-	ComPtr<ID3D11BlendState>			m_pBS = { nullptr };
-	ComPtr<ID3D11BlendState>			m_pBS_NoColorWrite = { nullptr };
-
-	ComPtr<ID3D11DepthStencilState>		m_pDSS_Priority = { nullptr };
-	ComPtr<ID3D11DepthStencilState>		m_pDSS_NoDepth = { nullptr };
-	ComPtr<ID3D11DepthStencilState>		m_pDSS_MarkMirror = { nullptr };
-	ComPtr<ID3D11DepthStencilState>		m_pDSS_MarkOccluder = { nullptr };
-	ComPtr<ID3D11DepthStencilState>		m_pDSS_Alpha = { nullptr };
-	ComPtr<ID3D11DepthStencilState>		m_pDSS_DrawReflection = { nullptr };
-	ComPtr<ID3D11DepthStencilState>		m_pDSS_DrawNoDoubleBlend = { nullptr };
-	ComPtr<ID3D11DepthStencilState>		m_pDSS_DrawOccludePlayer = { nullptr };
 
 	weak_ptr<CGameObject>				m_pMirror;
 
@@ -54,7 +43,6 @@ private:
 	void	Render_NonAlpha();
 	void	Render_OccludedPlayer();
 	void	Render_Player();
-	void	Render_AlphaPre();
 	void	Render_Mirror();
 	void	Render_Shadow();
 	void	Render_Alpha();
@@ -62,14 +50,6 @@ private:
 	void	Render_NonAlpha_UI();
 	void	Render_Alpha_UI();
 
-	HRESULT	Ready_BlendState();
-	HRESULT	Ready_BlendState_NoColor();
-
-	HRESULT	Ready_Priority_DSS();
-	HRESULT	Ready_Alpha_DSS();
-	HRESULT	Ready_Mirror_DSS();
-	HRESULT	Ready_Occluder_DSS();
-	HRESULT	Ready_Shadow_DSS();
 	HRESULT	Ready_SceneTarget(uint32_t iWinSizeX, uint32_t iWinsizeY);
 
 public:

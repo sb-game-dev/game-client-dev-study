@@ -180,16 +180,38 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Client\Private\Armor.cpp" />
+    <ClCompile Include="..\..\Client\Private\BackGround.cpp" />
     <ClCompile Include="..\..\Client\Private\BackPack.cpp" />
+    <ClCompile Include="..\..\Client\Private\Base_Terrain1.cpp" />
     <ClCompile Include="..\..\Client\Private\Body_Player.cpp" />
     <ClCompile Include="..\..\Client\Private\Body_TargetDummy.cpp" />
     <ClCompile Include="..\..\Client\Private\Bullet.cpp" />
+    <ClCompile Include="..\..\Client\Private\Bullet_Manager.cpp" />
+    <ClCompile Include="..\..\Client\Private\Client_Mouse.cpp" />
+    <ClCompile Include="..\..\Client\Private\Cube.cpp" />
+    <ClCompile Include="..\..\Client\Private\Cube_Instance.cpp" />
     <ClCompile Include="..\..\Client\Private\FaceMask.cpp" />
+    <ClCompile Include="..\..\Client\Private\Fog.cpp" />
     <ClCompile Include="..\..\Client\Private\Free_Cam.cpp" />
     <ClCompile Include="..\..\Client\Private\Headset.cpp" />
     <ClCompile Include="..\..\Client\Private\Helmet.cpp" />
+    <ClCompile Include="..\..\Client\Private\Hill.cpp" />
     <ClCompile Include="..\..\Client\Private\HUD.cpp" />
+    <ClCompile Include="..\..\Client\Private\Inven.cpp" />
+    <ClCompile Include="..\..\Client\Private\Level_Base.cpp" />
+    <ClCompile Include="..\..\Client\Private\Level_Loading.cpp" />
+    <ClCompile Include="..\..\Client\Private\Level_Logo.cpp" />
     <ClCompile Include="..\..\Client\Private\Level_ZeroZone.cpp" />
+    <ClCompile Include="..\..\Client\Private\Loader.cpp" />
+    <ClCompile Include="..\..\Client\Private\MainApp.cpp" />
+    <ClCompile Include="..\..\Client\Private\Mirror.cpp" />
+    <ClCompile Include="..\..\Client\Private\Player.cpp" />
+    <ClCompile Include="..\..\Client\Private\Player_PointLight.cpp" />
+    <ClCompile Include="..\..\Client\Private\Player_SpotLight.cpp" />
+    <ClCompile Include="..\..\Client\Private\QuarterView_Cam.cpp" />
+    <ClCompile Include="..\..\Client\Private\Scope.cpp" />
+    <ClCompile Include="..\..\Client\Private\SkyBox.cpp" />
+    <ClCompile Include="..\..\Client\Private\SunLight.cpp" />
     <ClCompile Include="..\..\Client\Private\TargetDummy.cpp" />
     <ClCompile Include="..\..\Client\Private\Tree_Instance.cpp" />
     <ClCompile Include="..\..\Client\Private\UI_HpBar.cpp" />
@@ -230,24 +252,6 @@
     <ClCompile Include="..\Private\Panel_Scene.cpp" />
     <ClCompile Include="..\private\ToolMainApp.cpp" />
     <ClCompile Include="Default.cpp" />
-    <ClCompile Include="..\..\Client\Private\BackGround.cpp" />
-    <ClCompile Include="..\..\Client\Private\Client_Mouse.cpp" />
-    <ClCompile Include="..\..\Client\Private\Cube.cpp" />
-    <ClCompile Include="..\..\Client\Private\Cube_Instance.cpp" />
-    <ClCompile Include="..\..\Client\Private\Fog.cpp" />
-    <ClCompile Include="..\..\Client\Private\Hill.cpp" />
-    <ClCompile Include="..\..\Client\Private\Inven.cpp" />
-    <ClCompile Include="..\..\Client\Private\Level_Loading.cpp" />
-    <ClCompile Include="..\..\Client\Private\Level_Logo.cpp" />
-    <ClCompile Include="..\..\Client\Private\Loader.cpp" />
-    <ClCompile Include="..\..\Client\Private\Mirror.cpp" />
-    <ClCompile Include="..\..\Client\Private\Player.cpp" />
-    <ClCompile Include="..\..\Client\Private\Player_PointLight.cpp" />
-    <ClCompile Include="..\..\Client\Private\Player_SpotLight.cpp" />
-    <ClCompile Include="..\..\Client\Private\QuarterView_Cam.cpp" />
-    <ClCompile Include="..\..\Client\Private\Scope.cpp" />
-    <ClCompile Include="..\..\Client\Private\SkyBox.cpp" />
-    <ClCompile Include="..\..\Client\Private\SunLight.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Default.rc" />

@@ -2,7 +2,7 @@
 #include "Inven.h"
 #include "Player.h"
 #include "GameInstance.h"
-#include "Bullet.h"
+#include "Bullet_Manager.h"
 #include "Cube.h"
 #include "Body_Player.h"
 #include "Client_Mouse.h"
@@ -36,8 +36,6 @@ HRESULT CWeapon::Initialize(void* pArg)
 
     if (FAILED(Ready_Components()))
         return E_FAIL;
-    if (FAILED(Ready_Bullets()))
-        return E_FAIL;
 
     //m_pTransformCom->Set_Scale(10.f, 10.f, 10.f);
     m_pTransformCom->Rotation(-90.f, 0.f, 0.f);
@@ -63,6 +61,15 @@ void CWeapon::Priority_Update(f32_t fDeltaTime)
             return;
         m_pInven = pInven;
     }
+    auto pBullet_Manager = m_pBullet_Manager.lock();
+    if (nullptr == pBullet_Manager)
+    {
+        pBullet_Manager = dynamic_pointer_cast<CBullet_Manager>(CGameInstance::Get().Find_GameObject(
+            ETOUI(LEVEL::STATIC), L"Layer_Static", GO::Bullet_Manager));
+        if (nullptr == pBullet_Manager)
+            return;
+        m_pBullet_Manager = pBullet_Manager;
+    }
     auto pClient_Mouse = m_pClient_Mouse.lock();
     if (nullptr == pClient_Mouse)
     {
@@ -72,22 +79,11 @@ void CWeapon::Priority_Update(f32_t fDeltaTime)
             return;
         m_pClient_Mouse = pClient_Mouse;
     }
-    for (auto& pBullet : m_Bullets)
-    {
-        if (nullptr != pBullet && pBullet->Is_Active() && !pBullet->Is_Dead())
-            pBullet->Priority_Update(fDeltaTime);
-    }
 }
 
 void CWeapon::Update(f32_t fDeltaTime)
 {
     __super::Update(fDeltaTime);
-
-    for (auto& pBullet : m_Bullets)
-    {
-        if (nullptr != pBullet && pBullet->Is_Active() && !pBullet->Is_Dead())
-            pBullet->Update(fDeltaTime);
-    }
     auto pInven = m_pInven.lock();
     auto pPlayer = static_pointer_cast<CPlayer>(m_pParent.lock());
     if (nullptr == pInven || nullptr == pInven->Get_ActiveItem())
@@ -118,12 +114,6 @@ void CWeapon::Update(f32_t fDeltaTime)
 void CWeapon::Late_Update(f32_t fDeltaTime)
 {
     __super::Late_Update(fDeltaTime);
-
-    for (auto& pBullet : m_Bullets)
-    {
-        if (nullptr != pBullet && pBullet->Is_Active() && !pBullet->Is_Dead())
-            pBullet->Late_Update(fDeltaTime);
-    }
 
     auto pInven = m_pInven.lock();
     if (nullptr == pInven || nullptr == pInven->Get_ActiveItem())
@@ -277,18 +267,7 @@ HRESULT CWeapon::Bind_ShaderResources(const matrix_t& matWorld)
     return __super::Bind_Vertex_ShaderResource(ETOUI(VSLOT::WORLD), matWorld);
 }
 
-HRESULT CWeapon::Ready_Bullets()
-{
-    m_Bullets.reserve(m_iNumBullet);
-    for (uint32_t i = 0; i < m_iNumBullet; ++i)
-    {
-        auto pBullet = dynamic_pointer_cast<CBullet>(CGameInstance::Get().Clone_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_Bullet));
-        if(nullptr == pBullet)
-            return E_FAIL;
-        m_Bullets.push_back(pBullet);
-    }
-    return S_OK;
-}
+
 
 void CWeapon::Update_GunAttack(const f32_t& fDeltaTime)
 {
@@ -303,6 +282,7 @@ void CWeapon::Update_GunAttack(const f32_t& fDeltaTime)
         float3_t vPos = { m_CombinedWorldMatrix._41,m_CombinedWorldMatrix._42,m_CombinedWorldMatrix._43 };
         float3_t vDir = { m_CombinedWorldMatrix._31,m_CombinedWorldMatrix._32,m_CombinedWorldMatrix._33 };
         f32_t fSpeed = { 100.f };
+
         // ÃÑ¾Ë È®»ê
         XMStoreFloat3(&vDir,
             XMVector3TransformNormal(XMLoadFloat3(&vDir), XMMatrixRotationY(XMConvertToRadians(CGameInstance::Get().Random(-5, 5)))));
@@ -316,14 +296,10 @@ void CWeapon::Update_GunAttack(const f32_t& fDeltaTime)
 
 void CWeapon::Fire(const float3_t vPos, const float3_t& vDir, f32_t fSpeed)
 {
-    for (auto& pBullet : m_Bullets)
-    {
-        if (!pBullet->Is_Active())
-        {
-            pBullet->Bullet_Active(vPos, vDir, fSpeed);
-            return;
-        }
-    }
+    auto pBullet_Manager = m_pBullet_Manager.lock();
+    if (nullptr == pBullet_Manager)
+        return;
+    pBullet_Manager->Bullet_Active(vPos, vDir, fSpeed);
 }
 
 shared_ptr<CWeapon> CWeapon::Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext)

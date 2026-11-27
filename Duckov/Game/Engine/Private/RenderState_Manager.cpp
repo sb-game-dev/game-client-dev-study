@@ -69,7 +69,7 @@ HRESULT CRenderState_Manager::Bind_DepthStencilState(const wstring_t& strDSSTag,
 
 HRESULT CRenderState_Manager::Add_BlendState(const wstring_t& strBlendTag, const D3D11_BLEND_DESC& BlendDesc)
 {
-    if (nullptr != Find_RasterizerState(strBlendTag))
+    if (nullptr != Find_BlendState(strBlendTag))
         return E_FAIL;
 
     ComPtr<ID3D11BlendState> BS = {};
@@ -86,7 +86,11 @@ HRESULT CRenderState_Manager::Bind_BlendState(const wstring_t& strBlendTag, f32_
     if (nullptr == pBlendState)
         return E_FAIL;
 
-    m_pContext->OMSetBlendState(pBlendState.Get(), pBlendFactor, SampleMask);
+    f32_t		fFactor[4] = {};
+    if (nullptr != pBlendFactor)
+        memcpy(fFactor, pBlendFactor, sizeof f32_t * 4);
+
+    m_pContext->OMSetBlendState(pBlendState.Get(), fFactor, SampleMask);
     return S_OK;
 }
 
@@ -127,13 +131,31 @@ HRESULT CRenderState_Manager::Ready_RasterizeState()
 
 HRESULT CRenderState_Manager::Ready_DepthStencilState()
 {
-
+    if (FAILED(Add_DepthStencilState(g_strDSS_Default, g_DSS_Default_Desc)))
+        return E_FAIL;
+    if (FAILED(Add_DepthStencilState(g_strDSS_NonZ, g_DSS_NonZ_Desc)))
+        return E_FAIL;
+    if (FAILED(Add_DepthStencilState(g_strDSS_MirrorMark, g_DSS_MirrorMark_Desc)))
+        return E_FAIL;
+    if (FAILED(Add_DepthStencilState(g_strDSS_MirrorReflect, g_DSS_MirrorReflect_Desc)))
+        return E_FAIL;
+    if (FAILED(Add_DepthStencilState(g_strDSS_SilhouetteMark, g_DSS_MarkSilhouetteMark_Desc)))
+        return E_FAIL;
+    if (FAILED(Add_DepthStencilState(g_strDSS_NoDoubleBlend, g_DSS_NoDoubleBlend_Desc)))
+        return E_FAIL;
+    if (FAILED(Add_DepthStencilState(g_strDSS_Alpha, g_DSS_Alpha_Desc)))
+        return E_FAIL;
     return S_OK;
 }
 
 HRESULT CRenderState_Manager::Ready_BlendState()
 {
-
+    if (FAILED(Add_BlendState(g_strBS_Default, g_BS_Default_Desc)))
+        return E_FAIL;
+    if (FAILED(Add_BlendState(g_strBS_AlphaBlend, g_BS_AlphaBlend_Desc)))
+        return E_FAIL;
+    if (FAILED(Add_BlendState(g_strBS_NoColor, g_BS_NoColor_Desc)))
+        return E_FAIL;
     return S_OK;
 }
 

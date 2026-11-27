@@ -14,6 +14,7 @@
 #include "Inven.h"
 #include "HUD.h"
 #include "Bullet.h"
+#include "Bullet_Manager.h"
 #include "UI_StaminaRing.h"
 #include "UI_HpBar.h"
 
@@ -63,7 +64,7 @@ HRESULT CMainApp::Initialize()
         return E_FAIL;
     
     // 씬 생성
-    if (FAILED(Start_Level(LEVEL::ZEROZONE)))
+    if (FAILED(Start_Level(LEVEL::BASE)))
         return E_FAIL;
 
     //Test_Write();
@@ -266,6 +267,9 @@ HRESULT CMainApp::Ready_Prototype_For_StaticLV()
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_Bullet,
         CBullet::Create(m_pDevice, m_pContext))))
         return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Obj_Bullet_Manager,
+        CBullet_Manager::Create(m_pDevice, m_pContext))))
+        return E_FAIL;
 
     //================== 모델 원형 ==================
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC),
@@ -273,6 +277,7 @@ HRESULT CMainApp::Ready_Prototype_For_StaticLV()
         CModel::Create(m_pDevice, m_pContext, MODEL::ANIM,
             "../../../Resource/Characters/S12_DuckV2_2/S12_DuckV2_2.bin"))))
         return E_FAIL;
+    // 무기(총)
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC),
         Proto::Model_Weapon_AK47,
         CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
@@ -290,13 +295,19 @@ HRESULT CMainApp::Ready_Prototype_For_StaticLV()
         CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
             "../../../Resource/prefabs/weapons/guns/ig_gun_pm.bin"))))
         return E_FAIL;
-
+    // 무기(근접무기)
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC),
         Proto::Model_Weapon_Axe,
         CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
             "../../../Resource/prefabs/weapons/melee_handheld/MeleeWeaponAgent_Axe.bin"))))
         return E_FAIL;
 
+    // 방어구(헬멧)
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC),
+        Proto::Model_Helmet_LV1,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/equipment/helmet/ig_helmat_LV1.bin"))))
+        return E_FAIL;
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC),
         Proto::Model_Helmet_LV2,
         CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
@@ -310,6 +321,24 @@ HRESULT CMainApp::Ready_Prototype_For_StaticLV()
         return E_FAIL;
 
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC),
+        Proto::Model_Helmet_LV4,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/equipment/helmet/ig_helmat_LV4.bin"))))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC),
+        Proto::Model_Helmet_LV5,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/equipment/helmet/ig_helmat_LV5.bin"))))
+        return E_FAIL;
+
+    // 방어구(갑옷)
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC),
+        Proto::Model_Armor_LV1,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/equipment/armor/ig_armor_LV1.bin"))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC),
         Proto::Model_Armor_LV2,
         CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
             "../../../Resource/prefabs/equipment/armor/ig_armor_LV2.bin"))))
@@ -319,7 +348,18 @@ HRESULT CMainApp::Ready_Prototype_For_StaticLV()
         CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
             "../../../Resource/prefabs/equipment/armor/ig_armor_LV3.bin"))))
         return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC),
+        Proto::Model_Armor_LV4,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/equipment/armor/ig_armor_LV4.bin"))))
+        return E_FAIL;
+    if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC),
+        Proto::Model_Armor_LV5,
+        CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
+            "../../../Resource/prefabs/equipment/armor/ig_armor_LV5.bin"))))
+        return E_FAIL;
 
+    // 가방
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC),
         Proto::Model_BackPack_LV2,
         CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
@@ -331,7 +371,8 @@ HRESULT CMainApp::Ready_Prototype_For_StaticLV()
         CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
             "../../../Resource/prefabs/equipment/backpack/ig_backpack_LV3.bin"))))
         return E_FAIL;
-
+    
+    // 헤드셋
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC),
         Proto::Model_Headset_LV0,
         CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
@@ -343,6 +384,8 @@ HRESULT CMainApp::Ready_Prototype_For_StaticLV()
         CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
             "../../../Resource/prefabs/equipment/headset/IG_Headset_LV1V2.bin"))))
         return E_FAIL;
+
+    // 마스크
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC),
         Proto::Model_FaceMask_FlyMask,
         CModel::Create(m_pDevice, m_pContext, MODEL::NONANIM,
@@ -361,6 +404,7 @@ HRESULT CMainApp::Ready_Prototype_For_StaticLV()
             "../../../Resource/prefabs/equipment/facemask/IG_fackmask_nightvision.bin"))))
         return E_FAIL;
 
+    // 버텍스 인덱스 버퍼
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::VIBuffer_Cube,
         CVIBuffer_Cube::Create(m_pDevice, m_pContext))))
         return E_FAIL;
@@ -370,7 +414,7 @@ HRESULT CMainApp::Ready_Prototype_For_StaticLV()
         return E_FAIL;
 
     //================== 텍스처 ==================
-        // 마우스 조준선
+    // 마우스 조준선
     if (FAILED(CGameInstance::Get().Add_Prototype(ETOUI(LEVEL::STATIC), Proto::Texture_Mouse,
         CTexture::Create(m_pDevice, m_pContext, TEXT("../../../Resource/UI/Mouse/cursor%d.png"), 4))))
         return E_FAIL;
@@ -395,11 +439,12 @@ HRESULT CMainApp::Ready_Prototype_For_StaticLV()
 HRESULT CMainApp::Ready_Static_Layer()
 {
     auto pLayerTag = L"Layer_Static";
-
     CPlayer::PLAYER_DESC Player_Desc{};
     Player_Desc.fDegreeRotPerSec = { 180.f };
-    Player_Desc.fPosX = { 38.2f };
-    Player_Desc.fPosZ = { -207.2f };
+    Player_Desc.fPosX = { -4.96f };
+    Player_Desc.fPosZ = { -87.38f };
+    //Player_Desc.fPosX = { 38.2f };
+    //Player_Desc.fPosZ = { -207.2f };
 
     if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::STATIC), Proto::Obj_Player,
         ETOUI(LEVEL::STATIC), pLayerTag, GO::Player, &Player_Desc)))
@@ -419,6 +464,10 @@ HRESULT CMainApp::Ready_Static_Layer()
 
     if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::STATIC), Proto::Obj_Scope,
         ETOUI(LEVEL::STATIC), pLayerTag, GO::Scope)))
+        return E_FAIL;
+
+    if (FAILED(CGameInstance::Get().Add_GameObject(ETOUI(LEVEL::STATIC), Proto::Obj_Bullet_Manager,
+        ETOUI(LEVEL::STATIC), pLayerTag, GO::Bullet_Manager)))
         return E_FAIL;
 
 

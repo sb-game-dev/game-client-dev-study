@@ -9,7 +9,7 @@ void CCollision_Manager::Collision(shared_ptr<class CCollider> pDstCollider, sha
 	COLLIDER_TYPE pDstType = pDstCollider->GetColliderType();
 	COLLIDER_TYPE pSrcType = pSrcCollider->GetColliderType();
 
-	if (pDstType == COLLIDER_TYPE::CUBE&& pSrcType == COLLIDER_TYPE::CUBE)
+	if (pDstType == COLLIDER_TYPE::CUBE && pSrcType == COLLIDER_TYPE::CUBE)
 	{
 		auto pDstCubeCollider = dynamic_pointer_cast<CCube_Collider>(pDstCollider);
 		auto pSrcCubeCollider = dynamic_pointer_cast<CCube_Collider>(pSrcCollider);

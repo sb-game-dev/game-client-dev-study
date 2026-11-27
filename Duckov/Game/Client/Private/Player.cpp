@@ -80,7 +80,8 @@ void CPlayer::Priority_Update(f32_t fDeltaTime)
 
         Handle_SlotInput(fDeltaTime);
 
-        AdjustPosY();
+        if(ETOUI(LEVEL::ZEROZONE) == CGameInstance::Get().Get_CurrentLevelIndex())
+            AdjustPosY();
     }
     m_bPreInvenOpen = m_bCurInvenOpen;
 }

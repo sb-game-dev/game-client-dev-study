@@ -1,0 +1,26 @@
+#pragma once
+#include "Client_Defines.h"
+#include "Level.h"
+
+NS_BEGIN(Client)
+class CLevel_Base final : public CLevel
+{
+private:
+	CLevel_Base(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
+public:
+	~CLevel_Base() = default;
+
+public:
+	virtual		HRESULT		Initialize() override;
+	virtual		void		Update(f32_t fDeltaTime) override;
+	virtual		HRESULT		Render() override;
+
+private:
+	HRESULT Ready_Layer_BackGround(const tchar_t* pLayerTag);
+	HRESULT Ready_Layer_GameObject(const tchar_t* pLayerTag);
+	HRESULT Ready_Layer_Camera(const tchar_t* pLayerTag);
+public:
+	static shared_ptr<CLevel_Base> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext);
+};
+
+NS_END

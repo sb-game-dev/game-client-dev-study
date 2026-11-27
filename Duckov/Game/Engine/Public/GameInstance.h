@@ -166,10 +166,10 @@ public:
 	HRESULT Bind_RasterizerState(const wstring_t& strRSTag);
 
 	HRESULT Add_DepthStencilState(const wstring_t& strDSSTag, const D3D11_DEPTH_STENCIL_DESC& DSSDesc);
-	HRESULT Bind_DepthStencilState(const wstring_t& strDSSTag, uint32_t StencilRef);
+	HRESULT Bind_DepthStencilState(const wstring_t& strDSSTag, uint32_t StencilRef = 0);
 
 	HRESULT	Add_BlendState(const wstring_t& strBlendTag, const D3D11_BLEND_DESC& BlendDesc);
-	HRESULT Bind_BlendState(const wstring_t& strBlendTag, f32_t* pBlendFactor, uint32_t SampleMask);
+	HRESULT Bind_BlendState(const wstring_t& strBlendTag, f32_t* pBlendFactor = nullptr, uint32_t SampleMask = 0xffffffff);
 #pragma endregion
 
 

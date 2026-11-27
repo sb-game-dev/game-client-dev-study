@@ -142,60 +142,6 @@
     <ClCompile Include="Default.cpp">
       <Filter>98. Default</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Client\Private\BackGround.cpp">
-      <Filter>97. Client_Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Client\Private\Client_Mouse.cpp">
-      <Filter>97. Client_Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Client\Private\Cube.cpp">
-      <Filter>97. Client_Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Client\Private\Cube_Instance.cpp">
-      <Filter>97. Client_Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Client\Private\Fog.cpp">
-      <Filter>97. Client_Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Client\Private\Hill.cpp">
-      <Filter>97. Client_Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Client\Private\Inven.cpp">
-      <Filter>97. Client_Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Client\Private\Level_Loading.cpp">
-      <Filter>97. Client_Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Client\Private\Level_Logo.cpp">
-      <Filter>97. Client_Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Client\Private\Loader.cpp">
-      <Filter>97. Client_Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Client\Private\Mirror.cpp">
-      <Filter>97. Client_Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Client\Private\Player.cpp">
-      <Filter>97. Client_Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Client\Private\Player_PointLight.cpp">
-      <Filter>97. Client_Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Client\Private\Player_SpotLight.cpp">
-      <Filter>97. Client_Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Client\Private\QuarterView_Cam.cpp">
-      <Filter>97. Client_Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Client\Private\Scope.cpp">
-      <Filter>97. Client_Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Client\Private\SkyBox.cpp">
-      <Filter>97. Client_Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Client\Private\SunLight.cpp">
-      <Filter>97. Client_Shared</Filter>
-    </ClCompile>
     <ClCompile Include="..\ImGui\imgui.cpp">
       <Filter>96. ImGui</Filter>
     </ClCompile>
@@ -216,9 +162,6 @@
     </ClCompile>
     <ClCompile Include="..\private\ToolMainApp.cpp">
       <Filter>00. ToolMainApp</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Client\Private\Free_Cam.cpp">
-      <Filter>97. Client_Shared</Filter>
     </ClCompile>
     <ClCompile Include="..\private\MapTool_Cam.cpp">
       <Filter>03. Camera</Filter>
@@ -247,49 +190,118 @@
     <ClCompile Include="..\ImGui\ImGuizmo.cpp">
       <Filter>96. ImGui</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Hill.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Client\Private\HUD.cpp">
       <Filter>97. Client_Shared</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Client\Private\Tree_Instance.cpp">
+    <ClCompile Include="..\..\Client\Private\Inven.cpp">
       <Filter>97. Client_Shared</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Client\Private\Weapon.cpp">
+    <ClCompile Include="..\..\Client\Private\Level_Base.cpp">
       <Filter>97. Client_Shared</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Client\Private\Body_Player.cpp">
+    <ClCompile Include="..\..\Client\Private\Level_Loading.cpp">
       <Filter>97. Client_Shared</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Client\Private\Helmet.cpp">
-      <Filter>97. Client_Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Client\Private\Armor.cpp">
-      <Filter>97. Client_Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Client\Private\BackPack.cpp">
-      <Filter>97. Client_Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Client\Private\Headset.cpp">
-      <Filter>97. Client_Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Client\Private\FaceMask.cpp">
-      <Filter>97. Client_Shared</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Client\Private\Bullet.cpp">
+    <ClCompile Include="..\..\Client\Private\Level_Logo.cpp">
       <Filter>97. Client_Shared</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Client\Private\Level_ZeroZone.cpp">
       <Filter>97. Client_Shared</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Client\Private\UI_StaminaRing.cpp">
+    <ClCompile Include="..\..\Client\Private\Loader.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\MainApp.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Mirror.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Player.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Player_PointLight.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Player_SpotLight.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\QuarterView_Cam.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Scope.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\SkyBox.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\SunLight.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\TargetDummy.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Tree_Instance.cpp">
       <Filter>97. Client_Shared</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Client\Private\UI_HpBar.cpp">
       <Filter>97. Client_Shared</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Client\Private\UI_StaminaRing.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Weapon.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Armor.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\BackGround.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\BackPack.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Base_Terrain1.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Body_Player.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Client\Private\Body_TargetDummy.cpp">
       <Filter>97. Client_Shared</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Client\Private\TargetDummy.cpp">
+    <ClCompile Include="..\..\Client\Private\Bullet.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Bullet_Manager.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Client_Mouse.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Cube.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Cube_Instance.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\FaceMask.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Fog.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Free_Cam.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Headset.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Helmet.cpp">
       <Filter>97. Client_Shared</Filter>
     </ClCompile>
   </ItemGroup>

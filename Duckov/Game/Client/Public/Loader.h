@@ -31,7 +31,8 @@ private:
 
 private:
 	HRESULT Loading_For_LogoLV();
-	HRESULT Loading_For_GamePlayLV();
+	HRESULT Loading_For_ZeroZoneLV();
+	HRESULT Loading_For_BaseLV();
 
 public:
 	static shared_ptr<CLoader> Create(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> pContext, LEVEL eNextLevelID);

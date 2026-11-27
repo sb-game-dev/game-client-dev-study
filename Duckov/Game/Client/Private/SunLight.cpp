@@ -8,10 +8,13 @@ CSunLight::CSunLight(ComPtr<ID3D11Device> pDevice, ComPtr<ID3D11DeviceContext> p
 HRESULT CSunLight::Initialize()
 {
 	// 规氢己 炼疙 备炼眉 积己
-	m_tDirectionalLight.Ambient		= XMFLOAT4(0.25f, 0.25f, 0.25f, 1.0f);
+	//m_tDirectionalLight.Ambient		= XMFLOAT4(0.25f, 0.25f, 0.25f, 1.0f);
+	m_tDirectionalLight.Ambient = XMFLOAT4(1.f, 1.f, 1.f, 1.0f);
 	m_tDirectionalLight.Diffuse		= XMFLOAT4(0.75f, 0.75f, 0.75f, 1.f);
 	m_tDirectionalLight.Specular	= XMFLOAT4(0.25f, 0.25f, 0.25f, 1.0f);
 	m_tDirectionalLight.Direction	= XMFLOAT3(0.5f, -0.5f, 0.5f);
+	if(ETOUI(LEVEL::BASE) == CGameInstance::Get().Get_CurrentLevelIndex())
+		m_tDirectionalLight.Ambient = XMFLOAT4(1.f, 1.f, 1.f, 1.0f);
 
 	//m_tDirectionalLight.Specular = float4_t(1.f, 1.f, 1.f, 1.f);
 
