@@ -28,7 +28,7 @@ public:
 	virtual HRESULT Render() override;
 	virtual HRESULT	Render_Shadow() override;
 
-	const BoundingBox& Get_AABB() { return m_pModelCom->GetBoundingBox(); }
+	const BoundingBox Get_AABB() { return m_pModelCom->GetBoundingBox(); }
 	void	Set_Hit() { m_fHitTimeRemaining = m_fHitDuration; }
 
 private:

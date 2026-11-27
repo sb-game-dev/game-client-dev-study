@@ -18,7 +18,7 @@ public:
 	HRESULT Bind_DepthStencilState(const wstring_t& strDSSTag, uint32_t StencilRef);
 	
 	HRESULT	Add_BlendState(const wstring_t& strBlendTag, const D3D11_BLEND_DESC& BlendDesc);
-	HRESULT Bind_BlendState(const wstring_t& strBlendTag, f32_t* pBlendFactor, uint32_t SampleMask);
+	HRESULT Bind_BlendState(const wstring_t& strBlendTag, f32_t* pBlendFactor = nullptr, uint32_t SampleMask = 0xffffffff);
 
 private:
 	ComPtr<ID3D11Device> m_pDevice;

@@ -305,7 +305,7 @@ void CWeapon::Update_GunAttack(const f32_t& fDeltaTime)
         f32_t fSpeed = { 100.f };
         // ÃÑ¾Ë È®»ê
         XMStoreFloat3(&vDir,
-            XMVector3TransformNormal(XMLoadFloat3(&vDir), XMMatrixRotationY(XMConvertToRadians(0))));//CGameInstance::Get().Random(-5, 5)
+            XMVector3TransformNormal(XMLoadFloat3(&vDir), XMMatrixRotationY(XMConvertToRadians(CGameInstance::Get().Random(-5, 5)))));
         Fire(vPos,vDir,fSpeed);   //ÃÑ¾Ë ¹ß»ç
         m_fFireTimer += m_fFireinterval;
 

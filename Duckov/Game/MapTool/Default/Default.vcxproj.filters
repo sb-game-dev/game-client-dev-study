@@ -286,6 +286,12 @@
     <ClCompile Include="..\..\Client\Private\UI_HpBar.cpp">
       <Filter>97. Client_Shared</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Client\Private\Body_TargetDummy.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Client\Private\TargetDummy.cpp">
+      <Filter>97. Client_Shared</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Default.rc">
